@@ -1,0 +1,16 @@
+# 생성물·캐시
+output/
+.cache/
+**/yt_cache/
+**/hunter_yt/
+*.vtt
+__pycache__/
+
+# 민감정보 — 토스 API 키는 절대 커밋 금지 (애초에 파일로 저장하지 않음)
+.env
+*secret*
+*client_secret*
+
+# OS/에디터
+.DS_Store
+*.swp

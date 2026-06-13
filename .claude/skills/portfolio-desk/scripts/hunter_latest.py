@@ -99,7 +99,7 @@ def fetch_transcript(vid):
 def fallback_fetch(vid, url):
     """내장 폴백: 클라이언트 순회하며 ko 자막 vtt 다운로드 → md 변환."""
     os.makedirs(OUTDIR, exist_ok=True)
-    for client in ("web", "tv", "mweb"):
+    for client in ("ios", "web", "tv", "mweb"):  # ios가 데이터센터 IP 자막 우회에 가장 안정적
         run_yt(["--extractor-args", f"youtube:player_client={client}",
                 "--skip-download", "--write-auto-subs", "--write-subs",
                 "--sub-langs", "ko,en", "--ignore-no-formats-error",

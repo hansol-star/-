@@ -39,8 +39,9 @@ INSECURE_FLAG = "--no-check-certificates"
 DEFAULT_OUTDIR = os.environ.get("YT_OUTDIR", os.path.join(tempfile.gettempdir(), "yt_cache"))
 
 # YouTube intermittently throws "Sign in to confirm you're not a bot" at the
-# default web client. The "tv" client usually gets through.
-CLIENT_CHAIN = [None, "tv", "mweb"]
+# default web client. ios 클라이언트가 데이터센터 IP에서 자막·메타 우회에 가장 안정적
+# (2026-06 웹 환경 검증). 그다음 web→tv→mweb 폴백.
+CLIENT_CHAIN = ["ios", None, "tv", "mweb"]
 # 기본 검증 ON. --insecure 또는 YT_INSECURE=1, 혹은 cert 에러 자동 감지 시 insecure.
 _INSECURE = os.environ.get("YT_INSECURE") == "1"
 

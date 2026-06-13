@@ -1,7 +1,9 @@
 {
   "_comment": "기계가 읽는 포트폴리오 정본. 사람용 정본은 docs/master.md (둘 다 갱신할 것).",
   "updated": "2026-06-13",
+  "_verified": "2026-06-13 토스 스크린샷 재검증 — 보유 16종목·원금·현금 전부 일치 확인",
   "cash_krw": 624771,
+  "cash_usd": 1.11,
   "tranches": [
     {"id": "1차", "amount_krw": 125000, "executed": false, "trigger": "NAVER 225~235k 또는 삼성 295~305k 눌림"},
     {"id": "2차", "amount_krw": 200000, "executed": false, "trigger": "이란 결렬 + 코스피 8,000 하회"},

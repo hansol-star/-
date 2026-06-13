@@ -47,8 +47,9 @@ HOLDINGS_US = [
     ("AAPL", "AAPL"), ("GOOGL", "GOOGL"), ("TSLA", "TSLA"), ("ORCL", "ORCL"),
     ("ANET", "ANET"), ("MU", "MU"), ("AVGO", "AVGO"),
 ]
-WATCHLIST = [
-    ("원익IPS", "240810.KS"), ("테스", "095610.KS"), ("두산에너빌리티", "034020.KS"),
+WATCHLIST = [  # 폴백 (portfolio.json 없을 때만). 정본은 portfolio.json.
+    ("원익IPS", "240810.KQ"), ("테스", "095610.KQ"), ("SK이노베이션", "096770.KS"),
+    ("두산에너빌리티", "034020.KS"),
     ("GEV", "GEV"), ("STM", "STM"), ("TMUS", "TMUS"), ("SPCX", "SPCX"),
 ]
 INDEX = [

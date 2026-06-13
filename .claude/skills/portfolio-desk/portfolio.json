@@ -1,9 +1,11 @@
 {
   "_comment": "기계가 읽는 포트폴리오 정본. 사람용 정본은 docs/master.md (둘 다 갱신할 것).",
-  "updated": "2026-06-13",
+  "updated": "2026-06-14",
   "_verified": "2026-06-13 토스 스크린샷 재검증 — 보유 16종목·원금·현금 전부 일치 확인",
   "cash_krw": 624771,
   "cash_usd": 1.11,
+  "_us_avg_fx_cost_comment": "미국 종목 평균 매입환율(원/$) 추정치 — 토스 실손익(6/13: 미국 환차익 ~25만원)에서 역산. 환차익 반영 손익 추정용. 토스 실데이터 들어오면 정정.",
+  "us_avg_fx_cost": 1456.5,
   "tranches": [
     {"id": "1차", "amount_krw": 125000, "executed": false, "trigger": "NAVER 225~235k 또는 삼성 295~305k 눌림"},
     {"id": "2차", "amount_krw": 200000, "executed": false, "trigger": "이란 결렬 + 코스피 8,000 하회"},
@@ -32,8 +34,9 @@
     ]
   },
   "watchlist": [
-    {"label": "원익IPS", "ticker": "240810.KS", "note": "매수존 무효; ⚠️티커 검증필요"},
-    {"label": "테스", "ticker": "095610.KS", "note": "소부장 로테이션; ⚠️티커 검증필요"},
+    {"label": "원익IPS", "ticker": "240810.KQ", "note": "✅티커 정정(.KS→.KQ 코스닥, 6/14). 매수존 무효 — 눌림 130~150k 검토"},
+    {"label": "테스", "ticker": "095610.KQ", "note": "✅티커 정정(.KS→.KQ 코스닥, 6/14). 소부장 로테이션, 원익IPS 대비 덜 과열"},
+    {"label": "SK이노베이션", "ticker": "096770.KS", "note": "🆕6/14 후보 — AI 전력난 SMR(테라파워 2대주주·메타 원전 8기). SK온 적자·정유 변동성 리스크"},
     {"label": "두산에너빌리티", "ticker": "034020.KS", "note": "대미투자 원전+AI전력(가스터빈·SMR), 10만 트리거"},
     {"label": "GE Vernova", "ticker": "GEV", "note": "AI 전력 테마"},
     {"label": "STMicro", "ticker": "STM", "note": "약세 지속, 후순위"},

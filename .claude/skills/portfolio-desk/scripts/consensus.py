@@ -88,7 +88,9 @@ def main() -> int:
         with open(CFG, encoding="utf-8") as f:
             cfg = json.load(f)
         syms = [h["ticker"] for h in cfg["holdings"]["us"]]
-        syms += [w["ticker"] for w in cfg["watchlist"] if not w["ticker"].endswith(".KS")]
+        # 국내(.KS/.KQ)는 Yahoo 애널리스트 커버리지 없음 → 제외(국내는 WebSearch로 보강)
+        syms += [w["ticker"] for w in cfg["watchlist"]
+                 if not (w["ticker"].endswith(".KS") or w["ticker"].endswith(".KQ"))]
 
     op = _opener()
     crumb = get_crumb(op)
@@ -106,7 +108,9 @@ def main() -> int:
     print(f"|{'-'*9}|{'-'*11}|{'-'*12}|{'-'*9}|{'-'*12}|{'-'*5}|--------|")
     for r in rows:
         if r.get("error"):
-            print(f"| {r['symbol']:<7} | {'데이터 없음':>9} | {'—':>10} | {'—':>7} | {'—':<10} | {'—':>3} | {r['error'][:18]} |")
+            # 404 = financialData 모듈 없음 (ETF·미커버리지). 그 외만 원문 표시.
+            note = "미커버(ETF 등)" if "404" in r["error"] else r["error"][:18]
+            print(f"| {r['symbol']:<7} | {'데이터 없음':>9} | {'—':>10} | {'—':>7} | {'—':<10} | {'—':>3} | {note} |")
             continue
         gap = f"{r['gap_pct']:+.1f}%" if r["gap_pct"] is not None else "—"
         tm = f"{r['target_mean']:,.2f}" if r["target_mean"] else "—"

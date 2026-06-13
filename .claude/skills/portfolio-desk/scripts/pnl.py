@@ -99,10 +99,22 @@ def main() -> int:
         total = kr_val + us_val_krw + cash
         total_pnl = kr_pnl + us_pnl_krw
         print(f"- 현금: {cash:,.0f}원")
-        print(f"- **총 자산(주식+현금): {total:,.0f}원** | 주식 평가손익 합계: {total_pnl:+,.0f}원")
+        print(f"- **총 자산(주식+현금): {total:,.0f}원** | 주식 평가손익 합계: {total_pnl:+,.0f}원 (환차익 미반영)")
+
+        # 환차익 반영 추정: 미국 종목을 매입 당시 환율로 원화 원가화하면 토스 실손익에 근접.
+        # us_avg_fx_cost(원/$)가 portfolio.json에 있으면 환차손익을 분리해 보여준다.
+        fx_cost = cfg.get("us_avg_fx_cost")
+        if fx_cost:
+            us_cost_usd = us_val_usd - us_pnl_usd            # 미국 원금(USD)
+            fx_gain_krw = us_cost_usd * (fx - fx_cost)        # 매입 후 환변동분
+            us_pnl_krw_fxadj = us_pnl_krw + fx_gain_krw       # 가격손익 + 환차익
+            total_pnl_fxadj = kr_pnl + us_pnl_krw_fxadj
+            print(f"- ↳ **환차익 반영 추정**(평균 매입환율 {fx_cost:,.1f}원/$): "
+                  f"환차익 {fx_gain_krw:+,.0f}원 → **주식 손익 ≈ {total_pnl_fxadj:+,.0f}원** "
+                  f"(토스 실손익 근사치, 정확값은 토스 정본)")
     else:
         print(f"- 미국 평가액: ${us_val_usd:,.2f} (평가손익 ${us_pnl_usd:+,.2f}) — 환율 미확인으로 원화 환산 생략")
-    print("\n※ 원가 고정 기준선 평가. 실제 수량·평단은 토스 실데이터가 정본.")
+    print("\n※ 원가 고정 기준선 평가. 실제 수량·평단·실손익은 토스 실데이터가 정본.")
     return 0
 
 

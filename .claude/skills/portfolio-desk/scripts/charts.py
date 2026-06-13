@@ -27,8 +27,8 @@ from pnl import load_cfg, eval_positions, fx_usdkrw
 # 한글 폰트 없는 환경용 — 국내 종목 영문 라벨 (차트 가독성)
 ROMAN = {
     "005930.KS": "Samsung", "066570.KS": "LG Elec", "454910.KS": "Doosan Robo",
-    "005380.KS": "Hyundai", "035420.KS": "NAVER", "240810.KS": "Wonik IPS",
-    "095610.KS": "Tes", "034020.KS": "Doosan Enerb",
+    "005380.KS": "Hyundai", "035420.KS": "NAVER", "240810.KQ": "Wonik IPS",
+    "095610.KQ": "Tes", "034020.KS": "Doosan Enerb", "096770.KS": "SK Innov",
 }
 
 

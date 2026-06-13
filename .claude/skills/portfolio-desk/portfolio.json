@@ -34,11 +34,16 @@
   "watchlist": [
     {"label": "원익IPS", "ticker": "240810.KS", "note": "매수존 무효; ⚠️티커 검증필요"},
     {"label": "테스", "ticker": "095610.KS", "note": "소부장 로테이션; ⚠️티커 검증필요"},
-    {"label": "두산에너빌리티", "ticker": "034020.KS", "note": "AI 전력축(가스터빈·SMR)"},
+    {"label": "두산에너빌리티", "ticker": "034020.KS", "note": "대미투자 원전+AI전력(가스터빈·SMR), 10만 트리거"},
     {"label": "GE Vernova", "ticker": "GEV", "note": "AI 전력 테마"},
     {"label": "STMicro", "ticker": "STM", "note": "약세 지속, 후순위"},
     {"label": "T-Mobile", "ticker": "TMUS", "note": "스타링크 D2C"},
-    {"label": "SpaceX", "ticker": "SPCX", "note": "신규상장, 락업·나스닥100 편입 양방향"}
+    {"label": "SpaceX", "ticker": "SPCX", "note": "신규상장, 락업·나스닥100 편입 양방향"},
+    {"label": "삼성전기", "ticker": "009150.KS", "note": "AI 소부장 대장주, 목표 iM230/DB300만, PER180배 — 눌림 관찰"},
+    {"label": "한화에어로", "ticker": "012450.KS", "note": "재활성 — 대미투자 방산·조선 직결"},
+    {"label": "한화오션", "ticker": "042660.KS", "note": "대미투자 조선 — 시행 후 소화 관찰"},
+    {"label": "삼성중공업", "ticker": "010140.KS", "note": "대미투자 조선"},
+    {"label": "HD현대중공업", "ticker": "329180.KS", "note": "대미투자 조선"}
   ],
   "indices": [
     {"label": "코스피", "ticker": "^KS11"},
@@ -56,7 +61,7 @@
     {"id": "코스피 2차 트랜치", "ticker": "^KS11", "cond": "below", "level": 8000, "action": "2차 ~20만 분할 투입 (이란 결렬 동반 시)"},
     {"id": "NAVER 1차 매수존", "ticker": "035420.KS", "cond": "between", "low": 225000, "high": 235000, "action": "1차 트랜치 10~15만"},
     {"id": "삼성전자 1차 매수존", "ticker": "005930.KS", "cond": "between", "low": 295000, "high": 305000, "action": "1차 트랜치 대안"},
-    {"id": "두산에너빌리티 십만빌리티", "ticker": "034020.KS", "cond": "above", "level": 100000, "action": "워치 — 원전 테마 과열 점검"},
+    {"id": "두산에너빌리티 십만빌리티", "ticker": "034020.KS", "cond": "above", "level": 100000, "action": "대미투자 원전 수혜 — 10만 돌파 시 비중 검토"},
     {"id": "FOMC 3차 트랜치", "ticker": "EVENT", "cond": "event", "when": "2026-06-18 03:00 KST", "action": "동결+중립 → META·AVGO 등 조정주 재매수 (목 17:30~20:50 지정가 예약)"},
     {"id": "이란 MOU 서명", "ticker": "EVENT", "cond": "event", "when": "2026-06-13~14 주말", "action": "서명/무산 → 월요일 갭 방향 결정"}
   ]

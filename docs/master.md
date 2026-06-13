@@ -96,9 +96,12 @@
   ⑧ 경제사냥꾼 피드 ⑨ 당일 이슈 3–4개 선택지 제시 → 선택 항목만 상세 분석.
 - **세션 연속성**: 보고서를 git에 커밋 → 다음 세션이 `docs/reports/` 최신 파일 + git 히스토리로 복원.
 - **경제사냥꾼**: 링크 없어도 자동 탐색. 모든 주장 3단계 분류 **[검증/정정/미확인]**, 수치는 교차검증.
-- **무키 분석 스크립트** (Yahoo, 키 불필요): `market_data.py`(시세·지수·환율) / `pnl.py`(평가손익) /
-  `consensus.py`(애널리스트 목표주가·±30% 괴리) / `triggers.py`(매수존·안전핀 점검). 전부 `portfolio.json` 기반.
-- **빠른 점검**: 전체 보고서 없이 손익+트리거만 → `quick-check` 스킬("빠른 점검"/"퀵체크"). 폰 거래창(17:30~18:00)용.
+- **무키 분석 스크립트** (Yahoo, 키 불필요, 전부 `portfolio.json` 기반):
+  `market_data.py`(시세·지수·환율) / `pnl.py`(평가손익) / `consensus.py`(애널리스트 목표주가·±30% 괴리) /
+  `triggers.py`(매수존·안전핀 점검) / `earnings.py`(실적 발표일) / `charts.py`(비중·수익률 PNG) /
+  `snapshot.py`(일별 손익 캐시 `data/snapshots/` → 전일대비).
+- **스킬**: `portfolio-desk`(전체 보고서) / `quick-check`(폰 거래창 즉석 손익+트리거) /
+  `stock-deepdive`(단일 종목 정밀분석) / `youtube-watch`(영상 자막).
 
 ## 6. 운영 제약 (영구)
 

@@ -40,10 +40,15 @@ docs/
       scripts/pnl.py               실시간 평가손익 + 합계 (원가 대비 수익률)
       scripts/consensus.py         애널리스트 목표주가 + ±30% 괴리 플래그
       scripts/triggers.py          매수존·안전핀·이벤트 트리거 실시간 점검
+      scripts/earnings.py          보유·워치 실적 발표일 추적
+      scripts/charts.py            비중 파이 + 수익률 막대 PNG
+      scripts/snapshot.py          일별 손익 캐시 → 전일대비
       scripts/toss_snapshot.py     토스 실데이터 (조회 전용)
       scripts/hunter_latest.py     경제사냥꾼 자동 탐색
     quick-check/SKILL.md           폰 거래창용 즉석 점검 (손익+트리거, 보고서 없이)
+    stock-deepdive/SKILL.md        단일 종목 정밀 분석 (시세·컨센서스·실적·뉴스)
     youtube-watch/SKILL.md         유튜브 링크 → 자막·메타
+data/snapshots/                    일별 손익 스냅샷 (시계열, 커밋됨)
 ```
 
 ## 빠른 점검 (폰 거래창 17:30~18:00)

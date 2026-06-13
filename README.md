@@ -33,12 +33,28 @@ docs/
   agents/                          서브에이전트 병렬 데스크
     market-desk.md / macro-desk.md / research-feed.md
   skills/
-    portfolio-desk/SKILL.md        PM 오케스트레이션 파이프라인
+    portfolio-desk/
+      SKILL.md                     PM 오케스트레이션 파이프라인
+      portfolio.json               보유·원가·alerts 기계 정본 (master.md 미러)
       scripts/market_data.py       Yahoo 무키 시세/환율 (무의존)
+      scripts/pnl.py               실시간 평가손익 + 합계 (원가 대비 수익률)
+      scripts/consensus.py         애널리스트 목표주가 + ±30% 괴리 플래그
+      scripts/triggers.py          매수존·안전핀·이벤트 트리거 실시간 점검
       scripts/toss_snapshot.py     토스 실데이터 (조회 전용)
       scripts/hunter_latest.py     경제사냥꾼 자동 탐색
+    quick-check/SKILL.md           폰 거래창용 즉석 점검 (손익+트리거, 보고서 없이)
     youtube-watch/SKILL.md         유튜브 링크 → 자막·메타
 ```
+
+## 빠른 점검 (폰 거래창 17:30~18:00)
+
+전체 보고서가 필요 없을 땐:
+
+```
+빠른 점검     (또는 "퀵체크", "지금 손익", "트리거 점검")
+```
+
+→ `quick-check` 스킬이 평가손익 + 매수존/안전핀 트리거만 30초 안에. 🔴발동 트리거가 있으면 맨 위에 표시.
 
 ## 데이터 소스
 

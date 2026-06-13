@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import urllib.error
 import urllib.request
@@ -55,6 +56,28 @@ INDEX = [
     ("나스닥", "^IXIC"), ("다우", "^DJI"), ("필라델피아반도체", "^SOX"),
 ]
 FX = [("USD/KRW", "KRW=X")]
+
+
+def _load_universe():
+    """portfolio.json이 있으면 거기서 유니버스를 읽어 덮어쓴다 (master.md 미러, 단일 정본).
+    없으면 위 임베드 기본값 사용 — 포터블."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(here, "..", "portfolio.json")
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            cfg = json.load(f)
+        pairs = lambda items: [(d["label"], d["ticker"]) for d in items]
+        return (pairs(cfg["holdings"]["kr"]), pairs(cfg["holdings"]["us"]),
+                pairs(cfg["watchlist"]), pairs(cfg["indices"]), pairs(cfg["fx"]))
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+_u = _load_universe()
+if _u:
+    HOLDINGS_KR, HOLDINGS_US, WATCHLIST, INDEX, FX = _u
 
 GROUPS = {
     "holdings": HOLDINGS_KR + HOLDINGS_US,

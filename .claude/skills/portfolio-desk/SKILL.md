@@ -38,8 +38,16 @@ python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secre
 - **research-feed**: 경제사냥꾼 영상 탐색·자막 + [검증/정정/미확인] 분류
 
 각 데스크가 섹션을 반환하면 PM이 종합한다. (데스크는 파일을 쓰지 않음 — PM이 모아서 작성.)
-추가로 PM은 직접: **기관 컨센서스**(핵심종목·후보 목표주가/의견, 강세·약세 하우스 병기,
-현재가 대비 ±30% 괴리 시 익절/추가매수 플래그) 수집 — "[ticker] price target consensus" / "[종목명] 목표주가 증권사".
+
+PM은 추가로 **무키 분석 스크립트**를 직접 돌려 정량 데이터를 채운다 (프로젝트 루트에서):
+```bash
+python3 .claude/skills/portfolio-desk/scripts/pnl.py          # 평가손익 + 합계 (원가 대비 수익률)
+python3 .claude/skills/portfolio-desk/scripts/consensus.py     # 애널리스트 목표주가 + ±30% 괴리 플래그
+python3 .claude/skills/portfolio-desk/scripts/triggers.py      # 매수존·안전핀·이벤트 트리거 점검
+```
+- `pnl.py`/`consensus.py`/`triggers.py`는 모두 `portfolio.json`(원가·보유·alerts 정본)을 읽는다.
+- **기관 컨센서스**: consensus.py가 美 종목 목표주가/의견을 무키로 채움(±30% 괴리 자동 플래그).
+  국내 종목·미커버리지(ETF 등)는 WebSearch로 보강 — "[종목명] 목표주가 증권사".
 
 ## 3. 보고서 작성 — 형식 (순서 고정)
 
@@ -75,7 +83,7 @@ python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secre
 ## 5. 산출물 — 파일 저장 + git 커밋 (연속성)
 
 1. 보고서를 **`docs/reports/report_v{N}_{날짜}.md`**로 Write(직전 버전 +1, 같은 날 갱신은 `-r2`).
-2. **영구 변경**(보유·원가·룰·워치리스트·정정)이 생기면 `docs/master.md`도 Edit로 갱신.
+2. **영구 변경**(보유·원가·룰·워치리스트·정정)이 생기면 `docs/master.md` **및 `portfolio.json`**(기계 정본)을 둘 다 갱신.
 3. **git 커밋**(연속성의 백본 — 구버전은 git 히스토리에 남으므로 archive 폴더 불필요):
    ```bash
    git add docs/ && git commit -m "보고서 v{N} {날짜}: {한줄요약}"

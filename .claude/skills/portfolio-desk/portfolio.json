@@ -1,0 +1,61 @@
+{
+  "_comment": "기계가 읽는 포트폴리오 정본. 사람용 정본은 docs/master.md (둘 다 갱신할 것).",
+  "updated": "2026-06-13",
+  "cash_krw": 624771,
+  "tranches": [
+    {"id": "1차", "amount_krw": 125000, "executed": false, "trigger": "NAVER 225~235k 또는 삼성 295~305k 눌림"},
+    {"id": "2차", "amount_krw": 200000, "executed": false, "trigger": "이란 결렬 + 코스피 8,000 하회"},
+    {"id": "3차", "amount_krw": 225000, "executed": false, "trigger": "FOMC 6/18 03:00 확인 후 (동결+중립=META·AVGO 재매수)"}
+  ],
+  "holdings": {
+    "kr": [
+      {"label": "삼성전자", "ticker": "005930.KS", "shares": 2, "cost": 263000},
+      {"label": "LG전자", "ticker": "066570.KS", "shares": 1, "cost": 155200},
+      {"label": "두산로보틱스", "ticker": "454910.KS", "shares": 1, "cost": 100000},
+      {"label": "현대차", "ticker": "005380.KS", "shares": 1, "cost": 630000},
+      {"label": "NAVER", "ticker": "035420.KS", "shares": 1, "cost": 250500}
+    ],
+    "us": [
+      {"label": "NVDA", "ticker": "NVDA", "shares": 5.138203, "cost": 199.51},
+      {"label": "META", "ticker": "META", "shares": 1.129111, "cost": 633.98},
+      {"label": "VOO", "ticker": "VOO", "shares": 0.970784, "cost": 645.40},
+      {"label": "MSFT", "ticker": "MSFT", "shares": 1.443, "cost": 410.20},
+      {"label": "AAPL", "ticker": "AAPL", "shares": 2.022472, "cost": 257.14},
+      {"label": "GOOGL", "ticker": "GOOGL", "shares": 0.438006, "cost": 387.73},
+      {"label": "TSLA", "ticker": "TSLA", "shares": 0.157708, "cost": 422.51},
+      {"label": "ORCL", "ticker": "ORCL", "shares": 0.21519, "cost": 232.12},
+      {"label": "ANET", "ticker": "ANET", "shares": 0.283501, "cost": 162.07},
+      {"label": "MU", "ticker": "MU", "shares": 0.04, "cost": 749.00},
+      {"label": "AVGO", "ticker": "AVGO", "shares": 0.071177, "cost": 421.06}
+    ]
+  },
+  "watchlist": [
+    {"label": "원익IPS", "ticker": "240810.KS", "note": "매수존 무효; ⚠️티커 검증필요"},
+    {"label": "테스", "ticker": "095610.KS", "note": "소부장 로테이션; ⚠️티커 검증필요"},
+    {"label": "두산에너빌리티", "ticker": "034020.KS", "note": "AI 전력축(가스터빈·SMR)"},
+    {"label": "GE Vernova", "ticker": "GEV", "note": "AI 전력 테마"},
+    {"label": "STMicro", "ticker": "STM", "note": "약세 지속, 후순위"},
+    {"label": "T-Mobile", "ticker": "TMUS", "note": "스타링크 D2C"},
+    {"label": "SpaceX", "ticker": "SPCX", "note": "신규상장, 락업·나스닥100 편입 양방향"}
+  ],
+  "indices": [
+    {"label": "코스피", "ticker": "^KS11"},
+    {"label": "코스닥", "ticker": "^KQ11"},
+    {"label": "S&P500", "ticker": "^GSPC"},
+    {"label": "나스닥", "ticker": "^IXIC"},
+    {"label": "다우", "ticker": "^DJI"},
+    {"label": "필라델피아반도체", "ticker": "^SOX"}
+  ],
+  "fx": [
+    {"label": "USD/KRW", "ticker": "KRW=X"}
+  ],
+  "alerts": [
+    {"id": "코스피 매수 안전핀", "ticker": "^KS11", "cond": "below", "level": 7500, "action": "잔여 트랜치 전면 동결·재평가 (물타기 금지)"},
+    {"id": "코스피 2차 트랜치", "ticker": "^KS11", "cond": "below", "level": 8000, "action": "2차 ~20만 분할 투입 (이란 결렬 동반 시)"},
+    {"id": "NAVER 1차 매수존", "ticker": "035420.KS", "cond": "between", "low": 225000, "high": 235000, "action": "1차 트랜치 10~15만"},
+    {"id": "삼성전자 1차 매수존", "ticker": "005930.KS", "cond": "between", "low": 295000, "high": 305000, "action": "1차 트랜치 대안"},
+    {"id": "두산에너빌리티 십만빌리티", "ticker": "034020.KS", "cond": "above", "level": 100000, "action": "워치 — 원전 테마 과열 점검"},
+    {"id": "FOMC 3차 트랜치", "ticker": "EVENT", "cond": "event", "when": "2026-06-18 03:00 KST", "action": "동결+중립 → META·AVGO 등 조정주 재매수 (목 17:30~20:50 지정가 예약)"},
+    {"id": "이란 MOU 서명", "ticker": "EVENT", "cond": "event", "when": "2026-06-13~14 주말", "action": "서명/무산 → 월요일 갭 방향 결정"}
+  ]
+}

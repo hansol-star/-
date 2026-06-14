@@ -10,8 +10,8 @@ Claude Code 기반 일일 투자 분석 데스크. claude.ai 프로젝트에서 
 보고서
 ```
 
-→ portfolio-desk 파이프라인이 발동: ① 최신 보고서 + master.md 복원 → ② 시장/매크로/리서치 데스크 병렬 수집
-→ ③ PM 종합 → ④ `docs/reports/report_v{N}_{날짜}.md` 저장 + git 커밋 → ⑤ 본문 + STATE SNAPSHOT 출력.
+→ portfolio-desk 파이프라인이 발동: ① 최신 보고서 + master.md 복원 → ② 데스크 병렬 수집(국장·미장 + 섹터3 + 매크로·리서치·리스크)
+→ ③ 강세 vs 신중 디베이트 → ④ PM 종합 → ⑤ `docs/reports/report_v{N}_{날짜}.md` 저장 + git 커밋 → ⑥ 본문 + STATE SNAPSHOT 출력.
 
 토스 실데이터를 쓰려면 키를 같이 주면 된다(저장 안 함):
 
@@ -30,8 +30,15 @@ docs/
   reports/report_v{N}_{날짜}.md     일일 보고서 (git 버전관리)
   screenshots/                     계좌 스크린샷 (토스 키 없을 때 폴백)
 .claude/
-  agents/                          서브에이전트 병렬 데스크
-    market-desk.md / macro-desk.md / research-feed.md
+  agents/                          서브에이전트 병렬 데스크 (전부 opus 4.8)
+    kr-market-desk.md              국장 — 코스피·코스닥·수급·국내 시세
+    us-market-desk.md              미장 — S&P·나스닥·필반·미국 시세
+    semi-ai-desk.md                섹터 — 반도체·AI인프라
+    power-physical-desk.md         섹터 — 전력·인프라·피지컬AI
+    bigtech-platform-desk.md       섹터 — 빅테크·플랫폼
+    macro-desk.md                  환율·금리·지표·이벤트
+    research-feed.md               경제사냥꾼 영상 [검증/정정/미확인]
+    risk-desk.md                   리스크 매니저 — 안전핀·트랜치·트리거·신중 관점
   skills/
     portfolio-desk/
       SKILL.md                     PM 오케스트레이션 파이프라인

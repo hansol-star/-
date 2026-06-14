@@ -2,7 +2,7 @@
 name: macro-desk
 description: 매크로 데스크 — 원/달러 환율, 금리(연준·한국은행), 물가(CPI·PPI)·고용 지표, 유가, 주요 매크로 이벤트(FOMC·BOJ·금통위)와 시장 영향을 수집·정리한다. PM이 일일 보고서를 만들 때 병렬로 호출한다.
 tools: Bash, WebSearch, WebFetch, Read
-model: sonnet
+model: opus
 ---
 
 # 매크로 데스크 (Macro Desk)

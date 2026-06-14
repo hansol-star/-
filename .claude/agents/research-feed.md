@@ -2,7 +2,7 @@
 name: research-feed
 description: 리서치 피드 — 경제사냥꾼 유튜브 채널의 당일/전일 영상·쇼츠를 자동 탐색하고 자막을 추출해 핵심 주장을 정리한다. 각 주장을 [검증/정정/미확인] 3단계로 분류한다. PM이 일일 보고서를 만들 때 병렬로 호출한다.
 tools: Bash, WebSearch, WebFetch, Read
-model: sonnet
+model: opus
 ---
 
 # 리서치 피드 (Research Feed) — 경제사냥꾼

@@ -43,6 +43,7 @@
     {"label": "T-Mobile", "ticker": "TMUS", "note": "스타링크 D2C"},
     {"label": "SpaceX", "ticker": "SPCX", "note": "신규상장, 락업·나스닥100 편입 양방향"},
     {"label": "삼성전기", "ticker": "009150.KS", "note": "AI 소부장 대장주, 목표 iM230/DB300만, PER180배 — 눌림 관찰"},
+    {"label": "SK하이닉스", "ticker": "000660.KS", "note": "🆕6/14 후보 — HBM 1위(58~62%)·엔비디아 HBM4 최대공급·선행PER 한자릿수. 215만 고가→소수점 필요. ⚡미 ADR 정식상장 8월 목표(상장시 토스 미장소수점 적립). 단 삼성/NVDA/MU와 같은 메모리 베팅 강화"},
     {"label": "한화에어로", "ticker": "012450.KS", "note": "재활성 — 대미투자 방산·조선 직결"},
     {"label": "한화오션", "ticker": "042660.KS", "note": "대미투자 조선 — 시행 후 소화 관찰"},
     {"label": "삼성중공업", "ticker": "010140.KS", "note": "대미투자 조선"},
@@ -66,6 +67,7 @@
     {"id": "삼성전자 1차 매수존", "ticker": "005930.KS", "cond": "between", "low": 295000, "high": 305000, "action": "1차 트랜치 대안"},
     {"id": "두산에너빌리티 십만빌리티", "ticker": "034020.KS", "cond": "above", "level": 100000, "action": "대미투자 원전 수혜 — 10만 돌파 시 비중 검토"},
     {"id": "FOMC 3차 트랜치", "ticker": "EVENT", "cond": "event", "when": "2026-06-18 03:00 KST", "action": "동결+중립 → META·AVGO 등 조정주 재매수 (목 17:30~20:50 지정가 예약)"},
-    {"id": "이란 MOU 서명", "ticker": "EVENT", "cond": "event", "when": "2026-06-13~14 주말", "action": "서명/무산 → 월요일 갭 방향 결정"}
+    {"id": "이란 MOU 서명", "ticker": "EVENT", "cond": "event", "when": "2026-06-13~14 주말", "action": "서명/무산 → 월요일 갭 방향 결정"},
+    {"id": "SK하이닉스 미 ADR 정식상장", "ticker": "EVENT", "cond": "event", "when": "2026-08 목표 (SEC 승인 6/22주 가능성)", "action": "NYSE/NASDAQ 정식상장 시 → 토스 미장 소수점으로 SK하이닉스 소액 적립 개시 검토. 상장 전엔 OTC HXSCL·국장소수점 비추(저유동성·일괄체결)"}
   ]
 }

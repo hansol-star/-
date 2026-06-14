@@ -68,6 +68,7 @@
     {"id": "두산에너빌리티 십만빌리티", "ticker": "034020.KS", "cond": "above", "level": 100000, "action": "대미투자 원전 수혜 — 10만 돌파 시 비중 검토"},
     {"id": "FOMC 3차 트랜치", "ticker": "EVENT", "cond": "event", "when": "2026-06-18 03:00 KST", "action": "동결+중립 → META·AVGO 등 조정주 재매수 (목 17:30~20:50 지정가 예약)"},
     {"id": "이란 MOU 서명", "ticker": "EVENT", "cond": "event", "when": "2026-06-13~14 주말", "action": "서명/무산 → 월요일 갭 방향 결정"},
-    {"id": "SK하이닉스 미 ADR 정식상장", "ticker": "EVENT", "cond": "event", "when": "2026-08 목표 (SEC 승인 6/22주 가능성)", "action": "NYSE/NASDAQ 정식상장 시 → 토스 미장 소수점으로 SK하이닉스 소액 적립 개시 검토. 상장 전엔 OTC HXSCL·국장소수점 비추(저유동성·일괄체결)"}
+    {"id": "SK하이닉스 미 ADR 정식상장", "ticker": "EVENT", "cond": "event", "when": "2026-08 목표 (SEC 승인 6/22주 가능성)", "action": "NYSE/NASDAQ 정식상장 시 → 토스 미장 소수점으로 SK하이닉스 소액 적립 개시 검토. 상장 전엔 OTC HXSCL·국장소수점 비추(저유동성·일괄체결)"},
+    {"id": "외국인 수급 연속성", "ticker": "SIGNAL", "cond": "signal", "when": "매 보고서", "action": "외인 순매수 연속 일수·누적액 추적(코스피 메인 엔진). ✅순매수 지속=강세 신호+반도체(SK하이닉스 등) 선취 명분↑ / 🔴순매도 재전환=강세 논지 약화 '신중' 경보. 시장 데스크가 '코스피 마감 외국인 기관 [날짜]'로 수집"}
   ]
 }

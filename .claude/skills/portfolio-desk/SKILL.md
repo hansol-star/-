@@ -45,7 +45,7 @@ python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secre
 
 **매크로·리서치·리스크 데스크**
 - **macro-desk**: 환율·금리·지표·유가·이벤트 캘린더
-- **research-feed**: 경제사냥꾼 영상 탐색·자막 + [검증/정정/미확인] 분류
+- **research-feed**: 경제사냥꾼 신규 영상 탐색·자막 + [검증/정정/미확인] 분류 → PM이 핵심을 **`docs/research/hunter_log.md` 맨 위에 누적 기록**(시계열 축적 = 시장 시야 + 채널 트랙레코드). 신규 분석 + 누적 둘 다.
 - **risk-desk** (리스크 매니저): 안전핀·트랜치·트리거(`triggers.py`)·집중도·신중(bear) 관점 — PM의 브레이크
 
 각 데스크가 섹션을 반환하면 PM이 종합한다. (데스크는 파일을 쓰지 않음 — PM이 모아서 작성.)

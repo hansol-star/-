@@ -11,6 +11,7 @@ portfolio.json의 alerts를 실시간 시세(Yahoo)와 대조해
   above {level}        : 현재가 > level 이면 발동
   between {low,high}   : low ≤ 현재가 ≤ high 이면 발동(매수존 진입)
   event {when}         : 자동평가 불가 — 캘린더로 표시만
+  signal {when}        : 시세 무관 추적 신호(외인 수급 등) — 액션 노트만 표시
 
 사용:
   python3 triggers.py            # 표
@@ -32,6 +33,8 @@ def evaluate(alert: dict) -> dict:
     cond = alert.get("cond")
     if cond == "event":
         return {**alert, "state": "event", "price": None, "detail": alert.get("when", "")}
+    if cond == "signal":
+        return {**alert, "state": "signal", "price": None, "detail": alert.get("when", "매 보고서")}
 
     q = fetch_quote(alert["ticker"])
     price = None if (not q or q.get("error")) else q.get("price")
@@ -72,7 +75,7 @@ def main() -> int:
         print(json.dumps(results, ensure_ascii=False, indent=2))
         return 0
 
-    icon = {"fired": "🔴 발동", "armed": "🟢 대기", "event": "📅 이벤트", "error": "⚠️ 오류"}
+    icon = {"fired": "🔴 발동", "armed": "🟢 대기", "event": "📅 이벤트", "signal": "📡 신호", "error": "⚠️ 오류"}
     fired = [r for r in results if r["state"] == "fired"]
 
     print("## 트리거 점검\n")
@@ -84,7 +87,7 @@ def main() -> int:
     print("### 전체")
     for r in results:
         print(f"- {icon.get(r['state'],'?')} **{r['id']}**: {r['detail']}")
-        if r["state"] in ("armed", "event"):
+        if r["state"] in ("armed", "event", "signal"):
             print(f"    ↳ {r['action']}")
     if not fired:
         print("\n→ 발동된 트리거 없음. 대기 상태 유지.")

@@ -1,74 +1,307 @@
 {
   "_comment": "기계가 읽는 포트폴리오 정본. 사람용 정본은 docs/master.md (둘 다 갱신할 것).",
-  "updated": "2026-06-14",
+  "updated": "2026-06-16",
   "_verified": "2026-06-13 토스 스크린샷 재검증 — 보유 16종목·원금·현금 전부 일치 확인",
   "cash_krw": 624771,
   "cash_usd": 1.11,
   "_us_avg_fx_cost_comment": "미국 종목 평균 매입환율(원/$) 추정치 — 토스 실손익(6/13: 미국 환차익 ~25만원)에서 역산. 환차익 반영 손익 추정용. 토스 실데이터 들어오면 정정.",
   "us_avg_fx_cost": 1456.5,
   "tranches": [
-    {"id": "1차", "amount_krw": 125000, "executed": false, "trigger": "NAVER 225~235k 또는 삼성 295~305k 눌림"},
-    {"id": "2차", "amount_krw": 200000, "executed": false, "trigger": "이란 결렬 + 코스피 8,000 하회"},
-    {"id": "3차", "amount_krw": 225000, "executed": false, "trigger": "FOMC 6/18 03:00 확인 후 (동결+중립=META·AVGO 재매수)"}
+    {
+      "id": "1차",
+      "amount_krw": 125000,
+      "executed": false,
+      "trigger": "NAVER 225~235k 또는 삼성 295~305k 눌림"
+    },
+    {
+      "id": "2차",
+      "amount_krw": 200000,
+      "executed": false,
+      "trigger": "이란 결렬 + 코스피 8,000 하회"
+    },
+    {
+      "id": "3차",
+      "amount_krw": 225000,
+      "executed": false,
+      "trigger": "FOMC 6/18 03:00 확인 후 (동결+중립=META·AVGO 재매수)"
+    }
   ],
   "holdings": {
     "kr": [
-      {"label": "삼성전자", "ticker": "005930.KS", "shares": 2, "cost": 263000},
-      {"label": "LG전자", "ticker": "066570.KS", "shares": 1, "cost": 155200},
-      {"label": "두산로보틱스", "ticker": "454910.KS", "shares": 1, "cost": 100000},
-      {"label": "현대차", "ticker": "005380.KS", "shares": 1, "cost": 630000},
-      {"label": "NAVER", "ticker": "035420.KS", "shares": 1, "cost": 250500}
+      {
+        "label": "삼성전자",
+        "ticker": "005930.KS",
+        "shares": 2,
+        "cost": 263000
+      },
+      {
+        "label": "LG전자",
+        "ticker": "066570.KS",
+        "shares": 1,
+        "cost": 155200
+      },
+      {
+        "label": "두산로보틱스",
+        "ticker": "454910.KS",
+        "shares": 1,
+        "cost": 100000
+      },
+      {
+        "label": "현대차",
+        "ticker": "005380.KS",
+        "shares": 1,
+        "cost": 630000
+      },
+      {
+        "label": "NAVER",
+        "ticker": "035420.KS",
+        "shares": 1,
+        "cost": 250500
+      }
     ],
     "us": [
-      {"label": "NVDA", "ticker": "NVDA", "shares": 5.138203, "cost": 199.51},
-      {"label": "META", "ticker": "META", "shares": 1.129111, "cost": 633.98},
-      {"label": "VOO", "ticker": "VOO", "shares": 0.970784, "cost": 645.40},
-      {"label": "MSFT", "ticker": "MSFT", "shares": 1.443, "cost": 410.20},
-      {"label": "AAPL", "ticker": "AAPL", "shares": 2.022472, "cost": 257.14},
-      {"label": "GOOGL", "ticker": "GOOGL", "shares": 0.438006, "cost": 387.73},
-      {"label": "TSLA", "ticker": "TSLA", "shares": 0.157708, "cost": 422.51},
-      {"label": "ORCL", "ticker": "ORCL", "shares": 0.21519, "cost": 232.12},
-      {"label": "ANET", "ticker": "ANET", "shares": 0.283501, "cost": 162.07},
-      {"label": "MU", "ticker": "MU", "shares": 0.04, "cost": 749.00},
-      {"label": "AVGO", "ticker": "AVGO", "shares": 0.071177, "cost": 421.06}
+      {
+        "label": "NVDA",
+        "ticker": "NVDA",
+        "shares": 5.138203,
+        "cost": 199.51
+      },
+      {
+        "label": "META",
+        "ticker": "META",
+        "shares": 1.129111,
+        "cost": 633.98
+      },
+      {
+        "label": "VOO",
+        "ticker": "VOO",
+        "shares": 0.970784,
+        "cost": 645.4
+      },
+      {
+        "label": "MSFT",
+        "ticker": "MSFT",
+        "shares": 1.443,
+        "cost": 410.2
+      },
+      {
+        "label": "AAPL",
+        "ticker": "AAPL",
+        "shares": 2.022472,
+        "cost": 257.14
+      },
+      {
+        "label": "GOOGL",
+        "ticker": "GOOGL",
+        "shares": 0.438006,
+        "cost": 387.73
+      },
+      {
+        "label": "TSLA",
+        "ticker": "TSLA",
+        "shares": 0.157708,
+        "cost": 422.51
+      },
+      {
+        "label": "ORCL",
+        "ticker": "ORCL",
+        "shares": 0.21519,
+        "cost": 232.12
+      },
+      {
+        "label": "ANET",
+        "ticker": "ANET",
+        "shares": 0.283501,
+        "cost": 162.07
+      },
+      {
+        "label": "MU",
+        "ticker": "MU",
+        "shares": 0.04,
+        "cost": 749.0
+      },
+      {
+        "label": "AVGO",
+        "ticker": "AVGO",
+        "shares": 0.071177,
+        "cost": 421.06
+      }
     ]
   },
   "watchlist": [
-    {"label": "원익IPS", "ticker": "240810.KQ", "note": "✅티커 정정(.KS→.KQ 코스닥, 6/14). 매수존 무효 — 눌림 130~150k 검토"},
-    {"label": "테스", "ticker": "095610.KQ", "note": "✅티커 정정(.KS→.KQ 코스닥, 6/14). 소부장 로테이션, 원익IPS 대비 덜 과열"},
-    {"label": "SK이노베이션", "ticker": "096770.KS", "note": "🆕6/14 후보 — AI 전력난 SMR(테라파워 2대주주·메타 원전 8기). SK온 적자·정유 변동성 리스크"},
-    {"label": "두산에너빌리티", "ticker": "034020.KS", "note": "대미투자 원전+AI전력(가스터빈·SMR), 10만 트리거"},
-    {"label": "GE Vernova", "ticker": "GEV", "note": "AI 전력 테마"},
-    {"label": "STMicro", "ticker": "STM", "note": "약세 지속, 후순위"},
-    {"label": "T-Mobile", "ticker": "TMUS", "note": "스타링크 D2C"},
-    {"label": "SpaceX", "ticker": "SPCX", "note": "신규상장, 락업·나스닥100 편입 양방향"},
-    {"label": "삼성전기", "ticker": "009150.KS", "note": "AI 소부장 대장주, 목표 iM230/DB300만, PER180배 — 눌림 관찰"},
-    {"label": "SK하이닉스", "ticker": "000660.KS", "note": "🆕6/14 후보 — HBM 1위(58~62%)·엔비디아 HBM4 최대공급·선행PER 한자릿수. 215만 고가→소수점 필요. ⚡미 ADR 정식상장 8월 목표(상장시 토스 미장소수점 적립). 단 삼성/NVDA/MU와 같은 메모리 베팅 강화"},
-    {"label": "한화에어로", "ticker": "012450.KS", "note": "재활성 — 대미투자 방산·조선 직결"},
-    {"label": "한화오션", "ticker": "042660.KS", "note": "대미투자 조선 — 시행 후 소화 관찰"},
-    {"label": "삼성중공업", "ticker": "010140.KS", "note": "대미투자 조선"},
-    {"label": "HD현대중공업", "ticker": "329180.KS", "note": "대미투자 조선"}
+    {
+      "label": "원익IPS",
+      "ticker": "240810.KQ",
+      "note": "✅티커 정정(.KS→.KQ 코스닥, 6/14). 매수존 무효 — 눌림 130~150k 검토"
+    },
+    {
+      "label": "테스",
+      "ticker": "095610.KQ",
+      "note": "✅티커 정정(.KS→.KQ 코스닥, 6/14). 소부장 로테이션, 원익IPS 대비 덜 과열"
+    },
+    {
+      "label": "SK이노베이션",
+      "ticker": "096770.KS",
+      "note": "🆕6/14 후보 — AI 전력난 SMR(테라파워 2대주주·메타 원전 8기). SK온 적자·정유 변동성 리스크"
+    },
+    {
+      "label": "두산에너빌리티",
+      "ticker": "034020.KS",
+      "note": "대미투자 원전+AI전력(가스터빈·SMR), 10만 트리거"
+    },
+    {
+      "label": "GE Vernova",
+      "ticker": "GEV",
+      "note": "AI 전력 테마"
+    },
+    {
+      "label": "STMicro",
+      "ticker": "STM",
+      "note": "약세 지속, 후순위"
+    },
+    {
+      "label": "T-Mobile",
+      "ticker": "TMUS",
+      "note": "스타링크 D2C"
+    },
+    {
+      "label": "SpaceX",
+      "ticker": "SPCX",
+      "note": "신규상장, 락업·나스닥100 편입 양방향"
+    },
+    {
+      "label": "삼성전기",
+      "ticker": "009150.KS",
+      "note": "AI 소부장 대장주, 목표 iM230/DB300만, PER180배 — 눌림 관찰"
+    },
+    {
+      "label": "SK하이닉스",
+      "ticker": "000660.KS",
+      "note": "🆕6/14 후보 — HBM 1위(58~62%)·엔비디아 HBM4 최대공급·선행PER 한자릿수. 215만 고가→소수점 필요. ⚡미 ADR 정식상장 8월 목표(상장시 토스 미장소수점 적립). 단 삼성/NVDA/MU와 같은 메모리 베팅 강화"
+    },
+    {
+      "label": "한화에어로",
+      "ticker": "012450.KS",
+      "note": "재활성 — 대미투자 방산·조선 직결"
+    },
+    {
+      "label": "한화오션",
+      "ticker": "042660.KS",
+      "note": "대미투자 조선 — 시행 후 소화 관찰"
+    },
+    {
+      "label": "삼성중공업",
+      "ticker": "010140.KS",
+      "note": "대미투자 조선"
+    },
+    {
+      "label": "HD현대중공업",
+      "ticker": "329180.KS",
+      "note": "대미투자 조선"
+    },
+    {
+      "label": "LG이노텍",
+      "ticker": "011070.KS",
+      "note": "🆕6/16 후보 — FC-BGA(AI 기판) 구조적 공급부족·美 4개+ 고객 증설 요청. 2Q 영익 컨센 1,787억(+15.7배). 추격 아닌 관찰"
+    }
   ],
   "indices": [
-    {"label": "코스피", "ticker": "^KS11"},
-    {"label": "코스닥", "ticker": "^KQ11"},
-    {"label": "S&P500", "ticker": "^GSPC"},
-    {"label": "나스닥", "ticker": "^IXIC"},
-    {"label": "다우", "ticker": "^DJI"},
-    {"label": "필라델피아반도체", "ticker": "^SOX"}
+    {
+      "label": "코스피",
+      "ticker": "^KS11"
+    },
+    {
+      "label": "코스닥",
+      "ticker": "^KQ11"
+    },
+    {
+      "label": "S&P500",
+      "ticker": "^GSPC"
+    },
+    {
+      "label": "나스닥",
+      "ticker": "^IXIC"
+    },
+    {
+      "label": "다우",
+      "ticker": "^DJI"
+    },
+    {
+      "label": "필라델피아반도체",
+      "ticker": "^SOX"
+    }
   ],
   "fx": [
-    {"label": "USD/KRW", "ticker": "KRW=X"}
+    {
+      "label": "USD/KRW",
+      "ticker": "KRW=X"
+    }
   ],
   "alerts": [
-    {"id": "코스피 매수 안전핀", "ticker": "^KS11", "cond": "below", "level": 7500, "action": "잔여 트랜치 전면 동결·재평가 (물타기 금지)"},
-    {"id": "코스피 2차 트랜치", "ticker": "^KS11", "cond": "below", "level": 8000, "action": "2차 ~20만 분할 투입 (이란 결렬 동반 시)"},
-    {"id": "NAVER 1차 매수존", "ticker": "035420.KS", "cond": "between", "low": 225000, "high": 235000, "action": "1차 트랜치 10~15만"},
-    {"id": "삼성전자 1차 매수존", "ticker": "005930.KS", "cond": "between", "low": 295000, "high": 305000, "action": "1차 트랜치 대안"},
-    {"id": "두산에너빌리티 십만빌리티", "ticker": "034020.KS", "cond": "above", "level": 100000, "action": "대미투자 원전 수혜 — 10만 돌파 시 비중 검토"},
-    {"id": "FOMC 3차 트랜치", "ticker": "EVENT", "cond": "event", "when": "2026-06-18 03:00 KST", "action": "동결+중립 → META·AVGO 등 조정주 재매수 (목 17:30~20:50 지정가 예약)"},
-    {"id": "이란 MOU 서명", "ticker": "EVENT", "cond": "event", "when": "2026-06-13~14 주말", "action": "서명/무산 → 월요일 갭 방향 결정"},
-    {"id": "SK하이닉스 미 ADR 정식상장", "ticker": "EVENT", "cond": "event", "when": "2026-08 목표 (SEC 승인 6/22주 가능성)", "action": "NYSE/NASDAQ 정식상장 시 → 토스 미장 소수점으로 SK하이닉스 소액 적립 개시 검토. 상장 전엔 OTC HXSCL·국장소수점 비추(저유동성·일괄체결)"},
-    {"id": "외국인 수급 연속성", "ticker": "SIGNAL", "cond": "signal", "when": "매 보고서", "action": "외인 순매수 연속 일수·누적액 추적(코스피 메인 엔진). ✅순매수 지속=강세 신호+반도체(SK하이닉스 등) 선취 명분↑ / 🔴순매도 재전환=강세 논지 약화 '신중' 경보. 국장 데스크(kr-market-desk)가 '코스피 마감 외국인 기관 [날짜]'로 수집"}
+    {
+      "id": "코스피 매수 안전핀",
+      "ticker": "^KS11",
+      "cond": "below",
+      "level": 7500,
+      "action": "잔여 트랜치 전면 동결·재평가 (물타기 금지)"
+    },
+    {
+      "id": "코스피 2차 트랜치",
+      "ticker": "^KS11",
+      "cond": "below",
+      "level": 8000,
+      "action": "2차 ~20만 분할 투입 (이란 결렬 동반 시)"
+    },
+    {
+      "id": "NAVER 1차 매수존",
+      "ticker": "035420.KS",
+      "cond": "between",
+      "low": 225000,
+      "high": 235000,
+      "action": "1차 트랜치 10~15만"
+    },
+    {
+      "id": "삼성전자 1차 매수존",
+      "ticker": "005930.KS",
+      "cond": "between",
+      "low": 295000,
+      "high": 305000,
+      "action": "1차 트랜치 대안"
+    },
+    {
+      "id": "두산에너빌리티 십만빌리티",
+      "ticker": "034020.KS",
+      "cond": "above",
+      "level": 100000,
+      "action": "대미투자 원전 수혜 — 10만 돌파 시 비중 검토"
+    },
+    {
+      "id": "FOMC 3차 트랜치",
+      "ticker": "EVENT",
+      "cond": "event",
+      "when": "2026-06-18 03:00 KST",
+      "action": "동결+중립 → META·AVGO 등 조정주 재매수 (목 17:30~20:50 지정가 예약)"
+    },
+    {
+      "id": "이란 MOU 서명",
+      "ticker": "EVENT",
+      "cond": "event",
+      "when": "2026-06-13~14 주말",
+      "action": "서명/무산 → 월요일 갭 방향 결정"
+    },
+    {
+      "id": "SK하이닉스 미 ADR 정식상장",
+      "ticker": "EVENT",
+      "cond": "event",
+      "when": "2026-08 목표 (SEC 승인 6/22주 가능성)",
+      "action": "NYSE/NASDAQ 정식상장 시 → 토스 미장 소수점으로 SK하이닉스 소액 적립 개시 검토. 상장 전엔 OTC HXSCL·국장소수점 비추(저유동성·일괄체결)"
+    },
+    {
+      "id": "외국인 수급 연속성",
+      "ticker": "SIGNAL",
+      "cond": "signal",
+      "when": "매 보고서",
+      "action": "외인 순매수 연속 일수·누적액 추적(코스피 메인 엔진). ✅순매수 지속=강세 신호+반도체(SK하이닉스 등) 선취 명분↑ / 🔴순매도 재전환=강세 논지 약화 '신중' 경보. 국장 데스크(kr-market-desk)가 '코스피 마감 외국인 기관 [날짜]'로 수집"
+    }
   ]
 }

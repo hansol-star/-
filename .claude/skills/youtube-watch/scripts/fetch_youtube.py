@@ -39,9 +39,11 @@ INSECURE_FLAG = "--no-check-certificates"
 DEFAULT_OUTDIR = os.environ.get("YT_OUTDIR", os.path.join(tempfile.gettempdir(), "yt_cache"))
 
 # YouTube intermittently throws "Sign in to confirm you're not a bot" at the
-# default web client. ios 클라이언트가 데이터센터 IP에서 자막·메타 우회에 가장 안정적
-# (2026-06 웹 환경 검증). 그다음 web→tv→mweb 폴백.
-CLIENT_CHAIN = ["ios", None, "tv", "mweb"]
+# default web client. ios 클라이언트가 메타 우회에 안정적이나, 데이터센터 IP에서
+# 자막 트랙은 ios/tv/mweb이 막거나(봇차단·DRM) 미노출하는 경우가 있음 →
+# web_embedded가 자막 트랙을 내주는 유일한 클라이언트였음 (2026-06-17 경제사냥꾼 6건 재추출 검증).
+# 그래서 web_embedded를 ios 다음 우선순위로 둠. 이후 web→tv→mweb 폴백.
+CLIENT_CHAIN = ["ios", "web_embedded", None, "tv", "mweb"]
 # 기본 검증 ON. --insecure 또는 YT_INSECURE=1, 혹은 cert 에러 자동 감지 시 insecure.
 _INSECURE = os.environ.get("YT_INSECURE") == "1"
 

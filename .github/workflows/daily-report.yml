@@ -14,10 +14,12 @@
 name: Daily Portfolio Report
 
 on:
-  schedule:
-    # 08:20 UTC = 17:20 KST (KST는 서머타임 없음). 평일(월~금)만.
-    - cron: "20 8 * * 1-5"
-  workflow_dispatch: {}   # 수동 실행 버튼
+  # ⛔ 자동 스케줄 비활성화 (2026-06-20): 일일 보고서는 Claude Code "Routines"(예약 작업,
+  #    claude.ai/code/routines)로 전환 — 구독으로 충당, API 키 불필요, 폰 모니터링.
+  #    이 워크플로는 백업/수동 실행용으로만 남김. 다시 켜려면 아래 schedule 주석 해제.
+  # schedule:
+  #   - cron: "20 8 * * 1-5"   # 08:20 UTC = 17:20 KST 평일
+  workflow_dispatch: {}   # 수동 실행 버튼만 유지
 
 permissions:
   contents: write          # 보고서 커밋·푸시용

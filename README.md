@@ -68,6 +68,38 @@ data/snapshots/                    일별 손익 스냅샷 (시계열, 커밋됨
 
 → `quick-check` 스킬이 평가손익 + 매수존/안전핀 트리거만 30초 안에. 🔴발동 트리거가 있으면 맨 위에 표시.
 
+## 📱 포트폴리오 앱 (폰에서 종목별 조회)
+
+매일 자동 분석 결과를 **앱처럼** 본다. 홈에 총자산·당일손익·코스피 안전핀·발동 트리거·보유 16+워치 리스트가 뜨고,
+**종목을 누르면** 현재가·평가손익·목표가·매수존·트림·⭐별점·최근 이슈(날짜·[검증/정정/미확인])가 상세로 펼쳐진다.
+
+```
+app/
+  index.html     정적 SPA (백엔드·키 불필요, 폰 우선 다크 UI)
+  app.js         홈/상세 라우팅·렌더
+  style.css      스타일
+  data.js        자동 생성물 (window.APP_DATA) — 직접 수정 금지
+data/app/
+  stocks.json    종목별 분석 정본 (별점·목표·매수존·트림·이슈) — 보고서가 갱신
+.claude/skills/portfolio-desk/scripts/
+  build_app_data.py   portfolio.json + stocks.json + Yahoo 시세 → app/data.js 빌드
+```
+
+**데이터 갱신** (보고서 돌리면 자동으로 같이 됨):
+
+```bash
+python3 .claude/skills/portfolio-desk/scripts/build_app_data.py   # 실시간 시세로 빌드
+# 네트워크 차단 시:  python3 ... build_app_data.py --offline
+```
+
+**폰에서 열기** — GitHub Pages 배포(1회 설정): 레포 **Settings > Pages > Source = "GitHub Actions"** 로 바꾸면
+`deploy-app.yml`이 main 푸시마다(=매일 자동 보고서 커밋 포함) 앱을 재배포한다.
+배포 URL을 폰 브라우저에서 열고 **"홈 화면에 추가"** 하면 앱 아이콘처럼 쓸 수 있다.
+로컬에서 바로 보려면 `app/index.html`을 브라우저로 열어도 된다(`data.js` 인라인이라 파일만으로 동작).
+
+**매일 자동**: `daily-report.yml`이 매 평일 17:20 KST에 보고서를 생성→`stocks.json`·`data.js` 갱신→커밋,
+이어서 `deploy-app.yml`이 앱을 재배포. (Anthropic API 키 시크릿 1회 설정 필요 — 워크플로 상단 주석 참고.)
+
 ## 데이터 소스
 
 | 용도 | 소스 | 키 |

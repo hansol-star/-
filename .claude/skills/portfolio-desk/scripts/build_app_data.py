@@ -1,0 +1,229 @@
+#!/usr/bin/env python3
+"""
+build_app_data.py — 포트폴리오 앱 데이터 빌더
+
+portfolio.json(수량·원가·트리거) + data/app/stocks.json(종목별 분석:별점·목표·매수존·트림·이슈)
++ Yahoo 실시간 시세(market_data.fetch_quote)를 합쳐 평가손익까지 계산해
+app/data.js (window.APP_DATA = {...}) 한 파일로 떨군다.
+
+정적 웹앱(app/index.html)이 이 data.js 하나만 읽으면 폰에서 바로 동작한다.
+백엔드·키 불필요(stdlib만). 로컬 이전 후에도 그대로.
+
+사용법:
+  python3 build_app_data.py            # 실시간 시세로 빌드
+  python3 build_app_data.py --offline  # 시세 호출 없이 stocks.json 값만 (네트워크 차단 시)
+"""
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import json
+import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+# scripts -> portfolio-desk -> skills -> .claude -> repo
+REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
+PORTFOLIO_JSON = os.path.join(HERE, "..", "portfolio.json")
+STOCKS_JSON = os.path.join(REPO, "data", "app", "stocks.json")
+OUT_JS = os.path.join(REPO, "app", "data.js")
+
+sys.path.insert(0, HERE)
+from market_data import fetch_quote  # noqa: E402
+
+
+def load_json(path: str) -> dict:
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def quote(symbol: str, offline: bool) -> dict:
+    if offline:
+        return {"symbol": symbol, "price": None, "prev_close": None,
+                "change_pct": None, "currency": None}
+    q = fetch_quote(symbol)
+    return q or {"symbol": symbol, "error": "no data"}
+
+
+def pct(a, b):
+    if a is None or b in (None, 0):
+        return None
+    return round((a - b) / b * 100, 2)
+
+
+def build(offline: bool) -> dict:
+    pf = load_json(PORTFOLIO_JSON)
+    sj = load_json(STOCKS_JSON)
+    stock_meta = sj.get("stocks", {})
+    watch_meta = sj.get("watchlist", {})
+
+    # ── 환율 ──
+    fx_q = quote("KRW=X", offline)
+    usdkrw = fx_q.get("price") or pf.get("us_avg_fx_cost", 1456.5)
+
+    # ── 보유 종목 ──
+    holdings = []
+    total_value_krw = 0.0
+    total_prev_krw = 0.0
+    total_cost_krw = 0.0
+    us_fx_cost = pf.get("us_avg_fx_cost", 1456.5)
+
+    for region, key in (("kr", "kr"), ("us", "us")):
+        for h in pf["holdings"][key]:
+            sym = h["ticker"]
+            q = quote(sym, offline)
+            price = q.get("price")
+            prev = q.get("prev_close")
+            cur = q.get("currency") or ("KRW" if region == "kr" else "USD")
+            shares = h["shares"]
+            cost = h["cost"]
+
+            if region == "kr":
+                value_krw = (price or 0) * shares
+                prev_krw = (prev or price or 0) * shares
+                cost_krw = cost * shares
+            else:
+                value_krw = (price or 0) * shares * usdkrw
+                prev_krw = (prev or price or 0) * shares * usdkrw
+                cost_krw = cost * shares * us_fx_cost
+
+            total_value_krw += value_krw
+            total_prev_krw += prev_krw
+            total_cost_krw += cost_krw
+
+            meta = stock_meta.get(sym, {})
+            holdings.append({
+                "label": h["label"],
+                "ticker": sym,
+                "region": region,
+                "currency": cur,
+                "shares": shares,
+                "cost": cost,
+                "price": price,
+                "change_pct": q.get("change_pct"),
+                "value_krw": round(value_krw),
+                "pnl_pct": pct(price, cost),
+                "pnl_krw": round(value_krw - cost_krw),
+                "outlook": meta.get("outlook", "hold"),
+                "stars": meta.get("stars", 3),
+                "target": meta.get("target", "—"),
+                "buy_zone": meta.get("buy_zone", "—"),
+                "trim": meta.get("trim", "—"),
+                "comment": meta.get("comment", ""),
+                "issues": meta.get("issues", []),
+            })
+
+    # ── 워치리스트 (분석 데이터 있는 활성만) ──
+    watchlist = []
+    for sym, meta in watch_meta.items():
+        q = quote(sym, offline)
+        watchlist.append({
+            "label": meta.get("label", sym),
+            "ticker": sym,
+            "currency": q.get("currency"),
+            "price": q.get("price"),
+            "change_pct": q.get("change_pct"),
+            "stars": meta.get("stars", 3),
+            "target": meta.get("target", "—"),
+            "comment": meta.get("comment", ""),
+            "issues": meta.get("issues", []),
+        })
+
+    # ── 지수 ──
+    indices = []
+    for idx in pf.get("indices", []):
+        q = quote(idx["ticker"], offline)
+        indices.append({
+            "label": idx["label"],
+            "ticker": idx["ticker"],
+            "price": q.get("price"),
+            "change_pct": q.get("change_pct"),
+        })
+
+    # ── 코스피 안전핀 상태 ──
+    kospi = next((i for i in indices if i["ticker"] == "^KS11"), None)
+    kospi_price = kospi["price"] if kospi else None
+    safety = {"pin": 7500, "level2": 8000, "price": kospi_price,
+              "change_pct": kospi["change_pct"] if kospi else None}
+    if kospi_price is None:
+        safety["status"] = "unknown"
+    elif kospi_price < 7500:
+        safety["status"] = "freeze"   # 잔여 트랜치 전면 동결
+    elif kospi_price < 8000:
+        safety["status"] = "watch"    # 2차 트랜치 구간
+    else:
+        safety["status"] = "ok"
+
+    # ── 트리거/알림 (가격 조건 평가) ──
+    price_by_ticker = {h["ticker"]: h["price"] for h in holdings}
+    price_by_ticker.update({i["ticker"]: i["price"] for i in indices})
+    price_by_ticker.update({w["ticker"]: w["price"] for w in watchlist})
+    alerts = []
+    for a in pf.get("alerts", []):
+        fired = None
+        p = price_by_ticker.get(a.get("ticker"))
+        cond = a.get("cond")
+        if p is not None and cond == "below":
+            fired = p < a["level"]
+        elif p is not None and cond == "above":
+            fired = p > a["level"]
+        elif p is not None and cond == "between":
+            fired = a["low"] <= p <= a["high"]
+        alerts.append({
+            "id": a["id"],
+            "ticker": a.get("ticker"),
+            "cond": cond,
+            "when": a.get("when"),
+            "action": a["action"],
+            "price": p,
+            "fired": fired,
+        })
+
+    day_change_krw = round(total_value_krw - total_prev_krw)
+    cash = pf.get("cash_krw", 0)
+    return {
+        "generated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M KST"),
+        "as_of": sj.get("as_of", ""),
+        "source_report": sj.get("source_report", ""),
+        "offline": offline,
+        "fx": {"usdkrw": round(usdkrw, 2) if usdkrw else None},
+        "totals": {
+            "assets_krw": round(total_value_krw + cash),
+            "stocks_value_krw": round(total_value_krw),
+            "cash_krw": cash,
+            "day_change_krw": day_change_krw,
+            "day_change_pct": pct(total_value_krw, total_prev_krw),
+            "total_pnl_krw": round(total_value_krw - total_cost_krw),
+            "total_pnl_pct": pct(total_value_krw, total_cost_krw),
+        },
+        "safety": safety,
+        "indices": indices,
+        "alerts": alerts,
+        "holdings": holdings,
+        "watchlist": watchlist,
+        "tranches": pf.get("tranches", []),
+    }
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--offline", action="store_true", help="시세 호출 없이 빌드")
+    args = ap.parse_args()
+
+    data = build(args.offline)
+    os.makedirs(os.path.dirname(OUT_JS), exist_ok=True)
+    payload = json.dumps(data, ensure_ascii=False, indent=2)
+    with open(OUT_JS, "w", encoding="utf-8") as f:
+        f.write("// 자동 생성 — build_app_data.py. 직접 수정 금지.\n")
+        f.write("window.APP_DATA = " + payload + ";\n")
+
+    t = data["totals"]
+    print(f"✅ app/data.js 생성 — 총자산 {t['assets_krw']:,}원 "
+          f"(당일 {t['day_change_krw']:+,}원 / {t['day_change_pct']}%) "
+          f"· 보유 {len(data['holdings'])} · 워치 {len(data['watchlist'])} "
+          f"· 발동 알림 {sum(1 for a in data['alerts'] if a['fired'])}건")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

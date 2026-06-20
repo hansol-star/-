@@ -1,0 +1,51 @@
+# 포트폴리오 앱(app/)을 GitHub Pages로 배포 — 폰에서 URL로 바로 열기
+#
+# ─── 1회 설정 (정훈이 직접) ───────────────────────────────────────────────
+# GitHub 레포 > Settings > Pages > Build and deployment > Source = "GitHub Actions"
+# 로 한 번만 바꾸면 끝. 이후 main에 푸시될 때마다(=매일 자동 보고서 커밋 포함)
+# 앱이 자동 재배포된다.
+#
+# 배포 URL: https://<유저명>.github.io/<레포명>/   (Actions 로그 끝에 출력됨)
+# 폰 사파리/크롬에서 그 URL 열고 "홈 화면에 추가"하면 앱 아이콘처럼 쓸 수 있다.
+# ──────────────────────────────────────────────────────────────────────────
+
+name: Deploy Portfolio App
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시 배포 1건만
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload app/ as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: app
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

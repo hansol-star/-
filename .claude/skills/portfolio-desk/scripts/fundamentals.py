@@ -84,30 +84,33 @@ def fetch(ticker: str) -> dict:
         return out
     q = quote[0] if isinstance(quote, list) and quote else {}
     out["price"] = q.get("price")
-    out["pe"] = q.get("pe")
     out["marketCap"] = q.get("marketCap")
+    # PE는 stable /quote 응답에 없음 → 아래 ratios-ttm 에서 가져온다.
 
-    # 연간 손익 4년 → 매출·EPS YoY 추세
+    # 연간 손익 4년 → 매출·EPS YoY 추세 (CANSLIM의 A)
     inc = _get("income-statement", {"symbol": ticker, "period": "annual", "limit": 4})
     if isinstance(inc, list) and len(inc) >= 2:
         out["revenueGrowthYoY"] = _pct(inc[0].get("revenue"), inc[1].get("revenue"))
         out["epsGrowthYoY"] = _pct(inc[0].get("eps"), inc[1].get("eps"))
-        out["netMargin"] = _pct(inc[0].get("netIncome"), inc[0].get("revenue"))
 
     # 분기 손익 5개 → 최근 분기 EPS YoY (CANSLIM의 C)
     qinc = _get("income-statement", {"symbol": ticker, "period": "quarter", "limit": 5})
     if isinstance(qinc, list) and len(qinc) >= 5:
         out["epsGrowthQoQ_YoY"] = _pct(qinc[0].get("eps"), qinc[4].get("eps"))
 
-    # TTM 비율 (마진·ROE) + 핵심지표 (FCF)
+    # TTM 비율: 총마진·순마진·PE·FCF/주 (모두 ratios-ttm). 마진은 0~1 소수.
     ratios = _get("ratios-ttm", {"symbol": ticker})
     if isinstance(ratios, list) and ratios:
         r0 = ratios[0]
-        out["grossMarginTTM"] = r0.get("grossProfitMarginTTM") or r0.get("grossProfitMargin")
-        out["roeTTM"] = r0.get("returnOnEquityTTM") or r0.get("returnOnEquity")
+        out["grossMarginTTM"] = r0.get("grossProfitMarginTTM")
+        out["netMarginTTM"] = r0.get("netProfitMarginTTM")
+        out["pe"] = r0.get("priceToEarningsRatioTTM")
+        out["fcfPerShareTTM"] = r0.get("freeCashFlowPerShareTTM")
+
+    # ROE는 ratios-ttm 엔 없고 key-metrics-ttm 에 있음. 0~1 소수.
     km = _get("key-metrics-ttm", {"symbol": ticker})
     if isinstance(km, list) and km:
-        out["fcfPerShareTTM"] = km[0].get("freeCashFlowPerShareTTM") or km[0].get("freeCashFlowPerShare")
+        out["roeTTM"] = km[0].get("returnOnEquityTTM")
     return out
 
 
@@ -138,17 +141,24 @@ def main():
     if args.json:
         print(json.dumps(rows, ensure_ascii=False, indent=2)); return
 
-    hdr = ["티커", "현재가", "PE", "매출YoY%", "EPS YoY%", "최근분기EPS YoY%", "총마진", "FCF/주"]
+    hdr = ["티커", "현재가", "PE", "매출YoY%", "EPS YoY%", "분기EPS YoY%", "총마진%", "순마진%", "ROE%", "FCF/주"]
     print(" | ".join(hdr))
-    print("-" * 78)
+    print("-" * 96)
     for r in rows:
         if r.get("_error"):
             print(f"{r['ticker']:<6} | {r['_error']}"); continue
-        def f(k):
+
+        def num(k, nd=1):  # 일반 수치 (성장률·PE·FCF)
             v = r.get(k)
-            return "-" if v is None else (f"{v}")
-        print(f"{r['ticker']:<6} | {f('price')} | {f('pe')} | {f('revenueGrowthYoY')} | "
-              f"{f('epsGrowthYoY')} | {f('epsGrowthQoQ_YoY')} | {f('grossMarginTTM')} | {f('fcfPerShareTTM')}")
+            return "-" if v is None else f"{float(v):.{nd}f}"
+
+        def pct(k):  # 0~1 소수 비율 → %
+            v = r.get(k)
+            return "-" if v is None else f"{float(v) * 100:.1f}"
+
+        print(f"{r['ticker']:<6} | {num('price', 2)} | {num('pe')} | {num('revenueGrowthYoY')} | "
+              f"{num('epsGrowthYoY')} | {num('epsGrowthQoQ_YoY')} | {pct('grossMarginTTM')} | "
+              f"{pct('netMarginTTM')} | {pct('roeTTM')} | {num('fcfPerShareTTM', 2)}")
     print("\n※ 국내주는 FMP 무료 미지원 → WebSearch(증권사 리포트)로 보강. 수치는 0~100 스코어 채점 근거로만.")
 
 

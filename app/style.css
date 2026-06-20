@@ -100,6 +100,8 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .navbtn{flex:1;text-align:center;background:var(--card2);border:1px solid var(--line);
   border-radius:12px;padding:12px;font-weight:700;font-size:14px;color:#cdd6ee}
 .navbtn:active{background:var(--card)}
+.navbtn.run{background:#16223c;border-color:#2c3e63;color:#bcd0ff}
+.runhint{font-size:11px;color:var(--mut2);text-align:center;margin:-6px 0 14px}
 
 /* chart card */
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px}

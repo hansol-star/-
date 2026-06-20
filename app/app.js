@@ -117,7 +117,13 @@
     h += '<div class="chip"><div class="mut">환율</div><div class="v">₩' + num(D.fx && D.fx.usdkrw) + '</div></div>';
     h += '</div></div>';
 
+    var GH = "https://github.com/hansol-star/-/actions/workflows/";
     h += '<div class="nav"><a class="navbtn" href="#hunter">🎬 경제사냥꾼 분석</a></div>';
+    h += '<div class="nav">'
+      + '<a class="navbtn run" href="' + GH + 'refresh-prices.yml" target="_blank" rel="noopener">🔄 시세 새로고침</a>'
+      + '<a class="navbtn run" href="' + GH + 'daily-report.yml" target="_blank" rel="noopener">🧠 전체 분석</a>'
+      + '</div>';
+    h += '<div class="runhint">버튼 → GitHub 열림 → <b>Run workflow</b> 탭하면 실행. 시세=무료 · 전체 분석=API 키 필요.</div>';
 
     h += '<div class="pin ' + (s.status || "unknown") + '"><div><div class="xs">코스피 매수 안전핀 ' + num(s.pin) + '</div><div>' + esc(pinTxt[s.status] || "") + '</div></div>';
     h += '<div class="pv">' + num(s.price) + ' <span class="sm ' + cls(s.change_pct) + '">' + pct(s.change_pct) + '</span></div></div>';

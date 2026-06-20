@@ -40,6 +40,8 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true   # Pages 미설정이어도 워크플로가 자동으로 켬(Settings 수동 불필요)
 
       - name: Upload app/ as Pages artifact
         uses: actions/upload-pages-artifact@v3

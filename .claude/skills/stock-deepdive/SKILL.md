@@ -20,6 +20,8 @@ python3 .claude/skills/portfolio-desk/scripts/market_data.py --tickers $TICKER  
 python3 .claude/skills/portfolio-desk/scripts/consensus.py  --tickers $TICKER    # 목표주가·의견·괴리
 python3 .claude/skills/portfolio-desk/scripts/earnings.py   --tickers $TICKER    # 다음 실적일
 ```
+- **미국주면 펀더멘털 하드넘버**(스코어 채점 근거): `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py --tickers $TICKER`
+  → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE. 키 없으면 WebSearch로 대체. **국내주는 FMP 무료 미지원 → 증권사 리포트 WebSearch.**
 - 보유 종목이면 `pnl.py` 출력에서 해당 종목의 평가손익도 인용.
 - 뉴스·촉매·리스크: **WebSearch** — "[종목] news catalyst [날짜]", "[종목] 목표주가" (한국 증권사 컨센서스 보강).
 - 경제사냥꾼이 다룬 종목이면 `hunter_latest.py` 결과나 youtube-watch로 해당 영상 교차참조.

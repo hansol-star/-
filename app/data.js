@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-06-20 08:25 KST",
+  "generated_at": "2026-06-20 08:35 KST",
   "as_of": "KR 6/19 마감 / US 6/18 종가",
   "source_report": "docs/reports/holdings_final_2026-06-20.md (v20)",
   "offline": false,

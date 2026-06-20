@@ -26,15 +26,48 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 PORTFOLIO_JSON = os.path.join(HERE, "..", "portfolio.json")
 STOCKS_JSON = os.path.join(REPO, "data", "app", "stocks.json")
+HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
+FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
 OUT_JS = os.path.join(REPO, "app", "data.js")
 
 sys.path.insert(0, HERE)
-from market_data import fetch_quote  # noqa: E402
+import urllib.request  # noqa: E402
+from market_data import fetch_quote, YAHOO_CHART, UA  # noqa: E402
+
+
+def fetch_history(symbol: str, rng: str = "1mo", interval: str = "1d", offline: bool = False) -> dict:
+    """Yahoo chart에서 종가 시계열 → {dates:[YYYY-MM-DD], closes:[float]}."""
+    if offline:
+        return {"dates": [], "closes": []}
+    url = YAHOO_CHART.format(symbol=urllib.request.quote(symbol)) + f"?interval={interval}&range={rng}"
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            data = json.load(resp)
+        res = data["chart"]["result"][0]
+        ts = res["timestamp"]
+        closes = res["indicators"]["quote"][0]["close"]
+        out = {"dates": [], "closes": []}
+        for t, c in zip(ts, closes):
+            if c is None:
+                continue
+            out["dates"].append(dt.datetime.utcfromtimestamp(t).strftime("%Y-%m-%d"))
+            out["closes"].append(round(c, 2))
+        return out
+    except Exception:
+        return {"dates": [], "closes": []}
 
 
 def load_json(path: str) -> dict:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_json_opt(path: str) -> dict:
+    try:
+        return load_json(path)
+    except (FileNotFoundError, ValueError):
+        return {}
 
 
 def quote(symbol: str, offline: bool) -> dict:
@@ -181,6 +214,13 @@ def build(offline: bool) -> dict:
 
     day_change_krw = round(total_value_krw - total_prev_krw)
     cash = pf.get("cash_krw", 0)
+
+    # ── 시계열 차트 (환율·코스피) + 경제사냥꾼 + 수급 ──
+    fx_history = fetch_history("KRW=X", offline=offline)
+    kospi_history = fetch_history("^KS11", offline=offline)
+    hunter = load_json_opt(HUNTER_JSON)
+    flows = load_json_opt(FLOWS_JSON)
+
     return {
         "generated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M KST"),
         "as_of": sj.get("as_of", ""),
@@ -202,6 +242,10 @@ def build(offline: bool) -> dict:
         "holdings": holdings,
         "watchlist": watchlist,
         "tranches": pf.get("tranches", []),
+        "fx_history": fx_history,
+        "kospi_history": kospi_history,
+        "hunter": hunter,
+        "flows": flows,
     }
 
 

@@ -1,6 +1,6 @@
 /* 정훈 증권 PWA 서비스워커 — 앱 셸 캐시 + 오프라인 동작.
    data.js는 네트워크 우선(최신 시세) → 실패 시 캐시. 셸은 캐시 우선. */
-var CACHE = "jh-portfolio-v1";
+var CACHE = "jh-portfolio-v2";
 var SHELL = [
   "./index.html",
   "./style.css",

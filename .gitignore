@@ -14,3 +14,8 @@ __pycache__/
 # OS/에디터
 .DS_Store
 *.swp
+
+# 스크린샷/렌더 도구 (앱과 무관, 일회성)
+node_modules/
+package.json
+package-lock.json

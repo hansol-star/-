@@ -28,6 +28,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 PORTFOLIO_JSON = os.path.join(HERE, "..", "portfolio.json")
 STOCKS_JSON = os.path.join(REPO, "data", "app", "stocks.json")
+TASKS_JSON = os.path.join(REPO, "data", "app", "tasks.json")
 HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
 HUNTER_ARCHIVE_JSON = os.path.join(REPO, "data", "app", "hunter_archive.json")
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
@@ -243,6 +244,7 @@ def build(offline: bool) -> dict:
                 "target": meta.get("target", "—"),
                 "buy_zone": meta.get("buy_zone", "—"),
                 "trim": meta.get("trim", "—"),
+                "forecast": meta.get("forecast"),
                 "comment": meta.get("comment", ""),
                 "issues": meta.get("issues", []),
             })
@@ -260,6 +262,7 @@ def build(offline: bool) -> dict:
             "stars": meta.get("stars", 3),
             "score": meta.get("score"),
             "target": meta.get("target", "—"),
+            "forecast": meta.get("forecast"),
             "comment": meta.get("comment", ""),
             "issues": meta.get("issues", []),
         })
@@ -331,6 +334,12 @@ def build(offline: bool) -> dict:
     flows = load_json_opt(FLOWS_JSON)
     reports = build_reports()
 
+    # ── 할일·매수추적·시간축 전망 (tasks.json 정본) ──
+    tj = load_json_opt(TASKS_JSON)
+    tasks = tj.get("tasks", {}) if isinstance(tj, dict) else {}
+    task_counts = {k: {"done": sum(1 for x in v if x.get("done")), "total": len(v)}
+                   for k, v in tasks.items()}
+
     return {
         "generated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M KST"),
         "as_of": sj.get("as_of", ""),
@@ -358,6 +367,12 @@ def build(offline: bool) -> dict:
         "hunter_archive": archive_videos,
         "flows": flows,
         "reports": reports,
+        "outlook": tj.get("outlook", []),
+        "index_forecast": tj.get("index_forecast", []),
+        "tasks": tasks,
+        "task_counts": task_counts,
+        "orders": tj.get("orders", []),
+        "tasks_updated": tj.get("updated", ""),
     }
 
 
@@ -378,7 +393,10 @@ def main() -> int:
           f"(당일 {t['day_change_krw']:+,}원 / {t['day_change_pct']}%) "
           f"· 보유 {len(data['holdings'])} · 워치 {len(data['watchlist'])} "
           f"· 보고서 {len(data['reports'])} "
-          f"· 발동 알림 {sum(1 for a in data['alerts'] if a['fired'])}건")
+          f"· 발동 알림 {sum(1 for a in data['alerts'] if a['fired'])}건 "
+          f"· 할일 {sum(c['total'] for c in data['task_counts'].values())}"
+          f"(완료 {sum(c['done'] for c in data['task_counts'].values())}) "
+          f"· 주문 {len(data['orders'])}")
     return 0
 
 

@@ -216,3 +216,56 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .mdtable th,.mdtable td{border:1px solid var(--line);padding:6px 9px;text-align:left;white-space:nowrap}
 .mdtable th{background:var(--card2);color:#cdd6ee;font-weight:700;position:sticky;top:0}
 .mdtable tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+
+/* ── 계획·할일·매수추적·시간축 전망 ── */
+/* 홈 요약 카드 */
+.plansum{display:block;background:linear-gradient(135deg,#16223c,#141a29);border:1px solid #2c3e63;
+  border-radius:14px;padding:13px 14px;margin-bottom:14px}
+.plansum:active{background:var(--card)}
+.ps-t{font-weight:700;font-size:14px;color:#cdd6ee}
+.ps-n{font-size:12px;font-weight:700;color:var(--green)}
+.ps-ol{font-size:12.5px;color:#dfe5f2;margin-top:8px;line-height:1.5}
+.ps-more{font-size:11.5px;color:var(--accent);margin-top:8px;font-weight:600}
+.otag{display:inline-block;background:#2b3550;color:#9db4ff;font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:6px;vertical-align:middle}
+
+/* 장 전망 카드 */
+.card.ol{padding:12px 13px}
+.ol-h{font-weight:700;font-size:14px}
+.ol-tx{font-size:13px;color:#dfe5f2;line-height:1.55}
+
+/* 가격 예상 레인지 */
+.fc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:8px}
+.fc-lb{font-weight:700;font-size:13px}
+.fc-rng{font-size:14px;font-weight:700;margin:5px 0 7px}
+.fc-bar{position:relative;height:7px;border-radius:6px;
+  background:linear-gradient(90deg,#3d8bff44,#27304a,#ff5a5a44)}
+.fc-now{position:absolute;top:-3px;width:3px;height:13px;border-radius:2px;background:#fff;
+  box-shadow:0 0 0 2px var(--bg)}
+.fc-cap{font-size:11px;margin-top:5px}
+.fc-note{font-size:11.5px;color:var(--mut);margin-top:6px;line-height:1.5}
+
+/* 할일 체크리스트 */
+.tlist{display:flex;flex-direction:column;gap:7px}
+.trow{display:flex;gap:9px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+  border-radius:11px;padding:11px 12px}
+.trow .tck{flex:none;font-size:15px;line-height:1.3}
+.trow .ttx{font-size:13px;color:#dfe5f2;line-height:1.5}
+.trow.done{opacity:.55}
+.trow.done .ttx{text-decoration:line-through;color:var(--mut)}
+
+/* 매수추적 */
+.ord{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--mut2);
+  border-radius:11px;padding:11px 12px;margin-bottom:8px}
+.ord.plan{border-left-color:var(--accent)}
+.ord.wait{border-left-color:var(--gold)}
+.ord.fill{border-left-color:var(--green)}
+.ord.cxl{border-left-color:var(--mut2);opacity:.6}
+.o-nm{font-weight:700;font-size:14px}
+.o-st{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.o-st.plan{background:#16223c;color:#9db4ff}
+.o-st.wait{background:#2a2410;color:#ffe08a}
+.o-st.fill{background:#10241c;color:#8ff0c9}
+.o-st.cxl{background:var(--card2);color:var(--mut)}
+.o-meta{font-size:12px;color:#cdd6ee;margin-top:4px}
+.o-note{font-size:11.5px;color:var(--mut);margin-top:5px;line-height:1.5}

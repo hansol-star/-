@@ -107,6 +107,7 @@
   function route() {
     var h = location.hash.replace(/^#/, "");
     if (h.indexOf("stock/") === 0) renderDetail(decodeURIComponent(h.slice(6)));
+    else if (h === "plan") renderPlan();
     else if (h.indexOf("report/") === 0) renderReport(decodeURIComponent(h.slice(7)));
     else if (h === "reports") renderReports();
     else if (h.indexOf("video/") === 0) renderVideo(decodeURIComponent(h.slice(6)));
@@ -207,7 +208,10 @@
     h += '</div></div>';
 
     var GH = "https://github.com/hansol-star/-/actions/workflows/";
-    h += '<div class="nav"><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼 분석</a></div>';
+    h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a></div>';
+
+    // 오늘 할일 요약 + 시간축 전망 (자세히는 #plan)
+    h += planSummary();
     h += '<div class="nav">'
       + '<a class="navbtn run" href="' + GH + 'refresh-prices.yml" target="_blank" rel="noopener">🔄 시세 새로고침</a>'
       + '<a class="navbtn run" href="' + GH + 'daily-report.yml" target="_blank" rel="noopener">🧠 전체 분석</a>'
@@ -305,6 +309,14 @@
 
     if (st.comment) h += '<div class="comment">' + esc(st.comment) + '</div>';
 
+    // 시간축 가격 예상 (주/월 레인지)
+    if (st.forecast) {
+      h += '<div class="sec"><h2>🔮 가격 예상 (시간축 레인지)</h2></div>';
+      h += forecastRow("이번주", st.forecast.week, st.price, st.currency);
+      h += forecastRow("이번달", st.forecast.month, st.price, st.currency);
+      h += '<div class="runhint" style="margin:2px 0 0">레인지는 단기 예측치 — 목표가/매수존과 별개. 분석 참고.</div>';
+    }
+
     var issues = st.issues || [];
     h += '<div class="sec"><h2>최근 이슈 · 체크포인트</h2></div>';
     if (!issues.length) h += '<div class="empty">등록된 이슈가 없어요.</div>';
@@ -319,6 +331,116 @@
   }
   function box(k, v) { return '<div class="b"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>'; }
   function boxFull(k, v) { return '<div class="b full"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>'; }
+
+  // ── 시간축 전망 / 할일 / 매수추적 공용 ──
+  function dirArrow(d) {
+    if (d === "↑") return '<span class="up bold">↑ 상방</span>';
+    if (d === "↓") return '<span class="down bold">↓ 하방</span>';
+    return '<span class="mut bold">→ 중립</span>';
+  }
+  // 종목 가격 예상 한 줄(레인지 바 + 현재가 마커)
+  function forecastRow(label, f, cpx, cur) {
+    if (!f) return "";
+    var lo = f.low, hi = f.high, rng = (hi - lo) || 1;
+    var posv = (cpx == null) ? null : Math.max(0, Math.min(100, (cpx - lo) / rng * 100));
+    var s = '<div class="fc">';
+    s += '<div class="row between"><span class="fc-lb">' + esc(label) + '</span>' + dirArrow(f.dir) + '</div>';
+    s += '<div class="fc-rng">' + price(lo, cur) + ' <span class="mut">~</span> ' + price(hi, cur) + '</div>';
+    s += '<div class="fc-bar">';
+    if (posv != null) s += '<div class="fc-now" style="left:' + posv.toFixed(0) + '%"></div>';
+    s += '</div>';
+    if (cpx != null) s += '<div class="fc-cap"><span class="mut">현재 ' + price(cpx, cur) + '</span></div>';
+    if (f.note) s += '<div class="fc-note">' + esc(f.note) + '</div>';
+    s += '</div>';
+    return s;
+  }
+
+  // 홈 요약: 오늘 할일 진행 + 월요일/이번주 전망 1~2줄
+  function planSummary() {
+    var tc = (D.task_counts && D.task_counts.today) || { done: 0, total: 0 };
+    var ol = D.outlook || [];
+    var key = ol.find(function (o) { return /월요일|내일|이번주/.test(o.horizon); }) || ol[1] || ol[0];
+    var s = '<a class="plansum" href="#plan">';
+    s += '<div class="row between"><span class="ps-t">🗓️ 오늘 할일</span><span class="ps-n">' + tc.done + ' / ' + tc.total + ' 완료</span></div>';
+    if (key) s += '<div class="ps-ol"><span class="otag">' + esc(key.tag || "") + '</span> <b>' + esc(key.horizon) + '</b> · ' + esc(key.text) + '</div>';
+    s += '<div class="ps-more">계획·할일·매수추적 전체 보기 ›</div></a>';
+    return s;
+  }
+
+  // 할일 한 묶음 (체크 = 채팅으로 갱신되는 표시용)
+  function taskGroup(title, arr) {
+    arr = arr || [];
+    var done = arr.filter(function (t) { return t.done; }).length;
+    var s = '<div class="sec"><h2>' + esc(title) + ' <span class="mut">(' + done + '/' + arr.length + ')</span></h2></div>';
+    if (!arr.length) { s += '<div class="empty sm">등록된 할일이 없어요.</div>'; return s; }
+    s += '<div class="tlist">';
+    arr.forEach(function (t) {
+      s += '<div class="trow' + (t.done ? ' done' : '') + '"><span class="tck">' + (t.done ? "✅" : "⬜") + '</span><span class="ttx">' + mdInline(esc(t.text)) + '</span></div>';
+    });
+    s += '</div>';
+    return s;
+  }
+
+  // 매수추적 행
+  function orderRow(o) {
+    var stMap = { "계획": "plan", "예약": "wait", "체결": "fill", "취소": "cxl" };
+    var sc = stMap[o.status] || "plan";
+    var qty = (o.shares != null ? num(o.shares) + "주" : "");
+    var px = (o.price != null) ? price(o.price, /\.K[SQ]$/.test(o.ticker || "") ? "KRW" : "USD") : "";
+    var meta = [px, qty].filter(Boolean).join(" · ");
+    var s = '<div class="ord ' + sc + '">';
+    s += '<div class="row between"><span class="o-nm">' + esc(o.action || "") + ' ' + esc(o.label || "") + '</span><span class="o-st ' + sc + '">' + esc(o.status || "") + '</span></div>';
+    s += '<div class="o-meta">' + esc(meta) + (o.date ? ' <span class="mut">· ' + esc(o.date) + '</span>' : '') + '</div>';
+    if (o.note) s += '<div class="o-note">' + esc(o.note) + '</div>';
+    s += '</div>';
+    return s;
+  }
+
+  // ── PLAN (계획·할일·매수추적·시간축 전망) ──
+  function renderPlan() {
+    var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">🗓️ 계획 · 할일 · 매수추적</div>';
+    h += '<div class="sub">갱신 ' + esc(D.tasks_updated || "") + ' · 체크/매수기록은 채팅으로 “~했어/샀어” → 자동 반영</div></header>';
+
+    // 시간축 장 전망
+    h += '<div class="sec"><h2>📅 장 전망 (오늘·내일·이번주·이번달)</h2></div>';
+    (D.outlook || []).forEach(function (o) {
+      h += '<div class="card ol"><div class="row between" style="margin-bottom:5px"><span class="ol-h"><span class="otag">' + esc(o.tag || "") + '</span> ' + esc(o.horizon) + '</span>' + dirArrow(o.dir) + '</div><div class="ol-tx">' + esc(o.text) + '</div></div>';
+    });
+
+    // 지수 예상 레인지
+    if ((D.index_forecast || []).length) {
+      h += '<div class="sec"><h2>📈 지수 예상 레인지</h2></div>';
+      (D.index_forecast || []).forEach(function (f) {
+        var cur = f.name === "코스피" ? "KRW" : "USD";
+        var fmt = function (v) { return cur === "KRW" ? num(v) : num(v); };
+        h += '<div class="card"><div class="row between"><span class="bold">' + esc(f.name) + '</span>' + dirArrow(f.dir) + '</div>';
+        h += '<div class="fc-rng" style="margin:4px 0">' + fmt(f.low) + ' <span class="mut">~ (기준 ' + fmt(f.base) + ') ~</span> ' + fmt(f.high) + '</div>';
+        h += '<div class="fc-bar">';
+        var rng = (f.high - f.low) || 1, pos = Math.max(0, Math.min(100, (f.ref - f.low) / rng * 100));
+        if (f.ref != null) h += '<div class="fc-now" style="left:' + pos.toFixed(0) + '%"></div>';
+        h += '</div><div class="fc-cap"><span class="mut">현재 ' + fmt(f.ref) + '</span></div>';
+        if (f.note) h += '<div class="fc-note">' + esc(f.note) + '</div></div>';
+        else h += '</div>';
+      });
+    }
+
+    // 매수추적
+    h += '<div class="sec"><h2>🛒 매수 추적 (계획·예약·체결)</h2></div>';
+    var orders = D.orders || [];
+    if (!orders.length) h += '<div class="empty sm">기록된 주문이 없어요. “NAVER 1주 샀어” 라고 하면 추가돼요.</div>';
+    orders.forEach(function (o) { h += orderRow(o); });
+
+    // 할일
+    var tasks = D.tasks || {};
+    h += taskGroup("✅ 오늘 할일", tasks.today);
+    h += taskGroup("📌 이번주 할일", tasks.week);
+    h += taskGroup("🗓️ 이번달 할일", tasks.month);
+
+    h += '<div class="foot">체크·매수기록 정본 = git(tasks.json). 채팅으로 갱신.<br>투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
+
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
 
   // ── HUNTER (경제사냥꾼) ──
   function renderHunter() {

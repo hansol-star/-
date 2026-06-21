@@ -146,6 +146,20 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .caveat{background:#241c10;border:1px solid #5a4d18;border-left:3px solid var(--yellow);
   border-radius:9px;padding:10px 12px;font-size:12.5px;color:#ffe08a;margin-bottom:7px;line-height:1.5}
 
+/* 보고서 종류 필터 */
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px}
+.fchip{background:var(--card);border:1px solid var(--line);color:var(--mut);
+  border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
+.fchip.on{background:#16223c;border-color:#3a5180;color:#bcd0ff}
+.fchip:active{background:var(--card2)}
+
+/* 코드블록 (STATE SNAPSHOT 등) */
+.md-body pre.md{background:#0e1320;border:1px solid var(--line);border-radius:10px;
+  padding:11px 13px;overflow-x:auto;margin:10px 0}
+.md-body pre.md code{background:none;border:none;padding:0;font-size:11.5px;
+  line-height:1.55;white-space:pre;color:#cdd6ee;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
 /* 보고서 목록 */
 .rdate{font-size:11px;font-weight:700;color:var(--mut2);margin:12px 0 2px;letter-spacing:.5px}
 .item.rep{align-items:flex-start}

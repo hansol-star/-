@@ -38,6 +38,15 @@
     while (i < lines.length) {
       var ln = lines[i];
       var t = ln.trim();
+      // 펜스 코드블록 ``` … ``` (STATE SNAPSHOT·핵심 액션 등)
+      if (/^```/.test(t)) {
+        var cb = [];
+        i++;
+        while (i < lines.length && !/^```/.test(lines[i].trim())) { cb.push(lines[i]); i++; }
+        i++; // 닫는 ``` 소비
+        out.push('<pre class="md"><code>' + esc(cb.join("\n")) + "</code></pre>");
+        continue;
+      }
       // 표: |...| 헤더 + |---| 구분 + 본문
       if (t.indexOf("|") === 0 && i + 1 < lines.length && /^\|[\s:|-]+\|?\s*$/.test(lines[i + 1].trim())) {
         var rows = [];
@@ -350,11 +359,24 @@
   }
 
   // ── REPORTS (일일 보고서 목록) ──
+  var reportFilter = "전체";
   function renderReports() {
-    var reps = D.reports || [];
+    var all = D.reports || [];
     var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">📄 일일 보고서</div>';
-    h += '<div class="sub">' + reps.length + '개 · 최신순 · 눌러서 전문 보기</div></header>';
-    if (!reps.length) { h += '<div class="empty">보고서가 없어요. build_app_data.py를 실행하세요.</div>'; root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return; }
+    h += '<div class="sub">' + all.length + '개 · 최신순 · 눌러서 전문 보기</div></header>';
+    if (!all.length) { h += '<div class="empty">보고서가 없어요. build_app_data.py를 실행하세요.</div>'; root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return; }
+
+    // 종류 필터 칩
+    var kinds = ["전체"];
+    all.forEach(function (r) { if (kinds.indexOf(r.kind) === -1) kinds.push(r.kind); });
+    h += '<div class="filters">';
+    kinds.forEach(function (k) {
+      var n = k === "전체" ? all.length : all.filter(function (r) { return r.kind === k; }).length;
+      h += '<button class="fchip' + (k === reportFilter ? " on" : "") + '" data-k="' + esc(k) + '">' + esc(k) + ' ' + n + '</button>';
+    });
+    h += '</div>';
+
+    var reps = reportFilter === "전체" ? all : all.filter(function (r) { return r.kind === reportFilter; });
 
     // 날짜별 그룹
     var lastDate = null;
@@ -372,6 +394,9 @@
     h += '<div class="foot">보고서는 docs/reports/ 의 원문을 그대로 표시 · 매 루틴 실행 시 자동 갱신.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));
+    Array.prototype.forEach.call(root.querySelectorAll(".fchip"), function (b) {
+      b.addEventListener("click", function () { reportFilter = b.getAttribute("data-k"); renderReports(); window.scrollTo(0, 0); });
+    });
   }
 
   // ── REPORT (보고서 전문) ──

@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-06-21 01:31 KST",
+  "generated_at": "2026-06-21 03:45 KST",
   "as_of": "KR 6/19 마감 / US 6/18 종가 (6/20 토·아침 풀브리핑 · 매크로 신규+경제사냥꾼 제주반도체 쇼츠 반영)",
   "source_report": "docs/reports/report_v22_2026-06-20.md (v22)",
   "offline": false,
@@ -99,7 +99,7 @@ window.APP_DATA = {
       "fired": false
     },
     {
-      "id": "두산에너빌리티 십만빌리티",
+      "id": "두산에너빌리티 10만 돌파",
       "ticker": "034020.KS",
       "cond": "above",
       "when": null,
@@ -121,7 +121,7 @@ window.APP_DATA = {
       "ticker": "EVENT",
       "cond": "event",
       "when": "2026-06-24 야간 (6/23 저녁 베이킹)",
-      "action": "+39% 고평가·컨센 상회기대(sold out)·집중도 완화 → 절반 차익 조건부 예약(폰 미가용 → 6/23 사전 베이킹)",
+      "action": "+51% 고평가·컨센 상회기대(sold out)·집중도 완화 → 절반(0.02주) 차익 조건부 예약(폰 미가용 → 6/23 저녁 사전 베이킹, 미장 소수점 시장가)",
       "price": null,
       "fired": null
     },
@@ -770,26 +770,155 @@ window.APP_DATA = {
           "text": "6/26 MSCI 편입 메커닉 vs 8월 첫 20% 락업 언락 — 변동성 주의."
         }
       ]
+    },
+    {
+      "label": "원익IPS",
+      "ticker": "240810.KQ",
+      "currency": "KRW",
+      "price": 156000.0,
+      "change_pct": -4.41,
+      "stars": 3,
+      "target": "눌림 130,000~150,000원 검토",
+      "comment": "반도체 소부장(증착장비). 삼성·하이닉스 증설 수혜. 매수존 무효 — 눌림 분할 관찰. ⚠️Yahoo 시세 보고서값과 불일치 이력 → 인용 전 교차검증.",
+      "issues": [
+        {
+          "date": "2026-06-14",
+          "tag": "검증",
+          "text": "티커 .KS→.KQ(코스닥) 정정."
+        }
+      ]
+    },
+    {
+      "label": "테스",
+      "ticker": "095610.KQ",
+      "currency": "KRW",
+      "price": 166200.0,
+      "change_pct": -5.62,
+      "stars": 3,
+      "target": "눌림 대기",
+      "comment": "반도체 소부장(식각·증착). 소부장 로테이션 수혜, 원익IPS 대비 덜 과열. ⚠️Yahoo 시세 교차검증 필요.",
+      "issues": [
+        {
+          "date": "2026-06-14",
+          "tag": "검증",
+          "text": "티커 .KS→.KQ(코스닥) 정정."
+        }
+      ]
+    },
+    {
+      "label": "SK이노베이션",
+      "ticker": "096770.KS",
+      "currency": "KRW",
+      "price": 102400.0,
+      "change_pct": -1.06,
+      "stars": 3,
+      "target": "—",
+      "comment": "AI 전력난 SMR 테마(테라파워 2대주주·메타 원전 8기 협력설). 단 SK온 적자·정유 변동성 리스크. 6/14 신규 후보.",
+      "issues": [
+        {
+          "date": "2026-06-14",
+          "tag": "미확인",
+          "text": "테라파워 지분·메타 원전 협력 단일출처 → 교차검증 필요."
+        }
+      ]
+    },
+    {
+      "label": "한화에어로",
+      "ticker": "012450.KS",
+      "currency": "KRW",
+      "price": 1122000.0,
+      "change_pct": -5.63,
+      "stars": 4,
+      "target": "—",
+      "comment": "대미투자 방산·조선 직결. 한화가 KAI 9.04% 2대주주(6/17). 재활성 워치. 단 유상증자 희석 리스크 병기.",
+      "issues": [
+        {
+          "date": "2026-06-18",
+          "tag": "정정",
+          "text": "경제사냥꾼 자막 '김승현'→실제 김승연 회장(이름 오타), 지분·경영참여는 일치."
+        }
+      ]
+    },
+    {
+      "label": "삼성중공업",
+      "ticker": "010140.KS",
+      "currency": "KRW",
+      "price": 27550.0,
+      "change_pct": -0.54,
+      "stars": 3,
+      "target": "—",
+      "comment": "대미투자 조선 바스켓. 시행 후 수주 소화 관찰.",
+      "issues": []
+    },
+    {
+      "label": "HD현대중공업",
+      "ticker": "329180.KS",
+      "currency": "KRW",
+      "price": 667000.0,
+      "change_pct": -2.49,
+      "stars": 3,
+      "target": "—",
+      "comment": "대미투자 조선 바스켓. 함정·상선 수주 모멘텀. 시행 후 소화 관찰.",
+      "issues": []
+    },
+    {
+      "label": "T-Mobile",
+      "ticker": "TMUS",
+      "currency": "USD",
+      "price": 181.67,
+      "change_pct": 0.2,
+      "stars": 3,
+      "target": "—",
+      "comment": "스타링크 D2C(다이렉트-투-셀) 위성통신 테마. 통신 안정성 + 위성 옵션.",
+      "issues": []
+    },
+    {
+      "label": "STMicro",
+      "ticker": "STM",
+      "currency": "USD",
+      "price": 78.39,
+      "change_pct": 6.86,
+      "stars": 2,
+      "target": "—",
+      "comment": "차량용·아날로그 반도체. 약세 지속, 후순위. 사이클 회복 확인 전 관망.",
+      "issues": []
+    },
+    {
+      "label": "팔란티어",
+      "ticker": "PLTR",
+      "currency": "USD",
+      "price": 128.47,
+      "change_pct": -1.65,
+      "stars": 3,
+      "target": "$185~200 (+42~53%)",
+      "comment": "AI 소프트웨어 대장(딥다이브 6/18). 고점 -16%·Rule of 40 145%·FCF $4.2B 흑자=준코어. 단 PSR 60~67x(S&P 최고축)·Karp 매도·FOMC 베타 매우 높음(매파에 가장 먼저 디레이팅). 추격금지 — $110~120 눌림 분할만.",
+      "issues": [
+        {
+          "date": "2026-06-18",
+          "tag": "미확인",
+          "text": "PSR 60~67x 고밸류·Karp 본인 매도 → 매파 국면 리스크. 컨센 목표 $185~200."
+        }
+      ]
     }
   ],
   "tranches": [
     {
       "id": "1차",
-      "amount_krw": 125000,
+      "amount_krw": 235000,
       "executed": false,
-      "trigger": "NAVER 225~235k 또는 삼성 295~305k 눌림"
+      "trigger": "국장=정수 1주만(소수점 불가). NAVER 1주(≈229,500, 225~235k) — 단 정리후보라 6/22 외인 재유입 확인 시에만, 아니면 보류. 삼성은 1주 ≈305k+ 별도 필요(현재 354k라 한참 위·눌림 대기)."
     },
     {
       "id": "2차",
       "amount_krw": 200000,
       "executed": false,
-      "trigger": "이란 결렬 + 코스피 8,000 하회"
+      "trigger": "이란 결렬 + 코스피 8,000 하회. 국장은 1주 단위(두산로보 ≈101,800·LG전자 ≈211,500), 미장은 소수점 분할."
     },
     {
       "id": "3차",
-      "amount_krw": 225000,
+      "amount_krw": 189771,
       "executed": false,
-      "trigger": "🔴 FOMC 6/18 매파 확정으로 전면 보류. 재개 조건 = 비둘기 전환 / META 7/29 실적 확인 / 외인 순매수 복귀 중 하나"
+      "trigger": "🔴 FOMC 6/18 매파 확정으로 전면 보류. 재개 조건 = 비둘기 전환 / META 7/29 실적 확인 / 외인 순매수 복귀 중 하나. 재개 시 미장 META·AVGO 소수점 예약(시장가). 1·2·3차 합 = 624,771원(현금 전액)."
     }
   ],
   "fx_history": {

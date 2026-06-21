@@ -295,6 +295,7 @@
       h += box("보유수량", num(st.shares) + '주');
       h += box("평단", price(st.cost, st.currency));
     }
+    if (st.score != null) h += box("스코어(0~100)", scoreBadge(st.score));
     h += box("목표가", esc(st.target || "—"));
     if (isHolding) {
       h += box("매수존", esc(st.buy_zone || "—"));

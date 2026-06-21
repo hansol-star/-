@@ -224,6 +224,7 @@
 | 2026-06-20 | **모델 전 데스크 Opus 4.8 유지**(Sonnet 비용절감 기각) | 정훈 우선순위 = "언제나 최고 결과물, 질 안 떨어뜨림". 자동 다운그레이드는 질 저하 리스크 → 비용보다 품질. |
 | 2026-06-20 | **자가 콜 검증 루프**(self-review) 도입 | 콜이 실제 맞았는지 후행검증·캘리브레이션 필요. 단 룰 자동변경은 금지(교정 제안 → 정훈 확정). |
 | 2026-06-20 | **FMP API 펀더멘털 소스**(`fundamentals.py`) 도입 — 미국주만 | 스코어를 WebSearch '감'에서 하드넘버로. 무료=미국 전용·250회/일이라 **국내 5종목은 WebSearch 유지**(유료 글로벌 플랜은 기각 — 보유 16중 11이 미국주라 무료로 충분). 키=env `FMP_API_KEY`, 조회 전용. |
+| 2026-06-21 | **`fundamentals.py` 필드매핑 버그 수정 + FMP 무료 심볼 제한 확인** | selftest ✅·키 정상. 버그: ①netMargin이 `_pct()` 오용으로 (마진−100) 항상 음수 ②PE는 stable `/quote`에 없음 ③ROE↔FCF/주 엔드포인트가 뒤바뀜 → PE·순마진=`ratios-ttm`, FCF/주=`ratios-ttm`, ROE=`key-metrics-ttm`로 정정(콜 수 증가 0). 무료 키는 **심볼 화이트리스트**라 MU·VOO·ANET·AVGO·ORCL은 quote 402 → WebSearch 폴백. NVDA·AAPL·MSFT·TSLA·GOOGL·META 6종목은 하드넘버→스코어 환산 검증 완료(NVDA 100/⭐5 … TSLA 18/⭐1). |
 
 ---
 

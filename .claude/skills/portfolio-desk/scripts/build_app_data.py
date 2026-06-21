@@ -17,8 +17,10 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import glob
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -28,7 +30,17 @@ PORTFOLIO_JSON = os.path.join(HERE, "..", "portfolio.json")
 STOCKS_JSON = os.path.join(REPO, "data", "app", "stocks.json")
 HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
+REPORTS_DIR = os.path.join(REPO, "docs", "reports")
 OUT_JS = os.path.join(REPO, "app", "data.js")
+
+# 보고서 종류 → 앱 배지 라벨 (파일명 접두어 기준)
+REPORT_KINDS = [
+    ("report_", "보고서"),
+    ("holdings_final", "보유확정"),
+    ("holdings_sell", "매도원칙"),
+    ("holdings_", "보유점검"),
+    ("fomc_", "이벤트"),
+]
 
 sys.path.insert(0, HERE)
 import urllib.request  # noqa: E402
@@ -56,6 +68,64 @@ def fetch_history(symbol: str, rng: str = "1mo", interval: str = "1d", offline: 
         return out
     except Exception:
         return {"dates": [], "closes": []}
+
+
+def _report_kind(name: str) -> str:
+    for prefix, label in REPORT_KINDS:
+        if name.startswith(prefix):
+            return label
+    return "기타"
+
+
+def build_reports() -> list:
+    """docs/reports/*.md 를 스캔해 앱에서 클릭→본문을 볼 수 있는 목록으로.
+
+    각 항목: id·file·title(첫 H1)·date·version·kind(배지)·preview(첫 문단)·content(원문 md).
+    최신순(날짜 desc → 버전 desc → 파일명 desc) 정렬.
+    """
+    reports = []
+    for path in glob.glob(os.path.join(REPORTS_DIR, "*.md")):
+        name = os.path.splitext(os.path.basename(path))[0]
+        try:
+            with open(path, encoding="utf-8") as f:
+                content = f.read()
+        except OSError:
+            continue
+        if not content.strip():
+            continue
+
+        # 제목 = 첫 번째 H1, 없으면 파일명
+        title = name.replace("_", " ")
+        for line in content.splitlines():
+            s = line.strip()
+            if s.startswith("# "):
+                title = s.lstrip("#").strip()
+                break
+
+        # 미리보기 = 헤딩·표·구분선이 아닌 첫 실질 문단
+        preview = ""
+        for line in content.splitlines():
+            s = line.strip()
+            if not s or s.startswith(("#", "|", "-", "*", ">", "`", "=")):
+                continue
+            preview = re.sub(r"[*_`>#]", "", s)[:140]
+            break
+
+        m_date = re.search(r"(\d{4}-\d{2}-\d{2})", name)
+        m_ver = re.search(r"_v(\d+)", name)
+        reports.append({
+            "id": name,
+            "file": "docs/reports/" + os.path.basename(path),
+            "title": title,
+            "date": m_date.group(1) if m_date else "",
+            "version": int(m_ver.group(1)) if m_ver else None,
+            "kind": _report_kind(name),
+            "preview": preview,
+            "content": content,
+        })
+
+    reports.sort(key=lambda r: (r["date"], r["version"] or -1, r["id"]), reverse=True)
+    return reports
 
 
 def load_json(path: str) -> dict:
@@ -220,6 +290,7 @@ def build(offline: bool) -> dict:
     kospi_history = fetch_history("^KS11", offline=offline)
     hunter = load_json_opt(HUNTER_JSON)
     flows = load_json_opt(FLOWS_JSON)
+    reports = build_reports()
 
     return {
         "generated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M KST"),
@@ -246,6 +317,7 @@ def build(offline: bool) -> dict:
         "kospi_history": kospi_history,
         "hunter": hunter,
         "flows": flows,
+        "reports": reports,
     }
 
 
@@ -265,6 +337,7 @@ def main() -> int:
     print(f"✅ app/data.js 생성 — 총자산 {t['assets_krw']:,}원 "
           f"(당일 {t['day_change_krw']:+,}원 / {t['day_change_pct']}%) "
           f"· 보유 {len(data['holdings'])} · 워치 {len(data['watchlist'])} "
+          f"· 보고서 {len(data['reports'])} "
           f"· 발동 알림 {sum(1 for a in data['alerts'] if a['fired'])}건")
     return 0
 

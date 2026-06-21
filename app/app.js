@@ -18,10 +18,77 @@
   function cls(p) { return p == null ? "" : (p >= 0 ? "up" : "down"); }
   function stars(n) { n = n || 0; return "★★★★★".slice(0, n) + "☆☆☆☆☆".slice(0, 5 - n); }
 
+  // 인라인 마크다운 (**굵게**, *기울임*, `코드`, [텍스트](링크)) — 입력은 이미 esc된 상태
+  function mdInline(s) {
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+    s = s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    return s;
+  }
+
+  // 블록 마크다운 → HTML. 헤딩·표(GFM)·리스트·인용·구분선·문단 지원.
+  function mdToHtml(md) {
+    var lines = String(md || "").replace(/\r\n/g, "\n").split("\n");
+    var out = [], i = 0;
+    function flushList(buf, ordered) {
+      if (!buf.length) return;
+      out.push("<" + (ordered ? "ol" : "ul") + ">" + buf.map(function (x) { return "<li>" + mdInline(esc(x)) + "</li>"; }).join("") + "</" + (ordered ? "ol" : "ul") + ">");
+    }
+    while (i < lines.length) {
+      var ln = lines[i];
+      var t = ln.trim();
+      // 표: |...| 헤더 + |---| 구분 + 본문
+      if (t.indexOf("|") === 0 && i + 1 < lines.length && /^\|[\s:|-]+\|?\s*$/.test(lines[i + 1].trim())) {
+        var rows = [];
+        while (i < lines.length && lines[i].trim().indexOf("|") === 0) { rows.push(lines[i].trim()); i++; }
+        var sep = rows.splice(1, 1); // 구분선 제거
+        var cells = function (r) { return r.replace(/^\||\|$/g, "").split("|").map(function (c) { return c.trim(); }); };
+        var html = '<div class="mdtable"><table>';
+        html += "<thead><tr>" + cells(rows[0]).map(function (c) { return "<th>" + mdInline(esc(c)) + "</th>"; }).join("") + "</tr></thead><tbody>";
+        for (var r = 1; r < rows.length; r++) html += "<tr>" + cells(rows[r]).map(function (c) { return "<td>" + mdInline(esc(c)) + "</td>"; }).join("") + "</tr>";
+        html += "</tbody></table></div>";
+        out.push(html);
+        continue;
+      }
+      // 헤딩
+      var hm = t.match(/^(#{1,6})\s+(.*)$/);
+      if (hm) { var lv = hm[1].length; out.push("<h" + lv + ' class="md h' + lv + '">' + mdInline(esc(hm[2])) + "</h" + lv + ">"); i++; continue; }
+      // 구분선
+      if (/^([-*_])\1{2,}$/.test(t)) { out.push('<hr class="md">'); i++; continue; }
+      // 인용
+      if (t.indexOf("> ") === 0 || t === ">") { out.push('<blockquote>' + mdInline(esc(t.replace(/^>\s?/, ""))) + "</blockquote>"); i++; continue; }
+      // 순서 없는 리스트
+      if (/^[-*+]\s+/.test(t)) {
+        var ub = [];
+        while (i < lines.length && /^[-*+]\s+/.test(lines[i].trim())) { ub.push(lines[i].trim().replace(/^[-*+]\s+/, "")); i++; }
+        flushList(ub, false); continue;
+      }
+      // 순서 있는 리스트
+      if (/^\d+[.)]\s+/.test(t)) {
+        var ob = [];
+        while (i < lines.length && /^\d+[.)]\s+/.test(lines[i].trim())) { ob.push(lines[i].trim().replace(/^\d+[.)]\s+/, "")); i++; }
+        flushList(ob, true); continue;
+      }
+      // 빈 줄
+      if (!t) { i++; continue; }
+      // 문단 (연속 텍스트 줄 묶기)
+      var pb = [];
+      while (i < lines.length && lines[i].trim() && !/^(#{1,6}\s|[-*+]\s|\d+[.)]\s|>\s|\|)/.test(lines[i].trim()) && !/^([-*_])\1{2,}$/.test(lines[i].trim())) {
+        pb.push(lines[i].trim()); i++;
+      }
+      if (pb.length) out.push("<p>" + mdInline(esc(pb.join(" "))) + "</p>");
+    }
+    return out.join("\n");
+  }
+
   // ── routing (hash) ──
   function route() {
     var h = location.hash.replace(/^#/, "");
     if (h.indexOf("stock/") === 0) renderDetail(decodeURIComponent(h.slice(6)));
+    else if (h.indexOf("report/") === 0) renderReport(decodeURIComponent(h.slice(7)));
+    else if (h === "reports") renderReports();
+    else if (h.indexOf("video/") === 0) renderVideo(decodeURIComponent(h.slice(6)));
     else if (h === "hunter") renderHunter();
     else renderHome();
     window.scrollTo(0, 0);
@@ -118,7 +185,7 @@
     h += '</div></div>';
 
     var GH = "https://github.com/hansol-star/-/actions/workflows/";
-    h += '<div class="nav"><a class="navbtn" href="#hunter">🎬 경제사냥꾼 분석</a></div>';
+    h += '<div class="nav"><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼 분석</a></div>';
     h += '<div class="nav">'
       + '<a class="navbtn run" href="' + GH + 'refresh-prices.yml" target="_blank" rel="noopener">🔄 시세 새로고침</a>'
       + '<a class="navbtn run" href="' + GH + 'daily-report.yml" target="_blank" rel="noopener">🧠 전체 분석</a>'
@@ -242,16 +309,18 @@
     if (hu.channel_note) h += '<div class="comment sm">' + esc(hu.channel_note) + '</div>';
 
     var vids = hu.latest_videos || [];
-    h += '<div class="sec"><h2>최신 영상 분석 (' + vids.length + ')</h2></div>';
-    vids.forEach(function (v) {
-      h += '<div class="vid"><div class="top"><span class="itag ' + esc(v.tag || "") + '">' + esc(v.tag || "") + '</span><span class="dt">' + esc(v.date || "") + '</span></div>';
+    h += '<div class="sec"><h2>최신 영상 분석 (' + vids.length + ') · 눌러서 자세히</h2></div>';
+    vids.forEach(function (v, idx) {
+      var vid = v.id || String(idx);
+      h += '<div class="vid tappable" onclick="location.hash=\'video/' + encodeURIComponent(vid) + '\'">';
+      h += '<div class="top"><span class="itag ' + esc(v.tag || "") + '">' + esc(v.tag || "") + '</span><span class="dt">' + esc(v.date || "") + '</span><span class="vmore">자세히 ›</span></div>';
       h += '<div class="vtitle">' + esc(v.title) + '</div>';
-      h += '<div class="tx">' + esc(v.summary) + '</div>';
+      h += '<div class="tx clamp">' + esc(v.summary) + '</div>';
       if (v.tickers && v.tickers.length) {
         h += '<div class="row wrap" style="gap:5px;margin-top:7px">';
         v.tickers.forEach(function (tk) {
           var st = find(tk); var nm = st ? st.label : tk;
-          h += '<a class="tchip" href="#stock/' + encodeURIComponent(tk) + '">' + esc(nm) + '</a>';
+          h += '<span class="tchip">' + esc(nm) + '</span>';
         });
         h += '</div>';
       }
@@ -273,6 +342,127 @@
       h += '<div class="sec"><h2>🔭 반복 논지 · 테마</h2></div><div class="list">';
       th.forEach(function (x) { h += '<div class="theme">' + esc(x) + '</div>'; });
       h += '</div>';
+    }
+
+    h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 투자 자문 아님.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── REPORTS (일일 보고서 목록) ──
+  function renderReports() {
+    var reps = D.reports || [];
+    var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">📄 일일 보고서</div>';
+    h += '<div class="sub">' + reps.length + '개 · 최신순 · 눌러서 전문 보기</div></header>';
+    if (!reps.length) { h += '<div class="empty">보고서가 없어요. build_app_data.py를 실행하세요.</div>'; root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return; }
+
+    // 날짜별 그룹
+    var lastDate = null;
+    h += '<div class="list">';
+    reps.forEach(function (r) {
+      if (r.date && r.date !== lastDate) { h += '<div class="rdate">' + esc(r.date) + '</div>'; lastDate = r.date; }
+      h += '<div class="item rep" onclick="location.hash=\'report/' + encodeURIComponent(r.id) + '\'">';
+      h += '<div class="flex1"><div class="row" style="gap:6px"><span class="tag">' + esc(r.kind || "") + '</span>';
+      if (r.version != null) h += '<span class="tag vtag">v' + esc(r.version) + '</span>';
+      h += '</div><div class="nm" style="margin-top:5px">' + esc(r.title) + '</div>';
+      if (r.preview) h += '<div class="rprev">' + esc(r.preview) + '</div>';
+      h += '</div><span class="chev">›</span></div>';
+    });
+    h += '</div>';
+    h += '<div class="foot">보고서는 docs/reports/ 의 원문을 그대로 표시 · 매 루틴 실행 시 자동 갱신.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── REPORT (보고서 전문) ──
+  function renderReport(id) {
+    var reps = D.reports || [];
+    var r = null;
+    for (var i = 0; i < reps.length; i++) if (reps[i].id === id) { r = reps[i]; break; }
+    if (!r) { root.innerHTML = '<header><a class="back" href="#reports">← 보고서 목록</a></header><div class="empty">보고서를 찾을 수 없어요.</div>'; return; }
+
+    var h = '<header><a class="back" href="#reports">← 보고서 목록</a></header>';
+    h += '<div class="rphead"><div class="row" style="gap:6px"><span class="tag">' + esc(r.kind || "") + '</span>';
+    if (r.version != null) h += '<span class="tag vtag">v' + esc(r.version) + '</span>';
+    if (r.date) h += '<span class="dt">' + esc(r.date) + '</span>';
+    h += '</div><div class="rptitle">' + esc(r.title) + '</div><div class="rpfile mut sm">' + esc(r.file) + '</div></div>';
+    h += '<div class="md-body">' + mdToHtml(r.content) + '</div>';
+    h += '<div class="foot">투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── VIDEO (경제사냥꾼 영상 상세) ──
+  function renderVideo(id) {
+    var hu = D.hunter || {};
+    var vids = hu.latest_videos || [];
+    var v = null;
+    for (var i = 0; i < vids.length; i++) { if ((vids[i].id || String(i)) === id) { v = vids[i]; break; } }
+    if (!v) { root.innerHTML = '<header><a class="back" href="#hunter">← 경제사냥꾼</a></header><div class="empty">영상을 찾을 수 없어요.</div>'; return; }
+
+    var h = '<header><a class="back" href="#hunter">← 경제사냥꾼</a></header>';
+    h += '<div class="vhead"><div class="top"><span class="itag ' + esc(v.tag || "") + '">' + esc(v.tag || "") + '</span><span class="dt">' + esc(v.date || "") + '</span></div>';
+    h += '<div class="vhtitle">' + esc(v.title) + '</div>';
+    if (v.link) h += '<a class="vlink" href="' + esc(v.link) + '" target="_blank" rel="noopener">▶ 영상 보기</a>';
+    h += '</div>';
+
+    // 요약
+    h += '<div class="sec"><h2>요약</h2></div>';
+    h += '<div class="comment">' + esc(v.summary || "—") + '</div>';
+
+    // 핵심 포인트
+    if (v.points && v.points.length) {
+      h += '<div class="sec"><h2>핵심 포인트</h2></div><div class="vpoints">';
+      v.points.forEach(function (p) { h += '<div class="vpoint">' + esc(p) + '</div>'; });
+      h += '</div>';
+    }
+
+    // 언급 (서술)
+    if (v.mentions) {
+      h += '<div class="sec"><h2>언급 내용</h2></div>';
+      h += '<div class="comment sm">' + esc(v.mentions) + '</div>';
+    }
+
+    // 언급 종목 (칩 → 종목 상세)
+    if (v.tickers && v.tickers.length) {
+      h += '<div class="sec"><h2>언급 종목</h2></div><div class="row wrap" style="gap:6px">';
+      v.tickers.forEach(function (tk) {
+        var st = find(tk); var nm = st ? st.label : tk;
+        h += '<a class="tchip" href="#stock/' + encodeURIComponent(tk) + '">' + esc(nm) + '</a>';
+      });
+      h += '</div>';
+    }
+
+    // 참고 (출처)
+    if (v.references && v.references.length) {
+      h += '<div class="sec"><h2>참고 · 출처</h2></div><div class="row wrap" style="gap:6px">';
+      v.references.forEach(function (rf) { h += '<span class="refchip">' + esc(rf) + '</span>'; });
+      h += '</div>';
+    }
+
+    // 주의 · 미확인
+    if (v.caveats && v.caveats.length) {
+      h += '<div class="sec"><h2>⚠ 주의 · 교차검증</h2></div>';
+      v.caveats.forEach(function (c) { h += '<div class="caveat">' + esc(c) + '</div>'; });
+    }
+
+    // 관련 트랙레코드 (티커 교차)
+    var tset = {};
+    (v.tickers || []).forEach(function (tk) { tset[tk] = 1; });
+    var related = (hu.track_record || []).filter(function (rec) {
+      var c = rec.claim || "";
+      return (v.tickers || []).some(function (tk) {
+        var st = find(tk); var nm = st ? st.label : "";
+        return (nm && c.indexOf(nm) !== -1);
+      });
+    });
+    if (related.length) {
+      h += '<div class="sec"><h2>📊 검증 이력 (트랙레코드)</h2></div>';
+      related.forEach(function (rec) {
+        h += '<div class="trk"><div class="row between"><span class="dt">' + esc(rec.date) + '</span><span class="itag ' + esc(rec.verdict || "") + '">' + esc(rec.verdict || "") + '</span></div>';
+        h += '<div class="tx sm"><b>주장:</b> ' + esc(rec.claim) + '</div>';
+        h += '<div class="tx sm mut"><b>실제:</b> ' + esc(rec.actual) + '</div></div>';
+      });
     }
 
     h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 투자 자문 아님.</div>';

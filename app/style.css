@@ -67,6 +67,9 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .item .tk{color:var(--mut2);font-size:11px;margin-top:1px}
 .item .px{font-weight:700;font-size:15px}
 .stars{color:var(--gold);font-size:11px;letter-spacing:1px}
+.score{font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:6px;background:var(--card2);border:1px solid var(--line);color:var(--mut);line-height:1.4}
+.score.up{color:var(--up);border-color:var(--up)}
+.score.down{color:var(--down);border-color:var(--down)}
 .flex1{flex:1;min-width:0}
 .tag{font-size:10.5px;padding:2px 7px;border-radius:7px;background:var(--card2);color:var(--mut);border:1px solid var(--line)}
 

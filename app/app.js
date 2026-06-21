@@ -17,6 +17,12 @@
   function pct(p) { if (p == null) return "—"; return (p >= 0 ? "+" : "") + Number(p).toFixed(2) + "%"; }
   function cls(p) { return p == null ? "" : (p >= 0 ? "up" : "down"); }
   function stars(n) { n = n || 0; return "★★★★★".slice(0, n) + "☆☆☆☆☆".slice(0, 5 - n); }
+  // 0~100 정량 스코어 배지 (null=ETF 등 채점 제외 → 표시 안 함). 색: 85+강세·55+중립·그외 약세
+  function scoreBadge(s) {
+    if (s == null) return "";
+    var t = s >= 85 ? "up" : (s >= 55 ? "" : "down");
+    return '<span class="score ' + t + '">' + s + '</span>';
+  }
 
   // 인라인 마크다운 (**굵게**, *기울임*, `코드`, [텍스트](링크)) — 입력은 이미 esc된 상태
   function mdInline(s) {
@@ -263,7 +269,7 @@
     var line = '<div class="item" onclick="location.hash=\'stock/' + encodeURIComponent(st.ticker) + '\'">';
     line += '<span class="dot ' + (st.outlook || "hold") + '"></span>';
     line += '<div class="flex1"><div class="nm">' + esc(st.label) + '</div>';
-    line += '<div class="row" style="gap:8px;margin-top:1px"><span class="stars">' + stars(st.stars) + '</span><span class="tk">' + esc(st.ticker) + '</span></div></div>';
+    line += '<div class="row" style="gap:8px;margin-top:1px"><span class="stars">' + stars(st.stars) + '</span>' + scoreBadge(st.score) + '<span class="tk">' + esc(st.ticker) + '</span></div></div>';
     line += '<div class="right"><div class="px">' + price(st.price, st.currency) + '</div>';
     line += '<div class="sm ' + cls(st.change_pct) + '">' + pct(st.change_pct);
     if (isHolding && pnl != null) line += ' <span class="mut">·</span> <span class="' + cls(pnl) + '">' + pct(pnl) + '</span>';
@@ -278,7 +284,7 @@
     var isHolding = st.region != null;
 
     var h = '<header><a class="back" href="#">← 포트폴리오</a></header>';
-    h += '<div class="dhero"><div class="row between"><div class="nm">' + esc(st.label) + '</div><div class="stars" style="font-size:14px">' + stars(st.stars) + '</div></div>';
+    h += '<div class="dhero"><div class="row between"><div class="nm">' + esc(st.label) + '</div><div class="row" style="gap:6px;align-items:center"><div class="stars" style="font-size:14px">' + stars(st.stars) + '</div>' + scoreBadge(st.score) + '</div></div>';
     h += '<div class="tk mut sm">' + esc(st.ticker) + '</div>';
     h += '<div class="dprice">' + price(st.price, st.currency) + ' <span class="' + cls(st.change_pct) + '" style="font-size:16px">' + pct(st.change_pct) + '</span></div></div>';
 

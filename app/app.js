@@ -65,8 +65,14 @@
       if (hm) { var lv = hm[1].length; out.push("<h" + lv + ' class="md h' + lv + '">' + mdInline(esc(hm[2])) + "</h" + lv + ">"); i++; continue; }
       // 구분선
       if (/^([-*_])\1{2,}$/.test(t)) { out.push('<hr class="md">'); i++; continue; }
-      // 인용
-      if (t.indexOf("> ") === 0 || t === ">") { out.push('<blockquote>' + mdInline(esc(t.replace(/^>\s?/, ""))) + "</blockquote>"); i++; continue; }
+      // 인용 (연속 > 줄을 한 블록으로)
+      if (t.indexOf("> ") === 0 || t === ">") {
+        var qb = [];
+        while (i < lines.length && (lines[i].trim().indexOf("> ") === 0 || lines[i].trim() === ">")) {
+          qb.push(mdInline(esc(lines[i].trim().replace(/^>\s?/, "")))); i++;
+        }
+        out.push("<blockquote>" + qb.join("<br>") + "</blockquote>"); continue;
+      }
       // 순서 없는 리스트
       if (/^[-*+]\s+/.test(t)) {
         var ub = [];
@@ -411,7 +417,9 @@
     if (r.version != null) h += '<span class="tag vtag">v' + esc(r.version) + '</span>';
     if (r.date) h += '<span class="dt">' + esc(r.date) + '</span>';
     h += '</div><div class="rptitle">' + esc(r.title) + '</div><div class="rpfile mut sm">' + esc(r.file) + '</div></div>';
-    h += '<div class="md-body">' + mdToHtml(r.content) + '</div>';
+    // 본문 첫 H1은 헤더 제목과 중복 → 제거하고 렌더
+    var body = String(r.content || "").replace(/^﻿?\s*#\s+.*(\r?\n|$)/, "");
+    h += '<div class="md-body">' + mdToHtml(body) + '</div>';
     h += '<div class="foot">투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));

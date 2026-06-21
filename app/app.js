@@ -104,6 +104,7 @@
     else if (h.indexOf("report/") === 0) renderReport(decodeURIComponent(h.slice(7)));
     else if (h === "reports") renderReports();
     else if (h.indexOf("video/") === 0) renderVideo(decodeURIComponent(h.slice(6)));
+    else if (h === "archive") renderArchive();
     else if (h === "hunter") renderHunter();
     else renderHome();
     window.scrollTo(0, 0);
@@ -323,6 +324,21 @@
     if (hu.headline) h += '<div class="hl">💡 ' + esc(hu.headline) + '</div>';
     if (hu.channel_note) h += '<div class="comment sm">' + esc(hu.channel_note) + '</div>';
 
+    // 채널 정확도 스코어카드 (전체 아카이브 기준) + 전체 아카이브 진입
+    var sc = hu.scorecard;
+    var arch = D.hunter_archive || [];
+    if (sc && sc.total) {
+      var bk = sc.buckets || {};
+      h += '<div class="scard"><div class="row between"><span class="sck">📊 채널 정확도 <span class="mut sm">(분석 ' + sc.total + '건)</span></span><span class="scacc">' + sc.accuracy_pct + '%</span></div>';
+      h += '<div class="scbar">';
+      var segs = [["정확", "#34d399", bk["정확"]], ["근사", "#7dd3fc", bk["근사"]], ["시점", "#9db4ff", bk["시점"]], ["미확인", "#ffd87a", bk["미확인"]], ["정정", "#fb6a6a", bk["정정"]], ["과장", "#f0883e", bk["과장"]]];
+      segs.forEach(function (s) { if (s[2]) h += '<span class="scseg" style="flex:' + s[2] + ';background:' + s[1] + '" title="' + s[0] + ' ' + s[2] + '"></span>'; });
+      h += '</div><div class="row wrap sclegend">';
+      segs.forEach(function (s) { if (s[2]) h += '<span><span class="lg" style="background:' + s[1] + '"></span>' + s[0] + ' ' + s[2] + '</span>'; });
+      h += '</div><div class="mut xs" style="margin-top:6px">방향성 채택 · 숫자는 교차검증 전제. 정확+근사 = 방향 적중.</div></div>';
+    }
+    if (arch.length) h += '<div class="nav"><a class="navbtn" href="#archive">🗂️ 전체 영상 아카이브 (' + arch.length + ')</a></div>';
+
     var vids = hu.latest_videos || [];
     h += '<div class="sec"><h2>최신 영상 분석 (' + vids.length + ') · 눌러서 자세히</h2></div>';
     vids.forEach(function (v, idx) {
@@ -501,6 +517,54 @@
     h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 투자 자문 아님.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── ARCHIVE (경제사냥꾼 전체 영상 데이터) ──
+  var archFilter = "전체";
+  function verdictClass(v) {
+    v = v || "";
+    if (v.indexOf("정정") >= 0 || v.indexOf("오류") >= 0) return "정정";
+    if (v.indexOf("미확인") >= 0) return "미확인";
+    if (v.indexOf("과장") >= 0) return "과장";
+    return "검증";
+  }
+  function renderArchive() {
+    var all = D.hunter_archive || [];
+    var h = '<header><a class="back" href="#hunter">← 경제사냥꾼</a><div class="title" style="margin-top:6px">🗂️ 전체 영상 아카이브</div>';
+    h += '<div class="sub">' + all.length + '개 · 첫 영상부터 시계열 · 종목으로 필터</div></header>';
+    if (!all.length) { h += '<div class="empty">아카이브 데이터가 없어요.</div>'; root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return; }
+
+    // 보유/워치 종목으로 필터 칩 구성 (영상이 실제 언급한 것만)
+    var tkCount = {};
+    all.forEach(function (v) { (v.tickers || []).forEach(function (tk) { tkCount[tk] = (tkCount[tk] || 0) + 1; }); });
+    var chips = ["전체"].concat(Object.keys(tkCount).sort(function (a, b) { return tkCount[b] - tkCount[a]; }));
+    h += '<div class="filters">';
+    chips.forEach(function (k) {
+      var label = k === "전체" ? ("전체 " + all.length) : ((function () { var st = find(k); return (st ? st.label : k); })() + " " + tkCount[k]);
+      h += '<button class="fchip' + (k === archFilter ? " on" : "") + '" data-k="' + esc(k) + '">' + esc(label) + '</button>';
+    });
+    h += '</div>';
+
+    var rows = archFilter === "전체" ? all : all.filter(function (v) { return (v.tickers || []).indexOf(archFilter) >= 0; });
+    var lastDate = null;
+    rows.forEach(function (v) {
+      if (v.date !== lastDate) { h += '<div class="rdate">' + esc(v.date) + '</div>'; lastDate = v.date; }
+      h += '<div class="avid"><div class="row between" style="gap:8px"><span class="avtitle">' + esc(v.title) + '</span><span class="itag ' + verdictClass(v.verdict) + '">' + esc(v.verdict || "") + '</span></div>';
+      if (v.theme) h += '<div class="atheme">' + esc(v.theme) + '</div>';
+      h += '<div class="atx">' + esc(v.takeaway || "") + '</div>';
+      if (v.tickers && v.tickers.length) {
+        h += '<div class="row wrap" style="gap:5px;margin-top:6px">';
+        v.tickers.forEach(function (tk) { var st = find(tk); h += '<a class="tchip" href="#stock/' + encodeURIComponent(tk) + '">' + esc(st ? st.label : tk) + '</a>'; });
+        h += '</div>';
+      }
+      h += '</div>';
+    });
+    h += '<div class="foot">방향성 채택 · 수치는 교차검증 · 투자 자문 아님.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+    Array.prototype.forEach.call(root.querySelectorAll(".fchip"), function (b) {
+      b.addEventListener("click", function () { archFilter = b.getAttribute("data-k"); renderArchive(); window.scrollTo(0, 0); });
+    });
   }
 
   if (!D) { root.innerHTML = '<div class="empty">데이터(data.js)가 없어요. build_app_data.py를 먼저 실행하세요.</div>'; return; }

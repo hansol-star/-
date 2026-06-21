@@ -29,6 +29,7 @@ REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 PORTFOLIO_JSON = os.path.join(HERE, "..", "portfolio.json")
 STOCKS_JSON = os.path.join(REPO, "data", "app", "stocks.json")
 HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
+HUNTER_ARCHIVE_JSON = os.path.join(REPO, "data", "app", "hunter_archive.json")
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
 REPORTS_DIR = os.path.join(REPO, "docs", "reports")
 OUT_JS = os.path.join(REPO, "app", "data.js")
@@ -126,6 +127,35 @@ def build_reports() -> list:
 
     reports.sort(key=lambda r: (r["date"], r["version"] or -1, r["id"]), reverse=True)
     return reports
+
+
+def hunter_scorecard(verdicts) -> dict:
+    """판정 리스트를 집계해 채널 정확도 스코어카드 산출.
+
+    버킷: 정확(검증/방향/개선) · 근사 · 시점 · 미확인 · 정정(자막오류 포함) · 과장.
+    accuracy = (정확+근사) / 전체. 채널 신뢰도를 정량화해 '방향성 채택·숫자 교차검증'
+    원칙을 데이터로 뒷받침한다. (전체 영상 아카이브 verdict 기준)
+    """
+    b = {"정확": 0, "근사": 0, "시점": 0, "미확인": 0, "정정": 0, "과장": 0}
+    for v in verdicts:
+        v = str(v)
+        if "미확인" in v and "검증" not in v:
+            b["미확인"] += 1
+        elif "정정" in v or "오류" in v:
+            b["정정"] += 1
+        elif "과장" in v:
+            b["과장"] += 1
+        elif "근사" in v or "일부" in v:
+            b["근사"] += 1
+        elif "시점" in v:
+            b["시점"] += 1
+        elif "검증" in v or "개선" in v:
+            b["정확"] += 1
+        else:
+            b["미확인"] += 1
+    total = sum(b.values())
+    acc = round((b["정확"] + b["근사"]) / total * 100) if total else None
+    return {"buckets": b, "total": total, "accuracy_pct": acc}
 
 
 def load_json(path: str) -> dict:
@@ -289,6 +319,13 @@ def build(offline: bool) -> dict:
     fx_history = fetch_history("KRW=X", offline=offline)
     kospi_history = fetch_history("^KS11", offline=offline)
     hunter = load_json_opt(HUNTER_JSON)
+    archive = load_json_opt(HUNTER_ARCHIVE_JSON)
+    archive_videos = archive.get("videos", []) if isinstance(archive, dict) else []
+    if hunter:
+        # 전체 아카이브 verdict 기준(없으면 track_record 폴백)으로 채널 정확도 집계
+        verdicts = [v.get("verdict", "") for v in archive_videos] \
+            or [r.get("verdict", "") for r in hunter.get("track_record", [])]
+        hunter["scorecard"] = hunter_scorecard(verdicts)
     flows = load_json_opt(FLOWS_JSON)
     reports = build_reports()
 
@@ -316,6 +353,7 @@ def build(offline: bool) -> dict:
         "fx_history": fx_history,
         "kospi_history": kospi_history,
         "hunter": hunter,
+        "hunter_archive": archive_videos,
         "flows": flows,
         "reports": reports,
     }

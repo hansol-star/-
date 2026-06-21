@@ -125,6 +125,21 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .itag.검증·일부정정{background:#22281a;color:#cfe07a}
 .itag.과장,.itag.자막오류,.itag.시점변화{background:#2a2410;color:#ffd87a}
 
+/* 채널 정확도 스코어카드 */
+.scard{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 14px;margin-bottom:10px}
+.sck{font-weight:700;font-size:13.5px}
+.scacc{font-weight:800;font-size:20px;color:var(--green)}
+.scbar{display:flex;height:9px;border-radius:5px;overflow:hidden;margin:9px 0 8px;background:var(--card2)}
+.scseg{display:block;min-width:3px}
+.sclegend{gap:9px;font-size:11px;color:var(--mut)}
+.sclegend .lg{width:9px;height:9px;border-radius:2px}
+
+/* 아카이브 영상 행 */
+.avid{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:11px 12px;margin-bottom:8px}
+.avtitle{font-weight:700;font-size:13.5px;line-height:1.35;flex:1;min-width:0}
+.atheme{font-size:11px;color:var(--accent);margin-top:4px;font-weight:600}
+.atx{font-size:12.5px;color:#dfe5f2;line-height:1.5;margin-top:5px}
+
 /* 영상 카드 → 탭 가능 */
 .vid.tappable{cursor:pointer;transition:background .12s}
 .vid.tappable:active{background:var(--card2)}

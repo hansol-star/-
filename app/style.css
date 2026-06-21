@@ -251,8 +251,12 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
   border-radius:11px;padding:11px 12px}
 .trow .tck{flex:none;font-size:15px;line-height:1.3}
 .trow .ttx{font-size:13px;color:#dfe5f2;line-height:1.5}
-.trow.done{opacity:.55}
+.trow.tog{cursor:pointer}
+.trow.tog:active{background:var(--card2)}
+.trow.done{opacity:.6}
 .trow.done .ttx{text-decoration:line-through;color:var(--mut)}
+.trow .tlock{flex:none;font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;
+  background:#10241c;color:#8ff0c9;align-self:center;margin-left:auto}
 
 /* 매수추적 */
 .ord{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--mut2);

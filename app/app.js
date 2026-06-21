@@ -356,26 +356,38 @@
   }
 
   // 홈 요약: 오늘 할일 진행 + 월요일/이번주 전망 1~2줄
+  // 할일 체크 — 이 폰 임시저장(localStorage). git(채팅)이 정본: 정본 done=true는 고정,
+  // 아직 정본에 없는 할일만 앱에서 탭 토글. 정본이 항상 우선.
+  var LS_TASK = "jh_task_done";
+  function lsTasks() { try { return JSON.parse((window.localStorage && localStorage.getItem(LS_TASK)) || "{}"); } catch (e) { return {}; } }
+  function lsSetTask(id, v) { try { var m = lsTasks(); if (v) m[id] = 1; else delete m[id]; localStorage.setItem(LS_TASK, JSON.stringify(m)); } catch (e) {} }
+  function taskDone(t) { return !!(t.done || lsTasks()[t.id]); }
+
   function planSummary() {
-    var tc = (D.task_counts && D.task_counts.today) || { done: 0, total: 0 };
+    var today = (D.tasks && D.tasks.today) || [];
+    var done = today.filter(taskDone).length;
     var ol = D.outlook || [];
     var key = ol.find(function (o) { return /월요일|내일|이번주/.test(o.horizon); }) || ol[1] || ol[0];
     var s = '<a class="plansum" href="#plan">';
-    s += '<div class="row between"><span class="ps-t">🗓️ 오늘 할일</span><span class="ps-n">' + tc.done + ' / ' + tc.total + ' 완료</span></div>';
+    s += '<div class="row between"><span class="ps-t">🗓️ 오늘 할일</span><span class="ps-n">' + done + ' / ' + today.length + ' 완료</span></div>';
     if (key) s += '<div class="ps-ol"><span class="otag">' + esc(key.tag || "") + '</span> <b>' + esc(key.horizon) + '</b> · ' + esc(key.text) + '</div>';
     s += '<div class="ps-more">계획·할일·매수추적 전체 보기 ›</div></a>';
     return s;
   }
 
-  // 할일 한 묶음 (체크 = 채팅으로 갱신되는 표시용)
+  // 할일 한 묶음. 정본 done=true=잠금(✅고정) · 그 외=탭 토글 가능
   function taskGroup(title, arr) {
     arr = arr || [];
-    var done = arr.filter(function (t) { return t.done; }).length;
+    var done = arr.filter(taskDone).length;
     var s = '<div class="sec"><h2>' + esc(title) + ' <span class="mut">(' + done + '/' + arr.length + ')</span></h2></div>';
     if (!arr.length) { s += '<div class="empty sm">등록된 할일이 없어요.</div>'; return s; }
     s += '<div class="tlist">';
     arr.forEach(function (t) {
-      s += '<div class="trow' + (t.done ? ' done' : '') + '"><span class="tck">' + (t.done ? "✅" : "⬜") + '</span><span class="ttx">' + mdInline(esc(t.text)) + '</span></div>';
+      var d = taskDone(t), locked = !!t.done;
+      s += '<div class="trow' + (d ? " done" : "") + (locked ? " lock" : " tog") + '" data-id="' + esc(t.id) + '">'
+        + '<span class="tck">' + (d ? "✅" : "⬜") + '</span>'
+        + '<span class="ttx">' + mdInline(esc(t.text)) + '</span>'
+        + (locked ? '<span class="tlock">정본</span>' : '') + '</div>';
     });
     s += '</div>';
     return s;
@@ -399,7 +411,7 @@
   // ── PLAN (계획·할일·매수추적·시간축 전망) ──
   function renderPlan() {
     var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">🗓️ 계획 · 할일 · 매수추적</div>';
-    h += '<div class="sub">갱신 ' + esc(D.tasks_updated || "") + ' · 체크/매수기록은 채팅으로 “~했어/샀어” → 자동 반영</div></header>';
+    h += '<div class="sub">갱신 ' + esc(D.tasks_updated || "") + ' · 할일은 탭으로 체크(이 폰 임시) · 매수기록·영구반영은 채팅 “~했어/샀어”</div></header>';
 
     // 시간축 장 전망
     h += '<div class="sec"><h2>📅 장 전망 (오늘·내일·이번주·이번달)</h2></div>';
@@ -436,10 +448,21 @@
     h += taskGroup("📌 이번주 할일", tasks.week);
     h += taskGroup("🗓️ 이번달 할일", tasks.month);
 
-    h += '<div class="foot">체크·매수기록 정본 = git(tasks.json). 채팅으로 갱신.<br>투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
+    h += '<div class="foot">앱 체크 = 이 폰 임시저장 · 정본 = git(채팅으로 “했어” 하면 영구반영·다른 기기에도).<br>투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
 
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));
+
+    // 할일 탭 체크 (정본 잠금 제외) — localStorage 토글 후 스크롤 유지 재렌더
+    Array.prototype.forEach.call(root.querySelectorAll(".trow.tog"), function (rowEl) {
+      rowEl.addEventListener("click", function () {
+        var id = rowEl.getAttribute("data-id");
+        lsSetTask(id, !lsTasks()[id]);
+        var y = window.scrollY || 0;
+        renderPlan();
+        window.scrollTo(0, y);
+      });
+    });
   }
 
   // ── HUNTER (경제사냥꾼) ──

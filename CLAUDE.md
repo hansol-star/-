@@ -119,8 +119,8 @@
 
 ## 현재 상태 요약 (최신 보고서 STATE SNAPSHOT이 항상 정본 — 여기엔 잘 안 바뀌는 것만)
 
-- **최신 보고서 = `docs/reports/`에서 가장 높은 `report_v*.md`(현재 **v26**·2026-06-22, 다음 = 최신+1).** 세션 시작 시 그 STATE SNAPSHOT을 직접 읽는다. **당일 시세·수급·환율·현금잔액·대기 트리거·워치리스트는 거기가 정본 — 여기 중복 표기 안 함(stale/drift 방지).** 종목별 전망·별점/스코어 상세 = `docs/holdings_outlook.md`.
-  - ⚠️ 이 'v26' 토큰은 `validate_report.py`가 실제 최신 보고서와 일치하는지 검사(어긋나면 FAIL). 새 보고서 낼 때 이 줄도 같이 +1 갱신.
+- **최신 보고서 = `docs/reports/`에서 가장 높은 `report_v*.md`(현재 **v27**·2026-06-22, 다음 = 최신+1).** 세션 시작 시 그 STATE SNAPSHOT을 직접 읽는다. **당일 시세·수급·환율·현금잔액·대기 트리거·워치리스트는 거기가 정본 — 여기 중복 표기 안 함(stale/drift 방지).** 종목별 전망·별점/스코어 상세 = `docs/holdings_outlook.md`.
+  - ⚠️ 이 'v27' 토큰은 `validate_report.py`가 실제 최신 보고서와 일치하는지 검사(어긋나면 FAIL). 새 보고서 낼 때 이 줄도 같이 +1 갱신.
 - 보유 16종목 변동 없음(국내 5: 삼성·LG전자·두산로보·현대차·NAVER / 미국 11: NVDA·MU·AAPL·VOO·MSFT·ANET·TSLA·AVGO·GOOGL·META·ORCL). ※수량·현금·매수 변동은 **STATE SNAPSHOT·portfolio.json**이 정본.
 - 핵심 원칙: **데이터 우선(코어) vs 모멘텀(테마) 구분**(두산로보·TSLA 펀더<20=모멘텀, 별점 +1 상한). **0~100 정량 스코어 16종목**(미국=FMP 하드넘버·국내=증권사 컨센·VOO=ETF제외) → 별점↔스코어 밴드 고정(**85~100=⭐5 / 70~84=⭐4 / 55~69=⭐3 / 40~54=⭐2 / <40=⭐1**), 어긋나면 재점검(`validate_report.py` WARN). 토스 **미국만 소수점 예약, 국내는 정수 1주 이상**(6/21 교정). 🌐 리서치 시 증권사 sell-side + 외신 우선.
 - ✅ **커밋·머지 전 완료검증(하네스 ②)**: `python3 .claude/skills/portfolio-desk/scripts/validate_report.py` 돌려 **FAIL 0** 확인(보유16·풀표 컬럼·별점/스코어 밴드·정본 버전 stale). 빌더 자가채점 대신 기계 게이트 — '다 됐다' 선언 전 답안지.

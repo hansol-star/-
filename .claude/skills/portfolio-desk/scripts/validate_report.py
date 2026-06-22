@@ -37,7 +37,6 @@ HOLDINGS = {
     "AVGO": ["AVGO", "브로드컴"],
 }
 ETF_NO_SCORE = {"VOO"}                 # ETF = 0~100 스코어 제외(null 허용)
-MOMENTUM = {"454910.KS", "TSLA"}       # 펀더<20 모멘텀주 = 별점 +1 상한 허용
 REQUIRED_COLS = ["stars", "target", "buy_zone", "trim", "comment"]  # +score(ETF 외)
 
 FAILS, WARNS = [], []
@@ -86,10 +85,10 @@ def check_stocks():
             fail(f"{t}: score={sc!r} (0~100 정수 아님 · ETF만 null 허용)"); continue
         if isinstance(st, int):
             exp = band_star(sc)
-            ok = {exp, exp + 1} if t in MOMENTUM else {exp}
-            if st not in ok:
-                tag = " (모멘텀 +1 한도 초과)" if t in MOMENTUM else ""
-                warn(f"{t}: ⭐{st} vs score {sc}→밴드 ⭐{exp} 불일치 — 근거 재점검{tag}")
+            # 정성가중: 별점은 score밴드 ±1 이내 허용(코어 확신·리스크 보수·모멘텀 가점).
+            # ±2 이상 벌어지면 재점검 필요 → WARN. 모멘텀주(454910·TSLA)는 score가 낮아 자동 ±1 수렴.
+            if abs(st - exp) >= 2:
+                warn(f"{t}: ⭐{st} vs score {sc}→밴드 ⭐{exp} ±2 이상 어긋남 — 근거 재점검")
     if not d.get("as_of"):        warn("stocks.json: as_of 비어있음")
     if not d.get("source_report"): warn("stocks.json: source_report 비어있음")
 

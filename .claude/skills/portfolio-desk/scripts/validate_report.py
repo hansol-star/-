@@ -165,13 +165,35 @@ def check_report(rel):
     if absent:
         warn(f"{rel}: 본문에 안 보이는 보유종목 {absent} (풀표 누락 가능 — 확인)")
 
+# ── F. 정본 일관성: portfolio.json(원가·trigger 기계정본) ↔ stocks.json(앱 정본) ─
+def check_consistency():
+    pf = load(".claude/skills/portfolio-desk/portfolio.json")
+    sj = load("data/app/stocks.json")
+    if not pf or not sj:
+        return
+    flat = pf.get("holdings", {}).get("kr", []) + pf.get("holdings", {}).get("us", [])
+    pf_tk = {x.get("ticker") for x in flat}
+    sj_tk = set(sj.get("stocks", {}).keys())
+    if pf_tk - sj_tk:
+        fail(f"portfolio.json holdings에만(stocks 누락): {sorted(pf_tk - sj_tk)}")
+    if sj_tk - pf_tk:
+        fail(f"stocks.json에만(portfolio holdings 누락): {sorted(sj_tk - pf_tk)} — pnl·trigger가 못 봄")
+    for x in flat:
+        if not x.get("cost"):
+            fail(f"portfolio.json {x.get('ticker')}: cost(원가) 없음 — 수익률 정본 누락")
+    pf_w = {x.get("ticker") for x in pf.get("watchlist", [])}
+    sjw = sj.get("watchlist", {})
+    sj_w = set(sjw.keys()) if isinstance(sjw, dict) else {x.get("ticker") for x in sjw}
+    if pf_w != sj_w:
+        warn(f"워치 불일치 portfolio↔stocks: portfolio만 {sorted(pf_w - sj_w)} / stocks만 {sorted(sj_w - pf_w)}")
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", help="검사할 보고서 .md (생략 시 최신 자동)")
     ap.add_argument("--no-report", action="store_true", help="보고서 파일 검사 생략")
     a = ap.parse_args()
 
-    check_stocks(); check_flows(); check_tasks()
+    check_stocks(); check_flows(); check_tasks(); check_consistency()
     latest = latest_version(); check_versions(latest)
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

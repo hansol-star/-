@@ -63,6 +63,11 @@ jobs:
       - name: Rebuild app data (시세·손익·이슈 최신화)
         run: python3 .claude/skills/portfolio-desk/scripts/build_app_data.py || true
 
+      - name: 완료검증 게이트 (하네스 ② — 무인이라 FAIL이어도 커밋은 진행, 로그에 표기)
+        run: |
+          python3 .claude/skills/portfolio-desk/scripts/validate_report.py \
+            || echo "⚠️ validate FAIL — 무인 백업이라 커밋은 진행. 로그 확인 후 다음 실행서 교정."
+
       - name: Commit & push report
         run: |
           git config user.name "portfolio-desk-bot"

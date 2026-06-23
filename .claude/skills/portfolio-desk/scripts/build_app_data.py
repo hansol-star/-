@@ -388,6 +388,20 @@ def main() -> int:
         f.write("// 자동 생성 — build_app_data.py. 직접 수정 금지.\n")
         f.write("window.APP_DATA = " + payload + ";\n")
 
+    # 서비스워커 캐시 버전을 빌드 시각으로 자동 스탬프 → 매 배포 시 폰의 옛 셸 캐시 자동 폐기.
+    # (캐시 버전이 고정이면 app.js/style.css/index.html 갱신이 폰에 안 붙는 문제가 재발하므로
+    #  build 때마다 버전을 바꿔 SW activate가 옛 캐시를 지우게 한다.)
+    sw_path = os.path.join(os.path.dirname(OUT_JS), "sw.js")
+    if os.path.exists(sw_path):
+        stamp = re.sub(r"[^0-9]", "", data["generated_at"]) or "0"  # 예: 202606230846
+        with open(sw_path, "r", encoding="utf-8") as f:
+            sw = f.read()
+        sw2 = re.sub(r'var CACHE = "[^"]*";',
+                     'var CACHE = "jh-portfolio-%s";' % stamp, sw, count=1)
+        if sw2 != sw:
+            with open(sw_path, "w", encoding="utf-8") as f:
+                f.write(sw2)
+
     t = data["totals"]
     print(f"✅ app/data.js 생성 — 총자산 {t['assets_krw']:,}원 "
           f"(당일 {t['day_change_krw']:+,}원 / {t['day_change_pct']}%) "

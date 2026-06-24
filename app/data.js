@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-06-24 08:44 KST",
+  "generated_at": "2026-06-24 09:42 KST",
   "as_of": "KR 6/24 종가 확정(🔄데드캣 반등 코스피 +3.26%·8,471.02, 외인 −4.66~5.16조 추가 투매·진정 아님 / 삼성 +9.84%·시총1위 탈환 / 개인·기관 양매수 견인) / US 6/23 최종종가(22:30 개장 전 프로즌) · v30 저녁 집행 지시서(addendum) || 폰창 = 국내 시간외 전면 관망(추격금지·외인 진정 실패) + MU 절반차익 0.02주 예약 베이킹(집중도 헤지·22:30 집행). MSCI 한국 선진국 관찰대상 재제외 확정. 펀더 스코어 v30 유지(수급·센티·매크로 충격, 채점 미변경)",
   "source_report": "docs/reports/report_v30_2026-06-24.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1545.16
+    "usdkrw": 1548.08
   },
   "totals": {
-    "assets_krw": 8210720,
-    "stocks_value_krw": 7585949,
+    "assets_krw": 8221864,
+    "stocks_value_krw": 7597093,
     "cash_krw": 624771,
-    "day_change_krw": -42956,
+    "day_change_krw": -43160,
     "day_change_pct": -0.56,
-    "total_pnl_krw": 285022,
-    "total_pnl_pct": 3.9
+    "total_pnl_krw": 296166,
+    "total_pnl_pct": 4.06
   },
   "safety": {
     "pin": 7500,
@@ -478,9 +478,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 200.04,
       "change_pct": -4.13,
-      "value_krw": 1588187,
+      "value_krw": 1591188,
       "pnl_pct": 0.27,
-      "pnl_krw": 95095,
+      "pnl_krw": 98097,
       "outlook": "core",
       "stars": 5,
       "score": 100,
@@ -529,9 +529,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 562.2,
       "change_pct": -0.29,
-      "value_krw": 980846,
+      "value_krw": 982700,
       "pnl_pct": -11.32,
-      "pnl_krw": -61766,
+      "pnl_krw": -59912,
       "outlook": "core",
       "stars": 4,
       "score": 75,
@@ -575,9 +575,9 @@ window.APP_DATA = {
       "cost": 645.4,
       "price": 676.34,
       "change_pct": -1.42,
-      "value_krw": 1014521,
+      "value_krw": 1016438,
       "pnl_pct": 4.79,
-      "pnl_krw": 101960,
+      "pnl_krw": 103877,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -616,9 +616,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 373.94,
       "change_pct": 1.8,
-      "value_krw": 833761,
+      "value_krw": 835337,
       "pnl_pct": -8.84,
-      "pnl_krw": -28368,
+      "pnl_krw": -26793,
       "outlook": "core",
       "stars": 4,
       "score": 71,
@@ -667,9 +667,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 294.3,
       "change_pct": -0.91,
-      "value_krw": 919700,
+      "value_krw": 921438,
       "pnl_pct": 14.45,
-      "pnl_krw": 162235,
+      "pnl_krw": 163973,
       "outlook": "hold",
       "stars": 3,
       "score": 58,
@@ -713,9 +713,9 @@ window.APP_DATA = {
       "cost": 387.73,
       "price": 346.13,
       "change_pct": -0.98,
-      "value_krw": 234257,
+      "value_krw": 234700,
       "pnl_pct": -10.73,
-      "pnl_krw": -13097,
+      "pnl_krw": -12655,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -769,9 +769,9 @@ window.APP_DATA = {
       "cost": 422.51,
       "price": 381.61,
       "change_pct": -5.79,
-      "value_krw": 92992,
+      "value_krw": 93168,
       "pnl_pct": -9.68,
-      "pnl_krw": -4059,
+      "pnl_krw": -3883,
       "outlook": "hold",
       "stars": 2,
       "score": 18,
@@ -815,9 +815,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 165.16,
       "change_pct": -5.66,
-      "value_krw": 54916,
+      "value_krw": 55020,
       "pnl_pct": -28.85,
-      "pnl_krw": -17836,
+      "pnl_krw": -17732,
       "outlook": "hold",
       "stars": 3,
       "score": 74,
@@ -866,9 +866,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 162.2,
       "change_pct": -7.08,
-      "value_krw": 71052,
+      "value_krw": 71187,
       "pnl_pct": 0.08,
-      "pnl_krw": 4131,
+      "pnl_krw": 4265,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -907,9 +907,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 1051.77,
       "change_pct": -13.18,
-      "value_krw": 65006,
+      "value_krw": 65129,
       "pnl_pct": 40.42,
-      "pnl_krw": 21369,
+      "pnl_krw": 21492,
       "outlook": "core",
       "stars": 5,
       "score": 99,
@@ -983,9 +983,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 380.15,
       "change_pct": -3.06,
-      "value_krw": 41809,
+      "value_krw": 41888,
       "pnl_pct": -9.72,
-      "pnl_krw": -1842,
+      "pnl_krw": -1763,
       "outlook": "hold",
       "stars": 4,
       "score": 83,
@@ -1426,7 +1426,7 @@ window.APP_DATA = {
       1537.56,
       1531.33,
       1539.05,
-      1544.79
+      1548.3
     ]
   },
   "kospi_history": {
@@ -3594,8 +3594,8 @@ window.APP_DATA = {
       },
       {
         "id": "t-0624-2",
-        "text": "★저녁 폰창(17:30~) MU 절반차익(0.02주, 소수점=시장가) 예약 베이킹 — 집행 22:30(6/25 새벽 실적 직전). 美 미개장으로 추가 갭다운 '지속' 미트리거 → 실행분기 활성 = 집중도 헤지 실행권고. (폰서 직접 예약 누르면 채팅으로 '예약 걸었어' → status 예약 갱신)",
-        "done": false
+        "text": "✅[완료 18:40] MU 절반차익 0.019999주 소수점 시장가 예약 체결 대기 — 예상 $21.83(33,557원·환율 1,537.20), 집행 22:30~04:00(6/25 새벽 실적 직전). 집중도 헤지 베이킹 완료. 체결은 22:30 후 portfolio 갱신.",
+        "done": true
       },
       {
         "id": "t-0624-3",
@@ -3655,7 +3655,7 @@ window.APP_DATA = {
   },
   "task_counts": {
     "today": {
-      "done": 2,
+      "done": 3,
       "total": 4
     },
     "week": {
@@ -3685,12 +3685,15 @@ window.APP_DATA = {
       "label": "MU 절반차익",
       "ticker": "MU",
       "action": "매도(절반)",
-      "status": "계획",
+      "status": "예약",
       "price": 1051.77,
-      "shares": 0.02,
-      "amount_krw": 0,
+      "shares": 0.019999,
+      "amount_usd": 21.83,
+      "amount_krw": 33557,
+      "fx": 1537.2,
       "date": "2026-06-24",
-      "note": "집중도 헤지 = ★실행권고(베이킹). MU −13.18%($1,051.77, +40.4%·고점 +61.7%서 축소). ★6/24 저녁 결정: 美 미개장으로 '추가 갭다운 지속' 분기 미트리거 → 실행분기 활성. 목적=집중도 완화(수익극대화 아님)이라 −13% 단가도 정당, 야간 실적 ±11~17% 바이너리 꼬리리스크를 절반 제거+나머지 절반 업사이드 유지. 0.02주 소수점 시장가 예약, 집행 22:30=6/25 새벽 실적 직전. 리스크데스크: 메모리 4종 동조 −7~13% 현실화 → 권고. 컨센 매출 $34.5~35.6B·EPS $19.7~20.6·HBM 완판·GM81% 무손상, 골드만만 중립. (폰서 예약 누르면 채팅 '예약 걸었어' → status 예약 갱신)"
+      "exec_at": "22:30",
+      "note": "✅6/24 18:40 정훈 예약 체결 대기 — 0.019999주 소수점 시장가 매도, 예상 $21.83(33,557원·기준환율 1,537.20), 거래시간 22:30~04:00 집행(6/25 새벽 실적 직전), 취소 가능. 집중도 헤지=실행권고대로 베이킹 완료. MU −13.18%($1,051.77, +40.4%·고점 +61.7%서 축소). 목적=집중도 완화(수익극대화 아님)이라 −13% 단가도 정당, 야간 실적 ±11~17% 바이너리 꼬리리스크를 절반 제거+나머지 절반 업사이드 유지. 리스크데스크: 메모리 4종 동조 −7~13% 현실화 → 권고. 컨센 매출 $34.5~35.6B·EPS $19.7~20.6·HBM 완판·GM81% 무손상, 골드만만 중립. 체결은 22:30 후 portfolio.json·master.md 수량 갱신."
     }
   ],
   "tasks_updated": "2026-06-24"

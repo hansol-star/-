@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/market_data.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/pnl.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/triggers.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/consensus.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/earnings.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/fundamentals.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/snapshot.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/charts.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/build_app_data.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/validate_report.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/score_calls.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git branch:*)",
+      "WebSearch",
+      "Read",
+      "Glob",
+      "Grep"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/validate-on-stop.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

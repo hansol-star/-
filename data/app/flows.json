@@ -1,6 +1,6 @@
 {
   "_comment": "코스피 투자자별 순매수(억원). 보고서에 문서화된 확정값만 시드. 보고서마다 kr-market-desk가 당일 외인/기관/개인 확정 시 series에 prepend(최신은 뒤). 추측 금지 — 미확인 일자는 null.",
-  "updated": "2026-06-23",
+  "updated": "2026-06-24",
   "unit": "억원",
   "market": "코스피",
   "series": [

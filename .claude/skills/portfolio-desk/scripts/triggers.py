@@ -62,9 +62,99 @@ def evaluate(alert: dict) -> dict:
     return {**alert, "state": "fired" if fired else "armed", "price": price, "detail": detail}
 
 
+# ── 포지션 사이징 (리스크매니저 정량화 — ai-hedge-fund Risk Manager 착안) ──────
+# 산문 "3분할" → 현금·안전핀 버퍼·집중도 기반 '이번 트랜치 권장 규모 + 단일종목 비중 상한'.
+CONCENTRATION_CAP = 0.25          # 단일종목 최대 비중(주식평가액 대비)
+
+
+def _level(cfg, cond, ticker):
+    for a in cfg.get("alerts", []):
+        if a.get("cond") == cond and a.get("ticker") == ticker:
+            return a.get("level")
+    return None
+
+
+def recommend_tranche(cfg, kospi):
+    """안전핀까지 버퍼로 다음 트랜치 권장 규모를 스케일. 안전핀 하회 시 0(동결)."""
+    pin = _level(cfg, "below", "^KS11") or 7500          # 안전핀(가장 낮은 below가 7500)
+    tranches = cfg.get("tranches", [])
+    nxt = next((t for t in tranches if not t.get("executed")), None)
+    base = (nxt or {}).get("amount_krw", 0)
+    if kospi is None:
+        return {"amount": None, "reason": "코스피 시세 조회 실패 — 수동 판단"}
+    if kospi < pin:
+        return {"amount": 0, "buffer_pct": (kospi - pin) / pin * 100,
+                "reason": f"코스피 {kospi:,.0f} < 안전핀 {pin:,.0f} — 잔여 트랜치 전면 동결(물타기 금지)"}
+    buf = (kospi - pin) / pin * 100
+    if buf < 5:
+        scale, note = 0.5, "안전핀 임박(버퍼<5%) — 절반만·천천히 분할"
+    elif buf < 15:
+        scale, note = 1.0, "정상 버퍼 — 계획 트랜치대로 3분할"
+    else:
+        scale, note = 1.0, "버퍼 충분 — 단 추격금지(눌림에만, 갭당일 진입 회피)"
+    amt = round(base * scale)
+    return {"amount": amt, "per_split": round(amt / 3), "buffer_pct": buf,
+            "tranche_id": (nxt or {}).get("id"), "base": base, "scale": scale, "reason": note}
+
+
+def concentration(cfg):
+    """보유 종목별 실시간 평가비중 + 집중도 상한 초과 플래그."""
+    fxq = fetch_quote("KRW=X")
+    fx = (fxq or {}).get("price") or 1380.0
+    vals = {}
+    for region, lst in (cfg.get("holdings", {}) or {}).items():
+        for h in lst:
+            q = fetch_quote(h["ticker"])
+            p = None if (not q or q.get("error")) else q.get("price")
+            if p is None:
+                continue
+            v = h.get("shares", 0) * p * (fx if region == "us" else 1)
+            vals[h.get("label", h["ticker"])] = v
+    total = sum(vals.values())
+    if total <= 0:
+        return {"total_krw": 0, "weights": [], "flags": [], "fx": fx}
+    weights = sorted(((k, v, v / total * 100) for k, v in vals.items()),
+                     key=lambda x: -x[1])
+    flags = [(k, w) for k, _, w in weights if w > CONCENTRATION_CAP * 100]
+    return {"total_krw": total, "fx": fx,
+            "weights": [(k, round(v), round(w, 1)) for k, v, w in weights],
+            "flags": [(k, round(w, 1)) for k, w in flags]}
+
+
+def sizing_panel(cfg):
+    kq = fetch_quote("^KS11")
+    kospi = None if (not kq or kq.get("error")) else kq.get("price")
+    rec = recommend_tranche(cfg, kospi)
+    con = concentration(cfg)
+    cash = cfg.get("cash_krw")
+    print("\n## 포지션 사이징 (정량)\n")
+    if cash is not None:
+        print(f"- 가용 현금: **{cash:,.0f}원**")
+    if rec.get("amount") is None:
+        print(f"- 권장 트랜치: — ({rec['reason']})")
+    elif rec["amount"] == 0:
+        print(f"- 🔴 권장 트랜치: **0원** — {rec['reason']}")
+    else:
+        cap_amt = min(rec["amount"], cash) if cash else rec["amount"]
+        print(f"- 권장 트랜치({rec.get('tranche_id','다음')}): **{cap_amt:,.0f}원** "
+              f"(3분할 1회 ≈ {round(cap_amt/3):,.0f}원) · 버퍼 {rec['buffer_pct']:+.1f}%")
+        print(f"    ↳ {rec['reason']}")
+    if con["total_krw"]:
+        print(f"- 주식 평가액 {con['total_krw']:,.0f}원 · 단일종목 상한 {CONCENTRATION_CAP*100:.0f}%")
+        top = con["weights"][:5]
+        print("    비중 상위: " + ", ".join(f"{k} {w}%" for k, _, w in top))
+        if con["flags"]:
+            for k, w in con["flags"]:
+                print(f"    ⚠️ **{k} {w}%** > 상한 {CONCENTRATION_CAP*100:.0f}% — 추가매수 금지·트림 후보")
+        else:
+            print(f"    ✅ 상한 초과 종목 없음")
+    return {"recommend": rec, "concentration": con, "kospi": kospi, "cash_krw": cash}
+
+
 def main() -> int:
-    ap = argparse.ArgumentParser(description="트리거·매수존 실시간 점검")
+    ap = argparse.ArgumentParser(description="트리거·매수존 실시간 점검 + 포지션 사이징")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--no-size", action="store_true", help="포지션 사이징 패널 생략(시세 호출 절감)")
     args = ap.parse_args()
 
     with open(CFG, encoding="utf-8") as f:
@@ -72,7 +162,14 @@ def main() -> int:
     results = [evaluate(a) for a in cfg.get("alerts", [])]
 
     if args.json:
-        print(json.dumps(results, ensure_ascii=False, indent=2))
+        out = {"triggers": results}
+        if not args.no_size:
+            kq = fetch_quote("^KS11")
+            kospi = None if (not kq or kq.get("error")) else kq.get("price")
+            out["sizing"] = {"recommend": recommend_tranche(cfg, kospi),
+                             "concentration": concentration(cfg), "kospi": kospi,
+                             "cash_krw": cfg.get("cash_krw")}
+        print(json.dumps(out, ensure_ascii=False, indent=2))
         return 0
 
     icon = {"fired": "🔴 발동", "armed": "🟢 대기", "event": "📅 이벤트", "signal": "📡 신호", "error": "⚠️ 오류"}
@@ -91,6 +188,8 @@ def main() -> int:
             print(f"    ↳ {r['action']}")
     if not fired:
         print("\n→ 발동된 트리거 없음. 대기 상태 유지.")
+    if not args.no_size:
+        sizing_panel(cfg)
     return 0
 
 

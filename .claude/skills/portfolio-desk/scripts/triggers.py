@@ -22,8 +22,22 @@ from __future__ import annotations
 import argparse
 import json
 import os
+from datetime import date
 
 from market_data import fetch_quote
+
+
+def _dday(date_str: str | None):
+    """'YYYY-MM-DD' → (남은일수 int, 표시문자열). 파싱 실패/없음이면 (None, '')."""
+    if not date_str:
+        return None, ""
+    try:
+        y, m, d = (int(x) for x in date_str.split("-"))
+        delta = (date(y, m, d) - date.today()).days
+        txt = "D-DAY" if delta == 0 else (f"D-{delta}" if delta > 0 else f"D+{-delta} 경과")
+        return delta, txt
+    except Exception:
+        return None, ""
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = os.path.join(HERE, "..", "portfolio.json")
@@ -32,7 +46,10 @@ CFG = os.path.join(HERE, "..", "portfolio.json")
 def evaluate(alert: dict) -> dict:
     cond = alert.get("cond")
     if cond == "event":
-        return {**alert, "state": "event", "price": None, "detail": alert.get("when", "")}
+        delta, txt = _dday(alert.get("date"))
+        when = alert.get("when", "")
+        detail = (f"[{txt}] " if txt else "") + when
+        return {**alert, "state": "event", "price": None, "detail": detail, "dday": delta}
     if cond == "signal":
         return {**alert, "state": "signal", "price": None, "detail": alert.get("when", "매 보고서")}
 
@@ -174,12 +191,21 @@ def main() -> int:
 
     icon = {"fired": "🔴 발동", "armed": "🟢 대기", "event": "📅 이벤트", "signal": "📡 신호", "error": "⚠️ 오류"}
     fired = [r for r in results if r["state"] == "fired"]
+    imminent = sorted(
+        (r for r in results if r["state"] == "event" and r.get("dday") is not None and 0 <= r["dday"] <= 7),
+        key=lambda x: x["dday"],
+    )
 
     print("## 트리거 점검\n")
     if fired:
         print("### 🔴 지금 발동된 트리거")
         for r in fired:
             print(f"- **{r['id']}** — {r['detail']}\n  → {r['action']}")
+        print()
+    if imminent:
+        print("### ⏰ 임박 이벤트 (D-7 이내 — 사전 베이킹 점검)")
+        for r in imminent:
+            print(f"- **{r['id']}**: {r['detail']}\n    ↳ {r['action']}")
         print()
     print("### 전체")
     for r in results:

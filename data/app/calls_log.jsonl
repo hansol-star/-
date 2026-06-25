@@ -78,3 +78,19 @@
 {"date": "2026-06-24", "ticker": "ORCL", "stars": 3, "score": 74, "target": "$252.64 (+38.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v30_2026-06-24.md"}
 {"date": "2026-06-24", "ticker": "TSLA", "stars": 2, "score": 18, "target": "$420.55 (ARK 2029 $2,600)", "buy_zone": "관망", "source_report": "docs/reports/report_v30_2026-06-24.md"}
 {"date": "2026-06-24", "ticker": "VOO", "stars": 4, "score": null, "target": "— (ETF)", "buy_zone": "적립", "source_report": "docs/reports/report_v30_2026-06-24.md"}
+{"date": "2026-06-25", "ticker": "005380.KS", "stars": 3, "score": 49, "target": "600,000원 (공격 800,000원)", "buy_zone": "관망", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "005930.KS", "stars": 5, "score": 87, "target": "480,000~530,000원 (KB 53만·미래 48만)", "buy_zone": "295,000~305,000원 (현재가 위 — 눌림 대기)", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "035420.KS", "stars": 2, "score": 51, "target": "~300,000원 (메리츠 410,000원)", "buy_zone": "225,000~235,000원 (6/23 종가 202.5k = 존 한참 아래)", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "066570.KS", "stars": 4, "score": 66, "target": "컨센 초과 (12~23만 이미 상회)", "buy_zone": "홀딩 (추가매수 보류)", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "454910.KS", "stars": 2, "score": 17, "target": "분산 큼 (컨센 109k ~ 극단 300k)", "buy_zone": "관망", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "AAPL", "stars": 3, "score": 58, "target": "$312.72 (+7.4%)", "buy_zone": "목표근접", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "ANET", "stars": 4, "score": 78, "target": "$189.13 (+15.9%)", "buy_zone": "홀딩", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "AVGO", "stars": 4, "score": 83, "target": "$522.06 (+36.6%)", "buy_zone": "조정주", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "GOOGL", "stars": 5, "score": 91, "target": "$432.83 (+20.3%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "META", "stars": 4, "score": 75, "target": "$827.32 (+45.9%)", "buy_zone": "실적확인 (7/29 전 보류)", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "MSFT", "stars": 4, "score": 71, "target": "$561.39 (+43.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "MU", "stars": 5, "score": 99, "target": "$1,200~1,750 (Susquehanna $1,750·UBS $1,625·Citi $1,200·MS $1,050·골드만 중립, 6/24 실적 후 일제 상향)", "buy_zone": "6/25 실적(목 새벽)", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "NVDA", "stars": 5, "score": 100, "target": "$298.93 (+45.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "ORCL", "stars": 3, "score": 74, "target": "$252.64 (+38.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "TSLA", "stars": 2, "score": 18, "target": "$420.55 (ARK 2029 $2,600)", "buy_zone": "관망", "source_report": "docs/reports/report_v31_2026-06-25.md"}
+{"date": "2026-06-25", "ticker": "VOO", "stars": 4, "score": null, "target": "— (ETF)", "buy_zone": "적립", "source_report": "docs/reports/report_v31_2026-06-25.md"}

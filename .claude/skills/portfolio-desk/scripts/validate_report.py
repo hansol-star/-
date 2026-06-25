@@ -135,14 +135,23 @@ def check_versions(latest):
     tk = load("data/app/tasks.json")
     if tk and ver(tk.get("source_report")) and ver(tk.get("source_report")) < latest:
         warn(f"tasks.json source_report=v{ver(tk.get('source_report'))} < 최신 v{latest}")
+    # CLAUDE.md (자동로드 지도). 한/영 하이브리드 토큰 모두 인식.
     cp = os.path.join(ROOT, "CLAUDE.md")
     if os.path.exists(cp):
         txt = open(cp, encoding="utf-8").read()
-        m = re.search(r"최신[^\n]*?v(\d+)", txt) or re.search(r"현재[^\n]*?\bv(\d+)\b", txt)
+        m = (re.search(r"최신[^\n]*?v(\d+)", txt) or re.search(r"현재[^\n]*?\bv(\d+)\b", txt)
+             or re.search(r"(?:latest|current)[^\n]*?\bv(\d+)\b", txt, re.I))
         if m and int(m.group(1)) < latest:
             fail(f"CLAUDE.md 현재상태 = v{m.group(1)} < 최신 v{latest} (지도가 stale — 새 세션이 옛 상태로 출발)")
         elif not m:
             warn("CLAUDE.md 에서 현재 버전 토큰을 못 찾음 (검증 생략)")
+    # config_overview.md (인덱스/지도). v28→v31 stale 재발 방지 [2026-06-25].
+    op = os.path.join(ROOT, "docs/config_overview.md")
+    if os.path.exists(op):
+        otxt = open(op, encoding="utf-8").read()
+        om = re.search(r"현재[^\n]*?\bv(\d+)\b", otxt) or re.search(r"정본[^\n]*?\bv(\d+)\b", otxt)
+        if om and int(om.group(1)) < latest:
+            fail(f"config_overview.md 정본 = v{om.group(1)} < 최신 v{latest} (인덱스 stale)")
 
 # ── E. 보고서 파일(선택): 디스클레이머 1회·STATE SNAPSHOT·16종목 등장 ──────
 def latest_report_path(latest):

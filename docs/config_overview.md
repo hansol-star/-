@@ -11,7 +11,7 @@
 **일일 포트폴리오 보고서**를 만들고, 결과를 `docs/reports/`·`data/app/`에 저장→git 커밋→main 머지로 연속성을 유지한다.
 폰 앱(GitHub Pages)으로 시세·손익·할일을 본다.
 
-- **별도 `.claude/settings.json` / `.mcp.json` 없음** — 권한·MCP·훅을 레포에 고정해두지 않았다(웹 하네스 기본값 사용).
+- **`.claude/settings.json` 있음** [2026-06-24] — 권한 allowlist(루틴 스크립트·읽기전용 git 무프롬프트) + **Stop 훅**(`.claude/hooks/validate-on-stop.sh`: 보고서/정본 변경 시 `validate_report.py` 자동실행). `.mcp.json`은 없음(웹 하네스 기본 MCP 사용).
 - 운영 정책은 전부 **CLAUDE.md(상시지침)** 와 **스킬 문서**로 표현된다.
 
 ---
@@ -24,6 +24,7 @@
 | `docs/master.md` | 데이터·원가 고정·룰·워치리스트·일정·결정 메모리(§9)의 source of truth. |
 | `docs/holdings_outlook.md` | 종목별 전망·별점/스코어 상세. |
 | `README.md` | 레포 외부용 설명. |
+| `.claude/settings.json` | 권한 allowlist + Stop 훅(validate 자동실행). 룰의 기계 강제. |
 
 ---
 
@@ -83,7 +84,7 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 
 ## 5. 데이터·산출물
 
-- **보고서**: `docs/reports/report_v{N}_{날짜}.md` (현재 정본 = **v28** · 2026-06-23). 끝에 STATE SNAPSHOT 블록.
+- **보고서**: `docs/reports/report_v{N}_{날짜}.md` (정본 = `docs/reports/`에서 가장 높은 `report_v*` — 현재 **v31**·2026-06-25). 끝에 STATE SNAPSHOT 블록. ※이 버전 토큰은 `validate_report.py`가 stale 검사.
 - **포트폴리오 정본**: `.claude/skills/portfolio-desk/portfolio.json` (수량·현금·원가)
 - **앱 데이터**: `data/app/{stocks,tasks,flows,hunter,hunter_archive}.json` → `build_app_data.py` → `app/data.js`
 - **계획·할일·매수추적**: `data/app/tasks.json` (앱 #plan 화면 정본, 채팅 기반으로 갱신)
@@ -92,7 +93,12 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 
 ---
 
-## 6. 자동화 (`.github/workflows/`)
+## 6. 루틴 & 자동화
+
+**Claude Code Routines(구독·무인)** — 프롬프트 정본 = `docs/routines.md`:
+- R1 아침 풀 브리핑(평일) · R2 폰창 집행 지시서(평일) · R3 야간 점검(평일) · **R4 주말 캘리브레이션(토 09:00, self-review)**.
+
+**백업 자동화 (`.github/workflows/`)**:
 
 | 워크플로 | 트리거 | 키 | 비고 |
 |---|---|---|---|

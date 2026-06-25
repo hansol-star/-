@@ -32,6 +32,7 @@ TASKS_JSON = os.path.join(REPO, "data", "app", "tasks.json")
 HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
 HUNTER_ARCHIVE_JSON = os.path.join(REPO, "data", "app", "hunter_archive.json")
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
+PM_VIEW_JSON = os.path.join(REPO, "data", "app", "pm_view.json")
 REPORTS_DIR = os.path.join(REPO, "docs", "reports")
 OUT_JS = os.path.join(REPO, "app", "data.js")
 
@@ -332,6 +333,7 @@ def build(offline: bool) -> dict:
             or [r.get("verdict", "") for r in hunter.get("track_record", [])]
         hunter["scorecard"] = hunter_scorecard(verdicts)
     flows = load_json_opt(FLOWS_JSON)
+    pm_view = load_json_opt(PM_VIEW_JSON)
     reports = build_reports()
 
     # ── 할일·매수추적·시간축 전망 (tasks.json 정본) ──
@@ -366,6 +368,7 @@ def build(offline: bool) -> dict:
         "hunter": hunter,
         "hunter_archive": archive_videos,
         "flows": flows,
+        "pm_view": pm_view,
         "reports": reports,
         "outlook": tj.get("outlook", []),
         "index_forecast": tj.get("index_forecast", []),

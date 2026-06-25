@@ -273,3 +273,16 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .o-st.cxl{background:var(--card2);color:var(--mut)}
 .o-meta{font-size:12px;color:#cdd6ee;margin-top:4px}
 .o-note{font-size:11.5px;color:var(--mut);margin-top:5px;line-height:1.5}
+
+/* PM 사견 (객관적 독립 의견) */
+.pmcard{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:13px;padding:13px 14px;margin-bottom:11px}
+.pmtag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;background:var(--card2);
+  color:var(--mut);border:1px solid var(--line)}
+.pmtag.up{background:#301717;color:#ff9b9b;border-color:#5a2424}
+.pmtag.down{background:#16223c;color:#9db4ff;border-color:#27406a}
+.pmtag.mut{background:var(--card2);color:var(--mut)}
+.pmtitle{font-weight:700;font-size:15px;margin:8px 0 4px;line-height:1.4}
+.pmrule{margin-top:9px;padding:9px 11px;background:var(--bg2);border:1px dashed var(--line);
+  border-radius:10px;font-size:12px;color:#cdd6ee;line-height:1.55}
+.pmrule b{color:var(--accent)}

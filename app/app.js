@@ -113,6 +113,7 @@
     else if (h.indexOf("video/") === 0) renderVideo(decodeURIComponent(h.slice(6)));
     else if (h === "archive") renderArchive();
     else if (h === "hunter") renderHunter();
+    else if (h === "pmview") renderPMView();
     else renderHome();
     window.scrollTo(0, 0);
   }
@@ -208,7 +209,7 @@
     h += '</div></div>';
 
     var GH = "https://github.com/hansol-star/-/actions/workflows/";
-    h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a></div>';
+    h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a><a class="navbtn" href="#pmview">💭 PM 사견</a></div>';
 
     // 오늘 할일 요약 + 시간축 전망 (자세히는 #plan)
     h += planSummary();
@@ -528,6 +529,43 @@
     }
 
     h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 투자 자문 아님.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── PM 사견 (클로드의 객관적 독립 의견) ──
+  function renderPMView() {
+    var pv = D.pm_view || {};
+    var items = pv.items || [];
+    var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">💭 PM 사견</div>';
+    h += '<div class="sub">클로드의 객관적 시선 · 갱신 ' + esc(pv.updated || "") + '</div></header>';
+
+    if (pv.headline) h += '<div class="hl">💡 ' + esc(pv.headline) + '</div>';
+    if (pv.philosophy) h += '<div class="comment sm">' + esc(pv.philosophy) + '</div>';
+
+    if (!items.length) {
+      h += '<div class="empty">아직 등록된 사견이 없어요.</div>';
+      root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return;
+    }
+
+    h += '<div class="sec"><h2>독립 의견 (' + items.length + ')</h2></div>';
+    items.forEach(function (it) {
+      var stance = it.stance || "";
+      var sc = stance === "강세" ? "up" : (stance === "신중" ? "down" : "");
+      h += '<div class="pmcard">';
+      h += '<div class="row wrap" style="gap:6px;align-items:center">';
+      if (stance) h += '<span class="pmtag ' + sc + '">' + esc(stance) + '</span>';
+      if (it.align) h += '<span class="pmtag mut">룰 ' + esc(it.align) + '</span>';
+      if (it.conviction) h += '<span class="mut xs">확신 ' + esc(it.conviction) + '</span>';
+      h += '<span class="mut xs" style="margin-left:auto">' + esc(it.topic || "") + ' · ' + esc(it.date || "") + '</span>';
+      h += '</div>';
+      h += '<div class="pmtitle">' + esc(it.title || "") + '</div>';
+      h += '<div class="md-body">' + mdToHtml(it.view || "") + '</div>';
+      if (it.rule_note) h += '<div class="pmrule"><b>룰 vs 내 시선 — </b>' + esc(it.rule_note) + '</div>';
+      h += '</div>';
+    });
+
+    h += '<div class="foot">정훈 룰을 잠시 빼고 본 객관적 보조 시선 · 포트 운용은 룰이 우선 · 투자 자문 아님.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));
   }

@@ -84,7 +84,7 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 
 ## 5. 데이터·산출물
 
-- **보고서**: `docs/reports/report_v{N}_{날짜}.md` (정본 = `docs/reports/`에서 가장 높은 `report_v*` — 현재 **v31**·2026-06-25). 끝에 STATE SNAPSHOT 블록. ※이 버전 토큰은 `validate_report.py`가 stale 검사.
+- **보고서**: `docs/reports/report_v{N}_{날짜}.md` (정본 = `docs/reports/`에서 가장 높은 `report_v*` — 현재 **v32**·2026-06-26). 끝에 STATE SNAPSHOT 블록. ※이 버전 토큰은 `validate_report.py`가 stale 검사.
 - **포트폴리오 정본**: `.claude/skills/portfolio-desk/portfolio.json` (수량·현금·원가)
 - **앱 데이터**: `data/app/{stocks,tasks,flows,hunter,hunter_archive}.json` → `build_app_data.py` → `app/data.js`
 - **계획·할일·매수추적**: `data/app/tasks.json` (앱 #plan 화면 정본, 채팅 기반으로 갱신)

@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-06-27 07:40 KST",
+  "generated_at": "2026-06-27 14:03 KST",
   "as_of": "2026-06-26 아침 풀브리핑 (US 6/25 최종종가·KR 6/25 종가 프로즌·PCE 결과 확정)",
   "source_report": "docs/reports/report_v32_2026-06-26.md",
   "offline": false,
@@ -868,7 +868,7 @@ window.APP_DATA = {
       "pnl_krw": -23690,
       "outlook": "hold",
       "stars": 3,
-      "score": 74,
+      "score": 69,
       "target": "$252.64 (+38.7%)",
       "buy_zone": "눌림",
       "trim": "패닉셀 금지",
@@ -886,7 +886,7 @@ window.APP_DATA = {
           "note": "OCI+93%나 OpenAI 집중 리스크. 목표 $252(+37%🎯)지만 관망."
         }
       },
-      "comment": "RPO $638B 백로그, OpenAI 54% 집중. 최대 평가손(−28.85%) → 신규매수 보류·패닉셀 금지. AI capex-FCF 적자 종목이라 회의론 국면 최대 타깃. 하우스 목표 $160(RBC)~$320(Mizuho) ±30%+ 괴리=불확실성 최대.",
+      "comment": "RPO $638B 백로그, OpenAI 54% 집중. 최대 평가손(−28.85%) → 신규매수 보류·패닉셀 금지. AI capex-FCF 적자 종목이라 회의론 국면 최대 타깃. 하우스 목표 $160(RBC)~$320(Mizuho) ±30%+ 괴리=불확실성 최대. [6/27 FMP TTM 재채점: FCF 적자·OCI는 세그먼트 성장 → 스코어 74→69 하향, 별점 ⭐3 유지(밴드 무영향).]",
       "issues": [
         {
           "date": "2026-06-26",
@@ -1403,9 +1403,9 @@ window.APP_DATA = {
     {
       "label": "팔란티어",
       "ticker": "PLTR",
-      "currency": null,
-      "price": null,
-      "change_pct": null,
+      "currency": "USD",
+      "price": 112.93,
+      "change_pct": 5.28,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -1557,7 +1557,8 @@ window.APP_DATA = {
       "2026-06-22",
       "2026-06-23",
       "2026-06-24",
-      "2026-06-25"
+      "2026-06-25",
+      "2026-06-26"
     ],
     "closes": [
       8047.51,
@@ -1581,7 +1582,8 @@ window.APP_DATA = {
       9114.55,
       8203.84,
       8471.02,
-      8930.3
+      8930.3,
+      8411.21
     ]
   },
   "hunter": {

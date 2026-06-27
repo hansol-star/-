@@ -31,6 +31,13 @@ STOCKS_REL = "data/app/stocks.json"
 LEDGER_REL = "data/app/calls_log.jsonl"
 ETF = {"VOO"}
 
+# ── 별점 → 내재 상승확률 (proper scoring rule용) ──────────────────────────
+# 근거(외부): LLM 예측의 1순위 실패 = 과신(overconfidence). ForecastBench·forecasting
+# 연구가 권장하는 proper scoring rule(Brier)로 "별점이 표현하는 확신"을 실제 적중률과
+# 정렬한다. 별점=확신도이므로 ⭐5=강한 상승확신 … ⭐1=강한 하락확신으로 단조 매핑.
+# 보수적으로 0.85~0.15(끝을 0/1로 안 박음 = 과신 자체를 점수가 벌함).
+STAR_PROB = {5: 0.85, 4: 0.68, 3: 0.50, 2: 0.32, 1: 0.15}
+
 # ── 콜 문자열에서 가격 레벨 추출 ("480,000~530,000원", "$220~250", "295,000원 (눌림)") ──
 def levels(s):
     if not isinstance(s, str):
@@ -236,6 +243,34 @@ def score(min_age=1):
     print(f"  별점 분포(최신 원장 비중 포함): {star_dist}")
     if net_err:
         print(f"  시세 조회 실패(채점 제외): {sorted(set(net_err))}")
+
+    # ── proper scoring(Brier) + 버킷별 캘리브레이션 갭 ────────────────────
+    # outcome = 실제 상승(1)/하락(0), p = 별점 내재확률. Brier=(p-outcome)^2 평균.
+    # 0.25 = 무정보(항상 0.5) 기준선 — 이보다 낮아야 별점에 정보가 있다는 뜻.
+    scored = [g for g in graded if isinstance(g.get("stars"), int)
+              and g["stars"] in STAR_PROB and g.get("fwd") is not None]
+    print("\n— 캘리브레이션(Brier proper score) —")
+    if scored:
+        brier = sum((STAR_PROB[g["stars"]] - (1.0 if g["fwd"] > 0 else 0.0)) ** 2
+                    for g in scored) / len(scored)
+        base = sum((0.5 - (1.0 if g["fwd"] > 0 else 0.0)) ** 2
+                   for g in scored) / len(scored)
+        verdict = "정보있음(무정보 대비 우위)" if brier < base else "무정보 이하(과신 의심)"
+        print(f"  Brier {brier:.3f}  vs  무정보(0.5고정) {base:.3f}  → {verdict}"
+              f"  (낮을수록 좋음·n={len(scored)})")
+        print(f"  {'별점':<5}{'표현확신':>9}{'실제상승률':>12}{'갭':>8}{'판정':>9}")
+        for st in sorted({g["stars"] for g in scored}, reverse=True):
+            rows = [g for g in scored if g["stars"] == st]
+            realized = sum(1 for g in rows if g["fwd"] > 0) / len(rows)
+            p, gap = STAR_PROB[st], None
+            gap = realized - p
+            tag = "과신" if (st >= 4 and gap < -0.15) else (
+                  "과소확신" if (st <= 2 and gap > 0.15) else "정합")
+            print(f"  ⭐{st:<4}{p*100:>8.0f}%{realized*100:>11.0f}%{gap*100:>+7.0f}%{tag:>9}")
+        print("  ※ 표본 작을 때 갭은 노이즈 — 누적 추세로 해석. 매핑(STAR_PROB) 고정·교정은 사람이.")
+    else:
+        print("  채점 가능한 별점 콜 없음.")
+
     print("\n※ 자동 변경 없음 — 캘리브레이션 참고용. 교정은 self-review에서 사람이 판단.")
     print("※ 데이터가 짧을수록(콜 나이 적음) 노이즈 큼 — 누적될수록 신뢰도↑.\n")
 

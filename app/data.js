@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-06-27 14:03 KST",
+  "generated_at": "2026-06-27 14:40 KST",
   "as_of": "2026-06-26 아침 풀브리핑 (US 6/25 최종종가·KR 6/25 종가 프로즌·PCE 결과 확정)",
   "source_report": "docs/reports/report_v32_2026-06-26.md",
   "offline": false,
@@ -3517,6 +3517,307 @@ window.APP_DATA = {
         "rule_note": "룰 결정(절반차익 베이킹)과 100% 일치. 룰이 없었어도 같은 사이징을 했을 것."
       }
     ]
+  },
+  "decisions": {
+    "open": [
+      {
+        "id": "a1",
+        "date": "2026-06-27",
+        "topic": "외인 순매수 전환(강세복귀 스위치)",
+        "decision": "[추적중] 미점등 — 6/27 데드캣 코스피 −5.81%·외인 매도 지속",
+        "rationale": "외인 하이닉스 매도중단 + 환율 1,500서 꺾임 = 강세복귀 스위치",
+        "rejected": "",
+        "status": "open",
+        "tags": [
+          "외인",
+          "수급",
+          "스위치",
+          "코스피"
+        ],
+        "refs": "master §10-1. 트리거=매 보고서 외인플로우(국장 데스크)"
+      },
+      {
+        "id": "a2",
+        "date": "2026-06-27",
+        "topic": "메모리 사이클 정점(HBM 단일팩터 집중=포트 최대 취약점)",
+        "decision": "[추적중] MU sell-the-news 가능·NVDA/삼성/MU/하닉 동일 베팅. 검증대=7월 3성적표(7/7경 삼성잠정·7/16경 TSMC·7/29 하닉+美빅테크)",
+        "rationale": "보유 다수가 메모리/AI 단일 사이클에 묶임",
+        "rejected": "",
+        "status": "open",
+        "tags": [
+          "메모리",
+          "HBM",
+          "7월",
+          "삼성",
+          "하닉",
+          "MU",
+          "NVDA"
+        ],
+        "refs": "master §10-2. 7월 성적표 전부 폰창 밖→예약 베이킹"
+      },
+      {
+        "id": "a3",
+        "date": "2026-06-27",
+        "topic": "MANGOS 우회로·비상장 IPO",
+        "decision": "[추적중] 상장3 보유·GOOGL→Anthropic·MSFT→OpenAI·SpaceX(워치 SPCX/TMUS)·락업8월/QQQ7월초",
+        "rationale": "비상장 3종(Anthropic·OpenAI·SpaceX) 직접경로 부재 → 우회노출 점검",
+        "rejected": "",
+        "status": "open",
+        "tags": [
+          "MANGOS",
+          "IPO",
+          "SpaceX",
+          "비상장"
+        ],
+        "refs": "master §10-3. 트리거=분기·IPO 뉴스"
+      },
+      {
+        "id": "a4",
+        "date": "2026-06-27",
+        "topic": "애플 낙오 과체중(유일 'AI낙오 과체중')",
+        "decision": "[추적중] 정수 1주 트림→GOOGL 재배치 베이킹(미집행)·1주+분수 글라스 콜옵션 유지",
+        "rationale": "AI 추종자·글라스 2027말 연기이나 재무압도+바이백",
+        "rejected": "",
+        "status": "open",
+        "tags": [
+          "애플",
+          "AAPL",
+          "트림",
+          "GOOGL"
+        ],
+        "refs": "master §10-4. 트리거=강세반등 트림창·7/30 FY Q3"
+      },
+      {
+        "id": "a5",
+        "date": "2026-06-27",
+        "topic": "큰손 13F 회전",
+        "decision": "[추적중] 버크셔 애플 −74%+알파벳 신규·헤지펀드 GOOGL/NVDA 집중",
+        "rationale": "스마트머니 회전이 MANGOS·애플 논지와 정합하는지",
+        "rejected": "",
+        "status": "open",
+        "tags": [
+          "13F",
+          "버크셔",
+          "헤지펀드",
+          "GOOGL"
+        ],
+        "refs": "master §10-5. 트리거=분기 13F 공시"
+      },
+      {
+        "id": "a6",
+        "date": "2026-06-27",
+        "topic": "안전핀·매크로",
+        "decision": "[추적중] 코스피 7,500 안전핀(버퍼 +12.1%)·9월 인상 ~68%·환율 1,546·7월 NPS 매물벽",
+        "rationale": "하방 룰·매크로 환경 상시 점검",
+        "rejected": "",
+        "status": "open",
+        "tags": [
+          "안전핀",
+          "코스피",
+          "매크로",
+          "환율"
+        ],
+        "refs": "master §10-6. 트리거=매 보고서"
+      },
+      {
+        "id": "a7",
+        "date": "2026-06-27",
+        "topic": "하이퍼스케일러 GPU 감가상각 회계논란(마이클 버리)",
+        "decision": "[추적중·6/27 신설] 보유 META·MSFT·GOOGL·ORCL 잠재 리스크 — 리스크데스크 상시 감시",
+        "rationale": "[검증] 실재 이슈(2025/11): GPU 내용연수 5~6년 과대→2026~28 이익 ~$176B 부풀림(과대 ORCL+26.9%·META+20.8%). 단 시장영향·회계기준 변경은 미정",
+        "rejected": "",
+        "status": "open",
+        "tags": [
+          "버리",
+          "감가상각",
+          "회계",
+          "META",
+          "ORCL",
+          "MSFT",
+          "GOOGL",
+          "리스크"
+        ],
+        "refs": "master §10-7·hunter_log 6/27. 트리거=분기 감가상각 가정·SEC 코멘트"
+      }
+    ],
+    "closed": [
+      {
+        "id": "d8",
+        "date": "2026-06-27",
+        "topic": "MANGOS 렌즈 — 애플 '줄이되 안 버림' 재배치(v32.5)",
+        "decision": "AAPL 정수 1주 강세반등 시 지정가 트림→GOOGL 재배치, 1주+분수는 글라스 옵셔널리티 유지(베이킹·실집행은 폰창+정훈)",
+        "rationale": "상장3(META·NVDA·GOOGL) 보유+우회노출. 애플=MANGOS 제외이나 재무압도+피지컬AI 디바이스. 13F: 버크셔 애플 −74%+알파벳 신규편입",
+        "rejected": "전량보유(낙오 과중)·전량청산(글라스 콜옵션·바이백 포기)·MANGOS 신규추격(이미 보유)",
+        "status": "closed",
+        "tags": [
+          "애플",
+          "AAPL",
+          "MANGOS",
+          "GOOGL",
+          "13F",
+          "재배치"
+        ],
+        "refs": "master §9·report v32.5. AAPL 채점⭐3·58 미변경"
+      },
+      {
+        "id": "d9",
+        "date": "2026-06-27",
+        "topic": "콜 캘리브레이션 Brier proper scoring 도입(B1)",
+        "decision": "score_calls.py에 별점→내재확률 매핑(⭐5=.85…⭐1=.15) + Brier score + 버킷별 캘리브레이션 갭(과신 플래그) 추가",
+        "rationale": "외부 예측연구가 LLM 1순위 실패로 지목한 '과신'을 proper scoring으로 정량 감시(ForecastBench·forecasting 연구)",
+        "rejected": "평균 전진%만 보던 기존(방향성은 있으나 확신-적중 정렬 없음)",
+        "status": "closed",
+        "tags": [
+          "캘리브레이션",
+          "Brier",
+          "score_calls",
+          "과신",
+          "디벨롭"
+        ],
+        "refs": "ai_setup_review.md. 첫 채점 Brier 0.381(폭락장 과신 플래그)"
+      },
+      {
+        "id": "d10",
+        "date": "2026-06-27",
+        "topic": "구조화 결정 메모리(decisions.jsonl) 도입(B2)",
+        "decision": "master §9/§10 산문과 별개로 기계 검색 가능한 decisions.jsonl + decisions.py(query/add/close). 세션시작에 query 연동",
+        "rationale": "에이전트 메모리 연구·TradingAgents persistent decision log·'구조화 출력=환각 축소' 가드레일",
+        "rejected": "산문 표 단독(세션마다 손으로 훑어야 함)",
+        "status": "closed",
+        "tags": [
+          "메모리",
+          "decisions",
+          "연속성",
+          "디벨롭"
+        ],
+        "refs": "ai_setup_review.md ④"
+      },
+      {
+        "id": "d11",
+        "date": "2026-06-27",
+        "topic": "경제사냥꾼 트랙레코드 채점기(hunter_score.py) 도입(B3)",
+        "decision": "hunter_log.md 파싱→[검증/정정/미확인] 카운트·추세 자동집계. self-review 연동",
+        "rationale": "grounded-sentiment·환각 가드레일(출처 신뢰도 정량화). self-review의 '[정정] 비율'을 수동→기계",
+        "rejected": "사람이 매번 수동 집계",
+        "status": "closed",
+        "tags": [
+          "경제사냥꾼",
+          "트랙레코드",
+          "채널",
+          "디벨롭"
+        ],
+        "refs": "ai_setup_review.md"
+      },
+      {
+        "id": "d7",
+        "date": "2026-06-25",
+        "topic": "SK하이닉스 ADR 상장일 8월→7/10 영구교정",
+        "decision": "나스닥 ADR 7/10 거래개시(잠정)·$29B 조달·보통주1주=ADR10주",
+        "rationale": "정훈 확인 + 6/24 공식발표 교차검증(CNBC·KED·EBC)",
+        "rejected": "",
+        "status": "closed",
+        "tags": [
+          "SK하이닉스",
+          "ADR",
+          "워치",
+          "일정"
+        ],
+        "refs": "master §9. 상장 전 진입금지 유지·7월초 재확인"
+      },
+      {
+        "id": "d5",
+        "date": "2026-06-21",
+        "topic": "fundamentals.py 필드매핑 버그수정 + FMP 무료 심볼제한 확인",
+        "decision": "PE·순마진=ratios-ttm, FCF/주=ratios-ttm, ROE=key-metrics-ttm로 정정",
+        "rationale": "netMargin _pct 오용·PE 누락·ROE↔FCF 엔드포인트 혼동 버그",
+        "rejected": "",
+        "status": "closed",
+        "tags": [
+          "FMP",
+          "버그",
+          "펀더멘털"
+        ],
+        "refs": "master §9. MU·VOO·ANET·AVGO·ORCL 무료402→WebSearch 폴백"
+      },
+      {
+        "id": "d6",
+        "date": "2026-06-21",
+        "topic": "0~100 스코어 16종목 전체 산출 → v23 적용",
+        "decision": "미국11=FMP·국내5=증권사컨센·VOO=ETF제외. 별점 스코어 기반 재정렬(MU·GOOGL·삼성→⭐5↑·AVGO→⭐4↑·TSLA→⭐2↓)",
+        "rationale": "데이터 우선 → 모멘텀 프리미엄 +1 상한",
+        "rejected": "",
+        "status": "closed",
+        "tags": [
+          "스코어",
+          "별점",
+          "재정렬"
+        ],
+        "refs": "master §9. NVDA100·MU99·GOOGL91…TSLA18"
+      },
+      {
+        "id": "d1",
+        "date": "2026-06-20",
+        "topic": "별점 옆 0~100 정량 스코어 도입",
+        "decision": "별점에 검증된 방법론(오닐 CANSLIM·미너비니·드러켄밀러) 기반 0~100 정량 스코어를 병기",
+        "rationale": "별점만으론 '왜 3개인지' 불명확 → 채점으로 근거화(호두 33스킬 영상 착안)",
+        "rejected": "별점 단독 유지",
+        "status": "closed",
+        "tags": [
+          "스코어",
+          "별점",
+          "방법론"
+        ],
+        "refs": "master §9"
+      },
+      {
+        "id": "d2",
+        "date": "2026-06-20",
+        "topic": "전 데스크 모델 Opus 4.8 유지",
+        "decision": "8개 데스크 전부 opus 4.8 고정(Sonnet 다운그레이드 안 함)",
+        "rationale": "정훈 우선순위='언제나 최고 결과물, 질 안 떨어뜨림'. 자동 다운그레이드=질저하 리스크 → 비용보다 품질",
+        "rejected": "Sonnet 비용절감(기각)",
+        "status": "closed",
+        "tags": [
+          "모델",
+          "비용",
+          "opus",
+          "구조"
+        ],
+        "refs": "master §9"
+      },
+      {
+        "id": "d3",
+        "date": "2026-06-20",
+        "topic": "자가 콜 검증 루프(self-review) 도입",
+        "decision": "콜의 실제 적중을 후행검증·캘리브레이션하는 self-review 스킬 도입",
+        "rationale": "콜이 실제 맞았는지 후행검증 필요",
+        "rejected": "룰 자동변경(금지 — 교정 제안만, 확정은 정훈)",
+        "status": "closed",
+        "tags": [
+          "self-review",
+          "캘리브레이션",
+          "회고"
+        ],
+        "refs": "master §9"
+      },
+      {
+        "id": "d4",
+        "date": "2026-06-20",
+        "topic": "FMP API 펀더멘털 소스 도입(미국주만)",
+        "decision": "fundamentals.py로 스코어를 WebSearch '감'에서 FMP 하드넘버로. 키=env FMP_API_KEY 조회전용",
+        "rationale": "보유 16중 11이 미국주라 무료(미국전용·250회/일)로 충분",
+        "rejected": "유료 글로벌 플랜(기각). 국내 5종목은 WebSearch 유지",
+        "status": "closed",
+        "tags": [
+          "FMP",
+          "펀더멘털",
+          "스코어"
+        ],
+        "refs": "master §9"
+      }
+    ],
+    "open_count": 7,
+    "total": 18
   },
   "reports": [
     {

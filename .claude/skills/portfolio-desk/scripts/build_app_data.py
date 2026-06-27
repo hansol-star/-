@@ -33,6 +33,7 @@ HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
 HUNTER_ARCHIVE_JSON = os.path.join(REPO, "data", "app", "hunter_archive.json")
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
 PM_VIEW_JSON = os.path.join(REPO, "data", "app", "pm_view.json")
+DECISIONS_JSONL = os.path.join(REPO, "data", "app", "decisions.jsonl")
 REPORTS_DIR = os.path.join(REPO, "docs", "reports")
 OUT_JS = os.path.join(REPO, "app", "data.js")
 
@@ -170,6 +171,14 @@ def load_json_opt(path: str) -> dict:
         return load_json(path)
     except (FileNotFoundError, ValueError):
         return {}
+
+
+def load_jsonl_opt(path: str) -> list:
+    try:
+        with open(path, encoding="utf-8") as f:
+            return [json.loads(ln) for ln in f if ln.strip()]
+    except (FileNotFoundError, ValueError):
+        return []
 
 
 def quote(symbol: str, offline: bool) -> dict:
@@ -336,6 +345,15 @@ def build(offline: bool) -> dict:
     pm_view = load_json_opt(PM_VIEW_JSON)
     reports = build_reports()
 
+    # ── 결정 메모리 / 전략 아젠다 (decisions.jsonl 정본 → 폰에서 조회) ──
+    decisions_all = load_jsonl_opt(DECISIONS_JSONL)
+    dec_open = sorted([d for d in decisions_all if d.get("status") == "open"],
+                      key=lambda d: d.get("date", ""))
+    dec_closed = sorted([d for d in decisions_all if d.get("status") != "open"],
+                        key=lambda d: d.get("date", ""), reverse=True)
+    decisions = {"open": dec_open, "closed": dec_closed[:16],
+                 "open_count": len(dec_open), "total": len(decisions_all)}
+
     # ── 할일·매수추적·시간축 전망 (tasks.json 정본) ──
     tj = load_json_opt(TASKS_JSON)
     tasks = tj.get("tasks", {}) if isinstance(tj, dict) else {}
@@ -369,6 +387,7 @@ def build(offline: bool) -> dict:
         "hunter_archive": archive_videos,
         "flows": flows,
         "pm_view": pm_view,
+        "decisions": decisions,
         "reports": reports,
         "outlook": tj.get("outlook", []),
         "index_forecast": tj.get("index_forecast", []),

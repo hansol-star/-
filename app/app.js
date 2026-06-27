@@ -114,6 +114,7 @@
     else if (h === "archive") renderArchive();
     else if (h === "hunter") renderHunter();
     else if (h === "pmview") renderPMView();
+    else if (h === "decisions") renderDecisions();
     else renderHome();
     window.scrollTo(0, 0);
   }
@@ -210,6 +211,8 @@
 
     var GH = "https://github.com/hansol-star/-/actions/workflows/";
     h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a><a class="navbtn" href="#pmview">💭 PM 사견</a></div>';
+    var decN = (D.decisions && D.decisions.open_count) || 0;
+    h += '<div class="nav"><a class="navbtn" href="#decisions">🧭 결정·전략 아젠다' + (decN ? ' (' + decN + ')' : '') + '</a></div>';
 
     // 오늘 할일 요약 + 시간축 전망 (자세히는 #plan)
     h += planSummary();
@@ -566,6 +569,47 @@
     });
 
     h += '<div class="foot">정훈 룰을 잠시 빼고 본 객관적 보조 시선 · 포트 운용은 룰이 우선 · 투자 자문 아님.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── DECISIONS (결정 메모리 · 전략 아젠다) ──
+  function decCard(it, open) {
+    var h = '<div class="pmcard">';
+    h += '<div class="row wrap" style="gap:6px;align-items:center">';
+    h += '<span class="pmtag ' + (open ? "up" : "mut") + '">' + (open ? "🟢 열림" : "⚪ 결정") + '</span>';
+    h += '<span class="mut xs" style="margin-left:auto">' + esc(it.date || "") + '</span></div>';
+    h += '<div class="pmtitle">' + esc(it.topic || "") + '</div>';
+    if (it.decision) h += '<div class="md-body sm">' + esc(it.decision) + '</div>';
+    if (it.rationale) h += '<div class="comment sm"><b>근거 — </b>' + esc(it.rationale) + '</div>';
+    if (it.rejected) h += '<div class="comment sm mut"><b>기각/대안 — </b>' + esc(it.rejected) + '</div>';
+    if (it.tags && it.tags.length) {
+      h += '<div class="row wrap" style="gap:5px;margin-top:6px">';
+      it.tags.forEach(function (t) { h += '<span class="tag">' + esc(t) + '</span>'; });
+      h += '</div>';
+    }
+    if (it.refs) h += '<div class="mut xs" style="margin-top:5px">' + esc(it.refs) + '</div>';
+    h += '</div>';
+    return h;
+  }
+  function renderDecisions() {
+    var d = D.decisions || {}, op = d.open || [], cl = d.closed || [];
+    var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">🧭 결정·전략 아젠다</div>';
+    h += '<div class="sub">왜 그렇게 결정했나 + 큰그림 열린 질문 · master §9/§10 정본의 폰 뷰</div></header>';
+    if (!op.length && !cl.length) {
+      h += '<div class="empty">결정 메모리가 없어요. decisions.jsonl 생성 후 build_app_data.py 실행.</div>';
+      root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return;
+    }
+    if (op.length) {
+      h += '<div class="sec"><h2>열린 전략 아젠다 (' + op.length + ')</h2></div>';
+      h += '<div class="comment sm">매 보고서마다 상태를 재검토·갱신하는 큰그림 열린 질문.</div>';
+      op.forEach(function (it) { h += decCard(it, true); });
+    }
+    if (cl.length) {
+      h += '<div class="sec"><h2>최근 결정 (' + cl.length + ')</h2></div>';
+      cl.forEach(function (it) { h += decCard(it, false); });
+    }
+    h += '<div class="foot">결정 정본은 docs/master.md §9·§10 + data/app/decisions.jsonl · 세션이 바뀌어도 이어지는 기억.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));
   }

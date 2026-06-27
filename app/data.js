@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-06-27 14:40 KST",
+  "generated_at": "2026-06-27 14:52 KST",
   "as_of": "2026-06-26 아침 풀브리핑 (US 6/25 최종종가·KR 6/25 종가 프로즌·PCE 결과 확정)",
   "source_report": "docs/reports/report_v32_2026-06-26.md",
   "offline": false,
@@ -3709,6 +3709,24 @@ window.APP_DATA = {
         "refs": "ai_setup_review.md"
       },
       {
+        "id": "d12",
+        "date": "2026-06-27",
+        "topic": "권한 팝업·allowlist 정책 — B 채택(읽기전용 스크립트만 허용, 가드레일은 유지)",
+        "decision": "decisions.py·hunter_score.py를 settings.json allowlist에 추가(권한팝업 제거). 둘 다 읽기전용·무인 루틴 호출 = 기존 허용 12개 데스크 스크립트와 동일 부류",
+        "rationale": "정훈 'B로 가자' + '우리가 넣은 것들도 다 이유가 있다'. 무인 루틴(세션시작 decisions.py·토요일 self-review hunter_score.py)이 팝업에 멈추는 것 방지. 감독 가드레일은 '진짜 위험'에만 남긴다",
+        "rejected": "A(팝업 유지)=대화형엔 무해하나 무인 루틴 정지 위험. ★유지(약화 안 함): settings.json 자기수정 차단·main push 확인·토스 주문 차단 — 감독 가드레일은 위험·외부행동에 그대로",
+        "status": "closed",
+        "tags": [
+          "가드레일",
+          "권한",
+          "settings",
+          "루틴",
+          "연속성",
+          "allowlist"
+        ],
+        "refs": "ai_setup_review §2·§3. 위험행동 가드레일과 읽기전용 루틴 스크립트를 구분"
+      },
+      {
         "id": "d7",
         "date": "2026-06-25",
         "topic": "SK하이닉스 ADR 상장일 8월→7/10 영구교정",
@@ -3817,7 +3835,7 @@ window.APP_DATA = {
       }
     ],
     "open_count": 7,
-    "total": 18
+    "total": 19
   },
   "reports": [
     {

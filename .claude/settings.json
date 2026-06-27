@@ -14,6 +14,8 @@
       "Bash(python3 .claude/skills/portfolio-desk/scripts/validate_report.py:*)",
       "Bash(python3 .claude/skills/portfolio-desk/scripts/score_calls.py:*)",
       "Bash(python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/decisions.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/hunter_score.py:*)",
       "Bash(git fetch:*)",
       "Bash(git log:*)",
       "Bash(git show:*)",

@@ -12,15 +12,40 @@
 하루 중 가장 상세. 간밤 미장 마감 종합 + 매크로 + 경제사냥꾼 + 국장 개장 전 전략 + 폰창 집행 후보.
 → 산출: `report_v{N}` (보유16 풀표 + STATE SNAPSHOT). 영구변경 시 master.md·portfolio.json. data/app → build_app_data → main 푸시.
 
+```
+보고서 (아침 풀 브리핑 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
+- portfolio-desk 스킬 풀 파이프라인: 최신 report STATE SNAPSHOT + decisions.py로 컨텍스트 복원 → 8데스크 병렬 → 강세/신중 디베이트 → PM 종합.
+- 주간 첫 보고서면 self-review를 맨 먼저(캘리브레이션 부채 금지) → call_scorecard.md prepend.
+- 보유16+워치 풀표(별점·스코어·매수존·트림)·지정가 오더북·PM 사견·tasks.json 동기화. 오늘의 이슈 4개는 전부 자동 심층(선택 대기 X).
+- build_app_data → validate_report(FAIL 자가교정) → score_calls --append → snapshot.py → 커밋 → main ff 머지·푸시(자동). 추측 금지·미확인 명시.
+```
+
 ### R2. 폰창 집행 지시서 (평일 17:00~17:30경)
 풀 데스크 X, 행동 중심. 아침 report 이어받기. 국장 종가 + 수급(flows) + triggers 점검.
 → 토스 집행안 2블록: (A)국내 시간외 17:30~18:00 살/팔 (B)미국 지정가 예약(20:50 전→22:30 집행).
 → 산출: report addendum + data/app 갱신 → main 푸시.
 
+```
+폰창 집행 지시서 (평일 17:00~17:30 — 무인 루틴, 행동 중심·풀데스크 X·선택지 띄우지 말 것).
+- 아침 report 이어받기: 국장 종가 + flows 수급 + triggers.py 점검(매수존·안전핀·이벤트).
+- 토스 집행안 2블록: (A)국내 시간외 17:30~18:00 정수 N주 지정가 살/팔 (B)미국 20:50 전 지정가 예약(22:30 자동집행). 가격조건은 portfolio.json alerts·tasks.json orders에 등록.
+- 산출 = report addendum + tasks.json orders 갱신 → build_app_data → validate_report → 커밋 → main ff 머지·푸시(자동).
+```
+
 ### R3. 야간 점검 / 내일 준비 (평일 22:30~23:30경, 라이트)
 토큰 절약. 국장 마감 + 미장 개장초 요약, 보유·워치 한 줄씩. 17:30 미국 예약 체결 점검(체결/미체결·평단).
 내일 일정·트리거·이벤트 + 내일 폰창 예약 후보. 경제사냥꾼 오후/저녁 신규.
 → 산출: nightcheck + STATE SNAPSHOT 갱신 → main 푸시.
+
+```
+야간 점검 / 내일 준비 (평일 22:30~23:30, 라이트·토큰 절약 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
+- 컨텍스트 복원: 최신 report STATE SNAPSHOT + decisions.py로 열린 아젠다 상기.
+- 라이트 스코프(풀 8데스크 X): 국장 마감 요약 + 미장 개장초 + 보유16·워치 한 줄씩(시세는 market_data·pnl).
+- 17:30 미국 지정가 예약 체결 점검(체결/미체결·평단) → 체결이면 portfolio.json·tasks.json·master.md 갱신.
+- 내일 일정·트리거·이벤트 + 내일 폰창 예약 후보. 경제사냥꾼 오후/저녁 신규(hunter.json setups 갱신·조건 75%+면 발동).
+- ⚠️ 이번 주 첫 보고서를 못 냈으면(토큰 한도 등) self-review를 여기서라도 우선 수행 → call_scorecard.md prepend(부채 금지).
+- 산출 = nightcheck addendum + STATE SNAPSHOT 갱신 → build_app_data → validate_report(FAIL 자가교정) → snapshot.py → 커밋 → main ff 머지·푸시(자동). 묻지 말 것·추측 금지·미확인 명시.
+```
 
 ---
 

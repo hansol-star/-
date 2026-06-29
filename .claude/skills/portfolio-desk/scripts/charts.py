@@ -17,9 +17,13 @@ from __future__ import annotations
 import argparse
 import os
 
-import matplotlib
-matplotlib.use("Agg")  # 헤드리스
-import matplotlib.pyplot as plt
+try:
+    import matplotlib
+    matplotlib.use("Agg")  # 헤드리스
+    import matplotlib.pyplot as plt
+    HAVE_MPL = True
+except ImportError:  # 웹/헤드리스에 matplotlib 없으면 차트는 스킵 (로컬 머신 이전 후 활성)
+    HAVE_MPL = False
 
 from pnl import load_cfg, eval_positions, fx_usdkrw
 
@@ -42,6 +46,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="포트폴리오 차트 (matplotlib)")
     ap.add_argument("--outdir", default=os.path.join("output", "charts"))
     args = ap.parse_args()
+    if not HAVE_MPL:
+        print("⚠️ matplotlib 미설치 — 차트 스킵 (로컬 머신 이전 후 활성: pip install matplotlib)")
+        return 0
     os.makedirs(args.outdir, exist_ok=True)
 
     cfg = load_cfg()

@@ -84,6 +84,9 @@ PM은 추가로 **무키 분석 스크립트**를 직접 돌려 정량 데이터
 python3 .claude/skills/portfolio-desk/scripts/pnl.py          # 평가손익 + 합계 (원가 대비 수익률)
 python3 .claude/skills/portfolio-desk/scripts/consensus.py     # 애널리스트 목표주가 + ±30% 괴리 플래그
 python3 .claude/skills/portfolio-desk/scripts/triggers.py      # 매수존·안전핀·이벤트 트리거 점검
+python3 .claude/skills/portfolio-desk/scripts/earnings.py --within 21   # 보유·워치 실적 발표일(D-21) 교차검증
+python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 스냅샷 저장(시계열) + 전일대비 → '변경점' 정량
+# (선택) charts.py — 비중/수익률 PNG. matplotlib 있으면 생성·없으면 자동 스킵(웹). 로컬 이전 후 활성.
 ```
 - **미국주 펀더멘털(0~100 스코어 채점 근거)**: 키가 있으면 `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py`
   → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE를 CANSLIM/미너비니 렌즈 채점에 투입. **국내 5종목·KR 워치는 FMP 무료 미지원 → 증권사 리포트 WebSearch로 보강**(키 없거나 한도 초과 시도 동일 폴백).

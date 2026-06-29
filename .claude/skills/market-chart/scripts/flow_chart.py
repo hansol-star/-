@@ -25,12 +25,16 @@ JSON 스키마(예):
 }
 """
 import sys, os, json
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
-from matplotlib.patches import Patch
-import numpy as np
+try:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import matplotlib.font_manager as fm
+    from matplotlib.patches import Patch
+    import numpy as np
+    HAVE_MPL = True
+except ImportError:  # 웹/헤드리스엔 matplotlib·numpy 없을 수 있음 → 차트 스킵
+    HAVE_MPL = False
 
 
 def set_korean_font():
@@ -143,6 +147,9 @@ def make_chart(cfg, out_path):
 
 
 if __name__ == "__main__":
+    if not HAVE_MPL:
+        print("⚠️ matplotlib/numpy 미설치 — 차트 스킵 (로컬 머신 이전 후 활성: pip install matplotlib numpy)", file=sys.stderr)
+        raise SystemExit(0)
     cfg = DEFAULT
     out = "docs/research/foreign_flow_2026-06.png"
     args = [a for a in sys.argv[1:]]

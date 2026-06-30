@@ -337,6 +337,11 @@ def build(offline: bool) -> dict:
     archive = load_json_opt(HUNTER_ARCHIVE_JSON)
     archive_videos = archive.get("videos", []) if isinstance(archive, dict) else []
     if hunter:
+        # 정규화: latest_videos 요약 필드는 정본이 'summary'. 과거 'note'로 잘못 들어와도
+        # 앱이 빈칸("—")으로 깨지지 않게 note→summary 폴백 복사(키 오타 방어).
+        for v in hunter.get("latest_videos", []):
+            if not (v.get("summary") or "").strip() and (v.get("note") or "").strip():
+                v["summary"] = v["note"]
         # 전체 아카이브 verdict 기준(없으면 track_record 폴백)으로 채널 정확도 집계
         verdicts = [v.get("verdict", "") for v in archive_videos] \
             or [r.get("verdict", "") for r in hunter.get("track_record", [])]

@@ -502,7 +502,7 @@
       h += '<div class="vid tappable" onclick="location.hash=\'video/' + encodeURIComponent(vid) + '\'">';
       h += '<div class="top"><span class="itag ' + esc(v.tag || "") + '">' + esc(v.tag || "") + '</span><span class="dt">' + esc(v.date || "") + '</span><span class="vmore">자세히 ›</span></div>';
       h += '<div class="vtitle">' + esc(v.title) + '</div>';
-      h += '<div class="tx clamp">' + esc(v.summary) + '</div>';
+      h += '<div class="tx clamp">' + esc(v.summary || v.note || "") + '</div>';
       if (v.tickers && v.tickers.length) {
         h += '<div class="row wrap" style="gap:5px;margin-top:7px">';
         v.tickers.forEach(function (tk) {
@@ -691,7 +691,7 @@
 
     // 요약
     h += '<div class="sec"><h2>요약</h2></div>';
-    h += '<div class="comment">' + esc(v.summary || "—") + '</div>';
+    h += '<div class="comment">' + esc(v.summary || v.note || "—") + '</div>';
 
     // 핵심 포인트
     if (v.points && v.points.length) {

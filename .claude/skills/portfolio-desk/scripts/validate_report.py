@@ -196,13 +196,43 @@ def check_consistency():
     if pf_w != sj_w:
         warn(f"워치 불일치 portfolio↔stocks: portfolio만 {sorted(pf_w - sj_w)} / stocks만 {sorted(sj_w - pf_w)}")
 
+def check_hunter():
+    """경제사냥꾼 앱 데이터 동기화 게이트.
+    ① latest_videos 요약 필드(summary) 누락 = 앱 상세 '—' 빈칸 → FAIL/WARN.
+    ② hunter_log.md 날짜 vs (archive ∪ latest) 날짜 비교 → 로그에만 있는 날짜=백필 누락 WARN."""
+    hu = load("data/app/hunter.json")
+    arch = load("data/app/hunter_archive.json")
+    if not hu:
+        return
+    lv = hu.get("latest_videos", [])
+    for i, v in enumerate(lv):
+        has_sum = bool((v.get("summary") or "").strip())
+        has_note = bool((v.get("note") or "").strip())
+        title = v.get("title", f"#{i}")
+        if not has_sum and not has_note:
+            fail(f"hunter latest_videos '{title}': 요약(summary) 없음 — 앱 상세가 '—' 빈칸")
+        elif not has_sum and has_note:
+            warn(f"hunter latest_videos '{title}': 정본 키는 'summary'인데 'note'로 들어옴 — summary로 교정 권고")
+
+    # 커버리지 갭: 로그 날짜가 앱(archive+latest)에 반영됐는지
+    log_path = os.path.join(ROOT, "docs/research/hunter_log.md")
+    if os.path.exists(log_path):
+        txt = open(log_path, encoding="utf-8").read()
+        log_dates = set(re.findall(r"^#{2,3}\s+(\d{4}-\d{2}-\d{2})", txt, re.M))
+        app_dates = {v.get("date") for v in lv}
+        if isinstance(arch, dict):
+            app_dates |= {v.get("date") for v in arch.get("videos", [])}
+        missing = sorted(d for d in log_dates if d not in app_dates)
+        if missing:
+            warn(f"hunter 아카이브 백필 필요(로그엔 있으나 앱 미반영): {missing}")
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", help="검사할 보고서 .md (생략 시 최신 자동)")
     ap.add_argument("--no-report", action="store_true", help="보고서 파일 검사 생략")
     a = ap.parse_args()
 
-    check_stocks(); check_flows(); check_tasks(); check_consistency()
+    check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter()
     latest = latest_version(); check_versions(latest)
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

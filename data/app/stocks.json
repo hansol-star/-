@@ -1,7 +1,7 @@
 {
  "_comment": "종목별 분석 정본 (사람·앱이 함께 읽음). 보고서 갱신 시 여기 stars/target/buy_zone/trim/outlook/comment/issues 를 최신 보고서값으로 업데이트한 뒤 build_app_data.py 재실행. 원가·수량 정본은 portfolio.json, 사람용 서술 정본은 docs/master.md.",
- "as_of": "2026-06-30 화 오후 집행지시서(v35 exec) — 국장 종가 확정: 코스피 8,476.48(+0.97%·장중 8,626 갭업 외인 -3.79조 매물에 되돌림)·외인 8거래일째 매도. 폰창 A/B블록 전량 관망. 별점·스코어 v34 유지",
- "source_report": "docs/reports/report_v35_exec_2026-06-30.md",
+ "as_of": "2026-06-30 화 밤 나이트체크(v35 nightcheck) — 국장 종가 8,476.48 확정·美 개장초 리스크온(SOX +2.95%). ★오늘 17:30 미국 예약주문 0건→22:30 체결 없음·평단 무변동. 보유 16 홀딩·신규 0. 별점·스코어 v34 유지.",
+ "source_report": "docs/reports/report_v35_nightcheck_2026-06-30.md",
  "stocks": {
   "005930.KS": {
    "outlook": "core",

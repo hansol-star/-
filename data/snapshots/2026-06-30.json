@@ -1,77 +1,77 @@
 {
   "date": "2026-06-30",
-  "fx_usdkrw": 1543.18,
-  "kr_value": 1635300,
-  "kr_pnl": -26400,
-  "us_value_usd": 3747.39,
-  "us_pnl_usd": -109.39,
+  "fx_usdkrw": 1551.0,
+  "kr_value": 1655300,
+  "kr_pnl": -6400,
+  "us_value_usd": 3780.96,
+  "us_pnl_usd": -75.82,
   "cash_krw": 624771,
-  "total_assets_krw": 8042971,
-  "stock_pnl_krw": -195216,
+  "total_assets_krw": 8144342,
+  "stock_pnl_krw": -124004,
   "positions": {
     "삼성전자": {
-      "price": 323000.0,
-      "ret_pct": 22.81
+      "price": 334000.0,
+      "ret_pct": 27.0
     },
     "LG전자": {
-      "price": 196700.0,
-      "ret_pct": 26.74
+      "price": 203000.0,
+      "ret_pct": 30.8
     },
     "두산로보틱스": {
-      "price": 91600.0,
-      "ret_pct": -8.4
+      "price": 90300.0,
+      "ret_pct": -9.7
     },
     "현대차": {
-      "price": 497000.0,
-      "ret_pct": -21.11
+      "price": 495000.0,
+      "ret_pct": -21.43
     },
     "NAVER": {
-      "price": 204000.0,
-      "ret_pct": -18.56
+      "price": 199000.0,
+      "ret_pct": -20.56
     },
     "NVDA": {
-      "price": 194.97,
-      "ret_pct": -2.28
+      "price": 197.813,
+      "ret_pct": -0.85
     },
     "META": {
-      "price": 562.6,
-      "ret_pct": -11.26
+      "price": 556.66,
+      "ret_pct": -12.2
     },
     "VOO": {
-      "price": 681.01,
-      "ret_pct": 5.52
+      "price": 685.9,
+      "ret_pct": 6.28
     },
     "MSFT": {
-      "price": 368.57,
-      "ret_pct": -10.15
+      "price": 370.81,
+      "ret_pct": -9.6
     },
     "AAPL": {
-      "price": 281.74,
-      "ret_pct": 9.57
+      "price": 288.41,
+      "ret_pct": 12.16
     },
     "GOOGL": {
-      "price": 353.65,
-      "ret_pct": -8.79
+      "price": 357.845,
+      "ret_pct": -7.71
     },
     "TSLA": {
-      "price": 411.84,
-      "ret_pct": -2.53
+      "price": 417.09,
+      "ret_pct": -1.28
     },
     "ORCL": {
-      "price": 147.76,
-      "ret_pct": -36.34
+      "price": 146.0,
+      "ret_pct": -37.1
     },
     "ANET": {
-      "price": 164.1,
-      "ret_pct": 1.25
+      "price": 169.945,
+      "ret_pct": 4.86
     },
     "MU": {
-      "price": 1145.28,
-      "ret_pct": 52.91
+      "price": 1152.165,
+      "ret_pct": 53.83
     },
     "AVGO": {
-      "price": 372.45,
-      "ret_pct": -11.54
+      "price": 374.11,
+      "ret_pct": -11.15
     }
   }
 }

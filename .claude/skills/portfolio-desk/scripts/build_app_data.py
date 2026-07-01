@@ -195,6 +195,18 @@ def pct(a, b):
     return round((a - b) / b * 100, 2)
 
 
+def resolve_change_pct(meta: dict, q: dict):
+    """라이브 시세 change_pct을 그대로 쓰되, stocks.json meta에 수동 대조치
+    (change_pct_override)가 걸려 있고 가격이 그 시점과 같으면 대조치를 우선한다.
+    가격이 그새 움직였으면(다음 거래일 등) 자동으로 무시되고 라이브 값으로 복귀 —
+    override가 stale한 채 계속 남아있는 걸 방지."""
+    override = meta.get("change_pct_override")
+    price = q.get("price")
+    if override and price is not None and abs(price - override.get("price", float("nan"))) < 0.01:
+        return override["value"]
+    return q.get("change_pct")
+
+
 def build(offline: bool) -> dict:
     pf = load_json(PORTFOLIO_JSON)
     sj = load_json(STOCKS_JSON)
@@ -218,6 +230,9 @@ def build(offline: bool) -> dict:
             q = quote(sym, offline)
             price = q.get("price")
             prev = q.get("prev_close")
+            override = stock_meta.get(sym, {}).get("change_pct_override")
+            if override and price is not None and abs(price - override.get("price", float("nan"))) < 0.01:
+                prev = price / (1 + override["value"] / 100)
             cur = q.get("currency") or ("KRW" if region == "kr" else "USD")
             shares = h["shares"]
             cost = h["cost"]
@@ -244,7 +259,7 @@ def build(offline: bool) -> dict:
                 "shares": shares,
                 "cost": cost,
                 "price": price,
-                "change_pct": q.get("change_pct"),
+                "change_pct": resolve_change_pct(meta, q),
                 "value_krw": round(value_krw),
                 "pnl_pct": pct(price, cost),
                 "pnl_krw": round(value_krw - cost_krw),
@@ -268,7 +283,7 @@ def build(offline: bool) -> dict:
             "ticker": sym,
             "currency": q.get("currency"),
             "price": q.get("price"),
-            "change_pct": q.get("change_pct"),
+            "change_pct": resolve_change_pct(meta, q),
             "stars": meta.get("stars", 3),
             "score": meta.get("score"),
             "target": meta.get("target", "—"),

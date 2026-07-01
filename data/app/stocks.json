@@ -876,6 +876,11 @@
      "dir": "→",
      "note": "매출+196%·fwdPE16 강세 vs 시클리컬 정점 우려. DB $1,500 vs 절반차익 택1."
     }
+   },
+   "change_pct_override": {
+    "price": 1154.29,
+    "value": -4.88,
+    "note": "6/30 종가 등락률. Yahoo live prev_close가 실제 6/25 종가($1,213.56)와 달라 change_pct가 +0.79%로 오표시되는 문제 → 수동 대조치로 고정(가격이 바뀌면 자동 해제). Citi 마진정점 경고일."
    }
   },
   "AVGO": {

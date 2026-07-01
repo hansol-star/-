@@ -222,9 +222,15 @@ def check_hunter():
         app_dates = {v.get("date") for v in lv}
         if isinstance(arch, dict):
             app_dates |= {v.get("date") for v in arch.get("videos", [])}
-        missing = sorted(d for d in log_dates if d not in app_dates)
-        if missing:
-            warn(f"hunter 아카이브 백필 필요(로그엔 있으나 앱 미반영): {missing}")
+        app_dates = {d for d in app_dates if d}
+        # 내부 구멍(=앱 최신일보다 오래됐는데 빠진 날짜)만 백필 대상.
+        # 로그 헤더가 브리핑 날짜(영상 업로드일보다 하루 뒤)인 경우가 있어
+        # 앱 최신일보다 '새로운' 로그 날짜는 오탐이므로 제외.
+        if app_dates:
+            newest = max(app_dates)
+            missing = sorted(d for d in log_dates if d not in app_dates and d <= newest)
+            if missing:
+                warn(f"hunter 아카이브 백필 필요(로그엔 있으나 앱 미반영): {missing}")
 
 def main():
     ap = argparse.ArgumentParser()

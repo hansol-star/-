@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-01 08:41 KST",
+  "generated_at": "2026-07-01 08:51 KST",
   "as_of": "2026-07-01 수 아침 풀 브리핑(v36) — 美 6/30 리스크온 마감 확대(S&P +0.79%·SOX +3.92%·2Q 2020년래 최고 분기). 국장 외인 8일째 순매도(-3.80조·상반기 -149조)+오늘 NPS 재개. 보유 16 홀딩·신규 0·트리거 도달 0. 별점·스코어 v34 유지.",
   "source_report": "docs/reports/report_v36_2026-07-01.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1554.44
+    "usdkrw": 1554.61
   },
   "totals": {
-    "assets_krw": 8138850,
-    "stocks_value_krw": 7514079,
+    "assets_krw": 8139497,
+    "stocks_value_krw": 7514726,
     "cash_krw": 624771,
-    "day_change_krw": 33684,
+    "day_change_krw": 33694,
     "day_change_pct": 0.45,
-    "total_pnl_krw": 234970,
-    "total_pnl_pct": 3.23
+    "total_pnl_krw": 235617,
+    "total_pnl_pct": 3.24
   },
   "safety": {
     "pin": 7500,
@@ -603,9 +603,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 200.09,
       "change_pct": 2.63,
-      "value_krw": 1598124,
+      "value_krw": 1598299,
       "pnl_pct": 0.29,
-      "pnl_krw": 105033,
+      "pnl_krw": 105208,
       "outlook": "core",
       "stars": 5,
       "score": 100,
@@ -674,9 +674,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 563.29,
       "change_pct": 0.12,
-      "value_krw": 988650,
+      "value_krw": 988758,
       "pnl_pct": -11.15,
-      "pnl_krw": -53962,
+      "pnl_krw": -53854,
       "outlook": "core",
       "stars": 4,
       "score": 75,
@@ -730,9 +730,9 @@ window.APP_DATA = {
       "cost": 645.4,
       "price": 686.81,
       "change_pct": 0.85,
-      "value_krw": 1036414,
+      "value_krw": 1036527,
       "pnl_pct": 6.42,
-      "pnl_krw": 123852,
+      "pnl_krw": 123966,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -776,9 +776,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 373.02,
       "change_pct": 1.21,
-      "value_krw": 836705,
+      "value_krw": 836797,
       "pnl_pct": -9.06,
-      "pnl_krw": -25424,
+      "pnl_krw": -25333,
       "outlook": "core",
       "stars": 4,
       "score": 71,
@@ -837,9 +837,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 289.36,
       "change_pct": 2.7,
-      "value_krw": 909693,
+      "value_krw": 909793,
       "pnl_pct": 12.53,
-      "pnl_krw": 152228,
+      "pnl_krw": 152328,
       "outlook": "hold",
       "stars": 3,
       "score": 58,
@@ -913,9 +913,9 @@ window.APP_DATA = {
       "cost": 387.73,
       "price": 357.37,
       "change_pct": 1.05,
-      "value_krw": 243317,
+      "value_krw": 243343,
       "pnl_pct": -7.83,
-      "pnl_krw": -4038,
+      "pnl_krw": -4011,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -984,9 +984,9 @@ window.APP_DATA = {
       "cost": 422.51,
       "price": 420.6,
       "change_pct": 2.13,
-      "value_krw": 103109,
+      "value_krw": 103120,
       "pnl_pct": -0.45,
-      "pnl_krw": 6058,
+      "pnl_krw": 6069,
       "outlook": "hold",
       "stars": 2,
       "score": 18,
@@ -1035,9 +1035,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 146.55,
       "change_pct": -0.82,
-      "value_krw": 49021,
+      "value_krw": 49026,
       "pnl_pct": -36.86,
-      "pnl_krw": -23731,
+      "pnl_krw": -23726,
       "outlook": "hold",
       "stars": 3,
       "score": 69,
@@ -1096,9 +1096,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 169.88,
       "change_pct": 3.52,
-      "value_krw": 74864,
+      "value_krw": 74872,
       "pnl_pct": 4.82,
-      "pnl_krw": 7942,
+      "pnl_krw": 7950,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1142,9 +1142,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 1154.29,
       "change_pct": 0.79,
-      "value_krw": 35887,
+      "value_krw": 35891,
       "pnl_pct": 54.11,
-      "pnl_krw": 14068,
+      "pnl_krw": 14072,
       "outlook": "core",
       "stars": 5,
       "score": 99,
@@ -1248,9 +1248,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 377.75,
       "change_pct": 1.42,
-      "value_krw": 41794,
+      "value_krw": 41799,
       "pnl_pct": -10.29,
-      "pnl_krw": -1857,
+      "pnl_krw": -1852,
       "outlook": "hold",
       "stars": 4,
       "score": 83,
@@ -1759,7 +1759,7 @@ window.APP_DATA = {
       1546.48,
       1535.24,
       1541.73,
-      1554.28
+      1554.46
     ]
   },
   "kospi_history": {
@@ -2221,15 +2221,15 @@ window.APP_DATA = {
     "_updated_note": "6/30 저녁 추가 2편(M7 분화론·美뉴스3가지). 보유 핵심 6종 직접커버. M7 capex setup 신규(setup-m7capex-0630). SPCX=로켓랩 Iridium딜 경쟁진입 리스크. 로켓랩 인수액 $8B(채널 $80B는 10배오류·정정).",
     "scorecard": {
       "buckets": {
-        "정확": 39,
-        "근사": 24,
+        "정확": 40,
+        "근사": 25,
         "시점": 2,
-        "미확인": 12,
+        "미확인": 15,
         "정정": 17,
         "과장": 0
       },
-      "total": 94,
-      "accuracy_pct": 67
+      "total": 99,
+      "accuracy_pct": 66
     }
   },
   "hunter_archive": [
@@ -2279,6 +2279,28 @@ window.APP_DATA = {
       "views": ""
     },
     {
+      "date": "2026-06-29",
+      "title": "지금 투자자들이 '삼성전자+하이닉스'에서 봐야 하는 진짜 포인트",
+      "theme": "메모리 코어 관전",
+      "tickers": [
+        "005930.KS",
+        "000660.KS",
+        "MU"
+      ],
+      "verdict": "미확인·자막미확보",
+      "takeaway": "[자막미확보·제목+맥락] 삼성·하닉 반등의 진짜 관전=실적(7/7 삼성 잠정)·외인 재매수·이익률 유지. 6/29 '거품 아닌 이유'와 동일 메모리 강세 프레임. 구체수치 단정 금지.",
+      "views": null
+    },
+    {
+      "date": "2026-06-29",
+      "title": "6월 29일 오늘 투자 포인트(쇼츠)",
+      "theme": "데일리 포인트",
+      "tickers": [],
+      "verdict": "미확인·자막미확보",
+      "takeaway": "[자막미확보·RSS탈락, 제목만 트래킹] 6/29 데일리 투자포인트. 같은날 '이번주 중요 포인트'(별도 검증)와 주제중복 추정. 내용 미확인.",
+      "views": null
+    },
+    {
       "date": "2026-06-30",
       "title": "이재명 정부 550조 메가프로젝트 2차 수혜주(쇼츠)",
       "theme": "",
@@ -2304,6 +2326,39 @@ window.APP_DATA = {
       "verdict": "검증",
       "takeaway": "본편 압축 — 코스피 오를수록 연금매도압력↑→반도체 대형주 지수충격, 외인 받으면 조정/빚투개인 받으면 폭락. 신용 반대매매 도미노 경고 [검증·방향]",
       "views": ""
+    },
+    {
+      "date": "2026-06-30",
+      "title": "'에코프로' 지금 꼭 봐야하는 뉴스(쇼츠)",
+      "theme": "2차전지(미보유)",
+      "tickers": [],
+      "verdict": "참고·방향",
+      "takeaway": "에코프로(양극재·미보유). 1Q26 매출 8,220억·영익 602억 흑자·인니 통합밸류체인·북미 신규고객='흑자 원년' 서사(디일렉). 구체 뉴스·목표가 [미확인]. 보유 포트 무관—참고용.",
+      "views": null
+    },
+    {
+      "date": "2026-06-30",
+      "title": "애플이 '삼전·닉스' 대신 '중국'을 선택한 진짜 이유",
+      "theme": "메모리 경쟁·CXMT",
+      "tickers": [
+        "005930.KS",
+        "MU",
+        "000660.KS"
+      ],
+      "verdict": "검증(HBM위협 작음)",
+      "takeaway": "애플이 美 제재대상 中 CXMT 범용D램 채택 위해 상무부 라이선스 로비(5월~·CXMT 1Q26 $7.3B·+700%·점유 6~8%, Tom's·TechPowerUp). ★핵심=CXMT는 범용D램이지 HBM 아님→삼성·하닉·MU HBM 고수익 코어엔 직접위협 작음(Yahoo). 범용D램 저가경쟁만 삼성 신중요인.",
+      "views": null
+    },
+    {
+      "date": "2026-06-30",
+      "title": "환율 24시간 거래 시작, 코스피 폭탄 터지는 진짜 이유",
+      "theme": "국장·FX·MSCI",
+      "tickers": [
+        "005930.KS"
+      ],
+      "verdict": "검증·일부미확인",
+      "takeaway": "7/6 원화 외환시장 24h 개장=MSCI 선진지수 편입 포석·외인 24h 삼성전자 거래(뉴스1·경향). 채널 '폭탄'=24h 유동성이 외인 매도·환율 변동성 증폭 경고(반전트리거 환율 1,500 꺾임 연결). 장기=디스카운트 해소, 단기=변동성. '폭탄' 강도는 미확인.",
+      "views": null
     },
     {
       "date": "2026-06-27",

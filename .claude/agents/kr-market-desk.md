@@ -30,8 +30,15 @@ your output is the desk section handed to the PM.
 2. **Flows & news (WebSearch)** — what quotes don't cover:
    - **🔑 Foreign flows (key signal — always include)**: 코스피/코스닥 외국인·기관·연기금 net buys + **foreign net buy/sell streak (days) and cumulative**. 외인 = 코스피's main engine →
      ✅ sustained net buying = bullish (e.g. pre-positioning in SK하이닉스) / 🔴 **flip to net selling = bull-thesis weakening, a 'caution' alert** (state it to the PM).
+   - **📈 [7/2 정훈 지시 — 방향만 보지 말고 '추세'를 본다]**: 매도 지속 여부만 말고 **강도 변화**를 반드시 판독 —
+     ①당일 순매도액이 직전일 대비 축소/확대인지 ②장중 매수 규모가 커지는지(총매수/총매도 gross가 잡히면 병기)
+     ③`python3 .claude/skills/portfolio-desk/scripts/flow_trend.py` 실행 결과(5일 강도 변화·전환 단계)를 섹션에 포함.
+     축소 추세 = '전환 조짐'으로 PM에 명시 보고(반전트리거 게이트).
+   - **🎯 SK하이닉스 종목 외인 수급**: 하닉(000660) 당일 외인 순매수/매도 확정치를 별도 수집(반전트리거 '외인 하닉 매도중단' 게이트 판정용).
+     확정 시 flows.json 해당 일자에 `foreign_hynix`(억원) 필드로 기입.
    - Domestic sector rotation·movers (상한가·급등주).
    - 코스피 close tone — state whether today or prior trading day.
+   - **flows.json 기입 의무**: 당일 외인/기관/개인 확정치를 `data/app/flows.json` series에 추가(미확정은 null + note에 방향 서술). 이 시계열이 flow_trend·트리거 자동평가의 원천.
 
 3. **Verification**: cross-check single-source figures; mark "미확인" if uncertain. No guessing.
 

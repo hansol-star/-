@@ -1,5 +1,5 @@
 {
- "_comment": "코스피 투자자별 순매수(억원). 보고서에 문서화된 확정값만 시드. 보고서마다 kr-market-desk가 당일 외인/기관/개인 확정 시 series에 prepend(최신은 뒤). 추측 금지 — 미확인 일자는 null.",
+ "_comment": "코스피 투자자별 순매수(억원). 보고서에 문서화된 확정값만 시드. 보고서마다 kr-market-desk가 당일 외인/기관/개인 확정 시 series에 추가(최신은 뒤). 추측 금지 — 미확인 일자는 null. [7/2 확장] 선택 필드 foreign_hynix(SK하이닉스 종목 외인 순매수, 억원 — 반전트리거 '하닉 매도중단' 게이트 판정용, 확정된 날만). flow_trend.py·triggers.py(cond=flow)가 이 시계열을 기계 평가.",
  "updated": "2026-07-02",
  "unit": "억원",
  "market": "코스피",

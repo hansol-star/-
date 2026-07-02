@@ -12,19 +12,24 @@ report; you discover and summarize 경제사냥꾼 channel videos. **Do not writ
 
 ## Tasks
 
-1. **Auto-discover + extract captions** (from project root):
+1. **Auto-discover + extract captions** (from project root — **yt-dlp 불필요**, stdlib만):
    ```bash
-   pip install yt-dlp --break-system-packages -q   # once if missing
-   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 4
+   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 6
    ```
-   → prints the video/shorts list + caption md file paths. Read the generated md files.
+   → RSS(feeds/videos.xml)로 최신 15편 탐색(봇차단 무관) + innertube(ANDROID→IOS) 자막 추출.
+   영상 간 8~15초 페이싱 + LOGIN_REQUIRED 시 지수백오프(60→120→240초) 내장 — **기다리면 된다**.
+   prints the video/shorts list + caption md file paths. Read the generated md files.
+   특정 영상만 다시: `--ids "id1,id2"` / 날짜 필터 없이: `--all-dates`.
 
-2. **Today/yesterday filter**: from each md's 'upload' date, include **only today/yesterday uploads**.
-   Skip older videos. If nothing new, return "신규 입력 없음".
+2. **Today/yesterday filter**: RSS의 `published_kst` 기준 **오늘/어제 업로드만** 기본 대상
+   (스크립트가 자동 필터). If nothing new, return "신규 입력 없음".
 
-3. **⚠️ Web-env caveat**: this is a datacenter IP, so YouTube may bot-block.
-   The script has a web→tv→mweb fallback, but if all fail:
-   → WebSearch "경제사냥꾼 [주제] [날짜]", reconstruct from titles, and **state the limitation**.
+3. **⚠️ [7/2 영구 교정] "웹 환경 봇차단이라 실패 → 로컬 이전 후 재탐색" 서사 금지.**
+   봇차단의 실체 = 버스트 레이트리밋(일시적)이며 페이싱·백오프로 해소됨(7/2 실측 9/9편 확보).
+   - 스크립트가 FAILED를 내면: **몇 분 뒤 같은 세션에서 `--ids <실패ID>`로 재시도**(스크립트가 명령을 출력해 줌).
+   - 재시도도 실패하면 Playwright 브라우저 폴백(`browser_captions.cjs`)이 자동 시도됨.
+   - **"제목만 로깅" 금지** — 자막 없이 제목으로 추측 분석하지 않는다. 최후에만
+     WebSearch "경제사냥꾼 [주제] [날짜]"로 보강하되 [자막지연·재시도예약]을 명시하고 다음 실행에서 반드시 재시도.
 
 4. **3-tier confidence tagging (required)** — tag every key claim:
    - **[검증]** — confirmed by websearch/measurement.

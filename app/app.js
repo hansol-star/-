@@ -184,6 +184,15 @@
       + '<span><span class="lg" style="background:#34d399"></span>기관</span>'
       + '<span><span class="lg" style="background:#6d8bff"></span>개인</span>'
       + '<span class="mut" style="margin-left:auto">↑순매수 ↓순매도 (억원)</span></div>';
+    // 외인 추세 기계 판독 캡션 (flow_trend.py — 매도만 보지 말고 강도·전환단계)
+    var ft = D.flow_trend;
+    if (ft && !ft.error) {
+      var uk = function (v) { return v == null ? "?" : (Math.abs(v) >= 10000 ? (v / 10000).toFixed(2) + "조" : num(v) + "억"); };
+      var chg = ft.intensity ? (' · 5일강도 ' + (ft.intensity.chg_pct > 0 ? "+" : "") + ft.intensity.chg_pct + '%') : '';
+      legend += '<div class="comment sm" style="margin-top:6px">🔎 외인 추세(' + esc(ft.as_of || "") + '): <b>'
+        + esc(ft.streak + '일 연속 ' + ft.direction) + '</b> ' + uk(ft.last_amount) + chg
+        + ' · 전환단계 <b>' + esc(ft.stage || "") + '</b></div>';
+    }
     return s + legend;
   }
 
@@ -192,13 +201,18 @@
     var t = D.totals || {}, s = D.safety || {};
     var pinTxt = { ok: "정상 — 안전핀 이격 충분", watch: "주의 — 2차 트랜치 구간(8,000 부근)", freeze: "⚠ 동결 — 안전핀 하회, 잔여 트랜치 전면 동결", unknown: "코스피 시세 미확인" };
     var firedAlerts = (D.alerts || []).filter(function (a) { return a.fired; });
-    var events = (D.alerts || []).filter(function (a) { return a.cond === "event" || a.cond === "signal"; });
+    var events = (D.alerts || []).filter(function (a) { return a.cond === "event" || a.cond === "signal" || a.cond === "done"; });
     var kr = (D.holdings || []).filter(function (h) { return h.region === "kr"; });
     var us = (D.holdings || []).filter(function (h) { return h.region === "us"; });
 
     var h = "";
     h += '<header><div class="title">정훈 증권 · 포트폴리오</div>';
-    h += '<div class="sub">' + esc(D.as_of || "") + ' · 갱신 ' + esc(D.generated_at || "") + (D.offline ? " · 오프라인" : "") + '</div></header>';
+    h += '<div class="sub">' + esc(D.as_of || "") + '</div>';
+    // 섹션별 신선도 뱃지 — 시세(빌드시각) / 분석(stocks.json) / 헌터(hunter.json)가 서로 다른 시점일 수 있음
+    var huUpd = (D.hunter && D.hunter.updated) || "";
+    h += '<div class="sub xs">📈 시세 ' + esc(D.generated_at || "") + (D.offline ? " (오프라인)" : "")
+      + (huUpd ? ' · 🎬 헌터 ' + esc(huUpd.split(" (")[0]) : '')
+      + (D.pm_view && D.pm_view.updated ? ' · 💭 사견 ' + esc(D.pm_view.updated) : '') + '</div></header>';
 
     h += '<div class="hero"><div class="lbl">총 자산</div>';
     h += '<div class="big">' + won(t.assets_krw) + '</div>';
@@ -262,7 +276,8 @@
     if (events.length) {
       h += '<div class="sec"><h2>이벤트 · 시그널</h2></div>';
       events.forEach(function (a) {
-        h += '<div class="alert"><div class="row between"><span class="aid">' + esc(a.id) + '</span><span class="badge evt">' + esc(a.when || "") + '</span></div><div class="act">' + esc(a.action) + '</div></div>';
+        var badge = a.cond === "done" ? "✅ 완료" : esc(a.when || "");
+        h += '<div class="alert' + (a.cond === "done" ? ' mut' : '') + '"><div class="row between"><span class="aid">' + esc(a.id) + '</span><span class="badge evt">' + badge + '</span></div><div class="act">' + esc(a.action) + '</div></div>';
       });
     }
 
@@ -417,6 +432,9 @@
     var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">🗓️ 계획 · 할일 · 매수추적</div>';
     h += '<div class="sub">갱신 ' + esc(D.tasks_updated || "") + ' · 할일은 탭으로 체크(이 폰 임시) · 매수기록·영구반영은 채팅 “~했어/샀어”</div></header>';
 
+    // 오늘의 요점 (tasks.json today_note — 가장 최신 서사 한 줄)
+    if (D.today_note) h += '<div class="hl">📌 ' + esc(D.today_note) + '</div>';
+
     // 시간축 장 전망
     h += '<div class="sec"><h2>📅 장 전망 (오늘·내일·이번주·이번달)</h2></div>';
     (D.outlook || []).forEach(function (o) {
@@ -495,6 +513,32 @@
     }
     if (arch.length) h += '<div class="nav"><a class="navbtn" href="#archive">🗂️ 전체 영상 아카이브 (' + arch.length + ')</a></div>';
 
+    // 조건 트래커 (setups) — 채널 추천을 조건 체크리스트로 추적, ~75%+ 충족 & 존 진입 시 발동 (SKILL §7c)
+    var sus = hu.setups || [];
+    if (sus.length) {
+      h += '<div class="sec"><h2>🎯 조건 트래커 (셋업 ' + sus.length + ')</h2></div>';
+      sus.forEach(function (su) {
+        var conds = Array.isArray(su.conditions) ? su.conditions : [];
+        var met = conds.filter(function (c) { return c.met; }).length;
+        var stCls = su.status === "발동" ? "fired" : (su.status === "임박" ? "soon" : "");
+        h += '<div class="card ' + stCls + '"><div class="row between"><span class="bold">' + esc(su.label || su.id) + '</span>';
+        h += '<span class="badge">' + esc(su.status || "") + (conds.length ? ' ' + met + '/' + conds.length : '') + '</span></div>';
+        if (su.thesis) h += '<div class="tx sm mut" style="margin-top:4px">' + esc(su.thesis) + '</div>';
+        if (conds.length) {
+          h += '<div style="margin-top:6px">';
+          conds.forEach(function (c) {
+            h += '<div class="tx sm">' + (c.met ? "✅" : "⬜") + ' ' + esc(c.text) + '</div>';
+          });
+          h += '</div>';
+        } else if (typeof su.conditions === "string") {
+          h += '<div class="tx sm" style="margin-top:6px">⬜ ' + esc(su.conditions) + '</div>';
+        }
+        if (su.action) h += '<div class="tx sm" style="margin-top:6px"><b>액션:</b> ' + esc(su.action) + '</div>';
+        if (su.note) h += '<div class="tx xs mut" style="margin-top:4px">' + esc(su.note) + '</div>';
+        h += '</div>';
+      });
+    }
+
     var vids = hu.latest_videos || [];
     h += '<div class="sec"><h2>최신 영상 분석 (' + vids.length + ') · 눌러서 자세히</h2></div>';
     vids.forEach(function (v, idx) {
@@ -519,8 +563,13 @@
       h += '<div class="sec"><h2>📊 채널 트랙레코드 (정확도)</h2></div>';
       tr.forEach(function (r) {
         h += '<div class="trk"><div class="row between"><span class="dt">' + esc(r.date) + '</span><span class="itag ' + esc(r.verdict || "") + '">' + esc(r.verdict || "") + '</span></div>';
-        h += '<div class="tx sm"><b>주장:</b> ' + esc(r.claim) + '</div>';
-        h += '<div class="tx sm mut"><b>실제:</b> ' + esc(r.actual) + '</div></div>';
+        if (r.claim || r.actual) {
+          h += '<div class="tx sm"><b>주장:</b> ' + esc(r.claim) + '</div>';
+          h += '<div class="tx sm mut"><b>실제:</b> ' + esc(r.actual) + '</div>';
+        } else if (r.note) {
+          h += '<div class="tx sm">' + esc(r.note) + '</div>';
+        }
+        h += '</div>';
       });
     }
 

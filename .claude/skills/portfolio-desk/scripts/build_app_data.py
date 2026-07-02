@@ -362,6 +362,13 @@ def build(offline: bool) -> dict:
             or [r.get("verdict", "") for r in hunter.get("track_record", [])]
         hunter["scorecard"] = hunter_scorecard(verdicts)
     flows = load_json_opt(FLOWS_JSON)
+    # 외인 수급 추세 기계 판독 (flow_trend.py) — 앱 flowChart 캡션·전환단계 표시용
+    flow_trend = None
+    try:
+        from flow_trend import compute_trend
+        flow_trend = compute_trend((flows or {}).get("series", []))
+    except Exception:
+        pass
     pm_view = load_json_opt(PM_VIEW_JSON)
     reports = build_reports()
 
@@ -406,6 +413,7 @@ def build(offline: bool) -> dict:
         "hunter": hunter,
         "hunter_archive": archive_videos,
         "flows": flows,
+        "flow_trend": flow_trend,
         "pm_view": pm_view,
         "decisions": decisions,
         "reports": reports,
@@ -415,6 +423,7 @@ def build(offline: bool) -> dict:
         "task_counts": task_counts,
         "orders": tj.get("orders", []),
         "tasks_updated": tj.get("updated", ""),
+        "today_note": tj.get("today_note", ""),
     }
 
 

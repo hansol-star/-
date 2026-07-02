@@ -11,7 +11,10 @@ portfolio.json의 alerts를 실시간 시세(Yahoo)와 대조해
   above {level}        : 현재가 > level 이면 발동
   between {low,high}   : low ≤ 현재가 ≤ high 이면 발동(매수존 진입)
   event {when}         : 자동평가 불가 — 캘린더로 표시만
-  signal {when}        : 시세 무관 추적 신호(외인 수급 등) — 액션 노트만 표시
+  signal {when}        : 시세 무관 추적 신호 — 액션 노트만 표시
+  flow {signal}        : flows.json 기계 평가 — foreign_reversal(외인 순매수 전환) /
+                         selling_easing(매도강도 축소 조짐) [7/2 신설]
+  done                 : 완료 기록 — 표시만
 
 사용:
   python3 triggers.py            # 표
@@ -52,6 +55,26 @@ def evaluate(alert: dict) -> dict:
         return {**alert, "state": "event", "price": None, "detail": detail, "dday": delta}
     if cond == "signal":
         return {**alert, "state": "signal", "price": None, "detail": alert.get("when", "매 보고서")}
+    if cond == "done":
+        return {**alert, "state": "done", "price": None, "detail": alert.get("when", "완료")}
+    if cond == "flow":
+        try:
+            from flow_trend import compute_trend, load_series
+            t = compute_trend(load_series())
+        except Exception as ex:
+            return {**alert, "state": "error", "price": None, "detail": f"flows.json 평가 실패: {ex}"}
+        sig = alert.get("signal", "foreign_reversal")
+        if sig == "foreign_reversal":
+            fired = bool(t.get("reversal"))
+        else:  # selling_easing — 매도강도 20%+ 축소 또는 순매수 전환
+            chg = (t.get("intensity") or {}).get("chg_pct")
+            fired = bool(t.get("reversal")) or (chg is not None and chg < -20)
+        amt = t.get("last_amount", 0)
+        detail = (f"[{t.get('as_of')}] {t.get('direction')} {abs(amt)/10000:.2f}조 · "
+                  f"{t.get('streak')}일 연속 · 단계={t.get('stage')}")
+        if t.get("intensity"):
+            detail += f" · 5일강도 {t['intensity']['chg_pct']:+.1f}%"
+        return {**alert, "state": "fired" if fired else "armed", "price": None, "detail": detail}
 
     q = fetch_quote(alert["ticker"])
     price = None if (not q or q.get("error")) else q.get("price")
@@ -189,7 +212,8 @@ def main() -> int:
         print(json.dumps(out, ensure_ascii=False, indent=2))
         return 0
 
-    icon = {"fired": "🔴 발동", "armed": "🟢 대기", "event": "📅 이벤트", "signal": "📡 신호", "error": "⚠️ 오류"}
+    icon = {"fired": "🔴 발동", "armed": "🟢 대기", "event": "📅 이벤트", "signal": "📡 신호",
+            "done": "✅ 완료", "error": "⚠️ 오류"}
     fired = [r for r in results if r["state"] == "fired"]
     imminent = sorted(
         (r for r in results if r["state"] == "event" and r.get("dday") is not None and 0 <= r["dday"] <= 7),

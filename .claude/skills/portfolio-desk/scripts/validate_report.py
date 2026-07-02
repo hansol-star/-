@@ -126,15 +126,35 @@ def latest_version():
     vs = [v for v in vs if v is not None]
     return (max(vs) if vs else None)
 
+def newest_report_file():
+    """최신 보고서 '파일'(버전 + 수정시각 기준) — 같은 v 내 아침→EXEC intra-version stale 감지용."""
+    rdir = os.path.join(ROOT, "docs/reports")
+    cands = [f for f in os.listdir(rdir) if re.match(r"report_v\d+_", f)]
+    if not cands:
+        return None
+    return max(cands, key=lambda f: (ver(f) or 0, os.path.getmtime(os.path.join(rdir, f))))
+
 def check_versions(latest):
     if latest is None:
         warn("docs/reports/ 에 report_v*.md 없음"); return
+    newest_file = newest_report_file()
     st = load("data/app/stocks.json")
     if st and ver(st.get("source_report")) and ver(st.get("source_report")) < latest:
         fail(f"stocks.json source_report=v{ver(st.get('source_report'))} < 최신 v{latest} (정본 stale)")
+    # [7/2 신설] intra-version stale: v번호는 같아도 같은 날 아침→EXEC 등 최신 '파일'이 아니면 FAIL.
+    # (v37 아침 서사가 EXEC 폭락 뒤에도 앱에 남았던 사고 재발 방지 — 파일명 전체 대조)
+    elif st and newest_file:
+        sr_base = os.path.basename(st.get("source_report") or "")
+        if ver(sr_base) == latest and sr_base != newest_file:
+            fail(f"stocks.json source_report={sr_base} ≠ 최신 파일 {newest_file} "
+                 f"(같은 v{latest} 내 stale — EXEC/나이트체크 세션도 stocks.json 동기화 의무)")
     tk = load("data/app/tasks.json")
     if tk and ver(tk.get("source_report")) and ver(tk.get("source_report")) < latest:
         warn(f"tasks.json source_report=v{ver(tk.get('source_report'))} < 최신 v{latest}")
+    elif tk and newest_file:
+        tk_base = os.path.basename(tk.get("source_report") or "")
+        if ver(tk_base) == latest and tk_base != newest_file:
+            warn(f"tasks.json source_report={tk_base} ≠ 최신 파일 {newest_file} (intra-version stale)")
     # CLAUDE.md (자동로드 지도). 한/영 하이브리드 토큰 모두 인식.
     cp = os.path.join(ROOT, "CLAUDE.md")
     if os.path.exists(cp):
@@ -232,6 +252,47 @@ def check_hunter():
             if missing:
                 warn(f"hunter 아카이브 백필 필요(로그엔 있으나 앱 미반영): {missing}")
 
+# ── G. [7/2 신설] 신선도·정합 sanity: forecast 레인지 vs 실시세 · pm_view/decisions 날짜 ──
+def check_freshness(latest):
+    import datetime as _dt
+    # 최신 보고서 날짜(파일명 YYYY-MM-DD)
+    nf = newest_report_file() or ""
+    m = re.search(r"(\d{4}-\d{2}-\d{2})", nf)
+    rep_date = m.group(1) if m else None
+
+    # pm_view.json 오래됨 (보고서 날짜 대비 3일+ = WARN)
+    pv = load("data/app/pm_view.json")
+    if pv and rep_date and pv.get("updated"):
+        try:
+            gap = (_dt.date.fromisoformat(rep_date) - _dt.date.fromisoformat(pv["updated"])).days
+            if gap >= 3:
+                warn(f"pm_view.json updated={pv['updated']} — 최신 보고서({rep_date})보다 {gap}일 오래됨 (사견 stale)")
+        except ValueError:
+            pass
+
+    # decisions.jsonl 최근성 (최신 보고서 날짜 엔트리 부재 = WARN)
+    dp = os.path.join(ROOT, "data/app/decisions.jsonl")
+    if os.path.exists(dp) and rep_date:
+        dates = re.findall(r'"date":\s*"(\d{4}-\d{2}-\d{2})"', open(dp, encoding="utf-8").read())
+        if dates and max(dates) < rep_date:
+            warn(f"decisions.jsonl 최신 엔트리={max(dates)} < 보고서 {rep_date} — 당일 결정 기록 없음")
+
+    # forecast.week 레인지 vs 실시세 (app/data.js 빌드 결과 기준 — 없으면 생략)
+    dj = os.path.join(ROOT, "app/data.js")
+    sj = load("data/app/stocks.json")
+    if os.path.exists(dj) and sj:
+        try:
+            raw = open(dj, encoding="utf-8").read()
+            payload = json.loads(raw[raw.index("{"): raw.rindex("}") + 1])
+            prices = {h.get("ticker"): h.get("price") for h in payload.get("holdings", [])}
+            for t, v in sj.get("stocks", {}).items():
+                wk = ((v.get("forecast") or {}).get("week") or {})
+                lo, hi, px = wk.get("low"), wk.get("high"), prices.get(t)
+                if all(isinstance(x, (int, float)) for x in (lo, hi, px)) and not (lo * 0.97 <= px <= hi * 1.03):
+                    warn(f"{t}: 현재가 {px:,.0f}이 forecast.week {lo:,.0f}~{hi:,.0f} 밖 — 전망 재산정 필요")
+        except Exception:
+            pass
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", help="검사할 보고서 .md (생략 시 최신 자동)")
@@ -239,7 +300,7 @@ def main():
     a = ap.parse_args()
 
     check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter()
-    latest = latest_version(); check_versions(latest)
+    latest = latest_version(); check_versions(latest); check_freshness(latest)
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
         if rel: check_report(rel)

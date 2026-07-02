@@ -1,13 +1,13 @@
 {
   "date": "2026-07-02",
-  "fx_usdkrw": 1548.38,
+  "fx_usdkrw": 1539.89,
   "kr_value": 1529500,
   "kr_pnl": -132200,
-  "us_value_usd": 3872.7,
-  "us_pnl_usd": 15.91,
+  "us_value_usd": 3847.23,
+  "us_pnl_usd": -9.56,
   "cash_krw": 624771,
-  "total_assets_krw": 8150677,
-  "stock_pnl_krw": -107565,
+  "total_assets_krw": 8078575,
+  "stock_pnl_krw": -146923,
   "positions": {
     "삼성전자": {
       "price": 286000.0,
@@ -30,48 +30,48 @@
       "ret_pct": -20.2
     },
     "NVDA": {
-      "price": 197.58,
-      "ret_pct": -0.97
+      "price": 194.24,
+      "ret_pct": -2.64
     },
     "META": {
-      "price": 612.91,
-      "ret_pct": -3.32
+      "price": 585.34,
+      "ret_pct": -7.67
     },
     "VOO": {
-      "price": 685.46,
-      "ret_pct": 6.21
+      "price": 684.042,
+      "ret_pct": 5.99
     },
     "MSFT": {
-      "price": 384.28,
-      "ret_pct": -6.32
+      "price": 390.135,
+      "ret_pct": -4.89
     },
     "AAPL": {
-      "price": 294.38,
-      "ret_pct": 14.48
+      "price": 307.63,
+      "ret_pct": 19.64
     },
     "GOOGL": {
-      "price": 361.21,
-      "ret_pct": -6.84
+      "price": 355.226,
+      "ret_pct": -8.38
     },
     "TSLA": {
-      "price": 425.3,
-      "ret_pct": 0.66
+      "price": 394.575,
+      "ret_pct": -6.61
     },
     "ORCL": {
-      "price": 142.5,
-      "ret_pct": -38.61
+      "price": 140.48,
+      "ret_pct": -39.48
     },
     "ANET": {
-      "price": 166.62,
-      "ret_pct": 2.81
+      "price": 160.4,
+      "ret_pct": -1.03
     },
     "MU": {
-      "price": 1032.28,
-      "ret_pct": 37.82
+      "price": 986.37,
+      "ret_pct": 31.69
     },
     "AVGO": {
-      "price": 369.34,
-      "ret_pct": -12.28
+      "price": 362.78,
+      "ret_pct": -13.84
     }
   }
 }

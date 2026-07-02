@@ -147,7 +147,7 @@ def check_versions(latest):
         sr_base = os.path.basename(st.get("source_report") or "")
         if ver(sr_base) == latest and sr_base != newest_file:
             fail(f"stocks.json source_report={sr_base} ≠ 최신 파일 {newest_file} "
-                 f"(같은 v{latest} 내 stale — EXEC/나이트체크 세션도 stocks.json 동기화 의무)")
+                 f"(같은 v{latest} 내 stale — EXEC/밤 대화 등 부록 세션도 stocks.json 동기화 의무)")
     tk = load("data/app/tasks.json")
     if tk and ver(tk.get("source_report")) and ver(tk.get("source_report")) < latest:
         warn(f"tasks.json source_report=v{ver(tk.get('source_report'))} < 최신 v{latest}")

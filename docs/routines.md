@@ -6,16 +6,18 @@
 
 ---
 
-## 현행 루틴 (3)
+## 현행 루틴 (2) — [7/2 정훈 확정: "아침 + 17:30 두 개만, 밤은 대화로"]
 
 ### R1. 아침 풀 브리핑 (평일 06:00~07:00경)
 하루 중 가장 상세. 간밤 미장 마감 종합 + 매크로 + 경제사냥꾼 + 국장 개장 전 전략 + 폰창 집행 후보.
+**+ [7/2 R3 폐지로 이관] 전일 미국 지정가 예약 체결 점검(체결/미체결·평단) + 전일 밤 지표(NFP·CPI 등 21:30발) 반영.**
 → 산출: `report_v{N}` (보유16 풀표 + STATE SNAPSHOT). 영구변경 시 master.md·portfolio.json. data/app → build_app_data → main 푸시.
 
 ```
 보고서 (아침 풀 브리핑 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
 - portfolio-desk 스킬 풀 파이프라인: 최신 report STATE SNAPSHOT + decisions.py로 컨텍스트 복원 → 8데스크 병렬 → 강세/신중 디베이트 → PM 종합.
 - 주간 첫 보고서면 self-review를 맨 먼저(캘리브레이션 부채 금지) → call_scorecard.md prepend.
+- 전일 17:30 미국 지정가 예약 체결 점검(체결이면 portfolio.json·tasks.json·master.md 갱신) + 전일 밤 21:30발 지표(NFP·CPI 등) 결과 반영.
 - 보유16+워치 풀표(별점·스코어·매수존·트림)·지정가 오더북·PM 사견·tasks.json 동기화. 오늘의 이슈 4개는 전부 자동 심층(선택 대기 X).
 - build_app_data → validate_report(FAIL 자가교정) → score_calls --append → snapshot.py → 커밋 → main ff 머지·푸시(자동). 추측 금지·미확인 명시.
 ```
@@ -32,20 +34,15 @@
 - 산출 = report addendum + tasks.json orders 갱신 → build_app_data → validate_report → 커밋 → main ff 머지·푸시(자동).
 ```
 
-### R3. 야간 점검 / 내일 준비 (평일 22:30~23:30경, 라이트)
-토큰 절약. 국장 마감 + 미장 개장초 요약, 보유·워치 한 줄씩. 17:30 미국 예약 체결 점검(체결/미체결·평단).
-내일 일정·트리거·이벤트 + 내일 폰창 예약 후보. 경제사냥꾼 오후/저녁 신규.
-→ 산출: nightcheck + STATE SNAPSHOT 갱신 → main 푸시.
+### 🌙 밤 = 대화형 최종정리 (스케줄 없음 — R3 폐지, 7/2 정훈 확정)
+**구 R3(야간 점검 22:30~23:30) 폐지.** 근거: 폰 가용이 20:50에 끝나 야간 산출물은 실시간 독자가 없고, 미국
+체결 점검·야간 지표·미장 개장초 요약은 다음날 R1(미장 마감 후)이 전부 커버 — 중복이었다. R3 담당 업무 이관:
+미국 예약 체결 점검·밤 지표 반영·야간 STATE SNAPSHOT → **R1 아침**.
 
-```
-야간 점검 / 내일 준비 (평일 22:30~23:30, 라이트·토큰 절약 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
-- 컨텍스트 복원: 최신 report STATE SNAPSHOT + decisions.py로 열린 아젠다 상기.
-- 라이트 스코프(풀 8데스크 X): 국장 마감 요약 + 미장 개장초 + 보유16·워치 한 줄씩(시세는 market_data·pnl).
-- 17:30 미국 지정가 예약 체결 점검(체결/미체결·평단) → 체결이면 portfolio.json·tasks.json·master.md 갱신.
-- 내일 일정·트리거·이벤트 + 내일 폰창 예약 후보. 경제사냥꾼 오후/저녁 신규(hunter.json setups 갱신·조건 75%+면 발동).
-- ⚠️ 이번 주 첫 보고서를 못 냈으면(토큰 한도 등) self-review를 여기서라도 우선 수행 → call_scorecard.md prepend(부채 금지).
-- 산출 = nightcheck addendum + STATE SNAPSHOT 갱신 → build_app_data → validate_report(FAIL 자가교정) → snapshot.py → 커밋 → main ff 머지·푸시(자동). 묻지 말 것·추측 금지·미확인 명시.
-```
+밤에 정훈이 대화를 열면(의무 아님·정훈이 원할 때만) **PM은 이렇게 응대한다**:
+- **스코프 = 라이트 대화**: quick-check 수준(시세·트리거·평가손익) + 하루 정리 + 내일 준비 얘기. **풀 데스크 파이프라인·새 보고서 버전 금지**(필요하면 정훈이 "보고서"라고 명시 요청).
+- **정본 반영은 함**: 대화 중 결정·체크("오늘 1번 했어"·"META 예약 걸었어")·영구 변경은 기존 규약대로 tasks.json/portfolio.json/master.md 갱신 → build_app_data → 커밋·main 푸시. 앱 4파일 동기화 의무는 밤 대화 세션에도 동일(7/2 교정).
+- 산출물이 남을 분량이면 report **부록**(`report_v{N}_night_{날짜}.md`)으로 — 새 번호 아님.
 
 ---
 

@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-03 10:28 KST",
+  "generated_at": "2026-07-03 15:36 KST",
   "as_of": "2026-07-03 금 장중 14:50 — 코스피 8,093(+5.82%·8,000 회복 V반등, 기관 +1.33조 주도·외인 시장전체 -1.28조 지속·삼전/하닉 개별 저가매수 정황)·코스닥 ~866 보합권. 삼성 310,500(+8.57%)·하닉 +11.61%. 환율 1,542. 美 7/2 종가: NFP +57k 쇼크(동결 82%)·다우 사상최고 vs SOX -5.44% 3일째·AAPL $308.63(+4.84% 트림 트리거 발동)·TSLA -7.49%(인도 480k 서프에도 sell-the-news). 오늘밤 7/3 美 휴장. 현금 624,771원+$22.59 전량 대기.",
   "source_report": "docs/reports/report_v38_2026-07-03.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1530.96
+    "usdkrw": 1530.59
   },
   "totals": {
-    "assets_krw": 8104646,
-    "stocks_value_krw": 7479875,
+    "assets_krw": 8103221,
+    "stocks_value_krw": 7478450,
     "cash_krw": 624771,
-    "day_change_krw": 21432,
+    "day_change_krw": 21440,
     "day_change_pct": 0.29,
-    "total_pnl_krw": 200766,
-    "total_pnl_pct": 2.76
+    "total_pnl_krw": 199341,
+    "total_pnl_pct": 2.74
   },
   "safety": {
     "pin": 7500,
@@ -651,9 +651,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 194.83,
       "change_pct": -1.39,
-      "value_krw": 1532607,
+      "value_krw": 1532237,
       "pnl_pct": -2.35,
-      "pnl_krw": 39516,
+      "pnl_krw": 39146,
       "outlook": "core",
       "stars": 5,
       "score": 100,
@@ -732,9 +732,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 582.9,
       "change_pct": -4.9,
-      "value_krw": 1007615,
+      "value_krw": 1007371,
       "pnl_pct": -8.06,
-      "pnl_krw": -34997,
+      "pnl_krw": -35241,
       "outlook": "core",
       "stars": 4,
       "score": 80,
@@ -803,9 +803,9 @@ window.APP_DATA = {
       "cost": 645.4,
       "price": 684.84,
       "change_pct": -0.09,
-      "value_krw": 1017831,
+      "value_krw": 1017585,
       "pnl_pct": 6.11,
-      "pnl_krw": 105269,
+      "pnl_krw": 105023,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -849,9 +849,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 390.49,
       "change_pct": 1.62,
-      "value_krw": 862661,
+      "value_krw": 862452,
       "pnl_pct": -4.8,
-      "pnl_krw": 531,
+      "pnl_krw": 323,
       "outlook": "core",
       "stars": 4,
       "score": 71,
@@ -910,9 +910,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 308.63,
       "change_pct": 4.84,
-      "value_krw": 955618,
+      "value_krw": 955387,
       "pnl_pct": 20.02,
-      "pnl_krw": 198153,
+      "pnl_krw": 197922,
       "outlook": "hold",
       "stars": 3,
       "score": 58,
@@ -996,9 +996,9 @@ window.APP_DATA = {
       "cost": 387.73,
       "price": 359.91,
       "change_pct": -0.36,
-      "value_krw": 241345,
+      "value_krw": 241286,
       "pnl_pct": -7.18,
-      "pnl_krw": -6010,
+      "pnl_krw": -6068,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1072,9 +1072,9 @@ window.APP_DATA = {
       "cost": 422.51,
       "price": 393.45,
       "change_pct": -7.49,
-      "value_krw": 94996,
+      "value_krw": 94973,
       "pnl_pct": -6.88,
-      "pnl_krw": -2055,
+      "pnl_krw": -2078,
       "outlook": "hold",
       "stars": 2,
       "score": 22,
@@ -1128,9 +1128,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 140.27,
       "change_pct": -1.56,
-      "value_krw": 46212,
+      "value_krw": 46200,
       "pnl_pct": -39.57,
-      "pnl_krw": -26540,
+      "pnl_krw": -26552,
       "outlook": "hold",
       "stars": 3,
       "score": 69,
@@ -1189,9 +1189,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 159.99,
       "change_pct": -3.98,
-      "value_krw": 69440,
+      "value_krw": 69423,
       "pnl_pct": -1.28,
-      "pnl_krw": 2518,
+      "pnl_krw": 2502,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1235,9 +1235,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 975.56,
       "change_pct": -5.49,
-      "value_krw": 29872,
+      "value_krw": 29865,
       "pnl_pct": 30.25,
-      "pnl_krw": 8053,
+      "pnl_krw": 8046,
       "outlook": "core",
       "stars": 4,
       "score": 84,
@@ -1356,9 +1356,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 360.45,
       "change_pct": -2.41,
-      "value_krw": 39278,
+      "value_krw": 39268,
       "pnl_pct": -14.39,
-      "pnl_krw": -4373,
+      "pnl_krw": -4383,
       "outlook": "hold",
       "stars": 4,
       "score": 83,
@@ -1872,7 +1872,7 @@ window.APP_DATA = {
       1541.73,
       1548.61,
       1551.81,
-      1531.14
+      1530.59
     ]
   },
   "kospi_history": {
@@ -1897,8 +1897,7 @@ window.APP_DATA = {
       "2026-06-29",
       "2026-06-30",
       "2026-07-01",
-      "2026-07-02",
-      "2026-07-03"
+      "2026-07-02"
     ],
     "closes": [
       8639.41,
@@ -1921,8 +1920,7 @@ window.APP_DATA = {
       8394.65,
       8476.48,
       8303.41,
-      7648.09,
-      8088.34
+      7648.09
     ]
   },
   "hunter": {
@@ -4186,9 +4184,41 @@ window.APP_DATA = {
           "외인수급"
         ],
         "refs": "report_v37_exec·hunter_log 7/2 오후. 트리거=외인 flow 전환·NFP(7/2 밤)·삼성 7/7 잠정"
+      },
+      {
+        "id": "d13",
+        "date": "2026-07-03",
+        "topic": "AAPL 트림 발동 처리 = 7/6 조건부 예약",
+        "decision": "[확정] 7/2 $308.63로 $305 트리거 발동. 7/3 美 휴장 → 7/6(월) 20:50 전 조건부 예약($305 유지 확인 시 $308 지정가 1주·+19.8% 익절·대금 GOOGL $330 재배치). 무조건 예약 아닌 가격조건 유지.",
+        "rationale": "룰2 익절 디폴트+룰5 조건부 베이킹 정합. 컨센 $315 여력 +2% 소진 vs GOOGL +20%. 리스크데스크: 반등 동승 가능성 감안 조건부.",
+        "rejected": "즉시 시장가 트림(휴장·갭 노출), 트림 보류(룰2 위반)",
+        "status": "open",
+        "tags": [
+          "AAPL",
+          "트림",
+          "GOOGL",
+          "익절"
+        ],
+        "refs": "report_v38 §7 오더북"
       }
     ],
     "closed": [
+      {
+        "id": "d14",
+        "date": "2026-07-03",
+        "topic": "MU 별점 ⭐5→⭐4(90→84) 하향",
+        "decision": "[확정] 3일 -20% 추세 훼손 정직 반영. 단 FQ4 GM ~86% 가이드 = 마진 가속 → §10-2 판정 '홀딩' 유지·물타기 금지·잔여 절반 유지.",
+        "rationale": "6/29 캘리브레이션 ⭐5 과신 플래그 반복 방지. 마진 추세 꺾이는 실측 전엔 트림 안 함.",
+        "rejected": "⭐5 유지(추세 훼손 무시), 전량 트림(글럿 논쟁만으로 매도)",
+        "status": "closed",
+        "tags": [
+          "MU",
+          "별점",
+          "메모리",
+          "마진추세"
+        ],
+        "refs": "report_v38 §2-1"
+      },
       {
         "id": "a9",
         "date": "2026-07-02",
@@ -4399,8 +4429,8 @@ window.APP_DATA = {
         "refs": "master §9"
       }
     ],
-    "open_count": 8,
-    "total": 21
+    "open_count": 9,
+    "total": 23
   },
   "reports": [
     {

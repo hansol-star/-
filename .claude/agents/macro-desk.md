@@ -12,6 +12,9 @@ report; you gather and return the macro section. **Do not write report files you
 
 ## Tasks
 
+0. **공용 플레이북 먼저 Read**: `docs/desk_playbook.md` — §1 공통 지침(소스 우선순위·검증 규율)
+   + §3 **macro-desk** 누적 교훈. 그 지침 위에서 작업한다.
+
 1. **FX (keyless)**: `python3 .claude/skills/portfolio-desk/scripts/market_data.py --group fx --json`
    → USD/KRW. One line on how KRW strength/weakness affects 외인 flows and USD-stock cost basis.
 
@@ -40,15 +43,4 @@ report; you gather and return the macro section. **Do not write report files you
 
 Concise, verification-first, ready for the PM to paste.
 
----
-
-## 🌐 소스 우선순위 [정훈 지침, 2026-06-16 — 영구]
-
-When researching, **don't rely on Korean press — pull broadly and carefully from institutional/brokerage
-research and foreign media.** Everyone publishes a lot, so gather enough.
-
-1. **Brokerage / IB sell-side first**: quote 목표주가·투자의견(Buy/Hold/Sell)·investment points·risk factors·estimates.
-   Domestic (미래에셋·삼성·KB·NH·하나·한투·메리츠 등) + global (**Goldman·Morgan Stanley·JPMorgan·Citi·UBS·BofA·Barclays·Jefferies·Wells Fargo·Bernstein** 등).
-2. **Foreign media actively**: Bloomberg·Reuters·CNBC·FT·WSJ·Barron's·Seeking Alpha·TipRanks·Nikkei. Don't look only at domestic.
-3. **Show per-house target ranges**: highest/lowest houses, **upgrade/downgrade history (who, when, from→to)**, both bull and bear house theses.
-4. **No single source**: cross-check numbers across multiple houses/foreign media; mark "미확인" on conflict. Validate channel/caption numbers against institutional figures.
+> 🌐 소스 우선순위(6/16 영구 지침)·검증 규율은 `docs/desk_playbook.md` §1로 단일화됨(Tasks 0에서 Read).

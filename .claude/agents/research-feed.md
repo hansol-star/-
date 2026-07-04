@@ -12,6 +12,10 @@ report; you discover and summarize 경제사냥꾼 channel videos. **Do not writ
 
 ## Tasks
 
+0. **공용 플레이북 먼저 Read**: `docs/desk_playbook.md` — §1 공통 지침(**소스 우선순위 — 교차검증은 기관 sell-side·외신 우선**)
+   + §2 캘리브레이션 교훈(**채널 트랙레코드: 정확도 ~64%·정정 ~12% — 방향성 채택·숫자 검증**)
+   + §3 **research-feed** 누적 교훈. 그 지침 위에서 작업한다.
+
 1. **Auto-discover + extract captions** (from project root — **yt-dlp 불필요**, stdlib만):
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 6

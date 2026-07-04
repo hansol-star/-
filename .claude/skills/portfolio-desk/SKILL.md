@@ -61,6 +61,7 @@ python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secre
 - **risk-desk** (리스크 매니저): 안전핀·트랜치·트리거(`triggers.py`)·집중도·신중(bear) 관점 — PM의 브레이크
 
 각 데스크가 섹션을 반환하면 PM이 종합한다. (데스크는 파일을 쓰지 않음 — PM이 모아서 작성.)
+**📖 [7/4] 공용 플레이북**: 8개 데스크 agent 파일 전원 Tasks 0 = `docs/desk_playbook.md` Read(공통 소스지침·검증 규율 + 캘리브레이션 교훈 + 자기 데스크 누적 교훈). 소스 우선순위(6/16) 정본도 이 파일 §1(舊 agent 파일 중복 제거됨). PM도 종합 전 §2·§3 확인.
 **[7/4 정훈 지시] 데스크별 모델 배분** — 지역(kr·us)+매크로+리스크+리서치 5개 = **sonnet**(스크립트 정리·룰체크·태깅,
 opus 불필요·토큰 절감) / 섹터 3개(semi-ai·power-physical·bigtech) = **opus**(테마 종합·컨센서스 판단, 별점·스코어에 직결).
 지역(kr·us)+매크로+리스크+리서치는 **항상 호출**.
@@ -80,6 +81,10 @@ opus 불필요·토큰 절감) / 섹터 3개(semi-ai·power-physical·bigtech) =
 ### 2b. 강세 vs 신중 디베이트 (PM 직접, TradingAgents 차용)
 데스크 입력을 모은 뒤, PM은 §4 종합 전에 **강세(bull) 논지 vs 신중(bear) 논지**를 각 1단락으로 맞세운다.
 신중 논지는 risk-desk 반환을 베이스로. 최종 액션은 두 논지를 저울질한 PM 판단(무게는 PM 종합에).
+
+**🔁 reflection 주입 [7/4 채택 — TradingAgents 패턴, study_log]**: §7 종합 전 오늘 액션·이슈가 걸린 종목에 대해
+`decisions.py query {종목}`으로 **과거 결정·기각 대안을 상기**하고, `desk_playbook.md` §2(캘리브레이션)·§3(데스크 교훈)을 확인한다.
+주간 self-review(배치 후행채점)와 상보인 **매 보고서 상기 단계** — 같은 실수를 세션이 바뀌어도 반복하지 않기 위함.
 
 PM은 추가로 **무키 분석 스크립트**를 직접 돌려 정량 데이터를 채운다 (프로젝트 루트에서):
 ```bash
@@ -174,7 +179,7 @@ python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 �
    - `data/app/stocks.json`: 종목별 `stars`·**`score`(0~100 정량점수, self-review가 후행검증)**·`target`·`buy_zone`·`trim`·`comment`·`issues`(최신 [검증/정정/미확인] 이슈 날짜와 함께 prepend)·`as_of`·`source_report`.
    - `data/app/hunter.json`: 경제사냥꾼 신규 영상(latest_videos)·트랙레코드(track_record 최신 prepend)·headline·themes — `docs/research/hunter_log.md`와 동기화.
      - ⚠️ **영상 요약 필드명 = `summary`(필수)**. `note`로 쓰면 앱 상세가 "—" 빈칸 됨(track_record의 `note`와 혼동 금지). build_app_data가 note→summary 폴백을 넣지만 정본은 항상 `summary`로 쓴다.
-     - 🔁 **롤오버**: latest_videos는 최신 ~9편만 유지. 거기서 밀려나는 옛 영상은 **반드시 `data/app/hunter_archive.json`의 `videos`(최신순 prepend)로 옮긴다**(스키마: date·title·theme·tickers·verdict·takeaway·views). 안 옮기면 앱에서 영상이 통째로 사라짐(아카이브 정체). validate_report.py가 로그↔앱 날짜 갭을 WARN으로 적발.
+     - 🔁 **롤오버 [7/4 자동화]**: latest_videos는 최신 ~9편만 유지. 아카이브 이관은 **build_app_data.py가 자동 수행**(latest 중 archive에 없는 영상을 `hunter_archive.json` `videos` 맨 앞에 prepend, summary→takeaway 매핑, 중복 판정 = id·정규화 제목) — 수동 이관 불필요, **빌드만 돌리면 정체 없음**. validate_report.py는 로그↔archive 날짜 갭을 **FAIL**로 적발(latest에만 있는 날짜는 커버로 안 침 — 앱 '전체 영상 아카이브' 화면은 archive만 읽으므로. 6/20·7/3 정체 재발 원인 봉합).
    - `data/app/flows.json`: 당일 코스피 외인/기관/개인 순매수(억원)를 series에 추가. **문서화·교차검증된 값만, 미확인은 null**(추측 금지).
    그 뒤 시세·시계열(환율·코스피)을 합쳐 앱 데이터를 빌드한다:
    ```bash
@@ -216,6 +221,7 @@ python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 �
 ## 7. 지속 개선 루프
 
 - **자가 콜 검증 [self-review 스킬 — 주간 첫 보고서 필수, 생략 불가]**: **주간 첫 보고서**(월요일 또는 그 주 첫 풀 보고서)와 **큰 장세 변화 뒤**에는 `self-review`를 **반드시** 돌린다 — 과거 별점·스코어·목표가·매수존 콜이 실제로 맞았는지 후행검증하고 `docs/research/call_scorecard.md`에 누적·캘리브레이션. 편향(별점 쏠림·순서 역전)·반복 빗나감은 채점기준/전망 교정을 정훈에게 제안(자동 변경 ❌). **누락 방지 [2026-06-22 강화 — 6/22 주간 첫 보고서서 실제 누락]**: 주간 첫 보고서인데 self-review를 건너뛰었으면 **그 주 다음 보고서의 맨 첫 단계로 밀어서 반드시 수행**(캘리브레이션 부채로 남기지 말 것). 평일 2번째~ 보고서는 생략 가능.
+- **📖 데스크 학습 루프 [7/4 신설 — `desk_playbook.md` §4]**: 매 보고서 PM 종합 후 "이번에 배운 것"이 있으면 플레이북 §3 해당 데스크에 0~3줄 append(날짜 태그, 없으면 생략). self-review는 §2 캘리브레이션 수치 갱신. 무인 루틴에서도 동일 수행(append는 자동 OK, **채점기준 변경은 여전히 정훈 승인**).
 - 정훈의 피드백/선택 패턴이 반복되면 master.md/CLAUDE.md 영구 반영을 제안.
 - 워치리스트: 1주간 미선택·미언급 종목은 제외 예고 → 다음 보고서에서 제외(유망하면 근거와 함께 잔류 제안).
 - 사실 오류를 정훈이 지적하면 즉시 "영구교정"으로 STATE SNAPSHOT + master.md §7에 기록.

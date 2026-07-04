@@ -161,6 +161,87 @@ def hunter_scorecard(verdicts) -> dict:
     return {"buckets": b, "total": total, "accuracy_pct": acc}
 
 
+def _norm_title(t: str) -> str:
+    """제목 정규화(중복 판정용): 괄호 주석·공백·문장부호 제거 + 소문자."""
+    t = re.sub(r"\(.*?\)|\[.*?\]", "", t or "")
+    return re.sub(r"[\s'\"‘’“”·,:=+?!.…—\-]", "", t).lower()
+
+
+def rollover_hunter_archive(hunter, archive) -> bool:
+    """latest_videos → hunter_archive 자동 병합 [2026-07-04 신설].
+
+    hunter.json의 latest_videos(최신 ~9편) 중 아카이브에 없는 영상을
+    archive.videos 맨 앞에 prepend(summary→takeaway 매핑)하고 파일을 다시 쓴다.
+    수동 이관 누락으로 앱 '전체 영상 아카이브'가 정체되는 사고(6/20·7/3 재발)의
+    근본 방지 — latest_videos만 갱신하면 빌드가 아카이브를 항상 따라잡는다.
+    중복 판정 = id 일치 or 정규화 제목 일치. 변경 시 True.
+    """
+    if not isinstance(hunter, dict) or not isinstance(archive, dict):
+        return False
+    videos = archive.setdefault("videos", [])
+    # 스키마 방어 [7/4 실사고]: tickers가 문자열이면 앱 renderArchive의 forEach에서
+    # 크래시 → 화면 전체가 "데이터 로딩 중"에 멈춤(아카이브 안 보임의 실제 원인 중 하나).
+    # 수기 입력 실수를 빌드가 교정해 정본 파일에 되써 준다.
+    sanitized = False
+
+    def _split_tickers(val):
+        out = []
+        items = val if isinstance(val, list) else [val]
+        for it in items:
+            if not isinstance(it, str):
+                continue
+            for s in re.split(r"[,;·/]", it):
+                if s.strip():
+                    out.append(s.strip())
+        return out
+
+    for v in videos:
+        t = v.get("tickers")
+        fixed = _split_tickers(t) if t else []
+        if fixed != t:
+            v["tickers"] = fixed
+            sanitized = True
+        for k in ("theme", "verdict", "takeaway"):
+            if isinstance(v.get(k), str) and not v[k].strip():
+                v[k] = None
+                sanitized = True
+    known_ids = {v.get("id") for v in videos if v.get("id")}
+    known_titles = {_norm_title(v.get("title", "")) for v in videos}
+    added = []
+    for lv in hunter.get("latest_videos", []):
+        nt = _norm_title(lv.get("title", ""))
+        if (lv.get("id") and lv["id"] in known_ids) or (nt and nt in known_titles):
+            continue
+        entry = {
+            "date": lv.get("date"),
+            "title": lv.get("title"),
+            "theme": lv.get("theme"),
+            "tickers": lv.get("tickers") or [],
+            "verdict": lv.get("verdict"),
+            "takeaway": (lv.get("summary") or lv.get("note") or "").strip() or None,
+            "views": lv.get("views"),
+        }
+        if lv.get("id"):
+            entry["id"] = lv["id"]
+        added.append(entry)
+        known_titles.add(nt)
+    if not added and not sanitized:
+        return False
+    if added:
+        archive["videos"] = added + videos  # latest_videos가 최신순이므로 순서 유지
+        archive["updated"] = f"{dt.date.today().isoformat()} 자동 롤오버 +{len(added)}편 (build_app_data)"
+    with open(HUNTER_ARCHIVE_JSON, "w", encoding="utf-8") as f:
+        json.dump(archive, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    msg = []
+    if added:
+        msg.append(f"latest_videos에서 {len(added)}편 자동 롤오버")
+    if sanitized:
+        msg.append("스키마 교정(tickers 리스트화 등)")
+    print("hunter_archive.json: " + " + ".join(msg))
+    return True
+
+
 def load_json(path: str) -> dict:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
@@ -350,6 +431,7 @@ def build(offline: bool) -> dict:
     kospi_history = fetch_history("^KS11", offline=offline)
     hunter = load_json_opt(HUNTER_JSON)
     archive = load_json_opt(HUNTER_ARCHIVE_JSON)
+    rollover_hunter_archive(hunter, archive)  # latest→archive 자동 병합(정체 방지)
     archive_videos = archive.get("videos", []) if isinstance(archive, dict) else []
     if hunter:
         # 정규화: latest_videos 요약 필드는 정본이 'summary'. 과거 'note'로 잘못 들어와도

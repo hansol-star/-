@@ -23,6 +23,9 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
 
 ## Tasks
 
+0. **공용 플레이북 먼저 Read**: `docs/desk_playbook.md` — §1 공통 지침 + **§2 캘리브레이션 교훈(너의 반론 탄약)**
+   + §3 **risk-desk** 누적 교훈. 그 지침 위에서 작업한다.
+
 1. **Trigger check (keyless)**: from project root
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/triggers.py
@@ -32,6 +35,10 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
 3. **Concentration/correlation risk**: memory-bet overlap (삼성·NVDA·MU·AVGO·SK하이닉스), big-tech weight, single FX (원/달러) exposure — warn on diversification damage.
 4. **Event-risk calendar cross-check**: FOMC 6/18 03:00 (3rd tranche), 이란 MOU weekend gap, CPI, etc. — flag 'needs pre-baking' when they clash with the phone window.
 5. **Caution (bear) paragraph**: give the PM the opposing view — factors that could weaken today's bull case (foreign net-selling flip, macro shock, etc.).
+6. **캘리브레이션 브레이크 [7/4 신설 공식 임무]**: PM(또는 데스크)이 ⭐4~5·고확신 단기 콜을 낼 조짐이면,
+   `docs/desk_playbook.md` §2의 실측 수치로 반론한다 — ⭐5 표현확신 85% vs 실제 상승 43%(Brier 0.307 과신 플래그),
+   수급 레짐이 펀더를 지배한 6월 사례. **"별점은 장기 퀄리티다, 단기 확률처럼 쓰지 마라"가 너의 고정 대사.**
+   외인 수급 추세 확인 없는 고별점 단기 액션 제안에는 명시적으로 제동을 건다.
 
 ## Return format (to PM) — keep Korean labels
 

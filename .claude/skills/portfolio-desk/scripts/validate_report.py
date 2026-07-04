@@ -219,7 +219,10 @@ def check_consistency():
 def check_hunter():
     """경제사냥꾼 앱 데이터 동기화 게이트.
     ① latest_videos 요약 필드(summary) 누락 = 앱 상세 '—' 빈칸 → FAIL/WARN.
-    ② hunter_log.md 날짜 vs (archive ∪ latest) 날짜 비교 → 로그에만 있는 날짜=백필 누락 WARN."""
+    ② hunter_log.md 날짜 vs hunter_archive.json 날짜 비교 → 로그에만 있는 날짜=아카이브 정체 FAIL.
+       [7/4 격상] latest_videos는 커버로 치지 않는다 — 앱 '전체 영상 아카이브' 화면은
+       archive만 읽으므로 latest에만 있으면 화면에서 통째로 빠진다(7/3 정체 재발 원인).
+       build_app_data.py가 latest→archive 자동 롤오버하므로 빌드만 돌리면 해소."""
     hu = load("data/app/hunter.json")
     arch = load("data/app/hunter_archive.json")
     if not hu:
@@ -234,23 +237,34 @@ def check_hunter():
         elif not has_sum and has_note:
             warn(f"hunter latest_videos '{title}': 정본 키는 'summary'인데 'note'로 들어옴 — summary로 교정 권고")
 
-    # 커버리지 갭: 로그 날짜가 앱(archive+latest)에 반영됐는지
+    # 커버리지 갭: 로그 날짜가 hunter_archive.json에 실제 반영됐는지 (latest는 커버 아님)
     log_path = os.path.join(ROOT, "docs/research/hunter_log.md")
     if os.path.exists(log_path):
         txt = open(log_path, encoding="utf-8").read()
         log_dates = set(re.findall(r"^#{2,3}\s+(\d{4}-\d{2}-\d{2})", txt, re.M))
-        app_dates = {v.get("date") for v in lv}
+        latest_dates = {v.get("date") for v in lv if v.get("date")}
+        arch_dates = set()
         if isinstance(arch, dict):
-            app_dates |= {v.get("date") for v in arch.get("videos", [])}
-        app_dates = {d for d in app_dates if d}
-        # 내부 구멍(=앱 최신일보다 오래됐는데 빠진 날짜)만 백필 대상.
+            arch_dates = {v.get("date") for v in arch.get("videos", []) if v.get("date")}
+        # 내부 구멍(=앱 최신일보다 오래됐는데 빠진 날짜)만 대상.
         # 로그 헤더가 브리핑 날짜(영상 업로드일보다 하루 뒤)인 경우가 있어
-        # 앱 최신일보다 '새로운' 로그 날짜는 오탐이므로 제외.
-        if app_dates:
-            newest = max(app_dates)
-            missing = sorted(d for d in log_dates if d not in app_dates and d <= newest)
+        # (archive ∪ latest) 최신일보다 '새로운' 로그 날짜는 오탐이므로 제외.
+        all_dates = arch_dates | latest_dates
+        if all_dates:
+            newest = max(all_dates)
+            missing = sorted(d for d in log_dates if d not in arch_dates and d <= newest)
             if missing:
-                warn(f"hunter 아카이브 백필 필요(로그엔 있으나 앱 미반영): {missing}")
+                fail(f"hunter 아카이브 정체(로그엔 있으나 hunter_archive.json 미반영): {missing}"
+                     " — build_app_data.py 실행 시 latest→archive 자동 롤오버로 해소")
+
+    # 스키마 게이트 [7/4 실사고]: tickers가 문자열이면 앱 renderArchive가 forEach에서
+    # 크래시 → 화면 전체 "데이터 로딩 중" 멈춤. 빌드가 자동 교정하므로 FAIL=빌드 미실행 신호.
+    if isinstance(arch, dict):
+        bad = [str(v.get("title", "?"))[:28] for v in arch.get("videos", [])
+               if not isinstance(v.get("tickers"), list)]
+        if bad:
+            fail(f"hunter_archive tickers 비리스트 {len(bad)}건(앱 아카이브 화면 크래시): {bad[:3]}"
+                 " — build_app_data.py 실행하면 자동 교정")
 
 # ── G. [7/2 신설] 신선도·정합 sanity: forecast 레인지 vs 실시세 · pm_view/decisions 날짜 ──
 def check_freshness(latest):

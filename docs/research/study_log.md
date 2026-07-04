@@ -6,7 +6,19 @@
 
 ---
 
-## 2026-07-02 밤 — 지식인사이드 3편 (오건영 + 빈센트×2) & 포트폴리오 돌아보기
+## 2026-07-04 — 데스크 시스템 공부: TradingAgents 원조·Anthropic 멀티에이전트 (정훈 지시 "에이전트 발전·공부")
+
+> 대상 = 시장 콘텐츠가 아니라 **우리 데스크 구조 자체의 개선 재료**. 출처: [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)(우리 구조의 원본, arXiv:2412.20138) · [Anthropic — How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system).
+
+| # | 발견 | 내용 | 판정 | 반영처 |
+|---|---|---|---|---|
+| 1 | TradingAgents **reflection 주입** | 매 결정 후 1문단 회고를 메모리에 append, 다음 실행 때 **같은 종목 과거 결정 + 최근 교차 교훈을 PM 프롬프트에 주입**. 과거 결정은 실현수익률·**벤치마크 대비 알파(vs SPY)**로 후행 해소 | **채택**(주입) / **보류**(알파 — score_calls에 벤치마크 컬럼 추가는 표본 더 쌓인 뒤) | `desk_playbook.md` §학습 루프 — PM 종합 전 `decisions.py query {종목}` + 플레이북 §교훈 상기. 우리 self-review(주간)와 상보: 걔는 배치 채점, 이건 매 보고서 상기 |
+| 2 | TradingAgents 리스크 3인 디베이트(공격/보수/중립) | 리스크 관점을 3에이전트로 분리 | **기각** — 토큰 3배, 우리는 risk-desk 1개가 bear 전담 + PM 디베이트(§2b)로 충분. 소형 포트폴리오에 과설계 | — |
+| 3 | Anthropic **서브에이전트 4계약** | 서브에이전트 프롬프트 필수 4요소 = ①목적(objective) ②출력 형식 ③툴·소스 지침 ④과업 경계(boundaries). 하나라도 빠지면 드리프트 — "모델이 나빠서가 아니라 오케스트레이터가 'done'을 정의 안 해서" | **채택** — 8개 데스크 파일 유지보수 체크리스트로 명문화 | `desk_playbook.md` §공통(데스크 파일 표준). 현 데스크는 대체로 충족하나 소스지침이 6개 파일 중복·2개 누락 → 플레이북로 단일화 |
+| 4 | Anthropic 효율 스케일링 | 단순 질의 1에이전트~복잡 리서치 10+ 등 **과업 크기별 에이전트 수 규칙을 프롬프트에 박기** | **기각(기반영)** — SKILL §2 섹터 데스크 트리거(±5%·D-7·촉매)가 이미 동일 원리 | — |
+| 5 | Anthropic 메모리 우선 계획 기록 | 리드가 계획을 먼저 메모리에 기록해 컨텍스트 초과 대비 | **기각(기반영)** — decisions.py·STATE SNAPSHOT·git이 동일 역할 | — |
+
+**종합**: 우리 시스템은 원조 대비 캘리브레이션(Brier·scorecard)은 앞서 있고, 빠진 건 ①**교훈의 데스크 전달**(중앙 원장에만 쌓이고 데스크 프롬프트에 안 흘러감) ②**매 보고서 단위 reflection 상기**(주간 배치만 있음). 이 둘을 `docs/desk_playbook.md` 신설로 해소(7/4 구현).
 
 > 정훈: "이 영상들 보면서 공부하고 우리 한번 다시 돌아보는 시간 가지자."
 > 원본: cnkQyOWlxi0 (오건영 풀버전 54분, 6/29 게시·6/5 촬영) / zRUyGgyfcOM (빈센트 EP.06 32분, 7/1 게시·6/29 촬영) / apOS5joEXq4 (빈센트 EP.07 25분, 7/2 게시·6/29 촬영).

@@ -53,6 +53,9 @@ python3 .claude/skills/portfolio-desk/scripts/market_data.py --tickers <티커�
 
 ## 4. 스코어카드 기록 (시계열 누적)
 score_calls.py 정량 결과 + 사람 해석을 `docs/research/call_scorecard.md` **맨 위에 prepend**(누적 = 캘리브레이션 추세).
+**+ [7/4] `docs/desk_playbook.md` §2 캘리브레이션 교훈 갱신**: 최신 Brier·별점 갭·매수존 진입률·사냥꾼 정확도 수치를
+플레이북 §2에 반영(수치 갱신은 자동 OK — 데스크 전원이 다음 작업부터 읽는 교훈이 신선해야 함). 데스크별 반복 편향이
+보이면 §3 해당 데스크에도 교훈 append.
 (원장 calls_log.jsonl이 기계 시계열, scorecard.md는 사람의 해석·교정 메모):
 ```
 ## 콜 검증 {YYYY-MM-DD} (대상 기간 {시작}~{끝})

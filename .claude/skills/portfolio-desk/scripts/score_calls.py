@@ -14,6 +14,11 @@
 
 의존성 없음(stdlib + market_data.py). 채점은 Yahoo 무키 시세 경로로 한다(네트워크 필요).
 FAIL을 내지 않는다 — 어디까지나 회고·캘리브레이션 보조(자동 변경 ❌, 교정은 사람이 판단).
+
+[7/4 정훈 승인 — 벤치마크 알파] 절대수익률만 보면 시장 전체 폭락(7/2 서킷 등)이 모든 콜에
+일괄 벌점을 줘 '콜 실력 vs 레짐'이 안 갈라진다(6/29·7/4 캘리브레이션 2회 연속 오염 실증).
+→ TradingAgents의 'vs SPY 알파' 후행채점을 차용해 콜별 **벤치마크 대비 초과수익(알파)**을
+병기한다: 국내(.KS/.KQ) = 코스피(^KS11), 미국 = VOO 대비. ETF(VOO 자신)는 알파 집계 제외.
 """
 import argparse, json, os, re, subprocess, sys, urllib.request, urllib.error
 from datetime import datetime, date
@@ -91,6 +96,28 @@ def close_on_or_after(ser, d):
         if k >= d:
             return ser[k]
     return None
+
+def bench_symbol(ticker):
+    """콜 티커 → 벤치마크 심볼. 국내(.KS/.KQ)=코스피, 미국=VOO. ETF 자신은 알파 제외(None)."""
+    if ticker in ETF:
+        return None
+    if ticker.endswith(".KS") or ticker.endswith(".KQ"):
+        return "^KS11"
+    return "VOO"
+
+def bench_fwd(ticker, d):
+    """콜과 같은 창(d→최신)의 벤치마크 전진수익률(%). 조회 불가 시 None."""
+    sym = bench_symbol(ticker)
+    if not sym:
+        return None
+    ser = series(sym)
+    if "__error__" in ser:
+        return None
+    b0 = close_on_or_after(ser, d)
+    bpath = path_from(ser, d)
+    if not b0 or not bpath:
+        return None
+    return (bpath[-1] - b0) / b0 * 100
 
 def path_from(ser, d):
     return [ser[k] for k in sorted(ser) if not k.startswith("__") and k >= d]
@@ -198,8 +225,15 @@ def score(min_age=1):
         if isinstance(st, int):
             if st >= 4:   dir_ok = fwd > 0
             elif st <= 2: dir_ok = fwd < 0
-        graded.append({**c, "age": age, "fwd": fwd, "buy_touched": buy_touched,
-                       "target_hit": target_hit, "dir_ok": dir_ok})
+        # 벤치마크 알파 [7/4]: 같은 창의 코스피/VOO 수익률 차감 → 레짐과 콜 실력 분리
+        bfwd = bench_fwd(c["ticker"], c["date"])
+        alpha = (fwd - bfwd) if bfwd is not None else None
+        alpha_ok = None
+        if isinstance(st, int) and alpha is not None:
+            if st >= 4:   alpha_ok = alpha > 0
+            elif st <= 2: alpha_ok = alpha < 0
+        graded.append({**c, "age": age, "fwd": fwd, "alpha": alpha, "alpha_ok": alpha_ok,
+                       "buy_touched": buy_touched, "target_hit": target_hit, "dir_ok": dir_ok})
 
     print("\n" + "=" * 60)
     print("  콜 캘리브레이션 — score_calls.py (reflection 정량화)")
@@ -210,17 +244,22 @@ def score(min_age=1):
         return
 
     # 별점 버킷별 평균 전진수익률 + 방향 적중률
-    print(f"\n채점 콜 {len(graded)}개 (나이 ≥ {min_age}일, 최신 시세 경로 기준)\n")
-    print(f"{'별점':<6}{'콜수':>5}{'평균전진%':>11}{'방향적중':>12}")
+    print(f"\n채점 콜 {len(graded)}개 (나이 ≥ {min_age}일, 최신 시세 경로 기준)")
+    print("알파 = 같은 창 벤치마크(국내 ^KS11 / 미국 VOO) 대비 초과수익 — 레짐과 콜 실력 분리 [7/4]\n")
+    print(f"{'별점':<6}{'콜수':>5}{'평균전진%':>11}{'평균알파%':>11}{'방향적중':>12}{'알파적중':>12}")
     by = {}
     for g in graded:
         by.setdefault(g.get("stars"), []).append(g)
     for st in sorted([k for k in by if isinstance(k, int)], reverse=True):
         rows = by[st]
         avg = sum(r["fwd"] for r in rows) / len(rows)
+        al = [r["alpha"] for r in rows if r["alpha"] is not None]
+        avg_a = f"{sum(al)/len(al):>+10.2f}%" if al else f"{'—':>11}"
         dirs = [r["dir_ok"] for r in rows if r["dir_ok"] is not None]
         hit = f"{sum(dirs)}/{len(dirs)}" if dirs else "—(중립)"
-        print(f"⭐{st:<5}{len(rows):>5}{avg:>10.2f}%{hit:>12}")
+        ahits = [r["alpha_ok"] for r in rows if r["alpha_ok"] is not None]
+        ahit = f"{sum(ahits)}/{len(ahits)}" if ahits else "—(중립)"
+        print(f"⭐{st:<5}{len(rows):>5}{avg:>10.2f}%{avg_a}{hit:>12}{ahit:>12}")
 
     bz = [g for g in graded if g["buy_touched"] is not None]
     if bz:
@@ -239,6 +278,18 @@ def score(min_age=1):
         print(f"  ⚠️ 별점 역전: ⭐5 평균({means[5]:+.2f}%) < ⭐3({means[3]:+.2f}%) — 채점기준 재점검 후보")
     if 5 in means and 4 in means and means[5] < means[4]:
         print(f"  ⚠️ ⭐5 평균({means[5]:+.2f}%) < ⭐4({means[4]:+.2f}%) — 최상위 확신 콜 과신 여부 점검")
+    # 알파 기준 역전 — 절대수익 역전이 레짐 탓인지 실력 탓인지 판별 [7/4]
+    a_means = {}
+    for st in by:
+        if isinstance(st, int):
+            al = [r["alpha"] for r in by[st] if r["alpha"] is not None]
+            if al:
+                a_means[st] = sum(al) / len(al)
+    if 5 in a_means and 3 in a_means:
+        if a_means[5] < a_means[3]:
+            print(f"  ⚠️ 알파 기준으로도 역전: ⭐5 알파({a_means[5]:+.2f}%) < ⭐3({a_means[3]:+.2f}%) — 레짐 아닌 채점 문제 신호")
+        else:
+            print(f"  ✅ 알파 기준 순서 정상: ⭐5 알파({a_means[5]:+.2f}%) ≥ ⭐3({a_means[3]:+.2f}%) — 절대수익 역전은 레짐(시장 전체 하락) 소산")
     star_dist = {st: len(by[st]) for st in sorted(by) if isinstance(st, int)}
     print(f"  별점 분포(최신 원장 비중 포함): {star_dist}")
     if net_err:
@@ -267,6 +318,12 @@ def score(min_age=1):
             tag = "과신" if (st >= 4 and gap < -0.15) else (
                   "과소확신" if (st <= 2 and gap > 0.15) else "정합")
             print(f"  ⭐{st:<4}{p*100:>8.0f}%{realized*100:>11.0f}%{gap*100:>+7.0f}%{tag:>9}")
+        a_scored = [g for g in scored if g.get("alpha") is not None]
+        if a_scored:
+            brier_a = sum((STAR_PROB[g["stars"]] - (1.0 if g["alpha"] > 0 else 0.0)) ** 2
+                          for g in a_scored) / len(a_scored)
+            print(f"  Brier(알파 기준·outcome=벤치마크 초과) {brier_a:.3f}  (n={len(a_scored)})"
+                  f" — 절대 Brier와의 차이가 레짐 오염의 크기")
         print("  ※ 표본 작을 때 갭은 노이즈 — 누적 추세로 해석. 매핑(STAR_PROB) 고정·교정은 사람이.")
     else:
         print("  채점 가능한 별점 콜 없음.")

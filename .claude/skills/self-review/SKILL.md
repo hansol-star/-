@@ -1,6 +1,6 @@
 ---
 name: self-review
-description: 자가 품질점검·콜 검증 루프. 과거 보고서에서 내린 별점·스코어·목표가·매수존 콜이 실제로 맞았는지 후행검증하고, 경제사냥꾼 트랙레코드를 점검하며, 체계적 편향이 보이면 채점기준·전망을 교정 제안한다. 사용자가 "콜 점검", "내 분석 맞았어?", "별점 잘 맞췄나", "자가검증", "스코어카드"라고 하거나 주간 첫 보고서에서 캘리브레이션이 필요할 때 사용한다.
+description: 자가 품질점검·콜 검증 루프. 과거 보고서에서 내린 별점·스코어·목표가·매수존 콜이 실제로 맞았는지 후행검증하고(커미션), 안 산/안 판 결정이 그 뒤 크게 움직였는지 반사실 회고(오미션·놓친 매수/매도)하며, 경제사냥꾼 트랙레코드를 점검하고, 체계적 편향이 보이면 채점기준·전망을 교정 제안한다. 사용자가 "콜 점검", "내 분석 맞았어?", "별점 잘 맞췄나", "자가검증", "스코어카드", "놓친 거 없나", "그때 살걸/팔걸"이라고 하거나 주간 첫 보고서에서 캘리브레이션이 필요할 때 사용한다.
 ---
 
 # Self-Review — 자가 품질점검·콜 검증 루프
@@ -19,8 +19,9 @@ description: 자가 품질점검·콜 검증 루프. 과거 보고서에서 내�
 1~3단계(콜 복원→실제 수집→채점)는 **자동화돼 있다.** 먼저 돌려 정량 베이스를 잡고, 사람이 §5 캘리브레이션 판단만 한다.
 ```bash
 python3 .claude/skills/portfolio-desk/scripts/score_calls.py --backfill   # git 히스토리 → calls_log.jsonl (처음/재동기화 시)
-python3 .claude/skills/portfolio-desk/scripts/score_calls.py              # 별점버킷 평균전진%·방향적중 + Brier 캘리브레이션 갭(과신 플래그)
+python3 .claude/skills/portfolio-desk/scripts/score_calls.py              # 별점버킷 평균전진%·방향적중 + Brier 캘리브레이션 갭(과신 플래그) [커미션]
 python3 .claude/skills/portfolio-desk/scripts/hunter_score.py             # 경제사냥꾼 트랙레코드(검증/정정/미확인 추세 = 채널 신뢰도)
+python3 .claude/skills/portfolio-desk/scripts/missed_moves.py             # 놓친 매수/매도(오미션) + good_inaction + 반복 패턴 → §6 [오미션]
 ```
 - 원장 = `data/app/calls_log.jsonl` (구조화된 콜의 시계열, git 히스토리에서 백필·보고서마다 `--append` 누적).
 - **Brier proper score**(외부 예측연구 차용): 별점→내재확률(⭐5=.85…⭐1=.15) 매핑 후 실현방향 대비 Brier. 무정보(0.5고정=0.25)보다 **높으면 과신** 신호. 버킷별 '표현확신 vs 실제상승률' 갭으로 ⭐4~5 과신/⭐1~2 과소를 숫자로 본다.
@@ -73,6 +74,17 @@ score_calls.py 정량 결과 + 사람 해석을 `docs/research/call_scorecard.md
 - 사실 오류 발견 → 즉시 `docs/master.md` §7 영구교정 + STATE SNAPSHOT(추측 아닌 검증된 정정만).
 - 변경은 정훈 확인 후. 검증된 정정(사실 오류)만 예외적으로 바로 기록.
 
+## 6. 미스무브 회고 — 안 산/안 판 결정의 반사실 (오미션)
+1~5단계가 **내가 내린 콜**(커미션)을 채점한다면, 이 단계는 **내가 안 한 행동**(오미션)을 본다 — "관망·보류·홀딩·추격 금지"라 판단했는데 그 뒤 크게 오른(놓친 매수) or 내린(놓친 매도/트림) 종목, 워치에만 두고 안 들어갔는데 급등한 종목.
+```bash
+python3 .claude/skills/portfolio-desk/scripts/missed_moves.py --min-move 15   # 놓친 매수·매도 후보 + 반복 패턴(클러스터)
+python3 .claude/skills/portfolio-desk/scripts/missed_moves.py --min-move 8    # 넓은 뷰(경계선 포함)
+```
+- 스크립트는 `stocks.json` git 히스토리(결정 시점)에서 관망/홀딩/워치 신호를 뽑고 Yahoo 시세 경로로 `fwd_max`(놓친 매수)·`fwd_min`(놓친 매도)을 계산 → 후보만 제시(자동 원장기입 ❌).
+- **결과론 함정 가드**: 표본·기간(horizon) 짧으면 대부분 `noise` — 진짜 `miss`만 승격. 스크립트가 **`good_inaction`(관망/룰이 손실을 회피)**도 함께 집계하니, 무행동을 단기 급등 하나로 과벌하지 말 것("무행동이 운인가 실력인가").
+- 검증한 케이스만 사람이 판단해 **`data/app/missed_moves.jsonl` append** + **`docs/research/hindsight_log.md` 맨 위 회고 블록 prepend**(형식은 그 파일 골격). 필드: `{id, date, ticker, decision_type, ref_price, signal, move_pct, horizon, rationale, verdict(miss/right/noise), lesson, cluster_tag, source_report}`.
+- 반복 패턴(클러스터별 미스 카운트·기각된 대안 재검토)은 §5 자기교정과 합쳐 **`desk_playbook.md` §2/§3에 실행형 교훈으로 반영 제안**(자동변경 ❌).
+
 ## 규약
-- 후행검증은 **결과론 함정** 주의: 단기 노이즈로 콜을 과벌하지 말 것 — 표본·기간 명시, "운 vs 실력" 구분.
-- 추측 금지, 미확인은 "미확인". 스코어카드 갱신·교정 시 git 커밋(연속성).
+- 후행검증은 **결과론 함정** 주의: 단기 노이즈로 콜을 과벌하지 말 것 — 표본·기간 명시, "운 vs 실력" 구분. (오미션 회고도 동일: `good_inaction` 계상으로 무행동 편향 균형.)
+- 추측 금지, 미확인은 "미확인". 스코어카드·미스무브 원장 갱신·교정 시 git 커밋(연속성).

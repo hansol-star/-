@@ -58,6 +58,9 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
 - 지난 1주(또는 직전 캘리브레이션 이후) 콜 vs 실제 비교: 별점 캘리브레이션(⭐4~5 vs ⭐1~2 순서), 매수존 적중,
   목표가 방향성, 경제사냥꾼 [정정] 비율.
 - docs/research/call_scorecard.md 맨 위에 이번 주 스코어카드 prepend.
+- [7/4 신설] 미스무브 회고(self-review §6): missed_moves.py 로 놓친 매수/매도(오미션)·good_inaction·반복 패턴 산출
+  → 검증한 케이스만 missed_moves.jsonl append + docs/research/hindsight_log.md 맨 위 회고 블록 prepend
+  (결과론 함정 경계 — 히스토리 짧으면 noise, good_inaction으로 무행동 편향 균형). 반복 편향은 desk_playbook §2/§3 반영 제안.
 - 체계적 편향(별점 쏠림·순서 역전·반복 빗나감) 발견 시 stock-deepdive 방법론/holdings_outlook 전망 교정안을
   '제안'으로 적되 자동 변경 ❌(확정은 정훈). 검증된 사실오류만 master.md §7 영구교정.
 - 결과론 함정 주의(단기 노이즈로 과벌 금지, 표본·기간 명시).

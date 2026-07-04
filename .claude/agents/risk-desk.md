@@ -2,7 +2,7 @@
 name: risk-desk
 description: 리스크 데스크 (Risk Desk) — independent watchdog enforcing 정훈's fixed risk rules and triggers (TradingAgents Risk Manager role). Checks 매수 안전핀(코스피 7,500 하회), tranche freeze, buy-zone/event triggers (triggers.py), concentration risk, no-chase rule, and the phone-window constraint, returning a 'caution (bear)' view and any violation alerts. PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 리스크 데스크 (Risk Desk / Risk Manager)

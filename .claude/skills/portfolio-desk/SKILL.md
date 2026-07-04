@@ -61,7 +61,9 @@ python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secre
 - **risk-desk** (리스크 매니저): 안전핀·트랜치·트리거(`triggers.py`)·집중도·신중(bear) 관점 — PM의 브레이크
 
 각 데스크가 섹션을 반환하면 PM이 종합한다. (데스크는 파일을 쓰지 않음 — PM이 모아서 작성.)
-**전 데스크 모델 = opus 4.8.** 지역(kr·us)+매크로+리스크+리서치는 **항상 호출**.
+**[7/4 정훈 지시] 데스크별 모델 배분** — 지역(kr·us)+매크로+리스크+리서치 5개 = **sonnet**(스크립트 정리·룰체크·태깅,
+opus 불필요·토큰 절감) / 섹터 3개(semi-ai·power-physical·bigtech) = **opus**(테마 종합·컨센서스 판단, 별점·스코어에 직결).
+지역(kr·us)+매크로+리스크+리서치는 **항상 호출**.
 **섹터 데스크 3종(semi-ai·power-physical·bigtech)은 아래 트리거 중 하나라도 충족 시 호출** [2026-06-17 명시]:
 - 담당 섹터 보유/워치 종목 중 **당일 ±5% 이상** 움직인 종목 있음
 - 해당 섹터에 **실적·이벤트 임박**(D-7 이내, 예: MU 6/24 → semi-ai 호출)

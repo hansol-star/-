@@ -2,7 +2,7 @@
 name: research-feed
 description: 리서치 피드 (Research Feed) — auto-discovers 경제사냥꾼 YouTube videos/shorts (today/yesterday), extracts captions, summarizes key claims, and tags each as [검증/정정/미확인]. PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 리서치 피드 (Research Feed) — 경제사냥꾼

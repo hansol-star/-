@@ -2,7 +2,7 @@
 name: kr-market-desk
 description: 국장 데스크 (KR Market Desk) — 코스피·코스닥 indices, domestic flows (외국인·기관·연기금 net + foreign streak/cumulative), sector rotation·movers, plus quotes for the 5 KR holdings (삼성전자·LG전자·두산로보틱스·현대차·NAVER) and KR watchlist. PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 국장 데스크 (KR Market Desk)

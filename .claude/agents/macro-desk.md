@@ -2,7 +2,7 @@
 name: macro-desk
 description: 매크로 데스크 (Macro Desk) — FX(원/달러), rates (연준·한국은행), CPI/PPI·jobs, oil, and macro events (FOMC·BOJ·금통위) with market impact. PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 매크로 데스크 (Macro Desk)

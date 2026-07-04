@@ -2,7 +2,7 @@
 name: us-market-desk
 description: 미장 데스크 (US Market Desk) — S&P500·나스닥·다우·필라델피아반도체 indices, US risk appetite, US movers, plus quotes for the 11 US holdings (NVDA·META·VOO·MSFT·AAPL·GOOGL·TSLA·ORCL·ANET·MU·AVGO) and US watchlist. PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 미장 데스크 (US Market Desk)

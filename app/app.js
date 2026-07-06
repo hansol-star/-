@@ -290,7 +290,7 @@
   function itemRow(st, isHolding) {
     var pnl = isHolding ? st.pnl_pct : null;
     var line = '<div class="item" onclick="location.hash=\'stock/' + encodeURIComponent(st.ticker) + '\'">';
-    line += '<span class="dot ' + (st.outlook || "hold") + '"></span>';
+    line += '<span class="avatar ' + (st.outlook || "hold") + '">' + esc((st.label || "?").slice(0, 1)) + '</span>';
     line += '<div class="flex1"><div class="nm">' + esc(st.label) + '</div>';
     line += '<div class="row" style="gap:8px;margin-top:1px"><span class="stars">' + stars(st.stars) + '</span>' + scoreBadge(st.score) + '<span class="tk">' + esc(st.ticker) + '</span></div></div>';
     line += '<div class="right"><div class="px">' + price(st.price, st.currency) + '</div>';

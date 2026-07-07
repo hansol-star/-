@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-07 13:34 KST",
-  "as_of": "2026-07-07 화 저녁(v43 변동성 심층) — 코스피 7,656.31(-4.91%) 종가, 장중 저점 7,389.22(-8.22%, 안전핀 7,500 장중 breach 2번째·종가 룰 미발동=경고). 수급 확정 외인 -2.93조(13일 연속·누적 -39.7조)·기관 -0.31조·개인 +3.13조(4사 교차, v42 장중치 정정). VKOSPI 장중 85.88. 판정=구조발 고변동 박스(레버리지ETF 증폭기+NPS/외인 연료). 미장 사상최고 디커플링·환율 1,521(달러약세發).",
+  "generated_at": "2026-07-07 13:41 KST",
+  "as_of": "2026-07-07 화 저녁(v43 변동성 심층) — 코스피 7,656.31(-4.91%) 종가, 장중 저점 7,389.22(-8.22%, 안전핀 7,500 장중 breach 2번째·종가 룰 미발동=경고). 수급 확정 외인 -2.93조(13일 연속·누적 -39.7조)·기관 -0.31조·개인 +3.13조(4사 교차, v42 장중치 정정). VKOSPI 장중 85.88. 판정=구조발 고변동 박스(레버리지ETF 증폭기+NPS/외인 연료). 미장 사상최고 디커플링·환율 1,521(달러약세發). [22:37 갱신] TSLA 전량 매도 체결 — 보유 15종목(미국 10).",
   "source_report": "docs/reports/report_v43_2026-07-07.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1514.28
+    "usdkrw": 1512.62
   },
   "totals": {
-    "assets_krw": 7582854,
-    "stocks_value_krw": 7259933,
+    "assets_krw": 7481989,
+    "stocks_value_krw": 7159068,
     "cash_krw": 322921,
-    "day_change_krw": -87727,
-    "day_change_pct": -1.19,
-    "total_pnl_krw": 59848,
-    "total_pnl_pct": 0.83
+    "day_change_krw": -82506,
+    "day_change_pct": -1.14,
+    "total_pnl_krw": 56034,
+    "total_pnl_pct": 0.79
   },
   "safety": {
     "pin": 7500,
@@ -39,26 +39,26 @@ window.APP_DATA = {
     {
       "label": "S&P500",
       "ticker": "^GSPC",
-      "price": 7523.49,
-      "change_pct": -0.18
+      "price": 7522.97,
+      "change_pct": -0.19
     },
     {
       "label": "나스닥",
       "ticker": "^IXIC",
-      "price": 25940.324,
-      "change_pct": -0.69
+      "price": 25939.596,
+      "change_pct": -0.7
     },
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 53218.41,
-      "change_pct": 0.31
+      "price": 53104.88,
+      "change_pct": 0.09
     },
     {
       "label": "필라델피아반도체",
       "ticker": "^SOX",
-      "price": 12254.246,
-      "change_pct": -5.01
+      "price": 12337.464,
+      "change_pct": -4.36
     }
   ],
   "alerts": [
@@ -185,7 +185,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "[7/6 체결 확인] 1주 매도·총판매액 $313.77(＄308 지정가 상단 초과 유리 체결)·수수료 $0.31·제세금 $0.01·순수령 $313.45(입금 7/8). 원가 $257.14 대비 +21.9% 익절. 잔여 1.022472주+분수는 글라스 옵셔널리티로 유지. 대금은 GOOGL $340/$330 재배치로 이동(아래 항목).",
-      "price": 313.83,
+      "price": 312.644,
       "fired": null
     },
     {
@@ -194,7 +194,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[7/7 정훈 지시 — $330→$345 상향, 주문 체결 대기] 정수 1주 지정가 $345 GTC 걸어둠(정훈 직접 주문). 근거: 6/27 저점 $337.39도 안 뚫려 $330은 사실상 미체결 — 다우편입 후 우상향 밴드 반영해 $345로 상향(예산 $339.37 초과분은 소소 유입분 or 잔액조정). 컨센 $433(+20%)·Gemini 수요>공급·다우 패시브. 현재가 $366.46 대비 −5.9% — GTC 자동체결 대기.",
-      "price": 367.26,
+      "price": 369.73,
       "fired": false
     },
     {
@@ -724,11 +724,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 5.138203,
       "cost": 199.51,
-      "price": 192.38,
-      "change_pct": -1.62,
-      "value_krw": 1496847,
-      "pnl_pct": -3.57,
-      "pnl_krw": 3755,
+      "price": 192.69,
+      "change_pct": -1.46,
+      "value_krw": 1497615,
+      "pnl_pct": -3.42,
+      "pnl_krw": 4524,
       "outlook": "core",
       "stars": 5,
       "score": 100,
@@ -810,11 +810,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.129111,
       "cost": 633.98,
-      "price": 609.695,
-      "change_pct": 1.57,
-      "value_krw": 1042451,
-      "pnl_pct": -3.83,
-      "pnl_krw": -161,
+      "price": 612.365,
+      "change_pct": 2.01,
+      "value_krw": 1045868,
+      "pnl_pct": -3.41,
+      "pnl_krw": 3256,
       "outlook": "core",
       "stars": 4,
       "score": 80,
@@ -886,11 +886,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.970784,
       "cost": 645.4,
-      "price": 689.33,
-      "change_pct": -0.18,
-      "value_krw": 1013342,
-      "pnl_pct": 6.81,
-      "pnl_krw": 100781,
+      "price": 689.161,
+      "change_pct": -0.21,
+      "value_krw": 1011983,
+      "pnl_pct": 6.78,
+      "pnl_krw": 99421,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -932,11 +932,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.443,
       "cost": 410.2,
-      "price": 393.75,
-      "change_pct": 1.81,
-      "value_krw": 860386,
-      "pnl_pct": -4.01,
-      "pnl_krw": -1744,
+      "price": 392.24,
+      "change_pct": 1.42,
+      "value_krw": 856146,
+      "pnl_pct": -4.38,
+      "pnl_krw": -5983,
       "outlook": "core",
       "stars": 4,
       "score": 71,
@@ -998,11 +998,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.022472,
       "cost": 257.14,
-      "price": 313.83,
-      "change_pct": 0.37,
-      "value_krw": 485906,
-      "pnl_pct": 22.05,
-      "pnl_krw": 102965,
+      "price": 312.644,
+      "change_pct": -0.01,
+      "value_krw": 483539,
+      "pnl_pct": 21.59,
+      "pnl_krw": 100598,
       "outlook": "hold",
       "stars": 3,
       "score": 58,
@@ -1094,11 +1094,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.438006,
       "cost": 387.73,
-      "price": 367.26,
-      "change_pct": 0.22,
-      "value_krw": 243590,
-      "pnl_pct": -5.28,
-      "pnl_krw": -3764,
+      "price": 369.73,
+      "change_pct": 0.89,
+      "value_krw": 244960,
+      "pnl_pct": -4.64,
+      "pnl_krw": -2395,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1184,83 +1184,17 @@ window.APP_DATA = {
       ]
     },
     {
-      "label": "TSLA",
-      "ticker": "TSLA",
-      "region": "us",
-      "currency": "USD",
-      "shares": 0.157708,
-      "cost": 422.51,
-      "price": 416.646,
-      "change_pct": -0.74,
-      "value_krw": 99501,
-      "pnl_pct": -1.39,
-      "pnl_krw": 2450,
-      "outlook": "hold",
-      "stars": 2,
-      "score": 22,
-      "target": "$420.55 (ARK 2029 $2,600)",
-      "buy_zone": "관망",
-      "trim": "강세 트림 후보 — 컨센 $423.40 도달(여력 +0.9% 소진), +6.7% 급등 = sell-into-strength 타이밍",
-      "forecast": {
-        "week": {
-          "low": 378,
-          "high": 426,
-          "dir": "→",
-          "note": "펀더 최하=모멘텀. 변동성 큼, 갭업 차익 대상."
-        },
-        "month": {
-          "low": 358,
-          "high": 465,
-          "dir": "→",
-          "note": "이익−47%·PE334. 로보택시·Optimus 기대 의존, 코어 아님."
-        }
-      },
-      "comment": "7/6 +6.69%($419.77) — 로보택시 마이애미(3번째 주)·Q2 인도 480,126대(+25%, 컨센 상회)·에너지 13.5GWh(+41%). 컨센 목표 도달 = 무펀더 모멘텀(⭐2/22) 트림 논거 강화. 실적 7/22(美)=KST 7/23 새벽.",
-      "issues": [
-        {
-          "date": "2026-07-07",
-          "tag": "검증",
-          "text": "+6.69% 급등으로 컨센 목표($423.40)에 사실상 도달 — PM: 강세 트림(소수점 일부) 제안, 폰창 예약 가능."
-        },
-        {
-          "date": "2026-07-04",
-          "tag": "검증",
-          "text": "주말 IB 추가: 강세 Wedbush $600·Baird $522·RBC $475 vs 중립 GS $375·MS $415·Barclays $360 Hold. 로보택시 Dallas·Houston 확장(4개 도시). 관전 = 7/22 자동차 GM·규제크레딧."
-        },
-        {
-          "date": "2026-07-03",
-          "tag": "검증",
-          "text": "Q2 인도 480,126대 확정(컨센 406k +18% 서프라이즈·YoY +25%). 그러나 -7.49% 1년래 최악 = sell-the-news. IB 정정: GS $375·MS $415·JPM $475."
-        },
-        {
-          "date": "2026-06-30",
-          "tag": "검증",
-          "text": "6/30 +8.46% — +8.46% SpaceX 협업·NHTSA 종결·7/2 Q2 인도. 모멘텀·고베타·추격금지"
-        },
-        {
-          "date": "2026-06-22",
-          "tag": "검증·일부정정",
-          "text": "경제사냥꾼③: NYT 보도 SpaceX+테슬라 합병 가능·Ives 80~90% 확률·텍사스 법인+2/3 주주찬성(검증). ⚠️ 합병가치 '$4조'는 과장 → 실제 ~$3.4조(Fortune). 테슬라株→합병 신주 전환·머스크 지배력 유지."
-        },
-        {
-          "date": "2026-06-19",
-          "tag": "검증·시점",
-          "text": "캐시우드 TSLA 2029 $2,600 목표 — 단 우드 본인은 TSLA 차익매도 중(영상 미언급)."
-        }
-      ]
-    },
-    {
       "label": "ORCL",
       "ticker": "ORCL",
       "region": "us",
       "currency": "USD",
       "shares": 0.21519,
       "cost": 232.12,
-      "price": 144.15,
-      "change_pct": 0.25,
-      "value_krw": 46972,
-      "pnl_pct": -37.9,
-      "pnl_krw": -25780,
+      "price": 144.33,
+      "change_pct": 0.38,
+      "value_krw": 46980,
+      "pnl_pct": -37.82,
+      "pnl_krw": -25773,
       "outlook": "hold",
       "stars": 3,
       "score": 69,
@@ -1322,11 +1256,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.283501,
       "cost": 162.07,
-      "price": 165.25,
-      "change_pct": -4.58,
-      "value_krw": 70942,
-      "pnl_pct": 1.96,
-      "pnl_krw": 4020,
+      "price": 167.27,
+      "change_pct": -3.42,
+      "value_krw": 71730,
+      "pnl_pct": 3.21,
+      "pnl_krw": 4808,
       "outlook": "core",
       "stars": 4,
       "score": 79,
@@ -1378,11 +1312,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.020001,
       "cost": 749.0,
-      "price": 917.678,
-      "change_pct": -6.81,
-      "value_krw": 27794,
-      "pnl_pct": 22.52,
-      "pnl_krw": 5974,
+      "price": 927.74,
+      "change_pct": -5.79,
+      "value_krw": 28068,
+      "pnl_pct": 23.86,
+      "pnl_krw": 6248,
       "outlook": "core",
       "stars": 4,
       "score": 84,
@@ -1514,11 +1448,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.071177,
       "cost": 421.06,
-      "price": 367.44,
-      "change_pct": -1.73,
-      "value_krw": 39603,
-      "pnl_pct": -12.73,
-      "pnl_krw": -4048,
+      "price": 367.62,
+      "change_pct": -1.68,
+      "value_krw": 39579,
+      "pnl_pct": -12.69,
+      "pnl_krw": -4072,
       "outlook": "hold",
       "stars": 4,
       "score": 83,
@@ -1677,8 +1611,8 @@ window.APP_DATA = {
       "label": "GE Vernova",
       "ticker": "GEV",
       "currency": "USD",
-      "price": 1050.735,
-      "change_pct": -8.81,
+      "price": 1067.0,
+      "change_pct": -7.4,
       "stars": 4,
       "score": 78,
       "target": "$1,211.72 (Bernstein $1,206)",
@@ -1793,8 +1727,8 @@ window.APP_DATA = {
       "label": "SpaceX",
       "ticker": "SPCX",
       "currency": "USD",
-      "price": 157.44,
-      "change_pct": -1.86,
+      "price": 155.58,
+      "change_pct": -3.02,
       "stars": 3,
       "score": 55,
       "target": "$63~$190 (분산)",
@@ -1958,8 +1892,8 @@ window.APP_DATA = {
       "label": "T-Mobile",
       "ticker": "TMUS",
       "currency": "USD",
-      "price": 185.72,
-      "change_pct": 2.16,
+      "price": 187.242,
+      "change_pct": 3.0,
       "stars": 3,
       "score": 56,
       "target": "—",
@@ -1971,8 +1905,8 @@ window.APP_DATA = {
       "label": "STMicro",
       "ticker": "STM",
       "currency": "USD",
-      "price": 67.29,
-      "change_pct": -5.78,
+      "price": 68.17,
+      "change_pct": -4.55,
       "stars": 2,
       "score": 44,
       "target": "—",
@@ -1984,8 +1918,8 @@ window.APP_DATA = {
       "label": "팔란티어",
       "ticker": "PLTR",
       "currency": "USD",
-      "price": 134.63,
-      "change_pct": 1.58,
+      "price": 133.49,
+      "change_pct": 0.72,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -2003,8 +1937,8 @@ window.APP_DATA = {
       "label": "IBM",
       "ticker": "IBM",
       "currency": "USD",
-      "price": 305.45,
-      "change_pct": 1.99,
+      "price": 303.42,
+      "change_pct": 1.31,
       "stars": 4,
       "score": 73,
       "target": "JPM OW $291",
@@ -2022,8 +1956,8 @@ window.APP_DATA = {
       "label": "IONQ",
       "ticker": "IONQ",
       "currency": "USD",
-      "price": 46.825,
-      "change_pct": -4.17,
+      "price": 47.02,
+      "change_pct": -3.78,
       "stars": 2,
       "score": 42,
       "target": "컨센 $68.79 (고$100/저$44.78)",
@@ -2034,6 +1968,68 @@ window.APP_DATA = {
           "date": "2026-06-24",
           "tag": "검증",
           "text": "검은화요일 유일 역주행 섹터(6/23 ~$58~60). 정부 양자정책·DARPA 계약 실재하나 P/S 109배='증거 아닌 믿음에 가격'(애널 목표 $44~$100 분산). 신규매수 보류, 테마 모멘텀 게이지로만 관찰."
+        }
+      ]
+    },
+    {
+      "label": "TSLA",
+      "ticker": "TSLA",
+      "currency": "USD",
+      "price": 415.43,
+      "change_pct": -1.03,
+      "stars": 2,
+      "score": 22,
+      "target": "$420.55 (ARK 2029 $2,600)",
+      "forecast": {
+        "week": {
+          "low": 378,
+          "high": 426,
+          "dir": "→",
+          "note": "펀더 최하=모멘텀. 변동성 큼, 갭업 차익 대상."
+        },
+        "month": {
+          "low": 358,
+          "high": 465,
+          "dir": "→",
+          "note": "이익−47%·PE334. 로보택시·Optimus 기대 의존, 코어 아님."
+        }
+      },
+      "comment": "7/7 22:37 전량 시장가 매도 체결(체결가 ≈$415.9·컨센 $423 도달 sell-into-strength). USD -1.6%·KRW +3.5%(환차익). 재진입 조건: 큰 눌림($390 이하) + 로보택시가 실적 숫자로 확인될 때 — 무펀더 모멘텀(스코어 22) 판정 유지.",
+      "issues": [
+        {
+          "date": "2026-07-07",
+          "tag": "검증",
+          "text": "전량 매도 체결 — 보유 16→15종목. 매도 후 워치 전환(재진입 조건부)."
+        },
+        {
+          "date": "2026-07-07",
+          "tag": "검증",
+          "text": "+6.69% 급등으로 컨센 목표($423.40)에 사실상 도달 — PM: 강세 트림(소수점 일부) 제안, 폰창 예약 가능."
+        },
+        {
+          "date": "2026-07-04",
+          "tag": "검증",
+          "text": "주말 IB 추가: 강세 Wedbush $600·Baird $522·RBC $475 vs 중립 GS $375·MS $415·Barclays $360 Hold. 로보택시 Dallas·Houston 확장(4개 도시). 관전 = 7/22 자동차 GM·규제크레딧."
+        },
+        {
+          "date": "2026-07-03",
+          "tag": "검증",
+          "text": "Q2 인도 480,126대 확정(컨센 406k +18% 서프라이즈·YoY +25%). 그러나 -7.49% 1년래 최악 = sell-the-news. IB 정정: GS $375·MS $415·JPM $475."
+        },
+        {
+          "date": "2026-06-30",
+          "tag": "검증",
+          "text": "6/30 +8.46% — +8.46% SpaceX 협업·NHTSA 종결·7/2 Q2 인도. 모멘텀·고베타·추격금지"
+        },
+        {
+          "date": "2026-06-22",
+          "tag": "검증·일부정정",
+          "text": "경제사냥꾼③: NYT 보도 SpaceX+테슬라 합병 가능·Ives 80~90% 확률·텍사스 법인+2/3 주주찬성(검증). ⚠️ 합병가치 '$4조'는 과장 → 실제 ~$3.4조(Fortune). 테슬라株→합병 신주 전환·머스크 지배력 유지."
+        },
+        {
+          "date": "2026-06-19",
+          "tag": "검증·시점",
+          "text": "캐시우드 TSLA 2029 $2,600 목표 — 단 우드 본인은 TSLA 차익매도 중(영상 미언급)."
         }
       ]
     }
@@ -2105,7 +2101,7 @@ window.APP_DATA = {
       1551.81,
       1542.13,
       1531.0,
-      1514.03
+      1512.8
     ]
   },
   "kospi_history": {
@@ -4994,6 +4990,23 @@ window.APP_DATA = {
         "refs": "report_v41,CLAUDE.md,master §7"
       },
       {
+        "id": "d24",
+        "date": "2026-07-07",
+        "topic": "TSLA 전량 매도 체결 (보유 16→15종목)",
+        "decision": "[체결·종결] 7/7 22:37 시장가 전량 매도 — 0.157708주·판매금액 $65.59(100,482원·환율 1,531.80·입금 7/9). 환산 체결가 ≈$415.9. USD -1.6%·KRW 환차익 포함 +3.5% ≈ 본전 청산. cash_usd 404.96. 워치 전환 — 재진입 조건 = $390 이하 눌림 + 로보택시 실적 숫자 확인.",
+        "rationale": "v43 오더북 제안 실행: 무펀더 모멘텀(스코어 22·⭐2)이 컨센 $423.40 도달(+0.9% 소진) + 급등 중 매도(sell-into-strength) + 포트 변동성 축소",
+        "rejected": "계속 보유(여력 소진·펀더 없음) / 절반만 트림(정훈이 전량 선택, 소액이라 차이 미미)",
+        "status": "closed",
+        "tags": [
+          "TSLA",
+          "매도",
+          "체결",
+          "트림",
+          "v43"
+        ],
+        "refs": "master §9 2026-07-07·토스 스크린샷"
+      },
+      {
         "id": "d19",
         "date": "2026-07-06",
         "topic": "날짜 앵커링 오류 재발방지 (세션 시작 실측)",
@@ -5191,25 +5204,10 @@ window.APP_DATA = {
           "일정"
         ],
         "refs": "master §9. 상장 전 진입금지 유지·7월초 재확인"
-      },
-      {
-        "id": "d5",
-        "date": "2026-06-21",
-        "topic": "fundamentals.py 필드매핑 버그수정 + FMP 무료 심볼제한 확인",
-        "decision": "PE·순마진=ratios-ttm, FCF/주=ratios-ttm, ROE=key-metrics-ttm로 정정",
-        "rationale": "netMargin _pct 오용·PE 누락·ROE↔FCF 엔드포인트 혼동 버그",
-        "rejected": "",
-        "status": "closed",
-        "tags": [
-          "FMP",
-          "버그",
-          "펀더멘털"
-        ],
-        "refs": "master §9. MU·VOO·ANET·AVGO·ORCL 무료402→WebSearch 폴백"
       }
     ],
     "open_count": 11,
-    "total": 32
+    "total": 33
   },
   "reports": [
     {
@@ -5955,7 +5953,7 @@ window.APP_DATA = {
       },
       {
         "id": "d-0707e-3",
-        "text": "✅ TSLA 강세 트림 — 22:32 시장가 매도 제출(정훈, 스크린샷). 체결가·수량 확인 대기(다음 세션 첫 단계 = 체결 검토, 룰5).",
+        "text": "✅ TSLA 강세 트림 → 22:37 전량 체결(0.157708주·$65.59·환율 1,531.80·입금 7/9). 보유 16→15종목. 대금은 달러 현금 보존.",
         "done": true
       },
       {
@@ -6143,14 +6141,14 @@ window.APP_DATA = {
       "label": "TSLA 강세 트림(모멘텀 노출 축소)",
       "ticker": "TSLA",
       "action": "매도(일부)",
-      "status": "예약",
-      "price": "시장가(22:32 정규장 개장 직후 제출, 현재가 ~$419.02)",
-      "shares": "보유 약 절반(소수점)",
-      "amount_krw": null,
+      "status": "체결",
+      "price": "시장가 체결 — 판매금액 $65.59(100,482원·기준환율 1,531.80), 환산 체결가 ≈$415.9",
+      "shares": "0.157708주 (전량)",
+      "amount_krw": 100482,
       "date": "2026-07-07",
-      "note": "v43 제안(컨센 $423 도달·sell-into-strength) → 정훈 22:32 시장가 매도 제출(스크린샷 확인). 수량 미확인(제안 = 보유 약 절반) — 체결가·수량 확인 후 체결 처리 + portfolio.json 반영(룰5: 체결 확인 전 완료 금지)."
+      "note": "7/7 22:37 체결 확정(토스 스크린샷). v43 제안(강세 트림·컨센 $423 도달) 실행 — 제안은 절반이었으나 정훈이 전량 선택. USD 실현 -$1.04(-1.6%, 원가 $66.63) / KRW 환차익 포함 +3,436원(+3.5%). 입금 7/9 → 달러 예수금 보존(7/29~30 실적 주간 전 신규 매수 잠금)."
     }
   ],
   "tasks_updated": "2026-07-07",
-  "today_note": "v43 저녁 심층(정훈 요청 '변동성 분석'): 판정 = 구조발 고변동 박스 — 홀딩 + 조건부 베이킹, 신규 현금 투입은 외인 전환 스위치 대기. 수급 확정 외인 -2.93조·개인 +3.13조(정정). 장중 저점 7,389(안전핀 장중 breach 2번째·종가 룰 미발동). TSLA 강세 트림 제안. [22:32] TSLA 시장가 매도 제출 — 체결 확인 대기."
+  "today_note": "v43 저녁 심층(정훈 요청 '변동성 분석'): 판정 = 구조발 고변동 박스 — 홀딩 + 조건부 베이킹, 신규 현금 투입은 외인 전환 스위치 대기. 수급 확정 외인 -2.93조·개인 +3.13조(정정). 장중 저점 7,389(안전핀 장중 breach 2번째·종가 룰 미발동). TSLA 강세 트림 제안. [22:32] TSLA 22:37 전량 체결($65.59) — 보유 15종목·달러현금 $404.96."
 };

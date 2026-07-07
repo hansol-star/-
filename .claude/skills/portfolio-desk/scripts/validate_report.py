@@ -17,7 +17,7 @@ import argparse, json, os, re, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
-# 보유 16종목 정본 (티커 → 보고서 본문에서 찾을 별칭들). 변동 시 여기 + master.md 동시 갱신.
+# 보유 15종목 정본 (티커 → 보고서 본문에서 찾을 별칭들). 변동 시 여기 + master.md 동시 갱신. [7/7 TSLA 전량 매도 → 제외]
 HOLDINGS = {
     "005930.KS": ["삼성전자", "삼성"],
     "066570.KS": ["LG전자"],
@@ -30,7 +30,6 @@ HOLDINGS = {
     "MSFT": ["MSFT", "마이크로소프트"],
     "AAPL": ["AAPL", "애플"],
     "GOOGL": ["GOOGL", "구글", "알파벳"],
-    "TSLA": ["TSLA", "테슬라"],
     "ORCL": ["ORCL", "오라클"],
     "ANET": ["ANET", "아리스타"],
     "MU": ["MU", "마이크론"],
@@ -59,7 +58,7 @@ def ver(name):
     m = re.search(r"report_v(\d+)", name or "")
     return int(m.group(1)) if m else None
 
-# ── A. stocks.json: 16종목 완전성 + 컬럼 + 별점↔스코어 ──────────────────────
+# ── A. stocks.json: 보유 전종목(len(HOLDINGS)) 완전성 + 컬럼 + 별점↔스코어 ──────────
 def check_stocks():
     d = load("data/app/stocks.json")
     if not d: return
@@ -68,8 +67,8 @@ def check_stocks():
     miss, extra = set(HOLDINGS) - keys, keys - set(HOLDINGS)
     if miss:  fail(f"stocks.json 보유종목 누락: {sorted(miss)}")
     if extra: fail(f"stocks.json 미지정 종목: {sorted(extra)}")
-    if len(s) != 16:
-        fail(f"stocks.json 보유 {len(s)}종목 (16 아님)")
+    if len(s) != len(HOLDINGS):
+        fail(f"stocks.json 보유 {len(s)}종목 ({len(HOLDINGS)} 아님)")
     for t, v in s.items():
         for c in REQUIRED_COLS:
             val = v.get(c)
@@ -86,7 +85,7 @@ def check_stocks():
         if isinstance(st, int):
             exp = band_star(sc)
             # 정성가중: 별점은 score밴드 ±1 이내 허용(코어 확신·리스크 보수·모멘텀 가점).
-            # ±2 이상 벌어지면 재점검 필요 → WARN. 모멘텀주(454910·TSLA)는 score가 낮아 자동 ±1 수렴.
+            # ±2 이상 벌어지면 재점검 필요 → WARN. 모멘텀주(454910)는 score가 낮아 자동 ±1 수렴.
             if abs(st - exp) >= 2:
                 warn(f"{t}: ⭐{st} vs score {sc}→밴드 ⭐{exp} ±2 이상 어긋남 — 근거 재점검")
     if not d.get("as_of"):        warn("stocks.json: as_of 비어있음")
@@ -173,7 +172,7 @@ def check_versions(latest):
         if om and int(om.group(1)) < latest:
             fail(f"config_overview.md 정본 = v{om.group(1)} < 최신 v{latest} (인덱스 stale)")
 
-# ── E. 보고서 파일(선택): 디스클레이머 1회·STATE SNAPSHOT·16종목 등장 ──────
+# ── E. 보고서 파일(선택): 디스클레이머 1회·STATE SNAPSHOT·보유 전종목 등장 ──────
 def latest_report_path(latest):
     rdir = os.path.join(ROOT, "docs/reports")
     cands = [f for f in os.listdir(rdir) if re.match(rf"report_v{latest}_", f)]
@@ -329,7 +328,7 @@ def main():
         print(f"\n⚠️  WARN {len(WARNS)} — 눈으로 확인:")
         for m in WARNS: print(f"   ⚠️  {m}")
     if not FAILS and not WARNS:
-        print("\n✅ 완벽 — 보유16·컬럼·별점/스코어·정본 버전 전부 정합. 커밋 OK.")
+        print("\n✅ 완벽 — 보유 전종목·컬럼·별점/스코어·정본 버전 전부 정합. 커밋 OK.")
     elif not FAILS:
         print(f"\n✅ FAIL 없음 — 커밋 OK (WARN {len(WARNS)}건은 판단).")
     print()

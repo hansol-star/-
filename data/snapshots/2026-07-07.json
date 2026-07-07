@@ -1,33 +1,33 @@
 {
   "date": "2026-07-07",
-  "fx_usdkrw": 1521.98,
-  "kr_value": 1798700,
-  "kr_pnl": -158500,
+  "fx_usdkrw": 1521.74,
+  "kr_value": 1832600,
+  "kr_pnl": -124600,
   "us_value_usd": 3583.85,
   "us_pnl_usd": -15.8,
   "cash_krw": 322921,
-  "total_assets_krw": 7576164,
-  "stock_pnl_krw": -182546,
+  "total_assets_krw": 7609204,
+  "stock_pnl_krw": -148643,
   "positions": {
     "삼성전자": {
-      "price": 291500.0,
-      "ret_pct": 6.45
+      "price": 296000.0,
+      "ret_pct": 8.09
     },
     "LG전자": {
-      "price": 181500.0,
-      "ret_pct": 16.95
+      "price": 189100.0,
+      "ret_pct": 21.84
     },
     "두산로보틱스": {
-      "price": 78300.0,
-      "ret_pct": -21.7
+      "price": 78800.0,
+      "ret_pct": -21.2
     },
     "현대차": {
-      "price": 468500.0,
-      "ret_pct": -25.63
+      "price": 479500.0,
+      "ret_pct": -23.89
     },
     "NAVER": {
-      "price": 195900.0,
-      "ret_pct": -21.8
+      "price": 197200.0,
+      "ret_pct": -21.28
     },
     "NVDA": {
       "price": 195.55,

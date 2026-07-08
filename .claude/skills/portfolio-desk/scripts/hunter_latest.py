@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""경제사냥꾼 채널 신규 영상·쇼츠 자동 탐색 + 자막 추출.
+"""유튜브 리서치 채널 신규 영상·쇼츠 자동 탐색 + 자막 추출 (기본 = 경제사냥꾼).
+
+[7/7 다채널 확장] --channel <slug> 로 등록 채널 선택 (기본 hunter = 경제사냥꾼, 완전 하위호환).
+등록 채널: hunter(경제사냥꾼) / supe(수페TV) / jisik(지식인사이드, 투자 시리즈 제목필터).
+신규 채널 md는 OUTDIR/<slug>/ 서브폴더에 저장 (hunter는 기존 경로 유지).
 
 [7/2 전면 개편 — yt-dlp 단일의존 제거, 웹(데이터센터 IP) 환경 실측 검증]
 탐색·자막 3중 차선 (앞 차선 실패 시 자동 폴백):
@@ -17,14 +21,33 @@
 사용:
   python3 hunter_latest.py                  # 최신 목록만 (RSS, 날짜 포함)
   python3 hunter_latest.py --fetch --max 9  # 자막까지 추출 → 임시폴더/*.md
+  python3 hunter_latest.py --channel supe --fetch --max 2   # 수페TV
+  python3 hunter_latest.py --channel jisik --fetch --max 3  # 지식인사이드(필터 적용)
 """
 import argparse, html, json, os, random, re, shutil, ssl, subprocess, sys, tempfile, time
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
-CHANNEL = "UC7usMJDHmtbs_oegmzQKKMA"
-RSS_URL = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL}"
+# 채널 레지스트리. title_filter(정규식)가 있으면 매칭 안 되는 영상은 자막 추출에서 제외
+# (목록 JSON엔 filtered:true 로 표기만). 자산제곱(UCpTC-SMFjA3EDRhZIKOcKuQ)은 7/7 판단으로
+# 미편입 — 원칙론 위주·종목 콜 부재. 편입하려면 여기 한 줄 추가면 된다.
+CHANNELS = {
+    "hunter": {"id": "UC7usMJDHmtbs_oegmzQKKMA", "name": "경제사냥꾼"},
+    "supe":   {"id": "UCfnqgWlC5IvJEAPTmyjaixA", "name": "수페TV"},
+    # 지식인사이드는 비투자 콘텐츠(심리·건강·역사)가 절반 이상 → 투자 키워드 필터.
+    # 시리즈명 단독 매칭은 안 씀(지식인초대석은 비투자 회차 다수) — 금융 전용 시리즈 2개만 예외.
+    "jisik":  {"id": "UCA_hgsFzmynpv1zkvA5A7jA", "name": "지식인사이드",
+               "title_filter": r"지식인\s?클래스|지식선발대|투자|증시|증권|주식|코스피|코스닥|반도체"
+                               r"|삼성전자|하이닉스|삼전|매수|매도|배당|ETF|금리|환율|부동산|자산|버블|경제"},
+}
+CHANNEL = CHANNELS["hunter"]["id"]  # --channel 인자로 재설정됨 (기본 = 경제사냥꾼)
+CHANNEL_NAME = CHANNELS["hunter"]["name"]
+TITLE_FILTER = None
 KST = timezone(timedelta(hours=9))
+
+
+def rss_url():
+    return f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL}"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 YW_SCRIPT = os.environ.get(
@@ -64,7 +87,7 @@ def http(url, data=None, headers=None, timeout=30):
 
 def discover_rss():
     """RSS로 최신 업로드(영상+쇼츠 통합, 최대 15개) 목록. published는 KST 변환."""
-    xml = http(RSS_URL)
+    xml = http(rss_url())
     items = []
     for e in re.findall(r"<entry>.*?</entry>", xml, re.S):
         vid = re.search(r"<yt:videoId>([^<]+)", e)
@@ -229,6 +252,7 @@ def fetch_transcript(vid, title_hint=""):
     md = os.path.join(OUTDIR, f"{vid}.md")
     with open(md, "w", encoding="utf-8") as f:
         f.write(f"# {title or title_hint}\n"
+                f"- 채널: {CHANNEL_NAME}\n"
                 f"- URL: https://www.youtube.com/watch?v={vid}\n"
                 f"- 업로드: {date or '?'}\n\n## 트랜스크립트\n\n{text}\n")
     return md
@@ -237,7 +261,10 @@ def fetch_transcript(vid, title_hint=""):
 # ── main ───────────────────────────────────────────────────────────────────
 
 def main():
+    global CHANNEL, CHANNEL_NAME, TITLE_FILTER, OUTDIR
     ap = argparse.ArgumentParser()
+    ap.add_argument("--channel", default="hunter", choices=sorted(CHANNELS),
+                    help="채널 slug (기본 hunter=경제사냥꾼)")
     ap.add_argument("--fetch", action="store_true", help="자막까지 추출")
     ap.add_argument("--max", type=int, default=4, help="자막 추출 최대 개수")
     ap.add_argument("--per-tab", type=int, default=6, help="(yt-dlp 폴백용) 탭당 목록 개수")
@@ -245,6 +272,12 @@ def main():
     ap.add_argument("--all-dates", action="store_true",
                     help="오늘/어제 필터 없이 RSS 전체를 자막 대상에 포함")
     args = ap.parse_args()
+
+    ch = CHANNELS[args.channel]
+    CHANNEL, CHANNEL_NAME = ch["id"], ch["name"]
+    TITLE_FILTER = re.compile(ch["title_filter"]) if ch.get("title_filter") else None
+    if args.channel != "hunter":  # hunter는 기존 경로 유지(하위호환)
+        OUTDIR = os.path.join(OUTDIR, args.channel)
 
     if args.ids:
         items = [{"id": v, "title": "", "published_kst": "?", "tab": "manual"}
@@ -256,9 +289,14 @@ def main():
             print(f"[WARN] RSS 탐색 실패({ex}) — yt-dlp 폴백", file=sys.stderr)
             items = discover_ytdlp(args.per_tab)
         if not items:
-            print("[FAIL] 채널 탐색 전부 실패 — 웹검색 폴백 사용 권장 "
-                  "(검색어: 경제사냥꾼 + 주제 + 날짜)")
+            print(f"[FAIL] 채널({CHANNEL_NAME}) 탐색 전부 실패 — 웹검색 폴백 사용 권장 "
+                  f"(검색어: {CHANNEL_NAME} + 주제 + 날짜)")
             sys.exit(1)
+
+    if TITLE_FILTER:
+        for it in items:
+            if it["title"] and not TITLE_FILTER.search(it["title"]):
+                it["filtered"] = True  # 비투자 콘텐츠 — 목록엔 남기고 자막은 스킵
 
     print(json.dumps(items, ensure_ascii=False, indent=1))
 
@@ -266,6 +304,8 @@ def main():
         today = datetime.now(KST).date()
         targets = []
         for it in items:
+            if it.get("filtered"):
+                continue
             if args.ids or args.all_dates or it["published_kst"] == "?":
                 targets.append(it)
             else:

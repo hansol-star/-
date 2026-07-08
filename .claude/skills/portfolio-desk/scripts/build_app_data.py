@@ -31,6 +31,7 @@ STOCKS_JSON = os.path.join(REPO, "data", "app", "stocks.json")
 TASKS_JSON = os.path.join(REPO, "data", "app", "tasks.json")
 HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
 HUNTER_ARCHIVE_JSON = os.path.join(REPO, "data", "app", "hunter_archive.json")
+FEEDS_JSON = os.path.join(REPO, "data", "app", "feeds.json")  # 외부 채널(수페TV·지식인사이드) 정본
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
 PM_VIEW_JSON = os.path.join(REPO, "data", "app", "pm_view.json")
 DECISIONS_JSONL = os.path.join(REPO, "data", "app", "decisions.jsonl")
@@ -443,6 +444,14 @@ def build(offline: bool) -> dict:
         verdicts = [v.get("verdict", "") for v in archive_videos] \
             or [r.get("verdict", "") for r in hunter.get("track_record", [])]
         hunter["scorecard"] = hunter_scorecard(verdicts)
+    # 외부 채널 feeds — v1은 단순 통과(스코어카드·아카이브 롤오버는 hunter 전용,
+    # feeds 트랙레코드가 2~3주 쌓인 뒤 승격 검토). note→summary 폴백만 동일 적용.
+    feeds = load_json_opt(FEEDS_JSON)
+    if feeds:
+        for ch in (feeds.get("channels") or {}).values():
+            for v in ch.get("latest_videos", []):
+                if not (v.get("summary") or "").strip() and (v.get("note") or "").strip():
+                    v["summary"] = v["note"]
     flows = load_json_opt(FLOWS_JSON)
     # 외인 수급 추세 기계 판독 (flow_trend.py) — 앱 flowChart 캡션·전환단계 표시용
     flow_trend = None
@@ -494,6 +503,7 @@ def build(offline: bool) -> dict:
         "kospi_history": kospi_history,
         "hunter": hunter,
         "hunter_archive": archive_videos,
+        "feeds": feeds,
         "flows": flows,
         "flow_trend": flow_trend,
         "pm_view": pm_view,

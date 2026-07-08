@@ -580,6 +580,28 @@
       h += '</div>';
     }
 
+    // ── 외부 채널 리서치 (feeds.json — 수페TV·지식인사이드, 경제사냥꾼과 정본 분리) ──
+    var fchs = (D.feeds && D.feeds.channels) || {};
+    var fkeys = Object.keys(fchs);
+    if (fkeys.length) {
+      h += '<div class="sec"><h2>📡 외부 채널 리서치 (' + fkeys.length + ')</h2></div>';
+      fkeys.forEach(function (k) {
+        var ch = fchs[k] || {};
+        h += '<div class="card"><div class="row between"><span class="bold">🎬 ' + esc(ch.name || k) + '</span>';
+        var fsu = ch.setups || [];
+        if (fsu.length) h += '<span class="badge">셋업 ' + fsu.length + '</span>';
+        h += '</div>';
+        if (ch.headline) h += '<div class="tx sm" style="margin-top:4px">💡 ' + esc(ch.headline) + '</div>';
+        (ch.latest_videos || []).forEach(function (v) {
+          h += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(128,128,128,.2)">';
+          h += '<div class="row between"><span class="itag">' + esc(v.tag || "") + '</span><span class="dt">' + esc(v.date || "") + '</span></div>';
+          h += '<div class="vtitle sm">' + esc(v.title || "") + '</div>';
+          h += '<div class="tx sm clamp">' + esc(v.summary || "") + '</div></div>';
+        });
+        h += '</div>';
+      });
+    }
+
     h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 투자 자문 아님.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));

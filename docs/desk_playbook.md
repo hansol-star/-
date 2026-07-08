@@ -63,8 +63,9 @@ agent 파일을 만들거나 고칠 때 아래 4요소가 전부 있는지 확�
 ### research-feed (리서치 피드)
 - 채널 **자막 수치 오류·과장 잦음**(누적 정정 ~12%) — 방향성 채택·숫자는 기관·외신 교차검증. 채널 단독 근거 매수 금지.
 - [7/2] "웹 봇차단 → 로컬 대기" 서사 금지 — 실체는 버스트 레이트리밋, 페이싱·백오프·`--ids` 재시도로 해소. **제목만 로깅(추측 분석) 금지.**
-- 외부 채널(지식인사이드 등)은 `fetch_youtube.py`(+`SSL_CERT_FILE=/root/.ccr/ca-bundle.crt`), 경제사냥꾼만 `hunter_latest.py`.
-- [7/4] latest_videos 아카이브 이관은 **build_app_data.py가 자동** — hunter.json `latest_videos`만 정확히(필드 `summary`) 쓰면 된다. tickers는 **반드시 배열**(문자열이면 앱 크래시).
+- **[7/7 갱신] 정기 추적 3채널 = 전부 `hunter_latest.py`** — 경제사냥꾼(기본)·수페TV(`--channel supe`)·지식인사이드(`--channel jisik`, 투자 키워드 제목필터 내장·`filtered:true` 영상은 자막 스킵이 정상). 그 외 일회성 외부 영상만 `fetch_youtube.py`(+`SSL_CERT_FILE=/root/.ccr/ca-bundle.crt`).
+- [7/7] 외부 2채널 정본 = `feeds_log.md`·`feeds.json` — hunter.*와 트랙레코드 안 섞음. 수페TV = 주간랩업·수치 구체(배당/ETF 성향분은 팩트만 채택) / 지식인사이드 = 인터뷰라 **게스트명 필수 기록**(게스트별 성향 갈림), setups는 명확한 조건부 콜일 때만. 자산제곱은 미편입(원칙론 위주·종목 콜 부재 — 7/7 판단).
+- [7/4] latest_videos 아카이브 이관은 **build_app_data.py가 자동** — hunter.json `latest_videos`만 정확히(필드 `summary`) 쓰면 된다. tickers는 **반드시 배열**(문자열이면 앱 크래시). feeds.json도 동일 규약(summary·tickers 배열).
 
 ### risk-desk (리스크)
 - **[7/4 신설 임무] 캘리브레이션 브레이크**: PM이 ⭐4~5·고확신 콜을 내면 §2 수치(⭐5 실제 상승 43%·Brier 0.307)로 **과신을 반론**하는 게 공식 역할. 수급 레짐 체크(외인 추세) 없이 고별점 단기 액션이 나오면 제동.

@@ -265,6 +265,21 @@ def check_hunter():
             fail(f"hunter_archive tickers 비리스트 {len(bad)}건(앱 아카이브 화면 크래시): {bad[:3]}"
                  " — build_app_data.py 실행하면 자동 교정")
 
+def check_feeds():
+    """[7/7 신설] 외부 채널(수페TV·지식인사이드) feeds.json 게이트 — 신규라 WARN 수준.
+    안정화(2~3주) 후 check_hunter처럼 FAIL 승격 검토."""
+    fd = load("data/app/feeds.json")
+    if not fd:
+        return
+    for slug, ch in (fd.get("channels") or {}).items():
+        name = ch.get("name", slug)
+        for i, v in enumerate(ch.get("latest_videos", [])):
+            if not (v.get("summary") or "").strip() and not (v.get("note") or "").strip():
+                warn(f"feeds[{name}] latest_videos '{v.get('title', f'#{i}')}': summary 없음 — 앱 빈칸")
+            if not isinstance(v.get("tickers", []), list):
+                warn(f"feeds[{name}] '{v.get('title', '?')[:28]}': tickers 비리스트 — 리스트로 교정할 것")
+
+
 # ── G. [7/2 신설] 신선도·정합 sanity: forecast 레인지 vs 실시세 · pm_view/decisions 날짜 ──
 def check_freshness(latest):
     import datetime as _dt
@@ -312,7 +327,7 @@ def main():
     ap.add_argument("--no-report", action="store_true", help="보고서 파일 검사 생략")
     a = ap.parse_args()
 
-    check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter()
+    check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter(); check_feeds()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

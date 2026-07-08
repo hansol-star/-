@@ -65,7 +65,7 @@ python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secre
 
 **매크로·리서치·리스크 데스크**
 - **macro-desk**: 환율·금리·지표·유가·이벤트 캘린더
-- **research-feed**: 경제사냥꾼 신규 영상 탐색·자막 + [검증/정정/미확인] 분류 → PM이 핵심을 **`docs/research/hunter_log.md` 맨 위에 누적 기록**(시계열 축적 = 시장 시야 + 채널 트랙레코드). 신규 분석 + 누적 둘 다. **⚠️[6/28] 미확인 최소화 의무**: [미확인] 태깅 전 추가 WebSearch 2~3회 교차검증, 확인되면 [검증/정정] 승격·라이브는 범위추정·끝내 불가면 "N개 출처 시도" 명시(방치 금지). **채널 추천 종목+발동조건은 `hunter.json` `setups`(조건 트래커)로 누적** → 조건 충족 시 매수/매도 발동(§7c).
+- **research-feed**: 추적 채널 3개(경제사냥꾼 + **[7/7 편입] 수페TV·지식인사이드**) 신규 영상 탐색·자막 + [검증/정정/미확인] 분류 → PM이 핵심을 **경제사냥꾼은 `docs/research/hunter_log.md` / 외부 2채널은 `docs/research/feeds_log.md` 맨 위에 누적 기록**(시계열 축적 = 시장 시야 + 채널별 트랙레코드, 서로 안 섞음). 신규 분석 + 누적 둘 다. **⚠️[6/28] 미확인 최소화 의무**: [미확인] 태깅 전 추가 WebSearch 2~3회 교차검증, 확인되면 [검증/정정] 승격·라이브는 범위추정·끝내 불가면 "N개 출처 시도" 명시(방치 금지). **채널 추천 종목+발동조건은 `setups`(조건 트래커 — 경제사냥꾼=`hunter.json`/외부=`feeds.json`)로 누적** → 조건 충족 시 매수/매도 발동(§7c).
 - **risk-desk** (리스크 매니저): 안전핀·트랜치·트리거(`triggers.py`)·집중도·신중(bear) 관점 — PM의 브레이크
 
 각 데스크가 섹션을 반환하면 PM이 종합한다. (데스크는 파일을 쓰지 않음 — PM이 모아서 작성.)
@@ -134,8 +134,8 @@ python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 �
    - 현금 배분 플랜 (잔액 기준, 이벤트 연동, 3분할 원칙)
    - 지켜볼 것 (트리거·일정 캘린더 2주)
    - **🗣️ PM 사견 (매 보고서 필수) [2026-06-28 정훈 지시]**: 데이터·컨센 종합 **위에** PM 개인의 솔직한 한 표. ①**종합 1블록** = 시장 방향·전략·리스크에 대한 PM의 베팅 의견(애매한 양비론 금지, 결론 분명히) + ②**핵심종목 3~4개 PM 한줄**(이건 내가 어떻게 보나). "분석 참고·결정은 정훈"이되 PM은 견해를 숨기지 않는다.
-## 7c. 경제사냥꾼 조건 트래커 (매 보고서 점검) [2026-06-28 신설 — 정훈: "정리만 말고 때 되면 매수/매도"]
-   `hunter.json`의 `setups`(채널 추천 종목 + 발동 조건)를 매 보고서 점검: 셋업별 **조건 충족도**(예 3개 중 2개 met) + 가격존 도달 여부. **조건 ~75%+ 충족 & 가격존 진입 → 지정가 매수/매도 발동**(지정가 오더북·alerts에 등록). 비가격 조건(외인 매도중단·환율 꺾임 등)은 PM이 met를 갱신. 미충족이면 "추적중"으로 누적(영상 논지는 계속 기억).
+## 7c. 채널 조건 트래커 (매 보고서 점검) [2026-06-28 신설 — 정훈: "정리만 말고 때 되면 매수/매도" · 7/7 채널 공통화]
+   `hunter.json`의 `setups`(경제사냥꾼) **+ `feeds.json` 각 채널 `setups`(수페TV·지식인사이드)**를 매 보고서 점검: 셋업별 **조건 충족도**(예 3개 중 2개 met) + 가격존 도달 여부. **조건 ~75%+ 충족 & 가격존 진입 → 지정가 매수/매도 발동**(지정가 오더북·alerts에 등록). 비가격 조건(외인 매도중단·환율 꺾임 등)은 PM이 met를 갱신. 미충족이면 "추적중"으로 누적(영상 논지는 계속 기억).
    - **🤖 기계 판정 대조 의무 [2026-07-02 신설]**: met를 수기로만 찍지 말고 기계 평가와 대조 —
      ①**외인 수급 조건** = `python3 .claude/skills/portfolio-desk/scripts/flow_trend.py`(streak·5일 강도·전환단계) ②**환율 1,500·가격존·지수 지지** = `triggers.py`(KRW=X below 1500·between/below alerts·cond=flow 자동평가). 기계값과 수기 met가 어긋나면 기계값 우선으로 교정하고 note에 사유. 셋업 conditions 텍스트에 현재 기계값(예 "현 1,548")을 매 보고서 갱신.
    - **🔁 살아있는 추적 [정훈 강조]**: 매 보고서 **모든 신규 영상 빠짐없이** 반영 — 조건/논지 변경 시 갱신, 새 종목·이슈 전환 시 새 setup 추가·옛것 완료/폐기, status 전이. stale 방치 금지.
@@ -188,6 +188,7 @@ python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 �
    - `data/app/hunter.json`: 경제사냥꾼 신규 영상(latest_videos)·트랙레코드(track_record 최신 prepend)·headline·themes — `docs/research/hunter_log.md`와 동기화.
      - ⚠️ **영상 요약 필드명 = `summary`(필수)**. `note`로 쓰면 앱 상세가 "—" 빈칸 됨(track_record의 `note`와 혼동 금지). build_app_data가 note→summary 폴백을 넣지만 정본은 항상 `summary`로 쓴다.
      - 🔁 **롤오버 [7/4 자동화]**: latest_videos는 최신 ~9편만 유지. 아카이브 이관은 **build_app_data.py가 자동 수행**(latest 중 archive에 없는 영상을 `hunter_archive.json` `videos` 맨 앞에 prepend, summary→takeaway 매핑, 중복 판정 = id·정규화 제목) — 수동 이관 불필요, **빌드만 돌리면 정체 없음**. validate_report.py는 로그↔archive 날짜 갭을 **FAIL**로 적발(latest에만 있는 날짜는 커버로 안 침 — 앱 '전체 영상 아카이브' 화면은 archive만 읽으므로. 6/20·7/3 정체 재발 원인 봉합).
+   - `data/app/feeds.json` **[7/7 신설]**: 외부 채널(수페TV·지식인사이드) 신규 영상·트랙레코드·headline·setups — `docs/research/feeds_log.md`와 동기화. 요약 필드명 = `summary`(hunter와 동일). **경제사냥꾼(hunter.*)과 안 섞는다.** 신규 없으면 손 안 대도 됨(validate는 WARN 수준).
    - `data/app/flows.json`: 당일 코스피 외인/기관/개인 순매수(억원)를 series에 추가. **문서화·교차검증된 값만, 미확인은 null**(추측 금지).
    그 뒤 시세·시계열(환율·코스피)을 합쳐 앱 데이터를 빌드한다:
    ```bash

@@ -1,64 +1,64 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-09 17:08 KST",
-  "as_of": "2026-07-09 목 종가(장마감 퀵체크 — 국내 5종목 종가·수급 반영. 미국·워치 상세는 v46 정식 세션서 갱신)",
-  "source_report": "docs/reports/report_v45_2026-07-09.md",
+  "generated_at": "2026-07-10 08:17 KST",
+  "as_of": "2026-07-10 (금) 장중 12:20 KST — 국내 장중·미국 7/9 종가. 외인 오늘 장중 재매도, 안전핀 재평가 국면",
+  "source_report": "docs/reports/report_v46_2026-07-10.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1508.82
+    "usdkrw": 1504.49
   },
   "totals": {
-    "assets_krw": 7410746,
-    "stocks_value_krw": 7087825,
+    "assets_krw": 7488318,
+    "stocks_value_krw": 7165397,
     "cash_krw": 322921,
-    "day_change_krw": -32568,
-    "day_change_pct": -0.46,
-    "total_pnl_krw": -15208,
-    "total_pnl_pct": -0.21
+    "day_change_krw": 104098,
+    "day_change_pct": 1.47,
+    "total_pnl_krw": 62363,
+    "total_pnl_pct": 0.88
   },
   "safety": {
     "pin": 7500,
     "level2": 8000,
-    "price": 7291.91,
-    "change_pct": 0.62,
+    "price": 7475.94,
+    "change_pct": 2.52,
     "status": "freeze"
   },
   "indices": [
     {
       "label": "코스피",
       "ticker": "^KS11",
-      "price": 7291.91,
-      "change_pct": 0.62
+      "price": 7475.94,
+      "change_pct": 2.52
     },
     {
       "label": "코스닥",
       "ticker": "^KQ11",
-      "price": 794.0,
-      "change_pct": -4.48
+      "price": 837.43,
+      "change_pct": 6.68
     },
     {
       "label": "S&P500",
       "ticker": "^GSPC",
-      "price": 7538.83,
-      "change_pct": 0.75
+      "price": 7543.64,
+      "change_pct": 0.81
     },
     {
       "label": "나스닥",
       "ticker": "^IXIC",
-      "price": 26149.1,
-      "change_pct": 1.08
+      "price": 26206.89,
+      "change_pct": 1.3
     },
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 52512.22,
-      "change_pct": 0.31
+      "price": 52487.41,
+      "change_pct": 0.27
     },
     {
       "label": "필라델피아반도체",
       "ticker": "^SOX",
-      "price": 13155.993,
-      "change_pct": 4.62
+      "price": 12960.003,
+      "change_pct": 3.06
     }
   ],
   "alerts": [
@@ -68,7 +68,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "잔여 트랜치 전면 동결·재평가 (물타기 금지)",
-      "price": 7291.91,
+      "price": 7475.94,
       "fired": true
     },
     {
@@ -77,7 +77,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "2차 ~20만 분할 투입 (이란 결렬 동반 시)",
-      "price": 7291.91,
+      "price": 7475.94,
       "fired": true
     },
     {
@@ -86,7 +86,7 @@ window.APP_DATA = {
       "cond": "between",
       "when": null,
       "action": "국장=정수주만(소수점 불가) → 최소 1주 ≈229,500원. 정리후보+외인매도라 보류 우선, 매수해도 6/22 외인 재유입 확인 후 정수 1주 지정가",
-      "price": 184400.0,
+      "price": 191300.0,
       "fired": false
     },
     {
@@ -95,7 +95,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "✅[7/7 11:15 체결] 정수 1주 @295,500원(총 295,500원, 출금예정 7/9) — 2Q26 잠정실적 89.4조(컨센 84.4조↑, DS단독 80조+ 마진가속) 확인 후 눌림(-6.9%, 최저293,000)에서 집행. 신규 평단 273,833.33원(3주 합산). 대기중 GOOGL $330 GTC는 유지.",
-      "price": 278000.0,
+      "price": 285000.0,
       "fired": null
     },
     {
@@ -104,7 +104,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "대미투자 원전 수혜 — 10만 돌파 시 비중 검토",
-      "price": 73200.0,
+      "price": 78100.0,
       "fired": false
     },
     {
@@ -185,7 +185,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "[7/6 체결 확인] 1주 매도·총판매액 $313.77(＄308 지정가 상단 초과 유리 체결)·수수료 $0.31·제세금 $0.01·순수령 $313.45(입금 7/8). 원가 $257.14 대비 +21.9% 익절. 잔여 1.022472주+분수는 글라스 옵셔널리티로 유지. 대금은 GOOGL $340/$330 재배치로 이동(아래 항목).",
-      "price": 314.9,
+      "price": 316.22,
       "fired": null
     },
     {
@@ -194,7 +194,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[7/7 정훈 지시 — $330→$345 상향, 주문 체결 대기] 정수 1주 지정가 $345 GTC 걸어둠(정훈 직접 주문). 근거: 6/27 저점 $337.39도 안 뚫려 $330은 사실상 미체결 — 다우편입 후 우상향 밴드 반영해 $345로 상향(예산 $339.37 초과분은 소소 유입분 or 잔액조정). 컨센 $433(+20%)·Gemini 수요>공급·다우 패시브. 현재가 $366.46 대비 −5.9% — GTC 자동체결 대기.",
-      "price": 355.469,
+      "price": 358.89,
       "fired": false
     },
     {
@@ -203,7 +203,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[경제사냥꾼 셋업·지정가 오더북] 165,000 이하 눌림서 신규편입 정수 1주 지정가 검토. 외인 51.24%·해외궐련 +56%·자사주 9.5% 소각·DS 목표 240,000=디펜시브 분산. 편입 전 /stock-deepdive 권장",
-      "price": 176400.0,
+      "price": 173500.0,
       "fired": false
     },
     {
@@ -224,17 +224,17 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 3,
       "cost": 273833.33,
-      "price": 278000.0,
-      "change_pct": 0.18,
-      "value_krw": 834000,
-      "pnl_pct": 1.52,
-      "pnl_krw": 12500,
+      "price": 285000.0,
+      "change_pct": 2.52,
+      "value_krw": 855000,
+      "pnl_pct": 4.08,
+      "pnl_krw": 33500,
       "outlook": "core",
-      "stars": 5,
-      "score": 87,
-      "target": "550,000~590,000원 (실적일 줄상향·한투 59만)",
-      "buy_zone": "295,000~305,000원 — 1차 체결(7/7 295,500). ⚠️잔여 안전핀 동결: 현재가 278,000이 존 아래·물타기 금지(룰1). 해제 = 코스피 7,500 종가 회복+외인 전환. 외인은 2일 연속 순매수(7/8·7/9)로 전환 중, 남은 관문은 지수 7,500 종가",
-      "trim": "보류",
+      "stars": 4,
+      "score": 80,
+      "target": "390,000(키움 하향)~430,000원+ (하우스 분화)",
+      "buy_zone": "27.5만~28.5만 눌림 (2차존 295~305k = 안전핀 동결·해제 = 7,500 종가+외인 전환)",
+      "trim": "없음(홀드)",
       "forecast": {
         "week": {
           "low": 260000,
@@ -249,8 +249,13 @@ window.APP_DATA = {
           "note": "(추정) 7/30 IR 주주환원이 상단 결정 — 채널 시나리오 절반 반영 시 40만대 논지"
         }
       },
-      "comment": "7/9 종가 278,000(+0.18%). ★외인 +84.6만주·기관 +110.8만주 동시 순매수 복귀(7/8 -301만주서 전환) — 개인만 매도. 롤러코스터(고 291,500→저 272,750) 속 방어. 메모리 베어마켓·MS 순환매나 마진 가속 유효(MS 2024 하닉 오답 이력)·이재용 선밸리行 촉매. 게이트 = 7,500 종가 회복+7/30 IR",
+      "comment": "장중 290,750(+4.59%). 잠정 89.4조 beat·DS마진 가속 유효 vs 키움 43만→39만 하향·메모리 우려로 ⭐5/87→⭐4/80 1노치↓. NPS·외인 매도로 수급 미스매치(밸류 아닌 타이밍). 존 오면 계획대로",
       "issues": [
+        {
+          "date": "2026-07-10",
+          "tag": "정정",
+          "text": "스코어 ⭐5/87→⭐4/80: 키움 목표 43만→39만 하향+메모리 베어마켓 우려 반영. 단 잠정 89.4조 beat·DS마진 가속·타 하우스 43만+로 데스크 제안(74)보다 상향."
+        },
         {
           "date": "2026-07-09",
           "tag": "검증",
@@ -390,17 +395,17 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 155200,
-      "price": 178000.0,
-      "change_pct": -9.09,
-      "value_krw": 178000,
-      "pnl_pct": 14.69,
-      "pnl_krw": 22800,
+      "price": 182400.0,
+      "change_pct": 2.47,
+      "value_krw": 182400,
+      "pnl_pct": 17.53,
+      "pnl_krw": 27200,
       "outlook": "core",
       "stars": 4,
-      "score": 73,
-      "target": "컨센 초과 (12~23만 이미 상회)",
+      "score": 74,
+      "target": "하나 23만·메리츠 26만↑",
       "buy_zone": "홀딩 (추가매수 보류)",
-      "trim": "손절선 없음 — 펀더 훼손 시에만 매도 검토",
+      "trim": "손절선 없음 — 펀더 훼손 시에만",
       "forecast": {
         "week": {
           "low": 185000,
@@ -415,7 +420,7 @@ window.APP_DATA = {
           "note": "(추정) 7/24 확정실적·IR 3항목 통과 시 컨센 상향 랠리"
         }
       },
-      "comment": "7/9 -9.09%(178,000) — 어제까지 이틀 강세를 하루에 반납. 외인 -40.9만주 투매가 급락 주도(개인 흡수). 실적방어주 논지 훼손 아닌 수급 이벤트. 7/30 IR 3대 체크",
+      "comment": "장중 185,300(+4.16%). NVIDIA 액냉 인증 정상(훼손 아님)·피지컬AI 3축. 7/30 IR 3체크(관세환급 제외 본업·B2B 반복수익·AI냉각 수주)",
       "issues": [
         {
           "date": "2026-07-08",
@@ -491,17 +496,17 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 100000,
-      "price": 70400.0,
-      "change_pct": -2.9,
-      "value_krw": 70400,
-      "pnl_pct": -29.6,
-      "pnl_krw": -29600,
+      "price": 74500.0,
+      "change_pct": 5.82,
+      "value_krw": 74500,
+      "pnl_pct": -25.5,
+      "pnl_krw": -25500,
       "outlook": "momentum",
       "stars": 2,
       "score": 17,
-      "target": "분산 큼 (컨센 109k ~ 극단 300k)",
+      "target": "컨센 99,500원",
       "buy_zone": "관망",
-      "trim": "모멘텀 — 큰 갭업 시 차익",
+      "trim": "반등 시 85,000원",
       "forecast": {
         "week": {
           "low": 66000,
@@ -516,7 +521,7 @@ window.APP_DATA = {
           "note": "(추정) 반등 시 85,000 트림 실행이 시나리오"
         }
       },
-      "comment": "7/9 -2.90%(70,400, 원가 -27.5%) — 무펀더 모멘텀 약세 지속. 패닉 매도 금지·반등 시 트림 1순위(85,000 지정가 유지, 매도라 안전핀 무관)",
+      "comment": "장중 75,400(+7.10%). 무펀더 모멘텀(밴드상 ⭐1, 모멘텀 +1 상한). 오늘 +7%는 로봇테마 반등 베타·펀더 변화 無",
       "issues": [
         {
           "date": "2026-07-08",
@@ -562,17 +567,17 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 630000,
-      "price": 445500.0,
-      "change_pct": -3.68,
-      "value_krw": 445500,
-      "pnl_pct": -29.29,
-      "pnl_krw": -184500,
+      "price": 457500.0,
+      "change_pct": 2.69,
+      "value_krw": 457500,
+      "pnl_pct": -27.38,
+      "pnl_krw": -172500,
       "outlook": "hold",
       "stars": 3,
-      "score": 49,
-      "target": "600,000원 (공격 800,000원)",
-      "buy_zone": "관망",
-      "trim": "—",
+      "score": 55,
+      "target": "한투 63만·NH 86만",
+      "buy_zone": "7/23 실적 확인 전 관망",
+      "trim": "촉매 없음",
       "forecast": {
         "week": {
           "low": 440000,
@@ -587,8 +592,13 @@ window.APP_DATA = {
           "note": "(추정) 7/23 실적·관세 환급 규모가 변수"
         }
       },
-      "comment": "7/9 -3.68%(445,500, 원가 -26.6%) — 지수 베타. 외인 +0.7만주 미미·개별 촉매 부재, 실적 7/23",
+      "comment": "장중 466,500(+4.71%). 7/23 2Q D-13. 관세 15% 확정=테일리스크 해소로 49→55↑. 2Q 부진은 이미 컨센 반영, 관건은 하반기 V자 가이던스",
       "issues": [
+        {
+          "date": "2026-07-10",
+          "tag": "검증",
+          "text": "스코어 49→55: 美 관세 15% 확정으로 테일리스크 해소(밴드상 ⭐3 하단 정합)."
+        },
         {
           "date": "2026-07-08",
           "tag": "검증",
@@ -663,17 +673,17 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 250500,
-      "price": 184400.0,
-      "change_pct": -4.31,
-      "value_krw": 184400,
-      "pnl_pct": -26.39,
-      "pnl_krw": -66100,
+      "price": 191300.0,
+      "change_pct": 3.74,
+      "value_krw": 191300,
+      "pnl_pct": -23.63,
+      "pnl_krw": -59200,
       "outlook": "trim_candidate",
       "stars": 2,
       "score": 54,
-      "target": "~290,000원 (유안타 하향)",
-      "buy_zone": "225,000~235,000원 (6/23 종가 202.5k = 존 한참 아래)",
-      "trim": "정리후보",
+      "target": "~290,000~300,000원 (하우스 260~350k 편차)",
+      "buy_zone": "225,000~235,000원 (존 아래·정리후보)",
+      "trim": "정리후보 상시검토",
       "forecast": {
         "week": {
           "low": 185000,
@@ -688,7 +698,7 @@ window.APP_DATA = {
           "note": "(추정) 8월 초 2Q 실적 + AI탭 확대"
         }
       },
-      "comment": "7/9 -4.31%(184,400) — 급락장서 외인·기관 동반 매도(개인 흡수)로 약세 전환. 7월 중순 AI브리핑 CPC 수익화 개시가 프린트 전 유일 카탈리스트(다올 40만 BUY)",
+      "comment": "장중 193,200(+4.72%). 코스피 반등 동조·AI커머스 스마트스토어 GMV +24%. AI브리핑/탭광고 수익화 Q3-Q4·두나무 9월 편입 촉매",
       "issues": [
         {
           "date": "2026-07-08",
@@ -754,17 +764,17 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 5.138203,
       "cost": 199.51,
-      "price": 203.09,
-      "change_pct": -0.5,
-      "value_krw": 1574480,
-      "pnl_pct": 1.79,
-      "pnl_krw": 81389,
+      "price": 202.78,
+      "change_pct": -0.66,
+      "value_krw": 1567565,
+      "pnl_pct": 1.64,
+      "pnl_krw": 74474,
       "outlook": "core",
       "stars": 5,
-      "score": 100,
-      "target": "$298.93 (+45.7%)",
-      "buy_zone": "눌림",
-      "trim": "비중관리 (이미 최대 비중)",
+      "score": 90,
+      "target": "$301.62 (+49%, Strong Buy·58 애널)",
+      "buy_zone": "$195~200",
+      "trim": "없음(비중관리)",
       "forecast": {
         "week": {
           "low": 185,
@@ -779,8 +789,13 @@ window.APP_DATA = {
           "note": "분기EPS +212%·PEG 0.49 유효. 7월말 빅4 capex 가이던스(setup-m7capex)가 분수령. 최대비중→신규절제."
         }
       },
-      "comment": "7/8밤 +3.65%($204.12) 박스 상단 돌파 — DeepSeek 자체칩 공포 소멸, 메모리 급락 속 로직 리드. 경제사냥꾼 '박스권·잘하는 것만으론 부족'론(7/8 22:30)을 당일 밤 반증. 비중 21% 관리.",
+      "comment": "7/9 $202.78(-0.66%, 노이즈). 컨센 +49% 저평가 플래그. Rubin(HBM4)·Blackwell Ultra 수요 견조. 100→90 모멘텀 트림(6월고점 -18%·GPU 소외)",
       "issues": [
+        {
+          "date": "2026-07-10",
+          "tag": "검증",
+          "text": "스코어 100→90: 6월 고점 -18%·GPU vs 메모리 분기·OpenAI IPO 2027 연기 노이즈 반영 모멘텀 트림(펀더 강세·⭐5 유지)."
+        },
         {
           "date": "2026-07-09",
           "tag": "검증",
@@ -850,16 +865,16 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.129111,
       "cost": 633.98,
-      "price": 611.83,
-      "change_pct": 1.44,
-      "value_krw": 1042329,
-      "pnl_pct": -3.49,
-      "pnl_krw": -283,
+      "price": 631.48,
+      "change_pct": 4.7,
+      "value_krw": 1072718,
+      "pnl_pct": -0.39,
+      "pnl_krw": 30106,
       "outlook": "core",
       "stars": 4,
-      "score": 82,
-      "target": "$827.32 (+45.9%)",
-      "buy_zone": "실적확인 (7/29 전 보류)",
+      "score": 83,
+      "target": "$827.91 (+31%, Strong Buy)",
+      "buy_zone": "눌림 대기 ~$580-600 (추격금지)",
       "trim": "—",
       "forecast": {
         "week": {
@@ -875,7 +890,7 @@ window.APP_DATA = {
           "note": "분기EPS+60%·저PE. 7/29 실적 = Compute 구체화 + capex 가이던스 = 3차 트랜치 재개 조건."
         }
       },
-      "comment": "7/8밤 -2.02%($603.12) — 빅테크 로테이션 매도(MS '반도체→빅테크'와 반대로 당일은 로직이 리드). 3차는 7/29 프린트 후. Erste 상향·Meta Compute 유지.",
+      "comment": "7/9 $631.48(+4.70%, 이틀 +8%). Erste→Buy·BNP $955·UBS $908 상향+Advantage+ AI광고+잉여컴퓨트 판매. 7/29 실적 前 추격금지",
       "issues": [
         {
           "date": "2026-07-08",
@@ -931,11 +946,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.970784,
       "cost": 645.4,
-      "price": 690.445,
-      "change_pct": 0.76,
-      "value_krw": 1011321,
-      "pnl_pct": 6.98,
-      "pnl_krw": 98760,
+      "price": 690.69,
+      "change_pct": 0.79,
+      "value_krw": 1008777,
+      "pnl_pct": 7.02,
+      "pnl_krw": 96215,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -956,7 +971,7 @@ window.APP_DATA = {
           "note": "분산형 코어. 적립 대상, PCE가 단기 변수."
         }
       },
-      "comment": "7/8밤 -0.26%($685.26) — 이란 반영 첫 세션(나스닥 +0.2%·다우 -1.09%)에도 견조. 코어.",
+      "comment": "7/9 $690.69(+0.79%). 코어 지수 적립",
       "issues": [
         {
           "date": "2026-07-09",
@@ -987,15 +1002,15 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.443,
       "cost": 410.2,
-      "price": 379.625,
-      "change_pct": -0.97,
-      "value_krw": 826530,
-      "pnl_pct": -7.45,
-      "pnl_krw": -35600,
+      "price": 384.36,
+      "change_pct": 0.27,
+      "value_krw": 834438,
+      "pnl_pct": -6.3,
+      "pnl_krw": -27692,
       "outlook": "core",
       "stars": 4,
       "score": 73,
-      "target": "$561.39 (+43.7%)",
+      "target": "$559.93 (+46%, Strong Buy)",
       "buy_zone": "눌림",
       "trim": "—",
       "forecast": {
@@ -1012,7 +1027,7 @@ window.APP_DATA = {
           "note": "매출+15%·순마진39%. 목표 $561(+48%🎯) 상방 최대."
         }
       },
-      "comment": "7/8밤 -1.41%($383.34) 로테이션 매도. Azure +40%·AI $37B run-rate. 7/29 감가상각 논쟁 검증대.",
+      "comment": "7/9 $384.36(+0.27%). Azure +40%·Copilot 2천만석. capex $190B. 감가상각 4→6년=버리 논란 최대노출. 7/29 실적 첫 검증창",
       "issues": [
         {
           "date": "2026-07-08",
@@ -1058,17 +1073,17 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.022472,
       "cost": 257.14,
-      "price": 314.9,
-      "change_pct": 0.48,
-      "value_krw": 485804,
-      "pnl_pct": 22.46,
-      "pnl_krw": 102864,
+      "price": 316.22,
+      "change_pct": 0.9,
+      "value_krw": 486441,
+      "pnl_pct": 22.98,
+      "pnl_krw": 103500,
       "outlook": "hold",
       "stars": 3,
       "score": 58,
-      "target": "$315.09 컨센(+2.1%)",
+      "target": "$315.57 컨센 (-0.2% 소진)",
       "buy_zone": "신규매수 안함(트림 완료 종목)",
-      "trim": "✅ 7/6 밤 체결완료 — 정수1주 $313.77(+21.9% 익절, 순수령$313.45 입금7/8). 잔여 1.022472주+분수는 글라스 옵셔널리티 유지. 대금은 GOOGL $330 재배치로 이동.",
+      "trim": "✅ 7/6 1주 트림완료(+21.9% 익절)",
       "forecast": {
         "week": {
           "low": 296,
@@ -1083,7 +1098,7 @@ window.APP_DATA = {
           "note": "(추정) 7/30 FY Q3 가격전가 마진 실증 전 컨센 여력 +2% 소진 상태."
         }
       },
-      "comment": "7/8밤 +0.88%($313.39) — 이란·로테이션 국면서 방어주化. 컨센 $315 완전밸류·트림 후 잔여 홀드.",
+      "comment": "7/9 $316.22(+0.90%). 컨센 여력 소진=7/6 트림 적중. EU DMA 패소(7/8). 잔여 1주+분수 글라스 옵셔널리티. 7/30 실적",
       "issues": [
         {
           "date": "2026-07-08",
@@ -1159,16 +1174,16 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.438006,
       "cost": 387.73,
-      "price": 355.469,
-      "change_pct": -1.78,
-      "value_krw": 234920,
-      "pnl_pct": -8.32,
-      "pnl_krw": -12435,
+      "price": 358.89,
+      "change_pct": -0.84,
+      "value_krw": 236500,
+      "pnl_pct": -7.44,
+      "pnl_krw": -10855,
       "outlook": "core",
       "stars": 5,
       "score": 91,
-      "target": "$432.83 (+20.3%)",
-      "buy_zone": "🎯 정수 1주 지정가 $345 GTC 예약(7/7 정훈 $330→$345 상향·주문 걸어둠). 현재가 $366 대비 −5.9% — 다우편입 후 우상향 밴드 반영, 자동체결 대기",
+      "target": "$432.10 (+20%, Strong Buy)",
+      "buy_zone": "🎯 정수 1주 지정가 $345 GTC(스탠딩·정훈 걸어둠). 현 $358.89 -3.9% 자동체결 대기",
       "trim": "—",
       "forecast": {
         "week": {
@@ -1184,7 +1199,7 @@ window.APP_DATA = {
           "note": "(추정) 7/23 실적(Cloud 성장·capex ROI)이 상단 게이트."
         }
       },
-      "comment": "7/8밤 -1.39%($361.92) — $345 GTC까지 -4.6% 근접. 실적 실망 시에만 터치. 컨센 $432 Strong Buy 유지.",
+      "comment": "7/9 $358.89(-0.84%, 노이즈). 최고확신. Cloud +63%·백로그 $462B·EPS +23.8%. 반독점=데이터공유 remedy(크롬매각 아님). 7/22 실적",
       "issues": [
         {
           "date": "2026-07-09",
@@ -1265,15 +1280,15 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.21519,
       "cost": 232.12,
-      "price": 145.51,
-      "change_pct": 3.57,
-      "value_krw": 47245,
-      "pnl_pct": -37.31,
-      "pnl_krw": -25507,
+      "price": 144.22,
+      "change_pct": 2.65,
+      "value_krw": 46691,
+      "pnl_pct": -37.87,
+      "pnl_krw": -26061,
       "outlook": "hold",
       "stars": 3,
       "score": 65,
-      "target": "$252.64 (+38.7%)",
+      "target": "$251.85 (+74.6%)",
       "buy_zone": "눌림",
       "trim": "패닉셀 금지",
       "forecast": {
@@ -1290,7 +1305,7 @@ window.APP_DATA = {
           "note": "RPO 백로그 강세 vs 회계논란·capex 부담 양면. 7/29~30 빅테크 실적 연동."
         }
       },
-      "comment": "7/8밤 -0.78%($140.49, 원가 -39%) — RPO $553B 온전 vs 감가상각 오버행. 물타기 아닌 관망, 7/29 그룹 프린트 분수령.",
+      "comment": "7/9 $144.22(+2.65%). 최대손실(-37.9%)이나 RPO $638B·OCI +54%·엘리슨 로드맵. 버리 논란 명시 타깃(검증은 9월 실적)",
       "issues": [
         {
           "date": "2026-07-08",
@@ -1336,17 +1351,17 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.283501,
       "cost": 162.07,
-      "price": 184.21,
-      "change_pct": 1.75,
-      "value_krw": 78796,
-      "pnl_pct": 13.66,
-      "pnl_krw": 11874,
+      "price": 184.69,
+      "change_pct": 2.01,
+      "value_krw": 78775,
+      "pnl_pct": 13.96,
+      "pnl_krw": 11853,
       "outlook": "core",
       "stars": 4,
       "score": 81,
-      "target": "$189.13 (+15.9%)",
-      "buy_zone": "홀딩",
-      "trim": "컨센 $190 근접 — sell-into-strength 검토",
+      "target": "$190.09 (+3%, Strong Buy)",
+      "buy_zone": "$172~178",
+      "trim": "컨센 $190 근접 — sell-into-strength 트림 후보(8/4 실적 전 강세 시 일부 익절)",
       "forecast": {
         "week": {
           "low": 160,
@@ -1361,7 +1376,7 @@ window.APP_DATA = {
           "note": "매출+35%·ROE32%. 목표 $189(+11%)."
         }
       },
-      "comment": "7/8밤 +8.76%($181.05) 이틀 연속 강세 — 1.6T 신제품 모멘텀. 컨센 $190 도달 임박 = 트림 후보 승격(TSLA식). 스코어 79→81.",
+      "comment": "7/9 $184.69(+2.01%). AI스위칭 $3.5B 타깃 상향. 컨센 근접 = 트림 1순위. v45 79→81 유지",
       "issues": [
         {
           "date": "2026-07-09",
@@ -1402,17 +1417,17 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.020001,
       "cost": 749.0,
-      "price": 1019.8,
-      "change_pct": 7.48,
-      "value_krw": 30775,
-      "pnl_pct": 36.15,
-      "pnl_krw": 8956,
+      "price": 991.64,
+      "change_pct": 4.52,
+      "value_krw": 29840,
+      "pnl_pct": 32.4,
+      "pnl_krw": 8020,
       "outlook": "core",
       "stars": 4,
       "score": 84,
-      "target": "$1,200~2,000 (Susquehanna $2,000·UBS $1,625·Needham $1,550·BofA/Stifel/TD Cowen $1,500·Citi $1,200·골드만 Neutral $1,100, 6/24 실적 후 일제 상향)",
-      "buy_zone": "실적완료(6/24)",
-      "trim": "절반차익 +43.6% 체결완료. 잔여 절반 홀딩($1,500+ AND 현물가 롤오버/외인 매도 재가속 동시 확인시만 트림). ▶마진 게이트 [7/2 채택]: GM 추세 하락 전환 시 = 트림 신호 (현재 74.9→84.9% 가속 중 = 홀딩)",
+      "target": "$1,486 (+50%, Strong Buy·BofA $1,500)",
+      "buy_zone": "$920~960",
+      "trim": "마진 가속=홀드 (게이트: GM 추세 하락 전환 시 트림)",
       "forecast": {
         "week": {
           "low": 950,
@@ -1427,8 +1442,13 @@ window.APP_DATA = {
           "note": "LTA 구독화·HBM 펀더 vs 레버리지 변동성. DB $1,500은 장기 시나리오. 물타기 금지."
         }
       },
-      "comment": "7/8밤 +1.11%($948.80, +26.7% 보유) — 메모리 베어마켓(-20%+) 속 반등. MS 저승사자 콜(2024 하닉 26만→12만 오답 이력)에 패닉 금지. 마진 가속 유효·홀딩, 7/16 TSMC 판정.",
+      "comment": "7/9 $991.64(+4.52%). FQ4 GM 가이드 86%·2026 HBM 완판·HBM4 12H 출하. 데스크 ⭐5/88 재상향 제안→기각(1주 반등 휩쏘 방지)·⭐4/84 유지",
       "issues": [
+        {
+          "date": "2026-07-10",
+          "tag": "검증",
+          "text": "반도체AI 데스크 ⭐5/88 재상향 제안했으나 PM 기각: 7/3 추세훼손 하향(⭐4/84)을 1주 반등으로 되돌리면 휩쏘. 마진 게이트 홀딩 유지."
+        },
         {
           "date": "2026-07-09",
           "tag": "검증",
@@ -1548,17 +1568,17 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.071177,
       "cost": 421.06,
-      "price": 403.42,
-      "change_pct": 3.79,
-      "value_krw": 43325,
-      "pnl_pct": -4.19,
-      "pnl_krw": -326,
+      "price": 401.11,
+      "change_pct": 3.2,
+      "value_krw": 42953,
+      "pnl_pct": -4.74,
+      "pnl_krw": -698,
       "outlook": "hold",
       "stars": 4,
-      "score": 83,
-      "target": "$522.06 (+36.6%)",
-      "buy_zone": "조정주",
-      "trim": "물타기 후보",
+      "score": 84,
+      "target": "$523.73 (+31%, Strong Buy)",
+      "buy_zone": "$380~395",
+      "trim": "급등 시 부분트림 후보(⭐5 근접)",
       "forecast": {
         "week": {
           "low": 350,
@@ -1573,7 +1593,7 @@ window.APP_DATA = {
           "note": "AI 네트워킹·ASIC 구조 성장. 3차 트랜치(META와 함께) 재개 조건 = 7월말 capex 확인."
         }
       },
-      "comment": "7/8밤 +4.83%($388.69) — ASIC·네트워킹 강세로 로직 디커플 실증. 물타기 후보 7/29 이후.",
+      "comment": "7/9 $401.11(+3.20%). 커스텀 ASIC(Apple·Meta·Alphabet·ByteDance)+800G~1.6T 네트워킹. Strong Buy·스코어 84로 ⭐5 근접",
       "issues": [
         {
           "date": "2026-07-09",
@@ -1613,8 +1633,8 @@ window.APP_DATA = {
       "label": "SK하이닉스",
       "ticker": "000660.KS",
       "currency": "KRW",
-      "price": 2186000.0,
-      "change_pct": 5.3,
+      "price": 2180000.0,
+      "change_pct": -0.27,
       "stars": 4,
       "score": 80,
       "target": "Strong Buy",
@@ -1692,8 +1712,8 @@ window.APP_DATA = {
       "label": "삼성전기",
       "ticker": "009150.KS",
       "currency": "KRW",
-      "price": 1493000.0,
-      "change_pct": 0.95,
+      "price": 1584000.0,
+      "change_pct": 6.1,
       "stars": 3,
       "score": 58,
       "target": "KB 3,000,000원 (220만→상향)",
@@ -1731,8 +1751,8 @@ window.APP_DATA = {
       "label": "GE Vernova",
       "ticker": "GEV",
       "currency": "USD",
-      "price": 1081.17,
-      "change_pct": 0.95,
+      "price": 1075.26,
+      "change_pct": 0.4,
       "stars": 4,
       "score": 78,
       "target": "$1,211.72 (Bernstein $1,206)",
@@ -1760,8 +1780,8 @@ window.APP_DATA = {
       "label": "두산에너빌리티",
       "ticker": "034020.KS",
       "currency": "KRW",
-      "price": 73200.0,
-      "change_pct": -1.08,
+      "price": 78100.0,
+      "change_pct": 6.69,
       "stars": 3,
       "score": 64,
       "target": "135,000~165,000원",
@@ -1794,8 +1814,8 @@ window.APP_DATA = {
       "label": "LG이노텍",
       "ticker": "011070.KS",
       "currency": "KRW",
-      "price": 741000.0,
-      "change_pct": -2.88,
+      "price": 742000.0,
+      "change_pct": 0.13,
       "stars": 3,
       "score": 64,
       "target": "KB 1,600,000원",
@@ -1818,8 +1838,8 @@ window.APP_DATA = {
       "label": "한화오션",
       "ticker": "042660.KS",
       "currency": "KRW",
-      "price": 78600.0,
-      "change_pct": -4.15,
+      "price": 81300.0,
+      "change_pct": 3.44,
       "stars": 2,
       "score": 54,
       "target": "—",
@@ -1862,8 +1882,8 @@ window.APP_DATA = {
       "label": "SpaceX",
       "ticker": "SPCX",
       "currency": "USD",
-      "price": 150.81,
-      "change_pct": 1.72,
+      "price": 152.16,
+      "change_pct": 2.63,
       "stars": 3,
       "score": 55,
       "target": "$63~$190 (분산)",
@@ -1901,8 +1921,8 @@ window.APP_DATA = {
       "label": "KT&G",
       "ticker": "033780.KS",
       "currency": "KRW",
-      "price": 176400.0,
-      "change_pct": -4.29,
+      "price": 173500.0,
+      "change_pct": -1.64,
       "stars": 3,
       "score": 62,
       "target": "DS증권 240,000원",
@@ -1925,8 +1945,8 @@ window.APP_DATA = {
       "label": "원익IPS",
       "ticker": "240810.KQ",
       "currency": "KRW",
-      "price": 104900.0,
-      "change_pct": 2.14,
+      "price": 125000.0,
+      "change_pct": 19.16,
       "stars": 3,
       "score": 56,
       "target": "눌림 130,000~150,000원 검토",
@@ -1949,8 +1969,8 @@ window.APP_DATA = {
       "label": "테스",
       "ticker": "095610.KQ",
       "currency": "KRW",
-      "price": 145000.0,
-      "change_pct": 6.85,
+      "price": 177700.0,
+      "change_pct": 22.55,
       "stars": 3,
       "score": 57,
       "target": "눌림 대기",
@@ -1978,8 +1998,8 @@ window.APP_DATA = {
       "label": "SK이노베이션",
       "ticker": "096770.KS",
       "currency": "KRW",
-      "price": 99000.0,
-      "change_pct": -0.8,
+      "price": 102900.0,
+      "change_pct": 3.94,
       "stars": 3,
       "score": 55,
       "target": "—",
@@ -1997,8 +2017,8 @@ window.APP_DATA = {
       "label": "한화에어로",
       "ticker": "012450.KS",
       "currency": "KRW",
-      "price": 953000.0,
-      "change_pct": -8.45,
+      "price": 967000.0,
+      "change_pct": 1.47,
       "stars": 4,
       "score": 74,
       "target": "—",
@@ -2021,8 +2041,8 @@ window.APP_DATA = {
       "label": "삼성중공업",
       "ticker": "010140.KS",
       "currency": "KRW",
-      "price": 20950.0,
-      "change_pct": -0.95,
+      "price": 22350.0,
+      "change_pct": 6.68,
       "stars": 3,
       "score": 56,
       "target": "—",
@@ -2034,8 +2054,8 @@ window.APP_DATA = {
       "label": "HD현대중공업",
       "ticker": "329180.KS",
       "currency": "KRW",
-      "price": 507000.0,
-      "change_pct": -1.93,
+      "price": 504000.0,
+      "change_pct": -0.59,
       "stars": 3,
       "score": 57,
       "target": "—",
@@ -2047,8 +2067,8 @@ window.APP_DATA = {
       "label": "T-Mobile",
       "ticker": "TMUS",
       "currency": "USD",
-      "price": 180.34,
-      "change_pct": 0.11,
+      "price": 181.48,
+      "change_pct": 0.74,
       "stars": 3,
       "score": 56,
       "target": "—",
@@ -2066,8 +2086,8 @@ window.APP_DATA = {
       "label": "STMicro",
       "ticker": "STM",
       "currency": "USD",
-      "price": 71.83,
-      "change_pct": 4.8,
+      "price": 71.39,
+      "change_pct": 4.16,
       "stars": 2,
       "score": 44,
       "target": "—",
@@ -2079,8 +2099,8 @@ window.APP_DATA = {
       "label": "팔란티어",
       "ticker": "PLTR",
       "currency": "USD",
-      "price": 127.49,
-      "change_pct": -3.58,
+      "price": 129.04,
+      "change_pct": -2.41,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -2098,8 +2118,8 @@ window.APP_DATA = {
       "label": "IBM",
       "ticker": "IBM",
       "currency": "USD",
-      "price": 294.3,
-      "change_pct": -2.57,
+      "price": 295.3,
+      "change_pct": -2.23,
       "stars": 4,
       "score": 73,
       "target": "JPM OW $291",
@@ -2117,8 +2137,8 @@ window.APP_DATA = {
       "label": "IONQ",
       "ticker": "IONQ",
       "currency": "USD",
-      "price": 45.106,
-      "change_pct": 0.06,
+      "price": 44.77,
+      "change_pct": -0.69,
       "stars": 2,
       "score": 42,
       "target": "컨센 $68.79 (고$100/저$44.78)",
@@ -2136,8 +2156,8 @@ window.APP_DATA = {
       "label": "TSLA",
       "ticker": "TSLA",
       "currency": "USD",
-      "price": 404.04,
-      "change_pct": 2.57,
+      "price": 406.55,
+      "change_pct": 3.2,
       "stars": 2,
       "score": 22,
       "target": "$420.55 (ARK 2029 $2,600)",
@@ -2227,7 +2247,6 @@ window.APP_DATA = {
   ],
   "fx_history": {
     "dates": [
-      "2026-06-08",
       "2026-06-09",
       "2026-06-10",
       "2026-06-11",
@@ -2249,10 +2268,10 @@ window.APP_DATA = {
       "2026-07-05",
       "2026-07-06",
       "2026-07-07",
-      "2026-07-09"
+      "2026-07-08",
+      "2026-07-10"
     ],
     "closes": [
-      1528.88,
       1525.81,
       1525.05,
       1517.38,
@@ -2274,12 +2293,12 @@ window.APP_DATA = {
       1531.0,
       1528.76,
       1519.86,
-      1508.82
+      1503.35,
+      1504.68
     ]
   },
   "kospi_history": {
     "dates": [
-      "2026-06-09",
       "2026-06-10",
       "2026-06-11",
       "2026-06-12",
@@ -2300,10 +2319,11 @@ window.APP_DATA = {
       "2026-07-03",
       "2026-07-06",
       "2026-07-07",
-      "2026-07-08"
+      "2026-07-08",
+      "2026-07-09",
+      "2026-07-10"
     ],
     "closes": [
-      8096.93,
       7730.82,
       7763.95,
       8123.62,
@@ -2324,15 +2344,17 @@ window.APP_DATA = {
       8088.34,
       8051.33,
       7656.31,
-      7246.79
+      7246.79,
+      7291.91,
+      7475.94
     ]
   },
   "hunter": {
     "_comment": "경제사냥꾼 분석 앱 정본. 보고서마다 research-feed/PM이 docs/research/hunter_log.md 갱신 시 여기 latest_videos(최신순 prepend)·track_record(최신 prepend)·themes도 함께 갱신 후 build_app_data.py 재실행. 앱에서 영상 목록을 누르면 상세 화면(#video/<id>)으로 들어간다. 각 영상 필드: date·title·tag(검증분류)·tickers(언급 종목, 앱에서 종목 상세로 링크) + summary(요약, 필수) + 선택 상세필드 points(핵심 포인트 배열)·mentions(언급 — 종목·인물·기관 서술)·references(참고 — 출처/기관 배열)·caveats(주의·미확인·과장 배열)·link(영상 URL). 선택필드는 있으면 상세화면에 표시, 없으면 생략. id는 없으면 앱이 목록 순번으로 라우팅.",
-    "updated": "2026-07-09",
+    "updated": "2026-07-10",
     "source": "docs/research/hunter_log.md 2026-07-05 오후 엔트리 (v39 부록 오후 최신화, report_v39_2026-07-04.md)",
     "channel_note": "테마·방향성은 빠르고 유용(로봇·AI전력·레버리지 구조 등 선제 포착). 구체 수치는 자막오류·과장 잦음 → 방향성 채택·숫자 교차검증. ✅[7/2 오후] 파이프라인 복구: RSS(feeds/videos.xml) 탐색 + innertube 자막(페이싱·백오프) = yt-dlp 불요·봇차단 무관. '웹 환경이라 실패→로컬 대기' 서사 영구 폐기. 9편 전량 자막 확보(9/9), 봇플래그 1회는 60초 백오프 자동복구. '구독자 전용' 표기 영상도 실제 공개 — 자막 정상.",
-    "headline": "7/8~7/9 신규 10편 — 이란 재확전(호르무즈 상선 3척 피격→미군 공습·유가 +5%)·MS 로테이션 콜 해부('겨울 아닌 순환매·내년 이익 +35~40%'·MS 2024 하닉 반토막 오답 이력)·메모리 베어마켓(고점 -20%+)·이재용 선밸리行·NVDA 박스권('AI 독점가격 매겨져 잘하는 것만으론 부족'). 채널 '관건은 외인·sell-the-news' 프레임 지속 적중",
+    "headline": "7/9~7/10 신규 12편(롱폼1+쇼츠11) — 압도적 주제 = SK하이닉스 나스닥 ADR 데뷔(오늘밤 22:30). 공모가 $149·7배 초과청약·코너스톤 Situational Awareness Partners(前오픈AI). 기관 목표 KB 420만 vs BNK 185만('사이클 착시') 갈림. 마이크론 차량용 SCA·P7 프레임·CXMT IPO·구윤철 시장점검회의 [검증]. 채널 균형 프레임(역대급 상장=과열 온도계+체력 검증대)",
     "setups": [
       {
         "id": "setup-메모리코어-0629",
@@ -2376,25 +2398,25 @@ window.APP_DATA = {
         "thesis": "외인 패시브·레버리지 리밸런싱이 폭락 증폭 주범(7/2 확인: 홍콩 CSOP 하닉 2x ETF $17B 세계최대 — 꼬리가 몸통) → 외인 흐름이 키. 외인 하닉 매도중단 + 환율 1,500 꺾임. 7/2 보강: 외인 매도는 전면 이탈 아닌 자리이동(소부장·지주금융 선별매수 지속) = 질적 조짐.",
         "conditions": [
           {
-            "text": "외인 코스피 순매수 1~2일 전환 — 7/7 확정: -2.93조 13거래일 연속(누적 -39.7조). 기계평가: 5일 강도 -41.6% 축소 = '조짐(매도강도 축소)' 단계, 전환 아님 (flow_trend.py 7/8)",
+            "text": "외인 코스피 순매수 확립 — 7/9 +1,348억 2일 연속이나 오늘(7/10) 장중 -5,468억 재매도로 스트릭 리셋 위험. flow_trend stage='전환(2일째)', '확립(3일+)' 아님",
             "met": false
           },
           {
-            "text": "원/달러 1,500 하회 안착 — 현 1,503(7/8 16시대, 기준 대비 +0.2%p 남음·triggers.py). 달러약세發이라 외인 순매수 동반 필요",
+            "text": "원/달러 1,500 하회 안착 — 현 1,507 (미달·근접)",
             "met": false
           },
           {
-            "text": "코스피 8,000(2차)·7,500(안전핀) 지지 — ❌7/8 종가 7,247로 안전핀 첫 종가 breach(룰1 발동·트랜치 전면 동결). 재충족 = 7,500 종가 회복",
+            "text": "코스피 7,500 지지 — 장중 7,595 회복(종가 15:30 확정 대기)",
             "met": false
           },
           {
-            "text": "[신규·채널 바닥 3신호+규제] 레버리지 강제청산 물량 감소 + 헤지비용 하락 + 하닉 ADR 7/10(유동성 분산) + ★규제 개입 개시(7/4 확인: 하닉 레버리지 ETF 3종 투자유의 적출·괴리율 86% [검증]) — 증폭 구조 해소 경로 진행 중",
+            "text": "레버리지 청산 감소+하닉 ADR 유동성 분산+규제 개입 — 진행 중",
             "met": false
           }
         ],
         "action": "삼성 295~305k 정수1주 또는 2차 트랜치",
-        "status": "추적중(안전핀 breach로 후퇴)",
-        "note": "[7/8] 조건 3(지수 지지)이 안전핀 종가 breach로 해제(met true→false). 조건1(외인)·조건2(환율 1,503)는 근접 유지 — 셋업 자체는 살아있으나 발동엔 7,500 회복+외인 전환 동시 필요. 채널 신규 영상의 하닉 ADR $28B 환전=환율안정 논지는 조건2를 지지."
+        "status": "추적중(장중 회복·외인 후퇴)",
+        "note": "[7/10] 지수 게이트는 장중 회복(종가 대기)이나 외인 게이트가 오늘 후퇴(-5,468억). 3조건 동시충족 필요 — 미발동. 15:30 종가+내일 R1 외인 확정치로 재판정."
       },
       {
         "id": "setup-전력인프라-0629",
@@ -2565,23 +2587,142 @@ window.APP_DATA = {
         "id": "setup-하이닉스ADR-0708",
         "ticker": "000660.KS",
         "label": "하이닉스 ADR 데뷔 → 반등 신뢰도 격상 (관찰용)",
-        "status": "추적중(액션 없음)",
+        "status": "임박(오늘밤 데뷔)",
         "thesis": "채널(7/7 롱폼): ADR 상장 후 3파이프(ADR-본주 차익거래·패시브 예약수요·$28B 원화 환전=환율 안정)가 한국 반도체 수급 구조를 바꾼다. 교차검증: ADR 참고가 $158.15·코너스톤 $70억(비구속)·SOX 편입은 6개월 거래량 요건으로 즉시 아님(day-1 과장 정정, semi-ai 데스크).",
         "conditions": [
           {
-            "text": "7/10 ADR 데뷔 종가 > 본주 환산가(참고 $158.15) — 웃돈 형성 여부",
+            "text": "공모가 $149 확정·본주 대비 +3.1% 프리미엄·7배 초과청약(참고가 舊 $158.14는 예측치)",
+            "met": true
+          },
+          {
+            "text": "7/10 밤 22:30 KST ADR(SKHYV) 데뷔 종가 > 본주 환산가 — 웃돈 지속 여부(데뷔 전)",
             "met": false
           },
           {
-            "text": "그 주(7/10~) 외인 코스피 순매수 전환 동시 점등 (flow_trend.py 연동)",
+            "text": "그 주(7/10~) 외인 코스피 순매수 확립(3일+) 동시 점등 — ❌ 오늘 장중 -5,468억 재매도로 후퇴",
             "met": false
           }
         ],
         "action": "동시 점등 시 코스피·삼성 반등 신뢰도 격상 → setup-반전트리거-0629 재평가. 하이닉스 자체는 상장 전 진입금지(영구룰)·데뷔 후 소수점 검토(집중도 35.7% 상한 재검토 선행)",
-        "note": "[7/8 신설] 관찰용 — 매수/매도 발동 셋업 아님. 조달액 $29.65B→$28.2B 하향(주가 하락 반영)은 단기 약세 신호로 병기(semi-ai)."
+        "note": "[7/10 갱신] 관찰용·매수 셋업 아님. 공모가 $149 확정·7배 청약·코너스톤 베일리기포드·코추·Situational Awareness Partners(前오픈AI 아셴브레너). 주관사 BofA·씨티·GS·JPM(MS 배제). 기관 목표 KB420만·NH410만 vs BNK185만('사이클 착시' 경계) — 다수 강세·소수 신중 병기, 채널 단독 근거 발동 금지. 데뷔 당일 추격금지(룰3)."
       }
     ],
     "latest_videos": [
+      {
+        "date": "2026-07-10",
+        "title": "SK하이닉스 미국 상장 이후 벌어질 주가흐름 전부 분석 (38:54 롱폼)",
+        "theme": "SK하닉 ADR",
+        "tickers": [
+          "000660.KS"
+        ],
+        "verdict": "검증(다출처)/일부 정정",
+        "summary": "TSMC(1997,-40%)·알리바바·쿠팡·ARM 4선례로 '체력×시장날씨' 4분면 → 하닉='TSMC 1997형'(펀더 최강+시장 과열, 단기 변동성·장기 재평가). 조달 43조·코너스톤 베일리기포드·코추. [정정] 영상 기준가 $158.14는 예측치, 실제 확정 $149. TSMC ADR 프리미엄 16%는 범위(13.7~26%) 내 근사."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "7월 10일 오늘 투자 포인트 (쇼츠)",
+        "theme": "SK하닉 ADR·마이크론",
+        "tickers": [
+          "000660.KS",
+          "MU"
+        ],
+        "verdict": "검증",
+        "summary": "SK하닉 ADR 공모가 $149 확정·본주 대비 +3.1% 프리미엄·7배 초과청약(쿠팡4·SpaceX3.7·알리바바3 상회). MS가 이번 주관사(BofA·씨티·GS·JPM)에서 빠짐 [검증]. 머스크기업 제외 나스닥100/S&P ETF(QQNE·SPNE) SEC 제출 [검증]. 마이크론 2035년까지 $2,500억 美투자는 [미확인·방향 개연]."
+      },
+      {
+        "date": "2026-07-09",
+        "title": "7월 9일 투자 포인트 (쇼츠)",
+        "theme": "이란·FOMC·하닉",
+        "tickers": [
+          "000660.KS"
+        ],
+        "verdict": "검증",
+        "summary": "美 이란 이틀 연속 공습·WTI $73/브렌트 $78. FOMC 의사록 일부 위원 '물가 안 잡히면 추가 인상' 매파 재확인. 하닉 ADR 규모 45조→43조 하향(주가 조정 반영). 방향 일치."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "월가 '2026 하반기' 주도할 AI 종목 (쇼츠)",
+        "theme": "P7 프레임",
+        "tickers": [
+          "MU",
+          "AVGO"
+        ],
+        "verdict": "검증",
+        "summary": "'P7(Parabolic7)'=마이크론·샌디스크·AMD·브로드컴·마벨·인텔·델(M7=돈 쓰는 쪽, P7=돈 받는 쪽). 실존 월가 용어, Ben Emons(FedWorth CIO) 창안·Bloomberg 확산 [검증]. 골드만 AI인프라 $7,650억→2031년 $1.6조는 [미확인·1소스]."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "마이크론 장기계약이 보여준 AI 다음 메모리산업 (쇼츠)",
+        "theme": "차량용 메모리",
+        "tickers": [
+          "MU",
+          "005930.KS"
+        ],
+        "verdict": "검증/일부 정정",
+        "summary": "마이크론 GM·포드 차량용 메모리 장기공급계약(SCA) 분기 14건 ~$1,000억 RPO [검증·다출처]. 삼성 차량용 메모리 2025 점유율 1위(40%)는 [미확인]. '하닉 34.8% vs 삼성 34.5% 연간 첫 역전'은 [정정] — 분기별 엎치락뒤치락(수치 뒤바뀜 가능)."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "'나스닥 상장 임박' SK하이닉스 주가 갈릴 핵심포인트 (쇼츠)",
+        "theme": "SK하닉 ADR",
+        "tickers": [
+          "000660.KS"
+        ],
+        "verdict": "검증 근사",
+        "summary": "최태원 회장 방미·ADR 10:1 구조. KB 목표 420만 vs BNK 185만 대조. 원/달러 장중 1,490원대 하락(환율 레벨은 매크로 교차)."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "오늘 투자자들이 꼭 봐야 하는 시장 포인트 3가지 (쇼츠)",
+        "theme": "CXMT·중동",
+        "tickers": [],
+        "verdict": "검증",
+        "summary": "창신메모리(CXMT) 커창판 IPO 295억위안(6.5조) 조달·청약 7/16 [검증·다출처]. 점유율 8%·기술 2~3년 격차 [방향 검증]. 호르무즈 파키스탄 LNG 차질은 [미확인·채널 단독]."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "한국 정부가 코스피 폭락 원인으로 지목한 3가지 (쇼츠)",
+        "theme": "정책·수급",
+        "tickers": [],
+        "verdict": "검증/정정",
+        "summary": "7/8 구윤철 부총리 주재 시장상황점검회의(신현송 한은총재 등) — 원인=차익실현·리밸런싱·반도체 쏠림·환변동성 [검증·다출처]. 원화국제화 로드맵 7월 발표 [검증]. (자막 '구철'은 오류→구윤철)"
+      },
+      {
+        "date": "2026-07-10",
+        "title": "트럼프가 이란 휴전 갑자기 깬 이유 (쇼츠)",
+        "theme": "지정학·유가",
+        "tickers": [],
+        "verdict": "검증 근사",
+        "summary": "유가 하락(재고 1983 이후 최저)이 美 강경 전환 유인 프레임. 호르무즈 통항 125~140척→7/8 4척 급감. 신용잔고 36% 삼성·하닉 집중·반도체 시총 이달 740조 증발(절대수치는 채널 계산)."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "월가 6일 연속 순매수 한국 저평가주 (쇼츠)",
+        "theme": "LG이노텍·현대글로비스",
+        "tickers": [
+          "011070.KS"
+        ],
+        "verdict": "부분검증/미확인",
+        "summary": "LG이노텍(153만→78만 반토막, 목표 110만=iM증권 일치나 'JP모건' 특정 [미확인]). 현대글로비스(보스턴다이내믹스 지분·외인 6일 순매수 검증, PER 8배는 [미확인]). 관찰후보(정식 setup 아님)."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "이재명 정부 반도체 다음 312조 코리아X = 우주항공 (쇼츠)",
+        "theme": "정책·우주항공",
+        "tickers": [
+          "012450.KS"
+        ],
+        "verdict": "방향 검증",
+        "summary": "영남권 첨단산업 312조 중 우주항공 벨트. 수혜주 한화에어로·한화시스템·KAI·컨텍 거론(정책 발표는 보도 확인, 수혜주 매핑은 채널 해석·미확인)."
+      },
+      {
+        "date": "2026-07-10",
+        "title": "하락장 끝을 알리는 반등신호 3가지 (쇼츠)",
+        "theme": "바닥 신호",
+        "tickers": [],
+        "verdict": "검증 근사/정정",
+        "summary": "3프레임(①워시 연준 인하 시그널 ②트럼프 강경 유턴 ③공포이벤트 종료). 한국 공포지수(VKOSPI) 86='코로나 71보다 높다'는 [검증 근사](7월초 평균 88.12). [정정] '2026년 3월 중동전쟁'은 자막오류(실제 6월)."
+      },
       {
         "date": "2026-07-09",
         "title": "월가에서 계속 '한국 반도체'만 저격하는 진짜 이유 (01:00)",
@@ -2669,6 +2810,10 @@ window.APP_DATA = {
       }
     ],
     "track_record": [
+      {
+        "date": "2026-07-10",
+        "note": "7/9~7/10 12편(자막 12/12, RSS 404→ /videos HTML ytInitialData 우회로 ID 추출 후 innertube 자막 확보). 주제 SK하닉 ADR 집중(7편). 공모가 $149·7배 청약·주관사 MS 배제·P7 프레임·CXMT IPO·구윤철 회의 = 핵심 다출처 [검증]. 채널 균형 프레임(과열 온도계+체력 검증대·KB420만 vs BNK185만 병기)이 리스크데스크 신중론과 정합. [정정] $158.14 예측치→$149 확정, VKOSPI '86' 근사, '3월 중동전쟁' 자막오류."
+      },
       {
         "date": "2026-07-09",
         "note": "7/8~7/9 10편(자막 10/10 확보): 이란·MS 로테이션·메모리 베어마켓·KT&G·이재용 선밸리 — 핵심 다출처 [검증]. MS '겨울 아닌 순환매+2024 하닉 오답' 해부는 self-review 트랙레코드와 정합(저승사자 과신 견제). NVDA '잘하는 것만으론 부족' 프레임이 7/8밤 +3.65% 박스 돌파로 반증되는지 관찰. 슈퍼OOO(+16% 선물)·삼성 sell-the-news 10/16은 [미확인/근사] 처리."
@@ -2898,20 +3043,148 @@ window.APP_DATA = {
       "AI 사이클 다음 단계 = 고객 수익화(트윌리오·CX 자동화) — 반도체 이후 돈의 이동 경로 관전"
     ],
     "_updated_note": "7/2 오후 시스템 점검 세션: 파이프라인 복구(RSS+innertube) 후 9편 전량 신규 분석. 반전트리거 조건4(바닥 3신호) 신설·조건3 met 강등(장중 안전핀 이탈). 메모리코어 수출조건 met 승격. 기존 latest 9편은 hunter_archive.json 롤오버.",
+    "source_report": "docs/reports/report_v46_2026-07-10.md",
     "scorecard": {
       "buckets": {
-        "정확": 90,
-        "근사": 31,
+        "정확": 96,
+        "근사": 33,
         "시점": 2,
         "미확인": 32,
-        "정정": 25,
+        "정정": 29,
         "과장": 0
       },
-      "total": 180,
+      "total": 192,
       "accuracy_pct": 67
     }
   },
   "hunter_archive": [
+    {
+      "date": "2026-07-10",
+      "title": "SK하이닉스 미국 상장 이후 벌어질 주가흐름 전부 분석 (38:54 롱폼)",
+      "theme": "SK하닉 ADR",
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": "검증(다출처)/일부 정정",
+      "takeaway": "TSMC(1997,-40%)·알리바바·쿠팡·ARM 4선례로 '체력×시장날씨' 4분면 → 하닉='TSMC 1997형'(펀더 최강+시장 과열, 단기 변동성·장기 재평가). 조달 43조·코너스톤 베일리기포드·코추. [정정] 영상 기준가 $158.14는 예측치, 실제 확정 $149. TSMC ADR 프리미엄 16%는 범위(13.7~26%) 내 근사.",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "7월 10일 오늘 투자 포인트 (쇼츠)",
+      "theme": "SK하닉 ADR·마이크론",
+      "tickers": [
+        "000660.KS",
+        "MU"
+      ],
+      "verdict": "검증",
+      "takeaway": "SK하닉 ADR 공모가 $149 확정·본주 대비 +3.1% 프리미엄·7배 초과청약(쿠팡4·SpaceX3.7·알리바바3 상회). MS가 이번 주관사(BofA·씨티·GS·JPM)에서 빠짐 [검증]. 머스크기업 제외 나스닥100/S&P ETF(QQNE·SPNE) SEC 제출 [검증]. 마이크론 2035년까지 $2,500억 美투자는 [미확인·방향 개연].",
+      "views": null
+    },
+    {
+      "date": "2026-07-09",
+      "title": "7월 9일 투자 포인트 (쇼츠)",
+      "theme": "이란·FOMC·하닉",
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "美 이란 이틀 연속 공습·WTI $73/브렌트 $78. FOMC 의사록 일부 위원 '물가 안 잡히면 추가 인상' 매파 재확인. 하닉 ADR 규모 45조→43조 하향(주가 조정 반영). 방향 일치.",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "월가 '2026 하반기' 주도할 AI 종목 (쇼츠)",
+      "theme": "P7 프레임",
+      "tickers": [
+        "MU",
+        "AVGO"
+      ],
+      "verdict": "검증",
+      "takeaway": "'P7(Parabolic7)'=마이크론·샌디스크·AMD·브로드컴·마벨·인텔·델(M7=돈 쓰는 쪽, P7=돈 받는 쪽). 실존 월가 용어, Ben Emons(FedWorth CIO) 창안·Bloomberg 확산 [검증]. 골드만 AI인프라 $7,650억→2031년 $1.6조는 [미확인·1소스].",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "마이크론 장기계약이 보여준 AI 다음 메모리산업 (쇼츠)",
+      "theme": "차량용 메모리",
+      "tickers": [
+        "MU",
+        "005930.KS"
+      ],
+      "verdict": "검증/일부 정정",
+      "takeaway": "마이크론 GM·포드 차량용 메모리 장기공급계약(SCA) 분기 14건 ~$1,000억 RPO [검증·다출처]. 삼성 차량용 메모리 2025 점유율 1위(40%)는 [미확인]. '하닉 34.8% vs 삼성 34.5% 연간 첫 역전'은 [정정] — 분기별 엎치락뒤치락(수치 뒤바뀜 가능).",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "'나스닥 상장 임박' SK하이닉스 주가 갈릴 핵심포인트 (쇼츠)",
+      "theme": "SK하닉 ADR",
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": "검증 근사",
+      "takeaway": "최태원 회장 방미·ADR 10:1 구조. KB 목표 420만 vs BNK 185만 대조. 원/달러 장중 1,490원대 하락(환율 레벨은 매크로 교차).",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "오늘 투자자들이 꼭 봐야 하는 시장 포인트 3가지 (쇼츠)",
+      "theme": "CXMT·중동",
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "창신메모리(CXMT) 커창판 IPO 295억위안(6.5조) 조달·청약 7/16 [검증·다출처]. 점유율 8%·기술 2~3년 격차 [방향 검증]. 호르무즈 파키스탄 LNG 차질은 [미확인·채널 단독].",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "한국 정부가 코스피 폭락 원인으로 지목한 3가지 (쇼츠)",
+      "theme": "정책·수급",
+      "tickers": [],
+      "verdict": "검증/정정",
+      "takeaway": "7/8 구윤철 부총리 주재 시장상황점검회의(신현송 한은총재 등) — 원인=차익실현·리밸런싱·반도체 쏠림·환변동성 [검증·다출처]. 원화국제화 로드맵 7월 발표 [검증]. (자막 '구철'은 오류→구윤철)",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "트럼프가 이란 휴전 갑자기 깬 이유 (쇼츠)",
+      "theme": "지정학·유가",
+      "tickers": [],
+      "verdict": "검증 근사",
+      "takeaway": "유가 하락(재고 1983 이후 최저)이 美 강경 전환 유인 프레임. 호르무즈 통항 125~140척→7/8 4척 급감. 신용잔고 36% 삼성·하닉 집중·반도체 시총 이달 740조 증발(절대수치는 채널 계산).",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "월가 6일 연속 순매수 한국 저평가주 (쇼츠)",
+      "theme": "LG이노텍·현대글로비스",
+      "tickers": [
+        "011070.KS"
+      ],
+      "verdict": "부분검증/미확인",
+      "takeaway": "LG이노텍(153만→78만 반토막, 목표 110만=iM증권 일치나 'JP모건' 특정 [미확인]). 현대글로비스(보스턴다이내믹스 지분·외인 6일 순매수 검증, PER 8배는 [미확인]). 관찰후보(정식 setup 아님).",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "이재명 정부 반도체 다음 312조 코리아X = 우주항공 (쇼츠)",
+      "theme": "정책·우주항공",
+      "tickers": [
+        "012450.KS"
+      ],
+      "verdict": "방향 검증",
+      "takeaway": "영남권 첨단산업 312조 중 우주항공 벨트. 수혜주 한화에어로·한화시스템·KAI·컨텍 거론(정책 발표는 보도 확인, 수혜주 매핑은 채널 해석·미확인).",
+      "views": null
+    },
+    {
+      "date": "2026-07-10",
+      "title": "하락장 끝을 알리는 반등신호 3가지 (쇼츠)",
+      "theme": "바닥 신호",
+      "tickers": [],
+      "verdict": "검증 근사/정정",
+      "takeaway": "3프레임(①워시 연준 인하 시그널 ②트럼프 강경 유턴 ③공포이벤트 종료). 한국 공포지수(VKOSPI) 86='코로나 71보다 높다'는 [검증 근사](7월초 평균 88.12). [정정] '2026년 3월 중동전쟁'은 자막오류(실제 6월).",
+      "views": null
+    },
     {
       "date": "2026-07-09",
       "title": "월가에서 계속 '한국 반도체'만 저격하는 진짜 이유 (01:00)",
@@ -5012,7 +5285,7 @@ window.APP_DATA = {
   },
   "flows": {
     "_comment": "코스피 투자자별 순매수(억원). 보고서에 문서화된 확정값만 시드. 보고서마다 kr-market-desk가 당일 외인/기관/개인 확정 시 series에 추가(최신은 뒤). 추측 금지 — 미확인 일자는 null. [7/2 확장] 선택 필드 foreign_hynix(SK하이닉스 종목 외인 순매수, 억원 — 반전트리거 '하닉 매도중단' 게이트 판정용, 확정된 날만). flow_trend.py·triggers.py(cond=flow)가 이 시계열을 기계 평가.",
-    "updated": "2026-07-09",
+    "updated": "2026-07-10T12:10:00+09:00",
     "unit": "억원",
     "market": "코스피",
     "series": [
@@ -5158,6 +5431,14 @@ window.APP_DATA = {
         "indiv": null,
         "foreign_hynix": null,
         "note": "[마감 확정] 코스피 7,291.91(+0.62%,+45.12p) 4일만 반등·장중 롤러코스터(고 7,522→저 7,173). 외국인 +1,348억 2거래일 연속 순매수·기관 +1조2,879억 대량매수(개인 확정치 미검색·매도우위). ★삼성전자 개별 외인 +84.6만주·기관 +110.8만주 동시 순매수 복귀(7/8 매도서 전환). 단 SK하이닉스 외인 -20.9만주 여전 매도·LG전자 외인 -40.9만주 투매(-9%). 안전핀 ①7,500 종가 미회복(7,291) 지속"
+      },
+      {
+        "date": "2026-07-10",
+        "foreign": null,
+        "inst": null,
+        "indiv": null,
+        "foreign_hynix": null,
+        "note": "[장중 잠정·10:58~11:25 fnnews 기준, 마감 확정 아님] 코스피 장중 7,591~7,602(+4.11~4.25%, 고점 7,643.33)·코스닥 843.75(+6.27%, 7/9 확정종가 794.00 대비 — market_data.py prev_close 785.00은 stale이므로 794.00 기준 재계산). 코스피 기관 +1조4,225억 순매수가 상승폭 견인·외국인 -5,468억 순매도(개인도 -8,348억). 코스닥도 기관 +2,405억 vs 외국인 -476억·개인 -1,922억. → 7/8·7/9 외인 2거래일 연속 순매수(+3,357억→+1,348억) 흐름이 오늘 장중은 매도로 재전환 — 스트릭 지속 여부 마감 전까지 미확정, 지금 추세로 마감 시 스트릭 리셋 위험. 단 8~9일 이틀 누적으로는 외인 +1조1,374억(순환매): 삼성전기+4,058억·SK스퀘어+2,420억·LG이노텍+2,181억·삼성SDI·현대차·HD현대중공업·한미반도체·LS일렉트릭 매수 vs SK하이닉스-3,167억·삼성전자-2,520억 매도(메모리 대형주→AI부품/전력인프라/완성차 순환매, 삼성전자·하이닉스 개별 종목은 외인이 계속 판 것). SK하이닉스 ADR(SKHY) 오늘 나스닥 데뷔(공모가 49·수요예측 7배 초과, 265억달러=역대 최대 외국기업 美IPO) 훈풍에도 국내 하이닉스는 +1.33%(2,215,000원)로 지수 대비 언더퍼폼 — 최근 반등분 되돌림 우려·차익실현 매물 추정, 개별 외인 확정치는 마감 후 확인. NPS 리밸런싱: 7/1 재개 첫 주 우려와 달리 폭탄 매물 미관측(7/1~7/3 연기금 순매도 -2,178억 등 완만), 오늘도 특별한 추가 매도 징후 미보고 — 다만 비공개 집행이라 지속 확인 필요. 반등 성격: 코스피 상승폭 대부분이 기관 주도(6/24·6/25·6/30·7/3 과거 4회 V반등과 동일한 기관 단독+반도체 쏠림 지문) — 외인이 장중 순매도라는 점이 과거 반납 패턴과 유사한 리스크. 원익IPS 240810.KQ +20.3%(키움 목표가 73,000→160,000원 상향, 삼성 평택4공장·SK하이닉스 M15X 신규투자 수혜 전망)·테스 095610.KQ +24.3%(메모리 장비 목표가 잇단 상향, 최근 6개월 평균 목표가 146,222원=직전 대비 +169%)·피에스케이 +20%·주성엔지니어링 +8.7% 반도체 장비주 급등. 안전핀(7,500) 장중 회복이나 15:30 종가 확정 전까지 미확정 — 종가 회복 + 외인 전환(스트릭) 둘 다 충족이 해제조건(v45 STATE SNAPSHOT), 오늘 외인 장중 매도 재전환으로 두 번째 조건은 아직 미충족."
       }
     ]
   },
@@ -5176,7 +5457,9 @@ window.APP_DATA = {
     },
     "cumulative": -392471,
     "stage": "전환(2일째 순매수)",
-    "unconfirmed_dates": [],
+    "unconfirmed_dates": [
+      "2026-07-10"
+    ],
     "reversal": true
   },
   "pm_view": {
@@ -5743,6 +6026,16 @@ window.APP_DATA = {
     "total": 35
   },
   "reports": [
+    {
+      "id": "report_v46_2026-07-10",
+      "file": "docs/reports/report_v46_2026-07-10.md",
+      "title": "정훈 PORTFOLIO DESK · v46 · 2026-07-10 (금, 장중 12:20 KST)",
+      "date": "2026-07-10",
+      "version": 46,
+      "kind": "보고서",
+      "preview": "1. SK하이닉스 ADR 데뷔 밤 시나리오 — 오늘밤 22:30 SKHYV 데뷔가 국내 하닉·삼성·메모리 클러스터에 줄 파급 + 정훈 소수점 적립 경로 실전 점검.",
+      "content": "# 정훈 PORTFOLIO DESK · v46 · 2026-07-10 (금, 장중 12:20 KST)\n\n> 8개 데스크 병렬(국장·미장·반도체AI·전력피지컬·빅테크·매크로·리서치·리스크) 종합. 장중 세션 — 코스피 종가는 15:30 확정.\n\n## 변경점 (v45 대비)\n\n- **코스피 V자 반등** — 7,246.79(7/8 종가·안전핀 breach) → 오늘 장중 **7,595(+4.15%)**, 안전핀 7,500 **장중 회복**(종가 미확정). 코스닥 844(+6.27%).\n- **⚠️ 반등의 성격 = 기관 단독**: 오늘 장중 기관 +1.42조 견인, **외인은 -5,468억 순매도로 재역전**(7/8·7/9 2일 순매수 스트릭이 오늘 끊길 위험). 과거 4번(6/24·6/25·6/30·7/3) 실패한 V반등과 동일 지문.\n- **SK하이닉스 나스닥 ADR 데뷔 = 오늘 밤 22:30 KST** — 공모가 **$149 확정**(본주 대비 +3.1% 프리미엄)·**7배 초과청약**(쿠팡4배·SpaceX3.7배 상회)·조달 ~$26~29B(40~45조, 외국기업 美IPO 역대최대). 임시티커 SKHYV→7/13 SKHY.\n- **국내 반도체 소부장 폭등**: 원익IPS +20.3%·테스 +24.3%(키움 원익IPS 목표 73k→160k 대폭 상향)·삼성전기 +6.5%(외인 순매수 1위).\n- **미장(7/9 마감) 반도체 랠리**: MU +4.52%·AVGO +3.20%·META +4.70%·필반 +3.06% vs NVDA -0.66%·GOOGL -0.84%(로직 소외).\n- 스코어 조정: **삼성전자 ⭐5/87 → ⭐4/80**(메모리 우려·키움 39만 하향), **NVDA 100 → 90**(모멘텀 트림), 현대차 49→55(관세 15% 확정 테일리스크 해소). MU는 데스크 재상향 제안(88) 기각·⭐4/84 유지(휩쏘 방지).\n\n---\n\n## 1. 시장 — 국장 / 미장\n\n### 국장 (장중 잠정, 마감 확정 아님)\n| 항목 | 수치 | 비고 |\n|---|---|---|\n| 코스피 | 7,595(+4.15%), 장중고 7,643 | 전일종가 7,291.91 |\n| 코스닥 | 844(+6.27%) | script prev_close 785 stale → 794 기준 보정치 |\n| 환율 | 1,507 | 1,500 트리거 미충족 |\n| 수급(장중) | 기관 **+1.42조** / 외인 **-5,468억** / 개인 -8,348억 | fnnews 10:58~11:25 [장중 잠정] |\n\n- 반등은 **기관 단독** 견인, 외인 장중 재매도 → 과거 4회 실패 V반등 지문. 8~9일 이틀로 보면 외인은 순환매(삼성전기·SK스퀘어·LG이노텍·현대차 매수 / **SK하이닉스·삼성전자 계속 매도**) — \"전면 전환\" 아님.\n- **외인 순매수 스트릭이 오늘 마감까지 버텨야** \"이번은 다르다\" 판정 가능. 지금은 [전환 조짐] 단계일 뿐.\n- SK하이닉스 국내주 +1.33%로 지수 대비 **언더퍼폼** — ADR 훈풍에도 외인 개별 순매도(2일 -3,167억) 지속, 희석·차익실현 물량 경계.\n\n### 미장 (7/9 목 마감, KST 7/10 새벽)\n| 지수 | 종가 | 등락 |\n|---|---|---|\n| S&P500 | 7,543.64 | +0.81% |\n| 나스닥 | 26,206.89 | +1.30% |\n| 다우 | 52,487.41 | +0.27% |\n| 필반(SOX) | 12,960 | **+3.06%** |\n\n- 이란-이스라엘 휴전 파기 발언(트럼프 7/8)에도 \"우려를 이겨낸\" **반도체 랠리**가 지수 견인. 촉매 2건: ①**마이크론 美 반도체 공급망 $3B 투자** ②**SK하이닉스 ADR $149 프라이싱·7배 초과청약**.\n- 단 **VIX 16.90(+4.8%) 동반 상승** = 완전한 risk-on 아님(지정학 헤지 잔존). 10년물 4.56~4.59%(5월 중순 이후 최고).\n- **분기**: 메모리·네트워킹(MU·AVGO·ANET) 강세 vs GPU(NVDA -0.66%, 6월 고점 대비 -18%) 소외. META +4.70%(자체 AI칩 9월 양산·잉여컴퓨트 판매).\n\n---\n\n## 2. 섹터 — 반도체AI / 전력·피지컬 / 빅테크\n\n### 반도체·AI인프라\n- **'메모리 베어마켓' 헤드라인(섹터 -$1.5조·고점比 -20%)이 어제 미장 반등 → 오늘 국내 소부장 폭발로 되돌림.** 마진은 여전히 **가속**(MU GM 74.9%→84.9%→FQ4 가이드 86%) = 펀더 롤오버 아닌 **밸류·포지셔닝 리셋.**\n- 소부장 폭등 원인(복합): ①대형주→장비주 순환매 ②SK하닉 ADR 조달금 → 국내 장비 발주 기대 ③6월 반도체 수출 +205.8% ④리스크온 고베타 증폭. **단 하루 +20~24%는 과열 → 추격금지(룰3), 눌림 대기 정석.**\n- IB 시각 분화: 키움 삼성 43만→**39만** 하향·일부 하닉 매도 vs 대신 하닉 340만→**390만** 상향·Goldman \"15년래 최악 공급부족\". 리스크 = 2026 실적 아닌 **2027~28 동시증설 오버슈트**(전방).\n- **메모리 정점 판정 = 홀드**(마진 가속 유효). **⚠️ 집중도**: 삼성+MU+NVDA 메모리 노출에 SK하닉 신규편입 시 중첩 악화 → 데뷔 추격 금지·소수점 소액만.\n\n### 전력·인프라·피지컬AI\n- 오늘은 **개별 촉매 아닌 코스피 V반등(+4.1%)에 2026 주도섹터(조선·원전·방산·로봇)가 고베타로 증폭된 날.** 구조 순풍(한미 $350B 대미투자·AI전력수요)은 진짜지만 오늘 급등폭은 반등 동조 → **갭 당일 추격금지.**\n- 두산에너빌리티 +8.33%(79,300, 10만 트리거까지 +26%·체코 본계약·SMR 공장 2026 착공), SK이노 +6.77%(테라파워 SMR 美 최초 상업착공·JPM 재평가), 조선 리더 삼성중공업 +7.88%>한화오션 +5.85%>HD현중 +1.78%.\n- 담당 보유 액션 없음: LG전자 홀드(NVIDIA 냉각 인증 정상·메리츠 26만↑)·두산로보 반등 시 85k 트림 대기·현대차 7/23 실적까지 관망(관세 15% 확정=테일리스크 해소).\n\n### 빅테크·플랫폼\n- 핵심 = **AI 광고 수익화 재평가**(META·NAVER 급등) + **7월말 하이퍼스케일러 실적 클러스터**(GOOGL 7/22·META/MSFT 7/29·AAPL 7/30).\n- META +4.70%(이틀 +8%): Erste→Buy·BNP $955·UBS $908 상향 + Advantage+ AI광고 + 잉여컴퓨트 판매. **단 7/29 실적 D-19·급등 직후 → 재매수 추격금지, 실적 후/눌림 대기.**\n- GOOGL -0.84%(노이즈): Cloud +63%·백로그 $462B·최고확신 ⭐5. **$345 GTC 재배치 유효**(현 $358.89 -3.9%).\n- **GPU 감가상각(버리) 리스크**: MSFT 4→6년·META 5.5년 = 최대 노출. **7/29 META·MSFT·7/22 GOOGL 실적이 첫 검증창**(밸류 재평가 리스크지 펀더 훼손 아님).\n\n---\n\n## 3. 매크로 데스크\n\n- **환율 1,507~1,508** — 코스피 +4% 반등에도 원화 강세 전환 실패(이란 확전發 안전자산 달러 수요가 상쇄). 1,500 하회 = ①호르무즈 완화 ②외인 순매수 지속 **둘 다 필요**, 아직 근접·미돌파.\n- **금리 역풍**: 연준 6/17 FOMC 동결(3.50~3.75%)이나 점도표 3.4%→**3.8%**(9명 연내 인상 전망). \"9월 인하\" 프레임 안 맞음 — 시장은 오히려 인상 무게. 한은 **7/16 금통위 25bp 인상(2.50→2.75%)** 컨센(신현송 매파). **한은 점도표는 2·5·8·11월만 → 7월 비발표.**\n- 유가 브렌트 $78(전일 +5.2% 후 되돌림)·WTI $73, 이란 확전 지속. **이번 반등을 \"매크로 완화\"로 읽으면 오류** — 금리·지정학 모두 역풍, 낙폭과대 되돌림 성격.\n- **관문 3연속**: 7/14(월) 美 CPI·7/15 PPI(둘 다 21:30 KST=폰 밖)·7/16 금통위+TSMC 실적. 근원 CPI 뜨거우면 한은 백투백 인상 리스크까지.\n\n---\n\n## 4. 리서치 피드 (신규 15편)\n\n**경제사냥꾼 12편 — 압도적 주제 = SK하이닉스 ADR(7편 직결).**\n- **[검증]** SK하닉 공모가 **$149·+3.1% 프리미엄·7배 초과청약**·코너스톤 베일리기포드·코추·**Situational Awareness Partners(前오픈AI 아셴브레너 헤지펀드)**·주관사 BofA·씨티·GS·JPM(MS 배제). 기관 목표가 **KB 420만·NH 410만 vs BNK 185만(\"사이클 착시\" 경계)** — 다수 강세·소수 신중 병기 필요.\n- **[검증]** 마이크론 GM·포드 차량용 메모리 장기공급계약(SCA) 분기 14건 ~$1,000억 RPO / **[검증]** \"P7(Parabolic7)\"=MU·샌디스크·AMD·AVGO·마벨·인텔·델(Ben Emons 창안) / **[검증]** 창신메모리(CXMT) 커창판 IPO 6.5조 조달(청약 7/16) / **[검증]** 7/8 구윤철 부총리 시장점검회의(차익실현·리밸런싱·반도체쏠림·환변동성 지목).\n- **[정정]** SK하닉 영상 일부 \"$158.14 기준\"은 상장 전 예측치 — 실제 확정 $149. **[정정]** 한국 공포지수(VKOSPI) \"86\"은 근사 맞음(7월초 평균 88.12).\n\n**지식인사이드 1편**(\"고금리 시대 가장 먼저 무너지는 자산\", 게스트 **이선엽 대표 × 서은숙 상명대 교수**): 뉴노멀론(고금리 구조적)·\"인상하다 긴급인하 전환이 진짜 고점신호\"·AI버블 논쟁(이선엽 \"밸류 싸다\"=강세 vs 서은숙 \"2차 AI 기대선반영 경계\"=신중) — **하닉 ADR '펀더 vs 사이클착시' 디베이트와 정합.** [인터뷰 견해·검증 수치 부재 → setups 미등록]. **수페TV 신규 없음.**\n\n---\n\n## 5. 리스크 데스크\n\n**판정: 안전핀 \"재평가 개시\"는 맞으나 \"해제 확정\"은 이르다.** 이중게이트 중 지수(①)만 장중 충족, 외인(②)은 오늘 오히려 후퇴.\n- **안전핀(7,500)**: 장중 7,588~7,602, **종가 미확정**(종가 기준 룰 — 장중 회복≠해제). 15:30 마감 전 판정 보류.\n- **외인 \"동반\" 조건**: flow_trend stage = \"전환(2일째)\"이지 \"확립(3일+)\" 아님. **오늘 장중 -5,468억 재매도로 스트릭 리셋 위험** → 게이트② 후퇴. PM이 \"둘 다 됐다\" 뭉뚱그리면 안 됨.\n- 환율 1,500 미달·삼성 자체도 존(295~305k) 미도달(290,750) → **설사 게이트 둘 다 열려도 삼성 2차 가격조건이 오늘은 안 열림.**\n- **집중도**: 단일종목 25% 상한 OK(최대 NVDA 21.8%). 그러나 **AI/반도체 클러스터 합산 ≈66%** — 헤드라인 하나에 포트 2/3 동조화(7/2·7/7·7/8 실증). SK하닉 편입 시 메모리 중첩 심화.\n- **신중(bear)**: 오늘 반등 지문 = 과거 4회 실패 V반등과 동일(기관 단독+반도체 쏠림, 7/3 +5.76%→7/7 -4.91% 반납). 배경 리스크 상존(NPS 리밸런싱·신용 38조·레버리지ETF 증폭기·7/14 CPI·7/16 금통위).\n- **베이킹**: 오늘밤 금(7/10)22:30~토(7/11)05:00 미장 = 상시가용 특례 제외 유일구간. 밤 대응 필요분은 **20:50 전 조건부 예약**. 다음주 7/13부터 평일 17:30~20:50 창 완전 원복.\n\n---\n\n## 6. 강세 vs 신중 디베이트\n\n**🟢 강세**: 코스피 +4.15% V반등으로 안전핀 7,500 장중 회복, 외인 7/8·7/9 2일 순매수·매도강도 -74.7% 급축소, 미장 반도체 랠리(MU +4.52%·AVGO·META), SK하닉 ADR 7배 초과청약 흥행·소부장 폭발(capex 사이클 재확인), 삼성 잠정 89.4조 beat·MU 마진 가속. 낙폭과대 되돌림에 펀더는 무훼손 — 홀딩이 정답.\n\n**🔴 신중**: 오늘 반등은 **기관 단독(+1.42조)**·외인 장중 재매도(-5,468억) = 과거 4회 실패 V반등 판박이(1~2세션 내 반납). SK하닉 국내주 언더퍼폼(+1.33% 차익실현)=확인매수 근거 약함. 매크로 전면 역풍(연준 매파 점도표·한은 7/16 인상·유가 $78·이란 확전), NPS·신용·레버리지 증폭기 상존, 클러스터 집중 66%. 7/14 CPI·7/16 금통위 관문 전 확대해석 금물.\n\n**⚖️ PM 저울질**: 반등은 진짜지만 **확립은 아니다.** 펀더 무훼손이라 **전량 홀딩**은 명확하되, 외인이 아직 안 붙은 기관 단독 반등에서 별점만 보고 신규 매수하는 건 정확히 리스크데스크가 경고한 과신 패턴(⭐5 표현확신 85% vs 실측 상승 24%). **동결 유지 + 15:30 종가·내일 R1 외인 확정치 확인 후 액션.**\n\n---\n\n## 7. PM 종합 (최종)\n\n> **오늘의 한 줄 결론: 반등은 왔지만 \"확립\"은 아직. 전량 홀딩·신규 매수 동결 유지 — 안전핀 해제는 15:30 종가 + 내일 외인 확정치 이중확인 후. 오늘 능동 신규매수 없음, GOOGL $345 GTC만 스탠딩.**\n\n### 보유 15종목 (풀표)\n*(국내=장중 12시경 / 미국=7/9 목 마감. 원가대비=master 원가 기준. 미국주 당일=7/9 종가 등락)*\n\n| 종목 | 현재가 | 당일 | 원가대비 | 목표가 | 매수존 | 매도/트림 | ⭐ | 스코어 | 코멘트 |\n|---|---|---|---|---|---|---|---|---|---|\n| 삼성전자 | 290,750 | +4.59% | +6.2% | 39만(키움)~43만+ | 27.5만~28.5만 눌림 (2차존 295~305k=안전핀 동결) | 없음(홀드) | ⭐4 | 80 | 잠정 89.4조 beat·DS마진 가속 유효 vs 키움 39만 하향·메모리 우려 = 1노치↓ |\n| LG전자 | 185,300 | +4.16% | +19.4% | 하나 23만·메리츠 26만↑ | 홀딩(추가 보류) | 손절선 없음 | ⭐4 | 74 | NVIDIA 액냉 인증 정상(훼손 아님)·피지컬AI 3축. 7/30 IR 3체크 |\n| 두산로보틱스 | 75,400 | +7.10% | -24.6% | 컨센 99,500 | 관망 | 반등 시 85,000 | ⭐2 | 17 | 무펀더 모멘텀(밴드상 ⭐1, +1 상한). 오늘 +7%는 로봇테마 베타 |\n| 현대차 | 466,500 | +4.71% | -25.95% | 한투 63만·NH 86만 | 7/23 실적 확인 전 관망 | 촉매 없음 | ⭐3 | 55 | 7/23 2Q D-13. 관세 15% 확정=테일리스크 해소로 49→55↑ |\n| NAVER | 193,200 | +4.72% | -22.9% | ~29만~30만 | 225,000~235,000 (존 아래) | 정리후보 상시검토 | ⭐2 | 54 | 코스피 반등 동조·AI커머스 GMV +24%. 두나무 9월 편입 촉매 |\n| NVDA | $202.78 | -0.66% | +1.6% | $301.62 (+49%) | $195~200 | 없음(비중관리) | ⭐5 | 90 | 컨센 +49% 저평가 플래그. 당일 -0.66%는 노이즈·100→90 모멘텀 트림 |\n| META | $631.48 | +4.70% | -0.4% | $827.91 (+31%) | 눌림 대기(~$580-600) | — | ⭐4 | 83 | 이틀 +8%·다중 상향. 7/29 실적 前 추격금지 |\n| VOO | $690.69 | +0.79% | +7.0% | — (ETF) | 적립 | — | ⭐4 | — | 코어 지수 적립 |\n| MSFT | $384.36 | +0.27% | -6.3% | $559.93 (+46%) | 눌림 | — | ⭐4 | 73 | Azure +40%·Copilot 2천만석. 감가상각 4→6년 버리 논란 최대노출·7/29 |\n| AAPL | $316.22 | +0.90% | +23.0% | $315.57 (-0.2%) | 신규매수 안함 | ✅7/6 1주 트림완료(+21.9%) | ⭐3 | 58 | 컨센 여력 소진=트림 적중. 잔여 1주+분수 글라스 옵셔널리티. 7/30 |\n| GOOGL | $358.89 | -0.84% | -7.4% | $432.10 (+20%) | 🎯 $345 GTC(정수1주 예약) | — | ⭐5 | 91 | 최고확신. Cloud +63%·백로그 $462B. 상대약세는 노이즈. 7/22 |\n| ORCL | $144.22 | +2.65% | -37.9% | $251.85 (+74.6%) | 눌림 | 패닉셀 금지 | ⭐3 | 65 | 최대손실이나 RPO $638B·OCI +54%. 버리 논란 타깃(검증은 9월) |\n| ANET | $184.69 | +2.01% | +14.0% | $190.09 (+3%) | $172~178 | **sell-into-strength 트림 후보** | ⭐4 | 81 | 컨센 $190 근접 = 강세 시 일부 익절 1순위. 8/4 실적 |\n| MU | $991.64 | +4.52% | +32.4% | $1,486 (+50%) | $920~960 | 마진 가속=홀드 | ⭐4 | 84 | 데스크 ⭐5/88 재상향 제안→기각(1주 반등 휩쏘 방지). 마진 게이트 홀딩 |\n| AVGO | $401.11 | +3.20% | -4.7% | $523.73 (+31%) | $380~395 | 급등 시 부분트림 후보 | ⭐4 | 84 | 커스텀 ASIC+1.6T 네트워킹. Strong Buy·⭐5 근접 |\n\n### 워치리스트 (활성)\n| 종목 | 현재가 | 당일 | 목표/컨센 | 액션 |\n|---|---|---|---|---|\n| 원익IPS | 126,200 | **+20.3%** | 키움 160,000↑ | 과열·추격금지, 눌림 130~150k |\n| 테스 | 180,300 | **+24.3%** | 6개월 평균 146k(+169%) | 과열·추격금지 |\n| 삼성전기 | 1,590,000 | +6.5% | iM 230만·DB 300만 | 외인 순매수 1위·AI부품 로테이션. PER 부담 관찰 |\n| SK하이닉스 | 2,215,000 | +1.33% | 대신 390만↑ | **오늘밤 ADR 데뷔** — 상장 전 진입금지 유지. 데뷔 후 소수점 검토(추격금지) |\n| 두산에너빌리티 | 79,300 | +8.33% | 신한 125k | 10만 돌파 트리거까지 +26%. 눌림 70k초반 or 돌파확인 |\n| SK이노베이션 | 105,700 | +6.77% | — | 테라파워 SMR 상업착공·JPM 재평가. 테마성 강함 |\n| GE Vernova | $1,075.26 | +0.40% | $1,222 (+13.7%) | **워치 유일 매수검토** — 눌림 분할. 7/22 실적 |\n| 조선 바스켓 | 삼중 22,600 / 한오 83,200 / HD현중 516,000 | +5.9~7.9% | 한오 16만 | 필라델피아 핵잠·MASGA. 급등 소화 관찰 |\n| 한화에어로 | 970,000 | +1.78% | 하나 175만 | 오늘 후행. 눌림 setup |\n| TSLA(워치) | $406.55 | +3.20% | $424 (+4.3%) | 재진입 미발동($390 미달+로보택시 7/22 실적 전) |\n| LG이노텍 | 740,000 | -0.13% | iM 110만 | FC-BGA 구조적 공급부족·외인 저점매수. 관찰 |\n| KT&G | 177,600 | +0.68% | DS 240k | 165,000 이하 눌림서 신규편입 검토(경제사냥꾼 셋업) |\n| TMUS | $181.48 | +0.74% | $254.85 (+40%) | Starlink D2C 경쟁 우려. 7/23 실적 |\n| SPCX | $152.16 | +2.63% | $242 (+59%) | 8월 첫 20% 락업 언락 관전. 추격금지 |\n\n### 🎯 지정가 오더북 (액션 임박 핵심)\n| 종목 | 액션 | 지정가 | 수량 | 폰창 예약 | 발동조건 | 기대수익(익절 후보) |\n|---|---|---|---|---|---|---|\n| GOOGL | 매수(재배치) | **$345 GTC** | 정수 1주 | 스탠딩(정훈 걸어둠) | 현 $358.89 -3.9%, 자동체결 대기 | 컨센 $432(+25%) |\n| 삼성전자 2차 | 매수 | 295,000~305,000 | 정수 1주 | **안전핀 동결** | 7,500 종가 회복+외인 전환 재평가 후 (현 290,750 존 아래) | 목표 39~43만 |\n| 두산에너빌리티 | 신규 | 10만 돌파 | 정수 1주 | 돌파 확인 후 | 현 79,300 -21%, 대기 | 신한 125k |\n| KT&G | 신규편입 | **165,000 이하** | 정수 1주 | 눌림 대기 | 현 177,600 +7.6% 위, 추적중 | DS 240k |\n| ANET | 트림(익절) | 컨센 $190 근접 시 | 일부 | 8/4 실적 전 강세 시 | 현 $184.69 +3% | +14% 원가·강세 반납 방어 |\n| 두산로보 | 트림 | 85,000 반등 시 | 일부 | 반등 확인 | 현 75,400 | 무펀더 모멘텀 차익 |\n\n### 제안 액션\n- **전량 홀딩** — 펀더 무훼손, 패닉·추격 둘 다 금지.\n- **신규 매수 동결 유지** — 안전핀 해제 = 15:30 종가(7,500 위) + 내일 R1 외인 확정치(스트릭 지속) **이중확인** 후. 오늘 능동 신규매수 없음.\n- **GOOGL $345 GTC 스탠딩** 유지(추격 아님·자동체결 대기). **오늘밤 금→토 미장 폰 미가용** → 다른 밤 대응 필요분은 20:50 전 조건부 예약만.\n- SK하닉 ADR 데뷔 = **관찰만**(상장 전 진입금지 룰·데뷔 당일 추격금지). 편입 시 메모리 집중도 중첩 감안 소수점 소액.\n- 소부장·조선·원전 급등주 = **추격금지(룰3)**, 눌림만.\n\n### 현금 배분 (잔액 322,921원 + $404.96)\n- **🅰️ 관망(룰 정합·추천)**: 안전핀 재평가 국면 = 현금 전액 대기. 삼성 2차(200k)·3차(META/AVGO 소수점 189,771)는 게이트 미충족으로 동결 유지. GOOGL $345 GTC만 스탠딩.\n- **🅱️ 공격**: 15:30 종가 7,500 확정 + 외인 스트릭 확립(3일+) 확인 시 → 삼성 2차 존 진입 또는 지수 트랜치 재개 검토. **단 오늘은 조건 미충족 → 발동 안 함.**\n\n### 지켜볼 것 (2주 캘린더)\n| 날짜 | 이벤트 | 폰 |\n|---|---|---|\n| 7/10 밤 22:30 | **SK하닉 ADR(SKHYV) 나스닥 데뷔** / 금→토 미장 | ✗(예약백업) |\n| 7/14(월) 21:30 | 美 CPI(6월) | ✗→7/15 대응 |\n| 7/15(수) 21:30 | 美 PPI(6월) | ✗ |\n| 7/16(목) | 한은 금통위(25bp 인상 컨센)+TSMC 2Q 실적 | 장중 |\n| 7/22(수) | GOOGL·GEV·IBM·TSLA 실적 | 새벽 |\n| 7/23(목) | 현대차·STM·TMUS 실적 | 장중/새벽 |\n| 7/29~30 | 삼성·SK하닉·META·MSFT·AAPL·LG전자 실적 슈퍼위크 | 예약 베이킹 |\n\n### 🗣️ PM 사견\n**종합 1블록**: 오늘 반등은 반갑지만 나는 아직 \"샀다\"고 움직일 자리가 아니라고 본다. 결정적 이유는 **외인이 장중 다시 팔았다**는 것 — 코스피가 +4% 튀는 날에도 외인이 -5,468억 순매도면, 이건 기관 혼자 든 반등이고 과거 넉 달간 이 지문은 **네 번 다 1~2세션 내 반납**됐다. 안전핀은 \"종가 + 외인\" 이중게이트인데 오늘 두 번째 게이트가 오히려 뒤로 갔다. 그래서 나는 **홀딩은 100% 확신하되 신규매수는 동결 유지**, 판단은 15:30 종가와 내일 외인 확정치까지 미룬다. 펀더(삼성 잠정 89.4조·MU 마진 86%·SK하닉 7배 청약)는 강세론을 받쳐주지만, 매크로(연준 매파·한은 인상·유가·이란)는 전부 역풍이라 \"낙폭과대 되돌림\"이지 \"추세 전환\"으로 보기엔 이르다.\n\n**핵심종목 PM 한줄**:\n- **삼성전자**: 잠정 실적은 최고인데 주가가 안 따라줌 = 수급(NPS·외인) 문제. ⭐4로 내렸지만 이건 밸류가 아니라 타이밍 얘기 — 존(295~305k) 오면 계획대로.\n- **GOOGL**: 여전히 내 최고확신. $345 GTC는 놔둔다. 7/22 실적 눌림에 존 오면 최우선.\n- **SK하이닉스**: 오늘밤 데뷔는 이벤트지 매수신호 아님. 국내주가 지수 대비 못 따라가는 게 오히려 경고 — 데뷔 추격 절대 금지, 소화 후 소수점.\n- **ANET**: 컨센 $190 코앞. 8/4 실적 전 강세 뜨면 일부 익절이 원칙에 맞다 — 유일하게 손이 근질거리는 트림 자리.\n\n---\n\n## 7c. 채널 조건 트래커\n\n| 셋업 | 상태 | 조건 충족 | 판정 |\n|---|---|---|---|\n| 하이닉스ADR-0708 | 추적중→**임박** | 공모가 $149·7배 청약 확정 / 외인 본주 전환 ❌(오늘 -5,468억) | 오늘밤 데뷔 결과로 임박. **관찰용·매수 셋업 아님**. KB 420만 vs BNK 185만 병기 |\n| 반전트리거-0629 | 추적중(후퇴) | 지수 7,500 장중회복(종가 대기)·외인 ❌·환율 1,507 ❌ | 3조건 동시충족 필요 — 미발동. 종가+내일 외인 재판정 |\n| 메모리코어-0629 | ✅체결(1차) | 삼성 2차 = 안전핀 동결 | 존(295~305k) 아래·동결 유지 |\n| ktg-0626 | 임박 | 외인 51.24%·해외궐련 +56% met / 165k ❌(현 177,600 +7.6%) | 눌림 대기 유지 |\n| 전력인프라-0629 | 추적중 | 대미투자 met / LG 냉각 수주 gate·두산E 10만 미돌파 | LG 7/30 IR 게이트. 급등 소화 전 추격금지 |\n| m7capex-0630 | 추적중 | 매크로 met / 7/29 META·7/30 capex 가이던스 대기 | 실적 클러스터 관전 |\n\n*🧭 신뢰-견제: 경제사냥꾼 하닉 ADR 논지는 다수 기관과 정합(진지 채택)하나, KB 420만~BNK 185만 스펙트럼처럼 **채널 단독 강세론에 기대지 않고 소수 신중론(BNK '사이클 착시') 병기**. 데뷔 추격 금지가 PM 브레이크.*\n\n---\n\n## 8. 오늘의 이슈 선택지 (원하면 번호로 심층 요청)\n\n1. **SK하이닉스 ADR 데뷔 밤 시나리오** — 오늘밤 22:30 SKHYV 데뷔가 국내 하닉·삼성·메모리 클러스터에 줄 파급 + 정훈 소수점 적립 경로 실전 점검.\n2. **안전핀 해제 조건 정밀화** — \"외인 전환 동반\"의 정량 기준(2일 vs 3일+ 확립)을 못박기 + 종가 시나리오별 액션 플로우.\n3. **소부장 폭등(원익IPS +20%·테스 +24%) 진짜 사이클인가** — capex 발주 실체 vs 낙폭과대 반등, 워치 편입/눌림 진입 조건.\n4. **7/14 CPI·7/16 금통위 사전 베이킹** — 폰 밖 지표에 대응할 조건부 예약룰 설계(다음주 군 복귀 후 창 원복 반영).\n\n---\n\n## 9. 계획·할일·매수추적 (tasks.json 동기화)\n\n- **오늘/이번주 전망**: 코스피 7,500~7,700 박스(외인 확정 전 관망), 반도체 주도·매크로 관문(CPI 7/14·금통위 7/16) 전 변동성.\n- **할일(today)**: ①15:30 코스피 종가 7,500 확정 확인 ②SK하닉 ADR 밤 데뷔 관찰(추격금지) ③GOOGL $345 GTC 유지 확인.\n- **할일(week)**: 내일 R1 외인 확정치로 안전핀 재판정 / 7/14 CPI·7/16 금통위 조건부룰 베이킹.\n- **매수추적(orders)**: GOOGL $345 GTC(예약·스탠딩) / KT&G 165k(계획) / 삼성 2차 295~305k(동결).\n\n---\n\n## STATE SNAPSHOT\n\n```\n[STATE SNAPSHOT v46 2026-07-10 (금, 장중 12:20 KST)]\nKR: 코스피 7,595(+4.15%, 장중·종가 15:30 확정) — 안전핀 7,500 장중 회복. 코스닥 844(+6.27%). 수급 장중잠정 기관 +1.42조 / 외인 -5,468억(재매도 전환) / 개인 -8,348억\nUS(7/9 마감): S&P 7,543.64(+0.81%)·나스닥 26,206.89(+1.30%)·필반 12,960(+3.06%). 반도체 랠리(MU +4.52%·AVGO +3.20%·META +4.70%) vs 로직 소외(NVDA -0.66%·GOOGL -0.84%)\n환율: 1,507 (1,500 미달)\n현금: 322,921원 + $404.96 (전액 동결 유지 — 해제 = 7,500 종가 + 외인 스트릭 확립 이중확인)\n보유변동: 없음 (15종목)\n안전핀 판정: \"재평가 개시\"·\"해제 확정 아님\" — 게이트①(지수) 장중충족, 게이트②(외인) 오늘 후퇴. 15:30 종가 + 내일 R1 외인 확정치 이중확인 후 액션\n대기 트리거: 안전핀 해제(7,500 종가+외인) / 외인 스트릭 확립(3일+) / 환율 1,500(현 1,507) / GOOGL $345 GTC / KT&G 165k / 두산E 10만 / SK하닉 ADR 오늘밤 데뷔 / 7/14 CPI / 7/16 금통위+TSMC\n스코어 조정: 삼성 87→80(⭐5→⭐4, 키움 39만 하향·메모리 우려) / NVDA 100→90(모멘텀 트림) / 현대차 49→55(관세 15% 확정) / MU ⭐4/84 유지(데스크 재상향 88 기각·휩쏘 방지)\n영구교정: 없음 (코스닥 prev_close 785 stale → 794 기준 보정 = 국장 데스크 상시 보정, v44 계승)\n폰: 오늘밤 금→토 미장 = 휴가특례 제외 유일구간(예약 백업). 7/13(월)부터 평일 17:30~20:50 창 완전 원복\n다음 버전: v47\n```\n\n*투자 자문 아님 — 모든 레벨(목표가·매수존·별점·스코어)은 분석 참고이며 최종 결정은 정훈.*\n"
+    },
     {
       "id": "report_v45_2026-07-09",
       "file": "docs/reports/report_v45_2026-07-09.md",
@@ -6426,158 +6719,142 @@ window.APP_DATA = {
   ],
   "outlook": [
     {
-      "horizon": "오늘 새벽 (7/9 미장 마감)",
-      "tag": "이란 반영·로직 랠리",
-      "dir": "→",
-      "text": "S&P 7,482.71(-0.28%)·나스닥 25,870.65(+0.20%)·다우 -1.09%. NVDA +3.65%·AVGO +4.83%·ANET +8.76%·MU +1.11% 로직/메모리 반등 vs 빅테크 로테이션 매도. 이란 유가 +5%에도 리스크오프 전면화 아직 아님."
+      "horizon": "오늘 (7/10 금 장중)",
+      "tag": "V반등·안전핀 장중회복",
+      "dir": "↑",
+      "text": "코스피 7,595(+4.15%)·코스닥 844(+6.27%). 안전핀 7,500 장중 회복(종가 15:30 확정). ⚠️외인 장중 -5,468억 재매도=기관 단독(+1.42조) 반등, 과거 4회 실패 지문. 소부장 폭등(원익IPS+20%·테스+24%)."
     },
     {
-      "horizon": "오늘 (7/9 목 KR 개장)",
-      "tag": "7,500 회복 시험",
+      "horizon": "오늘밤 (7/10 금→토 미장)",
+      "tag": "SK하닉 ADR 데뷔·폰 미가용",
       "dir": "→",
-      "text": "밤사이 로직 랠리가 반도체 심리 완충 vs 유가 급등·이란 상쇄. 관전: ①7,500 종가 회복(안전핀 해제 1조건) ②외인 15일차 ③개인 재유입. 회복해도 재개는 외인 전환 확인 후."
-    },
-    {
-      "horizon": "오늘 밤 (7/9→10 새벽)",
-      "tag": "복귀 전 마지막 실시간 미장",
-      "dir": "→",
-      "text": "휴가 실시간 마지막 세션(7/10 금밤은 예약 백업). 이란 추가 공습·유가·ANET 컨센 도달 관찰. TSLA $390 근접(로보택시 조건 미충족이라 알림만)."
+      "text": "22:30 SKHYV 나스닥 데뷔(공모가 $149·7배 청약). 금→토 미장=휴가특례 제외 유일구간(예약 백업). 밤 대응분은 20:50 전 조건부 예약만."
     },
     {
       "horizon": "이번주",
-      "tag": "하닉 ADR·CPI·금통위",
+      "tag": "매크로 관문",
       "dir": "→",
-      "text": "7/10 하닉 ADR 데뷔(공모가 새벽 확정·관찰) → 7/14 CPI(유가 상방) → 7/16 금통위(25bp 인상 컨센·6월 CPI 3.2%)·TSMC(메모리 정점 실측)."
+      "text": "7/14 美 CPI·7/15 PPI(폰 밖)·7/16 한은 금통위(25bp 인상 컨센)+TSMC 실적. 근원 CPI 뜨거우면 한은 백투백 리스크. 반등 지속성 검증창."
     },
     {
       "horizon": "이번달",
       "tag": "실적 슈퍼위크",
       "dir": "→",
-      "text": "7/21~24 GOOGL·TSLA·GEV·현대차·LG전자 → 7/29~30 META·MSFT+FOMC → 7/30 삼성 IR(주주환원 3갈래). 안전핀 해제가 전제."
+      "text": "7/22 GOOGL·TSLA·GEV / 7/23 현대차·TMUS / 7/29~30 삼성·SK하닉·META·MSFT·AAPL·LG전자. 전부 예약 베이킹. 7/13 정훈 군 복귀=폰창 원복."
     }
   ],
   "index_forecast": [
     {
       "name": "코스피",
-      "ref": 7247,
-      "low": 7000,
-      "base": 7400,
-      "high": 7700,
+      "ref": 7595,
+      "low": 7300,
+      "base": 7550,
+      "high": 7750,
       "dir": "→",
-      "confidence": "확정(종가)+추정(레인지)",
-      "note": "종가 7,246.79 확정. (추정) 이란 전개·개인 수급이 하단, 하닉 ADR·환율 1,500·외인 전환이 상단 변수. 7,500 회복 = 안전핀 해제 1조건."
+      "confidence": "추정",
+      "note": "장중 +4.15% 회복(종가 미확정). 외인 확정 전 7,500~7,700 박스 관망. 안전핀 재평가 국면"
     },
     {
       "name": "나스닥",
-      "ref": 25871,
-      "low": 25000,
-      "base": 25800,
-      "high": 26500,
-      "dir": "↓",
-      "confidence": "확정(7/7 종가)+추정(레인지)",
-      "note": "(확정 7/8 종가) 이란 반영에도 +0.2% — 로직 랠리가 지수 방어"
+      "ref": 26207,
+      "low": 25800,
+      "base": 26300,
+      "high": 26800,
+      "dir": "→",
+      "confidence": "확정",
+      "note": "7/9 종가 26,206.89(+1.30%). 반도체 랠리·VIX 동반상승(완전 risk-on 아님). 오늘밤 SK하닉 데뷔 변수"
     },
     {
       "name": "S&P500",
-      "ref": 7483,
-      "low": 7300,
-      "base": 7500,
+      "ref": 7544,
+      "low": 7450,
+      "base": 7560,
       "high": 7650,
       "dir": "→",
-      "confidence": "확정(7/7 종가)+추정(레인지)",
-      "note": "(추정) BofA 7,100 vs GS 8,000 레인지 내 — 지정학이 단기 방향키."
+      "confidence": "확정",
+      "note": "7/9 종가 7,543.64(+0.81%). 7/14 CPI 관문 전 관망"
     },
     {
       "name": "필라델피아반도체",
-      "ref": 12301,
-      "low": 11800,
-      "base": 12300,
-      "high": 12900,
-      "dir": "↓",
-      "confidence": "확정(7/7 종가)+추정(레인지)",
-      "note": "(추정) 메모리 베어마켓 vs 로직 디커플 — 7/16 TSMC 1차 실측"
+      "ref": 12960,
+      "low": 12600,
+      "base": 13050,
+      "high": 13400,
+      "dir": "↑",
+      "confidence": "확정",
+      "note": "7/9 종가 12,960(+3.06%). 메모리·네트워킹 강세 vs GPU 소외"
     }
   ],
   "tasks": {
     "today": [
       {
-        "id": "d-0709-1",
-        "text": "✅ v45 4대 이슈 딥다이브 완료(안전핀·이란·하닉ADR·금통위) + 보충 리서치",
-        "done": true
-      },
-      {
-        "id": "d-0709-2",
-        "text": "✅ 경제사냥꾼 10편 최신화(7/8~7/9)·hunter_log·hunter.json 반영",
-        "done": true
-      },
-      {
-        "id": "d-0709-3",
-        "text": "오늘 밤 미장(복귀 전 마지막 실시간): 이란 추가공습·ANET 컨센 도달·TSLA $390 관찰",
+        "id": "t-0710-1",
+        "text": "15:30 코스피 종가 7,500 확정 확인(안전핀 게이트①)",
         "done": false
       },
       {
-        "id": "d-0709-4",
-        "text": "KR 09:00 개장: 7,500 회복 여부·외인 15일차·7/8 마감 확정 수급 재검색(flows null 채우기)",
+        "id": "t-0710-2",
+        "text": "SK하닉 ADR(SKHYV) 밤 22:30 데뷔 관찰 — 추격금지, 소수점 경로만 점검",
+        "done": false
+      },
+      {
+        "id": "t-0710-3",
+        "text": "GOOGL $345 GTC 스탠딩 유지 확인",
+        "done": false
+      },
+      {
+        "id": "t-0710-4",
+        "text": "오늘밤 금→토 미장 폰 미가용 — 밤 대응분 20:50 전 조건부 예약",
         "done": false
       }
     ],
     "week": [
       {
-        "id": "w-0708-1",
-        "text": "7/9(목): 7/8 마감 확정 수급 재검색(flows.json null 채우기 — 최우선) + 7,500 회복·외인 15일차 확인",
+        "id": "w-0710-1",
+        "text": "내일 R1 외인 확정치로 안전핀 재판정(스트릭 지속=확립 여부)",
         "done": false
       },
       {
-        "id": "w-0708-2",
-        "text": "7/10(금): 하닉 ADR 데뷔 관찰(웃돈 여부 → setup-하이닉스ADR-0708 조건1 평가). 진입 금지",
+        "id": "w-0710-2",
+        "text": "7/14 CPI·7/16 금통위 조건부룰 베이킹(폰 밖 지표)",
         "done": false
       },
       {
-        "id": "w-0708-3",
-        "text": "GOOGL 실적일 확정(7/21 웹 vs 7/23 earnings.py 불일치 해소)",
-        "done": false
-      },
-      {
-        "id": "w-0708-4",
-        "text": "주말: 휴가 모드 종료 준비 — 7/13(월)부터 평일 17:30~20:50 원복, 미결 예약 베이킹 정리",
+        "id": "w-0710-3",
+        "text": "7/13 군 복귀 = 폰창 평일 17:30~20:50 원복 반영",
         "done": false
       }
     ],
     "month": [
       {
-        "id": "m-0708-1",
-        "text": "7/14 CPI·7/16 금통위(인상 컨센)+TSMC — 메모리 정점 1차 실측·인상 시 원화/외인 영향 평가",
+        "id": "m-0710-1",
+        "text": "7/22 GOOGL 실적 눌림에 $345 GTC 존 도달 주시",
         "done": false
       },
       {
-        "id": "m-0708-2",
-        "text": "7/29~30 META·MSFT 실적+FOMC — m7capex·감가상각 논쟁 판정일. 프린트 전 신규 추가 금지",
+        "id": "m-0710-2",
+        "text": "7/29~30 실적 슈퍼위크(삼성·SK하닉·META·MSFT·AAPL·LG전자) 예약 베이킹",
         "done": false
       },
       {
-        "id": "m-0708-3",
-        "text": "7/30 삼성 IR — 주주환원 3갈래 시나리오(20만대/40만대/80만대 게이트) + IR 4항목 확인",
-        "done": false
-      },
-      {
-        "id": "m-0708-4",
-        "text": "안전핀 해제 시(7,500 종가 회복+외인 전환): 삼성 2차 → KT&G 순서로 재평가(자동 재개 아님)",
+        "id": "m-0710-3",
+        "text": "안전핀 해제 후 삼성 2차·3차 트랜치 재개 판단",
         "done": false
       }
     ]
   },
   "task_counts": {
     "today": {
-      "done": 2,
+      "done": 0,
       "total": 4
     },
     "week": {
       "done": 0,
-      "total": 4
+      "total": 3
     },
     "month": {
       "done": 0,
-      "total": 4
+      "total": 3
     }
   },
   "orders": [
@@ -6627,7 +6904,7 @@ window.APP_DATA = {
       "shares": 1,
       "amount_usd": 345,
       "date": "2026-07-07",
-      "note": "[7/7 정훈 $345로 상향·주문 걸어둠] 정수 1주 지정가 $345 GTC. 원래 $330은 6/27 저점($337.39)도 못 뚫어 사실상 미체결 자리 — 다우편입 후 우상향 밴드 반영해 상향(PM 제안 채택). 컨센 $433(+20%)·Gemini 수요>공급·다우 패시브. 현재가 $366.46 대비 −5.9%. GTC 자동체결 대기."
+      "note": "[7/7 정훈 $345 GTC 걸어둠·스탠딩] 현 $358.89 -3.9%. 7/22 실적 눌림에 존 도달 시 자동체결. 컨센 $432(+25%)"
     },
     {
       "id": "o-ktg-1",
@@ -6639,7 +6916,7 @@ window.APP_DATA = {
       "shares": 1,
       "amount_krw": 165000,
       "date": "2026-06-28",
-      "note": "[7/8 안전핀 발동 — 동결] [경제사냥꾼 셋업·7/5] KT&G 175,100(발동가 165,000까지 −5.8%). 디펜시브 순환매 — 165,000 이하 눌림서만 정수 1주 지정가(폰 상시 = 국내 정규장 실시간)·편입 전 딥다이브. 기대 DS 240,000 = +45%."
+      "note": "[동결·눌림 대기] 현 177,600, 발동가 165,000까지 +7.6% 위. 안전핀 재평가 국면 — 해제+눌림 도달 시 신규편입 검토"
     },
     {
       "id": "o-naver-1",
@@ -6680,7 +6957,7 @@ window.APP_DATA = {
       "shares": 1,
       "amount_krw": 300000,
       "date": "2026-07-04",
-      "note": "[7/8 안전핀 발동 — 동결] [v39·7/6 장중] 삼성 320,000 — 존 295~305k 위로 +4.9~8.5% 이탈(잠정 기대 선반영·추격 금지). 7/7(화) 07:30 잠정 → 09:00 정규장 실시간 이중게이트: 85조 하회 확정 시 존 재진입이어도 보류 / 85조+ & DS 마진 가속 시만 정규장 실시간 정수 1주. 시초 갭 추격 금지. 컨센 84.6~85.6조 수렴. 기대 목표 430,000 = +34%."
+      "note": "[동결·안전핀] 2차존 295~305k, 현 290,750 존 아래. 해제=7,500 종가+외인 확립 후 재평가"
     },
     {
       "id": "o-0707-tsla",
@@ -6695,6 +6972,6 @@ window.APP_DATA = {
       "note": "7/7 22:37 체결 확정(토스 스크린샷). v43 제안(강세 트림·컨센 $423 도달) 실행 — 제안은 절반이었으나 정훈이 전량 선택. USD 실현 -$1.04(-1.6%, 원가 $66.63) / KRW 환차익 포함 +3,436원(+3.5%). 입금 7/9 → 달러 예수금 보존(7/29~30 실적 주간 전 신규 매수 잠금)."
     }
   ],
-  "tasks_updated": "2026-07-09",
-  "today_note": "4대 이슈 딥다이브 완료 + 경제사냥꾼 10편 최신화. 밤사이: 이란 재확전(유가 +5%)·FOMC 의사록 9-9 매파·메모리 베어마켓 but 로직 랠리(NVDA+3.65%·ANET+8.76%). 안전핀 breach 지속 = 매수 동결. 오늘 밤 미장 = 복귀 전 마지막 실시간 세션."
+  "tasks_updated": "2026-07-10",
+  "today_note": "코스피 V반등 +4.15%(7,595)로 안전핀 7,500 장중 회복 — 단 외인 장중 -5,468억 재매도로 반등은 기관 단독. 종가+내일 외인 확정치 이중확인 전 신규매수 동결 유지. SK하닉 ADR 오늘밤 데뷔(관찰)."
 };

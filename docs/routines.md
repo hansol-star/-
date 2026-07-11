@@ -36,7 +36,7 @@
     · docs/research/hunter_log.md (경제사냥꾼) / docs/research/feeds_log.md (수페TV·지식인사이드) 맨 위 오늘자 날짜스탬프 블록 prepend.
     · data/app/hunter.json (latest_videos·track_record 최신 prepend·headline·themes·setups) / data/app/feeds.json (수페·지식인 — hunter와 안 섞음).
     · 요약 필드명 = summary(필수). 신규 영상 0편이면 "신규 없음"만 기록하고 파일 손 안 대도 됨.
-- python3 .claude/skills/portfolio-desk/scripts/build_app_data.py → 커밋 → git push origin HEAD:main HEAD:<작업브랜치> (ff, 연속성 규약).
+- python3 .claude/skills/portfolio-desk/scripts/build_app_data.py → 커밋 → git push origin HEAD:main (ff, 연속성 규약).
 - 보고서 파일(report_v*)은 만들지 않는다. 이건 데이터 프리페치 전용.
 ```
 
@@ -48,12 +48,12 @@
 보고서 (메인 풀 브리핑 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
 - 0단계 실측: TZ=Asia/Seoul date + market_data.py 로 오늘 날짜·요일·장상태 확정(직전 보고서 서사에 끌리지 말 것).
 - 컨텍스트 복원: 최신 report STATE SNAPSHOT + decisions.py.
-- ⚡ 영상: 오늘자 R1 프리페치 캐시(hunter_log.md·feeds_log.md 맨 위 블록 + hunter.json·feeds.json setups)를 읽어 리서치 피드·조건 트래커를 채운다. **3채널 풀 재추출 금지.** 단 R1(10:00) 이후 신규 업로드는 싸게 델타로 잡는다 = hunter_latest.py(--fetch 없이 RSS 목록만) 3채널 → 캐시에 없는 신규 ID만 `--ids <신규>--fetch`로 추가 태깅(보통 0~2편). 오늘자 캐시가 없으면(R1 실패) 폴백으로 경제사냥꾼 1채널만 경량 인라인(SKILL §2c).
+- ⚡ 영상: 오늘자 R1 프리페치 캐시(hunter_log.md·feeds_log.md 맨 위 블록 + hunter.json·feeds.json setups)를 읽어 리서치 피드·조건 트래커를 채운다. **3채널 풀 재추출 금지.** 단 R1(10:00) 이후 신규 업로드는 싸게 델타로 잡는다 = hunter_latest.py(--fetch 없이 RSS 목록만) 3채널 → 캐시에 없는 신규 ID만 `--ids <신규> --fetch`로 추가 태깅(보통 2~4편, 오후분). 오늘자 캐시가 없으면(R1 실패) 폴백으로 경제사냥꾼 1채널만 경량 인라인(SKILL §2c).
 - 첫 실행 단계 = 전일 밤 미국 지정가 예약 체결 점검(체결이면 portfolio.json·tasks.json·master.md 갱신) + 전일 밤 21:30발 지표(NFP·CPI 등) 반영.
 - 데스크 병렬(리서치 제외 최대 7 — 지역2+매크로+리스크 항상, 섹터 3종 = 트리거 게이트: ±5%·실적 D-7·테마뉴스·정훈 지목 없으면 지역데스크 시세로 갈음) → 강세/신중 디베이트 → PM 종합.
 - 주간 첫 보고서면 self-review는 R3(주말)에서 청산되므로 평일 중복 X. 단 R3 누락 주면 맨 먼저 self-review.
 - 보유15+워치 풀표(별점·스코어·매수존·트림)·지정가 오더북·PM 사견·tasks.json 동기화. 오늘의 이슈 4개는 전부 자동 심층(선택 대기 X).
-- build_app_data → validate_report(FAIL 자가교정) → score_calls --append → snapshot.py → 커밋 → main ff 머지·푸시(자동). 추측 금지·미확인 명시.
+- build_app_data → validate_report(FAIL 자가교정) → score_calls --append → snapshot.py → 커밋 → git push origin HEAD:main(ff, 자동). 추측 금지·미확인 명시.
 ```
 
 ### R3. 주말 캘리브레이션 + 리뷰 (토 09:00) — 콜 후행검증

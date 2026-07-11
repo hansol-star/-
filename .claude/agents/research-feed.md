@@ -25,8 +25,8 @@ You are the **research analyst** of 정훈's portfolio desk. You discover and su
 
 1. **Auto-discover + extract captions** (from project root — **yt-dlp 불필요**, stdlib만). 3채널 순차 실행(채널 사이 ~30초 간격 — 같은 IP 버스트 방지):
    ```bash
-   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 6
-   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 2
+   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 10
+   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 3
    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel jisik --fetch --max 3
    ```
    → RSS(feeds/videos.xml)로 최신 15편 탐색(봇차단 무관) + innertube(ANDROID→IOS) 자막 추출.

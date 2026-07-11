@@ -115,7 +115,7 @@ python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 �
 1. **오늘자 캐시 확인**: `docs/research/hunter_log.md`·`docs/research/feeds_log.md` **맨 위 블록 날짜스탬프가 오늘**인지 + `data/app/hunter.json`·`feeds.json` `latest_videos`.
 2. **신선하면(오늘자 있음) → 캐시 소비 + 델타 체크**:
    - 캐시를 읽어 §4 리서치 피드·§7c 조건 트래커를 채운다(setups met는 `flow_trend.py`·`triggers.py` 기계값과 대조).
-   - **⚡ R1 이후 신규 영상 델타 (싸게)**: `hunter_latest.py`(**`--fetch` 없이** RSS 목록만 — 거의 무료) 3채널 실행 → 캐시 `latest_videos`에 **없는 ID(=R1 뒤 새로 올라온 것)**만 골라 **그것만** `hunter_latest.py --ids <신규ID> --fetch`(--channel 병기)로 자막 추출·태깅해 캐시/로그에 append. 보통 0~2편 → 인라인 부담 작음. **신규 없으면 그대로 진행.** 3채널 풀 재추출(--fetch --max 6…)은 금지.
+   - **⚡ R1 이후 신규 영상 델타 (싸게)**: `hunter_latest.py`(**`--fetch` 없이** RSS 목록만 — 거의 무료) 3채널 실행 → 캐시 `latest_videos`에 **없는 ID(=R1 뒤 새로 올라온 것)**만 골라 **그것만** `hunter_latest.py --ids <신규ID> --fetch`(--channel 병기)로 자막 추출·태깅해 캐시/로그에 append. **보통 2~4편**(경제사냥꾼 오후 업로드; 저녁 배치는 R2 대상 아님 = 다음날 R1) → 인라인 부담 작음. **신규 없으면 그대로 진행.** 3채널 풀 재추출(--fetch --max 10…)은 금지.
    - 저녁(16:00 이후) 업로드분은 다음날 R1(오늘/어제 필터가 커버) 또는 밤 대화에서 on-demand(youtube-watch·`--ids`)로 잡는다.
 3. **폴백(오늘자 캐시 없음 = R1 실패·수동 세션)**: 경제사냥꾼 **1채널만** 경량 인라인(`hunter_latest.py --fetch --max 3`), 외부 2채널은 직전 캐시로 갈음하고 "R1 프리페치 미스 — 경량 폴백" 명시. 3채널 풀 인라인은 하지 않는다(토큰 폭증 원인).
 

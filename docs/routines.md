@@ -19,16 +19,19 @@
 
 ### R1. 영상 리서치 프리페치 (평일 10:00) ⭐신규 — 영상 전용, 메인에서 분리
 목적 = 무거운 3채널 영상 자막 분석을 메인 보고서보다 **6시간 앞선 별도 리셋 창**에서 끝내 캐시에 저장. 메인은 이 캐시만 읽는다.
+**볼륨(실측)**: 경제사냥꾼 일 7~8편(저녁 19~23시 ~4-5편 몰림) / 수페 주 2~3편 / 지식인 필터후 ~1편. R1(10:00)이 **전날 저녁 배치 + 오늘 아침**을 잡고(오늘/어제 필터), 그날 오후분은 R2 델타, **그날 저녁 배치는 다음날 R1**이 커버.
 → 산출: `hunter_log.md`·`feeds_log.md`(맨 위 오늘자 블록 prepend) + `hunter.json`·`feeds.json`(latest_videos·track_record·setups) + build_app_data → 커밋·main 푸시.
 
 ```
 영상 리서치 프리페치 (무인 루틴 — research-feed 전용, 보고서 작성 아님, 선택지 띄우고 멈추지 말 것).
 - TZ=Asia/Seoul date 로 오늘 날짜 확인 → 오늘자 블록을 쌓는다.
-- research-feed 스킬/에이전트로 3채널(경제사냥꾼·수페TV·지식인사이드) 신규 영상 탐색·자막 추출:
-    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 6
-    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 2
+- research-feed 스킬/에이전트로 3채널(경제사냥꾼·수페TV·지식인사이드) 신규 영상 탐색·자막 추출 (경제사냥꾼 일 7~8편·저녁 몰림 → --max 10):
+    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 10
+    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 3
     python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel jisik --fetch --max 3
+  → 오늘/어제 필터 = 전날 저녁 배치(~5) + 밤 + 오늘 아침(~3) ≈ 8편. 이미 캐시(hunter.json latest_videos)에 있는 ID는 건너뛴다(디둡, 재분석 X).
 - 영상별 핵심주장 → [검증/정정/미확인] 태깅(미확인 최소화 = 추가 WebSearch 2~3회 교차검증), 종목 추천+발동조건은 setups로 분해.
+- **깊이 티어링(고volume 일 예산 관리)**: 종목 콜·setups 있는 영상 = 풀 분석·교차검증 / 순수 매크로 리캡·중복·쇼츠 = 1~2줄 요약. 단 전부 [검증/정정/미확인] 태깅·로깅은 유지(제목만 로깅 금지).
 - 정본 기록(메인 보고서가 읽을 캐시):
     · docs/research/hunter_log.md (경제사냥꾼) / docs/research/feeds_log.md (수페TV·지식인사이드) 맨 위 오늘자 날짜스탬프 블록 prepend.
     · data/app/hunter.json (latest_videos·track_record 최신 prepend·headline·themes·setups) / data/app/feeds.json (수페·지식인 — hunter와 안 섞음).

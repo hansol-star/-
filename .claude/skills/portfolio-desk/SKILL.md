@@ -110,10 +110,13 @@ python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 �
 - **기관 컨센서스**: consensus.py가 美 종목 목표주가/의견을 무키로 채움(±30% 괴리 자동 플래그).
   국내 종목·미커버리지(ETF 등)는 WebSearch로 보강 — "[종목명] 목표주가 증권사".
 
-### 2c. 영상 캐시 소비 — 신선도 가드 (research-feed 재추출 금지) [2026-07-11 토큰 절감]
-메인 보고서(R2)는 **유튜브 3채널 자막을 다시 추출하지 않는다.** 가장 무거운 인라인 비용(3채널 자막 + 교차검증 웹서치)을 **R1 영상 프리페치 루틴(평일 10:00, 별도 5시간 리셋 창)**으로 떼어냈기 때문(routines.md). 종합 순서:
-1. **오늘자 캐시 확인**: `docs/research/hunter_log.md`·`docs/research/feeds_log.md` **맨 위 블록의 날짜스탬프가 오늘**인지 본다(+`data/app/hunter.json`·`feeds.json` `latest_videos`/`setups`).
-2. **신선하면(오늘자 있음)**: 그 캐시만 읽어 §4 리서치 피드·§7c 조건 트래커를 채운다. **research-feed 서브에이전트를 스폰하지 않는다**(자막 재추출·재검색 X). setups met 갱신은 기계값(`flow_trend.py`·`triggers.py`)과 대조.
+### 2c. 영상 캐시 소비 + R1 이후 신규 델타 (신선도 가드) [2026-07-11 토큰 절감]
+메인 보고서(R2)는 **유튜브 3채널을 통째로 재추출하지 않는다.** 무거운 3채널 풀 자막 분석은 **R1 영상 프리페치 루틴(평일 10:00, 별도 5시간 리셋 창)**이 이미 했다(routines.md). 단, R1(10:00) 이후 오후에 **추가 업로드된 영상은 놓치지 않게 싸게 델타로 잡는다.** 종합 순서:
+1. **오늘자 캐시 확인**: `docs/research/hunter_log.md`·`docs/research/feeds_log.md` **맨 위 블록 날짜스탬프가 오늘**인지 + `data/app/hunter.json`·`feeds.json` `latest_videos`.
+2. **신선하면(오늘자 있음) → 캐시 소비 + 델타 체크**:
+   - 캐시를 읽어 §4 리서치 피드·§7c 조건 트래커를 채운다(setups met는 `flow_trend.py`·`triggers.py` 기계값과 대조).
+   - **⚡ R1 이후 신규 영상 델타 (싸게)**: `hunter_latest.py`(**`--fetch` 없이** RSS 목록만 — 거의 무료) 3채널 실행 → 캐시 `latest_videos`에 **없는 ID(=R1 뒤 새로 올라온 것)**만 골라 **그것만** `hunter_latest.py --ids <신규ID> --fetch`(--channel 병기)로 자막 추출·태깅해 캐시/로그에 append. 보통 0~2편 → 인라인 부담 작음. **신규 없으면 그대로 진행.** 3채널 풀 재추출(--fetch --max 6…)은 금지.
+   - 저녁(16:00 이후) 업로드분은 다음날 R1(오늘/어제 필터가 커버) 또는 밤 대화에서 on-demand(youtube-watch·`--ids`)로 잡는다.
 3. **폴백(오늘자 캐시 없음 = R1 실패·수동 세션)**: 경제사냥꾼 **1채널만** 경량 인라인(`hunter_latest.py --fetch --max 3`), 외부 2채널은 직전 캐시로 갈음하고 "R1 프리페치 미스 — 경량 폴백" 명시. 3채널 풀 인라인은 하지 않는다(토큰 폭증 원인).
 
 ## 3. 보고서 작성 — 형식 (순서 고정)

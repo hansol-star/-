@@ -1,7 +1,7 @@
 {
   "_comment": "종목별 분석 정본 (사람·앱이 함께 읽음). 보고서 갱신 시 여기 stars/target/buy_zone/trim/outlook/comment/issues 를 최신 보고서값으로 업데이트한 뒤 build_app_data.py 재실행. 원가·수량 정본은 portfolio.json, 사람용 서술 정본은 docs/master.md.",
-  "as_of": "2026-07-09 목 종가(장마감 퀵체크 — 국내 5종목 종가·수급 반영. 미국·워치 상세는 v46 정식 세션서 갱신)",
-  "source_report": "docs/reports/report_v45_2026-07-09.md",
+  "as_of": "2026-07-12 일(v46 주말 — 시세 금 7/10 종가·R2 데스크 세션한도로 PM 메인루프 스크립트 직접수행)",
+  "source_report": "docs/reports/report_v46_2026-07-12.md",
   "stocks": {
     "005930.KS": {
       "outlook": "core",
@@ -620,10 +620,10 @@
       ],
       "forecast": {
         "week": {
-          "low": 580,
-          "high": 645,
-          "dir": "↑",
-          "note": "Meta Compute(잉여 연산 외부판매) +8~9% 모멘텀 — capex '회수' 서사 전환."
+          "low": 620,
+          "high": 710,
+          "dir": "→",
+          "note": "(추정) 7/29 실적 전 고점권 — capex 가이던스가 상단 결정"
         },
         "month": {
           "low": 555,
@@ -1025,10 +1025,10 @@
       ],
       "forecast": {
         "week": {
-          "low": 160,
-          "high": 180,
+          "low": 175,
+          "high": 200,
           "dir": "→",
-          "note": "AI fabric 수요. 실적 8/4."
+          "note": "(추정) 컨센 $190 근접 — sell-in 후보권 등락"
         },
         "month": {
           "low": 154,

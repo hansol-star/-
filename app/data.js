@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-12 03:31 KST",
+  "generated_at": "2026-07-12 03:54 KST",
   "as_of": "2026-07-09 목 종가(장마감 퀵체크 — 국내 5종목 종가·수급 반영. 미국·워치 상세는 v46 정식 세션서 갱신)",
   "source_report": "docs/reports/report_v45_2026-07-09.md",
   "offline": false,
@@ -5276,7 +5276,7 @@ window.APP_DATA = {
     }
   ],
   "feeds": {
-    "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·link. 탐색·자막 = hunter_latest.py --channel <slug>.",
+    "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
     "updated": "2026-07-11",
     "source": "2026-07-11 R1 프리페치 델타 (지식인사이드 3편 신규, 수페TV 신규 없음)",
     "channels": {

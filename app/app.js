@@ -111,6 +111,8 @@
     else if (h.indexOf("report/") === 0) renderReport(decodeURIComponent(h.slice(7)));
     else if (h === "reports") renderReports();
     else if (h.indexOf("video/") === 0) renderVideo(decodeURIComponent(h.slice(6)));
+    else if (h.indexOf("fvid/") === 0) renderFeedVideo(h.slice(5));
+    else if (h === "feeds") renderFeeds();
     else if (h === "archive") renderArchive();
     else if (h === "hunter") renderHunter();
     else if (h === "pmview") renderPMView();
@@ -224,7 +226,7 @@
     h += '</div></div>';
 
     var GH = "https://github.com/hansol-star/-/actions/workflows/";
-    h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a><a class="navbtn" href="#pmview">💭 PM 사견</a></div>';
+    h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a><a class="navbtn" href="#feeds">📡 외부 리서치</a><a class="navbtn" href="#pmview">💭 PM 사견</a></div>';
     var decN = (D.decisions && D.decisions.open_count) || 0;
     h += '<div class="nav"><a class="navbtn" href="#decisions">🧭 결정·전략 아젠다' + (decN ? ' (' + decN + ')' : '') + '</a></div>';
 
@@ -580,29 +582,153 @@
       h += '</div>';
     }
 
-    // ── 외부 채널 리서치 (feeds.json — 수페TV·지식인사이드, 경제사냥꾼과 정본 분리) ──
+    // ── 외부 채널 리서치 (feeds.json — 수페TV·지식인사이드)는 별도 탭(#feeds)으로 분리 렌더.
+    //    경제사냥꾼과 정본·트랙레코드 안 섞음 → 여기선 진입 링크만. ──
     var fchs = (D.feeds && D.feeds.channels) || {};
     var fkeys = Object.keys(fchs);
     if (fkeys.length) {
-      h += '<div class="sec"><h2>📡 외부 채널 리서치 (' + fkeys.length + ')</h2></div>';
-      fkeys.forEach(function (k) {
-        var ch = fchs[k] || {};
-        h += '<div class="card"><div class="row between"><span class="bold">🎬 ' + esc(ch.name || k) + '</span>';
-        var fsu = ch.setups || [];
-        if (fsu.length) h += '<span class="badge">셋업 ' + fsu.length + '</span>';
-        h += '</div>';
-        if (ch.headline) h += '<div class="tx sm" style="margin-top:4px">💡 ' + esc(ch.headline) + '</div>';
-        (ch.latest_videos || []).forEach(function (v) {
-          h += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(128,128,128,.2)">';
-          h += '<div class="row between"><span class="itag">' + esc(v.tag || "") + '</span><span class="dt">' + esc(v.date || "") + '</span></div>';
-          h += '<div class="vtitle sm">' + esc(v.title || "") + '</div>';
-          h += '<div class="tx sm clamp">' + esc(v.summary || "") + '</div></div>';
-        });
-        h += '</div>';
-      });
+      var fvidN = 0;
+      fkeys.forEach(function (k) { fvidN += ((fchs[k] || {}).latest_videos || []).length; });
+      var fnames = fkeys.map(function (k) { return (fchs[k] || {}).name || k; }).join("·");
+      h += '<div class="nav"><a class="navbtn" href="#feeds">📡 외부 채널 리서치 · ' + esc(fnames) + ' (' + fvidN + ') ›</a></div>';
     }
 
     h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 투자 자문 아님.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── FEEDS (외부 리서치: 수페TV·지식인사이드 — 경제사냥꾼과 정본 분리) ──
+  function renderFeeds() {
+    var fd = D.feeds || {};
+    var chs = fd.channels || {};
+    var keys = Object.keys(chs);
+    var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">📡 외부 리서치</div>';
+    h += '<div class="sub">수페TV·지식인사이드 · ' + esc(fd.source || "") + (fd.updated ? ' · 갱신 ' + esc(fd.updated) : '') + '</div></header>';
+    h += '<div class="comment sm">경제사냥꾼과 별개로 추적하는 외부 채널. 트랙레코드·정확도 통계는 섞지 않음(정본 분리). 방향성은 참고, 수치는 교차검증 전제.</div>';
+
+    if (!keys.length) {
+      h += '<div class="empty">외부 채널 데이터가 없어요. feeds.json 생성 후 build_app_data.py 실행.</div>';
+      root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return;
+    }
+
+    keys.forEach(function (k) {
+      var ch = chs[k] || {};
+      h += '<div class="sec"><h2>🎬 ' + esc(ch.name || k) + '</h2></div>';
+      if (ch.headline) h += '<div class="hl">💡 ' + esc(ch.headline) + '</div>';
+      if (ch.channel_note) h += '<div class="comment sm">' + esc(ch.channel_note) + '</div>';
+
+      // 조건 트래커 (setups) — feeds는 명확한 조건부 콜일 때만 등록
+      (ch.setups || []).forEach(function (su) {
+        var conds = Array.isArray(su.conditions) ? su.conditions : [];
+        var met = conds.filter(function (c) { return c.met; }).length;
+        var stCls = su.status === "발동" ? "fired" : (su.status === "임박" ? "soon" : "");
+        h += '<div class="card ' + stCls + '"><div class="row between"><span class="bold">🎯 ' + esc(su.label || su.id) + '</span>';
+        h += '<span class="badge">' + esc(su.status || "") + (conds.length ? ' ' + met + '/' + conds.length : '') + '</span></div>';
+        if (su.thesis) h += '<div class="tx sm mut" style="margin-top:4px">' + esc(su.thesis) + '</div>';
+        conds.forEach(function (c) { h += '<div class="tx sm" style="margin-top:4px">' + (c.met ? "✅" : "⬜") + ' ' + esc(c.text) + '</div>'; });
+        if (su.action) h += '<div class="tx sm" style="margin-top:6px"><b>액션:</b> ' + esc(su.action) + '</div>';
+        h += '</div>';
+      });
+
+      // 영상 카드 (tappable → 상세)
+      var vids = ch.latest_videos || [];
+      h += '<div class="sec"><h2>영상 분석 (' + vids.length + ') · 눌러서 자세히</h2></div>';
+      vids.forEach(function (v, idx) {
+        var vid = v.id || String(idx);
+        h += '<div class="vid tappable" onclick="location.hash=\'fvid/' + esc(k) + '/' + encodeURIComponent(vid) + '\'">';
+        h += '<div class="top"><span class="itag ' + esc(v.tag || "") + '">' + esc(v.tag || v.verdict || "") + '</span><span class="dt">' + esc(v.date || "") + '</span><span class="vmore">자세히 ›</span></div>';
+        h += '<div class="vtitle">' + esc(v.title || "") + '</div>';
+        if (v.guest) h += '<div class="guest">🎙️ ' + esc(v.guest) + '</div>';
+        h += '<div class="tx clamp">' + esc(v.summary || v.note || "") + '</div>';
+        if (v.tickers && v.tickers.length) {
+          h += '<div class="row wrap" style="gap:5px;margin-top:7px">';
+          v.tickers.forEach(function (tk) { var st = find(tk); h += '<span class="tchip">' + esc(st ? st.label : tk) + '</span>'; });
+          h += '</div>';
+        }
+        h += '</div>';
+      });
+
+      // 반복 논지 · 테마
+      var th = ch.themes || [];
+      if (th.length) {
+        h += '<div class="mut sm" style="margin:10px 0 4px;font-weight:600">🔭 반복 논지 · 테마</div><div class="list">';
+        th.forEach(function (x) { h += '<div class="theme">' + esc(x) + '</div>'; });
+        h += '</div>';
+      }
+
+      // 트랙레코드 (note형 — hunter처럼 정확도 스코어카드는 아직 미집계)
+      var tr = ch.track_record || [];
+      if (tr.length) {
+        h += '<div class="mut sm" style="margin:10px 0 4px;font-weight:600">📊 트랙레코드</div>';
+        tr.forEach(function (r) {
+          h += '<div class="trk"><div class="row between"><span class="dt">' + esc(r.date) + '</span>' + (r.verdict ? '<span class="itag ' + esc(r.verdict) + '">' + esc(r.verdict) + '</span>' : '') + '</div>';
+          if (r.claim || r.actual) {
+            h += '<div class="tx sm"><b>주장:</b> ' + esc(r.claim) + '</div>';
+            h += '<div class="tx sm mut"><b>실제:</b> ' + esc(r.actual) + '</div>';
+          } else if (r.note) {
+            h += '<div class="tx sm">' + esc(r.note) + '</div>';
+          }
+          h += '</div>';
+        });
+      }
+    });
+
+    h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 경제사냥꾼과 트랙레코드 분리 · 투자 자문 아님.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── FEED VIDEO (외부 채널 영상 상세) ──
+  function renderFeedVideo(param) {
+    var slash = param.indexOf("/");
+    var key = slash >= 0 ? param.slice(0, slash) : param;
+    var id = slash >= 0 ? decodeURIComponent(param.slice(slash + 1)) : "";
+    var ch = ((D.feeds && D.feeds.channels) || {})[key] || {};
+    var vids = ch.latest_videos || [];
+    var v = null;
+    for (var i = 0; i < vids.length; i++) { if ((vids[i].id || String(i)) === id) { v = vids[i]; break; } }
+    if (!v) { root.innerHTML = '<header><a class="back" href="#feeds">← 외부 리서치</a></header><div class="empty">영상을 찾을 수 없어요.</div>'; return; }
+
+    var h = '<header><a class="back" href="#feeds">← 외부 리서치</a></header>';
+    h += '<div class="vhead"><div class="top"><span class="itag ' + esc(v.tag || "") + '">' + esc(v.tag || "") + '</span>';
+    if (v.verdict) h += '<span class="badge">' + esc(v.verdict) + '</span>';
+    h += '<span class="dt">' + esc(v.date || "") + '</span></div>';
+    h += '<div class="vhtitle">' + esc(v.title || "") + '</div>';
+    h += '<div class="mut sm">🎬 ' + esc(ch.name || key) + '</div>';
+    if (v.guest) h += '<div class="guest">🎙️ ' + esc(v.guest) + '</div>';
+    if (v.link) h += '<a class="vlink" href="' + esc(v.link) + '" target="_blank" rel="noopener">▶ 영상 보기</a>';
+    h += '</div>';
+
+    // 요약
+    h += '<div class="sec"><h2>요약</h2></div>';
+    h += '<div class="comment">' + esc(v.summary || v.note || "—") + '</div>';
+
+    // 핵심 포인트
+    if (v.points && v.points.length) {
+      h += '<div class="sec"><h2>핵심 포인트</h2></div><div class="vpoints">';
+      v.points.forEach(function (p) { h += '<div class="vpoint">' + esc(p) + '</div>'; });
+      h += '</div>';
+    }
+
+    // 언급 종목 (칩 → 종목 상세, 앱에 있는 종목만 링크)
+    if (v.tickers && v.tickers.length) {
+      h += '<div class="sec"><h2>언급 종목</h2></div><div class="row wrap" style="gap:6px">';
+      v.tickers.forEach(function (tk) {
+        var st = find(tk);
+        h += st ? '<a class="tchip" href="#stock/' + encodeURIComponent(tk) + '">' + esc(st.label) + '</a>'
+                : '<span class="tchip">' + esc(tk) + '</span>';
+      });
+      h += '</div>';
+    }
+
+    // 주의 · 미확인
+    if (v.caveats && v.caveats.length) {
+      h += '<div class="sec"><h2>⚠ 주의 · 교차검증</h2></div>';
+      v.caveats.forEach(function (c) { h += '<div class="caveat">' + esc(c) + '</div>'; });
+    }
+
+    h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 경제사냥꾼과 트랙레코드 분리 · 투자 자문 아님.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));
   }

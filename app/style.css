@@ -159,6 +159,9 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .vid.tappable:active{background:var(--card2)}
 .vmore{margin-left:auto;font-size:11px;color:var(--accent);font-weight:700}
 .tx.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+/* 외부 리서치 게스트명 (지식인사이드 인터뷰 — 게스트별 성향 갈려 강조) */
+.guest{display:inline-block;margin:6px 0 2px;font-size:12px;font-weight:700;color:var(--accent);
+  background:var(--card2);border-radius:7px;padding:3px 9px}
 
 /* 영상 상세 */
 .vhead{background:var(--card);border-radius:var(--r-lg);padding:20px 20px;margin-bottom:8px;

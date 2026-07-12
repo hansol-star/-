@@ -1,15 +1,53 @@
 {
  "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
- "updated": "2026-07-11",
+ "updated": "2026-07-12",
  "source": "2026-07-11 R1 프리페치 델타 (지식인사이드 3편 신규, 수페TV 신규 없음)",
  "channels": {
   "supe": {
    "name": "수페TV",
    "channel_id": "UCfnqgWlC5IvJEAPTmyjaixA",
    "channel_note": "주 2~3회 주간 시장랩업. 지수·섹터·수급·13F·실적일정까지 구체 수치 多 — 보유종목(MU·AAPL·META·MSFT·NVDA·GOOGL) 직결 주장이 많아 [검증/정정] 태깅·조건트래커 가치 높음. 배당·ETF 성향(커버드콜·SCHD)은 정훈 스타일과 결이 다름 → 종목·테마 팩트 위주 채택.",
-   "headline": "7/4 시딩 — 반도체→빅테크 로테이션 판독: MU -19.6% 급락은 수요 꺾임 아닌 META 임대설 오독+악재 중첩, 대가들(애크먼·버핏·브리지워터)은 하이퍼스케일러로 선이동",
+   "headline": "7/11 원화강세 나스닥 ETF 교체(QQQM/IQQ/QNDX·off-style)·7/7 배당주 버티기(SK하닉 YTD+217%·삼성 +127%·삼성생명 배당 옹호) — 둘 다 ETF/배당 성향으로 정훈 개별주 포트와 결 다름, 팩트만 채택. // 7/4 시딩 — 반도체→빅테크 로테이션 판독: MU -19.6% 급락은 수요 꺾임 아닌 META 임대설 오독+악재 중첩, 대가들(애크먼·버핏·브리지워터)은 하이퍼스케일러로 선이동",
    "setups": [],
    "latest_videos": [
+    {
+     "id": "wkguH3f4XMw",
+     "date": "2026-07-11",
+     "title": "환율 1.9% 하락, 나스닥 ETF 이렇게 바꿉니다 (QQQM, IQQ, QNDX)",
+     "tag": "off-style·ETF리밸런싱",
+     "tickers": [
+      "QQQM",
+      "IQQ",
+      "QNDX"
+     ],
+     "summary": "[off-style] 원/달러 1.9% 하락(원화강세) 대응 나스닥 ETF 교체 아이디어 — 환노출(QQQM) vs 환헤지(IQQ/QNDX) 비교. 커버드콜·환헤지 ETF 리밸런싱물이라 정훈 개별주 포트와 결 다름(팩트만 채택). 방향(원화강세)은 매크로 데스크 1,499 하회와 정합. 종목 콜·setups 없음.",
+     "points": [
+      "원화강세 국면 ETF 환헤지 선택 프레임 — 개별주 무관",
+      "정훈 스타일과 결 다름(ETF/배당) → 액션 없음"
+     ],
+     "caveats": [
+      "환율 방향만 참고, ETF 티커 추천은 정훈 대상 아님"
+     ]
+    },
+    {
+     "id": "z6HQrJZUqOk",
+     "date": "2026-07-07",
+     "title": "1억원으로 월배당 300만원 받는법 (고배당주, 금융주, 커버드콜)",
+     "tag": "off-style·배당·수치참고",
+     "tickers": [
+      "005930.KS",
+      "000660.KS",
+      "032830.KS"
+     ],
+     "summary": "[off-style·수치검증] 고변동 반도체 대신 배당주로 버티기 논지. 데이터: SK하닉 YTD +217.4%·삼성전자 +127.2%·삼성생명 +134.2%, 개인 평균보유 삼성 2.8개월·하닉 1.4개월(회전율 높음=끝까지 못 버팀), 예상배당 하닉 107만·삼성생명 425만원. 삼성생명 등 배당주 옹호(정훈 미보유). 보유 삼성전자 언급은 '변동성 버티기=배당' 프레임일 뿐 종목 콜 아님. YTD 수치는 방향성 대략 부합(참고).",
+     "points": [
+      "보유 삼성전자·하닉 YTD·회전율 데이터 = 방향성 참고",
+      "삼성생명 배당주 옹호 = off-style, 액션 없음"
+     ],
+     "caveats": [
+      "예상배당·보유기간 수치는 채널 자체계산 — 단정 아닌 참고"
+     ]
+    },
     {
      "id": "-PpX9begBHo",
      "date": "2026-07-04",

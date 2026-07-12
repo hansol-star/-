@@ -298,6 +298,36 @@ def check_freshness(latest):
         except ValueError:
             pass
 
+    # [7/12 신설] tasks.json 신선도 — R2가 outlook·index_forecast·할일 갱신을 빠뜨리는 사고 재발방지.
+    # (v46서 as_of/source_report만 바꾸고 내용은 v45 7/9 상태로 남았는데 통과된 구멍. §3b 매 보고서 동기화 의무 = updated는 보고서 날짜와 같아야.)
+    tk_fr = load("data/app/tasks.json")
+    if tk_fr and rep_date and tk_fr.get("updated"):
+        try:
+            gap = (_dt.date.fromisoformat(rep_date) - _dt.date.fromisoformat(tk_fr["updated"])).days
+            if gap >= 1:
+                fail(f"tasks.json updated={tk_fr['updated']} < 최신 보고서 {rep_date} "
+                     f"({gap}일 stale — outlook·index_forecast·할일 갱신 누락 의심. §3b 매 보고서 동기화 의무)")
+        except ValueError:
+            pass
+    # index_forecast 코스피 ref vs flows 최신 종가 (updated는 갱신했지만 forecast 숫자를 안 고친 내용-stale 감지)
+    fl_fr = load("data/app/flows.json")
+    if tk_fr and fl_fr:
+        ser = fl_fr.get("series") or []
+        kospi_close = None
+        if ser:
+            mm = re.search(r"코스피\s*([\d,]+(?:\.\d+)?)", ser[-1].get("note") or "")
+            if mm:
+                try: kospi_close = float(mm.group(1).replace(",", ""))
+                except ValueError: pass
+        if kospi_close:
+            for fc in (tk_fr.get("index_forecast") or []):
+                if "코스피" in (fc.get("name") or ""):
+                    ref = fc.get("ref")
+                    if isinstance(ref, (int, float)) and abs(ref - kospi_close) / kospi_close > 0.03:
+                        warn(f"tasks.json index_forecast 코스피 ref={ref:,} ≠ flows 최신 종가 {kospi_close:,.0f} "
+                             f"(>3% 이격 — forecast 갱신 누락 의심)")
+                    break
+
     # decisions.jsonl 최근성 (최신 보고서 날짜 엔트리 부재 = WARN)
     dp = os.path.join(ROOT, "data/app/decisions.jsonl")
     if os.path.exists(dp) and rep_date:

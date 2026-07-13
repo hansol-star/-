@@ -65,7 +65,7 @@ def main() -> int:
         print("crumb 발급 실패 — WebSearch로 '[종목] 실적 발표일' 확인 권장.")
         return 1
 
-    today = dt.date.today()
+    today = dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).date()  # [7/13] KST 실측
     rows = []
     for s in syms:
         r = fetch_earnings(op, crumb, s)

@@ -21,7 +21,14 @@ FAIL을 내지 않는다 — 어디까지나 회고·캘리브레이션 보조(�
 병기한다: 국내(.KS/.KQ) = 코스피(^KS11), 미국 = VOO 대비. ETF(VOO 자신)는 알파 집계 제외.
 """
 import argparse, json, os, re, subprocess, sys, urllib.request, urllib.error
-from datetime import datetime, date
+from datetime import datetime, date, timedelta, timezone
+
+KST = timezone(timedelta(hours=9))
+
+
+def today_kst() -> date:
+    """[7/13] 날짜는 항상 KST 실측 — UTC 컨테이너에서 00~09시 KST에 하루 밀리는 것 방지."""
+    return datetime.now(KST).date()
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
@@ -179,7 +186,7 @@ def append_today():
     m = re.search(r"(\d{4}-\d{2}-\d{2})", str(sj.get("source_report", "")))
     if not m:
         m = re.search(r"(\d{4}-\d{2}-\d{2})", str(sj.get("as_of", "")))
-    dt = m.group(1) if m else date.today().isoformat()
+    dt = m.group(1) if m else today_kst().isoformat()
     lp = os.path.join(ROOT, LEDGER_REL)
     existing = []
     if os.path.exists(lp):
@@ -197,7 +204,7 @@ def score(min_age=1):
     if not os.path.exists(lp):
         print("원장 없음 — 먼저 --backfill 또는 --append"); return
     calls = [json.loads(l) for l in open(lp, encoding="utf-8") if l.strip()]
-    today = date.today()
+    today = today_kst()
     graded, net_err = [], []
     for c in calls:
         try:

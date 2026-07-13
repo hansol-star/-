@@ -5,8 +5,11 @@ root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
 cd "$root" || exit 0
 changed=$(git status --porcelain -- docs/reports data/app/stocks.json data/app/tasks.json data/app/flows.json 2>/dev/null)
 [ -z "$changed" ] && exit 0
+# [7/13 교정] 판정 = exit code (FAIL 있으면 1). 문자열 grep "FAIL"은 통과 문구
+# "✅ FAIL 없음"에도 걸려 WARN-only에서 오탐 systemMessage를 띄우던 버그.
 out=$(python3 .claude/skills/portfolio-desk/scripts/validate_report.py 2>&1)
-if printf '%s' "$out" | grep -q "FAIL"; then
+rc=$?
+if [ "$rc" -ne 0 ]; then
   summary=$(printf '%s' "$out" | grep -E "❌" | head -8)
   msg=$(printf '⚠️ validate_report FAIL — 커밋 전 확인 요망:\n%s' "$summary" \
         | python3 -c 'import json,sys;print(json.dumps(sys.stdin.read()))')

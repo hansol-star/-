@@ -28,7 +28,7 @@
 
 ---
 
-## 2. 서브에이전트 데스크 (`.claude/agents/`) — 전부 opus 4.8
+## 2. 서브에이전트 데스크 (`.claude/agents/`) — 모델 배분 [7/4]: 지역·매크로·리서치·리스크 5개 = sonnet / 섹터 3개 = opus
 
 TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매니저→PM)을 정훈 포트폴리오에 맞춘 병렬 구조.
 
@@ -76,9 +76,14 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 | `triggers.py` | 매수존/안전핀/이벤트 트리거 점검 |
 | `snapshot.py` | 일별 스냅샷 저장 |
 | `charts.py` | 차트 생성 |
-| `hunter_latest.py` | 경제사냥꾼 최신 영상 탐색 |
+| `hunter_latest.py` | 채널 최신 영상 탐색·자막(경제사냥꾼 기본 + `--channel supe/jisik`) |
+| `flow_trend.py` | 외인 수급 추세 기계판독 (streak·5일 강도·전환단계) |
+| `score_calls.py` | 콜 후행채점 + Brier 캘리브레이션 (`--append`/`--backfill`) |
+| `missed_moves.py` | 미스무브(오미션) 반사실 회고 — 놓친 매수/매도 채점 |
+| `decisions.py` | 결정 메모리 기계 인덱스 (`query <키워드>`/`add`) |
+| `hunter_score.py` | 경제사냥꾼 [검증/정정/미확인] 트랙레코드 집계 |
 | `build_app_data.py` | 폰 앱용 `app/data.js`·`data/app/*.json` 재생성 |
-| `validate_report.py` | **완료검증 게이트** — 보유16·풀표 컬럼·별점↔스코어 밴드·정본 버전 stale 검사(FAIL 0 확인 후 커밋) |
+| `validate_report.py` | **완료검증 게이트** — 보유 전종목·풀표 컬럼·별점↔스코어 밴드·정본 버전 stale 검사(FAIL 0 확인 후 커밋) |
 
 ---
 
@@ -95,8 +100,11 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 
 ## 6. 루틴 & 자동화
 
-**Claude Code Routines(구독·무인)** — 프롬프트 정본 = `docs/routines.md`:
-- R1 아침 풀 브리핑(평일) · R2 폰창 집행 지시서(평일) · R3 야간 점검(평일) · **R4 주말 캘리브레이션(토 09:00, self-review)**.
+**Claude Code Routines(구독·무인)** — 프롬프트 정본 = `docs/routines.md` [7/11 재설계 — 5시간 롤링 리셋 정렬]:
+- **R1 영상 리서치 프리페치(평일 10:00)** — 3채널 자막 분석을 별도 리셋 창에 격리, 캐시 저장.
+- **R2 메인 풀 보고서(평일 16:00)** — 신선 창에서 하루 1회 종합, R1 캐시 소비(영상 재추출 X).
+- **R3 주말 캘리브레이션(토 09:00)** — self-review 콜 후행검증.
+- 밤 = 대화형 최종정리(스케줄 없음, 새 버전 금지·부록 `_night`).
 
 **백업 자동화 (`.github/workflows/`)**:
 
@@ -134,7 +142,7 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 
 ## 9. 실행 환경
 
-- 현재 = **Claude Code 웹(클라우드 원격)**. 데이터센터 IP — Yahoo·웹검색 정상, 유튜브 봇차단 가능성(폴백 준비).
+- 현재 = **Claude Code 웹(클라우드 원격)**. 데이터센터 IP — Yahoo·웹검색·유튜브 전부 정상(RSS+innertube 경로, 7/2 확립 — 봇플래그는 일시 레이트리밋, 페이싱·백오프로 해소).
 - 12월경 로컬 머신 이전 예정(주거용 IP). 스크립트 stdlib만 써서 그대로 이식.
 - 글로벌 하네스 훅(`~/.claude/`의 stop-hook·git-identity 등)은 웹 환경 제공분이며 레포 설정 아님.
 

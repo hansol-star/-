@@ -23,6 +23,8 @@ import os
 import re
 import sys
 
+KST = dt.timezone(dt.timedelta(hours=9))  # [7/13] 컨테이너(UTC)·로컬(KST) 무관, 라벨은 항상 실제 KST
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 # scripts -> portfolio-desk -> skills -> .claude -> repo
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
@@ -230,7 +232,7 @@ def rollover_hunter_archive(hunter, archive) -> bool:
         return False
     if added:
         archive["videos"] = added + videos  # latest_videos가 최신순이므로 순서 유지
-        archive["updated"] = f"{dt.date.today().isoformat()} 자동 롤오버 +{len(added)}편 (build_app_data)"
+        archive["updated"] = f"{dt.datetime.now(KST).date().isoformat()} 자동 롤오버 +{len(added)}편 (build_app_data)"
     with open(HUNTER_ARCHIVE_JSON, "w", encoding="utf-8") as f:
         json.dump(archive, f, ensure_ascii=False, indent=2)
         f.write("\n")
@@ -479,7 +481,7 @@ def build(offline: bool) -> dict:
                    for k, v in tasks.items()}
 
     return {
-        "generated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M KST"),
+        "generated_at": dt.datetime.now(KST).strftime("%Y-%m-%d %H:%M KST"),
         "as_of": sj.get("as_of", ""),
         "source_report": sj.get("source_report", ""),
         "offline": offline,

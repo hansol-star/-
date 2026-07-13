@@ -25,9 +25,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 
 from market_data import fetch_quote
+
+KST = timezone(timedelta(hours=9))
+
+
+def today_kst() -> date:
+    """[7/13] D-day는 항상 KST 기준 — UTC 컨테이너에서 00~09시 KST에 하루 밀리는 것 방지."""
+    return datetime.now(KST).date()
 
 
 def _dday(date_str: str | None):
@@ -36,7 +43,7 @@ def _dday(date_str: str | None):
         return None, ""
     try:
         y, m, d = (int(x) for x in date_str.split("-"))
-        delta = (date(y, m, d) - date.today()).days
+        delta = (date(y, m, d) - today_kst()).days
         txt = "D-DAY" if delta == 0 else (f"D-{delta}" if delta > 0 else f"D+{-delta} 경과")
         return delta, txt
     except Exception:

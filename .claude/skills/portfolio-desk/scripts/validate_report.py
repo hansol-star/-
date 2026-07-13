@@ -13,7 +13,7 @@ validate_report.py — 보고서 '완료의 정의' 게이트 (하네스 엔지�
 FAIL(❌, exit 1) = 반드시 고치고 커밋.  WARN(⚠️, exit 0) = 눈으로 확인.
 의존성 없음(stdlib). 정본 = data/app/{stocks,flows,tasks}.json · CLAUDE.md · docs/reports/.
 """
-import argparse, json, os, re, sys
+import argparse, json, os, re, subprocess, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
@@ -125,35 +125,83 @@ def latest_version():
     vs = [v for v in vs if v is not None]
     return (max(vs) if vs else None)
 
-def newest_report_file():
-    """최신 보고서 '파일'(버전 + 수정시각 기준) — 같은 v 내 아침→EXEC intra-version stale 감지용."""
+def _report_file_times():
+    """docs/reports 내 report_v* 파일별 '유효 시각'(epoch).
+    [7/13 교정] fresh clone은 모든 파일 mtime이 클론 시각으로 뭉개져 mtime 비교가
+    비결정적(v47 본편·시나리오 부록이 같은 커밋인데 가짜 FAIL 난 실사고) → 정본 시각 = git
+    최종 커밋시각. 단 워킹트리에서 수정/미추적인 파일(방금 쓴 새 보고서 — validate는 커밋 전
+    실행이 정상 플로우)은 mtime이 진실. git 불가 환경이면 전부 mtime 폴백(구 동작)."""
     rdir = os.path.join(ROOT, "docs/reports")
-    cands = [f for f in os.listdir(rdir) if re.match(r"report_v\d+_", f)]
-    if not cands:
-        return None
-    return max(cands, key=lambda f: (ver(f) or 0, os.path.getmtime(os.path.join(rdir, f))))
+    files = [f for f in os.listdir(rdir) if re.match(r"report_v\d+_", f)]
+    commit_t, dirty = {}, None
+    try:
+        log = subprocess.run(["git", "-C", ROOT, "log", "--pretty=%ct", "--name-only",
+                              "--", "docs/reports"], capture_output=True, text=True, timeout=30)
+        if log.returncode == 0:
+            cur = None
+            for line in log.stdout.splitlines():
+                s = line.strip()
+                if not s:
+                    continue
+                if s.isdigit():
+                    cur = int(s)
+                elif cur is not None:
+                    commit_t.setdefault(os.path.basename(s), cur)  # log는 최신순 → 첫 값 = 최종 커밋
+        st = subprocess.run(["git", "-C", ROOT, "status", "--porcelain", "--", "docs/reports"],
+                            capture_output=True, text=True, timeout=30)
+        if st.returncode == 0:
+            dirty = {os.path.basename(l[3:].split(" -> ")[-1].strip().strip('"'))
+                     for l in st.stdout.splitlines() if len(l) > 3}
+    except Exception:
+        commit_t, dirty = {}, None
+    eff = {}
+    for f in files:
+        if f in commit_t and (dirty is not None and f not in dirty):
+            eff[f] = commit_t[f]
+        else:
+            try:
+                eff[f] = os.path.getmtime(os.path.join(rdir, f))
+            except OSError:
+                eff[f] = 0
+    return eff
+
+def newest_report_files():
+    """최신 보고서 '파일 집합'(버전+유효시각 최댓값) — intra-version stale 감지용.
+    같은 커밋으로 함께 들어온 파일들(본편+부록 등 동시각 tie)은 같은 세션 산출물이므로
+    집합으로 취급: source_report가 집합의 어느 멤버를 가리켜도 stale 아님."""
+    eff = _report_file_times()
+    if not eff:
+        return []
+    key = lambda f: (ver(f) or 0, eff[f])
+    top = max(key(f) for f in eff)
+    return sorted(f for f in eff if key(f) == top)
+
+def newest_report_file():
+    """최신 보고서 파일 1개(집합 대표 — 날짜 추출 등 단일값 용도)."""
+    fs = newest_report_files()
+    return fs[-1] if fs else None
 
 def check_versions(latest):
     if latest is None:
         warn("docs/reports/ 에 report_v*.md 없음"); return
-    newest_file = newest_report_file()
+    newest_set = newest_report_files()
     st = load("data/app/stocks.json")
     if st and ver(st.get("source_report")) and ver(st.get("source_report")) < latest:
         fail(f"stocks.json source_report=v{ver(st.get('source_report'))} < 최신 v{latest} (정본 stale)")
-    # [7/2 신설] intra-version stale: v번호는 같아도 같은 날 아침→EXEC 등 최신 '파일'이 아니면 FAIL.
-    # (v37 아침 서사가 EXEC 폭락 뒤에도 앱에 남았던 사고 재발 방지 — 파일명 전체 대조)
-    elif st and newest_file:
+    # [7/2 신설·7/13 git시각 교정] intra-version stale: v번호는 같아도 같은 날 아침→EXEC 등
+    # 최신 '파일 집합'에 없으면 FAIL. (v37 아침 서사가 EXEC 폭락 뒤에도 앱에 남았던 사고 재발 방지)
+    elif st and newest_set:
         sr_base = os.path.basename(st.get("source_report") or "")
-        if ver(sr_base) == latest and sr_base != newest_file:
-            fail(f"stocks.json source_report={sr_base} ≠ 최신 파일 {newest_file} "
+        if ver(sr_base) == latest and sr_base not in newest_set:
+            fail(f"stocks.json source_report={sr_base} ≠ 최신 파일 {'/'.join(newest_set)} "
                  f"(같은 v{latest} 내 stale — EXEC/밤 대화 등 부록 세션도 stocks.json 동기화 의무)")
     tk = load("data/app/tasks.json")
     if tk and ver(tk.get("source_report")) and ver(tk.get("source_report")) < latest:
         warn(f"tasks.json source_report=v{ver(tk.get('source_report'))} < 최신 v{latest}")
-    elif tk and newest_file:
+    elif tk and newest_set:
         tk_base = os.path.basename(tk.get("source_report") or "")
-        if ver(tk_base) == latest and tk_base != newest_file:
-            warn(f"tasks.json source_report={tk_base} ≠ 최신 파일 {newest_file} (intra-version stale)")
+        if ver(tk_base) == latest and tk_base not in newest_set:
+            warn(f"tasks.json source_report={tk_base} ≠ 최신 파일 {'/'.join(newest_set)} (intra-version stale)")
     # CLAUDE.md (자동로드 지도). 한/영 하이브리드 토큰 모두 인식.
     cp = os.path.join(ROOT, "CLAUDE.md")
     if os.path.exists(cp):
@@ -288,13 +336,15 @@ def check_freshness(latest):
     m = re.search(r"(\d{4}-\d{2}-\d{2})", nf)
     rep_date = m.group(1) if m else None
 
-    # pm_view.json 오래됨 (보고서 날짜 대비 3일+ = WARN)
+    # pm_view.json 오래됨 [7/13 강화: 3일→1일 — PM 사견은 매 보고서 필수(6/28 규약)인데
+    # 앱 4파일 동기화 의무에 pm_view가 빠져 v47서 하루 stale 방치된 구멍]
     pv = load("data/app/pm_view.json")
     if pv and rep_date and pv.get("updated"):
         try:
             gap = (_dt.date.fromisoformat(rep_date) - _dt.date.fromisoformat(pv["updated"])).days
-            if gap >= 3:
-                warn(f"pm_view.json updated={pv['updated']} — 최신 보고서({rep_date})보다 {gap}일 오래됨 (사견 stale)")
+            if gap >= 1:
+                warn(f"pm_view.json updated={pv['updated']} < 최신 보고서 {rep_date} "
+                     f"({gap}일 stale — PM 사견은 매 보고서 필수, 앱 #pmview 동기화 누락)")
         except ValueError:
             pass
 
@@ -342,6 +392,13 @@ def check_freshness(latest):
         try:
             raw = open(dj, encoding="utf-8").read()
             payload = json.loads(raw[raw.index("{"): raw.rindex("}") + 1])
+            # [7/13 신설] 빌드 stale: stocks.json을 고치고 build_app_data.py 재실행을 빠뜨리면
+            # 앱(data.js)이 옛 서사를 노출 — source_report 대조로 감지.
+            sr_app = os.path.basename(payload.get("source_report") or "")
+            sr_st = os.path.basename(sj.get("source_report") or "")
+            if sr_app and sr_st and sr_app != sr_st:
+                warn(f"app/data.js source_report={sr_app} ≠ stocks.json {sr_st} "
+                     "— build_app_data.py 재실행 누락(빌드 stale)")
             prices = {h.get("ticker"): h.get("price") for h in payload.get("holdings", [])}
             for t, v in sj.get("stocks", {}).items():
                 wk = ((v.get("forecast") or {}).get("week") or {})

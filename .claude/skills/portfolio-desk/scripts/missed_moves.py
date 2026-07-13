@@ -28,7 +28,7 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 sys.path.insert(0, HERE)
 
 # score_calls의 검증된 프리미티브 재사용(DRY): git 타임머신 + Yahoo 시세 경로 + 가격 레벨 추출
-from score_calls import (series, close_on_or_after, path_from,
+from score_calls import (today_kst, series, close_on_or_after, path_from,
                          git_commits, stocks_at)
 
 STOCKS_REL = "data/app/stocks.json"
@@ -100,7 +100,7 @@ def build_history(since):
 
 def analyze(min_move, since):
     hist = build_history(since)
-    today = date.today()
+    today = today_kst()  # [7/13] KST 실측 (score_calls 공용 헬퍼)
     rows, net_err = [], []
     for tk, rec in hist.items():
         d0 = rec["first_date"]

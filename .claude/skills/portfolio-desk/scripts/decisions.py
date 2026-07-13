@@ -17,7 +17,14 @@ log)·금융 환각 가드레일이 공통으로 가리키는 것 = "결정·근
 의존성 없음(stdlib). 자동 변경 없음 — 결정 정본은 사람이 master에도 함께 적는다.
 """
 import argparse, json, os, sys, re
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
+
+KST = timezone(timedelta(hours=9))
+
+
+def today_kst() -> date:
+    """[7/13] 날짜는 항상 KST 실측 — UTC 컨테이너에서 00~09시 KST에 하루 밀리는 것 방지."""
+    return datetime.now(KST).date()
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
@@ -90,7 +97,7 @@ def cmd_query(rows, terms):
 def cmd_add(a, rows):
     rec = {
         "id": next_id(rows),
-        "date": a.date or date.today().isoformat(),
+        "date": a.date or today_kst().isoformat(),
         "topic": a.topic,
         "decision": a.decision,
         "rationale": a.rationale or "",

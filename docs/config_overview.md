@@ -25,6 +25,8 @@
 | `docs/holdings_outlook.md` | 종목별 전망·별점/스코어 상세. |
 | `README.md` | 레포 외부용 설명. |
 | `.claude/settings.json` | 권한 allowlist + Stop 훅(validate 자동실행). 룰의 기계 강제. |
+| `docs/claude_project_instructions.md` | claude.ai 앱(레포 밖) 프로젝트 지침 붙여넣기 정본 — 폰 빠른 질문용, data.js 라이브 fetch(7/13 돌아보기 반영). |
+| `docs/crash_tf.md` | 🚨 급락대응 TF 상설 플레이북(ACTIVE 시 행동 정본 — 상황판·래더·시나리오·해제 게이트). |
 
 ---
 

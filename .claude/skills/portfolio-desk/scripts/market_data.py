@@ -85,8 +85,10 @@ GROUPS = {
     "watchlist": WATCHLIST,
     "index": INDEX,
     "fx": FX,
+    # [7/13 급락 TF] 유가 = 해제 조건3(유가/이란 진정) 감시 지표 — docs/crash_tf.md
+    "oil": [("WTI", "CL=F"), ("브렌트", "BZ=F")],
 }
-GROUPS["all"] = GROUPS["holdings"] + GROUPS["watchlist"] + GROUPS["index"] + GROUPS["fx"]
+GROUPS["all"] = GROUPS["holdings"] + GROUPS["watchlist"] + GROUPS["index"] + GROUPS["fx"] + GROUPS["oil"]
 
 
 def fetch_quote(symbol: str, timeout: float = 10.0) -> dict | None:

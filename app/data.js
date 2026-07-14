@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-14 19:12 KST",
+  "generated_at": "2026-07-14 20:58 KST",
   "as_of": "2026-07-14 화 16:20 KST (v49 R2 메인 풀 브리핑 — 국내 마감 확정)",
   "source_report": "docs/reports/report_v49_2026-07-14.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1495.18
+    "usdkrw": 1495.59
   },
   "totals": {
-    "assets_krw": 7390947,
-    "stocks_value_krw": 7068026,
+    "assets_krw": 7392433,
+    "stocks_value_krw": 7069512,
     "cash_krw": 322921,
-    "day_change_krw": -83988,
+    "day_change_krw": -84011,
     "day_change_pct": -1.17,
-    "total_pnl_krw": -35008,
-    "total_pnl_pct": -0.49
+    "total_pnl_krw": -33522,
+    "total_pnl_pct": -0.47
   },
   "safety": {
     "pin": 7500,
@@ -862,9 +862,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 203.53,
       "change_pct": -3.52,
-      "value_krw": 1563627,
+      "value_krw": 1564056,
       "pnl_pct": 2.01,
-      "pnl_krw": 70536,
+      "pnl_krw": 70964,
       "outlook": "core",
       "stars": 5,
       "score": 100,
@@ -968,9 +968,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 656.73,
       "change_pct": -1.86,
-      "value_krw": 1108707,
+      "value_krw": 1109011,
       "pnl_pct": 3.59,
-      "pnl_krw": 66096,
+      "pnl_krw": 66400,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1059,9 +1059,9 @@ window.APP_DATA = {
       "cost": 645.4,
       "price": 688.5,
       "change_pct": -0.77,
-      "value_krw": 999356,
+      "value_krw": 999630,
       "pnl_pct": 6.68,
-      "pnl_krw": 86794,
+      "pnl_krw": 87068,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1125,9 +1125,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 390.99,
       "change_pct": 1.53,
-      "value_krw": 843578,
+      "value_krw": 843810,
       "pnl_pct": -4.68,
-      "pnl_krw": -18551,
+      "pnl_krw": -18320,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -1206,9 +1206,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 317.31,
       "change_pct": 0.63,
-      "value_krw": 485097,
+      "value_krw": 485230,
       "pnl_pct": 23.4,
-      "pnl_krw": 102156,
+      "pnl_krw": 102289,
       "outlook": "hold",
       "stars": 3,
       "score": 58,
@@ -1317,9 +1317,9 @@ window.APP_DATA = {
       "cost": 387.73,
       "price": 352.51,
       "change_pct": -1.31,
-      "value_krw": 230858,
+      "value_krw": 230921,
       "pnl_pct": -9.08,
-      "pnl_krw": -16497,
+      "pnl_krw": -16433,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1433,9 +1433,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 131.54,
       "change_pct": -6.47,
-      "value_krw": 42323,
+      "value_krw": 42334,
       "pnl_pct": -43.33,
-      "pnl_krw": -30429,
+      "pnl_krw": -30418,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1519,9 +1519,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 181.15,
       "change_pct": -3.11,
-      "value_krw": 76787,
+      "value_krw": 76808,
       "pnl_pct": 11.77,
-      "pnl_krw": 9865,
+      "pnl_krw": 9886,
       "outlook": "core",
       "stars": 4,
       "score": 81,
@@ -1595,9 +1595,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 937.0,
       "change_pct": -4.32,
-      "value_krw": 28021,
+      "value_krw": 28029,
       "pnl_pct": 25.1,
-      "pnl_krw": 6202,
+      "pnl_krw": 6209,
       "outlook": "core",
       "stars": 4,
       "score": 84,
@@ -1756,9 +1756,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 384.05,
       "change_pct": -3.98,
-      "value_krw": 40872,
+      "value_krw": 40883,
       "pnl_pct": -8.79,
-      "pnl_krw": -2779,
+      "pnl_krw": -2768,
       "outlook": "hold",
       "stars": 4,
       "score": 83,
@@ -2611,7 +2611,7 @@ window.APP_DATA = {
       1503.35,
       1505.91,
       1498.48,
-      1495.18
+      1495.42
     ]
   },
   "kospi_history": {
@@ -7936,9 +7936,9 @@ window.APP_DATA = {
     },
     {
       "horizon": "내일 (7/15 수)",
-      "tag": "PPI·中GDP·워시상원증언",
+      "tag": "새벽3종·中GDP·ASML·금통위D-1",
       "dir": "→",
-      "text": "美 PPI·中 2Q GDP + 워시 연준의장 상원 반기증언. 유가/이란 진정 여부가 여전히 핵심 관전포인트(TF게이트③, 오늘 오히려 악화)."
+      "text": "새벽 결과 3종 확인이 첫 단계: ①밤 CPI(컨센 3.8~3.9%/근원 2.8~2.9%) 실제치 ②워시 하원증언 톤 ③05:00 이란 全해안 봉쇄 발효 여부(유가 갭). GOOGL $345 GTC 체결 여부도 미장 마감과 함께 확인. 11:00 中 2Q GDP(컨센 4.5%). 밤 21:30 美 PPI+워시 상원증언(폰창밖). ASML 2Q(가이던스 €8.4~9.0bn, 옵션 ±8.4% 변동 반영)가 '진짜/가짜 할인' 1차 시금석 — 본판은 7/16 TSMC. 폰창 임시 13:00~16:00, 12:30 PM 셀프 체크인 예약됨."
     },
     {
       "horizon": "이번주 (7/13~17·4일장)",
@@ -8021,6 +8021,31 @@ window.APP_DATA = {
         "id": "t-0715-3",
         "text": "오늘밤 21:30 CPI+23:00 워시 하원증언 결과 확인, 내일 05:00 이란봉쇄 발효 갭 점검(다음 세션 첫 단계)",
         "done": false
+      },
+      {
+        "id": "t-0715-4",
+        "text": "🌅 새벽 결과 3종 + GOOGL: ①CPI 실제 vs 컨센 3.8~3.9%(핫=매파재확인/쿨=심리완화) ②워시 하원증언 톤(독립성·인하경로) ③이란 봉쇄 05:00 실제 발효 여부·유가 갭(WTI 80.08이 기준선) ④GOOGL $345 GTC 체결 여부(체결 시 AAPL 트림 재배치 완결 — portfolio·tasks 기록)",
+        "done": false
+      },
+      {
+        "id": "t-0715-5",
+        "text": "📊 ASML 2Q 결과(밤 발표): bookings 모멘텀·FY26 €36~40bn 유지 여부 — 유지+지수 약세면 '공포 과잉' 근거 강화, 하향이면 '가짜 할인' 경계. 7/16 TSMC 프리뷰 갱신",
+        "done": false
+      },
+      {
+        "id": "t-0715-6",
+        "text": "🇨🇳 11:00 中 2Q GDP(컨센 4.5%, 1Q 5.0%) — 둔화폭 크면 부양책 기대 vs 위험선호 위축 양면, 코스피 장중 영향 확인",
+        "done": false
+      },
+      {
+        "id": "t-0715-7",
+        "text": "🔁 V반등 지속성 판정: 7/14 외인 확정 수급(t-0715-1)과 오늘 수급이 둘 다 순매수면 게이트② 카운트 시작(단 3중 동시충족+2거래일 유지 규칙 그대로 — 부분충족은 액션 아님). 반대매매 D+2 여진 마지막 날",
+        "done": false
+      },
+      {
+        "id": "t-0715-8",
+        "text": "🏦 금통위 D-1 최종 점검: 25bp 인상 컨센(2.50→2.75%) 재검증 — 폭락 후 '동결설' 부상 여부(현재 근거 없음, 7/13 이전 기사 주의). 7/16 10:30 발표 + TSMC 15:00 동일일 겹침 대비",
+        "done": false
       }
     ],
     "week": [
@@ -8071,7 +8096,7 @@ window.APP_DATA = {
   "task_counts": {
     "today": {
       "done": 3,
-      "total": 5
+      "total": 10
     },
     "week": {
       "done": 0,

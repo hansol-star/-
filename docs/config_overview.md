@@ -11,7 +11,7 @@
 **일일 포트폴리오 보고서**를 만들고, 결과를 `docs/reports/`·`data/app/`에 저장→git 커밋→main 머지로 연속성을 유지한다.
 폰 앱(GitHub Pages)으로 시세·손익·할일을 본다.
 
-- **`.claude/settings.json` 있음** [2026-06-24] — 권한 allowlist(루틴 스크립트·읽기전용 git 무프롬프트) + **Stop 훅**(`.claude/hooks/validate-on-stop.sh`: 보고서/정본 변경 시 `validate_report.py` 자동실행). `.mcp.json`은 없음(웹 하네스 기본 MCP 사용).
+- **`.claude/settings.json` 있음** [2026-06-24] — 권한 allowlist(루틴 스크립트·읽기전용 git 무프롬프트) + **Stop 훅**(`.claude/hooks/validate-on-stop.sh`: 보고서/정본 변경 시 `validate_report.py` 자동실행) + **SessionStart 훅** [7/14](`.claude/hooks/session-start.sh`: 세션 실측 앵커 — KST 날짜·요일·장세션 상태·최신 보고서 버전·TF 상태 자동 주입, ★7/6 날짜 앵커링 재발방지의 기계화). `.mcp.json`은 없음(웹 하네스 기본 MCP 사용).
 - 운영 정책은 전부 **CLAUDE.md(상시지침)** 와 **스킬 문서**로 표현된다.
 
 ---
@@ -70,6 +70,7 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 | 스크립트 | 역할 |
 |---|---|
 | `market_data.py` | Yahoo 무키 시세·환율·지수 (1차 소스, 키 불필요) |
+| `macro_data.py` | FRED 무키 매크로 하드넘버 [7/14] — 금리(10Y/2Y·2s10s·실질·BEI·EFFR)·VIX·WTI·달러지수·CPI YoY·실업률 + `--polymarket` 내재확률 |
 | `toss_snapshot.py` | 토스 Open API **조회 전용** 실보유·현금 (주문 API 금지) |
 | `fundamentals.py` | FMP API 미국주 펀더멘털 (스코어 하드넘버, `FMP_API_KEY`) |
 | `consensus.py` | 증권사/IB 컨센서스 |

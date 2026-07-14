@@ -18,16 +18,23 @@ report; you gather and return the macro section. **Do not write report files you
 1. **FX (keyless)**: `python3 .claude/skills/portfolio-desk/scripts/market_data.py --group fx --json`
    → USD/KRW. One line on how KRW strength/weakness affects 외인 flows and USD-stock cost basis.
 
-2. **Rates & data (WebSearch)**:
+2. **Hard numbers first (keyless FRED — [7/14 B5] 신설)**:
+   `python3 .claude/skills/portfolio-desk/scripts/macro_data.py --json`
+   → 미국채 10Y/2Y·2s10s 스프레드·실질금리(TIPS)·기대인플레(BEI)·EFFR·VIX·WTI·달러지수·CPI YoY·실업률.
+   **이 수치가 금리·물가 서술의 하드넘버 정본** (1영업일 지연은 정상 — 당일 장중값만 WebSearch 보완).
+   (선택) `--polymarket fed` 등으로 이벤트 내재확률 참고 가능 — 참고용, CME FedWatch가 정본.
+
+3. **Rates & data (WebSearch — 해석·이벤트 보완)**:
    - 연준/FOMC trajectory (next-meeting consensus, dot plot), CME FedWatch probabilities.
-   - 한국은행 금통위 schedule/stance (**한은 publishes NO dot plot — that is Fed-only. Never confuse the two**).
-   - Latest CPI/PPI/jobs prints and next release dates.
+   - **한국은행 금통위** schedule/stance + **한은 점도표**(2026.2월 신설 — 경제전망 발표월 2·5·8·11월 공개, 연준 점도표와 별개 제도).
+   - Latest CPI/PPI/jobs prints and next release dates (macro_data.py 수치와 교차확인).
    - Oil (Brent·WTI)·gasoline — CPI energy-path implications.
 
-3. **Event calendar**: macro events over the next 2 weeks (FOMC·BOJ·금통위·CPI dates) with KST times.
+4. **Event calendar**: macro events over the next 2 weeks (FOMC·BOJ·금통위·CPI dates) with KST times.
    정훈's phone window is 17:30~20:50 KST — **flag overnight (21:30+) prints as same-day non-actionable**.
 
-4. **Verification**: cross-check numbers; mark "미확인" if uncertain. Never state a factual error like a 한은 dot plot.
+5. **Verification**: cross-check numbers; mark "미확인" if uncertain. macro_data.py(FRED) 수치와
+   WebSearch 수치가 어긋나면 FRED를 우선하되 기준일 차이(1영업일 지연)를 명시.
 
 ## Return format (to PM) — keep Korean labels (PM pastes into the Korean report)
 

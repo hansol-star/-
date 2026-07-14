@@ -79,6 +79,21 @@ Anthropic: 멀티에이전트는 단일대비 **토큰 ~15배**, 가치 높고 �
 ④ 신규 가드 2: pm_view 신선도 WARN(≥1일 — PM 사견 매 보고서 필수인데 앱 4파일 의무에 빠져 있던 구멍) + app/data.js↔stocks.json source_report 대조(빌드 재실행 누락 감지).
 ⑤ 문서 모순 청산: 한은 점도표 옛 문구(master §7·SKILL §3b), 보유16→전종목(CLAUDE.md·SKILL), 3개→8개 데스크(SKILL 서두), 全opus·舊루틴(config_overview·본 문서).
 
+**2026-07-14 신기능 라운드 (B5 — 정훈 지시 "새로 올라온 좋은 기능 찾아 적용")**: GitHub·공식 체인지로그·플러그인 마켓플레이스·MCP 생태계 조사 후 적용 —
+- **B5a — SessionStart 훅 = 세션 실측 앵커** (`.claude/hooks/session-start.sh` + settings.json 등록): 세션이 열릴 때마다 KST 날짜·요일·시각, KRX/미장 세션 상태(스케줄 계산·공휴일 미반영 명시), 최신 report_v와 다음 버전 번호, 급락 TF ACTIVE, 폰 가용 여부를 additionalContext로 자동 주입. **★7/6 날짜 앵커링 영구교정의 기계화** — 오프라인·결정적(<1초)·실패 시 조용히 통과. 루틴(무인) 세션에도 자동 적용.
+- **B5b — `macro_data.py` 무키 매크로 하드넘버** (FRED CSV + Polymarket, stdlib+curl): TradingAgents v0.3.0/0.3.1이 FRED·Polymarket을 데이터 벤더로 편입한 것을 우리식으로 이식. 미국채 10Y/2Y·2s10s·실질금리(TIPS)·기대인플레(BEI)·EFFR·VIX·WTI·달러지수·CPI YoY·실업률 11지표 — macro-desk 금리·물가 서술의 하드넘버 정본, risk-desk VIX/커브 스트레스 게이지. `--polymarket`은 이벤트 내재확률 참고(실측: 7월 FOMC 동결 93.5%). **실측 교훈**: FRED(Akamai)는 파이썬 TLS도, 브라우저 UA를 단 curl도 차단(UA↔TLS 핑거프린트 불일치 탐지) → curl 기본 UA 우선 경로로 해결.
+- **B5c — `hunter_latest.py` srv3 자막 폴백**: 유튜브 json3 포맷 이상(2026 상반기 다수 보고) 시 같은 트랙을 srv3 XML로 재시도 — parse_timedtext는 이미 양쪽 지원, 요청부만 보강.
+- **B5d — 낡은 오류 청소**: macro-desk.md에 잔존한 "한은 점도표 없음"(7/7 정정사항) 제거, 한은 점도표(2026.2 신설·2/5/8/11월 공개) 반영.
+
+**조사했으나 즉시 적용 안 한 것(7/14·근거 포함)**:
+- **Claude Sonnet 5** (6/29 출시 — 소넷 가격에 최상위 성능·1M 컨텍스트): `model: sonnet` 별칭인 5개 데스크는 자동 상향 수혜. **섹터 3개 opus→sonnet5 전환은 토큰예산(5시간 리셋) 이득 크나 7/4 정훈 결정(섹터=opus) 변경이라 정훈 확인 대기.**
+- **Anthropic 공식 finance 플러그인**(knowledge-work 마켓플레이스): 설치는 정훈 결정 대기 — 우리 커스텀 스킬과 중복 가능성.
+- **fallbackModel 체인**(6월, 최대 3개 폴백): 웹 하네스에선 모델이 세션 고정이라 미적용 — 12월 로컬 이전 시 재검토.
+- **중첩 서브에이전트(5레벨)·동적 워크플로(수백 에이전트)**: 8데스크 1레벨 팬아웃에 과잉 — 비용규율(§3) 위배.
+- **금융 MCP 서버**(Yahoo/FMP/Shibui 등): 기존 stdlib 스크립트와 기능 중복, 무의존 포터빌리티(12월 이전) 우선 → 기각.
+- **ai-hedge-fund 상시 펀드화·백테스터**: §5 기존 기각 유지(콜단위 후행평가가 더 직결).
+- **파라미터 단위 권한 룰**(`Tool(param:value)`, 6월): 현 allowlist로 충분, 필요 시 도입.
+
 **📋 다음 후보(낮은 우선순위)**: 평가자-최적화자 루프의 '자동 재생성'은 자동변경 금지룰과 충돌 → 보류. 포트폴리오 백테스터는 §5.
 
 ---

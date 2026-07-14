@@ -31,6 +31,8 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
    python3 .claude/skills/portfolio-desk/scripts/triggers.py
    ```
    → buy-zone / 안전핀 / event-trigger status (fired/near/waiting). portfolio.json alerts are canonical.
+   **스트레스 게이지 [7/14 B5]**: `python3 .claude/skills/portfolio-desk/scripts/macro_data.py --series VIXCLS,DGS10,DGS2 --json`
+   → VIX 레벨(20↑ 경계·30↑ 스트레스)과 2s10s 스프레드를 신중(bear) 관점의 하드넘버로 인용.
 2. **Violation/proximity scan**: does current price·tranche state breach or approach the absolute rules above? Especially distance to 코스피 7,500/8,000, and buy-zone hits (NAVER 225~235k·삼성 295~305k).
 3. **Concentration/correlation risk**: memory-bet overlap (삼성·NVDA·MU·AVGO·SK하이닉스), big-tech weight, single FX (원/달러) exposure — warn on diversification damage.
 4. **Event-risk calendar cross-check**: FOMC 6/18 03:00 (3rd tranche), 이란 MOU weekend gap, CPI, etc. — flag 'needs pre-baking' when they clash with the phone window.

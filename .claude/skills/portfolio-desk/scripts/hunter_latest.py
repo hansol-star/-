@@ -194,6 +194,13 @@ def fetch_via_innertube(vid):
                 print(f"[WARN] timedtext 오류: {ex}", file=sys.stderr)
                 continue
             text = parse_timedtext(raw)
+            if len(text) <= 50:
+                # json3 응답 이상(유튜브 내부 포맷 변경이 잦음 — 2026 상반기 다수 보고)
+                # → 같은 트랙을 srv3 XML로 재시도 (parse_timedtext가 둘 다 파싱)
+                try:
+                    text = parse_timedtext(http(tracks[0]["baseUrl"] + "&fmt=srv3", timeout=40))
+                except Exception as ex:
+                    print(f"[WARN] srv3 폴백 오류: {ex}", file=sys.stderr)
             if len(text) > 50:
                 det = d.get("videoDetails", {})
                 mf = (d.get("microformat", {}).get("playerMicroformatRenderer", {})

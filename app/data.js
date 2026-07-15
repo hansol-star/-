@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-15 19:16 KST",
+  "generated_at": "2026-07-15 20:58 KST",
   "as_of": "2026-07-15 수 16:20 KST (v50 r2 — 국내 마감확정·데스크7 보강·정정8건)",
   "source_report": "docs/reports/report_v50_2026-07-15.md",
   "offline": false,

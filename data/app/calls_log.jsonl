@@ -111,12 +111,12 @@
 {"date": "2026-07-15", "ticker": "066570.KS", "stars": 4, "score": 74, "target": "246,400원 (2Q실적후 7개사평균 상향수렴, HSBC28만·CGSI27만·하나26만) — 舊17만 컨센 폐기", "buy_zone": "홀딩 (추가매수 보류)", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "454910.KS", "stars": 2, "score": 17, "target": "분산 큼 (컨센 109k ~ 극단 300k)", "buy_zone": "관망", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "AAPL", "stars": 3, "score": 58, "target": "$315.09 컨센(+2.1%)", "buy_zone": "신규매수 안함(트림 완료 종목)", "source_report": "docs/reports/report_v50_2026-07-15.md"}
-{"date": "2026-07-15", "ticker": "ANET", "stars": 4, "score": 81, "target": "$189.13 (+15.9%)", "buy_zone": "홀딩", "source_report": "docs/reports/report_v50_2026-07-15.md"}
+{"date": "2026-07-15", "ticker": "ANET", "stars": 4, "score": 78, "target": "$189.13 (+15.9%)", "buy_zone": "홀딩", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "AVGO", "stars": 4, "score": 83, "target": "$522.06 (+36.6%)", "buy_zone": "조정주", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "GOOGL", "stars": 5, "score": 91, "target": "$432.83 (+20.3%)", "buy_zone": "🎯 정수 1주 지정가 $345 GTC 예약(7/7 정훈 $330→$345 상향·주문 걸어둠). 현재가 $366 대비 −5.9% — 다우편입 후 우상향 밴드 반영, 자동체결 대기", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "META", "stars": 4, "score": 82, "target": "$827.32 (+45.9%)", "buy_zone": "실적확인 (7/29 전 보류)", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "MSFT", "stars": 4, "score": 73, "target": "$561.39 (+43.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "MU", "stars": 4, "score": 84, "target": "중앙 $1,200(MS)·레인지 $1,200~1,500 (하우스 분산 $400~2,000)", "buy_zone": "실적완료(6/24)", "source_report": "docs/reports/report_v50_2026-07-15.md"}
-{"date": "2026-07-15", "ticker": "NVDA", "stars": 5, "score": 100, "target": "$298.93 (+45.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v50_2026-07-15.md"}
+{"date": "2026-07-15", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$298.93 (+45.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "ORCL", "stars": 3, "score": 60, "target": "실질 $190~250 (컨센 $251은 stale 강세 왜곡)", "buy_zone": "눌림", "source_report": "docs/reports/report_v50_2026-07-15.md"}
 {"date": "2026-07-15", "ticker": "VOO", "stars": 4, "score": null, "target": "— (ETF)", "buy_zone": "적립", "source_report": "docs/reports/report_v50_2026-07-15.md"}

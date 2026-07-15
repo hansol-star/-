@@ -2,7 +2,7 @@
 name: semi-ai-desk
 description: 반도체·AI인프라 섹터 데스크 (Semis & AI Infra) — deep theme analysis of memory(HBM)·logic·foundry·equipment·AI networking across regions. Covers 삼성전자·NVDA·MU·AVGO·ANET + watch 원익IPS·테스·삼성전기·SK하이닉스·STM (fundamentals·consensus·theme·earnings dates). PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 반도체·AI인프라 섹터 데스크 (Semis & AI Infra)

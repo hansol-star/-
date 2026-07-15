@@ -2,7 +2,7 @@
 name: power-physical-desk
 description: 전력·인프라·피지컬AI 섹터 데스크 (Power, Infra & Physical AI) — deep theme analysis of AI power demand (원전·SMR·gas turbine·grid gear), robotics·automation, EVs, and US-investment defense·shipbuilding across regions. Covers LG전자·두산로보틱스·현대차·TSLA + watch 두산에너빌리티·GEV·SK이노·한화에어로·한화오션·삼성중공업·HD현대중공업. PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 전력·인프라·피지컬AI 섹터 데스크 (Power, Infra & Physical AI)

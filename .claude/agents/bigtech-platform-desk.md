@@ -2,7 +2,7 @@
 name: bigtech-platform-desk
 description: 빅테크·플랫폼 섹터 데스크 (Big Tech & Platforms) — deep theme analysis of cloud (AI capex)·advertising·platforms·software·telecom·space across regions. Covers META·MSFT·AAPL·GOOGL·ORCL·NAVER + watch T-Mobile·SpaceX (fundamentals·consensus·theme·earnings dates). PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
-model: opus
+model: sonnet
 ---
 
 # 빅테크·플랫폼 섹터 데스크 (Big Tech & Platforms)

@@ -1,8 +1,138 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-07-15 자동 롤오버 +8편 (build_app_data)",
+  "updated": "2026-07-16 자동 롤오버 +13편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": null,
+      "title": "최태원이 직접 밝혔다는 'SK하이닉스' 주가 반등 카드 3가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "EJdBImwbOi8"
+    },
+    {
+      "date": null,
+      "title": "7월 15일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "sCWY51XCMzQ"
+    },
+    {
+      "date": null,
+      "title": "오늘 '삼성전자·하이닉스' 투자자들이 꼭 봐야할 뉴스 3가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "xe0Jxr-1Z8E"
+    },
+    {
+      "date": null,
+      "title": "월가에서 1년안에 '하이닉스' 주가 2배 갈 수 있다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "VHuZJ4TXwUk"
+    },
+    {
+      "date": null,
+      "title": "이번 '대폭락'이 알려주는, 앞으로 몇 년간의 새로운 'AI 투자 순서'",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "BFDYQkZ4SO4"
+    },
+    {
+      "date": null,
+      "title": "한국은행 금리 '인상' 시즌 개막, 2026년 하반기 '증시' 이렇게 보셔야 합니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "UyS4dm9ej1o"
+    },
+    {
+      "date": null,
+      "title": "'TSMC 실적 D-1'.. 코스피에 미칠 진짜 영향",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "IZYKNqIYrWc"
+    },
+    {
+      "date": null,
+      "title": "케빈 워시 연준 의장이 앞으로 주식시장을 완전히 바꿀 '세 가지' 정책",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "1Ji1AYHgkjQ"
+    },
+    {
+      "date": null,
+      "title": "1,000% 상승 광통신처럼, 제2의 메가 '상승장' 올 수 있다는 신사업 정체+수혜주 5개",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "2P37LeVhDaY"
+    },
+    {
+      "date": null,
+      "title": "이재명 정부가 내놓은 '세액공제' 정책 2차 수혜주",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "SvYZagOPe1s"
+    },
+    {
+      "date": null,
+      "title": "지금 젠슨황이 다시 한 번, 한국 주가를 끌어올릴 수 있다는 방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "KKZw15i5U9g"
+    },
+    {
+      "date": null,
+      "title": "ASML의 '역대급 실적' 이후, 삼전·하이닉스에 벌어질 일",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "JGZqJW8k5wo"
+    },
+    {
+      "date": null,
+      "title": "[구독자전용] 삼성전기 종목분석",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": null,
+      "views": null,
+      "id": "qZDIjmF7Xoc"
+    },
     {
       "date": "2026-07-14",
       "title": "코스피 막장 만들어 버린 '레버리지 ETF' 규제, 싹 다 뜯어왔습니다",

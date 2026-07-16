@@ -14,6 +14,17 @@
 
 이 스크립트는 그 판정을 오프라인·결정적·무네트워크(<0.1초)로 제공한다.
 
+■ 두 가지 재시도 경로 (용도별):
+  A. 동적 self-arm/disarm [2026-07-16 정훈 제안 — 대화 세션·권한되는 세션]:
+     세션/보고서 시작 시 PM이 '재개 원샷 트리거'를 리셋 추정시각(reset_est)에 걸어둔다(arm)
+     → 안 막히고 완주하면 그 트리거를 스스로 삭제(disarm) → 막히면 트리거가 남아 리셋 때 발동.
+     이 스크립트는 그 트리거 id를 마커에 보관(--set-trigger)·조회(--get-trigger)해 접착제 역할.
+     실제 트리거 생성/삭제는 MCP 도구(create_trigger/delete_trigger)라 PM이 호출한다.
+  B. 고정 파수꾼 폴백 [R4a/R4b cron]: 무인 루틴은 트리거 자가생성 권한이 불안정하므로,
+     미리 한 번 등록해둔 저녁 파수꾼이 --check로 판정해 미완이면 완주(성공한 날은 즉시 종료).
+
+이 스크립트는 판정·상태보관을 오프라인·결정적·무네트워크(<0.1초)로 제공한다.
+
 상태 파일 = data/app/report_run.json
   { "date": "YYYY-MM-DD",         # 이 실행이 겨냥한 거래일(KST)
     "target_version": 52,          # 이번에 내려는 보고서 번호(참고용)
@@ -21,7 +32,8 @@
     "session_kind": "R2"|"R4",     # 어느 루틴이 시작했나
     "started_at": ISO8601(KST),
     "completed_at": ISO8601(KST)|null,
-    "reset_est": ISO8601(KST) }    # started_at + 5h = 이 세션 첫사용 기준 추정 리셋
+    "reset_est": ISO8601(KST),     # started_at + 5h = 이 세션 첫사용 기준 추정 리셋(= arm 시각)
+    "resume_trigger_id": "trig_..."|null }  # arm해둔 재개 원샷 트리거(완주 시 disarm 대상)
 
 서브커맨드:
   --start [--kind R2|R4] [--version N]
@@ -29,12 +41,17 @@
         보고서 루틴(R2)·재시도 루틴(R4)의 '첫 액션'으로 호출.
   --done
         오늘 실행 완료 마커 기록(status=done, completed_at=now).
-        validate PASS·커밋 직전에만 호출(성공 신호).
+        validate PASS·커밋 직전에만 호출(성공 신호). 완주했으므로 resume_trigger_id가 있으면 PM이 disarm.
   --check
-        오늘(평일) 풀 보고서가 완료됐는지 판정 → 재시도 루틴이 소비.
+        오늘(평일) 풀 보고서가 완료됐는지 판정 → 재시도 경로가 소비.
         exit 0 = 완료(재시도 불필요, 즉시 종료하라는 뜻)
         exit 1 = 미완료(토큰에 막혀 못 냈다 → 지금 보고서를 내라는 뜻)
         (주말은 평일 보고서 대상이 아니므로 항상 완료 취급 exit 0.)
+  --set-trigger ID
+        방금 arm한 재개 원샷 트리거의 id를 오늘 마커에 보관(disarm 대상).
+  --get-trigger
+        마커에 보관된 재개 트리거 id를 stdout에 출력(완주 후 삭제할 대상).
+        있으면 exit 0(id 한 줄), 없으면 exit 1(빈 출력).
 """
 import argparse
 import glob
@@ -109,11 +126,34 @@ def cmd_start(args):
         "started_at": now.isoformat(timespec="seconds"),
         "completed_at": None,
         "reset_est": (now + timedelta(hours=ROLLING_HOURS)).isoformat(timespec="seconds"),
+        "resume_trigger_id": None,
     }
     save_marker(marker)
     print(f"[report_guard] START {args.kind} {day} v{args.version or '?'} "
           f"@ {now.strftime('%H:%M')} · 추정 리셋 {marker['reset_est'][11:16]} (첫사용+5h)")
+    print(f"[report_guard] arm 안내: 재개 원샷 트리거를 run_once_at={marker['reset_est']} 로 걸고 "
+          f"--set-trigger <id> 로 보관하라(완주 시 --get-trigger→delete).")
     return 0
+
+
+def cmd_set_trigger(args):
+    day = today_str()
+    marker = load_marker()
+    if marker.get("date") != day:
+        marker = {"date": day, "status": marker.get("status", "running")}
+    marker["resume_trigger_id"] = args.set_trigger
+    save_marker(marker)
+    print(f"[report_guard] arm 트리거 보관: {args.set_trigger} (완주 시 disarm 대상)")
+    return 0
+
+
+def cmd_get_trigger(args):
+    marker = load_marker()
+    tid = marker.get("resume_trigger_id")
+    if tid:
+        print(tid)  # stdout = 삭제할 trigger_id 한 줄(PM이 delete_trigger에 사용)
+        return 0
+    return 1
 
 
 def cmd_done(args):
@@ -177,6 +217,10 @@ def main():
     g.add_argument("--start", action="store_true", help="시작 마커 기록(running)")
     g.add_argument("--done", action="store_true", help="완료 마커 기록(done)")
     g.add_argument("--check", action="store_true", help="오늘 보고서 완료 판정(exit 0/1)")
+    g.add_argument("--set-trigger", dest="set_trigger", metavar="ID",
+                   help="arm한 재개 트리거 id를 마커에 보관")
+    g.add_argument("--get-trigger", dest="get_trigger", action="store_true",
+                   help="보관된 재개 트리거 id 출력(없으면 exit 1)")
     ap.add_argument("--kind", default="R2", help="세션 종류 R2|R4 (기본 R2)")
     ap.add_argument("--version", type=int, default=None, help="보고서 번호(참고)")
     args = ap.parse_args()
@@ -187,6 +231,10 @@ def main():
         return cmd_done(args)
     if args.check:
         return cmd_check(args)
+    if args.set_trigger:
+        return cmd_set_trigger(args)
+    if args.get_trigger:
+        return cmd_get_trigger(args)
     return 2
 
 

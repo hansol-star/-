@@ -19,6 +19,7 @@
       "Bash(python3 .claude/skills/portfolio-desk/scripts/macro_data.py:*)",
       "Bash(python3 .claude/skills/portfolio-desk/scripts/flow_trend.py:*)",
       "Bash(python3 .claude/skills/portfolio-desk/scripts/missed_moves.py:*)",
+      "Bash(python3 .claude/skills/portfolio-desk/scripts/report_guard.py:*)",
       "Bash(date:*)",
       "Bash(git fetch:*)",
       "Bash(git log:*)",

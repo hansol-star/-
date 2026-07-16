@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-16 19:22 KST",
+  "generated_at": "2026-07-16 19:24 KST",
   "as_of": "2026-07-16 목 18:5x KST 마감확정 (v51_night 부록 — 종가·수급 확정+TSMC 2Q 반영)",
   "source_report": "docs/reports/report_v51_night_2026-07-16.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1478.24
+    "usdkrw": 1477.98
   },
   "totals": {
-    "assets_krw": 7457274,
-    "stocks_value_krw": 7134353,
+    "assets_krw": 7456306,
+    "stocks_value_krw": 7133385,
     "cash_krw": 322921,
-    "day_change_krw": -13162,
+    "day_change_krw": -13177,
     "day_change_pct": -0.18,
-    "total_pnl_krw": 31320,
-    "total_pnl_pct": 0.44
+    "total_pnl_krw": 30351,
+    "total_pnl_pct": 0.43
   },
   "safety": {
     "pin": 7500,
@@ -248,6 +248,15 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "원/달러 1,500 하회 = 반전트리거 셋업 조건2 충족 → hunter.json setup-반전트리거 met 갱신 + 외인 전환과 동시충족 시 지수/삼성 트랜치 실행 검토",
+      "price": null,
+      "fired": null
+    },
+    {
+      "id": "F4 레버리지ETF 규제 결과 (국장 방어 §8b)",
+      "ticker": "EVENT",
+      "cond": "event",
+      "when": "미확정 — F4회의(기재부·금융위·한은·금감원) 조율 중. 위탁증거금 상향·일일 등락률 제한·레버리지 배수 조정 검토(금융위 '보완방안 조만간')",
+      "action": "[양날 촉매] 규제 확정 시: 단기=삼성·하닉 단일종목 2배 레버리지ETF 추가 언와인드로 본주 변동성 확대(방어) / 중기=증폭기 제거로 2종목 구조 건전화(긍정). 삼성 재진입 타이밍의 중요 변수 — 확정 내용·시행일 확인 후 crash_tf §8b 4원칙으로 평가",
       "price": null,
       "fired": null
     }
@@ -663,9 +672,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 212.5,
       "change_pct": 0.33,
-      "value_krw": 1614043,
+      "value_krw": 1613759,
       "pnl_pct": 6.51,
-      "pnl_krw": 120952,
+      "pnl_krw": 120668,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -725,9 +734,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 681.31,
       "change_pct": 3.07,
-      "value_krw": 1137173,
+      "value_krw": 1136972,
       "pnl_pct": 7.47,
-      "pnl_krw": 94561,
+      "pnl_krw": 94361,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -816,9 +825,9 @@ window.APP_DATA = {
       "cost": 645.4,
       "price": 693.8,
       "change_pct": 0.39,
-      "value_krw": 995639,
+      "value_krw": 995464,
       "pnl_pct": 7.5,
-      "pnl_krw": 83078,
+      "pnl_krw": 82902,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -882,9 +891,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 395.63,
       "change_pct": 2.78,
-      "value_krw": 843918,
+      "value_krw": 843770,
       "pnl_pct": -3.55,
-      "pnl_krw": -18211,
+      "pnl_krw": -18359,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -963,9 +972,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 327.5,
       "change_pct": 4.01,
-      "value_krw": 495003,
+      "value_krw": 494916,
       "pnl_pct": 27.36,
-      "pnl_krw": 112062,
+      "pnl_krw": 111975,
       "outlook": "hold",
       "stars": 3,
       "score": 63,
@@ -1025,9 +1034,9 @@ window.APP_DATA = {
       "cost": 387.73,
       "price": 370.92,
       "change_pct": 3.17,
-      "value_krw": 240163,
+      "value_krw": 240120,
       "pnl_pct": -4.34,
-      "pnl_krw": -7192,
+      "pnl_krw": -7234,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1087,9 +1096,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 132.49,
       "change_pct": 3.56,
-      "value_krw": 42145,
+      "value_krw": 42138,
       "pnl_pct": -42.92,
-      "pnl_krw": -30607,
+      "pnl_krw": -30614,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1173,9 +1182,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 171.92,
       "change_pct": -5.83,
-      "value_krw": 72049,
+      "value_krw": 72036,
       "pnl_pct": 6.08,
-      "pnl_krw": 5127,
+      "pnl_krw": 5114,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1249,9 +1258,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 904.28,
       "change_pct": -8.02,
-      "value_krw": 26736,
+      "value_krw": 26731,
       "pnl_pct": 20.73,
-      "pnl_krw": 4917,
+      "pnl_krw": 4912,
       "outlook": "core",
       "stars": 4,
       "score": 84,
@@ -1307,9 +1316,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 394.28,
       "change_pct": 1.33,
-      "value_krw": 41485,
+      "value_krw": 41478,
       "pnl_pct": -6.36,
-      "pnl_krw": -2166,
+      "pnl_krw": -2173,
       "outlook": "hold",
       "stars": 4,
       "score": 83,
@@ -2160,7 +2169,7 @@ window.APP_DATA = {
       1498.48,
       1497.7,
       1487.88,
-      1477.98
+      1478.18
     ]
   },
   "kospi_history": {
@@ -7018,6 +7027,28 @@ window.APP_DATA = {
           "v51"
         ],
         "refs": "report_v51_2026-07-16.md, docs/crash_tf.md §1/§5"
+      },
+      {
+        "id": "d37",
+        "date": "2026-07-16",
+        "topic": "국장 방어 플레이북 신설 — 2종목 쏠림·레버리지ETF 반사성 레짐 대응(정훈 승인)",
+        "decision": "v51 급락 해부에서 재발 진범 = 개별 트리거(CXMT·수출규제) 아닌 코스피 구조적 결함(삼성+하닉 시총 57%·거래대금 83% + 단일종목 2배 레버리지ETF 반사성 + 하닉 ADR 차익거래 + 빚투 36.6조 = 증폭기 상수). 방어 4원칙 정본화(crash_tf §8b·master §10-9): ①삼성 일일변동 매수 앵커링 금지(안전핀이 반사성 칼 방지) ②트림/재진입은 V예측 아닌 게이트 3중으로 ③비메모리 KR로 intra-국장 희석 ④F4 레버리지ETF 규제=단기 변동성·중기 건전화 양날, 삼성 재진입 타이밍 변수(portfolio.json EVENT 등록).",
+        "rationale": "정훈 제안 'V자 깨질 걸 예측하고 사고팔자'에 PM 브레이크: 6번 반납은 사후관찰≠사전신호(어제 CPI+ASML+마진80% 실물신호로 +6.24%, 7번째가 진짜 바닥일 수도)·심리 반대로 나옴(저점=TSMC 30분전)·작은계좌+국내 분수주불가로 왕복비용 안남음·반사성은 변동성만 키움. 대신 정훈 철학('이벤트 확인→트림/재진입 스윙')의 규율 버전 채택 — 팔기는 이미 잘함(TSLA·MU·AAPL), 사기는 게이트로. 정훈 '추천하면 그렇게 가자' 승인.",
+        "rejected": "V 예측 데이트레이딩(폭락 매수·반등 매도) — 사전신호 부재·심리역행·비용·반사성 오해로 기각 / 삼성 일일 저가매수(안전핀 룰1 위반) / 증폭기 무시하고 트리거만 대응(재발 못막음)",
+        "status": "open",
+        "tags": [
+          "국장",
+          "방어플레이북",
+          "2종목쏠림",
+          "레버리지ETF",
+          "반사성",
+          "ADR차익거래",
+          "F4규제",
+          "게이트",
+          "트림재진입",
+          "v51"
+        ],
+        "refs": "crash_tf.md §8b, master §10-9, report_v51_2026-07-16.md"
       }
     ],
     "closed": [
@@ -7284,8 +7315,8 @@ window.APP_DATA = {
         "refs": "ai_setup_review.md"
       }
     ],
-    "open_count": 21,
-    "total": 45
+    "open_count": 22,
+    "total": 46
   },
   "reports": [
     {

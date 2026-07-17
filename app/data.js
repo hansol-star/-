@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-17 16:32 KST",
+  "generated_at": "2026-07-17 17:30 KST",
   "as_of": "2026-07-17 금 16:xx KST (v52 R2 — 제헌절 휴장·국내시세 7/16 마감 고정 + 7/16 美마감 방어벽 균열 반영)",
   "source_report": "docs/reports/report_v52_2026-07-17.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1480.58
+    "usdkrw": 1483.76
   },
   "totals": {
-    "assets_krw": 7395981,
-    "stocks_value_krw": 7073060,
+    "assets_krw": 7407680,
+    "stocks_value_krw": 7084759,
     "cash_krw": 322921,
-    "day_change_krw": -170713,
-    "day_change_pct": -2.36,
-    "total_pnl_krw": -29974,
-    "total_pnl_pct": -0.42
+    "day_change_krw": -170863,
+    "day_change_pct": -2.35,
+    "total_pnl_krw": -18274,
+    "total_pnl_pct": -0.26
   },
   "safety": {
     "pin": 7500,
@@ -675,9 +675,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 207.4,
       "change_pct": -2.4,
-      "value_krw": 1577800,
+      "value_krw": 1581189,
       "pnl_pct": 3.95,
-      "pnl_krw": 84708,
+      "pnl_krw": 88097,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -738,9 +738,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 664.54,
       "change_pct": -2.46,
-      "value_krw": 1110938,
+      "value_krw": 1113324,
       "pnl_pct": 4.82,
-      "pnl_krw": 68326,
+      "pnl_krw": 70712,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -829,14 +829,14 @@ window.APP_DATA = {
       "cost": 645.4,
       "price": 690.14,
       "change_pct": -0.53,
-      "value_krw": 991954,
+      "value_krw": 994085,
       "pnl_pct": 6.93,
-      "pnl_krw": 79393,
+      "pnl_krw": 81524,
       "outlook": "core",
       "stars": 4,
       "score": null,
       "target": "— (ETF)",
-      "buy_zone": "적립",
+      "buy_zone": "적립 — 월 10만 정액(7/17 확정·월급일 후 첫 폰창 소수점 예약, 재원=신규 입금 전용)",
       "trim": "—",
       "forecast": {
         "week": {
@@ -852,7 +852,7 @@ window.APP_DATA = {
           "note": "분산형 코어. 적립 대상, PCE가 단기 변수."
         }
       },
-      "comment": "7/8밤 -0.26%($685.26) — 이란 반영 첫 세션(나스닥 +0.2%·다우 -1.09%)에도 견조. 코어.",
+      "comment": "7/8밤 -0.26%($685.26) — 이란 반영 첫 세션(나스닥 +0.2%·다우 -1.09%)에도 견조. 코어. [7/17] 월 10만 정액 적립 룰 확정(1회차 7/17 예약).",
       "issues": [
         {
           "date": "2026-07-14",
@@ -895,9 +895,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 401.1,
       "change_pct": 1.38,
-      "value_krw": 856941,
+      "value_krw": 858781,
       "pnl_pct": -2.22,
-      "pnl_krw": -5189,
+      "pnl_krw": -3348,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -976,9 +976,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 333.26,
       "change_pct": 1.76,
-      "value_krw": 504506,
+      "value_krw": 505590,
       "pnl_pct": 29.6,
-      "pnl_krw": 121565,
+      "pnl_krw": 122649,
       "outlook": "hold",
       "stars": 3,
       "score": 64,
@@ -1039,9 +1039,9 @@ window.APP_DATA = {
       "cost": 387.73,
       "price": 354.46,
       "change_pct": -4.44,
-      "value_krw": 229868,
+      "value_krw": 230362,
       "pnl_pct": -8.58,
-      "pnl_krw": -17486,
+      "pnl_krw": -16993,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1102,9 +1102,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 124.21,
       "change_pct": -6.25,
-      "value_krw": 39574,
+      "value_krw": 39659,
       "pnl_pct": -46.49,
-      "pnl_krw": -33178,
+      "pnl_krw": -33093,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1189,9 +1189,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 168.56,
       "change_pct": -1.95,
-      "value_krw": 70752,
+      "value_krw": 70904,
       "pnl_pct": 4.0,
-      "pnl_krw": 3831,
+      "pnl_krw": 3983,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1265,9 +1265,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 853.2,
       "change_pct": -5.65,
-      "value_krw": 25266,
+      "value_krw": 25320,
       "pnl_pct": 13.91,
-      "pnl_krw": 3446,
+      "pnl_krw": 3501,
       "outlook": "core",
       "stars": 4,
       "score": 84,
@@ -1324,9 +1324,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 374.45,
       "change_pct": -5.03,
-      "value_krw": 39461,
+      "value_krw": 39546,
       "pnl_pct": -11.07,
-      "pnl_krw": -4190,
+      "pnl_krw": -4105,
       "outlook": "hold",
       "stars": 4,
       "score": 84,
@@ -2182,7 +2182,7 @@ window.APP_DATA = {
       1497.7,
       1487.88,
       1486.2,
-      1480.61
+      1483.81
     ]
   },
   "kospi_history": {
@@ -8432,6 +8432,11 @@ window.APP_DATA = {
         "id": "t6",
         "text": "🌙 오늘밤 7/17세션(22:30~) NVDA·AVGO capex-fear 반응 관전 — 예약 없음(안전핀 봉인). GOOGL $345 GTC 유지",
         "done": false
+      },
+      {
+        "id": "t7",
+        "text": "🧺 VOO 적립 1회차 — 폰창(17:30~)에 10만원 소수점 예약(재원=신규 입금, 봉인 32.3만·GOOGL 달러 불가침). 체결 확인은 다음 세션(룰8)",
+        "done": false
       }
     ],
     "week": [
@@ -8466,13 +8471,18 @@ window.APP_DATA = {
         "id": "m3",
         "text": "8/13 美 PPI(7월분) = 유가 급등 첫 반영 PPI, 9월 인상 스윙",
         "done": false
+      },
+      {
+        "id": "m4",
+        "text": "🧺 [상시] VOO 정액 적립 월 10만(7/17 신설) — 월급일 후 첫 폰창 소수점 예약, 시세 안 보고 기계적. VOO 비중 25% 근접 시 재점검(현 14.0%)",
+        "done": false
       }
     ]
   },
   "task_counts": {
     "today": {
       "done": 3,
-      "total": 6
+      "total": 7
     },
     "week": {
       "done": 0,
@@ -8480,7 +8490,7 @@ window.APP_DATA = {
     },
     "month": {
       "done": 0,
-      "total": 3
+      "total": 4
     }
   },
   "orders": [
@@ -8596,6 +8606,30 @@ window.APP_DATA = {
       "amount_krw": 100482,
       "date": "2026-07-07",
       "note": "7/7 22:37 체결 확정(토스 스크린샷). v43 제안(강세 트림·컨센 $423 도달) 실행 — 제안은 절반이었으나 정훈이 전량 선택. USD 실현 -$1.04(-1.6%, 원가 $66.63) / KRW 환차익 포함 +3,436원(+3.5%). 입금 7/9 → 달러 예수금 보존(7/29~30 실적 주간 전 신규 매수 잠금)."
+    },
+    {
+      "id": "ord-voo-dca-rule",
+      "label": "★VOO 정액 적립 룰 — 월 10만원 (7/17 정훈 확정)",
+      "ticker": "VOO",
+      "action": "매수(소수점 시장가 예약·정액)",
+      "status": "상시 룰",
+      "price": null,
+      "shares": null,
+      "amount_krw": 100000,
+      "date": "2026-07-17",
+      "note": "[7/17 채팅 확정] 매월 10만원 정액 — 월급일 후 첫 폰창(평일 17:30~)에 소수점 예약, 날짜 오면 시세 안 보고 기계적 집행(정액의 핵심=타이밍 판단 제거). 재원=신규 입금 전용: 봉인 현금 322,921원(안전핀)·달러 $404.96(GOOGL $345 재원+버퍼)은 불가침 → 안전핀·크래시TF와 무충돌. 경계선=VOO 비중 25%(집중도 상한) 근접 시 재점검(현재 14.0%). 매 보고서가 당월 집행 여부 체크. 정본 룰 = master.md §3 룰9"
+    },
+    {
+      "id": "o-voo-dca-2607",
+      "label": "VOO 적립 1회차(2026-07) — 10만원",
+      "ticker": "VOO",
+      "action": "매수(소수점 시장가 예약)",
+      "status": "계획(정훈 오늘 예약)",
+      "price": null,
+      "shares": null,
+      "amount_krw": 100000,
+      "date": "2026-07-17",
+      "note": "정훈 7/17 폰창(17:30~)에서 10만원 소수점 예약 → 오늘밤 22:30 美 개장 시장가 체결. 기준가 $690.14면 약 0.098주. 재원=신규 입금(봉인 현금 아님). 체결 확인(룰8)=다음 세션/R2 첫 단계 — 확인 전 완료 처리 금지."
     }
   ],
   "tasks_updated": "2026-07-17",

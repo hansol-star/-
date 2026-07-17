@@ -1,0 +1,73 @@
+{
+  "date": "2026-07-17",
+  "fx_usdkrw": 1480.53,
+  "kr_value": 1626000,
+  "kr_pnl": -331200,
+  "us_value_usd": 3679.0,
+  "us_pnl_usd": 145.99,
+  "cash_krw": 322921,
+  "total_assets_krw": 7395797,
+  "stock_pnl_krw": -115056,
+  "positions": {
+    "삼성전자": {
+      "price": 255000.0,
+      "ret_pct": -6.88
+    },
+    "LG전자": {
+      "price": 179000.0,
+      "ret_pct": 15.34
+    },
+    "두산로보틱스": {
+      "price": 67000.0,
+      "ret_pct": -33.0
+    },
+    "현대차": {
+      "price": 425000.0,
+      "ret_pct": -32.54
+    },
+    "NAVER": {
+      "price": 190000.0,
+      "ret_pct": -24.15
+    },
+    "NVDA": {
+      "price": 207.4,
+      "ret_pct": 3.95
+    },
+    "META": {
+      "price": 664.54,
+      "ret_pct": 4.82
+    },
+    "VOO": {
+      "price": 690.14,
+      "ret_pct": 6.93
+    },
+    "MSFT": {
+      "price": 401.1,
+      "ret_pct": -2.22
+    },
+    "AAPL": {
+      "price": 333.26,
+      "ret_pct": 29.6
+    },
+    "GOOGL": {
+      "price": 354.46,
+      "ret_pct": -8.58
+    },
+    "ORCL": {
+      "price": 124.21,
+      "ret_pct": -46.49
+    },
+    "ANET": {
+      "price": 168.56,
+      "ret_pct": 4.0
+    },
+    "MU": {
+      "price": 853.2,
+      "ret_pct": 13.91
+    },
+    "AVGO": {
+      "price": 374.45,
+      "ret_pct": -11.07
+    }
+  }
+}

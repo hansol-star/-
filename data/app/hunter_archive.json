@@ -1,8 +1,108 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-07-16 자동 롤오버 +13편 (build_app_data)",
+  "updated": "2026-07-17 자동 롤오버 +10편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": null,
+      "title": "7월 16일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] 美 6월PPI -0.3%(예상하회)+CPI동반쿨링→7월인상확률10%대미만. 애플 AI서버칩기업 인수검토(로이터, 발트라칩지연)+주가+4.01%사상최고($327.5). 앤트로픽 비공개상장서류+GS/MS/JPM 기관투자자 사전미팅 착수($965B밸류)",
+      "views": null,
+      "id": "8UlFIFJKCbc"
+    },
+    {
+      "date": null,
+      "title": "지금 반도체 주가가 '다시' 떨어지고 있는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[정정 1건] 반도체 재하락=업황붕괴 아닌 차익실현+중국공급공포(ASML역대실적에도 메모리만 하락). CXMT 조달액 '6조원' 자막오류(실제 최대14.7조원, [정정]). 하닉PER5.5배<마이크론6.8배[근사]",
+      "views": null,
+      "id": "LrOHZlxn_7I"
+    },
+    {
+      "date": null,
+      "title": "지금 '폭락장' 피하려는 개미들, 전부 몰렸다는 'ETF' Top3",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[원칙론] 파킹형(대기자금) ETF 상위3(타이거머니마켓·라이즈머니마켓티브·타이거코퍼금리) 최근1주 순자산 +9,673억 유입. 종목콜 아닌 대기자금 성격, 낮은 우선순위",
+      "views": null,
+      "id": "QcEw-gTnPGA"
+    },
+    {
+      "date": null,
+      "title": "월가 JP모건·모건스탠리·블랙록이 사상 최대 실적을 낸 날, 투자자들이 돈을 잃은 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증, 정정1건] 7/15 지수↑(S&P+0.38%)인데 반도체집중계좌만-10%대. 모건스탠리 2Q매출213억$(+27%,사상최대)·주식거래63억$(+69%). 블랙록AUM15.3조$(첫돌파). 신규유입액 자막10배오류(19,920억→실제1,992억$)[정정]",
+      "views": null,
+      "id": "gdtw-Wz2IBo"
+    },
+    {
+      "date": null,
+      "title": "반도체 역대급 실적에도 주가가 계속 흔들리는 '이유' 전부 뜯어왔습니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·최우선] '반도체 4개의 시계'(실적=결과·주문=방향·공급=유통기한·돈=변동성) 프레임. 마이크론GM84.6%(1년전37.7%). CXMT시총127조(기대220조반토막)·HBM매출비중0%(하닉35%가방파제). WSTS 2026메모리+249.5%/2027+32.1%",
+      "views": null,
+      "id": "4Gt5vjCOfek"
+    },
+    {
+      "date": null,
+      "title": "중국의 '역대급 반도체 IPO'가 한국에 미칠 진짜 영향",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] CXMT 15조원조달(청약개시,상장7/27예정)·중국D램세계4위. YMTC·딥시크도IPO추진. 단 CXMT는범용D램전용, HBM(하닉·삼성주력)장벽 아직미도달 — 당장위협아님",
+      "views": null,
+      "id": "tlCxoyP2jG8"
+    },
+    {
+      "date": null,
+      "title": "3년 6개월 만의 금리 인상이, 삼성·닉스를 이을 '다음 상승장' 만드는 방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] 한은 기준금리 2.50→2.75%인상 확정(7인전원만장일치)·\"인상기조지속\"명시. 채점표교체론=은행·보험·통신 가산점/적자성장주 감점. 삼성·하닉은감점대상아닌'인상원인제공자'. 체크포인트=8/27금통위·8/4CPI",
+      "views": null,
+      "id": "9cXDYqzkVEo"
+    },
+    {
+      "date": null,
+      "title": "드디어 공개된 '삼전·닉스 레버리지' 대책 4가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·★크래시TF] 정부 레버리지ETF 공식규제: ①신규상장잠정중단②마케팅금지③예탁금1천→3천만원(전액현금,8월)④매매단위1→20주(11월)⑤LP괴리율3%→2%. 기존물량 강제청산아닌 신규진입문턱↑ 방식",
+      "views": null,
+      "id": "WrPpi9218Pg"
+    },
+    {
+      "date": null,
+      "title": "한국 정부가 갑자기 '비트코인'을 밀어주려는 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·프레임] 하반기경제전략에 디지털자산기본법·원화스테이블코인제도화·비트코인현물ETF법개정지원 포함. 정부안미공개·법제정단계, 보유·워치 무관 시야참고",
+      "views": null,
+      "id": "AwqBe_Nv-4o"
+    },
+    {
+      "date": null,
+      "title": "삼성 이재용이 '세계 1위'로 키우겠다는 '사업' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] 삼성 송도바이오단지 세계최대육성. 삼성바이오로직스 1분기매출1.2571조·영업익5,808억(+35%,이익률46.2%)·17개고객·생산능력78.5만L세계최대. 바이오에피스매출4,549억·영업익1,440억. 미보유·참고용",
+      "views": null,
+      "id": "Px-6zQO_wdA"
+    },
     {
       "date": null,
       "title": "최태원이 직접 밝혔다는 'SK하이닉스' 주가 반등 카드 3가지",

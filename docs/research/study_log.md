@@ -26,6 +26,18 @@
 
 **제안(①에서)**: (a) 영상의 "<90점이면 코드 자동수정 PR"은 우리 self-review가 '콜'에만 적용 — **'스킬/스크립트 자체의 품질 점검'은 없음.** 단 무인 자동 코드수정 PR은 소형 1인 데스크엔 과설계·리스크 → **기각 쪽**이되, 가벼운 버전(분기 1회 스킬 자기점검 체크리스트)만 보류 검토. (b) **미너비니 = 영상은 'VCP(변동성 수축)'로 표기**, 우리 stock-deepdive는 '추세템플릿'으로만 인용 → VCP 수축패턴 체크가 방법론에 명시됐는지 재확인 필요(보류·다음 세션 확인).
 
+### ② 클로드 코드 스킬 수십 개 중 진짜 남은 건 6개 (태오의 실행 비즈니스 · 2026-06-23 · 32:32 · 조회 1.2만)
+> 일반 1인사업용 스킬 6선(skill-creator·superpowers·marketing·ui-ux·Humanize KR·remotion + caveman). **우리 퀀트 주식 데스크 도메인 밖** — 대부분 참고.
+
+| # | 영상 포인트 | 우리 현황 | 판정 |
+|---|---|---|---|
+| 1 | **스킬 위생**: "처음부터 다 깔면 안 됨·도구 늘리기가 아니라 반복업무에 딱 맞는 것만"(31:26) | 우리는 목적특화 스킬셋(portfolio-desk·quick-check·self-review·stock-deepdive 등)만 유지 | 검증(정합) |
+| 2 | **맥락을 파일로 영속화**: product-marketing 스킬이 제품·고객을 파일 저장→다른 스킬이 맥락 안 잃음 | master.md·portfolio.json·STATE SNAPSHOT이 8데스크 공유 맥락 = 동일 패턴 | 검증(정합·초과) |
+| 3 | superpowers 14스킬(브레인스톰→계획→워크트리→테스트먼저→디버그→리뷰→검증) | 개발 워크플로 플러그인 — 우리는 도메인 특화. validate_report.py 게이트가 유사 역할 | 참고(도메인 밖) |
+| 4 | skill-creator·Humanize KR·caveman(간결모드) | skill-creator 보유 / Humanize는 CLAUDE.md '정훈 톤 프로파일'로 이미 흡수 | 검증(기반영) |
+
+**제안(②에서)**: 신규 채택 없음 — 우리 설계(스킬 위생·맥락 영속화·톤 프로파일)가 이미 정합. superpowers의 '서브에이전트가 테스트 짜고 자가검증' 아이디어는 우리 validate/self-review와 겹쳐 추가 불요.
+
 ## 2026-07-04 — 데스크 시스템 공부: TradingAgents 원조·Anthropic 멀티에이전트 (정훈 지시 "에이전트 발전·공부")
 
 > 대상 = 시장 콘텐츠가 아니라 **우리 데스크 구조 자체의 개선 재료**. 출처: [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)(우리 구조의 원본, arXiv:2412.20138) · [Anthropic — How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system).

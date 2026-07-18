@@ -7,6 +7,25 @@
 
 ---
 
+## 2026-07-18 — Claude Code 주식 영상 4편 학습 (정훈 공유 — 세팅 개선 재료)
+
+> 정훈 공유 4편(Claude Code 주식/트레이딩 세팅). youtube-watch(fetch_youtube.py)로 자막 분석 → 우리 데스크 세팅 대비 채택/기각/보류. **세팅 변경은 제안만(정훈 승인 대기).** 진행 = 영상마다 커밋(durable). ①완료 ②③④ 진행중(토큰 리셋 재개 크론 f36b51ca).
+
+### ① 클로드 AI를 프로 트레이더로 만드는 33가지 스킬 (Hodu's AI Analysis Lab · 2026-02-26 · 15:24 · 조회 2.3만)
+> ★**이 영상팩 = 우리 CLAUDE.md self-review가 "33스킬 영상 착안"이라 명시한 원본.** GitHub 스킬팩 + tradermonty Notion 무료자료 소개가 골자. 대부분 우리가 이미 채택·초과 달성.
+
+| # | 영상 기법 | 우리 현황 | 판정 |
+|---|---|---|---|
+| 1 | 정량 스코어링 0~100 | 보유 전종목 0~100 스코어·별점 밴드 | 검증(기반영) |
+| 2 | 스킬 체이닝(워크플로 조합) | portfolio-desk = 8데스크 병렬 체인 | 검증(초과) |
+| 3 | 방법론 인코딩(오닐 CANSLIM·미너비니·드러켄밀러) | stock-deepdive 채점 렌즈로 동일 | 검증(기반영) |
+| 4 | 로직 파이썬 이관 = 토큰 절약 | market_data·macro_data·pnl 등 stdlib 스크립트 | 검증(초과) |
+| 5 | Opus→Sonnet 토큰 절약 | 7/15 전 데스크 Sonnet 전환 완료 | 검증(기반영) |
+| 6 | FMP 무료 250회/일 | fundamentals.py 이미 사용·화이트리스트 파악 | 검증(기반영) |
+| 7 | **자가개선 루프: 스킬 품질 점검→<90점이면 코드 수정 PR** | 우리는 '콜' 캘리브레이션(self-review·Brier)은 있으나 **'스킬 코드' 자동 채점·자동수정은 없음** | 보류(신규 후보) |
+
+**제안(①에서)**: (a) 영상의 "<90점이면 코드 자동수정 PR"은 우리 self-review가 '콜'에만 적용 — **'스킬/스크립트 자체의 품질 점검'은 없음.** 단 무인 자동 코드수정 PR은 소형 1인 데스크엔 과설계·리스크 → **기각 쪽**이되, 가벼운 버전(분기 1회 스킬 자기점검 체크리스트)만 보류 검토. (b) **미너비니 = 영상은 'VCP(변동성 수축)'로 표기**, 우리 stock-deepdive는 '추세템플릿'으로만 인용 → VCP 수축패턴 체크가 방법론에 명시됐는지 재확인 필요(보류·다음 세션 확인).
+
 ## 2026-07-04 — 데스크 시스템 공부: TradingAgents 원조·Anthropic 멀티에이전트 (정훈 지시 "에이전트 발전·공부")
 
 > 대상 = 시장 콘텐츠가 아니라 **우리 데스크 구조 자체의 개선 재료**. 출처: [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)(우리 구조의 원본, arXiv:2412.20138) · [Anthropic — How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system).

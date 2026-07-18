@@ -1,8 +1,38 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-07-18 자동 롤오버 +10편 (build_app_data)",
+  "updated": "2026-07-18 자동 롤오버 +3편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": null,
+      "title": "월가에서 하반기 '현대차그룹' 역대급 상승장 올 수 있다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·현대차 직결] 현대차 로봇(아틀라스) 프리미엄 30만→67만 두배 밀어올림·첫 공장투입 2028·2Q판매-7%로 되돌림 중. 유럽 기아(EV2~5 중저가)+36% vs 현대차(캐스퍼뿐)-11%. 하반기카드=관세버티기(하이브리드), 현대차·기아 美+126%(토요타+10%). Macquarie 최선호 토요타·기아>현대차. 노무라 현대차 67만 상향(BD지분 19→26조·현대차27.9%·기아17.2%). 리스크=노조 파업. →현대차 ⭐2 신중강화, 7/23 실적 숫자 확인 전 진입금지",
+      "views": null,
+      "id": "-JTjslPooek"
+    },
+    {
+      "date": null,
+      "title": "전설의 투자자 워렌버핏이, 레버리지를 '절대 하면 안된다는' 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·룰4/F4 지지] 버핏 '레버리지는 똑똑한 사람을 파산시킬 유일한 방법.' 삼성·하닉 단일종목 레버리지 5월말 13조 매수→한달반 -40%+(방향 맞춰도 변동성 소멸로 -29%). 핵심='회사가 망한게 아니라 레버리지 구조 문제'—반도체 슈퍼사이클·실적 살아있음. 우리 §8(펀더 아닌 레버리지 청산)·룰4(레버리지 없음)·F4 규제 근거 정면 지지",
+      "views": null,
+      "id": "z4ByzvWNGZg"
+    },
+    {
+      "date": null,
+      "title": "지금 투자자들이 반드시 알아야 하는 '다음 주' 핵심 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·주간전망] 다음주 3일 이벤트벨트(7/29 하닉 실적+FOMC 7/30+빅테크 capex) 주목. 신규 개별 종목콜은 없음—기존 setups 유지",
+      "views": null,
+      "id": "XVIc__ioxuk"
+    },
     {
       "date": null,
       "title": "7월 17일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",

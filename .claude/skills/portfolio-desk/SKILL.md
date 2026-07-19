@@ -108,6 +108,8 @@ python3 .claude/skills/portfolio-desk/scripts/market_log.py   # [7/19] 오늘 �
 ```
 - **미국주 펀더멘털(0~100 스코어 채점 근거)**: 키가 있으면 `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py`
   → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE를 CANSLIM/미너비니 렌즈 채점에 투입. **국내 5종목·KR 워치는 FMP 무료 미지원 → 증권사 리포트 WebSearch로 보강**(키 없거나 한도 초과 시도 동일 폴백).
+- **자체 밸류에이션(컨센서스 견제) [7/20]**: `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/valuation.py --tickers NVDA,MSFT [--comps]`
+  → DCF 3시나리오(보수/기준/낙관) 내재가치 + 피어 P/E comps. **증권사 목표가(consensus.py)와 나란히 교차검증**("증권사 우선하되 과신 견제"의 정량 근거). ⚠️DCF는 가정 민감(가정 전부 출력·CLI 조정)·FCF 음수는 부적합 플래그. comps는 무료플랜 402 피어 많아 유효 피어<2면 신뢰불가 플래그. 키 없으면 `--demo`로 수학만.
 - `pnl.py`/`consensus.py`/`triggers.py`는 모두 `portfolio.json`(원가·보유·alerts 정본)을 읽는다.
 - **기관 컨센서스**: consensus.py가 美 종목 목표주가/의견을 무키로 채움(±30% 괴리 자동 플래그).
   국내 종목·미커버리지(ETF 등)는 WebSearch로 보강 — "[종목명] 목표주가 증권사".

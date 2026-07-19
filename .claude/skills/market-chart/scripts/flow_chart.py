@@ -36,27 +36,11 @@ try:
 except ImportError:  # 웹/헤드리스엔 matplotlib·numpy 없을 수 있음 → 차트 스킵
     HAVE_MPL = False
 
-
-def set_korean_font():
-    """NanumGothic 등 한글 폰트 자동 등록. 없으면 경고 후 기본 폰트."""
-    prefer = ["NanumGothic", "NanumBarunGothic", "NanumSquare",
-              "Noto Sans CJK KR", "Noto Sans KR", "Malgun Gothic", "AppleGothic"]
-    avail = {f.name for f in fm.fontManager.ttflist}
-    for name in prefer:
-        if name in avail:
-            plt.rcParams["font.family"] = name
-            plt.rcParams["axes.unicode_minus"] = False  # 마이너스 깨짐 방지
-            return name
-    # 경로로 직접 등록 시도
-    for path in ["/usr/share/fonts/truetype/nanum/NanumGothic.ttf"]:
-        if os.path.exists(path):
-            fm.fontManager.addfont(path)
-            plt.rcParams["font.family"] = fm.FontProperties(fname=path).get_name()
-            plt.rcParams["axes.unicode_minus"] = False
-            return plt.rcParams["font.family"]
-    plt.rcParams["axes.unicode_minus"] = False
-    print("⚠️ 한글 폰트 못 찾음 — 라벨이 깨질 수 있음", file=sys.stderr)
-    return None
+# 공통 스타일 정본(색·폰트) — 같은 폴더의 chart_style. 색은 기존과 동일 톤(출력 불변).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from chart_style import (set_korean_font,
+                         POS as GREEN, NEG as RED, INDEX_LINE as BLUE,
+                         POS_D as GREEN_D, NEG_D as RED_D, INDEX_LINE_D as BLUE_D)
 
 
 # ── 내장 기본 데이터: 2026-06 외국인 코스피 일별 순매수(종가, 조원) ──
@@ -77,10 +61,6 @@ DEFAULT = {
         {"date": "6/18\n(목)", "close_flow": 1.29, "index": 9063.84, "intraday_flow": -0.95},
     ],
 }
-
-GREEN, RED, BLUE = "#2e9e5b", "#d6443c", "#2b5fb0"
-GREEN_D, RED_D, BLUE_D = "#1d6b3f", "#a3271f", "#21407a"
-
 
 def make_chart(cfg, out_path):
     set_korean_font()

@@ -1,0 +1,14 @@
+{
+  "_note": "매크로 이벤트 큐레이션 정본. event_calendar.py가 실적일(earnings.py)과 병합해 D-day 캘린더 생성. macro-desk가 매주 WebSearch로 검증·확장(지나간 이벤트는 제거, 새 분기 일정 추가). confidence: 확정=공식 캘린더 교차확인 / 미확인=추정.",
+  "_verified": "2026-07-19",
+  "_sources": ["federalreserve.gov/monetarypolicy/fomccalendars.htm", "bls.gov/schedule/news_release/cpi.htm", "bok.or.kr 금통위 일정"],
+  "events": [
+    {"date": "2026-07-29", "name": "FOMC 금리결정", "kind": "FOMC", "confidence": "확정", "kst_note": "결정 발표 익일 03:00 KST — 폰창 밖(밤 트리거 금지, 다음날 17:30 대응)", "source": "Fed"},
+    {"date": "2026-08-12", "name": "美 7월 CPI", "kind": "CPI", "confidence": "확정", "kst_note": "21:30 KST — 폰창 밖(사전 조건부 룰·예약주문 베이킹)", "source": "BLS"},
+    {"date": "2026-08-27", "name": "한은 금통위 금리결정", "kind": "BOK", "confidence": "확정", "kst_note": "오전 발표 — 폰창 밖이나 KRX 장중 반영, 다음 폰창 대응", "source": "BOK"},
+    {"date": "2026-09-16", "name": "FOMC 금리결정 + 점도표(SEP)", "kind": "FOMC", "confidence": "확정", "kst_note": "익일 03:00 KST — 점도표 동반, 변동성 큼", "source": "Fed"},
+    {"date": "2026-10-22", "name": "한은 금통위 금리결정", "kind": "BOK", "confidence": "확정", "kst_note": "오전 발표", "source": "BOK"},
+    {"date": "2026-10-28", "name": "FOMC 금리결정", "kind": "FOMC", "confidence": "확정", "kst_note": "익일 03:00 KST — 폰창 밖", "source": "Fed"},
+    {"date": "2026-12-09", "name": "FOMC 금리결정 + 점도표(SEP)", "kind": "FOMC", "confidence": "확정", "kst_note": "익일 03:00 KST — 올해 마지막, 점도표 동반", "source": "Fed"}
+  ]
+}

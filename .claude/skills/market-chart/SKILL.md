@@ -8,6 +8,13 @@
 - "외인 며칠 매수 며칠 매도인지 그래프로", "수급 추이 그려줘", "코스피 흐름 차트로", "표나 그래프로" 등.
 - 일일 보고서(portfolio-desk)에서 수급 반전·지수 돌파 등 **시각적 강조가 필요한 국면**.
 
+## 공통 스타일 정본 = `chart_style.py` [7/19 신설]
+색·폰트·타이포는 `scripts/chart_style.py` 단일 정본(dataviz 원칙·검증 팔레트). flow_chart·charts 둘 다 여기서 가져온다.
+- **의미별 색(dataviz "color by job")**: 발산 `POS`(매수/수익 초록)/`NEG`(매도/손실 빨강) · 중립 `INDEX_LINE`(지수 라인)·`INK_2`(격자·텍스트) · 카테고리컬 `CATEGORICAL`(검증 통과 8색 고정순서, 파이/멀티시리즈).
+- **검증 필수(눈대중 금지)**: 카테고리컬 팔레트는 dataviz `validate_palette.js`로 CVD·명도·대비 통과 확인(2026-07-19 8색 light PASS). 새 색 추가 시 재검증.
+- `set_korean_font()`·`apply_base_style()`(recessive 격자·스파인 정리)·`merge_small()`(파이 3%↓ '기타' 병합, 8색 초과 identity 금지) 제공.
+- ⚠️ dual-axis(수급+지수 콤보)는 dataviz가 지양하지만 금융 관습·정훈 뷰라 flow_chart만 의도적 예외(보조축 유지). 나머지 규칙 준수.
+
 ## 핵심: 한글 폰트 (깨짐 방지)
 - 컨테이너에 NanumGothic이 없으면 먼저 설치:
   ```bash

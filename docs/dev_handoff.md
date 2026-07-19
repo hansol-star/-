@@ -36,8 +36,17 @@
   - 7/19 실측: 코스피 폭풍 98%ile=극단(RV 79.8%·1년중앙 30.5%), 삼성전자 99.6·AAPL 97.6·META 95.2·ANET 93.7 = 크래시 국면 정량 확인. `--index-only`(2콜)·`--tickers`·`--json` 옵션.
   - ⚠️ **crash_tf.md 미배선**(위 '정훈 결정 대기' 참조 — 매핑 승인 후).
 
+## ✅ 이번 세션(7/19 밤)에 완료된 것 — "좋은 스킬 세팅·성장" 배치(정훈 지시)
+> 정훈이 Graphify(코드 지식그래프 도구) 공유 → 우리 레포엔 fit 낮아 **[기각·재평가 트리거]**(근거 `docs/research/tooling_log.md`), 대신 진짜 빈틈 4개 + 데이터 축적을 신설. 전부 `selfcheck` GATE PASS·렌더 검증.
+- **A. 품질 게이트 `selfcheck.py` 신설** — 스크립트 24개 compile+import 스모크 + validate_report 통합. dev 커밋·머지 전 기계 게이트. 워크플로 `docs/dev_workflow.md`, CLAUDE.md 하네스② 갱신.
+- **C. 문서 파이프라인 `read_doc.py` 신설** — poppler 없이 PDF 텍스트 추출(자기치유: cffi 깨짐 자동복구). `docs/research/inbox/` 컨벤션. Graphify PDF 원문+학습노트(`tooling_log.md`) 저장.
+- **시장 시계열 `market_log.py` 신설** — 지수·환율·보유·워치 라이브를 `data/timeseries/quotes.jsonl`에 일별 append + `--query`추세조회. 기존 snapshot 20일치 백필(320행). snapshot=손익회계 / market_log=시세추세, 분업.
+- **B. 이벤트 캘린더 `event_calendar.py` 신설** — earnings.py(실적) + `data/app/macro_events.json`(FOMC·CPI·금통위, WebSearch 검증) 병합 D-day 뷰·폰창밖 플래그. SKILL §2 배선.
+- **D. 시각화 `chart_style.py` 신설** — dataviz 검증팔레트(validate_palette.js PASS)·한글폰트·recessive 스타일 공통정본. flow_chart 중앙화(출력불변)·charts.py 업그레이드(한글라벨·8색 고정순서·3%↓'기타'병합·발산색). 3종 렌더 확인.
+
 ## ⏳ 다음 세션 TODO
-- (없음 — 큐 소진. 새 항목 생기면 append)
+- (선택) **market_log 일별 자동화** — R2 루틴/보고서 파이프라인에 `market_log.py` 1줄 추가해 매일 시세 축적(현재는 수동/이번세션 1회 기록). 정훈 확인 후 배선.
+- (선택) **macro_events.json 주간 검증** — macro-desk가 지나간 이벤트 제거·새 분기 일정 WebSearch 추가(현재 7/29~12/9 확정분 seed).
 
 ## ✅ 정훈 결정 완료
 - **[vol_gauge] 폭풍→트랜치 매핑 = 온건 스케일 승인(7/19)** → crash_tf §6-6에 배선 완료(7,500 이진 플로어 하드 유지, <75%=100%·경계=75%·폭풍=50%·극단=25% 감산). §1 갱신 명령에 vol_gauge --index-only 추가·상황판 폭풍점수 표기 의무화. CLAUDE.md 데이터소스·desk_playbook §3 risk-desk 등록.

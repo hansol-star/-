@@ -1,0 +1,1027 @@
+클로드 코드가 파일부터 뒤지지 않게 만…
+
+거의 다 됐습니다. 지금 가입해서 Notion으로 구축
+을 시작하세요.
+
+가입 또는 로그인하기
+
+클로드 코드가 파일부터 뒤지지 
+않게 만드는 Graphify 가이드
+세부 정보 보기
+
+큰 코드베이스에서 질문할 때마다 검색하고 파일을 여
+는 범위가 넓어지면 컨텍스트가 금방 커집니다. 
+Graphify는 코드의 함수, 클래스, 호출 관계를 지식 
+그래프로 만들어 둡니다. 다음 질문부터는 전체 파일을 
+훑기 전에 필요한 연결만 먼저 꺼내볼 수 있습니다.
+
+다만 소스 코드를 영원히 읽지 않아도 되는 도구는 아닙
+니다. 그래프로 범위를 좁힌 뒤 근거가 필요한 파일만 
+확인하게 만드는 도구에 가깝습니다.
+
+용어: 지식 그래프는 함수·클래스·파일 같은 대
+상을 노드로, 호출·임포트·상속 같은 관계를 엣
+지로 저장한 지도입니다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+1페이지(총 26페이지)
+
+[그래픽 자리 1 — 전체 흐름 다이어그램] 프로
+젝트 파일 → 로컬 AST 분석 → 
+graph.json
+
+ 생성 → 
+query/path/explain
+한 원문만 확인
+
+로 범위 축소 → 필요
+
+Graphify가 실제로 하는 일
+
+• 코드 파일은 tree-sitter AST로 로컬에서 분석합
+니다. 일반적인 코드 전용 실행에는 LLM 호출이 
+필요 없고 코드가 외부 모델로 전송되지 않습니다.
+• 문서, PDF, 이미지는 의미와 관계를 뽑는 과정에
+서 클로드 코드 세션의 모델이나 별도로 설정한 모
+델을 사용합니다.
+
+• 영상과 음성은 선택 기능입니다. 음성 전사는 로컬
+에서 처리하지만 만들어진 전사문을 그래프에 연
+결하는 의미 분석은 모델을 사용할 수 있습니다.
+
+• 결과는 
+
+graph.json
+
+, 
+에 저장됩니다.
+
+graph.html
+
+GRAPH_REPORT.md
+
+, 
+
+• 관계에는 
+
+, 
+
+EXTRACTED
+
+INFERRED
+ 같은 신뢰도 태그가 붙습니다. 추론
+AMBIGUOUS
+된 관계를 소스에서 직접 찾은 사실처럼 섞지 않기 
+위해서입니다.
+
+, 
+
+STEP 1. 준비물 확인 — 3분
+
+Python 3.10 이상, uv, Claude Code가 필요합니
+다. macOS나 Linux 터미널에서는 아래 명령부터 실
+행하세요.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+2페이지(총 26페이지)
+
+python3 --version uv --version
+
+claude --version
+
+Windows PowerShell에서는 Python 명령이 보통 
+python
+
+입니다.
+
+python --version uv --version
+
+claude --version
+
+Python 버전이 3.10보다 낮거나 명령을 찾지 못하면 
+운영체제에 맞게 설치합니다.
+
+macOS:
+
+brew install python@3.12 uv
+
+Windows:
+
+winget install Python.Python.3.12
+
+winget install astral-sh.uv
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+3페이지(총 26페이지)
+
+BashPlain TextBashPlain TextUbuntu/Debian:
+
+sudo apt update sudo apt install -y
+
+python3 python3-venv curl -LsSf
+
+https://astral.sh/uv/install.sh |
+
+sh
+
+설치가 끝나면 터미널을 다시 열고 버전을 재확인하세
+요. Claude Code가 없다면 
+
+에서 설치하고 로그인까지 끝냅니다.
+
+확인 기준은 간단합니다.
+
+3.10
+
+• Python: 
+ 이상
+• uv: 버전 문자열 출력
+• Claude Code: 버전 문자열 출력
+
+STEP 2. Graphify 설치 — 2분
+
+Graphify의 공식 PyPI 패키지 이름은 
+처럼 y가 두 개입니다. 설치 뒤 쓰는 명령은 
+graphify
+와 헷갈리면 안 됩니다.
+
+입니다. 비슷한 이름의 다른 PyPI 패키지
+
+graphifyy
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+4페이지(총 26페이지)
+
+Bash공식 Claude Code 안내uv tool install graphifyy graphify
+
+--version graphify install
+
+graphify install
+
+은 Claude Code가 
+를 알아보도록 사용자 영역에 스킬을 등
+처럼 출
+
+graphify 0.x.x
+
+/graphify
+록합니다. 버전 확인에서 
+력되면 CLI 설치가 끝난 겁니다.
+
+graphify: command not found
+실행 경로를 셸에 추가합니다.
+
+가 나오면 uv의 
+
+uv tool update-shell
+
+터미널을 완전히 닫았다가 다시 열고 아래 두 줄을 재실
+행하세요.
+
+graphify --version graphify install
+
+프로젝트 안에 스킬 설정을 넣어 팀과 함께 버전 관리하
+고 싶다면 프로젝트 루트에서 다음 명령을 대신 쓸 수 
+있습니다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+5페이지(총 26페이지)
+
+BashBashBashgraphify install --project
+
+개인 사용이라면 전역 
+단순합니다.
+
+graphify install
+
+이 가장 
+
+[스크린샷 자리 2 — 설치 성공 화면] 
+graphify --version
+
+ 출력과 
+
+Done. 
+
+Open your AI coding assistant and 
+ 메시지가 한 화면에 보
+
+type: /graphify .
+이도록 캡처
+
+STEP 3. 그래프에 넣을 파일 정리 — 3분
+
+프로젝트 폴더로 이동합니다.
+
+cd /path/to/your-project
+
+.gitignore
+
+를 자동으로 따릅니다. 빌
+Graphify는 
+드 결과물이나 외부 의존성이 아직 제외되지 않았다면 
+프로젝트 루트에 
+를 추가하세요. 
+.graphifyignore
+와 같습니다.
+문법은 
+
+.gitignore
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+6페이지(총 26페이지)
+
+BashBash# .graphifyignore node_modules/
+
+dist/ build/ coverage/ .next/
+
+.venv/ vendor/ *.min.js
+
+소스 폴더를 무작정 제외하면 그래프가 틀어집니다. 테
+스트도 처음부터 빼지 마세요. 테스트 팩토리와 목 객체
+가 핵심 노드를 도배할 때만 
+__tests__/
+
+나 
+ 제외를 검토하면 됩니다.
+
+tests/
+
+어떤 파일을 빼야 할지 모르겠다면 Claude Code에 
+이 프롬프트를 붙여넣으세요.
+
+이 저장소에서 생성물, 캐시, 외부 의존성만 골라
+
+.graphifyignore 후보를 제안해줘. 실제 소
+
+스, 설정, 마이그레이션, 테스트는 임의로 제외하
+
+지 마. 파일은 아직 수정하지 말고 후보와 이유만
+
+보여줘.
+
+[그래픽 자리 3 — O·X 비교] O: 
+정, 마이그레이션, 필요한 테스트 / X: 
+node_modules/
+일
+
+, 빌드 결과물, 캐시, 번들 파
+
+src/
+
+, 설
+
+STEP 4. 첫 지식 그래프 만들기 — 프로젝
+트에 따라 1~10분
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+7페이지(총 26페이지)
+
+Plain TextPlain Text프로젝트 루트에서 Claude Code를 엽니다.
+
+claude
+
+Claude Code 입력창에 아래 명령을 넣습니다. 이 줄
+은 일반 터미널 명령이 아니라 Claude Code 안에서 
+실행하는 슬래시 명령입니다.
+
+/graphify .
+
+기본 실행부터 권장합니다. 
+은 문서와 
+코드 사이의 추론 관계를 더 적극적으로 만들고 싶을 때
+만 씁니다.
+
+--mode deep
+
+/graphify . --mode deep
+
+코드 전용 프로젝트는 AST로 로컬 분석되므로 별도 
+API 키가 필요 없습니다. 문서, PDF, 이미지가 섞여 있
+으면 현재 Claude Code 세션의 모델이 의미 분석을 
+맡을 수 있습니다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+8페이지(총 26페이지)
+
+BashPlain TextPlain Text파일이 아주 많으면 Graphify가 상위 폴더별 파일 수
+를 보여주고 범위를 줄일지 묻습니다. 이때 애플리케이
+션 소스가 있는 폴더부터 고르면 됩니다. 작은 프로젝트
+라면 바로 끝까지 진행됩니다.
+
+첫 실행이 끝나면 프로젝트 루트에 다음 결과가 생깁니
+다.
+
+graphify-out/ ├── graph.html ├──
+
+GRAPH_REPORT.md └── graph.json
+
+•
+
+•
+
+•
+
+graph.html
+하는 시각화
+
+: 브라우저에서 노드와 연결을 클릭
+
+GRAPH_REPORT.md
+의 연결, 추천 질문
+
+: 핵심 노드, 커뮤니티, 의외
+
+graph.json
+
+: 이후 쿼리가 읽는 영속 그래프
+
+[그래픽 자리 4 — 결과물 3종 시각화] 
+graph.html
+
+은 눈으로 보는 지도, 
+는 한 장 요약, 
+은 쿼리 엔진이 읽는 원본으로 
+
+GRAPH_REPORT.md
+
+graph.json
+나란히 배치
+
+STEP 5. 생성 결과 확인 — 2분
+
+macOS나 Linux에서는 세 파일이 비어 있지 않은지 
+확인할 수 있습니다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+9페이지(총 26페이지)
+
+Plain Texttest -s graphify-out/graph.json &&
+
+echo "graph.json OK" test -s
+
+graphify-out/GRAPH_REPORT.md &&
+
+echo "report OK" test -s graphify-
+
+out/graph.html && echo "graph.html
+
+OK"
+
+브라우저로 그래프를 엽니다.
+
+macOS:
+
+open graphify-out/graph.html
+
+Linux:
+
+xdg-open graphify-out/graph.html
+
+Windows PowerShell:
+
+start graphify-out/graph.html
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+10페이지(총 26페이지)
+
+BashBashBashPlain Text에서는 노드 수, 엣지 수, 커뮤니
+GRAPH_REPORT.md
+티 수를 먼저 봅니다. 핵심 노드가 실제 도메인 클래스
+나 주요 함수가 아니라 테스트 헬퍼와 생성 코드뿐이라
+면 STEP 3의 제외 목록을 손본 뒤 다시 빌드해야 합니
+다.
+
+노드 하나를 실제 소스와 대조해보세요. 보고서나 
+graph.html
+Claude Code에 입력합니다.
+
+에서 클래스 또는 함수 이름을 고른 뒤 
+
+/graphify explain "실제 클래스나 함수 이
+
+름"
+
+출력에 소스 파일, 줄 위치, 연결 관계와 신뢰도 태그가 
+나오면 쿼리까지 정상입니다.
+
+[스크린샷 자리 5 — 실제 그래프 결과] 
+graph.html
+고 오른쪽 패널에 연결 노드와 커뮤니티가 보이
+는 화면
+
+에서 핵심 노드 하나를 선택하
+
+STEP 6. Claude Code가 그래프부터 보
+게 만들기 — 1분
+
+첫 그래프를 만든 뒤 프로젝트 루트에서 한 번 실행합니
+다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+11페이지(총 26페이지)
+
+Plain Textgraphify claude install
+
+이 명령은 프로젝트의 Claude Code 지시 파일과 
+PreToolUse 훅을 설정합니다. Claude가 검색하거
+나 소스 파일을 하나씩 열기 전에 
+, 
+query
+로 먼저 범위를 좁히도록 알려줍니다.
+
+graphify explain
+
+graphify path
+
+graphify 
+
+, 
+
+훅은 파일 읽기를 차단하지 않습니다. 그래프를 먼저 보
+고 필요한 원문만 열라는 순서를 추가합니다. 정확한 구
+현이나 수정 지점은 마지막에 소스 파일로 재확인해야 
+합니다.
+
+Graphify의 출력 때문에 Claude Code 프롬프트 캐
+시가 매번 무효화되는 일을 줄이려면 프로젝트의 
+.claudeignore
+
+에 다음 줄을 추가합니다.
+
+# .claudeignore graph.json
+
+graphify-out/
+
+는 Git 추적 여부를 바꾸지 않습니
+.claudeignore
+다. Git에서 결과물을 관리할지는 별도로 결정하세요.
+
+항상 그래프부터 확인시키고 싶을 때 쓸 프롬프트입니
+다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+12페이지(총 26페이지)
+
+BashPlain Text이 질문은 먼저 Graphify로 범위를 좁혀줘. 관
+
+련 노드와 경로를 찾은 뒤 근거가 필요한 소스 파
+
+일만 열고 파일과 줄 위치를 붙여 답해줘. 질문:
+
+[여기에 코드베이스 질문]
+
+[그래픽 자리 6 — 적용 전후 비교] 적용 전: 넓
+은 검색 → 여러 파일 열기 → 컨텍스트 증가 / 
+적용 후: 그래프 쿼리 → 관련 노드 2~3홉 → 
+필요한 파일만 확인
+
+STEP 7. query, path, explain 제대로 
+쓰기 — 5분
+
+세 명령의 역할이 다릅니다.
+
+명령
+
+query
+
+path
+
+언제 쓰는지
+
+결과
+
+흐름이나 구조를 넓게 
+찾을 때
+
+질문과 가까운 서
+브그래프
+
+두 클래스·함수 사이 연
+결을 찾을 때
+
+최단 연결 경로
+
+explain
+
+노드 하나의 역할을 볼 
+때
+
+소스 위치와 주변 
+연결
+
+[그래픽 자리 7 — 명령 선택표] 돋보기
+, 노드 카드
+=
+=
+
+으로 세 명령을 한눈에 비교
+
+, 연결선=
+
+explain
+
+query
+
+path
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+13페이지(총 26페이지)
+
+Plain Text넓은 흐름 찾기
+
+/graphify query "인증 요청이 데이터베이스
+
+까지 가는 흐름"
+
+특정 체인을 깊게 따라가고 싶으면 DFS와 출력 예산
+을 붙입니다.
+
+/graphify query "결제 실패가 재시도되는 흐
+
+름" --dfs --budget 1500
+
+두 지점 사이 연결 찾기
+
+아래 이름은 예시입니다. 실제 프로젝트의 클래스나 함
+수 이름으로 바꿔야 합니다.
+
+/graphify path "AuthService"
+
+"UserRepository"
+
+노드 하나 파악하기
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+14페이지(총 26페이지)
+
+Plain TextPlain TextPlain Text/graphify explain "AuthService"
+
+터미널에서 직접 조회하기
+
+그래프가 이미 만들어졌다면 Claude Code를 열지 않
+고도 같은 데이터를 조회할 수 있습니다.
+
+graphify query "show the auth flow"
+
+graphify path "AuthService"
+
+"UserRepository" graphify explain
+
+"AuthService"
+
+한국어 질문이 원하는 노드를 못 찾으면 코드에 실제로 
+적힌 영문 심볼을 함께 넣으세요. Graphify CLI의 노
+드 매칭은 그래프에 들어 있는 어휘를 중심으로 작동합
+니다.
+
+/graphify query "로그인 인증
+
+AuthService UserRepository"
+
+온보딩에 쓰는 프롬프트
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+15페이지(총 26페이지)
+
+Plain TextBashPlain TextGraphify에서 핵심 노드와 커뮤니티를 먼저 확
+
+인해줘. 이 프로젝트의 진입점, 주요 요청 흐름,
+
+데이터 저장 경로를 설명하고 각 설명에 근거 파일
+
+과 줄 위치를 붙여줘. INFERRED 관계는 추론이
+
+라고 표시해줘.
+
+변경 영향 범위에 쓰는 프롬프트
+
+[바꾸려는 클래스나 함수]를 수정하기 전에
+
+Graphify로 연결된 호출자와 의존 대상을 찾아
+
+줘. 직접 연결과 간접 연결을 구분하고 실제 수정
+
+전에 열어봐야 할 파일만 우선순위대로 보여줘.
+
+버그 추적에 쓰는 프롬프트
+
+[에러 증상]과 관련된 노드를 Graphify query
+
+로 찾고 요청이 실패 지점까지 가는 경로를 추적해
+
+줘. EXTRACTED 엣지를 우선하고 INFERRED
+
+엣지는 소스에서 다시 확인해줘.
+
+설계 이유 찾기에 쓰는 프롬프트
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+16페이지(총 26페이지)
+
+Plain TextPlain TextPlain TextGraphify에서 [기능 이름]과 연결된 NOTE,
+
+WHY, ADR, RFC 근거를 찾아줘. 무엇을 하는지
+
+보다 왜 이렇게 설계했는지 중심으로 설명하고 출
+
+처 파일을 붙여줘.
+
+STEP 8. 코드가 바뀐 뒤 그래프 갱신 — 
+1~5분
+
+Graphify는 한 번 만들고 영원히 끝나는 도구가 아닙
+니다. 코드가 바뀌면 그래프도 갱신해야 합니다. 변경
+된 파일만 다시 처리하려면 Claude Code에서 실행합
+니다.
+
+/graphify . --update
+
+Git 커밋 뒤 코드 그래프를 자동으로 갱신하고 싶다면 
+프로젝트 루트에서 훅을 설치합니다.
+
+graphify hook install graphify hook
+
+status
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+17페이지(총 26페이지)
+
+Plain TextPlain TextBash이 훅은 커밋 뒤 코드 변경을 AST로 다시 읽습니다. 문
+서나 이미지가 바뀌었을 때는 
+update
+
+를 직접 실행해야 합니다.
+
+/graphify . --
+
+코드 저장 때마다 자동 반영하고 싶다면 별도 터미널에
+서 watch 모드를 쓸 수 있습니다.
+
+/graphify . --watch
+
+watch 의존성 오류가 나면 선택 기능을 포함해 다시 
+설치합니다.
+
+uv tool install "graphifyy[watch]"
+
+Graphify를 업데이트한 뒤에는 스킬과 Git 훅도 새 버
+전의 실행 경로로 다시 맞춥니다.
+
+uv tool upgrade graphifyy graphify
+
+install graphify hook install
+
+STEP 9. 개인정보와 비용 범위 확인 — 2분
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+18페이지(총 26페이지)
+
+Plain TextBashBash입력
+
+코드
+
+기본 처리
+
+외부 모델 사용 가능성
+
+tree-sitter 
+AST, 로컬
+
+코드 전용 기본 경로에
+서는 없음
+
+Markdown·텍스
+트
+
+의미 분석
+
+있음
+
+PDF·이미지
+
+변환·의미 분석
+
+있음
+
+영상·음성
+
+로컬 전사 후 의미 
+분석
+
+전사문 분석에서 있음
+
+코드 전용 저장소는 별도 API 키 없이 실행할 수 있습
+니다. 문서와 이미지는 현재 AI 코딩 어시스턴트의 모
+델이 내용을 읽을 수 있으니 외부 전송이 금지된 자료
+, 개인 키, 고객 데이터처럼 민
+는 넣지 마세요. 
+감한 파일은 
+서 다시 확인하는 편이 안전합니다.
+
+.graphifyignore
+
+.gitignore
+
+.env
+
+와 
+
+에
+
+graphify-out/
+
+Graphify는 결과물을 로컬 
+에 저장
+하고 텔레메트리를 보내지 않는다고 밝히고 있습니다. 
+그래도 사내 보안 정책이 있다면 도구 설명보다 회사 정
+책이 우선입니다.
+
+STEP 10. 토큰 절감 수치 바로 이해하기 
+— 2분
+
+“설치하면 토큰이 무조건 70% 줄어든다”는 보장 수치
+는 공식 자료에서 확인되지 않습니다. 절감 폭은 프로젝
+트 크기와 질문 방식에 따라 크게 달라집니다.
+
+공개된 재현 예시는 이렇습니다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+19페이지(총 26페이지)
+
+• 52파일 혼합 코퍼스: 원본 전체를 매번 넣는 방식
+
+과 비교해 쿼리당 71.5배 적은 토큰
+
+• 4파일 혼합 코퍼스: 5.4배
+• 6파일 소형 Python 코퍼스: 약 1배
+
+작은 저장소는 원래 컨텍스트에 들어가므로 압축 이득
+이 거의 없습니다. 큰 저장소에서 매 질문마다 전체를 
+넣는 대신 약 2,000토큰 안팎의 서브그래프부터 꺼낼 
+때 차이가 커집니다.
+
+따라서 개인 성과를 말하려면 Graphify 실행 전후의 
+실제 사용량을 같은 작업으로 재야 합니다. 설치만으로 
+70% 절감을 확정하면 안 됩니다.
+
+Graphify가 해결하는 것도 “클로드가 매번 모든 파일
+을 반드시 읽는다”는 동작 자체가 아닙니다. 넓은 검색
+과 불필요한 파일 열기를 줄이고, 그래프에서 관련 범위
+를 찾은 뒤 원문을 확인하게 만드는 방식입니다.
+
+[그래픽 자리 8 — 수치 비교 차트] 52파일
+=71.5x, 4파일=5.4x, 6파일≈1x 막대그래프
+와 “프로젝트마다 다름” 주석
+
+STEP 11. 문제가 생겼을 때 바로 고치기 — 
+3분
+
+graphify: command not found
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+20페이지(총 26페이지)
+
+uv tool update-shell
+
+터미널을 다시 열고 확인합니다.
+
+graphify --version
+
+ModuleNotFoundError: No module 
+
+named 'graphify'
+
+plain pip와 다른 Python 환경이 섞인 경우가 많습니
+다. uv 도구 환경으로 다시 설치합니다.
+
+uv tool uninstall graphifyy uv tool
+
+install graphifyy graphify install
+
+/graphify
+
+를 Claude Code가 못 알아봄
+
+graphify install
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+21페이지(총 26페이지)
+
+BashBashBashBashClaude Code를 완전히 종료한 뒤 프로젝트 루트에
+서 다시 엽니다.
+
+graphify extract .
+
+을 실행했는데 
+
+graph.json
+
+만 생김
+
+graphify extract
+운 CLI 경로입니다. 보고서와 HTML까지 만들려면 다
+음 명령을 이어서 실행합니다.
+
+는 CI나 헤드리스 실행에 가까
+
+graphify cluster-only .
+
+처음부터 Claude Code 안에서 
+쓰면 기본 파이프라인이 
+graph.html
+
+까지 만듭니다.
+
+/graphify .
+와 
+
+GRAPH_REPORT.md
+
+을 
+
+쿼리 결과가 0개거나 엉뚱함
+
+질문에 실제 함수명과 클래스명을 넣습니다.
+
+/graphify query "한국어 질문
+
+ActualClassName actual_function"
+
+그래프가 오래됐다면 먼저 갱신합니다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+22페이지(총 26페이지)
+
+BashPlain Text/graphify . --update
+
+테스트 헬퍼가 핵심 노드를 도배함
+
+에 테스트 폴더를 추가한 뒤 전체
+.graphifyignore
+를 다시 만듭니다. 테스트가 실제 설계 근거를 담고 있
+다면 전부 제외하지 말고 문제가 되는 하위 폴더만 좁혀
+서 제외하세요.
+
+# .graphifyignore tests/fixtures/
+
+tests/generated/
+
+graphify extract . --force graphify
+
+cluster-only .
+
+Windows PowerShell에서 
+.
+
+이 경로 오류로 처리됨
+
+/graphify 
+
+PowerShell 터미널에서는 슬래시 없이 CLI를 씁니
+다.
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+23페이지(총 26페이지)
+
+Plain TextPlain TextBashgraphify .
+
+Claude Code 입력창에서는 원래대로 
+.
+
+을 사용합니다.
+
+/graphify 
+
+제거하고 싶음
+
+프로젝트의 Claude Code 연동만 제거합니다.
+
+graphify claude uninstall
+
+설치된 Graphify 스킬을 모든 플랫폼에서 제거합니
+다.
+
+graphify uninstall
+
+결과물까지 지우는 명령은 되돌리기 어렵습니다.
+
+graphify uninstall --purge
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+24페이지(총 26페이지)
+
+Plain TextBashBashBash마지막 점검
+
+이 출력된다.
+
+graphify --version
+
+•
+• Claude Code에서 
+•
+
+graphify-out/graph.json
+
+, 
+
+/graphify .
+
+이 실행된다.
+
+GRAPH_REPORT.md
+
+, 
+
+graph.html
+
+이 생겼다.
+
+•
+
+graphify explain "실제 심볼"
+와 연결을 보여준다.
+
+이 소스 위치
+
+•
+
+graphify claude install
+을 적용했다.
+• 코드 변경 뒤 
+
+/graphify . --update
+
+나 Git 
+
+로 쿼리 우선 흐름
+
+훅으로 그래프를 갱신한다.
+
+• INFERRED 관계는 실제 소스에서 다시 확인한다.
+
+공식 근거
+
+•
+•
+•
+•
+•
+
+https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+25페이지(총 26페이지)
+
+Graphify 공식 저장소Graphify 공식 PyPI 패키지설치·명령 레퍼런스동작 원리와 공개 토큰 예시공개 벤치마크와 재현 조건https://app.notion.com/p/Graphify-3a028466a54e81bc9546d92506bd9b22
+
+2026. 7. 19. 19:58
+26페이지(총 26페이지)

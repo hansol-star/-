@@ -12,7 +12,10 @@ fundamentals.py — 미국주 펀더멘털 하드넘버 수집기 (FMP, 0~100 �
 키: 환경변수 FMP_API_KEY (조회 전용·읽기 키). 키 없으면 안내 후 종료(추측 금지).
    세션마다 정훈이 줄 수도 있음: `FMP_API_KEY=xxx python3 fundamentals.py --tickers NVDA`
 
-엔드포인트: FMP stable API (신규 키 기본). 403/429는 키·플랜·한도 문제로 명시.
+엔드포인트: FMP stable API(`/stable/*`). 레거시 `/api/v3/*`는 폐기됨(403 Legacy Endpoint).
+   [2026-07-19 실검증] 6종목(NVDA·AAPL·MSFT·TSLA·GOOGL·META) 전 필드 정상 수신.
+   MU·VOO·ANET·AVGO·ORCL = 무료플랜 심볼 화이트리스트 밖 → quote부터 402(유료 전용) →
+   이 5종목만 WebSearch(증권사 리포트) 폴백. 402/403/429는 키·플랜·한도 문제로 명시.
 
 사용:
   FMP_API_KEY=xxx python3 fundamentals.py --tickers NVDA,MU,AAPL   # 표
@@ -34,6 +37,11 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 
 # 미국주만 (국내 .KS/.KQ 는 무료 플랜 미지원 → 건너뜀)
 US_HOLDINGS = ["NVDA", "MU", "AAPL", "VOO", "MSFT", "ANET", "TSLA", "AVGO", "GOOGL", "META", "ORCL"]
+
+# [2026-07-19 실검증] 무료 stable 플랜 심볼 화이트리스트 밖 → quote부터 402.
+# 이 종목들은 WebSearch(증권사 리포트) 폴백. 플랜 업그레이드 시 자동 수신되도록
+# 호출 자체는 막지 않고(스킵 X), 402 응답으로 폴백 신호만 남긴다.
+FMP_402_TICKERS = ["MU", "VOO", "ANET", "AVGO", "ORCL"]
 
 
 def _key() -> str | None:
@@ -159,7 +167,8 @@ def main():
         print(f"{r['ticker']:<6} | {num('price', 2)} | {num('pe')} | {num('revenueGrowthYoY')} | "
               f"{num('epsGrowthYoY')} | {num('epsGrowthQoQ_YoY')} | {pct('grossMarginTTM')} | "
               f"{pct('netMarginTTM')} | {pct('roeTTM')} | {num('fcfPerShareTTM', 2)}")
-    print("\n※ 국내주는 FMP 무료 미지원 → WebSearch(증권사 리포트)로 보강. 수치는 0~100 스코어 채점 근거로만.")
+    print(f"\n※ WebSearch(증권사 리포트) 폴백 대상: 국내주(.KS/.KQ) + 무료플랜 402 미국주 {'·'.join(FMP_402_TICKERS)}.")
+    print("  수치는 0~100 스코어 채점 근거로만.")
 
 
 if __name__ == "__main__":

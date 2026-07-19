@@ -22,10 +22,14 @@
 - **7/17 체결 반영**: GOOGL $345 GTC 1주(평단 $358.01)·VOO 적립 1회차(1.06863주). 현금 KRW 421,006·USD $0.00.
 - **R3 주말 캘리브레이션** 완료(스코어카드 5회차, ⭐5·⭐4 vs ⭐3 역전 재발·Brier 0.417 과신).
 
+## ✅ 이번 세션(7/19)에 완료된 것
+- **[FMP] `fundamentals.py` stable 마이그레이션 실검증 완료**(branch `claude/fmp-fundamentals-migration-c0zgyn`).
+  - 코드는 이미 7/14(a62ed59)부터 `/stable/*`를 향하고 있었으나 **유효 키 부재로 미검증** 상태였음(핸드오프가 이걸 "TODO"로 남긴 것). v3 잔재는 레포 어디에도 없음.
+  - env 키 주입 후 실측: **6종목 정상 수신**(NVDA·AAPL·MSFT·TSLA·GOOGL·META) — 매출·EPS·마진·PE·ROE·FCF 전 필드 OK.
+  - **MU·VOO·ANET·AVGO·ORCL = 402**(무료 stable 플랜 심볼 화이트리스트 밖, quote부터 막힘) → 이 5종목만 WebSearch 폴백. CLAUDE.md 기록과 일치, **버그 아님·정상**.
+  - 반영: 도크스트링에 실검증 상태·402 화이트리스트 명기, `FMP_402_TICKERS` 상수 추가(호출은 안 막음 — 플랜 업그레이드 시 자동 수신), 출력 폴백 안내 US 402 종목까지 확장.
+
 ## ⏳ 다음 세션 TODO (정훈 승인/큐 완료 — 연습 겸 하나씩)
-1. **[FMP] `fundamentals.py` v3→stable 마이그레이션** ★먼저 추천
-   - FMP가 레거시 `/api/v3/*` 엔드포인트 폐기(403 "Legacy Endpoint"). 키는 유효 — 신형 `/stable/*`는 200 확인(`stable/quote?symbol=NVDA` → NVDA $202.81).
-   - `fundamentals.py`가 v3 쓰면 stable로 교체 → 미국주 펀더 하드넘버(매출·EPS·마진·FCF) 부활(현재 WebSearch 폴백 중).
 2. **[네이버] `naver_data.py`를 국장 데스크에 연결**
    - 뉴스 = kr-market-desk 국내 뉴스 소스(US 리전 WebSearch 대체·보강).
    - 검색어트렌드 = 리테일 관심/심리 게이지(개인 수급·"공포에 사라" 역발상 신호). 심리 키워드는 자기 그룹 단독 조회(정규화 주의).

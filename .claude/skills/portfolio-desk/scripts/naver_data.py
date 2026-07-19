@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """naver_data.py — 네이버 오픈API(NCP NAVER API HUB) 조회 전용 (stdlib only).
 
-정훈 데스크용 두 소스:
-  ① 뉴스 검색  = naverapihub.apigw.ntruss.com/search/v1/news   (GET)  — 국장 뉴스 흐름
-  ② 검색어트렌드 = naveropenapi.apigw.ntruss.com/datalab/v1/search (POST) — 리테일 관심/심리 게이지
+정훈 데스크용 두 소스 (둘 다 NAVER API HUB · naverapihub 호스트):
+  ① 뉴스 검색   = naverapihub.apigw.ntruss.com/search/v1/news        (GET)  — 국장 뉴스 흐름
+  ② 검색어트렌드 = naverapihub.apigw.ntruss.com/search-trend/v1/search (POST) — 리테일 관심/심리 게이지
 
 인증 = NCP API Gateway 헤더 (X-NCP-APIGW-API-KEY-ID / X-NCP-APIGW-API-KEY).
 키는 반드시 환경변수로만 (저장·커밋 금지 — 토스키와 동일 취급, 조회 전용).
@@ -11,7 +11,8 @@
   export NAVER_NCP_KEY=<Client Secret>
 
 웹 환경(데이터센터 IP)에서 프록시 통과: SSL_CERT_FILE=/root/.ccr/ca-bundle.crt (기본값).
-[7/19 실측] 뉴스 200 정상 / 데이터랩은 앱 등록 직후 구독 전파 지연 시 401(errorCode 210) — 몇 분 뒤 재시도.
+[7/19 실측] 뉴스·검색어트렌드 둘 다 200 정상(US 데이터센터 IP·지역차단 없음).
+⚠️ 주의: 검색어트렌드는 레거시 naveropenapi/datalab(401 구독필요) 아님 — 반드시 API HUB naverapihub/search-trend.
 """
 import os, sys, json, ssl, argparse, re, urllib.request, urllib.parse, urllib.error
 
@@ -20,7 +21,7 @@ CSEC = os.environ.get("NAVER_NCP_KEY") or os.environ.get("NAVER_SEARCH_CLIENT_SE
 CAFILE = os.environ.get("SSL_CERT_FILE") or "/root/.ccr/ca-bundle.crt"
 
 NEWS_URL = "https://naverapihub.apigw.ntruss.com/search/v1/news"
-TREND_URL = "https://naveropenapi.apigw.ntruss.com/datalab/v1/search"
+TREND_URL = "https://naverapihub.apigw.ntruss.com/search-trend/v1/search"
 
 _TAG = re.compile(r"<[^>]+>")
 

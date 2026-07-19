@@ -7,7 +7,23 @@
 
 ---
 
-## 2026-07-20 — Claude Code 스킬 6선 (Jay Choi·인디해커 라이프) · 정훈 공유 영상
+## 2026-07-20 — "7개 자동화 부서" 42스킬 팩 (hongik.man) · 정훈 공유 인스타
+
+**출처**: 인스타 캐러셀 8장(hongik.man "클로드 하나로 회사 전체를 돌린다면"). claude code 밑에 7부서 42스킬 무료 팩.
+
+**부서별 스킬 + 우리 1인 투자 데스크 fit**:
+- **개발**: Superpowers·**verification**(완료 전 실행확인)·**systematic-debug**(근본원인)·Context7(최신 공식문서)·**Skill Creator**·MCP Builder → verification/skill-creator/systematic-debug는 **우리가 이미 보유**(verify 스킬·selfcheck·skill-creator). Context7=보류(우린 stdlib 위주). MCP Builder=기각(스크립트 씀).
+- **재무(CFO)**: **dcf-model**(내재가치)·**comps-analysis**(피어 상대가치)·3-statements·lbo-model·pitch-deck·**finance_skills**(밸류·포트폴리오 81종 팩) → **여기가 유일하게 진짜 관련.** dcf/comps=우리 갈망하던 자체 밸류. 3-statements·lbo·pitch=IB용, 기각.
+- **운영**: **xlsx**(엑셀)·incident-postmortem(사고회고)·sop-builder·business-case·launch-runbook·internal-comms → xlsx=**built-in 보유**(포트폴리오 엑셀 내보내기 가능). postmortem=우리 self-review·미스무브 회고가 이미 그 역할. 나머지 회사운영용 기각.
+- **법무**: contract-review·ai-legal-claude·legal-risks·compliance·**docx**·sql-queries → docx=**built-in 보유**. sql=기각(우린 JSON/jsonl). 나머지 법무=무관 기각.
+- **디자인**: ui-ux-pro-max·taste-skill·frontend-design·web-artifacts·canvas-design·algorithmic-art → 전부 웹디자인, 우린 차트만(dataviz+chart_style 보유). 기각.
+- **마케팅·소셜**: SEO·광고·블로그·이메일·영상 12종 → 1인 투자 데스크와 **전면 무관, 전부 기각**.
+
+**PM 종합 → [1개만 진짜 추가 후보: 자체 밸류에이션]**
+- 42개 중 41개는 '회사 운영'용이거나 우리가 이미 보유. **유일한 실질 빈틈 = dcf-model + comps-analysis**(자체 내재가치·피어 상대가치).
+- 왜 값진가: 지금 우리 0~100 스코어는 FMP 하드넘버 + **증권사 컨센서스 목표가**에 기댐. 자체 DCF/comps가 있으면 **'우리 숫자 vs sell-side' 교차검증**이 생김 → CLAUDE.md "증권사 우선하되 과신 견제" 철학에 정확히 부합.
+- ⚠️ 단, hongik.man 팩을 통째 설치 X. ①출처·코드 미검증 3rd-party ②DCF는 성장·WACC·터미널 가정에 극도로 민감(AI 슈퍼사이클 고성장주엔 특히) → **우리가 FMP 데이터 재사용해 경량 `valuation.py`로 직접 만드는 게 맞음**(stdlib·포터블·가정 투명). "덜어내라·내 워크플로를 도구로" 교훈대로.
+- 나머지(verification·xlsx·docx·skill-creator·systematic-debug)는 이미 보유 → 배선/활용만 하면 됨(신규 설치 불요).
 
 **출처**: 유튜브 `5rbzj5IUA78`("클로드 스킬 100개 써봤는데 진짜는 이 6개", 2026-07-10, 10:18, 조회 2.9만). 자동생성 자막(수치·고유명사 오독 가능).
 

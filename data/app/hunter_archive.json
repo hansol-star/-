@@ -1,8 +1,88 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-07-18 자동 롤오버 +3편 (build_app_data)",
+  "updated": "2026-07-19 자동 롤오버 +8편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": null,
+      "title": "워렌버핏이 은퇴 직전 풀매수 했다는 저평가 종목 = 알파벳",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·GOOGL직결] 버핏 개인결정 알파벳 $31B 대량매수(CNBC 7/15)·14분기 연속 순매도·현금 $397.4B(≈588조)·'20년 놓친거 후회'. →GOOGL⭐5 컨빅션 보강. [정정]채널 '버크셔 포트7위'→실제 3위 과장. ⚠️R3 GOOGL 첫부진 병기=과신금지",
+      "views": null,
+      "id": "cePLL8_Dr7A"
+    },
+    {
+      "date": null,
+      "title": "주식여왕 펠로시가 쓸어담는 미국 종목 4개",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] 우버·인텔 콜옵션(5월)·비스트라 5,000주·팔로알토 14,000주(Benzinga·FMP 교차 수치 정확). 10년 838%수익 [미확인·방향만]. 4종목 전부 정훈 미보유=setups 대상 아님·정보 참고",
+      "views": null,
+      "id": "lZRP3rfmrEk"
+    },
+    {
+      "date": null,
+      "title": "하락장에서 수익률 지킬 수 있었던 투자 전략 4가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[원칙론] ①레버리지·곱버스 배제 ②방어주/고배당 ③분할매수 ④공포극단(VKOSPI 90+)=매수기회. 올해 7번째 서킷 [검증]·코로나저점 1439→1년뒤 3천 [검증]. 정훈 룰1(안전핀)·룰4(분할) 방향정합·신규셋업 아님",
+      "views": null,
+      "id": "hxq55mlGL08"
+    },
+    {
+      "date": null,
+      "title": "SK최태원이 예언한 미래 8가지 중 현실된 4개",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·하닉] SK하이닉스 나스닥 ADR 상장(공모가$149·~40조·알리바바 제친 외국기업 역대최대)·HBM 1위·코스피 시총1위. OPM 72% [미확인·방향은 고마진 지속 정합]. 룰4 마진추세=홀딩 근거 보강",
+      "views": null,
+      "id": "MaW57I0mevA"
+    },
+    {
+      "date": null,
+      "title": "트럼프가 대놓고 찝었다는 한국 종목 = 조선주",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·조선] 한화 필리조선소 美 NSMV(국가안보다목적선) $1.5B 수주 임박(McCormick상원 7/15·~2,000일자리)·신한울 해상풍력 착공. [정정]채널 '하나오션'=한화오션 STT오류. 조선주 연초-17%·상반기 발주+88% [미확인·방향]. →조선클러스터 '실주문 전환' 셋업",
+      "views": null,
+      "id": "gvdg4hxPwyc"
+    },
+    {
+      "date": null,
+      "title": "일본 손잡고 7400조 AI시장 뛰어든 삼성전자 근황",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] 삼성전자 일본법인 소프트뱅크월드2026 '다이아몬드 파트너'(애플재팬·구글클라우드재팬 동급, 박정민 MX부사장 핵심연사). 손정의 '2040년 연 7,400조 AI인프라 투자' [검증]. 즉각 촉매 아님·삼성 AI생태계 다변화 정성신호로만 참고",
+      "views": null,
+      "id": "mCbKnnG4y9A"
+    },
+    {
+      "date": null,
+      "title": "다음주 월요일 투자자들이 반드시 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] SOX 고점比-20.2% 약세장 진입 원인3종(Kimi K3·中D램IPO 저가공세·빅테크 $1조capex 지속가능성 의심). '월요일=예측 아닌 확인'—이번주 빅테크+하닉 실적서 '투자계획 유지' 언급이 신호등. TF S1(펀더무훼손) 정합. [정정]Kimi K3 가격'1/3'표현=40~50%저렴 수준·7/27 가중치공개는 별개. 레버7조쏠림 [미확인·방향만]",
+      "views": null,
+      "id": "76OEOQ5lBgc"
+    },
+    {
+      "date": null,
+      "title": "장기투자 고수들이 5년간 역대급 상승장 온다는 종목 = LNG선 조선",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증·조선] 美 LNG 국가전략→LNG운반선 2032년까지 연 90~110척 필요, 한국(HD현중·삼성중공업·한화오션) 초과분 수주. 발주량 한국점유 [미확인·방향]·HD현중 2Q영익 2배 [미확인·방향]. 조선(NSMV)과 동일 클러스터=실주문 전환 초입",
+      "views": null,
+      "id": "2z_8UZYsCLI"
+    },
     {
       "date": null,
       "title": "월가에서 하반기 '현대차그룹' 역대급 상승장 올 수 있다는 이유",

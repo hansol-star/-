@@ -52,6 +52,7 @@
 
 - **시세·환율·지수**: `market_data.py`(Yahoo, 무키·무의존) 1차. 키 없이 국내+미국+환율 전부 조회.
 - **매크로 지표 [7/14 신설]**: `macro_data.py`(FRED 무키 CSV) — 미국채 10Y/2Y·2s10s·실질금리·BEI·EFFR·VIX·WTI·달러지수·CPI YoY·실업률 = **금리·물가 서술의 하드넘버 정본**(1영업일 지연 정상). `--polymarket <키워드>`로 이벤트 내재확률 참고(정본은 CME FedWatch).
+- **변동성 게이지 [7/19 신설]**: `vol_gauge.py`(Yahoo OHLC 무키·stdlib) — 실현변동성(RV20)·EWMA(0.94 군집)·**폭풍 점수**(오늘 RV의 최근1년 백분위)·1년 레인지 산출(코스피·코스닥+보유15). 근거 = GARCH(study_log 7/18 ④). **크래시 TF §6 재진입 트랜치 온건 스케일의 입력**(정훈 승인 7/19 — 7,500 이진 안전핀은 하드 플로어 유지, 그 위 폭풍 %ile로 트랜치 사이즈 연속 감산). 측정치일 뿐 안전핀 해제 판정(§5 3중 게이트)을 대체하지 않음.
 - **실제 보유수량·현금**: 토스 Open API(`toss_snapshot.py`, **조회 전용**) 또는 계좌 스크린샷이 정본.
 - **미국주 펀더멘털**: FMP API(`fundamentals.py`, 매출·EPS·마진·FCF·PE) — **0~100 스코어 채점의 하드넘버 근거**. 키 = 환경변수 `FMP_API_KEY`(조회 전용). **무료 플랜 = 미국 전용·250회/일 + 심볼 화이트리스트**(일부 미국주도 quote 402) → 국내 5종목·KR 워치는 FMP 미지원이라 기존대로 증권사 리포트 WebSearch. **[6/21 확인] 미국주 중에도 MU·VOO·ANET·AVGO·ORCL은 무료 플랜 402 → WebSearch 폴백**(NVDA·AAPL·MSFT·TSLA·GOOGL·META는 정상 수신). 키 없거나 한도 초과 시 WebSearch 폴백.
 - **뉴스·수급·컨센서스**: WebSearch/WebFetch로 교차검증. **🌐 [6/16 정훈 지침] 기관·증권사 자료 우선**: 종목 리서치 시 국내 기사보다 **증권사/IB sell-side 리포트(국내 + 글로벌 Goldman·MS·JPM·Citi·UBS 등)와 외신(Bloomberg·Reuters·CNBC·FT·WSJ)**을 폭넓게·유심히. 목표가 레인지·상향/하향 이력·양쪽 논거 명시, 단일 출처 금지. **[7/4] 이 지침의 정본 = `docs/desk_playbook.md` §1**(舊 6개 agent 파일 중복분 단일화) — 8개 데스크 전원이 Tasks 0에서 플레이북(공통 지침 + 캘리브레이션 교훈 + 자기 데스크 누적 교훈)을 Read하고 작업하며, 교훈 갱신은 그 파일 §4 지속 학습 루프(매 보고서 append·주간 self-review 수치 갱신)를 따른다.

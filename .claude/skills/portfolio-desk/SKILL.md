@@ -105,6 +105,7 @@ python3 .claude/skills/portfolio-desk/scripts/event_calendar.py --within 45   # 
 python3 .claude/skills/portfolio-desk/scripts/snapshot.py     # 일별 손익 스냅샷 저장(시계열) + 전일대비 → '변경점' 정량
 python3 .claude/skills/portfolio-desk/scripts/market_log.py   # [7/19] 오늘 시세(지수·환율·보유·워치) 시계열 append(하루 1회). 추세조회: --query 코스피 --days 30
 # (선택) charts.py — 비중/수익률 PNG(dataviz 검증팔레트·한글). matplotlib 있으면 생성·없으면 자동 스킵(웹). 로컬 이전 후 활성.
+python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data.js+폭풍점수 → 자체완결 HTML 대시보드(output/dashboard.html) → Artifact 툴로 발행하면 사이드패널 열람·공유. matplotlib PNG 대체(웹서도 뜸·다크대응). 템플릿=assets/dashboard_template.html
 ```
 - **미국주 펀더멘털(0~100 스코어 채점 근거)**: 키가 있으면 `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py`
   → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE를 CANSLIM/미너비니 렌즈 채점에 투입. **국내 5종목·KR 워치는 FMP 무료 미지원 → 증권사 리포트 WebSearch로 보강**(키 없거나 한도 초과 시도 동일 폴백).

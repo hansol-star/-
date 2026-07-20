@@ -1,0 +1,307 @@
+<style>
+  :root{
+    --bg:#eceef1; --card:#ffffff; --card2:#f4f5f7; --ink:#14161b; --ink2:#3c414b;
+    --mut:#79808d; --mut2:#a6acb6; --line:rgba(18,22,30,.08);
+    --up:#f0424f; --down:#3182f6; --brand:#3182f6;
+    --st-ex:#f0424f; --st-hi:#f5a623; --st-mid:#12b886; --st-lo:#3182f6;
+    --shadow:0 2px 16px rgba(20,22,30,.06);
+    --c1:#2a78d6; --c2:#12b886; --c3:#f5a623; --c4:#e87ba4; --c5:#eb6834; --c6:#4a3aa7; --c7:#9aa0aa;
+    --r:18px; --r2:13px;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#0a0d12; --card:#151b25; --card2:#1e2531; --ink:#eaedf3; --ink2:#c3c9d4;
+    --mut:#8b93a3; --mut2:#626b7a; --line:rgba(255,255,255,.09);
+    --up:#ff5b64; --down:#5b9dff; --brand:#5b9dff;
+    --st-ex:#ff5b64; --st-hi:#f2b45a; --st-mid:#22c98a; --st-lo:#5b9dff;
+    --shadow:0 1px 14px rgba(0,0,0,.5);
+    --c1:#3987e5; --c2:#22c98a; --c3:#f2b45a; --c4:#d98bb0; --c5:#e56b3f; --c6:#8b7ff0; --c7:#78808c;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0a0d12; --card:#151b25; --card2:#1e2531; --ink:#eaedf3; --ink2:#c3c9d4;
+    --mut:#8b93a3; --mut2:#626b7a; --line:rgba(255,255,255,.09);
+    --up:#ff5b64; --down:#5b9dff; --brand:#5b9dff;
+    --st-ex:#ff5b64; --st-hi:#f2b45a; --st-mid:#22c98a; --st-lo:#5b9dff;
+    --shadow:0 1px 14px rgba(0,0,0,.5);
+    --c1:#3987e5; --c2:#22c98a; --c3:#f2b45a; --c4:#d98bb0; --c5:#e56b3f; --c6:#8b7ff0; --c7:#78808c;
+  }
+
+  *{box-sizing:border-box}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 18px 60px;
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Segoe UI",Roboto,sans-serif;
+    color:var(--ink);background:var(--bg);min-height:100vh;
+    -webkit-font-smoothing:antialiased;word-break:keep-all;line-height:1.5}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  .up{color:var(--up)} .down{color:var(--down)} .mut{color:var(--mut)}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  /* header */
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+  .brand{display:flex;align-items:baseline;gap:10px}
+  .brand .mark{font-size:20px;font-weight:800;letter-spacing:-.02em}
+  .brand .mark b{color:var(--brand)}
+  .brand .as{font-size:12px;color:var(--mut)}
+  .tgl{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:10px;
+    width:38px;height:34px;font-size:15px;cursor:pointer;display:grid;place-items:center}
+  .tgl:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+  /* hero */
+  .hero{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);
+    padding:22px 24px;display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;margin-bottom:14px}
+  .hero .big{font-size:clamp(34px,6vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1;margin:6px 0 8px}
+  .day{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700}
+  .pinbadge{margin-left:auto;align-self:center;border-radius:14px;padding:12px 16px;
+    display:flex;flex-direction:column;gap:2px;min-width:170px}
+  .pinbadge.freeze{background:color-mix(in srgb,var(--up) 14%,transparent);border:1px solid color-mix(in srgb,var(--up) 30%,transparent)}
+  .pinbadge .pl{font-size:11px;font-weight:700;letter-spacing:.04em}
+  .pinbadge .pv{font-size:15px;font-weight:800}
+
+  /* kpi */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .kpi{background:var(--card);border-radius:var(--r2);box-shadow:var(--shadow);padding:14px 16px}
+  .kpi .k{font-size:12px;color:var(--mut);font-weight:600}
+  .kpi .v{font-size:20px;font-weight:800;margin-top:6px;letter-spacing:-.01em}
+  .kpi .s{font-size:12px;font-weight:600;margin-top:2px}
+
+  /* grid */
+  .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}
+  .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 20px}
+  .card h3{margin:0 0 4px;font-size:14.5px;font-weight:800;letter-spacing:-.01em}
+  .card .sub{font-size:12px;color:var(--mut);margin-bottom:14px}
+
+  /* donut */
+  .donutrow{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .donut{position:relative;flex:none}
+  .donut .ctr{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+  .donut .ctr .l{font-size:11px;color:var(--mut)}
+  .donut .ctr .n{font-size:17px;font-weight:800;letter-spacing:-.02em}
+  .legend{display:flex;flex-direction:column;gap:7px;flex:1;min-width:150px}
+  .lg{display:flex;align-items:center;gap:9px;font-size:12.5px}
+  .lg i{width:11px;height:11px;border-radius:3px;flex:none}
+  .lg .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lg .pc{font-weight:700;color:var(--ink2)}
+
+  /* storm gauge */
+  .gwrap{margin-top:6px}
+  .greg{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:22px;margin:2px 0 4px}
+  .gdot{width:12px;height:12px;border-radius:50%}
+  .gtrack{position:relative;height:12px;border-radius:8px;margin:16px 0 8px;
+    background:linear-gradient(90deg,var(--st-lo),var(--st-mid),var(--st-hi),var(--st-ex))}
+  .gmark{position:absolute;top:-5px;width:4px;height:22px;border-radius:3px;background:var(--ink);
+    box-shadow:0 0 0 2px var(--card);transform:translateX(-2px)}
+  .gscale{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mut2)}
+  .gnote{font-size:12px;color:var(--ink2);margin-top:12px;line-height:1.55}
+  .gnote b{color:var(--st-ex)}
+
+  /* diverging returns */
+  .rd{display:flex;align-items:center;gap:10px;margin:7px 0}
+  .rd .rl{width:96px;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;font-weight:600}
+  .rbar{position:relative;flex:1;height:10px;background:var(--card2);border-radius:6px;min-width:0}
+  .rbar::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--mut2);opacity:.5}
+  .rseg{position:absolute;top:0;height:100%;border-radius:4px}
+  .rseg.up{background:var(--up)} .rseg.down{background:var(--down)}
+  .rd .rv{width:64px;text-align:right;font-size:12px;font-weight:700;flex:none}
+
+  /* holdings table */
+  .tblwrap{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+  th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+  th{font-size:11px;color:var(--mut);font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+  th:first-child,td:first-child{text-align:left}
+  td.name{font-weight:700}
+  td .rg{font-size:10px;color:var(--mut2);margin-left:6px;font-weight:600}
+  .stars{color:var(--c3);letter-spacing:1px;font-size:11px}
+  .scorepill{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:7px;
+    background:var(--card2);color:var(--ink2)}
+  .regpill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px}
+
+  /* indices */
+  .idxrow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .idx{background:var(--card);border-radius:var(--r2);box-shadow:var(--shadow);padding:12px 14px}
+  .idx .k{font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .idx .v{font-size:16px;font-weight:800;margin-top:4px}
+  .idx .s{font-size:11.5px;font-weight:600}
+
+  .sec-h{margin:22px 2px 10px;font-size:13px;font-weight:800;letter-spacing:-.01em}
+  .foot{margin-top:26px;font-size:11px;color:var(--mut2);text-align:center;line-height:1.7}
+
+  @media (max-width:760px){
+    .grid2{grid-template-columns:1fr}
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .idxrow{grid-template-columns:repeat(3,1fr)}
+    .pinbadge{margin-left:0;width:100%}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .rseg,.gmark{transition:width .5s cubic-bezier(.2,.7,.2,1),left .5s}
+  }
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <span class="mark">정훈 <b>증권</b></span>
+      <span class="as" id="asof"></span>
+    </div>
+    <button class="tgl" id="tgl" aria-label="라이트/다크 전환">◐</button>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">총자산 (KRW)</div>
+      <div class="big num" id="assets"></div>
+      <div class="day num" id="day"></div>
+    </div>
+    <div class="pinbadge freeze" id="pin"></div>
+  </section>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <section class="card">
+      <h3>보유 비중</h3>
+      <div class="sub">KRW 환산 평가액 기준 · 상위 6 + 기타</div>
+      <div class="donutrow">
+        <div class="donut" id="donut"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+    </section>
+    <section class="card">
+      <h3>시장 폭풍 지수</h3>
+      <div class="sub">코스피 실현변동성의 최근 1년 백분위</div>
+      <div class="gwrap" id="gauge"></div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-bottom:14px">
+    <h3>원가 대비 수익률</h3>
+    <div class="sub">보유 15종목 · 수익 우측(빨강) / 손실 좌측(파랑) · 0 기준 정렬</div>
+    <div id="returns"></div>
+  </section>
+
+  <div class="sec-h">보유 종목</div>
+  <section class="card" style="padding:8px 14px">
+    <div class="tblwrap"><table id="tbl"></table></div>
+  </section>
+
+  <div class="sec-h">주요 지수</div>
+  <div class="idxrow" id="idx"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+(function(){
+  var D = __DASH__;
+  var $ = function(id){return document.getElementById(id);};
+  var esc = function(s){return String(s==null?"":s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});};
+  function krw(v){return v==null?"—":Math.round(v).toLocaleString("ko-KR");}
+  function price(v,cur){return v==null?"—":(cur==="USD"?"$"+v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):krw(v)+"원");}
+  function pctf(v){return v==null?"—":(v>=0?"+":"")+v.toFixed(2)+"%";}
+  function cls(v){return v==null?"":(v>=0?"up":"down");}
+  function stormClass(p){return p>=90?"ex":p>=70?"hi":p>=40?"mid":"lo";}
+  function stormColor(p){return "var(--st-"+stormClass(p)+")";}
+
+  // header / hero
+  $("asof").textContent = (D.as_of||"").split(" KST")[0] + " · " + (D.source_report||"").replace("docs/reports/","");
+  var t=D.totals||{};
+  $("assets").textContent = krw(t.assets_krw)+"원";
+  $("day").innerHTML = '<span class="'+cls(t.day_change_krw)+'">당일 '+(t.day_change_krw>=0?"+":"")+krw(t.day_change_krw)+'원 · '+pctf(t.day_change_pct)+'</span>';
+  var sf=D.safety||{};
+  $("pin").innerHTML = '<span class="pl" style="color:var(--up)">🚨 안전핀 '+(sf.status==="freeze"?"동결":"주의")+'</span>'
+    + '<span class="pv num">코스피 '+krw(sf.price)+' <span style="font-size:12px;font-weight:600" class="down">'+pctf(sf.change_pct)+'</span></span>'
+    + '<span style="font-size:11px;color:var(--mut)">플로어 '+krw(sf.pin)+' 하회 시 잔여 트랜치 동결</span>';
+
+  // kpis
+  var kpis=[
+    ["평가손익", (t.total_pnl_krw>=0?"+":"")+krw(t.total_pnl_krw)+"원", pctf(t.total_pnl_pct), cls(t.total_pnl_krw)],
+    ["현금", krw(t.cash_krw)+"원", "예수금", ""],
+    ["환율 USD/KRW", "₩"+((D.fx||{}).usdkrw||0).toLocaleString("ko-KR",{minimumFractionDigits:2,maximumFractionDigits:2}), "", ""],
+    ["코스피 폭풍", (D.kospi_storm||0).toFixed(0)+"%ile", D.kospi_regime||"", "storm"]
+  ];
+  $("kpis").innerHTML = kpis.map(function(k){
+    var sColor = k[3]==="storm" ? 'style="color:'+stormColor(D.kospi_storm)+'"' : (k[3]?'class="'+k[3]+'"':"");
+    return '<div class="kpi"><div class="k">'+k[0]+'</div><div class="v num" '+(k[3]==="storm"?sColor:"")+'>'+k[1]+'</div><div class="s '+(k[3]&&k[3]!=="storm"?k[3]:"")+'" '+(k[3]==="storm"?sColor:"")+'>'+k[2]+'</div></div>';
+  }).join("");
+
+  // allocation donut
+  var hs=(D.holdings||[]).filter(function(h){return h.value_krw;});
+  var total=hs.reduce(function(a,h){return a+h.value_krw;},0)||1;
+  var byW=hs.slice().sort(function(a,b){return b.value_krw-a.value_krw;});
+  var cvars=["--c1","--c2","--c3","--c4","--c5","--c6"];
+  var segsData=[]; var top=byW.slice(0,6), rest=byW.slice(6);
+  top.forEach(function(h,i){segsData.push({label:h.label,val:h.value_krw,col:"var("+cvars[i]+")"});});
+  var restV=rest.reduce(function(a,h){return a+h.value_krw;},0);
+  if(restV>0)segsData.push({label:"기타",val:restV,col:"var(--c7)"});
+  var R=64,SW=22,C=2*Math.PI*R,acc=0,arcs="";
+  segsData.forEach(function(s){
+    var frac=s.val/total, len=frac*C;
+    arcs+='<circle cx="80" cy="80" r="'+R+'" fill="none" stroke="'+s.col+'" stroke-width="'+SW+'" '
+      +'stroke-dasharray="'+len.toFixed(2)+' '+(C-len).toFixed(2)+'" stroke-dashoffset="'+(-acc).toFixed(2)+'" '
+      +'transform="rotate(-90 80 80)"/>';
+    acc+=len;
+  });
+  $("donut").innerHTML='<svg width="160" height="160" viewBox="0 0 160 160">'+arcs+'</svg>'
+    +'<div class="ctr"><div><div class="l">평가액</div><div class="n num">'+(total/10000).toFixed(0)+'만</div></div></div>';
+  $("legend").innerHTML=segsData.map(function(s){
+    return '<div class="lg"><i style="background:'+s.col+'"></i><span class="nm">'+esc(s.label)+'</span><span class="pc num">'+(s.val/total*100).toFixed(0)+'%</span></div>';
+  }).join("");
+
+  // storm gauge
+  var kp=D.kospi_storm||0;
+  $("gauge").innerHTML=''
+    +'<div class="greg" style="color:'+stormColor(kp)+'"><span class="gdot" style="background:'+stormColor(kp)+'"></span>'+esc(D.kospi_regime||"")+' · '+kp.toFixed(0)+'<span style="font-size:13px;color:var(--mut);font-weight:600">%ile</span></div>'
+    +'<div class="gtrack"><div class="gmark" style="left:'+kp+'%"></div></div>'
+    +'<div class="gscale"><span>0 안정</span><span>40</span><span>70</span><span>100 극단</span></div>'
+    +'<div class="gnote">코스피 실현변동성이 최근 1년 상위 <b>'+kp.toFixed(0)+'%</b> 구간. 급락대응 TF ACTIVE — 신규 매수는 래더·시나리오 내에서만.</div>';
+
+  // diverging returns
+  var byR=hs.slice().filter(function(h){return h.pnl_pct!=null;}).sort(function(a,b){return b.pnl_pct-a.pnl_pct;});
+  var maxA=Math.max.apply(null,byR.map(function(h){return Math.abs(h.pnl_pct);}))||1;
+  $("returns").innerHTML=byR.map(function(h){
+    var up=h.pnl_pct>=0,w=Math.abs(h.pnl_pct)/maxA*50;
+    var seg=up?"left:50%;width:"+w.toFixed(1)+"%":"right:50%;width:"+w.toFixed(1)+"%";
+    return '<div class="rd"><span class="rl">'+esc(h.label)+'</span><div class="rbar"><span class="rseg '+(up?"up":"down")+'" style="'+seg+'"></span></div><span class="rv '+cls(h.pnl_pct)+'">'+pctf(h.pnl_pct)+'</span></div>';
+  }).join("");
+
+  // sparkline
+  function spark(cl,w){
+    if(!cl||cl.length<3)return "";
+    var W=w||64,H=22,P=2,n=cl.length,lo=Math.min.apply(null,cl),hi=Math.max.apply(null,cl),rng=(hi-lo)||1;
+    var pts=cl.map(function(v,i){return (P+i*(W-2*P)/(n-1)).toFixed(1)+","+(P+(1-(v-lo)/rng)*(H-2*P)).toFixed(1);}).join(" ");
+    var col=cl[n-1]>=cl[0]?"var(--up)":"var(--down)";
+    return '<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="display:block;margin-left:auto"><polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+  }
+  function starstr(n){n=n||0;return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n);}
+
+  // holdings table
+  var thead='<thead><tr><th>종목</th><th>현재가</th><th>당일</th><th>원가대비</th><th>추세</th><th>별점</th><th>스코어</th><th>폭풍</th></tr></thead>';
+  var tb=hs.map(function(h){
+    var reg=h.regime||"", rp=h.storm;
+    var regHtml = rp==null?"—":'<span class="regpill" style="background:color-mix(in srgb,'+stormColor(rp)+' 16%,transparent);color:'+stormColor(rp)+'">'+rp.toFixed(0)+'</span>';
+    return '<tr><td class="name">'+esc(h.label)+'<span class="rg mono">'+esc((h.ticker||"").split(".")[0])+'</span></td>'
+      +'<td class="num">'+price(h.price,h.currency)+'</td>'
+      +'<td class="num '+cls(h.change_pct)+'">'+pctf(h.change_pct)+'</td>'
+      +'<td class="num '+cls(h.pnl_pct)+'">'+pctf(h.pnl_pct)+'</td>'
+      +'<td style="width:74px">'+spark(h.spark,64)+'</td>'
+      +'<td><span class="stars">'+starstr(h.stars)+'</span></td>'
+      +'<td><span class="scorepill num">'+(h.score==null?"—":h.score)+'</span></td>'
+      +'<td>'+regHtml+'</td></tr>';
+  }).join("");
+  $("tbl").innerHTML=thead+'<tbody>'+tb+'</tbody>';
+
+  // indices
+  $("idx").innerHTML=(D.indices||[]).map(function(i){
+    var lbl=i.label==="필라델피아반도체"?"필반(SOX)":i.label;
+    return '<div class="idx"><div class="k">'+esc(lbl)+'</div><div class="v num">'+krw(i.price)+'</div><div class="s num '+cls(i.change_pct)+'">'+pctf(i.change_pct)+'</div></div>';
+  }).join("");
+
+  $("foot").innerHTML="정훈 증권 · 개인 전용 리서치 대시보드 · 생성 "+esc(D.generated_at||"")+"<br>투자 자문 아님 — 분석 참고. 최종 결정은 정훈.";
+
+  // theme toggle
+  $("tgl").addEventListener("click",function(){
+    var cur=document.documentElement.getAttribute("data-theme");
+    var dark=cur?cur==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+    document.documentElement.setAttribute("data-theme",dark?"light":"dark");
+  });
+})();
+</script>

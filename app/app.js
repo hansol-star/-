@@ -140,16 +140,16 @@
     var pts = c.map(function (v, i) { return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" ");
     var area = "M" + X(0).toFixed(1) + "," + (H - BL) + " L" + pts.split(" ").join(" L") + " L" + X(n - 1).toFixed(1) + "," + (H - BL) + " Z";
     var last = c[n - 1], first = c[0], chg = ((last - first) / first * 100);
-    var gid = "g" + color.replace("#", "");
+    var gid = "g" + color.replace(/[^a-z0-9]/gi, "");
     var fmt = function (v) { return cur === "USD" ? v.toFixed(2) : num(Math.round(v)); };
     var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" preserveAspectRatio="none" style="display:block">';
     s += '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + color + '" stop-opacity="0.28"/><stop offset="1" stop-color="' + color + '" stop-opacity="0"/></linearGradient></defs>';
     s += '<path d="' + area + '" fill="url(#' + gid + ')"/>';
     s += '<polyline points="' + pts + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-linejoin="round"/>';
     s += '<circle cx="' + X(n - 1).toFixed(1) + '" cy="' + Y(last).toFixed(1) + '" r="3" fill="' + color + '"/>';
-    s += '<text x="' + P + '" y="' + (H - 6) + '" fill="#5f6b87" font-size="9">' + esc(dts[0]) + '</text>';
-    s += '<text x="' + (W - P) + '" y="' + (H - 6) + '" fill="#5f6b87" font-size="9" text-anchor="end">' + esc(dts[n - 1]) + '</text>';
-    s += '<text x="' + P + '" y="' + (P + 8) + '" fill="#5f6b87" font-size="9">고 ' + fmt(max) + '</text>';
+    s += '<text x="' + P + '" y="' + (H - 6) + '" fill="var(--c-clabel)" font-size="9">' + esc(dts[0]) + '</text>';
+    s += '<text x="' + (W - P) + '" y="' + (H - 6) + '" fill="var(--c-clabel)" font-size="9" text-anchor="end">' + esc(dts[n - 1]) + '</text>';
+    s += '<text x="' + P + '" y="' + (P + 8) + '" fill="var(--c-clabel)" font-size="9">고 ' + fmt(max) + '</text>';
     s += '</svg>';
     var head = '<div class="row between" style="margin-bottom:4px"><span class="bold">' + fmt(last) + '</span><span class="sm ' + cls(chg) + '">' + (chg >= 0 ? "+" : "") + chg.toFixed(2) + '% <span class="mut">(' + n + '일)</span></span></div>';
     return head + s;
@@ -164,27 +164,27 @@
     var maxA = Math.max.apply(null, vals) || 1;
     var zoneH = (H - BL - TOP) / 2, zeroY = TOP + zoneH;
     var gw = W / ser.length, bw = gw * 0.22;
-    var colors = { foreign: "#ffcc4d", inst: "#34d399", indiv: "#6d8bff" };
+    var colors = { foreign: "var(--c-foreign)", inst: "var(--c-inst)", indiv: "var(--c-indiv)" };
     var keys = ["foreign", "inst", "indiv"];
     var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" style="display:block">';
-    s += '<line x1="0" y1="' + zeroY + '" x2="' + W + '" y2="' + zeroY + '" stroke="#27304a" stroke-width="1"/>';
+    s += '<line x1="0" y1="' + zeroY + '" x2="' + W + '" y2="' + zeroY + '" stroke="var(--c-axis)" stroke-width="1"/>';
     ser.forEach(function (d, gi) {
       var cx = gi * gw + gw / 2;
       keys.forEach(function (k, ki) {
         var v = d[k];
         var bx = cx + (ki - 1) * (bw + 1.5) - bw / 2;
-        if (v == null) { s += '<text x="' + (bx + bw / 2).toFixed(1) + '" y="' + (zeroY - 1) + '" fill="#5f6b87" font-size="7" text-anchor="middle">·</text>'; return; }
+        if (v == null) { s += '<text x="' + (bx + bw / 2).toFixed(1) + '" y="' + (zeroY - 1) + '" fill="var(--c-clabel)" font-size="7" text-anchor="middle">·</text>'; return; }
         var hh = Math.abs(v) / maxA * zoneH;
         var y = v >= 0 ? zeroY - hh : zeroY;
         s += '<rect x="' + bx.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(hh, 0.5).toFixed(1) + '" fill="' + colors[k] + '" rx="1"/>';
       });
-      s += '<text x="' + cx.toFixed(1) + '" y="' + (H - 8) + '" fill="#5f6b87" font-size="8" text-anchor="middle">' + esc(d.date.slice(5)) + '</text>';
+      s += '<text x="' + cx.toFixed(1) + '" y="' + (H - 8) + '" fill="var(--c-clabel)" font-size="8" text-anchor="middle">' + esc(d.date.slice(5)) + '</text>';
     });
     s += '</svg>';
     var legend = '<div class="row wrap" style="gap:10px;margin-top:6px;font-size:11px">'
-      + '<span><span class="lg" style="background:#ffcc4d"></span>외국인</span>'
-      + '<span><span class="lg" style="background:#34d399"></span>기관</span>'
-      + '<span><span class="lg" style="background:#6d8bff"></span>개인</span>'
+      + '<span><span class="lg" style="background:var(--c-foreign)"></span>외국인</span>'
+      + '<span><span class="lg" style="background:var(--c-inst)"></span>기관</span>'
+      + '<span><span class="lg" style="background:var(--c-indiv)"></span>개인</span>'
       + '<span class="mut" style="margin-left:auto">↑순매수 ↓순매도 (억원)</span></div>';
     // 외인 추세 기계 판독 캡션 (flow_trend.py — 매도만 보지 말고 강도·전환단계)
     var ft = D.flow_trend;
@@ -250,8 +250,8 @@
 
     // 차트
     h += '<div class="sec"><h2>📈 차트</h2></div>';
-    h += '<div class="card"><div class="ctitle">코스피 <span class="mut sm">(1개월)</span></div>' + lineChart(D.kospi_history, "#34d399", "KRW") + '</div>';
-    h += '<div class="card"><div class="ctitle">USD/KRW 환율 <span class="mut sm">(1개월)</span></div>' + lineChart(D.fx_history, "#60a5fa", "KRW") + '</div>';
+    h += '<div class="card"><div class="ctitle">코스피 <span class="mut sm">(1개월)</span></div>' + lineChart(D.kospi_history, "var(--c-kospi)", "KRW") + '</div>';
+    h += '<div class="card"><div class="ctitle">USD/KRW 환율 <span class="mut sm">(1개월)</span></div>' + lineChart(D.fx_history, "var(--c-fx)", "KRW") + '</div>';
     h += '<div class="card"><div class="ctitle">코스피 투자자별 순매수 <span class="mut sm">(외인·기관·개인)</span></div>' + flowChart(D.flows) + '</div>';
 
     // 지수

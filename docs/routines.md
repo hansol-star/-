@@ -58,7 +58,7 @@
 - 데스크 병렬(리서치 제외 최대 7 — 지역2+매크로+리스크 항상, 섹터 3종 = 트리거 게이트: ±5%·실적 D-7·테마뉴스·정훈 지목 없으면 지역데스크 시세로 갈음) → 강세/신중 디베이트 → PM 종합.
 - 주간 첫 보고서면 self-review는 R3(주말)에서 청산되므로 평일 중복 X. 단 R3 누락 주면 맨 먼저 self-review.
 - 보유15+워치 풀표(별점·스코어·매수존·트림)·지정가 오더북·PM 사견·tasks.json 동기화. 오늘의 이슈 4개는 전부 자동 심층(선택 대기 X).
-- build_app_data → validate_report(FAIL 자가교정) → score_calls --append → snapshot.py → **market_log.py**([7/20] 오늘 시세 시계열 append, once-per-day 가드) → **report_guard.py --done**(validate PASS 뒤 완료 마커) → 커밋(data/app/report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동). 추측 금지·미확인 명시.
+- build_app_data → validate_report(FAIL 자가교정) → score_calls --append → snapshot.py → **market_log.py**([7/20] 오늘 시세 시계열 append, once-per-day 가드) → **build_dashboard.py**([7/20] output/dashboard.html 재생성 → Artifact 툴 있으면 `data/app/dashboard_url.txt`의 URL로 재발행해 링크 유지) → **report_guard.py --done**(validate PASS 뒤 완료 마커) → 커밋(data/app/report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동). 추측 금지·미확인 명시.
 ```
 
 ### R3. 주말 캘리브레이션 + 리뷰 (토 09:00) — 콜 후행검증

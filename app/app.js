@@ -265,6 +265,9 @@
     });
     h += '</div>';
 
+    // 📊 내 포트폴리오 분석 (비중 + 수익률 분포)
+    h += portfolioAnalysis();
+
     // 보유 — 국내 / 해외 분리
     h += '<div class="sec"><h2>🇰🇷 국내 보유 ' + kr.length + '</h2></div><div class="list">';
     kr.forEach(function (st) { h += itemRow(st, true); });
@@ -311,6 +314,47 @@
     if (hasCost) s += '<line x1="0" y1="' + Y(cost) + '" x2="' + W + '" y2="' + Y(cost) + '" stroke="var(--mut2)" stroke-width="0.7" stroke-dasharray="2.2 2"/>';
     s += '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>';
     return s;
+  }
+
+  // 📊 포트폴리오 분석: 보유 비중 스택바 + 원가대비 수익률 정렬 바 (기존 데이터로 계산)
+  function portfolioAnalysis() {
+    var hs = (D.holdings || []).filter(function (x) { return x.value_krw && x.pnl_pct != null; });
+    if (hs.length < 3) return "";
+    var total = hs.reduce(function (a, x) { return a + x.value_krw; }, 0) || 1;
+    var pal = ["#2a78d6", "#12b886", "#f5a623", "#e87ba4", "#eb6834", "#4a3aa7"];
+
+    // 비중: 상위 6 + 기타
+    var byW = hs.slice().sort(function (a, b) { return b.value_krw - a.value_krw; });
+    var top = byW.slice(0, 6), rest = byW.slice(6);
+    var restW = rest.reduce(function (a, x) { return a + x.value_krw; }, 0);
+    var segs = "", leg = "";
+    top.forEach(function (x, i) {
+      var w = x.value_krw / total * 100;
+      segs += '<span style="width:' + w.toFixed(1) + '%;background:' + pal[i] + '"></span>';
+      leg += '<span class="palg"><i style="background:' + pal[i] + '"></i>' + esc(x.label) + " " + w.toFixed(0) + "%</span>";
+    });
+    if (restW > 0) {
+      var wr = restW / total * 100;
+      segs += '<span style="width:' + wr.toFixed(1) + '%;background:#9a9a95"></span>';
+      leg += '<span class="palg"><i style="background:#9a9a95"></i>기타 ' + wr.toFixed(0) + "%</span>";
+    }
+    var alloc = '<div class="card"><div class="ctitle">보유 비중 <span class="mut sm">(KRW 환산)</span></div>'
+      + '<div class="stackbar">' + segs + '</div><div class="palegend">' + leg + "</div></div>";
+
+    // 수익률: 원가 대비, 내림차순
+    var byR = hs.slice().sort(function (a, b) { return b.pnl_pct - a.pnl_pct; });
+    var maxA = Math.max.apply(null, byR.map(function (x) { return Math.abs(x.pnl_pct); })) || 1;
+    var rows = "";
+    byR.forEach(function (x) {
+      var up = x.pnl_pct >= 0, w = Math.abs(x.pnl_pct) / maxA * 50;  // 0 중심 발산 (반폭 50%)
+      var seg = up ? "left:50%;width:" + w.toFixed(1) + "%" : "right:50%;width:" + w.toFixed(1) + "%";
+      rows += '<div class="rdrow"><span class="rdlabel">' + esc(x.label) + "</span>"
+        + '<div class="rdbar"><span class="rdseg ' + (up ? "up" : "down") + '" style="' + seg + '"></span></div>'
+        + '<span class="rdval ' + cls(x.pnl_pct) + '">' + pct(x.pnl_pct) + "</span></div>";
+    });
+    var ret = '<div class="card"><div class="ctitle">원가 대비 수익률 <span class="mut sm">(보유 ' + hs.length + ')</span></div>' + rows + "</div>";
+
+    return '<div class="sec"><h2>📊 내 포트폴리오 분석</h2></div>' + alloc + ret;
   }
 
   function itemRow(st, isHolding) {

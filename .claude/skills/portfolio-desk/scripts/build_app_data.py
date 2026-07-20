@@ -356,6 +356,8 @@ def build(offline: bool) -> dict:
                 "forecast": meta.get("forecast"),
                 "comment": meta.get("comment", ""),
                 "issues": meta.get("issues", []),
+                # [7/20] 보유리스트 스파클라인용 최근 종가(1mo) — 오프라인이면 빈 배열
+                "spark": fetch_history(sym, offline=offline).get("closes", []),
             })
 
     # ── 워치리스트 (분석 데이터 있는 활성만) ──

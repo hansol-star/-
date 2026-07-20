@@ -178,7 +178,9 @@
         var y = v >= 0 ? zeroY - hh : zeroY;
         s += '<rect x="' + bx.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(hh, 0.5).toFixed(1) + '" fill="' + colors[k] + '" rx="1"/>';
       });
-      s += '<text x="' + cx.toFixed(1) + '" y="' + (H - 8) + '" fill="var(--c-clabel)" font-size="8" text-anchor="middle">' + esc(d.date.slice(5)) + '</text>';
+      // 라벨 겹침 방지: 최대 ~6개만 균등 표기(+마지막)
+      if (gi % Math.max(1, Math.round(ser.length / 6)) === 0 || gi === ser.length - 1)
+        s += '<text x="' + cx.toFixed(1) + '" y="' + (H - 8) + '" fill="var(--c-clabel)" font-size="8" text-anchor="middle">' + esc(d.date.slice(5)) + '</text>';
     });
     s += '</svg>';
     var legend = '<div class="row wrap" style="gap:10px;margin-top:6px;font-size:11px">'
@@ -289,12 +291,26 @@
     root.appendChild(el('<div>' + h + '</div>'));
   }
 
+  // 보유리스트 미니 스파클라인 (최근 1개월 종가). 상승=빨강/하락=파랑(국내 관습).
+  function sparkline(cl) {
+    if (!cl || cl.length < 3) return '';
+    var W = 46, H = 24, P = 2, n = cl.length;
+    var min = Math.min.apply(null, cl), max = Math.max.apply(null, cl), rng = (max - min) || 1;
+    var pts = cl.map(function (v, i) {
+      return (P + i * (W - 2 * P) / (n - 1)).toFixed(1) + "," + (P + (1 - (v - min) / rng) * (H - 2 * P)).toFixed(1);
+    }).join(" ");
+    var col = cl[n - 1] >= cl[0] ? "var(--up)" : "var(--down)";
+    return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" preserveAspectRatio="none">'
+      + '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+  }
+
   function itemRow(st, isHolding) {
     var pnl = isHolding ? st.pnl_pct : null;
     var line = '<div class="item" onclick="location.hash=\'stock/' + encodeURIComponent(st.ticker) + '\'">';
     line += '<span class="avatar ' + (st.outlook || "hold") + '">' + esc((st.label || "?").slice(0, 1)) + '</span>';
     line += '<div class="flex1"><div class="nm">' + esc(st.label) + '</div>';
-    line += '<div class="row" style="gap:8px;margin-top:1px"><span class="stars">' + stars(st.stars) + '</span>' + scoreBadge(st.score) + '<span class="tk">' + esc(st.ticker) + '</span></div></div>';
+    line += '<div class="row metarow" style="gap:7px;margin-top:1px"><span class="stars">' + stars(st.stars) + '</span>' + scoreBadge(st.score) + '</div></div>';
+    line += sparkline(st.spark);
     line += '<div class="right"><div class="px">' + price(st.price, st.currency) + '</div>';
     line += '<div class="sm ' + cls(st.change_pct) + '">' + pct(st.change_pct);
     if (isHolding && pnl != null) line += ' <span class="mut">·</span> <span class="' + cls(pnl) + '">' + pct(pnl) + '</span>';

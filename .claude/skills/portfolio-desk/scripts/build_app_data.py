@@ -291,6 +291,17 @@ def resolve_change_pct(meta: dict, q: dict):
     return q.get("change_pct")
 
 
+# [7/20] 섹터·테마 맵 (CLAUDE.md 데스크 구조 기반) — 테마 집중도 시각화용
+SECTOR_MAP = {
+    "005930.KS": "반도체·AI", "NVDA": "반도체·AI", "ANET": "반도체·AI",
+    "MU": "반도체·AI", "AVGO": "반도체·AI",
+    "066570.KS": "전력·피지컬", "454910.KS": "전력·피지컬", "005380.KS": "전력·피지컬",
+    "035420.KS": "빅테크", "META": "빅테크", "MSFT": "빅테크",
+    "AAPL": "빅테크", "GOOGL": "빅테크", "ORCL": "빅테크",
+    "VOO": "지수ETF",
+}
+
+
 def build(offline: bool) -> dict:
     pf = load_json(PORTFOLIO_JSON)
     sj = load_json(STOCKS_JSON)
@@ -358,6 +369,7 @@ def build(offline: bool) -> dict:
                 "issues": meta.get("issues", []),
                 # [7/20] 보유리스트 스파클라인용 최근 종가(1mo) — 오프라인이면 빈 배열
                 "spark": fetch_history(sym, offline=offline).get("closes", []),
+                "sector": SECTOR_MAP.get(sym, "기타"),  # [7/20] 테마 집중도 시각화
             })
 
     # ── 워치리스트 (분석 데이터 있는 활성만) ──

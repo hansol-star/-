@@ -179,6 +179,8 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .rdseg.up{background:var(--up)}.rdseg.down{background:var(--down)}
 .rdval{width:56px;text-align:right;font-size:11.5px;font-weight:700;flex:none}
 .rdval.up{color:var(--up)}.rdval.down{color:var(--down)}
+.secbar{flex:1;height:9px;background:var(--card2);border-radius:5px;overflow:hidden;min-width:0}
+.secseg{height:100%;border-radius:5px}
 
 /* chart card */
 .card{background:var(--card);border-radius:var(--r-md);padding:15px;margin-bottom:11px;box-shadow:var(--shadow-hero)}

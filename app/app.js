@@ -354,7 +354,20 @@
     });
     var ret = '<div class="card"><div class="ctitle">원가 대비 수익률 <span class="mut sm">(보유 ' + hs.length + ')</span></div>' + rows + "</div>";
 
-    return '<div class="sec"><h2>📊 내 포트폴리오 분석</h2></div>' + alloc + ret;
+    // 테마(섹터) 집중도 — 반도체AI·전력피지컬·빅테크·ETF 비중
+    var secColors = { "반도체·AI": "#2a78d6", "빅테크": "#12b886", "전력·피지컬": "#f5a623", "지수ETF": "#9aa0aa", "기타": "#a6acb6" };
+    var secAgg = {};
+    hs.forEach(function (x) { var s = x.sector || "기타"; secAgg[s] = (secAgg[s] || 0) + x.value_krw; });
+    var secArr = Object.keys(secAgg).map(function (k) { return { name: k, val: secAgg[k] }; }).sort(function (a, b) { return b.val - a.val; });
+    var secRows = secArr.map(function (s) {
+      var w = s.val / total * 100;
+      return '<div class="rdrow"><span class="rdlabel">' + esc(s.name) + "</span>"
+        + '<div class="secbar"><div class="secseg" style="width:' + w.toFixed(0) + "%;background:" + (secColors[s.name] || "#a6acb6") + '"></div></div>'
+        + '<span class="rdval mut num">' + w.toFixed(0) + "%</span></div>";
+    }).join("");
+    var sec = '<div class="card"><div class="ctitle">테마 집중도 <span class="mut sm">(섹터별 비중)</span></div>' + secRows + "</div>";
+
+    return '<div class="sec"><h2>📊 내 포트폴리오 분석</h2></div>' + alloc + sec + ret;
   }
 
   function itemRow(st, isHolding) {

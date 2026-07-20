@@ -61,7 +61,7 @@ def build_payload(app: dict, storm: dict) -> dict:
     def hpick(h):
         d = {k: h.get(k) for k in ("label", "ticker", "region", "currency", "price",
                                    "change_pct", "pnl_pct", "value_krw", "stars",
-                                   "score", "spark", "outlook")}
+                                   "score", "spark", "outlook", "sector")}
         s = storm.get(h.get("ticker"))
         if s:
             d["storm"] = s["storm"]; d["regime"] = s["regime"]

@@ -101,6 +101,8 @@
   .rseg{position:absolute;top:0;height:100%;border-radius:4px}
   .rseg.up{background:var(--up)} .rseg.down{background:var(--down)}
   .rd .rv{width:64px;text-align:right;font-size:12px;font-weight:700;flex:none}
+  .sbar{flex:1;height:10px;background:var(--card2);border-radius:6px;overflow:hidden;min-width:0}
+  .sseg{height:100%;border-radius:6px}
 
   /* holdings table */
   .tblwrap{overflow-x:auto}
@@ -171,6 +173,12 @@
       <div class="gwrap" id="gauge"></div>
     </section>
   </div>
+
+  <section class="card" style="margin-bottom:14px">
+    <h3>테마 집중도</h3>
+    <div class="sub">섹터별 KRW 환산 비중 · 반도체AI · 전력·피지컬 · 빅테크 · 지수ETF</div>
+    <div id="sectors"></div>
+  </section>
 
   <section class="card" style="margin-bottom:14px">
     <h3>원가 대비 수익률</h3>
@@ -261,6 +269,16 @@
     var up=h.pnl_pct>=0,w=Math.abs(h.pnl_pct)/maxA*50;
     var seg=up?"left:50%;width:"+w.toFixed(1)+"%":"right:50%;width:"+w.toFixed(1)+"%";
     return '<div class="rd"><span class="rl">'+esc(h.label)+'</span><div class="rbar"><span class="rseg '+(up?"up":"down")+'" style="'+seg+'"></span></div><span class="rv '+cls(h.pnl_pct)+'">'+pctf(h.pnl_pct)+'</span></div>';
+  }).join("");
+
+  // 테마(섹터) 집중도
+  var secColors={"반도체·AI":"var(--c1)","빅테크":"var(--c2)","전력·피지컬":"var(--c3)","지수ETF":"var(--c7)","기타":"var(--mut2)"};
+  var secAgg={};
+  hs.forEach(function(h){var s=h.sector||"기타";secAgg[s]=(secAgg[s]||0)+h.value_krw;});
+  var secArr=Object.keys(secAgg).map(function(k){return {name:k,val:secAgg[k]};}).sort(function(a,b){return b.val-a.val;});
+  $("sectors").innerHTML=secArr.map(function(s){
+    var w=s.val/total*100;
+    return '<div class="rd"><span class="rl">'+esc(s.name)+'</span><div class="sbar"><div class="sseg" style="width:'+w.toFixed(0)+'%;background:'+(secColors[s.name]||"var(--mut2)")+'"></div></div><span class="rv mut">'+w.toFixed(0)+'%</span></div>';
   }).join("");
 
   // sparkline

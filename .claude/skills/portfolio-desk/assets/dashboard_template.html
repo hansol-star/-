@@ -110,6 +110,11 @@
   th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
   th{font-size:11px;color:var(--mut);font-weight:700;letter-spacing:.03em;text-transform:uppercase}
   th:first-child,td:first-child{text-align:left}
+  th.sortable{cursor:pointer;user-select:none;transition:color .12s;white-space:nowrap}
+  th.sortable:hover,th.sortable:focus-visible{color:var(--ink)}
+  th.sortable:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  tbody tr{transition:background .1s}
+  tbody tr:hover{background:var(--card2)}
   td.name{font-weight:700}
   td .rg{font-size:10px;color:var(--mut2);margin-left:6px;font-weight:600}
   .stars{color:var(--c3);letter-spacing:1px;font-size:11px}
@@ -291,10 +296,13 @@
   }
   function starstr(n){n=n||0;return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n);}
 
-  // holdings table
-  var thead='<thead><tr><th>종목</th><th>현재가</th><th>당일</th><th>원가대비</th><th>추세</th><th>별점</th><th>스코어</th><th>폭풍</th></tr></thead>';
-  var tb=hs.map(function(h){
-    var reg=h.regime||"", rp=h.storm;
+  // holdings table (칼럼 클릭 정렬 + 행 호버)
+  var cols=[{t:"종목",k:"label"},{t:"현재가",k:null},{t:"당일",k:"change_pct"},
+    {t:"원가대비",k:"pnl_pct"},{t:"추세",k:null},{t:"별점",k:"stars"},
+    {t:"스코어",k:"score"},{t:"폭풍",k:"storm"}];
+  var sortK="pnl_pct", sortDir=-1;
+  function rowHtml(h){
+    var rp=h.storm;
     var regHtml = rp==null?"—":'<span class="regpill" style="background:color-mix(in srgb,'+stormColor(rp)+' 16%,transparent);color:'+stormColor(rp)+'">'+rp.toFixed(0)+'</span>';
     return '<tr><td class="name">'+esc(h.label)+'<span class="rg mono">'+esc((h.ticker||"").split(".")[0])+'</span></td>'
       +'<td class="num">'+price(h.price,h.currency)+'</td>'
@@ -304,8 +312,33 @@
       +'<td><span class="stars">'+starstr(h.stars)+'</span></td>'
       +'<td><span class="scorepill num">'+(h.score==null?"—":h.score)+'</span></td>'
       +'<td>'+regHtml+'</td></tr>';
-  }).join("");
-  $("tbl").innerHTML=thead+'<tbody>'+tb+'</tbody>';
+  }
+  function renderTable(){
+    var arr=hs.slice();
+    if(sortK){
+      arr.sort(function(a,b){
+        if(sortK==="label") return sortDir*String(a.label||"").localeCompare(String(b.label||""),"ko");
+        var av=a[sortK], bv=b[sortK];
+        av=(av==null?-Infinity:av); bv=(bv==null?-Infinity:bv);
+        return sortDir*(av<bv?-1:av>bv?1:0);
+      });
+    }
+    var thead="<thead><tr>"+cols.map(function(c,i){
+      var arr2=(c.k&&c.k===sortK)?(sortDir<0?" ▾":" ▴"):"";
+      return "<th"+(c.k?' class="sortable" tabindex="0"':"")+' data-i="'+i+'">'+c.t+arr2+"</th>";
+    }).join("")+"</tr></thead>";
+    $("tbl").innerHTML=thead+"<tbody>"+arr.map(rowHtml).join("")+"</tbody>";
+    Array.prototype.forEach.call($("tbl").querySelectorAll("th.sortable"),function(th){
+      var handler=function(){
+        var k=cols[+th.getAttribute("data-i")].k;
+        if(k===sortK) sortDir=-sortDir; else {sortK=k; sortDir=(k==="label"?1:-1);}
+        renderTable();
+      };
+      th.addEventListener("click",handler);
+      th.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();handler();}});
+    });
+  }
+  renderTable();
 
   // indices
   $("idx").innerHTML=(D.indices||[]).map(function(i){

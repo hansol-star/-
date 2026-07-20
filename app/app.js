@@ -258,8 +258,10 @@
 
     // 지수
     h += '<div class="sec"><h2>지수</h2></div><div class="row wrap" style="gap:8px">';
+    var idxShort = { "필라델피아반도체": "필반(SOX)" };
     (D.indices || []).forEach(function (i) {
-      h += '<div class="chip" style="flex:1;min-width:30%"><div class="mut sm">' + esc(i.label) + '</div><div class="v">' + num(i.price) + '<br><span class="sm ' + cls(i.change_pct) + '">' + pct(i.change_pct) + '</span></div></div>';
+      var lbl = idxShort[i.label] || i.label;
+      h += '<div class="chip" style="flex:1;min-width:30%"><div class="mut sm" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(lbl) + '</div><div class="v">' + num(i.price) + '<br><span class="sm ' + cls(i.change_pct) + '">' + pct(i.change_pct) + '</span></div></div>';
     });
     h += '</div>';
 
@@ -294,7 +296,7 @@
   // 보유리스트 미니 스파클라인 (최근 1개월 종가). 상승=빨강/하락=파랑(국내 관습).
   function sparkline(cl) {
     if (!cl || cl.length < 3) return '';
-    var W = 46, H = 24, P = 2, n = cl.length;
+    var W = 42, H = 24, P = 2, n = cl.length;
     var min = Math.min.apply(null, cl), max = Math.max.apply(null, cl), rng = (max - min) || 1;
     var pts = cl.map(function (v, i) {
       return (P + i * (W - 2 * P) / (n - 1)).toFixed(1) + "," + (P + (1 - (v - min) / rng) * (H - 2 * P)).toFixed(1);

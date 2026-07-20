@@ -108,7 +108,7 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .list:has(.item){background:var(--card);border-radius:var(--r-md);padding:2px 4px;
   box-shadow:var(--shadow-hero);gap:0;overflow:hidden}
 .item{background:transparent;border-radius:0;padding:13px 10px;
-  display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .12s}
+  display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .12s}
 .item:active{background:var(--card2)}
 .avatar{width:36px;height:36px;border-radius:50%;flex:none;display:flex;align-items:center;
   justify-content:center;font-size:14px;font-weight:800;color:#fff}
@@ -117,6 +117,9 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .item .nm{font-weight:700;font-size:15.5px;letter-spacing:-.1px;color:var(--txt)}
 .item .tk{color:var(--mut2);font-size:11px;margin-top:2px}
 .item .px{font-weight:700;font-size:15.5px;color:var(--txt)}
+/* 가격 칼럼 고정폭 → 종목별 폭 편차 제거, 스파클라인 세로 정렬 일치 */
+.item .right{min-width:100px;flex:none}
+.item .right .sm{white-space:nowrap}
 .stars{color:var(--gold);font-size:11px;letter-spacing:1px}
 .score{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--card2);color:var(--mut);line-height:1.5;white-space:nowrap;flex:none}
 .metarow{flex-wrap:nowrap;overflow:hidden}
@@ -125,7 +128,7 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .score.up{color:var(--up);background:var(--tint-red)}
 .score.down{color:var(--down);background:var(--tint-blue)}
 .flex1{flex:1;min-width:0}
-.spark{flex:none;margin:0 2px 0 8px;align-self:center;opacity:.92}
+.spark{flex:none;margin:0 0 0 4px;align-self:center;opacity:.92}
 .tag{font-size:10.5px;padding:3px 8px;border-radius:7px;background:var(--card2);color:var(--mut)}
 
 /* detail */

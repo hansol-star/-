@@ -294,16 +294,23 @@
   }
 
   // 보유리스트 미니 스파클라인 (최근 1개월 종가). 상승=빨강/하락=파랑(국내 관습).
-  function sparkline(cl) {
+  // cost(평단) 주면 점선 기준선 → 현재가가 평단 위/아래인지 한눈에.
+  function sparkline(cl, cost) {
     if (!cl || cl.length < 3) return '';
     var W = 42, H = 24, P = 2, n = cl.length;
-    var min = Math.min.apply(null, cl), max = Math.max.apply(null, cl), rng = (max - min) || 1;
+    var lo = Math.min.apply(null, cl), hi = Math.max.apply(null, cl);
+    var hasCost = typeof cost === "number" && isFinite(cost) && cost > 0;
+    if (hasCost) { lo = Math.min(lo, cost); hi = Math.max(hi, cost); }
+    var rng = (hi - lo) || 1;
+    function Y(v) { return (P + (1 - (v - lo) / rng) * (H - 2 * P)).toFixed(1); }
     var pts = cl.map(function (v, i) {
-      return (P + i * (W - 2 * P) / (n - 1)).toFixed(1) + "," + (P + (1 - (v - min) / rng) * (H - 2 * P)).toFixed(1);
+      return (P + i * (W - 2 * P) / (n - 1)).toFixed(1) + "," + Y(v);
     }).join(" ");
     var col = cl[n - 1] >= cl[0] ? "var(--up)" : "var(--down)";
-    return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" preserveAspectRatio="none">'
-      + '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    var s = '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" preserveAspectRatio="none">';
+    if (hasCost) s += '<line x1="0" y1="' + Y(cost) + '" x2="' + W + '" y2="' + Y(cost) + '" stroke="var(--mut2)" stroke-width="0.7" stroke-dasharray="2.2 2"/>';
+    s += '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    return s;
   }
 
   function itemRow(st, isHolding) {
@@ -312,7 +319,7 @@
     line += '<span class="avatar ' + (st.outlook || "hold") + '">' + esc((st.label || "?").slice(0, 1)) + '</span>';
     line += '<div class="flex1"><div class="nm">' + esc(st.label) + '</div>';
     line += '<div class="row metarow" style="gap:7px;margin-top:1px"><span class="stars">' + stars(st.stars) + '</span>' + scoreBadge(st.score) + '</div></div>';
-    line += sparkline(st.spark);
+    line += sparkline(st.spark, isHolding ? st.cost : null);
     line += '<div class="right"><div class="px">' + price(st.price, st.currency) + '</div>';
     line += '<div class="sm ' + cls(st.change_pct) + '">' + pct(st.change_pct);
     if (isHolding && pnl != null) line += ' <span class="mut">·</span> <span class="' + cls(pnl) + '">' + pct(pnl) + '</span>';

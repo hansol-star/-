@@ -23,13 +23,21 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
+import os
 import time
 import urllib.error
 import urllib.request
 
 UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile Safari"
 BASE = "https://m.stock.naver.com/api"
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_DATA = os.path.normpath(os.path.join(_HERE, "..", "..", "..", "..", "data"))
+FLOW_DIR = os.path.join(_DATA, "history", "flows")          # 종목별 수급 롤링 누적
+MARKET_JSONL = os.path.join(_DATA, "history", "market_flows.jsonl")  # 시장 억원 누적
+FLOWS_JSON = os.path.join(_DATA, "app", "flows.json")       # 기존 확정 시드
 
 # 보유 국내 5 (라벨·6자리코드) — market_data/portfolio.json 정본과 동일
 KR_HOLDINGS = [
@@ -112,14 +120,99 @@ def stock_flows(code: str, pages: int = 2) -> list[dict]:
     return dedup
 
 
+# ---------- 누적 캐시 (롤링 60일 창을 매일 저장 → 시간이 갈수록 60일 너머 축적) ----------
+def cache_stock(code: str, label: str, pages: int = 1) -> tuple[int, int]:
+    """종목별 수급(~60일 창)을 data/history/flows/<code>.csv에 병합 저장. (총일수, 신규)."""
+    os.makedirs(FLOW_DIR, exist_ok=True)
+    path = os.path.join(FLOW_DIR, f"{code}.csv")
+    old = {}
+    if os.path.exists(path):
+        with open(path, newline="") as f:
+            for row in csv.DictReader(f):
+                old[row["date"]] = row
+    fresh = stock_flows(code, pages)
+    added = 0
+    for r in fresh:
+        if r["date"] not in old:
+            added += 1
+        old[r["date"]] = {"date": r["date"], "close": r["close"],
+                          "foreign_qty": r["foreign_qty"], "organ_qty": r["organ_qty"],
+                          "indiv_qty": r["indiv_qty"], "foreign_hold_pct": r["foreign_hold_pct"]}
+    rows = [old[d] for d in sorted(old)]
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["date", "close", "foreign_qty", "organ_qty",
+                                          "indiv_qty", "foreign_hold_pct"])
+        w.writeheader()
+        w.writerows(rows)
+    return len(rows), added
+
+
+def _seed_market_from_flows_json() -> dict:
+    """기존 flows.json 확정 27일을 시장누적 시드로(중복 방지). {date: rec}."""
+    out = {}
+    if os.path.exists(FLOWS_JSON):
+        try:
+            fj = json.load(open(FLOWS_JSON, encoding="utf-8"))
+            for s in fj.get("series", []):
+                if s.get("foreign") is not None:
+                    out[s["date"]] = {"date": s["date"], "index": "KOSPI",
+                                      "foreign": s["foreign"], "inst": s.get("inst"),
+                                      "indiv": s.get("indiv"), "src": "flows.json(확정)"}
+        except (OSError, ValueError):
+            pass
+    return out
+
+
+def append_market() -> str:
+    """오늘 코스피·코스닥 시장 순매수(억원)를 market_flows.jsonl에 누적(dedup date+index)."""
+    existing = {}
+    if os.path.exists(MARKET_JSONL):
+        with open(MARKET_JSONL, encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    r = json.loads(line)
+                    existing[(r["date"], r["index"])] = r
+    # 시드(코스피 확정) — 없을 때만
+    for d, r in _seed_market_from_flows_json().items():
+        existing.setdefault((d, "KOSPI"), r)
+    added = 0
+    for idx in ("KOSPI", "KOSDAQ"):
+        m = market(idx)
+        if m and m["date"]:
+            key = (m["date"], idx)
+            if key not in existing:
+                added += 1
+            existing[key] = {"date": m["date"], "index": idx, "foreign": m["foreign"],
+                             "inst": m["inst"], "indiv": m["indiv"], "src": "naver"}
+        time.sleep(0.5)
+    os.makedirs(os.path.dirname(MARKET_JSONL), exist_ok=True)
+    rows = [existing[k] for k in sorted(existing, key=lambda x: (x[0], x[1]))]
+    with open(MARKET_JSONL, "w", encoding="utf-8") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    kdays = sum(1 for r in rows if r["index"] == "KOSPI")
+    return f"시장누적: 코스피 {kdays}일 (총 {len(rows)}행, +{added} today)"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="외인·기관·개인 수급 수집 (네이버 무키·조회전용)")
     ap.add_argument("--market", action="store_true", help="코스피·코스닥 당일 순매수(억원)만")
     ap.add_argument("--stock", metavar="CODE", help="종목코드(6자리) 외인/기관 이력")
     ap.add_argument("--pages", type=int, default=2, help="종목 이력 페이지수(100일/페이지)")
     ap.add_argument("--flows-line", action="store_true", help="flows.json series 형식으로 오늘 코스피")
+    ap.add_argument("--backfill", action="store_true",
+                    help="종목별 롤링60일 캐시 + 시장 억원 누적(매일 실행 → 60일 너머 축적)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
+
+    if args.backfill:
+        print("■ 수급 누적 캐시 (롤링 60일 창을 디스크에 병합 — 시간이 갈수록 60일 너머 축적)")
+        for label, code in KR_HOLDINGS + WATCH:
+            tot, add = cache_stock(code, label)
+            print(f"  {label:<12}{code}  총 {tot}일 (+{add})")
+            time.sleep(0.6)
+        print("  " + append_market())
+        return 0
 
     if args.flows_line:
         m = market("KOSPI")

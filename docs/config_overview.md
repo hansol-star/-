@@ -87,6 +87,10 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 | `hunter_score.py` | 경제사냥꾼 [검증/정정/미확인] 트랙레코드 집계 |
 | `build_app_data.py` | 폰 앱용 `app/data.js`·`data/app/*.json` 재생성 |
 | `validate_report.py` | **완료검증 게이트** — 보유 전종목·풀표 컬럼·별점↔스코어 밴드·정본 버전 stale 검사(FAIL 0 확인 후 커밋) |
+| `vol_gauge.py` | 변동성 게이지·폭풍 점수(RV·EWMA·1년 백분위) [7/19] — 크래시TF §6 재진입 스케일 입력 |
+| `chart_read.py` | 기술적 차트 리드 [7/20] — 시장구조·BOS·지지저항 존·SMA50/200·RSI·MACD·멀티TF·컨플루언스(Yahoo OHLC 무키). 측정·판독 전용, 펀더 스코어 옆 타이밍 보조 렌즈. SMA크로스 자동매매 미채택 |
+| `report_guard.py` | 보고서 토큰-리셋 재시도 가드 [7/16] — `--check`/`--start`/`--done`/self-arm 트리거 접착 |
+| `selfcheck.py` | dev 게이트 — validate + 전 스크립트 compile/import 스모크(GATE PASS 후 커밋) |
 
 ---
 

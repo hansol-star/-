@@ -1,6 +1,6 @@
 {
   "_comment": "종목별 분석 정본 (사람·앱이 함께 읽음). 보고서 갱신 시 여기 stars/target/buy_zone/trim/outlook/comment/issues 를 최신 보고서값으로 업데이트한 뒤 build_app_data.py 재실행. 원가·수량 정본은 portfolio.json, 사람용 서술 정본은 docs/master.md.",
-  "as_of": "2026-07-21 화 16:xx KST (v56 — 코스피 반등+3.56%·게이트② 2일연속 완전충족)",
+  "as_of": "2026-07-21 화 16:00·17:40 최종보강 KST (v56 — 코스피 반등+3.56%·게이트② 2일연속 완전충족)",
   "source_report": "docs/reports/report_v56_2026-07-21.md",
   "stocks": {
     "005930.KS": {
@@ -1453,7 +1453,7 @@
       "stars": 3,
       "target": "JPM OW $291",
       "buy_zone": "갭/반등 소화 후 눌림 분할(추격금지)",
-      "comment": "[2026-07-15] 🔴 7/14 어닝쇼크(가이던스 하향·'AI예산이 레거시IT 잠식') -25%대 급락 — 데이터 이상 아님, SW섹터 로테이션(MSFT·ORCL 약세) 진원. 실적 7/22 표기는 stale",
+      "comment": "7월중순 실적경고(-25%)로 $213 바닥 검증 중. 7/22 본실적(prelim $2.93/$17.2B 미스)까지 진입 보류 — 바닥확인 후 재평가",
       "issues": [
         {
           "date": "2026-07-14",

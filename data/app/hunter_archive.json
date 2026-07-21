@@ -1,8 +1,18 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-07-21 자동 롤오버 +10편 (build_app_data)",
+  "updated": "2026-07-21 수동 백필(date=None 보정 44건) + 신규 1편 추가 — norm_title 날짜range 충돌로 인한 rollover 누락 수기 교정 (build_app_data 버그, dev 백로그)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "id": "sdvsNE5lKh0",
+      "date": "2026-07-19",
+      "title": "투자자들이 꼭 체크하는 다음주 투자 포인트(07.20~07.24)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "[검증·주간캘린더] 7/20(월)개장·외인 재매수 확인 / 7/21 7/1~20 수출(반도체 특히=피크아웃vs지속 하드데이터·7/1~10 반도체+193% [검증]) / 7/22 韓PPI+GOOGL·TSLA실적 / 7/23 韓2Q GDP속보+INTC / 7/24 美 무역법122조 10%관세 만료(단 301조 대체가능=소멸 아님). 6월CPI 3.2% [검증]. TF§1·매크로 캘린더 반영가치",
+      "views": null
+    },
     {
       "date": "2026-07-21",
       "title": "이번주, 투자자들이 꼭 봐야 할 SK최태원 '이혼 소송' 뉴스",
@@ -131,7 +141,7 @@
       "id": "c0gWZl-mpAA"
     },
     {
-      "date": null,
+      "date": "2026-07-19",
       "title": "워렌버핏이 은퇴 직전 풀매수 했다는 저평가 종목 = 알파벳",
       "theme": null,
       "tickers": [],
@@ -141,7 +151,7 @@
       "id": "cePLL8_Dr7A"
     },
     {
-      "date": null,
+      "date": "2026-07-19",
       "title": "주식여왕 펠로시가 쓸어담는 미국 종목 4개",
       "theme": null,
       "tickers": [],
@@ -151,7 +161,7 @@
       "id": "lZRP3rfmrEk"
     },
     {
-      "date": null,
+      "date": "2026-07-19",
       "title": "하락장에서 수익률 지킬 수 있었던 투자 전략 4가지",
       "theme": null,
       "tickers": [],
@@ -161,7 +171,7 @@
       "id": "hxq55mlGL08"
     },
     {
-      "date": null,
+      "date": "2026-07-19",
       "title": "SK최태원이 예언한 미래 8가지 중 현실된 4개",
       "theme": null,
       "tickers": [],
@@ -171,7 +181,7 @@
       "id": "MaW57I0mevA"
     },
     {
-      "date": null,
+      "date": "2026-07-19",
       "title": "트럼프가 대놓고 찝었다는 한국 종목 = 조선주",
       "theme": null,
       "tickers": [],
@@ -181,7 +191,7 @@
       "id": "gvdg4hxPwyc"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "일본 손잡고 7400조 AI시장 뛰어든 삼성전자 근황",
       "theme": null,
       "tickers": [],
@@ -191,7 +201,7 @@
       "id": "mCbKnnG4y9A"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "다음주 월요일 투자자들이 반드시 알아야 하는 투자 포인트",
       "theme": null,
       "tickers": [],
@@ -201,7 +211,7 @@
       "id": "76OEOQ5lBgc"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "장기투자 고수들이 5년간 역대급 상승장 온다는 종목 = LNG선 조선",
       "theme": null,
       "tickers": [],
@@ -211,7 +221,7 @@
       "id": "2z_8UZYsCLI"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "월가에서 하반기 '현대차그룹' 역대급 상승장 올 수 있다는 이유",
       "theme": null,
       "tickers": [],
@@ -221,7 +231,7 @@
       "id": "-JTjslPooek"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "전설의 투자자 워렌버핏이, 레버리지를 '절대 하면 안된다는' 이유",
       "theme": null,
       "tickers": [],
@@ -231,7 +241,7 @@
       "id": "z4ByzvWNGZg"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "지금 투자자들이 반드시 알아야 하는 '다음 주' 핵심 투자 포인트",
       "theme": null,
       "tickers": [],
@@ -241,7 +251,7 @@
       "id": "XVIc__ioxuk"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "7월 17일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
       "theme": null,
       "tickers": [],
@@ -251,7 +261,7 @@
       "id": "wnetj6Fi5O8"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "TSMC '역대급 실적'에도 반도체가 폭락한 이유",
       "theme": null,
       "tickers": [],
@@ -261,7 +271,7 @@
       "id": "6jzmlvH47qI"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "SK하이닉스, 새로운 수혜주로 주가 2배 갈 수 있다는 숨은 수혜주",
       "theme": null,
       "tickers": [],
@@ -271,7 +281,7 @@
       "id": "qD2t2ShQAcM"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "7월 29일 SK하이닉스 실적 발표 후, 벌어질 일들",
       "theme": null,
       "tickers": [],
@@ -281,7 +291,7 @@
       "id": "LRdfW1iMrxM"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "SK 최태원 회장이, 하이닉스 주가 '반등한다고' 장담한 이유",
       "theme": null,
       "tickers": [],
@@ -291,7 +301,7 @@
       "id": "v78lSE7H8eE"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "오늘밤, 미국 반도체 종목들이 '또 한번' 흔들릴 수 있는 이유",
       "theme": null,
       "tickers": [],
@@ -301,7 +311,7 @@
       "id": "eli04af7Eu4"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "결국 '중국 반도체' 규제 때려버린 트럼프 근황",
       "theme": null,
       "tickers": [],
@@ -311,7 +321,7 @@
       "id": "JcUDi-ImjnI"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "현시점 투자자가 반드시 알아야 할 '선반영'의 진실, 전부 다 뜯어왔습니다",
       "theme": null,
       "tickers": [],
@@ -321,7 +331,7 @@
       "id": "Js2u4p6ElWY"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "현정부의 새 '부동산 정책'이 주식시장에 미치는 영향",
       "theme": null,
       "tickers": [],
@@ -331,7 +341,7 @@
       "id": "PLCbxdCKlGA"
     },
     {
-      "date": null,
+      "date": "2026-07-18",
       "title": "삼전과 함께, 전 세계 스마트폰 시장 판도를 바꿀 '부품주' 5개",
       "theme": null,
       "tickers": [],
@@ -341,7 +351,7 @@
       "id": "CBbLgMLQiFg"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "7월 16일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
       "theme": null,
       "tickers": [],
@@ -351,7 +361,7 @@
       "id": "8UlFIFJKCbc"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "지금 반도체 주가가 '다시' 떨어지고 있는 이유",
       "theme": null,
       "tickers": [],
@@ -361,7 +371,7 @@
       "id": "LrOHZlxn_7I"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "지금 '폭락장' 피하려는 개미들, 전부 몰렸다는 'ETF' Top3",
       "theme": null,
       "tickers": [],
@@ -371,7 +381,7 @@
       "id": "QcEw-gTnPGA"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "월가 JP모건·모건스탠리·블랙록이 사상 최대 실적을 낸 날, 투자자들이 돈을 잃은 이유",
       "theme": null,
       "tickers": [],
@@ -381,7 +391,7 @@
       "id": "gdtw-Wz2IBo"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "반도체 역대급 실적에도 주가가 계속 흔들리는 '이유' 전부 뜯어왔습니다",
       "theme": null,
       "tickers": [],
@@ -391,7 +401,7 @@
       "id": "4Gt5vjCOfek"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "중국의 '역대급 반도체 IPO'가 한국에 미칠 진짜 영향",
       "theme": null,
       "tickers": [],
@@ -401,7 +411,7 @@
       "id": "tlCxoyP2jG8"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "3년 6개월 만의 금리 인상이, 삼성·닉스를 이을 '다음 상승장' 만드는 방법",
       "theme": null,
       "tickers": [],
@@ -411,7 +421,7 @@
       "id": "9cXDYqzkVEo"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "드디어 공개된 '삼전·닉스 레버리지' 대책 4가지",
       "theme": null,
       "tickers": [],
@@ -421,7 +431,7 @@
       "id": "WrPpi9218Pg"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "한국 정부가 갑자기 '비트코인'을 밀어주려는 진짜 이유",
       "theme": null,
       "tickers": [],
@@ -431,7 +441,7 @@
       "id": "AwqBe_Nv-4o"
     },
     {
-      "date": null,
+      "date": "2026-07-17",
       "title": "삼성 이재용이 '세계 1위'로 키우겠다는 '사업' 정체",
       "theme": null,
       "tickers": [],
@@ -441,7 +451,7 @@
       "id": "Px-6zQO_wdA"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "최태원이 직접 밝혔다는 'SK하이닉스' 주가 반등 카드 3가지",
       "theme": null,
       "tickers": [],
@@ -451,7 +461,7 @@
       "id": "EJdBImwbOi8"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "7월 15일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
       "theme": null,
       "tickers": [],
@@ -461,7 +471,7 @@
       "id": "sCWY51XCMzQ"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "오늘 '삼성전자·하이닉스' 투자자들이 꼭 봐야할 뉴스 3가지",
       "theme": null,
       "tickers": [],
@@ -471,7 +481,7 @@
       "id": "xe0Jxr-1Z8E"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "월가에서 1년안에 '하이닉스' 주가 2배 갈 수 있다는 이유",
       "theme": null,
       "tickers": [],
@@ -481,7 +491,7 @@
       "id": "VHuZJ4TXwUk"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "이번 '대폭락'이 알려주는, 앞으로 몇 년간의 새로운 'AI 투자 순서'",
       "theme": null,
       "tickers": [],
@@ -491,7 +501,7 @@
       "id": "BFDYQkZ4SO4"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "한국은행 금리 '인상' 시즌 개막, 2026년 하반기 '증시' 이렇게 보셔야 합니다",
       "theme": null,
       "tickers": [],
@@ -501,7 +511,7 @@
       "id": "UyS4dm9ej1o"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "'TSMC 실적 D-1'.. 코스피에 미칠 진짜 영향",
       "theme": null,
       "tickers": [],
@@ -511,7 +521,7 @@
       "id": "IZYKNqIYrWc"
     },
     {
-      "date": null,
+      "date": "2026-07-15",
       "title": "케빈 워시 연준 의장이 앞으로 주식시장을 완전히 바꿀 '세 가지' 정책",
       "theme": null,
       "tickers": [],
@@ -521,7 +531,7 @@
       "id": "1Ji1AYHgkjQ"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "1,000% 상승 광통신처럼, 제2의 메가 '상승장' 올 수 있다는 신사업 정체+수혜주 5개",
       "theme": null,
       "tickers": [],
@@ -531,7 +541,7 @@
       "id": "2P37LeVhDaY"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "이재명 정부가 내놓은 '세액공제' 정책 2차 수혜주",
       "theme": null,
       "tickers": [],
@@ -541,7 +551,7 @@
       "id": "SvYZagOPe1s"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "지금 젠슨황이 다시 한 번, 한국 주가를 끌어올릴 수 있다는 방법",
       "theme": null,
       "tickers": [],
@@ -551,7 +561,7 @@
       "id": "KKZw15i5U9g"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "ASML의 '역대급 실적' 이후, 삼전·하이닉스에 벌어질 일",
       "theme": null,
       "tickers": [],
@@ -561,7 +571,7 @@
       "id": "JGZqJW8k5wo"
     },
     {
-      "date": null,
+      "date": "2026-07-16",
       "title": "[구독자전용] 삼성전기 종목분석",
       "theme": null,
       "tickers": [],

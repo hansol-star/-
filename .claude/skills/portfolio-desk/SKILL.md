@@ -54,6 +54,7 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    - **크로스에셋**: `garch.py --tickers ^N225,^HSI,000001.SS,^VIX,GC=F`로 북아시아·매크로 동반 여부 확인(디커플링 판정 — 지금 국장 폭풍이 순수 국지인지 아시아 동반인지).
    - **스냅샷 자동 태깅**: `snapshot.py`가 이제 보유별 GARCH예측·폭풍%ile·차트바이어스·RSI·구조를 스냅샷에 박는다 → 이슈 시점 차트 상태가 시계열로 축적(`--no-state`로 생략). 과거 스냅샷은 `snapshot_state_backfill.py`로 point-in-time 소급(미래참조 없음). 정본 분석 = `docs/research/history_analysis.md`.
    - **국내 정성 크로스체크**: `naver_data.py --news "<종목/이슈>"`·`--trend`(NCP 키 정훈 제공)로 폭풍의 촉매·리테일 심리를 정량 옆에 병기(정량 국면 ↔ 정성 촉매 수렴 확인).
+   - **★수급 자동 수집 [7/21 신설 — 수동 WebSearch 탈출]**: `naver_flows.py`(네이버 무키 JSON) — ①시장전체 코스피·코스닥 외인/기관/개인 순매수(억원, flows.json이 손으로 적던 값 자동화) ②종목별 외인/기관/개인 순매수·외인보유율(하닉 매도중단 트리거 감시). KRX 공식 API는 데이터센터 IP서 400/LOGOUT로 막혀 네이버로 우회. `--flows-line`=flows.json series 형식 출력. 국장 데스크가 Task에서 이걸로 수급 확정(WebSearch는 KRX 확정 대사·백업).
 
 ## 1. 실제 보유·현금 — 토스증권 (선택)
 

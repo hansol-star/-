@@ -37,6 +37,17 @@
 - **네이버 실사용**(NCP 키 확인): 뉴스=폭락 촉매(레버리지 ETF 정책 논란)·트렌드=리테일 심리.
   정성 촉매 ↔ 정량 국면 수렴 확인.
 
+**[3차 — 정훈 "모든 해서 뚫어봐, 지금 외인·기관 수급 어떻게 알아?"]** 수급 자동화 크랙:
+- 그동안 = 국장 데스크가 매 보고서 WebSearch로 확정 순매수 손기입(→ 22~27일치뿐).
+- **KRX 공식 API 시도 = 실패**: data.krx.co.kr getJsonData가 데이터센터 IP서 세션쿠키
+  넣어도 400/LOGOUT(IP·WMONID 가드). 검증 bld(01501)조차 400 → 환경 차단으로 판정, 포기.
+- **★뚫음 = 네이버 모바일 증권 API(무키 JSON)** `naver_flows.py`: ①`api/index/{KOSPI|KOSDAQ}
+  /trend` 시장전체 외인/기관/개인 순매수 억원(당일, flows.json 자동화 — 7/21 외인 +2,952 일치)
+  ②`api/stock/{code}/trend?pageSize=60&page=N` 종목별 순매수·외인보유율 페이징 이력
+  (pageSize 상한 60, 100은 400). 국장 데스크·SKILL에 편입. **하닉 외인보유 49.77→52.37%
+  (폭락기 외인 매집)** = 무차별 투매 아닌 선별. 남은 공백: 시장전체는 당일 1건(딥 이력은
+  종목별만), 확정 대사는 KRX 발표 병행.
+
 ---
 
 ## 2026-07-20 — "MASTER AI Trading in 70 Minutes (Claude + TradingView)" (Mind Math Money · 2026-07-16 · 1:10:16 · 조회 10.8만) — 차트 읽기 학습 → chart_read.py 이식

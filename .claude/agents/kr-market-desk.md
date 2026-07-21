@@ -41,7 +41,14 @@ your output is the desk section handed to the PM.
      확정 시 flows.json 해당 일자에 `foreign_hynix`(억원) 필드로 기입.
    - Domestic sector rotation·movers (상한가·급등주).
    - 코스피 close tone — state whether today or prior trading day.
-   - **flows.json 기입 의무**: 당일 외인/기관/개인 확정치를 `data/app/flows.json` series에 추가(미확정은 null + note에 방향 서술). 이 시계열이 flow_trend·트리거 자동평가의 원천.
+   - **★수급 자동 수집 = `naver_flows.py` 1차 [7/21 신설]**: KRX 공식 API가 데이터센터 IP서 막혀(400/LOGOUT) 손으로 WebSearch하던 걸 네이버 무키 JSON으로 자동화.
+     ```bash
+     python3 .claude/skills/portfolio-desk/scripts/naver_flows.py               # 코스피·코스닥 당일 순매수(억원) + 보유5+하닉 종목별 외인/기관·외인보유%
+     python3 .claude/skills/portfolio-desk/scripts/naver_flows.py --stock 000660 --pages 3   # 하닉 외인/기관 이력(매도중단 게이트)
+     python3 .claude/skills/portfolio-desk/scripts/naver_flows.py --flows-line   # flows.json series 형식으로 오늘 코스피
+     ```
+     시장 순매수(억원)는 flows.json 값과 동일 소스 → 이걸 1차로 쓰고 **KRX 발표·뉴스로 확정 대사**(장중 정황 미채택 룰 유지). 종목별 외인보유% 추세는 매집/이탈 판독에 병기.
+   - **flows.json 기입 의무**: 당일 외인/기관/개인 확정치를 `data/app/flows.json` series에 추가(미확정은 null + note에 방향 서술). 이 시계열이 flow_trend·트리거 자동평가의 원천. **naver_flows `--flows-line` 출력을 시드로 쓰되 확정은 마감 교차검증.**
    - **📰 국내 뉴스 = `naver_data.py` 1차 (US 리전 WebSearch 보강)** — 데이터센터 IP에서 지역차단 없이 국내 원문 뉴스를 직접 잡는다(NCP API HUB, 조회전용):
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/naver_data.py --news "코스피 외국인 수급" --display 5 --sort date

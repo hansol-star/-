@@ -73,5 +73,145 @@
       "price": 362.78,
       "ret_pct": -13.84
     }
+  },
+  "index_state": {
+    "^KS11": {
+      "src": "retro-pit",
+      "rv20": 80.2,
+      "storm_pct": 100.0,
+      "garch_fc": 73.1,
+      "regime": "폭풍",
+      "rsi": 42.2
+    },
+    "^KQ11": {
+      "src": "retro-pit",
+      "rv20": 72.0,
+      "storm_pct": 99.0,
+      "garch_fc": 70.3,
+      "regime": "폭풍",
+      "rsi": 36.4
+    }
+  },
+  "market_state": {
+    "005930.KS": {
+      "src": "retro-pit",
+      "rv20": 104.2,
+      "storm_pct": 100.0,
+      "garch_fc": 88.3,
+      "regime": "폭풍",
+      "rsi": 42.5
+    },
+    "066570.KS": {
+      "src": "retro-pit",
+      "rv20": 88.5,
+      "storm_pct": 98.0,
+      "garch_fc": 120.9,
+      "regime": "폭풍",
+      "rsi": 42.4
+    },
+    "454910.KS": {
+      "src": "retro-pit",
+      "rv20": 86.9,
+      "storm_pct": 74.0,
+      "garch_fc": 85.6,
+      "regime": "높음",
+      "rsi": 37.8
+    },
+    "005380.KS": {
+      "src": "retro-pit",
+      "rv20": 66.0,
+      "storm_pct": 92.0,
+      "garch_fc": 69.2,
+      "regime": "폭풍",
+      "rsi": 32.2
+    },
+    "035420.KS": {
+      "src": "retro-pit",
+      "rv20": 82.7,
+      "storm_pct": 96.0,
+      "garch_fc": 65.6,
+      "regime": "폭풍",
+      "rsi": 41.1
+    },
+    "NVDA": {
+      "src": "retro-pit",
+      "rv20": 40.5,
+      "storm_pct": 44.0,
+      "garch_fc": 42.2,
+      "regime": "차분",
+      "rsi": 41.2
+    },
+    "META": {
+      "src": "retro-pit",
+      "rv20": 53.3,
+      "storm_pct": 88.0,
+      "garch_fc": 56.5,
+      "regime": "폭풍",
+      "rsi": 49.6
+    },
+    "VOO": {
+      "src": "retro-pit",
+      "rv20": 18.0,
+      "storm_pct": 78.0,
+      "garch_fc": 13.8,
+      "regime": "보통",
+      "rsi": 53.3
+    },
+    "MSFT": {
+      "src": "retro-pit",
+      "rv20": 38.9,
+      "storm_pct": 79.0,
+      "garch_fc": 39.9,
+      "regime": "높음",
+      "rsi": 49.8
+    },
+    "AAPL": {
+      "src": "retro-pit",
+      "rv20": 38.4,
+      "storm_pct": 58.0,
+      "garch_fc": 39.9,
+      "regime": "보통",
+      "rsi": 60.3
+    },
+    "GOOGL": {
+      "src": "retro-pit",
+      "rv20": 35.1,
+      "storm_pct": 78.0,
+      "garch_fc": 33.0,
+      "regime": "높음",
+      "rsi": 49.5
+    },
+    "ORCL": {
+      "src": "retro-pit",
+      "rv20": 52.8,
+      "storm_pct": 76.0,
+      "garch_fc": 63.3,
+      "regime": "높음",
+      "rsi": 26.7
+    },
+    "ANET": {
+      "src": "retro-pit",
+      "rv20": 59.7,
+      "storm_pct": 85.0,
+      "garch_fc": 48.7,
+      "regime": "높음",
+      "rsi": 48.6
+    },
+    "MU": {
+      "src": "retro-pit",
+      "rv20": 135.7,
+      "storm_pct": 99.0,
+      "garch_fc": 111.5,
+      "regime": "폭풍",
+      "rsi": 48.5
+    },
+    "AVGO": {
+      "src": "retro-pit",
+      "rv20": 69.8,
+      "storm_pct": 97.0,
+      "garch_fc": 49.7,
+      "regime": "폭풍",
+      "rsi": 39.6
+    }
   }
 }

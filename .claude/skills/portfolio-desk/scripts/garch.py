@@ -98,6 +98,28 @@ def neg_loglik(params, rets, var0, uvar):
     return 0.5 * ll  # 상수항(ln2π) 생략 — 최적화엔 무관
 
 
+def neg_loglik_t(params, rets, var0, uvar):
+    """Student-t GARCH 음의 로그우도(팻테일). params=(α,β,ν). ν>2(분산 유한).
+    표준화잔차를 단위분산 t로 스케일 → 극단이벤트(크래시)에 더 잘 맞는다."""
+    alpha, beta, nu = params
+    if alpha < 0 or beta < 0 or alpha + beta >= 0.99999 or nu <= 2.05:
+        return 1e12
+    omega = uvar * (1 - alpha - beta)
+    if omega <= 1e-10:
+        return 1e12
+    c = (math.lgamma((nu + 1) / 2) - math.lgamma(nu / 2)
+         - 0.5 * math.log(math.pi * (nu - 2)))  # t 정규화상수(관측당 상수)
+    ll = 0.0
+    sig2 = var0
+    for r in rets:
+        if sig2 <= 1e-12:
+            sig2 = 1e-12
+        z2 = (r * r) / sig2
+        ll += -c + 0.5 * math.log(sig2) + 0.5 * (nu + 1) * math.log(1 + z2 / (nu - 2))
+        sig2 = omega + alpha * (r * r) + beta * sig2
+    return ll
+
+
 def nelder_mead(f, x0, args=(), step=0.5, tol=1e-8, maxiter=2000):
     """자체 구현 Nelder-Mead 심플렉스(3차원). scipy 없이 GARCH MLE."""
     n = len(x0)
@@ -170,8 +192,13 @@ def _regime(pct: float | None) -> str:
     return "차분"
 
 
-def fit_forecast(symbol: str) -> dict:
-    closes = load_closes(symbol)
+def fit_forecast(symbol: str, closes: list[float] | None = None,
+                 student_t: bool = False) -> dict:
+    """symbol의 GARCH(1,1) 적합·1일 선행예측.
+    closes 주면 그걸 씀(=point-in-time 소급 태깅용 — 과거 날짜까지 자른 종가 전달).
+    student_t=True면 팻테일 t분포 우도(ν 추정) — 크래시 꼬리에 더 정직."""
+    if closes is None:
+        closes = load_closes(symbol)
     if len(closes) < 120:
         return {"symbol": symbol, "ok": False, "reason": f"데이터 부족({len(closes)})"}
     rets = pct_log_returns(closes)
@@ -179,8 +206,15 @@ def fit_forecast(symbol: str) -> dict:
     rets = [r - mu for r in rets]  # 디민
     uvar = statistics.pvariance(rets) if len(rets) > 1 else 1.0  # 표본 무조건분산(타겟)
     var0 = uvar
-    # 분산타겟팅: (α,β) 2개만 적합. 초기값 α=0.08, β=0.90(주식 GARCH 전형)
-    (alpha, beta), _ = nelder_mead(neg_loglik, [0.08, 0.90], args=(rets, var0, uvar))
+    nu = None
+    if student_t:
+        # (α,β,ν) 적합. 초기 ν=6(주식 전형 팻테일)
+        (alpha, beta, nu), _ = nelder_mead(neg_loglik_t, [0.08, 0.90, 6.0],
+                                           args=(rets, var0, uvar))
+        nu = round(nu, 1)
+    else:
+        # 분산타겟팅: (α,β) 2개만 적합. 초기값 α=0.08, β=0.90(주식 GARCH 전형)
+        (alpha, beta), _ = nelder_mead(neg_loglik, [0.08, 0.90], args=(rets, var0, uvar))
     omega = uvar * (1 - alpha - beta)
     persist = alpha + beta
     series, fwd, sig2_next = conditional_vol_series((omega, alpha, beta), rets, var0)
@@ -210,6 +244,7 @@ def fit_forecast(symbol: str) -> dict:
         "memory_w": round(beta / persist, 2) if persist > 0 else None,
         "longrun_vol": round(lr_vol, 1) if lr_vol else None,
         "fc_5d": round(hstep(5), 1), "fc_20d": round(hstep(20), 1),
+        "dist": "student-t" if student_t else "gaussian", "df": nu,
     }
 
 
@@ -230,11 +265,12 @@ def main() -> int:
     ap.add_argument("--tickers", help="쉼표구분 Yahoo 심볼(기본=코스피·코스닥+보유15)")
     ap.add_argument("--index-only", action="store_true")
     ap.add_argument("--verbose", action="store_true", help="파라미터·지속성·장기평균·기간구조")
+    ap.add_argument("--student-t", action="store_true", help="팻테일 t분포 우도(ν 추정)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
     uni = _universe(args)
-    rows = [(label, fit_forecast(sym)) for (label, sym) in uni]
+    rows = [(label, fit_forecast(sym, student_t=args.student_t)) for (label, sym) in uni]
 
     if args.json:
         print(json.dumps([{**{"label": l}, **g} for (l, g) in rows], ensure_ascii=False, indent=2))

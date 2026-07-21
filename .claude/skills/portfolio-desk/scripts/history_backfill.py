@@ -51,18 +51,33 @@ def _safe(symbol: str) -> str:
     return symbol.replace("^", "_").replace("=", "_").replace("/", "_")
 
 
-def _universe() -> list[tuple[str, str]]:
-    """코스피·코스닥 + 보유 + 워치 + 유가 (수급 없는 순수 시세축 전부)."""
+# [7/21] 해외·매크로 크로스에셋 (정훈 "해외 자료도 좋아, 다 분석 가능하잖아").
+# 전부 Yahoo 무키 딥이력 실측 확인: VIX 36.5년·美10Y 56.5년·달러 55.5년·니케이 56.5년 등.
+# 크로스에셋 변동성·상관·위험선호 컨텍스트용(측정 전용).
+XASSET = [
+    ("VIX", "^VIX"), ("美10Y금리", "^TNX"), ("美2Y금리", "^FVX"),
+    ("달러지수", "DX-Y.NYB"), ("니케이225", "^N225"), ("항셍", "^HSI"),
+    ("상해종합", "000001.SS"), ("유로스톡스50", "^STOXX50E"), ("러셀2000", "^RUT"),
+    ("금", "GC=F"), ("비트코인", "BTC-USD"),
+]
+
+
+def _universe(include_xasset: bool = True) -> list[tuple[str, str]]:
+    """코스피·코스닥 + 보유 + 워치 + 유가 + (해외·매크로 크로스에셋). 순수 시세축."""
     if md is None:
-        return [("코스피", "^KS11"), ("코스닥", "^KQ11")]
-    g = md.GROUPS
-    seen, out = set(), []
-    for grp in ("index", "holdings", "watchlist", "fx", "oil"):
-        for label, sym in g.get(grp, []):
-            if sym not in seen:
-                seen.add(sym)
-                out.append((label, sym))
-    return out
+        base = [("코스피", "^KS11"), ("코스닥", "^KQ11")]
+    else:
+        g = md.GROUPS
+        seen, base = set(), []
+        for grp in ("index", "holdings", "watchlist", "fx", "oil"):
+            for label, sym in g.get(grp, []):
+                if sym not in seen:
+                    seen.add(sym)
+                    base.append((label, sym))
+    if include_xasset:
+        have = {s for _, s in base}
+        base += [(l, s) for (l, s) in XASSET if s not in have]
+    return base
 
 
 def fetch_full_daily(symbol: str, period1: int = 0, timeout: float = 30.0):
@@ -194,6 +209,8 @@ def main() -> int:
 
     if args.stats:
         stats = build_stats(only)
+        if not only:  # 전체 조회면 매니페스트를 디스크 진실로 갱신
+            write_manifest(stats)
         print(json.dumps(stats, ensure_ascii=False, indent=1) if args.json
               else _fmt_stats(stats))
         return 0

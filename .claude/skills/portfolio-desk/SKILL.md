@@ -46,10 +46,14 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    python3 .claude/skills/portfolio-desk/scripts/garch.py                        # GARCH(1,1) '내일' 선행 변동성 예측(연율%·폭풍%ile·국면) — vol_gauge(후행 RV)의 선행 짝
    python3 .claude/skills/portfolio-desk/scripts/chart_read.py --holdings        # 기술 리드: 추세·지지저항·RSI·MACD·멀티TF·컨플루언스 바이어스
    python3 .claude/skills/portfolio-desk/scripts/vol_gauge.py                    # 후행 실현변동성·EWMA·폭풍 점수(1년 백분위)
+   python3 .claude/skills/portfolio-desk/scripts/vol_sizing.py                   # 변동성 타겟 트랜치 사이징 제안(7,500 하드플로어+폭풍%ile 연속감산·제안 전용·자동집행 아님)
    python3 .claude/skills/portfolio-desk/scripts/history_analysis.py --symbol ^KS11  # (TF/주간) 변동성 군집·크래시 카탈로그·수십년 백분위 컨텍스트
    ```
-   - **후행 vs 선행 대조**: vol_gauge = "어제까지 얼마나 격렬했나", garch = "내일 얼마나 격렬할까(평균회귀)". 둘 다 보면 폭풍 정점·완화 국면 판독.
-   - **스냅샷 자동 태깅**: `snapshot.py`가 이제 보유별 GARCH예측·폭풍%ile·차트바이어스·RSI·구조를 스냅샷에 박는다 → 이슈 시점 차트 상태가 시계열로 축적(`--no-state`로 생략 가능). 정본 분석·컨텍스트 = `docs/research/history_analysis.md`.
+   - **후행 vs 선행 대조**: vol_gauge = "어제까지 얼마나 격렬했나", garch = "내일 얼마나 격렬할까(평균회귀)". 둘 다 보면 폭풍 정점·완화 국면 판독. 팻테일 필요시 `garch.py --student-t`(ν).
+   - **사이징 제안**: vol_sizing이 다음 트랜치 배수를 제안(7,500 안전핀 하드플로어 위 폭풍%ile 연속 감산). **제안 전용 — 코어 청산/손절 신호 아님, 자동집행 아님, 최종 결정 정훈**(매핑 승인 7/21).
+   - **크로스에셋**: `garch.py --tickers ^N225,^HSI,000001.SS,^VIX,GC=F`로 북아시아·매크로 동반 여부 확인(디커플링 판정 — 지금 국장 폭풍이 순수 국지인지 아시아 동반인지).
+   - **스냅샷 자동 태깅**: `snapshot.py`가 이제 보유별 GARCH예측·폭풍%ile·차트바이어스·RSI·구조를 스냅샷에 박는다 → 이슈 시점 차트 상태가 시계열로 축적(`--no-state`로 생략). 과거 스냅샷은 `snapshot_state_backfill.py`로 point-in-time 소급(미래참조 없음). 정본 분석 = `docs/research/history_analysis.md`.
+   - **국내 정성 크로스체크**: `naver_data.py --news "<종목/이슈>"`·`--trend`(NCP 키 정훈 제공)로 폭풍의 촉매·리테일 심리를 정량 옆에 병기(정량 국면 ↔ 정성 촉매 수렴 확인).
 
 ## 1. 실제 보유·현금 — 토스증권 (선택)
 

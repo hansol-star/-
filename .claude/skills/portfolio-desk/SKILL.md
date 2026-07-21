@@ -40,6 +40,16 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
 4. 충돌 시 우선순위: **토스 API 실데이터 > 당일 스크린샷 > Yahoo 무키 시세 > 최신 보고서 STATE SNAPSHOT > 마스터문서**.
 5. **⚡ 영상 캐시 확인 [2026-07-11]**: `docs/research/hunter_log.md`·`feeds_log.md` 맨 위 블록이 **오늘자**면 R1 프리페치가 이미 3채널 분석을 끝낸 것 → 메인은 그 캐시만 소비하고 자막을 재추출하지 않는다(§2c 신선도 가드). 오늘자 아니면 §2c 폴백.
 6. **🚨 급락 TF 가드 [2026-07-13 신설]**: `docs/crash_tf.md`의 STATUS가 **ACTIVE**면 급락 국면 — 보고서에 **"TF 상황판" 섹션 필수**(crash_tf §1 상황판을 그 세션 데이터로 갱신 + §5 해제 3중 게이트 판정, 판정은 기계값 우선 = `market_data --group index/fx/oil`·`flow_trend.py`·`triggers.py`). 래더(§2)·시나리오(§3)에 없는 신규 매수 판단을 만들지 않는다. RELEASED면 이 단계 생략.
+7. **📈 기술·변동성 레이어 [2026-07-21 신설 — 측정 전용, 룰 불변]**: 펀더·수급·매크로 옆에 붙는 '타이밍·리스크 보조 렌즈'. 지수 + 보유에 대해 아래를 수집단계에서 돌려 보고서 표·TF 상황판에 반영(별점·매수존 정본은 여전히 펀더).
+   ```bash
+   python3 .claude/skills/portfolio-desk/scripts/history_backfill.py             # 상장이래 전 일봉 증분 갱신(캐시 data/history/ — 오늘 tail만 append, 가벼움)
+   python3 .claude/skills/portfolio-desk/scripts/garch.py                        # GARCH(1,1) '내일' 선행 변동성 예측(연율%·폭풍%ile·국면) — vol_gauge(후행 RV)의 선행 짝
+   python3 .claude/skills/portfolio-desk/scripts/chart_read.py --holdings        # 기술 리드: 추세·지지저항·RSI·MACD·멀티TF·컨플루언스 바이어스
+   python3 .claude/skills/portfolio-desk/scripts/vol_gauge.py                    # 후행 실현변동성·EWMA·폭풍 점수(1년 백분위)
+   python3 .claude/skills/portfolio-desk/scripts/history_analysis.py --symbol ^KS11  # (TF/주간) 변동성 군집·크래시 카탈로그·수십년 백분위 컨텍스트
+   ```
+   - **후행 vs 선행 대조**: vol_gauge = "어제까지 얼마나 격렬했나", garch = "내일 얼마나 격렬할까(평균회귀)". 둘 다 보면 폭풍 정점·완화 국면 판독.
+   - **스냅샷 자동 태깅**: `snapshot.py`가 이제 보유별 GARCH예측·폭풍%ile·차트바이어스·RSI·구조를 스냅샷에 박는다 → 이슈 시점 차트 상태가 시계열로 축적(`--no-state`로 생략 가능). 정본 분석·컨텍스트 = `docs/research/history_analysis.md`.
 
 ## 1. 실제 보유·현금 — 토스증권 (선택)
 

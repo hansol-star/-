@@ -1,0 +1,47 @@
+# 기술적 분석 방법론 정본 (ta_core + chart_read v2)
+
+> 생성 2026-07-22 (정훈 지시 "차트 분석 완벽 구현, 진짜 전문가처럼"). 구현 = `ta_core.py`(순수 계산)
+> + `chart_read.py` v2(수집·판독·컨플루언스). 전부 stdlib·무키·포터블.
+> **성격: 측정·판독 전용. 별점·매수존 정본은 펀더(컨센·FMP) — 이 레이어는 타이밍·리스크 보조 렌즈.**
+
+## 1. 판독 구조 — 5기둥 (프로 워크플로)
+
+| 기둥 | 지표 | 답하는 질문 |
+|---|---|---|
+| **① 국면/추세** | 와인스타인 4단계(30주MA)·미너비니 8포인트·MA50/200(가격자격 크로스)·일목균형표·ADX(14)·시장구조(HH/HL·BOS) | 지금이 사는 국면인가, 파는 국면인가 |
+| **② 모멘텀** | RSI(14 Wilder)·MACD(12,26,9)·스토캐스틱(14,3)·**다이버전스**(가격 vs RSI 스윙) | 추세에 힘이 실리나, 빠지나 |
+| **③ 변동성** | 볼린저(20,2) %B·밴드폭 %ile(**스퀴즈** ≤20%ile)·ATR% — (+선행은 garch.py) | 폭발 임박인가, 소강인가 |
+| **④ 수급(거래량)** | OBV 기울기(매집/분산)·MFI(14)·거래량 고갈(20d/50d) | 가격을 돈이 확인해주나 |
+| **⑤ 위치/셋업** | 지지·저항 존·피보나치 되돌림·52주 위치·**VCP**(수축 점감+거래량 고갈)·**RS라인**(벤치 대비) | 어디서 진입·트림하나 |
+
+## 2. 컨플루언스 v2 — 13신호 합산
+
+기존 7신호(MA50/200 위치·크로스·구조·MACD·RSI·주봉) + 프로 6신호(일목 구름·ADX 방향(≥25일 때만)·
+OBV·다이버전스·스테이지(2=강세/4=약세)·RS라인). **net = bull − bear**: ≥+5 강세 / ≤−5 약세 /
+그 사이 약강·약약·혼조. 확신도 = |net|/total (≥0.6 높음). 신호 수 증가에 맞춰 임계 3→5 상향(과발행 방지).
+
+## 3. 핵심 규칙 (오판 방지 장치)
+
+- **크로스 가격자격** [7/22]: MA50≥MA200이라도 가격<MA50이면 "골든크로스(가격이탈·래깅)" — 강세 카운트 제외. 폭락기 래깅 오신호 차단(삼성·코스피 실사례).
+- **VCP 유효조건**: 되돌림 깊이 순차 감소(예 25→15→8%) + 마지막 <12% + 거래량 고갈(20d<50d×0.85). 음수 깊이(상승장 아티팩트) 배제. — study_log 7/18 '보류' 숙제 완결.
+- **미너비니 8포인트**: ①P>MA50 ②P>MA150 ③P>MA200 ④MA150>MA200 ⑤MA200 1개월+ 상승 ⑥MA50>MA150 ⑦52주저점+25%↑ ⑧고점−25%이내. 8/8만 "통과"(하나라도 미달=후보 아님, 원전 그대로). RS는 별도 표기(RS라인 50일MA 상회 프록시).
+- **와인스타인 스테이지**: 30주MA 기울기(5주, ±1%)×가격 위치 → 1기초/2상승/3천장/4하락. **Stage4에서 신규매수 금지·Stage2가 매수 우위 국면**. 주봉 = 상위TF 방향.
+- **다이버전스**: 최근 60봉, 스윙(±3봉 극값) 두 개 비교. 강세=가격 저점↓+RSI 저점↑ / 약세=반대. (7월 크래시 직전 코스피 약세 다이버전스가 실제로 검출됨 — 사후 검증.)
+- **캔들 패턴은 보조 신호로만** — 컨플루언스 카운트에 넣지 않음(단독 신뢰도 낮음).
+
+## 4. 사용
+
+```bash
+python3 chart_read.py --holdings            # 보유 15 프로 리드
+python3 chart_read.py --tickers 005930.KS --verbose   # 피보나치·미너비니 미충족·VCP 상세
+python3 chart_read.py --json                # 파이프라인(스냅샷 태깅·데스크)
+```
+국장·미장 데스크 Task에 배선됨(7/22). snapshot.py 태깅 키(bias·rsi·cross·struct·macd_h) 하위호환 유지.
+
+## 5. 외부 근거 (구현 시 교차검증)
+
+- Minervini SEPA·VCP·트렌드템플릿: [FinancialTechWiz](https://www.financialtechwiz.com/post/mark-minervini-trading-strategy/) · [TraderLion VCP](https://traderlion.com/technical-analysis/volatility-contraction-pattern/) · [TrendSpider VCP](https://trendspider.com/learning-center/volatility-contraction-pattern-vcp/)
+- Weinstein 4단계·30주MA·거래량 확인: [TraderLion Stage Analysis](https://traderlion.com/trading-strategies/stage-analysis/) · [StageAnalysis.net](https://www.stageanalysis.net/) · [MQL5 구현례](https://www.mql5.com/en/articles/22746)
+- 그 외(볼린저·Wilder RSI/ATR/ADX·일목·OBV·MFI·피보나치) = 각 창시자 표준 파라미터 그대로(20,2 / 14 / 9-26-52 / 14).
+
+*(측정·판독 참고자료. 최종 판단 PM 종합, 최종 결정 정훈.)*

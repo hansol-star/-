@@ -44,7 +44,7 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/history_backfill.py             # 상장이래 전 일봉 증분 갱신(캐시 data/history/ — 오늘 tail만 append, 가벼움)
    python3 .claude/skills/portfolio-desk/scripts/garch.py                        # GARCH(1,1) '내일' 선행 변동성 예측(연율%·폭풍%ile·국면) — vol_gauge(후행 RV)의 선행 짝
-   python3 .claude/skills/portfolio-desk/scripts/chart_read.py --holdings        # 기술 리드: 추세·지지저항·RSI·MACD·멀티TF·컨플루언스 바이어스
+   python3 .claude/skills/portfolio-desk/scripts/chart_read.py --holdings        # 기술 리드 v2(프로 5기둥): 추세·스테이지·일목·ADX / RSI·MACD·스토캐·다이버전스 / BB·ATR·스퀴즈 / OBV·MFI / 지지저항·피보·VCP·미너비니·RS — 13신호 컨플루언스(방법론 = docs/research/ta_methodology.md)
    python3 .claude/skills/portfolio-desk/scripts/vol_gauge.py                    # 후행 실현변동성·EWMA·폭풍 점수(1년 백분위)
    python3 .claude/skills/portfolio-desk/scripts/vol_sizing.py                   # 변동성 타겟 트랜치 사이징 제안(7,500 하드플로어+폭풍%ile 연속감산·제안 전용·자동집행 아님)
    python3 .claude/skills/portfolio-desk/scripts/history_analysis.py --symbol ^KS11  # (TF/주간) 변동성 군집·크래시 카탈로그·수십년 백분위 컨텍스트

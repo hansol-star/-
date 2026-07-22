@@ -48,8 +48,43 @@ except Exception:
     _KR = _US = []
     _IDX = [("코스피", "^KS11"), ("코스닥", "^KQ11")]
 
+import ta_core as ta  # [7/22] 전문가급 지표 코어(BB·ATR·일목·ADX·OBV·MFI·다이버전스·스테이지·미너비니·VCP·RS)
+
 YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+
+_BENCH_CACHE: dict = {}  # RS라인 벤치마크 종가 캐시(프로세스당 1회 페치)
+
+
+def _bench_closes(symbol: str):
+    """RS라인 벤치마크: KR(.KS/.KQ)→코스피, US→S&P500. 지수 자신은 RS 생략."""
+    if symbol.startswith("^"):
+        return None, None
+    bench = "^KS11" if symbol.endswith((".KS", ".KQ")) else "^GSPC"
+    if bench not in _BENCH_CACHE:
+        db = fetch_ohlc(bench, rng="1y", interval="1d")
+        _BENCH_CACHE[bench] = db["c"] if db else None
+    return bench, _BENCH_CACHE[bench]
+
+
+def _rsi_series(closes, n=14):
+    """Wilder RSI 시계열(다이버전스 판정용)."""
+    if len(closes) < n + 1:
+        return []
+    gains, losses = [], []
+    for i in range(1, len(closes)):
+        ch = closes[i] - closes[i - 1]
+        gains.append(max(ch, 0.0))
+        losses.append(max(-ch, 0.0))
+    ag, al = sum(gains[:n]) / n, sum(losses[:n]) / n
+    def _r(g, s):
+        return 100.0 if s == 0 else round(100 - 100 / (1 + g / s), 1)
+    out = [_r(ag, al)]
+    for i in range(n, len(gains)):
+        ag = (ag * (n - 1) + gains[i]) / n
+        al = (al * (n - 1) + losses[i]) / n
+        out.append(_r(ag, al))
+    return out
 
 
 # ── 데이터 수집 ────────────────────────────────────────────────────────────
@@ -65,14 +100,16 @@ def fetch_ohlc(symbol: str, rng: str = "1y", interval: str = "1d", timeout: floa
         res = data["chart"]["result"][0]
         q = res["indicators"]["quote"][0]
         o, h, l, c = q["open"], q["high"], q["low"], q["close"]
-        out_o, out_h, out_l, out_c = [], [], [], []
+        v = q.get("volume") or [0] * len(c)  # [7/22] 거래량 확보(OBV·MFI·VCP·거래량고갈용)
+        out_o, out_h, out_l, out_c, out_v = [], [], [], [], []
         for i in range(len(c)):
             if None in (o[i], h[i], l[i], c[i]):
                 continue
             out_o.append(o[i]); out_h.append(h[i]); out_l.append(l[i]); out_c.append(c[i])
+            out_v.append(v[i] if i < len(v) and v[i] is not None else 0)
         if len(out_c) < 30:
             return None
-        return {"o": out_o, "h": out_h, "l": out_l, "c": out_c}
+        return {"o": out_o, "h": out_h, "l": out_l, "c": out_c, "v": out_v}
     except (urllib.error.HTTPError, urllib.error.URLError, KeyError,
             IndexError, TypeError, ValueError):
         return None
@@ -233,14 +270,36 @@ def read(symbol: str, verbose: bool = False) -> dict:
     # 멀티 TF — 주봉
     dw = fetch_ohlc(symbol, rng="2y", interval="1wk")
     wk_dir = None
+    stage = None
     if dw and len(dw["c"]) >= 30:
         wc = dw["c"]
         w50, w20 = sma(wc, 30), sma(wc, 10)
         if w50 and w20:
             wk_dir = "상승" if (wc[-1] >= w50 and w20 >= w50) else (
                 "하락" if (wc[-1] < w50 and w20 < w50) else "중립")
+        stage = ta.weinstein_stage(wc)  # 와인스타인 4단계(30주 MA)
 
-    # 컨플루언스 — 강세/약세 신호 카운트
+    # ── [7/22 프로 레이어 — ta_core] ─────────────────────────────────────
+    vol = d.get("v") or []
+    atr_val, atr_pct = ta.atr(h, l, c)
+    bb = ta.bollinger(c)
+    sto = ta.stochastic(h, l, c)
+    ax = ta.adx(h, l, c)
+    ichi = ta.ichimoku(h, l, c)
+    obv = ta.obv_trend(c, vol)
+    mfi_v = ta.mfi(h, l, c, vol)
+    rsi_ser = _rsi_series(c, 14)
+    div = ta.divergence(c, rsi_ser) if rsi_ser else None
+    candles = ta.candle_pattern(d["o"], h, l, c)
+    swing_hi = max((p for _, p in sh[-3:]), default=None) if sh else None
+    swing_lo = min((p for _, p in sl[-3:]), default=None) if sl else None
+    fib = ta.fib_levels(swing_hi, swing_lo, price) if swing_hi and swing_lo else None
+    bench_sym, bench_c = _bench_closes(symbol)
+    rs = ta.rs_line(c, bench_c) if bench_c else None
+    mv = ta.minervini_template(c, h, l, rs_ok=(rs or {}).get("above_ma50"))
+    vcp = ta.vcp_check(h, l, c, vol)
+
+    # 컨플루언스 v2 — 강세/약세 신호 카운트 (기존 7신호 + 프로 6신호)
     bull = bear = 0
     if ma50 and price >= ma50: bull += 1
     elif ma50: bear += 1
@@ -257,20 +316,54 @@ def read(symbol: str, verbose: bool = False) -> dict:
         elif r <= 45: bear += 1
     if wk_dir == "상승": bull += 1
     elif wk_dir == "하락": bear += 1
+    # 프로 신호 (일목·ADX방향·OBV·다이버전스·스테이지·RS)
+    if ichi:
+        if ichi["cloud_pos"] == "구름 위": bull += 1
+        elif ichi["cloud_pos"] == "구름 아래": bear += 1
+    if ax and ax["adx"] >= 25:
+        if ax["dir"] == "+DI우세": bull += 1
+        else: bear += 1
+    if obv:
+        if "매집" in obv["verdict"]: bull += 1
+        elif "분산" in obv["verdict"]: bear += 1
+    if div:
+        if div["bullish"]: bull += 1
+        elif div["bearish"]: bear += 1
+    if stage:
+        if stage["stage"] == 2: bull += 1
+        elif stage["stage"] == 4: bear += 1
+    if rs:
+        if rs["above_ma50"]: bull += 1
+        elif rs["above_ma50"] is False: bear += 1
 
     total = bull + bear
     if total == 0:
         bias, conf = "중립", "낮음"
     else:
         net = bull - bear
-        if net >= 3: bias = "강세"
-        elif net <= -3: bias = "약세"
+        # v2: 신호 수가 7→13으로 늘어 임계 상향(강세 판정 과발행 방지)
+        if net >= 5: bias = "강세"
+        elif net <= -5: bias = "약세"
         elif net > 0: bias = "약강세"
         elif net < 0: bias = "약약세"
         else: bias = "혼조"
         ratio = abs(net) / total
         conf = "높음" if ratio >= 0.6 else ("보통" if ratio >= 0.3 else "낮음")
 
+    out.update({
+        # [7/22 프로 레이어]
+        "atr_pct": atr_pct,
+        "bb": bb, "stoch": sto, "adx": ax, "ichimoku": ichi,
+        "obv": obv, "mfi": mfi_v,
+        "divergence": (div or {}).get("signal"),
+        "candle": candles, "fib": fib,
+        "stage": {"stage": stage["stage"], "name": stage["name"],
+                  "ma30w_slope_pct": stage["ma30w_slope_pct"]} if stage else None,
+        "minervini": {"passed": mv["passed"], "total": mv["total"],
+                      "verdict": mv["verdict"], "rs_ok": mv["rs_ok"],
+                      **({"checks": mv["checks"]} if verbose else {})} if mv else None,
+        "vcp": vcp, "rs": rs, "bench": bench_sym,
+    })
     out.update({
         "ma50": round(ma50, 2) if ma50 else None,
         "ma200": round(ma200, 2) if ma200 else None,
@@ -331,6 +424,52 @@ def fmt(o: dict, verbose: bool = False) -> str:
     # 멀티TF
     daily = {"up": "상승", "down": "하락", "range": "레인지"}.get(o.get("struct_dir"), "n/a")
     L.append(f"   멀티TF: 일봉 {daily} / 주봉 {o.get('weekly') or 'n/a'}  (상위=방향·하위=타이밍)")
+    # [7/22] 프로 레이어 요약 1~3줄
+    pro1 = []
+    if o.get("stage"):
+        pro1.append(o["stage"]["name"])
+    if o.get("adx"):
+        pro1.append(f"ADX {o['adx']['adx']}({o['adx']['strength']}·{o['adx']['dir']})")
+    if o.get("ichimoku"):
+        pro1.append(f"일목 {o['ichimoku']['cloud_pos']}·{o['ichimoku']['tk_cross']}")
+    if pro1:
+        L.append(f"   국면: {' · '.join(pro1)}")
+    pro2 = []
+    if o.get("bb") and o["bb"].get("pct_b") is not None:
+        sq = " 🔒스퀴즈" if o["bb"].get("squeeze") else ""
+        pro2.append(f"BB %B {o['bb']['pct_b']}(폭 {o['bb']['squeeze_pctile']}%ile{sq})")
+    if o.get("atr_pct") is not None:
+        pro2.append(f"ATR {o['atr_pct']}%")
+    if o.get("stoch"):
+        pro2.append(f"스토캐스틱 {o['stoch']['k']}/{o['stoch']['d']}({o['stoch']['zone']})")
+    if o.get("mfi") is not None:
+        pro2.append(f"MFI {o['mfi']}")
+    if o.get("obv"):
+        pro2.append(o["obv"]["verdict"])
+    if pro2:
+        L.append(f"   변동성·수급: {' · '.join(pro2)}")
+    pro3 = []
+    if o.get("rs"):
+        pro3.append(o["rs"]["trend"] + (" ★RS신고" if o["rs"].get("rs_new_high") else ""))
+    if o.get("minervini"):
+        pro3.append(f"미너비니 {o['minervini']['passed']}/8")
+    if o.get("vcp") and o["vcp"].get("valid_vcp"):
+        pro3.append(f"★VCP 유효({o['vcp']['pullbacks_pct']})")
+    if o.get("divergence"):
+        pro3.append(f"⚡{o['divergence']}")
+    if o.get("candle"):
+        pro3.append("캔들 " + "·".join(o["candle"]))
+    if pro3:
+        L.append(f"   셋업: {' · '.join(pro3)}")
+    if verbose:
+        if o.get("fib"):
+            f = o["fib"]
+            L.append(f"   피보나치(스윙): 최근접 {f['nearest'][0]}={f['nearest'][1]}({f['nearest_dist_pct']:+}%) · {f['levels']}")
+        if o.get("minervini") and o["minervini"].get("checks"):
+            fails = [k for k, ok in o["minervini"]["checks"].items() if not ok]
+            L.append(f"   미너비니 미충족: {', '.join(fails) if fails else '없음(8/8)'}")
+        if o.get("vcp"):
+            L.append(f"   VCP: 되돌림 {o['vcp']['pullbacks_pct']} · {o['vcp']['note']}")
     if verbose and o.get("swing_highs"):
         L.append(f"   스윙고: {o['swing_highs']} · 스윙저: {o['swing_lows']}")
     return "\n".join(L)

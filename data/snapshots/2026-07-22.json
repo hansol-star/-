@@ -1,13 +1,13 @@
 {
   "date": "2026-07-22",
-  "fx_usdkrw": 1478.2,
+  "fx_usdkrw": 1479.2,
   "kr_value": 1907200,
   "kr_pnl": -298500,
   "us_value_usd": 4059.13,
   "us_pnl_usd": 114.4,
   "cash_krw": 172506,
-  "total_assets_krw": 8079915,
-  "stock_pnl_krw": -129398,
+  "total_assets_krw": 8083975,
+  "stock_pnl_krw": -129284,
   "positions": {
     "삼성전자": {
       "price": 260500.0,
@@ -77,7 +77,7 @@
       "regime": "폭풍",
       "bias": "약약세",
       "rsi": 40.1,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": -116.8,
       "pct_from_hi": -27.6
@@ -101,7 +101,7 @@
       "regime": "폭풍",
       "bias": "약약세",
       "rsi": 42.7,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": -4968.0,
       "pct_from_hi": -30.4
@@ -112,7 +112,7 @@
       "regime": "폭풍",
       "bias": "약약세",
       "rsi": 44.8,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": -424.6,
       "pct_from_hi": -58.3
@@ -123,7 +123,7 @@
       "regime": "높음",
       "bias": "약세",
       "rsi": 37.4,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": -434.0,
       "pct_from_hi": -60.2
@@ -134,7 +134,7 @@
       "regime": "폭풍",
       "bias": "약세",
       "rsi": 33.3,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": -1814.1,
       "pct_from_hi": -46.6
@@ -156,7 +156,7 @@
       "regime": "차분",
       "bias": "약강세",
       "rsi": 52.2,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": 0.8,
       "pct_from_hi": -12.4
@@ -167,7 +167,7 @@
       "regime": "높음",
       "bias": "강세",
       "rsi": 56.2,
-      "cross": "데드크로스",
+      "cross": "데드크로스(가격회복)",
       "struct": "up",
       "macd_h": 4.0,
       "pct_from_hi": -19.1
@@ -176,7 +176,7 @@
       "garch_fc": 11.5,
       "storm_pct": 38.0,
       "regime": "차분",
-      "bias": "강세",
+      "bias": "약강세",
       "rsi": 52.4,
       "cross": "골든크로스",
       "struct": "range",
@@ -211,7 +211,7 @@
       "regime": "높음",
       "bias": "약약세",
       "rsi": 43.1,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": -0.7,
       "pct_from_hi": -15.0
@@ -253,9 +253,9 @@
       "garch_fc": 44.1,
       "storm_pct": 86.0,
       "regime": "높음",
-      "bias": "약강세",
+      "bias": "혼조",
       "rsi": 49.9,
-      "cross": "골든크로스",
+      "cross": "골든크로스(가격이탈·래깅)",
       "struct": "down",
       "macd_h": 1.1,
       "pct_from_hi": -21.9

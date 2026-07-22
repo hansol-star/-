@@ -50,6 +50,13 @@ your output is the desk section handed to the PM.
      ```
      시장 순매수(억원)는 flows.json 값과 동일 소스 → 이걸 1차로 쓰고 **KRX 발표·뉴스로 확정 대사**(장중 정황 미채택 룰 유지). 종목별 외인보유% 추세는 매집/이탈 판독에 병기.
    - **flows.json 기입 의무**: 당일 외인/기관/개인 확정치를 `data/app/flows.json` series에 추가(미확정은 null + note에 방향 서술). 이 시계열이 flow_trend·트리거 자동평가의 원천. **naver_flows `--flows-line` 출력을 시드로 쓰되 확정은 마감 교차검증.**
+   - **★기술·변동성 레이어 [2026-07-22 신설 — 측정 전용]**: 국내 보유 5종에 붙여 시세 옆에 병기(펀더 별점 정본, 타이밍·리스크 보조).
+     ```bash
+     python3 .claude/skills/portfolio-desk/scripts/garch.py --tickers 005930.KS,066570.KS,454910.KS,005380.KS,035420.KS   # 내일 선행변동성·폭풍%ile
+     python3 .claude/skills/portfolio-desk/scripts/chart_read.py --tickers 005930.KS,066570.KS,005380.KS,035420.KS   # 추세·RSI·MACD·크로스(가격자격)
+     python3 .claude/skills/portfolio-desk/scripts/vol_sizing.py   # 안전핀+폭풍%ile 트랜치 제안(TF ACTIVE 시 필수 — 동결/스케일 판정)
+     ```
+     TF ACTIVE 중엔 vol_sizing 결과(안전핀 동결 여부·폭풍스케일 배수)를 상황판에 반영. RSI 극단 침체(예 현대차<30)는 "싸 보임"이지 매수신호 아님을 명시(룰3·펀더 우선).
    - **📰 국내 뉴스 = `naver_data.py` 1차 (US 리전 WebSearch 보강)** — 데이터센터 IP에서 지역차단 없이 국내 원문 뉴스를 직접 잡는다(NCP API HUB, 조회전용):
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/naver_data.py --news "코스피 외국인 수급" --display 5 --sort date

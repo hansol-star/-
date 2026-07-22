@@ -96,15 +96,31 @@ signal_score.py가 **순수 가격신호 엣지≈0**(Stage4 회피·RSI 역발�
 **운용 반영**: naver_chart의 수급 층은 **'매집/분산 국면 서술'로만** 쓰고 forward 매수/매도 트리거로 승격 금지.
 행동 규칙으로 채택 가능한 것 = ①강한 외인 매집 뒤 추격 회피 ②장기(60일) 대량 외인이탈 워시아웃은 분할매수 후보(안전핀 하 게이트 준수). R3 주간 캘리브레이션이 이 표를 누적 갱신.
 
-## 4. 사용
+## 3b. 미장 확장 + NAT(공매도) — [7/22 "다 하자"]
+
+**선반영 판정 단일화**: 판정 로직을 `value_core.py`(순수함수)로 추출 → **KR·US가 동일 로직**.
+- `naver_value.py`(KR·네이버 재무) + `us_value.py`(US·FMP forward)가 둘 다 `value_core.priced_in_verdict` 사용.
+- **US 실측(7/22)**: MSFT·GOOGL·META = 미반영여지(마진 가속·포워드PER 19~24) / AAPL = 적정(포워드 37×·목표 +3.5%뿐) /
+  **TSLA = 순환회복·트레일링PER 착시**(포워드도 189×) / NVDA = 부분반영(마진 횡보). 402종목(MU·ANET·AVGO·ORCL)·
+  키없음 = WebSearch 폴백 명시(fundamentals와 동일 정책). VOO=ETF 제외.
+
+**NAT 축(공매도·대차) — `short_borrow.py`**: 학술 근거 NAT(외인지분+공매도)=분기알파 2.22%(KAIST). 외인 지분율은
+네이버로 확보, 남은 축 = 공매도. **⚠️KRX 공매도 JSON은 데이터센터 IP 차단**(7/22 실측: getJsonData 400·download
+302, 쿠키 프라이밍·2단계 OTP에도 차단). → 포터블 페처 구축(**정훈 로컬 이전 12월·주거용 IP 후 자동 작동** — youtube
+페처와 동일 설계), 그전까지 **정직한 degrade + WebSearch(공매도 과열·대차 급증) 보강**. NAT 프록시는 외인축만 반쪽 가동.
+
+## 4. 사용 · 데스크 배선
 
 ```bash
 python3 naver_chart.py                 # 보유 국내5+하닉 — 가격+수급+가치+종합
 python3 naver_chart.py --code 005930 --verbose
-python3 naver_value.py                 # 영업이익·컨센·선반영 판독
+python3 naver_value.py                 # 국내 영업이익·컨센·선반영 판독
+FMP_API_KEY=... python3 us_value.py    # 미국 FMP forward·선반영 판독
 python3 flow_edge.py                   # 수급 엣지 백테스트(정직)
+python3 short_borrow.py --status       # KRX 공매도 접근 점검(현재 차단·로컬용)
 ```
-selfcheck.py 게이트 편입(42 스크립트 compile/import PASS). 데스크 파이프라인 자동배선은 정훈 승인 후(확장은 먼저 묻는다).
+**데스크 자동배선 완료(7/22)**: `kr-market-desk`(naver_chart+naver_value) · `us-market-desk`(us_value) Task에 배선 —
+매 보고서 3층(가격+수급+가치)이 국내5+하닉·미국 보유에 자동 병기. selfcheck 게이트 편입(45 스크립트 PASS).
 
 ## 5. 외부 근거 (교차검증 · 2026-07-22)
 

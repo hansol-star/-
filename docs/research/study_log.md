@@ -36,8 +36,13 @@
 **교차검증**(sell-side·외신·학술): KB자산운용(동반순매수=강신호)·한양대(추종전략 성과 한계)·KAIST(NAT 알파 2.22%)·
 BigGo(지분율↑≠순매수·소진율 착시)·Seoul Closing Bell(프로그램/선물 오버레이). 상세 링크 = naver_supply_value.md §5.
 
-**남은 숙제/다음**: ⓐ데스크 파이프라인(kr-market-desk) 자동배선은 정훈 승인 후. ⓑ공매도·대차잔고(NAT 축) 미편입 —
-네이버 미제공, KRX 우회 필요. ⓒ순매수 '수량' 백테스트는 네이버 trend가 ~60일뿐이라 표본 부족(지분율로 대체).
+**[같은 날 2차 — 정훈 "다 하자"] 세 숙제 전부 실행**:
+- ⓐ **데스크 자동배선 완료**: kr-market-desk에 naver_chart+naver_value, us-market-desk에 us_value 배선(매 보고서 3층 자동 병기).
+- ⓑ **미장 밸류 확장**: `value_core.py`로 선반영 판정 단일화(KR·US 동일 로직) → `us_value.py`(FMP forward). 실측 = MSFT·GOOGL·META
+  미반영여지 / AAPL 적정(포워드37×) / **TSLA 순환회복 트레일링PER 착시(포워드 189×)** / NVDA 부분반영. 402·키없음 WebSearch 폴백.
+- ⓒ **공매도·대차(NAT 축)**: `short_borrow.py` 포터블 KRX 페처 구축. **⚠️데이터센터 IP 차단 재확인**(getJsonData 400·download 302,
+  쿠키프라이밍·2단계OTP에도) → 정직 degrade + 로컬 이전(12월) 후 작동. NAT 프록시 외인축만 반쪽 가동. 그전 WebSearch 보강.
+- ⓓ 순매수 '수량' 백테스트는 네이버 trend가 ~60일뿐이라 표본 부족(지분율 6.5년으로 대체). selfcheck 45스크립트 GATE PASS.
 
 ---
 

@@ -34,6 +34,8 @@ import time
 import urllib.error
 import urllib.request
 
+import value_core as vc  # 선반영 판정 공용 코어(KR·US 단일 로직)
+
 BASE_M = "https://m.stock.naver.com/api/stock/{code}/{path}"
 UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile Safari"
 
@@ -174,41 +176,17 @@ def value_read(code: str, price: float | None = None) -> dict:
     else:
         eps_dir = "n/a"
 
-    # 컨센 공격성 플래그(포워드 저PER의 조건부성)
-    aggressive = bool(implied_g is not None and implied_g > 100)
+    # 구조 플래그 + 선반영 판정 = 공용 코어(KR·US 동일 로직)
     est_margin = opm[est_idx[0]] if est_idx else None
-    if est_margin and opm_act and opm_act[-1] and est_margin > 2 * opm_act[-1]:
-        aggressive = True
-
-    # 신고 실적 여부 — 2026E 영업이익이 과거 피크를 크게(>1.2x) 넘나(구조성장) vs 순환회복 구분
-    prior_pos_op = [x for x in op_act if x is not None and x > 0]
-    new_high_earn = bool(op_est and prior_pos_op and op_est > 1.2 * max(prior_pos_op))
-    # 목표가 stale 의심 — 상단 과대(>50%)인데 실적 하락/둔화 = 크래시 후 애널 목표 미갱신 프록시
-    target_stale = bool(upside is not None and upside > 50 and (eps_dir == "감소" or margin_dir == "둔화"))
-
-    # ── 선반영 판단 ──────────────────────────────────────────────────────────
+    prior_margin = opm_act[-1] if opm_act else None
+    decel = (eps_dir == "감소") or (margin_dir == "둔화")
+    new_high_earn, aggressive, target_stale = vc.structural_flags(
+        op_act, op_est, implied_g, prior_margin, est_margin, upside, decel)
     loss_now = (eps_last is not None and eps_last <= 0) or (trail_per is not None and trail_per < 0)
-    cheap_fwd = bool(trail_per and fwd_per and fwd_per < 0.7 * trail_per)  # 포워드≪트레일링
-    strong_g = implied_g is not None and implied_g >= 30
-    stall = (eps_dir == "감소") or (margin_dir == "둔화" and implied_g is not None and implied_g < 15)
-    credible_room = bool(upside is not None and upside >= 20 and not target_stale)  # stale이면 상단 무시
-
-    if loss_now or fwd_per is None:
-        verdict, tilt = "내러티브(적자·PER 무의미 — 실적 아닌 스토리에 프라이싱)", 0
-    elif new_high_earn and strong_g and margin_dir == "가속":
-        # 구조적 성장(신고 실적·마진 가속)인데 포워드 저PER → 진짜 미반영 룸(단 컨센 조건부)
-        verdict, tilt = "미반영 여지(신고 실적·마진 가속 — 컨센 실현 시 재평가 룸)", 2
-    elif stall and fwd_per >= 12:
-        verdict, tilt = "선반영·고평가 경계(성장 정체·EPS감소인데 배수 부담)", -2
-    elif trail_per and trail_per < 8 and stall:
-        verdict, tilt = "저평가나 실적 하락(밸류트랩 경계 — 싼 데는 이유)", -1
-    elif cheap_fwd and strong_g and not new_high_earn:
-        # 포워드 저PER이지만 신고 실적 아님 = 바닥실적 순환회복(트레일링PER 착시)
-        verdict, tilt = "부분 반영(순환 회복 — 구조성장 아님·트레일링PER 착시 주의)", 1
-    elif credible_room and strong_g:
-        verdict, tilt = "부분 반영(성장·목표 여유 있으나 배수 일부 반영)", 1
-    else:
-        verdict, tilt = "대체로 적정 반영", 0
+    verdict, tilt = vc.priced_in_verdict(
+        trail_per=trail_per, fwd_per=fwd_per, implied_growth=implied_g, upside=upside,
+        margin_dir=margin_dir, eps_dir=eps_dir, new_high_earn=new_high_earn,
+        target_stale=target_stale, loss_now=loss_now)
 
     out.update({
         "labels": labels,

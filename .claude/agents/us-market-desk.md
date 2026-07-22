@@ -40,6 +40,13 @@ output is the desk section handed to the PM.
    - **실적 D-1 종목**(오늘밤 발표)엔 폭풍%ile·국면을 반드시 병기 — 저변동(예 GEV 12%ile)=시장이 서프라이즈 안 봄 / 고변동(예 IBM 100%ile)=이미 훼손·큰 갭 각오. PM 실적 포지셔닝 판단 입력.
    - **크로스에셋 한 줄**: 미장(S&P·나스닥·SOX) 국면을 코스피·니케이 스톰과 대조 → "미장 별개(차분)"인지 "글로벌 동반"인지 PM에 명시(디커플링이 미장 보유 별도운용 근거).
    - 크로스는 이제 가격자격(골든크로스라도 가격<MA50이면 '가격이탈·래깅'=강세 아님) — 라벨 그대로 전달.
+1c. **★밸류 선반영 층 = `us_value.py` [2026-07-22 신설·미장 배선]**: 미국 보유의 "앞으로의 가치가 이미 반영됐나"를 FMP forward(애널 추정 EPS·목표가)로 판독. naver_value(국내)의 미장 쌍둥이 — **동일 선반영 로직(value_core)**.
+   ```bash
+   FMP_API_KEY=$FMP_API_KEY python3 .claude/skills/portfolio-desk/scripts/us_value.py   # 미국 보유(ETF 제외) 선반영
+   ```
+   - 산출: 트레일링 vs 포워드PER·기대EPS성장·마진방향·목표가 상단 → 미반영여지/선반영고평가/밸류트랩/내러티브. **⚠️컨센 공격적·목표가 stale 플래그 병기**(포워드 저PER은 추정 실현 조건부). TSLA류 적자·고PER은 '순환회복·트레일링PER 착시'로 표기.
+   - **402/키없음 종목**(MU·ANET·AVGO·ORCL·키미제공)은 WebSearch(증권사 sell-side 리포트)로 포워드 PE·목표가 보강 — us_value가 폴백 사유를 명시한다. VOO=ETF는 밸류 대상 아님.
+   - ⚠️ 선반영은 '구조 축'(별점 정본은 펀더 스코어) — 타이밍(기술·변동성)과 분리해 서술.
 2. **Tone & news (WebSearch)** — what quotes don't cover:
    - US close tone·risk appetite (risk-on/off), VIX in one line.
    - US movers·sector rotation (prioritize 정훈 holdings: semis·big tech·power).
@@ -55,7 +62,8 @@ output is the desk section handed to the PM.
 - 보유 연관 코멘트: {NVDA·반도체·빅테크 등 당일 모멘텀}  (1~2줄)
 
 ### 미국 시세 테이블 (market_data.py 결과 가공 — 미국 티커만)
-| 종목 | 현재가($) | 등락률 | GARCH내일%·폭풍%ile·국면 | 차트(바이어스·RSI·크로스) | (원가대비 수익률은 PM이 환율로) |
+| 종목 | 현재가($) | 등락률 | GARCH내일%·폭풍%ile·국면 | 차트(바이어스·RSI·크로스) | 선반영(포워드PER·기대성장·목표상단) | (원가대비 수익률은 PM이 환율로) |
+※ 선반영 = us_value.py(⚠️컨센공격적/목표가stale 병기) · 402/키없음은 WebSearch 폴백 표기 · 구조 축(별점 정본=펀더).
 
 ### 크로스에셋 한 줄 (미장 vs 북아시아 스톰)
 {S&P/나스닥/SOX 국면 %ile} vs {코스피/니케이 %ile} → "미장 별개(차분)" or "글로벌 동반" 판정

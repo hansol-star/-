@@ -53,10 +53,18 @@ your output is the desk section handed to the PM.
    - **★기술·변동성 레이어 [2026-07-22 신설 — 측정 전용]**: 국내 보유 5종에 붙여 시세 옆에 병기(펀더 별점 정본, 타이밍·리스크 보조).
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/garch.py --tickers 005930.KS,066570.KS,454910.KS,005380.KS,035420.KS   # 내일 선행변동성·폭풍%ile
-     python3 .claude/skills/portfolio-desk/scripts/chart_read.py --tickers 005930.KS,066570.KS,005380.KS,035420.KS   # 추세·RSI·MACD·크로스(가격자격)
      python3 .claude/skills/portfolio-desk/scripts/vol_sizing.py   # 안전핀+폭풍%ile 트랜치 제안(TF ACTIVE 시 필수 — 동결/스케일 판정)
      ```
      TF ACTIVE 중엔 vol_sizing 결과(안전핀 동결 여부·폭풍스케일 배수)를 상황판에 반영. RSI 극단 침체(예 현대차<30)는 "싸 보임"이지 매수신호 아님을 명시(룰3·펀더 우선).
+   - **★★네이버 3층 융합 = `naver_chart.py` + `naver_value.py` [2026-07-22 신설·국장 배선]**: 한국 차트를 '한국식'(가격+수급+가치)으로 판독. **chart_read를 대체**(naver_chart가 chart_read 엔진을 네이버 봉으로 내장 재사용 + 수급·가치 층 추가). 매 보고서 보유 국내5+하닉에 병기.
+     ```bash
+     python3 .claude/skills/portfolio-desk/scripts/naver_chart.py               # 보유5+하닉 가격+수급+가치+종합 한 방
+     python3 .claude/skills/portfolio-desk/scripts/naver_value.py               # 영업이익 3개년+2026E 컨센 → 선반영 판단
+     python3 .claude/skills/portfolio-desk/scripts/naver_chart.py --with-watch   # 국내 워치까지(원익IPS·테스·두산E·SK이노)
+     ```
+     - **수급층**: 봉별 외국인지분율 추세(Δ5/20/60·1년%ile) + 순매수 크기정규화(days-of-volume, |0.5일| 미만은 중립 — 미미 순매수 과대평가 금지) + 소진율 착시(20d net↔지분율 상충) 병기.
+     - **가치층(선반영)**: 트레일링 vs 포워드PER·기대성장·목표가 → 미반영여지/선반영고평가/밸류트랩/내러티브. **⚠️컨센 공격적·목표가 stale 플래그를 반드시 함께 서술**(포워드 저PER은 추정 실현 조건부).
+     - **★수급은 forward 트리거 아님**(flow_edge 백테스트: 외인 매집 추격 = 음엣지, 역발상만 양엣지). '매집/분산 국면 서술'로만 쓰고 매수신호로 승격 금지. §3 desk_playbook 준수.
    - **📰 국내 뉴스 = `naver_data.py` 1차 (US 리전 WebSearch 보강)** — 데이터센터 IP에서 지역차단 없이 국내 원문 뉴스를 직접 잡는다(NCP API HUB, 조회전용):
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/naver_data.py --news "코스피 외국인 수급" --display 5 --sort date
@@ -78,6 +86,11 @@ your output is the desk section handed to the PM.
 ## 국장 데스크
 - 코스피 {종가}({등락}) / 코스닥 {종가}({등락}), 수급(외인/기관/연기금 {순매수}), **외인 {N일 연속 순매수/매도, 누적 {액}} → {강세/신중}**, 섹터 {로테이션}, 특징주 {…}  (3~5줄)
 - (선택) 리테일 심리: '{공포 키워드}' 검색트렌드 {최근 추세} → {과열/공포 국면} — 역발상 참고
+
+### 국내 보유 3층 판독 (naver_chart.py + naver_value.py — 보유5+하닉)
+| 종목 | 현재가 | 수급(매집/분산·외인지분율Δ20) | 선반영(밸류) | 종합(구조·국면) |
+| 예: 삼성전자 | 260,500 | 강분산(지분율 -0.8·외인 20d -1.2일) | 미반영여지 ⚠️컨센공격적 | 구조 저평가·국면 약세 → 분할·인내 |
+※ 수급은 '국면 서술'만(추격 트리거 아님) · 선반영엔 ⚠️컨센공격적/목표가stale 플래그 병기.
 
 ### 국내 시세 테이블 (market_data.py 결과 가공 — .KS/.KQ만)
 | 종목 | 현재가 | 등락률 | (원가 대비 수익률은 PM이 master.md로 계산) |

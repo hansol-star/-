@@ -258,9 +258,12 @@ def sr_zones(sh, sl, current: float, tol: float = 0.018):
 
 
 # ── 종합 리드 ──────────────────────────────────────────────────────────────
-def read(symbol: str, verbose: bool = False) -> dict:
+def read(symbol: str, verbose: bool = False, ohlc: dict | None = None,
+         weekly: dict | None = None) -> dict:
+    """[7/22] ohlc/weekly 주입 가능 — 소스 무관(Yahoo 기본, naver_chart는 네이버 봉 주입).
+    주입하면 그 봉으로 13신호 엔진을 그대로 돌린다(엔진 단일화·KR은 네이버 네이티브 판독)."""
     out = {"symbol": symbol}
-    d = fetch_ohlc(symbol, rng="1y", interval="1d")
+    d = ohlc if ohlc is not None else fetch_ohlc(symbol, rng="1y", interval="1d")
     if not d:
         out["_error"] = "OHLC 조회 실패/부족"
         return out
@@ -296,7 +299,7 @@ def read(symbol: str, verbose: bool = False) -> dict:
     mac = macd(c)
 
     # 멀티 TF — 주봉
-    dw = fetch_ohlc(symbol, rng="2y", interval="1wk")
+    dw = weekly if weekly is not None else fetch_ohlc(symbol, rng="2y", interval="1wk")
     wk_dir = None
     stage = None
     if dw and len(dw["c"]) >= 30:

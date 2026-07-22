@@ -53,6 +53,15 @@ python3 chart_read.py --json                # 파이프라인(스냅샷 태깅·
 단 ①Stage4에서 신규매수 회피(유효) ②RSI 침체를 매도 근거로 쓰지 않기(역신호) 두 개는
 행동 규칙으로 채택 가능. **R3 주간 캘리브레이션이 이 표를 누적 갱신**(`signal_score.py`).
 
+## 4c. 한국식 수급·가치 층 (자매 정본 — naver_supply_value.md)
+
+[7/22] 이 가격 TA(Yahoo 봉)에 **한국 축 2개**를 네이버 무키로 덧댐 — 정본 `docs/research/naver_supply_value.md`:
+- **수급 층**(`naver_chart.py`): 봉별 외국인지분율 추세 + 순매수(크기 정규화·days-of-volume) → 매집/분산 국면.
+  chart_read를 `read(ohlc=)` 주입으로 소스 무관화 → 네이버 네이티브 KR 판독.
+- **가치 층**(`naver_value.py`): 영업이익 3개년+2026E 컨센으로 트레일링 vs 포워드PER·기대성장 → **선반영 판단**.
+- **★수급 엣지 백테스트**(`flow_edge.py`): Δ외국인지분율 따라매수 = forward 음엣지(−0.75%p/20d), **역발상만
+  양엣지**(외인 60일 대량이탈 뒤 +1.36%p·승률57%). → 수급도 가격처럼 '상태 서술', forward 트리거 금지.
+
 ## 5. 외부 근거 (구현 시 교차검증)
 
 - Minervini SEPA·VCP·트렌드템플릿: [FinancialTechWiz](https://www.financialtechwiz.com/post/mark-minervini-trading-strategy/) · [TraderLion VCP](https://traderlion.com/technical-analysis/volatility-contraction-pattern/) · [TrendSpider VCP](https://trendspider.com/learning-center/volatility-contraction-pattern-vcp/)

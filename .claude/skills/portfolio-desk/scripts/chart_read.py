@@ -212,9 +212,14 @@ def read(symbol: str, verbose: bool = False) -> dict:
         ma_bits.append(("above" if price >= ma50 else "below", 50, ma50))
     if ma200:
         ma_bits.append(("above" if price >= ma200 else "below", 200, ma200))
+    # [7/22 수정] 크로스는 가격 위치로 자격 부여 — MA50≥MA200(골든)이라도 가격이 MA50
+    # 아래면 급등후 급락의 '래깅' 아티팩트라 강세 오신호. 자격미달은 라벨에 명시 + 카운트 제외.
     cross = None
     if ma50 and ma200:
-        cross = "골든크로스" if ma50 >= ma200 else "데드크로스"
+        if ma50 >= ma200:
+            cross = "골든크로스" if price >= ma50 else "골든크로스(가격이탈·래깅)"
+        else:
+            cross = "데드크로스" if price <= ma50 else "데드크로스(가격회복)"
 
     # 시장구조 — 스윙
     sh, sl = swings(h, l, k=5)

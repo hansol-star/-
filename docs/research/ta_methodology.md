@@ -38,6 +38,21 @@ python3 chart_read.py --json                # 파이프라인(스냅샷 태깅·
 ```
 국장·미장 데스크 Task에 배선됨(7/22). snapshot.py 태깅 키(bias·rsi·cross·struct·macd_h) 하위호환 유지.
 
+## 4b. ★신호 예측력 채점 결과 (2026-07-22 · signal_score.py · 16종목 전이력)
+
+각 신호의 "발생일 → 이후 5/20일 수익"을 무조건 기준선과 비교(edge). 정직한 결론:
+
+| 발견 | 수치 | 함의 |
+|---|---|---|
+| **대부분 신호의 방향 엣지 ≈ 0** | above_ma200/50·크로스·MACD 등 edge ±0.1% 이내 | **방향 예측 도구가 아님** — "측정·확인 렌즈, 펀더가 정본" 독트린을 데이터가 확정 |
+| **RSI 약세권 = 역신호(평균회귀)** | bear(≤45)인데 edge **+0.11(5d)/+0.17(20d)** | 약세권 매도는 틀린 행동 — **"공포에 사라" 철학을 29년 데이터가 지지** |
+| **Stage4 프록시만 진짜 하락 지속** | bear edge **−0.20(20d)**·양(+)비율 31% | **"Stage4 신규매수 금지"가 유일하게 유효한 방향신호** — 와인스타인 독트린 실증 |
+| mom20 단기 모멘텀 미약 | bull +0.08(5d)뿐, 20d 소멸 | 단기 추세추종 엣지는 얇음 |
+
+→ **운용 반영**: 컨플루언스 바이어스는 "지금 상태 서술"로 쓰고 방향 베팅 근거로 승격 금지.
+단 ①Stage4에서 신규매수 회피(유효) ②RSI 침체를 매도 근거로 쓰지 않기(역신호) 두 개는
+행동 규칙으로 채택 가능. **R3 주간 캘리브레이션이 이 표를 누적 갱신**(`signal_score.py`).
+
 ## 5. 외부 근거 (구현 시 교차검증)
 
 - Minervini SEPA·VCP·트렌드템플릿: [FinancialTechWiz](https://www.financialtechwiz.com/post/mark-minervini-trading-strategy/) · [TraderLion VCP](https://traderlion.com/technical-analysis/volatility-contraction-pattern/) · [TrendSpider VCP](https://trendspider.com/learning-center/volatility-contraction-pattern-vcp/)

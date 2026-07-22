@@ -34,6 +34,7 @@ import argparse
 import json
 import math
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -88,15 +89,42 @@ def _rsi_series(closes, n=14):
 
 
 # ── 데이터 수집 ────────────────────────────────────────────────────────────
-def fetch_ohlc(symbol: str, rng: str = "1y", interval: str = "1d", timeout: float = 15.0):
-    """Yahoo chart에서 시간순 OHLC를 반환. 실패 시 None.
+def _cache_fallback_ohlc(symbol: str, bars: int = 260):
+    """[7/22 회복탄력성] Yahoo 실패 시 history_backfill 캐시(종가만)로 강등 작동.
+    o=h=l=c 의사봉이므로 ATR·스토캐·일목·캔들은 무의미 → 호출측이 degraded 플래그로 구분.
+    RSI·MACD·MA·구조·다이버전스·스테이지 등 종가 기반 지표는 정상 산출."""
+    try:
+        import history_backfill as hb
+        rows = hb.load_cached(symbol)
+    except Exception:
+        rows = []
+    if len(rows) < 30:
+        return None
+    c = [x for _, x in rows[-bars:]]
+    return {"o": c[:], "h": c[:], "l": c[:], "c": c, "v": [0] * len(c), "degraded": True}
+
+
+def fetch_ohlc(symbol: str, rng: str = "1y", interval: str = "1d", timeout: float = 15.0,
+               retries: int = 2):
+    """Yahoo chart에서 시간순 OHLC 반환. [7/22] 재시도 후 실패 시 일봉은 캐시 폴백(강등).
     null 봉(휴장)은 같은 인덱스로 함께 제거해 O/H/L/C 정합 유지."""
     url = (YAHOO_CHART.format(symbol=urllib.parse.quote(symbol))
            + f"?interval={interval}&range={rng}")
     req = urllib.request.Request(url, headers={"User-Agent": UA})
+    data = None
+    delay = 2.0
+    for attempt in range(retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = json.loads(r.read().decode())
+            break
+        except (urllib.error.HTTPError, urllib.error.URLError, ValueError):
+            if attempt < retries:
+                time.sleep(delay)
+                delay *= 2
+    if data is None:  # Yahoo 불가 → 일봉만 캐시 강등(주봉은 폴백 없음)
+        return _cache_fallback_ohlc(symbol) if interval == "1d" else None
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            data = json.loads(r.read().decode())
         res = data["chart"]["result"][0]
         q = res["indicators"]["quote"][0]
         o, h, l, c = q["open"], q["high"], q["low"], q["close"]
@@ -280,7 +308,10 @@ def read(symbol: str, verbose: bool = False) -> dict:
         stage = ta.weinstein_stage(wc)  # 와인스타인 4단계(30주 MA)
 
     # ── [7/22 프로 레이어 — ta_core] ─────────────────────────────────────
-    vol = d.get("v") or []
+    degraded = bool(d.get("degraded"))
+    if degraded:
+        out["degraded"] = True  # Yahoo 불가 → 캐시 종가 강등(거래량·진짜 고저 없음)
+    vol = [] if degraded else (d.get("v") or [])
     atr_val, atr_pct = ta.atr(h, l, c)
     bb = ta.bollinger(c)
     sto = ta.stochastic(h, l, c)
@@ -398,7 +429,8 @@ def fmt(o: dict, verbose: bool = False) -> str:
     if o.get("_error"):
         return f"■ {sym}: {o['_error']}"
     L = []
-    L.append(f"■ {sym}  {o['price']}  →  기술 바이어스: {o['bias']}(확신 {o['confidence']}·강세 {o['bull']}/약세 {o['bear']})")
+    deg = " ⚠️강등모드(캐시 종가·거래량/고저 지표 제외)" if o.get("degraded") else ""
+    L.append(f"■ {sym}  {o['price']}  →  기술 바이어스: {o['bias']}(확신 {o['confidence']}·강세 {o['bull']}/약세 {o['bear']}){deg}")
     # 추세
     ma_parts = []
     for label, ma in (("MA50", o["ma50"]), ("MA200", o["ma200"])):

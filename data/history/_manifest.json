@@ -312,8 +312,8 @@
   "^VIX": {
    "label": "VIX",
    "first": "1990-01-02",
-   "last": "2026-07-21",
-   "days": 9205,
+   "last": "2026-07-22",
+   "days": 9206,
    "years": 36.6
   },
   "^TNX": {
@@ -387,5 +387,5 @@
    "years": 11.8
   }
  },
- "total_daily_bars": 376978
+ "total_daily_bars": 376979
 }

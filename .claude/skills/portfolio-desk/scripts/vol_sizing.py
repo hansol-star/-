@@ -104,28 +104,50 @@ def main() -> int:
         uni = idx if args.index_only else idx + (list(md.GROUPS["holdings"]) if md else [])
 
     # 안전핀 하드플로어 게이트: 코스피 종가 확인
+    # [7/22 룰1 개정 §5b] 아래=이진0 대신, 폭풍<90(패닉 진정)이면 25% 극소 트랜치 허용.
     frozen = False
-    kospi_close = None
+    kospi_close = kospi_storm = None
+    below_pin_nibble = 0.0
     if garch is not None:
         gk = garch.fit_forecast(KOSPI)
-        kospi_close = gk.get("last_close") if gk.get("ok") else None
+        if gk.get("ok"):
+            kospi_close = gk.get("last_close")
+            kospi_storm = gk.get("pct_rank")
     if kospi_close is not None and kospi_close < args.index_floor:
-        frozen = True
+        # 폭풍이 90 아래로 진정됐으면 극소 25% 숨구멍, 아니면 전면 동결
+        if kospi_storm is not None and kospi_storm < 90:
+            below_pin_nibble = 0.25
+            frozen = False  # 극소 트랜치 허용(전면 동결 아님)
+        else:
+            frozen = True
 
     rows = [(label, size_asset(sym, args.target)) for (label, sym) in uni]
+
+    def _eff(r):
+        """실제 제안 배수: 동결=0 / 핀 아래 극소창=min(제안,0.25) / 핀 위=제안."""
+        s = r.get("suggested_tranche_mult")
+        if frozen or s is None:
+            return 0.0
+        if below_pin_nibble:
+            return round(min(s, below_pin_nibble), 2)
+        return s
 
     if args.json:
         print(json.dumps({
             "target_vol": args.target, "index_floor": args.index_floor,
-            "kospi_close": kospi_close, "safety_pin_frozen": frozen,
-            "assets": [{**{"label": l}, **r} for (l, r) in rows],
+            "kospi_close": kospi_close, "kospi_storm_pct": kospi_storm,
+            "safety_pin_frozen": frozen, "below_pin_nibble": below_pin_nibble,
+            "assets": [{**{"label": l}, **r, "effective_mult": _eff(r)} for (l, r) in rows],
         }, ensure_ascii=False, indent=2))
         return 0
 
     print(f"변동성 타겟 트랜치 사이징 (목표 {args.target}% · 제안 전용 · 자동집행 아님)")
-    pin = (f"🔒 안전핀 동결 — 코스피 {kospi_close} < {args.index_floor:.0f} → 잔여 트랜치 전면 동결(mult=0)"
-           if frozen else
-           f"안전핀 OK — 코스피 {kospi_close} ≥ {args.index_floor:.0f}. 폭풍%ile로 트랜치 연속 감산")
+    if frozen:
+        pin = f"🔒 안전핀 동결 — 코스피 {kospi_close} < {args.index_floor:.0f} · 폭풍 {kospi_storm}%ile≥90(극단) → 전면 동결(mult=0)"
+    elif below_pin_nibble:
+        pin = f"🌬️ 안전핀 아래 극소창 — 코스피 {kospi_close} < {args.index_floor:.0f}이나 폭풍 {kospi_storm}%ile<90(진정) → §5b 25% 극소 트랜치 1회 허용"
+    else:
+        pin = f"안전핀 OK — 코스피 {kospi_close} ≥ {args.index_floor:.0f}. 폭풍%ile로 트랜치 연속 감산"
     print(pin)
     hdr = ["자산", "예측변동성%", "폭풍%ile", "국면", "vol타겟배수", "폭풍배수", "제안트랜치"]
     print("  ".join(f"{h:<11}" for h in hdr))
@@ -134,13 +156,13 @@ def main() -> int:
         if not r.get("ok"):
             print(f"{label:<11}  데이터 없음")
             continue
-        eff = 0.0 if frozen else r["suggested_tranche_mult"]
-        note = " (동결)" if frozen else ""
+        eff = _eff(r)
+        note = " (동결)" if frozen else (" (극소창)" if below_pin_nibble else "")
         print(f"{label:<11}  {str(r['forecast_vol']):<11}{str(r['storm_pct']):<9}"
               f"{r['regime']:<7}{str(r['vol_target_mult']):<11}{str(r['storm_mult']):<9}"
               f"{eff}{note}")
     print("\n※ '제안트랜치' = 다음 추가매수 트랜치를 평소의 몇 배로 넣을지(코어 청산·손절 신호 아님).")
-    print("  7,500 안전핀은 이진 하드플로어(불변), 그 위 폭풍%ile 연속 감산. 최종 결정 정훈.")
+    print("  7,500 안전핀 = 하드플로어. 아래+폭풍≥90=동결 / 아래+폭풍<90=25%극소창(§5b) / 위=폭풍 연속감산. 최종 결정 정훈.")
     return 0
 
 

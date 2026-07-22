@@ -26,3 +26,5 @@
 {"date": "2026-07-20", "index": "KOSPI", "foreign": 5161, "inst": -9218, "indiv": 3510, "src": "flows.json(확정)"}
 {"date": "2026-07-21", "index": "KOSDAQ", "foreign": -1360, "inst": -129, "indiv": 1474, "src": "naver"}
 {"date": "2026-07-21", "index": "KOSPI", "foreign": 2952, "inst": 13744, "indiv": -16421, "src": "naver"}
+{"date": "2026-07-22", "index": "KOSDAQ", "foreign": -816, "inst": -1914, "indiv": 2638, "src": "naver"}
+{"date": "2026-07-22", "index": "KOSPI", "foreign": 26211, "inst": -13962, "indiv": -12177, "src": "naver"}

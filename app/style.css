@@ -102,6 +102,14 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .alert .act{color:var(--mut);font-size:12.5px;margin-top:5px;line-height:1.55}
 .badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;background:var(--gold);color:#fff}
 .badge.evt{background:var(--tint-blue);color:var(--on-blue)}
+/* 대가 흐름(13F) — 매수=녹/매도=적 틴트, 상위보유 비중 바 */
+.badge.buy{background:var(--tint-green);color:var(--on-green)}
+.badge.sell{background:var(--tint-red);color:var(--on-red)}
+.badge.hold{background:var(--card2);color:var(--mut)}
+.gbar{margin:0 0 9px}
+.gtrack{height:7px;border-radius:5px;background:var(--card2);overflow:hidden;margin-top:4px}
+.gfill{height:100%;border-radius:5px;background:var(--mut2)}
+.gfill.mine{background:var(--accent)}
 
 /* stock list — grouped card w/ borderless rows (Toss 계좌 리스트 패턴) */
 .list{display:flex;flex-direction:column;gap:10px}

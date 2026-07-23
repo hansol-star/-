@@ -1,0 +1,856 @@
+{
+  "_comment": "SEC EDGAR 13F(무키 팩트) — 'rationale/our_takeaway/themes/narrative'는 guru-flow-desk가 주주서한·외신·sell-side로 채운다. 지연 확증 렌즈이지 매수 트리거 아님(단일출처 매수 금지).",
+  "updated": "2026-07-23",
+  "as_of_quarter": "2026-03-31",
+  "source": "SEC EDGAR 13F-HR (무키) + guru-flow-desk 이유분석(WebSearch)",
+  "gurus": {
+    "berkshire": {
+      "name": "BERKSHIRE HATHAWAY INC",
+      "cik": "0001067983",
+      "filing_date": "2026-05-15",
+      "quarter": "2026-03-31",
+      "prev_quarter": "2025-12-31",
+      "portfolio_value_usd": 263095703570,
+      "positions": 29,
+      "top_positions": [
+        {
+          "cusip": "037833100",
+          "issuer": "APPLE INC",
+          "ticker": "AAPL",
+          "value_usd": 57843260493,
+          "shares": 227917808,
+          "pct": 21.99
+        },
+        {
+          "cusip": "025816109",
+          "issuer": "AMERICAN EXPRESS CO",
+          "ticker": null,
+          "value_usd": 45859204536,
+          "shares": 151610700,
+          "pct": 17.43
+        },
+        {
+          "cusip": "191216100",
+          "issuer": "COCA COLA CO",
+          "ticker": null,
+          "value_usd": 30420000000,
+          "shares": 400000000,
+          "pct": 11.56
+        },
+        {
+          "cusip": "060505104",
+          "issuer": "BANK AMERICA CORP",
+          "ticker": null,
+          "value_usd": 25039178044,
+          "shares": 513624165,
+          "pct": 9.52
+        },
+        {
+          "cusip": "166764100",
+          "issuer": "CHEVRON CORPORATION",
+          "ticker": null,
+          "value_usd": 17457364606,
+          "shares": 84375856,
+          "pct": 6.64
+        },
+        {
+          "cusip": "674599105",
+          "issuer": "OCCIDENTAL PETE CORP",
+          "ticker": null,
+          "value_usd": 17221193015,
+          "shares": 264941431,
+          "pct": 6.55
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "value_usd": 15600071913,
+          "shares": 54249798,
+          "pct": 5.93
+        },
+        {
+          "cusip": "H1467J104",
+          "issuer": "CHUBB LTD SWITZ",
+          "ticker": null,
+          "value_usd": 11162836215,
+          "shares": 34249183,
+          "pct": 4.24
+        },
+        {
+          "cusip": "615369105",
+          "issuer": "MOODYS CORP",
+          "ticker": null,
+          "value_usd": 10762190653,
+          "shares": 24669778,
+          "pct": 4.09
+        },
+        {
+          "cusip": "500754106",
+          "issuer": "KRAFT HEINZ CO",
+          "ticker": null,
+          "value_usd": 7323527057,
+          "shares": 325634818,
+          "pct": 2.78
+        },
+        {
+          "cusip": "23918K108",
+          "issuer": "DAVITA INC",
+          "ticker": null,
+          "value_usd": 4626158909,
+          "shares": 30100585,
+          "pct": 1.76
+        },
+        {
+          "cusip": "501044101",
+          "issuer": "KROGER CO",
+          "ticker": null,
+          "value_usd": 3618000000,
+          "shares": 50000000,
+          "pct": 1.38
+        }
+      ],
+      "trajectory": {
+        "191216100": {
+          "issuer": "COCA COLA CO",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 400000000,
+              "pct": 9.32
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 400000000,
+              "pct": 11.07
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 400000000,
+              "pct": 10.99
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 400000000,
+              "pct": 9.92
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 400000000,
+              "pct": 10.2
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 400000000,
+              "pct": 11.56
+            }
+          ]
+        },
+        "02079K305": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 17846142,
+              "pct": 1.62
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 17846142,
+              "pct": 2.04
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 54249798,
+              "pct": 5.93
+            }
+          ]
+        },
+        "037833100": {
+          "issuer": "APPLE INC",
+          "ticker": "AAPL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 300000000,
+              "pct": 28.12
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 300000000,
+              "pct": 25.76
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 280000000,
+              "pct": 22.31
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 238212764,
+              "pct": 22.69
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 227917808,
+              "pct": 22.6
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 227917808,
+              "pct": 21.99
+            }
+          ]
+        },
+        "02079K107": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3585215,
+              "pct": 0.39
+            }
+          ]
+        },
+        "060505104": {
+          "issuer": "BANK AMERICA CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 680233587,
+              "pct": 11.19
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 631573531,
+              "pct": 10.19
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 605267375,
+              "pct": 11.12
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 568070012,
+              "pct": 10.96
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 517295934,
+              "pct": 10.38
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 513624165,
+              "pct": 9.52
+            }
+          ]
+        },
+        "166764100": {
+          "issuer": "CHEVRON CORPORATION",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 118610534,
+              "pct": 6.43
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 118610534,
+              "pct": 7.67
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 122064792,
+              "pct": 6.79
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 122064792,
+              "pct": 7.09
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 130156362,
+              "pct": 7.24
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 84375856,
+              "pct": 6.64
+            }
+          ]
+        },
+        "H1467J104": {
+          "issuer": "CHUBB LTD SWITZ",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 27033784,
+              "pct": 2.8
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 27033784,
+              "pct": 3.16
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 27033784,
+              "pct": 3.04
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 31332895,
+              "pct": 3.31
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 34249183,
+              "pct": 3.9
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 34249183,
+              "pct": 4.24
+            }
+          ]
+        },
+        "025816109": {
+          "issuer": "AMERICAN EXPRESS CO",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 151610700,
+              "pct": 16.84
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 151610700,
+              "pct": 15.77
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 151610700,
+              "pct": 18.78
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 151610700,
+              "pct": 18.84
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 151610700,
+              "pct": 20.46
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 151610700,
+              "pct": 17.43
+            }
+          ]
+        },
+        "674599105": {
+          "issuer": "OCCIDENTAL PETE CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 264178414,
+              "pct": 4.89
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 264941431,
+              "pct": 5.06
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 264941431,
+              "pct": 4.32
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 264941431,
+              "pct": 4.68
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 264941431,
+              "pct": 3.97
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 264941431,
+              "pct": 6.55
+            }
+          ]
+        }
+      },
+      "moves": [
+        {
+          "cusip": "247361702",
+          "issuer": "DELTA AIR LINES INC",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 39809456,
+          "shares_delta_pct": null,
+          "value_to": 2646532635,
+          "rationale": "$2.65B 항공 재진입(과거 코로나기 전량 청산했던 섹터).",
+          "our_takeaway": "우리 미보유. 대가의 '경기민감 저평가' 회귀 — 우리 관점 밖이나 밸류 신호로 기록.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "02079K107",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 3585215,
+          "shares_delta_pct": null,
+          "value_to": 1028454775,
+          "rationale": "클래스A 신규까지 추가 — 양대 클래스로 익스포저 확대.",
+          "our_takeaway": "GOOGL 겹침 강화 신호. 우리 최대 확신주와 대가 최대 신규가 일치.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "55616P104",
+          "issuer": "MACYS INC",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 3038355,
+          "shares_delta_pct": null,
+          "value_to": 54963842,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G9001E102",
+          "issuer": "LIBERTY LATIN AMERICA LTD",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2396665,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "91324P102",
+          "issuer": "UNITEDHEALTH GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 5039564,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
+          "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "512816109",
+          "issuer": "LAMAR ADVERTISING CO NEW",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1202410,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "16119P108",
+          "issuer": "CHARTER COMMUNICATIONS INC N",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1060882,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G0176J109",
+          "issuer": "ALLEGION PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 780133,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "25243Q205",
+          "issuer": "DIAGEO PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 227750,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "531229755",
+          "issuer": "LIBERTY MEDIA CORP DEL",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3018555,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2276000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "Abel 재편·현금화. 저비중 기술주 정리.",
+          "our_takeaway": "우리 미보유. 대가의 빅테크 선별(알파벳 집중 vs 아마존 청산) = 무차별 AI 강세 아님에 주목.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "25754A201",
+          "issuer": "DOMINOS PIZZA INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3350000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "73278L105",
+          "issuer": "POOL CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3068885,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G0403H108",
+          "issuer": "AON PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3602995,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "047726302",
+          "issuer": "ATLANTA BRAVES HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 115428,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "57636Q104",
+          "issuer": "MASTERCARD INCORPORATED",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3986648,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "Visa와 동반 결제망 청산.",
+          "our_takeaway": "우리 미보유. 성숙 컴파운더도 비중 줄이는 '신중' 분기 신호.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "422806208",
+          "issuer": "HEICO CORP NEW",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1294612,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G9001E128",
+          "issuer": "LIBERTY LATIN AMERICA LTD",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1284020,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "92826C839",
+          "issuer": "VISA INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 8297460,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "결제 금융 비중 축소(밸류·성장 성숙).",
+          "our_takeaway": "우리 미보유. 금융 정리 = 방어적 현금 선호와 같은 결.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "action": "ADD",
+          "shares_from": 17846142,
+          "shares_to": 54249798,
+          "shares_delta_pct": 204.0,
+          "value_to": 15600071913,
+          "rationale": "버핏 개인 주도 신규→3배 증액. AI capex를 이익으로 전환할 '승자' 확신, 늦게 산 걸 후회.",
+          "our_takeaway": "우리 GOOGL ⭐5 컨빅션과 정합 — Great Pivot 가속. 단 과신 견제(우리가 이미 ⭐5인데 대가 추종으로 별점 못 올림, report_v54:82 가드레일). MANGOS 우회로(§10-3) 강세 보강.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "650111107",
+          "issuer": "NEW YORK TIMES CO MTN BE",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 5065744,
+          "shares_to": 15146535,
+          "shares_delta_pct": 199.0,
+          "value_to": 1268219376,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "526057104",
+          "issuer": "LENNAR CORP",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 7050950,
+          "shares_to": 10099642,
+          "shares_delta_pct": 43.2,
+          "value_to": 877052911,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "526057302",
+          "issuer": "LENNAR CORP",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 180980,
+          "shares_to": 237703,
+          "shares_delta_pct": 31.3,
+          "value_to": 19995576,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "060505104",
+          "issuer": "BANK AMERICA CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 517295934,
+          "shares_to": 513624165,
+          "shares_delta_pct": -0.7,
+          "value_to": 25039178044,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "166764100",
+          "issuer": "CHEVRON CORPORATION",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 130156362,
+          "shares_to": 84375856,
+          "shares_delta_pct": -35.2,
+          "value_to": 17457364606,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "23918K108",
+          "issuer": "DAVITA INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 31759065,
+          "shares_to": 30100585,
+          "shares_delta_pct": -5.2,
+          "value_to": 4626158909,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "530909308",
+          "issuer": "LIBERTY LIVE HOLDINGS INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 10917661,
+          "shares_to": 10587143,
+          "shares_delta_pct": -3.0,
+          "value_to": 996356028,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "670346105",
+          "issuer": "NUCOR CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 6407749,
+          "shares_to": 3907075,
+          "shares_delta_pct": -39.0,
+          "value_to": 660686383,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "21036P108",
+          "issuer": "CONSTELLATION BRANDS INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 13000000,
+          "shares_to": 632890,
+          "shares_delta_pct": -95.1,
+          "value_to": 94933500,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        }
+      ],
+      "overlap_with_holdings": [
+        {
+          "ticker": "AAPL",
+          "issuer": "APPLE INC",
+          "value_to": 57843260493,
+          "shares_to": 227917808,
+          "shares_from": 227917808,
+          "action": "HOLD",
+          "shares_delta_pct": 0.0,
+          "our_takeaway": "[검증] 3분기 연속 트림 후 Q1 홀드(비중 22% 1위 유지). 우리 AAPL 트림 집행(7/6 완료)과 방향 정합 — 대가도 '줄이되 안 버림'. §10-4 애플 낙오 논지 지지."
+        },
+        {
+          "ticker": "GOOGL",
+          "issuer": "ALPHABET INC",
+          "value_to": 16628526688,
+          "shares_to": 57835013,
+          "shares_from": 17846142,
+          "action": "ADD",
+          "shares_delta_pct": 224.1,
+          "our_takeaway": "[검증] +224% 증액($16.6B). 우리 GOOGL ⭐5와 정합하나 확증편향 견제 대상 — 대가 추종만으로 매수 트리거 삼지 않음(지연 확증 렌즈)."
+        }
+      ],
+      "themes": [
+        "[검증] Great Pivot to Alphabet — 버핏 개인 콜, AI 데이터센터 capex($180B+)를 '이겨낼 승자' 베팅. \"월가가 파는 것의 90~95%보다 승자일 가능성 높다\"(버핏)",
+        "[검증] 기록적 현금 $381.7B·12분기 연속 순매도 = 밸류에이션 부담장 방어적 신중 시그널",
+        "[검증] Abel 체제 재편 — 금융(Visa·MC)·헬스(UNH)·Amazon 청산, 항공(Delta $2.65B) 재진입"
+      ],
+      "narrative": "[검증] 2026Q1(공시 5/15) 버크셔 = Abel 체제 첫 대개편. 포트 $274B→$263B·40→26종목으로 압축하며 UNH·Amazon·Visa·Mastercard·Domino's 등 16종목 청산, 현금은 기록적 $381.7B·12분기 연속 순매도. 동시에 알파벳을 3배 증액(+224%)해 ~$41B(7월 기준)로 최상위권 편입 — 버핏이 '내가 직접 시작했다'고 밝힌 이례적 개인 콜. 방어적 현금 축적 ↔ AI 승자 집중이 공존하는 '신중 속 컨빅션' 분기.",
+      "sources": [
+        "SEC EDGAR 13F-HR acc 0001193125-26-226661 (2026-03-31)",
+        "SEC EDGAR 13F-HR acc 0001193125-26-054580 (2025-12-31)",
+        "SEC EDGAR 13F-HR acc 0001193125-25-282901 (2025-09-30)",
+        "SEC EDGAR 13F-HR acc 0000950123-25-008343 (2025-06-30)",
+        "SEC EDGAR 13F-HR acc 0000950123-25-005701 (2025-03-31)",
+        "SEC EDGAR 13F-HR acc 0000950123-25-002701 (2024-12-31)"
+      ]
+    }
+  }
+}

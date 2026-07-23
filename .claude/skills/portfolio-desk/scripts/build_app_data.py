@@ -35,6 +35,7 @@ HUNTER_JSON = os.path.join(REPO, "data", "app", "hunter.json")
 HUNTER_ARCHIVE_JSON = os.path.join(REPO, "data", "app", "hunter_archive.json")
 FEEDS_JSON = os.path.join(REPO, "data", "app", "feeds.json")  # 외부 채널(수페TV·지식인사이드) 정본
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
+GURU_JSON = os.path.join(REPO, "data", "app", "guru_flows.json")  # 대가 13F 흐름·이유분석
 PM_VIEW_JSON = os.path.join(REPO, "data", "app", "pm_view.json")
 DECISIONS_JSONL = os.path.join(REPO, "data", "app", "decisions.jsonl")
 REPORTS_DIR = os.path.join(REPO, "docs", "reports")
@@ -477,6 +478,7 @@ def build(offline: bool) -> dict:
     except Exception:
         pass
     pm_view = load_json_opt(PM_VIEW_JSON)
+    guru_flows = load_json_opt(GURU_JSON)  # 대가 13F 흐름 + 데스크 이유분석(#gurus 화면)
     reports = build_reports()
 
     # ── 결정 메모리 / 전략 아젠다 (decisions.jsonl 정본 → 폰에서 조회) ──
@@ -522,6 +524,7 @@ def build(offline: bool) -> dict:
         "feeds": feeds,
         "flows": flows,
         "flow_trend": flow_trend,
+        "guru_flows": guru_flows,
         "pm_view": pm_view,
         "decisions": decisions,
         "reports": reports,

@@ -328,6 +328,46 @@ def check_feeds():
                 warn(f"feeds[{name}] '{v.get('title', '?')[:28]}': tickers 비리스트 — 리스트로 교정할 것")
 
 
+def check_guru():
+    """[7/23 신설] 대가 13F 흐름 guru_flows.json 게이트 — 분기 cadence라 WARN 수준
+    (13F는 분기말 후 ~45일 지연 → 일일 보고서를 FAIL로 막지 않는다). 파일 없으면 스킵(옵션 피드).
+    구조·필수필드·액션값·과도 staleness만 점검."""
+    import datetime as _dt
+    p = os.path.join(ROOT, "data/app/guru_flows.json")
+    if not os.path.exists(p):
+        return
+    try:
+        gf = json.load(open(p, encoding="utf-8"))
+    except Exception as e:
+        warn(f"guru_flows.json JSON 파싱 실패: {e}"); return
+    gurus = gf.get("gurus") or {}
+    if not isinstance(gurus, dict) or not gurus:
+        warn("guru_flows.json: gurus 비어있음 — guru_flows.py --emit 실행 필요"); return
+    valid = {"NEW", "ADD", "TRIM", "EXIT", "HOLD"}
+    for slug, g in gurus.items():
+        if g.get("error"):
+            warn(f"guru_flows[{slug}]: 수집 오류 — {g['error']}"); continue
+        for fld in ("name", "quarter"):
+            if not str(g.get(fld) or "").strip():
+                warn(f"guru_flows[{slug}]: {fld} 없음")
+        if not isinstance(g.get("moves", []), list):
+            warn(f"guru_flows[{slug}]: moves 비리스트")
+        if not isinstance(g.get("overlap_with_holdings", []), list):
+            warn(f"guru_flows[{slug}]: overlap_with_holdings 비리스트")
+        for m in (g.get("moves") or []):
+            if m.get("action") not in valid:
+                warn(f"guru_flows[{slug}] move '{str(m.get('issuer', '?'))[:20]}': 액션값 이상 ({m.get('action')})")
+                break
+    upd = gf.get("updated")
+    if upd:
+        try:
+            gap = (_dt.date.today() - _dt.date.fromisoformat(upd)).days
+            if gap > 120:
+                warn(f"guru_flows.json {gap}일 경과 — 새 13F 공시창 지났을 수 있음(guru_flows.py --emit + 데스크 갱신)")
+        except Exception:
+            pass
+
+
 # ── G. [7/2 신설] 신선도·정합 sanity: forecast 레인지 vs 실시세 · pm_view/decisions 날짜 ──
 def check_freshness(latest):
     import datetime as _dt
@@ -414,7 +454,7 @@ def main():
     ap.add_argument("--no-report", action="store_true", help="보고서 파일 검사 생략")
     a = ap.parse_args()
 
-    check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter(); check_feeds()
+    check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

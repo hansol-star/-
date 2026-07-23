@@ -7,6 +7,25 @@
 
 ---
 
+## 2026-07-23 — SEC EDGAR 13F 대가 흐름 수집기 (`guru_flows.py`, 자체 stdlib) · [채택]
+
+**계기**: 정훈 지시 "워런버핏 같은 주식 대가들의 흐름도 알아보자 — 데이터 무겁게 다 가져와 그들이 그렇게 결정하는 '이유'를 보고 참고하자." §10 #5 '큰손 13F 회전'이 v33~ 수동 방치돼 있던 걸 기계화.
+
+**후보 비교**:
+- **SEC EDGAR 직접**(data.sec.gov/submissions + Archives info-table XML) — 무키·stdlib·정본·이식가능. 13F는 분기말 후 ~45일 지연. **[채택]**
+- WhaleWisdom/Dataroma 집계 스크래핑 — 편하나 3rd-party·단일출처·비이식. **[기각]** (플레이북 §1a 단일출처 금지·§1b 공식소스 검증 원칙과 상충)
+- ai-hedge-fund 페르소나 에이전트(버핏·멍거·버리 '연기') — **[기각·재확인]** study_log 2026-07-02에서 이미 기각(채점 렌즈로 흡수·과설계). 우리 것은 페르소나 연기가 아니라 **실보유변동 데이터 + 이유 분석**.
+
+**채택 = 하이브리드**: EDGAR = **팩트 정본**(무엇·얼마·다분기 궤적·우리 겹침) + guru-flow-desk가 외신·주주서한·sell-side로 '**왜**'와 '**우리 참고점**' 보강.
+
+**검증(플레이북 §1b 3단 통과)**: ①공식 docs 확인(data.sec.gov 제출목록 JSON·Archives info-table XML 스키마) ②실호출 스모크 = 버크셔 CIK 0001067983 다분기 실수집 성공(2026Q1 90종목·$263.1B, 알파벳 +224%·애플 홀드 확인) ③출처 명기(guru_flows.json `sources`에 accession#). **하네스**: selfcheck GATE PASS(compile/import + validate_report check_guru).
+
+**설계 교훈(기록)**: ①13F value 단위 2023-01-03부터 천→달러 변경 → filingDate로 스케일 보정 ②정정(13F-HR/A)이 부분 보유(예: confidential 4종목)만 담을 수 있음 → **원본 13F-HR 우선** 선택(안 그러면 애플이 0주로 사라지는 버그) ③filing 순서 ≠ 분기 순서 → report_date로 정렬. ④`--emit`은 팩트만 갱신하고 데스크 서사(rationale/narrative)는 병합 보존.
+
+**배선**: `guru_flows.py` → `data/app/guru_flows.json` → build_app_data → 앱 #gurus 화면 + guru-flow-desk 보고서 섹션. 트리거-게이트(분기 cadence).
+
+---
+
 ## 2026-07-20 — "7개 자동화 부서" 42스킬 팩 (hongik.man) · 정훈 공유 인스타
 
 **출처**: 인스타 캐러셀 8장(hongik.man "클로드 하나로 회사 전체를 돌린다면"). claude code 밑에 7부서 42스킬 무료 팩.

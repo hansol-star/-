@@ -113,6 +113,7 @@
     else if (h.indexOf("video/") === 0) renderVideo(decodeURIComponent(h.slice(6)));
     else if (h.indexOf("fvid/") === 0) renderFeedVideo(h.slice(5));
     else if (h === "feeds") renderFeeds();
+    else if (h === "gurus") renderGurus();
     else if (h === "archive") renderArchive();
     else if (h === "hunter") renderHunter();
     else if (h === "pmview") renderPMView();
@@ -229,6 +230,8 @@
 
     var GH = "https://github.com/hansol-star/-/actions/workflows/";
     h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a><a class="navbtn" href="#feeds">📡 외부 리서치</a><a class="navbtn" href="#pmview">💭 PM 사견</a></div>';
+    var guruN = ((D.guru_flows || {}).gurus && Object.keys(D.guru_flows.gurus).length) || 0;
+    if (guruN) h += '<div class="nav"><a class="navbtn" href="#gurus">🏛️ 대가 흐름 · 13F (' + guruN + ')</a></div>';
     var decN = (D.decisions && D.decisions.open_count) || 0;
     h += '<div class="nav"><a class="navbtn" href="#decisions">🧭 결정·전략 아젠다' + (decN ? ' (' + decN + ')' : '') + '</a></div>';
 
@@ -757,6 +760,118 @@
     });
 
     h += '<div class="foot">방향성은 채택, 수치는 교차검증 · 경제사냥꾼과 트랙레코드 분리 · 투자 자문 아님.</div>';
+    root.innerHTML = "";
+    root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  // ── 대가 흐름 (13F — SEC EDGAR + 이유분석) ──
+  function renderGurus() {
+    var gf = D.guru_flows || {};
+    var gurus = gf.gurus || {};
+    var keys = Object.keys(gurus);
+    var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">🏛️ 대가 흐름 · 13F</div>';
+    h += '<div class="sub">' + esc(gf.source || "SEC EDGAR 13F") + (gf.as_of_quarter ? ' · ' + esc(gf.as_of_quarter) + ' 분기' : '') + (gf.updated ? ' · 갱신 ' + esc(gf.updated) : '') + '</div></header>';
+    h += '<div class="comment sm">주식 대가의 13F 보유변동 + <b>그 이유</b>를 우리 관점에서 참고. ⚠️ 분기말 후 ~45일 지연된 <b>확증 렌즈</b>이지 매수 트리거 아님(단일출처 매수 금지).</div>';
+
+    if (!keys.length) {
+      h += '<div class="empty">대가 데이터가 없어요. guru_flows.py --emit 후 build_app_data.py 실행.</div>';
+      root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return;
+    }
+
+    function fmtUsd(v) {
+      v = v || 0;
+      if (v >= 1e9) return '$' + (v / 1e9).toFixed(1) + 'B';
+      if (v >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M';
+      return '$' + num(v);
+    }
+    var actLbl = { NEW: "신규", ADD: "증량", TRIM: "축소", EXIT: "청산", HOLD: "유지" };
+    var actCls = { NEW: "buy", ADD: "buy", TRIM: "sell", EXIT: "sell", HOLD: "hold" };
+
+    // 티커별 비중 궤적(share class 합산) → 스파크라인
+    function trajByTicker(g, tk) {
+      var t = g.trajectory || {}, byQ = {};
+      Object.keys(t).forEach(function (c) {
+        if (t[c].ticker !== tk) return;
+        (t[c].series || []).forEach(function (s) { byQ[s.quarter] = (byQ[s.quarter] || 0) + (s.pct || 0); });
+      });
+      var qs = Object.keys(byQ).sort();
+      return qs.map(function (q) { return byQ[q]; });
+    }
+    function spark(v) {
+      if (!v || v.length < 2) return '';
+      var W = 108, H = 28, P = 3;
+      var mn = Math.min.apply(null, v), mx = Math.max.apply(null, v), rng = (mx - mn) || 1;
+      var pts = v.map(function (x, i) {
+        return (P + i * (W - 2 * P) / (v.length - 1)).toFixed(1) + ',' + (P + (1 - (x - mn) / rng) * (H - 2 * P)).toFixed(1);
+      }).join(' ');
+      var col = (v[v.length - 1] >= v[0]) ? 'var(--green)' : 'var(--red)';
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" style="vertical-align:middle">'
+        + '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    }
+
+    keys.forEach(function (k) {
+      var g = gurus[k] || {};
+      h += '<div class="sec"><h2>👑 ' + esc(g.name || k) + '</h2></div>';
+      if (g.error) { h += '<div class="empty sm">수집 오류: ' + esc(g.error) + '</div>'; return; }
+      h += '<div class="sub xs">' + esc(g.quarter || "") + ' 기준 · 포트 ' + fmtUsd(g.portfolio_value_usd) + ' · ' + (g.positions || 0) + '종목 · 공시 ' + esc(g.filing_date || "") + '</div>';
+      if (g.narrative) h += '<div class="hl">💡 ' + esc(g.narrative) + '</div>';
+
+      var th = g.themes || [];
+      if (th.length) {
+        h += '<div class="mut sm" style="margin:10px 0 4px;font-weight:600">🔭 큰그림</div><div class="list">';
+        th.forEach(function (x) { h += '<div class="theme">' + esc(x) + '</div>'; });
+        h += '</div>';
+      }
+
+      // 🎯 우리 종목 겹침 — 가장 중요
+      var ov = g.overlap_with_holdings || [];
+      if (ov.length) {
+        h += '<div class="sec"><h2>🎯 우리 종목 겹침</h2></div>';
+        ov.forEach(function (o) {
+          var st = find(o.ticker);
+          var dp = (o.shares_delta_pct != null) ? ' ' + (o.shares_delta_pct >= 0 ? '+' : '') + o.shares_delta_pct + '%' : '';
+          h += '<div class="card"><div class="row between">';
+          h += '<span class="bold tappable" onclick="location.hash=\'stock/' + esc(o.ticker) + '\'">' + esc(o.ticker) + (st ? ' · ' + esc(st.label) : '') + ' ›</span>';
+          h += '<span class="badge ' + (actCls[o.action] || '') + '">' + (actLbl[o.action] || o.action) + dp + '</span></div>';
+          h += '<div class="row between" style="margin-top:4px"><span class="sm mut">' + esc(o.issuer || "") + ' · ' + fmtUsd(o.value_to) + '</span>' + spark(trajByTicker(g, o.ticker)) + '</div>';
+          if (o.our_takeaway) h += '<div class="tx sm" style="margin-top:5px">🔎 ' + esc(o.our_takeaway) + '</div>';
+          h += '</div>';
+        });
+      }
+
+      // 상위 보유 비중 바
+      var tops = g.top_positions || [];
+      if (tops.length) {
+        h += '<div class="sec"><h2>상위 보유 (Top 10)</h2></div>';
+        tops.slice(0, 10).forEach(function (r) {
+          var w = Math.max(2, Math.min(100, r.pct || 0));
+          h += '<div class="gbar"><div class="row between"><span class="sm' + (r.ticker ? ' bold' : '') + '">' + esc(r.issuer || "") + (r.ticker ? ' <span class="tchip">' + esc(r.ticker) + '</span>' : '') + '</span>';
+          h += '<span class="sm mut">' + (r.pct || 0).toFixed(1) + '% · ' + fmtUsd(r.value_usd) + '</span></div>';
+          h += '<div class="gtrack"><div class="gfill' + (r.ticker ? ' mine' : '') + '" style="width:' + w + '%"></div></div></div>';
+        });
+      }
+
+      // 분기 변동 · 왜
+      var moves = g.moves || [];
+      var annotated = moves.filter(function (m) { return m.rationale; });
+      var shown = annotated.length ? annotated : moves.slice(0, 12);
+      if (shown.length) {
+        h += '<div class="sec"><h2>분기 변동 · 왜 (vs ' + esc(g.prev_quarter || "") + ')</h2></div>';
+        shown.forEach(function (m) {
+          var dp = (m.shares_delta_pct != null) ? ' ' + (m.shares_delta_pct >= 0 ? '+' : '') + m.shares_delta_pct + '%' : '';
+          h += '<div class="card"><div class="row between"><span class="bold">' + esc(m.issuer || "") + (m.ticker ? ' <span class="tchip">' + esc(m.ticker) + '</span>' : '') + '</span>';
+          h += '<span class="badge ' + (actCls[m.action] || '') + '">' + (actLbl[m.action] || m.action) + dp + '</span></div>';
+          if (m.rationale) h += '<div class="tx sm" style="margin-top:4px"><b>왜:</b> ' + esc(m.rationale) + (m.tag ? ' <span class="itag ' + esc(m.tag) + '">' + esc(m.tag) + '</span>' : '') + '</div>';
+          if (m.our_takeaway) h += '<div class="tx sm mut" style="margin-top:3px">🔎 ' + esc(m.our_takeaway) + '</div>';
+          h += '</div>';
+        });
+        if (!annotated.length && moves.length > 12) h += '<div class="mut xs" style="margin-top:2px">+ ' + (moves.length - 12) + '건 더 (전체 = guru_flows.json)</div>';
+      }
+
+      if ((g.sources || []).length) h += '<div class="mut xs" style="margin-top:8px">📎 ' + esc(g.sources.join(" · ")) + '</div>';
+    });
+
+    h += '<div class="foot">SEC EDGAR 13F(무키 정본) + 외신·sell-side 이유분석 · 지연 확증 렌즈, 매수 트리거 아님 · 투자 자문 아님.</div>';
     root.innerHTML = "";
     root.appendChild(el('<div>' + h + '</div>'));
   }

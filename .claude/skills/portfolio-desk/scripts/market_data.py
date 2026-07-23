@@ -48,9 +48,10 @@ HOLDINGS_US = [
     ("ANET", "ANET"), ("MU", "MU"), ("AVGO", "AVGO"),
 ]
 WATCHLIST = [  # 폴백 (portfolio.json 없을 때만). 정본은 portfolio.json.
-    ("원익IPS", "240810.KQ"), ("테스", "095610.KQ"), ("SK이노베이션", "096770.KS"),
+    ("원익IPS", "240810.KQ"), ("테스", "095610.KQ"),
     ("두산에너빌리티", "034020.KS"),
-    ("GEV", "GEV"), ("STM", "STM"), ("TMUS", "TMUS"), ("SPCX", "SPCX"),
+    ("GEV", "GEV"), ("TMUS", "TMUS"), ("SPCX", "SPCX"),
+    ("AMD", "AMD"), ("삼성바이오로직스", "207940.KS"),
 ]
 INDEX = [
     ("코스피", "^KS11"), ("코스닥", "^KQ11"), ("S&P500", "^GSPC"),

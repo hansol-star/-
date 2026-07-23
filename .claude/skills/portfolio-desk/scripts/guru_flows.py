@@ -46,9 +46,21 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 _DATA = os.path.normpath(os.path.join(_HERE, "..", "..", "..", "..", "data"))
 GURU_JSON = os.path.join(_DATA, "app", "guru_flows.json")
 
-# 추적 대가 레지스트리 — CIK만 추가하면 확장(버리·애크먼 등).
+# 추적 대가 레지스트리 — CIK만 추가하면 확장. 시각이 갈리는 6인(가치·역발상·매크로·집중·행동).
+# ⚠️ Bridgewater(700+종목 시스템 분산)는 개별 '왜'가 없어 의도적 제외.
 GURUS = {
-    "berkshire": {"cik": "0001067983", "name": "Berkshire Hathaway (Warren Buffett)"},
+    "berkshire":   {"cik": "0001067983", "name": "Berkshire Hathaway (Warren Buffett)",
+                    "style": "가치·현금·AI는 알파벳 집중"},
+    "scion":       {"cik": "0001649339", "name": "Scion Asset Management (Michael Burry)",
+                    "style": "역발상·베어·풋옵션 — AI 회의론"},
+    "duquesne":    {"cik": "0001536411", "name": "Duquesne Family Office (Stanley Druckenmiller)",
+                    "style": "매크로·모멘텀 — AI 사이클 타이밍"},
+    "pershing":    {"cik": "0001336528", "name": "Pershing Square (Bill Ackman)",
+                    "style": "집중·퀄리티 컴파운더"},
+    "appaloosa":   {"cik": "0001656456", "name": "Appaloosa (David Tepper)",
+                    "style": "테크·중국·경기민감 밸류"},
+    "thirdpoint":  {"cik": "0001040273", "name": "Third Point (Daniel Loeb)",
+                    "style": "행동주의·테크 재편"},
 }
 
 # CUSIP → 정훈 보유·워치 티커(겹침 특정용). 미매핑은 발행사명으로 노출.
@@ -101,6 +113,21 @@ def _num(x) -> int:
         return 0
 
 
+def _autoscale_value(holdings: dict) -> None:
+    """13F value 단위(달러 vs 천달러)를 내재가격(value/shares) 중앙값으로 자동 판정.
+    SEC 2023 '달러 단위' 규칙에도 일부 파일러(예: Duquesne)는 여전히 천달러로 제출 →
+    종목값이 실주가의 1/1000. filingDate 기반 추정은 오판하므로 데이터로 판정."""
+    implied = [h["value"] / h["shares"] for h in holdings.values()
+               if h["shares"] > 0 and h["value"] > 0]
+    if not implied:
+        return
+    implied.sort()
+    med = implied[len(implied) // 2]
+    if med < 1.0:   # 실주가로 보기엔 1000배 작음 → 천달러 단위 → 달러로 승격
+        for h in holdings.values():
+            h["value"] *= 1000
+
+
 def list_13f(cik: str, limit: int = 8):
     """제출목록에서 최근 13F-HR(및 /A) 파일링 메타를 최신순으로 반환."""
     cik10 = str(cik).zfill(10)
@@ -137,17 +164,17 @@ def fetch_infotable(cik: str, accession: str, filing_date: str):
     # 정보표 XML 후보: primary_doc(표지) 제외한 .xml 중 informationTable 포함.
     xmls = [f for f in files if f.lower().endswith(".xml") and "primary_doc" not in f.lower()]
     xmls += [f for f in files if f.lower().endswith(".xml") and f not in xmls]  # 폴백
-    scale = 1 if (filing_date and filing_date >= "2023-01-03") else 1000  # 단위 보정
     for fn in xmls:
         try:
             raw = _get(f"{base}/{fn}")
             root = ET.fromstring(raw)
         except (ET.ParseError, urllib.error.HTTPError):
             continue
-        holdings, options = {}, 0
+        holdings, options, saw = {}, 0, False
         for el in root.iter():
             if _lname(el.tag) != "infoTable":
                 continue
+            saw = True
             d = {}
             for ch in el.iter():
                 n = _lname(ch.tag)
@@ -157,14 +184,16 @@ def fetch_infotable(cik: str, accession: str, filing_date: str):
             cusip = (d.get("cusip") or "").upper()
             if not cusip:
                 continue
-            if d.get("putCall"):        # 옵션 포지션은 별도 카운트(주식 궤적 왜곡 방지)
+            if d.get("putCall"):        # 옵션 포지션은 별도 카운트(주식 궤적 왜곡 방지 — 단 버리류 풋은 신호)
                 options += 1
                 continue
             h = holdings.setdefault(cusip, {"issuer": d.get("nameOfIssuer", ""),
                                             "value": 0, "shares": 0})
-            h["value"] += _num(d.get("value")) * scale
+            h["value"] += _num(d.get("value"))
             h["shares"] += _num(d.get("sshPrnamt"))
-        if holdings:
+        # infoTable을 봤으면(전부 옵션이라 holdings 비어도) 유효 스냅샷 반환 — 옵션중심 파일러(Scion) 대응.
+        if saw:
+            _autoscale_value(holdings)   # 달러/천달러 단위 자동 판정·보정
             total = sum(h["value"] for h in holdings.values())
             return {"holdings": holdings, "total_value": total,
                     "positions": len(holdings), "option_lines": options, "xml": fn}
@@ -289,6 +318,7 @@ def collect(cik: str, quarters: int = 4):
         "prev_quarter": prev.get("meta", {}).get("report_date"),
         "portfolio_value_usd": cur["snap"].get("total_value", 0),
         "positions": cur["snap"].get("positions", 0),
+        "options_latest": cur["snap"].get("option_lines", 0),
         "top_positions": tops, "moves": moves, "overlap_with_holdings": overlap,
         "trajectory": traj,
         "sources": [f"SEC EDGAR 13F-HR acc {m['meta']['accession']} ({m['meta']['report_date']})"
@@ -343,6 +373,7 @@ def main() -> int:
         result[slug] = collect(meta["cik"], quarters=args.quarters)
         if not result[slug].get("name"):
             result[slug]["name"] = meta["name"]
+        result[slug]["style"] = meta.get("style", "")
 
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
@@ -393,9 +424,11 @@ def _emit_payload(result: dict, quarters: int) -> dict:
             p = old_ov.get(o["ticker"], {})
             overlap.append(dict(o, our_takeaway=p.get("our_takeaway", "")))
         gurus[slug] = {
-            "name": g["name"], "cik": g["cik"], "filing_date": g["filing_date"],
+            "name": g["name"], "style": g.get("style", ""), "cik": g["cik"],
+            "filing_date": g["filing_date"],
             "quarter": g["quarter"], "prev_quarter": g.get("prev_quarter"),
             "portfolio_value_usd": g["portfolio_value_usd"], "positions": g["positions"],
+            "options_latest": g.get("options_latest", 0),
             "top_positions": g["top_positions"],
             "trajectory": g["trajectory"],
             "moves": moves, "overlap_with_holdings": overlap,

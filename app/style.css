@@ -110,6 +110,10 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .gtrack{height:7px;border-radius:5px;background:var(--card2);overflow:hidden;margin-top:4px}
 .gfill{height:100%;border-radius:5px;background:var(--mut2)}
 .gfill.mine{background:var(--accent)}
+.gchip{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:12px;background:var(--card2);color:var(--txt2)}
+.gchip.buy{background:var(--tint-green);color:var(--on-green)}
+.gchip.sell{background:var(--tint-red);color:var(--on-red)}
+.gchip.hold{background:var(--card2);color:var(--mut)}
 
 /* stock list — grouped card w/ borderless rows (Toss 계좌 리스트 패턴) */
 .list{display:flex;flex-direction:column;gap:10px}

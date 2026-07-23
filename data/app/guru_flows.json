@@ -6,12 +6,14 @@
   "gurus": {
     "berkshire": {
       "name": "BERKSHIRE HATHAWAY INC",
+      "style": "가치·현금·AI는 알파벳 집중",
       "cik": "0001067983",
       "filing_date": "2026-05-15",
       "quarter": "2026-03-31",
       "prev_quarter": "2025-12-31",
       "portfolio_value_usd": 263095703570,
       "positions": 29,
+      "options_latest": 0,
       "top_positions": [
         {
           "cusip": "037833100",
@@ -111,111 +113,39 @@
         }
       ],
       "trajectory": {
-        "191216100": {
-          "issuer": "COCA COLA CO",
+        "025816109": {
+          "issuer": "AMERICAN EXPRESS CO",
           "ticker": null,
           "series": [
             {
               "quarter": "2024-12-31",
-              "shares": 400000000,
-              "pct": 9.32
+              "shares": 151610700,
+              "pct": 16.84
             },
             {
               "quarter": "2025-03-31",
-              "shares": 400000000,
-              "pct": 11.07
+              "shares": 151610700,
+              "pct": 15.77
             },
             {
               "quarter": "2025-06-30",
-              "shares": 400000000,
-              "pct": 10.99
+              "shares": 151610700,
+              "pct": 18.78
             },
             {
               "quarter": "2025-09-30",
-              "shares": 400000000,
-              "pct": 9.92
+              "shares": 151610700,
+              "pct": 18.84
             },
             {
               "quarter": "2025-12-31",
-              "shares": 400000000,
-              "pct": 10.2
+              "shares": 151610700,
+              "pct": 20.46
             },
             {
               "quarter": "2026-03-31",
-              "shares": 400000000,
-              "pct": 11.56
-            }
-          ]
-        },
-        "02079K305": {
-          "issuer": "ALPHABET INC",
-          "ticker": "GOOGL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 17846142,
-              "pct": 1.62
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 17846142,
-              "pct": 2.04
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 54249798,
-              "pct": 5.93
-            }
-          ]
-        },
-        "037833100": {
-          "issuer": "APPLE INC",
-          "ticker": "AAPL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 300000000,
-              "pct": 28.12
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 300000000,
-              "pct": 25.76
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 280000000,
-              "pct": 22.31
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 238212764,
-              "pct": 22.69
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 227917808,
-              "pct": 22.6
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 227917808,
-              "pct": 21.99
+              "shares": 151610700,
+              "pct": 17.43
             }
           ]
         },
@@ -255,39 +185,75 @@
             }
           ]
         },
-        "060505104": {
-          "issuer": "BANK AMERICA CORP",
+        "191216100": {
+          "issuer": "COCA COLA CO",
           "ticker": null,
           "series": [
             {
               "quarter": "2024-12-31",
-              "shares": 680233587,
-              "pct": 11.19
+              "shares": 400000000,
+              "pct": 9.32
             },
             {
               "quarter": "2025-03-31",
-              "shares": 631573531,
-              "pct": 10.19
+              "shares": 400000000,
+              "pct": 11.07
             },
             {
               "quarter": "2025-06-30",
-              "shares": 605267375,
-              "pct": 11.12
+              "shares": 400000000,
+              "pct": 10.99
             },
             {
               "quarter": "2025-09-30",
-              "shares": 568070012,
-              "pct": 10.96
+              "shares": 400000000,
+              "pct": 9.92
             },
             {
               "quarter": "2025-12-31",
-              "shares": 517295934,
-              "pct": 10.38
+              "shares": 400000000,
+              "pct": 10.2
             },
             {
               "quarter": "2026-03-31",
-              "shares": 513624165,
-              "pct": 9.52
+              "shares": 400000000,
+              "pct": 11.56
+            }
+          ]
+        },
+        "674599105": {
+          "issuer": "OCCIDENTAL PETE CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 264178414,
+              "pct": 4.89
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 264941431,
+              "pct": 5.06
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 264941431,
+              "pct": 4.32
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 264941431,
+              "pct": 4.68
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 264941431,
+              "pct": 3.97
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 264941431,
+              "pct": 6.55
             }
           ]
         },
@@ -327,6 +293,78 @@
             }
           ]
         },
+        "037833100": {
+          "issuer": "APPLE INC",
+          "ticker": "AAPL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 300000000,
+              "pct": 28.12
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 300000000,
+              "pct": 25.76
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 280000000,
+              "pct": 22.31
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 238212764,
+              "pct": 22.69
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 227917808,
+              "pct": 22.6
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 227917808,
+              "pct": 21.99
+            }
+          ]
+        },
+        "060505104": {
+          "issuer": "BANK AMERICA CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 680233587,
+              "pct": 11.19
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 631573531,
+              "pct": 10.19
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 605267375,
+              "pct": 11.12
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 568070012,
+              "pct": 10.96
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 517295934,
+              "pct": 10.38
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 513624165,
+              "pct": 9.52
+            }
+          ]
+        },
         "H1467J104": {
           "issuer": "CHUBB LTD SWITZ",
           "ticker": null,
@@ -363,75 +401,39 @@
             }
           ]
         },
-        "025816109": {
-          "issuer": "AMERICAN EXPRESS CO",
-          "ticker": null,
+        "02079K305": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
           "series": [
             {
               "quarter": "2024-12-31",
-              "shares": 151610700,
-              "pct": 16.84
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-03-31",
-              "shares": 151610700,
-              "pct": 15.77
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-06-30",
-              "shares": 151610700,
-              "pct": 18.78
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-09-30",
-              "shares": 151610700,
-              "pct": 18.84
+              "shares": 17846142,
+              "pct": 1.62
             },
             {
               "quarter": "2025-12-31",
-              "shares": 151610700,
-              "pct": 20.46
+              "shares": 17846142,
+              "pct": 2.04
             },
             {
               "quarter": "2026-03-31",
-              "shares": 151610700,
-              "pct": 17.43
-            }
-          ]
-        },
-        "674599105": {
-          "issuer": "OCCIDENTAL PETE CORP",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 264178414,
-              "pct": 4.89
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 264941431,
-              "pct": 5.06
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 264941431,
-              "pct": 4.32
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 264941431,
-              "pct": 4.68
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 264941431,
-              "pct": 3.97
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 264941431,
-              "pct": 6.55
+              "shares": 54249798,
+              "pct": 5.93
             }
           ]
         }
@@ -477,180 +479,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "G9001E102",
-          "issuer": "LIBERTY LATIN AMERICA LTD",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 2396665,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "91324P102",
-          "issuer": "UNITEDHEALTH GROUP INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 5039564,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
-          "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
-          "tag": "검증"
-        },
-        {
-          "cusip": "512816109",
-          "issuer": "LAMAR ADVERTISING CO NEW",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1202410,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "16119P108",
-          "issuer": "CHARTER COMMUNICATIONS INC N",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1060882,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "G0176J109",
-          "issuer": "ALLEGION PLC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 780133,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "25243Q205",
-          "issuer": "DIAGEO PLC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 227750,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "531229755",
-          "issuer": "LIBERTY MEDIA CORP DEL",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 3018555,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "023135106",
-          "issuer": "AMAZON COM INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 2276000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "Abel 재편·현금화. 저비중 기술주 정리.",
-          "our_takeaway": "우리 미보유. 대가의 빅테크 선별(알파벳 집중 vs 아마존 청산) = 무차별 AI 강세 아님에 주목.",
-          "tag": "검증"
-        },
-        {
           "cusip": "25754A201",
           "issuer": "DOMINOS PIZZA INC",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 3350000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "73278L105",
-          "issuer": "POOL CORP",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 3068885,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "G0403H108",
-          "issuer": "AON PLC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 3602995,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "047726302",
-          "issuer": "ATLANTA BRAVES HLDGS INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 115428,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "57636Q104",
-          "issuer": "MASTERCARD INCORPORATED",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 3986648,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "Visa와 동반 결제망 청산.",
-          "our_takeaway": "우리 미보유. 성숙 컴파운더도 비중 줄이는 '신중' 분기 신호.",
-          "tag": "검증"
-        },
-        {
-          "cusip": "422806208",
-          "issuer": "HEICO CORP NEW",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1294612,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -672,6 +505,84 @@
           "tag": "미확인"
         },
         {
+          "cusip": "512816109",
+          "issuer": "LAMAR ADVERTISING CO NEW",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1202410,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "91324P102",
+          "issuer": "UNITEDHEALTH GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 5039564,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
+          "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "G0403H108",
+          "issuer": "AON PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3602995,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "16119P108",
+          "issuer": "CHARTER COMMUNICATIONS INC N",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1060882,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "047726302",
+          "issuer": "ATLANTA BRAVES HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 115428,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "73278L105",
+          "issuer": "POOL CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3068885,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
           "cusip": "92826C839",
           "issuer": "VISA INC",
           "ticker": null,
@@ -683,6 +594,97 @@
           "rationale": "결제 금융 비중 축소(밸류·성장 성숙).",
           "our_takeaway": "우리 미보유. 금융 정리 = 방어적 현금 선호와 같은 결.",
           "tag": "검증"
+        },
+        {
+          "cusip": "G0176J109",
+          "issuer": "ALLEGION PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 780133,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "422806208",
+          "issuer": "HEICO CORP NEW",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1294612,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "531229755",
+          "issuer": "LIBERTY MEDIA CORP DEL",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3018555,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "25243Q205",
+          "issuer": "DIAGEO PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 227750,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2276000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "Abel 재편·현금화. 저비중 기술주 정리.",
+          "our_takeaway": "우리 미보유. 대가의 빅테크 선별(알파벳 집중 vs 아마존 청산) = 무차별 AI 강세 아님에 주목.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "57636Q104",
+          "issuer": "MASTERCARD INCORPORATED",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3986648,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "Visa와 동반 결제망 청산.",
+          "our_takeaway": "우리 미보유. 성숙 컴파운더도 비중 줄이는 '신중' 분기 신호.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "G9001E102",
+          "issuer": "LIBERTY LATIN AMERICA LTD",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2396665,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
         },
         {
           "cusip": "02079K305",
@@ -851,6 +853,4870 @@
         "SEC EDGAR 13F-HR acc 0000950123-25-005701 (2025-03-31)",
         "SEC EDGAR 13F-HR acc 0000950123-25-002701 (2024-12-31)"
       ]
+    },
+    "scion": {
+      "name": "Scion Asset Management, LLC",
+      "style": "역발상·베어·풋옵션 — AI 회의론",
+      "cik": "0001649339",
+      "filing_date": "2025-11-03",
+      "quarter": "2025-09-30",
+      "prev_quarter": "2025-06-30",
+      "portfolio_value_usd": 68138076,
+      "positions": 4,
+      "options_latest": 4,
+      "top_positions": [
+        {
+          "cusip": "60855R100",
+          "issuer": "MOLINA HEALTHCARE INC",
+          "ticker": null,
+          "value_usd": 23920000,
+          "shares": 125000,
+          "pct": 35.11
+        },
+        {
+          "cusip": "550021109",
+          "issuer": "LULULEMON ATHLETICA INC",
+          "ticker": null,
+          "value_usd": 17793000,
+          "shares": 100000,
+          "pct": 26.11
+        },
+        {
+          "cusip": "78442P106",
+          "issuer": "SLM CORP",
+          "ticker": null,
+          "value_usd": 13287895,
+          "shares": 480054,
+          "pct": 19.5
+        },
+        {
+          "cusip": "116794207",
+          "issuer": "BRUKER CORP",
+          "ticker": null,
+          "value_usd": 13137181,
+          "shares": 48334,
+          "pct": 19.28
+        }
+      ],
+      "trajectory": {
+        "78442P106": {
+          "issuer": "SLM CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 480054,
+              "pct": 19.5
+            }
+          ]
+        },
+        "116794207": {
+          "issuer": "BRUKER CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 48334,
+              "pct": 19.28
+            }
+          ]
+        },
+        "550021109": {
+          "issuer": "LULULEMON ATHLETICA INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 50000,
+              "pct": 21.12
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 100000,
+              "pct": 26.11
+            }
+          ]
+        },
+        "60855R100": {
+          "issuer": "MOLINA HEALTHCARE INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 24530,
+              "pct": 13.89
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 30000,
+              "pct": 12.45
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 25000,
+              "pct": 9.4
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 125000,
+              "pct": 35.11
+            }
+          ]
+        }
+      },
+      "moves": [
+        {
+          "cusip": "60855R100",
+          "issuer": "MOLINA HEALTHCARE INC",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 125000,
+          "shares_delta_pct": null,
+          "value_to": 23920000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "78442P106",
+          "issuer": "SLM CORP",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 480054,
+          "shares_delta_pct": null,
+          "value_to": 13287895,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "116794207",
+          "issuer": "BRUKER CORP",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 48334,
+          "shares_delta_pct": null,
+          "value_to": 13137181,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "91324P102",
+          "issuer": "UNITEDHEALTH GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 20000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "58733R102",
+          "issuer": "MERCADOLIBRE INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "518439104",
+          "issuer": "LAUDER ESTEE COS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 150000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "116794108",
+          "issuer": "BRUKER CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 250000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "75886F107",
+          "issuer": "REGENERON PHARMACEUTICALS",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 15000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "550021109",
+          "issuer": "LULULEMON ATHLETICA INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 50000,
+          "shares_to": 100000,
+          "shares_delta_pct": 100.0,
+          "value_to": 17793000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        }
+      ],
+      "overlap_with_holdings": [],
+      "themes": [
+        "[검증] AI 트레이드 과열 = 풋으로 숏(NVDA·PLTR) — 우리 포트의 반대편 시각",
+        "[검증] 방어·가치(헬스케어·소비) 소량 롱 = 리스크오프 포지셔닝"
+      ],
+      "narrative": "[검증] 2025Q3(최신 공시·이후 미제출) — 포트 ~80%가 NVDA·팔란티어 '풋옵션' = AI 과열 고확신 베어 베팅. 주식은 룰루레몬 2배(10만주)·SLM·몰리나(헬스케어) 등 방어·가치로 소폭. Scion은 13F 산발 제출.",
+      "sources": [
+        "SEC EDGAR 13F-HR acc 0001649339-25-000007 (2025-09-30)",
+        "SEC EDGAR 13F-HR acc 0001879202-25-000038 (2025-06-30)",
+        "SEC EDGAR 13F-HR acc 0001879202-25-000025 (2025-03-31)",
+        "SEC EDGAR 13F-HR acc 0001879202-25-000012 (2024-12-31)",
+        "SEC EDGAR 13F-HR acc 0000905148-24-003106 (2024-09-30)",
+        "SEC EDGAR 13F-HR acc 0000905148-24-002196 (2024-06-30)"
+      ]
+    },
+    "duquesne": {
+      "name": "Duquesne Family Office LLC",
+      "style": "매크로·모멘텀 — AI 사이클 타이밍",
+      "cik": "0001536411",
+      "filing_date": "2026-05-15",
+      "quarter": "2026-03-31",
+      "prev_quarter": "2025-12-31",
+      "portfolio_value_usd": 2937172000,
+      "positions": 65,
+      "options_latest": 5,
+      "top_positions": [
+        {
+          "cusip": "632307104",
+          "issuer": "Natera Inc",
+          "ticker": null,
+          "value_usd": 612691000,
+          "shares": 3063606,
+          "pct": 20.86
+        },
+        {
+          "cusip": "457669307",
+          "issuer": "Insmed Inc",
+          "ticker": null,
+          "value_usd": 188717000,
+          "shares": 1154090,
+          "pct": 6.43
+        },
+        {
+          "cusip": "874039100",
+          "issuer": "Taiwan Semiconductor Manufac",
+          "ticker": null,
+          "value_usd": 167380000,
+          "shares": 495280,
+          "pct": 5.7
+        },
+        {
+          "cusip": "984245100",
+          "issuer": "Ypf Sociedad Anonima",
+          "ticker": null,
+          "value_usd": 149566000,
+          "shares": 3235962,
+          "pct": 5.09
+        },
+        {
+          "cusip": "464286400",
+          "issuer": "Ishares Inc",
+          "ticker": null,
+          "value_usd": 131915000,
+          "shares": 3436170,
+          "pct": 4.49
+        },
+        {
+          "cusip": "G0896C103",
+          "issuer": "Bbb Foods Inc",
+          "ticker": null,
+          "value_usd": 109972000,
+          "shares": 3109202,
+          "pct": 3.74
+        },
+        {
+          "cusip": "013872106",
+          "issuer": "Alcoa Corp",
+          "ticker": null,
+          "value_usd": 99057000,
+          "shares": 1493390,
+          "pct": 3.37
+        },
+        {
+          "cusip": "N62509109",
+          "issuer": "Newamsterdam Pharma Company",
+          "ticker": null,
+          "value_usd": 98275000,
+          "shares": 3070146,
+          "pct": 3.35
+        },
+        {
+          "cusip": "81141R100",
+          "issuer": "Sea Ltd",
+          "ticker": null,
+          "value_usd": 91083000,
+          "shares": 1099905,
+          "pct": 3.1
+        },
+        {
+          "cusip": "861012102",
+          "issuer": "Stmicroelectronics N V",
+          "ticker": null,
+          "value_usd": 90275000,
+          "shares": 2612880,
+          "pct": 3.07
+        },
+        {
+          "cusip": "980745103",
+          "issuer": "Woodward Inc",
+          "ticker": null,
+          "value_usd": 75648000,
+          "shares": 211355,
+          "pct": 2.58
+        },
+        {
+          "cusip": "881624209",
+          "issuer": "Teva Pharmaceutical Inds Ltd",
+          "ticker": null,
+          "value_usd": 71604000,
+          "shares": 2377285,
+          "pct": 2.44
+        }
+      ],
+      "trajectory": {
+        "G0896C103": {
+          "issuer": "Bbb Foods Inc",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 360550,
+              "pct": 0.26
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1183125,
+              "pct": 0.81
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2675152,
+              "pct": 2.12
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3109202,
+              "pct": 3.74
+            }
+          ]
+        },
+        "11135F101": {
+          "issuer": "Broadcom Inc",
+          "ticker": "AVGO",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 86140,
+              "pct": 0.61
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 195955,
+              "pct": 2.06
+            }
+          ]
+        },
+        "013872106": {
+          "issuer": "Alcoa Corp",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1376050,
+              "pct": 1.73
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1493390,
+              "pct": 3.37
+            }
+          ]
+        },
+        "457669307": {
+          "issuer": "Insmed Inc",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 593470,
+              "pct": 1.15
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 1369050,
+              "pct": 3.5
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2253435,
+              "pct": 5.79
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2423435,
+              "pct": 8.88
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1481752,
+              "pct": 6.11
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1154090,
+              "pct": 6.43
+            }
+          ]
+        },
+        "632307104": {
+          "issuer": "Natera Inc",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 3566850,
+              "pct": 15.88
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 3402330,
+              "pct": 16.13
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 3085190,
+              "pct": 13.32
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 3214532,
+              "pct": 13.16
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2511357,
+              "pct": 13.63
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3063606,
+              "pct": 20.86
+            }
+          ]
+        },
+        "N62509109": {
+          "issuer": "Newamsterdam Pharma Company",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 287535,
+              "pct": 0.21
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 800360,
+              "pct": 0.55
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 832175,
+              "pct": 0.39
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1923700,
+              "pct": 1.39
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 3070146,
+              "pct": 2.55
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3070146,
+              "pct": 3.35
+            }
+          ]
+        },
+        "984245100": {
+          "issuer": "Ypf Sociedad Anonima",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 1687716,
+              "pct": 2.02
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2075390,
+              "pct": 2.44
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 703995,
+              "pct": 0.57
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 114695,
+              "pct": 0.07
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 606990,
+              "pct": 0.52
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3235962,
+              "pct": 5.09
+            }
+          ]
+        },
+        "595112103": {
+          "issuer": "Micron Technology Inc",
+          "ticker": "MU",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 408885,
+              "pct": 0.97
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 23400,
+              "pct": 0.27
+            }
+          ]
+        },
+        "464286400": {
+          "issuer": "Ishares Inc",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 738800,
+              "pct": 0.54
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 3552575,
+              "pct": 2.67
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3436170,
+              "pct": 4.49
+            }
+          ]
+        },
+        "874039100": {
+          "issuer": "Taiwan Semiconductor Manufac",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 107515,
+              "pct": 0.6
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 598780,
+              "pct": 3.33
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 765085,
+              "pct": 4.43
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 765085,
+              "pct": 5.44
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 543085,
+              "pct": 3.91
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 495280,
+              "pct": 5.7
+            }
+          ]
+        }
+      },
+      "moves": [
+        {
+          "cusip": "11135F101",
+          "issuer": "Broadcom Inc",
+          "ticker": "AVGO",
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 195955,
+          "shares_delta_pct": null,
+          "value_to": 60650000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "37950E259",
+          "issuer": "Global X Fds",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 387400,
+          "shares_delta_pct": null,
+          "value_to": 36152000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "142152107",
+          "issuer": "Caris Life Sciences Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 1894450,
+          "shares_delta_pct": null,
+          "value_to": 33873000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "76155X100",
+          "issuer": "Revolution Medicines Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 315860,
+          "shares_delta_pct": null,
+          "value_to": 30717000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "80004C200",
+          "issuer": "Sandisk Corp",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 38155,
+          "shares_delta_pct": null,
+          "value_to": 24241000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "444859102",
+          "issuer": "Humana Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 137505,
+          "shares_delta_pct": null,
+          "value_to": 23842000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "90138F102",
+          "issuer": "Twilio Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 181760,
+          "shares_delta_pct": null,
+          "value_to": 22869000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "466313103",
+          "issuer": "Jabil Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 82200,
+          "shares_delta_pct": null,
+          "value_to": 21835000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "46428R107",
+          "issuer": "Ishares S&P Gsci Commodity-",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 643000,
+          "shares_delta_pct": null,
+          "value_to": 20737000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G54950103",
+          "issuer": "Linde Plc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 41200,
+          "shares_delta_pct": null,
+          "value_to": 20425000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G7997R103",
+          "issuer": "Seagate Technology Hldngs Pl",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 50700,
+          "shares_delta_pct": null,
+          "value_to": 19862000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "67080N101",
+          "issuer": "Nuvation Bio Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 4539800,
+          "shares_delta_pct": null,
+          "value_to": 19476000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "458140100",
+          "issuer": "Intel Corp",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 411400,
+          "shares_delta_pct": null,
+          "value_to": 18155000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "07782B104",
+          "issuer": "Belite Bio Inc Sponsored",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 106100,
+          "shares_delta_pct": null,
+          "value_to": 16917000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "042068205",
+          "issuer": "Arm Holdings Plc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 106700,
+          "shares_delta_pct": null,
+          "value_to": 16142000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "68062P106",
+          "issuer": "Olema Pharmaceuticals Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 986827,
+          "shares_delta_pct": null,
+          "value_to": 14714000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "74743L100",
+          "issuer": "Qnity Electronics Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 125655,
+          "shares_delta_pct": null,
+          "value_to": 14498000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "98420N105",
+          "issuer": "Xenon Pharmaceuticals Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 238600,
+          "shares_delta_pct": null,
+          "value_to": 13875000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "N4732M103",
+          "issuer": "Jbs N.V.",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 655900,
+          "shares_delta_pct": null,
+          "value_to": 11780000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "18915M107",
+          "issuer": "Cloudflare Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 52535,
+          "shares_delta_pct": null,
+          "value_to": 10840000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "N53745100",
+          "issuer": "Lyondellbasell Industries Nv",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 131435,
+          "shares_delta_pct": null,
+          "value_to": 10588000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "92837L109",
+          "issuer": "Vista Energy S.A.B. De C.V.",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 134700,
+          "shares_delta_pct": null,
+          "value_to": 10166000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "90184D100",
+          "issuer": "Twist Bioscience Corp",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 206000,
+          "shares_delta_pct": null,
+          "value_to": 9789000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "19247G107",
+          "issuer": "Coherent Corp",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 40400,
+          "shares_delta_pct": null,
+          "value_to": 9624000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "15101Q207",
+          "issuer": "Celestica Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 33275,
+          "shares_delta_pct": null,
+          "value_to": 9373000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "23306J309",
+          "issuer": "Dbv Technologies S A Sponsored",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 383363,
+          "shares_delta_pct": null,
+          "value_to": 8008000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "595112103",
+          "issuer": "Micron Technology Inc",
+          "ticker": "MU",
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 23400,
+          "shares_delta_pct": null,
+          "value_to": 7905000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "55024U109",
+          "issuer": "Lumentum Hldgs Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 6963,
+          "shares_delta_pct": null,
+          "value_to": 4893000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "83443Q103",
+          "issuer": "Solstice Advanced Matls Inc",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 62525,
+          "shares_delta_pct": null,
+          "value_to": 4762000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "960413102",
+          "issuer": "Westlake Corporation",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 21194,
+          "shares_delta_pct": null,
+          "value_to": 2476000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "171757206",
+          "issuer": "Cidara Therapeutics Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 49495,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "464287234",
+          "issuer": "Ishares Tr",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 902500,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "38141G104",
+          "issuer": "Goldman Sachs Group Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 27500,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "97785W106",
+          "issuer": "Wolfspeed Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 186900,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "98954M200",
+          "issuer": "Zillow Group Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 192640,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "74340E103",
+          "issuer": "Progyny Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 295115,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "00835Q202",
+          "issuer": "Aeva Technologies Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1824862,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "Alphabet Inc",
+          "ticker": "GOOGL",
+          "action": "EXIT",
+          "shares_from": 385000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "19240Q201",
+          "issuer": "Cogent Biosciences Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2214470,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "682189105",
+          "issuer": "On Semiconductor Corp",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 536260,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G3643J108",
+          "issuer": "Flutter Entmt Plc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 115245,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "29362U104",
+          "issuer": "Entegris Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 844160,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "169656105",
+          "issuer": "Chipotle Mexican Grill Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 391930,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02376R102",
+          "issuer": "American Airls Group Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 639785,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "74967X103",
+          "issuer": "Rh",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 88200,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "247361702",
+          "issuer": "Delta Air Lines Inc Del",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 650910,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "04010E109",
+          "issuer": "Argan Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 30000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "256163106",
+          "issuer": "Docusign Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1019085,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "25809K105",
+          "issuer": "Doordash Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 35900,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "64073B103",
+          "issuer": "Neptune Ins Hldgs Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 20000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "81369Y605",
+          "issuer": "Select Sector Spdr Tr",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 5495600,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "718172109",
+          "issuer": "Philip Morris Intl Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 67400,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "46137V357",
+          "issuer": "Invesco Exchange Traded Fd T",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1173925,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "632307104",
+          "issuer": "Natera Inc",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 2511357,
+          "shares_to": 3063606,
+          "shares_delta_pct": 22.0,
+          "value_to": 612691000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "984245100",
+          "issuer": "Ypf Sociedad Anonima",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 606990,
+          "shares_to": 3235962,
+          "shares_delta_pct": 433.1,
+          "value_to": 149566000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G0896C103",
+          "issuer": "Bbb Foods Inc",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 2675152,
+          "shares_to": 3109202,
+          "shares_delta_pct": 16.2,
+          "value_to": 109972000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "013872106",
+          "issuer": "Alcoa Corp",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 1376050,
+          "shares_to": 1493390,
+          "shares_delta_pct": 8.5,
+          "value_to": 99057000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "81141R100",
+          "issuer": "Sea Ltd",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 944120,
+          "shares_to": 1099905,
+          "shares_delta_pct": 16.5,
+          "value_to": 91083000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "861012102",
+          "issuer": "Stmicroelectronics N V",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 773555,
+          "shares_to": 2612880,
+          "shares_delta_pct": 237.8,
+          "value_to": 90275000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "77543R102",
+          "issuer": "Roku Inc",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 582980,
+          "shares_to": 750190,
+          "shares_delta_pct": 28.7,
+          "value_to": 70983000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "68404L201",
+          "issuer": "Option Care Health Inc",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 1745950,
+          "shares_to": 1868550,
+          "shares_delta_pct": 7.0,
+          "value_to": 50301000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "84265V105",
+          "issuer": "Southern Copper Corp",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 120817,
+          "shares_to": 121843,
+          "shares_delta_pct": 0.8,
+          "value_to": 20964000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "185899101",
+          "issuer": "Cleveland-Cliffs Inc New",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 1745655,
+          "shares_to": 2313455,
+          "shares_delta_pct": 32.5,
+          "value_to": 19549000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "91332U101",
+          "issuer": "Unity Software Inc",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 410020,
+          "shares_to": 738785,
+          "shares_delta_pct": 80.2,
+          "value_to": 16209000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "000899104",
+          "issuer": "Adma Biologics Inc",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 252200,
+          "shares_to": 1545610,
+          "shares_delta_pct": 512.9,
+          "value_to": 13926000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "457669307",
+          "issuer": "Insmed Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1481752,
+          "shares_to": 1154090,
+          "shares_delta_pct": -22.1,
+          "value_to": 188717000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "874039100",
+          "issuer": "Taiwan Semiconductor Manufac",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 543085,
+          "shares_to": 495280,
+          "shares_delta_pct": -8.8,
+          "value_to": 167380000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "464286400",
+          "issuer": "Ishares Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 3552575,
+          "shares_to": 3436170,
+          "shares_delta_pct": -3.3,
+          "value_to": 131915000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "980745103",
+          "issuer": "Woodward Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 590930,
+          "shares_to": 211355,
+          "shares_delta_pct": -64.2,
+          "value_to": 75648000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "881624209",
+          "issuer": "Teva Pharmaceutical Inds Ltd",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 5874870,
+          "shares_to": 2377285,
+          "shares_delta_pct": -59.5,
+          "value_to": 71604000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "22266T109",
+          "issuer": "Coupang Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 6772909,
+          "shares_to": 2667485,
+          "shares_delta_pct": -60.6,
+          "value_to": 50362000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G25508105",
+          "issuer": "Crh Plc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 474955,
+          "shares_to": 377555,
+          "shares_delta_pct": -20.5,
+          "value_to": 39689000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "349381103",
+          "issuer": "Figure Technology Solutio",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1539785,
+          "shares_to": 1150415,
+          "shares_delta_pct": -25.3,
+          "value_to": 39057000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "76131D103",
+          "issuer": "Restaurant Brands Intl Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1209000,
+          "shares_to": 454435,
+          "shares_delta_pct": -62.4,
+          "value_to": 33583000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "518415104",
+          "issuer": "Lattice Semiconductor Corp",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 925970,
+          "shares_to": 323135,
+          "shares_delta_pct": -65.1,
+          "value_to": 29974000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "910047109",
+          "issuer": "United Airls Hldgs Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 348400,
+          "shares_to": 262495,
+          "shares_delta_pct": -24.7,
+          "value_to": 24168000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "929740108",
+          "issuer": "Wabtec",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 300110,
+          "shares_to": 94895,
+          "shares_delta_pct": -68.4,
+          "value_to": 23715000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "093712107",
+          "issuer": "Bloom Energy Corp",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 740545,
+          "shares_to": 136320,
+          "shares_delta_pct": -81.6,
+          "value_to": 18470000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "234264109",
+          "issuer": "Daktronics Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 852960,
+          "shares_to": 562637,
+          "shares_delta_pct": -34.0,
+          "value_to": 11000000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "023135106",
+          "issuer": "Amazon Com Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 737940,
+          "shares_to": 45800,
+          "shares_delta_pct": -93.8,
+          "value_to": 9539000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "86384P109",
+          "issuer": "Stubhub Hldgs Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 2305751,
+          "shares_to": 1367177,
+          "shares_delta_pct": -40.7,
+          "value_to": 8531000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "74623V103",
+          "issuer": "Purecycle Technologies Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 2878434,
+          "shares_to": 963189,
+          "shares_delta_pct": -66.5,
+          "value_to": 4999000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "58733R102",
+          "issuer": "Mercadolibre  Inc",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 47149,
+          "shares_to": 2766,
+          "shares_delta_pct": -94.1,
+          "value_to": 4782000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        }
+      ],
+      "overlap_with_holdings": [
+        {
+          "ticker": "AVGO",
+          "issuer": "Broadcom Inc",
+          "value_to": 60650000,
+          "shares_to": 195955,
+          "shares_from": 0,
+          "action": "NEW",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 신규 $60.6M — 우리 AVGO 보유 지지. AI 네트워킹/커스텀칩 '삽' 테마."
+        },
+        {
+          "ticker": "MU",
+          "issuer": "Micron Technology Inc",
+          "value_to": 7905000,
+          "shares_to": 23400,
+          "shares_from": 0,
+          "action": "NEW",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 신규진입 — 우리 MU 보유·§10-2 메모리 사이클 강세론을 대가가 실탄으로 확인. 테퍼도 증량."
+        },
+        {
+          "ticker": "GOOGL",
+          "issuer": "Alphabet Inc",
+          "value_to": 0,
+          "shares_to": 0,
+          "shares_from": 385000,
+          "action": "EXIT",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 전량청산 — 버핏·로엡의 GOOGL 매수와 정반대. GOOGL은 대가 사이 '분열' 종목(2매수 vs 3매도), 우리 ⭐5 과신 견제 신호."
+        }
+      ],
+      "themes": [
+        "[검증] '붐비는 메가캡→언더오운드 인프라' 로테이션 — GOOGL·AMZN 빼고 AVGO·MU·SNDK·STX·ARM",
+        "[검증] 메모리·스토리지 '슈퍼사이클' 픽스앤쇼블 베팅(우리 §10-2 메모리 논지와 정합)"
+      ],
+      "narrative": "[검증] 2026Q1 — 붐비는 메가캡 AI에서 '곡괭이·삽'으로 로테이션. 알파벳 전량청산(385K주·$153M)·아마존 99% 감축(738K→9.5K)하고 대신 브로드컴(신규 $60.6M)·마이크론·샌디스크·시게이트·ARM 등 AI 하드웨어/메모리/스토리지 신규. 종목당 소액 다분산($2.9B·65종목) 매크로 스타일.",
+      "sources": [
+        "SEC EDGAR 13F-HR acc 0001536411-26-000004 (2026-03-31)",
+        "SEC EDGAR 13F-HR acc 0001536411-26-000002 (2025-12-31)",
+        "SEC EDGAR 13F-HR acc 0001536411-25-000017 (2025-09-30)",
+        "SEC EDGAR 13F-HR acc 0001536411-25-000011 (2025-06-30)",
+        "SEC EDGAR 13F-HR acc 0001536411-25-000008 (2025-03-31)",
+        "SEC EDGAR 13F-HR acc 0001536411-25-000006 (2024-12-31)"
+      ]
+    },
+    "pershing": {
+      "name": "Pershing Square Capital Management, L.P.",
+      "style": "집중·퀄리티 컴파운더",
+      "cik": "0001336528",
+      "filing_date": "2026-05-15",
+      "quarter": "2026-03-31",
+      "prev_quarter": "2025-12-31",
+      "portfolio_value_usd": 13714299861,
+      "positions": 11,
+      "options_latest": 0,
+      "top_positions": [
+        {
+          "cusip": "11271J107",
+          "issuer": "BROOKFIELD CORP",
+          "ticker": null,
+          "value_usd": 2415946008,
+          "shares": 59697208,
+          "pct": 17.62
+        },
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "value_usd": 2385104083,
+          "shares": 11451981,
+          "pct": 17.39
+        },
+        {
+          "cusip": "90353T100",
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "value_usd": 2154934398,
+          "shares": 29958771,
+          "pct": 15.71
+        },
+        {
+          "cusip": "594918104",
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
+          "value_usd": 2092970053,
+          "shares": 5654078,
+          "pct": 15.26
+        },
+        {
+          "cusip": "76131D103",
+          "issuer": "RESTAURANT BRANDS INTL INC",
+          "ticker": null,
+          "value_usd": 1673501194,
+          "shares": 22645483,
+          "pct": 12.2
+        },
+        {
+          "cusip": "30303M102",
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "value_usd": 1522358404,
+          "shares": 2660861,
+          "pct": 11.1
+        },
+        {
+          "cusip": "44267T102",
+          "issuer": "HOWARD HUGHES HOLDINGS INC",
+          "ticker": null,
+          "value_usd": 1192581569,
+          "shares": 18852064,
+          "pct": 8.7
+        },
+        {
+          "cusip": "812215200",
+          "issuer": "SEAPORT ENTMT GROUP INC",
+          "ticker": null,
+          "value_usd": 107910794,
+          "shares": 5023780,
+          "pct": 0.79
+        },
+        {
+          "cusip": "02079K107",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "value_usd": 89421720,
+          "shares": 311726,
+          "pct": 0.65
+        },
+        {
+          "cusip": "42806J700",
+          "issuer": "HERTZ GLOBAL HLDGS INC",
+          "ticker": null,
+          "value_usd": 70261595,
+          "shares": 15241127,
+          "pct": 0.51
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "value_usd": 9310043,
+          "shares": 32376,
+          "pct": 0.07
+        }
+      ],
+      "trajectory": {
+        "02079K305": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 3986488,
+              "pct": 5.98
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 4437980,
+              "pct": 5.75
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 5362980,
+              "pct": 6.88
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 4843973,
+              "pct": 8.04
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 678297,
+              "pct": 1.37
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 32376,
+              "pct": 0.07
+            }
+          ]
+        },
+        "594918104": {
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 5654078,
+              "pct": 15.26
+            }
+          ]
+        },
+        "02079K107": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 7547582,
+              "pct": 11.39
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 6324031,
+              "pct": 8.28
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 6324031,
+              "pct": 8.17
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 6324031,
+              "pct": 10.52
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 6163871,
+              "pct": 12.46
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 311726,
+              "pct": 0.65
+            }
+          ]
+        },
+        "023135106": {
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 5823316,
+              "pct": 9.31
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 5823316,
+              "pct": 8.73
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 9607824,
+              "pct": 14.28
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 11451981,
+              "pct": 17.39
+            }
+          ]
+        },
+        "11271J107": {
+          "issuer": "BROOKFIELD CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 34893064,
+              "pct": 15.89
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 41004657,
+              "pct": 18.01
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 41160397,
+              "pct": 18.54
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 41020231,
+              "pct": 19.21
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 61403089,
+              "pct": 18.15
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 59697208,
+              "pct": 17.62
+            }
+          ]
+        },
+        "812215200": {
+          "issuer": "SEAPORT ENTMT GROUP INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 5023780,
+              "pct": 1.11
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 5023780,
+              "pct": 0.9
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 5023780,
+              "pct": 0.68
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 5023780,
+              "pct": 0.79
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 5023780,
+              "pct": 0.64
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 5023780,
+              "pct": 0.79
+            }
+          ]
+        },
+        "30303M102": {
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2673569,
+              "pct": 11.37
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 2660861,
+              "pct": 11.1
+            }
+          ]
+        },
+        "90353T100": {
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 30301161,
+              "pct": 18.5
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 30301161,
+              "pct": 20.59
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 30270518,
+              "pct": 20.25
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 30207734,
+              "pct": 15.9
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 29958771,
+              "pct": 15.71
+            }
+          ]
+        },
+        "44267T102": {
+          "issuer": "HOWARD HUGHES HOLDINGS INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 18852064,
+              "pct": 11.5
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 18852064,
+              "pct": 11.71
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 18852064,
+              "pct": 9.27
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 18852064,
+              "pct": 10.58
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 18852064,
+              "pct": 9.69
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 18852064,
+              "pct": 8.7
+            }
+          ]
+        },
+        "76131D103": {
+          "issuer": "RESTAURANT BRANDS INTL INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 23000914,
+              "pct": 11.88
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 23000914,
+              "pct": 12.85
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 23000914,
+              "pct": 11.11
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 22915496,
+              "pct": 10.04
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 22866773,
+              "pct": 10.05
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 22645483,
+              "pct": 12.2
+            }
+          ]
+        }
+      },
+      "moves": [
+        {
+          "cusip": "594918104",
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 5654078,
+          "shares_delta_pct": null,
+          "value_to": 2092970053,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "43300A203",
+          "issuer": "HILTON WORLDWIDE HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3028664,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 9607824,
+          "shares_to": 11451981,
+          "shares_delta_pct": 19.2,
+          "value_to": 2385104083,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "11271J107",
+          "issuer": "BROOKFIELD CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 61403089,
+          "shares_to": 59697208,
+          "shares_delta_pct": -2.8,
+          "value_to": 2415946008,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "90353T100",
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 30207734,
+          "shares_to": 29958771,
+          "shares_delta_pct": -0.8,
+          "value_to": 2154934398,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "76131D103",
+          "issuer": "RESTAURANT BRANDS INTL INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 22866773,
+          "shares_to": 22645483,
+          "shares_delta_pct": -1.0,
+          "value_to": 1673501194,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "30303M102",
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "action": "TRIM",
+          "shares_from": 2673569,
+          "shares_to": 2660861,
+          "shares_delta_pct": -0.5,
+          "value_to": 1522358404,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02079K107",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "action": "TRIM",
+          "shares_from": 6163871,
+          "shares_to": 311726,
+          "shares_delta_pct": -94.9,
+          "value_to": 89421720,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "action": "TRIM",
+          "shares_from": 678297,
+          "shares_to": 32376,
+          "shares_delta_pct": -95.2,
+          "value_to": 9310043,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        }
+      ],
+      "overlap_with_holdings": [
+        {
+          "ticker": "MSFT",
+          "issuer": "MICROSOFT CORP",
+          "value_to": 2092970053,
+          "shares_to": 5654078,
+          "shares_from": 0,
+          "action": "NEW",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 신규 대규모($2.09B) — Azure/M365 낙폭매수. 우리 MSFT 보유의 강력한 대가 확증(로엡 청산과는 정반대)."
+        },
+        {
+          "ticker": "META",
+          "issuer": "META PLATFORMS INC",
+          "value_to": 1522358404,
+          "shares_to": 2660861,
+          "shares_from": 2673569,
+          "action": "TRIM",
+          "shares_delta_pct": -0.5,
+          "our_takeaway": "[검증] 트림 — META도 대가 갈림(로엡 매수 vs 애크먼·테퍼 트림)."
+        },
+        {
+          "ticker": "GOOGL",
+          "issuer": "ALPHABET INC",
+          "value_to": 98731763,
+          "shares_to": 344102,
+          "shares_from": 6842168,
+          "action": "TRIM",
+          "shares_delta_pct": -95.0,
+          "our_takeaway": "[검증] ~95% 청산 — 드러켄밀러·테퍼와 함께 GOOGL '매도' 측. 버핏·로엡 매수와 정면 충돌 = 대가도 확신 못 하는 종목."
+        }
+      ],
+      "themes": [
+        "[검증] 'GOOGL→MSFT' 하이퍼스케일러 스왑 — AI 클라우드는 유지하되 말(馬)을 갈아탐",
+        "[검증] 초집중 퀄리티 컴파운더 스타일(11종목)"
+      ],
+      "narrative": "[검증] 2026Q1 — 하이퍼스케일러 교체. 알파벳 ~95% 청산(클래스C 610만→31만)하고 그 자금으로 MSFT 신규 $2.09B(565만주, 낙폭매수) — Azure 클라우드·M365 엔터프라이즈 논거. 11종목 초집중(Brookfield·Amazon·Uber ~51%).",
+      "sources": [
+        "SEC EDGAR 13F-HR acc 0001172661-26-002336 (2026-03-31)",
+        "SEC EDGAR 13F-HR acc 0001172661-26-001091 (2025-12-31)",
+        "SEC EDGAR 13F-HR acc 0001172661-25-005039 (2025-09-30)",
+        "SEC EDGAR 13F-HR acc 0001172661-25-003509 (2025-06-30)",
+        "SEC EDGAR 13F-HR acc 0001172661-25-002315 (2025-03-31)",
+        "SEC EDGAR 13F-HR acc 0001172661-25-001119 (2024-12-31)"
+      ]
+    },
+    "appaloosa": {
+      "name": "Appaloosa LP",
+      "style": "테크·중국·경기민감 밸류",
+      "cik": "0001656456",
+      "filing_date": "2026-05-15",
+      "quarter": "2026-03-31",
+      "prev_quarter": "2025-12-31",
+      "portfolio_value_usd": 5933477986,
+      "positions": 31,
+      "options_latest": 0,
+      "top_positions": [
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "value_usd": 899726400,
+          "shares": 4320000,
+          "pct": 15.16
+        },
+        {
+          "cusip": "595112103",
+          "issuer": "MICRON TECHNOLOGY INC",
+          "ticker": "MU",
+          "value_usd": 562503600,
+          "shares": 1665000,
+          "pct": 9.48
+        },
+        {
+          "cusip": "02079K107",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "value_usd": 497042322,
+          "shares": 1732700,
+          "pct": 8.38
+        },
+        {
+          "cusip": "90353T100",
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "value_usd": 455512550,
+          "shares": 6332720,
+          "pct": 7.68
+        },
+        {
+          "cusip": "874039100",
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "ticker": null,
+          "value_usd": 448628625,
+          "shares": 1327500,
+          "pct": 7.56
+        },
+        {
+          "cusip": "01609W102",
+          "issuer": "ALIBABA GROUP HLDG LTD",
+          "ticker": null,
+          "value_usd": 434718900,
+          "shares": 3465000,
+          "pct": 7.33
+        },
+        {
+          "cusip": "92840M102",
+          "issuer": "VISTRA CORP",
+          "ticker": null,
+          "value_usd": 304017170,
+          "shares": 2022332,
+          "pct": 5.12
+        },
+        {
+          "cusip": "464286772",
+          "issuer": "ISHARES INC",
+          "ticker": null,
+          "value_usd": 295224000,
+          "shares": 2400000,
+          "pct": 4.98
+        },
+        {
+          "cusip": "67066G104",
+          "issuer": "NVIDIA CORPORATION",
+          "ticker": "NVDA",
+          "value_usd": 256629600,
+          "shares": 1471500,
+          "pct": 4.33
+        },
+        {
+          "cusip": "629377508",
+          "issuer": "NRG ENERGY INC",
+          "ticker": null,
+          "value_usd": 253471354,
+          "shares": 1734442,
+          "pct": 4.27
+        },
+        {
+          "cusip": "30303M102",
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "value_usd": 249734745,
+          "shares": 436500,
+          "pct": 4.21
+        },
+        {
+          "cusip": "80004C200",
+          "issuer": "SANDISK CORP",
+          "ticker": null,
+          "value_usd": 178689375,
+          "shares": 281250,
+          "pct": 3.01
+        }
+      ],
+      "trajectory": {
+        "594918104": {
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 970000,
+              "pct": 6.33
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 510000,
+              "pct": 3.44
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 500000,
+              "pct": 3.86
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 462500,
+              "pct": 3.24
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 500000,
+              "pct": 3.53
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 90000,
+              "pct": 0.56
+            }
+          ]
+        },
+        "67066G104": {
+          "issuer": "NVIDIA CORPORATION",
+          "ticker": "NVDA",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 680001,
+              "pct": 1.41
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 300000,
+              "pct": 0.58
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1750000,
+              "pct": 4.29
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1900000,
+              "pct": 4.8
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1700000,
+              "pct": 4.63
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1471500,
+              "pct": 4.33
+            }
+          ]
+        },
+        "02079K107": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 1881963,
+              "pct": 5.54
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2010000,
+              "pct": 5.64
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1500000,
+              "pct": 4.13
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1387500,
+              "pct": 4.58
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1786931,
+              "pct": 8.18
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1732700,
+              "pct": 8.38
+            }
+          ]
+        },
+        "595112103": {
+          "issuer": "MICRON TECHNOLOGY INC",
+          "ticker": "MU",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 1200000,
+              "pct": 1.56
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 400000,
+              "pct": 0.62
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 825000,
+              "pct": 1.58
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 500000,
+              "pct": 1.13
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1500000,
+              "pct": 6.25
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1665000,
+              "pct": 9.48
+            }
+          ]
+        },
+        "874039100": {
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 250000,
+              "pct": 0.76
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 270000,
+              "pct": 0.81
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1025000,
+              "pct": 3.6
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1060000,
+              "pct": 4.01
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1130000,
+              "pct": 5.01
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1327500,
+              "pct": 7.56
+            }
+          ]
+        },
+        "023135106": {
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 2600000,
+              "pct": 8.82
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2510000,
+              "pct": 8.58
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2700000,
+              "pct": 9.19
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2500000,
+              "pct": 7.43
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2179391,
+              "pct": 7.34
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 4320000,
+              "pct": 15.16
+            }
+          ]
+        },
+        "01609W102": {
+          "issuer": "ALIBABA GROUP HLDG LTD",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 11843158,
+              "pct": 15.54
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 9230000,
+              "pct": 21.92
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 7067271,
+              "pct": 12.43
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 6450000,
+              "pct": 15.61
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 5137931,
+              "pct": 10.99
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3465000,
+              "pct": 7.33
+            }
+          ]
+        },
+        "30303M102": {
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 490000,
+              "pct": 4.44
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 550000,
+              "pct": 5.69
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 400000,
+              "pct": 4.58
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 370000,
+              "pct": 3.68
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 600000,
+              "pct": 5.78
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 436500,
+              "pct": 4.21
+            }
+          ]
+        },
+        "90353T100": {
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 1500000,
+              "pct": 1.4
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 3200000,
+              "pct": 4.19
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2750000,
+              "pct": 3.98
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2406983,
+              "pct": 3.19
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1850000,
+              "pct": 2.21
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 6332720,
+              "pct": 7.68
+            }
+          ]
+        },
+        "92840M102": {
+          "issuer": "VISTRA CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 2700000,
+              "pct": 5.76
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2300000,
+              "pct": 4.85
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1800000,
+              "pct": 5.41
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1245000,
+              "pct": 3.3
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 945000,
+              "pct": 2.22
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 2022332,
+              "pct": 5.12
+            }
+          ]
+        },
+        "464286772": {
+          "issuer": "ISHARES INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1875000,
+              "pct": 2.66
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 2400000,
+              "pct": 4.98
+            }
+          ]
+        }
+      },
+      "moves": [
+        {
+          "cusip": "80004C200",
+          "issuer": "SANDISK CORP",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 281250,
+          "shares_delta_pct": null,
+          "value_to": 178689375,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "464287184",
+          "issuer": "ISHARES TR",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1087500,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02376R102",
+          "issuer": "AMERICAN AIRLS GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 14150000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "608190104",
+          "issuer": "MOHAWK INDS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 675000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "247361702",
+          "issuer": "DELTA AIR LINES INC DEL",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 475000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "382550101",
+          "issuer": "GOODYEAR TIRE & RUBR CO",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2500000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "910047109",
+          "issuer": "UNITED AIRLS HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 465000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "46266C105",
+          "issuer": "IQVIA HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 280000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "690742101",
+          "issuer": "OWENS CORNING NEW",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 950000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 2179391,
+          "shares_to": 4320000,
+          "shares_delta_pct": 98.2,
+          "value_to": 899726400,
+          "rationale": "+98% 대폭 증량 — AWS AI 재가속 베팅, 포트 1위(15.2%)",
+          "our_takeaway": "우리 미보유. 대가의 아마존 컨빅션 = 클라우드 AI 회복 신호(META/GOOGL 클라우드 논지 교차).",
+          "tag": "검증"
+        },
+        {
+          "cusip": "595112103",
+          "issuer": "MICRON TECHNOLOGY INC",
+          "ticker": "MU",
+          "action": "ADD",
+          "shares_from": 1500000,
+          "shares_to": 1665000,
+          "shares_delta_pct": 11.0,
+          "value_to": 562503600,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "90353T100",
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 1850000,
+          "shares_to": 6332720,
+          "shares_delta_pct": 242.3,
+          "value_to": 455512550,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "874039100",
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 1130000,
+          "shares_to": 1327500,
+          "shares_delta_pct": 17.5,
+          "value_to": 448628625,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "92840M102",
+          "issuer": "VISTRA CORP",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 945000,
+          "shares_to": 2022332,
+          "shares_delta_pct": 114.0,
+          "value_to": 304017170,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "464286772",
+          "issuer": "ISHARES INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 1875000,
+          "shares_to": 2400000,
+          "shares_delta_pct": 28.0,
+          "value_to": 295224000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "629377508",
+          "issuer": "NRG ENERGY INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 1640000,
+          "shares_to": 1734442,
+          "shares_delta_pct": 5.8,
+          "value_to": 253471354,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "056752108",
+          "issuer": "BAIDU INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 575000,
+          "shares_to": 692100,
+          "shares_delta_pct": 20.4,
+          "value_to": 77113782,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02079K107",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "action": "TRIM",
+          "shares_from": 1786931,
+          "shares_to": 1732700,
+          "shares_delta_pct": -3.0,
+          "value_to": 497042322,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "01609W102",
+          "issuer": "ALIBABA GROUP HLDG LTD",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 5137931,
+          "shares_to": 3465000,
+          "shares_delta_pct": -32.6,
+          "value_to": 434718900,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "67066G104",
+          "issuer": "NVIDIA CORPORATION",
+          "ticker": "NVDA",
+          "action": "TRIM",
+          "shares_from": 1700000,
+          "shares_to": 1471500,
+          "shares_delta_pct": -13.4,
+          "value_to": 256629600,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "30303M102",
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "action": "TRIM",
+          "shares_from": 600000,
+          "shares_to": 436500,
+          "shares_delta_pct": -27.3,
+          "value_to": 249734745,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "219350105",
+          "issuer": "CORNING INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1570200,
+          "shares_to": 1129500,
+          "shares_delta_pct": -28.1,
+          "value_to": 153578115,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "963320106",
+          "issuer": "WHIRLPOOL CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 3910000,
+          "shares_to": 1950000,
+          "shares_delta_pct": -50.1,
+          "value_to": 105144000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "722304102",
+          "issuer": "PDD HOLDINGS INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1775000,
+          "shares_to": 900000,
+          "shares_delta_pct": -49.3,
+          "value_to": 91962000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "512807306",
+          "issuer": "LAM RESEARCH CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 425000,
+          "shares_to": 382500,
+          "shares_delta_pct": -10.0,
+          "value_to": 81724950,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "502431109",
+          "issuer": "L3HARRIS TECHNOLOGIES INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 295000,
+          "shares_to": 198000,
+          "shares_delta_pct": -32.9,
+          "value_to": 68339700,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "75513E101",
+          "issuer": "RTX CORPORATION",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 500000,
+          "shares_to": 342000,
+          "shares_delta_pct": -31.6,
+          "value_to": 65971800,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "N07059210",
+          "issuer": "ASML HLDG NV",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 62500,
+          "shares_to": 49500,
+          "shares_delta_pct": -20.8,
+          "value_to": 65381085,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "747525103",
+          "issuer": "QUALCOMM INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1145000,
+          "shares_to": 498613,
+          "shares_delta_pct": -56.5,
+          "value_to": 64211382,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "058498106",
+          "issuer": "BALL CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1200000,
+          "shares_to": 837000,
+          "shares_delta_pct": -30.2,
+          "value_to": 49475070,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "007903107",
+          "issuer": "ADVANCED MICRO DEVICES INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 325000,
+          "shares_to": 221400,
+          "shares_delta_pct": -31.9,
+          "value_to": 45039402,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "47215P106",
+          "issuer": "JD.COM INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 4157046,
+          "shares_to": 1305000,
+          "shares_delta_pct": -68.6,
+          "value_to": 38588850,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "55087P104",
+          "issuer": "LYFT INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 3800000,
+          "shares_to": 2700000,
+          "shares_delta_pct": -28.9,
+          "value_to": 35910000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "594918104",
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
+          "action": "TRIM",
+          "shares_from": 500000,
+          "shares_to": 90000,
+          "shares_delta_pct": -82.0,
+          "value_to": 33315300,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "500767306",
+          "issuer": "KRANESHARES TRUST",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 4750000,
+          "shares_to": 1080000,
+          "shares_delta_pct": -77.3,
+          "value_to": 30704400,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "29273V100",
+          "issuer": "ENERGY TRANSFER L P",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 2191250,
+          "shares_to": 1576125,
+          "shares_delta_pct": -28.1,
+          "value_to": 30419213,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "55336V100",
+          "issuer": "MPLX LP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 627500,
+          "shares_to": 502460,
+          "shares_delta_pct": -19.9,
+          "value_to": 28675392,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "91324P102",
+          "issuer": "UNITEDHEALTH GROUP INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 200000,
+          "shares_to": 90000,
+          "shares_delta_pct": -55.0,
+          "value_to": 24353100,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "D18190898",
+          "issuer": "DEUTSCHE BK AG",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 3150000,
+          "shares_to": 257616,
+          "shares_delta_pct": -91.8,
+          "value_to": 7671804,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        }
+      ],
+      "overlap_with_holdings": [
+        {
+          "ticker": "MU",
+          "issuer": "MICRON TECHNOLOGY INC",
+          "value_to": 562503600,
+          "shares_to": 1665000,
+          "shares_from": 1500000,
+          "action": "ADD",
+          "shares_delta_pct": 11.0,
+          "our_takeaway": "[검증] 증량(+11%) — 드러켄밀러 신규와 함께 '메모리 확신' 2인 겹침. 우리 MU 보유의 대가 확증(단 트리거 아님)."
+        },
+        {
+          "ticker": "GOOGL",
+          "issuer": "ALPHABET INC",
+          "value_to": 497042322,
+          "shares_to": 1732700,
+          "shares_from": 1786931,
+          "action": "TRIM",
+          "shares_delta_pct": -3.0,
+          "our_takeaway": "[검증] 소폭 트림 — GOOGL 분열의 매도 측. 우리 ⭐5 유지하되 대가 컨센 갈림 인지."
+        },
+        {
+          "ticker": "NVDA",
+          "issuer": "NVIDIA CORPORATION",
+          "value_to": 256629600,
+          "shares_to": 1471500,
+          "shares_from": 1700000,
+          "action": "TRIM",
+          "shares_delta_pct": -13.4,
+          "our_takeaway": "[검증] 트림 — 로엡·버리와 함께 'NVDA 비중축소' 진영. 우리 NVDA 단기 수급 경계 신호."
+        },
+        {
+          "ticker": "META",
+          "issuer": "META PLATFORMS INC",
+          "value_to": 249734745,
+          "shares_to": 436500,
+          "shares_from": 600000,
+          "action": "TRIM",
+          "shares_delta_pct": -27.3,
+          "our_takeaway": ""
+        },
+        {
+          "ticker": "MSFT",
+          "issuer": "MICROSOFT CORP",
+          "value_to": 33315300,
+          "shares_to": 90000,
+          "shares_from": 500000,
+          "action": "TRIM",
+          "shares_delta_pct": -82.0,
+          "our_takeaway": ""
+        }
+      ],
+      "themes": [
+        "[검증] AI 슈퍼사이클 올인이되 '리더 트림·메모리 증량' — NVDA·GOOGL 줄이고 MU 늘림",
+        "[검증] 경기민감(항공) 전량 정리 = 방어적 재편"
+      ],
+      "narrative": "[검증] 2026Q1 — AI 인프라 집중·메가캡 선별 트림. 아마존 +98% 대폭 증량(1위 15.2%)·마이크론 증량(2위 9.5%)하되 GOOGL·META·NVDA·MSFT는 소폭 트림. 항공(AAL·UAL·DAL) 전량청산. ⚠️[정정] 일부 매체 'Q1 알파벳 +29%'는 Q4 얘기 — EDGAR상 Q1은 소폭 트림(179만→173만).",
+      "sources": [
+        "SEC EDGAR 13F-HR acc 0001656456-26-000002 (2026-03-31)",
+        "SEC EDGAR 13F-HR acc 0001656456-26-000001 (2025-12-31)",
+        "SEC EDGAR 13F-HR acc 0001656456-25-000007 (2025-09-30)",
+        "SEC EDGAR 13F-HR acc 0001656456-25-000006 (2025-06-30)",
+        "SEC EDGAR 13F-HR acc 0001656456-25-000005 (2025-03-31)",
+        "SEC EDGAR 13F-HR acc 0001656456-25-000001 (2024-12-31)"
+      ]
+    },
+    "thirdpoint": {
+      "name": "Third Point LLC",
+      "style": "행동주의·테크 재편",
+      "cik": "0001040273",
+      "filing_date": "2026-05-15",
+      "quarter": "2026-03-31",
+      "prev_quarter": "2025-12-31",
+      "portfolio_value_usd": 2082795760,
+      "positions": 33,
+      "options_latest": 0,
+      "top_positions": [
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "value_usd": 404043800,
+          "shares": 1940000,
+          "pct": 19.4
+        },
+        {
+          "cusip": "879433829",
+          "issuer": "TELEPHONE & DATA SYS INC",
+          "ticker": null,
+          "value_usd": 277860000,
+          "shares": 6600000,
+          "pct": 13.34
+        },
+        {
+          "cusip": "G25508105",
+          "issuer": "CRH PLC",
+          "ticker": null,
+          "value_usd": 199728000,
+          "shares": 1900000,
+          "pct": 9.59
+        },
+        {
+          "cusip": "88023U101",
+          "issuer": "SOMNIGROUP INTERNATIONAL INC",
+          "ticker": null,
+          "value_usd": 167855244,
+          "shares": 2270769,
+          "pct": 8.06
+        },
+        {
+          "cusip": "144285103",
+          "issuer": "CARPENTER TECHNOLOGY CORP",
+          "ticker": null,
+          "value_usd": 122186500,
+          "shares": 310000,
+          "pct": 5.87
+        },
+        {
+          "cusip": "576323109",
+          "issuer": "MASTEC INC",
+          "ticker": null,
+          "value_usd": 102956800,
+          "shares": 320000,
+          "pct": 4.94
+        },
+        {
+          "cusip": "235851102",
+          "issuer": "DANAHER CORP DEL",
+          "ticker": null,
+          "value_usd": 99540000,
+          "shares": 525000,
+          "pct": 4.78
+        },
+        {
+          "cusip": "874039100",
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "ticker": null,
+          "value_usd": 92936250,
+          "shares": 275000,
+          "pct": 4.46
+        },
+        {
+          "cusip": "00187Y100",
+          "issuer": "API GROUP CORP",
+          "ticker": null,
+          "value_usd": 82255600,
+          "shares": 2030000,
+          "pct": 3.95
+        },
+        {
+          "cusip": "538034109",
+          "issuer": "LIVE NATION ENTERTAINMENT IN",
+          "ticker": null,
+          "value_usd": 70917150,
+          "shares": 465000,
+          "pct": 3.4
+        },
+        {
+          "cusip": "30303M102",
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "value_usd": 51491700,
+          "shares": 90000,
+          "pct": 2.47
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "value_usd": 50323000,
+          "shares": 175000,
+          "pct": 2.42
+        }
+      ],
+      "trajectory": {
+        "67066G104": {
+          "issuer": "NVIDIA CORPORATION",
+          "ticker": "NVDA",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 1450000,
+              "pct": 2.47
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2800000,
+              "pct": 5.81
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2850000,
+              "pct": 6.34
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2950000,
+              "pct": 7.56
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 190000,
+              "pct": 1.59
+            }
+          ]
+        },
+        "88023U101": {
+          "issuer": "SOMNIGROUP INTERNATIONAL INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 3000000,
+              "pct": 3.02
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 3400000,
+              "pct": 4.17
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 2270769,
+              "pct": 8.06
+            }
+          ]
+        },
+        "144285103": {
+          "issuer": "CARPENTER TECHNOLOGY CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 870000,
+              "pct": 1.98
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 870000,
+              "pct": 2.48
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 750000,
+              "pct": 2.72
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 850000,
+              "pct": 2.49
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 785000,
+              "pct": 3.4
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 310000,
+              "pct": 5.87
+            }
+          ]
+        },
+        "11135F101": {
+          "issuer": "BROADCOM INC",
+          "ticker": "AVGO",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 50000,
+              "pct": 0.74
+            }
+          ]
+        },
+        "30303M102": {
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 665000,
+              "pct": 5.23
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 150000,
+              "pct": 1.45
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 220000,
+              "pct": 1.93
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 90000,
+              "pct": 2.47
+            }
+          ]
+        },
+        "879433829": {
+          "issuer": "TELEPHONE & DATA SYS INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 6000000,
+              "pct": 2.75
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 6760000,
+              "pct": 4.11
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 6725000,
+              "pct": 3.14
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 6707274,
+              "pct": 3.14
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 6675000,
+              "pct": 3.76
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 6600000,
+              "pct": 13.34
+            }
+          ]
+        },
+        "023135106": {
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 3450000,
+              "pct": 10.17
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2350000,
+              "pct": 7.02
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2710000,
+              "pct": 7.8
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2810000,
+              "pct": 7.36
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2165000,
+              "pct": 6.87
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1940000,
+              "pct": 19.4
+            }
+          ]
+        },
+        "874039100": {
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 1780000,
+              "pct": 4.72
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 1780000,
+              "pct": 4.64
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1430000,
+              "pct": 4.25
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1100000,
+              "pct": 3.67
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 425000,
+              "pct": 1.78
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 275000,
+              "pct": 4.46
+            }
+          ]
+        },
+        "576323109": {
+          "issuer": "MASTEC INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 725000,
+              "pct": 1.84
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 925000,
+              "pct": 2.76
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 320000,
+              "pct": 4.94
+            }
+          ]
+        },
+        "G25508105": {
+          "issuer": "CRH PLC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 2715000,
+              "pct": 3.38
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2715000,
+              "pct": 3.75
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2590000,
+              "pct": 3.12
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2165000,
+              "pct": 3.1
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2600000,
+              "pct": 4.46
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1900000,
+              "pct": 9.59
+            }
+          ]
+        },
+        "02079K305": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 175000,
+              "pct": 2.42
+            }
+          ]
+        },
+        "235851102": {
+          "issuer": "DANAHER CORP DEL",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-12-31",
+              "shares": 1900000,
+              "pct": 5.86
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 500000,
+              "pct": 1.3
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 50000,
+              "pct": 0.12
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 600000,
+              "pct": 1.89
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 525000,
+              "pct": 4.78
+            }
+          ]
+        }
+      },
+      "moves": [
+        {
+          "cusip": "30303M102",
+          "issuer": "META PLATFORMS INC",
+          "ticker": "META",
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 90000,
+          "shares_delta_pct": null,
+          "value_to": 51491700,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 175000,
+          "shares_delta_pct": null,
+          "value_to": 50323000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "78463V107",
+          "issuer": "SPDR GOLD TR",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 95000,
+          "shares_delta_pct": null,
+          "value_to": 40877550,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "44812J104",
+          "issuer": "HUT 8 CORP",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 869563,
+          "shares_delta_pct": null,
+          "value_to": 40791200,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "893641100",
+          "issuer": "TRANSDIGM GROUP INC",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 25000,
+          "shares_delta_pct": null,
+          "value_to": 28974000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "482480100",
+          "issuer": "KLA CORP",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 11000,
+          "shares_delta_pct": null,
+          "value_to": 16196510,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "512807306",
+          "issuer": "LAM RESEARCH CORP",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 75000,
+          "shares_delta_pct": null,
+          "value_to": 16024500,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "N07059210",
+          "issuer": "ASML HLDG NV",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 12000,
+          "shares_delta_pct": null,
+          "value_to": 15849960,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "11135F101",
+          "issuer": "BROADCOM INC",
+          "ticker": "AVGO",
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 50000,
+          "shares_delta_pct": null,
+          "value_to": 15475500,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "92189F676",
+          "issuer": "VANECK ETF TRUST",
+          "ticker": null,
+          "action": "NEW",
+          "shares_from": 0,
+          "shares_to": 40000,
+          "shares_delta_pct": null,
+          "value_to": 15336000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "M98068105",
+          "issuer": "WIX COM LTD",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 225000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "77311W101",
+          "issuer": "ROCKET COS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 9515000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "50212V100",
+          "issuer": "LPL FINL HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 510000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "743315103",
+          "issuer": "PROGRESSIVE CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 220000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "11271J107",
+          "issuer": "BROOKFIELD CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 6200000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "071734107",
+          "issuer": "BAUSCH HEALTH COS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 350000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "594918104",
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
+          "action": "EXIT",
+          "shares_from": 925000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "22160N109",
+          "issuer": "COSTAR GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3165000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "01609W102",
+          "issuer": "ALIBABA GROUP HLDG LTD",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 825000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "92840M102",
+          "issuer": "VISTRA CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1005000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "69331CAL2",
+          "issuer": "PG&E CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 10000000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "126408103",
+          "issuer": "CSX CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 500000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "169656105",
+          "issuer": "CHIPOTLE MEXICAN GRILL INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 4725000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "199908104",
+          "issuer": "COMFORT SYS USA INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 105000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "49177J102",
+          "issuer": "KENVUE INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3250000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "147528103",
+          "issuer": "CASEYS GEN STORES INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 455000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "69331C108",
+          "issuer": "PG&E CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 34300000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "21037T109",
+          "issuer": "CONSTELLATION ENERGY CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 475000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "69331C306",
+          "issuer": "PG&E CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 140000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "883556102",
+          "issuer": "THERMO FISHER SCIENTIFIC INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 50000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "L8681T102",
+          "issuer": "SPOTIFY TECHNOLOGY S A",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 100000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "82835W108",
+          "issuer": "ARS PHARMACEUTICALS INC",
+          "ticker": null,
+          "action": "ADD",
+          "shares_from": 556237,
+          "shares_to": 1000000,
+          "shares_delta_pct": 79.8,
+          "value_to": 8030000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "023135106",
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 2165000,
+          "shares_to": 1940000,
+          "shares_delta_pct": -10.4,
+          "value_to": 404043800,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "879433829",
+          "issuer": "TELEPHONE & DATA SYS INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 6675000,
+          "shares_to": 6600000,
+          "shares_delta_pct": -1.1,
+          "value_to": 277860000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G25508105",
+          "issuer": "CRH PLC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 2600000,
+          "shares_to": 1900000,
+          "shares_delta_pct": -26.9,
+          "value_to": 199728000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "88023U101",
+          "issuer": "SOMNIGROUP INTERNATIONAL INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 3400000,
+          "shares_to": 2270769,
+          "shares_delta_pct": -33.2,
+          "value_to": 167855244,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "144285103",
+          "issuer": "CARPENTER TECHNOLOGY CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 785000,
+          "shares_to": 310000,
+          "shares_delta_pct": -60.5,
+          "value_to": 122186500,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "576323109",
+          "issuer": "MASTEC INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 925000,
+          "shares_to": 320000,
+          "shares_delta_pct": -65.4,
+          "value_to": 102956800,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "235851102",
+          "issuer": "DANAHER CORP DEL",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 600000,
+          "shares_to": 525000,
+          "shares_delta_pct": -12.5,
+          "value_to": 99540000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "874039100",
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 425000,
+          "shares_to": 275000,
+          "shares_delta_pct": -35.3,
+          "value_to": 92936250,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "00187Y100",
+          "issuer": "API GROUP CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 3000000,
+          "shares_to": 2030000,
+          "shares_delta_pct": -32.3,
+          "value_to": 82255600,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "538034109",
+          "issuer": "LIVE NATION ENTERTAINMENT IN",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1725000,
+          "shares_to": 465000,
+          "shares_delta_pct": -73.0,
+          "value_to": 70917150,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "67066G104",
+          "issuer": "NVIDIA CORPORATION",
+          "ticker": "NVDA",
+          "action": "TRIM",
+          "shares_from": 2950000,
+          "shares_to": 190000,
+          "shares_delta_pct": -93.6,
+          "value_to": 33136000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "655844108",
+          "issuer": "NORFOLK SOUTHN CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 975000,
+          "shares_to": 100000,
+          "shares_delta_pct": -89.7,
+          "value_to": 28700000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "14040H105",
+          "issuer": "CAPITAL ONE FINL CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1100000,
+          "shares_to": 140000,
+          "shares_delta_pct": -87.3,
+          "value_to": 25540200,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "907818108",
+          "issuer": "UNION PAC CORP",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1810000,
+          "shares_to": 100000,
+          "shares_delta_pct": -94.5,
+          "value_to": 24262000,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G8068L108",
+          "issuer": "SHARKNINJA INC",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 1200000,
+          "shares_to": 130509,
+          "shares_delta_pct": -89.1,
+          "value_to": 13820903,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "62548M209",
+          "issuer": "CLARITEV CORPORATION",
+          "ticker": null,
+          "action": "TRIM",
+          "shares_from": 145000,
+          "shares_to": 44000,
+          "shares_delta_pct": -69.7,
+          "value_to": 718960,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        }
+      ],
+      "overlap_with_holdings": [
+        {
+          "ticker": "META",
+          "issuer": "META PLATFORMS INC",
+          "value_to": 51491700,
+          "shares_to": 90000,
+          "shares_from": 0,
+          "action": "NEW",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 신규진입 — 우리 META 보유 지지. 반면 애크먼·테퍼는 META 트림 = 여기도 갈림."
+        },
+        {
+          "ticker": "GOOGL",
+          "issuer": "ALPHABET INC",
+          "value_to": 50323000,
+          "shares_to": 175000,
+          "shares_from": 0,
+          "action": "NEW",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 신규진입 — 버핏과 함께 GOOGL '매수' 진영. 분열 종목에서 강세 측 2인(우리 ⭐5 보강, 단 과신 견제)."
+        },
+        {
+          "ticker": "NVDA",
+          "issuer": "NVIDIA CORPORATION",
+          "value_to": 33136000,
+          "shares_to": 190000,
+          "shares_from": 2950000,
+          "action": "TRIM",
+          "shares_delta_pct": -93.6,
+          "our_takeaway": "[검증] -94% 급감 — 4분기 연속 매수 후 급반전. 테퍼·버리와 함께 NVDA 경계 3인. 우리 NVDA 최대 경계 데이터."
+        },
+        {
+          "ticker": "AVGO",
+          "issuer": "BROADCOM INC",
+          "value_to": 15475500,
+          "shares_to": 50000,
+          "shares_from": 0,
+          "action": "NEW",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 신규 — 드러켄밀러와 함께 AVGO 매수 2인. 우리 AVGO 보유 지지."
+        },
+        {
+          "ticker": "MSFT",
+          "issuer": "MICROSOFT CORP",
+          "value_to": 0,
+          "shares_to": 0,
+          "shares_from": 925000,
+          "action": "EXIT",
+          "shares_delta_pct": null,
+          "our_takeaway": "[검증] 전량청산 — 애크먼 MSFT 신규와 정반대. MSFT도 대가 분열(우리 MSFT 판단은 자체 펀더로)."
+        }
+      ],
+      "themes": [
+        "[검증] 'NVDA·MSFT 후퇴 → META·GOOGL·AVGO 전진' — 같은 빅테크 안에서 리더 교체 베팅",
+        "[검증] NVDA 4분기 연속 매수하다 이번에 -94% 급반전 = 고점 경계 신호"
+      ],
+      "narrative": "[검증] 2026Q1 — 대대적 재편($7.27B→$2.08B). MSFT 전량청산(925K주)·NVDA -94%(295만→19만) 대폭 축소·PG&E·Brookfield 청산. 대신 META·알파벳·브로드컴 신규 + Hut8·TransDigm. 아마존 1위(19.4%)로 집중.",
+      "sources": [
+        "SEC EDGAR 13F-HR acc 0001040273-26-000002 (2026-03-31)",
+        "SEC EDGAR 13F-HR acc 0001040273-26-000001 (2025-12-31)",
+        "SEC EDGAR 13F-HR acc 0001040273-25-000003 (2025-09-30)",
+        "SEC EDGAR 13F-HR acc 0001085146-25-005277 (2025-06-30)",
+        "SEC EDGAR 13F-HR acc 0001085146-25-003337 (2025-03-31)",
+        "SEC EDGAR 13F-HR acc 0001085146-25-001713 (2024-12-31)"
+      ]
     }
-  }
+  },
+  "_cross_note": "GOOGL=대가 분열(버핏·로엡 매수 vs 애크먼·테퍼·드러켄밀러 매도). NVDA=광범 축소/숏(로엡-94%·테퍼트림·버리풋). MU·AVGO=메모리/인프라 축적(드러켄밀러·테퍼·로엡)."
 }

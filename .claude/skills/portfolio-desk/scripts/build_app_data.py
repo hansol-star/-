@@ -258,6 +258,34 @@ def load_json_opt(path: str) -> dict:
         return {}
 
 
+def guru_consensus(gf: dict) -> dict:
+    """대가 흐름을 '우리 보유종목' 축으로 뒤집어 정리 — 종목별 어느 대가가 매수/매도했나.
+    #gurus 상단 '우리 포트 × 대가' + 종목 상세 페이지의 대가 신호 라인 소스."""
+    cons = {}
+    for slug, g in (gf.get("gurus") or {}).items():
+        if not isinstance(g, dict) or g.get("error"):
+            continue
+        gname = g.get("name", slug).split("(")[0].strip()
+        for o in g.get("overlap_with_holdings", []):
+            tk = o.get("ticker")
+            if not tk:
+                continue
+            e = cons.setdefault(tk, {"ticker": tk, "holders": [], "buy": 0, "sell": 0, "hold": 0})
+            act = o.get("action", "")
+            e["holders"].append({"guru": gname, "slug": slug, "action": act,
+                                 "delta_pct": o.get("shares_delta_pct"),
+                                 "takeaway": o.get("our_takeaway", "")})
+            if act in ("NEW", "ADD"):
+                e["buy"] += 1
+            elif act in ("TRIM", "EXIT"):
+                e["sell"] += 1
+            else:
+                e["hold"] += 1
+    for e in cons.values():
+        e["net"] = e["buy"] - e["sell"]
+    return cons
+
+
 def load_jsonl_opt(path: str) -> list:
     try:
         with open(path, encoding="utf-8") as f:
@@ -479,6 +507,8 @@ def build(offline: bool) -> dict:
         pass
     pm_view = load_json_opt(PM_VIEW_JSON)
     guru_flows = load_json_opt(GURU_JSON)  # 대가 13F 흐름 + 데스크 이유분석(#gurus 화면)
+    if guru_flows.get("gurus"):
+        guru_flows["consensus"] = guru_consensus(guru_flows)  # 우리 보유종목 축 교차정리
     reports = build_reports()
 
     # ── 결정 메모리 / 전략 아젠다 (decisions.jsonl 정본 → 폰에서 조회) ──

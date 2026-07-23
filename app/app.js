@@ -423,6 +423,24 @@
       h += '<div class="runhint" style="margin:2px 0 0">레인지는 단기 예측치 — 목표가/매수존과 별개. 분석 참고.</div>';
     }
 
+    // 🏛️ 대가 흐름 (13F 컨센) — 이 종목을 대가들이 어떻게 움직였나
+    var gcons = ((D.guru_flows || {}).consensus || {})[st.ticker];
+    if (gcons && gcons.holders && gcons.holders.length) {
+      var gShort = { berkshire: "버핏", scion: "버리", duquesne: "드러켄밀러", pershing: "애크먼", appaloosa: "테퍼", thirdpoint: "로엡" };
+      var aLbl = { NEW: "신규", ADD: "증량", TRIM: "축소", EXIT: "청산", HOLD: "유지" };
+      var aCls = { NEW: "buy", ADD: "buy", TRIM: "sell", EXIT: "sell", HOLD: "hold" };
+      h += '<div class="sec"><h2>🏛️ 대가 흐름 (13F)</h2></div>';
+      h += '<div class="card"><div class="row between"><span class="bold">대가 컨센</span>';
+      h += '<span class="badge ' + (gcons.net > 0 ? "buy" : (gcons.net < 0 ? "sell" : "hold")) + '">🟢' + gcons.buy + ' · 🔴' + gcons.sell + (gcons.hold ? ' · ⚪' + gcons.hold : '') + '</span></div>';
+      h += '<div class="row wrap" style="gap:5px;margin-top:6px">';
+      gcons.holders.forEach(function (hd) {
+        h += '<span class="gchip ' + (aCls[hd.action] || "hold") + '">' + esc(gShort[hd.slug] || hd.guru) + ' ' + (aLbl[hd.action] || hd.action) + '</span>';
+      });
+      h += '</div>';
+      if (gcons.buy > 0 && gcons.sell > 0) h += '<div class="tx sm mut" style="margin-top:5px">⚖️ 대가 분열 — 매수·매도 공존, 단일 컨센 없음(과신 견제)</div>';
+      h += '<div class="nav" style="margin-top:8px"><a class="navbtn" href="#gurus">🏛️ 대가 흐름 전체 · 왜 ›</a></div></div>';
+    }
+
     var issues = st.issues || [];
     h += '<div class="sec"><h2>최근 이슈 · 체크포인트</h2></div>';
     if (!issues.length) h += '<div class="empty">등록된 이슈가 없어요.</div>';
@@ -786,6 +804,7 @@
     }
     var actLbl = { NEW: "신규", ADD: "증량", TRIM: "축소", EXIT: "청산", HOLD: "유지" };
     var actCls = { NEW: "buy", ADD: "buy", TRIM: "sell", EXIT: "sell", HOLD: "hold" };
+    var guruShort = { berkshire: "버핏", scion: "버리", duquesne: "드러켄밀러", pershing: "애크먼", appaloosa: "테퍼", thirdpoint: "로엡" };
 
     // 티커별 비중 궤적(share class 합산) → 스파크라인
     function trajByTicker(g, tk) {
@@ -807,6 +826,31 @@
       var col = (v[v.length - 1] >= v[0]) ? 'var(--green)' : 'var(--red)';
       return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" style="vertical-align:middle">'
         + '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    }
+
+    // 🎯 우리 포트 × 대가 (교차정리) — 우리 종목을 어느 대가가 사고/파나
+    var cons = gf.consensus || {};
+    var ckeys = Object.keys(cons).sort(function (a, b) {
+      return (cons[b].holders.length - cons[a].holders.length) || (Math.abs(cons[b].net) - Math.abs(cons[a].net));
+    });
+    if (ckeys.length) {
+      h += '<div class="sec"><h2>🎯 우리 포트 × 대가 (종목별 컨센)</h2></div>';
+      h += '<div class="comment sm">우리 보유종목을 대가들이 이번 분기 어떻게 움직였나. <b>매수 진영과 매도 진영이 갈리면</b> 대가도 확신 못 하는 것 = 우리 확신에 과신 금지.</div>';
+      ckeys.forEach(function (tk) {
+        var c = cons[tk], st = find(tk);
+        var netTag = c.net > 0 ? "buy" : (c.net < 0 ? "sell" : "hold");
+        h += '<div class="card"><div class="row between">';
+        h += '<span class="bold tappable" onclick="location.hash=\'stock/' + esc(tk) + '\'">' + esc(tk) + (st ? ' · ' + esc(st.label) : '') + ' ›</span>';
+        h += '<span class="badge ' + netTag + '">🟢' + c.buy + ' · 🔴' + c.sell + (c.hold ? ' · ⚪' + c.hold : '') + '</span></div>';
+        h += '<div class="row wrap" style="gap:5px;margin-top:6px">';
+        c.holders.forEach(function (hd) {
+          var cl = actCls[hd.action] || "hold";
+          h += '<span class="gchip ' + cl + '">' + esc(guruShort[hd.slug] || hd.guru) + ' ' + (actLbl[hd.action] || hd.action) + '</span>';
+        });
+        h += '</div>';
+        if (c.buy > 0 && c.sell > 0) h += '<div class="tx sm mut" style="margin-top:5px">⚖️ 대가 분열 — 매수·매도 공존, 단일 컨센 없음</div>';
+        h += '</div>';
+      });
     }
 
     keys.forEach(function (k) {

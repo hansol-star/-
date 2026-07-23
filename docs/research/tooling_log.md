@@ -20,9 +20,11 @@
 
 **검증(플레이북 §1b 3단 통과)**: ①공식 docs 확인(data.sec.gov 제출목록 JSON·Archives info-table XML 스키마) ②실호출 스모크 = 버크셔 CIK 0001067983 다분기 실수집 성공(2026Q1 90종목·$263.1B, 알파벳 +224%·애플 홀드 확인) ③출처 명기(guru_flows.json `sources`에 accession#). **하네스**: selfcheck GATE PASS(compile/import + validate_report check_guru).
 
-**설계 교훈(기록)**: ①13F value 단위 2023-01-03부터 천→달러 변경 → filingDate로 스케일 보정 ②정정(13F-HR/A)이 부분 보유(예: confidential 4종목)만 담을 수 있음 → **원본 13F-HR 우선** 선택(안 그러면 애플이 0주로 사라지는 버그) ③filing 순서 ≠ 분기 순서 → report_date로 정렬. ④`--emit`은 팩트만 갱신하고 데스크 서사(rationale/narrative)는 병합 보존.
+**설계 교훈(기록)**: ①**13F value 단위가 파일러마다 다름**(Berkshire=달러 vs Duquesne=천달러, SEC 2023 규칙 불구) → filingDate 추정 폐기, **내재가격(value/shares) 중앙값<$1이면 ×1000** 자동판정(`_autoscale_value`) ②정정(13F-HR/A)이 부분 보유(예: confidential 4종목)만 담을 수 있음 → **원본 13F-HR 우선**(안 그러면 애플이 0주로 사라지는 버그) ③filing 순서 ≠ 분기 순서 → report_date 정렬 ④`--emit`은 팩트만 갱신·데스크 서사 병합 보존 ⑤**집계매체 분기 오귀속**(테퍼 'Q1 알파벳 +29%'는 실은 Q4) → EDGAR 원본 주식수로 방향·분기 대사 ⑥옵션중심 파일러(Scion/버리)는 holdings 비어도 infoTable 봤으면 유효 스냅샷 반환(풋 시그널 보존).
 
-**배선**: `guru_flows.py` → `data/app/guru_flows.json` → build_app_data → 앱 #gurus 화면 + guru-flow-desk 보고서 섹션. 트리거-게이트(분기 cadence).
+**[7/23 6인 확장]**: 시각이 갈리는 6대가(버핏·버리·드러켄밀러·애크먼·테퍼·로엡, Bridgewater류 700+종목 분산은 '왜' 부재로 제외) + build_app_data가 **우리 보유종목 축 consensus 교차정리** 산출. 크로스 결과 = GOOGL 분열(2매수 3매도)·NVDA 광범축소·MU/AVGO 축적 — **분열 종목은 과신 견제 신호**로 활용.
+
+**배선**: `guru_flows.py`(6대가) → `data/app/guru_flows.json` → build_app_data(consensus) → 앱 #gurus 화면·종목 상세 대가라인 + guru-flow-desk 보고서 섹션. 트리거-게이트(분기 cadence).
 
 ---
 

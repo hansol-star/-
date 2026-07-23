@@ -34,7 +34,7 @@
 - **매크로 데스크** (`.claude/agents/macro-desk.md`): 환율·금리(연준·한은)·물가·고용 등 지표와 시장 영향.
 - **리서치 피드** (`.claude/agents/research-feed.md`): 경제사냥꾼 채널 영상/쇼츠 자동 탐색·정리.
 - **리스크 데스크** (`.claude/agents/risk-desk.md`): 안전핀·트랜치·트리거·집중도·신중(bear) 관점 감시 — PM의 브레이크.
-- **대가 흐름 데스크** (`.claude/agents/guru-flow-desk.md`) [7/23 신설]: 주식 대가(현재=버크셔/버핏) 13F 보유변동을 SEC EDGAR 무키로 수집(`guru_flows.py`) + **그 결정의 '이유'를 외신·주주서한·sell-side로 캐서 정훈 포트 관점의 참고점으로 번역**. **트리거-게이트**(13F 공시창 Feb/May/Aug/Nov 중순·데이터 stale·정훈 요청 시만 스폰 — 분기 cadence). 매 보고서는 캐시된 `guru_flows.json`만 소비. ⚠️지연 확증 렌즈, 매수 트리거 아님.
+- **대가 흐름 데스크** (`.claude/agents/guru-flow-desk.md`) [7/23 신설·6인]: 주식 대가 6인(버핏·버리·드러켄밀러·애크먼·테퍼·로엡, 시각 갈림) 13F 보유변동을 SEC EDGAR 무키로 수집(`guru_flows.py`) + **그 결정의 '이유'를 외신·주주서한·sell-side로 캐서 정훈 포트 관점의 참고점으로 번역**(우리 종목 축 consensus 교차정리). **트리거-게이트**(13F 공시창 Feb/May/Aug/Nov 중순·데이터 stale·정훈 요청 시만 스폰 — 분기 cadence). 매 보고서는 캐시된 `guru_flows.json`만 소비. ⚠️지연 확증 렌즈, 매수 트리거 아님.
 - **PM** (메인 = 너): 위 입력 종합 + 강세 vs 신중 디베이트 + 보유 종목에 비춰 최종 판단·대응안. **무게는 PM 종합에.**
 
 "보고서" / "분석해줘" / "오늘 시장" / "브리핑" → **portfolio-desk 스킬**을 따라 전체 보고서 생성.

@@ -920,5 +920,5 @@
  ],
  "_updated_note": "7/18(토) research-feed 단독 캐치업 세션 — 7/17 저녁 몰림분(10편, 11:10~7/18 08:00)을 hunter_latest.py --max12로 확보(전량 자막 성공, FAILED 0). TSMC실적 심층 3편·선반영프레임·7/29 하이닉스 D-day 종합·中AI쇼크(Kimi K3, 신규)·CXMT/트럼프규제(정정) 등 WebSearch로 교차검증. setups: setup-메모리코어-0629(SOX베어마켓+선반영3사례+CoreWeave헤지 note 보강)·setup-하이닉스ADR-0708(7/29 D-day 프레임 대량 보강+action에 체크포인트 추가)·setup-반전트리거-0629(헤드윈드 누적 note) 갱신. latest_videos 10편 prepend(newest 78 — 다음 build_app_data.py 실행시 hunter_archive 자동 롤오버 필요). source_report는 아직 다음 정식 보고서(v53) 미발행이라 v52 유지 — R2/차기 보고서가 이 캐치업을 소비.",
  "source_report": "docs/reports/report_v57_2026-07-22.md",
- "as_of": "2026-07-22 수 16:xx KST (v57 — R1 10편 + R2델타 4편)"
+ "as_of": "2026-07-22 수 18:23 KST (v57 — R1 10편 + R2델타 4편)"
 }

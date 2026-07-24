@@ -1,8 +1,124 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-07-23 자동 롤오버 +9편 (build_app_data)",
+  "updated": "2026-07-24 자동 롤오버 +10편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-07-24",
+      "title": "지금 '2차전지' 투자자들이 꼭 봐야 할 '하반기 상승장' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[정보성] 2차전지 ESS축(EV둔화 보완) — LG엔솔 EV마진 kWh당$17 vs ESS$36, 삼성SDI 4Q 美LFP양산22GW, 美ESS 2028수요153GW>현지생산141GW 공급부족, 한국 3차 중앙계약시장 9월 예정(1조원대). LG엔솔·삼성SDI 미보유·미워치 — 방향성만 로깅.",
+      "views": null,
+      "id": "kormyb_5RjM"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "최근 1개월, 코스피 폭락에도 오히려 주가 올랐다는 '의외의 종목' TOP3",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[교육] 커버드콜 ETF 3종(라이즈200배당ATM 분배율22.5%·플러스고배당위클리 분배율24%인데 1년총수익-27%·코덱스금융고배당탑텐) 최근1개월 상위권 — 분배율≠총수익 주의. 정훈 보유·워치 무관, setups 미등록.",
+      "views": null,
+      "id": "bL-4cb_ao-U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "트럼프 때문에 또 다시 '하락장' 올 수도 있다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] 코스피 7,096.89(+4.40%)·코스닥 790.28(+5.22%) GOOGL실적발 반등 정확. 美 강제노동관세(무역법301조) 한국 12.5% — 영상시점 '발표임박'이 [검증-7/24 실제확정] 7/24 13:01 KST 발효로 진전(60개국·기존세율<12.5%면 12.5%캡). 매크로데스크 공유 권고.",
+      "views": null,
+      "id": "zG-KDNbqdkA"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "월가가 보는, '한국 시장'의 근본적인 문제점",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] 코스피 롤러코스터(6/19 사상최고9,385→7/13-8.95%6,806.93→7/21반등) 4대범인: 삼성+하이닉스 쏠림52%+·2배레버리지ETF16개(5/27상장)·반대매매급증(7월일평균527억,작년比7.4배 [미확인-2출처시도, 방향은 crash_tf 실측과 정합])·외인 규정상 비중조절매도. 근본원인=상속세최고60%發 오너 저평가 유인(코리아디스카운트), 삼성·하닉 PER6배 vs 마이크론11배[검증]. 체크포인트: 시장폭(쏠림해소)·빅테크capex 실매출전환·상속세개편.",
+      "views": null,
+      "id": "YU_q-IYECqs"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "현재 클래리티법 속, 트럼프 코인 '금지 조항'이 추가된 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[정보성] 美 클래리티법 수정안 트럼프 코인수익 금지 윤리조항(자녀제외·기존수익 우회로 그대로·법무부 자체단속·2029만료 등 구멍多)에도 시장은 법안진전 자체를 호재로 반응. 8/10 상원휴회 전 통과여부 분기점. 정훈 보유·워치 무관(코인 미편입).",
+      "views": null,
+      "id": "1yT02nRqd1U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "지금 미국 개미들이, 몰래 줍고있다는 '구글' 2차 수혜주 3개",
+      "theme": null,
+      "tickers": [
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] GOOGL TPU 외부판매(클라우드 제품매출화) 수혜 3종 — 테라울프 구글백스톱$3.2B·14%지분[검증], Hut8(STT '허세이샤') 루이지애나15년$7.0B리스+구글보증·$3.25B투자등급조달[검증]·계약가치~$27B(채널$266억과 근사), 사이퍼마이닝 백스톱 합산~$17억 근사[검증-근사]. 주가 YTD+139%(실측+128%대와 근사)·1년+413%[미확인세부]. 미보유·비워치 3종 — setups 미등록(딥다이브·정훈승인·눌림목 3조건 미충족), 정보성 로깅만.",
+      "views": null,
+      "id": "ioeqOxi8o0o"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "구글 실적발표 이후, 지금 투자자들이 꼭 봐야하는 다음 '투자' 포인트",
+      "theme": null,
+      "tickers": [
+        "MSFT",
+        "META",
+        "AAPL",
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] 다음주 빅테크9개 실적프리뷰 — 7/28 시게이트·코닝, 7/29 MSFT·META·LRCX·ARM·QCOM, 7/30 AAPL·AMZN(美기준)[검증-Fool·FinanceCalendar]. '쓰는쪽'(MSFT·META·AMZN capex확대=韓반도체 주문호재)/'받는쪽'(LRCX·ARM·QCOM·시게이트·코닝=AI인프라 수요 대리지표) 프레임. MSFT 6월주가-19%·수주잔고$627B[기존setup 일치]. M7 capex합계~$7,400억 추산[미확인-2출처시도, 방향만 채택]. → setup-m7capex-0630 GOOGL조건 met=true 갱신(capex 상향 확인) + 날짜 재분리(GOOGL 이미 7/22발표완료, MSFT·META 7/29, AAPL·AMZN 7/30).",
+      "views": null,
+      "id": "wOewzqlPj9U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "이제 '트럼프' 수혜주까지 될 수 있다는 SK하이닉스 근황",
+      "theme": null,
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] 인텔 오하이오 팹 인수설→SK하이닉스 공식 부인[검증-뉴스핌]. '공동운영 파트너' 후보설 부상은 [미확인-2출처시도, 확인실패]. 美정부 인텔지분~10% 보유·트럼프 국내생산압박 연계 프레임. 미보유·비워치, setup-하이닉스-합작법인-0722와 별개 사안(신규 setup 미등록).",
+      "views": null,
+      "id": "RE2iWXIU_T0"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "구글 '역대급 실적' 이후, 주가가 오히려 빠진 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] GOOGL 클라우드매출$24.8B(+82%)·영업이익2.8B→8.8B(3배+, 마진35.6%)·백로그$514B 전부 정확[CNBC]. **[정정]** capex \"최대 2,50억 달러\"는 STT 자릿수오류 — 실제 $195~205B로 상향(직전$180~190B), $250B 아님(상향 방향 자체는 정확).",
+      "views": null,
+      "id": "6BMmQsl1T3U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "7월 23일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] GOOGL 매출$119.8B(+24%)·클라우드+82%인데 시간외-5%(EPS9.11 착시, core$2.85<컨센$2.89 소폭미달+capex상향)[CNBC]. TSLA 매출$28.2B 사상최대·영업이익-57%[검증-InsideEVs]. 코스피 전일7,166터치 후6,797반납→오늘 GOOGL방향+반도체해석이 코스피 좌우.",
+      "views": null,
+      "id": "h__5P8iT1AA"
+    },
     {
       "date": "2026-07-23",
       "title": "SK하이닉스, 9월 역대급 상승장 올 수 있다는 이유",

@@ -1,13 +1,13 @@
 {
  "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
- "updated": "2026-07-23",
- "source": "2026-07-23 R1 영상 프리페치(무인) — 수페TV·지식인사이드 모두 신규 투자콘텐츠 없음(수페TV 최신 7/21 Dpb3r3wbjic 이미 캐시·주기 정상 / 지식인사이드 7/22 20:32 성수동지식클럽 EP.2는 제목필터로 filtered=true, 유럽여행 콘텐츠 확인)",
+ "updated": "2026-07-24",
+ "source": "2026-07-24 R1 영상 프리페치(무인) — 수페TV 신규 없음(최신 여전히 7/21 Dpb3r3wbjic) / 지식인사이드 신규 1편(1-ZLJxfeXw4, 7/23 19:00, 김진명 작가 인터뷰) 확보했으나 비투자 콘텐츠 판정(setups 미등록). 경제사냥꾼(hunter.json)만 10편 신규 처리.",
  "channels": {
   "supe": {
    "name": "수페TV",
    "channel_id": "UCfnqgWlC5IvJEAPTmyjaixA",
    "channel_note": "주 2~3회 주간 시장랩업. 지수·섹터·수급·13F·실적일정까지 구체 수치 多 — 보유종목(MU·AAPL·META·MSFT·NVDA·GOOGL) 직결 주장이 많아 [검증/정정] 태깅·조건트래커 가치 높음. 배당·ETF 성향(커버드콜·SCHD)은 정훈 스타일과 결이 다름 → 종목·테마 팩트 위주 채택.",
-   "headline": "[7/21] DCA챌린지 238주차 — 나스닥100+72.1%·S&P500+57.3%(5년), 환율패턴(1개월-3%후 반등확률76.5%)만 참고. 개별종목콜 없음.",
+   "headline": "[7/21] DCA챌린지 238주차 — 나스닥100+72.1%·S&P500+57.3%(5년), 환율패턴(1개월-3%후 반등확률76.5%)만 참고. 개별종목콜 없음. (7/24 확인: 신규 없음, 최신 여전히 7/21)",
    "setups": [],
    "latest_videos": [
     {
@@ -137,9 +137,20 @@
    "name": "지식인사이드",
    "channel_id": "UCA_hgsFzmynpv1zkvA5A7jA",
    "channel_note": "전문가 인터뷰 채널(윤지호·오건영·빈센트 등). 매일 업로드하나 비투자 콘텐츠 다수 → hunter_latest.py --channel jisik이 투자 키워드 제목필터 적용. 성격 = 종목 콜이 아닌 프레임·통찰 → 태깅 위주, setups는 명확한 조건부 콜일 때만. study_log.md의 오건영·빈센트 수동 기록과 이어짐.",
-   "headline": "[7/21] 지식선발대 EP.5(뉴욕 변호사 커리어 인터뷰) — 비투자 콘텐츠, 신규 종목콜 없음.",
+   "headline": "[7/23] 지식인클래스 EP.10(김진명 작가, 한글 창제사·문해력 담론) — 비투자 콘텐츠, 신규 종목콜 없음.",
    "setups": [],
    "latest_videos": [
+    {
+     "id": "1-ZLJxfeXw4",
+     "date": "2026-07-23",
+     "title": "\"오랑캐 문자\"라 비난받던 한글이 600년 뒤 세계를 놀라게 한 이유ㅣ지식인클래스 EP.10 (김진명 작가)",
+     "tag": "비투자 판정",
+     "tickers": [],
+     "guest": "김진명 (소설가)",
+     "verdict": "비투자 콘텐츠 — 심층분석·setups 대상 제외",
+     "summary": "[비투자] 세종의 한글 창제사(사대주의 조선 속 애민혁명)·한글의 음성학적 구조(28!≈3×10²⁹ 조합, AI시대 5대 생존언어 전망)·문해력 붕괴 우려·독서의 힘을 다룬 인문학 인터뷰. 검증가능한 투자 수치·종목콜 전무 — 과거 '지식선발대'·'성수동 지식클럽' 사례와 동일 판정.",
+     "link": "https://www.youtube.com/watch?v=1-ZLJxfeXw4"
+    },
     {
      "id": "Lpyaa3YJKXU",
      "date": "2026-07-21",

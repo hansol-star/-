@@ -1,40 +1,40 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-24 06:35 KST",
+  "generated_at": "2026-07-24 10:20 KST",
   "as_of": "2026-07-23 목 16:31 KST (v58 — 코스피+4.40% 대폭등·외인4일연속·breadth개선, 게이트1/3 유지)",
   "source_report": "docs/reports/report_v58_2026-07-23.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1474.12
+    "usdkrw": 1465.58
   },
   "totals": {
-    "assets_krw": 7973049,
-    "stocks_value_krw": 7800543,
+    "assets_krw": 7837782,
+    "stocks_value_krw": 7665276,
     "cash_krw": 172506,
-    "day_change_krw": -68624,
-    "day_change_pct": -0.87,
-    "total_pnl_krw": -150665,
-    "total_pnl_pct": -1.89
+    "day_change_krw": -251450,
+    "day_change_pct": -3.18,
+    "total_pnl_krw": -285931,
+    "total_pnl_pct": -3.6
   },
   "safety": {
     "pin": 7500,
     "level2": 8000,
-    "price": 7096.89,
-    "change_pct": 4.4,
+    "price": 6884.64,
+    "change_pct": -2.99,
     "status": "freeze"
   },
   "indices": [
     {
       "label": "코스피",
       "ticker": "^KS11",
-      "price": 7096.89,
-      "change_pct": 4.4
+      "price": 6884.64,
+      "change_pct": -2.99
     },
     {
       "label": "코스닥",
       "ticker": "^KQ11",
-      "price": 790.28,
-      "change_pct": 4.9
+      "price": 769.6,
+      "change_pct": -2.62
     },
     {
       "label": "S&P500",
@@ -68,7 +68,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[급락 TF] 해제 게이트 조건① 점등 — docs/crash_tf.md §5 판정(②외인 순매수 재개 ③유가/이란 진정과 동시충족 + 2거래일 유지 시에만 해제). 부분 충족은 액션 아님",
-      "price": 7096.89,
+      "price": 6884.64,
       "fired": false
     },
     {
@@ -77,7 +77,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[급락 TF] S2 악화 국면 공식 진입(crash_tf.md §3-S2) — 방어 극대화·여전히 안 산다. 반대매매 연쇄·엔캐리 청산·레버리지ETF 재귀투매 감시 강화",
-      "price": 7096.89,
+      "price": 6884.64,
       "fired": false
     },
     {
@@ -95,7 +95,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "잔여 트랜치 전면 동결·재평가 (물타기 금지)",
-      "price": 7096.89,
+      "price": 6884.64,
       "fired": true
     },
     {
@@ -104,7 +104,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "2차 ~20만 분할 투입 (이란 결렬 동반 시)",
-      "price": 7096.89,
+      "price": 6884.64,
       "fired": true
     },
     {
@@ -113,7 +113,7 @@ window.APP_DATA = {
       "cond": "between",
       "when": null,
       "action": "국장=정수주만(소수점 불가) → 최소 1주 ≈229,500원. 정리후보+외인매도라 보류 우선, 매수해도 6/22 외인 재유입 확인 후 정수 1주 지정가",
-      "price": 220000.0,
+      "price": 208500.0,
       "fired": false
     },
     {
@@ -122,7 +122,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "✅[7/7 11:15 체결] 정수 1주 @295,500원(총 295,500원, 출금예정 7/9) — 2Q26 잠정실적 89.4조(컨센 84.4조↑, DS단독 80조+ 마진가속) 확인 후 눌림(-6.9%, 최저293,000)에서 집행. 신규 평단 273,833.33원(3주 합산). 대기중 GOOGL $330 GTC는 유지.",
-      "price": 270000.0,
+      "price": 258500.0,
       "fired": null
     },
     {
@@ -131,7 +131,7 @@ window.APP_DATA = {
       "cond": "between",
       "when": null,
       "action": "[7/14 정훈 승인 — 舊 10만 돌파 폐기] 눌림존 진입 시 편입 딥다이브 재검토(목표 평균 14.3만 = +117%). ⚠️집행은 안전핀(코스피 7,500) 해제 후 — 지금은 알림·검토만. 에너빌리티 부문 이익률(3%) 회복 확인 병행",
-      "price": 73200.0,
+      "price": 73000.0,
       "fired": false
     },
     {
@@ -140,7 +140,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[7/14 정훈 승인] 82,000 회복 = 조정 이탈·추세복귀 알림 — 눌림존 미체결 시 모멘텀 재평가 신호(추격매수 아님, 룰3)",
-      "price": 73200.0,
+      "price": 73000.0,
       "fired": false
     },
     {
@@ -194,7 +194,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[7/18 PM 판단] 정리후보 확정 — 외인 순매수 전환 확인 + 반등 205,000원 이상 시 정수 1주 전량 지정가 청산. 크래시 저점 시장가 투매 금지(트림-into-strength). 대금=안전핀 해제 후 코어(NVDA/MSFT/MU) 재배치 대기.",
-      "price": 220000.0,
+      "price": 208500.0,
       "fired": true
     },
     {
@@ -212,7 +212,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[경제사냥꾼 셋업·지정가 오더북] 165,000 이하 눌림서 신규편입 정수 1주 지정가 검토. 외인 51.24%·해외궐련 +56%·자사주 9.5% 소각·DS 목표 240,000=디펜시브 분산. 편입 전 /stock-deepdive 권장",
-      "price": 179600.0,
+      "price": 183100.0,
       "fired": false
     },
     {
@@ -242,11 +242,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 4,
       "cost": 267500,
-      "price": 270000.0,
-      "change_pct": 3.65,
-      "value_krw": 1080000,
-      "pnl_pct": 0.93,
-      "pnl_krw": 10000,
+      "price": 258500.0,
+      "change_pct": -4.26,
+      "value_krw": 1034000,
+      "pnl_pct": -3.36,
+      "pnl_krw": -36000,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -290,7 +290,6 @@ window.APP_DATA = {
         "[2026-07-15] 종가 279,500(+6.27%, 장중+8%서 페이드). 2Q확정 89.4조·DS마진 66→80% 가속=홀딩·AI5 tape-out. ASML FY26 가이던스 상향이 슈퍼사이클 실물근거. 2차 트랜치 안전핀 동결"
       ],
       "spark": [
-        310000.0,
         340500.0,
         358500.0,
         339500.0,
@@ -311,7 +310,8 @@ window.APP_DATA = {
         244000.0,
         259000.0,
         260500.0,
-        270000.0
+        270000.0,
+        258500.0
       ],
       "sector": "반도체·AI"
     },
@@ -322,11 +322,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 155200,
-      "price": 187500.0,
-      "change_pct": 2.63,
-      "value_krw": 187500,
-      "pnl_pct": 20.81,
-      "pnl_krw": 32300,
+      "price": 175800.0,
+      "change_pct": -6.24,
+      "value_krw": 175800,
+      "pnl_pct": 13.27,
+      "pnl_krw": 20600,
       "outlook": "core",
       "stars": 4,
       "score": 74,
@@ -447,7 +447,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        202000.0,
         204500.0,
         203000.0,
         195900.0,
@@ -468,7 +467,8 @@ window.APP_DATA = {
         167200.0,
         173200.0,
         182700.0,
-        187500.0
+        187500.0,
+        175800.0
       ],
       "sector": "전력·피지컬"
     },
@@ -479,11 +479,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 100000,
-      "price": 69800.0,
-      "change_pct": 3.25,
-      "value_krw": 69800,
-      "pnl_pct": -30.2,
-      "pnl_krw": -30200,
+      "price": 66400.0,
+      "change_pct": -4.87,
+      "value_krw": 66400,
+      "pnl_pct": -33.6,
+      "pnl_krw": -33600,
       "outlook": "momentum",
       "stars": 2,
       "score": 17,
@@ -563,7 +563,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        88800.0,
         95000.0,
         92300.0,
         85000.0,
@@ -584,7 +583,8 @@ window.APP_DATA = {
         61800.0,
         63900.0,
         67600.0,
-        69800.0
+        69800.0,
+        66400.0
       ],
       "sector": "전력·피지컬"
     },
@@ -595,11 +595,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 630000,
-      "price": 432000.0,
-      "change_pct": 3.35,
-      "value_krw": 432000,
-      "pnl_pct": -31.43,
-      "pnl_krw": -198000,
+      "price": 403000.0,
+      "change_pct": -6.71,
+      "value_krw": 403000,
+      "pnl_pct": -36.03,
+      "pnl_krw": -227000,
       "outlook": "hold",
       "stars": 2,
       "score": 53,
@@ -711,7 +711,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        511000.0,
         509000.0,
         503000.0,
         480500.0,
@@ -732,7 +731,8 @@ window.APP_DATA = {
         399000.0,
         399000.0,
         418000.0,
-        432000.0
+        432000.0,
+        403500.0
       ],
       "sector": "전력·피지컬"
     },
@@ -743,11 +743,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 250500,
-      "price": 220000.0,
-      "change_pct": 11.73,
-      "value_krw": 220000,
-      "pnl_pct": -12.18,
-      "pnl_krw": -30500,
+      "price": 208500.0,
+      "change_pct": -5.23,
+      "value_krw": 208500,
+      "pnl_pct": -16.77,
+      "pnl_krw": -42000,
       "outlook": "trim_candidate",
       "stars": 2,
       "score": 54,
@@ -783,7 +783,6 @@ window.APP_DATA = {
         "[7/16] 두나무 합병 2차 연기 재확인(11/19)·공정위 증권사 18곳 의견수렴=규제리스크 \"반대의견 수렴\" 격상"
       ],
       "spark": [
-        202500.0,
         199400.0,
         199700.0,
         196400.0,
@@ -804,7 +803,8 @@ window.APP_DATA = {
         185900.0,
         193000.0,
         196900.0,
-        220000.0
+        220000.0,
+        208500.0
       ],
       "sector": "빅테크"
     },
@@ -817,9 +817,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 208.76,
       "change_pct": -1.56,
-      "value_krw": 1581217,
+      "value_krw": 1572056,
       "pnl_pct": 4.64,
-      "pnl_krw": 88125,
+      "pnl_krw": 78965,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -914,9 +914,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 606.1,
       "change_pct": -3.36,
-      "value_krw": 1008820,
+      "value_krw": 1002976,
       "pnl_pct": -4.4,
-      "pnl_krw": -33792,
+      "pnl_krw": -39636,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1039,9 +1039,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 678.61,
       "change_pct": -1.23,
-      "value_krw": 1069007,
+      "value_krw": 1062814,
       "pnl_pct": 4.6,
-      "pnl_krw": 59254,
+      "pnl_krw": 53061,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1144,9 +1144,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 381.58,
       "change_pct": -2.24,
-      "value_krw": 811680,
+      "value_krw": 806978,
       "pnl_pct": -6.98,
-      "pnl_krw": -50450,
+      "pnl_krw": -55152,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -1259,9 +1259,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 321.66,
       "change_pct": -1.3,
-      "value_krw": 484821,
+      "value_krw": 482012,
       "pnl_pct": 25.09,
-      "pnl_krw": 101880,
+      "pnl_krw": 99071,
       "outlook": "hold",
       "stars": 3,
       "score": 64,
@@ -1356,9 +1356,9 @@ window.APP_DATA = {
       "cost": 358.01,
       "price": 317.69,
       "change_pct": -7.13,
-      "value_krw": 673437,
+      "value_krw": 669536,
       "pnl_pct": -11.26,
-      "pnl_krw": -76399,
+      "pnl_krw": -80300,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1438,9 +1438,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 120.04,
       "change_pct": -4.61,
-      "value_krw": 38079,
+      "value_krw": 37858,
       "pnl_pct": -48.29,
-      "pnl_krw": -34673,
+      "pnl_krw": -34894,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1524,9 +1524,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 176.61,
       "change_pct": 1.0,
-      "value_krw": 73808,
+      "value_krw": 73380,
       "pnl_pct": 8.97,
-      "pnl_krw": 6886,
+      "pnl_krw": 6458,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1634,9 +1634,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 990.21,
       "change_pct": 3.2,
-      "value_krw": 29195,
+      "value_krw": 29026,
       "pnl_pct": 32.2,
-      "pnl_krw": 7376,
+      "pnl_krw": 7207,
       "outlook": "core",
       "stars": 4,
       "score": 84,
@@ -1727,9 +1727,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 392.47,
       "change_pct": -1.09,
-      "value_krw": 41179,
+      "value_krw": 40941,
       "pnl_pct": -6.79,
-      "pnl_krw": -2472,
+      "pnl_krw": -2710,
       "outlook": "hold",
       "stars": 4,
       "score": 84,
@@ -1835,8 +1835,8 @@ window.APP_DATA = {
       "label": "SK하이닉스",
       "ticker": "000660.KS",
       "currency": "KRW",
-      "price": 1919000.0,
-      "change_pct": 4.86,
+      "price": 1837000.0,
+      "change_pct": -4.27,
       "stars": 4,
       "score": 79,
       "target": "Strong Buy",
@@ -1935,8 +1935,8 @@ window.APP_DATA = {
       "label": "삼성전기",
       "ticker": "009150.KS",
       "currency": "KRW",
-      "price": 1448000.0,
-      "change_pct": 7.66,
+      "price": 1389000.0,
+      "change_pct": -4.07,
       "stars": 3,
       "score": 63,
       "target": "KB 3,000,000원 (220만→상향)",
@@ -2039,8 +2039,8 @@ window.APP_DATA = {
       "label": "두산에너빌리티",
       "ticker": "034020.KS",
       "currency": "KRW",
-      "price": 73200.0,
-      "change_pct": 5.78,
+      "price": 73000.0,
+      "change_pct": -0.27,
       "stars": 3,
       "score": 64,
       "target": "135,000~165,000원",
@@ -2088,8 +2088,8 @@ window.APP_DATA = {
       "label": "LG이노텍",
       "ticker": "011070.KS",
       "currency": "KRW",
-      "price": 679000.0,
-      "change_pct": 4.95,
+      "price": 638000.0,
+      "change_pct": -6.04,
       "stars": 3,
       "score": 64,
       "target": "KB 1,600,000원",
@@ -2132,8 +2132,8 @@ window.APP_DATA = {
       "label": "한화오션",
       "ticker": "042660.KS",
       "currency": "KRW",
-      "price": 89900.0,
-      "change_pct": 7.15,
+      "price": 90800.0,
+      "change_pct": 1.0,
       "stars": 2,
       "score": 54,
       "target": "—",
@@ -2241,8 +2241,8 @@ window.APP_DATA = {
       "label": "KT&G",
       "ticker": "033780.KS",
       "currency": "KRW",
-      "price": 179600.0,
-      "change_pct": 1.7,
+      "price": 183100.0,
+      "change_pct": 1.95,
       "stars": 3,
       "score": 62,
       "target": "DS증권 240,000원",
@@ -2280,8 +2280,8 @@ window.APP_DATA = {
       "label": "원익IPS",
       "ticker": "240810.KQ",
       "currency": "KRW",
-      "price": 113300.0,
-      "change_pct": 1.43,
+      "price": 105000.0,
+      "change_pct": -7.33,
       "stars": 3,
       "score": 56,
       "target": "눌림 130,000~150,000원 검토",
@@ -2319,8 +2319,8 @@ window.APP_DATA = {
       "label": "테스",
       "ticker": "095610.KQ",
       "currency": "KRW",
-      "price": 154100.0,
-      "change_pct": -1.53,
+      "price": 142600.0,
+      "change_pct": -7.46,
       "stars": 3,
       "score": 57,
       "target": "눌림 대기",
@@ -2363,8 +2363,8 @@ window.APP_DATA = {
       "label": "한화에어로",
       "ticker": "012450.KS",
       "currency": "KRW",
-      "price": 958000.0,
-      "change_pct": 7.52,
+      "price": 1039000.0,
+      "change_pct": 8.46,
       "stars": 4,
       "score": 74,
       "target": "—",
@@ -2402,8 +2402,8 @@ window.APP_DATA = {
       "label": "삼성중공업",
       "ticker": "010140.KS",
       "currency": "KRW",
-      "price": 23650.0,
-      "change_pct": 9.49,
+      "price": 23550.0,
+      "change_pct": -0.42,
       "stars": 3,
       "score": 56,
       "target": "—",
@@ -2431,8 +2431,8 @@ window.APP_DATA = {
       "label": "HD현대중공업",
       "ticker": "329180.KS",
       "currency": "KRW",
-      "price": 498000.0,
-      "change_pct": 7.21,
+      "price": 504000.0,
+      "change_pct": 1.2,
       "stars": 3,
       "score": 57,
       "target": "—",
@@ -2679,8 +2679,8 @@ window.APP_DATA = {
       "label": "삼성바이오로직스",
       "ticker": "207940.KS",
       "currency": "KRW",
-      "price": 1379000.0,
-      "change_pct": 0.51,
+      "price": 1479000.0,
+      "change_pct": 7.25,
       "stars": 4,
       "score": 72,
       "target": "2,020,333원 컨센 (괴리+46.5%·Strong Buy 24명 / 한투195·IBK209·현대차210만)",
@@ -2722,7 +2722,6 @@ window.APP_DATA = {
   ],
   "fx_history": {
     "dates": [
-      "2026-06-22",
       "2026-06-23",
       "2026-06-24",
       "2026-06-25",
@@ -2745,10 +2744,9 @@ window.APP_DATA = {
       "2026-07-20",
       "2026-07-21",
       "2026-07-22",
-      "2026-07-23"
+      "2026-07-24"
     ],
     "closes": [
-      1539.05,
       1535.25,
       1542.76,
       1546.48,
@@ -2771,12 +2769,11 @@ window.APP_DATA = {
       1475.01,
       1479.72,
       1475.63,
-      1474.12
+      1465.38
     ]
   },
   "kospi_history": {
     "dates": [
-      "2026-06-23",
       "2026-06-24",
       "2026-06-25",
       "2026-06-26",
@@ -2796,10 +2793,10 @@ window.APP_DATA = {
       "2026-07-16",
       "2026-07-20",
       "2026-07-21",
-      "2026-07-22"
+      "2026-07-22",
+      "2026-07-24"
     ],
     "closes": [
-      8203.84,
       8471.02,
       8930.3,
       8411.21,
@@ -2819,13 +2816,14 @@ window.APP_DATA = {
       6820.6,
       6516.27,
       6747.95,
-      6797.7
+      6797.7,
+      6884.64
     ]
   },
   "hunter": {
     "_comment": "경제사냥꾼 분석 앱 정본. 보고서마다 research-feed/PM이 docs/research/hunter_log.md 갱신 시 여기 latest_videos(최신순 prepend)·track_record(최신 prepend)·themes도 함께 갱신 후 build_app_data.py 재실행. 앱에서 영상 목록을 누르면 상세 화면(#video/<id>)으로 들어간다. 각 영상 필드: date·title·tag(검증분류)·tickers(언급 종목, 앱에서 종목 상세로 링크) + summary(요약, 필수) + 선택 상세필드 points(핵심 포인트 배열)·mentions(언급 — 종목·인물·기관 서술)·references(참고 — 출처/기관 배열)·caveats(주의·미확인·과장 배열)·link(영상 URL). 선택필드는 있으면 상세화면에 표시, 없으면 생략. id는 없으면 앱이 목록 순번으로 라우팅.",
     "updated": "2026-07-23",
-    "source": "2026-07-23 무인 영상프리페치 루틴 — 경제사냥꾼 9편(7/22 저녁~7/23 오전) 전량 자막확보([검증]다수·[정정]2건). 수페TV·지식인사이드 신규 없음.",
+    "source": "2026-07-24 R1 영상 프리페치(무인) — 경제사냥꾼 10편(GOOGL·TSLA 실적 해석 6편·SK하이닉스 인텔오하이오·한국시장구조·관세·2차전지 각1편). [정정]1건(GOOGL capex STT자릿수오류)·[미확인] 전량 WebSearch 2~3회 교차검증 후 승격 또는 근거명시. setup-m7capex-0630 GOOGL조건 met 갱신.",
     "channel_note": "테마·방향성은 빠르고 유용(로봇·AI전력·레버리지 구조 등 선제 포착). 구체 수치는 자막오류·과장 잦음 → 방향성 채택·숫자 교차검증. ✅[7/2 오후] 파이프라인 복구: RSS(feeds/videos.xml) 탐색 + innertube 자막(페이싱·백오프) = yt-dlp 불요·봇차단 무관. '웹 환경이라 실패→로컬 대기' 서사 영구 폐기. 9편 전량 자막 확보(9/9), 봇플래그 1회는 60초 백오프 자동복구. '구독자 전용' 표기 영상도 실제 공개 — 자막 정상.",
     "headline": "[7/23] 신규 9편 — ①현대차(BD 100%지배완성, [정정] 2Q컨센최저치편향)·②SPCX(8/4실적+8/6락업, [정정]고점가 소수점오류)·③코스피 crash_tf 실측일치(외인+2.6조)·④7/24 이재명 AI서밋 4대CEO순차면담·⑤SK하이닉스 합작법인법 재확인(신규정보없음)·⑥전쟁종결 유가배경(호르무즈 3방석 소진)·⑦⑨원칙론(터틀트레이더 룰5정합·폭락후 트랜치전략 룰4정합). 크래시TF ACTIVE·안전핀 봉인 유지.",
     "setups": [
@@ -3044,7 +3042,11 @@ window.APP_DATA = {
         "thesis": "경제사냥꾼 6/30 저녁: M7 분화 — capex 4인방(MSFT·AMZN·GOOGL·META)의 7월말 2Q 가이던스 유지=AI 생태계·NVDA 수혜 확정, 축소=경계. MSFT FY26 capex $190B·backlog $627B [검증]. 우리 AI 슈퍼사이클 코어론과 정합. [7/12 보강] AMD 골드만 목표 $450→$640·Meta 6GW Instinct+OpenAI 6GW 계약 → AI서버가 GPU 1강→CPU·메모리·네트워크 동반, HBM 수요처가 엔비디아 1곳→다변화(보유 MU·삼성·워치 하닉 우호). 애플-브로드컴 2031 맞춤형 ASIC($30B+)도 같은 방향 — AI 슈퍼사이클 코어론 보강.",
         "conditions": [
           {
-            "text": "7/29 META·7/30 MSFT·AMZN·GOOGL 2Q capex 가이던스 유지/상향(축소 아님)",
+            "text": "GOOGL 7/22 발표 — capex $195~205B로 상향(직전 $180~190B) — ✅met. FCF -$5.9B(사상최초 마이너스)에도 '내년 더 쓴다' 재확인",
+            "met": true
+          },
+          {
+            "text": "7/29 MSFT·META, 7/30 AAPL·AMZN(美기준) capex 가이던스 유지/상향(축소 아님)",
             "met": false
           },
           {
@@ -3058,7 +3060,7 @@ window.APP_DATA = {
         ],
         "action": "빅4 capex 가이던스 유지 확인 후 NVDA·MSFT 눌림목 정수/소수점 분할 추가 검토. 단 GOOGL 증자·NVDA % 등 채널 과장수치는 기관확인분만 채택(견제). 갭당일 추격금지(룰3).",
         "status": "추적중",
-        "note": "[7/2] META Compute(잉여 연산 외부판매) = capex '회수' 스토리 — META +8~9% vs 반도체 급락. capex 수치만이 아니라 '수익화 서사'가 시장 해석을 좌우함을 확인. 7/29 META 실적서 Compute 구체화 여부 관전 항목 추가. | [7/3] 매크로 조건 met(NFP 비둘기). 잔여 = 7/29 META·7/30 MSFT 등 capex 가이던스 + 눌림목. [7/4] 채널 ⑨: 구글 클라우드 capex 유지 여부·메타 광고→AI 여력이 7월말 관전축(알파벳 capex $180~190B는 미확인). GOOGL Gemini 용량 부족으로 Meta 주문 일부 거절 [검증] = 수요>공급. | [7/11] 월가 신조어 'P7(Parabolic 7)' 부상 — 마이크론·샌디스크·AMD·브로드컴·마벨·인텔·델(AI 인프라 공급망) [검증·24/7WallSt/Bloomberg, Ben Emons 명명]. M7(AI 지출 주체) vs P7(AI 인프라 수혜 공급자) 구도 — 보유 MU·AVGO 직결. 골드만 AI인프라투자 $7,650억(2026)→$1.6조(2031) 전망 [검증 근사]. | [7/16 R1] 반도체장비 조기신호 확인 — ASML 2026 매출가이던스 대폭상향(360~400억→430~450억유로, +16%)·TSMC 6월매출+67.9%YoY 둘 다 'AI투자 안 꺾인다' 방향 재확인(체크포인트①). IBM -25.21%(58년만 최대폭락)는 AI capex 축소가 아니라 지출 우선순위가 SW→서버/메모리로 이동한 결과라는 해석(채널 'AI투자4단계'론) — M7 capex 자체가 줄어든 신호는 아직 아님, 7/22 알파벳·7/29 MSFT 가이던스가 여전히 최종 확인처. 조건1(capex 가이던스 유지/상향) 여전히 met:false, 대기 유지. | [7/16 R1] 반도체장비 조기신호 확인 — ASML 2026 매출가이던스 대폭상향(360~400억→430~450억유로, +16%)·TSMC 6월매출+67.9%YoY 둘 다 'AI투자 안 꺾인다' 방향 재확인(체크포인트①). IBM -25.21%(58년만 최대폭락)는 AI capex 축소가 아니라 지출 우선순위가 SW→서버/메모리로 이동한 결과라는 해석(채널 'AI투자4단계'론) — M7 capex 자체가 줄어든 신호는 아직 아님, 7/22 알파벳·7/29 MSFT 가이던스가 여전히 최종 확인처. 조건1(capex 가이던스 유지/상향) 여전히 met:false, 대기 유지. | [7/17 R1] 애플 AI서버칩 반도체기업 인수 검토설(로이터, 자체칩 '발트라' 지연 배경) + 주가 +4.01% 사상최고가 마감, 앤트로픽 비공개 상장서류 제출 후 GS·MS·JPM 기관투자자 사전미팅 착수($965B밸류) — 둘 다 WebSearch 다출처[검증]. AI capex 군비경쟁이 애플까지 전방위 확산 신호로 M7capex 코어논지 보강(단 애플은 아직 구체 대상·조건 불명 — 신규 setup화는 보류). 지식인사이드(7/16, 김효진 2부)도 같은날 모건스탠리 '메모리→하이퍼스케일러 비중이동' 리포트를 재확인 — 수페TV 7/4 '하이퍼스케일러 승자론'과 3채널 교차확인."
+        "note": "[7/2] META Compute(잉여 연산 외부판매) = capex '회수' 스토리 — META +8~9% vs 반도체 급락. capex 수치만이 아니라 '수익화 서사'가 시장 해석을 좌우함을 확인. 7/29 META 실적서 Compute 구체화 여부 관전 항목 추가. | [7/3] 매크로 조건 met(NFP 비둘기). 잔여 = 7/29 META·7/30 MSFT 등 capex 가이던스 + 눌림목. [7/4] 채널 ⑨: 구글 클라우드 capex 유지 여부·메타 광고→AI 여력이 7월말 관전축(알파벳 capex $180~190B는 미확인). GOOGL Gemini 용량 부족으로 Meta 주문 일부 거절 [검증] = 수요>공급. | [7/11] 월가 신조어 'P7(Parabolic 7)' 부상 — 마이크론·샌디스크·AMD·브로드컴·마벨·인텔·델(AI 인프라 공급망) [검증·24/7WallSt/Bloomberg, Ben Emons 명명]. M7(AI 지출 주체) vs P7(AI 인프라 수혜 공급자) 구도 — 보유 MU·AVGO 직결. 골드만 AI인프라투자 $7,650억(2026)→$1.6조(2031) 전망 [검증 근사]. | [7/16 R1] 반도체장비 조기신호 확인 — ASML 2026 매출가이던스 대폭상향(360~400억→430~450억유로, +16%)·TSMC 6월매출+67.9%YoY 둘 다 'AI투자 안 꺾인다' 방향 재확인(체크포인트①). IBM -25.21%(58년만 최대폭락)는 AI capex 축소가 아니라 지출 우선순위가 SW→서버/메모리로 이동한 결과라는 해석(채널 'AI투자4단계'론) — M7 capex 자체가 줄어든 신호는 아직 아님, 7/22 알파벳·7/29 MSFT 가이던스가 여전히 최종 확인처. 조건1(capex 가이던스 유지/상향) 여전히 met:false, 대기 유지. | [7/16 R1] 반도체장비 조기신호 확인 — ASML 2026 매출가이던스 대폭상향(360~400억→430~450억유로, +16%)·TSMC 6월매출+67.9%YoY 둘 다 'AI투자 안 꺾인다' 방향 재확인(체크포인트①). IBM -25.21%(58년만 최대폭락)는 AI capex 축소가 아니라 지출 우선순위가 SW→서버/메모리로 이동한 결과라는 해석(채널 'AI투자4단계'론) — M7 capex 자체가 줄어든 신호는 아직 아님, 7/22 알파벳·7/29 MSFT 가이던스가 여전히 최종 확인처. 조건1(capex 가이던스 유지/상향) 여전히 met:false, 대기 유지. | [7/17 R1] 애플 AI서버칩 반도체기업 인수 검토설(로이터, 자체칩 '발트라' 지연 배경) + 주가 +4.01% 사상최고가 마감, 앤트로픽 비공개 상장서류 제출 후 GS·MS·JPM 기관투자자 사전미팅 착수($965B밸류) — 둘 다 WebSearch 다출처[검증]. AI capex 군비경쟁이 애플까지 전방위 확산 신호로 M7capex 코어논지 보강(단 애플은 아직 구체 대상·조건 불명 — 신규 setup화는 보류). 지식인사이드(7/16, 김효진 2부)도 같은날 모건스탠리 '메모리→하이퍼스케일러 비중이동' 리포트를 재확인 — 수페TV 7/4 '하이퍼스케일러 승자론'과 3채널 교차확인. | [7/24] GOOGL 실제 발표(7/22) capex $195~205B 상향 확인 — 4조건 중 2개 met(GOOGL capex 상향 신규 + 매크로 우호). 기존 조건문의 'GOOGL 7/30'은 날짜오류였음(GOOGL은 이미 7/22 발표완료) — 재분리 정정. 다음 체크포인트 = 7/29 MSFT·META, 7/30 AAPL·AMZN capex 가이던스."
       },
       {
         "id": "setup-현대차로봇리레이팅-0701",
@@ -3224,6 +3226,112 @@ window.APP_DATA = {
       }
     ],
     "latest_videos": [
+      {
+        "id": "kormyb_5RjM",
+        "date": "2026-07-24",
+        "title": "지금 '2차전지' 투자자들이 꼭 봐야 할 '하반기 상승장' 정체",
+        "tag": "테마정보성",
+        "tickers": [],
+        "summary": "[정보성] 2차전지 ESS축(EV둔화 보완) — LG엔솔 EV마진 kWh당$17 vs ESS$36, 삼성SDI 4Q 美LFP양산22GW, 美ESS 2028수요153GW>현지생산141GW 공급부족, 한국 3차 중앙계약시장 9월 예정(1조원대). LG엔솔·삼성SDI 미보유·미워치 — 방향성만 로깅.",
+        "link": "https://www.youtube.com/watch?v=kormyb_5RjM"
+      },
+      {
+        "id": "bL-4cb_ao-U",
+        "date": "2026-07-24",
+        "title": "최근 1개월, 코스피 폭락에도 오히려 주가 올랐다는 '의외의 종목' TOP3",
+        "tag": "교육콘텐츠",
+        "tickers": [],
+        "summary": "[교육] 커버드콜 ETF 3종(라이즈200배당ATM 분배율22.5%·플러스고배당위클리 분배율24%인데 1년총수익-27%·코덱스금융고배당탑텐) 최근1개월 상위권 — 분배율≠총수익 주의. 정훈 보유·워치 무관, setups 미등록.",
+        "link": "https://www.youtube.com/watch?v=bL-4cb_ao-U"
+      },
+      {
+        "id": "zG-KDNbqdkA",
+        "date": "2026-07-24",
+        "title": "트럼프 때문에 또 다시 '하락장' 올 수도 있다는 이유",
+        "tag": "매크로·관세",
+        "tickers": [],
+        "summary": "[검증] 코스피 7,096.89(+4.40%)·코스닥 790.28(+5.22%) GOOGL실적발 반등 정확. 美 강제노동관세(무역법301조) 한국 12.5% — 영상시점 '발표임박'이 [검증-7/24 실제확정] 7/24 13:01 KST 발효로 진전(60개국·기존세율<12.5%면 12.5%캡). 매크로데스크 공유 권고.",
+        "link": "https://www.youtube.com/watch?v=zG-KDNbqdkA"
+      },
+      {
+        "id": "YU_q-IYECqs",
+        "date": "2026-07-24",
+        "title": "월가가 보는, '한국 시장'의 근본적인 문제점",
+        "tag": "구조분석·풀분석",
+        "tickers": [
+          "005930.KS",
+          "000660.KS"
+        ],
+        "summary": "[검증] 코스피 롤러코스터(6/19 사상최고9,385→7/13-8.95%6,806.93→7/21반등) 4대범인: 삼성+하이닉스 쏠림52%+·2배레버리지ETF16개(5/27상장)·반대매매급증(7월일평균527억,작년比7.4배 [미확인-2출처시도, 방향은 crash_tf 실측과 정합])·외인 규정상 비중조절매도. 근본원인=상속세최고60%發 오너 저평가 유인(코리아디스카운트), 삼성·하닉 PER6배 vs 마이크론11배[검증]. 체크포인트: 시장폭(쏠림해소)·빅테크capex 실매출전환·상속세개편.",
+        "link": "https://www.youtube.com/watch?v=YU_q-IYECqs"
+      },
+      {
+        "id": "1yT02nRqd1U",
+        "date": "2026-07-24",
+        "title": "현재 클래리티법 속, 트럼프 코인 '금지 조항'이 추가된 진짜 이유",
+        "tag": "정치·코인",
+        "tickers": [],
+        "summary": "[정보성] 美 클래리티법 수정안 트럼프 코인수익 금지 윤리조항(자녀제외·기존수익 우회로 그대로·법무부 자체단속·2029만료 등 구멍多)에도 시장은 법안진전 자체를 호재로 반응. 8/10 상원휴회 전 통과여부 분기점. 정훈 보유·워치 무관(코인 미편입).",
+        "link": "https://www.youtube.com/watch?v=1yT02nRqd1U"
+      },
+      {
+        "id": "ioeqOxi8o0o",
+        "date": "2026-07-24",
+        "title": "지금 미국 개미들이, 몰래 줍고있다는 '구글' 2차 수혜주 3개",
+        "tag": "테마·2차수혜",
+        "tickers": [
+          "GOOGL"
+        ],
+        "summary": "[검증] GOOGL TPU 외부판매(클라우드 제품매출화) 수혜 3종 — 테라울프 구글백스톱$3.2B·14%지분[검증], Hut8(STT '허세이샤') 루이지애나15년$7.0B리스+구글보증·$3.25B투자등급조달[검증]·계약가치~$27B(채널$266억과 근사), 사이퍼마이닝 백스톱 합산~$17억 근사[검증-근사]. 주가 YTD+139%(실측+128%대와 근사)·1년+413%[미확인세부]. 미보유·비워치 3종 — setups 미등록(딥다이브·정훈승인·눌림목 3조건 미충족), 정보성 로깅만.",
+        "link": "https://www.youtube.com/watch?v=ioeqOxi8o0o"
+      },
+      {
+        "id": "wOewzqlPj9U",
+        "date": "2026-07-24",
+        "title": "구글 실적발표 이후, 지금 투자자들이 꼭 봐야하는 다음 '투자' 포인트",
+        "tag": "빅테크실적프리뷰·풀분석",
+        "tickers": [
+          "MSFT",
+          "META",
+          "AAPL",
+          "GOOGL"
+        ],
+        "summary": "[검증] 다음주 빅테크9개 실적프리뷰 — 7/28 시게이트·코닝, 7/29 MSFT·META·LRCX·ARM·QCOM, 7/30 AAPL·AMZN(美기준)[검증-Fool·FinanceCalendar]. '쓰는쪽'(MSFT·META·AMZN capex확대=韓반도체 주문호재)/'받는쪽'(LRCX·ARM·QCOM·시게이트·코닝=AI인프라 수요 대리지표) 프레임. MSFT 6월주가-19%·수주잔고$627B[기존setup 일치]. M7 capex합계~$7,400억 추산[미확인-2출처시도, 방향만 채택]. → setup-m7capex-0630 GOOGL조건 met=true 갱신(capex 상향 확인) + 날짜 재분리(GOOGL 이미 7/22발표완료, MSFT·META 7/29, AAPL·AMZN 7/30).",
+        "link": "https://www.youtube.com/watch?v=wOewzqlPj9U"
+      },
+      {
+        "id": "RE2iWXIU_T0",
+        "date": "2026-07-24",
+        "title": "이제 '트럼프' 수혜주까지 될 수 있다는 SK하이닉스 근황",
+        "tag": "테마·미보유",
+        "tickers": [
+          "000660.KS"
+        ],
+        "summary": "[검증] 인텔 오하이오 팹 인수설→SK하이닉스 공식 부인[검증-뉴스핌]. '공동운영 파트너' 후보설 부상은 [미확인-2출처시도, 확인실패]. 美정부 인텔지분~10% 보유·트럼프 국내생산압박 연계 프레임. 미보유·비워치, setup-하이닉스-합작법인-0722와 별개 사안(신규 setup 미등록).",
+        "link": "https://www.youtube.com/watch?v=RE2iWXIU_T0"
+      },
+      {
+        "id": "6BMmQsl1T3U",
+        "date": "2026-07-24",
+        "title": "구글 '역대급 실적' 이후, 주가가 오히려 빠진 진짜 이유",
+        "tag": "빅테크실적·쇼츠",
+        "tickers": [
+          "GOOGL"
+        ],
+        "summary": "[검증] GOOGL 클라우드매출$24.8B(+82%)·영업이익2.8B→8.8B(3배+, 마진35.6%)·백로그$514B 전부 정확[CNBC]. **[정정]** capex \"최대 2,50억 달러\"는 STT 자릿수오류 — 실제 $195~205B로 상향(직전$180~190B), $250B 아님(상향 방향 자체는 정확).",
+        "link": "https://www.youtube.com/watch?v=6BMmQsl1T3U"
+      },
+      {
+        "id": "h__5P8iT1AA",
+        "date": "2026-07-24",
+        "title": "7월 23일 투자자들이 꼭 알아야 하는 투자 포인트",
+        "tag": "일일브리핑",
+        "tickers": [
+          "GOOGL"
+        ],
+        "summary": "[검증] GOOGL 매출$119.8B(+24%)·클라우드+82%인데 시간외-5%(EPS9.11 착시, core$2.85<컨센$2.89 소폭미달+capex상향)[CNBC]. TSLA 매출$28.2B 사상최대·영업이익-57%[검증-InsideEVs]. 코스피 전일7,166터치 후6,797반납→오늘 GOOGL방향+반도체해석이 코스피 좌우.",
+        "link": "https://www.youtube.com/watch?v=h__5P8iT1AA"
+      },
       {
         "id": "uGV83vx9rfw",
         "date": "2026-07-23",
@@ -3489,6 +3597,10 @@ window.APP_DATA = {
     ],
     "track_record": [
       {
+        "date": "2026-07-24",
+        "note": "무인 영상프리페치 루틴 10편(7/23 12:03~7/24 08:00): GOOGL·TSLA 동시실적(7/22발표) 해석 6편 + SK하이닉스 인텔오하이오·한국시장구조분석·관세·2차전지 각1편. GOOGL 실적수치(매출$119.8B+24%·클라우드+82%·EPS9.11/core$2.85·백로그$514B) 전부 WebSearch 다출처 정확 일치. [정정]1건(capex '2,50억달러'는 STT자릿수오류, 실제 $195~205B — 방향은 정확). 강제노동관세(한국12.5%)는 영상시점 '임박'이 이후 실제 7/24 13:01 KST 확정 발효로 진전 확인. GOOGL 2차수혜주(테라울프·Cipher·Hut8) 백스톱 규모 전부 근사 검증. setups: 신규등록 없음(3종목 모두 미보유·비워치 정보성), 기존 setup-m7capex-0630 GOOGL조건 met=true 갱신."
+      },
+      {
         "date": "2026-07-23",
         "note": "무인 영상프리페치 루틴 9편(7/22저녁~7/23오전): 코스피 실측(crash_tf 완전일치)·SpaceX 1Q공시(AI손실$25억·capex$77억 정확일치)·현대차BD풋옵션·이재명AI서밋 참석진 순서까지 정확 — 전반적 정확도 높음. [정정]2건: 현대차 2Q컨센서스 최저치 편향(-20%YoY 과장, 실제 두자릿수초반)·SpaceX 고점가 소수점탈락($2,225→$225.64). setups 신규등록 없음(하이닉스합작법인·현대차로봇리레이팅·SPCX 3개 모두 조건 미충족 living tracker 유지, SPCX action 날짜 8/4·8/6 분리정정)."
       },
@@ -3744,21 +3856,137 @@ window.APP_DATA = {
     ],
     "_updated_note": "7/18(토) research-feed 단독 캐치업 세션 — 7/17 저녁 몰림분(10편, 11:10~7/18 08:00)을 hunter_latest.py --max12로 확보(전량 자막 성공, FAILED 0). TSMC실적 심층 3편·선반영프레임·7/29 하이닉스 D-day 종합·中AI쇼크(Kimi K3, 신규)·CXMT/트럼프규제(정정) 등 WebSearch로 교차검증. setups: setup-메모리코어-0629(SOX베어마켓+선반영3사례+CoreWeave헤지 note 보강)·setup-하이닉스ADR-0708(7/29 D-day 프레임 대량 보강+action에 체크포인트 추가)·setup-반전트리거-0629(헤드윈드 누적 note) 갱신. latest_videos 10편 prepend(newest 78 — 다음 build_app_data.py 실행시 hunter_archive 자동 롤오버 필요). source_report는 아직 다음 정식 보고서(v53) 미발행이라 v52 유지 — R2/차기 보고서가 이 캐치업을 소비.",
     "source_report": "docs/reports/report_v57_2026-07-22.md",
-    "as_of": "2026-07-22 수 18:23 KST (v57 — R1 10편 + R2델타 4편)",
+    "as_of": "2026-07-24 금 R1 (10편 신규, 7/23 12:03~7/24 08:00 커버)",
     "scorecard": {
       "buckets": {
         "정확": 124,
         "근사": 36,
         "시점": 3,
-        "미확인": 119,
+        "미확인": 129,
         "정정": 28,
         "과장": 0
       },
-      "total": 310,
-      "accuracy_pct": 52
+      "total": 320,
+      "accuracy_pct": 50
     }
   },
   "hunter_archive": [
+    {
+      "date": "2026-07-24",
+      "title": "지금 '2차전지' 투자자들이 꼭 봐야 할 '하반기 상승장' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[정보성] 2차전지 ESS축(EV둔화 보완) — LG엔솔 EV마진 kWh당$17 vs ESS$36, 삼성SDI 4Q 美LFP양산22GW, 美ESS 2028수요153GW>현지생산141GW 공급부족, 한국 3차 중앙계약시장 9월 예정(1조원대). LG엔솔·삼성SDI 미보유·미워치 — 방향성만 로깅.",
+      "views": null,
+      "id": "kormyb_5RjM"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "최근 1개월, 코스피 폭락에도 오히려 주가 올랐다는 '의외의 종목' TOP3",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[교육] 커버드콜 ETF 3종(라이즈200배당ATM 분배율22.5%·플러스고배당위클리 분배율24%인데 1년총수익-27%·코덱스금융고배당탑텐) 최근1개월 상위권 — 분배율≠총수익 주의. 정훈 보유·워치 무관, setups 미등록.",
+      "views": null,
+      "id": "bL-4cb_ao-U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "트럼프 때문에 또 다시 '하락장' 올 수도 있다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[검증] 코스피 7,096.89(+4.40%)·코스닥 790.28(+5.22%) GOOGL실적발 반등 정확. 美 강제노동관세(무역법301조) 한국 12.5% — 영상시점 '발표임박'이 [검증-7/24 실제확정] 7/24 13:01 KST 발효로 진전(60개국·기존세율<12.5%면 12.5%캡). 매크로데스크 공유 권고.",
+      "views": null,
+      "id": "zG-KDNbqdkA"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "월가가 보는, '한국 시장'의 근본적인 문제점",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] 코스피 롤러코스터(6/19 사상최고9,385→7/13-8.95%6,806.93→7/21반등) 4대범인: 삼성+하이닉스 쏠림52%+·2배레버리지ETF16개(5/27상장)·반대매매급증(7월일평균527억,작년比7.4배 [미확인-2출처시도, 방향은 crash_tf 실측과 정합])·외인 규정상 비중조절매도. 근본원인=상속세최고60%發 오너 저평가 유인(코리아디스카운트), 삼성·하닉 PER6배 vs 마이크론11배[검증]. 체크포인트: 시장폭(쏠림해소)·빅테크capex 실매출전환·상속세개편.",
+      "views": null,
+      "id": "YU_q-IYECqs"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "현재 클래리티법 속, 트럼프 코인 '금지 조항'이 추가된 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "[정보성] 美 클래리티법 수정안 트럼프 코인수익 금지 윤리조항(자녀제외·기존수익 우회로 그대로·법무부 자체단속·2029만료 등 구멍多)에도 시장은 법안진전 자체를 호재로 반응. 8/10 상원휴회 전 통과여부 분기점. 정훈 보유·워치 무관(코인 미편입).",
+      "views": null,
+      "id": "1yT02nRqd1U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "지금 미국 개미들이, 몰래 줍고있다는 '구글' 2차 수혜주 3개",
+      "theme": null,
+      "tickers": [
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] GOOGL TPU 외부판매(클라우드 제품매출화) 수혜 3종 — 테라울프 구글백스톱$3.2B·14%지분[검증], Hut8(STT '허세이샤') 루이지애나15년$7.0B리스+구글보증·$3.25B투자등급조달[검증]·계약가치~$27B(채널$266억과 근사), 사이퍼마이닝 백스톱 합산~$17억 근사[검증-근사]. 주가 YTD+139%(실측+128%대와 근사)·1년+413%[미확인세부]. 미보유·비워치 3종 — setups 미등록(딥다이브·정훈승인·눌림목 3조건 미충족), 정보성 로깅만.",
+      "views": null,
+      "id": "ioeqOxi8o0o"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "구글 실적발표 이후, 지금 투자자들이 꼭 봐야하는 다음 '투자' 포인트",
+      "theme": null,
+      "tickers": [
+        "MSFT",
+        "META",
+        "AAPL",
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] 다음주 빅테크9개 실적프리뷰 — 7/28 시게이트·코닝, 7/29 MSFT·META·LRCX·ARM·QCOM, 7/30 AAPL·AMZN(美기준)[검증-Fool·FinanceCalendar]. '쓰는쪽'(MSFT·META·AMZN capex확대=韓반도체 주문호재)/'받는쪽'(LRCX·ARM·QCOM·시게이트·코닝=AI인프라 수요 대리지표) 프레임. MSFT 6월주가-19%·수주잔고$627B[기존setup 일치]. M7 capex합계~$7,400억 추산[미확인-2출처시도, 방향만 채택]. → setup-m7capex-0630 GOOGL조건 met=true 갱신(capex 상향 확인) + 날짜 재분리(GOOGL 이미 7/22발표완료, MSFT·META 7/29, AAPL·AMZN 7/30).",
+      "views": null,
+      "id": "wOewzqlPj9U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "이제 '트럼프' 수혜주까지 될 수 있다는 SK하이닉스 근황",
+      "theme": null,
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] 인텔 오하이오 팹 인수설→SK하이닉스 공식 부인[검증-뉴스핌]. '공동운영 파트너' 후보설 부상은 [미확인-2출처시도, 확인실패]. 美정부 인텔지분~10% 보유·트럼프 국내생산압박 연계 프레임. 미보유·비워치, setup-하이닉스-합작법인-0722와 별개 사안(신규 setup 미등록).",
+      "views": null,
+      "id": "RE2iWXIU_T0"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "구글 '역대급 실적' 이후, 주가가 오히려 빠진 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] GOOGL 클라우드매출$24.8B(+82%)·영업이익2.8B→8.8B(3배+, 마진35.6%)·백로그$514B 전부 정확[CNBC]. **[정정]** capex \"최대 2,50억 달러\"는 STT 자릿수오류 — 실제 $195~205B로 상향(직전$180~190B), $250B 아님(상향 방향 자체는 정확).",
+      "views": null,
+      "id": "6BMmQsl1T3U"
+    },
+    {
+      "date": "2026-07-24",
+      "title": "7월 23일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "[검증] GOOGL 매출$119.8B(+24%)·클라우드+82%인데 시간외-5%(EPS9.11 착시, core$2.85<컨센$2.89 소폭미달+capex상향)[CNBC]. TSLA 매출$28.2B 사상최대·영업이익-57%[검증-InsideEVs]. 코스피 전일7,166터치 후6,797반납→오늘 GOOGL방향+반도체해석이 코스피 좌우.",
+      "views": null,
+      "id": "h__5P8iT1AA"
+    },
     {
       "date": "2026-07-23",
       "title": "SK하이닉스, 9월 역대급 상승장 올 수 있다는 이유",
@@ -7183,14 +7411,14 @@ window.APP_DATA = {
   ],
   "feeds": {
     "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
-    "updated": "2026-07-23",
-    "source": "2026-07-23 R1 영상 프리페치(무인) — 수페TV·지식인사이드 모두 신규 투자콘텐츠 없음(수페TV 최신 7/21 Dpb3r3wbjic 이미 캐시·주기 정상 / 지식인사이드 7/22 20:32 성수동지식클럽 EP.2는 제목필터로 filtered=true, 유럽여행 콘텐츠 확인)",
+    "updated": "2026-07-24",
+    "source": "2026-07-24 R1 영상 프리페치(무인) — 수페TV 신규 없음(최신 여전히 7/21 Dpb3r3wbjic) / 지식인사이드 신규 1편(1-ZLJxfeXw4, 7/23 19:00, 김진명 작가 인터뷰) 확보했으나 비투자 콘텐츠 판정(setups 미등록). 경제사냥꾼(hunter.json)만 10편 신규 처리.",
     "channels": {
       "supe": {
         "name": "수페TV",
         "channel_id": "UCfnqgWlC5IvJEAPTmyjaixA",
         "channel_note": "주 2~3회 주간 시장랩업. 지수·섹터·수급·13F·실적일정까지 구체 수치 多 — 보유종목(MU·AAPL·META·MSFT·NVDA·GOOGL) 직결 주장이 많아 [검증/정정] 태깅·조건트래커 가치 높음. 배당·ETF 성향(커버드콜·SCHD)은 정훈 스타일과 결이 다름 → 종목·테마 팩트 위주 채택.",
-        "headline": "[7/21] DCA챌린지 238주차 — 나스닥100+72.1%·S&P500+57.3%(5년), 환율패턴(1개월-3%후 반등확률76.5%)만 참고. 개별종목콜 없음.",
+        "headline": "[7/21] DCA챌린지 238주차 — 나스닥100+72.1%·S&P500+57.3%(5년), 환율패턴(1개월-3%후 반등확률76.5%)만 참고. 개별종목콜 없음. (7/24 확인: 신규 없음, 최신 여전히 7/21)",
         "setups": [],
         "latest_videos": [
           {
@@ -7320,9 +7548,20 @@ window.APP_DATA = {
         "name": "지식인사이드",
         "channel_id": "UCA_hgsFzmynpv1zkvA5A7jA",
         "channel_note": "전문가 인터뷰 채널(윤지호·오건영·빈센트 등). 매일 업로드하나 비투자 콘텐츠 다수 → hunter_latest.py --channel jisik이 투자 키워드 제목필터 적용. 성격 = 종목 콜이 아닌 프레임·통찰 → 태깅 위주, setups는 명확한 조건부 콜일 때만. study_log.md의 오건영·빈센트 수동 기록과 이어짐.",
-        "headline": "[7/21] 지식선발대 EP.5(뉴욕 변호사 커리어 인터뷰) — 비투자 콘텐츠, 신규 종목콜 없음.",
+        "headline": "[7/23] 지식인클래스 EP.10(김진명 작가, 한글 창제사·문해력 담론) — 비투자 콘텐츠, 신규 종목콜 없음.",
         "setups": [],
         "latest_videos": [
+          {
+            "id": "1-ZLJxfeXw4",
+            "date": "2026-07-23",
+            "title": "\"오랑캐 문자\"라 비난받던 한글이 600년 뒤 세계를 놀라게 한 이유ㅣ지식인클래스 EP.10 (김진명 작가)",
+            "tag": "비투자 판정",
+            "tickers": [],
+            "guest": "김진명 (소설가)",
+            "verdict": "비투자 콘텐츠 — 심층분석·setups 대상 제외",
+            "summary": "[비투자] 세종의 한글 창제사(사대주의 조선 속 애민혁명)·한글의 음성학적 구조(28!≈3×10²⁹ 조합, AI시대 5대 생존언어 전망)·문해력 붕괴 우려·독서의 힘을 다룬 인문학 인터뷰. 검증가능한 투자 수치·종목콜 전무 — 과거 '지식선발대'·'성수동 지식클럽' 사례와 동일 판정.",
+            "link": "https://www.youtube.com/watch?v=1-ZLJxfeXw4"
+          },
           {
             "id": "Lpyaa3YJKXU",
             "date": "2026-07-21",

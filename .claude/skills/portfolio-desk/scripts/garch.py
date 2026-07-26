@@ -25,6 +25,7 @@ GARCH). vol_gauge.py는 '어제까지 얼마나 격렬했나'(후행 실현변�
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 import math
 import statistics
@@ -44,26 +45,52 @@ except ImportError:
 YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 TRADING_DAYS = 252
+PCT_LOOKBACK = 252  # 폭풍 %ile 랭킹 창 = 최근 1년(vol_gauge·crash_tf §5b 정의와 일치)
 
 
 # ---------- 데이터 ----------
-def load_closes(symbol: str) -> list[float]:
-    """history_backfill 캐시 1차(상장 이래 전 일봉) → 없으면 Yahoo 2년 폴백."""
-    if hb is not None:
-        rows = hb.load_cached(symbol)
-        if len(rows) > 60:
-            return [c for _, c in rows]
-    # 폴백: 2년 range
-    url = YAHOO_CHART.format(symbol=urllib.parse.quote(symbol)) + "?interval=1d&range=2y"
+def _yahoo_rows(symbol: str, rng: str = "2y") -> list[tuple[str, float]]:
+    """Yahoo 일봉 (ISO날짜, 종가) 리스트. 실패 시 빈 리스트."""
+    url = (YAHOO_CHART.format(symbol=urllib.parse.quote(symbol))
+           + f"?interval=1d&range={rng}")
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=20) as r:
             data = json.loads(r.read().decode())
-        closes = data["chart"]["result"][0]["indicators"]["quote"][0]["close"]
-        return [c for c in closes if c is not None]
+        res = data["chart"]["result"][0]
+        ts = res["timestamp"]
+        closes = res["indicators"]["quote"][0]["close"]
+        out = []
+        for t, c in zip(ts, closes):
+            if c is None:
+                continue
+            # KRX 09:00 KST = 00:00 UTC, 미장 09:30 ET = 13:30/14:30 UTC → UTC 날짜가 거래일과 일치
+            out.append((datetime.datetime.utcfromtimestamp(t).date().isoformat(), float(c)))
+        return out
     except (urllib.error.HTTPError, urllib.error.URLError, KeyError,
             IndexError, TypeError, ValueError):
         return []
+
+
+def load_closes(symbol: str) -> list[float]:
+    """history_backfill 캐시(상장 이래 전 일봉) + **최신 봉 top-up** → 없으면 Yahoo 2년 폴백.
+
+    [2026-07-26 교정 — 안전핀 판정에 직결된 실사고] 캐시만 읽던 舊 구현은 백필 루틴이
+    밀리면 **최근 거래일이 통째로 빠진 채** GARCH를 적합했다. 실측: ^KS11 캐시 마지막이
+    7/22(6,797.70)라 **7/24 -5.72% 급락(6,690.62)을 못 본 상태로** vol_sizing이 안전핀·
+    폭풍 %ile을 판정 중이었다(같은 시각 vol_gauge는 라이브라 6,690.62·86.1%ile).
+    → 캐시 뒤에 **캐시 마지막 날짜보다 새로운 Yahoo 봉만 이어붙인다**(깊은 이력 유지 +
+    최신성 확보). 네트워크 실패 시 캐시 그대로 = 기존 동작보다 나빠지지 않는다.
+    """
+    if hb is not None:
+        rows = hb.load_cached(symbol)
+        if len(rows) > 60:
+            closes = [c for _, c in rows]
+            last_date = rows[-1][0]
+            fresh = [(d, c) for d, c in _yahoo_rows(symbol, "3mo") if d > last_date]
+            closes += [c for _, c in fresh]
+            return closes
+    return [c for _, c in _yahoo_rows(symbol, "2y")]
 
 
 def pct_log_returns(closes: list[float]) -> list[float]:
@@ -220,9 +247,16 @@ def fit_forecast(symbol: str, closes: list[float] | None = None,
     series, fwd, sig2_next = conditional_vol_series((omega, alpha, beta), rets, var0)
     # 장기평균 변동성 = 표본 변동성(타겟팅으로 일치·robust). 연율%
     lr_vol = math.sqrt(uvar) * math.sqrt(TRADING_DAYS)
-    # 백분위: 내일 예측이 전 이력 조건부변동성 분포에서 몇 %ile
-    below = sum(1 for v in series if v <= fwd)
-    pct = 100.0 * below / len(series) if series else None
+    # 백분위: 내일 예측이 조건부변동성 분포에서 몇 %ile.
+    # [2026-07-26 교정] 정본 기준창 = **최근 1년(252거래일)** — CLAUDE.md·crash_tf가 정의한
+    # 폭풍 점수가 "오늘 변동성의 **최근 1년** 백분위"이기 때문. 舊 구현은 상장 이래 전 이력
+    # (^KS11 = 7,290봉 ≈ 30년) 대비로 재서 같은 시장을 vol_gauge 86%ile / garch 99%ile로
+    # 다르게 불렀고, §5b(폭풍 ≥90 동결 vs <90 극소창)의 판정이 스크립트마다 갈렸다.
+    # 적합(fit)은 전 이력을 그대로 쓰고, **랭킹 창만** 1년으로 맞춘다. 전 이력 기준값은
+    # pct_rank_all로 함께 반환(맥락용 — "30년 기준으론 몇 %ile인가").
+    win = series[-PCT_LOOKBACK:] if len(series) > PCT_LOOKBACK else series
+    pct = 100.0 * sum(1 for v in win if v <= fwd) / len(win) if win else None
+    pct_all = 100.0 * sum(1 for v in series if v <= fwd) / len(series) if series else None
     # 다일 기간구조(5·20일 평균 예측 — 평균회귀)
     def hstep(h):
         s2 = sig2_next
@@ -236,7 +270,9 @@ def fit_forecast(symbol: str, closes: list[float] | None = None,
         "n": len(series), "last_close": round(closes[-1], 2),
         "forecast_vol": round(fwd, 1),          # 내일 예측 연율%
         "rv_now": round(series[-1], 1),          # 오늘 조건부(≈현재)
-        "pct_rank": round(pct, 0) if pct is not None else None,
+        "pct_rank": round(pct, 0) if pct is not None else None,          # 정본 = 최근 1년 창
+        "pct_rank_all": round(pct_all, 0) if pct_all is not None else None,  # 전 이력 기준(맥락용)
+        "pct_window": min(len(series), PCT_LOOKBACK),
         "regime": _regime(pct),
         "omega": round(omega, 5), "alpha": round(alpha, 3), "beta": round(beta, 3),
         "persistence": round(persist, 3),

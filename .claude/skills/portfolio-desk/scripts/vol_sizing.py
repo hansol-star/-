@@ -113,11 +113,22 @@ def main() -> int:
         if gk.get("ok"):
             kospi_close = gk.get("last_close")
             kospi_storm = gk.get("pct_rank")
+    # [2026-07-26] 후행 실현변동성(vol_gauge RV20) %ile도 함께 재서 **두 척도 교차확인**.
+    # 선행(GARCH 예측)은 충격에 즉시 반응해 높게, 후행(RV20)은 완만하게 나온다 — 같은 날
+    # 94 vs 86처럼 갈릴 수 있다. §5b는 **매수를 허용하는** 게이트이므로 보수적으로 운용한다:
+    # **둘 다 90 미만일 때만** 극소창을 열고, 하나라도 90 이상이면 전면 동결.
+    kospi_storm_rv = None
+    if vol_gauge is not None:
+        try:
+            vg = vol_gauge.gauge(KOSPI, 20, 252)
+            kospi_storm_rv = (vg or {}).get("storm_pct")
+        except Exception:
+            kospi_storm_rv = None
     if kospi_close is not None and kospi_close < args.index_floor:
-        # 폭풍이 90 아래로 진정됐으면 극소 25% 숨구멍, 아니면 전면 동결
-        if kospi_storm is not None and kospi_storm < 90:
+        storms = [s for s in (kospi_storm, kospi_storm_rv) if s is not None]
+        if storms and max(storms) < 90:
             below_pin_nibble = 0.25
-            frozen = False  # 극소 트랜치 허용(전면 동결 아님)
+            frozen = False  # 두 척도 모두 진정 → 극소 트랜치 허용(전면 동결 아님)
         else:
             frozen = True
 
@@ -136,16 +147,18 @@ def main() -> int:
         print(json.dumps({
             "target_vol": args.target, "index_floor": args.index_floor,
             "kospi_close": kospi_close, "kospi_storm_pct": kospi_storm,
+            "kospi_storm_pct_rv": kospi_storm_rv,  # 후행 RV20 기준(교차확인용)
             "safety_pin_frozen": frozen, "below_pin_nibble": below_pin_nibble,
             "assets": [{**{"label": l}, **r, "effective_mult": _eff(r)} for (l, r) in rows],
         }, ensure_ascii=False, indent=2))
         return 0
 
     print(f"변동성 타겟 트랜치 사이징 (목표 {args.target}% · 제안 전용 · 자동집행 아님)")
+    storm_txt = f"폭풍 선행(GARCH) {kospi_storm}%ile · 후행(RV20) {kospi_storm_rv}%ile"
     if frozen:
-        pin = f"🔒 안전핀 동결 — 코스피 {kospi_close} < {args.index_floor:.0f} · 폭풍 {kospi_storm}%ile≥90(극단) → 전면 동결(mult=0)"
+        pin = f"🔒 안전핀 동결 — 코스피 {kospi_close} < {args.index_floor:.0f} · {storm_txt} → 하나라도 ≥90(극단) = 전면 동결(mult=0)"
     elif below_pin_nibble:
-        pin = f"🌬️ 안전핀 아래 극소창 — 코스피 {kospi_close} < {args.index_floor:.0f}이나 폭풍 {kospi_storm}%ile<90(진정) → §5b 25% 극소 트랜치 1회 허용"
+        pin = f"🌬️ 안전핀 아래 극소창 — 코스피 {kospi_close} < {args.index_floor:.0f}이나 {storm_txt} 둘 다 <90(진정) → §5b 25% 극소 트랜치 1회 허용"
     else:
         pin = f"안전핀 OK — 코스피 {kospi_close} ≥ {args.index_floor:.0f}. 폭풍%ile로 트랜치 연속 감산"
     print(pin)

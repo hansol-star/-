@@ -25,6 +25,7 @@ import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MACRO = os.path.join(HERE, "..", "..", "..", "..", "data", "app", "macro_events.json")
+OVERRIDES = os.path.join(HERE, "..", "..", "..", "..", "data", "app", "earnings_overrides.json")
 KST = dt.timezone(dt.timedelta(hours=9))
 
 
@@ -86,9 +87,37 @@ def load_earnings(today: dt.date) -> list[dict]:
                 nearest, days = d, delta
         if nearest is not None:
             out.append({"date": nearest, "days_until": days, "kind": "실적",
-                        "label": h["label"], "note": "", "confidence": "확정",
-                        "type": "earnings"})
-    return out
+                        "label": h["label"], "note": "", "confidence": "추정(Yahoo)",
+                        "type": "earnings", "ticker": h["ticker"]})
+    return apply_earnings_overrides(out, today)
+
+
+def apply_earnings_overrides(rows: list[dict], today: dt.date) -> list[dict]:
+    """[2026-07-26 신설] 회사 IR로 확정된 발표일로 Yahoo 추정치를 덮어쓴다.
+
+    Yahoo calendarEvents는 국내 종목 발표일을 하루씩 어긋나게 주는 사례가 반복된다
+    (실측: SK하이닉스 Yahoo 7/28 vs 공식 7/29·삼성전자 Yahoo 7/29 vs 공식 7/30).
+    발표일이 하루 밀리면 폰창(17:30~20:50) 대응 계획이 통째로 어긋나므로 확정치를 우선한다.
+    """
+    try:
+        with open(OVERRIDES, encoding="utf-8") as f:
+            ov = {o["ticker"]: o for o in json.load(f).get("overrides", [])}
+    except (OSError, ValueError, KeyError):
+        return rows
+    for r in rows:
+        o = ov.get(r.get("ticker"))
+        if not o:
+            continue
+        try:
+            dd = dt.date.fromisoformat(o["date"])
+        except (ValueError, KeyError):
+            continue
+        if (dd - today).days < 0:  # 지난 오버라이드는 무시(스테일 방지)
+            continue
+        r["date"], r["days_until"] = o["date"], (dd - today).days
+        r["confidence"] = o.get("confidence", "확정")
+        r["note"] = o.get("note", "")
+    return rows
 
 
 def main() -> int:

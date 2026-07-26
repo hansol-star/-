@@ -72,11 +72,18 @@ your output is the desk section handed to the PM.
      ```
      키(`NAVER_NCP_KEY_ID`/`NAVER_NCP_KEY`)는 env 상주 — 없으면 스크립트가 안내 후 종료하니 **그때만 WebSearch 폴백**.
      ⚠️ 뉴스는 리드(lead)일 뿐 — **장중 '개별종목 외인 매수 정황' 기사는 KRX 마감 확정 전 서사·반전트리거 판정에 채택 금지**(§3 [7/4]). 수급 확정치는 여전히 마감 교차검증.
-   - **🌡️ [선택] 리테일 심리 게이지 = `naver_data.py --trend`** — 검색어트렌드(상대 검색량 0~100)로 개인 관심·공포를 읽는다("공포에 사라" 역발상 신호):
+   - **🌡️ 리테일 심리 게이지 = `naver_sentiment.py` [7/26 신설 · 이걸 1차로 쓴다]** — 검색어트렌드를 **1년 %ile**로 환산해 개인의 공포·과열을 vol_gauge(폭풍 %ile)와 같은 문법으로 읽는다:
      ```bash
-     python3 .claude/skills/portfolio-desk/scripts/naver_data.py --trend "주식 폭락"   # 공포 게이지(단독 그룹)
+     python3 .claude/skills/portfolio-desk/scripts/naver_sentiment.py            # 공포·항복·유입 3그룹 %ile
+     python3 .claude/skills/portfolio-desk/scripts/naver_sentiment.py --stocks   # 보유 국내 5종목 관심도 %ile
+     python3 .claude/skills/portfolio-desk/scripts/naver_sentiment.py --news-buzz  # 종목별 24/72h 기사수
      ```
-     ⚠️ **정규화 주의**: 트렌드는 **요청 1콜 안에서 최댓값=100으로 상대정규화**된다 → 심리 키워드는 반드시 **자기 그룹 단독 조회**(고볼륨·저볼륨을 한 콜에 섞으면 큰 쪽이 눌러 작은 쪽이 평평해짐). 시계열 '모양'(급등 주간=관심 정점)만 읽고 **절대 검색량 아님**을 명시.
+     보고 방식: **"공포 %ile / 항복 %ile / 유입 %ile + 한 줄 판정"**을 수급 서술에 붙인다. 해석 규칙 —
+     ①공포·항복 **동반 90%ile+** = 항복 정황(vol_gauge 폭풍 %ile과 **교차확인 필수**, 둘 다 높을 때만 '항복'이라 쓴다)
+     ②종목 관심도 **급증** = 과열 경계 신호(GSVI 문헌 = 개인 주도 시장에선 관심 급등 뒤 되돌림 경향) — 별점 근거 아님, 서술 참고
+     ③**무관심(30%ile 미만)** = 심리 신호 없음 → 가격·수급으로만 판단.
+     ⚠️ **측정 전용 — 안전핀(7,500)·트랜치·별점 어떤 룰도 이 숫자로 바꾸지 않는다. 매수 트리거 아님.**
+     ⚠️ 원자료(`naver_data.py --trend`)를 직접 쓸 땐 **1콜 내 상대정규화**(최댓값=100) 주의 — 심리 키워드는 자기 그룹 단독 조회, 절대 검색량 아님.
 
 3. **Verification**: cross-check single-source figures; mark "미확인" if uncertain. No guessing.
 

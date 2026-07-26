@@ -35,11 +35,20 @@ CHANNELS = {
     "hunter": {"id": "UC7usMJDHmtbs_oegmzQKKMA", "name": "경제사냥꾼"},
     "supe":   {"id": "UCfnqgWlC5IvJEAPTmyjaixA", "name": "수페TV"},
     # 지식인사이드는 비투자 콘텐츠(심리·건강·역사)가 절반 이상 → 투자 키워드 필터.
-    # 시리즈명 단독 매칭은 안 씀(지식인초대석은 비투자 회차 다수) — 금융 전용 시리즈 2개만 예외.
+    # [7/26 교정] 舊 필터는 시리즈명(지식인클래스·지식선발대)을 '금융 전용'으로 보고 통과시켰으나
+    # feeds_log 실측 3건(7/21 지식선발대 EP.5 커리어·7/22 성수동 지식클럽·7/24 지식인클래스 EP.10 한글사)
+    # 전부 비투자 → 자막 추출만 낭비. 시리즈명을 통과 키워드에서 제거하고, 비투자 시리즈는
+    # title_exclude로 명시 차단한다. 단 그 시리즈라도 제목에 실제 투자 키워드가 있으면 통과(오차단 방지).
     "jisik":  {"id": "UCA_hgsFzmynpv1zkvA5A7jA", "name": "지식인사이드",
-               "title_filter": r"지식인\s?클래스|지식선발대|투자|증시|증권|주식|코스피|코스닥|반도체"
-                               r"|삼성전자|하이닉스|삼전|매수|매도|배당|ETF|금리|환율|부동산|자산|버블|경제"},
+               "title_filter": r"투자|증시|증권|주식|주가|코스피|코스닥|반도체|삼성전자|하이닉스|삼전"
+                               r"|매수|매도|배당|ETF|금리|환율|부동산|자산|버블|경제|폭락|급등|연준|달러",
+               "title_exclude": r"지식선발대|성수동\s?지식클럽"},
 }
+# title_exclude(비투자 시리즈)를 무시하고 통과시키는 '강한' 투자 키워드 — 오차단 방지.
+# 약한 키워드(경제·자산·투자 등 일반어)는 여기 넣지 않는다(비투자 회차 제목에도 흔히 등장).
+HARD_KW = re.compile(r"증시|주식|주가|코스피|코스닥|반도체|삼성전자|하이닉스|삼전|매수|매도"
+                     r"|배당|ETF|금리|환율|연준|달러|폭락|급등|채권|실적")
+
 CHANNEL = CHANNELS["hunter"]["id"]  # --channel 인자로 재설정됨 (기본 = 경제사냥꾼)
 CHANNEL_NAME = CHANNELS["hunter"]["name"]
 TITLE_FILTER = None
@@ -278,11 +287,14 @@ def main():
     ap.add_argument("--ids", help="쉼표구분 영상 ID 직접 지정(목록 탐색 생략)")
     ap.add_argument("--all-dates", action="store_true",
                     help="오늘/어제 필터 없이 RSS 전체를 자막 대상에 포함")
+    ap.add_argument("--since-days", type=int, default=None,
+                    help="며칠 전 업로드까지 자막 대상에 포함(기본: 1일, 월요일은 주말 커버로 3일)")
     args = ap.parse_args()
 
     ch = CHANNELS[args.channel]
     CHANNEL, CHANNEL_NAME = ch["id"], ch["name"]
     TITLE_FILTER = re.compile(ch["title_filter"]) if ch.get("title_filter") else None
+    TITLE_EXCLUDE = re.compile(ch["title_exclude"]) if ch.get("title_exclude") else None
     if args.channel != "hunter":  # hunter는 기존 경로 유지(하위호환)
         OUTDIR = os.path.join(OUTDIR, args.channel)
 
@@ -300,15 +312,28 @@ def main():
                   f"(검색어: {CHANNEL_NAME} + 주제 + 날짜)")
             sys.exit(1)
 
-    if TITLE_FILTER:
+    if TITLE_FILTER or TITLE_EXCLUDE:
         for it in items:
-            if it["title"] and not TITLE_FILTER.search(it["title"]):
+            if not it["title"]:
+                continue
+            hit = TITLE_FILTER.search(it["title"]) if TITLE_FILTER else True
+            if not hit:
                 it["filtered"] = True  # 비투자 콘텐츠 — 목록엔 남기고 자막은 스킵
+            elif (TITLE_EXCLUDE and TITLE_EXCLUDE.search(it["title"])
+                  and not HARD_KW.search(it["title"])):
+                # 비투자 시리즈 — 단 제목에 강한 투자 키워드(종목·증시 용어)가 있으면 오차단 방지로 통과.
+                it["filtered"] = True
+                it["filter_reason"] = "비투자 시리즈"
 
     print(json.dumps(items, ensure_ascii=False, indent=1))
 
     if args.fetch:
         today = datetime.now(KST).date()
+        # [7/26 교정] 기본 창 = 전일~오늘. 단 **월요일엔 토요일 업로드가 창 밖으로 떨어진다**
+        # (R1은 평일 10:00만 실행 → 월요일 today-1 = 일요일까지만 봄). 지금까진 주말 보고서
+        # 세션이 우연히 메워왔다(예: 7/18 토 업로드 = v53 토요 세션이 발견해 track_record 기입)
+        # — 즉 구조적으로는 '주말 세션이 없으면 유실'인 상태였다. 월요일은 3일로 자동 확장한다.
+        span = args.since_days if args.since_days is not None else (3 if today.weekday() == 0 else 1)
         targets = []
         for it in items:
             if it.get("filtered"):
@@ -317,7 +342,7 @@ def main():
                 targets.append(it)
             else:
                 d = datetime.strptime(it["published_kst"][:10], "%Y-%m-%d").date()
-                if (today - d).days <= 1:
+                if (today - d).days <= span:
                     targets.append(it)
         targets = targets[: args.max]
         print(f"\n--- 자막 추출 ({len(targets)}편, 영상 간 {PACE_MIN}~{PACE_MAX}초 페이싱) ---")

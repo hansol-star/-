@@ -28,6 +28,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
    - Physical AI: humanoid/robot orders·partnerships (두산로보틱스·Tesla Optimus), 현대차 robotics/EV.
    - US investment: KR-US defense·shipbuilding MOU·orders (MASGA etc.), 이란 MOU and other geopolitical events' sector impact.
    - **LG전자 permanent rule**: stop-loss retired. Monitor only fundamental-damage signals like NVIDIA cooling (thermal) certification.
+   - **🤖 피지컬AI 3조건 체크리스트 [7/26 신설 · 출처 = 지식인사이드 대외비 EP.29 김덕진, feeds_log 7/26]**: 휴머노이드가 실제 제조에 투입되려면 (a)**인건비보다 확실히 쌀 것** (b)**거부감을 넘을 만큼 노동력이 부족할 것**(인구구조) (c)**투입할 자리가 많을 것**. 셋을 동시에 만족하는 나라 = **미국·중국·한국** → 국내 로봇주(두산로보틱스·LG전자) 수요 논지의 구조적 근거. **단 양면 병기 필수**: 중국이 전신형(1.2~1.5억원) 대신 **하반신을 대차로 대체한 저가형**을 앞세워 한국을 겨냥 중(미중 갈등으로 미국 판매가 막힌 물량) = 국내 업체엔 가격 역풍. 두산로보틱스 서술 시 (a)~(c) 충족 여부와 중국 저가형 침투를 함께 적는다. ⚠️가격·시기(3년 내 투입)는 [미확인 — 게스트 현장 관찰 1출처], 수치 단정 금지.
 2. **Consensus (keyless supplement)**: supplement your stocks' target·rating·earnings date via WebSearch and flag ±30% gap candidates.
 3. **Verification**: cross-check figures; mark "미확인" if uncertain. Remind the no-chase rule (avoid same-day event-gap entry).
 

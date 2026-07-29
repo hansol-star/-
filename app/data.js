@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-29 20:06 KST",
+  "generated_at": "2026-07-29 20:24 KST",
   "as_of": "2026-07-29 20:2x KST (v63 부록 night · AAPL 판정 추가)",
   "source_report": "docs/reports/report_v63_2026-07-29_night.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1451.51
+    "usdkrw": 1451.88
   },
   "totals": {
-    "assets_krw": 7963240,
-    "stocks_value_krw": 7290768,
+    "assets_krw": 7964691,
+    "stocks_value_krw": 7292219,
     "cash_krw": 672472,
-    "day_change_krw": -43800,
+    "day_change_krw": -43792,
     "day_change_pct": -0.6,
-    "total_pnl_krw": -660439,
-    "total_pnl_pct": -8.31
+    "total_pnl_krw": -658988,
+    "total_pnl_pct": -8.29
   },
   "safety": {
     "pin": 7500,
@@ -911,9 +911,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 197.01,
       "change_pct": 0.25,
-      "value_krw": 1469331,
+      "value_krw": 1469705,
       "pnl_pct": -1.25,
-      "pnl_krw": -23761,
+      "pnl_krw": -23386,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1018,9 +1018,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 593.41,
       "change_pct": -0.08,
-      "value_krw": 972549,
+      "value_krw": 972797,
       "pnl_pct": -6.4,
-      "pnl_krw": -70063,
+      "pnl_krw": -69815,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1153,9 +1153,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 680.96,
       "change_pct": 0.24,
-      "value_krw": 1056256,
+      "value_krw": 1056525,
       "pnl_pct": 4.96,
-      "pnl_krw": 46502,
+      "pnl_krw": 46772,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1268,9 +1268,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 393.35,
       "change_pct": 1.09,
-      "value_krw": 823883,
+      "value_krw": 824093,
       "pnl_pct": -4.11,
-      "pnl_krw": -38246,
+      "pnl_krw": -38036,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -1393,9 +1393,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 340.08,
       "change_pct": 0.94,
-      "value_krw": 504722,
+      "value_krw": 504851,
       "pnl_pct": 32.25,
-      "pnl_krw": 121782,
+      "pnl_krw": 121910,
       "outlook": "hold",
       "stars": 3,
       "score": 66,
@@ -1515,9 +1515,9 @@ window.APP_DATA = {
       "cost": 358.01,
       "price": 333.71,
       "change_pct": 2.19,
-      "value_krw": 696546,
+      "value_krw": 696724,
       "pnl_pct": -6.79,
-      "pnl_krw": -53290,
+      "pnl_krw": -53112,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1540,6 +1540,11 @@ window.APP_DATA = {
       },
       "comment": "하닉 마진≥75%+선물갭<1.5% 사전결정트리 조건 충족. 이벤트리스크 프리(7/22 실적 기발표).",
       "issues": [
+        {
+          "date": "2026-07-29",
+          "tag": "검증",
+          "text": "[20:3x] ★**신규자금 1차 예약 완료** — 소수점 시장가 $110(≈160,000원·환율 1,453.66·현재가 $333.71 기준 ≈0.33주). 22:30 개장 자동 집행 예정. 사전결정트리 2/2 충족(하닉 마진 76.3%≥75%·나스닥선물 -0.84%>-1.5%) + 정훈 입금 확인(예수금 672,472원). ⚠️**미체결 상태 — 룰8상 '완료' 아님.** 7/30 첫 세션 첫 단계에서 체결가·수수료·주수 확인 후 portfolio.json 반영. 기록: 집행 시점 폭풍 96.0%ile(폭풍 국면·예측변동성 40.3%)였으나 ①사전 조건을 사후 변경하지 않는다는 규율(7/20 삼성 물타기 실패 교훈) ②미국 신규자금은 §6-5 별도 트랙 ③폭풍의 정체가 7/22 실적 급락이고 이미 소화 중(오늘 +2.19%)이라 룰3 정합 — 3근거로 원안 전액 집행."
+        },
         {
           "date": "2026-07-29",
           "tag": "검증",
@@ -1612,9 +1617,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 119.96,
       "change_pct": 0.05,
-      "value_krw": 37470,
+      "value_krw": 37479,
       "pnl_pct": -48.32,
-      "pnl_krw": -35282,
+      "pnl_krw": -35273,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1708,9 +1713,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 169.71,
       "change_pct": -0.61,
-      "value_krw": 69836,
+      "value_krw": 69854,
       "pnl_pct": 4.71,
-      "pnl_krw": 2915,
+      "pnl_krw": 2932,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1828,9 +1833,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 820.53,
       "change_pct": -8.85,
-      "value_krw": 23821,
+      "value_krw": 23827,
       "pnl_pct": 9.55,
-      "pnl_krw": 2002,
+      "pnl_krw": 2008,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1936,9 +1941,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 380.91,
       "change_pct": -0.6,
-      "value_krw": 39353,
+      "value_krw": 39363,
       "pnl_pct": -9.54,
-      "pnl_krw": -4298,
+      "pnl_krw": -4288,
       "outlook": "hold",
       "stars": 4,
       "score": 84,
@@ -3203,7 +3208,7 @@ window.APP_DATA = {
       1474.04,
       1458.01,
       1464.44,
-      1451.28
+      1451.89
     ]
   },
   "kospi_history": {
@@ -17389,6 +17394,16 @@ window.APP_DATA = {
   "tasks": {
     "today": [
       {
+        "id": "t-googl-fill-check",
+        "text": "[룰8·최우선] GOOGL 1차 체결 검토 — 체결가·수수료·주수 확인 → portfolio.json(GOOGL 주수·평단·cash_krw) 반영 → orders status 전이",
+        "done": false
+      },
+      {
+        "id": "t-aapl-tree-bake",
+        "text": "[7/30 밤 폰창] AAPL 결정트리 베이킹 — 총마진 <47.5%(가이던스 하단) 또는 차기 마진 가이던스 하회 시 일부 익절 검토. 실적 KST 7/31 06:00",
+        "done": false
+      },
+      {
         "id": "t1",
         "text": "✅ 코스피 -5.98% 추가폭락 판정 — 6,000선 붕괴·이틀연속 서킷, 게이트 0/3 유지, 국내신규 0 확정",
         "done": true
@@ -17467,7 +17482,7 @@ window.APP_DATA = {
   "task_counts": {
     "today": {
       "done": 3,
-      "total": 5
+      "total": 7
     },
     "week": {
       "done": 1,
@@ -17484,12 +17499,13 @@ window.APP_DATA = {
       "label": "[계획] GOOGL 신규자금 1차 — 소수점 시장가",
       "ticker": "GOOGL",
       "action": "매수(소수점·시장가)",
-      "status": "예약 대기(입금 확인 완료·정훈 폰창 집행)",
+      "status": "🟡 예약 완료 · 22:30 집행 대기(미체결)",
       "price": null,
       "shares": null,
       "amount_krw": 160000,
       "date": "2026-07-27",
-      "note": "fwd PER 16.4·PEG 0.21·목표+28.1%·⭐5/91. 사전결정트리(v62_night §9-2) 조건 충족: SK하이닉스 2Q 영업이익률 76.3%(≥75%브래킷)+나스닥100선물 -0.84%(재보류임계-1.5% 미달). 정훈 입금확인만 남음(폰창 20:50 전 예약→22:30 집행). | [7/29 20:1x] ★정훈 입금 확인 완료(예수금 672,472원 실측) — 마지막 관문 해소. 20:50 전 소수점 시장가 예약 → 22:30 자동 집행. 체결 확인은 룰8에 따라 7/30 첫 세션 첫 단계에서 검토."
+      "note": "fwd PER 16.4·PEG 0.21·목표+28.1%·⭐5/91. 사전결정트리(v62_night §9-2) 조건 충족: SK하이닉스 2Q 영업이익률 76.3%(≥75%브래킷)+나스닥100선물 -0.84%(재보류임계-1.5% 미달). 정훈 입금확인만 남음(폰창 20:50 전 예약→22:30 집행). | [7/29 20:1x] ★정훈 입금 확인 완료(예수금 672,472원 실측) — 마지막 관문 해소. 20:50 전 소수점 시장가 예약 → 22:30 자동 집행. 체결 확인은 룰8에 따라 7/30 첫 세션 첫 단계에서 검토. | ★[7/29 20:3x] **정훈 예약 완료** — 소수점 시장가 $110(≈160,000원·환율 1,453.66). 22:30 미국 개장 시 자동 집행 예정. ⚠️룰8: 체결 확인 전 '완료' 처리 금지 — **7/30 첫 세션 첫 단계 = 체결가·수수료·주수 확인 및 portfolio.json 반영.**",
+      "amount_usd": 110
     },
     {
       "id": "o-msft-newfund-2cha",

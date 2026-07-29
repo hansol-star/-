@@ -28,3 +28,9 @@
 {"date": "2026-07-21", "index": "KOSPI", "foreign": 2952, "inst": 13744, "indiv": -16421, "src": "naver"}
 {"date": "2026-07-22", "index": "KOSDAQ", "foreign": -816, "inst": -1914, "indiv": 2638, "src": "naver"}
 {"date": "2026-07-22", "index": "KOSPI", "foreign": 26211, "inst": -13962, "indiv": -12177, "src": "naver"}
+{"date": "2026-07-23", "index": "KOSPI", "foreign": 21351, "inst": 1011, "indiv": -22107, "src": "flows.json(확정)"}
+{"date": "2026-07-24", "index": "KOSPI", "foreign": -32685, "inst": -19514, "indiv": 51784, "src": "flows.json(확정)"}
+{"date": "2026-07-27", "index": "KOSPI", "foreign": -28808, "inst": 8592, "indiv": 19789, "src": "flows.json(확정)"}
+{"date": "2026-07-28", "index": "KOSPI", "foreign": -49664, "inst": 6300, "indiv": 43339, "src": "flows.json(확정)"}
+{"date": "2026-07-29", "index": "KOSDAQ", "foreign": 3083, "inst": 1471, "indiv": -4578, "src": "naver"}
+{"date": "2026-07-29", "index": "KOSPI", "foreign": -12337, "inst": 31604, "indiv": -19701, "src": "naver"}

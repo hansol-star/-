@@ -118,3 +118,18 @@
 {"date": "2026-07-28", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$298.93 (+45.7%)", "buy_zone": "눌림", "source_report": "docs/reports/report_v62_2026-07-28.md"}
 {"date": "2026-07-28", "ticker": "ORCL", "stars": 3, "score": 60, "target": "실질 $190~250 (컨센 $251은 stale 강세 왜곡)", "buy_zone": "눌림", "source_report": "docs/reports/report_v62_2026-07-28.md"}
 {"date": "2026-07-28", "ticker": "VOO", "stars": 4, "score": null, "target": "— (ETF)", "buy_zone": "적립 — 월 10만 정액(룰9). ✅1회차 7/17 체결(0.097846주 @≈$682·총 1.06863주). 8월분=월급일 후 첫 폰창 소수점 예약", "source_report": "docs/reports/report_v62_2026-07-28.md"}
+{"date": "2026-07-29", "ticker": "005380.KS", "stars": 2, "score": 52, "target": "60만(공격80만)", "buy_zone": "—", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "005930.KS", "stars": 5, "score": 84, "target": "39~60만", "buy_zone": "⛔봉인·물타기 금지 — 코스피 5,663.24<7,500 안전핀 발동중(버퍼-24.5%). 잔여 172,506원 재봉인 유지.", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "035420.KS", "stars": 3, "score": 61, "target": "~29만(컨센최고 36만)", "buy_zone": "조건부 add 225,000~235,000원(안전핀 해제+실적반등 or 소버린AI 가시화)", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "066570.KS", "stars": 4, "score": 72, "target": "246,400원", "buy_zone": "⛔봉인(TF해제후)", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "454910.KS", "stars": 2, "score": 15, "target": "분산 큼", "buy_zone": "—", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "AAPL", "stars": 3, "score": 66, "target": "$318.81", "buy_zone": "신규매수 안함(트림완료)", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "ANET", "stars": 4, "score": 78, "target": "$192.31", "buy_zone": "—", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "AVGO", "stars": 4, "score": 84, "target": "$525.44", "buy_zone": "조정주 물타기후보(TF 동결 우선)", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "GOOGL", "stars": 5, "score": 91, "target": "$428.12", "buy_zone": "신규자금 1차 대상(오늘밤, 조건충족)", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "META", "stars": 4, "score": 82, "target": "$825.84", "buy_zone": "실적확인(오늘밤 KST 7/30 새벽)", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "MSFT", "stars": 4, "score": 73, "target": "$556.75", "buy_zone": "눌림", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "MU", "stars": 4, "score": 82, "target": "$1,507.38(⚠️stale의심)", "buy_zone": "—", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$302.83", "buy_zone": "눌림 비중관리(최대비중 20.1%)", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "ORCL", "stars": 3, "score": 60, "target": "$248.15(⚠️stale의심)", "buy_zone": "눌림·패닉셀 금지", "source_report": "docs/reports/report_v63_2026-07-29.md"}
+{"date": "2026-07-29", "ticker": "VOO", "stars": 4, "score": null, "target": "ETF", "buy_zone": "적립(8월 예정)", "source_report": "docs/reports/report_v63_2026-07-29.md"}

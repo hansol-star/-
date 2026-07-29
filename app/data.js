@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-29 19:58 KST",
-  "as_of": "2026-07-29 20:1x KST (v63 부록 night · 대화형)",
+  "generated_at": "2026-07-29 19:59 KST",
+  "as_of": "2026-07-29 20:2x KST (v63 부록 night · AAPL 판정 추가)",
   "source_report": "docs/reports/report_v63_2026-07-29_night.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1451.39
+    "usdkrw": 1451.08
   },
   "totals": {
-    "assets_krw": 7962769,
-    "stocks_value_krw": 7290297,
+    "assets_krw": 7961553,
+    "stocks_value_krw": 7289081,
     "cash_krw": 672472,
-    "day_change_krw": -43802,
+    "day_change_krw": -43809,
     "day_change_pct": -0.6,
-    "total_pnl_krw": -660910,
-    "total_pnl_pct": -8.31
+    "total_pnl_krw": -662126,
+    "total_pnl_pct": -8.33
   },
   "safety": {
     "pin": 7500,
@@ -906,9 +906,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 197.01,
       "change_pct": 0.25,
-      "value_krw": 1469209,
+      "value_krw": 1468895,
       "pnl_pct": -1.25,
-      "pnl_krw": -23882,
+      "pnl_krw": -24196,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -999,7 +999,8 @@ window.APP_DATA = {
         212.06,
         208.76,
         206.84,
-        196.51
+        196.51,
+        197.01
       ],
       "sector": "반도체·AI"
     },
@@ -1012,9 +1013,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 593.41,
       "change_pct": -0.08,
-      "value_krw": 972469,
+      "value_krw": 972261,
       "pnl_pct": -6.4,
-      "pnl_krw": -70143,
+      "pnl_krw": -70351,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1133,7 +1134,8 @@ window.APP_DATA = {
         627.17,
         606.1,
         595.19,
-        593.87
+        593.87,
+        593.41
       ],
       "sector": "빅테크"
     },
@@ -1146,9 +1148,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 680.96,
       "change_pct": 0.24,
-      "value_krw": 1056168,
+      "value_krw": 1055943,
       "pnl_pct": 4.96,
-      "pnl_krw": 46415,
+      "pnl_krw": 46189,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1247,7 +1249,8 @@ window.APP_DATA = {
         687.03,
         678.61,
         679.14,
-        679.31
+        679.31,
+        680.96
       ],
       "sector": "지수ETF"
     },
@@ -1260,9 +1263,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 393.35,
       "change_pct": 1.09,
-      "value_krw": 823815,
+      "value_krw": 823639,
       "pnl_pct": -4.11,
-      "pnl_krw": -38315,
+      "pnl_krw": -38491,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -1371,7 +1374,8 @@ window.APP_DATA = {
         390.34,
         381.58,
         381.7,
-        389.1
+        389.1,
+        393.35
       ],
       "sector": "빅테크"
     },
@@ -1384,15 +1388,15 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 340.08,
       "change_pct": 0.94,
-      "value_krw": 504681,
+      "value_krw": 504573,
       "pnl_pct": 32.25,
-      "pnl_krw": 121740,
+      "pnl_krw": 121632,
       "outlook": "hold",
       "stars": 3,
       "score": 66,
       "target": "$318.81",
       "buy_zone": "신규매수 안함(트림완료)",
-      "trim": "—",
+      "trim": "조건부(실적 후 판정 — 사전 결정트리 §아래)",
       "forecast": {
         "week": {
           "low": 315,
@@ -1407,8 +1411,13 @@ window.APP_DATA = {
           "note": "(추정) 7/30 FY Q3=가격인상·서비스마진·파운더블 프리오더 확인창. 상향 시 ⭐4 승격 검토."
         }
       },
-      "comment": "컨센이 현재가 아래로 유일 — 7/31(KST) 팀쿡 마지막 컨콜.",
+      "comment": "**홀딩 유지 · 비중 확대 없음 · 실적 후 '일부 익절' 판정 1회.** 컨센 $318.81을 현재가가 +6.7% 초과(포트 유일). 원가比 +32.25% = 포트 최고 수익. ★포트 내 **유일하게 메모리 슈퍼사이클의 반대편**(하드웨어 OEM = 메모리 원가 지불자) = 자연 헤지축. 실적 = 美 7/30(목) 마감후 · 컨콜 17:00 ET = **KST 7/31(금) 06:00**(팀쿡 마지막, 9/1 John Ternus 승계).",
       "issues": [
+        {
+          "date": "2026-07-29",
+          "tag": "검증",
+          "text": "[밤·정훈 질문 '애플 계속 가져가?'] **판정 = 홀딩 유지, 추가매수 금지, 실적 후 일부 익절 판정 1회.** FMP 하드넘버: PE 41.0·매출YoY +6.4%·EPS YoY +22.6%(PEG 1.81, 舊 2.2에서 개선)·총마진 47.9%·순마진 27.2%·ROE 146.7%·FCF/주 $8.78. 컨센 FY Q3: 매출 ~$108.9B(+14~16%)·EPS $1.88(+19.8%). 회사 4월 가이던스 = 매출 +14~17%·**총마진 47.5~48.5%**·opex $18.8~19.1B. ★리스크 정본 = **메모리 원가(RAMageddon)** — 이미 맥북·아이패드 가격인상 강제, 하드웨어 마진 압박이 서비스 상쇄를 앞지를 수 있음. ★반대급부 = **애플이 중국 CXMT와 메모리 조달 협의 중**(7/28 코스피 폭락 촉매였던 그 CXMT) — 우리 국내 반도체엔 악재인 뉴스가 AAPL엔 원가 호재. **포트 자연 헤지 실증.** **사전 결정트리(KST 7/31 06:00 실적, 폰창 밖 → 7/30 밤 폰창에 베이킹)**: ①총마진 가이던스 ≥47.5%(하단 방어) + 서비스 record → **홀딩, 액션 없음** ②총마진 <47% 또는 차기 분기 마진 가이던스 하향(메모리 원가 전가 실패) → **일부 익절 검토**(전량 아님, 룰4-2 '기대수익 도달 시 일부 익절 디폴트 검토') ③주가 $367 이상(컨센 +15% 오버슛) → 근거와 무관하게 **일부 익절 검토 발동** ④승계 리스크(9/1 Ternus) 언급이 가이던스 훼손과 겹치면 ②로 판정. ⚠️실적일 표기 통일: **美 7/30(목) = KST 7/31(금) 06:00** — 舊 문서의 '7/30'과 '7/31'은 같은 이벤트의 미국/한국 날짜 표기 차이."
+        },
         {
           "date": "2026-07-29",
           "tag": "검증",
@@ -1482,7 +1491,8 @@ window.APP_DATA = {
         325.89,
         321.66,
         333.02,
-        336.91
+        336.91,
+        340.08
       ],
       "sector": "빅테크"
     },
@@ -1495,9 +1505,9 @@ window.APP_DATA = {
       "cost": 358.01,
       "price": 333.71,
       "change_pct": 2.19,
-      "value_krw": 696489,
+      "value_krw": 696340,
       "pnl_pct": -6.79,
-      "pnl_krw": -53347,
+      "pnl_krw": -53496,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1578,7 +1588,8 @@ window.APP_DATA = {
         342.09,
         317.69,
         319.74,
-        326.56
+        326.56,
+        333.71
       ],
       "sector": "빅테크"
     },
@@ -1591,9 +1602,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 119.96,
       "change_pct": 0.05,
-      "value_krw": 37466,
+      "value_krw": 37458,
       "pnl_pct": -48.32,
-      "pnl_krw": -35286,
+      "pnl_krw": -35294,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1673,7 +1684,8 @@ window.APP_DATA = {
         125.84,
         120.04,
         114.99,
-        119.9
+        119.9,
+        119.96
       ],
       "sector": "빅테크"
     },
@@ -1686,9 +1698,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 169.71,
       "change_pct": -0.61,
-      "value_krw": 69831,
+      "value_krw": 69816,
       "pnl_pct": 4.71,
-      "pnl_krw": 2909,
+      "pnl_krw": 2894,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1792,7 +1804,8 @@ window.APP_DATA = {
         174.87,
         176.61,
         173.99,
-        170.76
+        170.76,
+        169.71
       ],
       "sector": "반도체·AI"
     },
@@ -1805,9 +1818,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 820.53,
       "change_pct": -8.85,
-      "value_krw": 23819,
+      "value_krw": 23814,
       "pnl_pct": 9.55,
-      "pnl_krw": 2000,
+      "pnl_krw": 1995,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1894,7 +1907,8 @@ window.APP_DATA = {
         959.48,
         990.21,
         920.95,
-        900.2
+        900.2,
+        820.53
       ],
       "sector": "반도체·AI"
     },
@@ -1907,9 +1921,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 380.91,
       "change_pct": -0.6,
-      "value_krw": 39350,
+      "value_krw": 39342,
       "pnl_pct": -9.54,
-      "pnl_krw": -4301,
+      "pnl_krw": -4309,
       "outlook": "hold",
       "stars": 4,
       "score": 84,
@@ -2014,7 +2028,8 @@ window.APP_DATA = {
         396.81,
         392.47,
         381.92,
-        383.22
+        383.22,
+        380.91
       ],
       "sector": "반도체·AI"
     }
@@ -3168,7 +3183,7 @@ window.APP_DATA = {
       1474.04,
       1458.01,
       1464.44,
-      1451.39
+      1451.13
     ]
   },
   "kospi_history": {
@@ -3191,7 +3206,9 @@ window.APP_DATA = {
       "2026-07-21",
       "2026-07-22",
       "2026-07-23",
+      "2026-07-24",
       "2026-07-27",
+      "2026-07-28",
       "2026-07-29"
     ],
     "closes": [
@@ -3213,7 +3230,9 @@ window.APP_DATA = {
       6747.95,
       6797.7,
       7096.89,
+      6690.62,
       6755.75,
+      6023.66,
       5663.24
     ]
   },

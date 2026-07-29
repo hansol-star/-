@@ -1,19 +1,19 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-29 19:43 KST",
+  "generated_at": "2026-07-29 19:58 KST",
   "as_of": "2026-07-29 20:1x KST (v63 부록 night · 대화형)",
   "source_report": "docs/reports/report_v63_2026-07-29_night.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1451.5
+    "usdkrw": 1451.39
   },
   "totals": {
-    "assets_krw": 7963200,
-    "stocks_value_krw": 7290728,
+    "assets_krw": 7962769,
+    "stocks_value_krw": 7290297,
     "cash_krw": 672472,
-    "day_change_krw": -43800,
+    "day_change_krw": -43802,
     "day_change_pct": -0.6,
-    "total_pnl_krw": -660479,
+    "total_pnl_krw": -660910,
     "total_pnl_pct": -8.31
   },
   "safety": {
@@ -906,9 +906,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 197.01,
       "change_pct": 0.25,
-      "value_krw": 1469321,
+      "value_krw": 1469209,
       "pnl_pct": -1.25,
-      "pnl_krw": -23771,
+      "pnl_krw": -23882,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -999,8 +999,7 @@ window.APP_DATA = {
         212.06,
         208.76,
         206.84,
-        196.51,
-        197.01
+        196.51
       ],
       "sector": "반도체·AI"
     },
@@ -1013,9 +1012,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 593.41,
       "change_pct": -0.08,
-      "value_krw": 972542,
+      "value_krw": 972469,
       "pnl_pct": -6.4,
-      "pnl_krw": -70070,
+      "pnl_krw": -70143,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1134,8 +1133,7 @@ window.APP_DATA = {
         627.17,
         606.1,
         595.19,
-        593.87,
-        593.41
+        593.87
       ],
       "sector": "빅테크"
     },
@@ -1148,9 +1146,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 680.96,
       "change_pct": 0.24,
-      "value_krw": 1056248,
+      "value_krw": 1056168,
       "pnl_pct": 4.96,
-      "pnl_krw": 46495,
+      "pnl_krw": 46415,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1249,8 +1247,7 @@ window.APP_DATA = {
         687.03,
         678.61,
         679.14,
-        679.31,
-        680.96
+        679.31
       ],
       "sector": "지수ETF"
     },
@@ -1263,9 +1260,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 393.35,
       "change_pct": 1.09,
-      "value_krw": 823877,
+      "value_krw": 823815,
       "pnl_pct": -4.11,
-      "pnl_krw": -38252,
+      "pnl_krw": -38315,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -1374,8 +1371,7 @@ window.APP_DATA = {
         390.34,
         381.58,
         381.7,
-        389.1,
-        393.35
+        389.1
       ],
       "sector": "빅테크"
     },
@@ -1388,9 +1384,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 340.08,
       "change_pct": 0.94,
-      "value_krw": 504719,
+      "value_krw": 504681,
       "pnl_pct": 32.25,
-      "pnl_krw": 121778,
+      "pnl_krw": 121740,
       "outlook": "hold",
       "stars": 3,
       "score": 66,
@@ -1486,8 +1482,7 @@ window.APP_DATA = {
         325.89,
         321.66,
         333.02,
-        336.91,
-        340.08
+        336.91
       ],
       "sector": "빅테크"
     },
@@ -1500,9 +1495,9 @@ window.APP_DATA = {
       "cost": 358.01,
       "price": 333.71,
       "change_pct": 2.19,
-      "value_krw": 696541,
+      "value_krw": 696489,
       "pnl_pct": -6.79,
-      "pnl_krw": -53295,
+      "pnl_krw": -53347,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1583,8 +1578,7 @@ window.APP_DATA = {
         342.09,
         317.69,
         319.74,
-        326.56,
-        333.71
+        326.56
       ],
       "sector": "빅테크"
     },
@@ -1597,9 +1591,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 119.96,
       "change_pct": 0.05,
-      "value_krw": 37469,
+      "value_krw": 37466,
       "pnl_pct": -48.32,
-      "pnl_krw": -35283,
+      "pnl_krw": -35286,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1679,8 +1673,7 @@ window.APP_DATA = {
         125.84,
         120.04,
         114.99,
-        119.9,
-        119.96
+        119.9
       ],
       "sector": "빅테크"
     },
@@ -1693,9 +1686,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 169.71,
       "change_pct": -0.61,
-      "value_krw": 69836,
+      "value_krw": 69831,
       "pnl_pct": 4.71,
-      "pnl_krw": 2914,
+      "pnl_krw": 2909,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1799,8 +1792,7 @@ window.APP_DATA = {
         174.87,
         176.61,
         173.99,
-        170.76,
-        169.71
+        170.76
       ],
       "sector": "반도체·AI"
     },
@@ -1813,9 +1805,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 820.53,
       "change_pct": -8.85,
-      "value_krw": 23821,
+      "value_krw": 23819,
       "pnl_pct": 9.55,
-      "pnl_krw": 2002,
+      "pnl_krw": 2000,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1902,8 +1894,7 @@ window.APP_DATA = {
         959.48,
         990.21,
         920.95,
-        900.2,
-        820.53
+        900.2
       ],
       "sector": "반도체·AI"
     },
@@ -1916,9 +1907,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 380.91,
       "change_pct": -0.6,
-      "value_krw": 39353,
+      "value_krw": 39350,
       "pnl_pct": -9.54,
-      "pnl_krw": -4298,
+      "pnl_krw": -4301,
       "outlook": "hold",
       "stars": 4,
       "score": 84,
@@ -2023,8 +2014,7 @@ window.APP_DATA = {
         396.81,
         392.47,
         381.92,
-        383.22,
-        380.91
+        383.22
       ],
       "sector": "반도체·AI"
     }
@@ -3178,7 +3168,7 @@ window.APP_DATA = {
       1474.04,
       1458.01,
       1464.44,
-      1451.6
+      1451.39
     ]
   },
   "kospi_history": {
@@ -3201,9 +3191,7 @@ window.APP_DATA = {
       "2026-07-21",
       "2026-07-22",
       "2026-07-23",
-      "2026-07-24",
       "2026-07-27",
-      "2026-07-28",
       "2026-07-29"
     ],
     "closes": [
@@ -3225,9 +3213,7 @@ window.APP_DATA = {
       6747.95,
       6797.7,
       7096.89,
-      6690.62,
       6755.75,
-      6023.66,
       5663.24
     ]
   },

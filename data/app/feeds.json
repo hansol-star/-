@@ -1,15 +1,27 @@
 {
   "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
-  "updated": "2026-07-28",
-  "source": "2026-07-27 R1 영상 프리페치 루틴 — 수페TV 1편(베센트 AI서밋 랩업, 다출처검증)·지식인사이드 1편(송희구, 비투자판정)",
+  "updated": "2026-07-29",
+  "source": "2026-07-29 R1 영상 프리페치 루틴 — 수페TV 신규 1편(원칙론, 종목콜 없음), 지식인사이드 신규 0편(투자 키워드 필터 통과작 없음, 최근작 7/18).",
   "channels": {
     "supe": {
       "name": "수페TV",
       "channel_id": "UCfnqgWlC5IvJEAPTmyjaixA",
       "channel_note": "주 2~3회 주간 시장랩업. 지수·섹터·수급·13F·실적일정까지 구체 수치 多 — 보유종목(MU·AAPL·META·MSFT·NVDA·GOOGL) 직결 주장이 많아 [검증/정정] 태깅·조건트래커 가치 높음. 배당·ETF 성향(커버드콜·SCHD)은 정훈 스타일과 결이 다름 → 종목·테마 팩트 위주 채택.",
-      "headline": "[7/25] 베센트 AI서밋 랩업 — 구글capex확대확정(GOOGL조건 재확인)·테슬라FSD148만+56%·EU구글DMA과징금. 다출처 검증 우수(정정0건).",
+      "headline": "[7/28] 원칙론 에세이(돈-시간 교환) — 종목콜 없음, 배당·성장 인출전략 프레임만 제시.",
       "setups": [],
       "latest_videos": [
+        {
+          "id": "NC6JwF8zmX8",
+          "date": "2026-07-28",
+          "title": "폭락장에서 너무 괴롭다면 이 영상을 꼭 보세요!",
+          "tag": "원칙론·1~2줄티어",
+          "tickers": [],
+          "summary": "[원칙론] 돈-시간 교환 관점 투자심리 에세이. 배당주(SCHD·커버드콜)·성장주 인출전략(나스닥100 4%룰)을 '시간을 되사는 수단'으로 프레이밍, '시간을 뺏는 기업'(META·GOOGL 등) vs '시간을 지탱하는 기업'(반도체·데이터센터·클라우드) 투자렌즈 제시. 구체 종목콜·발동조건 없음 — setups 미등록.",
+          "points": [
+            "종목콜 없음 — 투자심리·시간관리 원칙론"
+          ],
+          "link": "https://www.youtube.com/watch?v=NC6JwF8zmX8"
+        },
         {
           "id": "kOSJpR5itA0",
           "date": "2026-07-25",

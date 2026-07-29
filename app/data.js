@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-07-29 16:36 KST",
+  "generated_at": "2026-07-29 17:22 KST",
   "as_of": "2026-07-29 16:xx KST (v63 R2 무인)",
   "source_report": "docs/reports/report_v63_2026-07-29.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1446.78
+    "usdkrw": 1448.58
   },
   "totals": {
-    "assets_krw": 7444719,
-    "stocks_value_krw": 7272213,
+    "assets_krw": 7451780,
+    "stocks_value_krw": 7279274,
     "cash_krw": 172506,
-    "day_change_krw": -43901,
+    "day_change_krw": -43863,
     "day_change_pct": -0.6,
-    "total_pnl_krw": -678994,
-    "total_pnl_pct": -8.54
+    "total_pnl_krw": -671933,
+    "total_pnl_pct": -8.45
   },
   "safety": {
     "pin": 7500,
@@ -896,9 +896,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 197.01,
       "change_pct": 0.25,
-      "value_krw": 1464543,
+      "value_krw": 1466365,
       "pnl_pct": -1.25,
-      "pnl_krw": -28549,
+      "pnl_krw": -26727,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1003,9 +1003,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 593.41,
       "change_pct": -0.08,
-      "value_krw": 969380,
+      "value_krw": 970586,
       "pnl_pct": -6.4,
-      "pnl_krw": -73232,
+      "pnl_krw": -72026,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1138,9 +1138,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 680.96,
       "change_pct": 0.24,
-      "value_krw": 1052814,
+      "value_krw": 1054123,
       "pnl_pct": 4.96,
-      "pnl_krw": 43060,
+      "pnl_krw": 44370,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1253,9 +1253,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 393.35,
       "change_pct": 1.09,
-      "value_krw": 821198,
+      "value_krw": 822220,
       "pnl_pct": -4.11,
-      "pnl_krw": -40931,
+      "pnl_krw": -39910,
       "outlook": "core",
       "stars": 4,
       "score": 73,
@@ -1378,9 +1378,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 340.08,
       "change_pct": 0.94,
-      "value_krw": 503078,
+      "value_krw": 503704,
       "pnl_pct": 32.25,
-      "pnl_krw": 120137,
+      "pnl_krw": 120763,
       "outlook": "hold",
       "stars": 3,
       "score": 66,
@@ -1490,9 +1490,9 @@ window.APP_DATA = {
       "cost": 358.01,
       "price": 333.71,
       "change_pct": 2.19,
-      "value_krw": 694276,
+      "value_krw": 695140,
       "pnl_pct": -6.79,
-      "pnl_krw": -55560,
+      "pnl_krw": -54696,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1582,9 +1582,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 119.96,
       "change_pct": 0.05,
-      "value_krw": 37347,
+      "value_krw": 37394,
       "pnl_pct": -48.32,
-      "pnl_krw": -35405,
+      "pnl_krw": -35358,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -1678,9 +1678,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 169.71,
       "change_pct": -0.61,
-      "value_krw": 69609,
+      "value_krw": 69695,
       "pnl_pct": 4.71,
-      "pnl_krw": 2687,
+      "pnl_krw": 2774,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1798,9 +1798,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 820.53,
       "change_pct": -8.85,
-      "value_krw": 23744,
+      "value_krw": 23773,
       "pnl_pct": 9.55,
-      "pnl_krw": 1924,
+      "pnl_krw": 1954,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1901,9 +1901,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 380.91,
       "change_pct": -0.6,
-      "value_krw": 39225,
+      "value_krw": 39274,
       "pnl_pct": -9.54,
-      "pnl_krw": -4426,
+      "pnl_krw": -4377,
       "outlook": "hold",
       "stars": 4,
       "score": 84,
@@ -3153,7 +3153,7 @@ window.APP_DATA = {
       1474.04,
       1458.01,
       1464.44,
-      1446.84
+      1447.98
     ]
   },
   "kospi_history": {
@@ -17350,12 +17350,12 @@ window.APP_DATA = {
       },
       {
         "id": "w2",
-        "text": "🗓️ 슈퍼위크: 7/29 09:00 SK하이닉스·FOMC·META·MSFT → 7/30 10:00 삼성전자·AAPL·LG전자·삼성전기 (공식 IR 확정일)",
+        "text": "🗓️ 슈퍼위크 정정: 7/29 09:00 SK하이닉스(발표완료) → 7/30 새벽 03:00 FOMC·05~06시 META+MSFT(둘 다 오늘밤) → 7/30 10:00 삼성전자 컨콜(공식 IR) → 7/31 새벽 AAPL(팀쿡 마지막)·LG전자/삼성전기[추정]",
         "done": false
       },
       {
         "id": "w3",
-        "text": "신규자금 40만 3분할: 1차 GOOGL(실적 리스크 해소·PEG 0.21) → 2차 MSFT(7/29 후) → 3차 META/MU(7/30~31 후)",
+        "text": "신규자금 40만 3분할: 1차 GOOGL(오늘밤 조건충족·입금확인 대기) → 2차 MSFT(오늘밤 실적확인 후 7/30 집행) → 3차 META/MU(오늘밤~7/31 확인 후 택일)",
         "done": false
       },
       {
@@ -17365,14 +17365,14 @@ window.APP_DATA = {
       },
       {
         "id": "w5",
-        "text": "🎯 7/29 폰창 사전 결정트리 — 하닉 영업이익률 ≥75%/72~75%=GOOGL 집행, 65~72%=하루 더 보류, <65%=룰4 트림신호+신규자금 재설계. 오버라이드: 정부대책 발표시 게이트② 분리판독 / 코스피 반등해도 국내 0(3중게이트+2거래일 유지 요건)",
-        "done": false
+        "text": "✅[해소] 7/29 폰창 사전 결정트리 — 하닉 영업이익률 76.3%(≥75% 브래킷) 확인됨 → GOOGL 집행 판정 확정(입금확인만 대기, t4). 오버라이드 조건은 계속 유효(정부대책 발표시 게이트② 분리판독 / 코스피 반등해도 국내 0)",
+        "done": true
       }
     ],
     "month": [
       {
         "id": "m1",
-        "text": "7/29~30 삼성·META·MSFT·하닉 IR + FOMC(7/30 03:00·점도표 없음) + AAPL·LG전자·삼성전기 = 메모리 마진·capex 첫 검증 슈퍼위크",
+        "text": "7/29 하닉(발표완료) → 7/30 새벽 FOMC·META·MSFT + 7/30 10:00 삼성전자 → 7/31 새벽 AAPL(팀쿡마지막)·LG전자·삼성전기[추정] = 메모리 마진·capex 첫 검증 슈퍼위크",
         "done": false
       },
       {
@@ -17398,7 +17398,7 @@ window.APP_DATA = {
       "total": 5
     },
     "week": {
-      "done": 0,
+      "done": 1,
       "total": 5
     },
     "month": {

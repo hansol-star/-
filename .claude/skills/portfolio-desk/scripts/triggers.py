@@ -121,9 +121,18 @@ def _level(cfg, cond, ticker):
     return None
 
 
+# 매수 안전핀(룰1) = 코스피 7,500 종가. 하드코딩이 정본이다.
+# ⚠️[2026-07-29 버그픽스] 舊 구현은 `_level(cfg,"below","^KS11")`로 alerts에서 골랐는데,
+# 이 헬퍼는 '첫 번째로 매칭되는' below 알림을 집어온다. 7/13 급락TF가 6,500(S2 트리거) below
+# 알림을 추가한 뒤로는 안전핀이 6,500으로 잘못 잡혔다.
+# 둘 다 하회 중일 땐 판정이 같아 눈에 안 띄었으나, **코스피가 6,500~7,500으로 회복하는 순간
+# "안전핀 위"로 오판해 트랜치를 열어준다** — 시나리오A(8월 기술반등 6,500~7,000)가 정확히 그 구간이다.
+SAFETY_PIN_KOSPI = 7500
+
+
 def recommend_tranche(cfg, kospi):
     """안전핀까지 버퍼로 다음 트랜치 권장 규모를 스케일. 안전핀 하회 시 0(동결)."""
-    pin = _level(cfg, "below", "^KS11") or 7500          # 안전핀(가장 낮은 below가 7500)
+    pin = SAFETY_PIN_KOSPI
     tranches = cfg.get("tranches", [])
     nxt = next((t for t in tranches if not t.get("executed")), None)
     base = (nxt or {}).get("amount_krw", 0)

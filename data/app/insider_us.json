@@ -1,0 +1,599 @@
+{
+ "updated": "2026-07-30",
+ "days": 90,
+ "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
+ "failed": [],
+ "stocks": [
+  {
+   "ticker": "NVDA",
+   "filings": 21,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 7,
+    "shares": 1901125.0,
+    "value": 410580151.38,
+    "n_10b5_1": 7
+   },
+   "other_grants_exercises": {
+    "n": 19,
+    "shares": 1472058.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 565615.0,
+     "price": 210.4372,
+     "ad": "D",
+     "date": "2026-06-18",
+     "after": 5207271.0,
+     "value": 119026436.87799999,
+     "owner": "STEVENS MARK A",
+     "title": "",
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000007/wk-form4_1782247316.xml"
+    },
+    {
+     "code": "S",
+     "shares": 500000.0,
+     "price": 222.3774,
+     "ad": "D",
+     "date": "2026-06-02",
+     "after": 6899771.0,
+     "value": 111188700.0,
+     "owner": "STEVENS MARK A",
+     "title": "",
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000005/wk-form4_1780616062.xml"
+    },
+    {
+     "code": "S",
+     "shares": 400000.0,
+     "price": 220.371,
+     "ad": "D",
+     "date": "2026-06-04",
+     "after": 6399771.0,
+     "value": 88148400.0,
+     "owner": "STEVENS MARK A",
+     "title": "",
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000005/wk-form4_1780616062.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "MU",
+   "filings": 15,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 201,
+    "shares": 211780.0,
+    "value": 194897362.58999997,
+    "n_10b5_1": 201
+   },
+   "other_grants_exercises": {
+    "n": 5,
+    "shares": 1702.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 10497.0,
+     "price": 1079.99,
+     "ad": "D",
+     "date": "2026-07-01",
+     "after": 109714.0,
+     "value": 11336655.03,
+     "owner": "ARNZEN APRIL S",
+     "title": "EVP and Chief People Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000163206326000003/primarydocument.xml"
+    },
+    {
+     "code": "S",
+     "shares": 5123.0,
+     "price": 1132.37,
+     "ad": "D",
+     "date": "2026-06-26",
+     "after": 378902.0,
+     "value": 5801131.51,
+     "owner": "MEHROTRA SANJAY",
+     "title": "President and CEO",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000124265426000011/primarydocument.xml"
+    },
+    {
+     "code": "S",
+     "shares": 4279.0,
+     "price": 1077.05,
+     "ad": "D",
+     "date": "2026-07-01",
+     "after": 121458.0,
+     "value": 4608696.95,
+     "owner": "ARNZEN APRIL S",
+     "title": "EVP and Chief People Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000163206326000003/primarydocument.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "AAPL",
+   "filings": 5,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 5,
+    "shares": 301390.0,
+    "value": 87144418.55000001,
+    "n_10b5_1": 5
+   },
+   "other_grants_exercises": {
+    "n": 6,
+    "shares": 116706.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 149527.0,
+     "price": 284.57,
+     "ad": "D",
+     "date": "2026-05-06",
+     "after": 3920049.0,
+     "value": 42550898.39,
+     "owner": "LEVINSON ARTHUR D",
+     "title": null,
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126020298/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 100473.0,
+     "price": 285.04,
+     "ad": "D",
+     "date": "2026-05-06",
+     "after": 3819576.0,
+     "value": 28638823.92,
+     "owner": "LEVINSON ARTHUR D",
+     "title": null,
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126020298/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 50000.0,
+     "price": 311.02,
+     "ad": "D",
+     "date": "2026-05-27",
+     "after": 3764576.0,
+     "value": 15551000.0,
+     "owner": "LEVINSON ARTHUR D",
+     "title": null,
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126023363/form4.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "MSFT",
+   "filings": 13,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 4,
+    "shares": 23762.311999999998,
+    "value": 10508460.942704,
+    "n_10b5_1": 4
+   },
+   "other_grants_exercises": {
+    "n": 10,
+    "shares": 6469.338000000001
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 15500.0,
+     "price": 460.988,
+     "ad": "D",
+     "date": "2026-06-01",
+     "after": 110477.434,
+     "value": 7145314.0,
+     "owner": "Althoff Judson",
+     "title": "CEO Microsoft Commercial",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000083/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 4500.0,
+     "price": 402.84,
+     "ad": "D",
+     "date": "2026-06-10",
+     "after": 47467.7595,
+     "value": 1812780.0,
+     "owner": "Numoto Takeshi",
+     "title": "EVP, Chief Marketing Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000121/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 2500.0,
+     "price": 412.45,
+     "ad": "D",
+     "date": "2026-06-08",
+     "after": 51967.7595,
+     "value": 1031125.0,
+     "owner": "Numoto Takeshi",
+     "title": "EVP, Chief Marketing Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000109/form4.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "ANET",
+   "filings": 25,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 155,
+    "shares": 2542316.0,
+    "value": 428267394.3852002,
+    "n_10b5_1": 155
+   },
+   "other_grants_exercises": {
+    "n": 24,
+    "shares": 881650.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 160802.0,
+     "price": 187.1756,
+     "ad": "D",
+     "date": "2026-07-10",
+     "after": 17155010.0,
+     "value": 30098210.8312,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000162/edgardoc.xml"
+    },
+    {
+     "code": "S",
+     "shares": 113134.0,
+     "price": 188.5586,
+     "ad": "D",
+     "date": "2026-07-09",
+     "after": 17316525.0,
+     "value": 21332388.652400002,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000160/edgardoc.xml"
+    },
+    {
+     "code": "S",
+     "shares": 123450.0,
+     "price": 162.0824,
+     "ad": "D",
+     "date": "2026-06-04",
+     "after": 422335.0,
+     "value": 20009072.28,
+     "owner": "BECHTOLSHEIM ANDREAS",
+     "title": null,
+     "role": "·10%주주",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000136/edgardoc.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "AVGO",
+   "filings": 10,
+   "buy_open_market": {
+    "n": 1,
+    "shares": 1000.0,
+    "value": 373570.0
+   },
+   "sell_open_market": {
+    "n": 53,
+    "shares": 740885.0,
+    "value": 283696979.82,
+    "n_10b5_1": 53
+   },
+   "other_grants_exercises": {
+    "n": 8,
+    "shares": 390885.0
+   },
+   "top_buys": [
+    {
+     "code": "P",
+     "shares": 1000.0,
+     "price": 373.57,
+     "ad": "A",
+     "date": "2026-06-11",
+     "after": 38466.0,
+     "value": 373570.0,
+     "owner": "You Harry L.",
+     "title": null,
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000056/wk-form4_1781557916.xml"
+    }
+   ],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 53722.0,
+     "price": 385.57,
+     "ad": "D",
+     "date": "2026-06-24",
+     "after": 36591108.0,
+     "value": 20713591.54,
+     "owner": "SAMUELI HENRY",
+     "title": "",
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000110465926078348/tm2619044-1_4seq1.xml"
+    },
+    {
+     "code": "S",
+     "shares": 49805.0,
+     "price": 380.57,
+     "ad": "D",
+     "date": "2026-06-24",
+     "after": 30436039.0,
+     "value": 18954288.85,
+     "owner": "SAMUELI HENRY",
+     "title": "",
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000110465926078348/tm2619044-1_4seq1.xml"
+    },
+    {
+     "code": "S",
+     "shares": 48996.0,
+     "price": 380.57,
+     "ad": "D",
+     "date": "2026-06-24",
+     "after": 36787870.0,
+     "value": 18646407.72,
+     "owner": "SAMUELI HENRY",
+     "title": "",
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000110465926078348/tm2619044-1_4seq1.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "GOOGL",
+   "filings": 25,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 23,
+    "shares": 617280.0,
+    "value": 15151179.119099999,
+    "n_10b5_1": 23
+   },
+   "other_grants_exercises": {
+    "n": 89,
+    "shares": 767246.087
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 196931.0,
+     "price": 19.4629,
+     "ad": "D",
+     "date": "2026-07-27",
+     "after": 0.0,
+     "value": 3832848.3599,
+     "owner": "GV 2019 GP, L.L.C.",
+     "title": "",
+     "role": "·10%주주",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000116840426000041/form4-07292026_110704.xml"
+    },
+    {
+     "code": "S",
+     "shares": 118138.0,
+     "price": 18.8996,
+     "ad": "D",
+     "date": "2026-07-28",
+     "after": 0.0,
+     "value": 2232760.9448,
+     "owner": "GV 2019 GP, L.L.C.",
+     "title": "",
+     "role": "·10%주주",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000116840426000041/form4-07292026_110704.xml"
+    },
+    {
+     "code": "S",
+     "shares": 61992.0,
+     "price": 19.8376,
+     "ad": "D",
+     "date": "2026-07-15",
+     "after": 0.0,
+     "value": 1229772.4992,
+     "owner": "GV 2019 GP, L.L.C.",
+     "title": "",
+     "role": "·10%주주",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000116840426000029/form4-07182026_120730.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "META",
+   "filings": 25,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 64,
+    "shares": 38378.0,
+    "value": 23523780.40409999,
+    "n_10b5_1": 64
+   },
+   "other_grants_exercises": {
+    "n": 46,
+    "shares": 130860.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 2344.0,
+     "price": 609.1468,
+     "ad": "D",
+     "date": "2026-05-18",
+     "after": 14416.0,
+     "value": 1427840.0992,
+     "owner": "LI SUSAN J",
+     "title": "Chief Financial Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326007489/ownership.xml"
+    },
+    {
+     "code": "S",
+     "shares": 2230.0,
+     "price": 607.6018,
+     "ad": "D",
+     "date": "2026-05-18",
+     "after": 3682.0,
+     "value": 1354952.014,
+     "owner": "Bosworth Andrew",
+     "title": "Chief Technology Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326007490/ownership.xml"
+    },
+    {
+     "code": "S",
+     "shares": 2127.0,
+     "price": 618.43,
+     "ad": "D",
+     "date": "2026-05-15",
+     "after": 15346.0,
+     "value": 1315400.6099999999,
+     "owner": "LI SUSAN J",
+     "title": "Chief Financial Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326007489/ownership.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "ORCL",
+   "filings": 7,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 11,
+    "shares": 400000.0,
+    "value": 63664039.587699994,
+    "n_10b5_1": 11
+   },
+   "other_grants_exercises": {
+    "n": 9,
+    "shares": 412822.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 78559.0,
+     "price": 157.023,
+     "ad": "D",
+     "date": "2026-06-24",
+     "after": 246472.0,
+     "value": 12335569.856999999,
+     "owner": "HENLEY JEFFREY",
+     "title": "Vice Chairman",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000064/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 74969.0,
+     "price": 156.0642,
+     "ad": "D",
+     "date": "2026-06-24",
+     "after": 325031.0,
+     "value": 11699977.0098,
+     "owner": "HENLEY JEFFREY",
+     "title": "Vice Chairman",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000064/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 62582.0,
+     "price": 160.0776,
+     "ad": "D",
+     "date": "2026-06-24",
+     "after": 121216.0,
+     "value": 10017976.3632,
+     "owner": "HENLEY JEFFREY",
+     "title": "Vice Chairman",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000064/form4.xml"
+    }
+   ]
+  }
+ ]
+}

@@ -1,13 +1,13 @@
 {
  "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
- "updated": "2026-07-29",
+ "updated": "2026-07-30",
  "source": "2026-07-29 R1 영상 프리페치 루틴 — 수페TV 신규 1편(원칙론, 종목콜 없음), 지식인사이드 신규 0편(투자 키워드 필터 통과작 없음, 최근작 7/18).",
  "channels": {
   "supe": {
    "name": "수페TV",
    "channel_id": "UCfnqgWlC5IvJEAPTmyjaixA",
    "channel_note": "주 2~3회 주간 시장랩업. 지수·섹터·수급·13F·실적일정까지 구체 수치 多 — 보유종목(MU·AAPL·META·MSFT·NVDA·GOOGL) 직결 주장이 많아 [검증/정정] 태깅·조건트래커 가치 높음. 배당·ETF 성향(커버드콜·SCHD)은 정훈 스타일과 결이 다름 → 종목·테마 팩트 위주 채택.",
-   "headline": "[7/28] 원칙론 에세이(돈-시간 교환) — 종목콜 없음, 배당·성장 인출전략 프레임만 제시.",
+   "headline": "[7/30] 신규 없음(최신=NC6JwF8zmX8, 7/28 원칙론 유지).",
    "setups": [],
    "latest_videos": [
     {
@@ -177,7 +177,7 @@
    "name": "지식인사이드",
    "channel_id": "UCA_hgsFzmynpv1zkvA5A7jA",
    "channel_note": "전문가 인터뷰 채널(윤지호·오건영·빈센트 등). 매일 업로드하나 비투자 콘텐츠 다수 → hunter_latest.py --channel jisik이 투자 키워드 제목필터 적용. 성격 = 종목 콜이 아닌 프레임·통찰 → 태깅 위주, setups는 명확한 조건부 콜일 때만. study_log.md의 오건영·빈센트 수동 기록과 이어짐.",
-   "headline": "[7/27] 이선엽 대표(前 신한투자증권 리서치센터장) — 반도체 마진 방향 프레임이 경제사냥꾼과 독립 수렴(룰4 3소스 교차확인). 2부(신중론자) 예고 있으면 다음 프리페치 필수 추적.",
+   "headline": "[7/30] 신규 없음 — RSS 최신작(921oFNi72no, 부동산 콘텐츠)은 필터로 정확히 제외, 투자키워드 통과 최신은 haqnRTzYUc4(7/27 이선엽 대표) 그대로.",
    "setups": [],
    "latest_videos": [
     {
@@ -437,6 +437,6 @@
  "_excluded": {
   "자산제곱": "UCpTC-SMFjA3EDRhZIKOcKuQ — 7/7 판단으로 미편입. 7/2 영상 전문 시청 결과 조정 대응 원칙론(부정편향·현금20%·이평 분할매수) 위주로 방향은 건전하나 종목 콜·검증 가능 수치 부재, 구체 내용은 '고정 댓글 참고'로 외부화, 주 1회·1.3만뷰. 편입하려면 hunter_latest.py CHANNELS + 여기 channels에 키 추가."
  },
- "as_of": "2026-07-29 20:1x KST (v63 부록 night)",
+ "as_of": "2026-07-30 10:1x KST (R1 프리페치)",
  "source_report": "docs/reports/report_v63_2026-07-29_night.md"
 }

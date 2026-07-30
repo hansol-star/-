@@ -14,6 +14,8 @@
         바로 그때) 가장 강하게 막았다.
    新: **고점 대비 낙폭**을 사다리로 나눠 단계별로 재원을 미리 배분. 각 단계 첫 도달 시 그 몫만 해금.
        폭풍·심리는 **금지가 아니라 승수(감산·가산)**로 작동한다.
+       ★2차 개정(7/30 밤): 11개 지수 17,946표본 재판정에서 **폭풍 금액 감산이 해금 4단계 전부
+       역효과**로 확인 → **금액 감산 폐지**, 폭풍은 **분할 횟수**로만 쓴다(총액 불변).
 
 ■ 룰 2 (LG전자 펀더 훼손) — **이벤트형만 → 추세형 판정 추가**
    舊: *"NVIDIA 냉각 인증 취소 등"* = **이벤트만** 훼손으로 인정.
@@ -59,13 +61,30 @@ LADDER = [
 ]
 RESERVE = 0.15  # 영구 예비 — 회복 확인(게이트 2/3+) 전까지 봉인
 
-# 폭풍 %ile → 승수. **0으로 만들지 않는다** — 이게 舊 §5b 역작동의 해소점.
-STORM_MULT = [(97, 0.40), (90, 0.60), (75, 0.80), (0, 1.00)]
+# ★[2026-07-30 2차 개정·정훈 승인 "해금 구간 감산 제거하자"] 폭풍 **금액 감산 폐지**.
+#
+# 근거 = 11개 지수 17,946표본 재판정(rule_tracker --multi). 12개월 중앙값,
+# 강한 감산(≤0.6) vs 약한 감산(>0.6) — **해금된 4개 단계 전부 역효과**:
+#   D1 +11.4% vs +10.1%(+1.3%p·98국면) / D2 +14.2% vs +10.0%(+4.2%p·61국면)
+#   D3  +6.0% vs  +4.9%(+1.1%p·64국면) / D4 +13.8% vs  +9.4%(+4.3%p·62국면)
+# 평시(D0)에서만 감산이 유효했으나 **D0는 해금이 0%라 승수가 무엇이든 결과가 0원** —
+# 즉 D0 유효 판정은 룰에 아무 영향이 없다. ⇒ 실질적으로 금액 감산 조항 전체 폐지.
+#
+# 해석: 평시엔 변동성이 높으면 조심하는 게 맞지만, **크래시 구간에서는 변동성이 높은 것
+# 자체가 바닥 신호에 가깝다.** 舊 §5b 역작동이 축소된 형태로 남아 있던 것이 확인됐다.
+STORM_MULT = None   # 폐기 — 이력은 위 주석 + crash_tf §2b
+
+# 대신 폭풍은 **분할 속도**에 쓴다 — 총액은 그대로, 나눠 넣는 횟수만 늘린다.
+# 데이터와 정합: 12개월 성과는 폭풍이 높을 때가 좋았으므로(금액 줄일 이유 없음)
+# 금액은 유지하되, 그 사이 경로 변동성은 크므로(한 번에 넣을 이유도 없음) 분할한다.
+# ⚠️ 이건 **집행 방식 권고**이지 상한 계산을 바꾸지 않는다.
+STORM_SPLITS = [(97, 4), (90, 3), (75, 2), (0, 2)]
 
 # 심리 항복 가산 — "공포에 사라"의 기계화. 공포·항복 둘 다 90%ile+ 일 때만.
 CAPITULATION_BONUS = 1.20
 
-MULT_FLOOR, MULT_CAP = 0.30, 1.20
+# 감산이 사라졌으므로 하한은 1.0 (항복 가산만 위로 작동)
+MULT_FLOOR, MULT_CAP = 1.00, 1.20
 
 # ⚠️ 금융 자회사를 연결하는 기업 — FCF·순부채 조건이 **구조적으로 왜곡**된다.
 #    현대차는 현대캐피탈 할부금융 자산 증가가 영업활동현금흐름(CFO)에 마이너스로 잡혀
@@ -75,14 +94,15 @@ MULT_FLOOR, MULT_CAP = 0.30, 1.20
 FINANCIAL_ARM = {"005380.KS"}
 
 
-def _storm_mult(pct):
+def _storm_splits(pct):
+    """폭풍 %ile → **권장 분할 횟수**(금액 불변). 舊 금액 감산의 대체물."""
     if pct is None:
-        return 1.0, "폭풍 미확인 → 감산 없음(보수적 판단 필요)"
-    for thr, m in STORM_MULT:
+        return 2, "폭풍 미확인 → 기본 2분할"
+    for thr, n in STORM_SPLITS:
         if pct >= thr:
-            label = {0.40: "극단", 0.60: "폭풍", 0.80: "경계", 1.00: "평온"}[m]
-            return m, f"폭풍 {pct:.0f}%ile [{label}] → ×{m}"
-    return 1.0, ""
+            label = {4: "극단", 3: "폭풍", 2: "경계/평온"}[n]
+            return n, f"폭풍 {pct:.0f}%ile [{label}] → **{n}분할** 권장 (금액 감산 없음)"
+    return 2, ""
 
 
 def ladder_state(dd_pct: float):
@@ -122,11 +142,11 @@ def global_contagion_check():
 def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
           check_contagion: bool = True):
     unlocked, steps = ladder_state(dd_pct)
-    smult, swhy = _storm_mult(storm_pct)
+    splits, swhy = _storm_splits(storm_pct)
 
     capit = (fear_pct is not None and capit_pct is not None
              and fear_pct >= 90 and capit_pct >= 90)
-    mult = smult * (CAPITULATION_BONUS if capit else 1.0)
+    mult = CAPITULATION_BONUS if capit else 1.0
     mult = max(MULT_FLOOR, min(MULT_CAP, mult))
 
     # 백테스트(rule_tracker --backfill)는 수천 번 호출하므로 네트워크 조회를 끈다.
@@ -136,7 +156,8 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
     return {
         "dd_pct": dd_pct, "cash": cash,
         "unlocked_ratio": unlocked, "steps": steps,
-        "storm_mult": smult, "storm_why": swhy,
+        "storm_splits": splits, "storm_why": swhy,
+        "storm_mult": 1.0,   # 하위호환(원장 스키마) — 금액 감산 폐지로 항상 1.0
         "capitulation": capit,
         "capitulation_why": (f"공포 {fear_pct:.0f}%ile·항복 {capit_pct:.0f}%ile 동반 90+ → ×{CAPITULATION_BONUS}"
                              if capit else "항복 가산 미충족"),
@@ -323,13 +344,15 @@ def main():
     print(f"\n  누적 해금 **{r['unlocked_ratio']*100:.0f}%**")
     print(f"  {r['storm_why']}")
     print(f"  {r['capitulation_why']}")
-    print(f"  → 최종 승수 **×{r['final_mult']}**  (하한 {MULT_FLOOR}·상한 {MULT_CAP})")
+    print(f"  → 최종 승수 **×{r['final_mult']}**  (하한 {MULT_FLOOR}·상한 {MULT_CAP} — 금액 감산 폐지)")
     print(f"\n  {r['halt_why']}")
     if r["halted"]:
         print("\n  🔴 **허용 트랜치 0원** — 글로벌 확산으로 개정 전제가 깨졌다.")
     else:
         print(f"\n  💰 **허용 트랜치 상한 = {r['allowed_krw']:,}원**"
               f"  ({cash:,.0f} × {r['unlocked_ratio']*100:.0f}% × {r['final_mult']})")
+        print(f"     분할 권고: **{r['storm_splits']}회** "
+              f"(1회 ≈ {round(r['allowed_krw']/r['storm_splits']):,}원) — 금액이 아니라 속도로 조절")
         print("     ※ 상한이지 목표가 아니다. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")
 
     r2 = rule2(a.ticker)

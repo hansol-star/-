@@ -74,6 +74,12 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
 - 미스무브 회고(self-review §6): missed_moves.py 로 놓친 매수/매도(오미션)·good_inaction·반복 패턴 산출
   → 검증한 케이스만 missed_moves.jsonl append + docs/research/hindsight_log.md 맨 위 회고 블록 prepend
   (결과론 함정 경계 — 히스토리 짧으면 noise, good_inaction으로 무행동 편향 균형). 반복 편향은 desk_playbook §2/§3 반영 제안.
+- **역량 감사 (self-review §7 · 7/30 신설 — 이 단계를 빼지 말 것)**: 콜 채점은 *우리가 낸 답*만 검사한다.
+  *애초에 못 낸 답*은 이 감사가 아니면 영원히 안 보인다(재무제표 2개월 0건 사고의 구조적 원인).
+  ① `python3 .claude/skills/portfolio-desk/scripts/validate_report.py --coverage` → 레이어 결손·stale FAIL/WARN 처리.
+  ② 지난 주 "데이터가 없어서 못 답한 질문" 로그를 모은다 — 그게 곧 빠진 레이어다.
+  ③ `docs/data_coverage.md` §3 미보유 목록 우선순위 재평가(막혔던 소스가 열렸을 수 있다) + §2 표 갱신.
+  ④ 새 결손을 찾으면 §3에 추가하고, 실현 가능한 것은 그 주 dev 작업으로 제안.
 - 체계적 편향(별점 쏠림·순서 역전·반복 빗나감) 발견 시 stock-deepdive 방법론/holdings_outlook 전망 교정안을
   '제안'으로 적되 자동 변경 ❌(확정은 정훈). 검증된 사실오류만 master.md §7 영구교정.
 - 결과론 함정 주의(단기 노이즈로 과벌 금지, 표본·기간 명시).

@@ -50,8 +50,8 @@ BASE = "https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/t
 P1, P2 = 1041379200, 2000000000
 
 # 국내 보유 5 (Yahoo 티커) — 원익IPS·테스는 .KQ (6/14 교정 이력 준수)
-KR_HOLDINGS = ["005930.KS", "066570.KS", "454910.KQ", "005380.KS", "035420.KS"]
-KR_NAMES = {"005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KQ": "두산로보틱스",
+KR_HOLDINGS = ["005930.KS", "066570.KS", "454910.KS", "005380.KS", "035420.KS"]
+KR_NAMES = {"005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KS": "두산로보틱스",
             "005380.KS": "현대차", "035420.KS": "NAVER"}
 # FMP가 402로 막는 미국 종목 = EDGAR 교차검증 우선 대상
 US_402 = ["MU", "ANET", "AVGO", "ORCL"]

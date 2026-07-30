@@ -1,11 +1,11 @@
 {
- "updated": "2026-07-29",
+ "updated": "2026-07-30",
  "covered": [
   "005380.KS",
   "005930.KS",
   "035420.KS",
   "066570.KS",
-  "454910.KQ",
+  "454910.KS",
   "AAPL",
   "ANET",
   "AVGO",
@@ -26,7 +26,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2026-01-25",
@@ -628,7 +628,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-08-28",
@@ -1206,7 +1206,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-09-27",
@@ -1784,8 +1784,49 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
+    {
+     "end": "2026-06-30",
+     "period": "annual",
+     "revenue": 331839000000,
+     "gross_profit": 225465000000,
+     "operating_income": 155237000000,
+     "net_income": 133749000000,
+     "eps_diluted": 17.95,
+     "shares_diluted": 7453000000,
+     "rnd": 35562000000,
+     "assets": 758376000000,
+     "liabilities": 315989000000,
+     "equity": 442387000000,
+     "cash": 20935000000,
+     "inventory": 1397000000,
+     "receivables": 80876000000,
+     "assets_current": 207710000000,
+     "liabilities_current": 168825000000,
+     "deferred_revenue": 72965000000,
+     "cfo": 182935000000,
+     "capex": 115948000000,
+     "buyback": 22271000000,
+     "total_debt": 40294000000,
+     "fcf": 66987000000,
+     "_derived": [],
+     "gross_margin": 0.6794,
+     "op_margin": 0.4678,
+     "net_margin": 0.4031,
+     "fcf_margin": 0.2019,
+     "roe": 0.3023,
+     "debt_to_equity": 0.0911,
+     "current_ratio": 1.2303,
+     "net_cash": -19359000000,
+     "revenue_yoy": 17.7887,
+     "eps_yoy": 31.5982,
+     "net_income_yoy": 31.3428,
+     "inventory_yoy": 48.9339,
+     "receivables_yoy": 15.6942,
+     "shares_yoy": -0.1608,
+     "deferred_yoy": 13.0277
+    },
     {
      "end": "2025-06-30",
      "period": "annual",
@@ -1949,47 +1990,6 @@
      "receivables_yoy": 16.3447,
      "shares_yoy": -0.8938,
      "deferred_yoy": 9.6641
-    },
-    {
-     "end": "2021-06-30",
-     "period": "annual",
-     "revenue": 168088000000,
-     "gross_profit": 115856000000,
-     "operating_income": 69916000000,
-     "net_income": 61271000000,
-     "eps_diluted": 8.05,
-     "shares_diluted": 7608000000,
-     "rnd": 20716000000,
-     "assets": 333779000000,
-     "liabilities": 191791000000,
-     "equity": 141988000000,
-     "cash": 14224000000,
-     "inventory": 2636000000,
-     "receivables": 38043000000,
-     "assets_current": 184406000000,
-     "liabilities_current": 88657000000,
-     "deferred_revenue": 41525000000,
-     "cfo": 76740000000,
-     "capex": 20622000000,
-     "buyback": 27385000000,
-     "total_debt": 58146000000,
-     "fcf": 56118000000,
-     "_derived": [],
-     "gross_margin": 0.6893,
-     "op_margin": 0.4159,
-     "net_margin": 0.3645,
-     "fcf_margin": 0.3339,
-     "roe": 0.4315,
-     "debt_to_equity": 0.4095,
-     "current_ratio": 2.08,
-     "net_cash": -43922000000,
-     "revenue_yoy": 17.5317,
-     "eps_yoy": 39.7569,
-     "net_income_yoy": 38.3686,
-     "inventory_yoy": 39.1029,
-     "receivables_yoy": 18.8435,
-     "shares_yoy": -0.9762,
-     "deferred_yoy": 15.3472
     }
    ],
    "quarterly": [
@@ -2341,9 +2341,24 @@
        "op_margin": 0.4887
       }
      ]
+    },
+    {
+     "code": "debt_buildup",
+     "severity": "med",
+     "message": "순현금 -12.9B → -19.4B (1년 새 6.5B 악화)",
+     "evidence": [
+      {
+       "end": "2026-06-30",
+       "net_cash": -19359000000
+      },
+      {
+       "end": "2025-06-30",
+       "net_cash": -12909000000
+      }
+     ]
     }
    ],
-   "fund_subscore": 64.8,
+   "fund_subscore": 68.8,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
@@ -2352,9 +2367,9 @@
      "why": "분기 희석EPS YoY +32.2%"
     },
     "A_연간EPS": {
-     "score": 16.4,
+     "score": 20.4,
      "max": 25,
-     "why": "연간 희석EPS YoY +15.6%"
+     "why": "연간 희석EPS YoY +31.6%"
     },
     "마진방향": {
      "score": 4.9,
@@ -2364,12 +2379,12 @@
     "FCF건전성": {
      "score": 15,
      "max": 15,
-     "why": "FCF 마진 +25.4%"
+     "why": "FCF 마진 +20.2%"
     },
     "재무건전성": {
      "score": 8.0,
      "max": 15,
-     "why": "순현금 -12.9B · D/E 0.13"
+     "why": "순현금 -19.4B · D/E 0.09"
     }
    },
    "source_conflict": []
@@ -2382,7 +2397,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",
@@ -2984,7 +2999,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-11-02",
@@ -3602,7 +3617,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4207,7 +4222,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4801,7 +4816,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2026-05-31",
@@ -5428,7 +5443,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",
@@ -5803,7 +5818,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6170,15 +6185,15 @@
     }
    ]
   },
-  "454910.KQ": {
-   "ticker": "454910.KQ",
+  "454910.KS": {
+   "ticker": "454910.KS",
    "name": "두산로보틱스",
    "region": "KR",
    "currency": "KRW",
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6546,7 +6561,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6921,7 +6936,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-07-29",
+   "as_of": "2026-07-30",
    "annual": [
     {
      "end": "2025-12-31",

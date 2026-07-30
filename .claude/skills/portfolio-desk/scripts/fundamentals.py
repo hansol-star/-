@@ -36,7 +36,9 @@ BASE = "https://financialmodelingprep.com/stable"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 
 # 미국주만 (국내 .KS/.KQ 는 무료 플랜 미지원 → 건너뜀)
-US_HOLDINGS = ["NVDA", "MU", "AAPL", "VOO", "MSFT", "ANET", "TSLA", "AVGO", "GOOGL", "META", "ORCL"]
+# [7/30] TSLA 제외 — 7/7 밤 전량 매도(워치 전환). 보유 아닌 종목을 매일 호출하면
+#         무료플랜 250콜/일 예산만 축낸다. 재진입 시 다시 넣을 것.
+US_HOLDINGS = ["NVDA", "MU", "AAPL", "VOO", "MSFT", "ANET", "AVGO", "GOOGL", "META", "ORCL"]
 
 # [2026-07-19 실검증] 무료 stable 플랜 심볼 화이트리스트 밖 → quote부터 402.
 # 이 종목들은 WebSearch(증권사 리포트) 폴백. 플랜 업그레이드 시 자동 수신되도록

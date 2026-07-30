@@ -87,6 +87,28 @@ python3 .claude/skills/portfolio-desk/scripts/missed_moves.py --min-move 8    # 
 - 검증한 케이스만 사람이 판단해 **`data/app/missed_moves.jsonl` append** + **`docs/research/hindsight_log.md` 맨 위 회고 블록 prepend**(형식은 그 파일 골격). 필드: `{id, date, ticker, decision_type, ref_price, signal, move_pct, horizon, rationale, verdict(miss/right/noise), lesson, cluster_tag, source_report}`.
 - 반복 패턴(클러스터별 미스 카운트·기각된 대안 재검토)은 §5 자기교정과 합쳐 **`desk_playbook.md` §2/§3에 실행형 교훈으로 반영 제안**(자동변경 ❌).
 
+## 7. 역량 감사 — 못 낸 답을 찾는다 (결손 점검) [7/30 신설]
+
+§1~§6은 전부 **우리가 낸 답**을 채점한다(콜이 맞았나, 안 한 행동이 옳았나). 그래서 **애초에
+답을 낼 데이터가 없어서 넘어간 질문**은 어떤 채점에도 안 걸린다. 실제로 재무제표가 **두 달간
+0건**이었는데 매일 게이트가 `FAIL 0`으로 통과했다 — 게이트가 있다는 사실이 오히려 다 갖췄다는
+착각을 줬다. 이 단계가 그 구멍을 메운다.
+
+```bash
+python3 .claude/skills/portfolio-desk/scripts/validate_report.py --coverage
+```
+
+1. **기계 점검**: 위 명령이 레이어별 존재·신선도를 FAIL/WARN으로 낸다. FAIL은 그 자리에서 해소.
+2. **못 답한 질문 로그**: 지난 주 정훈 질문·보고서 작성 중 *"데이터가 없어서"*, *"미확인"*으로
+   넘어간 항목을 모은다. **반복되는 미확인 = 빠진 레이어의 신호**다.
+3. **§3 미보유 목록 재평가**: `docs/data_coverage.md` §3의 우선순위를 갱신하고, 막혔다고 적어둔
+   소스를 **다시 찔러본다**(활성화·플랜·엔드포인트가 바뀌었을 수 있다 — 실제로 네이버 검색 API는
+   '불가'가 아니라 '콘솔 미활성화'였다).
+4. **§2 표 갱신**: 신설·폐기된 스크립트 반영.
+
+> **금지**: `data_coverage.md`를 "우리가 갖춘 것 자랑 목록"으로 쓰지 말 것. §3(없는 것)이 §2(있는 것)보다 중요하다.
+> CLAUDE.md 톤 규약 [7/20] — *"상업용 최상급을 기준선으로 놓고 부족한 부분부터 냉정히 짚는다."*
+
 ## 규약
 - 후행검증은 **결과론 함정** 주의: 단기 노이즈로 콜을 과벌하지 말 것 — 표본·기간 명시, "운 vs 실력" 구분. (오미션 회고도 동일: `good_inaction` 계상으로 무행동 편향 균형.)
 - 추측 금지, 미확인은 "미확인". 스코어카드·미스무브 원장 갱신·교정 시 git 커밋(연속성).

@@ -52,7 +52,9 @@ import yahoo_facts as Y
 
 # 보유 15종목 (VOO=ETF는 재무제표 대상 아님 → 14종목이 커버 대상)
 US = ["NVDA", "MU", "AAPL", "MSFT", "ANET", "AVGO", "GOOGL", "META", "ORCL"]
-KR = ["005930.KS", "066570.KS", "454910.KQ", "005380.KS", "035420.KS"]
+KR = ["005930.KS", "066570.KS", "454910.KS", "005380.KS", "035420.KS"]
+# ⚠️ 티커 접미사는 시장을 바꾼다: 454910.KS=두산로보틱스(KSE) / 454910.KQ=코스닥의 다른 종목.
+#    원익IPS·테스 .KQ 사고(6/14)의 반대방향 재발 — 접미사는 market_data.py와 항상 일치시킬 것.
 ETF = ["VOO"]
 ALL = US + KR
 

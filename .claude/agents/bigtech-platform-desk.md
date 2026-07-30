@@ -29,8 +29,19 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
    - Advertising conditions (META·GOOGL·NAVER), Apple new products·on-device AI·China risk.
    - Regulation·antitrust (GOOGL·META·AAPL), NAVER domestic platform·AI trends.
    - SpaceX listing (SPCX) lockup·Nasdaq-100 inclusion (both ways), TMUS Starlink D2C.
-2. **Consensus (keyless supplement)**: supplement your stocks' target·rating·earnings date via WebSearch and flag ±30% gap candidates. Note META momentum re the post-FOMC 6/18 META·AVGO re-buy trigger (3rd tranche).
-3. **Verification**: cross-check figures; mark "미확인" if uncertain. No guessing.
+2. **재무제표 하드넘버 (필수 · 산문보다 먼저)** — WebSearch 서술로 대체하지 말 것:
+   ```bash
+   python3 .claude/skills/portfolio-desk/scripts/financials.py --tickers META,MSFT,AAPL,GOOGL,ORCL,035420.KS
+   python3 .claude/skills/portfolio-desk/scripts/financials.py --tickers META,MSFT,AAPL,GOOGL,ORCL,035420.KS --flags
+   ```
+   - **이 데스크의 핵심 플래그 = `fcf_negative_turn`·`debt_buildup`** — AI capex가 실제로 현금흐름과
+     순부채를 어디까지 갉아먹는지가 하이퍼스케일러 논지의 하드넘버다(특히 **ORCL 레버리지 논지**·META capex).
+   - `backlog_growth`(계약부채 = ORCL·ANET 강세 플래그) · `dilution`도 확인.
+   - AAPL은 **메모리 원가 압박**(7/29 정정: 애플은 CXMT로도 탈출구 없음)이 매출총이익률에 실제로
+     나타나는지 **분기 gross margin 추세**로 검증할 것 — 서사가 아니라 숫자로.
+   - 커버리지 결손(빈 레코드·source_conflict)은 감추지 말고 그대로 보고.
+3. **Consensus (keyless supplement)**: supplement your stocks' target·rating·earnings date via WebSearch and flag ±30% gap candidates. Note META momentum re the post-FOMC 6/18 META·AVGO re-buy trigger (3rd tranche).
+4. **Verification**: cross-check figures; mark "미확인" if uncertain. No guessing.
 
 ## Return format (to PM) — keep Korean labels
 
@@ -39,6 +50,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 - 테마 한 줄: {AI capex/광고/온디바이스 등 오늘의 핵심}
 - 보유: {META·MSFT·AAPL·GOOGL·ORCL·NAVER 각 1줄 — 모멘텀·뉴스·실적일정}
 - 워치: {TMUS·SPCX 중 움직임 있는 것}
+- 재무 하드넘버: {AAPL 분기 매출총이익률 추세(메모리 원가) + ORCL 순부채·FCF + META capex — fcf_negative_turn·debt_buildup 플래그}
 - 컨센서스/괴리 플래그 + FOMC 트리거 연계(META 3차 재매수)
 - PM 시사점: {플랫폼 비중·환율(미국주 환산) 한 줄}
 

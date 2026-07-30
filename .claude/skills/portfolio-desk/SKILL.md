@@ -124,8 +124,19 @@ python3 .claude/skills/portfolio-desk/scripts/market_log.py   # [7/19] 오늘 �
 # (선택) charts.py — 비중/수익률 PNG(dataviz 검증팔레트·한글). matplotlib 있으면 생성·없으면 자동 스킵(웹). 로컬 이전 후 활성.
 python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data.js+폭풍점수 → 자체완결 HTML 대시보드(output/dashboard.html) → Artifact 툴로 발행하면 사이드패널 열람·공유. matplotlib PNG 대체(웹서도 뜸·다크대응). 템플릿=assets/dashboard_template.html
 ```
-- **미국주 펀더멘털(0~100 스코어 채점 근거)**: 키가 있으면 `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py`
-  → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE를 CANSLIM/미너비니 렌즈 채점에 투입. **국내 5종목·KR 워치는 FMP 무료 미지원 → 증권사 리포트 WebSearch로 보강**(키 없거나 한도 초과 시도 동일 폴백).
+- **📑 재무제표 3표 (보유 전종목 · 필수 · 무키) [7/29~30 신설]**:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/financials.py --all --save   # data/app/financials.json 갱신
+  python3 .claude/skills/portfolio-desk/scripts/financials.py --flags        # 재무 경보만
+  python3 .claude/skills/portfolio-desk/scripts/financials.py --score        # 펀더 서브스코어(0~100)
+  ```
+  **미국·국내 전부 하드넘버가 있다** — US=SEC EDGAR(1차·상장 이래) / KR=Yahoo+DART(1차). 舊 "국내는 FMP 미지원이라
+  WebSearch" 서술은 **폐기(7/30)**. 0~100 스코어를 쓸 때 **펀더 서브스코어와 25점 이상 벌어지면 `validate_report.py`가
+  WARN** — 그 이격을 N·L·M(촉매·주도주·시장방향) 가감분으로 반드시 설명할 것.
+  ⚠️ 티커 접미사는 시장을 바꾼다(`454910.KS`=두산로보틱스 / `.KQ`=남의 종목). `market_data.py` 기준과 일치 필수.
+- **미국주 TTM 파생(보조)**: 키가 있으면 `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py`
+  → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE. **무료플랜 402 종목(MU·VOO·ANET·AVGO·ORCL)은 EDGAR가 대체**하므로
+  더 이상 WebSearch 폴백 대상이 아니다.
 - **자체 밸류에이션(컨센서스 견제) [7/20]**: `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/valuation.py --tickers NVDA,MSFT [--comps]`
   → DCF 3시나리오(보수/기준/낙관) 내재가치 + 피어 P/E comps. **증권사 목표가(consensus.py)와 나란히 교차검증**("증권사 우선하되 과신 견제"의 정량 근거). ⚠️DCF는 가정 민감(가정 전부 출력·CLI 조정)·FCF 음수는 부적합 플래그. comps는 무료플랜 402 피어 많아 유효 피어<2면 신뢰불가 플래그. 키 없으면 `--demo`로 수학만.
 - `pnl.py`/`consensus.py`/`triggers.py`는 모두 `portfolio.json`(원가·보유·alerts 정본)을 읽는다.

@@ -13,7 +13,7 @@ validate_report.py — 보고서 '완료의 정의' 게이트 (하네스 엔지�
 FAIL(❌, exit 1) = 반드시 고치고 커밋.  WARN(⚠️, exit 0) = 눈으로 확인.
 의존성 없음(stdlib). 정본 = data/app/{stocks,flows,tasks}.json · CLAUDE.md · docs/reports/.
 """
-import argparse, json, os, re, subprocess, sys
+import argparse, datetime as dt, json, os, re, subprocess, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
@@ -469,22 +469,31 @@ def check_financials(latest=None):
         return
 
     stocks = d.get("stocks") or {}
-    # 접미사(.KS/.KQ) 차이를 흡수해 6자리 코드·티커 기준으로 대조
-    have = {k.split(".")[0] for k in stocks}
-    need = {t.split(".")[0] for t in HOLDINGS if t not in ETF_NO_SCORE}
-    missing = sorted(need - have)
+    # ⚠️ 접미사를 흡수해 6자리 코드로만 대조하면 **시장이 틀린 티커를 놓친다**.
+    #    실제 사고(7/30): financials가 454910.**KQ**(코스닥의 남의 종목)를 담고 있었는데
+    #    코드 454910만 대조해 통과 → "커버리지 14/14"가 빈 껍데기를 세고 있었다.
+    #    (6/14 원익IPS·테스 .KQ 사고의 반대방향 재발.) 따라서 **접미사까지 정확히** 본다.
+    need = {t for t in HOLDINGS if t not in ETF_NO_SCORE}
+    missing = sorted(need - set(stocks))
     if missing:
         fail(f"재무제표 미커버 {len(missing)}종목: {', '.join(missing)}"
              f" — financials.py 재실행 또는 소스 폴백 점검")
+    for t in sorted(set(stocks) - need):
+        if t.split(".")[0] in {x.split(".")[0] for x in need}:
+            fail(f"{t}: 보유 티커와 접미사 불일치 — market_data.py 기준({', '.join(sorted(x for x in need if x.split('.')[0]==t.split('.')[0]))})으로 정정 필요"
+                 f" (접미사가 다르면 다른 회사다)")
 
     # 3표가 실제로 들어왔는지(껍데기만 있는 레코드 적발)
+    # 결측을 WARN으로 두면 '0건인데 통과'가 반복된다 → 보유 종목은 FAIL.
     for t, r in stocks.items():
         a = (r.get("annual") or [{}])[0] if r.get("annual") else {}
+        hard = t in need
+        say = fail if hard else warn
         if not a:
-            warn(f"{t} 연간 재무제표 비어 있음")
+            say(f"{t} 연간 재무제표 비어 있음 — 소스 3단 폴백(EDGAR/Yahoo/DART) 점검")
             continue
         if a.get("assets") is None and a.get("revenue") is None:
-            warn(f"{t} 손익·재무상태 둘 다 결측 — 소스 확인")
+            say(f"{t} 손익·재무상태 둘 다 결측 — 소스 확인")
 
     # 신선도: 최신 보고서 날짜보다 오래되면 그날 상태가 아님(7/12 tasks.json stale과 같은 유형)
     if latest:
@@ -514,11 +523,94 @@ def check_financials(latest=None):
                      f" — N·L·M 가감분으로 설명되는지 근거 명시 필요")
 
 
+# ─────────────────────────────────────────── 데이터 레이어 감사 (--coverage)
+
+# 레이어별 산출물 · 허용 지연(일) · 생성 스크립트 · 왜 필요한가
+# ⚠️ 이 표가 곧 "리서치센터라면 당연히 있어야 하는 것" 목록이다. 정본 = docs/data_coverage.md §1~§2.
+COVERAGE_LAYERS = [
+    ("financials.json", 7,  "financials.py --all --save", "재무제표 3표 — 스코어의 하드넘버 근거 (2개월 0건 사고 재발방지)"),
+    ("stocks.json",     1,  "보고서 파이프라인",            "종목별 콜(별점·스코어·매수존)"),
+    ("flows.json",      1,  "naver_flows.py",             "외인·기관 수급"),
+    ("tasks.json",      1,  "보고서 파이프라인",            "계획·할일·매수추적 (앱 #plan)"),
+    ("hunter.json",     3,  "hunter_latest.py (R1)",       "경제사냥꾼 영상 논지·setups"),
+    ("feeds.json",      3,  "hunter_latest.py (R1)",       "수페TV·지식인사이드"),
+    ("sentiment.json",  7,  "naver_sentiment.py --save",   "리테일 심리 %ile (한국판 GSVI)"),
+    ("guru_flows.json", 100, "guru_flows.py",              "대가 13F (분기 cadence — Feb/May/Aug/Nov)"),
+]
+
+
+def check_coverage():
+    """데이터 **레이어**의 결손·신선도 감사 — 보고서와 무관하게 단독 실행.
+
+    [7/30 신설] 기존 게이트는 '보고서'만 봤다. 재무제표가 두 달간 0건이었는데도 매일 PASS가
+    난 이유다. 이 감사는 **산출물이 존재하는가 · 오늘 것인가**를 레이어별로 본다.
+    주간 R3(토 09:00)에서 콜 채점과 **함께** 돌린다 — 콜 채점은 '우리가 낸 답'만 검사하므로
+    '애초에 못 낸 답'은 이 감사가 아니면 영원히 안 보인다.
+    """
+    today = dt.date.today()
+    print("\n" + "=" * 66)
+    print("  데이터 레이어 감사 (--coverage) — docs/data_coverage.md §1~§3")
+    print("=" * 66)
+    print(f"  기준일 {today} · 형식: 레이어 | 갱신일 | 지연 | 상태\n")
+
+    for fn, max_age, how, why in COVERAGE_LAYERS:
+        p = os.path.join(ROOT, "data", "app", fn)
+        if not os.path.exists(p):
+            fail(f"[레이어 결손] {fn} 없음 — `{how}` 실행 필요 ({why})")
+            print(f"  ❌ {fn:<18} 없음                    → {how}")
+            continue
+        try:
+            with open(p, encoding="utf-8") as f:
+                d = json.load(f)
+        except Exception as e:
+            fail(f"[레이어 손상] {fn} 파싱 실패: {str(e)[:60]}")
+            print(f"  ❌ {fn:<18} 파싱실패")
+            continue
+        raw = str((d.get("updated") or d.get("as_of") or d.get("date") or ""))[:10]
+        m = re.match(r"\d{4}-\d{2}-\d{2}", raw)
+        if not m:
+            warn(f"[레이어 신선도] {fn}에 날짜 필드 없음 — stale 감지 불가")
+            print(f"  ⚠️  {fn:<18} 날짜필드 없음")
+            continue
+        age = (today - dt.date.fromisoformat(m.group(0))).days
+        if age > max_age:
+            fail(f"[레이어 stale] {fn} {age}일 경과(허용 {max_age}일) — `{how}` 재실행 ({why})")
+            mark = "❌"
+        elif age > max_age // 2 and max_age > 2:
+            warn(f"[레이어 노후] {fn} {age}일 경과(허용 {max_age}일)")
+            mark = "⚠️ "
+        else:
+            mark = "✅"
+        print(f"  {mark} {fn:<18} {m.group(0)}  {age:>3}일 경과 (허용 {max_age})")
+
+    # 재무제표 커버리지(종목 단위)는 기존 검사 재사용
+    check_financials(None)
+
+    print("\n  🚨 미보유 레이어(아직 없는 것) — docs/data_coverage.md §3에서 우선순위 재평가할 것.")
+    print("     '있는 것 목록'이 아니라 '없는 것 목록'이 이 감사의 핵심이다.\n")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", help="검사할 보고서 .md (생략 시 최신 자동)")
     ap.add_argument("--no-report", action="store_true", help="보고서 파일 검사 생략")
+    ap.add_argument("--coverage", action="store_true",
+                    help="데이터 레이어 감사만 수행(보고서 검사 생략) — 주간 R3 역량 감사용")
     a = ap.parse_args()
+
+    if a.coverage:
+        check_coverage()
+        print("=" * 66)
+        if FAILS:
+            print(f"❌ 레이어 FAIL {len(FAILS)}:")
+            for m in FAILS: print(f"   ❌ {m}")
+        if WARNS:
+            print(f"⚠️  레이어 WARN {len(WARNS)}:")
+            for m in WARNS: print(f"   ⚠️  {m}")
+        if not FAILS:
+            print("✅ 데이터 레이어 결손 없음.")
+        print()
+        sys.exit(1 if FAILS else 0)
 
     check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)

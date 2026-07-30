@@ -448,6 +448,72 @@ def check_freshness(latest):
         except Exception:
             pass
 
+def check_financials(latest=None):
+    """재무제표 **데이터 레이어**의 결손 검사 — [7/30 신설, docs/data_coverage.md §0]
+
+    ⚠️ 이 검사가 없어서 사고가 났다. 기존 게이트는 '보고서'의 완결성(풀표·컬럼·별점 밴드)만
+    봤고 '데이터 레이어'의 결손은 안 봤다 → 보유 15종목 재무제표가 **0건**인 채로 두 달간
+    매일 FAIL 0으로 통과했다. 게이트가 있다는 사실이 오히려 다 갖췄다는 착각을 줬다.
+    앞으로 재무제표가 비면 보고서를 못 낸다.
+    """
+    p = os.path.join(ROOT, "data", "app", "financials.json")
+    if not os.path.exists(p):
+        fail("financials.json 없음 — `python3 financials.py --all --save` 실행 필요"
+             " (보유 종목 재무제표 = 스코어의 하드넘버 근거)")
+        return
+    try:
+        with open(p, encoding="utf-8") as f:
+            d = json.load(f)
+    except Exception as e:
+        fail(f"financials.json 파싱 실패: {str(e)[:60]}")
+        return
+
+    stocks = d.get("stocks") or {}
+    # 접미사(.KS/.KQ) 차이를 흡수해 6자리 코드·티커 기준으로 대조
+    have = {k.split(".")[0] for k in stocks}
+    need = {t.split(".")[0] for t in HOLDINGS if t not in ETF_NO_SCORE}
+    missing = sorted(need - have)
+    if missing:
+        fail(f"재무제표 미커버 {len(missing)}종목: {', '.join(missing)}"
+             f" — financials.py 재실행 또는 소스 폴백 점검")
+
+    # 3표가 실제로 들어왔는지(껍데기만 있는 레코드 적발)
+    for t, r in stocks.items():
+        a = (r.get("annual") or [{}])[0] if r.get("annual") else {}
+        if not a:
+            warn(f"{t} 연간 재무제표 비어 있음")
+            continue
+        if a.get("assets") is None and a.get("revenue") is None:
+            warn(f"{t} 손익·재무상태 둘 다 결측 — 소스 확인")
+
+    # 신선도: 최신 보고서 날짜보다 오래되면 그날 상태가 아님(7/12 tasks.json stale과 같은 유형)
+    if latest:
+        rel = latest_report_path(latest)
+        m = re.search(r"(\d{4}-\d{2}-\d{2})", rel or "")
+        if m and (d.get("updated") or "") < m.group(1):
+            warn(f"financials.json updated={d.get('updated')} < 보고서 {m.group(1)}"
+                 f" — 재무 갱신 없이 보고서만 새로 남")
+
+    # 스코어 근거: PM이 손으로 쓴 score와 데이터 서브스코어의 이격
+    sp = os.path.join(ROOT, "data", "app", "stocks.json")
+    if os.path.exists(sp):
+        try:
+            with open(sp, encoding="utf-8") as f:
+                sj = json.load(f)
+        except Exception:
+            sj = {}
+        src = sj.get("stocks") if isinstance(sj.get("stocks"), dict) else sj
+        for t, r in stocks.items():
+            sub = r.get("fund_subscore")
+            if sub is None:
+                continue
+            ent = (src or {}).get(t) or (src or {}).get(t.split(".")[0]) or {}
+            sc = ent.get("score") if isinstance(ent, dict) else None
+            if isinstance(sc, (int, float)) and abs(sc - sub) >= 25:
+                warn(f"{t} 스코어 {sc} vs 펀더 서브스코어 {sub} (이격 {abs(sc-sub):.0f})"
+                     f" — N·L·M 가감분으로 설명되는지 근거 명시 필요")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", help="검사할 보고서 .md (생략 시 최신 자동)")
@@ -456,6 +522,7 @@ def main():
 
     check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
+    check_financials(latest)
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
         if rel: check_report(rel)

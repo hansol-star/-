@@ -1,0 +1,2606 @@
+{
+ "updated": "2026-07-30",
+ "min_depth": 20.0,
+ "note": "측정 전용 — 기저율은 사전확률이지 전망이 아니다. 표본 중복·생존편향 있음. 어떤 룰도 바꾸지 않는다.",
+ "symbols": [
+  {
+   "symbol": "^KS11",
+   "label": "코스피",
+   "span": "1996-12-11~2026-07-30 (7294일·28.9년)",
+   "bars": 7294,
+   "current": {
+    "peak": 9114.5498,
+    "peak_date": "2026-06-22",
+    "last": 5593.5601,
+    "last_date": "2026-07-30",
+    "dd_pct": -38.63042911894563,
+    "days_since_peak": 27
+   },
+   "rank_among_drawdowns": 6,
+   "n_drawdowns": 8,
+   "worst_depth": -64.65940501584015,
+   "median_recover_days": 551,
+   "drawdowns": [
+    {
+     "peak_date": "1997-06-17",
+     "peak": 792.29,
+     "trough_date": "1998-06-16",
+     "trough": 280.0,
+     "recover_date": "1999-04-27",
+     "depth_pct": -64.65940501584015,
+     "days_to_trough": 241,
+     "days_to_recover": 212,
+     "total_days": 453,
+     "recovered": true
+    },
+    {
+     "peak_date": "2000-01-04",
+     "peak": 1059.04,
+     "trough_date": "2001-09-17",
+     "trough": 468.76,
+     "recover_date": "2005-07-14",
+     "depth_pct": -55.73727149116181,
+     "days_to_trough": 416,
+     "days_to_recover": 942,
+     "total_days": 1358,
+     "recovered": true
+    },
+    {
+     "peak_date": "2007-10-31",
+     "peak": 2064.8501,
+     "trough_date": "2008-10-24",
+     "trough": 938.75,
+     "recover_date": "2011-01-03",
+     "depth_pct": -54.53665135304495,
+     "days_to_trough": 242,
+     "days_to_recover": 551,
+     "total_days": 793,
+     "recovered": true
+    },
+    {
+     "peak_date": "2018-01-29",
+     "peak": 2598.1899,
+     "trough_date": "2020-03-19",
+     "trough": 1457.64,
+     "recover_date": "2020-11-23",
+     "depth_pct": -43.89786520223174,
+     "days_to_trough": 524,
+     "days_to_recover": 168,
+     "total_days": 692,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-06-22",
+     "peak": 9114.5498,
+     "trough_date": "2026-07-30",
+     "trough": 5593.5601,
+     "recover_date": null,
+     "depth_pct": -38.63042911894563,
+     "days_to_trough": 27,
+     "days_to_recover": null,
+     "total_days": 27,
+     "recovered": false,
+     "current_pct": -38.63042911894563
+    },
+    {
+     "peak_date": "2021-07-06",
+     "peak": 3305.21,
+     "trough_date": "2022-09-30",
+     "trough": 2155.49,
+     "recover_date": "2025-09-10",
+     "depth_pct": -34.78508173459478,
+     "days_to_trough": 303,
+     "days_to_recover": 720,
+     "total_days": 1023,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 750,
+    "threshold": -38.63042911894563,
+    "first": "1997-10-30",
+    "last": "2026-07-30",
+    "horizons": {
+     "21": {
+      "n": 749,
+      "median": 2.8550480872902906,
+      "mean": 3.7236897362503587,
+      "win_rate": 57.543391188251,
+      "p10": -11.314139847486116,
+      "p90": 20.12891184513217,
+      "worst": -25.099630287607432,
+      "best": 55.720586143121345
+     },
+     "63": {
+      "n": 749,
+      "median": 9.929808870136704,
+      "mean": 13.109466920556015,
+      "win_rate": 70.62750333778371,
+      "p10": -10.508662289375836,
+      "p90": 39.472992813538376,
+      "worst": -38.24145294715237,
+      "best": 108.60816647035732
+     },
+     "126": {
+      "n": 749,
+      "median": 26.61680227758967,
+      "mean": 30.1927319958043,
+      "win_rate": 77.97062750333778,
+      "p10": -11.904965144401757,
+      "p90": 83.54075315965952,
+      "worst": -38.28037224683612,
+      "best": 137.57945088788412
+     },
+     "252": {
+      "n": 749,
+      "median": 42.993510928961754,
+      "mean": 62.44106835989025,
+      "win_rate": 96.66221628838451,
+      "p10": 17.59056974459725,
+      "p90": 171.00064518111157,
+      "worst": -24.843998726520223,
+      "best": 237.71317308983484
+     }
+    }
+   }
+  },
+  {
+   "symbol": "^KQ11",
+   "label": "코스닥",
+   "span": "2000-10-16~2026-07-30 (6354일·25.2년)",
+   "bars": 6354,
+   "current": {
+    "peak": 1226.1801,
+    "peak_date": "2026-04-27",
+    "last": 644.78,
+    "last_date": "2026-07-30",
+    "dd_pct": -47.41555502327921,
+    "days_since_peak": 63
+   },
+   "rank_among_drawdowns": 4,
+   "n_drawdowns": 5,
+   "worst_depth": -72.30222693531283,
+   "median_recover_days": 196,
+   "drawdowns": [
+    {
+     "peak_date": "2002-03-22",
+     "peak": 943.0,
+     "trough_date": "2008-10-27",
+     "trough": 261.19,
+     "recover_date": "2020-12-17",
+     "depth_pct": -72.30222693531283,
+     "days_to_trough": 1630,
+     "days_to_recover": 3002,
+     "total_days": 4632,
+     "recovered": true
+    },
+    {
+     "peak_date": "2001-02-20",
+     "peak": 876.5,
+     "trough_date": "2001-09-17",
+     "trough": 460.5,
+     "recover_date": "2002-03-15",
+     "depth_pct": -47.461494580718764,
+     "days_to_trough": 143,
+     "days_to_recover": 119,
+     "total_days": 262,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-04-27",
+     "peak": 1226.1801,
+     "trough_date": "2026-07-30",
+     "trough": 644.78,
+     "recover_date": null,
+     "depth_pct": -47.41555502327921,
+     "days_to_trough": 63,
+     "days_to_recover": null,
+     "total_days": 63,
+     "recovered": false,
+     "current_pct": -47.41555502327921
+    },
+    {
+     "peak_date": "2021-08-09",
+     "peak": 1060.0,
+     "trough_date": "2024-12-09",
+     "trough": 627.01,
+     "recover_date": "2026-01-26",
+     "depth_pct": -40.848113207547165,
+     "days_to_trough": 815,
+     "days_to_recover": 273,
+     "total_days": 1088,
+     "recovered": true
+    },
+    {
+     "peak_date": "2000-10-16",
+     "peak": 867.1,
+     "trough_date": "2000-12-26",
+     "trough": 525.8,
+     "recover_date": "2001-02-15",
+     "depth_pct": -39.36108868642603,
+     "days_to_trough": 50,
+     "days_to_recover": 30,
+     "total_days": 80,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 1155,
+    "threshold": -47.41555502327921,
+    "first": "2001-09-17",
+    "last": "2026-07-30",
+    "horizons": {
+     "21": {
+      "n": 1154,
+      "median": 2.120054598277943,
+      "mean": 2.320465102176333,
+      "win_rate": 60.74523396880416,
+      "p10": -8.07542529206804,
+      "p90": 13.003336340936267,
+      "worst": -42.09032658581469,
+      "best": 48.90159915956578
+     },
+     "63": {
+      "n": 1154,
+      "median": 5.026195215495887,
+      "mean": 5.922241142044189,
+      "win_rate": 66.55112651646448,
+      "p10": -10.987828659807676,
+      "p90": 29.000470562183423,
+      "worst": -44.85307482581036,
+      "best": 75.47332788607446
+     },
+     "126": {
+      "n": 1154,
+      "median": 7.440822057756558,
+      "mean": 11.704723222617256,
+      "win_rate": 70.79722703639516,
+      "p10": -14.646886753029676,
+      "p90": 41.99224828132513,
+      "worst": -28.157328689951854,
+      "best": 107.5125481498774
+     },
+     "252": {
+      "n": 1154,
+      "median": 10.517501547744601,
+      "mean": 17.941739516003945,
+      "win_rate": 73.48353552859619,
+      "p10": -14.358594411515657,
+      "p90": 57.93427737541885,
+      "worst": -33.74617425015304,
+      "best": 122.7384148476713
+     }
+    }
+   }
+  },
+  {
+   "symbol": "^IXIC",
+   "label": "나스닥",
+   "span": "1971-02-05~2026-07-29 (13986일·55.5년)",
+   "bars": 13986,
+   "current": {
+    "peak": 27093.9004,
+    "peak_date": "2026-06-02",
+    "last": 24442.9395,
+    "last_date": "2026-07-29",
+    "dd_pct": -9.784345778432101,
+    "days_since_peak": 39
+   },
+   "rank_among_drawdowns": null,
+   "n_drawdowns": 13,
+   "worst_depth": -77.93238592065978,
+   "median_recover_days": 115,
+   "drawdowns": [
+    {
+     "peak_date": "2000-03-10",
+     "peak": 5048.6201,
+     "trough_date": "2002-10-09",
+     "trough": 1114.11,
+     "recover_date": "2015-04-23",
+     "depth_pct": -77.93238592065978,
+     "days_to_trough": 647,
+     "days_to_recover": 3155,
+     "total_days": 3802,
+     "recovered": true
+    },
+    {
+     "peak_date": "1973-01-11",
+     "peak": 136.84,
+     "trough_date": "1974-10-03",
+     "trough": 54.87,
+     "recover_date": "1978-09-07",
+     "depth_pct": -59.902075416544875,
+     "days_to_trough": 436,
+     "days_to_recover": 992,
+     "total_days": 1428,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-11-19",
+     "peak": 16057.4404,
+     "trough_date": "2022-12-28",
+     "trough": 10213.29,
+     "recover_date": "2024-02-29",
+     "depth_pct": -36.39528003479309,
+     "days_to_trough": 277,
+     "days_to_recover": 293,
+     "total_days": 570,
+     "recovered": true
+    },
+    {
+     "peak_date": "1987-08-27",
+     "peak": 455.8,
+     "trough_date": "1987-10-28",
+     "trough": 291.9,
+     "recover_date": "1989-08-03",
+     "depth_pct": -35.95875383940326,
+     "days_to_trough": 43,
+     "days_to_recover": 446,
+     "total_days": 489,
+     "recovered": true
+    },
+    {
+     "peak_date": "1989-10-09",
+     "peak": 485.7,
+     "trough_date": "1990-10-16",
+     "trough": 325.4,
+     "recover_date": "1991-04-02",
+     "depth_pct": -33.00391187976117,
+     "days_to_trough": 258,
+     "days_to_recover": 115,
+     "total_days": 373,
+     "recovered": true
+    },
+    {
+     "peak_date": "1983-06-24",
+     "peak": 328.91,
+     "trough_date": "1984-07-25",
+     "trough": 225.3,
+     "recover_date": "1986-01-07",
+     "depth_pct": -31.501018515703382,
+     "days_to_trough": 274,
+     "days_to_recover": 366,
+     "total_days": 640,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 7636,
+    "threshold": -9.784345778432101,
+    "first": "1971-11-23",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 7635,
+      "median": 1.2737486135460996,
+      "mean": 0.911079219478312,
+      "win_rate": 59.07007203667322,
+      "p10": -7.031146087342055,
+      "p90": 8.176462887812551,
+      "worst": -31.02769467752641,
+      "best": 33.727727605565065
+     },
+     "63": {
+      "n": 7635,
+      "median": 3.606920552755688,
+      "mean": 3.1844637468042962,
+      "win_rate": 64.93778650949574,
+      "p10": -11.831284369376604,
+      "p90": 16.86681233405556,
+      "worst": -45.495732406790054,
+      "best": 65.20166723039634
+     },
+     "126": {
+      "n": 7631,
+      "median": 6.453531598513007,
+      "mean": 6.1826256905378,
+      "win_rate": 68.95557594024375,
+      "p10": -15.529994995621177,
+      "p90": 26.921873199511424,
+      "worst": -53.12280963666143,
+      "best": 83.12828372512546
+     },
+     "252": {
+      "n": 7631,
+      "median": 15.415718628111152,
+      "mean": 13.38720841295804,
+      "win_rate": 78.48250556938802,
+      "p10": -22.69012736539492,
+      "p90": 41.59436517970019,
+      "worst": -62.89166751407347,
+      "best": 107.90737174805116
+     }
+    }
+   }
+  },
+  {
+   "symbol": "^GSPC",
+   "label": "S&P500",
+   "span": "1970-01-02~2026-07-29 (14264일·56.6년)",
+   "bars": 14264,
+   "current": {
+    "peak": 7609.7798,
+    "peak_date": "2026-06-02",
+    "last": 7316.1499,
+    "last_date": "2026-07-29",
+    "dd_pct": -3.858586026365707,
+    "days_since_peak": 39
+   },
+   "rank_among_drawdowns": null,
+   "n_drawdowns": 8,
+   "worst_depth": -56.77538894035716,
+   "median_recover_days": 366,
+   "drawdowns": [
+    {
+     "peak_date": "2007-10-09",
+     "peak": 1565.15,
+     "trough_date": "2009-03-09",
+     "trough": 676.53,
+     "recover_date": "2013-03-28",
+     "depth_pct": -56.77538894035716,
+     "days_to_trough": 355,
+     "days_to_recover": 1021,
+     "total_days": 1376,
+     "recovered": true
+    },
+    {
+     "peak_date": "2000-03-24",
+     "peak": 1527.46,
+     "trough_date": "2002-10-09",
+     "trough": 776.76,
+     "recover_date": "2007-05-30",
+     "depth_pct": -49.146949838293644,
+     "days_to_trough": 637,
+     "days_to_recover": 1166,
+     "total_days": 1803,
+     "recovered": true
+    },
+    {
+     "peak_date": "1973-01-11",
+     "peak": 120.24,
+     "trough_date": "1974-10-03",
+     "trough": 62.28,
+     "recover_date": "1980-07-17",
+     "depth_pct": -48.203592814371255,
+     "days_to_trough": 436,
+     "days_to_recover": 1462,
+     "total_days": 1898,
+     "recovered": true
+    },
+    {
+     "peak_date": "2020-02-19",
+     "peak": 3386.1499,
+     "trough_date": "2020-03-23",
+     "trough": 2237.3999,
+     "recover_date": "2020-08-18",
+     "depth_pct": -33.9249600261347,
+     "days_to_trough": 23,
+     "days_to_recover": 103,
+     "total_days": 126,
+     "recovered": true
+    },
+    {
+     "peak_date": "1987-08-25",
+     "peak": 336.77,
+     "trough_date": "1987-12-04",
+     "trough": 223.92,
+     "recover_date": "1989-07-26",
+     "depth_pct": -33.509516880957335,
+     "days_to_trough": 71,
+     "days_to_recover": 414,
+     "total_days": 485,
+     "recovered": true
+    },
+    {
+     "peak_date": "1980-11-28",
+     "peak": 140.52,
+     "trough_date": "1982-08-12",
+     "trough": 102.42,
+     "recover_date": "1982-11-03",
+     "depth_pct": -27.113578138343296,
+     "days_to_trough": 430,
+     "days_to_recover": 58,
+     "total_days": 488,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 8537,
+    "threshold": -3.858586026365707,
+    "first": "1970-01-19",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 8536,
+      "median": 1.2357174806784443,
+      "mean": 0.8202342626781541,
+      "win_rate": 60.67244611059044,
+      "p10": -5.356755584471918,
+      "p90": 6.477686703096541,
+      "worst": -30.030413675439107,
+      "best": 25.114428582927893
+     },
+     "63": {
+      "n": 8535,
+      "median": 2.753263975498488,
+      "mean": 2.3463231466132037,
+      "win_rate": 64.27650849443468,
+      "p10": -8.082470329214143,
+      "p90": 12.12037801633179,
+      "worst": -41.770623742454724,
+      "best": 39.39571150097467
+     },
+     "126": {
+      "n": 8518,
+      "median": 5.1528811418748655,
+      "mean": 4.734313619419276,
+      "win_rate": 67.60976755106832,
+      "p10": -10.31898950974095,
+      "p90": 20.15076507650766,
+      "worst": -46.46582691493201,
+      "best": 50.23724003370138
+     },
+     "252": {
+      "n": 8515,
+      "median": 11.66383906931654,
+      "mean": 9.727066574440874,
+      "win_rate": 76.59424544920728,
+      "p10": -15.244744514347097,
+      "p90": 30.001252661906562,
+      "worst": -48.82282372347605,
+      "best": 74.77966276837682
+     }
+    }
+   }
+  },
+  {
+   "symbol": "005930.KS",
+   "label": "삼성전자",
+   "span": "2000-01-04~2026-07-30 (6643일·26.4년)",
+   "bars": 6643,
+   "current": {
+    "peak": 362500.0,
+    "peak_date": "2026-06-18",
+    "last": 207000.0,
+    "last_date": "2026-07-30",
+    "dd_pct": -42.896551724137936,
+    "days_since_peak": 29
+   },
+   "rank_among_drawdowns": 5,
+   "n_drawdowns": 15,
+   "worst_depth": -64.81958762886597,
+   "median_recover_days": 148,
+   "drawdowns": [
+    {
+     "peak_date": "2000-07-13",
+     "peak": 7760.0,
+     "trough_date": "2000-10-18",
+     "trough": 2730.0,
+     "recover_date": "2002-04-02",
+     "depth_pct": -64.81958762886597,
+     "days_to_trough": 69,
+     "days_to_recover": 379,
+     "total_days": 448,
+     "recovered": true
+    },
+    {
+     "peak_date": "2008-05-15",
+     "peak": 15280.0,
+     "trough_date": "2008-10-24",
+     "trough": 8040.0,
+     "recover_date": "2009-08-24",
+     "depth_pct": -47.382198952879584,
+     "days_to_trough": 116,
+     "days_to_recover": 211,
+     "total_days": 327,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-01-11",
+     "peak": 91000.0,
+     "trough_date": "2024-11-14",
+     "trough": 49900.0,
+     "recover_date": "2025-10-10",
+     "depth_pct": -45.16483516483516,
+     "days_to_trough": 944,
+     "days_to_recover": 216,
+     "total_days": 1160,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-06-18",
+     "peak": 362500.0,
+     "trough_date": "2026-07-30",
+     "trough": 207000.0,
+     "recover_date": null,
+     "depth_pct": -42.896551724137936,
+     "days_to_trough": 29,
+     "days_to_recover": null,
+     "total_days": 29,
+     "recovered": false,
+     "current_pct": -42.896551724137936
+    },
+    {
+     "peak_date": "2002-04-24",
+     "peak": 8640.0,
+     "trough_date": "2003-02-10",
+     "trough": 5390.0,
+     "recover_date": "2003-08-20",
+     "depth_pct": -37.61574074074075,
+     "days_to_trough": 208,
+     "days_to_recover": 137,
+     "total_days": 345,
+     "recovered": true
+    },
+    {
+     "peak_date": "2004-04-23",
+     "peak": 12740.0,
+     "trough_date": "2004-12-13",
+     "trough": 8040.0,
+     "recover_date": "2005-12-07",
+     "depth_pct": -36.891679748822604,
+     "days_to_trough": 166,
+     "days_to_recover": 257,
+     "total_days": 423,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 293,
+    "threshold": -42.896551724137936,
+    "first": "2000-09-15",
+    "last": "2026-07-30",
+    "horizons": {
+     "21": {
+      "n": 292,
+      "median": 4.422634454989938,
+      "mean": 4.852924419706244,
+      "win_rate": 57.534246575342465,
+      "p10": -18.491484184914842,
+      "p90": 27.21518987341771,
+      "worst": -34.375,
+      "best": 46.89119170984455
+     },
+     "63": {
+      "n": 292,
+      "median": 11.081710482064555,
+      "mean": 18.458479187498735,
+      "win_rate": 66.78082191780823,
+      "p10": -15.404040404040408,
+      "p90": 67.35751295336787,
+      "worst": -28.680203045685282,
+      "best": 113.42281879194628
+     },
+     "126": {
+      "n": 292,
+      "median": 32.12956028091656,
+      "mean": 40.439815321940785,
+      "win_rate": 75.34246575342466,
+      "p10": -14.221218961625281,
+      "p90": 119.13746630727763,
+      "worst": -31.490384615384613,
+      "best": 172.94520547945206
+     },
+     "252": {
+      "n": 292,
+      "median": 68.13276928819465,
+      "mean": 61.37649619510509,
+      "win_rate": 91.78082191780823,
+      "p10": 4.294478527607359,
+      "p90": 97.5609756097561,
+      "worst": -27.66497461928934,
+      "best": 250.19607843137254
+     }
+    }
+   }
+  },
+  {
+   "symbol": "066570.KS",
+   "label": "LG전자",
+   "span": "2002-04-24~2026-07-30 (6042일·24.0년)",
+   "bars": 6042,
+   "current": {
+    "peak": 392500.0,
+    "peak_date": "2026-06-02",
+    "last": 148000.0,
+    "last_date": "2026-07-30",
+    "dd_pct": -62.29299363057324,
+    "days_since_peak": 40
+   },
+   "rank_among_drawdowns": 4,
+   "n_drawdowns": 9,
+   "worst_depth": -75.26624087931214,
+   "median_recover_days": 244,
+   "drawdowns": [
+    {
+     "peak_date": "2008-05-15",
+     "peak": 160913.6719,
+     "trough_date": "2015-08-21",
+     "trough": 39800.0,
+     "recover_date": "2021-01-20",
+     "depth_pct": -75.26624087931214,
+     "days_to_trough": 1816,
+     "days_to_recover": 1327,
+     "total_days": 3143,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-01-21",
+     "peak": 185000.0,
+     "trough_date": "2025-04-09",
+     "trough": 64700.0,
+     "recover_date": "2026-05-13",
+     "depth_pct": -65.02702702702703,
+     "days_to_trough": 1032,
+     "days_to_recover": 264,
+     "total_days": 1296,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-06-02",
+     "peak": 392500.0,
+     "trough_date": "2026-07-30",
+     "trough": 148000.0,
+     "recover_date": null,
+     "depth_pct": -62.29299363057324,
+     "days_to_trough": 40,
+     "days_to_recover": null,
+     "total_days": 40,
+     "recovered": false,
+     "current_pct": -62.29299363057324
+    },
+    {
+     "peak_date": "2002-05-09",
+     "peak": 57399.0859,
+     "trough_date": "2002-10-10",
+     "trough": 29190.1328,
+     "recover_date": "2003-08-21",
+     "depth_pct": -49.145300239006076,
+     "days_to_trough": 110,
+     "days_to_recover": 225,
+     "total_days": 335,
+     "recovered": true
+    },
+    {
+     "peak_date": "2005-12-23",
+     "peak": 92623.4844,
+     "trough_date": "2006-07-18",
+     "trough": 50530.8203,
+     "recover_date": "2007-11-06",
+     "depth_pct": -45.444915371808236,
+     "days_to_trough": 140,
+     "days_to_recover": 322,
+     "total_days": 462,
+     "recovered": true
+    },
+    {
+     "peak_date": "2004-04-23",
+     "peak": 78886.9453,
+     "trough_date": "2004-08-04",
+     "trough": 47292.9219,
+     "recover_date": "2005-12-01",
+     "depth_pct": -40.04974876369056,
+     "days_to_trough": 73,
+     "days_to_recover": 346,
+     "total_days": 419,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 588,
+    "threshold": -62.29299363057324,
+    "first": "2011-08-09",
+    "last": "2026-07-30",
+    "horizons": {
+     "21": {
+      "n": 587,
+      "median": 3.136531365313644,
+      "mean": 3.4045488769635366,
+      "win_rate": 61.32879045996593,
+      "p10": -8.73949579831933,
+      "p90": 16.266173752310543,
+      "worst": -20.099667774086384,
+      "best": 32.705476002353386
+     },
+     "63": {
+      "n": 587,
+      "median": 11.670020120724356,
+      "mean": 10.536711109839107,
+      "win_rate": 62.521294718909715,
+      "p10": -13.712374581939802,
+      "p90": 37.72102161100197,
+      "worst": -32.78145695364238,
+      "best": 60.962566844919785
+     },
+     "126": {
+      "n": 587,
+      "median": 20.033112582781463,
+      "mean": 21.291823363632687,
+      "win_rate": 67.6320272572402,
+      "p10": -19.52861952861953,
+      "p90": 67.48120300751879,
+      "worst": -33.66500829187397,
+      "best": 112.42532855436083
+     },
+     "252": {
+      "n": 587,
+      "median": 27.317676143386894,
+      "mean": 50.22093641438573,
+      "win_rate": 82.28279386712096,
+      "p10": -6.5068493150684965,
+      "p90": 154.6218487394958,
+      "worst": -20.390070921985814,
+      "best": 258.4229390681004
+     }
+    }
+   }
+  },
+  {
+   "symbol": "454910.KS",
+   "label": "두산로보틱스",
+   "span": "2023-10-05~2026-07-30 (685일·2.7년)",
+   "bars": 685,
+   "current": {
+    "peak": 166700.0,
+    "peak_date": "2026-06-02",
+    "last": 55400.0,
+    "last_date": "2026-07-30",
+    "dd_pct": -66.76664667066588,
+    "days_since_peak": 40
+   },
+   "rank_among_drawdowns": 3,
+   "n_drawdowns": 4,
+   "worst_depth": -66.91297208538587,
+   "median_recover_days": 16,
+   "drawdowns": [
+    {
+     "peak_date": "2023-12-20",
+     "peak": 121800.0,
+     "trough_date": "2025-04-09",
+     "trough": 40300.0,
+     "recover_date": "2026-05-15",
+     "depth_pct": -66.91297208538587,
+     "days_to_trough": 314,
+     "days_to_recover": 266,
+     "total_days": 580,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-06-02",
+     "peak": 166700.0,
+     "trough_date": "2026-07-30",
+     "trough": 55400.0,
+     "recover_date": null,
+     "depth_pct": -66.76664667066588,
+     "days_to_trough": 40,
+     "days_to_recover": null,
+     "total_days": 40,
+     "recovered": false,
+     "current_pct": -66.76664667066588
+    },
+    {
+     "peak_date": "2023-10-06",
+     "peak": 51800.0,
+     "trough_date": "2023-10-27",
+     "trough": 32300.0,
+     "recover_date": "2023-11-20",
+     "depth_pct": -37.64478764478765,
+     "days_to_trough": 14,
+     "days_to_recover": 16,
+     "total_days": 30,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-05-15",
+     "peak": 127400.0,
+     "trough_date": "2026-05-20",
+     "trough": 95500.0,
+     "recover_date": "2026-06-01",
+     "depth_pct": -25.0392464678179,
+     "days_to_trough": 3,
+     "days_to_recover": 7,
+     "total_days": 10,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 2,
+    "threshold": -66.76664667066588,
+    "first": "2025-04-09",
+    "last": "2026-07-30",
+    "horizons": {
+     "21": {
+      "n": 1,
+      "median": 25.310173697270464,
+      "mean": 25.310173697270464,
+      "win_rate": 100.0,
+      "p10": 25.310173697270464,
+      "p90": 25.310173697270464,
+      "worst": 25.310173697270464,
+      "best": 25.310173697270464
+     },
+     "63": {
+      "n": 1,
+      "median": 51.11662531017369,
+      "mean": 51.11662531017369,
+      "win_rate": 100.0,
+      "p10": 51.11662531017369,
+      "p90": 51.11662531017369,
+      "worst": 51.11662531017369,
+      "best": 51.11662531017369
+     },
+     "126": {
+      "n": 1,
+      "median": 82.87841191066998,
+      "mean": 82.87841191066998,
+      "win_rate": 100.0,
+      "p10": 82.87841191066998,
+      "p90": 82.87841191066998,
+      "worst": 82.87841191066998,
+      "best": 82.87841191066998
+     },
+     "252": {
+      "n": 1,
+      "median": 128.53598014888337,
+      "mean": 128.53598014888337,
+      "win_rate": 100.0,
+      "p10": 128.53598014888337,
+      "p90": 128.53598014888337,
+      "worst": 128.53598014888337,
+      "best": 128.53598014888337
+     }
+    }
+   }
+  },
+  {
+   "symbol": "005380.KS",
+   "label": "현대차",
+   "span": "2000-01-04~2026-07-30 (6643일·26.4년)",
+   "bars": 6643,
+   "current": {
+    "peak": 750000.0,
+    "peak_date": "2026-06-01",
+    "last": 351000.0,
+    "last_date": "2026-07-30",
+    "dd_pct": -53.2,
+    "days_since_peak": 41
+   },
+   "rank_among_drawdowns": 6,
+   "n_drawdowns": 10,
+   "worst_depth": -75.45623836126629,
+   "median_recover_days": 158,
+   "drawdowns": [
+    {
+     "peak_date": "2012-04-30",
+     "peak": 268500.0,
+     "trough_date": "2020-03-19",
+     "trough": 65900.0,
+     "recover_date": "2024-05-22",
+     "depth_pct": -75.45623836126629,
+     "days_to_trough": 1938,
+     "days_to_recover": 1026,
+     "total_days": 2964,
+     "recovered": true
+    },
+    {
+     "peak_date": "2006-01-02",
+     "peak": 98700.0,
+     "trough_date": "2008-11-25",
+     "trough": 37100.0,
+     "recover_date": "2009-08-20",
+     "depth_pct": -62.4113475177305,
+     "days_to_trough": 724,
+     "days_to_recover": 187,
+     "total_days": 911,
+     "recovered": true
+    },
+    {
+     "peak_date": "2002-04-24",
+     "peak": 53900.0,
+     "trough_date": "2003-03-10",
+     "trough": 21500.0,
+     "recover_date": "2004-01-06",
+     "depth_pct": -60.1113172541744,
+     "days_to_trough": 228,
+     "days_to_recover": 216,
+     "total_days": 444,
+     "recovered": true
+    },
+    {
+     "peak_date": "2000-01-05",
+     "peak": 20800.0,
+     "trough_date": "2000-04-27",
+     "trough": 9400.0,
+     "recover_date": "2001-05-02",
+     "depth_pct": -54.807692307692314,
+     "days_to_trough": 81,
+     "days_to_recover": 264,
+     "total_days": 345,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-06-01",
+     "peak": 750000.0,
+     "trough_date": "2026-07-30",
+     "trough": 351000.0,
+     "recover_date": null,
+     "depth_pct": -53.2,
+     "days_to_trough": 41,
+     "days_to_recover": null,
+     "total_days": 41,
+     "recovered": false,
+     "current_pct": -53.2
+    },
+    {
+     "peak_date": "2001-06-25",
+     "peak": 29500.0,
+     "trough_date": "2001-09-21",
+     "trough": 14950.0,
+     "recover_date": "2002-01-08",
+     "depth_pct": -49.32203389830509,
+     "days_to_trough": 64,
+     "days_to_recover": 77,
+     "total_days": 141,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 392,
+    "threshold": -53.2,
+    "first": "2000-04-27",
+    "last": "2026-07-30",
+    "horizons": {
+     "21": {
+      "n": 391,
+      "median": 4.958677685950419,
+      "mean": 6.954970437827714,
+      "win_rate": 70.58823529411765,
+      "p10": -8.064516129032262,
+      "p90": 24.1860465116279,
+      "worst": -38.93877551020408,
+      "best": 76.35467980295567
+     },
+     "63": {
+      "n": 391,
+      "median": 13.306451612903224,
+      "mean": 17.985247881509878,
+      "win_rate": 74.68030690537084,
+      "p10": -15.61181434599156,
+      "p90": 62.211981566820285,
+      "worst": -44.621848739495796,
+      "best": 93.93282773564464
+     },
+     "126": {
+      "n": 391,
+      "median": 25.909090909090903,
+      "mean": 39.015015717908106,
+      "win_rate": 78.26086956521739,
+      "p10": -17.355371900826444,
+      "p90": 96.19047619047618,
+      "worst": -26.480000000000004,
+      "best": 174.6585735963581
+     },
+     "252": {
+      "n": 391,
+      "median": 68.46473029045643,
+      "mean": 73.25951779689234,
+      "win_rate": 87.97953964194375,
+      "p10": -2.9288702928870314,
+      "p90": 150.0,
+      "worst": -44.621848739495796,
+      "best": 227.01062215477998
+     }
+    }
+   }
+  },
+  {
+   "symbol": "035420.KS",
+   "label": "NAVER",
+   "span": "2002-10-29~2026-07-30 (5908일·23.4년)",
+   "bars": 5908,
+   "current": {
+    "peak": 454000.0,
+    "peak_date": "2021-09-06",
+    "last": 194700.0,
+    "last_date": "2026-07-30",
+    "dd_pct": -57.11453744493392,
+    "days_since_peak": 1193
+   },
+   "rank_among_drawdowns": 3,
+   "n_drawdowns": 12,
+   "worst_depth": -68.10169644208857,
+   "median_recover_days": 82,
+   "drawdowns": [
+    {
+     "peak_date": "2007-10-25",
+     "peak": 72317.5703,
+     "trough_date": "2008-11-20",
+     "trough": 23068.0781,
+     "recover_date": "2013-04-16",
+     "depth_pct": -68.10169644208857,
+     "days_to_trough": 272,
+     "days_to_recover": 1102,
+     "total_days": 1374,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-09-06",
+     "peak": 454000.0,
+     "trough_date": "2024-09-09",
+     "trough": 155000.0,
+     "recover_date": null,
+     "depth_pct": -65.85903083700441,
+     "days_to_trough": 738,
+     "days_to_recover": null,
+     "total_days": 1193,
+     "recovered": false,
+     "current_pct": -57.11453744493392
+    },
+    {
+     "peak_date": "2014-03-10",
+     "peak": 170600.0,
+     "trough_date": "2015-09-08",
+     "trough": 92300.0,
+     "recover_date": "2016-09-07",
+     "depth_pct": -45.8968347010551,
+     "days_to_trough": 371,
+     "days_to_recover": 246,
+     "total_days": 617,
+     "recovered": true
+    },
+    {
+     "peak_date": "2017-06-09",
+     "peak": 192000.0,
+     "trough_date": "2018-11-21",
+     "trough": 106500.0,
+     "recover_date": "2020-04-24",
+     "depth_pct": -44.53125,
+     "days_to_trough": 352,
+     "days_to_recover": 351,
+     "total_days": 703,
+     "recovered": true
+    },
+    {
+     "peak_date": "2003-07-17",
+     "peak": 8539.1934,
+     "trough_date": "2003-12-23",
+     "trough": 5066.3154,
+     "recover_date": "2004-04-22",
+     "depth_pct": -40.669859989352155,
+     "days_to_trough": 113,
+     "days_to_recover": 87,
+     "total_days": 200,
+     "recovered": true
+    },
+    {
+     "peak_date": "2004-06-30",
+     "peak": 9397.1982,
+     "trough_date": "2004-12-28",
+     "trough": 6422.7808,
+     "recover_date": "2005-07-08",
+     "depth_pct": -31.652172665678158,
+     "days_to_trough": 129,
+     "days_to_recover": 138,
+     "total_days": 267,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 400,
+    "threshold": -57.11453744493392,
+    "first": "2008-10-08",
+    "last": "2026-07-30",
+    "horizons": {
+     "21": {
+      "n": 390,
+      "median": 4.229109991468539,
+      "mean": 5.825456378854413,
+      "win_rate": 70.25641025641025,
+      "p10": -6.115702479338847,
+      "p90": 18.18181373174901,
+      "worst": -25.31746154975987,
+      "best": 58.569868995633186
+     },
+     "63": {
+      "n": 389,
+      "median": 14.399999999999991,
+      "mean": 11.880143617208034,
+      "win_rate": 77.37789203084833,
+      "p10": -7.945850500294293,
+      "p90": 29.482071713147405,
+      "worst": -19.784172661870503,
+      "best": 42.401702290057706
+     },
+     "126": {
+      "n": 389,
+      "median": 16.8944099378882,
+      "mean": 18.679429830008893,
+      "win_rate": 80.46272493573264,
+      "p10": -5.4956343091936315,
+      "p90": 42.301710730948685,
+      "worst": -17.989417989417987,
+      "best": 106.16365175215878
+     },
+     "252": {
+      "n": 389,
+      "median": 24.09972299168974,
+      "mean": 26.6315360550915,
+      "win_rate": 84.31876606683805,
+      "p10": -3.665207877461707,
+      "p90": 56.85714285714285,
+      "worst": -16.46628332462101,
+      "best": 99.25610837948395
+     }
+    }
+   }
+  },
+  {
+   "symbol": "NVDA",
+   "label": "NVDA",
+   "span": "1999-01-22~2026-07-29 (6921일·27.5년)",
+   "bars": 6921,
+   "current": {
+    "peak": 235.74,
+    "peak_date": "2026-05-14",
+    "last": 190.01,
+    "last_date": "2026-07-29",
+    "dd_pct": -19.398489861712065,
+    "days_since_peak": 51
+   },
+   "rank_among_drawdowns": null,
+   "n_drawdowns": 16,
+   "worst_depth": -89.72556894243641,
+   "median_recover_days": 51,
+   "drawdowns": [
+    {
+     "peak_date": "2002-01-03",
+     "peak": 0.5976,
+     "trough_date": "2002-10-09",
+     "trough": 0.0614,
+     "recover_date": "2006-11-13",
+     "depth_pct": -89.72556894243641,
+     "days_to_trough": 193,
+     "days_to_recover": 1032,
+     "total_days": 1225,
+     "recovered": true
+    },
+    {
+     "peak_date": "2007-10-17",
+     "peak": 0.9885,
+     "trough_date": "2008-11-20",
+     "trough": 0.1475,
+     "recover_date": "2016-05-13",
+     "depth_pct": -85.07840161861407,
+     "days_to_trough": 277,
+     "days_to_recover": 1881,
+     "total_days": 2158,
+     "recovered": true
+    },
+    {
+     "peak_date": "2000-06-21",
+     "peak": 0.3603,
+     "trough_date": "2000-12-21",
+     "trough": 0.1161,
+     "recover_date": "2001-04-20",
+     "depth_pct": -67.77685262281432,
+     "days_to_trough": 128,
+     "days_to_recover": 81,
+     "total_days": 209,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-11-29",
+     "peak": 33.376,
+     "trough_date": "2022-10-14",
+     "trough": 11.227,
+     "recover_date": "2023-05-25",
+     "depth_pct": -66.36205656759347,
+     "days_to_trough": 221,
+     "days_to_recover": 153,
+     "total_days": 374,
+     "recovered": true
+    },
+    {
+     "peak_date": "2018-10-01",
+     "peak": 7.234,
+     "trough_date": "2018-12-24",
+     "trough": 3.177,
+     "recover_date": "2020-02-14",
+     "depth_pct": -56.082388719933654,
+     "days_to_trough": 58,
+     "days_to_recover": 287,
+     "total_days": 345,
+     "recovered": true
+    },
+    {
+     "peak_date": "2000-03-13",
+     "peak": 0.3109,
+     "trough_date": "2000-04-14",
+     "trough": 0.1433,
+     "recover_date": "2000-06-16",
+     "depth_pct": -53.90800900611129,
+     "days_to_trough": 24,
+     "days_to_recover": 43,
+     "total_days": 67,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 4217,
+    "threshold": -19.398489861712065,
+    "first": "1999-03-23",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 4216,
+      "median": 2.202948823102646,
+      "mean": 3.4477162807411883,
+      "win_rate": 56.57020872865275,
+      "p10": -16.7366526694661,
+      "p90": 23.350253807106604,
+      "worst": -58.82675438596492,
+      "best": 115.33546325878592
+     },
+     "63": {
+      "n": 4216,
+      "median": 8.62614192682517,
+      "mean": 11.579207598491207,
+      "win_rate": 65.08538899430741,
+      "p10": -28.520296446016502,
+      "p90": 53.525046382189245,
+      "worst": -75.75072650952535,
+      "best": 181.80904522613065
+     },
+     "126": {
+      "n": 4215,
+      "median": 17.40545955421988,
+      "mean": 24.33674380276874,
+      "win_rate": 70.3202846975089,
+      "p10": -36.67136812411847,
+      "p90": 83.80301339285714,
+      "worst": -84.05405405405405,
+      "best": 413.49206349206344
+     },
+     "252": {
+      "n": 4215,
+      "median": 37.76873910517142,
+      "mean": 62.77615341104687,
+      "win_rate": 77.43772241992882,
+      "p10": -24.195338512763588,
+      "p90": 173.94255018145287,
+      "worst": -82.88981288981289,
+      "best": 903.6211699164346
+     }
+    }
+   }
+  },
+  {
+   "symbol": "MU",
+   "label": "MU",
+   "span": "1984-06-01~2026-07-29 (10621일·42.1년)",
+   "bars": 10621,
+   "current": {
+    "peak": 1213.5601,
+    "peak_date": "2026-06-25",
+    "last": 739.0,
+    "last_date": "2026-07-29",
+    "dd_pct": -39.104787640925245,
+    "days_since_peak": 23
+   },
+   "rank_among_drawdowns": 7,
+   "n_drawdowns": 13,
+   "worst_depth": -98.24983818770227,
+   "median_recover_days": 53,
+   "drawdowns": [
+    {
+     "peak_date": "2000-07-14",
+     "peak": 96.5625,
+     "trough_date": "2008-11-20",
+     "trough": 1.69,
+     "recover_date": "2022-01-14",
+     "depth_pct": -98.24983818770227,
+     "days_to_trough": 2101,
+     "days_to_recover": 3310,
+     "total_days": 5411,
+     "recovered": true
+    },
+    {
+     "peak_date": "1984-09-17",
+     "peak": 4.0375,
+     "trough_date": "1986-12-08",
+     "trough": 0.35,
+     "recover_date": "1993-07-08",
+     "depth_pct": -91.3312693498452,
+     "days_to_trough": 562,
+     "days_to_recover": 1664,
+     "total_days": 2226,
+     "recovered": true
+    },
+    {
+     "peak_date": "1995-09-11",
+     "peak": 47.1875,
+     "trough_date": "1996-07-23",
+     "trough": 8.625,
+     "recover_date": "2000-02-29",
+     "depth_pct": -81.72185430463577,
+     "days_to_trough": 219,
+     "days_to_recover": 909,
+     "total_days": 1128,
+     "recovered": true
+    },
+    {
+     "peak_date": "2024-06-18",
+     "peak": 153.45,
+     "trough_date": "2025-04-04",
+     "trough": 64.72,
+     "recover_date": "2025-09-12",
+     "depth_pct": -57.82339524275009,
+     "days_to_trough": 199,
+     "days_to_recover": 110,
+     "total_days": 309,
+     "recovered": true
+    },
+    {
+     "peak_date": "2022-01-14",
+     "peak": 97.36,
+     "trough_date": "2022-09-26",
+     "trough": 48.88,
+     "recover_date": "2024-03-07",
+     "depth_pct": -49.79457682826622,
+     "days_to_trough": 174,
+     "days_to_recover": 363,
+     "total_days": 537,
+     "recovered": true
+    },
+    {
+     "peak_date": "2026-06-25",
+     "peak": 1213.5601,
+     "trough_date": "2026-07-29",
+     "trough": 739.0,
+     "recover_date": null,
+     "depth_pct": -39.104787640925245,
+     "days_to_trough": 23,
+     "days_to_recover": null,
+     "total_days": 23,
+     "recovered": false,
+     "current_pct": -39.104787640925245
+    }
+   ],
+   "base_rates": {
+    "n_samples": 8238,
+    "threshold": -39.104787640925245,
+    "first": "1985-01-07",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 8237,
+      "median": 1.4059753954305698,
+      "mean": 2.1260567896269897,
+      "win_rate": 53.113997814738376,
+      "p10": -17.867257617728537,
+      "p90": 23.116659492036163,
+      "worst": -63.65461847389559,
+      "best": 105.40540540540539
+     },
+     "63": {
+      "n": 8237,
+      "median": 4.888888888888898,
+      "mean": 6.63475987297633,
+      "win_rate": 56.23406580065557,
+      "p10": -30.77753779697624,
+      "p90": 45.45454545454546,
+      "worst": -64.39790575916231,
+      "best": 176.19047619047618
+     },
+     "126": {
+      "n": 8237,
+      "median": 6.451612903225801,
+      "mean": 14.221746647630809,
+      "win_rate": 54.4130144470074,
+      "p10": -38.46153846153846,
+      "p90": 74.28350116189,
+      "worst": -79.41534713763703,
+      "best": 267.64705882352945
+     },
+     "252": {
+      "n": 8237,
+      "median": 11.439346323067245,
+      "mean": 33.82344708686531,
+      "win_rate": 57.92157338836955,
+      "p10": -43.292682926829265,
+      "p90": 142.20665499124348,
+      "worst": -82.67110997180211,
+      "best": 894.3343686408911
+     }
+    }
+   }
+  },
+  {
+   "symbol": "AAPL",
+   "label": "AAPL",
+   "span": "1980-12-12~2026-07-29 (11498일·45.6년)",
+   "bars": 11498,
+   "current": {
+    "peak": 340.08,
+    "peak_date": "2026-07-28",
+    "last": 338.19,
+    "last_date": "2026-07-29",
+    "dd_pct": -0.5557515878616748,
+    "days_since_peak": 1
+   },
+   "rank_among_drawdowns": null,
+   "n_drawdowns": 17,
+   "worst_depth": -82.21982758620689,
+   "median_recover_days": 134,
+   "drawdowns": [
+    {
+     "peak_date": "1991-04-02",
+     "peak": 0.6496,
+     "trough_date": "1997-12-23",
+     "trough": 0.1155,
+     "recover_date": "1999-09-03",
+     "depth_pct": -82.21982758620689,
+     "days_to_trough": 1703,
+     "days_to_recover": 427,
+     "total_days": 2130,
+     "recovered": true
+    },
+    {
+     "peak_date": "2000-03-22",
+     "peak": 1.2874,
+     "trough_date": "2003-04-17",
+     "trough": 0.2343,
+     "recover_date": "2005-01-26",
+     "depth_pct": -81.80052819636477,
+     "days_to_trough": 770,
+     "days_to_recover": 447,
+     "total_days": 1217,
+     "recovered": true
+    },
+    {
+     "peak_date": "1983-06-06",
+     "peak": 0.2801,
+     "trough_date": "1985-08-15",
+     "trough": 0.0647,
+     "recover_date": "1987-02-17",
+     "depth_pct": -76.90110674759015,
+     "days_to_trough": 556,
+     "days_to_recover": 379,
+     "total_days": 935,
+     "recovered": true
+    },
+    {
+     "peak_date": "1980-12-29",
+     "peak": 0.1607,
+     "trough_date": "1982-07-08",
+     "trough": 0.0491,
+     "recover_date": "1983-01-20",
+     "depth_pct": -69.44617299315495,
+     "days_to_trough": 385,
+     "days_to_recover": 137,
+     "total_days": 522,
+     "recovered": true
+    },
+    {
+     "peak_date": "2007-12-28",
+     "peak": 7.1368,
+     "trough_date": "2009-01-20",
+     "trough": 2.7929,
+     "recover_date": "2009-10-21",
+     "depth_pct": -60.86621454993835,
+     "days_to_trough": 266,
+     "days_to_recover": 191,
+     "total_days": 457,
+     "recovered": true
+    },
+    {
+     "peak_date": "1987-10-05",
+     "peak": 0.529,
+     "trough_date": "1990-10-16",
+     "trough": 0.2232,
+     "recover_date": "1991-02-08",
+     "depth_pct": -57.80718336483932,
+     "days_to_trough": 767,
+     "days_to_recover": 80,
+     "total_days": 847,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 10690,
+    "threshold": -0.5557515878616748,
+    "first": "1980-12-15",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 10678,
+      "median": 2.1135646687697074,
+      "mean": 2.26980887280958,
+      "win_rate": 57.267278516576134,
+      "p10": -12.602179836512272,
+      "p90": 17.353643966547196,
+      "worst": -68.97532336482892,
+      "best": 113.25695581014728
+     },
+     "63": {
+      "n": 10653,
+      "median": 6.365576102418191,
+      "mean": 7.370283547205774,
+      "win_rate": 62.94940392377734,
+      "p10": -22.17573221757322,
+      "p90": 36.35542168674697,
+      "worst": -77.06632419044125,
+      "best": 153.01645338208408
+     },
+     "126": {
+      "n": 10590,
+      "median": 11.989978760493115,
+      "mean": 15.272086031494156,
+      "win_rate": 64.48536355051935,
+      "p10": -28.246753246753244,
+      "p90": 62.43705941591138,
+      "worst": -74.83137018020739,
+      "best": 264.1681901279708
+     },
+     "252": {
+      "n": 10483,
+      "median": 23.603063333198236,
+      "mean": 32.942270785526745,
+      "win_rate": 67.75732137746829,
+      "p10": -36.20591581342435,
+      "p90": 114.2098273572377,
+      "worst": -75.18576277405742,
+      "best": 382.93103448275866
+     }
+    }
+   }
+  },
+  {
+   "symbol": "VOO",
+   "label": "VOO",
+   "span": "2010-09-09~2026-07-29 (3995일·15.9년)",
+   "bars": 3995,
+   "current": {
+    "peak": 698.26,
+    "peak_date": "2026-06-02",
+    "last": 670.63,
+    "last_date": "2026-07-29",
+    "dd_pct": -3.9569787758141683,
+    "days_since_peak": 39
+   },
+   "rank_among_drawdowns": null,
+   "n_drawdowns": 3,
+   "worst_depth": -34.301428020069466,
+   "median_recover_days": 103,
+   "drawdowns": [
+    {
+     "peak_date": "2020-02-19",
+     "peak": 310.92,
+     "trough_date": "2020-03-23",
+     "trough": 204.27,
+     "recover_date": "2020-08-18",
+     "depth_pct": -34.301428020069466,
+     "days_to_trough": 23,
+     "days_to_recover": 103,
+     "total_days": 126,
+     "recovered": true
+    },
+    {
+     "peak_date": "2022-01-03",
+     "peak": 439.25,
+     "trough_date": "2022-10-12",
+     "trough": 327.64,
+     "recover_date": "2024-01-19",
+     "depth_pct": -25.409220261809907,
+     "days_to_trough": 195,
+     "days_to_recover": 318,
+     "total_days": 513,
+     "recovered": true
+    },
+    {
+     "peak_date": "2018-09-20",
+     "peak": 269.75,
+     "trough_date": "2018-12-24",
+     "trough": 215.07,
+     "recover_date": "2019-04-29",
+     "depth_pct": -20.270620945319738,
+     "days_to_trough": 65,
+     "days_to_recover": 85,
+     "total_days": 150,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 1319,
+    "threshold": -3.9569787758141683,
+    "first": "2011-03-15",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 1318,
+      "median": 2.7802586816195185,
+      "mean": 1.9040343993464963,
+      "win_rate": 69.42336874051594,
+      "p10": -5.321775181381316,
+      "p90": 7.632105448981985,
+      "worst": -24.470024304617876,
+      "best": 25.554413276545752
+     },
+     "63": {
+      "n": 1316,
+      "median": 6.073654510672899,
+      "mean": 5.198050440122514,
+      "win_rate": 78.72340425531915,
+      "p10": -4.948189544766568,
+      "p90": 13.07174443931094,
+      "worst": -17.732716708170283,
+      "best": 40.43178146570716
+     },
+     "126": {
+      "n": 1300,
+      "median": 8.922875251213146,
+      "mean": 9.171065787434125,
+      "win_rate": 85.84615384615385,
+      "p10": -2.6152022521855,
+      "p90": 20.154793871426293,
+      "worst": -20.934424285544885,
+      "best": 47.691780486610845
+     },
+     "252": {
+      "n": 1298,
+      "median": 18.928935538823566,
+      "mean": 18.455926881463288,
+      "win_rate": 92.06471494607088,
+      "p10": 2.527865180523703,
+      "p90": 34.28902403706922,
+      "worst": -20.350152070498318,
+      "best": 75.94849953492925
+     }
+    }
+   }
+  },
+  {
+   "symbol": "MSFT",
+   "label": "MSFT",
+   "span": "1986-03-13~2026-07-29 (10172일·40.4년)",
+   "bars": 10172,
+   "current": {
+    "peak": 542.07,
+    "peak_date": "2025-10-28",
+    "last": 390.54,
+    "last_date": "2026-07-29",
+    "dd_pct": -27.953954286346782,
+    "days_since_peak": 187
+   },
+   "rank_among_drawdowns": 8,
+   "n_drawdowns": 14,
+   "worst_depth": -74.56453305351522,
+   "median_recover_days": 70,
+   "drawdowns": [
+    {
+     "peak_date": "1999-12-27",
+     "peak": 59.5625,
+     "trough_date": "2009-03-09",
+     "trough": 15.15,
+     "recover_date": "2016-10-21",
+     "depth_pct": -74.56453305351522,
+     "days_to_trough": 2312,
+     "days_to_recover": 1921,
+     "total_days": 4233,
+     "recovered": true
+    },
+    {
+     "peak_date": "1987-10-05",
+     "peak": 0.5486,
+     "trough_date": "1987-10-26",
+     "trough": 0.2726,
+     "recover_date": "1989-10-05",
+     "depth_pct": -50.30987969376595,
+     "days_to_trough": 15,
+     "days_to_recover": 492,
+     "total_days": 507,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-11-19",
+     "peak": 343.11,
+     "trough_date": "2022-11-03",
+     "trough": 214.25,
+     "recover_date": "2023-06-15",
+     "depth_pct": -37.55646877094809,
+     "days_to_trough": 240,
+     "days_to_recover": 153,
+     "total_days": 393,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-10-28",
+     "peak": 542.07,
+     "trough_date": "2026-06-25",
+     "trough": 352.83,
+     "recover_date": null,
+     "depth_pct": -34.91062039957939,
+     "days_to_trough": 164,
+     "days_to_recover": null,
+     "total_days": 187,
+     "recovered": false,
+     "current_pct": -27.953954286346782
+    },
+    {
+     "peak_date": "1990-07-16",
+     "peak": 1.1007,
+     "trough_date": "1990-08-23",
+     "trough": 0.7188,
+     "recover_date": "1991-01-16",
+     "depth_pct": -34.696102480239844,
+     "days_to_trough": 28,
+     "days_to_recover": 100,
+     "total_days": 128,
+     "recovered": true
+    },
+    {
+     "peak_date": "1987-05-08",
+     "peak": 0.4392,
+     "trough_date": "1987-07-07",
+     "trough": 0.3134,
+     "recover_date": "1987-09-28",
+     "depth_pct": -28.642987249544618,
+     "days_to_trough": 40,
+     "days_to_recover": 58,
+     "total_days": 98,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 4095,
+    "threshold": -27.953954286346782,
+    "first": "1987-07-07",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 4081,
+      "median": 1.0805804260574314,
+      "mean": 1.08740844419691,
+      "win_rate": 56.162705219309,
+      "p10": -8.643183300717538,
+      "p90": 10.820668693009106,
+      "worst": -38.232650072334785,
+      "best": 45.9334939759036
+     },
+     "63": {
+      "n": 4072,
+      "median": 1.5004054921819665,
+      "mean": 2.4024474744460464,
+      "win_rate": 54.788801571709236,
+      "p10": -13.213213213213205,
+      "p90": 19.6078431372549,
+      "worst": -37.03304597701149,
+      "best": 75.04786215698786
+     },
+     "126": {
+      "n": 4053,
+      "median": 3.435672514619892,
+      "mean": 4.631876668553177,
+      "win_rate": 59.314088329632376,
+      "p10": -16.93605059732959,
+      "p90": 26.77364864864864,
+      "worst": -48.043818466353684,
+      "best": 104.11229735073148
+     },
+     "252": {
+      "n": 4053,
+      "median": 4.510108864696738,
+      "mean": 10.438351167837808,
+      "win_rate": 59.190722921292874,
+      "p10": -15.955766192733012,
+      "p90": 42.008196721311464,
+      "worst": -48.787613204791114,
+      "best": 197.64737696051918
+     }
+    }
+   }
+  },
+  {
+   "symbol": "ANET",
+   "label": "ANET",
+   "span": "2014-06-06~2026-07-29 (3054일·12.1년)",
+   "bars": 3054,
+   "current": {
+    "peak": 186.96,
+    "peak_date": "2026-07-10",
+    "last": 157.97,
+    "last_date": "2026-07-29",
+    "dd_pct": -15.505990586221651,
+    "days_since_peak": 13
+   },
+   "rank_among_drawdowns": null,
+   "n_drawdowns": 9,
+   "worst_depth": -52.20076167100098,
+   "median_recover_days": 84,
+   "drawdowns": [
+    {
+     "peak_date": "2019-04-16",
+     "peak": 20.5338,
+     "trough_date": "2020-03-16",
+     "trough": 9.815,
+     "recover_date": "2021-05-20",
+     "depth_pct": -52.20076167100098,
+     "days_to_trough": 230,
+     "days_to_recover": 298,
+     "total_days": 528,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-01-22",
+     "peak": 129.82,
+     "trough_date": "2025-04-04",
+     "trough": 64.37,
+     "recover_date": "2025-08-06",
+     "depth_pct": -50.415960560776455,
+     "days_to_trough": 51,
+     "days_to_recover": 84,
+     "total_days": 135,
+     "recovered": true
+    },
+    {
+     "peak_date": "2014-09-29",
+     "peak": 5.8319,
+     "trough_date": "2016-02-09",
+     "trough": 3.3125,
+     "recover_date": "2016-11-21",
+     "depth_pct": -43.20032922375212,
+     "days_to_trough": 343,
+     "days_to_recover": 199,
+     "total_days": 542,
+     "recovered": true
+    },
+    {
+     "peak_date": "2018-08-24",
+     "peak": 19.2862,
+     "trough_date": "2018-12-24",
+     "trough": 11.8062,
+     "recover_date": "2019-03-21",
+     "depth_pct": -38.78420839771442,
+     "days_to_trough": 83,
+     "days_to_recover": 59,
+     "total_days": 142,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-12-27",
+     "peak": 36.71,
+     "trough_date": "2022-06-16",
+     "trough": 22.605,
+     "recover_date": "2023-03-08",
+     "depth_pct": -38.42277308635249,
+     "days_to_trough": 119,
+     "days_to_recover": 181,
+     "total_days": 300,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-10-29",
+     "peak": 162.03,
+     "trough_date": "2026-03-30",
+     "trough": 116.13,
+     "recover_date": "2026-04-17",
+     "depth_pct": -28.328087391223853,
+     "days_to_trough": 103,
+     "days_to_recover": 13,
+     "total_days": 116,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 1378,
+    "threshold": -15.505990586221651,
+    "first": "2014-07-16",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 1377,
+      "median": 4.222519211493481,
+      "mean": 4.116125716829532,
+      "win_rate": 64.05228758169935,
+      "p10": -12.569832402234626,
+      "p90": 21.11145631067961,
+      "worst": -33.91106442577031,
+      "best": 45.25101179712392
+     },
+     "63": {
+      "n": 1365,
+      "median": 7.676227109290079,
+      "mean": 10.542555787587238,
+      "win_rate": 67.98534798534799,
+      "p10": -12.851570964247038,
+      "p90": 38.95336998574628,
+      "worst": -24.779162976587866,
+      "best": 73.46086956521741
+     },
+     "126": {
+      "n": 1334,
+      "median": 18.686847407806837,
+      "mean": 18.16995995281094,
+      "win_rate": 75.33733133433283,
+      "p10": -12.505142807648163,
+      "p90": 46.60945924898574,
+      "worst": -35.5759763702002,
+      "best": 132.2510486251359
+     },
+     "252": {
+      "n": 1284,
+      "median": 40.045685262866954,
+      "mean": 42.408958466819996,
+      "win_rate": 77.72585669781932,
+      "p10": -10.283877878950188,
+      "p90": 109.60698689956332,
+      "worst": -26.764366317828014,
+      "best": 162.64223437269098
+     }
+    }
+   }
+  },
+  {
+   "symbol": "AVGO",
+   "label": "AVGO",
+   "span": "2009-08-06~2026-07-29 (4270일·16.9년)",
+   "bars": 4270,
+   "current": {
+    "peak": 481.57,
+    "peak_date": "2026-06-02",
+    "last": 370.32,
+    "last_date": "2026-07-29",
+    "dd_pct": -23.10152210478228,
+    "days_since_peak": 39
+   },
+   "rank_among_drawdowns": 10,
+   "n_drawdowns": 14,
+   "worst_depth": -48.788895668090305,
+   "median_recover_days": 44,
+   "drawdowns": [
+    {
+     "peak_date": "2019-12-12",
+     "peak": 32.78,
+     "trough_date": "2020-03-18",
+     "trough": 16.787,
+     "recover_date": "2020-08-04",
+     "depth_pct": -48.788895668090305,
+     "days_to_trough": 65,
+     "days_to_recover": 96,
+     "total_days": 161,
+     "recovered": true
+    },
+    {
+     "peak_date": "2024-12-16",
+     "peak": 250.0,
+     "trough_date": "2025-04-04",
+     "trough": 146.29,
+     "recover_date": "2025-06-03",
+     "depth_pct": -41.484,
+     "days_to_trough": 74,
+     "days_to_recover": 40,
+     "total_days": 114,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-12-27",
+     "peak": 67.428,
+     "trough_date": "2022-10-14",
+     "trough": 42.71,
+     "recover_date": "2023-05-18",
+     "depth_pct": -36.65836151153823,
+     "days_to_trough": 202,
+     "days_to_recover": 148,
+     "total_days": 350,
+     "recovered": true
+    },
+    {
+     "peak_date": "2011-07-06",
+     "peak": 3.908,
+     "trough_date": "2011-08-08",
+     "trough": 2.719,
+     "recover_date": "2013-09-10",
+     "depth_pct": -30.424769703172984,
+     "days_to_trough": 23,
+     "days_to_recover": 525,
+     "total_days": 548,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-12-10",
+     "peak": 412.97,
+     "trough_date": "2026-03-30",
+     "trough": 293.41,
+     "recover_date": "2026-04-22",
+     "depth_pct": -28.951255539143272,
+     "days_to_trough": 74,
+     "days_to_recover": 16,
+     "total_days": 90,
+     "recovered": true
+    },
+    {
+     "peak_date": "2017-11-27",
+     "peak": 28.462,
+     "trough_date": "2018-07-13",
+     "trough": 20.246,
+     "recover_date": "2019-03-15",
+     "depth_pct": -28.86655892066615,
+     "days_to_trough": 157,
+     "days_to_recover": 168,
+     "total_days": 325,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 232,
+    "threshold": -23.10152210478228,
+    "first": "2011-08-05",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 229,
+      "median": 11.21513002364065,
+      "mean": 10.83195320051087,
+      "win_rate": 78.16593886462883,
+      "p10": -6.371469417719567,
+      "p90": 30.141287284144425,
+      "worst": -19.610606535128937,
+      "best": 58.384464168701975
+     },
+     "63": {
+      "n": 228,
+      "median": 23.8956039205631,
+      "mean": 23.792124225797362,
+      "win_rate": 88.59649122807018,
+      "p10": -2.756047659164762,
+      "p90": 56.607942322228034,
+      "worst": -16.04230078826192,
+      "best": 86.71591112170134
+     },
+     "126": {
+      "n": 215,
+      "median": 30.403932464201745,
+      "mean": 40.185301803594264,
+      "win_rate": 100.0,
+      "p10": 13.91928864569083,
+      "p90": 88.40975043528726,
+      "worst": 2.0728853226345656,
+      "best": 129.33214847221274
+     },
+     "252": {
+      "n": 215,
+      "median": 74.37727399944025,
+      "mean": 69.69685794578396,
+      "win_rate": 100.0,
+      "p10": 15.895443306252211,
+      "p90": 118.04990656260306,
+      "worst": 6.169052488070892,
+      "best": 176.49371537499255
+     }
+    }
+   }
+  },
+  {
+   "symbol": "GOOGL",
+   "label": "GOOGL",
+   "span": "2004-08-19~2026-07-29 (5520일·21.9년)",
+   "bars": 5520,
+   "current": {
+    "peak": 402.62,
+    "peak_date": "2026-05-13",
+    "last": 336.71,
+    "last_date": "2026-07-29",
+    "dd_pct": -16.370274700710354,
+    "days_since_peak": 52
+   },
+   "rank_among_drawdowns": null,
+   "n_drawdowns": 9,
+   "worst_depth": -65.29496371873536,
+   "median_recover_days": 90,
+   "drawdowns": [
+    {
+     "peak_date": "2007-11-06",
+     "peak": 18.5633,
+     "trough_date": "2008-11-24",
+     "trough": 6.4424,
+     "recover_date": "2012-09-24",
+     "depth_pct": -65.29496371873536,
+     "days_to_trough": 265,
+     "days_to_recover": 965,
+     "total_days": 1230,
+     "recovered": true
+    },
+    {
+     "peak_date": "2021-11-18",
+     "peak": 149.8385,
+     "trough_date": "2022-11-03",
+     "trough": 83.43,
+     "recover_date": "2024-01-25",
+     "depth_pct": -44.320051255184744,
+     "days_to_trough": 241,
+     "days_to_recover": 306,
+     "total_days": 547,
+     "recovered": true
+    },
+    {
+     "peak_date": "2020-02-19",
+     "peak": 76.2435,
+     "trough_date": "2020-03-23",
+     "trough": 52.7065,
+     "recover_date": "2020-07-10",
+     "depth_pct": -30.870828332907063,
+     "days_to_trough": 23,
+     "days_to_recover": 76,
+     "total_days": 99,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-02-04",
+     "peak": 206.38,
+     "trough_date": "2025-04-08",
+     "trough": 144.7,
+     "recover_date": "2025-08-25",
+     "depth_pct": -29.886616920244215,
+     "days_to_trough": 44,
+     "days_to_recover": 95,
+     "total_days": 139,
+     "recovered": true
+    },
+    {
+     "peak_date": "2006-01-11",
+     "peak": 11.8026,
+     "trough_date": "2006-03-13",
+     "trough": 8.4349,
+     "recover_date": "2006-10-23",
+     "depth_pct": -28.533543456526523,
+     "days_to_trough": 41,
+     "days_to_recover": 156,
+     "total_days": 197,
+     "recovered": true
+    },
+    {
+     "peak_date": "2018-07-26",
+     "peak": 64.275,
+     "trough_date": "2018-12-24",
+     "trough": 49.2335,
+     "recover_date": "2019-04-29",
+     "depth_pct": -23.40178918708674,
+     "days_to_trough": 104,
+     "days_to_recover": 85,
+     "total_days": 189,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 1687,
+    "threshold": -16.370274700710354,
+    "first": "2005-03-14",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 1682,
+      "median": 2.3230114682271985,
+      "mean": 2.0223732851122005,
+      "win_rate": 59.096313912009514,
+      "p10": -10.114816839803165,
+      "p90": 14.136634690173722,
+      "worst": -27.022593728583153,
+      "best": 31.089962049495522
+     },
+     "63": {
+      "n": 1682,
+      "median": 7.458407666567601,
+      "mean": 6.211096338742851,
+      "win_rate": 64.44708680142688,
+      "p10": -14.483606444789366,
+      "p90": 25.993458708094863,
+      "worst": -47.09212348293556,
+      "best": 61.581146810988564
+     },
+     "126": {
+      "n": 1679,
+      "median": 12.872504452774013,
+      "mean": 11.497159519293993,
+      "win_rate": 69.08874329958309,
+      "p10": -19.623824451410655,
+      "p90": 40.95498680355456,
+      "worst": -54.69543325691622,
+      "best": 90.19934543290687
+     },
+     "252": {
+      "n": 1679,
+      "median": 20.762601453401388,
+      "mean": 27.252414211605597,
+      "win_rate": 84.27635497319834,
+      "p10": -5.701675257731964,
+      "p90": 68.65310597123417,
+      "worst": -52.8948892572547,
+      "best": 164.76416963931828
+     }
+    }
+   }
+  },
+  {
+   "symbol": "META",
+   "label": "META",
+   "span": "2012-05-18~2026-07-29 (3568일·14.2년)",
+   "bars": 3568,
+   "current": {
+    "peak": 790.0,
+    "peak_date": "2025-08-12",
+    "last": 585.61,
+    "last_date": "2026-07-29",
+    "dd_pct": -25.872151898734174,
+    "days_since_peak": 241
+   },
+   "rank_among_drawdowns": 7,
+   "n_drawdowns": 8,
+   "worst_depth": -76.73609294049925,
+   "median_recover_days": 61,
+   "drawdowns": [
+    {
+     "peak_date": "2021-09-07",
+     "peak": 382.18,
+     "trough_date": "2022-11-03",
+     "trough": 88.91,
+     "recover_date": "2024-01-19",
+     "depth_pct": -76.73609294049925,
+     "days_to_trough": 293,
+     "days_to_recover": 302,
+     "total_days": 595,
+     "recovered": true
+    },
+    {
+     "peak_date": "2012-05-18",
+     "peak": 38.23,
+     "trough_date": "2012-09-04",
+     "trough": 17.73,
+     "recover_date": "2013-08-05",
+     "depth_pct": -53.622809312058585,
+     "days_to_trough": 74,
+     "days_to_recover": 229,
+     "total_days": 303,
+     "recovered": true
+    },
+    {
+     "peak_date": "2018-07-25",
+     "peak": 217.5,
+     "trough_date": "2018-12-24",
+     "trough": 124.06,
+     "recover_date": "2020-01-09",
+     "depth_pct": -42.96091954022988,
+     "days_to_trough": 105,
+     "days_to_recover": 262,
+     "total_days": 367,
+     "recovered": true
+    },
+    {
+     "peak_date": "2020-01-29",
+     "peak": 223.23,
+     "trough_date": "2020-03-16",
+     "trough": 146.01,
+     "recover_date": "2020-05-20",
+     "depth_pct": -34.5921247144201,
+     "days_to_trough": 32,
+     "days_to_recover": 46,
+     "total_days": 78,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-02-14",
+     "peak": 736.67,
+     "trough_date": "2025-04-21",
+     "trough": 484.66,
+     "recover_date": "2025-06-30",
+     "depth_pct": -34.209347469015974,
+     "days_to_trough": 44,
+     "days_to_recover": 48,
+     "total_days": 92,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-08-12",
+     "peak": 790.0,
+     "trough_date": "2026-03-27",
+     "trough": 525.72,
+     "recover_date": null,
+     "depth_pct": -33.45316455696202,
+     "days_to_trough": 157,
+     "days_to_recover": null,
+     "total_days": 241,
+     "recovered": false,
+     "current_pct": -25.872151898734174
+    }
+   ],
+   "base_rates": {
+    "n_samples": 717,
+    "threshold": -25.872151898734174,
+    "first": "2012-05-30",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 714,
+      "median": 5.524778576007428,
+      "mean": 5.6292158669098935,
+      "win_rate": 62.324929971988794,
+      "p10": -13.749648646116363,
+      "p90": 23.667786845895343,
+      "worst": -36.02676644121456,
+      "best": 60.812474353713576
+     },
+     "63": {
+      "n": 701,
+      "median": 14.865051903114178,
+      "mean": 18.606912562261403,
+      "win_rate": 61.19828815977175,
+      "p10": -22.599114703618163,
+      "p90": 65.16689740039992,
+      "worst": -46.91915342674561,
+      "best": 111.05848661746887
+     },
+     "126": {
+      "n": 693,
+      "median": 36.394723986321466,
+      "mean": 39.69630240012803,
+      "win_rate": 76.62337662337663,
+      "p10": -26.61699138826116,
+      "p90": 120.20526550647035,
+      "worst": -59.473613535651936,
+      "best": 162.3664379709819
+     },
+     "252": {
+      "n": 693,
+      "median": 99.41760877012675,
+      "mean": 97.93820175738395,
+      "win_rate": 91.63059163059162,
+      "p10": 10.135358204027733,
+      "p90": 175.03810330228623,
+      "worst": -24.935344827586203,
+      "best": 255.1906422224722
+     }
+    }
+   }
+  },
+  {
+   "symbol": "ORCL",
+   "label": "ORCL",
+   "span": "1986-03-12~2026-07-29 (10173일·40.4년)",
+   "bars": 10173,
+   "current": {
+    "peak": 328.33,
+    "peak_date": "2025-09-10",
+    "last": 117.74,
+    "last_date": "2026-07-29",
+    "dd_pct": -64.13973745926354,
+    "days_since_peak": 221
+   },
+   "rank_among_drawdowns": 4,
+   "n_drawdowns": 19,
+   "worst_depth": -84.19433198380567,
+   "median_recover_days": 77,
+   "drawdowns": [
+    {
+     "peak_date": "2000-09-01",
+     "peak": 46.3125,
+     "trough_date": "2002-06-03",
+     "trough": 7.32,
+     "recover_date": "2017-06-21",
+     "depth_pct": -84.19433198380567,
+     "days_to_trough": 435,
+     "days_to_recover": 3790,
+     "total_days": 4225,
+     "recovered": true
+    },
+    {
+     "peak_date": "1990-03-19",
+     "peak": 0.6944,
+     "trough_date": "1990-10-29",
+     "trough": 0.1327,
+     "recover_date": "1992-12-29",
+     "depth_pct": -80.88997695852534,
+     "days_to_trough": 156,
+     "days_to_recover": 548,
+     "total_days": 704,
+     "recovered": true
+    },
+    {
+     "peak_date": "2025-09-10",
+     "peak": 328.33,
+     "trough_date": "2026-07-24",
+     "trough": 114.99,
+     "recover_date": null,
+     "depth_pct": -64.97730941430876,
+     "days_to_trough": 218,
+     "days_to_recover": null,
+     "total_days": 221,
+     "recovered": false,
+     "current_pct": -64.13973745926354
+    },
+    {
+     "peak_date": "1997-08-19",
+     "peak": 6.8542,
+     "trough_date": "1998-01-12",
+     "trough": 3.0104,
+     "recover_date": "1998-12-23",
+     "depth_pct": -56.079484111931365,
+     "days_to_trough": 100,
+     "days_to_recover": 240,
+     "total_days": 340,
+     "recovered": true
+    },
+    {
+     "peak_date": "1987-10-05",
+     "peak": 0.2299,
+     "trough_date": "1987-10-26",
+     "trough": 0.1034,
+     "recover_date": "1988-06-09",
+     "depth_pct": -55.02392344497608,
+     "days_to_trough": 15,
+     "days_to_recover": 157,
+     "total_days": 172,
+     "recovered": true
+    },
+    {
+     "peak_date": "1986-04-21",
+     "peak": 0.088,
+     "trough_date": "1986-09-11",
+     "trough": 0.0417,
+     "recover_date": "1987-01-19",
+     "depth_pct": -52.61363636363636,
+     "days_to_trough": 100,
+     "days_to_recover": 89,
+     "total_days": 189,
+     "recovered": true
+    }
+   ],
+   "base_rates": {
+    "n_samples": 1585,
+    "threshold": -64.13973745926354,
+    "first": "1990-09-06",
+    "last": "2026-07-29",
+    "horizons": {
+     "21": {
+      "n": 1583,
+      "median": 1.7777777777777892,
+      "mean": 2.5675034081793826,
+      "win_rate": 58.37018319646241,
+      "p10": -10.290827740492182,
+      "p90": 16.430020283975665,
+      "worst": -35.43888433141918,
+      "best": 66.66666666666667
+     },
+     "63": {
+      "n": 1583,
+      "median": 4.459064327485374,
+      "mean": 6.803951239460592,
+      "win_rate": 60.83385975994946,
+      "p10": -12.845407020164302,
+      "p90": 27.75476387738194,
+      "worst": -50.494437577255866,
+      "best": 88.84089272858171
+     },
+     "126": {
+      "n": 1583,
+      "median": 8.617747440273039,
+      "mean": 10.846918099157204,
+      "win_rate": 65.88755527479469,
+      "p10": -20.180722891566262,
+      "p90": 38.442367601246104,
+      "worst": -49.528598365807674,
+      "best": 118.09180918091809
+     },
+     "252": {
+      "n": 1583,
+      "median": 15.4727793696275,
+      "mean": 23.538832804924002,
+      "win_rate": 70.18319646241315,
+      "p10": -19.21944035346097,
+      "p90": 76.41764176417642,
+      "worst": -55.66323440339189,
+      "best": 224.40604751619873
+     }
+    }
+   }
+  }
+ ]
+}

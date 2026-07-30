@@ -46,7 +46,8 @@ MU·ANET·AVGO·ORCL 4종목은 무료플랜 402로 **하드넘버가 아예 없
 | 공매도·대차 | `short_borrow.py` | KRX | ✅ |
 | 실현변동성·폭풍 %ile | `vol_gauge.py`·`garch.py`·`vol_sizing.py` | Yahoo OHLC | ✅ |
 | 기술적 분석 | `ta_core.py`·`chart_read.py`·`naver_chart.py` | 자체 계산 | ✅ |
-| 장기 시계열 | `history_backfill.py`·`history_analysis.py`·`market_log.py` | 상장 이래 | ✅ |
+| 장기 시계열 | `history_backfill.py`·`history_analysis.py`·`market_log.py` | 상장 이래 | ✅ **364,456 bars**(7/30 전량 갱신) |
+| **낙폭·회복·기저율** | `drawdown_history.py` | 위 캐시 소비 | ✅ **7/30 신설** — 낙폭 생애주기·조건부 기저율·매크로 오버레이 |
 
 ## 2. 보유 레이어 — 펀더멘털·밸류·리서치
 

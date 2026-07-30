@@ -124,6 +124,26 @@ python3 .claude/skills/portfolio-desk/scripts/market_log.py   # [7/19] 오늘 �
 # (선택) charts.py — 비중/수익률 PNG(dataviz 검증팔레트·한글). matplotlib 있으면 생성·없으면 자동 스킵(웹). 로컬 이전 후 활성.
 python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data.js+폭풍점수 → 자체완결 HTML 대시보드(output/dashboard.html) → Artifact 툴로 발행하면 사이드패널 열람·공유. matplotlib PNG 대체(웹서도 뜸·다크대응). 템플릿=assets/dashboard_template.html
 ```
+- **📋 국내 수시공시 (보유 KR 5종목 · [7/30 신설])** — 리스크룰 2 '펀더 훼손' 판정의 유일한 장치:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/dart_disclosure.py --days 7 --save
+  python3 .claude/skills/portfolio-desk/scripts/dart_disclosure.py --insider   # 임원 보유증감 합산
+  python3 .claude/skills/portfolio-desk/scripts/dart_disclosure.py --major     # 5% 대량보유(국민연금)
+  ```
+  🚨critical(훼손·희석·지배구조)은 **보고서 본문에 반드시 노출**. ⚠️ 자금용도가 '기타'처럼 모호하면
+  **뉴스 교차검증까지 한 번 더** — DART는 사실의 1차 출처지만 **맥락의 1차 출처가 아니다**(7/30 실사고).
+- **👤 미국 내부자 (Form 4 · 무키 · [7/30 신설])**:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/insider_us.py --days 90 --save
+  ```
+  **재량적 매수(P)만 신호**로 읽는다 — 매도(S)는 대부분 10b5-1 사전약정이라 비관 신호가 아니다.
+- **📐 낙폭·기저율 ([7/30 신설] · 주간 R3 또는 국면 전환 시)**:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/history_backfill.py          # 일봉 캐시 증분
+  python3 .claude/skills/portfolio-desk/scripts/drawdown_history.py --indexes --save
+  ```
+  ⚠️ **기저율 규율**: ①표본 수 병기 ②깊이 단독 매수논거 금지 ③"승률 97%"≠"97% 확률".
+  정본 = `docs/research/drawdown_study_2026-07-30.md`
 - **📑 재무제표 3표 (보유 전종목 · 필수 · 무키) [7/29~30 신설]**:
   ```bash
   python3 .claude/skills/portfolio-desk/scripts/financials.py --all --save   # data/app/financials.json 갱신

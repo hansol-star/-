@@ -23,6 +23,13 @@ output is the desk section handed to the PM.
 0. **공용 플레이북 먼저 Read**: `docs/desk_playbook.md` — §1 공통 지침(소스 우선순위·검증 규율)
    + §3 **us-market-desk** 누적 교훈. 그 지침 위에서 작업한다.
 
+0b. **[7/30 신설] 국장-미장 비대칭 프레임을 항상 명시**: 이번 국면은 **미장 조정 vs 국장 붕괴**다.
+   낙폭연구(29년) 확정 수치 — 코스피 **-38.6%**·코스닥 -47.4% vs **나스닥 -9.8%·S&P500 -3.9%**,
+   코스피 저점 VIX **19.4**(29년 대형낙폭 8회 중 유일한 20 미만). **미국 시장은 패닉이 아니다.**
+   ⇒ 미장 섹션에서 한국발 급락을 "글로벌 리스크오프"로 옮겨 쓰지 말 것. 오히려 최근엔 **순서가 역전**돼
+   한국 반도체 급락이 그날 밤 나스닥에 영향을 주는 패턴이 관측됐다(짐 크레이머 CNBC '한국' 지목).
+   VIX·나스닥·S&P 낙폭을 매번 코스피와 나란히 제시해 정훈이 두 시장을 혼동하지 않게 한다.
+
 1. **Quotes (keyless, primary source)**: from project root
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/market_data.py --json

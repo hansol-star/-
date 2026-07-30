@@ -34,3 +34,5 @@
 {"date": "2026-07-28", "index": "KOSPI", "foreign": -49664, "inst": 6300, "indiv": 43339, "src": "flows.json(확정)"}
 {"date": "2026-07-29", "index": "KOSDAQ", "foreign": 3083, "inst": 1471, "indiv": -4578, "src": "naver"}
 {"date": "2026-07-29", "index": "KOSPI", "foreign": -12337, "inst": 31604, "indiv": -19701, "src": "naver"}
+{"date": "2026-07-30", "index": "KOSDAQ", "foreign": 2485, "inst": -1437, "indiv": -1106, "src": "naver"}
+{"date": "2026-07-30", "index": "KOSPI", "foreign": 13427, "inst": 660, "indiv": -14311, "src": "naver"}

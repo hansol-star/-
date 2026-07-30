@@ -119,7 +119,8 @@ def global_contagion_check():
     return False, f"S&P500 폭풍 {pct:.0f}%ile <70 = 국지 유지(개정 전제 성립)"
 
 
-def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None):
+def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
+          check_contagion: bool = True):
     unlocked, steps = ladder_state(dd_pct)
     smult, swhy = _storm_mult(storm_pct)
 
@@ -128,7 +129,8 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None):
     mult = smult * (CAPITULATION_BONUS if capit else 1.0)
     mult = max(MULT_FLOOR, min(MULT_CAP, mult))
 
-    halted, hwhy = global_contagion_check()
+    # 백테스트(rule_tracker --backfill)는 수천 번 호출하므로 네트워크 조회를 끈다.
+    halted, hwhy = global_contagion_check() if check_contagion else (False, '확산 판정 생략(백테스트)')
     allowed = 0.0 if halted else cash * unlocked * mult
 
     return {

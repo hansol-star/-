@@ -70,6 +70,7 @@ MU·ANET·AVGO·ORCL 4종목은 무료플랜 402로 **하드넘버가 아예 없
 | **미국 내부자 매매** | `insider_us.py` | SEC Form 4 무키 | ✅ **7/30 신설** — 재량적 매수(P)와 10b5-1 매도 분리 |
 | 영상 리서치 3채널 | `hunter_latest.py`·`hunter_score.py` | YouTube | ✅ |
 | 자가검증·캘리브레이션 | `score_calls.py`·`missed_moves.py`·`signal_score.py` | 자체 | ✅ |
+| **개정 룰 자기검증** | `rule_tracker.py`·`tranche_rules.py` | 자체 + 일봉 캐시 | ✅ **7/30 신설** — 룰이 낸 신호를 반사실 채점 + 29년 소급 백테스트 |
 
 ## 3. 🚨 미보유 레이어 — 아직 없는 것 (우선순위 순)
 

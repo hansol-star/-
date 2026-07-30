@@ -127,30 +127,48 @@ def _level(cfg, cond, ticker):
 # 알림을 추가한 뒤로는 안전핀이 6,500으로 잘못 잡혔다.
 # 둘 다 하회 중일 땐 판정이 같아 눈에 안 띄었으나, **코스피가 6,500~7,500으로 회복하는 순간
 # "안전핀 위"로 오판해 트랜치를 열어준다** — 시나리오A(8월 기술반등 6,500~7,000)가 정확히 그 구간이다.
-SAFETY_PIN_KOSPI = 7500
+SAFETY_PIN_KOSPI = 7500   # ⚠️ 舊 룰 상수 — 이제 사이징에 쓰지 않는다(아래 참조). 이력·표시용으로만 남긴다.
 
 
 def recommend_tranche(cfg, kospi):
-    """안전핀까지 버퍼로 다음 트랜치 권장 규모를 스케일. 안전핀 하회 시 0(동결)."""
-    pin = SAFETY_PIN_KOSPI
-    tranches = cfg.get("tranches", [])
-    nxt = next((t for t in tranches if not t.get("executed")), None)
-    base = (nxt or {}).get("amount_krw", 0)
+    """★[2026-07-30 전면 개정] 舊 '안전핀 7,500 이진 동결' → **낙폭 사다리**(crash_tf §2b).
+
+    정훈 승인 "룰도 다 바꾸자". 舊 구현의 결함:
+      ① 코스피 -38.6% 지점의 12M 기저율이 중앙 +43%·승률 97%(표본 750)인데
+         **+34% 오른 뒤에야** 트랜치를 열어줬다(가장 유리한 구간을 통째로 건너뜀).
+      ② 폭풍 조항이 **역작동** — 변동성 극단일수록 가장 강하게 막았다.
+
+    新 판정은 `tranche_rules.py`가 정본이다. 여기서는 그것을 **호출만** 한다
+    (사이징 로직을 두 곳에 두면 반드시 갈라진다 — 舊 안전핀이 6,500으로 잘못 잡혔던
+    7/29 버그가 정확히 그 유형이었다).
+    """
     if kospi is None:
         return {"amount": None, "reason": "코스피 시세 조회 실패 — 수동 판단"}
-    if kospi < pin:
-        return {"amount": 0, "buffer_pct": (kospi - pin) / pin * 100,
-                "reason": f"코스피 {kospi:,.0f} < 안전핀 {pin:,.0f} — 잔여 트랜치 전면 동결(물타기 금지)"}
-    buf = (kospi - pin) / pin * 100
-    if buf < 5:
-        scale, note = 0.5, "안전핀 임박(버퍼<5%) — 절반만·천천히 분할"
-    elif buf < 15:
-        scale, note = 1.0, "정상 버퍼 — 계획 트랜치대로 3분할"
-    else:
-        scale, note = 1.0, "버퍼 충분 — 단 추격금지(눌림에만, 갭당일 진입 회피)"
-    amt = round(base * scale)
-    return {"amount": amt, "per_split": round(amt / 3), "buffer_pct": buf,
-            "tranche_id": (nxt or {}).get("id"), "base": base, "scale": scale, "reason": note}
+    try:
+        import tranche_rules as TR
+    except ImportError:
+        return {"amount": None,
+                "reason": "tranche_rules.py 로드 실패 — 사다리 판정 불가(수동 판단)"}
+
+    cash, dd, storm, fear, capit = TR._load_inputs(None)
+    if cfg.get("cash_krw"):
+        cash = float(cfg["cash_krw"])
+    if dd is None:
+        return {"amount": None,
+                "reason": "코스피 낙폭 산출 실패 — history_backfill.py 필요(수동 판단)"}
+
+    r = TR.rule1(cash, dd, storm, fear, capit)
+    if r["halted"]:
+        return {"amount": 0, "dd_pct": dd, "reason": r["halt_why"], "ladder": r}
+    steps = "+".join(f"D{i+1}" for i, s_ in enumerate(r["steps"]) if s_["unlocked"]) or "없음"
+    return {
+        "amount": r["allowed_krw"],
+        "per_split": round(r["allowed_krw"] / 3) if r["allowed_krw"] else 0,
+        "dd_pct": dd, "ladder": r,
+        "reason": (f"낙폭 {dd:+.1f}% → 해금 {steps}({r['unlocked_ratio']*100:.0f}%) "
+                   f"× 승수 {r['final_mult']} = **상한** {r['allowed_krw']:,}원 "
+                   f"({r['storm_why']}; {r['capitulation_why']}). 상한이지 목표 아님·자동집행 아님"),
+    }
 
 
 def concentration(cfg):
@@ -192,8 +210,11 @@ def sizing_panel(cfg):
         print(f"- 🔴 권장 트랜치: **0원** — {rec['reason']}")
     else:
         cap_amt = min(rec["amount"], cash) if cash else rec["amount"]
-        print(f"- 권장 트랜치({rec.get('tranche_id','다음')}): **{cap_amt:,.0f}원** "
-              f"(3분할 1회 ≈ {round(cap_amt/3):,.0f}원) · 버퍼 {rec['buffer_pct']:+.1f}%")
+        # 舊 'buffer_pct'(안전핀까지 거리)는 사다리 개정으로 사라졌다 → 낙폭%로 대체.
+        dd = rec.get("dd_pct")
+        tail = f" · 코스피 낙폭 {dd:+.1f}%" if dd is not None else ""
+        print(f"- 권장 트랜치 **상한**: **{cap_amt:,.0f}원** "
+              f"(3분할 1회 ≈ {round(cap_amt/3):,.0f}원){tail}")
         print(f"    ↳ {rec['reason']}")
     if con["total_krw"]:
         print(f"- 주식 평가액 {con['total_krw']:,.0f}원 · 단일종목 상한 {CONCENTRATION_CAP*100:.0f}%")

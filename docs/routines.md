@@ -78,7 +78,9 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
   ① `python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --snapshot` (원장 append)
   ② `python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --score` (누적 후행검증)
   ③ 표본 <40이면 판정 보류가 정상 — 대신 `--backfill`(29년 소급)로 방향 감각을 확인한다.
-  ④ 편향이 보이면 **개정 '제안'만** 기록(자동 변경 ❌·확정은 정훈). 제안은 master §9에 후보로 남긴다.
+  ④ 항복 가산 검증 = `capitulation_validate.py`(네이버 2016~ 실측 + VIX 36년 프록시 2경로).
+     ⚠️ **해금 구간(낙폭 ≤ -25%)에서만 판정**한다 — 전 구간으로 보면 결론이 뒤집힌다(7/30 실측).
+  ⑤ 편향이 보이면 **개정 '제안'만** 기록(자동 변경 ❌·확정은 정훈). 제안은 master §9에 후보로 남긴다.
 - **역량 감사 (self-review §7 · 7/30 신설 — 이 단계를 빼지 말 것)**: 콜 채점은 *우리가 낸 답*만 검사한다.
   *애초에 못 낸 답*은 이 감사가 아니면 영원히 안 보인다(재무제표 2개월 0건 사고의 구조적 원인).
   ① `python3 .claude/skills/portfolio-desk/scripts/validate_report.py --coverage` → 레이어 결손·stale FAIL/WARN 처리.

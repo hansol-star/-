@@ -39,6 +39,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import os
 import sys
@@ -106,7 +107,26 @@ def _storm_splits(pct):
 
 
 def ladder_state(dd_pct: float):
-    """현재 낙폭에서 해금된 누적 비율 + 단계별 상태."""
+    """**현재** 낙폭에서 해금된 누적 비율 + 단계별 상태.
+
+    ★[2026-07-31 확정 — RESET(재잠금) 정책] 되돌리면 몫이 **다시 잠긴다.**
+      즉 -38.6%에서 D2까지 열렸어도 -27.6%로 회복하면 D1(15%)로 돌아간다.
+
+      왜 이게 쟁점이었나: 문서(CLAUDE.md·crash_tf §2b)의 *"각 단계 **첫 도달** 시
+      그 몫만 해금"*이 **한 번 열리면 유지**(래칫)로 읽혔다. 7/31 코스피가
+      +17.91%(역대 최대 상승) 튀면서 두 해석이 실제로 갈렸다 —
+      같은 날 상한이 **121,045원(RESET) vs 282,438원(RATCHET)**, 2.3배 차이.
+
+      판정 = `ratchet_test.py` 11지수 24,592일(에피소드 7개). 낙폭 구간을 통제하면
+      **3개 구간 전부 RESET 우위**(-45%↓ ±0.0%p · -45~-35% -1.3%p · -35~-25% -0.6%p,
+      구간가중 **-0.61%p**). 되돌림 구간에서 래칫이 더 넣은 돈은 **덜 벌었다.**
+      ⚠️ 전 구간 단일집계는 +2.0%p로 **부호가 뒤집혀** 나온다 — 두 정책의 자금이
+      서로 다른 낙폭 구간에 쏠려 있어 생기는 **심슨의 역설**이다. 속지 말 것.
+
+      해석: 사다리의 약속은 *"이 깊이에는 이만큼"*이다. 값이 올라왔으면 그 깊이의
+      배분으로 돌아가는 게 약속이고, 회복 구간의 매수는 사다리가 아니라
+      **예비 15% 해금·TF 해제 절차(crash_tf §5 3중 게이트)**가 다룬다.
+    """
     unlocked, steps = 0.0, []
     for thr, alloc, why in LADDER:
         hit = dd_pct <= thr
@@ -114,6 +134,57 @@ def ladder_state(dd_pct: float):
             unlocked += alloc
         steps.append({"threshold": thr, "alloc": alloc, "why": why, "unlocked": hit})
     return unlocked, steps
+
+
+# ─────────────────────────────────────────── 집행 원장 (해금 ≠ 집행)
+#
+# ★[2026-07-31 신설] 舊 코드는 **이미 집행한 트랜치를 차감하지 않았다.**
+#   crash_tf §2b 안전장치 2 *"단계 재진입 금지 — 한 단계는 1회만 해금"*이 문서에만
+#   있고 코드엔 없었다. RESET 정책(되돌리면 재잠금)과 결합하면 이 구멍이 위험해진다:
+#   D1에서 집행 → -35%까지 빠졌다 → -27%로 회복 → **D1이 또 열린 것처럼 보인다.**
+#   낙폭이 오르내릴 때마다 같은 단계를 반복 집행하는 물타기가 되는 것이다.
+#   ⇒ 집행분을 원장에 남기고, 판정에서 **이미 쓴 단계는 제외**한다.
+LEDGER = os.path.join(ROOT, "data", "app", "tranche_ledger.json")
+
+
+def _ledger_read() -> dict:
+    try:
+        with open(LEDGER, encoding="utf-8") as f:
+            return json.load(f) or {}
+    except Exception:
+        return {}
+
+
+def ledger_executed() -> dict:
+    """{단계번호(int): {date, amount, note}} — 이미 집행이 끝난 단계."""
+    d = _ledger_read()
+    out = {}
+    for k, v in (d.get("executed") or {}).items():
+        try:
+            out[int(k)] = v
+        except (TypeError, ValueError):
+            continue
+    return out
+
+
+def ledger_execute(step: int, amount: float, note: str = "", date: str | None = None):
+    """단계 집행을 기록한다. **조회·기록 전용 — 주문을 내지 않는다.**"""
+    if not (1 <= step <= len(LADDER)):
+        raise ValueError(f"단계는 1~{len(LADDER)} (D1~D{len(LADDER)})")
+    d = _ledger_read()
+    ex = d.setdefault("executed", {})
+    key = str(step)
+    if key in ex:
+        raise SystemExit(f"[tranche_rules] D{step}은 이미 집행됨 "
+                         f"({ex[key].get('date')} · {ex[key].get('amount'):,.0f}원). "
+                         f"단계 재진입 금지(crash_tf §2b 안전장치 2).")
+    ex[key] = {"date": date or dt.date.today().isoformat(),
+               "amount": round(float(amount)), "note": note}
+    d["updated"] = dt.date.today().isoformat()
+    os.makedirs(os.path.dirname(LEDGER), exist_ok=True)
+    with open(LEDGER, "w", encoding="utf-8") as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+    return ex[key]
 
 
 def global_contagion_check():
@@ -140,9 +211,20 @@ def global_contagion_check():
 
 
 def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
-          check_contagion: bool = True):
+          check_contagion: bool = True, use_ledger: bool = True):
     unlocked, steps = ladder_state(dd_pct)
     splits, swhy = _storm_splits(storm_pct)
+
+    # 이미 집행한 단계는 해금돼 있어도 **가용분에서 뺀다**(단계 재진입 금지).
+    done = ledger_executed() if use_ledger else {}
+    spent_ratio = 0.0
+    for i, s in enumerate(steps, 1):
+        s["executed"] = i in done
+        if s["executed"]:
+            s["executed_on"] = done[i].get("date")
+            if s["unlocked"]:
+                spent_ratio += s["alloc"]
+    available = max(0.0, unlocked - spent_ratio)
 
     capit = (fear_pct is not None and capit_pct is not None
              and fear_pct >= 90 and capit_pct >= 90)
@@ -151,11 +233,13 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
 
     # 백테스트(rule_tracker --backfill)는 수천 번 호출하므로 네트워크 조회를 끈다.
     halted, hwhy = global_contagion_check() if check_contagion else (False, '확산 판정 생략(백테스트)')
-    allowed = 0.0 if halted else cash * unlocked * mult
+    allowed = 0.0 if halted else cash * available * mult
 
     return {
         "dd_pct": dd_pct, "cash": cash,
         "unlocked_ratio": unlocked, "steps": steps,
+        "spent_ratio": spent_ratio, "available_ratio": available,
+        "executed_steps": sorted(done),
         "storm_splits": splits, "storm_why": swhy,
         "storm_mult": 1.0,   # 하위호환(원장 스키마) — 금액 감산 폐지로 항상 1.0
         "capitulation": capit,
@@ -251,6 +335,36 @@ def rule2(ticker="066570.KS"):
 
 # ─────────────────────────────────────────── 실행
 
+def _stale_warning(last_date: str):
+    """★[2026-07-31 신설] 캐시 신선도 가드 — 실전 첫날에 터진 사고의 재발방지.
+
+    사고: 7/31 코스피가 **+17.91%**(역대 최대 상승) 튀어 낙폭이 -38.6%→-27.6%로
+    되돌아왔는데, 이 스크립트는 `data/history/` 캐시(7/30까지)만 읽어
+    **-38.6%로 판정**했다. 상한이 282,438원으로 나왔지만 실제로는 121,045원이었다.
+    즉 **급등·급락 당일에 상한을 가장 크게 틀린다** — 하필 판단이 제일 중요한 날에.
+
+    ⇒ 캐시 마지막 날짜가 오늘(KRX 기준 직전 영업일)보다 오래되면 경고를 띄운다.
+      **차단하지 않는 이유**: 휴장일·주말엔 정상적으로 과거 날짜가 마지막이고,
+      백테스트(rule_tracker)도 이 함수를 거치기 때문. 판단은 사람이 한다.
+    """
+    try:
+        last = dt.date.fromisoformat(last_date[:10])
+    except Exception:
+        return None
+    today = dt.date.today()
+    gap = 0
+    d = last
+    while d < today:                      # 주말 제외 경과 영업일
+        d += dt.timedelta(days=1)
+        if d.weekday() < 5:
+            gap += 1
+    if gap <= 0:
+        return None
+    return (f"⚠️ 코스피 캐시가 **{last.isoformat()}**까지 (영업일 {gap}일 경과) — "
+            f"오늘 시세가 반영되지 않았다.\n     "
+            f"급등·급락일엔 상한이 크게 틀린다. `history_backfill.py --symbols '^KS11'` 먼저 실행할 것.")
+
+
 def _load_inputs(cash_arg):
     cash = cash_arg
     if cash is None:
@@ -262,11 +376,13 @@ def _load_inputs(cash_arg):
             cash = 0.0
 
     dd = storm = fear = capit = None
+    stale = None
     try:
         import drawdown_history as D
         dates, closes = D.load(KOSPI)
         if closes:
             dd = D.current_drawdown(dates, closes)["dd_pct"]
+            stale = _stale_warning(dates[-1])
     except Exception:
         pass
     try:
@@ -288,7 +404,7 @@ def _load_inputs(cash_arg):
                     capit = g.get("pctile")
     except Exception:
         pass
-    return cash, dd, storm, fear, capit
+    return cash, dd, storm, fear, capit, stale
 
 
 def main():
@@ -298,6 +414,10 @@ def main():
     ap.add_argument("--storm", type=float, help="코스피 폭풍%%ile 수동 지정")
     ap.add_argument("--fear", type=float)
     ap.add_argument("--capitulation", type=float)
+    ap.add_argument("--execute", type=int, metavar="STEP",
+                    help="사다리 단계 집행 기록(1~4). --amount 필수. 조회·기록 전용 — 주문 안 냄")
+    ap.add_argument("--amount", type=float, help="--execute 와 함께 쓰는 집행 금액(원)")
+    ap.add_argument("--note", default="", help="--execute 메모(종목·체결가 등)")
     ap.add_argument("--rule2", action="store_true")
     ap.add_argument("--ticker", default="066570.KS")
     ap.add_argument("--json", action="store_true")
@@ -319,7 +439,16 @@ def main():
                 print("   ※ 이벤트형 훼손(인증 취소 등)은 이 판정과 독립이며 그쪽이 우선한다.\n")
         return
 
-    cash, dd, storm, fear, capit = _load_inputs(a.cash)
+    if a.execute:
+        if a.amount is None:
+            sys.exit("[tranche_rules] --execute 에는 --amount 가 필요하다")
+        rec = ledger_execute(a.execute, a.amount, a.note)
+        print(f"\n📒 D{a.execute} 집행 기록 — {rec['date']} · {rec['amount']:,}원 "
+              f"{('· ' + rec['note']) if rec['note'] else ''}")
+        print(f"   원장: {os.path.relpath(LEDGER, ROOT)} (단계 재진입 금지가 다음 판정부터 적용된다)\n")
+        return
+
+    cash, dd, storm, fear, capit, stale = _load_inputs(a.cash)
     dd = a.dd if a.dd is not None else dd
     storm = a.storm if a.storm is not None else storm
     fear = a.fear if a.fear is not None else fear
@@ -334,23 +463,32 @@ def main():
         return
 
     print("\n═══ 룰1 개정 — 낙폭 사다리 (舊 7,500 이진 안전핀 대체) ═══")
+    if stale and a.dd is None:
+        print(f"  {stale}\n")
     print(f"  코스피 고점대비 **{dd:+.1f}%** · 가용 현금 {cash:,.0f}원\n")
     print(f"  {'단계':<6}{'낙폭':>8}{'배분':>7}  상태   근거")
     for i, s in enumerate(r["steps"], 1):
-        mark = "🟢해금" if s["unlocked"] else "🔒잠김"
-        print(f"  D{i:<5}{s['threshold']:>7.0f}%{s['alloc']*100:>6.0f}%  {mark}  {s['why']}")
+        mark = ("✅집행" if s.get("executed") else "🟢해금") if s["unlocked"] else "🔒잠김"
+        why = (f"{s['why']}  ← {s.get('executed_on')} 집행 완료(재진입 금지)"
+               if s.get("executed") else s["why"])
+        print(f"  D{i:<5}{s['threshold']:>7.0f}%{s['alloc']*100:>6.0f}%  {mark}  {why}")
     print(f"  {'예비':<6}{'—':>8}{RESERVE*100:>6.0f}%  🔒봉인  회복 확인(게이트 2/3+) 전까지 영구 봉인")
 
-    print(f"\n  누적 해금 **{r['unlocked_ratio']*100:.0f}%**")
+    print(f"\n  누적 해금 **{r['unlocked_ratio']*100:.0f}%**"
+          + (f" − 기집행 {r['spent_ratio']*100:.0f}%(D{',D'.join(map(str, r['executed_steps']))}) "
+             f"= **가용 {r['available_ratio']*100:.0f}%**" if r["spent_ratio"] else ""))
     print(f"  {r['storm_why']}")
     print(f"  {r['capitulation_why']}")
     print(f"  → 최종 승수 **×{r['final_mult']}**  (하한 {MULT_FLOOR}·상한 {MULT_CAP} — 금액 감산 폐지)")
     print(f"\n  {r['halt_why']}")
     if r["halted"]:
         print("\n  🔴 **허용 트랜치 0원** — 글로벌 확산으로 개정 전제가 깨졌다.")
+    elif r["available_ratio"] <= 0:
+        print("\n  ⛔ **가용 0원** — 해금된 단계를 이미 전부 집행했다(단계 재진입 금지). "
+              "다음 단계 낙폭에 도달해야 새 몫이 열린다.")
     else:
         print(f"\n  💰 **허용 트랜치 상한 = {r['allowed_krw']:,}원**"
-              f"  ({cash:,.0f} × {r['unlocked_ratio']*100:.0f}% × {r['final_mult']})")
+              f"  ({cash:,.0f} × {r['available_ratio']*100:.0f}% × {r['final_mult']})")
         print(f"     분할 권고: **{r['storm_splits']}회** "
               f"(1회 ≈ {round(r['allowed_krw']/r['storm_splits']):,}원) — 금액이 아니라 속도로 조절")
         print("     ※ 상한이지 목표가 아니다. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")

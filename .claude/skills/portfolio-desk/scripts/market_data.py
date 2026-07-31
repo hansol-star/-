@@ -92,10 +92,43 @@ GROUPS = {
 GROUPS["all"] = GROUPS["holdings"] + GROUPS["watchlist"] + GROUPS["index"] + GROUPS["fx"] + GROUPS["oil"]
 
 
+def _prev_close(data: dict, meta: dict, price):
+    """직전 **거래일** 종가를 일봉 시계열에서 직접 집는다.
+
+    ★[2026-07-31 신설] `meta.chartPreviousClose`를 그대로 쓰면 안 되는 이유:
+      코스닥에서 이 값이 **전전거래일**을 가리키는 케이스가 반복됐다
+      (7/8·7/23·7/24·7/28·7/30·7/31 — **6회**). 7/31엔 등락률이 +8.61%로 나왔지만
+      실제는 **+11.63%**(전일 644.78 기준)였다. 매번 사람이 뉴스로 대조해 수기 정정했다 =
+      **코드에 가드가 없었다**는 뜻이라 재발이 보장돼 있었다.
+
+    방법: 5일 일봉에서 **오늘 봉을 뺀 마지막 종가**를 쓴다. 오늘 봉은
+      ①현재가와 사실상 같거나(장중·마감) ②마지막 원소라는 두 단서로 식별한다.
+    실패하면 meta 값으로 폴백하되 출처를 `meta(폴백)`으로 표기해 추적 가능하게 둔다.
+    """
+    fallback = meta.get("chartPreviousClose") or meta.get("previousClose")
+    try:
+        res = data["chart"]["result"][0]
+        closes = res["indicators"]["quote"][0]["close"]
+        closes = [c for c in closes if c]
+    except (KeyError, IndexError, TypeError):
+        return fallback, "meta(폴백)"
+    if len(closes) < 2:
+        return fallback, "meta(폴백)"
+    # 마지막 봉이 오늘치면 그 앞을, 아니면 마지막을 직전 종가로 본다.
+    last = closes[-1]
+    if price is not None and abs(last - price) < max(abs(price) * 1e-6, 1e-9):
+        return closes[-2], "series"
+    return last, "series"
+
+
 def fetch_quote(symbol: str, timeout: float = 10.0) -> dict | None:
     """Yahoo chart 엔드포인트에서 단일 심볼 시세를 가져온다. 실패 시 None."""
     url = YAHOO_CHART.format(symbol=urllib.request.quote(symbol))
-    url += "?interval=1d&range=1d"
+    # ★[2026-07-31] range=1d → 5d. `chartPreviousClose`가 **전전거래일**을 가리키는
+    #   케이스가 있어(코스닥에서 7/8·7/23·7/24·7/28·7/30·7/31 **6회 재발**) 등락률이
+    #   틀렸다. 7/31엔 +8.61%로 나왔지만 실제는 **+11.63%**였다.
+    #   ⇒ 메타값을 믿지 않고 **일봉 시계열에서 직전 거래일 종가를 직접 집는다**(_prev_close).
+    url += "?interval=1d&range=5d"
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -107,7 +140,7 @@ def fetch_quote(symbol: str, timeout: float = 10.0) -> dict | None:
     except (KeyError, IndexError, TypeError):
         return {"symbol": symbol, "error": "no data (delisted/invalid ticker?)"}
     price = meta.get("regularMarketPrice")
-    prev = meta.get("chartPreviousClose") or meta.get("previousClose")
+    prev, prev_src = _prev_close(data, meta, price)
     chg_pct = None
     if price is not None and prev:
         chg_pct = round((price - prev) / prev * 100, 2)
@@ -115,6 +148,7 @@ def fetch_quote(symbol: str, timeout: float = 10.0) -> dict | None:
         "symbol": symbol,
         "price": price,
         "prev_close": prev,
+        "prev_src": prev_src,
         "change_pct": chg_pct,
         "currency": meta.get("currency"),
         "market_state": meta.get("marketState"),

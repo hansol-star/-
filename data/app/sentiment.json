@@ -109,7 +109,33 @@
    "stocks": [],
    "news_buzz": [],
    "verdict": "패닉 극단(공포·항복 동반 90%ile+) — vol_gauge 폭풍 %ile과 교차확인 시 항복 정황"
+  },
+  {
+   "date": "2026-07-31",
+   "psych": [
+    {
+     "name": "공포",
+     "ma5": 3.872,
+     "pctile": 97.4,
+     "band": "극단"
+    },
+    {
+     "name": "항복",
+     "ma5": 17.069,
+     "pctile": 98.6,
+     "band": "극단"
+    },
+    {
+     "name": "유입",
+     "ma5": 2.253,
+     "pctile": 65.4,
+     "band": "보통"
+    }
+   ],
+   "stocks": [],
+   "news_buzz": [],
+   "verdict": "패닉 극단(공포·항복 동반 90%ile+) — vol_gauge 폭풍 %ile과 교차확인 시 항복 정황"
   }
  ],
- "updated": "2026-07-30"
+ "updated": "2026-07-31"
 }

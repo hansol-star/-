@@ -204,15 +204,143 @@ def render(sums: list[dict], days: int, failed: list | None = None):
         print("      (다만 실적발표 전후 블랙아웃 기간이면 살 수 없다 — 실적일정과 교차확인 필요).")
 
 
+# ── 5% 대량보유(Schedule 13D/13G) ────────────────────────────────────────────
+# `docs/data_coverage.md §3 #7b` 해소 (2026-08-01). 국내 `dart_disclosure.py --major`
+# (majorstock 5% 대량보유)와 **같은 문법**이 되도록 여기에 붙였다 — 국내/미국 대칭.
+#
+# ★ 착수 전 판별에서 걸린 함정 (§4b "0은 결론이 아니라 가설"의 교과서 사례):
+#   `browse-edgar?type=SC+13`으로 조회하면 NVDA 최신 건이 **2024-07-18**로 나온다.
+#   "최근 대량보유 신고 없음"으로 결론냈으면 완전한 오보였다 — 실제로는 SEC가 폼 타입
+#   명칭을 **`SC 13G` → `SCHEDULE 13G`**로 바꿨을 뿐이고, NVDA는 **2026-07-20**에도
+#   신고가 들어와 있다(21건 보유). 낡은 폼 이름으로 질의하면 조용히 잘려나간다.
+#   ⇒ 두 표기를 **모두** 받는다.
+MAJOR_FORMS = re.compile(r"^(?:SC 13|SCHEDULE 13)[DG]", re.I)
+
+# ★두 번째 함정: 발행사 submissions 피드에는 **방향이 다른 두 종류**가 섞여 있다.
+#   ① 남이 우리 종목을 5% 취득 (SUBJECT = 우리 회사)  ← 지분 감시의 본래 목적
+#   ② 우리 회사가 남을 5% 취득 (FILED BY = 우리 회사) ← 전략적 지분투자
+#   실제로 NVDA의 2026-07-20 SCHEDULE 13G는 **NVIDIA가 Nebius(구 Yandex) 지분을 신고**한
+#   건이었다. 이걸 "NVDA 대량보유 신고"로 세면 정반대로 읽힌다.
+#   ⇒ index-headers에서 SUBJECT/FILED BY를 읽어 **방향을 라벨링**한다.
+_HDR_SUBJ = re.compile(r"SUBJECT COMPANY:.*?COMPANY CONFORMED NAME:\s*([^\n\r]+)", re.S | re.I)
+_HDR_FILER = re.compile(r"FILED BY:.*?COMPANY CONFORMED NAME:\s*([^\n\r]+)", re.S | re.I)
+
+
+def _parties(cik: int, acc: str) -> tuple[str, str]:
+    """(subject, filed_by) — 실패 시 빈 문자열(부재로 단정하지 않기 위해 구분 가능하게)."""
+    url = (f"https://www.sec.gov/Archives/edgar/data/{cik}/{acc.replace('-', '')}/"
+           f"{acc}-index-headers.html")
+    try:
+        raw = re.sub(r"<[^>]+>", " ", _get(url).decode("utf-8", "replace"))
+    except Exception:
+        return "", ""
+    s = _HDR_SUBJ.search(raw)
+    f = _HDR_FILER.search(raw)
+    return (s.group(1).strip() if s else "", f.group(1).strip() if f else "")
+
+
+def _norm(name: str) -> str:
+    """회사명 비교용 정규화 — 'NVIDIA CORP' vs 'NVIDIA Corporation' 같은 표기차 흡수."""
+    n = re.sub(r"[^a-z0-9]", "", (name or "").lower())
+    for suf in ("corporation", "corp", "incorporated", "inc", "company", "co", "plc", "ltd"):
+        if n.endswith(suf):
+            n = n[: -len(suf)]
+            break
+    return n
+
+
+def major_holders(ticker: str, days: int, cap: int = 30) -> dict:
+    """13D/13G = 5% 이상 대량보유 신고. 13D는 **경영참여 목적**(행동주의), 13G는 단순투자."""
+    cik = _E.cik_map().get(ticker.upper())
+    if not cik:
+        return {"ticker": ticker, "error": "CIK 없음"}
+    sub = json.loads(_get(f"https://data.sec.gov/submissions/CIK{cik}.json").decode())
+    issuer_key = _norm(sub.get("name", ""))
+    rec = sub.get("filings", {}).get("recent", {})
+    cutoff = (dt.date.today() - dt.timedelta(days=days)).isoformat()
+    rows = []
+    for i, form in enumerate(rec.get("form", [])):
+        if not MAJOR_FORMS.match(form or ""):
+            continue
+        fdate = rec["filingDate"][i]
+        if fdate < cutoff:
+            continue
+        if len(rows) >= cap:
+            break
+        acc = rec["accessionNumber"][i]
+        subject, filer = _parties(int(cik), acc)
+        # 방향 판정 — 신고자(FILED BY)가 발행사 자신이면 '취득'(우리가 남의 지분을 신고),
+        #             아니면 '피취득'(남이 우리 지분을 신고). 판별 실패는 '미상'으로 남긴다.
+        if filer:
+            direction = "취득" if _norm(filer) == issuer_key else "피취득"
+        else:
+            direction = "미상"
+        rows.append({
+            "form": form, "filed": fdate,
+            "amend": form.rstrip().endswith("/A"),
+            # 13D = 경영참여 목적 → 행동주의 가능성. 13G = 수동적 투자(패시브 대형기관 다수)
+            "activist": bool(re.search(r"13D", form, re.I)),
+            "direction": direction, "subject": subject, "filer": filer,
+            "url": f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{acc.replace('-', '')}/"
+                   f"{acc}-index.htm",
+        })
+    rows.sort(key=lambda r: r["filed"], reverse=True)
+    inbound = [r for r in rows if r["direction"] != "취득"]
+    return {"ticker": ticker.upper(), "n": len(rows), "n_inbound": len(inbound),
+            "n_activist": sum(1 for r in inbound if r["activist"]), "rows": rows}
+
+
+def render_major(res: list[dict], days: int):
+    print(f"\n🏛️ 미국 5% 대량보유 신고 (Schedule 13D/13G) — 최근 {days}일")
+    print("   13D = **경영참여 목적**(행동주의 가능) · 13G = 단순투자(패시브 대형기관 다수)")
+    print("   ⚠️ 대부분은 Vanguard·BlackRock 등 인덱스 자금의 정기 신고다 — 13D가 아니면 과잉해석 금지.")
+    print("   ⚠️ **방향 주의**: '피취득'=남이 우리 종목을 5% 취득 / '취득'=우리 회사가 남을 5% 취득")
+    print("      (NVDA의 13G 상당수는 후자 — 엔비디아가 타사 지분을 신고한 건이다. 섞어 읽지 말 것.)\n")
+    for r in res:
+        if r.get("error"):
+            print(f"   🚨 {r['ticker']:<7} 수집 실패 — {r['error']} (← '신고 없음'이 아니다)")
+            continue
+        mark = f"  🔴 13D {r['n_activist']}건" if r["n_activist"] else ""
+        out = f"피취득 {r['n_inbound']}"
+        if r["n"] - r["n_inbound"]:
+            out += f" · 취득 {r['n'] - r['n_inbound']}"
+        print(f"   {r['ticker']:<7} {r['n']:>2}건 ({out}){mark}")
+        for x in r["rows"][:3]:
+            kind = "13D(경영참여)" if x["activist"] else "13G(단순투자)"
+            who = x["filer"] if x["direction"] != "취득" else f"→ {x['subject']}"
+            print(f"      · {x['filed']} [{x['direction']}] {kind}{'/정정' if x['amend'] else ''} "
+                  f"{who[:38]}")
+            print(f"         {x['url']}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="미국 내부자 매매 Form 4 (조회 전용·경보 전용)")
     ap.add_argument("--days", type=int, default=90)
     ap.add_argument("--tickers", help="쉼표구분(생략 시 보유 미국주)")
     ap.add_argument("--cap", type=int, default=40, help="종목당 최대 신고서 수(SEC 부하 보호)")
+    ap.add_argument("--major", action="store_true",
+                    help="5%% 대량보유 13D/13G (국내 dart_disclosure.py --major와 같은 문법)")
     ap.add_argument("--save", action="store_true")
     a = ap.parse_args()
 
     tickers = [t.strip().upper() for t in a.tickers.split(",")] if a.tickers else US
+
+    if a.major:
+        res = []
+        for t in tickers:
+            try:
+                res.append(major_holders(t, a.days))
+            except Exception as e:
+                res.append({"ticker": t, "error": f"{type(e).__name__} {str(e)[:50]}"})
+        render_major(res, a.days)
+        if a.save:
+            os.makedirs(os.path.dirname(OUT), exist_ok=True)
+            path = OUT.replace("insider_us.json", "major_holders_us.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({"updated": dt.date.today().isoformat(), "days": a.days, "rows": res},
+                          f, ensure_ascii=False, indent=1)
+            print(f"\n저장: {path}")
+        return 1 if any(r.get("error") for r in res) else 0
     sums, failed = [], []
     for t in tickers:
         try:

@@ -1,0 +1,328 @@
+{
+ "updated": "2026-08-01",
+ "days": 200,
+ "rows": [
+  {
+   "ticker": "NVDA",
+   "n": 5,
+   "n_inbound": 3,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-07-20",
+     "amend": false,
+     "activist": false,
+     "direction": "취득",
+     "subject": "Nebius Group N.V.",
+     "filer": "NVIDIA CORP",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000062/0001045810-26-000062-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-28",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "NVIDIA CORP",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000210011926000017/0002100119-26-000017-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-26",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "NVIDIA CORP",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000010290926000426/0000102909-26-000426-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-01-30",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "NVIDIA CORP",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000010290926000226/0000102909-26-000226-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-01-26",
+     "amend": true,
+     "activist": false,
+     "direction": "취득",
+     "subject": "CoreWeave, Inc.",
+     "filer": "NVIDIA CORP",
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000008/0001045810-26-000008-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "MU",
+   "n": 4,
+   "n_inbound": 4,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-05-14",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "MICRON TECHNOLOGY INC",
+     "filer": "Capital World Investors",
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000142284926000099/0001422849-26-000099-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-30",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "MICRON TECHNOLOGY INC",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000210011926000795/0002100119-26-000795-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-27",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "MICRON TECHNOLOGY INC",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000010290926001910/0000102909-26-001910-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-02-13",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "MICRON TECHNOLOGY INC",
+     "filer": "Capital World Investors",
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000142284926000035/0001422849-26-000035-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "AAPL",
+   "n": 2,
+   "n_inbound": 2,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-29",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Apple Inc.",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000210011926000139/0002100119-26-000139-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-26",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Apple Inc.",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000010290926000630/0000102909-26-000630-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "MSFT",
+   "n": 2,
+   "n_inbound": 2,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-30",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "MICROSOFT CORP",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000210011926000820/0002100119-26-000820-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-27",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "MICROSOFT CORP",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000010290926001884/0000102909-26-001884-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "ANET",
+   "n": 2,
+   "n_inbound": 2,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-29",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Arista Networks, Inc.",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000210011926000141/0002100119-26-000141-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-26",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Arista Networks, Inc.",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000010290926000644/0000102909-26-000644-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "AVGO",
+   "n": 2,
+   "n_inbound": 2,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-29",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Broadcom Inc.",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000210011926000179/0002100119-26-000179-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-26",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Broadcom Inc.",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000010290926000847/0000102909-26-000847-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "GOOGL",
+   "n": 5,
+   "n_inbound": 5,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-29",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Alphabet Inc.",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000210011926000161/0002100119-26-000161-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-29",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Alphabet Inc.",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000210011926000137/0002100119-26-000137-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-26",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Alphabet Inc.",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000010290926000584/0000102909-26-000584-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-26",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Alphabet Inc.",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000010290926000583/0000102909-26-000583-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-02-17",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Alphabet Inc.",
+     "filer": "Sergey Brin",
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526055590/0001193125-26-055590-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "META",
+   "n": 2,
+   "n_inbound": 2,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G",
+     "filed": "2026-04-30",
+     "amend": false,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Meta Platforms, Inc.",
+     "filer": "VANGUARD CAPITAL MANAGEMENT LLC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000210011926000840/0002100119-26-000840-index.htm"
+    },
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-27",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "Meta Platforms, Inc.",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000010290926001886/0000102909-26-001886-index.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "ORCL",
+   "n": 1,
+   "n_inbound": 1,
+   "n_activist": 0,
+   "rows": [
+    {
+     "form": "SCHEDULE 13G/A",
+     "filed": "2026-03-27",
+     "amend": true,
+     "activist": false,
+     "direction": "피취득",
+     "subject": "ORACLE CORP",
+     "filer": "VANGUARD GROUP INC",
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000010290926001995/0000102909-26-001995-index.htm"
+    }
+   ]
+  }
+ ]
+}

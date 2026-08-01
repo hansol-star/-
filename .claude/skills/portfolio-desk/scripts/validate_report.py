@@ -536,6 +536,10 @@ COVERAGE_LAYERS = [
     ("feeds.json",      3,  "hunter_latest.py (R1)",       "수페TV·지식인사이드"),
     ("sentiment.json",  7,  "naver_sentiment.py --save",   "리테일 심리 %ile (한국판 GSVI)"),
     ("guru_flows.json", 100, "guru_flows.py",              "대가 13F (분기 cadence — Feb/May/Aug/Nov)"),
+    # [8/1 신설] data_coverage.md §3 #3·#2 해소분. 등록 안 하면 또 조용히 stale해진다 —
+    # 재무제표 2개월 0건 사고의 구멍이 정확히 "게이트에 없어서"였다.
+    ("eps_revisions.json", 7,  "eps_revisions.py --save",  "EPS 추정치 리비전 (측정 전용·CANSLIM 선행축)"),
+    ("guidance.json",     30,  "guidance.py --save",       "실적 가이던스 (8-K Item 2.02 · 분기 cadence)"),
 ]
 
 

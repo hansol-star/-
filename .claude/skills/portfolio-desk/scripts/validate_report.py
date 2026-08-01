@@ -540,6 +540,7 @@ COVERAGE_LAYERS = [
     # 재무제표 2개월 0건 사고의 구멍이 정확히 "게이트에 없어서"였다.
     ("eps_revisions.json", 7,  "eps_revisions.py --save",  "EPS 추정치 리비전 (측정 전용·CANSLIM 선행축)"),
     ("guidance.json",     30,  "guidance.py --save",       "실적 가이던스 (8-K Item 2.02 · 분기 cadence)"),
+    ("transcripts.json",  30,  "transcripts.py --save",    "어닝콜 전문 Q&A (수요·공급 코멘트 · 분기 cadence)"),
 ]
 
 

@@ -495,6 +495,8 @@ def check_financials(latest=None):
         if a.get("assets") is None and a.get("revenue") is None:
             say(f"{t} 손익·재무상태 둘 다 결측 — 소스 확인")
 
+    check_debt_integrity(stocks)
+
     # 신선도: 최신 보고서 날짜보다 오래되면 그날 상태가 아님(7/12 tasks.json stale과 같은 유형)
     if latest:
         rel = latest_report_path(latest)
@@ -521,6 +523,42 @@ def check_financials(latest=None):
             if isinstance(sc, (int, float)) and abs(sc - sub) >= 25:
                 warn(f"{t} 스코어 {sc} vs 펀더 서브스코어 {sub} (이격 {abs(sc-sub):.0f})"
                      f" — N·L·M 가감분으로 설명되는지 근거 명시 필요")
+
+
+# 무차입이 **검증된** 기업 — 결측이 정상인 곳. 근거를 남겨야 화이트리스트가 썩지 않는다.
+#   ANET: EDGAR 부채 태그 최신 신고가 2013-12-31(IPO 전 $98.8M). 2014 상장 이후 신고 없음
+#         = 실제 무차입 (2026-08-01 확인).
+DEBT_FREE_VERIFIED = {"ANET": "EDGAR 부채 태그 2013년 이후 없음 — 실제 무차입(8/1 확인)"}
+
+
+def check_debt_integrity(stocks: dict):
+    """총차입금 태그가 제대로 잡혔는지 감사 — [8/1 신설]
+
+    ★사고: ORCL은 `LongTermDebtNoncurrent`를 안 쓰고 `DebtLongtermAndShorttermCombinedAmount`로
+    신고하는데 우리 태그 목록에 그게 없어서 `DebtCurrent`(단기 $7.2B)만 잡혔다. 실제 총차입금은
+    **$129.5B** — 1/18로 과소집계됐고, net_cash가 **-98B(순차입) → +24B(순현금)** 로 **부호까지
+    뒤집혔다.** 그 결과 룰2 조건③(순부채 증가)이 구조적으로 발동 불가였고 재무건전성
+    서브스코어가 거꾸로 매겨졌다. **에러 없이 조용히** 굴러갔다.
+
+    ⇒ 총차입금이 총부채 대비 비현실적으로 작거나 결측이면 **태그 미스를 의심**한다.
+      (data_coverage.md §4b — 0은 결론이 아니라 가설이다.)
+    """
+    for t, r in sorted(stocks.items()):
+        a = (r.get("annual") or [{}])[0] if r.get("annual") else {}
+        if not a:
+            continue
+        td, li = a.get("total_debt"), a.get("liabilities")
+        if not isinstance(li, (int, float)) or li <= 0:
+            continue
+        if td is None:
+            if t not in DEBT_FREE_VERIFIED:
+                warn(f"[부채태그 의심] {t}: total_debt 결측인데 총부채 {li/1e9:,.1f}B 존재 — "
+                     f"실제 무차입인지 태그 미스인지 EDGAR 원문 확인 후 "
+                     f"DEBT_FREE_VERIFIED 등재 (ORCL 사고 유형)")
+            continue
+        if td / li < 0.05:
+            warn(f"[부채태그 의심] {t}: total_debt {td/1e9:,.1f}B 가 총부채 {li/1e9:,.1f}B의 "
+                 f"{td/li*100:.1f}% — combined 태그 누락 의심(edgar_facts.DEBT_* 점검)")
 
 
 # ─────────────────────────────────────────── 데이터 레이어 감사 (--coverage)

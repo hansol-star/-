@@ -82,8 +82,18 @@ TAGS: dict[str, list[str]] = {
     "buyback": ["PaymentsForRepurchaseOfCommonStock"],
 }
 # 부채는 장기+단기를 합쳐야 해서 별도 처리
-DEBT_LONG = ["LongTermDebtNoncurrent", "LongTermDebt"]
-DEBT_SHORT = ["LongTermDebtCurrent", "DebtCurrent", "ShortTermBorrowings"]
+#
+# ★[8/1 사고 수정] 회사에 따라 **장·단기를 이미 합친 단일 태그**만 신고한다.
+#   ORCL이 그 경우다 — `LongTermDebtNoncurrent`가 아예 없고 `DebtCurrent`(단기 $7.2B)만
+#   잡혀서 총차입금이 **실제 $129.5B의 1/18**로 들어왔다. 그 결과 net_cash가
+#   **-98B(순차입) → +24.1B(순현금 흑자)** 로 부호까지 뒤집혀, 룰2 조건③(순부채 증가)이
+#   구조적으로 발동 불가였고 재무건전성 서브스코어가 거꾸로 매겨졌다.
+#   ⇒ combined 태그를 **최우선**으로 보고, 없을 때만 long+short를 더한다(이중계상 방지).
+DEBT_COMBINED = ["DebtLongtermAndShorttermCombinedAmount"]
+DEBT_LONG = ["LongTermDebtNoncurrent", "LongTermDebt",
+             "LongTermDebtAndCapitalLeaseObligations"]
+DEBT_SHORT = ["LongTermDebtCurrent", "DebtCurrent", "ShortTermBorrowings",
+              "OtherShortTermBorrowings"]
 
 # 시점(instant) 팩트 — start가 없다
 STOCK_KEYS = {"assets", "liabilities", "equity", "cash", "inventory", "receivables",
@@ -232,14 +242,20 @@ def _series(facts: dict, tag_list: list[str], is_stock: bool) -> dict[str, dict[
 
 
 def _debt_series(facts: dict) -> dict[str, dict[str, float]]:
-    """총차입금 = 장기 + 단기(있는 것만 합산)."""
+    """총차입금. **combined 태그 우선**, 없으면 장기+단기 합산.
+
+    ⚠️ combined는 이미 장·단기를 합친 값이라 long/short와 **더하면 이중계상**된다.
+       그래서 시점(end)마다 combined가 있으면 그것만 쓴다.
+    """
+    cb = _series(facts, DEBT_COMBINED, True)
     lo = _series(facts, DEBT_LONG, True)
     sh = _series(facts, DEBT_SHORT, True)
     out: dict[str, dict[str, float]] = {}
     for b in ("annual", "quarterly"):
-        ends = set(lo.get(b, {})) | set(sh.get(b, {}))
+        ends = set(cb.get(b, {})) | set(lo.get(b, {})) | set(sh.get(b, {}))
         for e in ends:
-            v = (lo.get(b, {}).get(e) or 0) + (sh.get(b, {}).get(e) or 0)
+            c = cb.get(b, {}).get(e)
+            v = c if c else (lo.get(b, {}).get(e) or 0) + (sh.get(b, {}).get(e) or 0)
             if v:
                 out.setdefault(b, {})[e] = v
     return out

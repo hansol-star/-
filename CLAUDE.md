@@ -80,7 +80,9 @@
   보도자료에 수치를 안 내던 **AAPL·MSFT·GOOGL·ORCL 사각지대를 메운다**(매수 1순위 GOOGL 포함). `--grep`으로 수요·공급·재고·캐펙스 발언만 추출.
   **§10-2 메모리 정점 판정의 선행 신호** — 마진이 꺾이기 전에 수요 코멘트가 먼저 바뀐다(예: MU FQ3 "demand continues to be well above our supply").
   ⚠️ **3자 집계 사이트 — 수치 인용 시 8-K·IR 1차 출처와 교차 필수.**
-- **🔴 FMP는 사망 [8/1 실측] — 유료 전환 금지**: v3 엔드포인트 전면 차단(`Legacy Endpoint`, NVDA조차 불가), stable 경로는 열리나 **심볼 화이트리스트 유지**(MU·ANET·AVGO·ORCL·국내 전부 거부).
+- **🟡 FMP는 심볼 5개짜리 [8/1 실측] — 유료 전환 금지**: 레거시 `/api/v3/*`는 전면 차단(`Legacy Endpoint`)됐으나
+  `fundamentals.py`는 **이미 `/stable`을 써서 정상 작동**한다(초판에 "죽었다"고 쓴 건 오기·정정). 다만 stable도 **심볼 화이트리스트**라
+  실사용 가능 종목은 **NVDA·AAPL·MSFT·GOOGL·META 5종뿐**(MU·ANET·AVGO·ORCL·국내 전부 402).
   FMP가 주던 건 이미 EDGAR·DART·Yahoo가 전부 덮는다 → **돈 쓰면 가진 걸 다시 사는 것**. 정본 = `docs/data_coverage.md §5c`.
   **교훈: 외부 API는 말없이 죽는다** — 문서의 "✅ 정상"은 마지막 확인일의 사실일 뿐, 키 붙은 레이어는 주기적 실호출로 생존 확인할 것.
 - **🚫 DRAM 실물가 — FRED 반도체 PPI를 프록시로 쓰지 말 것 [8/1 확정]**: 무키로 잘 돌지만 메모리 급등기에 **오히려 하락**한다

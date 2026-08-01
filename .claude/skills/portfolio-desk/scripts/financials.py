@@ -17,6 +17,7 @@
    inventory_surge     재고가 매출보다 빨리 늘면 사이클 정점 선행 신호
    fcf_negative_turn   AI capex 과부하(ORCL·META·MSFT)
    debt_buildup        순부채 급증 — ORCL 레버리지 논지의 하드넘버
+                       [8/1] 순현금 악화 **또는 총차입금 YoY +30%**(조달현금 은닉 대응)
    receivable_divergence  매출채권이 매출보다 빨리 늘면 매출의 질 악화
    backlog_growth      계약부채 증가 = 강세 플래그(ANET·ORCL)
    dilution            희석주식수 증가
@@ -221,7 +222,14 @@ def flags(rec: dict) -> list[dict]:
             f"연간 FCF 흑→적 전환 ({fs[1][1]/1e9:,.1f}B → {fs[0][1]/1e9:,.1f}B) — capex 과부하",
             [{"end": e, "fcf": v} for e, v in fs])
 
-    # ④ 순부채 급증
+    # ④ 순부채 급증 — 두 경로 중 하나라도 걸리면 발동
+    #
+    # ★[8/1 보강] 舊버전은 **순현금(net_cash) 악화만** 봤다. 그래서 부채로 조달한 돈을
+    #   현금으로 쌓아두면 레버리지가 통째로 가려진다. ORCL이 그 사례였고, 거기에 더해
+    #   총차입금 자체가 태그 미스로 1/18로 잡히고 있어서(edgar_facts DEBT_COMBINED 참조)
+    #   **이중으로** 침묵했다. 총차입금 증가율 조건을 추가한다.
+    #   ⚠️ `liabilities`(=총부채, 이연수익·매입채무 포함)로 하면 안 된다 —
+    #      구독·SaaS 기업은 **이연수익 증가가 성장의 증거**라 오탐이 된다. 반드시 total_debt.
     ns = [(r["end"], r.get("net_cash")) for r in a[:2] if r.get("net_cash") is not None]
     if len(ns) == 2 and ns[0][1] < ns[1][1] and ns[1][1] != 0:
         drop = ns[1][1] - ns[0][1]
@@ -229,6 +237,24 @@ def flags(rec: dict) -> list[dict]:
             add("debt_buildup", "med",
                 f"순현금 {ns[1][1]/1e9:,.1f}B → {ns[0][1]/1e9:,.1f}B (1년 새 {drop/1e9:,.1f}B 악화)",
                 [{"end": e, "net_cash": v} for e, v in ns])
+
+    ds = [(r["end"], r.get("total_debt")) for r in a[:2] if r.get("total_debt")]
+    if len(ds) == 2 and ds[1][1] > 0:
+        growth = (ds[0][1] - ds[1][1]) / ds[1][1] * 100
+        if growth >= 30.0:
+            # ⚠️ 차입 급증이 곧 위기는 아니다 — 순현금이 두텁게 남아 있으면 **캐펙스 조달**이다
+            #    (삼성전자 8/1: 차입 +30.6%인데 순현금 여전히 +32.6조 = 메모리 증설 조달).
+            #    반대로 순현금이 이미 마이너스면 레버리지 누적이다(ORCL: 순부채 -98.3B).
+            #    같은 플래그라도 읽는 법이 갈리므로 **순현금을 메시지에 함께 박는다**(경보 피로 방지).
+            nc_now = a[0].get("net_cash")
+            ctx = ""
+            if isinstance(nc_now, (int, float)):
+                ctx = (f" · 순현금 {nc_now/1e9:,.1f}B "
+                       f"({'여유 — 캐펙스 조달 성격' if nc_now > 0 else '순부채 — 레버리지 누적'})")
+            add("debt_buildup", "high" if (growth >= 50 and (nc_now or 0) < 0) else "med",
+                f"총차입금 {ds[1][1]/1e9:,.1f}B → {ds[0][1]/1e9:,.1f}B (YoY +{growth:.1f}%){ctx}"
+                f" — 조달한 현금을 쌓아두면 순현금 지표엔 안 잡힌다",
+                [{"end": e, "total_debt": v} for e, v in ds])
 
     # ⑤ 매출채권 괴리 (매출의 질)
     if q:

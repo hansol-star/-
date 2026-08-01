@@ -54,6 +54,21 @@ def news(query, display=5, sort="date"):
         return json.loads(r.read().decode("utf-8"))
 
 
+def search(kind, query, display=10, sort="date"):
+    """API HUB 검색 공통 — kind = news|cafearticle|blog|kin|webkr.
+
+    [8/1] `cafearticle`·`blog`·`kin`이 열려 있는 걸 재실측으로 확인해 편입했다
+    (7/30엔 401이었다 — 문서의 상태는 마지막 확인일의 사실일 뿐이다).
+    반환 `total`은 **누적 문서 수**라 그 자체로 시계열이 아니다 → 콜 간 델타로 쓴다.
+    ⚠️ `webkr`은 아직 401(미활성). 보조 교차검증용이라 우선순위 낮음.
+    """
+    qs = urllib.parse.urlencode({"query": query, "display": display, "sort": sort})
+    url = "https://naverapihub.apigw.ntruss.com/search/v1/%s?%s" % (kind, qs)
+    req = urllib.request.Request(url, headers=_headers())
+    with urllib.request.urlopen(req, timeout=25, context=_ctx()) as r:
+        return json.loads(r.read().decode("utf-8"))
+
+
 def trend(groups, start, end, unit="week"):
     """검색어트렌드(상대 검색량 0~100). groups=[{groupName, keywords[]}...] 최대 5그룹."""
     body = json.dumps({"startDate": start, "endDate": end, "timeUnit": unit,

@@ -184,6 +184,76 @@ def news_buzz(names=None, display=100):
     return out
 
 
+# ── 리테일 담론 게이지 [8/1 신설] ───────────────────────────────────────────
+# 검색어트렌드(=관심의 **양**)와 다른 축: 개인이 **실제로 뭘 쓰고 묻는가**(발화).
+#   · cafearticle = 주식 카페 글 볼륨 — 개인투자자 담론의 본진
+#   · kin         = 지식iN 질문량 — **"주식 초보" 질문 급증 = 개인 대량유입**(고전적 역발상 신호)
+#   · blog        = 블로그 언급량 — 테마 확산 속도(전문 블로거가 리테일에 선행)
+#
+# ⚠️ `total`은 **누적 문서 수**라 절대값 자체엔 의미가 적다. 원장(--save)에 스냅샷을 쌓아
+#    **콜 간 델타**로 급증을 본다. blog는 postdate가 있어 최근 N일 카운트가 가능하지만
+#    kin·cafearticle은 날짜가 없어 델타가 유일한 방법이다.
+# ⚠️ **측정 전용** — 이 숫자는 안전핀·트랜치·별점 어떤 룰도 바꾸지 않는다.
+DISCOURSE_QUERIES = [
+    ("초보유입", "kin", "주식 초보"),
+    # "반대매매" 단독은 부동산 매도청구소송 글까지 잡힌다(8/1 실측) → "주식"으로 한정.
+    # 질의어를 바꾸면 과거 total과 비교 불가하므로 **이후 고정**한다(PSYCH_GROUPS와 같은 규율).
+    ("반대매매질문", "kin", "주식 반대매매"),
+    ("카페담론", "cafearticle", "코스피"),
+    ("카페공포", "cafearticle", "주식 폭락"),
+    ("테마확산", "blog", "반도체 전망"),
+]
+
+
+def discourse():
+    """리테일 담론량 스냅샷. 실패는 error로 남겨 '0건'과 구분한다(§4b)."""
+    out = []
+    for label, kind, query in DISCOURSE_QUERIES:
+        try:
+            d = nd.search(kind, query, display=3, sort="date")
+            out.append({"label": label, "kind": kind, "query": query,
+                        "total": d.get("total"),
+                        "top": nd._clean((d.get("items") or [{}])[0].get("title", ""))})
+        except Exception as e:
+            out.append({"label": label, "kind": kind, "query": query,
+                        "error": "%s %s" % (type(e).__name__, str(e)[:40])})
+    return out
+
+
+def _discourse_delta(rows):
+    """직전 저장분 대비 증감 — total은 누적값이라 델타가 신호다."""
+    st = _load_store()
+    prev = None
+    for h in reversed(st.get("history", [])):
+        if h.get("discourse"):
+            prev = {r["label"]: r.get("total") for r in h["discourse"] if r.get("total")}
+            break
+    if not prev:
+        return None
+    out = {}
+    for r in rows:
+        p, c = prev.get(r["label"]), r.get("total")
+        if isinstance(p, int) and isinstance(c, int) and p:
+            out[r["label"]] = round((c - p) / p * 100, 2)
+    return out or None
+
+
+def _print_discourse(rows, delta):
+    print("── 리테일 담론량 (카페·지식iN·블로그 · 누적 문서수)")
+    for r in rows:
+        if r.get("error"):
+            print("  · %-10s 수집 실패 — %s" % (r["label"], r["error"]))
+            continue
+        d = (delta or {}).get(r["label"])
+        dtxt = "  Δ%+.2f%%" % d if d is not None else "  (첫 표본)"
+        print("  · %-10s [%s:%s] %12s건%s" % (r["label"], r["kind"], r["query"],
+                                             format(r["total"], ","), dtxt))
+        if r.get("top"):
+            print("      최신: %s" % r["top"][:60])
+    if delta is None:
+        print("  ※ 첫 표본 — total은 누적값이라 **다음 콜부터 델타**가 신호가 된다.")
+
+
 def _load_store():
     try:
         with open(os.path.abspath(STORE), "r", encoding="utf-8") as f:
@@ -239,6 +309,8 @@ def main():
     ap = argparse.ArgumentParser(description="네이버 검색어트렌드·뉴스 기반 리테일 심리 게이지(조회 전용)")
     ap.add_argument("--stocks", action="store_true", help="보유 국내 종목 관심도 %ile")
     ap.add_argument("--news-buzz", action="store_true", help="종목별 24/72h 기사 건수")
+    ap.add_argument("--discourse", action="store_true",
+                    help="리테일 담론량(카페·지식iN·블로그) — '주식 초보' 질문 급증 = 역발상 신호")
     ap.add_argument("--all", action="store_true", help="심리 + 관심도 + 뉴스버즈 전부")
     ap.add_argument("--names", help="종목명 쉼표구분(기본 = 보유 국내 5종목)")
     ap.add_argument("--days", type=int, default=LOOKBACK_DAYS, help="백분위 기준 기간(일, 기본 365)")
@@ -258,6 +330,9 @@ def main():
             out["stocks"] = stock_attention(names, a.days)
         if a.news_buzz or a.all:
             out["news_buzz"] = news_buzz(names)
+        if a.discourse or a.all:
+            out["discourse"] = discourse()
+            out["discourse_delta"] = _discourse_delta(out["discourse"])
     except SystemExit:
         raise
     except Exception as e:
@@ -272,6 +347,8 @@ def main():
             print("  ▶ %s" % out["verdict"])
         if "stocks" in out:
             _print_gauge(out["stocks"], "보유 국내 종목 관심도 (급증 = 과열 경계·GSVI 문헌)")
+        if "discourse" in out:
+            _print_discourse(out["discourse"], out.get("discourse_delta"))
         if "news_buzz" in out:
             print("── 뉴스 버즈 (최근 24h / 72h 기사수)")
             for r in out["news_buzz"]:

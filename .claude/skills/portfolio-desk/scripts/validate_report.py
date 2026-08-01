@@ -118,6 +118,64 @@ def check_tasks():
         fail(f"tasks.json: source_report 파일 없음 → {sr}")
     if not d.get("as_of"): warn("tasks.json: as_of 비어있음")
 
+# ── C2. 오더 실행가능성: 토스 주문 제약과 모순되는 계획 주문 적발 ────────────────
+#   [8/1 신설 — v66 실사고] §7 오더북이 "AAPL 25% 트림을 $318 **지정가**로"라 적었는데
+#   25% = 0.2556주 = **분수주**라 지정가가 애초에 안 걸린다(토스: 美 정수주=지정가 / 분수주=시장가 전용).
+#   같은 보고서 §5·§9는 "25% 분할", §7은 "정수 1주(=97.8%)"로 서로 다른 걸 가리키고 있었다.
+#   사람이 읽어선 안 걸리는 종류라 기계로 잡는다. 국내는 분수주 자체가 미지원(정수 1주 이상).
+_FRACTION_OK_STATUS = ("체결", "취소")            # 이미 끝난 주문
+_BLOCKED_STATUS = ("결정대기", "불가", "재검토")   # 문제를 이미 인지·표기한 주문(중복 경고 방지)
+
+def _is_kr(ticker: str) -> bool:
+    return bool(re.search(r"\.(KS|KQ)$", ticker or "")) or bool(re.fullmatch(r"\d{6}", ticker or ""))
+
+def check_order_feasibility():
+    """tasks.json orders가 토스 주문 제약을 위반하는지 검사.
+    지정가 주문인데 수량이 분수(미국) / 1주 미만(국내)이면 그 주문은 낼 수 없다."""
+    d = load("data/app/tasks.json")
+    if not d:
+        return
+    pf = load(".claude/skills/portfolio-desk/portfolio.json") or {}
+    held = {}
+    for reg in ("kr", "us"):
+        for h in (pf.get("holdings", {}) or {}).get(reg, []) or []:
+            held[h.get("ticker") or h.get("label")] = h.get("shares")
+
+    for o in d.get("orders", []) or []:
+        st = str(o.get("status", ""))
+        if any(k in st for k in _FRACTION_OK_STATUS):
+            continue
+        if any(k in st for k in _BLOCKED_STATUS):
+            continue                       # 이미 '실행 불가'로 표기됨 — 재경고는 소음
+        tk = str(o.get("ticker") or "")
+        # ⚠️ 의도 판정은 action·label(선언문)만 본다. note는 산문이라 정정 설명("25%는 분수라
+        #    지정가 불가")이 그대로 주문 의도로 오독된다(8/1 위양성 실측).
+        act = str(o.get("action", "")) + " " + str(o.get("label", ""))
+        sh = o.get("shares")
+        oid = o.get("id") or o.get("label") or tk
+        wants_limit = ("지정가" in act) or (o.get("price") is not None and "시장가" not in act)
+
+        if _is_kr(tk):
+            if isinstance(sh, (int, float)) and 0 < sh < 1:
+                fail(f"오더 실행불가 [{oid}]: 국내는 분수주 미지원인데 수량 {sh}주 — 정수 1주 이상으로")
+            continue
+
+        # 미국: 지정가는 정수주만
+        if wants_limit and isinstance(sh, (int, float)) and sh > 0 and abs(sh - round(sh)) > 1e-9:
+            fail(f"오더 실행불가 [{oid}]: 미국 지정가는 정수주 전용인데 수량 {sh}주(분수) — "
+                 f"시장가로 바꾸거나 정수주로 조정")
+
+        # 트림인데 '보유의 N%'를 지정가로 팔려는 경우: 그 비율이 분수면 지정가 불가
+        m = re.search(r"(\d{1,3})\s*%", act)
+        if wants_limit and m and tk in held and isinstance(held[tk], (int, float)):
+            pct = int(m.group(1))
+            if 0 < pct < 100:
+                q = held[tk] * pct / 100.0
+                if q < 1:
+                    warn(f"오더 설계 모순 [{oid}]: 보유 {held[tk]}주의 {pct}% = {q:.4f}주(분수)라 "
+                         f"지정가 불가 — 지정가로 낼 수 있는 최소 단위는 정수 1주"
+                         f"(= 보유의 {100/held[tk]:.1f}%). 비율과 주문방식 중 하나를 고쳐야 함")
+
 # ── D. 버전 정합: CLAUDE.md/stocks/tasks 가 최신 보고서를 가리키는가(stale 방지) ─
 def latest_version():
     rdir = os.path.join(ROOT, "docs/reports")
@@ -655,7 +713,8 @@ def main():
         print()
         sys.exit(1 if FAILS else 0)
 
-    check_stocks(); check_flows(); check_tasks(); check_consistency(); check_hunter(); check_feeds(); check_guru()
+    check_stocks(); check_flows(); check_tasks(); check_order_feasibility()
+    check_consistency(); check_hunter(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest)
     if not a.no_report:

@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import cli_common
 
 try:
     import garch
@@ -98,7 +99,7 @@ def size_asset(symbol: str, target_vol: float) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser(description="변동성 타겟 트랜치 사이징 (제안 전용·stdlib)")
     ap.add_argument("--target", type=float, default=15.0, help="연간 목표 변동성 %% (기본 15)")
-    ap.add_argument("--tickers", help="쉼표구분(기본=코스피·코스닥+보유15)")
+    ap.add_argument("--tickers", help="쉼표·공백구분(기본=코스피·코스닥+보유15)")
     ap.add_argument("--index-only", action="store_true")
     ap.add_argument("--index-floor", type=float, default=7500.0,
                     help="안전핀 하드플로어 — 코스피 종가 이 값 하회면 트랜치 전면 동결")
@@ -106,7 +107,7 @@ def main() -> int:
     args = ap.parse_args()
 
     if args.tickers:
-        uni = [(t.strip(), t.strip()) for t in args.tickers.split(",") if t.strip()]
+        uni = [(t.strip(), t.strip()) for t in cli_common.split_tickers(args.tickers) if t.strip()]
     else:
         idx = [("코스피", "^KS11"), ("코스닥", "^KQ11")]
         uni = idx if args.index_only else idx + (list(md.GROUPS["holdings"]) if md else [])

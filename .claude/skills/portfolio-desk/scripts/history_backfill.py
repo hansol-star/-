@@ -32,6 +32,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import cli_common
 
 try:  # 유니버스는 market_data(=portfolio.json 정본) 재사용 — 티커 드리프트 방지
     import market_data as md
@@ -200,12 +201,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="상장 이래 전 일봉 소급·캐시 (수집 전용·stdlib)")
     ap.add_argument("--refresh", action="store_true", help="전체 재풀(상장~오늘)")
     ap.add_argument("--stats", action="store_true", help="캐시 현황만(풀 안 함)")
-    ap.add_argument("--symbols", help="쉼표구분 Yahoo 심볼(기본=유니버스 전체)")
+    ap.add_argument("--symbols", "--tickers", help="쉼표·공백구분 Yahoo 심볼(기본=유니버스 전체)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--pace", type=float, default=1.2, help="심볼 간 페이싱 초(레이트리밋)")
     args = ap.parse_args()
 
-    only = [s.strip() for s in args.symbols.split(",")] if args.symbols else None
+    only = [s.strip() for s in cli_common.split_tickers(args.symbols)] if args.symbols else None
 
     if args.stats:
         stats = build_stats(only)

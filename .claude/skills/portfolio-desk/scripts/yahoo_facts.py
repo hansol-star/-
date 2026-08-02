@@ -42,6 +42,7 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 CACHE_DIR = os.path.join(ROOT, "data", "financials")
 
 from consensus import _opener, get_crumb  # crumb 쿠키 플로우 재사용(레포 기존 자산)
+import cli_common
 
 BASE = "https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/"
 # [7/29 실측] period2를 9999999999로 크게 잡으면 **빈 응답**이 온다(에러도 안 뜸) → 2e9 상한.
@@ -186,12 +187,12 @@ def _fmt(v, unit):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Yahoo 재무제표 3표 수집(무키)")
-    ap.add_argument("--tickers", help="쉼표 구분 (기본: 국내 보유 5 + 미국 402 4)")
+    ap.add_argument("--tickers", help="쉼표·공백 구분 (기본: 국내 보유 5 + 미국 402 4)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--save", action="store_true")
     a = ap.parse_args()
 
-    tickers = [t.strip() for t in a.tickers.split(",")] if a.tickers else KR_HOLDINGS + US_402
+    tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else KR_HOLDINGS + US_402
     out = fetch_many(tickers)
     if a.save:
         for r in out:

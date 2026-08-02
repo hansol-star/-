@@ -473,11 +473,12 @@ def write_subscore(wb: Workbook, data: dict, order: list[str]):
 
 
 def main():
-    require_openpyxl()
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description="보유종목 재무제표 XLSX 산출(openpyxl 필요)")
     ap.add_argument("--out", default=os.path.join(ROOT, "output", "재무제표_보유14종목.xlsx"))
     ap.add_argument("--src", default=SRC)
     args = ap.parse_args()
+    # 의존성 확인은 parse_args 뒤에 — 앞에 두면 openpyxl 없는 컨테이너에서 --help조차 못 본다.
+    require_openpyxl()
 
     with open(args.src, encoding="utf-8") as fh:
         data = json.load(fh)

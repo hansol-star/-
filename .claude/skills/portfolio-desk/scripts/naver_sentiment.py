@@ -307,7 +307,7 @@ def _verdict(psych):
 
 def main():
     ap = argparse.ArgumentParser(description="네이버 검색어트렌드·뉴스 기반 리테일 심리 게이지(조회 전용)")
-    ap.add_argument("--stocks", action="store_true", help="보유 국내 종목 관심도 %ile")
+    ap.add_argument("--stocks", action="store_true", help="보유 국내 종목 관심도 %%ile")
     ap.add_argument("--news-buzz", action="store_true", help="종목별 24/72h 기사 건수")
     ap.add_argument("--discourse", action="store_true",
                     help="리테일 담론량(카페·지식iN·블로그) — '주식 초보' 질문 급증 = 역발상 신호")

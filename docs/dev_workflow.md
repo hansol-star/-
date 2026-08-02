@@ -19,8 +19,15 @@ python3 .claude/skills/portfolio-desk/scripts/selfcheck.py
 - **compile**: 모든 스크립트 py_compile (문법·들여쓰기)
 - **import**: 각 스크립트 서브프로세스 임포트 — 모듈 최상위 실행 오류(임포트·NameError) 적발.
   스크립트 자기 폴더를 sys.path에 넣어 `import market_data` 같은 형제 임포트를 정확히 재현(오탐 없음).
+- **--help** [8/2 신설]: 각 스크립트를 `--help`로 실제 실행해 **argparse 파서 구성**을 검증.
+  compile·import는 `if __name__ == "__main__":` **안쪽을 절대 실행하지 않는다** — 그래서 파서를
+  만들 때만 터지는 결함이 두 단계를 다 통과했다. 실제로 `dart_disclosure`·`history_analysis`·
+  `naver_sentiment` 3개가 help 문자열의 미이스케이프 `%` 때문에 `--help`에서 죽는 채로
+  게이트를 통과하고 있었다(8/2 오디텍 조사 중 발견). argparse 미사용 스크립트는 자동 제외.
+  ⚠️ **help 문자열에 리터럴 `%`를 쓸 땐 반드시 `%%`** (`5%%` · `%%ile` · `절대%%`).
 - **validate**: `validate_report.py`(보고서 풀표·별점/스코어 밴드·정본 버전 stale) 실행.
-- **종료코드 0 = GATE PASS** 여야 커밋·머지. `--json`(파이프라인)·`--no-validate`(코드만 빠르게) 지원.
+- **종료코드 0 = GATE PASS** 여야 커밋·머지. `--json`(파이프라인)·`--no-validate`(코드만 빠르게)·
+  `--no-cli`(--help 단계 생략) 지원.
 
 ## 2) 로직 변경이면 추가로 — /code-review · /verify
 

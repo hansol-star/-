@@ -37,6 +37,7 @@ import re
 import sys
 import time
 import urllib.request
+import cli_common
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -141,10 +142,10 @@ def render(rows: list[dict], full: bool, keys: list[str]):
 
 def main():
     ap = argparse.ArgumentParser(description="어닝콜 트랜스크립트 (무키)")
-    ap.add_argument("--tickers", help="쉼표구분(생략 시 보유 미국주)")
+    ap.add_argument("--tickers", help="쉼표·공백구분(생략 시 보유 미국주)")
     ap.add_argument("--list", help="해당 종목의 콜 목록만 출력")
     ap.add_argument("--full", action="store_true", help="본문 출력")
-    ap.add_argument("--grep", help="키워드(쉼표구분) 주변 발언만")
+    ap.add_argument("--grep", help="키워드(쉼표·공백구분) 주변 발언만")
     ap.add_argument("--save", action="store_true")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
@@ -159,7 +160,7 @@ def main():
         return 0
 
     keys = [k.strip() for k in a.grep.split(",")] if a.grep else DEFAULT_KEYS
-    tickers = [t.strip().upper() for t in a.tickers.split(",")] if a.tickers else list(US)
+    tickers = [t.strip().upper() for t in cli_common.split_tickers(a.tickers)] if a.tickers else list(US)
     rows = []
     for t in tickers:
         try:

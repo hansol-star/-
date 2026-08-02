@@ -19,6 +19,7 @@ import json
 import os
 
 from consensus import _opener, get_crumb  # crumb 플로우 재사용
+import cli_common
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = os.path.join(HERE, "..", "portfolio.json")
@@ -50,7 +51,7 @@ def main() -> int:
         cfg = json.load(f)
     label_of = {}
     if args.tickers:
-        syms = [t.strip() for t in args.tickers.split(",") if t.strip()]
+        syms = [t.strip() for t in cli_common.split_tickers(args.tickers) if t.strip()]
         for s in syms:
             label_of[s] = s
     else:

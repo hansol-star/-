@@ -35,6 +35,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+import cli_common
 
 try:  # 같은 폴더의 market_data 유니버스 재사용(portfolio.json 정본 미러)
     import market_data as md
@@ -151,7 +152,7 @@ def gauge(symbol: str, window: int, lookback: int) -> dict:
 
 def _universe(args) -> list[tuple[str, str]]:
     if args.tickers:
-        return [(t.strip(), t.strip()) for t in args.tickers.split(",") if t.strip()]
+        return [(t.strip(), t.strip()) for t in cli_common.split_tickers(args.tickers) if t.strip()]
     if args.index_only:
         return [(l, s) for (l, s) in _IDX if s in ("^KS11", "^KQ11")]
     idx = [(l, s) for (l, s) in _IDX if s in ("^KS11", "^KQ11")]
@@ -160,7 +161,7 @@ def _universe(args) -> list[tuple[str, str]]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="변동성 게이지·폭풍 점수 (측정 전용·stdlib)")
-    ap.add_argument("--tickers", help="쉼표구분 Yahoo 심볼(라벨=심볼). 기본=코스피·코스닥+보유15")
+    ap.add_argument("--tickers", help="쉼표·공백구분 Yahoo 심볼(라벨=심볼). 기본=코스피·코스닥+보유15")
     ap.add_argument("--index-only", action="store_true", help="코스피·코스닥만")
     ap.add_argument("--window", type=int, default=20, help="RV 창(거래일, 기본 20≈1개월)")
     ap.add_argument("--lookback", type=int, default=TRADING_DAYS, help="폭풍 백분위 기간(기본 252≈1년)")

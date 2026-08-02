@@ -46,6 +46,7 @@ OUT = os.path.join(ROOT, "data", "app", "guidance.json")
 
 import edgar_facts as _E
 from insider_us import _get, US          # 검증된 SEC 클라이언트·페이싱·유니버스 재사용
+import cli_common
 
 ITEM_RESULTS = "2.02"                    # Item 2.02 = Results of Operations and Financial Condition
 
@@ -255,14 +256,14 @@ def render(rows: list[dict], full: bool = False):
 
 def main():
     ap = argparse.ArgumentParser(description="실적 보도자료 가이던스 (SEC 8-K Item 2.02)")
-    ap.add_argument("--tickers", help="쉼표구분(생략 시 보유 미국주)")
+    ap.add_argument("--tickers", help="쉼표·공백구분(생략 시 보유 미국주)")
     ap.add_argument("--days", type=int, default=190, help="조회 기간(기본 190일 = 최근 2분기)")
     ap.add_argument("--full", action="store_true", help="문장 자르지 않고 전체 출력")
     ap.add_argument("--save", action="store_true")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
-    tickers = [t.strip().upper() for t in args.tickers.split(",")] if args.tickers else list(US)
+    tickers = [t.strip().upper() for t in cli_common.split_tickers(args.tickers)] if args.tickers else list(US)
     rows = []
     for t in tickers:
         try:

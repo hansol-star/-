@@ -244,7 +244,7 @@ def fmt(o: dict) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="네이버 재무·컨센 밸류에이션·선반영 판단(무키)")
-    ap.add_argument("--code", help="종목코드(쉼표구분). 없으면 보유 국내 5 + 하닉")
+    ap.add_argument("--code", "--tickers", help="종목코드(쉼표·공백구분). 없으면 보유 국내 5 + 하닉")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 

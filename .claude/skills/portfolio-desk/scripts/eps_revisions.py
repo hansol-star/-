@@ -52,6 +52,7 @@ import urllib.request
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from consensus import _opener, get_crumb  # crumb 플로우 재사용 (earnings.py:21과 동일)
+import cli_common
 
 KST = datetime.timezone(datetime.timedelta(hours=9))
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -323,7 +324,7 @@ def main() -> int:
     ap.add_argument("--all", action="store_true", help="보유 + 워치리스트")
     ap.add_argument("--period", default="+1y", choices=PERIODS, help="기본 +1y(내년)")
     ap.add_argument("--detail", help="한 종목 전 기간 상세 (심볼 또는 표기명)")
-    ap.add_argument("--tickers", help="쉼표구분 심볼 직접 지정")
+    ap.add_argument("--tickers", help="쉼표·공백구분 심볼 직접 지정")
     ap.add_argument("--save", action="store_true", help="data/app/eps_revisions.json 누적")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
@@ -335,7 +336,7 @@ def main() -> int:
         return 2
 
     if args.tickers:
-        pairs = [(s.strip(), s.strip()) for s in args.tickers.split(",") if s.strip()]
+        pairs = [(s.strip(), s.strip()) for s in cli_common.split_tickers(args.tickers) if s.strip()]
     else:
         pairs = _universe(args.all or bool(args.detail))
 

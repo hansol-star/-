@@ -292,7 +292,7 @@ def summary_table(rows):
 
 def main():
     ap = argparse.ArgumentParser(description="낙폭 카탈로그·회복 통계·조건부 기저율 (측정 전용)")
-    ap.add_argument("--symbol", help="한 종목만 상세")
+    ap.add_argument("--symbol", "--tickers", help="한 종목만 상세")
     ap.add_argument("--min-depth", type=float, default=20.0, help="낙폭 최소 깊이%% (기본 20)")
     ap.add_argument("--top", type=int, default=6, help="표시할 최악 낙폭 개수")
     ap.add_argument("--indexes", action="store_true", help="지수도 포함")

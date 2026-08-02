@@ -29,6 +29,7 @@ import os
 import sys
 import urllib.error
 import urllib.request
+import cli_common
 
 YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
@@ -197,12 +198,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="무키 시세·환율 수집기 (Yahoo Finance)")
     ap.add_argument("--group", default="all", choices=list(GROUPS.keys()),
                     help="조회 그룹 (기본 all)")
-    ap.add_argument("--tickers", help="쉼표구분 티커 직접 지정 (group 무시)")
+    ap.add_argument("--tickers", help="쉼표·공백구분 티커 직접 지정 (group 무시)")
     ap.add_argument("--json", action="store_true", help="JSON 출력")
     args = ap.parse_args()
 
     if args.tickers:
-        universe = [(t, t) for t in args.tickers.split(",") if t.strip()]
+        universe = [(t, t) for t in cli_common.split_tickers(args.tickers) if t.strip()]
     else:
         universe = GROUPS[args.group]
 

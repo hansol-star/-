@@ -252,7 +252,7 @@ def target_consensus() -> list[dict]:
 def main() -> int:
     ap = argparse.ArgumentParser(description="증권사 리포트 수집·본문추출·누적")
     ap.add_argument("--days", type=int, default=7)
-    ap.add_argument("--code", help="6자리 종목코드")
+    ap.add_argument("--code", "--tickers", help="6자리 종목코드")
     ap.add_argument("--fetch", action="store_true", help="PDF 본문까지 다운로드·추출")
     ap.add_argument("--keep-pdf", action="store_true")
     ap.add_argument("--targets", action="store_true", help="누적분에서 목표가 컨센 산출")

@@ -31,6 +31,7 @@ import json
 import os
 import statistics
 import sys
+import cli_common
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -159,9 +160,9 @@ def run_demo() -> int:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="자체 DCF+comps 밸류에이션")
-    ap.add_argument("--tickers", help="쉼표구분 미국 티커")
+    ap.add_argument("--tickers", help="쉼표·공백구분 미국 티커")
     ap.add_argument("--comps", action="store_true", help="피어 상대가치도 계산")
-    ap.add_argument("--peers", help="피어 티커 쉼표구분(--tickers 1개일 때 재정의)")
+    ap.add_argument("--peers", help="피어 티커 쉼표·공백구분(--tickers 1개일 때 재정의)")
     ap.add_argument("--wacc", type=float, default=0.09, help="기준 WACC (기본 0.09)")
     ap.add_argument("--terminal", type=float, default=0.025, help="터미널 성장 (기본 0.025)")
     ap.add_argument("--years", type=int, default=10, help="명시적 예측기간 (기본 10)")
@@ -179,7 +180,7 @@ def main() -> int:
               file=sys.stderr)
         return 2
 
-    tickers = [t.strip() for t in args.tickers.split(",") if t.strip()]
+    tickers = [t.strip() for t in cli_common.split_tickers(args.tickers) if t.strip()]
     pe_cache: dict = {}
     rows = []
     for t in tickers:

@@ -50,6 +50,7 @@ OUT = os.path.join(ROOT, "data", "app", "financials.json")
 
 import edgar_facts as E
 import yahoo_facts as Y
+import cli_common
 
 # 보유 15종목 (VOO=ETF는 재무제표 대상 아님 → 14종목이 커버 대상)
 US = ["NVDA", "MU", "AAPL", "MSFT", "ANET", "AVGO", "GOOGL", "META", "ORCL"]
@@ -394,7 +395,7 @@ def main() -> int:
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
 
-    tickers = [t.strip() for t in a.tickers.split(",")] if a.tickers else ALL
+    tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else ALL
     data = build_all(tickers)
 
     if a.save:

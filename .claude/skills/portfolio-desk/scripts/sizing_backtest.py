@@ -103,7 +103,7 @@ def backtest(symbol, target, cap, w=20):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="변동성 타겟 사이징 백테스트 (측정 전용·stdlib)")
-    ap.add_argument("--symbol", default="^KS11")
+    ap.add_argument("--symbol", "--tickers", default="^KS11")
     ap.add_argument("--target", type=float, default=20.0, help="목표 연율변동성 %%")
     ap.add_argument("--cap", type=float, default=1.0, help="노출 상한(우리 무레버리지=1.0)")
     ap.add_argument("--json", action="store_true")

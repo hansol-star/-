@@ -419,7 +419,7 @@ def main():
     ap.add_argument("--amount", type=float, help="--execute 와 함께 쓰는 집행 금액(원)")
     ap.add_argument("--note", default="", help="--execute 메모(종목·체결가 등)")
     ap.add_argument("--rule2", action="store_true")
-    ap.add_argument("--ticker", default="066570.KS")
+    ap.add_argument("--ticker", "--tickers", default="066570.KS")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
 

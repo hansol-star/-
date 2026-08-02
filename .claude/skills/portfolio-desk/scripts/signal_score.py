@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import json
 import statistics
+import cli_common
 
 try:
     import history_backfill as hb
@@ -175,7 +176,7 @@ def pool(results, fwds=(5, 20)):
 
 def _universe(args):
     if args.symbols:
-        return [s.strip() for s in args.symbols.split(",") if s.strip()]
+        return [s.strip() for s in cli_common.split_tickers(args.symbols) if s.strip()]
     syms = ["^KS11"]
     if md:
         syms += [s for _, s in md.GROUPS["holdings"]]
@@ -184,7 +185,7 @@ def _universe(args):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="기술신호 예측력 후행채점 (측정 전용·stdlib)")
-    ap.add_argument("--symbols", help="쉼표구분(기본=코스피+보유15)")
+    ap.add_argument("--symbols", "--tickers", help="쉼표·공백구분(기본=코스피+보유15)")
     ap.add_argument("--pooled", action="store_true", help="전 종목 합산 총평만")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()

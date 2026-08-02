@@ -29,6 +29,7 @@ import argparse
 import json
 import statistics
 import sys
+import cli_common
 
 try:
     import naver_chart as nc  # fetch_naver_ohlc 재사용
@@ -146,11 +147,11 @@ def pool(per_stock: list[dict]) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="수급(Δ외국인지분율) forward 엣지 백테스트")
-    ap.add_argument("--codes", help="쉼표구분 6자리(기본=국내 유니버스)")
+    ap.add_argument("--codes", "--tickers", help="쉼표·공백구분 6자리(기본=국내 유니버스)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
-    uni = ([(c, c) for c in args.codes.split(",")] if args.codes else UNIVERSE)
+    uni = ([(c, c) for c in cli_common.split_tickers(args.codes)] if args.codes else UNIVERSE)
     per = []
     labels = {}
     for label, code in uni:

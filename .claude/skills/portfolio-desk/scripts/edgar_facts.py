@@ -37,6 +37,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+import cli_common
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
@@ -344,13 +345,13 @@ def _fmt(v, unit=1e6):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="SEC EDGAR 재무제표 3표 수집")
-    ap.add_argument("--tickers", help="쉼표 구분 (기본: 미국 보유 전 종목)")
+    ap.add_argument("--tickers", help="쉼표·공백 구분 (기본: 미국 보유 전 종목)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--save", action="store_true", help="data/financials/ 에 캐시")
     ap.add_argument("--quarters", type=int, default=8)
     a = ap.parse_args()
 
-    tickers = [t.strip().upper() for t in a.tickers.split(",")] if a.tickers else US_HOLDINGS
+    tickers = [t.strip().upper() for t in cli_common.split_tickers(a.tickers)] if a.tickers else US_HOLDINGS
     cmap = cik_map()
     out = []
     for i, t in enumerate(tickers):

@@ -10,11 +10,12 @@ selfcheck.py — 데스크 품질 게이트 (dev 작업 커밋·머지 전 스�
 검사 단계:
   1) py_compile  — 모든 스크립트 문법 컴파일 (문법/들여쓰기 오류 적발)
   2) import      — 각 스크립트를 서브프로세스로 임포트(모듈 최상위 실행 오류 적발; 네트워크 미접속)
-  3) validate    — validate_report.py 실행(보고서/풀표/밴드/정본버전 게이트)
+  3) --help      — argparse 파서 구성 검증 (1·2가 절대 안 건드리는 __main__ 안쪽)
+  4) validate    — validate_report.py 실행(보고서/풀표/밴드/정본버전 게이트)
 
 사용:
   python3 .claude/skills/portfolio-desk/scripts/selfcheck.py
-  python3 .claude/skills/portfolio-desk/scripts/selfcheck.py --no-validate   # 1~2만
+  python3 .claude/skills/portfolio-desk/scripts/selfcheck.py --no-validate   # 1~3만
   python3 .claude/skills/portfolio-desk/scripts/selfcheck.py --json
 
 종료코드: 0=전부 통과, 1=하나라도 실패. (커밋/머지 전 이게 0인지 확인.)
@@ -73,6 +74,40 @@ def check_import(path: str, timeout: float = 20.0) -> tuple[bool, str]:
     return True, ""
 
 
+def has_argparse(path: str) -> bool:
+    try:
+        with open(path, encoding="utf-8") as f:
+            return "argparse" in f.read()
+    except Exception:
+        return False
+
+
+def check_cli(path: str, timeout: float = 25.0) -> tuple[bool, str]:
+    """`--help`를 실제로 실행해 argparse 정의 자체를 검증한다.
+
+    왜 필요한가 — compile·import 단계는 `if __name__ == "__main__":` 안쪽을 절대
+    실행하지 않는다. 그래서 파서를 만들 때만 터지는 결함(help 문자열의 미이스케이프
+    `%`, 잘못된 type/choices/default)이 두 단계를 모두 통과해 정본에 남는다.
+    실제로 2026-08-02에 dart_disclosure·history_analysis·naver_sentiment 3개가
+    `--help`에서 ValueError/TypeError로 죽는 채로 게이트를 통과하고 있었다.
+
+    --help는 파서 구성 직후 SystemExit(0)으로 끝나므로 네트워크·파일 부작용이 없다.
+    argparse를 안 쓰는 스크립트는 `--help`가 무시되고 본문이 실행돼버리므로 제외한다.
+    타임아웃 = parse_args() 앞에서 무거운 일을 한다는 뜻이라 그 자체가 결함이다.
+    """
+    if not has_argparse(path):
+        return True, "(argparse 미사용 — 생략)"
+    try:
+        r = subprocess.run([sys.executable, path, "--help"], capture_output=True,
+                           text=True, timeout=timeout, cwd=REPO)
+    except subprocess.TimeoutExpired:
+        return False, f"--help timeout >{timeout:.0f}s (parse_args 앞에서 네트워크/블로킹?)"
+    if r.returncode != 0:
+        tail = (r.stderr.strip().splitlines() or ["(no stderr)"])[-1]
+        return False, tail[:200]
+    return True, ""
+
+
 def run_validate(timeout: float = 120.0) -> tuple[str, str]:
     vp = os.path.join(HERE, "validate_report.py")
     if not os.path.exists(vp):
@@ -90,6 +125,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="데스크 품질 게이트 (커밋·머지 전 스모크)")
     ap.add_argument("--no-validate", action="store_true", help="validate_report 단계 생략")
     ap.add_argument("--no-import", action="store_true", help="import 단계 생략(문법만)")
+    ap.add_argument("--no-cli", action="store_true", help="--help(argparse) 스모크 생략")
     ap.add_argument("--json", action="store_true", help="JSON 출력")
     args = ap.parse_args()
 
@@ -99,17 +135,21 @@ def main() -> int:
         rel = os.path.relpath(p, REPO)
         ok_c, msg_c = check_compile(p)
         row = {"script": rel, "compile": ok_c, "compile_msg": msg_c,
-               "import": None, "import_msg": ""}
+               "import": None, "import_msg": "", "cli": None, "cli_msg": ""}
         if ok_c and not args.no_import:
             ok_i, msg_i = check_import(p)
             row["import"] = ok_i
             row["import_msg"] = msg_i
+        if ok_c and not args.no_cli:
+            ok_h, msg_h = check_cli(p)
+            row["cli"] = ok_h
+            row["cli_msg"] = msg_h
         results.append(row)
 
     val_status, val_out = ("SKIP", "") if args.no_validate else run_validate()
 
     def failed(r):
-        return (not r["compile"]) or (r["import"] is False)
+        return (not r["compile"]) or (r["import"] is False) or (r["cli"] is False)
 
     fails = [r for r in results if failed(r)]
     gate_ok = not fails and val_status in ("PASS", "SKIP")
@@ -123,16 +163,16 @@ def main() -> int:
     print(f"=== selfcheck: {len(scripts)}개 스크립트 ===")
     for r in results:
         c = "✅" if r["compile"] else "❌"
-        if r["import"] is None:
-            i = "·"
-        else:
-            i = "✅" if r["import"] else "❌"
+        i = "·" if r["import"] is None else ("✅" if r["import"] else "❌")
+        h = "·" if r["cli"] is None else ("✅" if r["cli"] else "❌")
         mark = "" if not failed(r) else "  ← FAIL"
-        print(f"  compile {c}  import {i}   {r['script']}{mark}")
+        print(f"  compile {c}  import {i}  --help {h}   {r['script']}{mark}")
         if not r["compile"]:
             print(f"        └ compile: {r['compile_msg']}")
         if r["import"] is False:
             print(f"        └ import:  {r['import_msg']}")
+        if r["cli"] is False:
+            print(f"        └ --help:  {r['cli_msg']}")
 
     if not args.no_validate:
         icon = {"PASS": "✅", "FAIL": "❌", "SKIP": "·"}[val_status]

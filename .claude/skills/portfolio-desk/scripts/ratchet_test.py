@@ -214,7 +214,7 @@ def judge(rows, label, detail=False):
 
 def main():
     ap = argparse.ArgumentParser(description="사다리 되돌림 정책(RESET vs RATCHET) 검증")
-    ap.add_argument("--symbol", help="단일 지수(기본=11지수 풀링)")
+    ap.add_argument("--symbol", "--tickers", help="단일 지수(기본=11지수 풀링)")
     ap.add_argument("--detail", action="store_true", help="낙폭 구간별 분해")
     a = ap.parse_args()
 

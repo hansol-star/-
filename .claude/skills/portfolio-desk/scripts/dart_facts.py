@@ -118,30 +118,85 @@ def _get(path: str, params: dict, tries: int = 3) -> dict:
     raise last  # type: ignore[misc]
 
 
-def corp_codes(refresh: bool = False) -> dict[str, str]:
-    """종목코드(6자리) → corp_code(8자리). corpCode.xml zip 1회 수신 후 캐시."""
-    if not refresh and os.path.exists(CORP_CACHE):
-        try:
-            with open(CORP_CACHE, encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
+CORP_CACHE_V = 2   # v1 = 보유 5종목만 담던 구버전(자동 폐기)
+
+
+def _fetch_corp_zip(timeout: float = 300.0, tries: int = 3) -> bytes:
+    """corpCode.xml zip(약 20MB) 수신. 데이터센터 회선에서 3분 걸린 실측이 있어
+    타임아웃을 넉넉히 잡고 재시도한다(구 60초는 정상 회선에서도 자주 끊겼다)."""
     url = f"{BASE}/corpCode.xml?crtfc_key={_key()}"
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        blob = r.read()
-    out: dict[str, str] = {}
-    with zipfile.ZipFile(io.BytesIO(blob)) as z:
+    last = None
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read()
+        except Exception as e:
+            last = e
+            time.sleep(2.0 * (i + 1))
+    raise last  # type: ignore[misc]
+
+
+def _corp_cache() -> dict:
+    """{'_v':2,'_updated':…,'codes':{6자리:corp_code},'names':{6자리:한글명}}"""
+    if os.path.exists(CORP_CACHE):
+        try:
+            with open(CORP_CACHE, encoding="utf-8") as f:
+                d = json.load(f)
+            # v1은 flat dict({코드:corp_code})이고 보유 5종목만 들어 있다.
+            # 파일이 '존재'하므로 구버전 로직은 임의 종목에서 영구 미스가 났다 → 폐기 후 재수신.
+            if isinstance(d, dict) and d.get("_v") == CORP_CACHE_V:
+                return d
+        except Exception:
+            pass
+    return {}
+
+
+def corp_codes(refresh: bool = False) -> dict[str, str]:
+    """종목코드(6자리) → corp_code(8자리). **상장사 전체**를 1회 받아 캐시한다.
+
+    ⚠️ [8/2 설계 결함 수정] 구버전은 20MB zip을 통째로 받아놓고 `stock in KR`로
+    보유 5종목만 남긴 뒤 저장했다. 그래서 ①보유 외 종목은 항상 미스인데 ②캐시 파일은
+    존재하므로 재수신도 안 되고 ③강제 refresh하면 20MB를 다시 받아 또 5개만 남겼다.
+    오디텍(080520) 조회 때 corpCode.xml 수신이 2분 타임아웃으로 죽은 근본원인.
+    상장사 전체를 담아도 파일은 수백 KB 수준이라 '파일 비대' 우려는 근거가 없었다.
+    """
+    if not refresh:
+        c = _corp_cache()
+        if c.get("codes"):
+            return c["codes"]
+
+    with zipfile.ZipFile(io.BytesIO(_fetch_corp_zip())) as z:
         xml = z.read(z.namelist()[0]).decode("utf-8")
     import xml.etree.ElementTree as ET
+    codes: dict[str, str] = {}
+    names: dict[str, str] = {}
     for el in ET.fromstring(xml).iter("list"):
         stock = (el.findtext("stock_code") or "").strip()
-        if stock and stock in KR:          # 보유 종목만 캐시(파일 비대 방지)
-            out[stock] = (el.findtext("corp_code") or "").strip()
+        if not stock or stock == "-":      # 비상장은 제외(종목코드 없음)
+            continue
+        codes[stock] = (el.findtext("corp_code") or "").strip()
+        names[stock] = (el.findtext("corp_name") or "").strip()
     os.makedirs(CACHE_DIR, exist_ok=True)
     with open(CORP_CACHE, "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False)
-    return out
+        json.dump({"_v": CORP_CACHE_V, "_updated": dt.date.today().isoformat(),
+                   "codes": codes, "names": names}, f, ensure_ascii=False)
+    return codes
+
+
+def corp_names(refresh: bool = False) -> dict[str, str]:
+    """종목코드(6자리) → 회사 한글명. corp_codes()와 같은 1회 수신분을 공유한다."""
+    c = _corp_cache()
+    if refresh or not c.get("names"):
+        corp_codes(refresh=True)
+        c = _corp_cache()
+    return c.get("names", {})
+
+
+def resolve(ticker: str) -> tuple[str, str | None, str | None]:
+    """'080520.KQ' | '080520' → (6자리코드, corp_code, 회사명). 미상장/미해결이면 None."""
+    code = str(ticker).split(".")[0].strip()
+    return code, corp_codes().get(code), corp_names().get(code)
 
 
 def _num(s) -> float | None:
@@ -220,12 +275,17 @@ def fetch(ticker: str, years: list[int] | None = None) -> dict:
     """Yahoo 티커(005930.KS) 또는 6자리 코드 → 단일 스키마 레코드."""
     if not _key():
         return {"ticker": ticker, "_error": "DART_API_KEY 없음"}
-    code = ticker.split(".")[0]
-    if code not in KR:
-        return {"ticker": ticker, "_error": f"국내 보유 종목 아님({code})"}
-    corp = corp_codes().get(code)
+    # [8/2] 구버전은 보유 5종목(KR) 밖이면 즉시 거부했다 — 신규 종목 조사(오디텍 등)에서
+    # DART 1차 출처 경로가 통째로 막힌다. 상장사면 누구든 조회 가능하게 풀되,
+    # 이름은 보유 유니버스 → DART 공식명 순으로 해석한다.
+    code, corp, dart_name = resolve(ticker)
     if not corp:
-        return {"ticker": ticker, "_error": "corp_code 매핑 실패"}
+        return {"ticker": ticker,
+                "_error": f"corp_code 매핑 실패({code}) — 비상장이거나 종목코드 오기"}
+    # ⚠️ DART는 KOSPI/KOSDAQ 구분을 안 준다 → 접미사를 추측하면 남의 회사가 된다(7/30 사고).
+    #    호출자가 준 접미사를 그대로 보존하고, 없으면 보유 유니버스에서만 채운다.
+    given_sfx = ("." + ticker.split(".", 1)[1]) if "." in str(ticker) else None
+    sfx = given_sfx or YAHOO_SUFFIX.get(code) or (".KS" if code in KR else "")
 
     this_year = dt.date.today().year
     years = years or list(range(this_year - 3, this_year + 1))
@@ -275,8 +335,8 @@ def fetch(ticker: str, years: list[int] | None = None) -> dict:
             quarterly.append(_row(ENDS[4], "quarterly", vals))
 
     return {
-        "ticker": code + YAHOO_SUFFIX.get(code, ".KS"),
-        "name": KR[code],
+        "ticker": code + sfx,
+        "name": KR.get(code) or dart_name or code,
         "region": "KR",
         "currency": "KRW",
         "source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
@@ -303,8 +363,8 @@ def _row(end: str, period: str, vals: dict) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="DART 국내 재무제표 3표 (1차 출처)")
-    ap.add_argument("--code", help="6자리 종목코드 또는 야후 티커")
-    ap.add_argument("--years", help="쉼표 구분 사업연도 (기본: 최근 4개년)")
+    ap.add_argument("--code", "--tickers", help="6자리 종목코드 또는 야후 티커")
+    ap.add_argument("--years", help="쉼표·공백 구분 사업연도 (기본: 최근 4개년)")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
 

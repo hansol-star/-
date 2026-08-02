@@ -21,6 +21,7 @@ import http.cookiejar
 import json
 import os
 import urllib.request
+import cli_common
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -78,12 +79,12 @@ def fetch_consensus(op, crumb, symbol) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="애널리스트 목표주가 (Yahoo crumb)")
-    ap.add_argument("--tickers", help="쉼표구분 티커 (기본: portfolio.json US 보유+워치)")
+    ap.add_argument("--tickers", help="쉼표·공백구분 티커 (기본: portfolio.json US 보유+워치)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
     if args.tickers:
-        syms = [t.strip() for t in args.tickers.split(",") if t.strip()]
+        syms = [t.strip() for t in cli_common.split_tickers(args.tickers) if t.strip()]
     else:
         with open(CFG, encoding="utf-8") as f:
             cfg = json.load(f)

@@ -32,6 +32,7 @@ import statistics
 import urllib.error
 import urllib.parse
 import urllib.request
+import cli_common
 
 try:
     import history_backfill as hb
@@ -287,7 +288,7 @@ def fit_forecast(symbol: str, closes: list[float] | None = None,
 # ---------- 유니버스 ----------
 def _universe(args):
     if args.tickers:
-        return [(t.strip(), t.strip()) for t in args.tickers.split(",") if t.strip()]
+        return [(t.strip(), t.strip()) for t in cli_common.split_tickers(args.tickers) if t.strip()]
     idx_all = md.GROUPS["index"] if md else [("코스피", "^KS11"), ("코스닥", "^KQ11")]
     idx = [(l, s) for (l, s) in idx_all if s in ("^KS11", "^KQ11")]
     if args.index_only:
@@ -298,7 +299,7 @@ def _universe(args):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="GARCH(1,1) 선행 변동성 예측 (측정 전용·stdlib)")
-    ap.add_argument("--tickers", help="쉼표구분 Yahoo 심볼(기본=코스피·코스닥+보유15)")
+    ap.add_argument("--tickers", help="쉼표·공백구분 Yahoo 심볼(기본=코스피·코스닥+보유15)")
     ap.add_argument("--index-only", action="store_true")
     ap.add_argument("--verbose", action="store_true", help="파라미터·지속성·장기평균·기간구조")
     ap.add_argument("--student-t", action="store_true", help="팻테일 t분포 우도(ν 추정)")

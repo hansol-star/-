@@ -112,7 +112,7 @@ def nat_proxy(code: str) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="공매도·대차 + NAT 프록시(KRX·포터블)")
-    ap.add_argument("--code", help="종목코드 6자리 공매도 일별 시도")
+    ap.add_argument("--code", "--tickers", help="종목코드 6자리 공매도 일별 시도")
     ap.add_argument("--status", action="store_true", help="KRX 접근 가능 여부만 점검")
     ap.add_argument("--nat", metavar="CODE", help="NAT 프록시(외인지분+공매도)")
     ap.add_argument("--json", action="store_true")

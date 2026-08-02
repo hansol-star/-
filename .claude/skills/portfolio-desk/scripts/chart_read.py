@@ -50,6 +50,7 @@ except Exception:
     _IDX = [("코스피", "^KS11"), ("코스닥", "^KQ11")]
 
 import ta_core as ta  # [7/22] 전문가급 지표 코어(BB·ATR·일목·ADX·OBV·MFI·다이버전스·스테이지·미너비니·VCP·RS)
+import cli_common
 
 YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
@@ -512,7 +513,7 @@ def fmt(o: dict, verbose: bool = False) -> str:
 
 def build_universe(args) -> list[tuple[str, str]]:
     if args.tickers:
-        return [(t, t) for t in args.tickers.split(",") if t.strip()]
+        return [(t, t) for t in cli_common.split_tickers(args.tickers) if t.strip()]
     if args.index_only:
         return list(_IDX)
     if args.holdings:
@@ -522,7 +523,7 @@ def build_universe(args) -> list[tuple[str, str]]:
 
 def main():
     ap = argparse.ArgumentParser(description="기술적 차트 리드 엔진(무키·stdlib)")
-    ap.add_argument("--tickers", help="쉼표구분 Yahoo 심볼(유니버스 무시)")
+    ap.add_argument("--tickers", help="쉼표·공백구분 Yahoo 심볼(유니버스 무시)")
     ap.add_argument("--holdings", action="store_true", help="보유 15종목만")
     ap.add_argument("--index-only", action="store_true", help="코스피·코스닥만")
     ap.add_argument("--json", action="store_true", help="JSON 출력")

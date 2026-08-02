@@ -318,7 +318,7 @@ def main():
     ap.add_argument("--watch", action="store_true", help="워치 종목까지 포함")
     ap.add_argument("--all", action="store_true", help="routine(정기·형식) 공시도 표시")
     ap.add_argument("--insider", action="store_true", help="내부자(임원·주요주주) 보유증감 합산만")
-    ap.add_argument("--major", action="store_true", help="5% 대량보유 변동만(국민연금 등)")
+    ap.add_argument("--major", action="store_true", help="5%% 대량보유 변동만(국민연금 등)")
     ap.add_argument("--save", action="store_true", help="data/app/disclosures.json 갱신")
     a = ap.parse_args()
 

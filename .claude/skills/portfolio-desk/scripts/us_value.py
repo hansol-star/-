@@ -26,6 +26,7 @@ import argparse
 import datetime as dt
 import json
 import sys
+import cli_common
 
 try:
     import fundamentals as fu   # FMP 클라이언트·트레일링 재사용
@@ -155,7 +156,7 @@ def fmt(o: dict) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="미국주 FMP forward 밸류에이션·선반영 판단")
-    ap.add_argument("--tickers", help="쉼표구분(기본=미국 보유·ETF 제외)")
+    ap.add_argument("--tickers", help="쉼표·공백구분(기본=미국 보유·ETF 제외)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
@@ -164,7 +165,7 @@ def main() -> int:
               "국내는 naver_value.py 사용.", file=sys.stderr)
         return 2
 
-    tickers = [t.strip() for t in args.tickers.split(",")] if args.tickers else US
+    tickers = [t.strip() for t in cli_common.split_tickers(args.tickers)] if args.tickers else US
     results = [value_read(t) for t in tickers]
 
     if args.json:

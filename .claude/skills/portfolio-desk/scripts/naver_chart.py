@@ -416,7 +416,7 @@ def build_universe(args):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="네이버 네이티브 한국식 차트 리더(가격+수급·무키)")
-    ap.add_argument("--code", help="종목코드/티커(쉼표구분). 예: 005930 또는 005930.KS")
+    ap.add_argument("--code", "--tickers", help="종목코드/티커(쉼표·공백구분). 예: 005930 또는 005930.KS")
     ap.add_argument("--with-watch", action="store_true", help="국내 워치(원익IPS·테스 등) 포함")
     ap.add_argument("--json", action="store_true", help="JSON 출력")
     ap.add_argument("--verbose", action="store_true", help="피보나치·미너비니·스윙 상세")

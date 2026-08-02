@@ -31,6 +31,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+import cli_common
 
 BASE = "https://financialmodelingprep.com/stable"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
@@ -126,7 +127,7 @@ def fetch(ticker: str) -> dict:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tickers", help="쉼표구분. 기본=미국 보유 11")
+    ap.add_argument("--tickers", help="쉼표·공백구분. 기본=미국 보유 11")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true", help="키·연결 점검(1콜)")
     args = ap.parse_args()
@@ -145,7 +146,7 @@ def main():
         print("✅ FMP 연결·키 정상 (AAPL quote 수신).")
         return
 
-    tickers = [t.strip() for t in args.tickers.split(",")] if args.tickers else US_HOLDINGS
+    tickers = [t.strip() for t in cli_common.split_tickers(args.tickers)] if args.tickers else US_HOLDINGS
     rows = [fetch(t) for t in tickers]
 
     if args.json:

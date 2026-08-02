@@ -47,6 +47,7 @@ US = ["NVDA", "MU", "AAPL", "MSFT", "ANET", "AVGO", "GOOGL", "META", "ORCL"]
 #    (7/30 실측: 자체 UA로 9/9종목 403 → edgar_facts의 검증된 클라이언트 재사용으로 해결.)
 #    HTTP 클라이언트를 새로 만들지 말고 이미 도는 것을 쓴다.
 import edgar_facts as _E
+import cli_common
 
 _last = [0.0]
 
@@ -316,14 +317,14 @@ def render_major(res: list[dict], days: int):
 def main():
     ap = argparse.ArgumentParser(description="미국 내부자 매매 Form 4 (조회 전용·경보 전용)")
     ap.add_argument("--days", type=int, default=90)
-    ap.add_argument("--tickers", help="쉼표구분(생략 시 보유 미국주)")
+    ap.add_argument("--tickers", help="쉼표·공백구분(생략 시 보유 미국주)")
     ap.add_argument("--cap", type=int, default=40, help="종목당 최대 신고서 수(SEC 부하 보호)")
     ap.add_argument("--major", action="store_true",
                     help="5%% 대량보유 13D/13G (국내 dart_disclosure.py --major와 같은 문법)")
     ap.add_argument("--save", action="store_true")
     a = ap.parse_args()
 
-    tickers = [t.strip().upper() for t in a.tickers.split(",")] if a.tickers else US
+    tickers = [t.strip().upper() for t in cli_common.split_tickers(a.tickers)] if a.tickers else US
 
     if a.major:
         res = []

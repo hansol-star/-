@@ -146,8 +146,8 @@ def fmt(r: dict) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="장기 이력 변동성·크래시 분석 (측정 전용·stdlib)")
-    ap.add_argument("--symbol", default="^KS11", help="Yahoo 심볼(기본 코스피)")
-    ap.add_argument("--threshold", type=float, default=3.0, help="'급변' 일간 절대% 기준")
+    ap.add_argument("--symbol", "--tickers", default="^KS11", help="Yahoo 심볼(기본 코스피)")
+    ap.add_argument("--threshold", type=float, default=3.0, help="'급변' 일간 절대%% 기준")
     ap.add_argument("--top", type=int, default=10, help="크래시 카탈로그 개수")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()

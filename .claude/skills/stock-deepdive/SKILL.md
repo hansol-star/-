@@ -20,8 +20,24 @@ python3 .claude/skills/portfolio-desk/scripts/market_data.py --tickers $TICKER  
 python3 .claude/skills/portfolio-desk/scripts/consensus.py  --tickers $TICKER    # 목표주가·의견·괴리
 python3 .claude/skills/portfolio-desk/scripts/earnings.py   --tickers $TICKER    # 다음 실적일
 ```
+- **🇰🇷 국내주는 DART가 1차 출처 — 산문으로 때우지 말 것.** [8/2 확대] **보유 5종목 밖 임의 상장사도 조회된다**:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/dart_facts.py --tickers 080520.KQ   # 3표·분기 13기
+  ```
+  → 재무 3표 + 장기 분기 시계열. 수시공시·주주현황·배당은 DART `list.json`/`hyslrSttus`/`alotMatter`.
+  ⚠️ 접미사(`.KS`/`.KQ`)는 `market_data.py` 기준과 **반드시** 일치시킬 것 — 다르면 남의 회사다.
+- **📡 수급은 필수 단계다 (누락 금지).** [8/2 신설 — 오디텍 딥다이브에서 통째로 빠뜨렸던 축]
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/naver_flows.py --tickers 080520 --pages 5 --summary
+  ```
+  → 외인·기관·개인 20/60/전체 누적 + **외인보유율 변화** + **기관 참여일수**. 보유 유니버스 밖도 됨.
+  소형주에서 결정적인 건 순매수 부호가 아니라 **기관이 이 종목을 보고 있느냐**다. 참여일수가
+  낮으면 저평가를 해소할 주체가 없다는 뜻 — CANSLIM의 **I(기관 매집)·S(수급)를 이걸로 채점**한다.
+  ⚠️ 절대 수량을 발행주식수 대비 %로 환산해 크기를 밝힐 것(보유율 배증도 절대량은 미미할 수 있다).
 - **미국주면 펀더멘털 하드넘버**(스코어 채점 근거): `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py --tickers $TICKER`
-  → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE. 키 없으면 WebSearch로 대체. **국내주는 FMP 무료 미지원 → 증권사 리포트 WebSearch.**
+  → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE. 키 없으면 WebSearch로 대체.
+- **커버리지 0 종목 주의**: `consensus.py`·`earnings.py`가 빈 값을 내면 그건 "중립"이 아니라
+  **목표가 축이 통째로 없다**는 뜻이다. 그 사실을 결론에 명시하고 자산가치·수급으로 대체 채점할 것.
 - 보유 종목이면 `pnl.py` 출력에서 해당 종목의 평가손익도 인용.
 - 뉴스·촉매·리스크: **WebSearch** — "[종목] news catalyst [날짜]", "[종목] 목표주가" (한국 증권사 컨센서스 보강).
 - 경제사냥꾼이 다룬 종목이면 `hunter_latest.py` 결과나 youtube-watch로 해당 영상 교차참조.

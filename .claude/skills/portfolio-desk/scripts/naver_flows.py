@@ -8,15 +8,19 @@
 
   ① 시장 전체(코스피·코스닥) 투자자 순매수 **억원** — flows.json이 손으로 적던 그 값.
      `m.stock.naver.com/api/index/{KOSPI|KOSDAQ}/trend`  (당일 1건 → 매일 자동 갱신용)
-  ② 종목별 외인/기관/개인 순매수 **수량** + 외인보유율 — 페이징으로 깊은 이력.
-     `m.stock.naver.com/api/stock/{code}/trend?pageSize=100&page=N`  (하닉 매도중단 트리거 등)
+  ② 종목별 외인/기관/개인 순매수 **수량** + 외인보유율 — 커서 페이징으로 깊은 이력.
+     `m.stock.naver.com/api/stock/{code}/trend?pageSize=60&bizdate=YYYYMMDD`
+     **보유 유니버스 밖 임의 종목도 조회된다**(--stock/--code/--tickers).
+     ⚠️ `page=N`은 네이버가 무시한다 — 커서는 `bizdate`. 8/2 이전엔 이걸 몰라 --pages가
+     무동작이었고 60일치를 240일치로 착각했다(침묵 고장).
 
 조회 전용·stdlib. 값은 참고(네이버 표기), 확정 대사는 KRX 발표와 교차 권장.
 
 사용:
   python3 naver_flows.py                      # 코스피·코스닥 당일 + 보유 국내5 종목별 최근
   python3 naver_flows.py --market             # 코스피·코스닥 당일 순매수(억원)만
-  python3 naver_flows.py --stock 000660 --pages 4   # SK하이닉스 외인/기관 이력
+  python3 naver_flows.py --stock 000660 --pages 4   # SK하이닉스 외인/기관 이력(240일)
+  python3 naver_flows.py --stock 080520 --pages 5 --summary   # 임의 종목 구간 누적 요약
   python3 naver_flows.py --flows-line         # flows.json series 항목 형식으로 오늘 코스피 출력
   python3 naver_flows.py --json
 """
@@ -26,6 +30,7 @@ import argparse
 import csv
 import json
 import os
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -95,11 +100,25 @@ def market(index: str = "KOSPI") -> dict | None:
 
 
 def stock_flows(code: str, pages: int = 2) -> list[dict]:
-    """종목별 외인/기관/개인 순매수(수량) + 외인보유율. 페이징 이력(최신 뒤→앞)."""
-    out = []
-    for p in range(1, pages + 1):
-        arr = _get(f"{BASE}/stock/{code}/trend?pageSize=60&page={p}")  # 60=네이버 상한(100은 400)
+    """종목별 외인/기관/개인 순매수(수량) + 외인보유율. 커서 페이징(최신 뒤→앞).
+
+    ⚠️ [8/2 무동작 수정] 구버전은 `&page=N`으로 페이징한다고 믿었지만 **네이버는 그 파라미터를
+    무시한다** — page 1·2·3이 전부 같은 60건을 돌려주고, dedup이 그걸 삼켜서 `--pages 4`가
+    조용히 60일치만 내놓았다(요청 3회·대기 1.8초는 그대로 낭비). 실패가 아니라 '그럴듯한 값'을
+    반환해서 아무도 눈치채지 못한 종류의 침묵 고장이다.
+    실제 커서는 **`bizdate=YYYYMMDD`** — 그 날짜 **미만**의 60건을 준다. 직전 배치의 가장 오래된
+    날짜를 커서로 넘기면 겹침·구멍 없이 이어진다([8/2 실측] 5배치 300건 고유, 2025-05~2026-07).
+    ※ pageSize는 60이 상한(200은 빈 응답).
+    """
+    out: list[dict] = []
+    cursor: str | None = None
+    for _ in range(max(1, pages)):
+        q = "trend?pageSize=60" + (f"&bizdate={cursor}" if cursor else "")
+        arr = _get(f"{BASE}/stock/{code}/{q}")
         if not isinstance(arr, list) or not arr:
+            break
+        dates = [str(r.get("bizdate") or "") for r in arr if r.get("bizdate")]
+        if not dates:
             break
         for r in arr:
             out.append({
@@ -110,6 +129,10 @@ def stock_flows(code: str, pages: int = 2) -> list[dict]:
                 "indiv_qty": _num(r.get("individualPureBuyQuant")),
                 "foreign_hold_pct": _num(r.get("foreignerHoldRatio")),
             })
+        nxt = min(dates)
+        if cursor is not None and nxt >= cursor:
+            break            # 커서가 안 물러나면 더 캘 게 없다(무한루프 방지)
+        cursor = nxt
         time.sleep(0.6)  # 페이싱
     # 중복 제거·시간순
     seen, dedup = set(), []
@@ -194,11 +217,60 @@ def append_market() -> str:
     return f"시장누적: 코스피 {kdays}일 (총 {len(rows)}행, +{added} today)"
 
 
+def summarize(rows: list[dict]) -> dict:
+    """일별 수급 → 구간 누적 요약. 딥다이브에서 '기관이 들어와 있나'를 한눈에 보려는 용도.
+
+    소형주에서 결정적인 건 순매수 부호가 아니라 **기관 참여 자체**다. 기관 순매수가
+    대부분의 날 정확히 0이면 그건 '중립'이 아니라 **기관이 이 종목을 안 본다**는 뜻이고,
+    저평가가 해소될 경로가 없다는 신호다. 그래서 참여일수를 같이 낸다.
+    """
+    def blk(sub: list[dict]) -> dict:
+        if not sub:
+            return {}
+        f = sum(r["foreign_qty"] or 0 for r in sub)
+        i = sum(r["organ_qty"] or 0 for r in sub)
+        p = sum(r["indiv_qty"] or 0 for r in sub)
+        holds = [r["foreign_hold_pct"] for r in sub if r["foreign_hold_pct"] is not None]
+        return {
+            "days": len(sub), "from": sub[0]["date"], "to": sub[-1]["date"],
+            "foreign": int(f), "inst": int(i), "indiv": int(p),
+            "inst_active_days": sum(1 for r in sub if (r["organ_qty"] or 0) != 0),
+            "fhold_from": holds[0] if holds else None,
+            "fhold_to": holds[-1] if holds else None,
+        }
+    return {lab: blk(rows[-n:] if n else rows)
+            for lab, n in (("20d", 20), ("60d", 60), ("all", 0))}
+
+
+def render_summary(code: str, rows: list[dict]) -> None:
+    s = summarize(rows)
+    px0, px1 = rows[0]["close"], rows[-1]["close"]
+    print(f"■ {code} 수급 요약 — {rows[0]['date']} ~ {rows[-1]['date']} ({len(rows)}일)")
+    print(f"   종가 {px0:,.0f} → {px1:,.0f}  ({(px1/px0-1)*100:+.1f}%)")
+    print(f"{'구간':<6}{'일수':>5}{'외인(주)':>13}{'기관(주)':>13}{'개인(주)':>13}"
+          f"{'기관참여':>10}{'외인보유%':>14}")
+    for lab in ("20d", "60d", "all"):
+        b = s[lab]
+        if not b:
+            continue
+        fh = ("—" if b["fhold_from"] is None
+              else f"{b['fhold_from']:.2f}→{b['fhold_to']:.2f}")
+        print(f"{lab:<6}{b['days']:>5}{b['foreign']:>13,}{b['inst']:>13,}{b['indiv']:>13,}"
+              f"{b['inst_active_days']:>7}/{b['days']:<3}{fh:>14}")
+    a = s["all"]
+    if a and a["inst_active_days"] / max(1, a["days"]) < 0.25:
+        print(f"   ⚠️ 기관 참여 {a['inst_active_days']}/{a['days']}일 — 기관이 사실상 부재. "
+              f"저평가 해소 주체가 없다는 뜻(측정치일 뿐, 매매 신호 아님).")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="외인·기관·개인 수급 수집 (네이버 무키·조회전용)")
     ap.add_argument("--market", action="store_true", help="코스피·코스닥 당일 순매수(억원)만")
-    ap.add_argument("--stock", metavar="CODE", help="종목코드(6자리) 외인/기관 이력")
-    ap.add_argument("--pages", type=int, default=2, help="종목 이력 페이지수(100일/페이지)")
+    ap.add_argument("--stock", "--code", "--tickers", metavar="CODE",
+                    help="종목코드(6자리) 외인/기관 이력. 보유 유니버스 밖 임의 종목도 가능")
+    ap.add_argument("--pages", type=int, default=2, help="종목 이력 페이지수(60일/페이지·커서 페이징)")
+    ap.add_argument("--summary", action="store_true",
+                    help="--stock 일별 덤프 대신 구간 누적 요약(딥다이브용)")
     ap.add_argument("--flows-line", action="store_true", help="flows.json series 형식으로 오늘 코스피")
     ap.add_argument("--backfill", action="store_true",
                     help="종목별 롤링60일 캐시 + 시장 억원 누적(매일 실행 → 60일 너머 축적)")
@@ -224,8 +296,15 @@ def main() -> int:
 
     if args.stock:
         rows = stock_flows(args.stock, args.pages)
+        if not rows:
+            print(f"종목 {args.stock} 수급 데이터 없음 — 종목코드(6자리) 확인", file=sys.stderr)
+            return 1
         if args.json:
-            print(json.dumps(rows, ensure_ascii=False, indent=1))
+            print(json.dumps({"code": args.stock, "summary": summarize(rows), "rows": rows},
+                             ensure_ascii=False, indent=1))
+            return 0
+        if args.summary:
+            render_summary(args.stock, rows)
             return 0
         print(f"종목 {args.stock} 수급(수량·최근 {len(rows)}일) — 외인/기관/개인 순매수 + 외인보유%")
         print(f"{'날짜':<12}{'종가':>9}{'외인':>11}{'기관':>11}{'개인':>11}{'외인보유%':>9}")

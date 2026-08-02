@@ -176,6 +176,102 @@ def check_order_feasibility():
                          f"지정가 불가 — 지정가로 낼 수 있는 최소 단위는 정수 1주"
                          f"(= 보유의 {100/held[tk]:.1f}%). 비율과 주문방식 중 하나를 고쳐야 함")
 
+# ── C-2. 집행 배선 가드 [8/2 신설 — '신호는 났는데 집행이 안 따라간' 7주 진단] ──
+#  근거(실측): 보고서 산문에 현대차·두산로보 트림이 8~9회 등장했으나 tasks.json orders에는
+#  단 한 번도 등록된 적이 없다(git log -S 0건). 반대로 실제 체결된 7건(AAPL·MU·TSLA·삼성·
+#  VOO·GOOGL)은 전부 orders에 등록돼 있었다. ⇒ **오더북에 들어간 것만 집행된다.
+#  산문에 남은 판단은 증발한다.** 손실의 68.7%가 이 경로로 방치된 ⭐2 두 종목에서 나왔다.
+_NO_DECISION = {"관망", "—", "-", "", "보류", "대기", "홀딩", "홀드", "유지"}
+# 결정으로 인정하는 최소 요건: 가격·수량 / 재검토 트리거 / 기한 중 하나라도 박혀 있을 것
+_DECISION_MARK = re.compile(
+    r"\d|트리거|조건|재검토|기한|까지|이하|이상|청산|트림|실적|게이트|D\+|월|일"
+)
+
+def check_low_star_action():
+    """⭐2 이하 보유 종목은 '관망'으로 넘어갈 수 없다 — 명시적 결정을 강제.
+
+    ⭐2는 우리 채점기가 낸 경고 신호다. 그 신호에 대해 매 보고서가 내놓아야 하는 건
+    '관망' 두 글자가 아니라 ①트림 오더(가격·수량) 또는 ②홀드 + 재검토 트리거·기한이다.
+    둘 다 없으면 그 종목은 채점만 되고 관리되지 않는 상태 = 49일 방치의 재생산."""
+    st = load("data/app/stocks.json")
+    tk = load("data/app/tasks.json")
+    if not st or not tk:
+        return
+    ordered = {str(o.get("ticker") or "") for o in (tk.get("orders") or [])}
+    for t, v in (st.get("stocks") or {}).items():
+        stars = v.get("stars")
+        if not isinstance(stars, int) or stars > 2:
+            continue
+        trim = str(v.get("trim") or "").strip()
+        core = re.sub(r"[()（）\s]|모멘텀|코어", "", trim)
+        has_order = t in ordered
+        decided = bool(_DECISION_MARK.search(trim)) and core not in _NO_DECISION
+        if not has_order and not decided:
+            fail(f"{t}: ⭐{stars}인데 trim='{trim}' = 무결정 방치 — "
+                 f"트림 오더(tasks.json orders)를 걸든 '홀드 + 재검토 트리거·기한'을 명시하든 "
+                 f"결정을 내려야 한다('관망'은 결정이 아님)")
+        elif not has_order:
+            warn(f"{t}: ⭐{stars} 종목이 orders에 없음 — 산문 결정('{trim[:30]}')이 "
+                 f"오더로 배선되지 않으면 집행되지 않는다(7주 실측)")
+
+def check_prose_order_link(rel):
+    """보고서 산문이 보유 종목의 트림/매도/청산을 말하는데 orders에 없으면 경고.
+
+    산문↔오더북 단절이 집행 실패의 실제 경로였다. 말한 것과 등록한 것을 기계가 대조한다."""
+    tk = load("data/app/tasks.json")
+    if not tk or not rel:
+        return
+    p = os.path.join(ROOT, rel)
+    if not os.path.exists(p):
+        return
+    ordered = {str(o.get("ticker") or "") for o in (tk.get("orders") or [])}
+    txt = open(p, encoding="utf-8").read()
+    act = re.compile(r"(트림|매도|청산)")
+    for t, aliases in HOLDINGS.items():
+        if t in ordered:
+            continue
+        hits = 0
+        for ln in txt.splitlines():
+            if act.search(ln) and any(a in ln for a in aliases):
+                hits += 1
+        if hits >= 3:                       # 스치듯 1~2회는 서술, 3회+는 의도로 본다
+            warn(f"{t}: 보고서에서 트림/매도를 {hits}회 논하면서 orders 미등록 — "
+                 f"오더로 옮기지 않으면 다음 세션에 사라진다(현대차 8회·두산로보 9회 전례)")
+
+def check_pending_decisions(today=None):
+    """'정훈 결정 대기'가 며칠째 방치 중인지 — 결정 큐에 SLA를 건다.
+
+    d21(GOOGL 재배치 지정가 상향)이 7/7부터 26일째 미결이었다. 대기 항목은 아무도
+    재촉하지 않으면 영원히 대기한다 → 7일 초과 WARN, 14일 초과 FAIL로 끌어올린다."""
+    p = os.path.join(ROOT, "data/app/decisions.jsonl")
+    if not os.path.exists(p):
+        return
+    today = today or dt.date.today()
+    pend = re.compile(r"결정\s*대기|결정대기|택1|승인\s*대기|정훈\s*확인\s*요망")
+    for ln in open(p, encoding="utf-8"):
+        ln = ln.strip()
+        if not ln:
+            continue
+        try:
+            r = json.loads(ln)
+        except Exception:
+            continue
+        if str(r.get("status")) == "closed":
+            continue
+        blob = f"{r.get('topic','')} {r.get('decision','')} {r.get('status','')}"
+        if not pend.search(blob):
+            continue
+        try:
+            d0 = dt.date.fromisoformat(str(r.get("date"))[:10])
+        except Exception:
+            continue
+        age = (today - d0).days
+        if age > 14:
+            fail(f"결정 대기 {age}일 방치 [{r.get('id')}] {str(r.get('topic'))[:60]} — "
+                 f"정훈에게 다시 올리거나 PM 디폴트로 종결할 것")
+        elif age > 7:
+            warn(f"결정 대기 {age}일 [{r.get('id')}] {str(r.get('topic'))[:60]} — 재촉 필요")
+
 # ── D. 버전 정합: CLAUDE.md/stocks/tasks 가 최신 보고서를 가리키는가(stale 방지) ─
 def latest_version():
     rdir = os.path.join(ROOT, "docs/reports")
@@ -714,12 +810,13 @@ def main():
         sys.exit(1 if FAILS else 0)
 
     check_stocks(); check_flows(); check_tasks(); check_order_feasibility()
+    check_low_star_action(); check_pending_decisions()
     check_consistency(); check_hunter(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest)
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
-        if rel: check_report(rel)
+        if rel: check_report(rel); check_prose_order_link(rel)
 
     print("\n" + "=" * 56)
     print("  보고서 완료-검증 (validate_report.py)")

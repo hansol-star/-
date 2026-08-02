@@ -21,9 +21,34 @@ import json
 import os
 from datetime import datetime
 
-from openpyxl import Workbook
-from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
-from openpyxl.utils import get_column_letter
+# ⚠️ 이 레포에서 유일하게 stdlib이 아닌 스크립트(openpyxl). 컨테이너는 세션마다 새로 뜨므로
+#   openpyxl이 없는 게 정상 상태다 → 모듈 최상단에서 import하면 selfcheck 임포트 스모크가
+#   매 새 세션마다 GATE FAIL로 죽는다(8/2 실측). 지연 임포트로 바꿔 '스크립트 결함'과
+#   '의존성 미설치'를 분리한다 — 실제 실행 시에만 필요하고, 없으면 설치 안내를 내고 종료.
+try:
+    from openpyxl import Workbook
+    from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+    from openpyxl.utils import get_column_letter
+    _OPENPYXL_ERR = None
+except ModuleNotFoundError as _e:                     # 의존성 미설치 = 정상 상태(새 컨테이너)
+    _OPENPYXL_ERR = _e
+
+    class _Missing:                                   # import만 통과시키는 무해한 자리표시자
+        def __init__(self, *a, **k): pass
+        def __call__(self, *a, **k): return self
+
+    Workbook = Alignment = Border = Font = PatternFill = Side = _Missing
+
+    def get_column_letter(i): return ""
+
+
+def require_openpyxl():
+    """실행 시점에만 의존성을 요구 — '스크립트 결함'과 '의존성 미설치'를 분리한다."""
+    if _OPENPYXL_ERR is not None:
+        raise SystemExit(
+            "❌ openpyxl 미설치 — XLSX 산출물 전용 의존성입니다.\n"
+            "   pip install openpyxl  후 다시 실행하세요.\n"
+            "   (나머지 파이프라인은 stdlib만 쓰므로 이 스크립트만 영향받습니다.)")
 
 _HERE = os.path.dirname(os.path.abspath(__file__))          # .claude/skills/portfolio-desk/scripts
 ROOT = os.path.abspath(os.path.join(_HERE, "..", "..", "..", ".."))  # 프로젝트 루트
@@ -448,6 +473,7 @@ def write_subscore(wb: Workbook, data: dict, order: list[str]):
 
 
 def main():
+    require_openpyxl()
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(ROOT, "output", "재무제표_보유14종목.xlsx"))
     ap.add_argument("--src", default=SRC)

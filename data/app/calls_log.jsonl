@@ -73,3 +73,18 @@
 {"date": "2026-08-01", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$302.83", "buy_zone": "눌림 비중관리(최대비중 20.1%)", "source_report": "report_v66_2026-08-01.md"}
 {"date": "2026-08-01", "ticker": "ORCL", "stars": 3, "score": 55, "target": "$248.15 ⚠️stale 의심", "buy_zone": "눌림·패닉셀 금지", "source_report": "report_v66_2026-08-01.md"}
 {"date": "2026-08-01", "ticker": "VOO", "stars": 4, "score": null, "target": "ETF", "buy_zone": "적립(8월 예정)", "source_report": "report_v66_2026-08-01.md"}
+{"date": "2026-08-03", "ticker": "005380.KS", "stars": 2, "score": 50, "target": "60만(공격 80만)", "buy_zone": "—", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "005930.KS", "stars": 5, "score": 93, "target": "30~67만(하우스 스프레드 2.2배+)", "buy_zone": "사다리 D1 대상 — 1주 239,500 > 상한 121,045원, 집행 불가", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "035420.KS", "stars": 4, "score": 70, "target": "~29만(컨센최고 36만)", "buy_zone": "조건부 add 225,000~235,000원 — **소버린AI 가시화 조건 충족**(엔비디아 지분동맹). 잔여 조건 = 안전핀 해제(코스피 7,500). 국장 정수 1주 지정가", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "066570.KS", "stars": 4, "score": 74, "target": "246,400원", "buy_zone": "봉인(TF해제후)", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "454910.KS", "stars": 2, "score": 15, "target": "분산 큼", "buy_zone": "—", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "AAPL", "stars": 3, "score": 55, "target": "$321.66 (컨센 41명) ⚠️개별 하우스 $245~400 분산", "buy_zone": "신규매수 금지", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "ANET", "stars": 4, "score": 78, "target": "$192.31", "buy_zone": "—", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "AVGO", "stars": 4, "score": 78, "target": "$525.44", "buy_zone": "조정주 물타기후보(TF 동결 우선)", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "GOOGL", "stars": 5, "score": 91, "target": "$428.12", "buy_zone": "재진입 1순위 ⚠️체결 확인이 선행(룰8)", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "META", "stars": 3, "score": 68, "target": "$778.68 ⚠️하향 미반영(현실적 상단 GS $725·JPM $640)", "buy_zone": "**제외** — 7/29 실적으로 3차 트랜치 전제 붕괴(EPS 미스·capex 상향)", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "MSFT", "stars": 4, "score": 82, "target": "$556.75", "buy_zone": "눌림", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "MU", "stars": 5, "score": 86, "target": "$1,507.38 ⚠️stale(6월 실적 직후·재산정 필요)", "buy_zone": "급등 소화 대기(룰3) + 버리 숏 재료 확인", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$302.83", "buy_zone": "눌림 비중관리(최대비중 20.1%)", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "ORCL", "stars": 3, "score": 55, "target": "$248.15 ⚠️stale 의심", "buy_zone": "눌림·패닉셀 금지", "source_report": "report_v67_2026-08-03.md"}
+{"date": "2026-08-03", "ticker": "VOO", "stars": 4, "score": null, "target": "ETF", "buy_zone": "적립(8월 예정)", "source_report": "report_v67_2026-08-03.md"}

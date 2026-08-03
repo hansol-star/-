@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-04 01:19 KST",
+  "generated_at": "2026-08-04 06:40 KST",
   "as_of": "2026-08-03 (KST, 8/4 새벽 작성)",
   "source_report": "report_v67_2026-08-03.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1429.68
+    "usdkrw": 1428.78
   },
   "totals": {
-    "assets_krw": 8397688,
-    "stocks_value_krw": 7725216,
+    "assets_krw": 8384860,
+    "stocks_value_krw": 7712388,
     "cash_krw": 672472,
-    "day_change_krw": 114405,
-    "day_change_pct": 1.5,
-    "total_pnl_krw": -225991,
-    "total_pnl_pct": -2.84
+    "day_change_krw": 105191,
+    "day_change_pct": 1.38,
+    "total_pnl_krw": -238819,
+    "total_pnl_pct": -3.0
   },
   "safety": {
     "pin": 7500,
@@ -39,26 +39,26 @@ window.APP_DATA = {
     {
       "label": "S&P500",
       "ticker": "^GSPC",
-      "price": 7586.95,
-      "change_pct": 1.3
+      "price": 7600.5,
+      "change_pct": 1.48
     },
     {
       "label": "나스닥",
       "ticker": "^IXIC",
-      "price": 25888.33,
-      "change_pct": 2.03
+      "price": 25913.896,
+      "change_pct": 2.13
     },
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 52999.95,
-      "change_pct": 0.98
+      "price": 53178.41,
+      "change_pct": 1.32
     },
     {
       "label": "필라델피아반도체",
       "ticker": "^SOX",
-      "price": 11387.906,
-      "change_pct": 0.68
+      "price": 11430.352,
+      "change_pct": 1.05
     }
   ],
   "alerts": [
@@ -185,7 +185,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "[7/6 체결 확인] 1주 매도·총판매액 $313.77(＄308 지정가 상단 초과 유리 체결)·수수료 $0.31·제세금 $0.01·순수령 $313.45(입금 7/8). 원가 $257.14 대비 +21.9% 익절. 잔여 1.022472주+분수는 글라스 옵셔널리티로 유지. 대금은 GOOGL $340/$330 재배치로 이동(아래 항목).",
-      "price": 304.51,
+      "price": 303.42,
       "fired": null
     },
     {
@@ -194,7 +194,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[7/18 PM 판단] 목표 $189.13 도달 시(여력 +12%=미국코어 최저) 보유 0.283501주 일부/전량 트림 검토. 펀더 무훼손이라 급하지 않음·강세 확인 후. 대금=코어 재배치.",
-      "price": 182.08,
+      "price": 184.89,
       "fired": false
     },
     {
@@ -950,11 +950,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 5.138203,
       "cost": 199.51,
-      "price": 207.26,
-      "change_pct": 3.24,
-      "value_krw": 1522529,
-      "pnl_pct": 3.88,
-      "pnl_krw": 29438,
+      "price": 206.64,
+      "change_pct": 2.93,
+      "value_krw": 1517019,
+      "pnl_pct": 3.57,
+      "pnl_krw": 23928,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1051,7 +1051,7 @@ window.APP_DATA = {
         190.01,
         195.04,
         200.75,
-        207.26
+        206.64
       ],
       "sector": "반도체·AI"
     },
@@ -1062,11 +1062,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.129111,
       "cost": 633.98,
-      "price": 594.04,
-      "change_pct": 6.71,
-      "value_krw": 958939,
-      "pnl_pct": -6.3,
-      "pnl_krw": -83673,
+      "price": 590.24,
+      "change_pct": 6.02,
+      "value_krw": 952205,
+      "pnl_pct": -6.9,
+      "pnl_krw": -90407,
       "outlook": "core",
       "stars": 3,
       "score": 68,
@@ -1192,7 +1192,7 @@ window.APP_DATA = {
         585.61,
         539.03,
         556.71,
-        594.04
+        590.24
       ],
       "sector": "빅테크"
     },
@@ -1203,11 +1203,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.06863,
       "cost": 648.75,
-      "price": 695.12,
-      "change_pct": 1.23,
-      "value_krw": 1062004,
-      "pnl_pct": 7.15,
-      "pnl_krw": 52250,
+      "price": 696.4,
+      "change_pct": 1.42,
+      "value_krw": 1063289,
+      "pnl_pct": 7.34,
+      "pnl_krw": 53536,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1307,7 +1307,7 @@ window.APP_DATA = {
         670.63,
         681.79,
         686.65,
-        695.12
+        696.4
       ],
       "sector": "지수ETF"
     },
@@ -1318,11 +1318,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.443,
       "cost": 410.2,
-      "price": 486.51,
-      "change_pct": 4.69,
-      "value_krw": 1003684,
-      "pnl_pct": 18.6,
-      "pnl_krw": 141554,
+      "price": 487.65,
+      "change_pct": 4.93,
+      "value_krw": 1005402,
+      "pnl_pct": 18.88,
+      "pnl_krw": 143273,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1438,7 +1438,7 @@ window.APP_DATA = {
         390.54,
         451.1,
         464.72,
-        486.42
+        487.65
       ],
       "sector": "빅테크"
     },
@@ -1449,11 +1449,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.022472,
       "cost": 257.14,
-      "price": 304.51,
-      "change_pct": -1.42,
-      "value_krw": 445135,
-      "pnl_pct": 18.42,
-      "pnl_krw": 62194,
+      "price": 303.42,
+      "change_pct": -1.78,
+      "value_krw": 443262,
+      "pnl_pct": 18.0,
+      "pnl_krw": 60322,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1571,7 +1571,7 @@ window.APP_DATA = {
         338.19,
         333.43,
         308.91,
-        304.51
+        303.42
       ],
       "sector": "빅테크"
     },
@@ -1582,11 +1582,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.438006,
       "cost": 358.01,
-      "price": 375.205,
-      "change_pct": 5.36,
-      "value_krw": 771380,
-      "pnl_pct": 4.8,
-      "pnl_krw": 21544,
+      "price": 373.51,
+      "change_pct": 4.88,
+      "value_krw": 767411,
+      "pnl_pct": 4.33,
+      "pnl_krw": 17575,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1681,7 +1681,7 @@ window.APP_DATA = {
         336.71,
         333.66,
         356.13,
-        375.2
+        373.51
       ],
       "sector": "빅테크"
     },
@@ -1692,11 +1692,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.21519,
       "cost": 232.12,
-      "price": 139.35,
-      "change_pct": 7.3,
-      "value_krw": 42871,
-      "pnl_pct": -39.97,
-      "pnl_krw": -29881,
+      "price": 141.85,
+      "change_pct": 9.22,
+      "value_krw": 43613,
+      "pnl_pct": -38.89,
+      "pnl_krw": -29139,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1783,7 +1783,7 @@ window.APP_DATA = {
         117.74,
         127.56,
         129.87,
-        139.33
+        141.85
       ],
       "sector": "빅테크"
     },
@@ -1794,11 +1794,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.283501,
       "cost": 162.07,
-      "price": 182.08,
-      "change_pct": 0.96,
-      "value_krw": 73800,
-      "pnl_pct": 12.35,
-      "pnl_krw": 6878,
+      "price": 184.89,
+      "change_pct": 2.52,
+      "value_krw": 74892,
+      "pnl_pct": 14.08,
+      "pnl_krw": 7970,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1913,7 +1913,7 @@ window.APP_DATA = {
         157.97,
         171.02,
         180.35,
-        182.03
+        184.89
       ],
       "sector": "반도체·AI"
     },
@@ -1924,11 +1924,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.020001,
       "cost": 749.0,
-      "price": 824.015,
-      "change_pct": 0.12,
-      "value_krw": 23563,
-      "pnl_pct": 10.02,
-      "pnl_krw": 1743,
+      "price": 829.5,
+      "change_pct": 0.79,
+      "value_krw": 23705,
+      "pnl_pct": 10.75,
+      "pnl_krw": 1885,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -2032,7 +2032,7 @@ window.APP_DATA = {
         739.0,
         874.66,
         823.03,
-        823.65
+        829.5
       ],
       "sector": "반도체·AI"
     },
@@ -2043,11 +2043,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.071177,
       "cost": 421.06,
-      "price": 389.26,
-      "change_pct": -0.01,
-      "value_krw": 39611,
-      "pnl_pct": -7.55,
-      "pnl_krw": -4040,
+      "price": 392.23,
+      "change_pct": 0.76,
+      "value_krw": 39888,
+      "pnl_pct": -6.85,
+      "pnl_krw": -3763,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -2163,7 +2163,7 @@ window.APP_DATA = {
         370.32,
         387.84,
         389.28,
-        389.33
+        392.23
       ],
       "sector": "반도체·AI"
     }
@@ -2383,8 +2383,8 @@ window.APP_DATA = {
       "label": "GE Vernova",
       "ticker": "GEV",
       "currency": "USD",
-      "price": 1002.175,
-      "change_pct": 1.2,
+      "price": 1006.76,
+      "change_pct": 1.66,
       "stars": 4,
       "score": 78,
       "target": "$1,211.72 (Bernstein $1,206)",
@@ -2639,8 +2639,8 @@ window.APP_DATA = {
       "label": "SpaceX",
       "ticker": "SPCX",
       "currency": "USD",
-      "price": 111.065,
-      "change_pct": 2.49,
+      "price": 114.53,
+      "change_pct": 5.68,
       "stars": 2,
       "score": 32,
       "target": "$63~$190 (분산)",
@@ -2993,8 +2993,8 @@ window.APP_DATA = {
       "label": "T-Mobile",
       "ticker": "TMUS",
       "currency": "USD",
-      "price": 176.69,
-      "change_pct": 2.3,
+      "price": 177.09,
+      "change_pct": 2.54,
       "stars": 3,
       "score": 62,
       "target": "—",
@@ -3047,8 +3047,8 @@ window.APP_DATA = {
       "label": "팔란티어",
       "ticker": "PLTR",
       "currency": "USD",
-      "price": 125.325,
-      "change_pct": 1.84,
+      "price": 125.65,
+      "change_pct": 2.1,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -3096,8 +3096,8 @@ window.APP_DATA = {
       "label": "IONQ",
       "ticker": "IONQ",
       "currency": "USD",
-      "price": 39.84,
-      "change_pct": 9.33,
+      "price": 38.85,
+      "change_pct": 6.61,
       "stars": 2,
       "score": 42,
       "target": "컨센 $68.79 (고$100/저$44.78)",
@@ -3145,8 +3145,8 @@ window.APP_DATA = {
       "label": "TSLA",
       "ticker": "TSLA",
       "currency": "USD",
-      "price": 323.42,
-      "change_pct": 3.92,
+      "price": 322.08,
+      "change_pct": 3.49,
       "stars": 2,
       "score": 18,
       "target": "$420.55 (ARK 2029 $2,600)",
@@ -3243,8 +3243,8 @@ window.APP_DATA = {
       "label": "AMD",
       "ticker": "AMD",
       "currency": "USD",
-      "price": 482.415,
-      "change_pct": 1.32,
+      "price": 484.64,
+      "change_pct": 1.78,
       "stars": 4,
       "score": 77,
       "target": "$541.66 컨센 (고$725/저$320, Strong Buy 47명) — 현재가 상회(괴리-1.5%)",
@@ -3361,6 +3361,7 @@ window.APP_DATA = {
       "2026-07-28",
       "2026-07-29",
       "2026-07-30",
+      "2026-08-02",
       "2026-08-03"
     ],
     "closes": [
@@ -3385,7 +3386,8 @@ window.APP_DATA = {
       1453.16,
       1442.28,
       1420.6,
-      1430.36
+      1435.7,
+      1428.78
     ]
   },
   "kospi_history": {

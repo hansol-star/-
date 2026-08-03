@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-01",
+ "updated": "2026-08-03",
  "days": 7,
  "universe": [
   "005930",
@@ -10,8 +10,8 @@
  ],
  "counts": {
   "critical": 1,
-  "notable": 9,
-  "routine": 22
+  "notable": 10,
+  "routine": 27
  },
  "items": [
   {
@@ -25,6 +25,18 @@
    "rcept_no": "20260727000001",
    "filer": "NAVER",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727000001"
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "date": "20260803",
+   "title": "영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "하드넘버 갱신",
+   "rcept_no": "20260803800709",
+   "filer": "현대자동차",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260803800709"
   },
   {
    "code": "005930",
@@ -139,10 +151,10 @@
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 8,
-   "net": 859,
+   "n": 12,
+   "net": -676,
    "n_buy": 3,
-   "n_sell": 5,
+   "n_sell": 9,
    "top": [
     {
      "who": "노태문",
@@ -161,20 +173,20 @@
      "date": "2026-07-29"
     },
     {
+     "who": "조익현",
+     "ofcps": "상무",
+     "regist": "비등기임원",
+     "delta": -950,
+     "held": 2266,
+     "date": "2026-08-03"
+    },
+    {
      "who": "김지훈",
      "ofcps": "상무",
      "regist": "비등기임원",
      "delta": 562,
      "held": 1852,
      "date": "2026-07-28"
-    },
-    {
-     "who": "여명구",
-     "ofcps": "부사장",
-     "regist": "등기임원",
-     "delta": -500,
-     "held": 9805,
-     "date": "2026-07-29"
     }
    ]
   },

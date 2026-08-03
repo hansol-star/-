@@ -1,5 +1,5 @@
 {
- "updated": "2026-07-30",
+ "updated": "2026-08-03",
  "days": 90,
  "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
  "failed": [],
@@ -262,21 +262,21 @@
   },
   {
    "ticker": "ANET",
-   "filings": 25,
+   "filings": 32,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 155,
-    "shares": 2542316.0,
-    "value": 428267394.3852002,
-    "n_10b5_1": 155
+    "n": 175,
+    "shares": 2608316.0,
+    "value": 437795509.8842003,
+    "n_10b5_1": 175
    },
    "other_grants_exercises": {
-    "n": 24,
-    "shares": 881650.0
+    "n": 30,
+    "shares": 918341.0
    },
    "top_buys": [],
    "top_sells": [
@@ -405,21 +405,21 @@
   },
   {
    "ticker": "GOOGL",
-   "filings": 25,
+   "filings": 40,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 23,
-    "shares": 617280.0,
-    "value": 15151179.119099999,
-    "n_10b5_1": 23
+    "n": 36,
+    "shares": 618412.0,
+    "value": 15565580.449099999,
+    "n_10b5_1": 36
    },
    "other_grants_exercises": {
-    "n": 89,
-    "shares": 767246.087
+    "n": 142,
+    "shares": 819270.0870000002
    },
    "top_buys": [],
    "top_sells": [
@@ -469,21 +469,21 @@
   },
   {
    "ticker": "META",
-   "filings": 25,
+   "filings": 33,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 64,
-    "shares": 38378.0,
-    "value": 23523780.40409999,
-    "n_10b5_1": 64
+    "n": 75,
+    "shares": 41897.0,
+    "value": 25660265.224099983,
+    "n_10b5_1": 75
    },
    "other_grants_exercises": {
-    "n": 46,
-    "shares": 130860.0
+    "n": 53,
+    "shares": 134130.0
    },
    "top_buys": [],
    "top_sells": [

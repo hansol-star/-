@@ -150,7 +150,7 @@ def recommend_tranche(cfg, kospi):
         return {"amount": None,
                 "reason": "tranche_rules.py 로드 실패 — 사다리 판정 불가(수동 판단)"}
 
-    cash, dd, storm, fear, capit = TR._load_inputs(None)
+    cash, dd, storm, fear, capit, _stale = TR._load_inputs(None)
     if cfg.get("cash_krw"):
         cash = float(cfg["cash_krw"])
     if dd is None:

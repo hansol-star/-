@@ -59,7 +59,7 @@ def snapshot(save=True) -> dict:
     """오늘의 룰 상태를 기록. 매 보고서·R3에서 호출."""
     import tranche_rules as TR
 
-    cash, dd, storm, fear, capit = TR._load_inputs(None)
+    cash, dd, storm, fear, capit, _stale = TR._load_inputs(None)
     if dd is None:
         return {"error": "코스피 낙폭 산출 실패 — history_backfill.py 필요"}
 

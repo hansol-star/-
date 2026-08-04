@@ -308,6 +308,25 @@ def pct(a, b):
     return round((a - b) / b * 100, 2)
 
 
+_OUTLOOK_LABELS = [("today", "오늘"), ("tomorrow", "내일"), ("week", "이번주"), ("month", "이번달")]
+
+
+def normalize_outlook(raw):
+    """app.js는 outlook을 {tag,horizon,dir,text} 카드 배열로 기대하지만
+    tasks.json 정본은 {today,tomorrow,week,month: "..."} 객체다(SKILL §3b 산문 스펙).
+    배열이면 그대로 통과, 객체면 카드 배열로 변환 — 프론트가 .find/.forEach를 써도 깨지지 않게."""
+    if isinstance(raw, list):
+        return raw
+    if isinstance(raw, dict):
+        out = []
+        for key, tag in _OUTLOOK_LABELS:
+            text = raw.get(key)
+            if text:
+                out.append({"tag": tag, "horizon": tag, "dir": "→", "text": text})
+        return out
+    return []
+
+
 def resolve_change_pct(meta: dict, q: dict):
     """라이브 시세 change_pct을 그대로 쓰되, stocks.json meta에 수동 대조치
     (change_pct_override)가 걸려 있고 가격이 그 시점과 같으면 대조치를 우선한다.
@@ -558,7 +577,7 @@ def build(offline: bool) -> dict:
         "pm_view": pm_view,
         "decisions": decisions,
         "reports": reports,
-        "outlook": tj.get("outlook", []),
+        "outlook": normalize_outlook(tj.get("outlook", [])),
         "index_forecast": tj.get("index_forecast", []),
         "tasks": tasks,
         "task_counts": task_counts,

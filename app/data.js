@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-05 19:55 KST",
+  "generated_at": "2026-08-06 06:46 KST",
   "as_of": "2026-08-05 (수) 16:41 KST",
   "source_report": "report_v69_2026-08-05.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1425.82
+    "usdkrw": 1421.86
   },
   "totals": {
-    "assets_krw": 8239374,
-    "stocks_value_krw": 8055346,
+    "assets_krw": 8230119,
+    "stocks_value_krw": 8046091,
     "cash_krw": 184028,
-    "day_change_krw": 148925,
-    "day_change_pct": 1.88,
-    "total_pnl_krw": -55931,
-    "total_pnl_pct": -0.69
+    "day_change_krw": 64924,
+    "day_change_pct": 0.81,
+    "total_pnl_krw": -65186,
+    "total_pnl_pct": -0.8
   },
   "safety": {
     "pin": 7500,
@@ -39,26 +39,26 @@ window.APP_DATA = {
     {
       "label": "S&P500",
       "ticker": "^GSPC",
-      "price": 7736.52,
-      "change_pct": 1.79
+      "price": 7723.55,
+      "change_pct": -0.17
     },
     {
       "label": "나스닥",
       "ticker": "^IXIC",
-      "price": 26584.992,
-      "change_pct": 2.59
+      "price": 26363.44,
+      "change_pct": -0.83
     },
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 54085.88,
-      "change_pct": 1.71
+      "price": 54349.12,
+      "change_pct": 0.49
     },
     {
       "label": "필라델피아반도체",
       "ticker": "^SOX",
-      "price": 12179.263,
-      "change_pct": 6.55
+      "price": 12008.883,
+      "change_pct": -1.4
     }
   ],
   "alerts": [
@@ -185,7 +185,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "[7/6 체결 확인] 1주 매도·총판매액 $313.77(＄308 지정가 상단 초과 유리 체결)·수수료 $0.31·제세금 $0.01·순수령 $313.45(입금 7/8). 원가 $257.14 대비 +21.9% 익절. 잔여 1.022472주+분수는 글라스 옵셔널리티로 유지. 대금은 GOOGL $340/$330 재배치로 이동(아래 항목).",
-      "price": 309.38,
+      "price": 311.0,
       "fired": null
     },
     {
@@ -194,7 +194,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[7/18 PM 판단] 목표 $189.13 도달 시(여력 +12%=미국코어 최저) 보유 0.283501주 일부/전량 트림 검토. 펀더 무훼손이라 급하지 않음·강세 확인 후. 대금=코어 재배치.",
-      "price": 190.51,
+      "price": 197.31,
       "fired": true
     },
     {
@@ -985,11 +985,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 5.138203,
       "cost": 199.51,
-      "price": 211.94,
-      "change_pct": 2.56,
-      "value_krw": 1552705,
-      "pnl_pct": 6.23,
-      "pnl_krw": 59613,
+      "price": 219.22,
+      "change_pct": 3.43,
+      "value_krw": 1601579,
+      "pnl_pct": 9.88,
+      "pnl_krw": 108487,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1092,7 +1092,8 @@ window.APP_DATA = {
         195.04,
         200.75,
         206.64,
-        211.94
+        211.94,
+        219.22
       ],
       "sector": "반도체·AI"
     },
@@ -1103,11 +1104,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.129111,
       "cost": 633.98,
-      "price": 587.94,
-      "change_pct": -0.39,
-      "value_krw": 946530,
-      "pnl_pct": -7.26,
-      "pnl_krw": -96082,
+      "price": 588.77,
+      "change_pct": 0.14,
+      "value_krw": 945234,
+      "pnl_pct": -7.13,
+      "pnl_krw": -97378,
       "outlook": "core",
       "stars": 3,
       "score": 68,
@@ -1239,7 +1240,8 @@ window.APP_DATA = {
         539.03,
         556.71,
         590.24,
-        587.94
+        587.94,
+        588.77
       ],
       "sector": "빅테크"
     },
@@ -1250,11 +1252,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.06863,
       "cost": 648.75,
-      "price": 708.98,
-      "change_pct": 1.81,
-      "value_krw": 1080254,
-      "pnl_pct": 9.28,
-      "pnl_krw": 70501,
+      "price": 707.6,
+      "change_pct": -0.19,
+      "value_krw": 1075157,
+      "pnl_pct": 9.07,
+      "pnl_krw": 65404,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1360,7 +1362,8 @@ window.APP_DATA = {
         681.79,
         686.65,
         696.4,
-        708.98
+        708.98,
+        707.6
       ],
       "sector": "지수ETF"
     },
@@ -1371,11 +1374,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.443,
       "cost": 410.2,
-      "price": 492.81,
-      "change_pct": 1.06,
-      "value_krw": 1013936,
-      "pnl_pct": 20.14,
-      "pnl_krw": 151807,
+      "price": 487.46,
+      "change_pct": -1.09,
+      "value_krw": 1000143,
+      "pnl_pct": 18.83,
+      "pnl_krw": 138014,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1497,7 +1500,8 @@ window.APP_DATA = {
         451.1,
         464.72,
         487.65,
-        492.81
+        492.81,
+        487.46
       ],
       "sector": "빅테크"
     },
@@ -1508,11 +1512,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.022472,
       "cost": 257.14,
-      "price": 309.38,
-      "change_pct": 1.96,
-      "value_krw": 451033,
-      "pnl_pct": 20.32,
-      "pnl_krw": 68092,
+      "price": 311.0,
+      "change_pct": 0.52,
+      "value_krw": 452136,
+      "pnl_pct": 20.95,
+      "pnl_krw": 69195,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1636,7 +1640,8 @@ window.APP_DATA = {
         333.43,
         308.91,
         303.42,
-        309.38
+        309.38,
+        311.0
       ],
       "sector": "빅테크"
     },
@@ -1647,11 +1652,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.766644,
       "cost": 353.62,
-      "price": 377.65,
-      "change_pct": 1.11,
-      "value_krw": 951269,
-      "pnl_pct": 6.8,
-      "pnl_krw": 41363,
+      "price": 362.43,
+      "change_pct": -4.03,
+      "value_krw": 910395,
+      "pnl_pct": 2.49,
+      "pnl_krw": 490,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1752,7 +1757,8 @@ window.APP_DATA = {
         333.66,
         356.13,
         373.51,
-        377.65
+        377.65,
+        362.43
       ],
       "sector": "빅테크"
     },
@@ -1763,11 +1769,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.21519,
       "cost": 232.12,
-      "price": 145.74,
-      "change_pct": 2.74,
-      "value_krw": 44716,
-      "pnl_pct": -37.21,
-      "pnl_krw": -28036,
+      "price": 144.39,
+      "change_pct": -0.93,
+      "value_krw": 44179,
+      "pnl_pct": -37.8,
+      "pnl_krw": -28573,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1862,7 +1868,8 @@ window.APP_DATA = {
         127.56,
         129.87,
         141.85,
-        145.74
+        145.74,
+        144.39
       ],
       "sector": "빅테크"
     },
@@ -1873,11 +1880,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.283501,
       "cost": 162.07,
-      "price": 190.51,
-      "change_pct": 3.04,
-      "value_krw": 77008,
-      "pnl_pct": 17.55,
-      "pnl_krw": 10086,
+      "price": 197.31,
+      "change_pct": 3.57,
+      "value_krw": 79535,
+      "pnl_pct": 21.74,
+      "pnl_krw": 12614,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1998,7 +2005,8 @@ window.APP_DATA = {
         171.02,
         180.35,
         184.89,
-        190.51
+        190.51,
+        197.31
       ],
       "sector": "반도체·AI"
     },
@@ -2009,11 +2017,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.020001,
       "cost": 749.0,
-      "price": 892.67,
-      "change_pct": 7.62,
-      "value_krw": 25457,
-      "pnl_pct": 19.18,
-      "pnl_krw": 3638,
+      "price": 893.19,
+      "change_pct": 0.06,
+      "value_krw": 25401,
+      "pnl_pct": 19.25,
+      "pnl_krw": 3582,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -2123,7 +2131,8 @@ window.APP_DATA = {
         874.66,
         823.03,
         829.5,
-        892.67
+        892.67,
+        893.19
       ],
       "sector": "반도체·AI"
     },
@@ -2134,11 +2143,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.071177,
       "cost": 421.06,
-      "price": 418.16,
-      "change_pct": 6.61,
-      "value_krw": 42437,
-      "pnl_pct": -0.69,
-      "pnl_krw": -1214,
+      "price": 418.28,
+      "change_pct": 0.03,
+      "value_krw": 42331,
+      "pnl_pct": -0.66,
+      "pnl_krw": -1319,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -2260,7 +2269,8 @@ window.APP_DATA = {
         387.84,
         389.28,
         392.23,
-        418.16
+        418.16,
+        418.28
       ],
       "sector": "반도체·AI"
     }
@@ -2480,8 +2490,8 @@ window.APP_DATA = {
       "label": "GE Vernova",
       "ticker": "GEV",
       "currency": "USD",
-      "price": 1018.53,
-      "change_pct": 1.17,
+      "price": 1017.96,
+      "change_pct": -0.06,
       "stars": 4,
       "score": 78,
       "target": "$1,211.72 (Bernstein $1,206)",
@@ -2736,8 +2746,8 @@ window.APP_DATA = {
       "label": "SpaceX",
       "ticker": "SPCX",
       "currency": "USD",
-      "price": 125.33,
-      "change_pct": 9.43,
+      "price": 108.27,
+      "change_pct": -13.61,
       "stars": 2,
       "score": 32,
       "target": "$63~$190 (분산)",
@@ -3090,8 +3100,8 @@ window.APP_DATA = {
       "label": "T-Mobile",
       "ticker": "TMUS",
       "currency": "USD",
-      "price": 177.21,
-      "change_pct": 0.07,
+      "price": 173.46,
+      "change_pct": -2.12,
       "stars": 3,
       "score": 62,
       "target": "—",
@@ -3144,8 +3154,8 @@ window.APP_DATA = {
       "label": "팔란티어",
       "ticker": "PLTR",
       "currency": "USD",
-      "price": 162.66,
-      "change_pct": 29.45,
+      "price": 158.43,
+      "change_pct": -2.6,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -3193,8 +3203,8 @@ window.APP_DATA = {
       "label": "IONQ",
       "ticker": "IONQ",
       "currency": "USD",
-      "price": 41.72,
-      "change_pct": 7.39,
+      "price": 39.93,
+      "change_pct": -4.29,
       "stars": 2,
       "score": 42,
       "target": "컨센 $68.79 (고$100/저$44.78)",
@@ -3242,8 +3252,8 @@ window.APP_DATA = {
       "label": "TSLA",
       "ticker": "TSLA",
       "currency": "USD",
-      "price": 327.35,
-      "change_pct": 1.64,
+      "price": 321.55,
+      "change_pct": -1.77,
       "stars": 2,
       "score": 18,
       "target": "$420.55 (ARK 2029 $2,600)",
@@ -3340,8 +3350,8 @@ window.APP_DATA = {
       "label": "AMD",
       "ticker": "AMD",
       "currency": "USD",
-      "price": 518.58,
-      "change_pct": 7.0,
+      "price": 482.05,
+      "change_pct": -7.04,
       "stars": 4,
       "score": 77,
       "target": "$541.66 컨센 (고$725/저$320, Strong Buy 47명) — 현재가 상회(괴리-1.5%)",
@@ -3459,6 +3469,7 @@ window.APP_DATA = {
       "2026-07-30",
       "2026-08-02",
       "2026-08-03",
+      "2026-08-04",
       "2026-08-05"
     ],
     "closes": [
@@ -3484,7 +3495,8 @@ window.APP_DATA = {
       1420.6,
       1435.7,
       1428.5,
-      1425.82
+      1428.43,
+      1421.86
     ]
   },
   "kospi_history": {
@@ -3509,8 +3521,7 @@ window.APP_DATA = {
       "2026-07-30",
       "2026-07-31",
       "2026-08-03",
-      "2026-08-04",
-      "2026-08-05"
+      "2026-08-04"
     ],
     "closes": [
       8051.33,
@@ -3533,8 +3544,7 @@ window.APP_DATA = {
       5593.56,
       6595.45,
       6257.45,
-      6358.95,
-      6598.26
+      6358.95
     ]
   },
   "hunter": {
@@ -16887,6 +16897,24 @@ window.APP_DATA = {
     ],
     "closed": [
       {
+        "id": "d78",
+        "date": "2026-08-05",
+        "topic": "하드플로어가 코스피 붕괴 국면에서 역작동 (정훈 결정 대기)",
+        "decision": "[열림] 실증 근거만 제출. 룰은 현행 유지(≥70%ile 사다리 전면 정지) — PM은 변경을 제안하지 않는다.",
+        "rationale": "정본 판정 중 발견. S&P 폭풍 ON일의 forward를 S&P로 채점하면 붕괴국면 3M -12.5%p(작동)인데, 실제로 막는 대상인 코스피로 채점하면 +9.5%p(역작동 — ON일 3M 중앙 +8.9% vs OFF -0.6%). 코스피가 이미 -30% 빠진 상태의 글로벌 변동성 극단은 확산 시작이 아니라 항복 끝물에 가깝다. 7/30에 폭풍 금액감산을 폐지시킨 것과 같은 실패 모드인데 같은 논리로 만든 하드플로어는 남아 있다. 플로어가 유일하게 작동한 구간은 약세(-15~-30%) 3M -4.1%p → '끄냐 켜냐'가 아니라 '낙폭 구간별로 다르게'의 문제일 수 있다(룰1은 이미 낙폭 사다리인데 플로어만 낙폭 무관).",
+        "rejected": "①플로어 폐지·완화 제안 — 기각(PM 자체 판단): 매수를 늘리는 방향이고 7/30에 하루 두 번 완화한 전례에서 '곧 바닥'을 6번 틀렸다. 자기경계 원칙상 완화 제안은 기본값 기각. ②붕괴구간 면제 조항 신설 — 보류: 실질 표본이 에피소드 7개(1997·2000·2002·2008·2020·2022·2026)뿐이고 그중 셋은 3~63일로 짧아 4개가 결과를 지배. n=331일은 중복·자기상관 표본이라 통계가 아니다. ③덮어두기 — 기각: 측정해놓고 안 적는 건 규율 위반.",
+        "status": "closed",
+        "tags": [
+          "하드플로어",
+          "룰1",
+          "폭풍",
+          "코스피",
+          "미해결",
+          "결정대기"
+        ],
+        "refs": "docs/research/storm_pct_canon_2026-08-05.md"
+      },
+      {
         "id": "d73",
         "date": "2026-08-05",
         "topic": "8/5 ANET sell-into-strength 재개",
@@ -16954,6 +16982,61 @@ window.APP_DATA = {
           "tasks.json",
           "portfolio.json"
         ]
+      },
+      {
+        "id": "d77",
+        "date": "2026-08-05",
+        "topic": "폭풍 %ile 정본 = vol_gauge (하드플로어 판정)",
+        "decision": "[확정] 룰 판정(하드플로어·항복 가산)의 S&P/코스피 폭풍 %ile 정본 = vol_gauge.py(RV20 후행). garch.py는 선행 대조·발산 경보(|차이|≥20p = 변동성 국면 전환) 전용이며 룰 판정에 쓰지 않는다.",
+        "rationale": "56년 S&P(14,269일)·30년 코스피(7,299일) 실증: 두 지표 r=0.921·ON/OFF 판정 일치 91.4%로 사실상 같은 도구. 온셋 반응속도(9개 글로벌 사건) garch 4승3패2무 = 무승부, forward 분리력도 전 국면·전 임계값에서 차이 ±0.5%p 노이즈. 실증이 못 가르므로 공학적 근거로 결정 — ①vol_gauge는 닫힌 계산이라 재현 가능(garch는 Nelder-Mead 적합이라 값이 흔들림, 돈을 막는 룰엔 부적합) ②집행 코드 tranche_rules.py:202가 처음부터 vol_gauge 호출 = 8/1 혼선은 코드가 아니라 데스크가 garch 값을 산문에 인용한 보고 층위 문제 ③crash_tf §1·항복 판정이 이미 vol_gauge 기준이라 포크가 사라짐. GARCH는 파라미터 전구간 적합으로 look-ahead 이점을 받고도 못 이겼다.",
+        "rejected": "①GARCH 정본(crash_tf §1·v68 데스크 권고안) — 기각: 선행성이 이론상 장점이나 실측 온셋 무승부, 재현성 열위, 정본 교체 시 바꿀 곳만 늘어남. ②둘 다 병기·갈리면 결정요청(8/1 임시안) — 기각: 판정 미루기일 뿐 사고 싶은 날엔 답이 필요하다. ③둘의 평균/OR 조건 — 기각: 근거 없는 3번째 지표 신설.",
+        "status": "closed",
+        "tags": [
+          "폭풍",
+          "하드플로어",
+          "정본",
+          "vol_gauge",
+          "garch",
+          "룰1"
+        ],
+        "refs": "docs/research/storm_pct_canon_2026-08-05.md"
+      },
+      {
+        "id": "d79",
+        "date": "2026-08-05",
+        "topic": "붕괴구간 하드플로어 면제 조항 — 기각 (d78 종결)",
+        "decision": "[확정] 면제 조항 기각. 하드플로어 현행 유지(S&P500 폭풍 ≥70%ile = 사다리 전면 정지). 룰 변경 없음.",
+        "rationale": "정훈 지시로 검토. 세 검정 전부 면제를 지지하지 않았다. ①에피소드별 분해: 집계 +9.5%p는 사실상 1997 IMF 하나(+45.4%p)가 만든 것 — 1997 제외 시 +6.0/-4.9/-4.9/+0.1 = 0 주변 노이즈, 판정가능 5개 중 역작동 3개로 동전던지기와 구별 안 됨. ②시장 간 재현: 10개 지수 중 역작동 5개 = 재현 실패(에피소드 부족의 대체근거가 성립 안 함). ③왼쪽 꼬리는 ON이 좋았으나(10%ile -8.5 vs -29.4) 이것도 1997 쏠림. ④진짜 정체 = 구성 혼입 — 붕괴구간 ON/OFF는 플로어 성능이 아니라 '세계가 같이 패닉(→정책공조·V반등)' vs '한국만 무너짐(→계속 갈림)'이라는 두 종류의 위기를 갈랐을 뿐.",
+        "rejected": "①붕괴(-30%↓)에서 플로어 면제 — 기각(위 3중 검정). ②임계값 상향(70→90) — 미검토 보류: 이번 검토 범위 밖이고 역시 완화 방향. ③국내 전용 플로어 신설 — 보류: 반대 방향 관찰(한국만 무너지고 S&P 잠잠한 상태가 더 위험했다 — 1997 OFF -9.2%·2000~01 OFF -5.4%, 그리고 지금이 그 상태)은 유효하나 에피소드 2개뿐이라 같은 실수(소표본 룰 신설)를 방향만 바꿔 반복하는 것. 관찰로만 등록.",
+        "status": "closed",
+        "tags": [
+          "하드플로어",
+          "룰1",
+          "붕괴",
+          "면제기각",
+          "폭풍",
+          "소표본"
+        ],
+        "refs": "docs/research/storm_pct_canon_2026-08-05.md §4b"
+      },
+      {
+        "id": "d80",
+        "date": "2026-08-05",
+        "topic": "국내 전용 하드플로어 — 기각 (에피소드 188개 확대 검정)",
+        "decision": "[확정] 국내 전용 플로어 신설 기각. 하드플로어 현행 유지(S&P500 폭풍 ≥70%ile, 정본 vol_gauge). 룰 변경 없음. 부수 산출로 history_backfill.py에 VERIFY_MARKETS(비미국 13개 시장·111,460 일봉) 등록 — 앞으로 룰 가설은 이 표본으로 먼저 검정한다.",
+        "rationale": "정훈 지시로 8/5 관찰(한국이 무너지는데 S&P 잠잠한 상태가 더 위험)을 확대 검정. 가설이 한국 특수가 아니라 '고유위기 vs 동조위기'라는 일반 명제이므로 비미국 18개 시장으로 확장(신흥국 13개 신규 수집) → 고유위기 에피소드 2개에서 188개로. 결과: ①시장 간 재현 판정가능 17개 중 지지 7개=41%로 동전던지기 미만 ②풀링 3M은 오히려 반대(+1.6) 6M -1.8·12M -1.2로 노이즈 ③3M 꼬리 10%ile 고유 -17.7 vs 동조 -18.0 사실상 동일 ④결정타 = 한국 안에서도 코스피(지지)와 코스닥(정반대·12M +34.3)이 갈린다 — 한국 구조 특성이면 같은 방향이어야 한다 ⑤코스피 지지분도 에피소드 분해하니 6개 중 마이너스 3개 동전던지기이고 최대 에피소드(1997-99)는 오히려 +51.1. 표본을 늘려서 사라지는 효과는 처음부터 없었던 효과다.",
+        "rejected": "①국내 전용 플로어(코스피 낙폭·변동성 기반) 신설 — 기각(위 5가지). ②코스피만 근거로 신설 — 기각: 코스닥이 정반대라 한국 특수 주장이 성립 안 함. ③188 표본에서 6M/12M이 약한 음수이니 채택 — 기각: 3M은 반대이고 재현율 41%, 방향이 지평선마다 뒤집히는 건 신호가 아니라 노이즈.",
+        "status": "closed",
+        "tags": [
+          "하드플로어",
+          "룰1",
+          "국내플로어",
+          "기각",
+          "에피소드확대",
+          "VERIFY_MARKETS",
+          "방법론"
+        ],
+        "refs": "docs/research/storm_pct_canon_2026-08-05.md §4c"
       },
       {
         "id": "d67",
@@ -17104,67 +17187,10 @@ window.APP_DATA = {
         "refs": "report_v67_2026-08-03.md §1,§9",
         "closed_at": "2026-08-04",
         "closed_note": "8/4 종결 — GARCH 정본 확정에 따라 tranche_rules.py global_contagion_check() 수정을 dev 백로그로 이관."
-      },
-      {
-        "id": "d60",
-        "date": "2026-08-01",
-        "topic": "하드 플로어 정본 도구 충돌 — vol_gauge 55.2%ile vs GARCH 75.0%ile (정훈 결정 대기)",
-        "decision": "미결·정훈 결정 대기. PM 권고 = **GARCH를 정본**(crash_tf §1이 크로스에셋 레짐 판정 도구로 이미 garch를 지정했고, 선행 예측이 '글로벌 확산 조기 감지'라는 하드플로어 취지에 부합). 발동 시 즉시 전면 정지가 과하면 '경보 등급'으로 완충하는 안도 병기. 오늘은 휴장·집행 0원이라 결론 불변.",
-        "rationale": "S&P500 폭풍 %ile이 두 도구에서 70 임계를 사이에 두고 갈렸다 — vol_gauge(후행 실현변동성) 55.2%ile=미발동 vs garch(선행 예측) 75.0%ile=발동(사다리 전면 정지). v65가 인용한 '53%ile'은 vol_gauge 계열이었다. 문서에 정본이 못박혀 있지 않은 것이 v65가 '하드플로어 미검증'이라 부른 부채의 실체. 오늘은 답이 결론을 안 바꾸지만 사고 싶은 날엔 정반대로 갈리므로, 집행 압력이 없는 지금 확정하는 것이 싸다. GARCH가 오늘 처음 70을 넘긴 건 AAPL·MU 급락이 미장 선행 변동성을 끌어올린 신호일 수 있음.",
-        "rejected": "①vol_gauge 정본 채택(후행 지표라 '확산 조기 감지' 목적과 어긋남) ②둘 중 낮은 값 채택(하드플로어를 사실상 무력화) ③충돌을 방치하고 세션마다 판단(그때그때 판단을 없애는 것이 TF의 존재 이유 — §0 위반)",
-        "status": "closed",
-        "tags": [
-          "하드플로어",
-          "크래시TF",
-          "GARCH",
-          "vol_gauge",
-          "룰1",
-          "결정대기",
-          "v66"
-        ],
-        "refs": "docs/reports/report_v66_2026-08-01.md §1·§10-2, docs/crash_tf.md §1 ⓐ",
-        "closed_at": "2026-08-04",
-        "closed_note": "8/4 종결 — PM 결정으로 GARCH를 하드플로어 정본 확정(발동 시 전면정지가 아닌 경보 등급 완충)."
-      },
-      {
-        "id": "d62",
-        "date": "2026-08-01",
-        "topic": "AAPL 트림 25% 실행 불가 판명 — A(1주 97.8% 지정가)/B(0.2556주 시장가)/C(보류) 정훈 택1 대기",
-        "decision": "v66 §7 오더북 정정. 25% 트림은 분수주라 지정가 원천 불가 ⇒ 집행 보류하고 정훈 택1 대기. **PM 권고 = A**(1주 $318 지정가 = 보유의 97.8%, 원가 +23.7% 확정). ANET는 전량 분수라 $189.13 지정가가 영원히 불가 + 8/5 KST 실적 D-3 ⇒ **트림 접고 실적 통과 권고**.",
-        "rationale": "토스 제약(美 정수주=지정가/분수주=시장가 전용)상 보유 1.022472주에서 지정가 최소 단위 = 정수 1주 = 97.8%. B(0.2556주 시장가)는 가격 통제가 안 되는데 폰창(평일 17:30~20:50)이 미국장(22:30~)과 안 겹쳐 $318 도달 순간을 잡을 수 없다 = 구조적 실행 불가에 가깝고 금액도 113,000원으로 상징적. A는 잔여 0.0225주(≈$7)가 남아 완전청산이 아니며 미국 소수점이라 재진입 자유. §5-8 논지(AAPL = 메모리 롱의 반대편 다리)에도 의미 있는 축소가 정합.",
-        "rejected": "①25% 지정가 유지(실행 자체가 불가능 — 존재하지 않는 선택지였음) ②정훈 승인 없이 A로 자동 전환(25%→97.8%는 큰 변경이라 PM 재량 밖) ③ANET $189.13 지정가 유지(정수 1주가 보유의 352.7%라 영원히 불가) ④ANET 시장가 트림 강행(포지션 73,453원·실적 D-3 대비 실익 낮음)",
-        "status": "closed",
-        "tags": [
-          "AAPL",
-          "ANET",
-          "트림",
-          "오더북",
-          "분수주",
-          "실행제약",
-          "결정대기",
-          "v66"
-        ],
-        "refs": "docs/reports/report_v66_2026-08-01.md §7 정정블록, docs/master.md §7, validate_report.check_order_feasibility",
-        "closed_at": "2026-08-04",
-        "closed_note": "8/4 종결 — A안(정수 1주 $318 지정가 GTC) 확정."
-      },
-      {
-        "date": "2026-07-31",
-        "type": "rule",
-        "title": "사다리 되돌림 = RESET(재잠금) 확정",
-        "detail": "문서('첫 도달 시 해금')와 코드(현재낙폭 재계산)가 불일치. ratchet_test.py 11지수 24,592일 판정 — 낙폭 구간 통제 시 3개 구간 전부 RESET 우위(구간가중 -0.61%p). 전 구간 단일집계 +2.0%p는 심슨의 역설. CLAUDE.md·crash_tf §2b 명문화.",
-        "alternatives": "RATCHET 유지(상한 282,438원) — 기각. 회복 구간 매수는 예비 15%·게이트가 다룸."
-      },
-      {
-        "date": "2026-07-31",
-        "type": "execution",
-        "title": "사다리 D1 집행 보류 — 오늘 0원",
-        "detail": "상한 121,045원 산출됐으나 집행 안 함. 근거는 '급등일이라 위험'이 아니라 ①+17.9%가 표본 36개 미지영역 ②게이트 1/3(예비 해금 문턱 2/3).",
-        "alternatives": "D1 15% 집행 — 보류. 데이터상 크래시 구간 급등일 매수는 오히려 우위(6~10% 구간 12M +24.9%)였으나 표본 부족."
       }
     ],
     "open_count": 46,
-    "total": 93
+    "total": 97
   },
   "reports": [
     {

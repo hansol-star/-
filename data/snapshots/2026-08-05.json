@@ -1,13 +1,13 @@
 {
   "date": "2026-08-05",
-  "fx_usdkrw": 1425.48,
+  "fx_usdkrw": 1425.82,
   "kr_value": 1870000,
   "kr_pnl": -335700,
   "us_value_usd": 4338.1,
   "us_pnl_usd": 283.46,
-  "cash_krw": 512700,
-  "total_assets_krw": 8566571,
-  "stock_pnl_krw": 68369,
+  "cash_krw": 184028,
+  "total_assets_krw": 8239374,
+  "stock_pnl_krw": 68465,
   "positions": {
     "삼성전자": {
       "price": 246000.0,

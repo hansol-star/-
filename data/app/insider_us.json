@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-03",
+ "updated": "2026-08-05",
  "days": 90,
  "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
  "failed": [],
@@ -70,17 +70,17 @@
   },
   {
    "ticker": "MU",
-   "filings": 15,
+   "filings": 13,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 201,
-    "shares": 211780.0,
-    "value": 194897362.58999997,
-    "n_10b5_1": 201
+    "n": 149,
+    "shares": 164179.0,
+    "value": 169385600.8,
+    "n_10b5_1": 149
    },
    "other_grants_exercises": {
     "n": 5,
@@ -262,17 +262,17 @@
   },
   {
    "ticker": "ANET",
-   "filings": 32,
+   "filings": 31,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 175,
-    "shares": 2608316.0,
-    "value": 437795509.8842003,
-    "n_10b5_1": 175
+    "n": 170,
+    "shares": 2600316.0,
+    "value": 436392308.27030027,
+    "n_10b5_1": 170
    },
    "other_grants_exercises": {
     "n": 30,
@@ -476,14 +476,14 @@
     "value": 0
    },
    "sell_open_market": {
-    "n": 75,
-    "shares": 41897.0,
-    "value": 25660265.224099983,
-    "n_10b5_1": 75
+    "n": 70,
+    "shares": 40397.0,
+    "value": 24716098.594099984,
+    "n_10b5_1": 70
    },
    "other_grants_exercises": {
-    "n": 53,
-    "shares": 134130.0
+    "n": 56,
+    "shares": 1909200.0
    },
    "top_buys": [],
    "top_sells": [

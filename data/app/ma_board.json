@@ -1,0 +1,625 @@
+{
+ "updated": "2026-08-05",
+ "stocks": [
+  {
+   "label": "삼성전자",
+   "symbol": "005930.KS",
+   "currency": "KRW",
+   "price": 246000.0,
+   "as_of": "2026-08-05",
+   "bars": 484,
+   "gaps": 1,
+   "ma": {
+    "5": 239000.0,
+    "20": 252650.0,
+    "60": 294541.6667,
+    "120": 247287.0833
+   },
+   "disparity": {
+    "5": 2.93,
+    "20": -2.63,
+    "60": -16.48,
+    "120": -0.52
+   },
+   "align": "혼조",
+   "above_count": 1,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "LG전자",
+   "symbol": "066570.KS",
+   "currency": "KRW",
+   "price": 179500.0,
+   "as_of": "2026-08-05",
+   "bars": 484,
+   "gaps": 1,
+   "ma": {
+    "5": 162780.0,
+    "20": 173710.0,
+    "60": 210848.3333,
+    "120": 166334.1667
+   },
+   "disparity": {
+    "5": 10.27,
+    "20": 3.33,
+    "60": -14.87,
+    "120": 7.92
+   },
+   "align": "혼조",
+   "above_count": 3,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "두산로보틱스",
+   "symbol": "454910.KS",
+   "currency": "KRW",
+   "price": 73000.0,
+   "as_of": "2026-08-05",
+   "bars": 484,
+   "gaps": 1,
+   "ma": {
+    "5": 64580.0,
+    "20": 66330.0,
+    "60": 92998.3333,
+    "120": 93409.1667
+   },
+   "disparity": {
+    "5": 13.04,
+    "20": 10.06,
+    "60": -21.5,
+    "120": -21.85
+   },
+   "align": "역배열",
+   "above_count": 2,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "현대차",
+   "symbol": "005380.KS",
+   "currency": "KRW",
+   "price": 404500.0,
+   "as_of": "2026-08-05",
+   "bars": 484,
+   "gaps": 1,
+   "ma": {
+    "5": 385800.0,
+    "20": 409575.0,
+    "60": 544283.3333,
+    "120": 531750.0
+   },
+   "disparity": {
+    "5": 4.85,
+    "20": -1.24,
+    "60": -25.68,
+    "120": -23.93
+   },
+   "align": "혼조",
+   "above_count": 1,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "NAVER",
+   "symbol": "035420.KS",
+   "currency": "KRW",
+   "price": 229000.0,
+   "as_of": "2026-08-05",
+   "bars": 484,
+   "gaps": 1,
+   "ma": {
+    "5": 213140.0,
+    "20": 201235.0,
+    "60": 213416.6667,
+    "120": 217566.6667
+   },
+   "disparity": {
+    "5": 7.44,
+    "20": 13.8,
+    "60": 7.3,
+    "120": 5.26
+   },
+   "align": "혼조",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 9
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "NVDA",
+   "symbol": "NVDA",
+   "currency": "USD",
+   "price": 211.94,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 200.876,
+    "20": 204.6015,
+    "60": 208.5423,
+    "120": 198.3767
+   },
+   "disparity": {
+    "5": 5.51,
+    "20": 3.59,
+    "60": 1.63,
+    "120": 6.84
+   },
+   "align": "혼조",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "dead",
+    "days_ago": 4
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "META",
+   "symbol": "META",
+   "currency": "USD",
+   "price": 587.94,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 571.906,
+    "20": 618.9185,
+    "60": 602.6998,
+    "120": 616.7362
+   },
+   "disparity": {
+    "5": 2.8,
+    "20": -5.01,
+    "60": -2.45,
+    "120": -4.67
+   },
+   "align": "혼조",
+   "above_count": 1,
+   "cross_5_20": {
+    "kind": "dead",
+    "days_ago": 6
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "VOO",
+   "symbol": "VOO",
+   "currency": "USD",
+   "price": 708.98,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 688.89,
+    "20": 686.805,
+    "60": 684.9225,
+    "120": 656.8907
+   },
+   "disparity": {
+    "5": 2.92,
+    "20": 3.23,
+    "60": 3.51,
+    "120": 7.93
+   },
+   "align": "정배열",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 0
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "MSFT",
+   "symbol": "MSFT",
+   "currency": "USD",
+   "price": 492.81,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 457.364,
+    "20": 407.11,
+    "60": 404.3963,
+    "120": 401.0957
+   },
+   "disparity": {
+    "5": 7.75,
+    "20": 21.05,
+    "60": 21.86,
+    "120": 22.87
+   },
+   "align": "정배열",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 3
+   },
+   "cross_20_60": {
+    "kind": "golden",
+    "days_ago": 0
+   }
+  },
+  {
+   "label": "AAPL",
+   "symbol": "AAPL",
+   "currency": "USD",
+   "price": 309.38,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 318.666,
+    "20": 323.841,
+    "60": 307.7115,
+    "120": 285.345
+   },
+   "disparity": {
+    "5": -2.91,
+    "20": -4.47,
+    "60": 0.54,
+    "120": 8.42
+   },
+   "align": "혼조",
+   "above_count": 2,
+   "cross_5_20": {
+    "kind": "dead",
+    "days_ago": 0
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "GOOGL",
+   "symbol": "GOOGL",
+   "currency": "USD",
+   "price": 377.65,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 355.532,
+    "20": 348.9375,
+    "60": 364.1652,
+    "120": 341.8924
+   },
+   "disparity": {
+    "5": 6.22,
+    "20": 8.23,
+    "60": 3.7,
+    "120": 10.46
+   },
+   "align": "혼조",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 0
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "ORCL",
+   "symbol": "ORCL",
+   "currency": "USD",
+   "price": 145.74,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 132.552,
+    "20": 128.993,
+    "60": 167.6093,
+    "120": 162.7106
+   },
+   "disparity": {
+    "5": 9.95,
+    "20": 12.98,
+    "60": -13.05,
+    "120": -10.43
+   },
+   "align": "혼조",
+   "above_count": 2,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 0
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "ANET",
+   "symbol": "ANET",
+   "currency": "USD",
+   "price": 190.51,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 176.948,
+    "20": 176.006,
+    "60": 163.9832,
+    "120": 153.726
+   },
+   "disparity": {
+    "5": 7.66,
+    "20": 8.24,
+    "60": 16.18,
+    "120": 23.93
+   },
+   "align": "정배열",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 0
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "MU",
+   "symbol": "MU",
+   "currency": "USD",
+   "price": 892.67,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 831.772,
+    "20": 901.64,
+    "60": 932.6288,
+    "120": 685.3741
+   },
+   "disparity": {
+    "5": 7.32,
+    "20": -0.99,
+    "60": -4.28,
+    "120": 30.25
+   },
+   "align": "혼조",
+   "above_count": 2,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": "dead",
+    "days_ago": 3
+   }
+  },
+  {
+   "label": "AVGO",
+   "symbol": "AVGO",
+   "currency": "USD",
+   "price": 418.16,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 391.566,
+    "20": 388.0155,
+    "60": 399.4507,
+    "120": 376.0152
+   },
+   "disparity": {
+    "5": 6.79,
+    "20": 7.77,
+    "60": 4.68,
+    "120": 11.21
+   },
+   "align": "혼조",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 0
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "코스피",
+   "symbol": "^KS11",
+   "currency": "KRW",
+   "price": 6598.2598,
+   "as_of": "2026-08-05",
+   "bars": 485,
+   "gaps": 0,
+   "ma": {
+    "5": 6280.7341,
+    "20": 6673.9581,
+    "60": 7674.2161,
+    "120": 6776.1225
+   },
+   "disparity": {
+    "5": 5.06,
+    "20": -1.13,
+    "60": -14.02,
+    "120": -2.62
+   },
+   "align": "혼조",
+   "above_count": 1,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "코스닥",
+   "symbol": "^KQ11",
+   "currency": "KRW",
+   "price": 799.59,
+   "as_of": "2026-08-05",
+   "bars": 485,
+   "gaps": 0,
+   "ma": {
+    "5": 736.44,
+    "20": 761.46,
+    "60": 930.7045,
+    "120": 1035.0117
+   },
+   "disparity": {
+    "5": 8.58,
+    "20": 5.01,
+    "60": -14.09,
+    "120": -22.75
+   },
+   "align": "역배열",
+   "above_count": 2,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "S&P500",
+   "symbol": "^GSPC",
+   "currency": "USD",
+   "price": 7736.52,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 7516.104,
+    "20": 7495.9365,
+    "60": 7470.598,
+    "120": 7164.0884
+   },
+   "disparity": {
+    "5": 2.93,
+    "20": 3.21,
+    "60": 3.56,
+    "120": 7.99
+   },
+   "align": "정배열",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": "golden",
+    "days_ago": 0
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "나스닥",
+   "symbol": "^IXIC",
+   "currency": "USD",
+   "price": 26584.9902,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 25487.5719,
+    "20": 25620.365,
+    "60": 25995.8937,
+    "120": 24535.7233
+   },
+   "disparity": {
+    "5": 4.31,
+    "20": 3.77,
+    "60": 2.27,
+    "120": 8.35
+   },
+   "align": "혼조",
+   "above_count": 4,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": null,
+    "days_ago": null
+   }
+  },
+  {
+   "label": "필라델피아반도체",
+   "symbol": "^SOX",
+   "currency": "USD",
+   "price": 12179.2598,
+   "as_of": "2026-08-04",
+   "bars": 501,
+   "gaps": 0,
+   "ma": {
+    "5": 11334.234,
+    "20": 11969.3624,
+    "60": 12571.6195,
+    "120": 10608.6036
+   },
+   "disparity": {
+    "5": 7.46,
+    "20": 1.75,
+    "60": -3.12,
+    "120": 14.81
+   },
+   "align": "혼조",
+   "above_count": 3,
+   "cross_5_20": {
+    "kind": null,
+    "days_ago": null
+   },
+   "cross_20_60": {
+    "kind": "dead",
+    "days_ago": 5
+   }
+  }
+ ]
+}

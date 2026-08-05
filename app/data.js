@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-05 17:41 KST",
+  "generated_at": "2026-08-05 18:30 KST",
   "as_of": "2026-08-05 (수) 16:41 KST",
   "source_report": "report_v69_2026-08-05.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1425.58
+    "usdkrw": 1425.17
   },
   "totals": {
-    "assets_krw": 8238332,
-    "stocks_value_krw": 8054304,
+    "assets_krw": 8236554,
+    "stocks_value_krw": 8052526,
     "cash_krw": 184028,
-    "day_change_krw": 148910,
+    "day_change_krw": 148884,
     "day_change_pct": 1.88,
-    "total_pnl_krw": -56972,
-    "total_pnl_pct": -0.7
+    "total_pnl_krw": -58751,
+    "total_pnl_pct": -0.72
   },
   "safety": {
     "pin": 7500,
@@ -987,9 +987,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 211.94,
       "change_pct": 2.56,
-      "value_krw": 1552443,
+      "value_krw": 1551997,
       "pnl_pct": 6.23,
-      "pnl_krw": 59352,
+      "pnl_krw": 58905,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1105,9 +1105,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 587.94,
       "change_pct": -0.39,
-      "value_krw": 946371,
+      "value_krw": 946098,
       "pnl_pct": -7.26,
-      "pnl_krw": -96241,
+      "pnl_krw": -96513,
       "outlook": "core",
       "stars": 3,
       "score": 68,
@@ -1252,9 +1252,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 708.98,
       "change_pct": 1.81,
-      "value_krw": 1080073,
+      "value_krw": 1079762,
       "pnl_pct": 9.28,
-      "pnl_krw": 70319,
+      "pnl_krw": 70009,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1373,9 +1373,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 492.81,
       "change_pct": 1.06,
-      "value_krw": 1013765,
+      "value_krw": 1013474,
       "pnl_pct": 20.14,
-      "pnl_krw": 151636,
+      "pnl_krw": 151344,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1510,9 +1510,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 309.38,
       "change_pct": 1.96,
-      "value_krw": 450957,
+      "value_krw": 450827,
       "pnl_pct": 20.32,
-      "pnl_krw": 68016,
+      "pnl_krw": 67887,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1649,9 +1649,9 @@ window.APP_DATA = {
       "cost": 353.62,
       "price": 377.65,
       "change_pct": 1.11,
-      "value_krw": 951109,
+      "value_krw": 950835,
       "pnl_pct": 6.8,
-      "pnl_krw": 41203,
+      "pnl_krw": 40929,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1765,9 +1765,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 145.74,
       "change_pct": 2.74,
-      "value_krw": 44709,
+      "value_krw": 44696,
       "pnl_pct": -37.21,
-      "pnl_krw": -28043,
+      "pnl_krw": -28056,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1875,9 +1875,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 190.51,
       "change_pct": 3.04,
-      "value_krw": 76995,
+      "value_krw": 76973,
       "pnl_pct": 17.55,
-      "pnl_krw": 10073,
+      "pnl_krw": 10051,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -2011,9 +2011,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 892.67,
       "change_pct": 7.62,
-      "value_krw": 25453,
+      "value_krw": 25445,
       "pnl_pct": 19.18,
-      "pnl_krw": 3633,
+      "pnl_krw": 3626,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -2136,9 +2136,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 418.16,
       "change_pct": 6.61,
-      "value_krw": 42430,
+      "value_krw": 42418,
       "pnl_pct": -0.69,
-      "pnl_krw": -1221,
+      "pnl_krw": -1233,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -3484,7 +3484,7 @@ window.APP_DATA = {
       1420.6,
       1435.7,
       1428.5,
-      1426.18
+      1425.16
     ]
   },
   "kospi_history": {
@@ -16868,22 +16868,6 @@ window.APP_DATA = {
         "refs": "docs/reports/report_v68_2026-08-04.md"
       },
       {
-        "id": "d73",
-        "date": "2026-08-05",
-        "topic": "8/5 ANET sell-into-strength 재개",
-        "decision": "실적 서프라이즈(EPS+13%비트·매출+37.7%·가이던스상향)로 7/18 보류 전제(실적통과) 충족 — 절반 시장가 트림 계획 등록, 정훈 승인 대기",
-        "rationale": "분수주 전량이라 지정가 불가, sell-into-strength 원안 재개. backlog_growth 펀더 확인분은 절반 홀딩",
-        "rejected": "",
-        "status": "open",
-        "tags": [
-          "ANET",
-          "트림",
-          "실적",
-          "오더북"
-        ],
-        "refs": "report_v69_2026-08-05.md"
-      },
-      {
         "id": "d75",
         "date": "2026-08-05",
         "topic": "8/5 하드플로어 도구충돌 5연속·결정 시급성 상향",
@@ -16902,6 +16886,22 @@ window.APP_DATA = {
       }
     ],
     "closed": [
+      {
+        "id": "d73",
+        "date": "2026-08-05",
+        "topic": "8/5 ANET sell-into-strength 재개",
+        "decision": "실적 서프라이즈(EPS+13%비트·매출+37.7%·가이던스상향)로 7/18 보류 전제(실적통과) 충족 — 절반 시장가 트림 계획 등록, 정훈 승인 대기",
+        "rationale": "분수주 전량이라 지정가 불가, sell-into-strength 원안 재개. backlog_growth 펀더 확인분은 절반 홀딩",
+        "rejected": "",
+        "status": "closed",
+        "tags": [
+          "ANET",
+          "트림",
+          "실적",
+          "오더북"
+        ],
+        "refs": "report_v69_2026-08-05.md"
+      },
       {
         "id": "d74",
         "date": "2026-08-05",
@@ -17149,16 +17149,9 @@ window.APP_DATA = {
         "title": "META 3차 트랜치 대상 제외·AAPL 트림 1순위",
         "detail": "META: 7/29 실적으로 재매수 전제 붕괴(EPS 미스·capex $135~145B). AAPL: CFO가 메모리 원가로 마진하락 100% 초과 설명 인정, 조정 GM 3분기 연속 하락.",
         "alternatives": "META 유지 — 기각(전제가 명시적으로 소진됨)."
-      },
-      {
-        "date": "2026-07-31",
-        "type": "gate",
-        "title": "게이트② 첫 점등(외인 2일 연속) — TF는 유지",
-        "detail": "7/30 +1.34조 → 7/31 +7.24조로 §5 '2거래일 연속' 충족. 그러나 1/3이고 숏커버 비중 미분리·코스피 폭풍 100%ile 유지로 TF ACTIVE 연장.",
-        "alternatives": "TF 해제 — 기각(문턱 2/3 미달)."
       }
     ],
-    "open_count": 47,
+    "open_count": 46,
     "total": 92
   },
   "reports": [
@@ -18341,12 +18334,12 @@ window.APP_DATA = {
       "label": "[신규계획] ANET 절반 sell-into-strength 시장가 트림",
       "ticker": "ANET",
       "action": "매도(소수점 일부 트림·시장가)",
-      "status": "🟡 PM 권고(계획) — 정훈 폰창 집행 판단 필요",
+      "status": "🟢 정훈 승인 — 폰창(18:28) 내 시장가 예약 → 22:30 자동체결 대기",
       "price": null,
-      "shares": 0.14,
+      "shares": 0.141751,
       "amount_usd": null,
       "date": "2026-08-05",
-      "note": "8/4 장마감후(KST 8/5 새벽) 2Q 실적 서프라이즈(EPS $1.02 vs 컨센$0.90·매출+37.7%YoY·Q3가이던스상향)로 AH+11~12%. 7/18 PM 판단(실적 통과까지 보류)의 전제가 충족됨 — 원래 sell-into-strength 계획 재개. 보유 0.283501주 전량 분수라 지정가 불가(토스: 분수주=시장가 전용) → 절반(≈0.14주) 시장가 트림, 나머지 절반은 backlog_growth 펀더 확인분으로 홀딩. 정훈 승인 없이는 집행하지 않음."
+      "note": "8/4 장마감후(KST 8/5 새벽) 2Q 실적 서프라이즈(EPS $1.02 vs 컨센$0.90·매출+37.7%YoY·Q3가이던스상향)로 AH+11~12%. 7/18 PM 판단(실적 통과까지 보류)의 전제가 충족됨 — 원래 sell-into-strength 계획 재개. 보유 0.283501주 전량 분수라 지정가 불가(토스: 분수주=시장가 전용) → 절반(≈0.14주) 시장가 트림, 나머지 절반은 backlog_growth 펀더 확인분으로 홀딩. 정훈 승인 없이는 집행하지 않음. | ★[8/5 18:28 정훈 승인] '룰대로 가야지' — 절반(0.141751주) 시장가 트림 확정. 폰창 내 예약 → 22:30 미국 정규장 개장 시 자동 집행. 나머지 절반(0.141750주)은 backlog_growth 펀더 확인분으로 홀딩 유지."
     },
     {
       "id": "o-msft-mu-confirm-0805",
@@ -18625,7 +18618,7 @@ window.APP_DATA = {
       "label": "ANET sell-into-strength 트림",
       "ticker": "ANET",
       "action": "매도(소수점 일부 트림)",
-      "status": "🔴 지정가 불가 — 설계 재검토(실적 통과 권고)",
+      "status": "⚪ 대체됨 — o-anet-trim-0805로 이관(8/5 실적통과 후 절반 확정)",
       "price": null,
       "shares": null,
       "amount_usd": null,
@@ -18634,5 +18627,5 @@ window.APP_DATA = {
     }
   ],
   "tasks_updated": "2026-08-05",
-  "today_note": "[8/5 17:37 대화형] 스크린샷 4장 확인 — 원화 184,028원 실측(정훈 8/3 327,970원 개인인출), MSFT2차·MU3차 미체결 확정(재원소진, 취소). ANET $215선(+32.6%, 애프터마켓 반영)으로 트림 명분 강화. AAPL $312선, $318 미도달."
+  "today_note": "[8/5 18:28 대화형] ANET 절반(0.141751주) sell-into-strength 트림 정훈 승인 — 폰창 내 시장가 예약, 22:30 자동체결 대기. 원화 184,028원 실측·MSFT2차·MU3차 미체결(취소) 확정 유지."
 };

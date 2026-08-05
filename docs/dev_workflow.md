@@ -57,5 +57,9 @@ git push origin HEAD:main HEAD:claude/<작업브랜치>
 - [ ] 로직 변경 시 `/code-review` 통과 / 동작 변경 시 실행 확인
 - [ ] 새 스크립트면 docstring(용도·사용법·데이터소스)·stdlib 우선(포터블)
 - [ ] 정본 변경(보유·룰·워치·스키마)이면 `docs/master.md`·관련 정본도 갱신
+- [ ] **룰을 폐기·개정했으면 `validate_report.py`의 `REPEALED_RULES`에 항목 추가** [8/5 신설]
+      — 개정을 CLAUDE.md에만 적으면 playbook·agent·SKILL엔 안 내려간다(8/5 실측 **7곳** 잔존).
+      레지스트리에 등록해야 다음 세션부터 기계가 잔존을 잡는다. **레지스트리 갱신을 잊는 것은
+      이 검사가 못 잡는다** — 그래서 체크리스트에 있다.
 - [ ] `dev_handoff.md`에 완료 항목 append (다음 세션 인수인계)
 - [ ] main ff 머지·푸시

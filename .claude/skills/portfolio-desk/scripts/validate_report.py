@@ -736,6 +736,131 @@ COVERAGE_LAYERS = [
 ]
 
 
+# ─────────────────── 폐기 룰 잔존 감지 [8/5 신설] ───────────────────
+# 왜: 8/5에 desk_playbook.md risk-desk 고정 룰에서 **7/30에 폐기된 룰 두 개**가 발견됐다
+#     (7,500 매수 안전핀 · 폭풍 %ile 금액 감산 스케일). 리스크 데스크는 매 보고서 Task 0에서
+#     그 파일을 읽으므로 **폐기된 룰을 계속 적용할 뻔했다.**
+#     원인은 단순하다 — 룰 개정이 CLAUDE.md·crash_tf엔 반영됐는데 playbook까지 안 내려왔다.
+#     정본이 여러 개(CLAUDE.md·crash_tf·playbook·agent 파일·SKILL)인데 **개정 전파를 검증하는
+#     기계가 없었다.** 이 검사가 그 기계다.
+#
+# 설계에서 제일 중요한 건 **오탐을 안 내는 것**이다. 정정 노트는 폐기 문구를 일부러 인용하고
+# ("❌ 舊 '안전핀 7,500'은 폐기"), 7,500은 §5 해제 게이트로는 **아직 살아 있다**.
+# 그래서 단순 grep은 소음이 되고, 소음이 되면 사람이 이 검사를 꺼버린다 → 없느니만 못하다.
+#   ⇒ 같은 줄에 **폐기 표식**(폐기·舊·❌·정정·승계·대체·오독)이나 **허용 맥락**이 있으면 통과.
+#   ⇒ 현재 유효한 용법이 전혀 없는 패턴만 FAIL, 문맥에 따라 갈리는 건 WARN.
+_REPEAL_MARK = re.compile(r"폐기|舊|❌|정정|승계|대체|오독|stale|아니다|였다|금지")
+# 과거 사실을 적어둔 **기록**은 고치면 안 된다 — 그날의 판단 기록을 위조하는 셈이다.
+# (예: master §검증로그 "2026-06-16 … 안전핀(7,500) 미발동" = 그때는 실제로 유효했던 룰)
+_HISTORICAL = re.compile(r"\[(검증|정정|미확인)[,\s]|미발동|당시|그때|\bv\d+\]")
+
+# (이름, 탐지 패턴, 허용 맥락 패턴|None, 심각도, 무엇으로 대체됐나)
+REPEALED_RULES = [
+    ("룰1 매수 안전핀 7,500 (7/30 폐기)",
+     re.compile(r"안전핀[^\n]{0,20}7[,.]?500|7[,.]?500[^\n]{0,12}안전핀"),
+     # 7,500은 §5 해제 게이트 조건①로는 유효하다 — 그 맥락이면 통과.
+     re.compile(r"해제|게이트|조건\s*①|L0|above|회복"),
+     "warn",
+     "낙폭 사다리(tranche_rules.py) + 하드플로어 = S&P500 폭풍 ≥70%ile"),
+
+    ("폭풍 %ile 트랜치 '금액' 감산 스케일 (7/30 2차 개정으로 전면 폐기)",
+     # 이 숫자 조합은 현재 유효한 용법이 전혀 없다 → 발견 즉시 FAIL.
+     re.compile(r"(75%\s*=\s*100%|90~97\s*=\s*50%|>?\s*97\s*=\s*25%|극단\s*>\s*97)"),
+     None, "fail",
+     "폭풍은 이제 **분할 횟수만** 바꾼다(≥97 4분할/90~97 3분할/<90 2분할, 총액 불변)"),
+
+    ("§5b '숨구멍'(폭풍<90 시 25% 1회) — 룰1 개정과 함께 폐기 (7/30)",
+     re.compile(r"§?\s*5b[^\n]{0,20}(숨구멍|폭풍)|숨구멍"),
+     None, "warn",
+     "낙폭 사다리가 단계별 해금을 대신한다 — 별도 '1회 예외' 조항 없음"),
+
+    ("사다리 '첫 도달 시 해금' 래칫 오독 (7/31 RESET 정책으로 정정)",
+     re.compile(r"첫\s*도달\s*시\s*해금"),
+     None, "fail",
+     "해금은 **현재 낙폭 기준 매일 재계산**(되돌리면 다시 잠긴다) — ratchet_test.py"),
+
+    ("국내 펀더 = WebSearch 폴백 (7/30 폐기)",
+     re.compile(r"국내(주)?[^\n]{0,24}(FMP\s*미지원|WebSearch\s*폴백)"),
+     None, "fail",
+     "국내도 Yahoo·DART 하드넘버가 1차(financials.py)"),
+
+    ("한국은행 점도표 미발표 (7/7 정정)",
+     re.compile(r"한(국)?은[^\n]{0,16}점도표[^\n]{0,16}(미발표|없|안\s*함)"),
+     None, "fail",
+     "한은은 2026-02부터 자체 점도표 발표(경제전망월 2·5·8·11월)"),
+
+    ("CXMT = 저가 공세/반값 (7/29 정정)",
+     re.compile(r"CXMT[^\n]{0,40}(반값|저가\s*공세|싸게|저가로)"),
+     None, "fail",
+     "CXMT는 삼성보다 **비싸게** 판다 — 우위는 가격이 아니라 물량"),
+]
+
+# 데스크·PM이 실제로 읽는 정본만 스캔한다(보고서 본문은 그날의 기록이므로 제외 —
+# 과거 보고서를 고치면 그날의 판단 기록을 위조하는 셈이다).
+REPEAL_SCAN = [
+    "CLAUDE.md", "docs/desk_playbook.md", "docs/crash_tf.md", "docs/master.md",
+    "docs/routines.md", "docs/data_coverage.md",
+    ".claude/skills/portfolio-desk/SKILL.md",
+]
+
+def check_repealed_rules():
+    """정본 문서에 **폐기된 룰**이 살아 있는지 감지 [8/5 신설].
+
+    데스크는 매 보고서 Task 0에서 playbook·agent 파일을 읽는다 → 거기 남은 폐기 룰은
+    조용히 계속 적용된다. 개정이 한 정본에만 반영되고 나머지에 안 내려오는 게 실제 사고였다."""
+    targets = list(REPEAL_SCAN)
+    agents = os.path.join(ROOT, ".claude", "agents")
+    if os.path.isdir(agents):
+        targets += [os.path.join(".claude", "agents", f)
+                    for f in sorted(os.listdir(agents)) if f.endswith(".md")]
+
+    for rel in targets:
+        p = os.path.join(ROOT, rel)
+        if not os.path.exists(p):
+            continue
+        try:
+            lines = open(p, encoding="utf-8").read().splitlines()
+        except OSError:
+            continue
+        # 舊 원문을 일부러 보존한 아카이브 블록은 통째로 제외.
+        #   <details><summary>舊 §5b 원문 (… 이력 보존)</summary> … </details>
+        # 줄 단위 판정만으론 블록 **안쪽** 줄에 폐기 표식이 없어 전부 걸린다(8/5 실측 2건).
+        # 이력 보존은 의도된 것이므로 지우면 안 된다 — 왜 폐기했는지의 근거가 사라진다.
+        archived = set()
+        depth, opened_as_archive = 0, False
+        for i, ln in enumerate(lines, 1):
+            low = ln.lower()
+            if "<details" in low:
+                depth += 1
+                if depth == 1:
+                    opened_as_archive = bool(_REPEAL_MARK.search(ln) or "이력" in ln)
+            if depth >= 1 and opened_as_archive:
+                archived.add(i)
+            if "</details>" in low:
+                depth = max(0, depth - 1)
+                if depth == 0:
+                    opened_as_archive = False
+
+        for name, pat, allow, sev, replaced_by in REPEALED_RULES:
+            for i, ln in enumerate(lines, 1):
+                if i in archived:
+                    continue
+                if not pat.search(ln):
+                    continue
+                # 폐기 표식이 같은 줄에 있으면 '정정 기록'이므로 정상
+                if _REPEAL_MARK.search(ln):
+                    continue
+                # 과거 사실 기록(날짜 태그·미발동 등)은 고치는 게 오히려 위조
+                if _HISTORICAL.search(ln):
+                    continue
+                # 허용 맥락(예: 7,500 = §5 해제 게이트)이면 정상
+                if allow and allow.search(ln):
+                    continue
+                msg = (f"{rel}:{i} 폐기된 룰이 살아 있다 — {name}. "
+                       f"현행 = {replaced_by}. "
+                       f"(데스크가 Task 0에서 이 파일을 읽으므로 폐기 룰이 계속 적용된다)")
+                (fail if sev == "fail" else warn)(msg)
+
 def check_coverage():
     """데이터 **레이어**의 결손·신선도 감사 — 보고서와 무관하게 단독 실행.
 
@@ -810,7 +935,7 @@ def main():
         sys.exit(1 if FAILS else 0)
 
     check_stocks(); check_flows(); check_tasks(); check_order_feasibility()
-    check_low_star_action(); check_pending_decisions()
+    check_low_star_action(); check_pending_decisions(); check_repealed_rules()
     check_consistency(); check_hunter(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest)

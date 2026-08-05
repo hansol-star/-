@@ -12,10 +12,10 @@
 
 ## 현재 세션
 
-- **상태**: `running`
+- **상태**: `done`
 - **시작**: 2026-08-05 19:46 KST
 - **리셋 추정(arm 시각)**: 2026-08-06 00:47 KST
-- **재개 트리거 id**: `trig_01UsWkfw95iqPk3xJ2iT92Yw` (2026-08-06 00:47 KST 발동, 완주 시 삭제)
+- **재개 트리거 id**: (완주 — 2026-08-05 22:0x disarm 완료)
 - **정훈 지시(원문 요지)**: ①토큰 리셋되면 이어가게 세팅 ②시스템 전반 점검
   ③새로운 좋은 기능 서치해서 반영 ④기업 자료 더 받을 거 있으면 받기
   ⑤주식 리서치·주식 에이전트 리서치 찾아 참고
@@ -29,9 +29,9 @@
       정본 문서 stale 점검, data/app 신선도, 루틴 등록 상태
 - [x] **2. 외부 리서치** — 주식 리서치 방법론 + LLM 투자 에이전트 최신 연구/오픈소스 서치
       → 우리 구조에 반영 가능한 것만 추림
-- [ ] **3. 기업 자료 추가 수집** — 무키/보유키로 더 받을 수 있는 1차 데이터 소스 발굴·구현
-- [ ] **4. 기능 구현** — 위에서 채택한 것 구현 + selfcheck PASS
-- [ ] **5. 문서화·머지** — data_coverage/master/dev_handoff 갱신, main ff 푸시
+- [x] **3. 기업 자료 추가 수집** — 무키/보유키로 더 받을 수 있는 1차 데이터 소스 발굴·구현
+- [x] **4. 기능 구현** — 위에서 채택한 것 구현 + selfcheck PASS
+- [x] **5. 문서화·머지** — data_coverage/master/dev_handoff 갱신, main ff 푸시
 
 ---
 
@@ -44,3 +44,8 @@
 - 2026-08-05 20:40 — **2단계 완료**. 외부 리서치 결론 = 채택 3건(아래 4단계).
   ①FinMem/FinAgent 계층 기억+회수 ②EDGAR full-text search(무키·실측 200) ③8-K item 코드 이벤트 스트림
   ④피어 상대비교(z-score 횡단면). 우리에 없는 것만 골랐다.
+- 2026-08-05 21:30 — **3·4단계 완료**. 신설 3종: `edgar_search.py`(EDGAR FTS + 8-K item 스트림)·
+  `peer_compare.py`(피어 백분위 ↔ 자기이력 백분위)·`memory_recall.py`(원장 4종 통합 회수).
+  구현 중 실측 함정 3건 기록(다중 CIK 500 · SEC UA 403 · financials.json 단위 혼재) → dev_handoff.
+- 2026-08-05 22:05 — **5단계 완료**. data_coverage §2/§3·CLAUDE.md·dev_handoff 갱신.
+  selfcheck GATE PASS(63스크립트)·validate PASS → main ff 머지·트리거 disarm. **세션 완주.**

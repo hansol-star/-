@@ -36,6 +36,20 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    python3 .claude/skills/portfolio-desk/scripts/decisions.py query 외인  # 지금 작업 관련 결정만 끌어오기
    ```
    새 결정·기각안이 생기면 `decisions.py add ...`로 원장에 + master §9/§10 산문에도 함께 적는다(이중정본).
+2c. **🧠 기억 통합 회수 [8/5 신설 — 배선 8/5]** — `decisions.py`는 **결정 원장 하나만** 본다. 우리 기억은
+   결정·콜·미스무브·룰 **네 군데**에 흩어져 있고, 그게 8/2에 확인된 구멍(⭐2 트림이 산문 8~9회 vs 오더 0회)의
+   **인지적 원인**이었다 — "과거에 같은 말을 몇 번 했는지"가 한 화면에 안 모였다.
+   ```bash
+   # ⭐2 이하 보유는 필수 (영구교정 8/2 '관망은 결정이 아니다'와 짝) — 반복 미집행을 눈에 보이게
+   python3 .claude/skills/portfolio-desk/scripts/memory_recall.py 현대차 --limit 8
+   python3 .claude/skills/portfolio-desk/scripts/memory_recall.py 두산로보 --limit 8
+   # 그날 액션 임박 종목·쟁점만 추가로 (전 종목 호출 금지 — 컨텍스트만 먹는다)
+   python3 .claude/skills/portfolio-desk/scripts/memory_recall.py MU --limit 8
+   ```
+   - **읽는 법**: 점수 = 관련성 × 최신성(반감기 90일) × 원장가중. **읽을 순서일 뿐 옳았다는 뜻이 아니다.**
+   - **🟠 열린 아젠다가 뜨면 이번 보고서에서 상태를 갱신**한다(방치하면 §10 아젠다가 stale해진다).
+   - **틀린 콜·기각된 대안도 같이 올라온다** — 그게 확증편향 방지 장치이므로 **불리한 항목을 건너뛰지 말 것**.
+   - 전 종목 순회는 금지. **⭐2 이하 + 그날 오더 나가는 종목**으로 한정(보통 3~5회 호출).
 3. (CLAUDE.md는 세션 시작 시 자동 로드되므로 따로 읽지 않아도 됨.)
 4. 충돌 시 우선순위: **토스 API 실데이터 > 당일 스크린샷 > Yahoo 무키 시세 > 최신 보고서 STATE SNAPSHOT > 마스터문서**.
 5. **⚡ 영상 캐시 확인 [2026-07-11]**: `docs/research/hunter_log.md`·`feeds_log.md` 맨 위 블록이 **오늘자**면 R1 프리페치가 이미 3채널 분석을 끝낸 것 → 메인은 그 캐시만 소비하고 자막을 재추출하지 않는다(§2c 신선도 가드). 오늘자 아니면 §2c 폴백.
@@ -137,6 +151,24 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
   python3 .claude/skills/portfolio-desk/scripts/insider_us.py --days 90 --save
   ```
   **재량적 매수(P)만 신호**로 읽는다 — 매도(S)는 대부분 10b5-1 사전약정이라 비관 신호가 아니다.
+- **📋 미국 수시공시 8-K (보유 US 9종목 · [8/5 신설·배선]) — `dart_disclosure`의 미국 짝**:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/edgar_search.py --events --days 30
+  ```
+  8-K는 **item 코드가 사건 종류를 말한다** → 제목 안 읽고도 분류된다(KR과 같은 중대성 3단 문법).
+  🚨critical(**2.02 실적 · 1.01 중대계약 · 2.01 인수 · 3.02 희석 · 4.02 재무제표 신뢰불가**)은
+  **보고서 본문에 반드시 노출**. ⚠️notable(5.02 임원·8.01 기타중요)은 맥락 있을 때만.
+  ⚠️ item 코드는 **사건이 있었다는 사실**이지 내용이 아니다 — 논지를 바꿀 건이면 URL로 원문까지 내려갈 것.
+- **🔎 공시 본문 검색 (트리거 게이트 · 매 보고서 아님) [8/5 신설·배선]**:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/edgar_search.py --q "HBM4" --forms 10-Q,10-K,8-K
+  ```
+  **언제 쓰나 = 논지를 1차 문서로 확정해야 할 때**(이게 이 도구의 존재 이유다):
+  ① 매체·채널이 말한 표현이 **회사 공시에 실제로 있는지** 확인할 때 (7/29 CXMT형 받아쓰기 방지)
+  ② 신기술·신제품 용어가 **어느 회사 공시에 언제부터** 등장했는지 (예: `HBM4` = MU 5건 / NVDA·AVGO 0건)
+  ③ 계약·관세·리스크팩터 문구 변화 추적
+  ⚠️ **히트는 "그 문구가 있다"는 사실일 뿐 맥락이 아니다** — 인용하려면 원문 URL을 열어 문장을 직접 읽고,
+  7/26·7/28 정정룰(주체·범위·형식·단위 병기)을 적용한다. **매 보고서 습관적 호출 금지**(탐색 전용).
 - **📐 낙폭·기저율 ([7/30 신설] · 주간 R3 또는 국면 전환 시)**:
   ```bash
   python3 .claude/skills/portfolio-desk/scripts/history_backfill.py          # 일봉 캐시 증분
@@ -154,6 +186,22 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
   WebSearch" 서술은 **폐기(7/30)**. 0~100 스코어를 쓸 때 **펀더 서브스코어와 25점 이상 벌어지면 `validate_report.py`가
   WARN** — 그 이격을 N·L·M(촉매·주도주·시장방향) 가감분으로 반드시 설명할 것.
   ⚠️ 티커 접미사는 시장을 바꾼다(`454910.KS`=두산로보틱스 / `.KQ`=남의 종목). `market_data.py` 기준과 일치 필수.
+- **📊 횡단면 상대비교 [8/5 신설·배선] — ⚠️ 반드시 위 `financials.py --all --save` 다음에 실행**
+  (이 스크립트는 `financials.json`을 읽기만 한다. 먼저 돌리면 **어제 숫자로 순위를 매긴다**):
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/peer_compare.py          # 3개 피어그룹 전부
+  python3 .claude/skills/portfolio-desk/scripts/peer_compare.py --tickers 005380.KS   # 한 종목 상세
+  ```
+  `financials.py`가 종목을 **세로로**(자기 시계열) 본다면 이건 **가로로**(동종 대비) 본다.
+  그동안 "이 종목 스코어가 낮은 게 **업종 특성인가 회사 문제인가**"를 우리 숫자로 못 갈라
+  sell-side의 '업종 대비' 서술을 받아썼다 — 그 구멍을 메우는 축이다.
+  - **두 렌즈가 갈리는 지점이 산출물이다**: 피어 백분위 ↔ 자기이력 백분위.
+    · 피어 상위 ↔ 자기이력 하위 = **좋은 회사의 둔화 초입** → §5 리스크·트림 검토 입력
+    · 피어 하위 ↔ 자기이력 상위 = **낮은 업종의 회복 국면** → 매수 논거의 보조(단독 근거 아님)
+  - **섹터 데스크에 전달**: 해당 그룹 결과를 그 데스크 프롬프트에 넣어 '동종 대비' 서술의 근거로 쓴다.
+  - ⚠️ **n=3~6이라 백분위는 사실상 순위다.** 표본 수를 항상 병기하고 통계로 읽지 말 것
+    (전력 그룹 n=3 = 통계 아님). **비율만 비교**한다 — 통화가 섞여 절대금액 비교는 무의미.
+  - ⚠️ **측정 전용 — 별점·스코어·트랜치 어떤 룰도 바꾸지 않는다.**
 - **미국주 TTM 파생(보조)**: 키가 있으면 `FMP_API_KEY=키 python3 .claude/skills/portfolio-desk/scripts/fundamentals.py`
   → 매출·EPS YoY·최근분기 EPS YoY·마진·FCF·PE. **무료플랜 402 종목(MU·VOO·ANET·AVGO·ORCL)은 EDGAR가 대체**하므로
   더 이상 WebSearch 폴백 대상이 아니다.

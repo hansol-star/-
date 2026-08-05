@@ -52,5 +52,20 @@
 - 2026-08-05 21:30 — **3·4단계 완료**. 신설 3종: `edgar_search.py`(EDGAR FTS + 8-K item 스트림)·
   `peer_compare.py`(피어 백분위 ↔ 자기이력 백분위)·`memory_recall.py`(원장 4종 통합 회수).
   구현 중 실측 함정 3건 기록(다중 CIK 500 · SEC UA 403 · financials.json 단위 혼재) → dev_handoff.
-- 2026-08-05 22:05 — **5단계 완료**. data_coverage §2/§3·CLAUDE.md·dev_handoff 갱신.
-  selfcheck GATE PASS(63스크립트)·validate PASS → main ff 머지·트리거 disarm. **세션 완주.**
+- 2026-08-05 22:05 — **5단계 완료**(원 작업 목록 1~5). data_coverage §2/§3·CLAUDE.md·dev_handoff 갱신.
+  selfcheck GATE PASS·validate PASS → main ff 머지. ⚠️ 이때 "트리거 disarm"이라 적었으나
+  **실제로는 disarm 실패**(서버에서 이미 사라진 상태) — 위 '재개 트리거 id' 항목 참조.
+- **이후 정훈 연속 지시로 작업이 계속됐다**(아래는 원 목록 밖 추가분):
+  · 22:30 — 신규 3종을 **R2 파이프라인에 배선**(SKILL §0-2c·§2, routines.md, playbook §1b-2).
+    배선 중 playbook risk-desk에서 **폐기된 룰 2개**(7,500 안전핀·폭풍 감산 스케일) 적발·정정.
+  · 23:00 — `validate_report.py`에 **`check_repealed_rules()` 신설**. 첫 실행 6건 중 5건이 진짜
+    (SKILL·risk-desk×2·kr-market-desk·crash_tf) — 손으로 찾은 2건은 빙산의 일각이었다.
+    이후 자기 결함 3건(허용어 과대·표형 누락·결정로그 위양성)도 스스로 드러나 수정.
+  · 23:30 — **폭풍 %ile 정본 = `vol_gauge` 확정**(8/1부터 4회 연속 미해결이던 도구충돌 종결).
+    연구 정본 = `docs/research/storm_pct_canon_2026-08-05.md`.
+  · 00:10 — **붕괴구간 면제 조항 검토 → 기각**(집계 +9.5%p가 1997 IMF 하나발·재현 5/10).
+  · 00:50 — **국내 전용 플로어 검토 → 기각**. 에피소드 **2 → 188개**로 확대(비미국 18개 시장,
+    신흥국 13개 신규 수집 111,460 일봉) → 재현 41%. `VERIFY_MARKETS` 등록으로 표본 자산화.
+  · 01:10 — R2 트리거 프롬프트 교체(정훈 UI 직접) **서버 반영 확인**(updated_at 14:19Z).
+- **세션 완주. 룰은 하나도 안 바뀌었고(검토 2건 전부 기각) 그게 옳은 결과다.**
+  다음 세션 인수인계 = `docs/dev_handoff.md` §7.

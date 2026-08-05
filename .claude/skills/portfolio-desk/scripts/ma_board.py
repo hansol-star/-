@@ -45,8 +45,19 @@ MA_COLORS = {5: "#e8590c", 20: "#2f9e44", 60: "#1971c2", 120: "#862e9c"}
 
 
 def fetch_closes(symbol: str, rng: str = "2y", timeout: float = 15.0):
-    """일봉 종가 시계열. (dates, closes, currency, gaps) — 결측일은 버리고 개수만 센다."""
-    url = YAHOO.format(sym=urllib.request.quote(symbol)) + f"?interval=1d&range={rng}"
+    """일봉 종가 시계열. (dates, closes, currency, gaps) — 결측일은 버리고 개수만 센다.
+
+    ⚠️ [8/5 실측] `range=max&interval=1d`는 **일봉인 척 월봉을 돌려준다**(^KS11 30년치가
+    357개). 조용히 granularity를 낮추므로 장기 검정에서 표본이 통째로 증발한다.
+    ⇒ rng="max"는 range 대신 **period1/period2**로 던진다(같은 요청이 7,447개 일봉 반환)."""
+    import datetime as _dt
+    base = YAHOO.format(sym=urllib.request.quote(symbol))
+    if rng == "max":
+        p2 = int(_dt.datetime.now().timestamp()) + 86400
+        p1 = int(_dt.datetime(1970, 1, 2).timestamp())
+        url = f"{base}?interval=1d&period1={p1}&period2={p2}"
+    else:
+        url = f"{base}?interval=1d&range={rng}"
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:

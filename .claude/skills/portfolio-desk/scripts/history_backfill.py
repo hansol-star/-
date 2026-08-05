@@ -62,6 +62,20 @@ XASSET = [
     ("금", "GC=F"), ("비트코인", "BTC-USD"),
 ]
 
+# [8/5] 룰 검증용 **에피소드 표본 확대** 세트 — 비미국 13개 시장.
+# 왜: 우리 룰(하드플로어·사다리)의 반례를 코스피 하나로 검정하면 **에피소드가 7개뿐**이라
+#     어떤 결론도 안 난다(8/5에 '붕괴구간 면제'가 이 이유로 기각됐고, '국내 전용 플로어'는
+#     이 세트를 붙여 188개 에피소드로 검정한 끝에 기각됐다).
+#     룰 가설은 대개 "한국 특수"가 아니라 일반 명제라 **횡단면으로 표본을 늘릴 수 있다.**
+# ⚠️ 신흥국을 일부러 넣었다 — 통화·정치·구조 위기가 잦아 '고유위기' 표본의 핵심 공급원이다.
+# ⚠️ 측정·검증 전용. 이 지수들로 매매 판단을 하지 않는다(보유·워치가 아니다).
+VERIFY_MARKETS = [
+    ("대만", "^TWII"), ("인도", "^BSESN"), ("인니", "^JKSE"), ("브라질", "^BVSP"),
+    ("멕시코", "^MXX"), ("터키", "XU100.IS"), ("캐나다", "^GSPTSE"), ("호주", "^AXJO"),
+    ("영국", "^FTSE"), ("독일", "^GDAXI"), ("말레이", "^KLSE"),
+    ("이스라엘", "^TA125.TA"), ("아르헨", "^MERV"),
+]
+
 
 def _universe(include_xasset: bool = True) -> list[tuple[str, str]]:
     """코스피·코스닥 + 보유 + 워치 + 유가 + (해외·매크로 크로스에셋). 순수 시세축."""
@@ -78,6 +92,9 @@ def _universe(include_xasset: bool = True) -> list[tuple[str, str]]:
     if include_xasset:
         have = {s for _, s in base}
         base += [(l, s) for (l, s) in XASSET if s not in have]
+        have |= {s for _, s in XASSET}
+        # 룰 검증용 표본 확대 세트도 같이 유지한다(안 붙이면 orphan 파일이 되어 stale해진다)
+        base += [(l, s) for (l, s) in VERIFY_MARKETS if s not in have]
     return base
 
 

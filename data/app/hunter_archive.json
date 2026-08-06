@@ -1,8 +1,43 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-08-06 자동 롤오버 +10편 (build_app_data)",
+  "updated": "2026-08-06 자동 롤오버 +3편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-08-06",
+      "title": "하이닉스 주주들이 전부 '삼전'으로 옮기는 이유",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": null,
+      "takeaway": "로이터: 삼성전자·SK하이닉스 주주환원 검토. 삼성전자 '곧 구체안' vs SK하이닉스 '연말까지'로 발표시점 격차 — 오늘 SK하이닉스(-10.37%)가 삼성전자(-6.30%)보다 더 빠진 배경 보조설명(주촉매는 SanDisk/WDC 낸드가이던스). SK하이닉스 순현금 88조 근접에도 발표지연, 솔리다임 프리IPO 불확실성·성과급 우선배정 불만 겹침.",
+      "views": null,
+      "id": "8VdxKAPb1JA"
+    },
+    {
+      "date": "2026-08-06",
+      "title": "지금 구글이 AI 때문에 진짜 망할 수도 있다는 이유",
+      "theme": null,
+      "tickers": [
+        "GOOGL"
+      ],
+      "verdict": null,
+      "takeaway": "구글 시총 약280조 증발(장중-5%대), 제프딘 등 핵심연구자 퇴사+딥마인드 리더십개편(헛사비스↔카브코올루). us-market-desk·bigtech-desk 독립조사와 3중 수렴 확인. 실적·매크로 아닌 인사이슈 — 재무플래그 신규없음, 매수1순위 논지 오히려 보강(d82).",
+      "views": null,
+      "id": "kfaSpDHLsmg"
+    },
+    {
+      "date": "2026-08-06",
+      "title": "오늘 '미국 주식' 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "오늘밤 21:30 단위노동비용(예상2.2%). SpaceX 락업1차해제 9.05억주(유통물량 2배+) — 2012년 페이스북 최대락업해제 비교사례(우려와 달리+12.6%). 콘스텔레이션에너지·클라우드플레어 실적 예정. 구체 종목콜 없음.",
+      "views": null,
+      "id": "w8pQ5RJFSSw"
+    },
     {
       "date": "2026-08-06",
       "title": "5일 연속 오르던 미국 주식이, 다시 '조정' 받은 이유",

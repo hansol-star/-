@@ -70,7 +70,7 @@
 - 데스크 병렬(리서치 제외 최대 7 — 지역2+매크로+리스크 항상, 섹터 3종 = 트리거 게이트: ±5%·실적 D-7·테마뉴스·정훈 지목 없으면 지역데스크 시세로 갈음) → 강세/신중 디베이트 → PM 종합.
 - 주간 첫 보고서면 self-review는 R3(주말)에서 청산되므로 평일 중복 X. 단 R3 누락 주면 맨 먼저 self-review.
 - 보유15+워치 풀표(별점·스코어·매수존·트림)·지정가 오더북·PM 사견·tasks.json 동기화. 오늘의 이슈 4개는 전부 자동 심층(선택 대기 X).
-- build_app_data → validate_report(FAIL 자가교정) → score_calls --append → snapshot.py → **market_log.py**([7/20] 오늘 시세 시계열 append, once-per-day 가드) → **build_dashboard.py**([7/20] output/dashboard.html 재생성 → Artifact 툴 있으면 `data/app/dashboard_url.txt`의 URL로 재발행해 링크 유지) → **report_guard.py --done**(validate PASS 뒤 완료 마커) → 커밋(data/app/report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동). 추측 금지·미확인 명시.
+- build_app_data → validate_report(FAIL 자가교정) → **rule_tracker.py --snapshot**([8/6] 룰1 사다리 원장 매일 append — RESET 정책상 매일 재계산이 전제. 7/30~8/5 7일 정지 재발방지, validate가 FAIL로 감시) → score_calls --append → snapshot.py → **market_log.py**([7/20] 오늘 시세 시계열 append, once-per-day 가드) → **build_dashboard.py**([7/20] output/dashboard.html 재생성 → Artifact 툴 있으면 `data/app/dashboard_url.txt`의 URL로 재발행해 링크 유지) → **report_guard.py --done**(validate PASS 뒤 완료 마커) → 커밋(data/app/report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동). 추측 금지·미확인 명시.
 ```
 
 ### R3. 주말 캘리브레이션 + 리뷰 (토 09:00) — 콜 후행검증
@@ -78,6 +78,7 @@
 
 ```
 self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 — 선택지 띄우고 멈추지 말 것).
+- ⚠️[8/6] `--backfill` 전에 **`git fetch --unshallow origin`** 먼저 — 원격 세션은 얕은 클론(실측 3일치)이라 그대로 돌리면 원장이 잘린다(8/6 실측: 135콜 중 75콜 소실 예정이었음). 백필은 이제 기존 원장과 **병합**하고 얕으면 중단한다(--force로만 강행).
 - score_calls.py --backfill 후 score_calls.py 로 별점버킷 평균전진%·방향적중·매수존 진입률·목표터치율 + 편향 플래그 산출.
 - 지난 1주(또는 직전 캘리브레이션 이후) 콜 vs 실제 비교: 별점 캘리브레이션(⭐4~5 vs ⭐1~2 순서), 매수존 적중,
   목표가 방향성, 경제사냥꾼 [정정] 비율.
@@ -124,7 +125,7 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
   예산에 막혔음'이므로 **완주(= 완결된 validate PASS 보고서 1개 산출)를 최우선**으로 둔다:
     · 섹터 3개 데스크는 트리거 게이트에 걸린 것만(없으면 지역데스크 시세로 갈음), 영상은 오늘자 R1 캐시 소비(재추출 X).
     · 예산이 빠듯하면 '오늘의 이슈' 심층 4개 중 우선순위 낮은 건 1~2줄로 압축해도 됨(품질 < 완주). 보유15 풀표·오더북·PM 사견·STATE SNAPSHOT은 생략 금지.
-- build_app_data → validate_report(FAIL 자가교정) → snapshot.py → market_log.py(once-per-day 가드) → report_guard.py --done → 커밋(report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동).
+- build_app_data → validate_report(FAIL 자가교정) → **rule_tracker.py --snapshot**([8/6] 룰1 원장 매일 append) → snapshot.py → market_log.py(once-per-day 가드) → report_guard.py --done → 커밋(report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동).
 - 21:15 세션은 정훈 폰창(20:50) 밖 = 무인 완주용. 보고서를 내고 push 알림만 남긴다(집행은 다음 폰창/예약주문).
 ```
 

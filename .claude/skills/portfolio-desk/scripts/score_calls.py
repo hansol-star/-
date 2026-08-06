@@ -162,7 +162,31 @@ def call_rows(stocks_json, dt):
         })
     return rows
 
-def backfill():
+def is_shallow():
+    """[8/6 신설] 얕은 클론 감지. 웹/원격 세션은 얕게 클론돼 git 히스토리가
+    며칠치뿐일 수 있다 — 그 상태로 백필하면 원장이 그 며칠로 잘린다."""
+    out = subprocess.run(["git", "-C", ROOT, "rev-parse", "--is-shallow-repository"],
+                         capture_output=True, text=True)
+    return out.stdout.strip() == "true"
+
+
+def backfill(force=False):
+    """git 히스토리에서 콜 원장을 복원한다.
+
+    ⚠️ [8/6 사고예방] 舊 구현은 결과를 **"w"로 통째 덮어썼다**. 원격 세션은 얕은
+    클론(oldest 3일)이라 R3 주말루틴의 `--backfill`이 원장을 3일치로 잘라먹는
+    구조였다(실측: 135개 중 75개 = 7/28~8/1 소실 예정). 두 겹으로 막는다:
+      ① 얕은 클론이면 중단하고 `git fetch --unshallow`를 안내(--force로 강행 가능)
+      ② 덮어쓰기가 아니라 **기존 원장과 병합** — 복원분이 기존을 이기되,
+         히스토리에 없는 과거 날짜는 보존한다(백필은 복원이지 삭제가 아니다).
+    """
+    if is_shallow() and not force:
+        print("🔴 백필 중단 — 얕은 클론(shallow)이라 git 히스토리가 잘려 있다.\n"
+              "   이대로 백필하면 원장이 그 며칠치로 잘린다.\n"
+              "   먼저: git fetch --unshallow origin   (그 뒤 --backfill 재실행)\n"
+              "   그래도 강행하려면 --force")
+        return 1
+
     seen, rows = set(), []
     for h, dt in reversed(git_commits()):          # 과거→현재
         sj = stocks_at(h)
@@ -174,10 +198,28 @@ def backfill():
                 rows = [x for x in rows if (x["date"], x["ticker"]) != key]
             seen.add(key)
             rows.append(r)
-    with open(os.path.join(ROOT, LEDGER_REL), "w", encoding="utf-8") as f:
-        for r in rows:
+
+    # ② 병합: 복원분에 없는 기존 (날짜,종목)은 살린다.
+    lp = os.path.join(ROOT, LEDGER_REL)
+    kept = []
+    if os.path.exists(lp):
+        for ln in open(lp, encoding="utf-8"):
+            if not ln.strip():
+                continue
+            try:
+                r = json.loads(ln)
+            except Exception:
+                continue
+            if (r.get("date"), r.get("ticker")) not in seen:
+                kept.append(r)
+    merged = sorted(rows + kept, key=lambda r: (r.get("date") or "", r.get("ticker") or ""))
+    with open(lp, "w", encoding="utf-8") as f:
+        for r in merged:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    print(f"✅ 백필 완료: {len(rows)}개 콜 → {LEDGER_REL} ({len(git_commits())} 커밋, 중복일 제거)")
+    days = len({r["date"] for r in merged})
+    print(f"✅ 백필 완료: {len(merged)}개 콜 / {days}일 → {LEDGER_REL} "
+          f"(복원 {len(rows)} + 히스토리 밖 보존 {len(kept)}, {len(git_commits())} 커밋)")
+    return 0
 
 def append_today():
     p = os.path.join(ROOT, STOCKS_REL)
@@ -340,12 +382,14 @@ def score(min_age=1):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--backfill", action="store_true", help="git 히스토리에서 원장 재생성")
+    ap.add_argument("--backfill", action="store_true", help="git 히스토리에서 원장 복원(기존과 병합)")
+    ap.add_argument("--force", action="store_true", help="얕은 클론이어도 백필 강행(원장 잘림 위험)")
     ap.add_argument("--append", action="store_true", help="현재 stocks.json 콜을 원장에 추가")
     ap.add_argument("--min-age", type=int, default=1, help="채점 최소 보유일(기본 1)")
     a = ap.parse_args()
     if a.backfill:
-        backfill()
+        if backfill(force=a.force):
+            return 1
     if a.append:
         append_today()
     if not a.backfill and not a.append:

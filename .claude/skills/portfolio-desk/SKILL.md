@@ -315,8 +315,14 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 2c. **✅ 완료검증 게이트 (커밋 전 필수 — 하네스 ②: 검증을 명령어로)**:
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/validate_report.py   # FAIL 0 이어야 커밋
+   python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --snapshot  # [8/6] 룰1 사다리 원장 매일 append
    python3 .claude/skills/portfolio-desk/scripts/score_calls.py --append   # 이번 콜을 캘리브레이션 원장에 누적
    ```
+   **[8/6 신설] `rule_tracker.py --snapshot`은 매 보고서 필수다.** 룰1은 7/31 RESET 정책상
+   *매일 재계산*이 전제인데 원장이 7/30 1건에서 7일 멈춰 있었고, 그 1건이 말하는 상태
+   (해금 35%·상한 282,438원·halted=false)가 8/6 실제(해금 15%·상한 0원·하드플로어 halted)와
+   **정반대**였다 — 원장을 읽는 self-review §8·rule_tracker --score가 통째로 옛 상태를 본다.
+   `validate_report.check_rule_ledger`가 3일 이상 정지 시 FAIL로 잡는다.
    (`--append`로 calls_log.jsonl에 이번 보고서 콜 1스냅샷을 쌓아둔다 → self-review가 후행 채점. reflection 루프의 적립 단계.)
    빌더(PM) 자가채점 대신 기계가 **보유 전종목·풀표 컬럼(별점·스코어·목표·매수존·트림·코멘트)·별점↔스코어 밴드·flows 추측수치·정본 버전 stale**을 점검한다. **FAIL이 있으면 고치고 재실행**(풀표 누락·컬럼 빠짐 재발 방지). WARN(별점↔스코어 어긋남 등)은 근거 재점검 후 의도면 통과. CLAUDE.md '현재 상태' 버전 토큰도 이 검사 대상 → 새 보고서면 그 줄도 +1.
    - **🤖 루틴(무인 스케줄) 시**: FAIL이면 고쳐줄 사람이 없으니 **스스로 교정 후 재검증**(빈 컬럼 채움·stale 버전 갱신 등 자동수정 가능한 건 끝까지 고친다). 정성 판단이라 자동수정 불가한 WARN(별점↔스코어 등)은 **STATE SNAPSHOT에 한 줄 명기하고 그대로 머지** — 무인이라 보는 사람이 없으니 멈추는 것보다 '검증 결과를 안고 완결'이 낫다. 커밋 메시지 끝에 `[validate PASS]` 또는 `[validate WARN n]` 표기로 흔적을 남긴다.

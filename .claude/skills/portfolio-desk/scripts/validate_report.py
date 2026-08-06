@@ -811,6 +811,74 @@ REPEAL_SCAN = [
     ".claude/skills/portfolio-desk/SKILL.md",
 ]
 
+def check_rule_ledger(latest=None):
+    """[8/6 신설] 룰1 낙폭 사다리 원장(rule_log.jsonl) 신선도 게이트.
+
+    룰1은 7/31 RESET 정책으로 **매일 재계산**이 전제다(되돌리면 다시 잠긴다).
+    그런데 원장은 7/30 1건에서 멈춰 있었다 — 그 1건이 말하는 상태
+    (해금 35%·상한 282,438원·halted=false)와 8/6 실제
+    (해금 15%·상한 0원·하드플로어 halted=true)가 정반대였다.
+    원장을 읽는 쪽(self-review §8 룰 추적·rule_tracker --score)이 통째로 옛 상태를
+    보게 되므로, 보고서 날짜와 원장 최신일이 어긋나면 경고한다.
+    """
+    p = os.path.join(ROOT, "data/app/rule_log.jsonl")
+    if not os.path.exists(p):
+        warn("rule_log.jsonl 없음 — 룰1 사다리 원장 미기록(rule_tracker.py --snapshot)")
+        return
+    dates = []
+    for ln in open(p, encoding="utf-8"):
+        if not ln.strip():
+            continue
+        try:
+            dates.append(json.loads(ln).get("date"))
+        except Exception:
+            continue
+    dates = sorted(d for d in dates if d)
+    if not dates:
+        warn("rule_log.jsonl 비어 있음 — 룰1 사다리 원장 미기록")
+        return
+    last = dates[-1]
+    # 최신 보고서 날짜와 비교 (보고서가 있으면 그날, 없으면 오늘 KST)
+    ref = None
+    if latest:
+        rel = latest_report_path(latest)
+        if rel:
+            m = re.search(r"(\d{4}-\d{2}-\d{2})", rel)
+            if m:
+                ref = m.group(1)
+    if not ref:
+        ref = (dt.datetime.now(dt.timezone.utc)
+               + dt.timedelta(hours=9)).date().isoformat()
+    if last < ref:
+        gap = (dt.date.fromisoformat(ref) - dt.date.fromisoformat(last)).days
+        msg = (f"rule_log 최신 {last} < 보고서 {ref} ({gap}일 정지) — "
+               "룰1은 RESET 정책상 매일 재계산이 전제다. "
+               "rule_tracker.py --snapshot 미실행 = 사다리 상태가 옛날 값으로 읽힌다")
+        (fail if gap >= 3 else warn)(msg)
+
+
+def check_git_depth():
+    """[8/6 신설] 얕은 클론 감지 — git 히스토리를 소급 재구성하는 도구의 안전장치.
+
+    원격/웹 세션은 레포를 얕게 클론한다(실측 8/6: 50커밋·최古 8/3 = 3일치).
+    그런데 `score_calls.py --backfill`(R3 주말루틴)은 git 히스토리에서 콜 원장을
+    복원하므로, 얕은 상태로 돌리면 원장이 그 며칠치로 잘린다
+    (실측: 135콜 중 75콜 = 7/28~8/1 소실 예정이었다).
+    self-review §1의 '2~3주 전 커밋 복원'도 같은 이유로 불가능해진다.
+    ⇒ 얕으면 경고하고 `git fetch --unshallow origin`을 안내한다.
+    """
+    try:
+        out = subprocess.run(["git", "-C", ROOT, "rev-parse", "--is-shallow-repository"],
+                             capture_output=True, text=True, timeout=20)
+    except Exception:
+        return
+    if out.stdout.strip() != "true":
+        return
+    warn("git 얕은 클론(shallow) — 히스토리 소급 도구가 잘린 범위만 본다. "
+         "`git fetch --unshallow origin` 후 작업할 것 "
+         "(score_calls --backfill·self-review §1 콜 스냅샷 복원이 영향)")
+
+
 def check_repealed_rules():
     """정본 문서에 **폐기된 룰**이 살아 있는지 감지 [8/5 신설].
 
@@ -946,7 +1014,7 @@ def main():
     check_low_star_action(); check_pending_decisions(); check_repealed_rules()
     check_consistency(); check_hunter(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
-    check_financials(latest)
+    check_financials(latest); check_rule_ledger(latest); check_git_depth()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
         if rel: check_report(rel); check_prose_order_link(rel)

@@ -150,13 +150,24 @@ def collect(ticker: str, cmap=None, op=None, crumb=None) -> dict:
         primary = E.fetch(t, cmap)
         cross = Y.fetch(t, op, crumb)
 
-    if primary.get("_error"):
-        # 1차가 죽으면 2차로 승격(폴백의 존재 이유)
-        if cross and not cross.get("_error"):
-            cross["_fallback_from"] = primary.get("_error")
+    def _empty(r):
+        """에러는 없는데 **기수가 0** — '실패'가 아니라 '부재'로 위장된 실패다.
+        [8/6 실측] STM(STMicroelectronics)은 20-F/IFRS 신고사라 EDGAR companyfacts에
+        US-GAAP 태그가 없다 → 에러 없이 annual 0·quarterly 0이 나오고, 폴백이
+        `_error`만 보고 있어서 Yahoo로 승격되지 않았다. 결과: depth='full'인데 내용이 빈
+        레코드가 저장되고 peer_compare가 조용히 제외했다.
+        (data_coverage §4b 원칙: **0과 빈 값은 결론이 아니라 가설이다.**)"""
+        return not (r.get("annual") or r.get("quarterly"))
+
+    if primary.get("_error") or _empty(primary):
+        # 1차가 죽거나 **비어 있으면** 2차로 승격(폴백의 존재 이유)
+        if cross and not cross.get("_error") and not _empty(cross):
+            cross["_fallback_from"] = primary.get("_error") or "1차 소스 기수 0(태그 부재 추정)"
             primary, cross = cross, None
-        else:
+        elif primary.get("_error"):
             return {"ticker": t, "_error": primary.get("_error")}
+        else:
+            return {"ticker": t, "_error": "1차·2차 모두 기수 0 — 재무 데이터 부재"}
 
     rec = dict(primary)
     rec["annual"] = derive(primary["annual"], primary["annual"])

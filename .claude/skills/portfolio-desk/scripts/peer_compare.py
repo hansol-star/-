@@ -28,8 +28,11 @@ sell-side 리포트의 '업종 대비' 서술을 받아쓰기만 했다.
 
 ■ 규율
   · **측정 전용 — 별점·스코어·트랜치 어떤 룰도 바꾸지 않는다.** 매수/매도 트리거 아님.
-  · 피어 그룹이 **3~6종목**이라 백분위는 거친 순위다. n을 항상 병기하고,
-    n<4면 "표본 희박"을 찍는다(drawdown_history의 표본 병기 규율과 같은 문법).
+  · [8/6] 피어에 **워치 종목을 편입**해 n을 키웠다(전력 3→10, 반도체 5→10).
+    ⚠️ **n이 늘어도 비교가능성이 같이 늘지는 않는다.** 이 그룹은 *경제적 동질 피어*가 아니라
+    **데스크 담당 범위**다(전력 = 전력기기+로봇+완성차+방산·조선 혼재).
+    백분위를 "업종 내 위치"로 읽지 말고 **"우리 커버리지 안에서의 순위"**로 읽을 것.
+  · 표본이 얇으면 n을 병기하고 n<4면 "표본 희박"을 찍는다(drawdown_history 규율과 같은 문법).
   · 회계연도 말이 회사마다 다르다(MU 8월·NVDA 1월·삼성 12월) → **최근 연간 1기**를
     비교하되 기준일을 같이 출력한다. 같은 날의 스냅샷이 아니다.
 
@@ -40,6 +43,9 @@ sell-side 리포트의 '업종 대비' 서술을 받아쓰기만 했다.
   peer_compare.py --json
 
 데이터: data/app/financials.json (financials.py 산출 = EDGAR/DART/Yahoo 하드넘버). stdlib만.
+⚠️ 피어(워치) 재무는 `financials.py --with-peers --save`로 채운다 — **주간 R3에서 갱신**한다.
+   국내 1종목 수집이 1~2분이라 매일 도는 R2에 붙이면 보고서 완주 예산을 갉아먹는다.
+   피어 재무가 없으면 그 종목은 자동 제외되고 출력에 "재무 미수집"으로 표기된다.
 """
 from __future__ import annotations
 
@@ -71,11 +77,22 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 FIN = os.path.join(ROOT, "data", "app", "financials.json")
 
-# 피어 그룹 = 데스크 3축 그대로 (섹터 데스크 담당 종목과 일치시킨다)
+# 피어 그룹 = 데스크 3축 그대로 (섹터 데스크 담당 종목과 일치시킨다).
+# [8/6] 보유(HOLD) + 워치 피어(PEER)로 확장 — 전력 그룹이 n=3이라 순위조차 못 되던 걸 키웠다.
+# ⚠️ **n이 늘어도 비교가능성이 같이 늘지는 않는다.** 이 그룹은 *경제적 동질 피어*가 아니라
+#    **데스크 담당 범위**다(특히 전력 = 전력기기+로봇+완성차+방산·조선 혼재).
+#    백분위를 '업종 내 위치'로 읽지 말고 '우리 커버리지 안에서의 순위'로 읽을 것.
 GROUPS = {
-    "semi": ("반도체·AI인프라", ["NVDA", "MU", "AVGO", "ANET", "005930.KS"]),
-    "bigtech": ("빅테크·플랫폼", ["AAPL", "MSFT", "GOOGL", "META", "ORCL", "035420.KS"]),
-    "power": ("전력·피지컬AI", ["066570.KS", "454910.KS", "005380.KS"]),
+    "semi": ("반도체·AI인프라",
+             ["NVDA", "MU", "AVGO", "ANET", "005930.KS"],
+             ["000660.KS", "009150.KS", "240810.KQ", "095610.KQ", "STM"]),
+    "bigtech": ("빅테크·플랫폼",
+                ["AAPL", "MSFT", "GOOGL", "META", "ORCL", "035420.KS"],
+                ["TMUS"]),
+    "power": ("전력·피지컬AI",
+              ["066570.KS", "454910.KS", "005380.KS"],
+              ["034020.KS", "012450.KS", "042660.KS", "010140.KS", "329180.KS",
+               "096770.KS", "GEV"]),
 }
 
 # (필드, 표시명, 높을수록 좋은가, 표시배율)
@@ -92,7 +109,12 @@ METRICS = [
     ("debt_to_equity", "D/E", False, 1),
 ]
 SHORT = {"005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KS": "두산로보",
-         "005380.KS": "현대차", "035420.KS": "NAVER"}
+         "005380.KS": "현대차", "035420.KS": "NAVER",
+         # 피어(워치)
+         "000660.KS": "SK하이닉스", "009150.KS": "삼성전기", "240810.KQ": "원익IPS",
+         "095610.KQ": "테스", "034020.KS": "두산에너빌", "012450.KS": "한화에어로",
+         "042660.KS": "한화오션", "010140.KS": "삼성중공업", "329180.KS": "HD현대중",
+         "096770.KS": "SK이노베이션"}
 
 
 def load():
@@ -133,8 +155,9 @@ def own_history_rank(stock, field, higher_better=True):
 
 
 def build(data, group_key):
-    label, members = GROUPS[group_key]
+    label, held, peers = GROUPS[group_key]
     stocks = data["stocks"]
+    members = list(held) + [p for p in peers if p not in held]
     rows = []
     for t in members:
         s = stocks.get(t)
@@ -145,6 +168,7 @@ def build(data, group_key):
             continue
         vals = {f: a.get(f) for f, _, _, _ in METRICS}
         rows.append({"ticker": t, "name": SHORT.get(t, t), "end": a.get("end", "?"),
+                     "held": t in held, "as_of": s.get("as_of"),
                      "subscore": s.get("fund_subscore"), "vals": vals,
                      # disp = 사람이 읽을 단위로 맞춘 값(마진·ROE ×100). 순위 계산엔 vals를 쓴다.
                      "disp": {f: (None if vals[f] is None else vals[f] * sc)
@@ -161,7 +185,9 @@ def build(data, group_key):
         got = [v for v in r["pct"].values() if v is not None]
         r["peer_avg"] = round(sum(got) / len(got), 1) if got else None
     rows.sort(key=lambda r: (r["peer_avg"] is None, -(r["peer_avg"] or 0)))
-    return {"group": group_key, "label": label, "n": len(rows), "rows": rows}
+    return {"group": group_key, "label": label, "n": len(rows), "rows": rows,
+            "n_held": sum(1 for r in rows if r["held"]),
+            "missing": [t for t in members if t not in {r["ticker"] for r in rows}]}
 
 
 def fmt(v, nd=1):
@@ -171,26 +197,32 @@ def fmt(v, nd=1):
 def print_group(g):
     n = g["n"]
     thin = "  ⚠️표본 희박(n<4)" if n < 4 else ""
-    print(f"\n═══ {g['label']}  (피어 n={n}){thin}")
+    print(f"\n═══ {g['label']}  (n={n} · 보유 {g['n_held']} + 피어 {n - g['n_held']}){thin}")
     print("   백분위 = 이 그룹 안에서의 상대 순위(100=최상). 절대금액은 비교하지 않는다(통화 혼재).")
-    hdr = f"   {'종목':<10}{'기준':<12}{'종합%ile':>9}"
+    print("   ⚠️ 이 그룹은 **데스크 담당 범위**이지 경제적 동질 피어가 아니다 —")
+    print("      '업종 내 위치'가 아니라 '우리 커버리지 안 순위'로 읽을 것. ●=보유 ·=피어(워치)")
+    if g["missing"]:
+        print(f"   ⚠️ 재무 미수집 {len(g['missing'])}종목 제외: {', '.join(g['missing'])}"
+              f" — `financials.py --with-peers --save`로 보강")
+    hdr = f"   {'종목':<12}{'기준':<12}{'종합%ile':>9}"
     for _, name, _, _ in METRICS:
         hdr += f"{name:>10}"
     print(hdr)
     for r in g["rows"]:
-        line = f"   {r['name'][:9]:<10}{r['end']:<12}{fmt(r['peer_avg']):>9}"
+        mark = "●" if r["held"] else "·"
+        line = f"   {mark}{r['name'][:10]:<11}{r['end']:<12}{fmt(r['peer_avg']):>9}"
         for f, _, _, _ in METRICS:
             p = r["pct"][f]
             line += f"{('—' if p is None else f'{p:.0f}'):>10}"
         print(line)
     # 값 자체도 한 번 (백분위만 보면 수준 감각이 사라진다)
     print(f"\n   [원값]")
-    hdr = f"   {'종목':<10}"
+    hdr = f"   {'종목':<12}"
     for _, name, _, _ in METRICS:
         hdr += f"{name:>10}"
     print(hdr)
     for r in g["rows"]:
-        line = f"   {r['name'][:9]:<10}"
+        line = f"   {'●' if r['held'] else '·'}{r['name'][:10]:<11}"
         for f, _, _, _ in METRICS:
             line += f"{fmt(r['disp'][f]):>10}"
         print(line)
@@ -218,10 +250,11 @@ def print_group(g):
 
 def print_detail(data, ticker):
     """한 종목의 피어 내 위치 상세."""
-    gk = next((k for k, (_, m) in GROUPS.items() if ticker in m), None)
+    gk = next((k for k, (_, h, p) in GROUPS.items() if ticker in h or ticker in p), None)
     if not gk:
         print(f"🔴 {ticker} 는 피어 그룹에 없다. 지원: "
-              f"{', '.join(sum((m for _, m in GROUPS.values()), []))}", file=sys.stderr)
+              f"{', '.join(sum((list(h) + list(p) for _, h, p in GROUPS.values()), []))}",
+              file=sys.stderr)
         return 1
     g = build(data, gk)
     r = next((x for x in g["rows"] if x["ticker"] == ticker), None)

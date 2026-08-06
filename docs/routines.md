@@ -62,7 +62,9 @@
   · `edgar_search.py --events --days 30` = 미국 8-K item 스트림(`dart_disclosure`의 미국 짝). 🚨critical은 본문 노출.
     `--q "문구"` 전문검색은 **트리거 게이트**(논지를 1차 문서로 확정할 때만 — 습관적 호출 금지).
   · `peer_compare.py` = **반드시 `financials.py --all --save` 다음**(먼저 돌리면 어제 숫자로 순위를 매긴다).
-    두 렌즈가 갈리는 지점만 보고서에 쓴다. n=3~6이라 순위이지 통계가 아니다.
+    두 렌즈가 갈리는 지점만 보고서에 쓴다. [8/6] 워치 편입으로 n이 커졌으나(전력 3→10·반도체 5→10)
+    **그룹은 경제적 동질 피어가 아니라 데스크 담당 범위**다 — "업종 내 위치"가 아니라
+    "우리 커버리지 안 순위"로 서술할 것. 피어 재무 갱신은 R3(`--with-peers`) 담당.
   ⚠️ 셋 다 **측정·탐색·읽기 전용 — 별점·스코어·트랜치 어떤 룰도 바꾸지 않는다.**
 - **[8/5] 폭풍 %ile 정본 = `vol_gauge.py`.** 하드플로어(S&P ≥70%ile)·항복 가산 판정에 **`garch` 값을 인용하지 말 것** — 8/1~8/4 보고서 4회 연속으로 garch 값을 하드플로어에 인용해 판정이 갈렸다. `garch`는 선행 대조·발산 경보(|두 %ile 차이| ≥20p = 국면 전환) 전용.
 - 데스크 병렬(리서치 제외 최대 7 — 지역2+매크로+리스크 항상, 섹터 3종 = 트리거 게이트: ±5%·실적 D-7·테마뉴스·정훈 지목 없으면 지역데스크 시세로 갈음) → 강세/신중 디베이트 → PM 종합.
@@ -83,6 +85,10 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
 - 미스무브 회고(self-review §6): missed_moves.py 로 놓친 매수/매도(오미션)·good_inaction·반복 패턴 산출
   → 검증한 케이스만 missed_moves.jsonl append + docs/research/hindsight_log.md 맨 위 회고 블록 prepend
   (결과론 함정 경계 — 히스토리 짧으면 noise, good_inaction으로 무행동 편향 균형). 반복 편향은 desk_playbook §2/§3 반영 제안.
+- **[8/6] 피어 재무 주간 갱신**: `python3 .claude/skills/portfolio-desk/scripts/financials.py --with-peers --save`
+  → `peer_compare.py`가 쓰는 워치 종목(SK하이닉스·삼성전기·두산에너빌·한화에어로 등 13종) 재무를 채운다.
+  **매일 도는 R2엔 붙이지 않는다**(국내 1종목 1~2분 = 완주 예산 잠식). 피어 펀더는 분기 단위로 바뀌므로 주 1회로 충분.
+  저장은 **병합**이라 보유 14종목 데이터를 덮어쓰지 않는다.
 - **룰 추적 (self-review §8 · 7/30 신설 — 개정 룰은 검증된 적이 없다)**:
   ① `python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --snapshot` (원장 append)
   ② `python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --score` (누적 후행검증)

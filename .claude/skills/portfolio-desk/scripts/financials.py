@@ -60,6 +60,22 @@ KR = ["005930.KS", "066570.KS", "454910.KS", "005380.KS", "035420.KS"]
 ETF = ["VOO"]
 ALL = US + KR
 
+# [8/6] 피어 비교용 워치 종목 — `peer_compare.py`가 소비한다.
+# 왜: 피어 그룹이 보유 종목만이라 n=3~6이었고, 특히 전력 그룹은 **n=3 = 순위지 통계가 아니었다**.
+# ⚠️ **기본 --all에는 넣지 않는다.** 국내 종목 1개 수집이 1~2분이라 8개를 매일 붙이면
+#    R2(메인 보고서)의 완주 예산을 갉아먹는다. 피어 펀더는 분기 단위로 바뀌므로
+#    **주간 R3에서 `--with-peers`로 갱신**하면 충분하다.
+# ⚠️ 이 목록은 **데스크 축(섹터 담당)** 기준이지 경제적 동질 피어가 아니다 —
+#    n이 늘어도 비교가능성이 같이 늘지는 않는다(peer_compare 출력에 경고를 띄운다).
+PEERS = [
+    # 반도체·AI인프라
+    "000660.KS", "009150.KS", "240810.KQ", "095610.KQ", "STM",
+    # 전력·인프라·피지컬AI (방산·조선 포함 = power-physical-desk 담당 범위)
+    "034020.KS", "012450.KS", "042660.KS", "010140.KS", "329180.KS", "096770.KS", "GEV",
+    # 빅테크·플랫폼
+    "TMUS",
+]
+
 
 # ─────────────────────────────────────────── 파생지표
 
@@ -363,9 +379,22 @@ def build_all(tickers: list[str]) -> dict:
 
 
 def save(data: dict) -> str:
+    """⚠️ **병합 저장**이다(8/6 변경). 이번에 수집한 종목만 갱신하고 나머지는 보존한다.
+
+    구버전은 파일을 통째로 덮어써서, 매일 도는 `--all --save`(보유 14종목)가
+    `--with-peers`로 받아둔 피어 재무를 **하루 만에 지웠다**. 부분 실행이 기존 데이터를
+    파괴하지 않는 게 맞고, 커버리지 판정(validate)도 보유 종목만 보므로 안전하다.
+    """
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    prev = {}
+    if os.path.exists(OUT):
+        try:
+            with open(OUT, encoding="utf-8") as f:
+                prev = (json.load(f) or {}).get("stocks") or {}
+        except (OSError, json.JSONDecodeError):
+            prev = {}                      # 깨진 파일이면 이번 수집분으로 새로 쓴다
     slim = {"updated": data["updated"], "covered": data["covered"], "errors": data["errors"],
-            "stocks": {}}
+            "stocks": dict(prev)}
     for t, r in data["stocks"].items():
         slim["stocks"][t] = {
             "ticker": t, "name": r.get("name"), "region": r.get("region"),
@@ -389,13 +418,18 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="보유 전종목 재무제표 통합")
     ap.add_argument("--tickers")
     ap.add_argument("--all", action="store_true")
+    ap.add_argument("--with-peers", action="store_true",
+                    help="피어 비교용 워치 종목(PEERS)도 함께 수집 — 주간 R3용. "
+                         "국내 1종목당 1~2분이라 매일 돌리지 말 것")
     ap.add_argument("--flags", action="store_true")
     ap.add_argument("--score", action="store_true")
     ap.add_argument("--save", action="store_true")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
 
-    tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else ALL
+    tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else list(ALL)
+    if a.with_peers and not a.tickers:
+        tickers += [t for t in PEERS if t not in tickers]
     data = build_all(tickers)
 
     if a.save:

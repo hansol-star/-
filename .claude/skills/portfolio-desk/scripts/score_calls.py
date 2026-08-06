@@ -388,8 +388,11 @@ def main():
     ap.add_argument("--min-age", type=int, default=1, help="채점 최소 보유일(기본 1)")
     a = ap.parse_args()
     if a.backfill:
-        if backfill(force=a.force):
-            return 1
+        # [8/6] 얕은 클론이면 백필만 건너뛰고 **채점은 계속한다.**
+        # R2/R3 루틴 프롬프트는 http_api 소유라 에이전트가 못 고친다 → 이 코드가
+        # 유일한 방어선이다. 여기서 종료해버리면 원장은 지키지만 R3가 스코어카드를
+        # 통째로 못 내므로, 기존 원장 그대로 채점까지 가는 게 맞다.
+        backfill(force=a.force)
     if a.append:
         append_today()
     if not a.backfill and not a.append:

@@ -316,8 +316,17 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/validate_report.py   # FAIL 0 이어야 커밋
    python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --snapshot  # [8/6] 룰1 사다리 원장 매일 append
+   python3 .claude/skills/portfolio-desk/scripts/setup_schema.py --check      # [8/7] 셋업 트래커 감사(발동권·stale·기한경과)
    python3 .claude/skills/portfolio-desk/scripts/score_calls.py --append   # 이번 콜을 캘리브레이션 원장에 누적
    ```
+   **[8/7 신설] 셋업 조건 트래커는 이제 기계가 센다.** `validate_report`가 `check_setups()`로
+   ①스키마 결손(FAIL) ②stale 14일+ ③기한 경과 미채점 ④**발동권(≥75%) 도달인데 오더 미배선**을 잡는다.
+   ④가 핵심 — 정훈 6/28 지시가 *"조건 75%+ 충족 시 지정가 발동"*인데 8/6 감사에서
+   **그 75%를 아무도 계산하지 않고 있었다**(발동권 3개가 조용히 도달해 있었다).
+   🎯 WARN이 뜨면 **오더를 내거나, 안 내는 이유를 setup note에 남긴다** — '관망'은 결정이 아니다(8/2 원칙).
+   오더가 나가면 `setup_schema.py --link <setup_id> <order_id>`로 연결할 것.
+   🔒 조건 원문(`conditions[].text`)은 **불변** — 결과는 `outcome`에 쓴다(원문 덮어쓰기 금지).
+
    **[8/6 신설] `rule_tracker.py --snapshot`은 매 보고서 필수다.** 룰1은 7/31 RESET 정책상
    *매일 재계산*이 전제인데 원장이 7/30 1건에서 7일 멈춰 있었고, 그 1건이 말하는 상태
    (해금 35%·상한 282,438원·halted=false)가 8/6 실제(해금 15%·상한 0원·하드플로어 halted)와

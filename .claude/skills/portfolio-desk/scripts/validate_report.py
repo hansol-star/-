@@ -811,6 +811,34 @@ REPEAL_SCAN = [
     ".claude/skills/portfolio-desk/SKILL.md",
 ]
 
+def check_setups():
+    """[8/7 신설] 경제사냥꾼 조건 트래커(setups) 게이트 — setup_schema.py 감사 재사용.
+
+    정훈 6/28 지시 = *"조건 ~75%+ 충족 & 가격존 진입 시 지정가 발동"* 인데,
+    8/6 감사에서 **그 75%를 아무도 계산하지 않고 있었다**(updated 0/19·met_pct 필드
+    없음·orders 26건 전부 setup_id 없음). 8/2 "산문 8~9회 vs 오더 0회"와 같은 구조 =
+    판단은 있는데 기계에 안 실린다. 여기서 매 보고서마다 기계가 센다.
+
+    FAIL = 스키마 결손(필수 필드·met_pct 불일치·비표준 status) → --migrate로 해소.
+    WARN = 운영 신호(stale·기한경과 미채점·발동권 도달인데 오더 미배선) → 사람이 판단.
+    """
+    try:
+        sys.path.insert(0, os.path.join(ROOT, ".claude/skills/portfolio-desk/scripts"))
+        import setup_schema
+    except Exception as e:
+        warn(f"setup_schema 로드 실패 — 셋업 게이트 생략 ({e})")
+        return
+    try:
+        fails, warns = setup_schema.check(quiet=True)
+    except Exception as e:
+        warn(f"셋업 감사 실패 ({e})")
+        return
+    for m in fails:
+        fail(m)
+    for m in warns:
+        warn(m)
+
+
 def check_rule_ledger(latest=None):
     """[8/6 신설] 룰1 낙폭 사다리 원장(rule_log.jsonl) 신선도 게이트.
 
@@ -1012,7 +1040,7 @@ def main():
 
     check_stocks(); check_flows(); check_tasks(); check_order_feasibility()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules()
-    check_consistency(); check_hunter(); check_feeds(); check_guru()
+    check_consistency(); check_hunter(); check_setups(); check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     if not a.no_report:

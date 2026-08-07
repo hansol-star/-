@@ -829,6 +829,22 @@ def check_score_basis():
     def band(s):
         return 5 if s >= 85 else 4 if s >= 70 else 3 if s >= 55 else 2 if s >= 40 else 1
 
+    # ── 0단계: fund_subscore가 financials.json 최신값과 같은가 ──────────────
+    # [8/7 실사고] stocks.json의 fund_subscore는 **손으로 복사한 사본**이라
+    # financials.py 재실행 뒤 동기화를 빼먹으면 조용히 낡는다. 실측: ORCL 68.8→54.3,
+    # ANET 72.1→86.9로 **둘 다 14.5p 어긋난 채** 괴리 검사를 통과하고 있었다
+    # (ORCL은 없는 괴리가 보이고, ANET은 있는 괴리가 숨었다 = 양방향 오판).
+    fin = load("data/app/financials.json") or {}
+    fstocks = fin.get("stocks") or {}
+    for tk, v in (d.get("stocks") or {}).items():
+        rec, cur = v.get("fund_subscore"), (fstocks.get(tk) or {}).get("fund_subscore")
+        if not isinstance(rec, (int, float)) or not isinstance(cur, (int, float)):
+            continue
+        if abs(rec - cur) >= 1.0:
+            fail(f"{tk}: fund_subscore {rec} ≠ financials.json {cur:.1f} "
+                 f"({cur - rec:+.1f}p stale) — financials.py 실행 후 stocks.json 동기화 누락. "
+                 "이 값이 틀리면 아래 괴리 검사 전체가 오판한다")
+
     for tk, v in (d.get("stocks") or {}).items():
         s, f = v.get("score"), v.get("fund_subscore")
         if s is None or f is None:

@@ -228,7 +228,13 @@ def migrate(dry=False):
 
         # 조건: 원문 불변화 + outcome 분리 + due 추론
         for c in s.get("conditions") or []:
-            if "_raw" not in c:                     # 최초 1회만 원본 보존
+            # [8/7 버그수정] 조건 본문이 `desc`에 든 변종이 있다(실측: SPCX 3조건 전부).
+            # 초판이 `text`만 봐서 그 셋업은 조건이 통째로 빈 채 감사에 들어갔다
+            # (met_pct는 세면서 내용은 안 보이는 상태) → desc를 text로 승격한다.
+            if not c.get("text") and c.get("desc"):
+                c["text"] = c.pop("desc")
+                local.append(f"    · desc→text 승격: {str(c['text'])[:52]}…")
+            if "_raw" not in c or c["_raw"] is None:   # 최초 1회만 원본 보존
                 c["_raw"] = c.get("text")
             if c.get("outcome") is None:
                 orig, outcome = split_outcome(c.get("text"))
@@ -345,10 +351,26 @@ def check(stale_days=14, quiet=False):
         #    관찰 전용 셋업(actionable=false)은 애초에 오더를 안 내므로 제외.
         if actual >= 75 and s.get("status") != "fired" and s.get("actionable", True):
             ids = [i for i in (s.get("order_ids") or []) if i in order_ids]
-            if not ids and sid not in linked:
+            dfr = s.get("deferral") or {}
+            if ids or sid in linked:
+                pass                                  # 오더가 배선됨 = 집행됨
+            elif dfr.get("reason") and dfr.get("until"):
+                # 유예: 사유+기한이 **둘 다** 있어야 인정한다. 기한이 지나면 다시 경고.
+                # ('관망'은 결정이 아니다 — 8/2 원칙의 셋업판. 산문 note는 기계가 못 읽으므로
+                #  사유를 필드로 박고, 무기한 방치를 막으려 기한을 강제한다.)
+                try:
+                    exp = dt.date.fromisoformat(dfr["until"]) < today
+                except ValueError:
+                    exp = True
+                if exp:
+                    warns.append(
+                        f"🎯 setup[{sid}]: 조건 {actual}% 충족인데 유예 기한 경과"
+                        f"(until={dfr['until']}) — 재판정할 것 «{str(dfr['reason'])[:44]}»")
+            else:
                 warns.append(
                     f"🎯 setup[{sid}]: 조건 {actual}% 충족(≥75%)인데 연결된 오더 없음 — "
-                    "지정가 오더를 tasks.json에 등록하거나, 발동 안 하는 이유를 note에 남길 것")
+                    "지정가 오더를 등록하거나, deferral{reason,until}을 박을 것"
+                    "('관망'은 결정이 아니다·8/2)")
 
         # ⑥ order_ids 무결성
         for oid in s.get("order_ids") or []:

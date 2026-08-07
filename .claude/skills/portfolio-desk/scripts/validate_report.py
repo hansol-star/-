@@ -811,6 +811,42 @@ REPEAL_SCAN = [
     ".claude/skills/portfolio-desk/SKILL.md",
 ]
 
+def check_score_basis():
+    """[8/7 신설] score ↔ fund_subscore 괴리 게이트.
+
+    규약은 *"스코어 = 별점의 정량 근거, 펀더 서브스코어가 1차"*인데, 실제로는
+    **별점을 먼저 올리고 스코어를 밴드에 맞춰 사후 정당화한** 사례가 확인됐다
+    (NAVER 7/30 ⭐4 승격 시 score 68 = ⭐3 밴드 위반 → 7/31 score를 70(⭐4 하한)으로 조정).
+    8/7 실측: 보유 14종 중 **6종이 괴리 ≥10p**, 최대 현대차 +24.2p.
+
+    N·L·M(신제품·주도주·시장방향)은 PM 판단이라 괴리 자체는 정상이다. 다만
+    **밴드를 바꿀 만큼 큰 괴리는 근거가 문서화돼야** 한다 → score_rationale 요구.
+    """
+    d = load("data/app/stocks.json")
+    if not d:
+        return
+
+    def band(s):
+        return 5 if s >= 85 else 4 if s >= 70 else 3 if s >= 55 else 2 if s >= 40 else 1
+
+    for tk, v in (d.get("stocks") or {}).items():
+        s, f = v.get("score"), v.get("fund_subscore")
+        if s is None or f is None:
+            continue
+        gap = s - f
+        if abs(gap) < 15:
+            continue
+        moved = band(s) != band(f)
+        why = (v.get("score_rationale") or "").strip()
+        msg = (f"{tk}: score {s} vs 펀더 서브스코어 {f:.1f} = {gap:+.1f}p 괴리"
+               + (f" (밴드 ⭐{band(f)}→⭐{band(s)} 이동)" if moved else ""))
+        if not why:
+            fail(msg + " — 밴드를 바꿀 괴리엔 score_rationale 필수"
+                       "(펀더가 1차 근거·N/L/M 가산은 근거를 적을 것)")
+        else:
+            warn(msg + " — 근거 있음, 타당성 재확인")
+
+
 def check_setups():
     """[8/7 신설] 경제사냥꾼 조건 트래커(setups) 게이트 — setup_schema.py 감사 재사용.
 
@@ -1040,7 +1076,8 @@ def main():
 
     check_stocks(); check_flows(); check_tasks(); check_order_feasibility()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules()
-    check_consistency(); check_hunter(); check_setups(); check_feeds(); check_guru()
+    check_consistency(); check_hunter(); check_setups(); check_score_basis()
+    check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     if not a.no_report:

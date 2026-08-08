@@ -51,16 +51,46 @@ ETF = {"VOO"}
 STAR_PROB = {5: 0.85, 4: 0.68, 3: 0.50, 2: 0.32, 1: 0.15}
 
 # ── 콜 문자열에서 가격 레벨 추출 ("480,000~530,000원", "$220~250", "295,000원 (눌림)") ──
+_UNIT = {"만": 10_000, "억": 100_000_000, "조": 1_000_000_000_000,
+         "k": 1_000, "K": 1_000}
+
+
 def levels(s):
+    """콜 문자열에서 가격 레벨 추출.
+
+    ⚠️ [8/8 버그수정] 舊 구현은 **한글 단위(만·억)를 무시**했다. 국내 목표가는
+    "24.6만~46만"처럼 쓰는데 이걸 24.6·46으로 읽으면 실제 주가(231,000원)와
+    4자리가 어긋난다 → `target_hit = max(path) >= tg[0]`가 **국내주에서 항상 참**이
+    되어 '목표가 하단 터치' 지표가 통째로 오염됐다(실측: 보정 전 68% → 보정 후 재계산).
+    매수존(`buy_zone`)도 같은 표기를 쓰므로 동일 영향.
+    ⇒ 숫자 뒤에 붙은 만/억/조를 곱해준다.
+    """
     if not isinstance(s, str):
         return []
-    nums = re.findall(r"\d[\d,]*\.?\d*", s.replace("–", "-"))
+    s = s.replace("–", "-")
+
+    # ⚠️ 범위 표기에서 단위가 **뒤에만** 붙는 게 우리 표기 관행이다:
+    #    "295~305k" = 295,000~305,000 · "13~15만" = 130,000~150,000
+    #    앞 숫자에 단위를 안 붙이면 (295, 305000)처럼 4자리 어긋난 범위가 나온다.
+    #    ⇒ 범위 패턴을 먼저 찾아 **양쪽 모두**에 단위를 적용해 치환한다.
+    unit_re = r"(만|억|조|[kK](?![a-zA-Z]))"
+    def _expand(m):
+        a, b, u = m.group(1), m.group(2), m.group(3)
+        mul = _UNIT[u]
+        try:
+            return f"{float(a.replace(',', '')) * mul:.0f}~{float(b.replace(',', '')) * mul:.0f}"
+        except ValueError:
+            return m.group(0)
+    s = re.sub(r"(\d[\d,]*\.?\d*)\s*[~-]\s*(\d[\d,]*\.?\d*)\s*" + unit_re, _expand, s)
+
     out = []
-    for n in nums:
+    for n, unit in re.findall(r"(\d[\d,]*\.?\d*)\s*" + unit_re + r"?", s):
         try:
             v = float(n.replace(",", ""))
         except ValueError:
             continue
+        if unit:
+            v *= _UNIT[unit]
         if v >= 1:                       # 연도·각주 0 등 잡음 최소화
             out.append(v)
     return out

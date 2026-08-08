@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-08 13:27 KST",
+  "generated_at": "2026-08-08 13:30 KST",
   "as_of": "2026-08-07 (금) 16:30 KST",
   "source_report": "report_v71_2026-08-07.md",
   "offline": false,
@@ -375,7 +375,7 @@ window.APP_DATA = {
       "outlook": "core",
       "stars": 4,
       "score": 74,
-      "target": "24.6만(7사평균,Q2반영전)~40만(Citi)",
+      "target": "19.5만~29.5만 (중심 24.5만)",
       "buy_zone": "봉인(TF해제후)",
       "trim": "—",
       "forecast": {
@@ -579,7 +579,7 @@ window.APP_DATA = {
       "outlook": "hold",
       "stars": 2,
       "score": 50,
-      "target": "60만(공격80만)",
+      "target": "39만~58만 (중심 48만)",
       "buy_zone": "—(물타기 영구금지)",
       "trim": "홀드(기한부·8/26 인베스터데이까지)",
       "forecast": {
@@ -681,7 +681,7 @@ window.APP_DATA = {
       "outlook": "hold",
       "stars": 3,
       "score": 60,
-      "target": "29만(최고36만)",
+      "target": "21만~28.5만 (중심 24.7만)",
       "buy_zone": "보류 — 하향 재평가로 조건부add 근거 소멸(재설정은 다음 보고서)",
       "trim": "—",
       "forecast": {
@@ -783,7 +783,7 @@ window.APP_DATA = {
       "outlook": "core",
       "stars": 5,
       "score": 90,
-      "target": "$302.83(+42.9%)",
+      "target": "$260~335 (중심 $298)",
       "buy_zone": "눌림 비중관리(19.3%)",
       "trim": "—",
       "forecast": {
@@ -881,7 +881,7 @@ window.APP_DATA = {
       "outlook": "core",
       "stars": 3,
       "score": 68,
-      "target": "$756~843(+29~43%)",
+      "target": "$650~815 (중심 $733)",
       "buy_zone": "제외(신규자금 영구제외, d69)",
       "trim": "—",
       "forecast": {
@@ -1081,7 +1081,7 @@ window.APP_DATA = {
       "outlook": "core",
       "stars": 4,
       "score": 82,
-      "target": "$541.88~562.73",
+      "target": "$540~655 (중심 $598)",
       "buy_zone": "—",
       "trim": "—",
       "forecast": {
@@ -1173,7 +1173,7 @@ window.APP_DATA = {
       "outlook": "hold",
       "stars": 3,
       "score": 55,
-      "target": "$321.66~324.01(스프레드 큼)",
+      "target": "$270~325 (중심 $298)",
       "buy_zone": "신규매수금지",
       "trim": "🎯A안 $318 1주 GTC 대기(미도달 -2.9%p)",
       "forecast": {
@@ -1271,7 +1271,7 @@ window.APP_DATA = {
       "outlook": "core",
       "stars": 5,
       "score": 91,
-      "target": "$423.44~428.04",
+      "target": "$385~455 (중심 $420)",
       "buy_zone": "재진입1순위(1차16만 체결확인완료 8/4)",
       "trim": "—",
       "forecast": {
@@ -1569,7 +1569,7 @@ window.APP_DATA = {
       "outlook": "core",
       "stars": 5,
       "score": 86,
-      "target": "$1,507~1,570",
+      "target": "$1,090~1,555 (중심 $1,320)",
       "buy_zone": "—",
       "trim": "잔여절반 홀딩",
       "forecast": {
@@ -1667,7 +1667,7 @@ window.APP_DATA = {
       "outlook": "hold",
       "stars": 4,
       "score": 78,
-      "target": "$516~528",
+      "target": "$430~525 (중심 $478)",
       "buy_zone": "조정주 물타기후보(TF동결 우선)",
       "trim": "—",
       "forecast": {

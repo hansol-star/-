@@ -559,8 +559,8 @@
     ],
     "week": [
       {
-        "text": "목표가 근거(target_basis) 백필 10종목 — 8/22 의무화 기한 전(LG전자·현대차·NAVER·NVDA·META·MSFT·AAPL·GOOGL·MU·AVGO)",
-        "done": false
+        "text": "✅ target_basis 13종목 전량 백필 완료(8/8) — 다음은 R3에서 목표가 적중률 사후채점 배선",
+        "done": true
       },
       {
         "text": "ORCL 룰2 2/3 — 재무 3표 딥다이브(3/3 되면 훼손 착수)",

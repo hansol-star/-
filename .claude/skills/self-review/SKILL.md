@@ -21,6 +21,7 @@ description: 자가 품질점검·콜 검증 루프. 과거 보고서에서 내�
 python3 .claude/skills/portfolio-desk/scripts/score_calls.py --backfill   # git 히스토리 → calls_log.jsonl (처음/재동기화 시)
 python3 .claude/skills/portfolio-desk/scripts/score_calls.py              # 별점버킷 평균전진%·방향적중 + Brier 캘리브레이션 갭(과신 플래그) [커미션]
 python3 .claude/skills/portfolio-desk/scripts/star_validate.py            # [8/7] 별점 예측력 재검정 — 클러스터 보정·고정지평·구간층화·LOO (score_calls의 콜단위 집계 교정)
+python3 .claude/skills/portfolio-desk/scripts/multiple_backtest.py        # [8/8] 배수 선택의 역사적 검증 — 16년 EPS×가격으로 '기다리지 않고' 지금 채점
 python3 .claude/skills/portfolio-desk/scripts/target_score.py --by-ticker # [8/8] 목표가 사후 채점 — 내재여력 vs 실현·낙관편향·진도율 (배수 선택이 맞았나)
 python3 .claude/skills/portfolio-desk/scripts/hunter_score.py             # 경제사냥꾼 트랙레코드(검증/정정/미확인 추세 = 채널 신뢰도)
 python3 .claude/skills/portfolio-desk/scripts/missed_moves.py             # 놓친 매수/매도(오미션) + good_inaction + 반복 패턴 → §6 [오미션]
@@ -41,6 +42,18 @@ python3 .claude/skills/portfolio-desk/scripts/signal_score.py --pooled          
   8/8 초기 판정: 진도율 **-1.93배(역주행)** · 편향이 여력 구간과 **단조 증가**(+17.9→+20.7→+43.5→+57.7%p)
   = **공격적으로 부른 목표일수록 덜 실현됐다.** 종목별로는 ORCL +83.0%p·삼성 +74.6 최악, AAPL -3.7·ANET +8.3이 정직.
   ⇒ 매주 재실행해 **편향이 줄어드는지**를 본다. 안 줄면 배수 선택을 보수화할 근거가 된다.
+- **multiple_backtest** [8/8 신설 — 정훈 지적 "데이터 쌓이길 기다리지 말고 자료를 구해서"]:
+  원장이 6/20 시작이라 target_score는 20일 지평뿐이다. 이 도구는 **기다리지 않는다** —
+  EDGAR 전 시계열 EPS(무키·16년)와 수십 년 가격으로 **우리 방법론(EPS×배수)을 과거에 적용**해
+  종목별 '역사적으로 정당했던 배수 구간'을 구하고 우리 목표가를 그 위에 얹는다.
+  ★**축 정합이 이 도구의 핵심**: 우리 배수는 **선행(컨센) EPS** 기준, 백테스트는 **후행(TTM)** 기준이라
+  배수를 그대로 비교하면 안 된다. 반드시 **목표가 ÷ 최신 TTM EPS**로 환산해 비교할 것 —
+  환산 없이 보면 '보수적'으로 잘못 읽힌다(8/8 1차 실행에서 실제로 그렇게 나왔다).
+  ⚠️ **주식분할 보정 필수**: Yahoo 가격은 분할조정인데 EDGAR EPS는 당시 보고치다.
+  분할 이력은 `yahoo_splits()`로 직접 받는다(주식수 급등 추론은 GOOGL·AAPL에서 실패했다).
+  8/8 판정: **상단초과 5**(AAPL·MU·AVGO·ORCL·ANET) · 부분겹침 2 · 구간내 1 · 보수적 1.
+  ⇒ target_score의 낙관편향 +37.4%p와 **같은 방향** — 편향의 출처가 배수 자체가 아니라
+  **선행 EPS 성장 가정**임을 시사한다(배수는 보수적인데 곱하는 EPS가 크다).
 - 출력의 **별점 역전·과신·정정률 플래그**가 §3 캘리브레이션의 기계 답안지다. 아래 1~3은 그 결과를 사람이 해석·보강할 때 참조.
 
 ## 1. 과거 콜 복원 (머신 정본 우선)

@@ -719,5 +719,5 @@
 {"date": "2026-08-07", "ticker": "MSFT", "stars": 4, "score": 82, "target": "$541.88~562.73", "buy_zone": "—", "source_report": "report_v71_2026-08-07.md"}
 {"date": "2026-08-07", "ticker": "MU", "stars": 5, "score": 86, "target": "$1,507~1,570", "buy_zone": "—", "source_report": "report_v71_2026-08-07.md"}
 {"date": "2026-08-07", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$302.83(+42.9%)", "buy_zone": "눌림 비중관리(19.3%)", "source_report": "report_v71_2026-08-07.md"}
-{"date": "2026-08-07", "ticker": "ORCL", "stars": 3, "score": 55, "target": "$225~268(스프레드 극단·stale 의심)", "buy_zone": "눌림·패닉셀금지", "source_report": "report_v71_2026-08-07.md"}
+{"date": "2026-08-07", "ticker": "ORCL", "stars": 3, "score": 55, "target": "$225~268(스프레드 극단·stale 의심)", "buy_zone": "**제외** — 하드플로어 해제 시에도 매수 우선순위에 넣지 않는다(8/7 딥다이브)", "source_report": "report_v71_2026-08-07.md"}
 {"date": "2026-08-07", "ticker": "VOO", "stars": 4, "score": null, "target": "ETF", "buy_zone": "적립(8월 예정)", "source_report": "report_v71_2026-08-07.md"}

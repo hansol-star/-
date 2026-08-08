@@ -863,6 +863,70 @@ def check_score_basis():
             warn(msg + " — 근거 있음, 타당성 재확인")
 
 
+# 목표가 근거(target_basis) 의무화 유예 기한 — 이 날부터 미기재는 FAIL.
+# 기한을 코드에 박는 이유: "나중에 채우자"가 정확히 ORCL을 한 달 방치한 방식이다.
+TARGET_BASIS_DEADLINE = "2026-08-22"
+TARGET_BASIS_WARN_AGE = 30      # 근거가 이만큼 낡으면 재산정 검토
+TARGET_BASIS_FAIL_AGE = 60      # 이만큼 낡으면 목표가를 못 믿는다
+
+
+def check_target_basis():
+    """[8/8 신설·정훈 지시] 목표가 산정 근거 의무화 게이트.
+
+    ORCL 실패 재발방지: 목표가 $225~268이 7/14부터 **한 달간 'stale 의심' 딱지만 달린 채
+    한 번도 재산정되지 않았다.** 그 사이 실제 컨센은 ~$155로 내려와 -31~-42% 괴리가 났다.
+    원인은 **목표가가 숫자만 있고 근거가 보고서 산문에 흩어져 있어** 무엇이 낡았는지
+    기계가 볼 수 없었던 것.
+
+    ⇒ `target_basis`(산정식·앵커·배수·날짜)를 종목 데이터에 붙이고 나이를 잰다.
+
+    판정 3단:
+      ① 목표가에 **stale/의심/극단/실적전** 딱지가 있는데 근거가 없다 → **즉시 FAIL**
+         (딱지는 경고이지 수정이 아니다 — 유예 대상 아님)
+      ② 근거 없음 → 유예기한 전 WARN(D-n 표시) / 기한 후 FAIL
+      ③ 근거 있음 → 날짜 파싱해 30일+ WARN · 60일+ FAIL
+    면제: 목표가에 숫자가 없는 것(ETF·"분산 큼" 등 정량 목표가 아닌 경우).
+    """
+    d = load("data/app/stocks.json")
+    if not d:
+        return
+    today = (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=9)).date()
+    deadline = dt.date.fromisoformat(TARGET_BASIS_DEADLINE)
+
+    for tk, v in (d.get("stocks") or {}).items():
+        tgt = str(v.get("target") or "")
+        if not re.search(r"\d", tgt):        # 정량 목표가가 아니면 면제
+            continue
+        basis = (v.get("target_basis") or "").strip()
+        tag = re.search(r"stale|의심|극단|실적전", tgt)
+
+        if not basis:
+            if tag:
+                fail(f"{tk}: 목표가에 '{tag.group(0)}' 경고가 붙었는데 target_basis 없음 — "
+                     f"딱지는 경고이지 수정이 아니다(ORCL 8/8 교훈). 재산정하고 근거를 남길 것")
+            elif today >= deadline:
+                fail(f"{tk}: target_basis 없음 — 목표가 근거 의무화 기한"
+                     f"({TARGET_BASIS_DEADLINE}) 경과")
+            else:
+                warn(f"{tk}: target_basis 없음 — 의무화 D-{(deadline - today).days}"
+                     f"({TARGET_BASIS_DEADLINE}부터 FAIL). 산정식·앵커·배수·날짜를 적을 것")
+            continue
+
+        m = re.search(r"(\d{4}-\d{2}-\d{2})", basis)
+        if not m:
+            warn(f"{tk}: target_basis에 산정일(YYYY-MM-DD) 없음 — 나이를 잴 수 없다")
+            continue
+        try:
+            age = (today - dt.date.fromisoformat(m.group(1))).days
+        except ValueError:
+            warn(f"{tk}: target_basis 산정일 '{m.group(1)}' 파싱 불가")
+            continue
+        if age >= TARGET_BASIS_FAIL_AGE:
+            fail(f"{tk}: 목표가 근거가 {age}일 경과({m.group(1)}) — 재산정 필수")
+        elif age >= TARGET_BASIS_WARN_AGE:
+            warn(f"{tk}: 목표가 근거 {age}일 경과({m.group(1)}) — 재산정 검토")
+
+
 def check_setups():
     """[8/7 신설] 경제사냥꾼 조건 트래커(setups) 게이트 — setup_schema.py 감사 재사용.
 
@@ -1092,7 +1156,7 @@ def main():
 
     check_stocks(); check_flows(); check_tasks(); check_order_feasibility()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules()
-    check_consistency(); check_hunter(); check_setups(); check_score_basis()
+    check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
     check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()

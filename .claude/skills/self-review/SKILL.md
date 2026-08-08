@@ -20,6 +20,8 @@ description: 자가 품질점검·콜 검증 루프. 과거 보고서에서 내�
 ```bash
 python3 .claude/skills/portfolio-desk/scripts/score_calls.py --backfill   # git 히스토리 → calls_log.jsonl (처음/재동기화 시)
 python3 .claude/skills/portfolio-desk/scripts/score_calls.py              # 별점버킷 평균전진%·방향적중 + Brier 캘리브레이션 갭(과신 플래그) [커미션]
+python3 .claude/skills/portfolio-desk/scripts/star_validate.py            # [8/7] 별점 예측력 재검정 — 클러스터 보정·고정지평·구간층화·LOO (score_calls의 콜단위 집계 교정)
+python3 .claude/skills/portfolio-desk/scripts/target_score.py --by-ticker # [8/8] 목표가 사후 채점 — 내재여력 vs 실현·낙관편향·진도율 (배수 선택이 맞았나)
 python3 .claude/skills/portfolio-desk/scripts/hunter_score.py             # 경제사냥꾼 트랙레코드(검증/정정/미확인 추세 = 채널 신뢰도)
 python3 .claude/skills/portfolio-desk/scripts/missed_moves.py             # 놓친 매수/매도(오미션) + good_inaction + 반복 패턴 → §6 [오미션]
 python3 .claude/skills/portfolio-desk/scripts/sizing_backtest.py --symbol ^KS11   # [7/21] 변동성타겟 사이징 캘리브레이션(전이력 MDD·샤프·CAGR 대가). vol_sizing 곡선이 실제 낙폭을 줄이는지 주간 점검
@@ -28,6 +30,17 @@ python3 .claude/skills/portfolio-desk/scripts/signal_score.py --pooled          
 - 원장 = `data/app/calls_log.jsonl` (구조화된 콜의 시계열, git 히스토리에서 백필·보고서마다 `--append` 누적).
 - **Brier proper score**(외부 예측연구 차용): 별점→내재확률(⭐5=.85…⭐1=.15) 매핑 후 실현방향 대비 Brier. 무정보(0.5고정=0.25)보다 **높으면 과신** 신호. 버킷별 '표현확신 vs 실제상승률' 갭으로 ⭐4~5 과신/⭐1~2 과소를 숫자로 본다.
 - **hunter_score**: 채널 누적 [정정]률=수치 신뢰도, [검증]률=방향성 신뢰도의 대리지표 → §3 '경제사냥꾼 트랙레코드'를 수동→기계로 닫는다.
+- **star_validate** [8/7 신설]: `score_calls`는 **콜 단위**로 집계해 유효표본을 46배 부풀린다(같은 종목이 매일 1표씩).
+  이 도구가 ①종목 클러스터 보정(종목 1개=1표·종목단위 부트스트랩 CI) ②고정지평(+5·+10일) ③반등 제외·LOO로 재검정한다.
+  **8/7 판정 = 🟡 방향 견고·유의성 없음** — ⭐5<⭐2 역전이 보정에서 살아남았으나 CI가 전부 겹쳐 구분 불가.
+  ⇒ 별점 기준을 이 근거로 바꾸지 말 것. 표본이 쌓이면 CI가 좁혀진다(매주 재실행이 그 축적이다).
+- **target_score** [8/8 신설]: `check_target_basis`가 목표가 근거의 **존재·나이**만 보는 것의 짝 —
+  **근거가 타당했는지**를 사후 채점한다. 핵심 지표 = **내재여력(콜 시점 약속) vs 실현**, 그 차이가 **낙관 편향**.
+  ⚠️ 12개월 목표를 20일 지평으로 재면 편향은 **기계적으로 양수**다 → 절대값을 '틀렸다'로 읽지 말고
+  **①진도율(실현÷기대) ②여력구간별 단조성 ③종목 순서** 세 가지만 볼 것.
+  8/8 초기 판정: 진도율 **-1.93배(역주행)** · 편향이 여력 구간과 **단조 증가**(+17.9→+20.7→+43.5→+57.7%p)
+  = **공격적으로 부른 목표일수록 덜 실현됐다.** 종목별로는 ORCL +83.0%p·삼성 +74.6 최악, AAPL -3.7·ANET +8.3이 정직.
+  ⇒ 매주 재실행해 **편향이 줄어드는지**를 본다. 안 줄면 배수 선택을 보수화할 근거가 된다.
 - 출력의 **별점 역전·과신·정정률 플래그**가 §3 캘리브레이션의 기계 답안지다. 아래 1~3은 그 결과를 사람이 해석·보강할 때 참조.
 
 ## 1. 과거 콜 복원 (머신 정본 우선)

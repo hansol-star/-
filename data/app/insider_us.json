@@ -1,12 +1,12 @@
 {
- "updated": "2026-08-05",
+ "updated": "2026-08-10",
  "days": 90,
  "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
  "failed": [],
  "stocks": [
   {
    "ticker": "NVDA",
-   "filings": 21,
+   "filings": 22,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
@@ -19,8 +19,8 @@
     "n_10b5_1": 7
    },
    "other_grants_exercises": {
-    "n": 19,
-    "shares": 1472058.0
+    "n": 20,
+    "shares": 1972058.0
    },
    "top_buys": [],
    "top_sells": [
@@ -134,52 +134,24 @@
   },
   {
    "ticker": "AAPL",
-   "filings": 5,
+   "filings": 4,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 5,
-    "shares": 301390.0,
-    "value": 87144418.55000001,
-    "n_10b5_1": 5
+    "n": 3,
+    "shares": 51390.0,
+    "value": 15954696.24,
+    "n_10b5_1": 3
    },
    "other_grants_exercises": {
-    "n": 6,
-    "shares": 116706.0
+    "n": 5,
+    "shares": 111706.0
    },
    "top_buys": [],
    "top_sells": [
-    {
-     "code": "S",
-     "shares": 149527.0,
-     "price": 284.57,
-     "ad": "D",
-     "date": "2026-05-06",
-     "after": 3920049.0,
-     "value": 42550898.39,
-     "owner": "LEVINSON ARTHUR D",
-     "title": null,
-     "role": "이사",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126020298/form4.xml"
-    },
-    {
-     "code": "S",
-     "shares": 100473.0,
-     "price": 285.04,
-     "ad": "D",
-     "date": "2026-05-06",
-     "after": 3819576.0,
-     "value": 28638823.92,
-     "owner": "LEVINSON ARTHUR D",
-     "title": null,
-     "role": "이사",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126020298/form4.xml"
-    },
     {
      "code": "S",
      "shares": 50000.0,
@@ -193,22 +165,50 @@
      "role": "이사",
      "plan": true,
      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126023363/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 1274.0,
+     "price": 290.0,
+     "ad": "D",
+     "date": "2026-05-08",
+     "after": 38713.0,
+     "value": 369460.0,
+     "owner": "Borders Ben",
+     "title": "Principal Accounting Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126020871/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 116.0,
+     "price": 295.14,
+     "ad": "D",
+     "date": "2026-06-16",
+     "after": 38713.0,
+     "value": 34236.24,
+     "owner": "Borders Ben",
+     "title": "Principal Accounting Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126025620/form4.xml"
     }
    ]
   },
   {
    "ticker": "MSFT",
-   "filings": 13,
+   "filings": 15,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 4,
-    "shares": 23762.311999999998,
-    "value": 10508460.942704,
-    "n_10b5_1": 4
+    "n": 6,
+    "shares": 38572.665,
+    "value": 17775635.000143997,
+    "n_10b5_1": 6
    },
    "other_grants_exercises": {
     "n": 10,
@@ -232,47 +232,47 @@
     },
     {
      "code": "S",
-     "shares": 4500.0,
-     "price": 402.84,
+     "shares": 10000.0,
+     "price": 487.893,
      "ad": "D",
-     "date": "2026-06-10",
-     "after": 47467.7595,
-     "value": 1812780.0,
-     "owner": "Numoto Takeshi",
-     "title": "EVP, Chief Marketing Officer",
+     "date": "2026-08-05",
+     "after": 100447.434,
+     "value": 4878930.0,
+     "owner": "Althoff Judson",
+     "title": "CEO Microsoft Commercial",
      "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000121/form4.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000143/form4.xml"
     },
     {
      "code": "S",
-     "shares": 2500.0,
-     "price": 412.45,
+     "shares": 4810.353,
+     "price": 496.48,
      "ad": "D",
-     "date": "2026-06-08",
-     "after": 51967.7595,
-     "value": 1031125.0,
+     "date": "2026-08-04",
+     "after": 42677.4483,
+     "value": 2388244.05744,
      "owner": "Numoto Takeshi",
      "title": "EVP, Chief Marketing Officer",
      "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000109/form4.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000141/form4.xml"
     }
    ]
   },
   {
    "ticker": "ANET",
-   "filings": 31,
+   "filings": 36,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 170,
-    "shares": 2600316.0,
-    "value": 436392308.27030027,
-    "n_10b5_1": 170
+    "n": 278,
+    "shares": 4007811.0,
+    "value": 720069855.1500001,
+    "n_10b5_1": 278
    },
    "other_grants_exercises": {
     "n": 30,
@@ -280,6 +280,34 @@
    },
    "top_buys": [],
    "top_sells": [
+    {
+     "code": "S",
+     "shares": 369569.0,
+     "price": 201.2927,
+     "ad": "D",
+     "date": "2026-08-05",
+     "after": 16533758.0,
+     "value": 74391541.8463,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000185/edgardoc.xml"
+    },
+    {
+     "code": "S",
+     "shares": 152860.0,
+     "price": 197.116,
+     "ad": "D",
+     "date": "2026-08-05",
+     "after": 17002150.0,
+     "value": 30131151.76,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000185/edgardoc.xml"
+    },
     {
      "code": "S",
      "shares": 160802.0,
@@ -293,34 +321,6 @@
      "role": "이사·임원",
      "plan": true,
      "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000162/edgardoc.xml"
-    },
-    {
-     "code": "S",
-     "shares": 113134.0,
-     "price": 188.5586,
-     "ad": "D",
-     "date": "2026-07-09",
-     "after": 17316525.0,
-     "value": 21332388.652400002,
-     "owner": "Ullal Jayshree",
-     "title": "CEO and Chairperson",
-     "role": "이사·임원",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000160/edgardoc.xml"
-    },
-    {
-     "code": "S",
-     "shares": 123450.0,
-     "price": 162.0824,
-     "ad": "D",
-     "date": "2026-06-04",
-     "after": 422335.0,
-     "value": 20009072.28,
-     "owner": "BECHTOLSHEIM ANDREAS",
-     "title": null,
-     "role": "·10%주주",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000136/edgardoc.xml"
     }
    ]
   },
@@ -418,8 +418,8 @@
     "n_10b5_1": 36
    },
    "other_grants_exercises": {
-    "n": 142,
-    "shares": 819270.0870000002
+    "n": 140,
+    "shares": 822743.5370000001
    },
    "top_buys": [],
    "top_sells": [
@@ -469,17 +469,17 @@
   },
   {
    "ticker": "META",
-   "filings": 33,
+   "filings": 35,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 70,
-    "shares": 40397.0,
-    "value": 24716098.594099984,
-    "n_10b5_1": 70
+    "n": 75,
+    "shares": 41323.0,
+    "value": 25247785.684099983,
+    "n_10b5_1": 75
    },
    "other_grants_exercises": {
     "n": 56,

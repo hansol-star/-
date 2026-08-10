@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-05",
+ "updated": "2026-08-10",
  "days": 7,
  "universe": [
   "005930",
@@ -10,10 +10,46 @@
  ],
  "counts": {
   "critical": 0,
-  "notable": 11,
-  "routine": 30
+  "notable": 5,
+  "routine": 32
  },
  "items": [
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20260810",
+   "title": "주식등의대량보유상황보고서(약식)",
+   "level": "notable",
+   "category": "5%보고",
+   "why": "대주주 매매",
+   "rcept_no": "20260810000473",
+   "filer": "BlackRockFundAdvisors",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260810000473"
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20260807",
+   "title": "영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "하드넘버 갱신",
+   "rcept_no": "20260807800028",
+   "filer": "NAVER",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800028"
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20260807",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "하드넘버 갱신",
+   "rcept_no": "20260807800026",
+   "filer": "NAVER",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800026"
+  },
   {
    "code": "005380",
    "name": "현대차",
@@ -37,133 +73,17 @@
    "rcept_no": "20260803800709",
    "filer": "현대자동차",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260803800709"
-  },
-  {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "20260731",
-   "title": "주식등의대량보유상황보고서(일반)",
-   "level": "notable",
-   "category": "5%보고",
-   "why": "대주주 매매",
-   "rcept_no": "20260731000779",
-   "filer": "삼성물산",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260731000779"
-  },
-  {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "20260730",
-   "title": "현금ㆍ현물배당결정",
-   "level": "notable",
-   "category": "배당",
-   "why": "주주환원",
-   "rcept_no": "20260730800137",
-   "filer": "삼성전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800137"
-  },
-  {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "20260730",
-   "title": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "하드넘버 갱신",
-   "rcept_no": "20260730800103",
-   "filer": "삼성전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800103"
-  },
-  {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "20260730",
-   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "하드넘버 갱신",
-   "rcept_no": "20260730800077",
-   "filer": "삼성전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800077"
-  },
-  {
-   "code": "066570",
-   "name": "LG전자",
-   "date": "20260730",
-   "title": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "하드넘버 갱신",
-   "rcept_no": "20260730800391",
-   "filer": "LG전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800391"
-  },
-  {
-   "code": "066570",
-   "name": "LG전자",
-   "date": "20260729",
-   "title": "주요사항보고서(자기주식취득신탁계약해지결정)",
-   "level": "notable",
-   "category": "자사주",
-   "why": "자사주 신탁 프로그램 변경",
-   "rcept_no": "20260729000310",
-   "filer": "LG전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729000310"
-  },
-  {
-   "code": "066570",
-   "name": "LG전자",
-   "date": "20260729",
-   "title": "신탁계약해지결과보고서",
-   "level": "notable",
-   "category": "자사주",
-   "why": "자사주 신탁 프로그램 변경",
-   "rcept_no": "20260729000317",
-   "filer": "LG전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729000317"
-  },
-  {
-   "code": "066570",
-   "name": "LG전자",
-   "date": "20260729",
-   "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정",
-   "level": "notable",
-   "category": "배당",
-   "why": "주주환원",
-   "rcept_no": "20260729800583",
-   "filer": "LG전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800583"
-  },
-  {
-   "code": "066570",
-   "name": "LG전자",
-   "date": "20260729",
-   "title": "현금ㆍ현물배당결정",
-   "level": "notable",
-   "category": "배당",
-   "why": "주주환원",
-   "rcept_no": "20260729800572",
-   "filer": "LG전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800572"
   }
  ],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 17,
-   "net": -8133,
+   "n": 24,
+   "net": -18177,
    "n_buy": 3,
-   "n_sell": 14,
+   "n_sell": 21,
    "top": [
-    {
-     "who": "노태문",
-     "ofcps": "대표사장",
-     "regist": "등기임원",
-     "delta": 3045,
-     "held": 124280,
-     "date": "2026-07-31"
-    },
     {
      "who": "이태관",
      "ofcps": "부사장",
@@ -181,12 +101,20 @@
      "date": "2026-08-04"
     },
     {
-     "who": "황상준",
+     "who": "김홍경",
      "ofcps": "부사장",
      "regist": "비등기임원",
-     "delta": -1700,
-     "held": 10909,
-     "date": "2026-08-05"
+     "delta": -2300,
+     "held": 27629,
+     "date": "2026-08-07"
+    },
+    {
+     "who": "이학민",
+     "ofcps": "부사장",
+     "regist": "비등기임원",
+     "delta": -2000,
+     "held": 9636,
+     "date": "2026-08-07"
     }
    ]
   },
@@ -211,43 +139,76 @@
   {
    "code": "005380",
    "name": "현대차",
-   "n": 1,
-   "net": 15,
-   "n_buy": 1,
+   "n": 4,
+   "net": 3823,
+   "n_buy": 4,
    "n_sell": 0,
    "top": [
     {
-     "who": "정지훈",
+     "who": "김혜인",
+     "ofcps": "부사장",
+     "regist": "비등기임원",
+     "delta": 2023,
+     "held": 2408,
+     "date": "2026-08-05"
+    },
+    {
+     "who": "권정현",
+     "ofcps": "부사장",
+     "regist": "비등기임원",
+     "delta": 931,
+     "held": 931,
+     "date": "2026-08-06"
+    },
+    {
+     "who": "피트 졸리",
      "ofcps": "상무",
      "regist": "비등기임원",
-     "delta": 15,
-     "held": 115,
-     "date": "2026-07-30"
+     "delta": 700,
+     "held": 700,
+     "date": "2026-08-05"
+    },
+    {
+     "who": "필리페 게랑부토",
+     "ofcps": "Executive\nVice President",
+     "regist": "비등기임원",
+     "delta": 169,
+     "held": 169,
+     "date": "2026-08-05"
     }
    ]
   },
   {
    "code": "035420",
    "name": "NAVER",
-   "n": 0,
-   "net": 0,
+   "n": 1,
+   "net": -200,
    "n_buy": 0,
-   "n_sell": 0,
-   "top": []
+   "n_sell": 1,
+   "top": [
+    {
+     "who": "강경돈",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": -200,
+     "held": 800,
+     "date": "2026-08-07"
+    }
+   ]
   }
  ],
  "major": [
   {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "2026-07-31",
-   "who": "삼성물산",
-   "qty": 1151275799,
-   "d_qty": -99646,
-   "rate": "19.69",
-   "d_rate": "-0.00",
-   "reason": "- 보유주식수 변동\n- 보유주식등에 관한 계약의 변경",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260731000779"
+   "code": "035420",
+   "name": "NAVER",
+   "date": "2026-08-10",
+   "who": "BlackRockFundAdvisors",
+   "qty": 11122660,
+   "d_qty": 1529926,
+   "rate": "7.09",
+   "d_rate": "1.04",
+   "reason": "- 단순투자목적으로 장내에서 발행회사의 주식 매수",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260810000473"
   }
  ],
  "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."

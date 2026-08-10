@@ -43,3 +43,7 @@
 {"date": "2026-08-04", "index": "KOSPI", "foreign": -3706, "inst": -5394, "indiv": 8185, "src": "naver"}
 {"date": "2026-08-05", "index": "KOSDAQ", "foreign": -2980, "inst": -1107, "indiv": 3949, "src": "naver"}
 {"date": "2026-08-05", "index": "KOSPI", "foreign": 14463, "inst": -2838, "indiv": -11835, "src": "naver"}
+{"date": "2026-08-06", "index": "KOSPI", "foreign": -33273, "inst": -1214, "indiv": 33388, "src": "flows.json(확정)"}
+{"date": "2026-08-07", "index": "KOSPI", "foreign": -8590, "inst": 5791, "indiv": 2677, "src": "flows.json(확정)"}
+{"date": "2026-08-10", "index": "KOSDAQ", "foreign": 1032, "inst": 5661, "indiv": -6730, "src": "naver"}
+{"date": "2026-08-10", "index": "KOSPI", "foreign": -14887, "inst": 5669, "indiv": 9003, "src": "naver"}

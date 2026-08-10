@@ -88,6 +88,11 @@ def main() -> int:
     us_val_usd = sum(r["value"] for r in us if r["value"])
     us_pnl_usd = sum(r["pnl"] for r in us if r["pnl"] is not None)
     cash = cfg.get("cash_krw", 0)
+    # ★[8/11 버그 수정] 달러 예수금(cash_usd)이 총자산에서 통째로 빠져 있었다.
+    #   매도 대금이 달러로 남는 구조(ANET 8/5 $30.17 → 8/10 $27.29 = $57.62)라
+    #   트림을 할수록 총자산이 그만큼 과소 계상됐다. 8/11 시점 ~81,700원(총자산의 1.0%).
+    #   ⇒ 현금은 원화·달러를 **둘 다** 더하고, 화면에도 나눠 보여준다.
+    cash_usd = cfg.get("cash_usd", 0) or 0
 
     print(f"\n### 💰 합계")
     print(f"- 환율(USD/KRW): {fx:,.2f}" if fx else "- 환율: 미확인")
@@ -96,9 +101,14 @@ def main() -> int:
         us_val_krw = us_val_usd * fx
         us_pnl_krw = us_pnl_usd * fx
         print(f"- 미국 평가액: ${us_val_usd:,.2f} ≈ {us_val_krw:,.0f}원 (평가손익 ${us_pnl_usd:+,.2f} ≈ {us_pnl_krw:+,.0f}원)")
-        total = kr_val + us_val_krw + cash
+        cash_usd_krw = cash_usd * fx
+        total = kr_val + us_val_krw + cash + cash_usd_krw
         total_pnl = kr_pnl + us_pnl_krw
-        print(f"- 현금: {cash:,.0f}원")
+        if cash_usd:
+            print(f"- 현금: 원화 {cash:,.0f}원 + 달러 ${cash_usd:,.2f} ≈ {cash_usd_krw:,.0f}원 "
+                  f"= {cash + cash_usd_krw:,.0f}원")
+        else:
+            print(f"- 현금: {cash:,.0f}원")
         print(f"- **총 자산(주식+현금): {total:,.0f}원** | 주식 평가손익 합계: {total_pnl:+,.0f}원 (환차익 미반영)")
 
         # 환차익 반영 추정: 미국 종목을 매입 당시 환율로 원화 원가화하면 토스 실손익에 근접.

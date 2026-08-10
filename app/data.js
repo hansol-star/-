@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-10 18:52 KST",
+  "generated_at": "2026-08-10 19:09 KST",
   "as_of": "2026-08-10 (월) 16:49 KST",
   "source_report": "docs/reports/report_v72_2026-08-10.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1417.38
+    "usdkrw": 1417.51
   },
   "totals": {
-    "assets_krw": 8158008,
-    "stocks_value_krw": 7973980,
+    "assets_krw": 8158573,
+    "stocks_value_krw": 7974545,
     "cash_krw": 184028,
-    "day_change_krw": 59169,
+    "day_change_krw": 59173,
     "day_change_pct": 0.75,
-    "total_pnl_krw": -103840,
-    "total_pnl_pct": -1.29
+    "total_pnl_krw": -103274,
+    "total_pnl_pct": -1.28
   },
   "safety": {
     "pin": 7500,
@@ -777,9 +777,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 223.96,
       "change_pct": 2.27,
-      "value_krw": 1631053,
+      "value_krw": 1631202,
       "pnl_pct": 12.26,
-      "pnl_krw": 137961,
+      "pnl_krw": 138111,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -880,9 +880,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 592.1,
       "change_pct": 0.37,
-      "value_krw": 947585,
+      "value_krw": 947672,
       "pnl_pct": -6.61,
-      "pnl_krw": -95027,
+      "pnl_krw": -94940,
       "outlook": "core",
       "stars": 3,
       "score": 68,
@@ -978,9 +978,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 710.71,
       "change_pct": 0.61,
-      "value_krw": 1076480,
+      "value_krw": 1076579,
       "pnl_pct": 9.55,
-      "pnl_krw": 66727,
+      "pnl_krw": 66826,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1080,9 +1080,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 499.99,
       "change_pct": 0.03,
-      "value_krw": 1022619,
+      "value_krw": 1022713,
       "pnl_pct": 21.89,
-      "pnl_krw": 160490,
+      "pnl_krw": 160584,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1177,9 +1177,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 313.33,
       "change_pct": 0.29,
-      "value_krw": 454088,
+      "value_krw": 454129,
       "pnl_pct": 21.85,
-      "pnl_krw": 71147,
+      "pnl_krw": 71189,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1275,9 +1275,9 @@ window.APP_DATA = {
       "cost": 353.62,
       "price": 354.3,
       "change_pct": -0.96,
-      "value_krw": 887169,
+      "value_krw": 887251,
       "pnl_pct": 0.19,
-      "pnl_krw": -22736,
+      "pnl_krw": -22655,
       "outlook": "core",
       "stars": 5,
       "score": 91,
@@ -1375,9 +1375,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 147.02,
       "change_pct": 2.47,
-      "value_krw": 44842,
+      "value_krw": 44846,
       "pnl_pct": -36.66,
-      "pnl_krw": -27910,
+      "pnl_krw": -27906,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1475,9 +1475,9 @@ window.APP_DATA = {
       "cost": 162.07,
       "price": 188.67,
       "change_pct": -1.9,
-      "value_krw": 37911,
+      "value_krw": 37914,
       "pnl_pct": 16.41,
-      "pnl_krw": 4446,
+      "pnl_krw": 4450,
       "outlook": "core",
       "stars": 4,
       "score": 78,
@@ -1573,9 +1573,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 877.57,
       "change_pct": -0.44,
-      "value_krw": 24878,
+      "value_krw": 24881,
       "pnl_pct": 17.17,
-      "pnl_krw": 3059,
+      "pnl_krw": 3061,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1671,9 +1671,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 427.76,
       "change_pct": 1.71,
-      "value_krw": 43155,
+      "value_krw": 43158,
       "pnl_pct": 1.59,
-      "pnl_krw": -496,
+      "pnl_krw": -493,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -3101,7 +3101,7 @@ window.APP_DATA = {
       1428.43,
       1421.16,
       1422.3,
-      1417.38
+      1417.42
     ]
   },
   "kospi_history": {
@@ -17977,6 +17977,22 @@ window.APP_DATA = {
         "refs": "report_v72_2026-08-10.md,docs/research/orcl_deepdive_2026-08-07.md"
       },
       {
+        "id": "d89",
+        "date": "2026-08-10",
+        "topic": "ANET 잔여 전량 매도로 확정 — 절반안 대신 (정훈 지시)",
+        "decision": "v72 보고서의 '절반 sell-into-strength' 권고를 정훈이 실액 근거로 기각하고 전량 매도 지시 — 오더 등록 완료(o-anet-full-exit-0810), 정훈이 폰창에서 직접 예약 접수.",
+        "rationale": "잔여 0.141767주 = $26.75(37,954원), 절반이면 $13.37(18,977원)뿐 — 두 번에 나눠 팔 실익이 없는 소액. 룰2 부분트림은 '디폴트 검토'이지 강제가 아니라 정훈 재량으로 정정. 원가 $162.07→현재 $188.67(+16.4%), 펀더 무훼손(실적통과·backlog+146.1%) — 사이즈 문제로 정리하는 것이지 비관 매도 아님.",
+        "rejected": "절반만 매도(v72 초안 권고) — 잔량이 너무 작아 실익 없다는 정훈 지적으로 기각",
+        "status": "closed",
+        "tags": [
+          "ANET",
+          "트림",
+          "매도",
+          "정정"
+        ],
+        "refs": "report_v72_2026-08-10.md,data/app/tasks.json#o-anet-full-exit-0810"
+      },
+      {
         "id": "d86",
         "date": "2026-08-08",
         "topic": "ORCL 목표가 재산정 $225~268 → $150~190",
@@ -18223,29 +18239,10 @@ window.APP_DATA = {
           "financials.json",
           "consensus"
         ]
-      },
-      {
-        "id": "d71",
-        "date": "2026-08-04",
-        "topic": "하드플로어 정본 = GARCH 확정 + 경보 등급 완충 (5연속 미해결 종결)",
-        "decision": "[확정·PM 결정] crash_tf §1이 지정한 대로 GARCH를 하드플로어 판정 정본으로 확정. 단 발동 시 '사다리 전면 정지'가 아니라 '경보 등급'(상한 감산)으로 완충. tranche_rules.py global_contagion_check()가 vol_gauge만 참조하는 코드 버그는 dev 세션에서 수정.",
-        "rationale": "v65부터 5연속 보고서가 끌고 온 건이고 괴리가 좁혀지지 않고 벌어졌다(GARCH 75.0→78.0%ile vs vol_gauge 55.2%ile). 선행 예측이 '글로벌 확산 조기 감지'라는 하드플로어 취지에 부합. 미장 사상 신고가권에서 선행변동성 하나로 전면정지는 과하므로 완충 병행.",
-        "rejected": "vol_gauge 정본 — 기각(문서가 이미 GARCH를 지정했고 후행 지표라 조기 감지 취지에 안 맞음). 추가 이월 — 기각('사고 싶은 날'에 잘못된 답을 낸다).",
-        "status": "closed",
-        "tags": [
-          "하드플로어",
-          "GARCH",
-          "crash_tf",
-          "dev백로그"
-        ],
-        "refs": [
-          "crash_tf.md",
-          "tranche_rules.py"
-        ]
       }
     ],
     "open_count": 51,
-    "total": 105
+    "total": 106
   },
   "reports": [
     {
@@ -19422,6 +19419,19 @@ window.APP_DATA = {
     }
   },
   "orders": [
+    {
+      "id": "o-anet-full-exit-0810",
+      "label": "ANET 잔여 전량 매도(정훈 지시 — 절반안 대신 전량, 잔량 소액이라 실익 없음)",
+      "ticker": "ANET",
+      "action": "매도(소수점·시장가)",
+      "status": "🟡 예약(정훈 폰창 접수, 22:30 미장 개장 시 체결 예정)",
+      "price": null,
+      "shares": 0.141767,
+      "amount_krw": null,
+      "date": "2026-08-10",
+      "note": "v72 보고서는 '절반 sell-into-strength'(룰2 디폴트=일부익절 우선검토) 권고했으나, 정훈이 실액 지적(잔량 $26.75≈37,954원, 절반이면 $13.37≈18,977원 — 두 번에 나눠 팔 실익 없음) → PM도 동의, 전량 정리로 상향. 원가 $162.07→현재 $188.67 = +16.4% 익절, 실현손익 +$3.77(+5,351원 근사). 펀더 훼손 아님(실적통과·backlog+146.1%), 포지션 크기(총자산 0.46%) 문제로 정리. 체결 확인은 다음 세션 첫 단계(룰8).",
+      "setup_id": null
+    },
     {
       "id": "o-mu-3cha-funded",
       "label": "[조건부 대기] MU 3차 11만원 — 재원 발생 시 집행",

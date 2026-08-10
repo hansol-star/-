@@ -55,6 +55,7 @@ DART✅ · NAVER NCP✅ · FMP(화이트리스트 NVDA)✅ · EDGAR✅ · earnin
 | `edgar_search.py --events` | SKILL **§2 수집**(`insider_us.py` 옆 = 미국 공시 레이어) | 매 보고서. 🚨critical은 본문 노출 의무 |
 | `edgar_search.py --q` | 같은 위치, **트리거 게이트** | 논지를 1차 문서로 확정할 때만. **습관적 호출 금지** |
 | `peer_compare.py` | SKILL **§2 수집**(`financials.py` **바로 뒤**) | ⚠️ **순서 필수** — 먼저 돌리면 어제 숫자로 순위를 매긴다 |
+| `refresh_stale.py` **[8/10]** | SKILL **§2 수집 맨 앞**(`financials.py` **바로 앞**) | 매 보고서. 신선하면 0회 호출로 즉시 끝남. **배선 자체가 산출물** — 8/10 감사에서 `eps_revisions`·`naver_sentiment`·`guidance`·`transcripts` 4종이 **어느 루틴에도 없던 것**(grep 0건)이 드러났다 |
 
 플레이북에도 내렸다: **§1b-2 신설**("'동종 대비'는 이제 우리 숫자로 — sell-side 문장 받아쓰기 금지"),
 risk-desk에 memory_recall·edgar_search 임무 2줄.

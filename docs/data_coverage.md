@@ -74,6 +74,7 @@ MU·ANET·AVGO·ORCL 4종목은 무료플랜 402로 **하드넘버가 아예 없
 | **★공시 전문검색·8-K 이벤트** | `edgar_search.py` | SEC EDGAR FTS 무키 | ✅ **8/5 신설** — 2001~ 전 공시 **본문 검색** + 8-K item 코드 스트림. **탐색 전용** |
 | **★횡단면 상대비교** | `peer_compare.py` | financials.json 재사용 | ✅ **8/5 신설 · 8/6 피어 확대**(전력 3→10·반도체 5→10) — 피어 백분위 + 자기이력 백분위. 피어 재무는 `financials.py --with-peers`(주간 R3). **측정 전용** |
 | **★기억 통합 회수** | `memory_recall.py` | 자체 원장 4종 | ✅ **8/5 신설** — 결정·콜·미스무브·룰을 한 질의로. **읽기 전용** |
+| **★stale 레이어 자동 갱신** | `refresh_stale.py` | `validate_report.COVERAGE_LAYERS` import | ✅ **8/10 신설** — 게이트가 *감시자*였을 뿐 **집행자가 없던 구멍**을 메운다. 상한 레이어만 `--save` 재실행(신선한 날 네트워크 0회), 임계 = 허용−2일로 **FAIL 전에** 손댐 |
 | 영상 리서치 3채널 | `hunter_latest.py`·`hunter_score.py` | YouTube | ✅ |
 | 자가검증·캘리브레이션 | `score_calls.py`·`missed_moves.py`·`signal_score.py` | 자체 | ✅ |
 | **개정 룰 자기검증** | `rule_tracker.py`·`tranche_rules.py` | 자체 + 일봉 캐시 | ✅ **7/30 신설** — 룰이 낸 신호를 반사실 채점 + 29년 소급 백테스트 |

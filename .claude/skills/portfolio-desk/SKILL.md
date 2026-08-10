@@ -176,6 +176,20 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
   ```
   ⚠️ **기저율 규율**: ①표본 수 병기 ②깊이 단독 매수논거 금지 ③"승률 97%"≠"97% 확률".
   정본 = `docs/research/drawdown_study_2026-07-30.md`
+- **🔄 stale 레이어 자동 갱신 (매 보고서 · 수집 단계 맨 앞) [8/10 신설·배선]**:
+  ```bash
+  python3 .claude/skills/portfolio-desk/scripts/refresh_stale.py   # 상한 레이어만 --save 재실행
+  ```
+  **왜 필요한가 — 8/10 배선 감사에서 드러난 구멍**: `eps_revisions.py`·`naver_sentiment.py`·`guidance.py`·
+  `transcripts.py` 네 개가 **SKILL.md·routines.md 어디에도 없었다**(grep 0건). 8/1에 만들어 CLAUDE.md
+  데이터 소스 절에 등재까지 해놓고 **아무 루틴도 호출하지 않았다** → `eps_revisions.json`이 9일 방치돼
+  `--coverage` FAIL. 게이트는 **감시자**였을 뿐 **집행자**가 없었다.
+  8/2 원칙의 데이터판이다: *"오더북에 들어간 것만 집행된다"* ⇒ **루틴에 배선된 것만 갱신된다.**
+  · 신선한 날은 **네트워크 호출 0회**(R2 예산 무해) · stale한 것만 골라 돌린다.
+  · 임계 = `허용 - 2일` → **게이트가 FAIL을 내기 전에** 손댄다(하루 걸러도 안 터짐).
+  · 신선도 표는 `validate_report.COVERAGE_LAYERS`를 **import**해서 쓴다(두 벌로 두면 갈라진다).
+  ⚠️ 루틴 프롬프트는 에이전트가 못 고친다(8/6 — `http_api` 트리거는 `update_trigger` 거부)
+  ⇒ **이런 배선은 반드시 코드/스킬 쪽에 심는다.** 프롬프트 문구에 의존하는 방어는 무효.
 - **📑 재무제표 3표 (보유 전종목 · 필수 · 무키) [7/29~30 신설]**:
   ```bash
   python3 .claude/skills/portfolio-desk/scripts/financials.py --all --save   # data/app/financials.json 갱신

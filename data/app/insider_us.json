@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-10",
+ "updated": "2026-08-11",
  "days": 90,
  "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
  "failed": [],
@@ -134,17 +134,17 @@
   },
   {
    "ticker": "AAPL",
-   "filings": 4,
+   "filings": 3,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 3,
-    "shares": 51390.0,
-    "value": 15954696.24,
-    "n_10b5_1": 3
+    "n": 2,
+    "shares": 50116.0,
+    "value": 15585236.24,
+    "n_10b5_1": 2
    },
    "other_grants_exercises": {
     "n": 5,
@@ -165,20 +165,6 @@
      "role": "이사",
      "plan": true,
      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126023363/form4.xml"
-    },
-    {
-     "code": "S",
-     "shares": 1274.0,
-     "price": 290.0,
-     "ad": "D",
-     "date": "2026-05-08",
-     "after": 38713.0,
-     "value": 369460.0,
-     "owner": "Borders Ben",
-     "title": "Principal Accounting Officer",
-     "role": "·임원",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126020871/form4.xml"
     },
     {
      "code": "S",
@@ -262,17 +248,17 @@
   },
   {
    "ticker": "ANET",
-   "filings": 36,
+   "filings": 37,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 278,
-    "shares": 4007811.0,
-    "value": 720069855.1500001,
-    "n_10b5_1": 278
+    "n": 294,
+    "shares": 4419659.0,
+    "value": 799453136.0766002,
+    "n_10b5_1": 294
    },
    "other_grants_exercises": {
     "n": 30,

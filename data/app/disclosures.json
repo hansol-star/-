@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-10",
+ "updated": "2026-08-11",
  "days": 7,
  "universe": [
   "005930",
@@ -10,8 +10,8 @@
  ],
  "counts": {
   "critical": 0,
-  "notable": 5,
-  "routine": 32
+  "notable": 4,
+  "routine": 29
  },
  "items": [
   {
@@ -61,28 +61,16 @@
    "rcept_no": "20260804000313",
    "filer": "현대자동차",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260804000313"
-  },
-  {
-   "code": "005380",
-   "name": "현대차",
-   "date": "20260803",
-   "title": "영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "하드넘버 갱신",
-   "rcept_no": "20260803800709",
-   "filer": "현대자동차",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260803800709"
   }
  ],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 24,
-   "net": -18177,
+   "n": 22,
+   "net": -18342,
    "n_buy": 3,
-   "n_sell": 21,
+   "n_sell": 19,
    "top": [
     {
      "who": "이태관",

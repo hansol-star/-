@@ -617,7 +617,7 @@
       segs.forEach(function (s) { if (s[2]) h += '<span class="scseg" style="flex:' + s[2] + ';background:' + s[1] + '" title="' + s[0] + ' ' + s[2] + '"></span>'; });
       h += '</div><div class="row wrap sclegend">';
       segs.forEach(function (s) { if (s[2]) h += '<span><span class="lg" style="background:' + s[1] + '"></span>' + s[0] + ' ' + s[2] + '</span>'; });
-      h += '</div><div class="mut xs" style="margin-top:6px">방향성 채택 · 숫자는 교차검증 전제. 정확+근사 = 방향 적중.<br>분모 = 판정 확정분만. <b>일반</b>(종목콜 없는 교육·원칙론)과 <b>미채점</b>(아직 안 본 것)은 채널의 적중과 무관해 제외 — 총 ' + sc.total + '건 중 검증 커버리지 ' + (sc.coverage_pct != null ? sc.coverage_pct + '%' : '—') + '. ⚠️ 미채점분이 채점분과 같은 품질이라는 보장은 없다(선택 편향).</div></div>';
+      h += '</div><div class="mut xs" style="margin-top:6px">방향성 채택 · 숫자는 교차검증 전제. 정확+근사 = 방향 적중.<br>분모 = 판정 확정분만. <b>일반</b>(종목콜 없는 교육·원칙론)과 <b>미채점</b>(아직 안 본 것)은 채널의 적중과 무관해 제외 — 총 ' + sc.total + '건 중 검증 커버리지 ' + (sc.coverage_pct != null ? sc.coverage_pct + '%' : '—') + '. ⚠️ 미채점분이 채점분과 같은 품질이라는 보장은 없다(선택 편향).<br>⚠️ [8/12] 표본 자체도 무작위가 아니다 — R1이 최신 N편만 가져와 <b>주말·저녁 업로드가 체계적으로 누락</b>(실측 커버리지 73%). 이 수치를 <b>채널 전체의 적중률로 일반화하지 말 것</b>.</div></div>';
     }
     if (arch.length) h += '<div class="nav"><a class="navbtn" href="#archive">🗂️ 전체 영상 아카이브 (' + arch.length + ')</a></div>';
 

@@ -72,11 +72,20 @@ directive_line = ""
 try:
     with open("data/app/session_directive.json", encoding="utf-8") as f:
         _d = json.load(f)
-    if _d.get("date") == now_kst.strftime("%Y-%m-%d") and _d.get("text"):
-        _scope = _d.get("scope") or "전체 세션"
-        directive_line = (
-            f"\n- 📌 **오늘 지시(정훈 · {_scope} · 오늘 한정)**: {_d['text']}"
-        )
+    # 단일 객체 / 리스트 / {"directives":[...]} 모두 허용 — 며칠치를 미리 적어둘 수 있게.
+    if isinstance(_d, dict):
+        _items = _d.get("directives") if isinstance(_d.get("directives"), list) else [_d]
+    elif isinstance(_d, list):
+        _items = _d
+    else:
+        _items = []
+    _today = now_kst.strftime("%Y-%m-%d")
+    for _it in _items:
+        if not isinstance(_it, dict):
+            continue
+        if _it.get("date") == _today and _it.get("text"):
+            _scope = _it.get("scope") or "전체 세션"
+            directive_line += f"\n- 📌 **오늘 지시(정훈 · {_scope} · 오늘 한정)**: {_it['text']}"
 except Exception:
     pass
 

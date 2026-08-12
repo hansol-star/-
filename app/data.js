@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-12 22:39 KST",
+  "generated_at": "2026-08-12 22:54 KST",
   "as_of": "2026-08-12 (수) 17:0x KST · 마감 확정",
   "source_report": "docs/reports/report_v73_2026-08-12.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1415.51
+    "usdkrw": 1414.64
   },
   "totals": {
-    "assets_krw": 8178949,
-    "stocks_value_krw": 7994921,
+    "assets_krw": 8172310,
+    "stocks_value_krw": 7988282,
     "cash_krw": 184028,
-    "day_change_krw": 112114,
-    "day_change_pct": 1.42,
-    "total_pnl_krw": -49434,
-    "total_pnl_pct": -0.61
+    "day_change_krw": 107611,
+    "day_change_pct": 1.37,
+    "total_pnl_krw": -56072,
+    "total_pnl_pct": -0.7
   },
   "safety": {
     "pin": 7500,
@@ -39,26 +39,26 @@ window.APP_DATA = {
     {
       "label": "S&P500",
       "ticker": "^GSPC",
-      "price": 7752.46,
-      "change_pct": 0.31
+      "price": 7750.62,
+      "change_pct": 0.29
     },
     {
       "label": "나스닥",
       "ticker": "^IXIC",
-      "price": 26593.787,
-      "change_pct": 0.56
+      "price": 26604.389,
+      "change_pct": 0.6
     },
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 53905.12,
-      "change_pct": 0.21
+      "price": 53833.78,
+      "change_pct": 0.08
     },
     {
       "label": "필라델피아반도체",
       "ticker": "^SOX",
-      "price": 12398.886,
-      "change_pct": 2.48
+      "price": 12485.502,
+      "change_pct": 3.2
     }
   ],
   "alerts": [
@@ -185,7 +185,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "[7/6 체결 확인] 1주 매도·총판매액 $313.77(＄308 지정가 상단 초과 유리 체결)·수수료 $0.31·제세금 $0.01·순수령 $313.45(입금 7/8). 원가 $257.14 대비 +21.9% 익절. 잔여 1.022472주+분수는 글라스 옵셔널리티로 유지. 대금은 GOOGL $340/$330 재배치로 이동(아래 항목).",
-      "price": 303.555,
+      "price": 302.858,
       "fired": null
     },
     {
@@ -301,6 +301,11 @@ window.APP_DATA = {
       },
       "comment": "+6.68%(255,500). D램 3분기 계약가 두자릿수 상승 지속·EPS리비전 +75.4(상22/하0)·마진 3년 가속 불변. 매수는 하드플로어로 여전히 불가.",
       "issues": [
+        {
+          "date": "2026-08-12",
+          "tag": "검증",
+          "text": "[소급 발견] 모건스탠리 8/6 「Memory — A Small Bump」 — 메모리 조정 종료·재진입 기회 선언(Shawn Kim 약세→강세 전향). ⚠️단 SK하이닉스 FY26 EPS +13% 상향 vs **삼성전자 -10% 하향**(목표가 하이닉스 260만·삼성 375,000원 유지). 강세 전환이 삼성엔 균등 적용되지 않았다. 우리 ⭐5/93은 재무 하드넘버 기반이라 불변이나 sell-side 선호 비대칭은 기록."
+        },
         {
           "date": "2026-08-12",
           "tag": "검증",
@@ -779,11 +784,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 5.138203,
       "cost": 199.51,
-      "price": 221.16,
-      "change_pct": 1.68,
-      "value_krw": 1608536,
-      "pnl_pct": 10.85,
-      "pnl_krw": 115445,
+      "price": 222.885,
+      "change_pct": 2.48,
+      "value_krw": 1620086,
+      "pnl_pct": 11.72,
+      "pnl_krw": 126994,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -866,7 +871,7 @@ window.APP_DATA = {
         223.96,
         217.55,
         217.5,
-        221.13
+        222.88
       ],
       "sector": "반도체·AI"
     },
@@ -877,11 +882,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.129111,
       "cost": 633.98,
-      "price": 597.0,
-      "change_pct": -0.35,
-      "value_krw": 954166,
-      "pnl_pct": -5.83,
-      "pnl_krw": -88446,
+      "price": 591.56,
+      "change_pct": -1.26,
+      "value_krw": 944890,
+      "pnl_pct": -6.69,
+      "pnl_krw": -97722,
       "outlook": "core",
       "stars": 3,
       "score": 68,
@@ -964,7 +969,7 @@ window.APP_DATA = {
         592.1,
         594.92,
         599.12,
-        597.0
+        591.56
       ],
       "sector": "빅테크"
     },
@@ -975,11 +980,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.06863,
       "cost": 648.75,
-      "price": 710.47,
+      "price": 710.495,
       "change_pct": 0.29,
-      "value_krw": 1074697,
-      "pnl_pct": 9.51,
-      "pnl_krw": 64944,
+      "value_krw": 1074074,
+      "pnl_pct": 9.52,
+      "pnl_krw": 64321,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1066,7 +1071,7 @@ window.APP_DATA = {
         710.71,
         710.65,
         708.42,
-        710.47
+        710.49
       ],
       "sector": "지수ETF"
     },
@@ -1077,11 +1082,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.443,
       "cost": 410.2,
-      "price": 499.285,
-      "change_pct": -0.9,
-      "value_krw": 1019830,
-      "pnl_pct": 21.72,
-      "pnl_krw": 157701,
+      "price": 494.263,
+      "change_pct": -1.89,
+      "value_krw": 1008952,
+      "pnl_pct": 20.49,
+      "pnl_krw": 146822,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1158,7 +1163,7 @@ window.APP_DATA = {
         499.99,
         506.06,
         503.81,
-        499.35
+        494.24
       ],
       "sector": "빅테크"
     },
@@ -1169,11 +1174,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.022472,
       "cost": 257.14,
-      "price": 303.555,
-      "change_pct": -0.44,
-      "value_krw": 439341,
-      "pnl_pct": 18.05,
-      "pnl_krw": 56400,
+      "price": 302.858,
+      "change_pct": -0.67,
+      "value_krw": 438063,
+      "pnl_pct": 17.78,
+      "pnl_krw": 55122,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1256,7 +1261,7 @@ window.APP_DATA = {
         313.33,
         308.26,
         304.91,
-        303.55
+        302.84
       ],
       "sector": "빅테크"
     },
@@ -1267,11 +1272,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.766644,
       "cost": 353.62,
-      "price": 342.48,
-      "change_pct": -0.38,
-      "value_krw": 856441,
-      "pnl_pct": -3.15,
-      "pnl_krw": -53465,
+      "price": 343.81,
+      "change_pct": 0.0,
+      "value_krw": 859238,
+      "pnl_pct": -2.77,
+      "pnl_krw": -50668,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1356,7 +1361,7 @@ window.APP_DATA = {
         354.3,
         357.52,
         343.8,
-        342.48
+        343.82
       ],
       "sector": "빅테크"
     },
@@ -1367,11 +1372,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.21519,
       "cost": 232.12,
-      "price": 150.72,
-      "change_pct": 3.6,
-      "value_krw": 45910,
-      "pnl_pct": -35.07,
-      "pnl_krw": -26842,
+      "price": 150.685,
+      "change_pct": 0.0,
+      "value_krw": 45871,
+      "pnl_pct": -35.08,
+      "pnl_krw": -26881,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1456,7 +1461,7 @@ window.APP_DATA = {
         147.02,
         151.05,
         145.48,
-        150.72
+        150.73
       ],
       "sector": "빅테크"
     },
@@ -1467,11 +1472,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.020001,
       "cost": 749.0,
-      "price": 900.595,
-      "change_pct": 3.69,
-      "value_krw": 25497,
-      "pnl_pct": 20.24,
-      "pnl_krw": 3678,
+      "price": 926.915,
+      "change_pct": 6.72,
+      "value_krw": 26226,
+      "pnl_pct": 23.75,
+      "pnl_krw": 4407,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1554,7 +1559,7 @@ window.APP_DATA = {
         877.57,
         861.0,
         868.52,
-        900.81
+        926.91
       ],
       "sector": "반도체·AI"
     },
@@ -1565,11 +1570,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.071177,
       "cost": 421.06,
-      "price": 418.88,
-      "change_pct": 0.67,
-      "value_krw": 42203,
-      "pnl_pct": -0.52,
-      "pnl_krw": -1448,
+      "price": 422.905,
+      "change_pct": 1.64,
+      "value_krw": 42582,
+      "pnl_pct": 0.44,
+      "pnl_krw": -1069,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -1656,7 +1661,7 @@ window.APP_DATA = {
         427.76,
         422.4,
         416.08,
-        418.77
+        422.9
       ],
       "sector": "반도체·AI"
     }
@@ -1886,8 +1891,8 @@ window.APP_DATA = {
       "label": "GE Vernova",
       "ticker": "GEV",
       "currency": "USD",
-      "price": 1032.15,
-      "change_pct": 2.0,
+      "price": 1039.0,
+      "change_pct": 2.68,
       "stars": 4,
       "score": 78,
       "target": "$1,211.72 (Bernstein $1,206)",
@@ -2162,8 +2167,8 @@ window.APP_DATA = {
       "label": "SpaceX",
       "ticker": "SPCX",
       "currency": "USD",
-      "price": 136.065,
-      "change_pct": 2.08,
+      "price": 136.71,
+      "change_pct": 2.57,
       "stars": 2,
       "score": 32,
       "target": "$63~$190 (분산)",
@@ -2556,8 +2561,8 @@ window.APP_DATA = {
       "label": "T-Mobile",
       "ticker": "TMUS",
       "currency": "USD",
-      "price": 178.43,
-      "change_pct": -0.08,
+      "price": 177.79,
+      "change_pct": -0.44,
       "stars": 3,
       "score": 62,
       "target": "—",
@@ -2615,8 +2620,8 @@ window.APP_DATA = {
       "label": "팔란티어",
       "ticker": "PLTR",
       "currency": "USD",
-      "price": 172.71,
-      "change_pct": -1.27,
+      "price": 169.91,
+      "change_pct": -2.88,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -2669,8 +2674,8 @@ window.APP_DATA = {
       "label": "IONQ",
       "ticker": "IONQ",
       "currency": "USD",
-      "price": 43.06,
-      "change_pct": -0.87,
+      "price": 43.65,
+      "change_pct": 0.48,
       "stars": 2,
       "score": 42,
       "target": "컨센 $68.79 (고$100/저$44.78)",
@@ -2723,8 +2728,8 @@ window.APP_DATA = {
       "label": "TSLA",
       "ticker": "TSLA",
       "currency": "USD",
-      "price": 330.31,
-      "change_pct": -0.75,
+      "price": 327.92,
+      "change_pct": -1.47,
       "stars": 2,
       "score": 18,
       "target": "$420.55 (ARK 2029 $2,600)",
@@ -2826,8 +2831,8 @@ window.APP_DATA = {
       "label": "AMD",
       "ticker": "AMD",
       "currency": "USD",
-      "price": 481.52,
-      "change_pct": 1.52,
+      "price": 484.69,
+      "change_pct": 2.19,
       "stars": 4,
       "score": 77,
       "target": "$541.66 컨센 (고$725/저$320, Strong Buy 47명) — 현재가 상회(괴리-1.5%)",
@@ -2999,7 +3004,7 @@ window.APP_DATA = {
       1422.3,
       1407.0,
       1417.31,
-      1415.58
+      1414.81
     ]
   },
   "kospi_history": {
@@ -5111,36 +5116,118 @@ window.APP_DATA = {
     "as_of": "2026-08-12 (수) 16:30 KST",
     "scorecard": {
       "buckets": {
-        "정확": 257,
-        "근사": 81,
+        "정확": 260,
+        "근사": 83,
         "시점": 3,
         "미확인": 36,
         "정정": 60,
         "과장": 0,
         "일반": 17,
-        "미채점": 0
+        "미채점": 89
       },
-      "total": 454,
+      "total": 548,
       "accuracy_pct": 84,
-      "judged": 437,
-      "scored": 401,
-      "coverage_pct": 96
+      "judged": 442,
+      "scored": 406,
+      "coverage_pct": 81
     }
   },
   "hunter_archive": [
     {
-      "date": "2026-08-11",
-      "title": "아직 시장이 못보고 있는 삼전·닉스 주가 전망",
+      "date": "2026-08-12",
+      "title": "LG와 젠슨황 만남.. 주가 폭등의 시작일까?!",
       "theme": null,
-      "tickers": [
-        "005930.KS",
-        "000660.KS"
-      ],
-      "verdict": "검증 정밀",
-      "takeaway": "HBM 생산이 일반메모리 공급을 잠식(마이크론 1:3 언급·미확인)해 가격바닥 형성 구조론 + 삼성전자 파운드리 6월 월간 흑자전환(3년만, 4나노수율~80%)[검증] + SK하이닉스 8/7 이사회 청주M17 19.1조 낸드투자(용인35.2조 합산 총54.3조)[검증정밀] + HBF(SK하이닉스·샌디스크 8/4~6 FMS2026 표준공개)[검증]. 최근 주가급락은 실적무관·7/31 레버리지ETF규제发 강제청산 영향[검증방향]. 감시지표: 재고3주 유지·파운드리 분기흑자전환 지속.",
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
       "views": null,
-      "id": "lnU78beHI9E",
-      "_verdict_src": "latest_videos.tag"
+      "id": "nF3d52atyuY",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-12",
+      "title": "SK하이닉스 주가 반토막 났는데 '솔리다임' 상장하려는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "eG8IRgBxVa8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-12",
+      "title": "오늘 미국 CPI가 한국 '코스피'에 끼치는 영향",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "p9dXAK2KaB0",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-12",
+      "title": "삼전, 하이닉스 반등 시작?! 572조 역대급 호재 떴다",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "m7dj1c96Wb8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-12",
+      "title": "오늘 코스피가 '미친 듯이' 오른 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "CS-G9YObXtg",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-12",
+      "title": "일본 닛케이'가 한국 코스피를 무시하는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "jmIuIL3RhFg",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-12",
+      "title": "악재 다 털어낸 한국 증시, 앞으로의 전망은",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "QPKg0gNpnuw",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-12",
+      "title": "현대 정의선이 오늘, 기습 발표한 '로봇 다음' AI사업",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "tGc5g_SO3fM",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-08-12",
@@ -5169,19 +5256,6 @@ window.APP_DATA = {
       "takeaway": "한투증권 VIP(잔액10억+) 7/31~8/6 순매수 1위 삼성전자 874.7억원(2~10위 합계 462.1억원의 2배 가까이)[미확인, 원자료 접근불가] — 직전집계 1위였던 SK하이닉스는 톱10 밖. 삼성=주가선반영·하이닉스=기대과열(ADR신주2.5%+환원미확정) 논리, 단일채널 미검증 원자료라 매수근거 채택 안 함.",
       "views": null,
       "id": "RA5utjURMgQ",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-11",
-      "title": "하이닉스가 주가 회복하려면 해야 된다는 2가지",
-      "theme": null,
-      "tickers": [
-        "000660.KS"
-      ],
-      "verdict": "검증",
-      "takeaway": "SK스퀘어 SK하이닉스 지분율 나스닥 신주발행(1,779만주)으로 20.5%→20.0002%까지 하락(공정거래법 20% 마지노선 임박)[검증, 영상표기 20.002%는 근소오차] — 유일 해법=자사주소각(추가 환원 트리거). 채권매수 하루전 취소→예금이동 정황은 회사 공식확인 전 추측단계[미확인]. 8/7 용인·청주 54.3조 신규투자와 동시 의결 확인[검증].",
-      "views": null,
-      "id": "1fRLsRl5FkI",
       "_verdict_src": "latest_videos.tag"
     },
     {
@@ -5214,31 +5288,6 @@ window.APP_DATA = {
       "_verdict_src": "latest_videos.tag"
     },
     {
-      "date": "2026-08-11",
-      "title": "증권사가 '개미들' 이용해 돈 버는 방법",
-      "theme": null,
-      "tickers": [],
-      "verdict": "미확인",
-      "takeaway": "증권사 리포트 25년간 적극매도 0건, 2015년 이후 평균예고수익률34% vs 실제4% 괴리 주장[미확인, 채널자체집계]. 결론(목표가 숫자보다 변경사유·이해관계를 봐야함)은 master.md 6/16 지침과 정합하는 원론.",
-      "views": null,
-      "id": "m9JCixZNulg",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-11",
-      "title": "주식을 절대 빚져서 투자하면 안되는 이유",
-      "theme": null,
-      "tickers": [
-        "005930.KS",
-        "000660.KS"
-      ],
-      "verdict": "방향성 서술",
-      "takeaway": "레버리지 반대매매가 삼성·하이닉스 집중도(코스피시총 절반)로 지수 낙폭을 증폭시키는 악순환 구조 설명. 룰4(레버리지·신용 사용안함) 원칙과 정합하는 원론.",
-      "views": null,
-      "id": "lR0BmSjnUEc",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
       "date": "2026-08-12",
       "title": "삼전·닉스 2027년안에 역대급 상승장 온다",
       "theme": null,
@@ -5267,6 +5316,130 @@ window.APP_DATA = {
     },
     {
       "date": "2026-08-11",
+      "title": "외국인 투자자들이 SK하이닉스를 계속 파는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "EFlqn4s6reM",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-11",
+      "title": "주가 반토막 난 '현대차', 언제 다시 오를까?",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증 정밀",
+      "takeaway": "[8/12 소급 채점] **[검증 정밀·자체 캐시 대조]** 현대차 '고점 대비 -53% 가까이' — 우리 일봉으로 52주 고가 750,000원(6/1) → 7월말 저점 351,000원(7/30) = **-53.2%**로 정확히 일치(채널의 783,000원은 장중 고가). 8/11 종가 403,000원 = 저점 대비 **+14.8%** 반등(채널 '약 12%'와 근사). ★보유 직결 — 우리 최대 손실 종목의 낙폭 규모를 외부 서술과 교차 확인한 셈. 8/26 인베스터데이 기한부 홀드 판정은 불변.",
+      "views": null,
+      "id": "8HutbZ-ziIg",
+      "_verdict_src": "2026-08-12 소급 채점(API 누락감사분)",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-11",
+      "title": "하이닉스에 이어 '미국시장' 진출한다는 '한국 기업'",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "RGkmMDykeWE",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-11",
+      "title": "요즘 코스피가 오르지도, 내리지도 않는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "FtVZLVkNsu0",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-11",
+      "title": "한국 정부가 지금 주식 투자자들한테 '또' 욕먹고 있는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "7C4SyYsrkcY",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-11",
+      "title": "오늘 외국인이 다시 '코스피'를 산 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "lRuc8ts2PH4",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-11",
+      "title": "아직 시장이 못보고 있는 삼전·닉스 주가 전망",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": "검증 정밀",
+      "takeaway": "HBM 생산이 일반메모리 공급을 잠식(마이크론 1:3 언급·미확인)해 가격바닥 형성 구조론 + 삼성전자 파운드리 6월 월간 흑자전환(3년만, 4나노수율~80%)[검증] + SK하이닉스 8/7 이사회 청주M17 19.1조 낸드투자(용인35.2조 합산 총54.3조)[검증정밀] + HBF(SK하이닉스·샌디스크 8/4~6 FMS2026 표준공개)[검증]. 최근 주가급락은 실적무관·7/31 레버리지ETF규제发 강제청산 영향[검증방향]. 감시지표: 재고3주 유지·파운드리 분기흑자전환 지속.",
+      "views": null,
+      "id": "lnU78beHI9E",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-11",
+      "title": "하이닉스가 주가 회복하려면 해야 된다는 2가지",
+      "theme": null,
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "SK스퀘어 SK하이닉스 지분율 나스닥 신주발행(1,779만주)으로 20.5%→20.0002%까지 하락(공정거래법 20% 마지노선 임박)[검증, 영상표기 20.002%는 근소오차] — 유일 해법=자사주소각(추가 환원 트리거). 채권매수 하루전 취소→예금이동 정황은 회사 공식확인 전 추측단계[미확인]. 8/7 용인·청주 54.3조 신규투자와 동시 의결 확인[검증].",
+      "views": null,
+      "id": "1fRLsRl5FkI",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-11",
+      "title": "증권사가 '개미들' 이용해 돈 버는 방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "증권사 리포트 25년간 적극매도 0건, 2015년 이후 평균예고수익률34% vs 실제4% 괴리 주장[미확인, 채널자체집계]. 결론(목표가 숫자보다 변경사유·이해관계를 봐야함)은 master.md 6/16 지침과 정합하는 원론.",
+      "views": null,
+      "id": "m9JCixZNulg",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-11",
+      "title": "주식을 절대 빚져서 투자하면 안되는 이유",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": "방향성 서술",
+      "takeaway": "레버리지 반대매매가 삼성·하이닉스 집중도(코스피시총 절반)로 지수 낙폭을 증폭시키는 악순환 구조 설명. 룰4(레버리지·신용 사용안함) 원칙과 정합하는 원론.",
+      "views": null,
+      "id": "lR0BmSjnUEc",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-11",
       "title": "SK하이닉스, 결국 HBM '1위 자리' 뺏긴다는 이유",
       "theme": null,
       "tickers": [
@@ -5277,20 +5450,6 @@ window.APP_DATA = {
       "takeaway": "UBS: 하이닉스 HBM 비트출하량 점유율 2026년 48%(1위)→2027년 삼성41% vs 하이닉스39%로 역전[검증 정밀, 증권플러스·Investing.com 다출처]. 역전축 = 적층/방열(하이닉스 강점)→베이스다이 통합제조(삼성 강점, 2월 업계최초 HBM4 고객공급). 8/23 발표 행사는 채널표기 '칩스206'이 아니라 '핫칩스(Hot Chips) 2026'(스탠퍼드대, 8/23~25)[정정] — 삼성=베이스다이, 하이닉스=첨단패키징 주제로 발표 확정.",
       "views": null,
       "id": "9FXAIrxwI2U",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-10",
-      "title": "삼성에는 '오너 리스크'가 없었던 이유",
-      "theme": null,
-      "tickers": [
-        "005930.KS",
-        "000660.KS"
-      ],
-      "verdict": "검증",
-      "takeaway": "이재용 삼성전자 직접지분1.67%(계열사 통한 간접지배)·최태원 SK㈜ 직접지분17.9%(1,297만5,472주, 8조원+)[둘다 검증 정밀]. 노소영 재산분할 9,440억원 현금판결(분할대상 1/3)[검증 정밀]. 최태원은 재산분할 자금조달이 SK㈜ 지분매각 압박=지배구조 리스크로 직결되나, 이재용은 개인지분이 낮아 삼성전자 대량매도 압박이 구조적으로 낮다는 결론 — SK하이닉스(워치) 지배구조 리스크를 부각하는 내용, 삼성전자(보유) 신규 매매신호는 아님.",
-      "views": null,
-      "id": "R4dJbOgyOkI",
       "_verdict_src": "latest_videos.tag"
     },
     {
@@ -5321,19 +5480,6 @@ window.APP_DATA = {
       "_verdict_src": "latest_videos.tag"
     },
     {
-      "date": "2026-08-10",
-      "title": "레버리지 규제 10일차, 한국증시 점점 건강해지고 있다는 증거",
-      "theme": null,
-      "tickers": [
-        "^KS11"
-      ],
-      "verdict": "검증 정밀",
-      "takeaway": "레버리지 거래대금 12.4485조(7/30)→8,452억(8/7), 93%+급감[검증 정밀]. VKOSPI 86.18→69.53, 7거래일 19.32%↓[검증 정밀, 채널수치와 정확일치]. 삼성+하이닉스 시총비중 55%→49%. 코스닥 저점대비 7거래일+30%. 크래시TF §1·§5 해제게이트 직결 하드넘버 — 단 VKOSPI 69도 작년말 20대비 여전히 높아 '정상화 진행중' 프레임이 정확(완료 아님).",
-      "views": null,
-      "id": "6B8A9TxhuM4",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
       "date": "2026-08-11",
       "title": "8월 11일 투자자들이 꼭 알아야 하는 투자 포인트",
       "theme": null,
@@ -5345,19 +5491,6 @@ window.APP_DATA = {
       "takeaway": "WTI$82.13·Brent$87.72(호르무즈 재점화). SOXX-2.5%·SMH-2.28%·EWY-1.79%·삼성GDR-2.08%(간밤 미국반도체 약세→오늘 국장 약세 시사). 코스닥 전일+6.97%·7거래일+32.5%. 외국인 코스피 '1조4,937억' 순매도(코스피+0.65%인데도) — ⑦(6XJ-uJrQBOI)의 '1조4,887억'과 50억 오차, 채널 내부 자막수치 불일치로 대략치만 인용. 관전: 환율1,420원·브렌트$90·개장30분 저점사수. VIX15.45(시스템위기 아님).",
       "views": null,
       "id": "mBxNvk2T8zk",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-10",
-      "title": "외국인들이 지금 '코스닥만 매수'하고 있는 이유",
-      "theme": null,
-      "tickers": [
-        "^KQ11"
-      ],
-      "verdict": "검증 방향",
-      "takeaway": "8/10 외국인 코스피1조4,887억 순매도·코스닥131억 순매수(판돈의 7%미만) — 코스닥+6.97% 상승 진짜 주체는 기관(코스닥5,660억·코스피5,674억 순매수, 외국인의 5배+). 외국인 매도는 비차익 프로그램매매 중심=개별악재 아닌 포트폴리오 재조정 성격. ⑥(mBxNvk2T8zk)과 액수 근소 불일치(위 참조), 방향(기관주도 코스닥반등)은 일치.",
-      "views": null,
-      "id": "6XJ-uJrQBOI",
       "_verdict_src": "latest_videos.tag"
     },
     {
@@ -5384,6 +5517,118 @@ window.APP_DATA = {
     },
     {
       "date": "2026-08-10",
+      "title": "개미들이 요즘 다시, '미국 주식'을 사고 있는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "m44hUJQkjt0",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-10",
+      "title": "지금 모건스탠리가 삼전·닉스 다시 '매수' 하라는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증 정밀",
+      "takeaway": "[8/12 소급 채점·API 누락감사분] ★**우리가 놓쳤던 판단 재료**. **[검증 정밀]** 모건스탠리 8/6 아시아 테크 보고서 **「Memory — A Small Bump」**: *'메모리 산업에서 지금까지 나타난 가장 가파른 조정은 끝난 것으로 보인다'*, *'밸류에이션이 매력적인 전술적 재진입 기회를 제공한다'*. 애널리스트 **Shawn Kim**(그동안 한국 약세론의 대표주자)의 전향이라 상징성이 크다. ★**단 채널이 안 짚은 비대칭**: 같은 보고서에서 **SK하이닉스 FY26 EPS는 +13% 상향, 삼성전자는 -10% 하향**했다. 목표가는 하이닉스 260만원·삼성 375,000원 유지. ⇒ **강세 전환이 삼성에는 균등하게 적용되지 않았다.** 우리 삼성 ⭐5/93은 재무 하드넘버 기반이라 불변이나, **sell-side가 하이닉스를 삼성보다 선호한다는 사실은 기록해 둔다.**",
+      "views": null,
+      "id": "nsqyS1EMypc",
+      "_verdict_src": "2026-08-12 소급 채점(API 누락감사분)",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-10",
+      "title": "지금 한국 정부가 '삼전·하이닉스'에 요구한 '3가지' 조건",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "O6kvnSZi_U8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-10",
+      "title": "하이닉스가 현시점 중국 손절에 나선 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "SjQ2L2IG9zA",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-10",
+      "title": "코스닥 7% 오를 때, 코스피는 1%도 안 오른 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "WK5NETN8P9w",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-10",
+      "title": "8월부터 '금값'이 미친듯이 폭등중인 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "payztX2dXrE",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-10",
+      "title": "삼성에는 '오너 리스크'가 없었던 이유",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "이재용 삼성전자 직접지분1.67%(계열사 통한 간접지배)·최태원 SK㈜ 직접지분17.9%(1,297만5,472주, 8조원+)[둘다 검증 정밀]. 노소영 재산분할 9,440억원 현금판결(분할대상 1/3)[검증 정밀]. 최태원은 재산분할 자금조달이 SK㈜ 지분매각 압박=지배구조 리스크로 직결되나, 이재용은 개인지분이 낮아 삼성전자 대량매도 압박이 구조적으로 낮다는 결론 — SK하이닉스(워치) 지배구조 리스크를 부각하는 내용, 삼성전자(보유) 신규 매매신호는 아님.",
+      "views": null,
+      "id": "R4dJbOgyOkI",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-10",
+      "title": "레버리지 규제 10일차, 한국증시 점점 건강해지고 있다는 증거",
+      "theme": null,
+      "tickers": [
+        "^KS11"
+      ],
+      "verdict": "검증 정밀",
+      "takeaway": "레버리지 거래대금 12.4485조(7/30)→8,452억(8/7), 93%+급감[검증 정밀]. VKOSPI 86.18→69.53, 7거래일 19.32%↓[검증 정밀, 채널수치와 정확일치]. 삼성+하이닉스 시총비중 55%→49%. 코스닥 저점대비 7거래일+30%. 크래시TF §1·§5 해제게이트 직결 하드넘버 — 단 VKOSPI 69도 작년말 20대비 여전히 높아 '정상화 진행중' 프레임이 정확(완료 아님).",
+      "views": null,
+      "id": "6B8A9TxhuM4",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-10",
+      "title": "외국인들이 지금 '코스닥만 매수'하고 있는 이유",
+      "theme": null,
+      "tickers": [
+        "^KQ11"
+      ],
+      "verdict": "검증 방향",
+      "takeaway": "8/10 외국인 코스피1조4,887억 순매도·코스닥131억 순매수(판돈의 7%미만) — 코스닥+6.97% 상승 진짜 주체는 기관(코스닥5,660억·코스피5,674억 순매수, 외국인의 5배+). 외국인 매도는 비차익 프로그램매매 중심=개별악재 아닌 포트폴리오 재조정 성격. ⑥(mBxNvk2T8zk)과 액수 근소 불일치(위 참조), 방향(기관주도 코스닥반등)은 일치.",
+      "views": null,
+      "id": "6XJ-uJrQBOI",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-10",
       "title": "반등 시작한 금값, 어디까지 오를까?!",
       "theme": null,
       "tickers": [],
@@ -5394,33 +5639,32 @@ window.APP_DATA = {
       "_verdict_src": "latest_videos.tag"
     },
     {
-      "date": "2026-08-07",
-      "title": "실적과 주가가 따로 움직이는 진짜 이유",
+      "date": "2026-08-10",
+      "title": "8월 10일 투자자들이 꼭 알아야 하는 투자 포인트",
       "theme": null,
       "tickers": [
         "005930.KS",
-        "000660.KS",
-        "MU",
-        "NVDA"
+        "000660.KS"
       ],
-      "verdict": "검증 정밀",
-      "takeaway": "2000닷컴버블·2018한국반도체·2022금리충격 3사례 비교 — 실적 사상최대인데 주가가 먼저 빠지는 구조를 '가격표=미래성장속도×할인율' 곱셈으로 설명. 삼성 2Q영업익89.4조(+19배)[검증]·SK하이닉스60.5조(+557%,컨센하회)[검증], AMD/샌디스크/WD 실적 서프라이즈에도 주가급락[검증 정밀]. 결론=現국면은 2018식 성장둔화+2022식 고금리압박에 가까움, 핵심감시선=D램계약가 분기상승률 0%하회 여부(2018년엔 가격전망→분기실적→연간기사 순으로 늦게 반영됐다는 시차경고).",
+      "verdict": "검증 방향",
+      "takeaway": "지난 금요일 코스피6,258.77·외국인8,581억순매도. 삼성전자+0.2%·SK하이닉스-4.88% 디커플 — 오늘 외국인 동시재매수 여부가 반등강도 관전포인트. 오후2시 대통령주재 2차메가프로젝트 점검회의(광주 반도체클러스터 전력·용수·인허가) — 전력기기·건설설비 파급 가능.",
       "views": null,
-      "id": "DKgG31nCQ18",
+      "id": "jp-SNTqGqho",
       "_verdict_src": "latest_videos.tag"
     },
     {
-      "date": "2026-08-07",
-      "title": "오늘 코스피, 코스닥이 '동시에 폭락한' 진짜 이유",
+      "date": "2026-08-10",
+      "title": "투자자들이 꼭 알아야 하는, 주말 사이 미국 소식",
       "theme": null,
       "tickers": [
-        "000660.KS",
-        "005930.KS"
+        "MU",
+        "NVDA",
+        "AAPL"
       ],
-      "verdict": "검증",
-      "takeaway": "8/7 코스피-0.60%(6,258.77)·코스닥-0.36% — 중동 호르무즈 통항금지법안 검토+WTI $83반등[검증], **NVDA 루빈울트라 HBM탑재량 축소검토**설로 SK하이닉스-5%[검증, 다출처 — 원래1TB계획→768GB(12-Hi전환) 또는 256GB까지 하향 거론, 마이크론·SK하이닉스 HBM4E 양산수율 문제가 배경]. 신규 리스크로 setups 편입.",
+      "verdict": "검증 정밀",
+      "takeaway": "美7월 비농업고용-23,000(예상+8만 대비 큰 미스)에도 S&P500·나스닥 신고가[검증 정밀, BLS 일치]. 버크셔 2Q영업익$13.0B(+16%)+버이백$4.5B+순매수전환[검증 정밀]. NVDA, 랜시움(Lancium, 채널표기 오류 '안시움')에 최대$3B투자검토[검증]. 애플 中CXMT메모리 테스트(中내수용 한정, 미확정)[검증]. 시티 마이크론목표 $1,400→$1,150(-18%, D램 2027Q2정점 전망)[검증]. 호르무즈 리스크 주말 재점화(후티 아람코 자잔정유소 공격 주장)[검증].",
       "views": null,
-      "id": "wLCLUUlbmjw",
+      "id": "Zdu9gcMOu1U",
       "_verdict_src": "latest_videos.tag"
     },
     {
@@ -5463,35 +5707,6 @@ window.APP_DATA = {
       "_verdict_src": "latest_videos.tag"
     },
     {
-      "date": "2026-08-10",
-      "title": "8월 10일 투자자들이 꼭 알아야 하는 투자 포인트",
-      "theme": null,
-      "tickers": [
-        "005930.KS",
-        "000660.KS"
-      ],
-      "verdict": "검증 방향",
-      "takeaway": "지난 금요일 코스피6,258.77·외국인8,581억순매도. 삼성전자+0.2%·SK하이닉스-4.88% 디커플 — 오늘 외국인 동시재매수 여부가 반등강도 관전포인트. 오후2시 대통령주재 2차메가프로젝트 점검회의(광주 반도체클러스터 전력·용수·인허가) — 전력기기·건설설비 파급 가능.",
-      "views": null,
-      "id": "jp-SNTqGqho",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-10",
-      "title": "투자자들이 꼭 알아야 하는, 주말 사이 미국 소식",
-      "theme": null,
-      "tickers": [
-        "MU",
-        "NVDA",
-        "AAPL"
-      ],
-      "verdict": "검증 정밀",
-      "takeaway": "美7월 비농업고용-23,000(예상+8만 대비 큰 미스)에도 S&P500·나스닥 신고가[검증 정밀, BLS 일치]. 버크셔 2Q영업익$13.0B(+16%)+버이백$4.5B+순매수전환[검증 정밀]. NVDA, 랜시움(Lancium, 채널표기 오류 '안시움')에 최대$3B투자검토[검증]. 애플 中CXMT메모리 테스트(中내수용 한정, 미확정)[검증]. 시티 마이크론목표 $1,400→$1,150(-18%, D램 2027Q2정점 전망)[검증]. 호르무즈 리스크 주말 재점화(후티 아람코 자잔정유소 공격 주장)[검증].",
-      "views": null,
-      "id": "Zdu9gcMOu1U",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
       "date": "2026-08-08",
       "title": "지금 '고민'된다면 꼭 보셔야 합니다",
       "theme": null,
@@ -5502,6 +5717,99 @@ window.APP_DATA = {
       "id": "46D4xmlfgCs",
       "_verdict_note": "한국vs미국 자산배분 원칙론 — 구체 종목콜 없음, 채점 대상 아님.",
       "_verdict_src": "2026-08-12 PM 확정"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "월가에서 지금이 '스페이스X' 매수 기회라는 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "jmieOGNYjFo",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-07",
+      "title": "21% 폭등한 '한화솔루션' 지금 사면 진짜 위험합니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "ZnWf3UigKNs",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-07",
+      "title": "실적과 주가가 따로 움직이는 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS",
+        "MU",
+        "NVDA"
+      ],
+      "verdict": "검증 정밀",
+      "takeaway": "2000닷컴버블·2018한국반도체·2022금리충격 3사례 비교 — 실적 사상최대인데 주가가 먼저 빠지는 구조를 '가격표=미래성장속도×할인율' 곱셈으로 설명. 삼성 2Q영업익89.4조(+19배)[검증]·SK하이닉스60.5조(+557%,컨센하회)[검증], AMD/샌디스크/WD 실적 서프라이즈에도 주가급락[검증 정밀]. 결론=現국면은 2018식 성장둔화+2022식 고금리압박에 가까움, 핵심감시선=D램계약가 분기상승률 0%하회 여부(2018년엔 가격전망→분기실적→연간기사 순으로 늦게 반영됐다는 시차경고).",
+      "views": null,
+      "id": "DKgG31nCQ18",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "오늘 코스피, 코스닥이 '동시에 폭락한' 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "000660.KS",
+        "005930.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "8/7 코스피-0.60%(6,258.77)·코스닥-0.36% — 중동 호르무즈 통항금지법안 검토+WTI $83반등[검증], **NVDA 루빈울트라 HBM탑재량 축소검토**설로 SK하이닉스-5%[검증, 다출처 — 원래1TB계획→768GB(12-Hi전환) 또는 256GB까지 하향 거론, 마이크론·SK하이닉스 HBM4E 양산수율 문제가 배경]. 신규 리스크로 setups 편입.",
+      "views": null,
+      "id": "wLCLUUlbmjw",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "요즘 계속 하이닉스 악재가 쏟아지는 이유",
+      "theme": null,
+      "tickers": [
+        "000660.KS",
+        "005930.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "SK하이닉스 최근 2주 뉴스 7건을 '주문량·판매가·이익률' 기준으로 재분류 — 프리마켓 이벤트·레버리지규제·성과급 고발은 제도 문제(본업 무관), 유일하게 본업에 닿은 건 2Q D램 점유율 하락(39/26/25/7, 카운터포인트 [검증정밀]). 매출증가율 채널표기 257%는 실제 214%로 [정정 소폭].",
+      "views": null,
+      "id": "d6oMr9bd1cg",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "17% 폭등한 고려아연, 지금이 매수 타이밍일까?",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "고려아연 2분기 영업이익 2배+ 급증(금은가+희소금속)로 장중 +17%. 정훈 포트폴리오 무관 종목, 로깅만.",
+      "views": null,
+      "id": "JigeLhMhoiQ",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-07",
+      "title": "8월 7일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [
+        "066570.KS",
+        "035420.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "8/6 코스피 -4.58%(6,296) 급락 직후 대응 리캡 — 오늘 관전포인트는 외국인 삼성전자·SK하이닉스 매도 중단 여부. LG전자 구광모-젠슨 황 재회동설(미확인)·NAVER 실적 발표 당일.",
+      "views": null,
+      "id": "vr6tVVgqZO0",
+      "_verdict_src": "latest_videos.tag"
     },
     {
       "date": "2026-08-06",
@@ -5567,45 +5875,6 @@ window.APP_DATA = {
       "takeaway": "폭락장 방어섹터 3종(전력인프라·필수소비재·헬스케어) 테마 소개, 실적확인+낙폭확인 원칙론. 국내 예시 KT&G, 보유·워치 무관.",
       "views": null,
       "id": "KYLtQQ5iGUg",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-07",
-      "title": "요즘 계속 하이닉스 악재가 쏟아지는 이유",
-      "theme": null,
-      "tickers": [
-        "000660.KS",
-        "005930.KS"
-      ],
-      "verdict": "검증",
-      "takeaway": "SK하이닉스 최근 2주 뉴스 7건을 '주문량·판매가·이익률' 기준으로 재분류 — 프리마켓 이벤트·레버리지규제·성과급 고발은 제도 문제(본업 무관), 유일하게 본업에 닿은 건 2Q D램 점유율 하락(39/26/25/7, 카운터포인트 [검증정밀]). 매출증가율 채널표기 257%는 실제 214%로 [정정 소폭].",
-      "views": null,
-      "id": "d6oMr9bd1cg",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-07",
-      "title": "17% 폭등한 고려아연, 지금이 매수 타이밍일까?",
-      "theme": null,
-      "tickers": [],
-      "verdict": "미확인",
-      "takeaway": "고려아연 2분기 영업이익 2배+ 급증(금은가+희소금속)로 장중 +17%. 정훈 포트폴리오 무관 종목, 로깅만.",
-      "views": null,
-      "id": "JigeLhMhoiQ",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-07",
-      "title": "8월 7일 투자자들이 꼭 알아야 하는 투자 포인트",
-      "theme": null,
-      "tickers": [
-        "066570.KS",
-        "035420.KS"
-      ],
-      "verdict": "검증",
-      "takeaway": "8/6 코스피 -4.58%(6,296) 급락 직후 대응 리캡 — 오늘 관전포인트는 외국인 삼성전자·SK하이닉스 매도 중단 여부. LG전자 구광모-젠슨 황 재회동설(미확인)·NAVER 실적 발표 당일.",
-      "views": null,
-      "id": "vr6tVVgqZO0",
       "_verdict_src": "latest_videos.tag"
     },
     {
@@ -5783,26 +6052,16 @@ window.APP_DATA = {
       "_verdict_src": "latest_videos.tag"
     },
     {
-      "date": "2026-08-04",
-      "title": "지금 주식 시장에서 '살아남는 사람'들의 특징",
+      "date": "2026-08-05",
+      "title": "오늘 AMD, 스페이스X가 ‘역대급 실적’에도 폭락한 진짜 이유",
       "theme": null,
       "tickers": [],
-      "verdict": "검증",
-      "takeaway": "레버리지 쓴 AI펀드(레오폴드 아셴브레너, 상반기+439%)가 마진콜로 청산되며 반도체 매도 파급 vs 마크 스피츠나겔(96.7%지수+3.3%테일리스크헤지, 코로나때 3,612%수익) 대조. 레오폴드 사례는 기존 로그(7/28 배치)와 중복, 스피츠나겔 대조 프레임이 신규.",
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
       "views": null,
-      "id": "aWtr7_aKSpg",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
-      "date": "2026-08-04",
-      "title": "트럼프의 중간선거 '주가' 올리기, 시작됐습니다",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증 방향",
-      "takeaway": "트럼프 이란공격 계획 철회(8/3)→유가-7%·다우 사상최고, 지지율35%(전월37%) 배경 중간선거(91일전) 겨냥 유가하락→금리기대 부양 해석. 유가발 랠리는 매크로데스크와 정합, 정치적 동기 해석은 채널 자체 프레임.",
-      "views": null,
-      "id": "rSjTMBFZ-CI",
-      "_verdict_src": "latest_videos.tag"
+      "id": "ir7gw3DjdUs",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-08-05",
@@ -5867,6 +6126,52 @@ window.APP_DATA = {
       "takeaway": "국민연금 국내주식 목표비중 14.9%→20.8%(5월 상향, 검증)·유예중 실비중 29.4%까지 쏠림→급락후 24.5%로 회귀. '300조 손실'은 5월말 평가액543조에 -22%를 단순대입한 채널 자체 추정치 — 국민연금 공식발표 아님, 절반은 자극적 프레이밍.",
       "views": null,
       "id": "aBRJaiE2Ow8",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-04",
+      "title": "요즘 '자동차 주식'들이 계속 안 오르는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "5fhso2xZWYE",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-04",
+      "title": "블룸버그가 대놓고 '한국 주식 답 없다'고 선언한 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "2ejoDhRfkzc",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-04",
+      "title": "지금 주식 시장에서 '살아남는 사람'들의 특징",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "레버리지 쓴 AI펀드(레오폴드 아셴브레너, 상반기+439%)가 마진콜로 청산되며 반도체 매도 파급 vs 마크 스피츠나겔(96.7%지수+3.3%테일리스크헤지, 코로나때 3,612%수익) 대조. 레오폴드 사례는 기존 로그(7/28 배치)와 중복, 스피츠나겔 대조 프레임이 신규.",
+      "views": null,
+      "id": "aWtr7_aKSpg",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-08-04",
+      "title": "트럼프의 중간선거 '주가' 올리기, 시작됐습니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증 방향",
+      "takeaway": "트럼프 이란공격 계획 철회(8/3)→유가-7%·다우 사상최고, 지지율35%(전월37%) 배경 중간선거(91일전) 겨냥 유가하락→금리기대 부양 해석. 유가발 랠리는 매크로데스크와 정합, 정치적 동기 해석은 채널 자체 프레임.",
+      "views": null,
+      "id": "rSjTMBFZ-CI",
       "_verdict_src": "latest_videos.tag"
     },
     {
@@ -6030,6 +6335,90 @@ window.APP_DATA = {
       "_verdict_src": "latest_videos.tag"
     },
     {
+      "date": "2026-08-02",
+      "title": "코스피 가짜반등? 전 아니라고 봅니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "ZILcz-P0Vyg",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-02",
+      "title": "보이면 바로 팔아야 한다는 '고점 신호' 4가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "BMzBj7ST_28",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-02",
+      "title": "떨어질 땐, 내 주식까지 '같이 폭락하는' 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "g3ZGNAy-Xs8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-02",
+      "title": "현대차 2배 레버리지 상장이, 코스피에 끼칠 영향",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "fVU6knN52F4",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-02",
+      "title": "반등장에서 뭘 사면 좋을지, 구분하는 가장 '확실한 방법'",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "-bViQBF7pvo",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-01",
+      "title": "중국 반도체한테도 버림받은 '애플' 근황",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "YmiwZfAYjF0",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-08-01",
+      "title": "코스피의 반등 조건 3가지, 이것만 보세요",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "PXV49hPjCG0",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
       "date": "2026-08-01",
       "title": "투자자들이 꼭 알아야 하는 8월 투자 포인트",
       "theme": null,
@@ -6056,6 +6445,46 @@ window.APP_DATA = {
       "views": null,
       "id": "mcj0e1kOWCw",
       "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-07-31",
+      "title": "'하이닉스 목표가 하향' 매도 시그널일까?",
+      "theme": null,
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "[검증 다수] SK하이닉스 목표가 줄하향(신한420→270만·미래에셋420→280만·NH410→340만·삼성350→300만) 속 키움은 목표가 260→220만원 내리며 투자의견은 아웃퍼폼→매수 상향(역설, [검증] 정확). 원인: 마진(76%,1분기72%比상승)은 견조한데 매출미스(60.5조<컨센64조, HBM추화지연으로 매출인식시점만 지연)+밸류눈높이 조정. 한투 목표가 380→470만원(디램가격+20%전망)[검증]. 매도의견 0명(37명중).",
+      "views": null,
+      "id": "dx71G8Ls-jE",
+      "_verdict_src": "latest_videos.tag"
+    },
+    {
+      "date": "2026-07-31",
+      "title": "한국 시장이, 현재 전세계 '숨통'을 쥐고 있다는 이유",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": "미확인",
+      "takeaway": "[미확인 다수, 오피니언] 한국이 AI메모리 물량·시간(하이닉스실적=온도계)·자금이동(반도체 바스켓 자동리밸런싱)을 쥐고 있으나 대가는 국내계좌(레버리지 강제매도)가 치른다는 프레임. 키옥시아-13.9%·TSMC-3.5%·마이크론-10.1% 동반하락 사례는 [미확인 — 날짜특정 안돼 재확인 실패]. 신규 액션 없음.",
+      "views": null,
+      "id": "t02UTxI6-TI",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-31",
+      "title": "한국 정부가 밀어주는 '코스닥' 더 폭락한 이유",
+      "theme": null,
+      "tickers": [
+        "^KQ11"
+      ],
+      "verdict": "검증·일부미확인",
+      "takeaway": "[검증근사+미확인 다수] 코스닥 연고점(1,229)대비-41%(실제 662.68 기준으론 약-46%, 채널수치보다 낙폭 더 큼). 이유: 정책자금(국민성장펀드)은 신주·전환사채 방식이라 유통매수 아님·상장폐지기준 상향(150→200억)+동전주관리종목 신설·연준 점도표 상향(3.4→3.8%,[미확인])·예탁금 한달새30조 감소([미확인]). 정훈 보유 코스닥 종목 없음.",
+      "views": null,
+      "id": "1s6p45tvk0U",
+      "_verdict_src": "takeaway"
     },
     {
       "date": "2026-07-30",
@@ -6115,19 +6544,6 @@ window.APP_DATA = {
       "_verdict_src": "latest_videos.tag"
     },
     {
-      "date": "2026-07-31",
-      "title": "'하이닉스 목표가 하향' 매도 시그널일까?",
-      "theme": null,
-      "tickers": [
-        "000660.KS"
-      ],
-      "verdict": "검증",
-      "takeaway": "[검증 다수] SK하이닉스 목표가 줄하향(신한420→270만·미래에셋420→280만·NH410→340만·삼성350→300만) 속 키움은 목표가 260→220만원 내리며 투자의견은 아웃퍼폼→매수 상향(역설, [검증] 정확). 원인: 마진(76%,1분기72%比상승)은 견조한데 매출미스(60.5조<컨센64조, HBM추화지연으로 매출인식시점만 지연)+밸류눈높이 조정. 한투 목표가 380→470만원(디램가격+20%전망)[검증]. 매도의견 0명(37명중).",
-      "views": null,
-      "id": "dx71G8Ls-jE",
-      "_verdict_src": "latest_videos.tag"
-    },
-    {
       "date": "2026-07-30",
       "title": "'나스닥vs코스피' 누가 먼저 반등할까?",
       "theme": null,
@@ -6150,33 +6566,6 @@ window.APP_DATA = {
       "takeaway": "[미확인 다수, 미보유 워치] 7/31 실적발표 프리뷰 — 한화에어로스페이스(1분기영업익6,389억+21%인데 컨센13%하회로 눌림)·현대건설(목표가23→17만원은 할인율상승 반영·실적악화아님)·LG화학(양극재 가동률 상반기20%미만)·LG CNS·대덕전자. 전부 정훈 미보유 종목.",
       "views": null,
       "id": "EwEmrlBC-Sk",
-      "_verdict_src": "takeaway"
-    },
-    {
-      "date": "2026-07-31",
-      "title": "한국 시장이, 현재 전세계 '숨통'을 쥐고 있다는 이유",
-      "theme": null,
-      "tickers": [
-        "005930.KS",
-        "000660.KS"
-      ],
-      "verdict": "미확인",
-      "takeaway": "[미확인 다수, 오피니언] 한국이 AI메모리 물량·시간(하이닉스실적=온도계)·자금이동(반도체 바스켓 자동리밸런싱)을 쥐고 있으나 대가는 국내계좌(레버리지 강제매도)가 치른다는 프레임. 키옥시아-13.9%·TSMC-3.5%·마이크론-10.1% 동반하락 사례는 [미확인 — 날짜특정 안돼 재확인 실패]. 신규 액션 없음.",
-      "views": null,
-      "id": "t02UTxI6-TI",
-      "_verdict_src": "takeaway"
-    },
-    {
-      "date": "2026-07-31",
-      "title": "한국 정부가 밀어주는 '코스닥' 더 폭락한 이유",
-      "theme": null,
-      "tickers": [
-        "^KQ11"
-      ],
-      "verdict": "검증·일부미확인",
-      "takeaway": "[검증근사+미확인 다수] 코스닥 연고점(1,229)대비-41%(실제 662.68 기준으론 약-46%, 채널수치보다 낙폭 더 큼). 이유: 정책자금(국민성장펀드)은 신주·전환사채 방식이라 유통매수 아님·상장폐지기준 상향(150→200억)+동전주관리종목 신설·연준 점도표 상향(3.4→3.8%,[미확인])·예탁금 한달새30조 감소([미확인]). 정훈 보유 코스닥 종목 없음.",
-      "views": null,
-      "id": "1s6p45tvk0U",
       "_verdict_src": "takeaway"
     },
     {
@@ -6588,6 +6977,34 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
+      "date": "2026-07-27",
+      "title": "현시점, 미국에서 가장 잘나가는 전력주 1위 정체",
+      "theme": null,
+      "tickers": [
+        "POWL"
+      ],
+      "verdict": "검증",
+      "takeaway": "파월인더스트리(POWL) 1년+200%+, AI데이터센터 전력연결병목 수혜, 분기신규수주+97%. JPM목표$310→$360·로스캐피탈$285→$333·평균$316 전부[검증 정밀] 다출처 일치. PER45배·내부자 매도만=리스크 자인. 정훈 미보유·워치대상 아님, power-physical desk 확장후보 참고용.",
+      "views": null,
+      "id": "_fq_mWEu8mg",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-27",
+      "title": "하락장 속에서도, 꾸준히 호재 터지고 있는 '숨은 진주' 종목 3개",
+      "theme": null,
+      "tickers": [
+        "006400.KS",
+        "064260.KS",
+        "012330.KS"
+      ],
+      "verdict": "검증·일부미확인",
+      "takeaway": "삼성SDI(2Q영업익143억 흑자전환설,7개분기만)·라온시큐어(NH농협손보 PQC공급)·현대모비스(마이크론 車메모리 장기협약). 삼성SDI 143억[검증-출처정정: 신한투자증권 추정, 자막'신남투자증권'은 STT오류·신영증권은 별도312억]. 마이크론-현대모비스·퀄컴·하만 SCA체결[검증 정밀]=MU 논지 보강. 라온시큐어 개별계약·하나증권 모비스 전망치는 [미확인-단일출처].",
+      "views": null,
+      "id": "XHMN84RXKiY",
+      "_verdict_src": "takeaway"
+    },
+    {
       "date": "2026-07-26",
       "title": "투자자들이 꼭 봐야하는, 다음주 '투자' 포인트(07.27~07.31)",
       "theme": null,
@@ -6650,19 +7067,6 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-27",
-      "title": "현시점, 미국에서 가장 잘나가는 전력주 1위 정체",
-      "theme": null,
-      "tickers": [
-        "POWL"
-      ],
-      "verdict": "검증",
-      "takeaway": "파월인더스트리(POWL) 1년+200%+, AI데이터센터 전력연결병목 수혜, 분기신규수주+97%. JPM목표$310→$360·로스캐피탈$285→$333·평균$316 전부[검증 정밀] 다출처 일치. PER45배·내부자 매도만=리스크 자인. 정훈 미보유·워치대상 아님, power-physical desk 확장후보 참고용.",
-      "views": null,
-      "id": "_fq_mWEu8mg",
-      "_verdict_src": "takeaway"
-    },
-    {
       "date": "2026-07-26",
       "title": "지금 '글로벌 투자은행'이 선정했다는 '한국 종목' Top3",
       "theme": null,
@@ -6678,21 +7082,6 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-27",
-      "title": "하락장 속에서도, 꾸준히 호재 터지고 있는 '숨은 진주' 종목 3개",
-      "theme": null,
-      "tickers": [
-        "006400.KS",
-        "064260.KS",
-        "012330.KS"
-      ],
-      "verdict": "검증·일부미확인",
-      "takeaway": "삼성SDI(2Q영업익143억 흑자전환설,7개분기만)·라온시큐어(NH농협손보 PQC공급)·현대모비스(마이크론 車메모리 장기협약). 삼성SDI 143억[검증-출처정정: 신한투자증권 추정, 자막'신남투자증권'은 STT오류·신영증권은 별도312억]. 마이크론-현대모비스·퀄컴·하만 SCA체결[검증 정밀]=MU 논지 보강. 라온시큐어 개별계약·하나증권 모비스 전망치는 [미확인-단일출처].",
-      "views": null,
-      "id": "XHMN84RXKiY",
-      "_verdict_src": "takeaway"
-    },
-    {
       "date": "2026-07-26",
       "title": "국내 증권사 90%가 '카카오' 매도하라는 진짜 이유",
       "theme": null,
@@ -6703,20 +7092,6 @@ window.APP_DATA = {
       "takeaway": "카카오 2Q실적개선(영업익+18.3%)에도 목표가 하향 9/10곳(삼성증권 4.4만원 최저)=국내증권사 매도의견회피 관행상 실질매도신호. [검증 정밀]다출처(목표가·실적치·비율 전부 일치). '목표가 방향=투자의견보다 우선 참고' 독법을 국내보유(삼성전자·LG전자·두산로보·현대차·NAVER) 리서치에도 적용 채택.",
       "views": null,
       "id": "gcMuBb8BAc0",
-      "_verdict_src": "takeaway"
-    },
-    {
-      "date": "2026-07-25",
-      "title": "상승 포인트 쏟아지는, 다음주 핵심 투자 포인트",
-      "theme": null,
-      "tickers": [
-        "005930.KS",
-        "^KS11"
-      ],
-      "verdict": "검증",
-      "takeaway": "7/24 급락 원인 3개(유가·AI의심·관세)의 답이 7/27~31에 순서대로 나온다는 이벤트 지도. NH 밴드 6,700~7,600 [검증]. 실적일정(SK하이닉스 수/삼성전자 목)이 공식 IR과 일치 — 우리 캘린더가 하루 당겨져 있던 것을 이 영상으로 잡아 교정. '기대를 크게 배신만 안 하면 낙폭 되돌림' + '수요 꺾이면 무효' 무효조건 명시. 상승장 선언 아님 = 조건부.",
-      "views": null,
-      "id": "7wI6YL5yL04",
       "_verdict_src": "takeaway"
     },
     {
@@ -6771,6 +7146,32 @@ window.APP_DATA = {
       "views": null,
       "id": "xwkf0qdzDhE",
       "_verdict_src": "2026-08-12 자막 재수집·채점"
+    },
+    {
+      "date": "2026-07-25",
+      "title": "결국 ‘노란봉투법’ 손본다는 한국 정부 근황",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "LsEVwzOVKew",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-25",
+      "title": "상승 포인트 쏟아지는, 다음주 핵심 투자 포인트",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "^KS11"
+      ],
+      "verdict": "검증",
+      "takeaway": "7/24 급락 원인 3개(유가·AI의심·관세)의 답이 7/27~31에 순서대로 나온다는 이벤트 지도. NH 밴드 6,700~7,600 [검증]. 실적일정(SK하이닉스 수/삼성전자 목)이 공식 IR과 일치 — 우리 캘린더가 하루 당겨져 있던 것을 이 영상으로 잡아 교정. '기대를 크게 배신만 안 하면 낙폭 되돌림' + '수요 꺾이면 무효' 무효조건 명시. 상승장 선언 아님 = 조건부.",
+      "views": null,
+      "id": "7wI6YL5yL04",
+      "_verdict_src": "takeaway"
     },
     {
       "date": "2026-07-25",
@@ -6836,6 +7237,28 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
+      "date": "2026-07-25",
+      "title": "지금 꼭 봐야 할 LS일렉트릭, '매수VS매도' 타이밍",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증·일부미확인",
+      "takeaway": "LS일렉트릭 2Q 영업익 1,785억(+64.4%) 전력인프라 수혜(미보유). [검증]/공매도358억 [미확인]",
+      "views": null,
+      "id": "Is9Pi53oV8k",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-25",
+      "title": "월가가 대놓고 찝었다는 '한국 시장' 진짜 문제점(쇼츠)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "7/24 블록 한국시장 구조론(상속세·쏠림·레버리지) 쇼츠 요약. [검증·중복]",
+      "views": null,
+      "id": "Mo3SYE_xN1M",
+      "_verdict_src": "takeaway"
+    },
+    {
       "date": "2026-07-24",
       "title": "젠슨황이 갑자기 '중국' 편에 선 진짜 이유(+엔비디아 전망)",
       "theme": null,
@@ -6888,17 +7311,6 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-25",
-      "title": "지금 꼭 봐야 할 LS일렉트릭, '매수VS매도' 타이밍",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증·일부미확인",
-      "takeaway": "LS일렉트릭 2Q 영업익 1,785억(+64.4%) 전력인프라 수혜(미보유). [검증]/공매도358억 [미확인]",
-      "views": null,
-      "id": "Is9Pi53oV8k",
-      "_verdict_src": "takeaway"
-    },
-    {
       "date": "2026-07-24",
       "title": "전세계 투자자들이 'SK 최태원·노소영' 이혼 소송을 주목하는 이유",
       "theme": null,
@@ -6910,17 +7322,6 @@ window.APP_DATA = {
       "views": null,
       "id": "WpEVtwUhFq8",
       "_verdict_src": "takeaway(재스캔)"
-    },
-    {
-      "date": "2026-07-25",
-      "title": "월가가 대놓고 찝었다는 '한국 시장' 진짜 문제점(쇼츠)",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증",
-      "takeaway": "7/24 블록 한국시장 구조론(상속세·쏠림·레버리지) 쇼츠 요약. [검증·중복]",
-      "views": null,
-      "id": "Mo3SYE_xN1M",
-      "_verdict_src": "takeaway"
     },
     {
       "date": "2026-07-24",
@@ -7099,19 +7500,6 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-22",
-      "title": "오늘 코스피가 7,100 찍고 '갑자기 떨어진' 진짜 이유",
-      "theme": null,
-      "tickers": [
-        "^KS11"
-      ],
-      "verdict": "검증·일부미확인",
-      "takeaway": "[검증] 코스피 장중7,166고점→종가6,797.70(+0.74%)로 반납=crash_tf §1 상황판 실측과 완전 일치. 외인+2.6조·개인-1.2조·기관-1.4조 = flows.json 7/22확정치(외인+26,211억·기관-13,962억·개인-12,177억)와 거의 완전 일치. 거래대금 감소는 [미확인·방향만]. 오늘 회차 중 수치정확도 최상.",
-      "views": null,
-      "id": "CQG2R3kGbeM",
-      "_verdict_src": "takeaway"
-    },
-    {
       "date": "2026-07-23",
       "title": "지금 한국+미국 투자자들이 꼭 봐야 할 '이재명 회동' 정체",
       "theme": null,
@@ -7136,6 +7524,19 @@ window.APP_DATA = {
       "takeaway": "[검증 다수] 6월 호르무즈 합의문 '관리권' 조항 누락으로 5개월째 재발 — 유가 눌러온 3개 방석(아시아수요위축·美SPR 40년래최저·사우디홍해우회로) 중 사우디 봉쇄선언(후티)으로 3번째도 흔들림. 하메네이 피격사망·아들승계·요르단美기지피격 전부[검증]. 브렌트$92는[검증-근사, 실제$94.13]. crash_tf 게이트③(WTI대비 유가이격) 배경서사 보강 — 단 채널 스스로 \"코스피 급락 주범은 전쟁아닌 반도체\"로 구분(신뢰도 가점).",
       "views": null,
       "id": "wwCP9gJFgFE",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-22",
+      "title": "오늘 코스피가 7,100 찍고 '갑자기 떨어진' 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "^KS11"
+      ],
+      "verdict": "검증·일부미확인",
+      "takeaway": "[검증] 코스피 장중7,166고점→종가6,797.70(+0.74%)로 반납=crash_tf §1 상황판 실측과 완전 일치. 외인+2.6조·개인-1.2조·기관-1.4조 = flows.json 7/22확정치(외인+26,211억·기관-13,962억·개인-12,177억)와 거의 완전 일치. 거래대금 감소는 [미확인·방향만]. 오늘 회차 중 수치정확도 최상.",
+      "views": null,
+      "id": "CQG2R3kGbeM",
       "_verdict_src": "takeaway"
     },
     {
@@ -7252,6 +7653,55 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
+      "date": "2026-07-22",
+      "title": "미국 개미들이 'M7' 대신 쓸어담기 시작했다는 '새 주도주' 정체",
+      "theme": null,
+      "tickers": [
+        "AVGO",
+        "MU"
+      ],
+      "verdict": "검증·일부미확인",
+      "takeaway": "[검증·프레임] 시티그룹 리포트 — M7 단일프레임 수명 다함, 대신 '성장클러스터'(브로드컴·마이크론·AMD·인텔·AMAT·램리서치·시스코) 부상, S&P500 예상이익48% 차지·2Q수익률24.7%(S&P14.9%상회, [미확인·단일소스]). 최근2주 美개미자금 인텔$1.94억>마소$5,200만. 서학개미도 6월 마이크론·메모리ETF·마벨 최다순매수. 하이퍼스케일러capex 증가율 둔화전망(76%→25%→6%)이 조정신호 가능성",
+      "views": null,
+      "id": "ubpVUzV6Xrg",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-22",
+      "title": "반도체 '저점 매수' 노리는 투자자들이 꼭 봐야한다는 'ETF' 3개",
+      "theme": null,
+      "tickers": [],
+      "verdict": "일반 콘텐츠",
+      "takeaway": "[원칙론] 국내상장 반도체ETF 3종 비교(타이거AI반도체팹리스·키움글로벌AI반도체·라이즈미국반도체) — 집중도·변동성 스펙트럼 소개, 매수 권유 아님. 종목콜 없음, setups 미생성.",
+      "views": null,
+      "id": "PLqFMUnKxjo",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-21",
+      "title": "7월 21일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "osuJkwss7Zo",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-21",
+      "title": "지금 월가에서 비교하는 '한국 주식vs미국 주식'",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "Al-8wclb_Nc",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
       "date": "2026-07-21",
       "title": "오는 9월, 최태원이 SK하이닉스 역대급 상승장 이끌 수 있다는 이유",
       "theme": null,
@@ -7343,41 +7793,6 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-22",
-      "title": "미국 개미들이 'M7' 대신 쓸어담기 시작했다는 '새 주도주' 정체",
-      "theme": null,
-      "tickers": [
-        "AVGO",
-        "MU"
-      ],
-      "verdict": "검증·일부미확인",
-      "takeaway": "[검증·프레임] 시티그룹 리포트 — M7 단일프레임 수명 다함, 대신 '성장클러스터'(브로드컴·마이크론·AMD·인텔·AMAT·램리서치·시스코) 부상, S&P500 예상이익48% 차지·2Q수익률24.7%(S&P14.9%상회, [미확인·단일소스]). 최근2주 美개미자금 인텔$1.94억>마소$5,200만. 서학개미도 6월 마이크론·메모리ETF·마벨 최다순매수. 하이퍼스케일러capex 증가율 둔화전망(76%→25%→6%)이 조정신호 가능성",
-      "views": null,
-      "id": "ubpVUzV6Xrg",
-      "_verdict_src": "takeaway"
-    },
-    {
-      "date": "2026-07-22",
-      "title": "반도체 '저점 매수' 노리는 투자자들이 꼭 봐야한다는 'ETF' 3개",
-      "theme": null,
-      "tickers": [],
-      "verdict": "일반 콘텐츠",
-      "takeaway": "[원칙론] 국내상장 반도체ETF 3종 비교(타이거AI반도체팹리스·키움글로벌AI반도체·라이즈미국반도체) — 집중도·변동성 스펙트럼 소개, 매수 권유 아님. 종목콜 없음, setups 미생성.",
-      "views": null,
-      "id": "PLqFMUnKxjo",
-      "_verdict_src": "takeaway"
-    },
-    {
-      "id": "sdvsNE5lKh0",
-      "date": "2026-07-19",
-      "title": "투자자들이 꼭 체크하는 다음주 투자 포인트(07.20~07.24)",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증",
-      "takeaway": "[검증·주간캘린더] 7/20(월)개장·외인 재매수 확인 / 7/21 7/1~20 수출(반도체 특히=피크아웃vs지속 하드데이터·7/1~10 반도체+193% [검증]) / 7/22 韓PPI+GOOGL·TSLA실적 / 7/23 韓2Q GDP속보+INTC / 7/24 美 무역법122조 10%관세 만료(단 301조 대체가능=소멸 아님). 6월CPI 3.2% [검증]. TF§1·매크로 캘린더 반영가치",
-      "views": null
-    },
-    {
       "date": "2026-07-21",
       "title": "이번주, 투자자들이 꼭 봐야 할 SK최태원 '이혼 소송' 뉴스",
       "theme": null,
@@ -7430,6 +7845,42 @@ window.APP_DATA = {
       "views": null,
       "id": "k99ze_ieRPw",
       "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-20",
+      "title": "지금 사우디랑 '역대급 계약' 터졌다는 '한국 수혜주' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "ZA0Rw1lYado",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-20",
+      "title": "월가에서 앞으로 ‘10년 먹거리’가 될 수 있다는 ‘종목’ TOP3",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "bhsieGxor3w",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-20",
+      "title": "7월 20일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "8b9q9f1zo5M",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-07-20",
@@ -7513,6 +7964,64 @@ window.APP_DATA = {
       "views": null,
       "id": "c0gWZl-mpAA",
       "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-19",
+      "title": "월가에서 비교하는 삼성전자vs하이닉스",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "KU0I4dNf97I",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-19",
+      "title": "지금 삼성·엔비디아가 동시에 투자 시작한 'AI기업' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "bU8UA-3FXNQ",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-19",
+      "title": "워렌버핏이 60대때, 맨몸으로 '닷컴버블'을 버텼던 투자방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "LjsJm9oEu5Y",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-19",
+      "title": "코스피 가면 3600억 빠진다..? ‘코스닥’ 남겠다는 알테오젠 근황",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "KlCDWvlcxiw",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "id": "sdvsNE5lKh0",
+      "date": "2026-07-19",
+      "title": "투자자들이 꼭 체크하는 다음주 투자 포인트(07.20~07.24)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "[검증·주간캘린더] 7/20(월)개장·외인 재매수 확인 / 7/21 7/1~20 수출(반도체 특히=피크아웃vs지속 하드데이터·7/1~10 반도체+193% [검증]) / 7/22 韓PPI+GOOGL·TSLA실적 / 7/23 韓2Q GDP속보+INTC / 7/24 美 무역법122조 10%관세 만료(단 301조 대체가능=소멸 아님). 6월CPI 3.2% [검증]. TF§1·매크로 캘린더 반영가치",
+      "views": null
     },
     {
       "date": "2026-07-19",
@@ -7636,6 +8145,39 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
+      "date": "2026-07-18",
+      "title": "현시점 투자자가 반드시 알아야 할 '선반영'의 진실, 전부 다 뜯어왔습니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "[검증·프레임] 월가 선반영 3온도계(①업종대비초과상승률 ②EPS전망 상향속도 ③가격역산 역-DCF) 소개. TSMC(순익+77%에도 하락)·삼성(89.4조에도-6.92%)은 '합리적 선반영'(과열아닌 기대소화), 브로드컴(AI매출+143%에도-12%·$286B증발,6/3)은 '과잉반영', 마이크론(6/24 매출$41.46B YoY+346%,시간외+13%)은 '미반영'(PEAD 표류) 사례로 대조 — 3사례 전부 WebSearch 수치 일치 [검증]. 넷플릭스 7/16 매출소폭미달+3Q가이던스미달로 시간외-8.58%도 동일 프레임 사례 추가",
+      "views": null,
+      "id": "Js2u4p6ElWY",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-18",
+      "title": "현정부의 새 '부동산 정책'이 주식시장에 미치는 영향",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "[검증·프레임] 이재명 대통령 '자산 중 부동산비중 과다, 자본시장으로 자금유도' 발언(부동산국민토론회). 6월 서울주택매매+1.03%MoM·전세+1.08%(14년9개월만최대) — 대출규제에도 가격 동반상승. 7/23 대통령주재 토론회서 최종방향 발표 예정, 아직 미확정 단계(단정 금지)",
+      "views": null,
+      "id": "PLCbxdCKlGA",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-18",
+      "title": "삼전과 함께, 전 세계 스마트폰 시장 판도를 바꿀 '부품주' 5개",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "[미확인·소형주 경계] 갤럭시언팩(7/22) 앞두고 '플렉스 티타늄' 신소재 폴더블 수혜주 5선(파인텍·KH바텍·세경하이테크·BH·덕산네오룩스) 소개. 작년 폴드7 흥행시 6개월간 파인텍+129%·KH바텍+44%·BH+27%(단일출처, 소형주). 채널 자체가 '기대감과 실판매 구분' 경계 명시 — setups 미등록",
+      "views": null,
+      "id": "CBbLgMLQiFg",
+      "_verdict_src": "takeaway"
+    },
+    {
       "date": "2026-07-17",
       "title": "7월 17일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
       "theme": null,
@@ -7713,36 +8255,47 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-18",
-      "title": "현시점 투자자가 반드시 알아야 할 '선반영'의 진실, 전부 다 뜯어왔습니다",
+      "date": "2026-07-17",
+      "title": "3년 6개월 만의 금리 인상이, 삼성·닉스를 이을 '다음 상승장' 만드는 방법",
       "theme": null,
       "tickers": [],
       "verdict": "검증",
-      "takeaway": "[검증·프레임] 월가 선반영 3온도계(①업종대비초과상승률 ②EPS전망 상향속도 ③가격역산 역-DCF) 소개. TSMC(순익+77%에도 하락)·삼성(89.4조에도-6.92%)은 '합리적 선반영'(과열아닌 기대소화), 브로드컴(AI매출+143%에도-12%·$286B증발,6/3)은 '과잉반영', 마이크론(6/24 매출$41.46B YoY+346%,시간외+13%)은 '미반영'(PEAD 표류) 사례로 대조 — 3사례 전부 WebSearch 수치 일치 [검증]. 넷플릭스 7/16 매출소폭미달+3Q가이던스미달로 시간외-8.58%도 동일 프레임 사례 추가",
+      "takeaway": "[검증] 한은 기준금리 2.50→2.75%인상 확정(7인전원만장일치)·\"인상기조지속\"명시. 채점표교체론=은행·보험·통신 가산점/적자성장주 감점. 삼성·하닉은감점대상아닌'인상원인제공자'. 체크포인트=8/27금통위·8/4CPI",
       "views": null,
-      "id": "Js2u4p6ElWY",
+      "id": "9cXDYqzkVEo",
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-18",
-      "title": "현정부의 새 '부동산 정책'이 주식시장에 미치는 영향",
+      "date": "2026-07-17",
+      "title": "드디어 공개된 '삼전·닉스 레버리지' 대책 4가지",
       "theme": null,
       "tickers": [],
       "verdict": "검증",
-      "takeaway": "[검증·프레임] 이재명 대통령 '자산 중 부동산비중 과다, 자본시장으로 자금유도' 발언(부동산국민토론회). 6월 서울주택매매+1.03%MoM·전세+1.08%(14년9개월만최대) — 대출규제에도 가격 동반상승. 7/23 대통령주재 토론회서 최종방향 발표 예정, 아직 미확정 단계(단정 금지)",
+      "takeaway": "[검증·★크래시TF] 정부 레버리지ETF 공식규제: ①신규상장잠정중단②마케팅금지③예탁금1천→3천만원(전액현금,8월)④매매단위1→20주(11월)⑤LP괴리율3%→2%. 기존물량 강제청산아닌 신규진입문턱↑ 방식",
       "views": null,
-      "id": "PLCbxdCKlGA",
+      "id": "WrPpi9218Pg",
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-18",
-      "title": "삼전과 함께, 전 세계 스마트폰 시장 판도를 바꿀 '부품주' 5개",
+      "date": "2026-07-17",
+      "title": "한국 정부가 갑자기 '비트코인'을 밀어주려는 진짜 이유",
       "theme": null,
       "tickers": [],
-      "verdict": "미확인",
-      "takeaway": "[미확인·소형주 경계] 갤럭시언팩(7/22) 앞두고 '플렉스 티타늄' 신소재 폴더블 수혜주 5선(파인텍·KH바텍·세경하이테크·BH·덕산네오룩스) 소개. 작년 폴드7 흥행시 6개월간 파인텍+129%·KH바텍+44%·BH+27%(단일출처, 소형주). 채널 자체가 '기대감과 실판매 구분' 경계 명시 — setups 미등록",
+      "verdict": "검증",
+      "takeaway": "[검증·프레임] 하반기경제전략에 디지털자산기본법·원화스테이블코인제도화·비트코인현물ETF법개정지원 포함. 정부안미공개·법제정단계, 보유·워치 무관 시야참고",
       "views": null,
-      "id": "CBbLgMLQiFg",
+      "id": "AwqBe_Nv-4o",
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-17",
+      "title": "삼성 이재용이 '세계 1위'로 키우겠다는 '사업' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "[검증] 삼성 송도바이오단지 세계최대육성. 삼성바이오로직스 1분기매출1.2571조·영업익5,808억(+35%,이익률46.2%)·17개고객·생산능력78.5만L세계최대. 바이오에피스매출4,549억·영업익1,440억. 미보유·참고용",
+      "views": null,
+      "id": "Px-6zQO_wdA",
       "_verdict_src": "takeaway"
     },
     {
@@ -7812,48 +8365,59 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-17",
-      "title": "3년 6개월 만의 금리 인상이, 삼성·닉스를 이을 '다음 상승장' 만드는 방법",
+      "date": "2026-07-16",
+      "title": "1,000% 상승 광통신처럼, 제2의 메가 '상승장' 올 수 있다는 신사업 정체+수혜주 5개",
       "theme": null,
       "tickers": [],
-      "verdict": "검증",
-      "takeaway": "[검증] 한은 기준금리 2.50→2.75%인상 확정(7인전원만장일치)·\"인상기조지속\"명시. 채점표교체론=은행·보험·통신 가산점/적자성장주 감점. 삼성·하닉은감점대상아닌'인상원인제공자'. 체크포인트=8/27금통위·8/4CPI",
+      "verdict": "일반 콘텐츠",
+      "takeaway": "[8/12 자막 재수집 후 채점] 광통신 급등 이후 '다음 순서' 신사업·수혜주 5개 발굴 콘텐츠. 대한광통신 등 개별 종목이 나오나 **전부 보유·워치 밖**이고 핵심 논지(‘반도체 다음 순서로 돈이 흘러가는 산업’)는 테마 발굴형 서술 — 검증 가능한 우리 포지션 관련 콜 없음. ⚠️ 채널이 스스로 '상승폭은 종목·기준시점에 따라 크게 달라진다'고 단서를 단 점은 과장 억제로 긍정 평가.",
       "views": null,
-      "id": "9cXDYqzkVEo",
-      "_verdict_src": "takeaway"
+      "id": "2P37LeVhDaY",
+      "_verdict_src": "2026-08-12 자막 재수집·채점"
     },
     {
-      "date": "2026-07-17",
-      "title": "드디어 공개된 '삼전·닉스 레버리지' 대책 4가지",
+      "date": "2026-07-16",
+      "title": "이재명 정부가 내놓은 '세액공제' 정책 2차 수혜주",
       "theme": null,
       "tickers": [],
-      "verdict": "검증",
-      "takeaway": "[검증·★크래시TF] 정부 레버리지ETF 공식규제: ①신규상장잠정중단②마케팅금지③예탁금1천→3천만원(전액현금,8월)④매매단위1→20주(11월)⑤LP괴리율3%→2%. 기존물량 강제청산아닌 신규진입문턱↑ 방식",
+      "verdict": "검증·일부미확인",
+      "takeaway": "[8/12 자막 재수집 후 채점] **[검증]** 정부 2026 하반기 경제성장전략의 **국내 생산 세액공제**(전략 품목 국내 생산·판매분에 단가를 곱해 법인세·소득세 공제) 골자와 1차 수혜주로 삼성전자·포스코퓨처엠이 거론된 정황은 정합. ★보유 **삼성전자** 간접 관련. **[미확인]** 채널이 말한 '2차 수혜주' 리스트는 자막 전반부까지만 확보해 종목 특정 불가 — 확인 전 추종 금지(룰3).",
       "views": null,
-      "id": "WrPpi9218Pg",
-      "_verdict_src": "takeaway"
+      "id": "SvYZagOPe1s",
+      "_verdict_src": "2026-08-12 자막 재수집·채점"
     },
     {
-      "date": "2026-07-17",
-      "title": "한국 정부가 갑자기 '비트코인'을 밀어주려는 진짜 이유",
+      "date": "2026-07-16",
+      "title": "지금 젠슨황이 다시 한 번, 한국 주가를 끌어올릴 수 있다는 방법",
       "theme": null,
       "tickers": [],
-      "verdict": "검증",
-      "takeaway": "[검증·프레임] 하반기경제전략에 디지털자산기본법·원화스테이블코인제도화·비트코인현물ETF법개정지원 포함. 정부안미공개·법제정단계, 보유·워치 무관 시야참고",
+      "verdict": "검증·일부미확인",
+      "takeaway": "[8/12 자막 재수집 후 채점] **[검증]** 젠슨 황이 **7/15 도쿄 세가 협력 30주년 행사** 참석 및 일본에서 RTX 계열 신제품 소개 — 일정·사실관계는 정합. **[미확인]** '한국 주가를 끌어올릴 방법'이라는 결론부(구체 경로·수혜 종목)는 자막 전반부까지만 확보해 대조 못 함. ⚠️ 제목이 인과를 단정하는 형태('~할 수 있다는 방법')라 **기대의 서술을 사실로 읽지 않도록 주의** — NVDA 보유 관점에서 일본 이벤트가 한국 주가로 연결되는 고리는 채널 추론.",
       "views": null,
-      "id": "AwqBe_Nv-4o",
-      "_verdict_src": "takeaway"
+      "id": "KKZw15i5U9g",
+      "_verdict_src": "2026-08-12 자막 재수집·채점"
     },
     {
-      "date": "2026-07-17",
-      "title": "삼성 이재용이 '세계 1위'로 키우겠다는 '사업' 정체",
+      "date": "2026-07-16",
+      "title": "ASML의 '역대급 실적' 이후, 삼전·하이닉스에 벌어질 일",
       "theme": null,
       "tickers": [],
-      "verdict": "검증",
-      "takeaway": "[검증] 삼성 송도바이오단지 세계최대육성. 삼성바이오로직스 1분기매출1.2571조·영업익5,808억(+35%,이익률46.2%)·17개고객·생산능력78.5만L세계최대. 바이오에피스매출4,549억·영업익1,440억. 미보유·참고용",
+      "verdict": "검증·일부미확인",
+      "takeaway": "[8/12 자막 재수집 후 채점] ASML 역대급 실적 → 삼전·하이닉스 함의. **[검증]** ASML이 삼성·SK하이닉스·TSMC에 최첨단 장비를 공급하는 **반도체 캐펙스 선행지표**라는 프레임은 정확하고, 장비사 실적으로 팹 투자 지속 여부를 읽는 논리도 타당. ★보유 **삼성전자** 간접. **[미확인]** 구체 실적 수치·가이던스는 자막 전반부까지만 확보해 대조 못 함 — 숫자 인용 금지, 방향만 채택.",
       "views": null,
-      "id": "Px-6zQO_wdA",
-      "_verdict_src": "takeaway"
+      "id": "JGZqJW8k5wo",
+      "_verdict_src": "2026-08-12 자막 재수집·채점"
+    },
+    {
+      "date": "2026-07-16",
+      "title": "[구독자전용] 삼성전기 종목분석",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증 근사",
+      "takeaway": "[8/12 자막 재수집 후 채점·자체 캐시 대조] 워치 **삼성전기** 종목분석. 우리 일봉으로 확인: 연초권 저점 **266,000원(1/9)** → 2026 최고 **2,270,000원(6/19)** = 종가 기준 **8.5배**(채널 '25만→241만, 10배 가까이'는 장중 고가 기준이면 성립 — **근사**), 7/14 종가 **1,260,000원**(채널 '126만' 정확), 7/15 **1,413,000원 = +12.14%**(채널 '하루 만에 12%+ 폭등' 정확). ★**PM 평가**: 채널이 스스로 *'최근 급등의 상당 부분은 삼성전기만의 호재 때문이 아니다'*라고 절제한 점이 좋다 — 테마 베타를 개별 호재로 포장하지 않았다.",
+      "views": null,
+      "id": "qZDIjmF7Xoc",
+      "_verdict_src": "2026-08-12 자막 재수집·채점"
     },
     {
       "date": "2026-07-15",
@@ -7944,59 +8508,63 @@ window.APP_DATA = {
       "_verdict_src": "2026-08-12 자막 재수집·채점"
     },
     {
-      "date": "2026-07-16",
-      "title": "1,000% 상승 광통신처럼, 제2의 메가 '상승장' 올 수 있다는 신사업 정체+수혜주 5개",
+      "date": "2026-07-15",
+      "title": "코스피 하락장 속, 삼전·닉스 더 판다는 국민연금(+이유)",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": "검증 정밀",
+      "takeaway": "국민연금 2분기 대량보유공시(지분5%+) — 267개사 평가액 462조1,403억(전체운용자산 27.7%) vs 목표비중 20.8%, 7%p 초과. 삼성전자 지분율7.9%·SK하이닉스8.1%, 두 종목이 조사대상 평가액의 55.5%(반년새 삼성지분가치+468.8%·하닉+1210%). 채널은 '27.7%-20.8%=매도폭탄' 단순계산을 직접 반박 — 리밸런싱은 주가하락시 평가액도 같이 줄어 자동완화, 즉각 악재가 아니라 반등국면 상승속도를 누르는 수급변수로 재해석.",
+      "views": null,
+      "id": "D0vJUD26S-c",
+      "_verdict_note": "국민연금 5%+ 보유 267곳·평가액 462조1,403억(7/10 종가, 리더스인덱스 분석) 확인. 삼전+하닉 비중 55%.",
+      "_verdict_src": "2026-08-12 PM 확정"
+    },
+    {
+      "date": "2026-07-15",
+      "title": "현 정부가 대놓고 밀어줄 수 있다는 '원자력주' 정체",
+      "theme": null,
+      "tickers": [
+        "034020.KS",
+        "329180.KS",
+        "000660.KS"
+      ],
+      "verdict": "검증 정밀",
+      "takeaway": "7/7 한미일 외교장관 나토정상회의 계기 SMR 수출 협력각서(MOC) 서명 — 美설계·금융+韓제작시공+日부품, 인도태평양 원전시장 공동개척 목표(노형·대상국 미정, 즉시매출 아님). 수혜후보: 두산에너빌리티(SMR 단조소재 예약계약), HD현대중공업(테라파워 나트륨원자로 용기), 현대건설(홀텍 SMR 시공), 삼성물산(GE-히타치 BWRX), SK이노베이션(테라파워 지분).",
+      "views": null,
+      "id": "7Gqcb0k6WxI",
+      "_verdict_note": "한미일 SMR 배치 협력각서(MOC) 7/7(현지) 튀르키예 앙카라 NATO 정상회의 계기 서명 — 외교부 공식 확인.",
+      "_verdict_src": "2026-08-12 PM 확정"
+    },
+    {
+      "date": "2026-07-15",
+      "title": "AI반도체 고점론 끝난 뒤, 시장이 반길 다음 '주도 분야'는?",
+      "theme": null,
+      "tickers": [
+        "267260.KS",
+        "042660.KS",
+        "207940.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "반도체 쏠림 완화 후 자금이동 후보 3개: 전력기(변압기 병목, HD현대일렉트릭 1조1,212억 北美빅테크 계약)·조선방산(조선빅3 3~3.5년치 일감, 1분기영업익+47.6%, 美해군 RFI 참여)·CDMO(삼성바이오로직스, 서킷브레이커 당일도 +5%). 추격매수 아닌 로테이션 사전점검용으로 명시.",
+      "views": null,
+      "id": "OtqxKYc4DMw",
+      "_verdict_note": "HD현대일렉트릭 1조1,212억 북미 빅테크 DC 전력장비 계약(7/2·매출 27.5%)은 setup-전력인프라-0629에 이미 [검증]된 이력.",
+      "_verdict_src": "2026-08-12 PM 확정"
+    },
+    {
+      "date": "2026-07-15",
+      "title": "\"그냥 사놓기만 하면 된다?\" 세상에서 '가장 쉬운 주식' 정체",
       "theme": null,
       "tickers": [],
       "verdict": "일반 콘텐츠",
-      "takeaway": "[8/12 자막 재수집 후 채점] 광통신 급등 이후 '다음 순서' 신사업·수혜주 5개 발굴 콘텐츠. 대한광통신 등 개별 종목이 나오나 **전부 보유·워치 밖**이고 핵심 논지(‘반도체 다음 순서로 돈이 흘러가는 산업’)는 테마 발굴형 서술 — 검증 가능한 우리 포지션 관련 콜 없음. ⚠️ 채널이 스스로 '상승폭은 종목·기준시점에 따라 크게 달라진다'고 단서를 단 점은 과장 억제로 긍정 평가.",
+      "takeaway": "지수투자 교육 콘텐츠(종목콜 없음) — 액티브펀드 79%가 S&P500 못이김(SPIVA2025)·코스피200 삼전+하닉 비중52%+로 분산효과 약화·코스피6년/니케이34년 정체 사례·ISA·연금 절세팁. 결론=코어+위성 배분, 반도체쏠림 인지한 채 보유.",
       "views": null,
-      "id": "2P37LeVhDaY",
-      "_verdict_src": "2026-08-12 자막 재수집·채점"
-    },
-    {
-      "date": "2026-07-16",
-      "title": "이재명 정부가 내놓은 '세액공제' 정책 2차 수혜주",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증·일부미확인",
-      "takeaway": "[8/12 자막 재수집 후 채점] **[검증]** 정부 2026 하반기 경제성장전략의 **국내 생산 세액공제**(전략 품목 국내 생산·판매분에 단가를 곱해 법인세·소득세 공제) 골자와 1차 수혜주로 삼성전자·포스코퓨처엠이 거론된 정황은 정합. ★보유 **삼성전자** 간접 관련. **[미확인]** 채널이 말한 '2차 수혜주' 리스트는 자막 전반부까지만 확보해 종목 특정 불가 — 확인 전 추종 금지(룰3).",
-      "views": null,
-      "id": "SvYZagOPe1s",
-      "_verdict_src": "2026-08-12 자막 재수집·채점"
-    },
-    {
-      "date": "2026-07-16",
-      "title": "지금 젠슨황이 다시 한 번, 한국 주가를 끌어올릴 수 있다는 방법",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증·일부미확인",
-      "takeaway": "[8/12 자막 재수집 후 채점] **[검증]** 젠슨 황이 **7/15 도쿄 세가 협력 30주년 행사** 참석 및 일본에서 RTX 계열 신제품 소개 — 일정·사실관계는 정합. **[미확인]** '한국 주가를 끌어올릴 방법'이라는 결론부(구체 경로·수혜 종목)는 자막 전반부까지만 확보해 대조 못 함. ⚠️ 제목이 인과를 단정하는 형태('~할 수 있다는 방법')라 **기대의 서술을 사실로 읽지 않도록 주의** — NVDA 보유 관점에서 일본 이벤트가 한국 주가로 연결되는 고리는 채널 추론.",
-      "views": null,
-      "id": "KKZw15i5U9g",
-      "_verdict_src": "2026-08-12 자막 재수집·채점"
-    },
-    {
-      "date": "2026-07-16",
-      "title": "ASML의 '역대급 실적' 이후, 삼전·하이닉스에 벌어질 일",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증·일부미확인",
-      "takeaway": "[8/12 자막 재수집 후 채점] ASML 역대급 실적 → 삼전·하이닉스 함의. **[검증]** ASML이 삼성·SK하이닉스·TSMC에 최첨단 장비를 공급하는 **반도체 캐펙스 선행지표**라는 프레임은 정확하고, 장비사 실적으로 팹 투자 지속 여부를 읽는 논리도 타당. ★보유 **삼성전자** 간접. **[미확인]** 구체 실적 수치·가이던스는 자막 전반부까지만 확보해 대조 못 함 — 숫자 인용 금지, 방향만 채택.",
-      "views": null,
-      "id": "JGZqJW8k5wo",
-      "_verdict_src": "2026-08-12 자막 재수집·채점"
-    },
-    {
-      "date": "2026-07-16",
-      "title": "[구독자전용] 삼성전기 종목분석",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증 근사",
-      "takeaway": "[8/12 자막 재수집 후 채점·자체 캐시 대조] 워치 **삼성전기** 종목분석. 우리 일봉으로 확인: 연초권 저점 **266,000원(1/9)** → 2026 최고 **2,270,000원(6/19)** = 종가 기준 **8.5배**(채널 '25만→241만, 10배 가까이'는 장중 고가 기준이면 성립 — **근사**), 7/14 종가 **1,260,000원**(채널 '126만' 정확), 7/15 **1,413,000원 = +12.14%**(채널 '하루 만에 12%+ 폭등' 정확). ★**PM 평가**: 채널이 스스로 *'최근 급등의 상당 부분은 삼성전기만의 호재 때문이 아니다'*라고 절제한 점이 좋다 — 테마 베타를 개별 호재로 포장하지 않았다.",
-      "views": null,
-      "id": "qZDIjmF7Xoc",
-      "_verdict_src": "2026-08-12 자막 재수집·채점"
+      "id": "lh5tHCcOhSs",
+      "_verdict_note": "지수투자 교육 콘텐츠(종목콜 없음).",
+      "_verdict_src": "2026-08-12 PM 확정"
     },
     {
       "date": "2026-07-14",
@@ -8030,37 +8598,6 @@ window.APP_DATA = {
       "_verdict_src": "2026-08-12 PM 확정"
     },
     {
-      "date": "2026-07-15",
-      "title": "코스피 하락장 속, 삼전·닉스 더 판다는 국민연금(+이유)",
-      "theme": null,
-      "tickers": [
-        "005930.KS",
-        "000660.KS"
-      ],
-      "verdict": "검증 정밀",
-      "takeaway": "국민연금 2분기 대량보유공시(지분5%+) — 267개사 평가액 462조1,403억(전체운용자산 27.7%) vs 목표비중 20.8%, 7%p 초과. 삼성전자 지분율7.9%·SK하이닉스8.1%, 두 종목이 조사대상 평가액의 55.5%(반년새 삼성지분가치+468.8%·하닉+1210%). 채널은 '27.7%-20.8%=매도폭탄' 단순계산을 직접 반박 — 리밸런싱은 주가하락시 평가액도 같이 줄어 자동완화, 즉각 악재가 아니라 반등국면 상승속도를 누르는 수급변수로 재해석.",
-      "views": null,
-      "id": "D0vJUD26S-c",
-      "_verdict_note": "국민연금 5%+ 보유 267곳·평가액 462조1,403억(7/10 종가, 리더스인덱스 분석) 확인. 삼전+하닉 비중 55%.",
-      "_verdict_src": "2026-08-12 PM 확정"
-    },
-    {
-      "date": "2026-07-15",
-      "title": "현 정부가 대놓고 밀어줄 수 있다는 '원자력주' 정체",
-      "theme": null,
-      "tickers": [
-        "034020.KS",
-        "329180.KS",
-        "000660.KS"
-      ],
-      "verdict": "검증 정밀",
-      "takeaway": "7/7 한미일 외교장관 나토정상회의 계기 SMR 수출 협력각서(MOC) 서명 — 美설계·금융+韓제작시공+日부품, 인도태평양 원전시장 공동개척 목표(노형·대상국 미정, 즉시매출 아님). 수혜후보: 두산에너빌리티(SMR 단조소재 예약계약), HD현대중공업(테라파워 나트륨원자로 용기), 현대건설(홀텍 SMR 시공), 삼성물산(GE-히타치 BWRX), SK이노베이션(테라파워 지분).",
-      "views": null,
-      "id": "7Gqcb0k6WxI",
-      "_verdict_note": "한미일 SMR 배치 협력각서(MOC) 7/7(현지) 튀르키예 앙카라 NATO 정상회의 계기 서명 — 외교부 공식 확인.",
-      "_verdict_src": "2026-08-12 PM 확정"
-    },
-    {
       "date": "2026-07-14",
       "title": "상승장 돌아 올 때, 역대급 상승장 올 수 있다는 '낙폭과대주' 5개",
       "theme": null,
@@ -8079,22 +8616,6 @@ window.APP_DATA = {
       "_verdict_src": "2026-08-12 PM 확정"
     },
     {
-      "date": "2026-07-15",
-      "title": "AI반도체 고점론 끝난 뒤, 시장이 반길 다음 '주도 분야'는?",
-      "theme": null,
-      "tickers": [
-        "267260.KS",
-        "042660.KS",
-        "207940.KS"
-      ],
-      "verdict": "검증",
-      "takeaway": "반도체 쏠림 완화 후 자금이동 후보 3개: 전력기(변압기 병목, HD현대일렉트릭 1조1,212억 北美빅테크 계약)·조선방산(조선빅3 3~3.5년치 일감, 1분기영업익+47.6%, 美해군 RFI 참여)·CDMO(삼성바이오로직스, 서킷브레이커 당일도 +5%). 추격매수 아닌 로테이션 사전점검용으로 명시.",
-      "views": null,
-      "id": "OtqxKYc4DMw",
-      "_verdict_note": "HD현대일렉트릭 1조1,212억 북미 빅테크 DC 전력장비 계약(7/2·매출 27.5%)은 setup-전력인프라-0629에 이미 [검증]된 이력.",
-      "_verdict_src": "2026-08-12 PM 확정"
-    },
-    {
       "date": "2026-07-14",
       "title": "지금 국장 접은 '서학개미'들이 가장 많이 몰린다는 곳 1위",
       "theme": null,
@@ -8106,18 +8627,6 @@ window.APP_DATA = {
       "views": null,
       "id": "08-naUOdx2I",
       "_verdict_src": "2026-08-12 자막 재수집·채점"
-    },
-    {
-      "date": "2026-07-15",
-      "title": "\"그냥 사놓기만 하면 된다?\" 세상에서 '가장 쉬운 주식' 정체",
-      "theme": null,
-      "tickers": [],
-      "verdict": "일반 콘텐츠",
-      "takeaway": "지수투자 교육 콘텐츠(종목콜 없음) — 액티브펀드 79%가 S&P500 못이김(SPIVA2025)·코스피200 삼전+하닉 비중52%+로 분산효과 약화·코스피6년/니케이34년 정체 사례·ISA·연금 절세팁. 결론=코어+위성 배분, 반도체쏠림 인지한 채 보유.",
-      "views": null,
-      "id": "lh5tHCcOhSs",
-      "_verdict_note": "지수투자 교육 콘텐츠(종목콜 없음).",
-      "_verdict_src": "2026-08-12 PM 확정"
     },
     {
       "date": "2026-07-14",
@@ -8208,6 +8717,18 @@ window.APP_DATA = {
     },
     {
       "date": "2026-07-13",
+      "title": "7월 13일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "xH_9nsHePRk",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-13",
       "title": "엔비디아 깐부 호재뜬 'LG전자', 지금 사도 될까? (23:00)",
       "theme": "LG전자 베라루빈 서버랙 — 시제품 완료·확정계약 아님",
       "tickers": [
@@ -8279,6 +8800,18 @@ window.APP_DATA = {
       "verdict": "검증",
       "takeaway": "한성기업(크레미 제조·코스피 소형주) — 상폐 시총기준 200억→300억 상향으로 시총 261억이 위기에 몰렸으나 '참전용사 25년 후원 애국기업' 스토리 확산에 이틀연속 상한가(6,510원 +29.94%)로 시총 400억대 회복 [검증·다출처]. 채널은 게임스톱형 여론급등 경계, 실적(매출 3,184억·영업익 58억 -47%) 미개선 시 여론 식으면 급락 가능성 명시. 보유·워치 무관, 韓 소형주 여론장세 참고 사례.",
       "views": null
+    },
+    {
+      "date": "2026-07-12",
+      "title": "월가가 7월 '실적 시즌'에 꼭 봐야 한다는 ‘의외의 산업’ 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "8Ypa9zIYx04",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-07-12",
@@ -8607,6 +9140,66 @@ window.APP_DATA = {
     },
     {
       "date": "2026-07-09",
+      "title": "이재명 정부가 ‘반도체’ 다음, 312조 쏟아붓는다는 ‘코리아X’ 정체(+수혜주)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "NiMdiyDvK_w",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-09",
+      "title": "월가에서 6일 연속 순매수중인 한국 '저평가주' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "TjPqelk1TM4",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-09",
+      "title": "트럼프가 이란 휴전을 갑자기 깬 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "Zlqy76i1ERc",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-09",
+      "title": "한국 정부가 '코스피 폭락' 원인으로 지목했다는 3가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "OYfXal70KBM",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-09",
+      "title": "하락장 끝을 알리는 '반등 신호' 3가지 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "nRezdvuj7SI",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-09",
       "title": "월가에서 계속 '한국 반도체'만 저격하는 진짜 이유 (01:00)",
       "theme": "MS 로테이션·한국 반도체",
       "tickers": [
@@ -8625,6 +9218,54 @@ window.APP_DATA = {
       "verdict": "미확인",
       "takeaway": "7/6 국제 선물서 '어떤 것'이 하루 +16%·또 다른 것 +13% 급등(첨단주·코인·부동산 아님) → 물가·금리·주식 해자로 연결되는 신호라 주장. 대상 특정 안 함(원자재 추정) [미확인 — 구체 품목·수치 채널 단독, 2출처 시도 실패]. 유가 급등 국면과 정합하나 종목 액션 없음",
       "views": null
+    },
+    {
+      "date": "2026-07-08",
+      "title": "모건스탠리가 삼전·닉스 역대급 하락장 올 수도 있다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증·일부미확인",
+      "takeaway": "[8/12 소급 채점] **[검증]** 삼성전자 2Q 영업이익 **89.4조**(성과급 충당금 20조 제외 시 실질 106조 상당) = 분기 하나로 엔비디아 영업이익 초과. 우리 로그(삼성 영업익 89.5조)와 정합. **[미확인]** 모건스탠리 '역대급 하락장' 경고의 원문 논거는 자막 전반부까지만 확보. ★**연결점**: 같은 하우스가 **7/7 약세 → 8/6 강세 전환**(nsqyS1EMypc)으로 한 달 만에 뒤집혔다 — sell-side 목표가·의견의 변동성 자체가 크다는 우리 규율(6/16 상향·하향 이력 병기)의 실례.",
+      "views": null,
+      "id": "WqNUPopKWAw",
+      "_verdict_src": "2026-08-12 소급 채점(API 누락감사분)",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-08",
+      "title": "아마존, 애플, 구글과 CEO들 만나러 간 이재용 근황",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "wKLa1tKH-20",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-08",
+      "title": "투자자들이 꼭 알아야 하는 부동산vs한국주식vs미국주식 세금 계산 법",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "LW6PEpEzreQ",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-08",
+      "title": "\"또 트럼프의 계획?\" 개미들이 절대 모르는, 지금 미국·이란 전쟁 다시 터진 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "V6lDdC71oYw",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-07-08",
@@ -8700,6 +9341,96 @@ window.APP_DATA = {
       "views": null
     },
     {
+      "date": "2026-07-08",
+      "title": "월가에서 '비트코인 반등장' 올 수 있다는 진짜 이유 (00:00)",
+      "theme": "크립토·위험선호",
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "BTC $62~64k(10월 고점 $125k 대비 -50%)서 번스타인 연말 $150k 유지·ETF 순유입 재개 기대 [검증, The Block]. 스트래티지 3,588 BTC(~$8,080만) 매도는 강제청산 아닌 유동성 조정 [검증, 수치 일치]. 미보유 — 위험선호 게이지로만",
+      "views": null
+    },
+    {
+      "date": "2026-07-08",
+      "title": "부동산 vs 한국주식 vs 미국주식 세금 계산법 (06:00)",
+      "theme": "세금 일반론",
+      "tickers": [],
+      "verdict": "일반 콘텐츠",
+      "takeaway": "국내 양도세 면제·거래세 0.2%/미국 22%+지방세/부동산 1주택 비과세 요건 — 세법 일반론, 신규 시장 논지 없음(트래킹 대상 아님)",
+      "views": null
+    },
+    {
+      "date": "2026-07-07",
+      "title": "주식 고수와 초보를 가르는 '매도 타이밍'의 진짜 차이",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "e7grRgWJKLo",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-07",
+      "title": "요즘 주식 시장이 '하락장'인 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "1YA94ZHgZY4",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-07",
+      "title": "7월 7일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "j4Vw9782bOo",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-07",
+      "title": "마이크로소프트가 직원까지 해고하면서 '이곳'에 돈 올인하는 소름 돋는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "Qe8sjhXAbAk",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-07",
+      "title": "경제사냥꾼 구독자 전용 LG전자",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증·일부미확인",
+      "takeaway": "[8/12 소급 채점] ★**오늘 LG전자 +12.82% 재평가의 전사(前史)**. **[검증]** 7/7 2Q 잠정실적 — *상반기 영업이익이 작년 1년치를 넘어섰는데 주가는 거의 반토막*이라는 괴리 제시. 실제로 그 괴리가 7/30 실적 확정 이후 40일에 걸쳐 해소되며 오늘 +40.9%(7/30 대비) 재평가로 이어졌다. **[미확인]** 구체 실적 수치는 자막 전반부까지만 확보. ⇒ **'실적과 주가의 괴리'는 되돌아보면 신호였다** — 다만 그때 우리가 이걸 봤어도 하드플로어로 못 샀다(재원·룰 양쪽 제약).",
+      "views": null,
+      "id": "yTShrCl8THQ",
+      "_verdict_src": "2026-08-12 소급 채점(API 누락감사분)",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-07",
+      "title": "이번주 금요일, SK하이닉스 미국 상장이 한국 '반도체 주가'를 바꿀 수밖에 없다는 이유(+삼전)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "-nGp1ASdN_g",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
       "date": "2026-07-07",
       "title": "삼성전자 실적은 역대급인데 주가는 '폭락하는' 진짜 이유 (롱폼 21:11 + 쇼츠 리캡 7/8 01:00)",
       "theme": "삼성 실적 해부",
@@ -8730,24 +9461,6 @@ window.APP_DATA = {
       ],
       "verdict": "검증",
       "takeaway": "2Q 1.58조(+147%)에도 하락 — 재료 소화 + 관세환급 ~3,000억 일회성 섞여 '진짜 체력' 의심 [검증, 뉴스핌 등 일치]. 7/30 IR 3대 체크: ①관세제외 본업이익 ②전장·HVAC B2B 반복수익화 ③AI데이터센터 냉각 수주 가시화 → setup-전력인프라-0629 게이트 구체화. 룰2(손절선 없음) 정합 — 7/8 폭락장에도 +3.54% 역행(이틀 연속 방어 실증)",
-      "views": null
-    },
-    {
-      "date": "2026-07-08",
-      "title": "월가에서 '비트코인 반등장' 올 수 있다는 진짜 이유 (00:00)",
-      "theme": "크립토·위험선호",
-      "tickers": [],
-      "verdict": "검증",
-      "takeaway": "BTC $62~64k(10월 고점 $125k 대비 -50%)서 번스타인 연말 $150k 유지·ETF 순유입 재개 기대 [검증, The Block]. 스트래티지 3,588 BTC(~$8,080만) 매도는 강제청산 아닌 유동성 조정 [검증, 수치 일치]. 미보유 — 위험선호 게이지로만",
-      "views": null
-    },
-    {
-      "date": "2026-07-08",
-      "title": "부동산 vs 한국주식 vs 미국주식 세금 계산법 (06:00)",
-      "theme": "세금 일반론",
-      "tickers": [],
-      "verdict": "일반 콘텐츠",
-      "takeaway": "국내 양도세 면제·거래세 0.2%/미국 22%+지방세/부동산 1주택 비과세 요건 — 세법 일반론, 신규 시장 논지 없음(트래킹 대상 아님)",
       "views": null
     },
     {
@@ -8807,6 +9520,90 @@ window.APP_DATA = {
     },
     {
       "date": "2026-07-06",
+      "title": "월가에서 '제 2의 삼성전자'라고 불린다는 종목 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "LPmwCz9CEh4",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-06",
+      "title": "마이크론vs애플, 역대급 '메모리 전쟁'이 벌어진 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "[8/12 소급 채점] **[검증]** 애플이 메모리 가격 인상으로 아이패드·맥북 가격을 올리고 *'이렇게 빠른 부품 가격 상승은 처음'*이라며 원가 부담을 호소, 동시에 중국 CXMT에 공급을 요구 — 우리 7/29 정정(**애플의 CXMT 접근은 원가 절감이 아니라 물량 확보·협상 카드**)과 정합하며, **시점상 그 정정보다 24일 앞선 재료**였다. ★**AAPL 트림 논지의 초기 신호** — 메모리 원가 압박이 회사 발언으로 이미 7/5에 드러나 있었다.",
+      "views": null,
+      "id": "oauIRiNNmrI",
+      "_verdict_src": "2026-08-12 소급 채점(API 누락감사분)",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-06",
+      "title": "7월 6일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "_ULAJU28Fp4",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-06",
+      "title": "한화오션+잠수함 호재로 2배 상승장 올 수있다는 2차 수혜주 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "-V7HiHEvELg",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-06",
+      "title": "'실적발표 임박' 삼성전자, 주가 갈릴 핵심포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "n1kK01-Uvgg",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-06",
+      "title": "7월 실적시즌 돌입, 주식 시장 '이렇게' 돌아 갈겁니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "DV3hA57T2TE",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-06",
+      "title": "개미들이 절대 모르는, 환율 24시간 거래의 숨겨진 진실",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "qdGI6oe0wSY",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-06",
       "title": "하락장인 진짜 이유",
       "theme": "수급심리",
       "tickers": [
@@ -8844,6 +9641,66 @@ window.APP_DATA = {
       "verdict": "검증(목표가·실적추정·SMR컨소시엄)",
       "takeaway": "삼성전자 지분 ~5% 보유, SK증권 목표 48만→59만원 상향, 2Q영업이익 8,374억 추정, 조정구간 NAV 하락폭이 주가 하락폭보다 작음, 영국 SMR 72조 컨소시엄 참여, CLSA 지주사 최선호 [검증·다출처]. 정훈 미보유 — 신규 워치 후보로 PM 검토 대상(채널 단독 편입 금지, 별도 딥다이브 필요).",
       "views": null
+    },
+    {
+      "date": "2026-07-05",
+      "title": "지금 'SK하이닉스' 투자자들이 꼭 봐야 할 '장기 투자전략'",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "UyBr4xMCKe0",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-05",
+      "title": "월가에서 환율 2,000원 넘을 수도 있다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "JHs5DTiyxks",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-05",
+      "title": "'리밸런싱'중인 국민연금이 지금 쓸어담는다는 종목 vs 팔고있다는 종목",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "2neymLqbUtQ",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-05",
+      "title": "한국 반도체가 폭락한 날, 젠슨황이 발표한 ‘신사업’ 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "zgeorGngFeQ",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-05",
+      "title": "현대 노조 총파업 되면 주가는 어떻게 될까?",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "9BJBt5tmXUM",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-07-05",
@@ -9057,6 +9914,42 @@ window.APP_DATA = {
     },
     {
       "date": "2026-07-03",
+      "title": "반도체가 폭락한 날, '은행주'가 급등한 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "TVr9hVl_UNk",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-03",
+      "title": "한국은행이 대놓고, 다음 '주도주' 될 수 있다는 AI종목 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "9EXnLlJ27fw",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-03",
+      "title": "중국 반도체가 '한국 반도체'를 절대 이기지 못한다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "5IVz_2XQjxM",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-03",
       "title": "투자자들이 삼전·닉스 폭락장을 오히려 기회로 삼아야 하는 이유(롱폼)",
       "theme": "메모리 펀더",
       "tickers": [
@@ -9182,6 +10075,30 @@ window.APP_DATA = {
     },
     {
       "date": "2026-07-02",
+      "title": "연준 '케빈 워시' 의장의 발언 속 숨겨진 '하반기 주식 시장' 진짜 호재",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "6MxD5Fdvqjs",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-02",
+      "title": "모든 투자자들이 꼭 봐야하는 '미국 뉴스' 3가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "v-xlkduQHwo",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-02",
       "title": "연준 케빈 워시 발언 속 숨겨진 하반기 진짜 호재(롱폼)",
       "theme": "매크로 재평가론",
       "tickers": [
@@ -9234,20 +10151,6 @@ window.APP_DATA = {
       "_verdict_src": "takeaway"
     },
     {
-      "date": "2026-07-01",
-      "title": "현시점, 외국인이 쓸어 담고 있다는 '종목'들 정체",
-      "theme": null,
-      "tickers": [
-        "005930.KS",
-        "000660.KS",
-        "009150.KS"
-      ],
-      "verdict": "검증·일부미확인",
-      "takeaway": "외인 매도는 '전면 이탈' 아닌 '자리 이동' — 삼전·하닉 덜어내고 DB하이텍(순매수 1위[미확인·단일출처])·리노공업·삼성전기·후공정 소부장 + 삼성물산·생명·화재(주주환원) + 기아·현대로템 선별매수. [검증]6월 수출 첫 1,000억弗·반도체 448억弗. ★정훈 '매수량 느는지' 질문 직결 = 외인 gross 매수는 소부장·지주금융에 살아있음(질적 조짐). 단 지수 게이트는 여전히 삼전·하닉 재매수",
-      "views": null,
-      "_verdict_src": "takeaway"
-    },
-    {
       "date": "2026-07-02",
       "title": "오늘 '코스피'가 장 열자마자 폭락했던 진짜 이유",
       "theme": null,
@@ -9258,6 +10161,77 @@ window.APP_DATA = {
       ],
       "verdict": "검증",
       "takeaway": "7/2 폭락=①META Compute(잉여 AI연산 외부판매) 보도→'부족→과잉?' 해석에 반도체 급락(MU -7~10%·SOX -6.27%[검증]) ②NPS 리밸런싱 공포(74조 하루아침 아님 — 과장 프레임 지적) ③환율 1,550 고착(외인매도→환전→환율↑ 악순환). META +8~9%[검증]. 보유 META 수혜·MU/삼성 급락 원인 규명",
+      "views": null,
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-02",
+      "title": "7월 2일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [
+        "META",
+        "035420.KS"
+      ],
+      "verdict": "검증·일부정정",
+      "takeaway": "①쿠팡 — 美 하원 법사위 '韓정부 미국기업 차별' 35p 보고서 실재[검증·CNBC](유출 3,370만명 — 채널 3,750만 [정정]) = 한미 통상갈등 비화 신호·국내 플랫폼 규제 변수 ②META Compute ③워시 연준의장 신트라 발언[검증]: 독립성·2% 불변·대차대조표 축소 — 기대인플레 둔화≠완화 전환. 3차 트랜치 동결 유지 근거",
+      "views": null,
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-02",
+      "title": "월가에서 '금값' 역대급 상승장 올 수 있다는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증·일부정정",
+      "takeaway": "금 1월 피크 $5,589→현 ~$4,040 조정에도 월가 강세론: UBS 12개월 $5,200(+28%)[검증]·골드만 중장기 강세 유지하되 목표 5,400→4,900 하향(6/20)[검증]·인민은행 18개월 연속 매입(2,309톤)[검증]. [정정]낙폭 채널 -28%→실제 약 -23%. 단기 열쇠=6월 CPI(근원·주거비). 금 미보유 — 탈달러·재정적자 서사는 환율 게이트 간접 참고",
+      "views": null,
+      "_verdict_src": "takeaway"
+    },
+    {
+      "date": "2026-07-02",
+      "title": "삼전·닉스 쏠림장속, 정부가 직접 20배 올려 줄 수 있다는 '산업' 정체",
+      "tag": "검증",
+      "summary": "6/29 청와대 3대 메가프로젝트(반도체·AI DC·로봇). 휴머노이드 1%→20% 국가목표. 돈은 완성품 아닌 부품(액추에이터 원가60%·감속기). 골드만 2035 韓30%·$38B·현대차 아틀라스 2028 조지아 3만대·모비스 35만개·국민성장펀드 16조[검증]. ★현대차·두산로보·LG·삼성. 두산로보 '완성품 프리미엄 경계'.",
+      "tickers": [],
+      "verdict": "검증·일부미확인",
+      "_verdict_src": "2026-08-12 YouTube Data API 원본 특정·자막 채점",
+      "takeaway": "[8/12 YouTube Data API로 원본 특정 후 채점] ⚠️**날짜 정정: 7/1 → 7/2(00:00 KST)**. **[검증]** 6/29 청와대 영빈관 **'대한민국 대도약 3대 메가프로젝트 국민보고회'**에서 정부가 미래 먹거리 3개로 **반도체·AI 데이터센터·로봇**을 선정 — 우리 로그(6/29 청와대 보고회·삼성 SK 각 400조)와 정합하며, 채널의 관찰 = *반도체·DC는 언론이 대서특필했으나 **로봇은 가려졌다**, 정부가 5년간 세금으로 직접 밀어주는 산업이 로봇이다*. **[미확인]** '20배' 수치의 근거(무엇을 20배로 올리는지 — 시장규모/예산/생산 중 무엇인지)는 자막 전반부까지만 확보해 특정 못 함. ★**보유 직결**: 두산로보틱스·현대차(피지컬AI)가 이 정책 축에 있다. 단 우리 판정은 불변 — 두산로보 룰2 3/3 훼손착수·현대차 마진훼손은 **정책 기대와 무관한 재무 사실**이다. 정책 테마로 펀더 판정을 덮지 않는다(룰3).",
+      "id": "ett1Rl10ZFs"
+    },
+    {
+      "date": "2026-07-02",
+      "title": "이재명 정부의 '반도체 초과이익'이 삼전·닉스에 미치는 진짜 영향",
+      "tag": "미확인(방향)",
+      "summary": "삼성265+SK210=475조 투자 직후 초과이익 과세 카드[미확인·제안단계]. ★삼성 잠재 리스크 워치.",
+      "tickers": [],
+      "verdict": "검증·일부정정",
+      "_verdict_src": "2026-08-12 YouTube Data API 원본 특정·자막 채점",
+      "takeaway": "[8/12 YouTube Data API로 원본 특정 후 채점] ⚠️**날짜 정정 7/1→7/2 · 분류 정정: '[쇼츠]'가 아니라 일반 영상**. **[검증]** 3대 메가프로젝트 보고회에서 삼성 **2,655조** + SK **2,100조** = **4,755조** 국내 투자 발표는 우리 로그와 일치. **[정정]** 자막의 '4,75조'·'2,65조'는 자동자막 자릿수 뭉갬(실제 4,755조·2,655조) — **채널 오류가 아니라 자막 오류**로 분류. **[검증]** 고용노동부가 삼성 성과급 논란에서 출발한 **'반도체 초과이익 배분' 사회적 논의를 7월 중 대규모 토론회로 확대**하겠다고 밝히고 대통령실 보고까지 언급한 사실. ★**중요**: 채널이 *'정부가 삼전·하이닉스에 성과급 협약 백지화 공문을 보냈다'는 시장 루머를 명시적으로 팩트와 구분*했다 — **루머 유통을 스스로 차단한 사례로 트랙레코드 가점**. ★**보유 함의**: 4,755조 투자는 호재로만 읽히지만, **초과이익 배분 논의는 삼성전자 마진의 정책 리스크**다. 우리 삼성 ⭐5/93은 재무 하드넘버 기반이라 불변이되, **§10 아젠다에 '정책발 마진 리스크' 감시축으로 등재할 후보**.",
+      "id": "As4fDANwsg0"
+    },
+    {
+      "date": "2026-07-01",
+      "title": "월가에서 2026년 '하반기' 역대급 상승장 올 수 있다는 이유(+증시 점검)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "51jTLqWw52M",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-07-01",
+      "title": "현시점, 외국인이 쓸어 담고 있다는 '종목'들 정체",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS",
+        "009150.KS"
+      ],
+      "verdict": "검증·일부미확인",
+      "takeaway": "외인 매도는 '전면 이탈' 아닌 '자리 이동' — 삼전·하닉 덜어내고 DB하이텍(순매수 1위[미확인·단일출처])·리노공업·삼성전기·후공정 소부장 + 삼성물산·생명·화재(주주환원) + 기아·현대로템 선별매수. [검증]6월 수출 첫 1,000억弗·반도체 448억弗. ★정훈 '매수량 느는지' 질문 직결 = 외인 gross 매수는 소부장·지주금융에 살아있음(질적 조짐). 단 지수 게이트는 여전히 삼전·하닉 재매수",
       "views": null,
       "_verdict_src": "takeaway"
     },
@@ -9285,29 +10259,6 @@ window.APP_DATA = {
       "verdict": "검증/미확인",
       "takeaway": "78만→48만(-30%) vs 목표가 줄상향(유진·다올 100만·KB 120만[검증]). 하반기 카드=RMC(로봇 메타플랜트)·보스턴다이내믹스 IPO·BYD 보조금 제외[미확인]·새만금. [정정·뉘앙스]'삼성증권 피지컬AI ETF' 인용하나 삼성증권 목표가는 65만(보수적) — '두 배'는 KB 최상단만 인용한 과장. 리스크=노조 7월 총파업 예고. ★보유 현대차 — 추격금지·눌림분할 불변",
       "views": null
-    },
-    {
-      "date": "2026-07-02",
-      "title": "7월 2일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
-      "theme": null,
-      "tickers": [
-        "META",
-        "035420.KS"
-      ],
-      "verdict": "검증·일부정정",
-      "takeaway": "①쿠팡 — 美 하원 법사위 '韓정부 미국기업 차별' 35p 보고서 실재[검증·CNBC](유출 3,370만명 — 채널 3,750만 [정정]) = 한미 통상갈등 비화 신호·국내 플랫폼 규제 변수 ②META Compute ③워시 연준의장 신트라 발언[검증]: 독립성·2% 불변·대차대조표 축소 — 기대인플레 둔화≠완화 전환. 3차 트랜치 동결 유지 근거",
-      "views": null,
-      "_verdict_src": "takeaway"
-    },
-    {
-      "date": "2026-07-02",
-      "title": "월가에서 '금값' 역대급 상승장 올 수 있다는 이유",
-      "theme": null,
-      "tickers": [],
-      "verdict": "검증·일부정정",
-      "takeaway": "금 1월 피크 $5,589→현 ~$4,040 조정에도 월가 강세론: UBS 12개월 $5,200(+28%)[검증]·골드만 중장기 강세 유지하되 목표 5,400→4,900 하향(6/20)[검증]·인민은행 18개월 연속 매입(2,309톤)[검증]. [정정]낙폭 채널 -28%→실제 약 -23%. 단기 열쇠=6월 CPI(근원·주거비). 금 미보유 — 탈달러·재정적자 서사는 환율 게이트 간접 참고",
-      "views": null,
-      "_verdict_src": "takeaway"
     },
     {
       "date": "2026-07-01",
@@ -9350,28 +10301,6 @@ window.APP_DATA = {
       "id": "QxWPxfzxb9o"
     },
     {
-      "date": "2026-07-02",
-      "title": "삼전·닉스 쏠림장속, 정부가 직접 20배 올려 줄 수 있다는 '산업' 정체",
-      "tag": "검증",
-      "summary": "6/29 청와대 3대 메가프로젝트(반도체·AI DC·로봇). 휴머노이드 1%→20% 국가목표. 돈은 완성품 아닌 부품(액추에이터 원가60%·감속기). 골드만 2035 韓30%·$38B·현대차 아틀라스 2028 조지아 3만대·모비스 35만개·국민성장펀드 16조[검증]. ★현대차·두산로보·LG·삼성. 두산로보 '완성품 프리미엄 경계'.",
-      "tickers": [],
-      "verdict": "검증·일부미확인",
-      "_verdict_src": "2026-08-12 YouTube Data API 원본 특정·자막 채점",
-      "takeaway": "[8/12 YouTube Data API로 원본 특정 후 채점] ⚠️**날짜 정정: 7/1 → 7/2(00:00 KST)**. **[검증]** 6/29 청와대 영빈관 **'대한민국 대도약 3대 메가프로젝트 국민보고회'**에서 정부가 미래 먹거리 3개로 **반도체·AI 데이터센터·로봇**을 선정 — 우리 로그(6/29 청와대 보고회·삼성 SK 각 400조)와 정합하며, 채널의 관찰 = *반도체·DC는 언론이 대서특필했으나 **로봇은 가려졌다**, 정부가 5년간 세금으로 직접 밀어주는 산업이 로봇이다*. **[미확인]** '20배' 수치의 근거(무엇을 20배로 올리는지 — 시장규모/예산/생산 중 무엇인지)는 자막 전반부까지만 확보해 특정 못 함. ★**보유 직결**: 두산로보틱스·현대차(피지컬AI)가 이 정책 축에 있다. 단 우리 판정은 불변 — 두산로보 룰2 3/3 훼손착수·현대차 마진훼손은 **정책 기대와 무관한 재무 사실**이다. 정책 테마로 펀더 판정을 덮지 않는다(룰3).",
-      "id": "ett1Rl10ZFs"
-    },
-    {
-      "date": "2026-07-02",
-      "title": "이재명 정부의 '반도체 초과이익'이 삼전·닉스에 미치는 진짜 영향",
-      "tag": "미확인(방향)",
-      "summary": "삼성265+SK210=475조 투자 직후 초과이익 과세 카드[미확인·제안단계]. ★삼성 잠재 리스크 워치.",
-      "tickers": [],
-      "verdict": "검증·일부정정",
-      "_verdict_src": "2026-08-12 YouTube Data API 원본 특정·자막 채점",
-      "takeaway": "[8/12 YouTube Data API로 원본 특정 후 채점] ⚠️**날짜 정정 7/1→7/2 · 분류 정정: '[쇼츠]'가 아니라 일반 영상**. **[검증]** 3대 메가프로젝트 보고회에서 삼성 **2,655조** + SK **2,100조** = **4,755조** 국내 투자 발표는 우리 로그와 일치. **[정정]** 자막의 '4,75조'·'2,65조'는 자동자막 자릿수 뭉갬(실제 4,755조·2,655조) — **채널 오류가 아니라 자막 오류**로 분류. **[검증]** 고용노동부가 삼성 성과급 논란에서 출발한 **'반도체 초과이익 배분' 사회적 논의를 7월 중 대규모 토론회로 확대**하겠다고 밝히고 대통령실 보고까지 언급한 사실. ★**중요**: 채널이 *'정부가 삼전·하이닉스에 성과급 협약 백지화 공문을 보냈다'는 시장 루머를 명시적으로 팩트와 구분*했다 — **루머 유통을 스스로 차단한 사례로 트랙레코드 가점**. ★**보유 함의**: 4,755조 투자는 호재로만 읽히지만, **초과이익 배분 논의는 삼성전자 마진의 정책 리스크**다. 우리 삼성 ⭐5/93은 재무 하드넘버 기반이라 불변이되, **§10 아젠다에 '정책발 마진 리스크' 감시축으로 등재할 후보**.",
-      "id": "As4fDANwsg0"
-    },
-    {
       "date": "2026-07-01",
       "title": "SK하이닉스가 '나스닥' 상장 직전, 갑자기 신청서를 고친 진짜 이유",
       "tag": "미확인(2출처 실패)",
@@ -9381,6 +10310,75 @@ window.APP_DATA = {
       "_verdict_src": "2026-08-12 채널검색 ID복구·자막 채점",
       "id": "rEQTxejqMC0",
       "takeaway": "[8/12 ID 복구 후 채점] **[검증 정밀]** SK하이닉스가 나스닥 상장을 위해 SEC에 낸 등록서(Form F-1)를 **수정 재제출**했고, 핵심 조건 = **최대 1,779만주(전체 발행주식의 약 2.5%)·공모 규모 약 $294.7억(약 45조원)**은 우리 master.md 기록($29B·약 45.45조원·신주 1,779만주)과 **정확히 일치**. 수정 사유로 미국 반독점 소송을 지목. ⚠️ 아카이브가 '[쇼츠]'로 분류했으나 실제는 일반 영상 — 원 분류 오기도 함께 교정."
+    },
+    {
+      "date": "2026-07-01",
+      "title": "에코프로 유상증자 사건이 주식시장에 끼치는 영향",
+      "theme": "2차전지",
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "에코프로비엠 1.2조 기습 유증(990만주·인니니켈)→시간외 비엠-19%·에코프로-16%. 보유무관, '거리4=반도체 무관'은 코어에 우호적",
+      "views": ""
+    },
+    {
+      "date": "2026-06-30",
+      "title": "환율 24시간 거래 시작, 개미들만 모르는 코스피 폭탄 터지는 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "QH6l0zmcib8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-30",
+      "title": "코스피 하락에도 주가 '3배 폭등'중인 '반도체 관련주' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "qpKMz2SDvGo",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-30",
+      "title": "국민연금의 '7월 매도폭탄'이 코스피에 미치는 진짜 영향",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "1vzLhS1Y6ZU",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-30",
+      "title": "6월 30일 오늘 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "drr2-arOAag",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-30",
+      "title": "이재명 정부가 550조 쏟아붓는 '메가프로젝트' 2차 수혜주",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "N-4E5JPqcfk",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-06-30",
@@ -9464,15 +10462,6 @@ window.APP_DATA = {
       "views": ""
     },
     {
-      "date": "2026-07-01",
-      "title": "에코프로 유상증자 사건이 주식시장에 끼치는 영향",
-      "theme": "2차전지",
-      "tickers": [],
-      "verdict": "검증",
-      "takeaway": "에코프로비엠 1.2조 기습 유증(990만주·인니니켈)→시간외 비엠-19%·에코프로-16%. 보유무관, '거리4=반도체 무관'은 코어에 우호적",
-      "views": ""
-    },
-    {
       "date": "2026-06-30",
       "title": "삼전·하이닉스·TSMC가 동시에 콕찝은 한국종목(쇼츠·테크밸리)",
       "theme": "반도체 후공정",
@@ -9503,6 +10492,114 @@ window.APP_DATA = {
       "verdict": "검증",
       "takeaway": "캐나다 CPSP 잠수함 60조 7월초 발표 임박, 한화오션 vs 독일TKMS 단일승부화. 한국정부 신중 전환 뉘앙스[방향성]. 보유·워치 무관, 추격금지",
       "views": ""
+    },
+    {
+      "date": "2026-06-30",
+      "title": "이재명 정부 550조 메가프로젝트 2차 수혜주(쇼츠)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "6/29 청와대 보고회 1,500조+AI데이터센터 550조(삼성·SK 각 400조·호남 896조) [검증]. 2차수혜=냉각·공조(LG전자 칠러)·클린룸·초순수. LG전자 직접연결(강세재료). 단 한양이엔지·GST 등 소형주 워치밖·채널 단독근거 매수금지. 발주 전환 확인 필수(채널도 신중단서)",
+      "views": ""
+    },
+    {
+      "date": "2026-06-30",
+      "title": "6/30 투자자들이 꼭 알아야 하는 투자 포인트(쇼츠)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증/미확인",
+      "takeaway": "①삼성·하닉·MU 美 DRAM 집단소송(北캘리포니아 연방법원, HBM쏠림→범용D램 인위감산·가격인상, 점유율~90% 과점) [검증] ②메가프로젝트 ③8월 반도체특별법. 채널 '소송=단기악재지만 메모리 강세신호' 해석은 [미확인·관점]. 외인 반도체 7조 매도는 [정정](실제 누적 64~94조)",
+      "views": ""
+    },
+    {
+      "date": "2026-06-30",
+      "title": "국민연금 7월 매도폭탄이 코스피에 미치는 진짜 영향(쇼츠)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "본편 압축 — 코스피 오를수록 연금매도압력↑→반도체 대형주 지수충격, 외인 받으면 조정/빚투개인 받으면 폭락. 신용 반대매매 도미노 경고 [검증·방향]",
+      "views": ""
+    },
+    {
+      "date": "2026-06-30",
+      "title": "'에코프로' 지금 꼭 봐야하는 뉴스(쇼츠)",
+      "theme": "2차전지(미보유)",
+      "tickers": [],
+      "verdict": "참고·방향",
+      "takeaway": "에코프로(양극재·미보유). 1Q26 매출 8,220억·영익 602억 흑자·인니 통합밸류체인·북미 신규고객='흑자 원년' 서사(디일렉). 구체 뉴스·목표가 [미확인]. 보유 포트 무관—참고용.",
+      "views": null
+    },
+    {
+      "date": "2026-06-30",
+      "title": "애플이 '삼전·닉스' 대신 '중국'을 선택한 진짜 이유",
+      "theme": "메모리 경쟁·CXMT",
+      "tickers": [
+        "005930.KS",
+        "MU",
+        "000660.KS"
+      ],
+      "verdict": "검증(HBM위협 작음)",
+      "takeaway": "애플이 美 제재대상 中 CXMT 범용D램 채택 위해 상무부 라이선스 로비(5월~·CXMT 1Q26 $7.3B·+700%·점유 6~8%, Tom's·TechPowerUp). ★핵심=CXMT는 범용D램이지 HBM 아님→삼성·하닉·MU HBM 고수익 코어엔 직접위협 작음(Yahoo). 범용D램 저가경쟁만 삼성 신중요인.",
+      "views": null
+    },
+    {
+      "date": "2026-06-30",
+      "title": "환율 24시간 거래 시작, 코스피 폭탄 터지는 진짜 이유",
+      "theme": "국장·FX·MSCI",
+      "tickers": [
+        "005930.KS"
+      ],
+      "verdict": "검증·일부미확인",
+      "takeaway": "7/6 원화 외환시장 24h 개장=MSCI 선진지수 편입 포석·외인 24h 삼성전자 거래(뉴스1·경향). 채널 '폭탄'=24h 유동성이 외인 매도·환율 변동성 증폭 경고(반전트리거 환율 1,500 꺾임 연결). 장기=디스카운트 해소, 단기=변동성. '폭탄' 강도는 미확인.",
+      "views": null
+    },
+    {
+      "date": "2026-06-29",
+      "title": "현시점 월가가 '엔비디아'보다 먼저 봐야 한다는 'AI 종목' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "7AiTq7TVnrc",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-29",
+      "title": "투자자들이 꼭 알아야 하는 '이번주' 중요 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "3S2ASumkS_8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-29",
+      "title": "삼성전자, 하이닉스가 거품이 아닌 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "D4RUj6zo5aM",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-29",
+      "title": "월가에서 '주식 쏠림장' 속 살아 남을 수 있다는 포트폴리오 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "pibgM8Nm8eI",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-06-29",
@@ -9572,64 +10669,100 @@ window.APP_DATA = {
       "views": null
     },
     {
-      "date": "2026-06-30",
-      "title": "이재명 정부 550조 메가프로젝트 2차 수혜주(쇼츠)",
+      "date": "2026-06-28",
+      "title": "현재 월가에서 몰래 줍고 있다는 '반도체 2차 수혜주' 정체",
       "theme": null,
       "tickers": [],
-      "verdict": "검증",
-      "takeaway": "6/29 청와대 보고회 1,500조+AI데이터센터 550조(삼성·SK 각 400조·호남 896조) [검증]. 2차수혜=냉각·공조(LG전자 칠러)·클린룸·초순수. LG전자 직접연결(강세재료). 단 한양이엔지·GST 등 소형주 워치밖·채널 단독근거 매수금지. 발주 전환 확인 필수(채널도 신중단서)",
-      "views": ""
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "PW6wK3np1Zs",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
-      "date": "2026-06-30",
-      "title": "6/30 투자자들이 꼭 알아야 하는 투자 포인트(쇼츠)",
+      "date": "2026-06-28",
+      "title": "월가에서 8년안에 한국 먹여 살릴 수 있다는 '반도체' 다음 '산업' 정체",
       "theme": null,
       "tickers": [],
-      "verdict": "검증/미확인",
-      "takeaway": "①삼성·하닉·MU 美 DRAM 집단소송(北캘리포니아 연방법원, HBM쏠림→범용D램 인위감산·가격인상, 점유율~90% 과점) [검증] ②메가프로젝트 ③8월 반도체특별법. 채널 '소송=단기악재지만 메모리 강세신호' 해석은 [미확인·관점]. 외인 반도체 7조 매도는 [정정](실제 누적 64~94조)",
-      "views": ""
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "3hhWn8V2fnA",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
-      "date": "2026-06-30",
-      "title": "국민연금 7월 매도폭탄이 코스피에 미치는 진짜 영향(쇼츠)",
+      "date": "2026-06-28",
+      "title": "주식 고수들이 미리 줍고 있다는 '7월 배당주' Top4",
       "theme": null,
       "tickers": [],
-      "verdict": "검증",
-      "takeaway": "본편 압축 — 코스피 오를수록 연금매도압력↑→반도체 대형주 지수충격, 외인 받으면 조정/빚투개인 받으면 폭락. 신용 반대매매 도미노 경고 [검증·방향]",
-      "views": ""
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "ztij_nErS_o",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
-      "date": "2026-06-30",
-      "title": "'에코프로' 지금 꼭 봐야하는 뉴스(쇼츠)",
-      "theme": "2차전지(미보유)",
+      "date": "2026-06-27",
+      "title": "월가에서 '메타' 역대급 상승장 올 수 있다는 이유",
+      "theme": null,
       "tickers": [],
-      "verdict": "참고·방향",
-      "takeaway": "에코프로(양극재·미보유). 1Q26 매출 8,220억·영익 602억 흑자·인니 통합밸류체인·북미 신규고객='흑자 원년' 서사(디일렉). 구체 뉴스·목표가 [미확인]. 보유 포트 무관—참고용.",
-      "views": null
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "t1zVf7JN7g8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
-      "date": "2026-06-30",
-      "title": "애플이 '삼전·닉스' 대신 '중국'을 선택한 진짜 이유",
-      "theme": "메모리 경쟁·CXMT",
-      "tickers": [
-        "005930.KS",
-        "MU",
-        "000660.KS"
-      ],
-      "verdict": "검증(HBM위협 작음)",
-      "takeaway": "애플이 美 제재대상 中 CXMT 범용D램 채택 위해 상무부 라이선스 로비(5월~·CXMT 1Q26 $7.3B·+700%·점유 6~8%, Tom's·TechPowerUp). ★핵심=CXMT는 범용D램이지 HBM 아님→삼성·하닉·MU HBM 고수익 코어엔 직접위협 작음(Yahoo). 범용D램 저가경쟁만 삼성 신중요인.",
-      "views": null
+      "date": "2026-06-27",
+      "title": "경제사냥꾼이 보고 있는 7월 3가지 '핵심 투자 포인트'",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "Xf2qL3uSbx8",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
-      "date": "2026-06-30",
-      "title": "환율 24시간 거래 시작, 코스피 폭탄 터지는 진짜 이유",
-      "theme": "국장·FX·MSCI",
-      "tickers": [
-        "005930.KS"
-      ],
-      "verdict": "검증·일부미확인",
-      "takeaway": "7/6 원화 외환시장 24h 개장=MSCI 선진지수 편입 포석·외인 24h 삼성전자 거래(뉴스1·경향). 채널 '폭탄'=24h 유동성이 외인 매도·환율 변동성 증폭 경고(반전트리거 환율 1,500 꺾임 연결). 장기=디스카운트 해소, 단기=변동성. '폭탄' 강도는 미확인.",
-      "views": null
+      "date": "2026-06-27",
+      "title": "월가에서 갑자기 '한국 로봇주'를 대놓고 밀어주는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "oAi4tUfXv98",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-27",
+      "title": "삼성전자가 하이닉스처럼 '미국 상장'하면 벌어지는 일",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "DIQyd5gFdbM",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
+    },
+    {
+      "date": "2026-06-27",
+      "title": "초보 투자자가 '반드시 피해야 할' 주식 구분하는 방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미채점(소급 대기)",
+      "takeaway": null,
+      "views": null,
+      "id": "MG0KCMa4SDE",
+      "_verdict_src": "2026-08-12 API 누락감사 — 아카이브 미등록분 소급 등재",
+      "_backfill": true
     },
     {
       "date": "2026-06-27",

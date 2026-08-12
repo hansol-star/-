@@ -27,7 +27,7 @@
 import argparse, html, json, os, random, re, shutil, ssl, subprocess, sys, tempfile, time
 import urllib.parse
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone, timedelta, timezone
 
 # 채널 레지스트리. title_filter(정규식)가 있으면 매칭 안 되는 영상은 자막 추출에서 제외
 # (목록 JSON엔 filtered:true 로 표기만). 자산제곱(UCpTC-SMFjA3EDRhZIKOcKuQ)은 7/7 판단으로
@@ -53,6 +53,7 @@ HARD_KW = re.compile(r"증시|주식|주가|코스피|코스닥|반도체|삼성
 CHANNEL = CHANNELS["hunter"]["id"]  # --channel 인자로 재설정됨 (기본 = 경제사냥꾼)
 CHANNEL_NAME = CHANNELS["hunter"]["name"]
 TITLE_FILTER = None
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
 KST = timezone(timedelta(hours=9))
 
 
@@ -108,6 +109,43 @@ def discover_rss():
         dt = datetime.fromisoformat(pub.group(1)).astimezone(KST)
         items.append({"id": vid.group(1), "title": html.unescape(title.group(1)),
                       "published_kst": dt.strftime("%Y-%m-%d %H:%M"), "tab": "rss"})
+    return items
+
+
+def discover_catchup(per_tab=50):
+    """★[2026-08-12 신설] **마지막 수집 이후 전량**을 가져온다 — 누락의 근본 해소.
+
+    8/12 감사에서 확인된 구조적 누락 86건(커버리지 73%)의 원인은 둘이었다:
+      ① R1이 평일만 실행 → 누락의 28%가 토·일 업로드
+      ② `--max 10` 상한 + 저녁 몰림 → 39%가 17시 이후.
+         SKILL의 *"저녁분은 다음날 R1이 커버"* 전제가 **다음날도 10편 상한**이라 깨졌다.
+         (누락이 월·화에 집중된 것이 증거 — 주말 누적분이 월요일 상한에 걸린다)
+
+    ⇒ 고정 편수(N편)가 아니라 **아카이브의 마지막 날짜 이후 전부**를 가져온다.
+       월요일이면 금~일 3일치가 통째로 들어오고, 연휴 뒤엔 그만큼 더 들어온다.
+       API가 있어야 가능하다(RSS·스크레이프는 최신 N편만 보여준다).
+
+    키가 없으면 빈 리스트 → 기존 폴백 흐름 유지.
+    """
+    key = os.environ.get("YOUTUBE_API_KEY", "").strip()
+    if not key:
+        return []
+    # 아카이브 최신 날짜 = 우리가 마지막으로 본 지점
+    try:
+        import json as _j
+        arc = _j.load(open(os.path.join(REPO_ROOT, "data", "app", "hunter_archive.json"), encoding="utf-8"))
+        dates = [v.get("date") for v in arc.get("videos", []) if v.get("date")]
+        last = max(dates) if dates else None
+    except Exception:
+        last = None
+    if not last:
+        return discover_api(per_tab)
+    # 마지막 날 당일도 다시 훑는다(그날 저녁분이 빠졌을 수 있으므로)
+    after = f"{last}T00:00:00+09:00"
+    after = datetime.fromisoformat(after).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    items = discover_api(per_tab, after, None)
+    if items:
+        print(f"[INFO] catchup: 아카이브 최신({last}) 이후 {len(items)}건 열거", file=sys.stderr)
     return items
 
 
@@ -355,6 +393,8 @@ def fetch_transcript(vid, title_hint=""):
 def main():
     global CHANNEL, CHANNEL_NAME, TITLE_FILTER, OUTDIR
     ap = argparse.ArgumentParser()
+    ap.add_argument("--catchup", action="store_true",
+                    help="아카이브 최신 날짜 이후 전량 수집(고정 N편 상한 대신) — 주말·저녁 누락 해소용. API 키 필요")
     ap.add_argument("--after", help="RFC3339 시각 이후 업로드분만 (YouTube Data API 경로 전용, 예 2026-07-01T00:00:00Z)")
     ap.add_argument("--before", help="RFC3339 시각 이전 업로드분만 (과거 구간 소급 탐색용)")
     ap.add_argument("--channel", default="hunter", choices=sorted(CHANNELS),
@@ -381,7 +421,10 @@ def main():
                  for v in args.ids.split(",") if v.strip()]
     else:
         # 0차 = 공식 API(키 있을 때만). 없으면 즉시 빈 리스트라 기존 흐름 그대로.
-        items = discover_api(args.per_tab, getattr(args, "after", None), getattr(args, "before", None))
+        if getattr(args, "catchup", False):
+            items = discover_catchup(max(args.per_tab, 50))
+        else:
+            items = discover_api(args.per_tab, getattr(args, "after", None), getattr(args, "before", None))
         if items:
             print(f"[INFO] YouTube Data API 경로로 {len(items)}건 탐색", file=sys.stderr)
         try:

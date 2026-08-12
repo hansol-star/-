@@ -143,10 +143,17 @@ def hunter_scorecard(verdicts) -> dict:
     accuracy = (정확+근사) / 전체. 채널 신뢰도를 정량화해 '방향성 채택·숫자 교차검증'
     원칙을 데이터로 뒷받침한다. (전체 영상 아카이브 verdict 기준)
     """
-    b = {"정확": 0, "근사": 0, "시점": 0, "미확인": 0, "정정": 0, "과장": 0}
+    b = {"정확": 0, "근사": 0, "시점": 0, "미확인": 0, "정정": 0, "과장": 0,
+         "일반": 0, "미채점": 0}
     for v in verdicts:
-        v = str(v)
-        if "미확인" in v and "검증" not in v:
+        v = str(v or "").strip()
+        if not v or "미채점" in v:
+            # ★[8/12] 판정이 아예 없는 건 '미확인'(검증 시도했으나 확정 실패)이 아니라
+            # '미채점'(아직 안 봄)이다. 둘을 한 바구니에 넣으면 채널이 틀린 것처럼 보인다.
+            b["미채점"] += 1
+        elif "일반" in v:
+            b["일반"] += 1
+        elif "미확인" in v and "검증" not in v:
             b["미확인"] += 1
         elif "정정" in v or "오류" in v:
             b["정정"] += 1
@@ -159,10 +166,69 @@ def hunter_scorecard(verdicts) -> dict:
         elif "검증" in v or "개선" in v:
             b["정확"] += 1
         else:
-            b["미확인"] += 1
+            b["미채점"] += 1
     total = sum(b.values())
-    acc = round((b["정확"] + b["근사"]) / total * 100) if total else None
-    return {"buckets": b, "total": total, "accuracy_pct": acc}
+    # ★ 분모 규율 [8/12]: '일반 콘텐츠'(종목콜 없는 교육·원칙론)와 '미채점'(안 본 것)은
+    # 채널이 맞고 틀린 것과 무관하므로 정확도 분모에서 제외한다. 舊 계산은 이 둘을
+    # 전부 분모에 넣어 정확도를 35%로 눌렀다(실제 검증분 방향적중률은 84%).
+    judged = b["정확"] + b["근사"] + b["시점"] + b["정정"] + b["과장"] + b["미확인"]
+    scored = judged - b["미확인"]          # 판정이 확정된 것만
+    acc = round((b["정확"] + b["근사"]) / scored * 100) if scored else None
+    cov = round(judged / total * 100) if total else None
+    return {"buckets": b, "total": total, "accuracy_pct": acc,
+            "judged": judged, "scored": scored, "coverage_pct": cov}
+
+
+"""판정형 태그 판별 — `tag` 필드에는 판정([검증]/[정정]/[미확인])과
+티어 라벨('일일브리핑'·'월가리포트·심층' 등)이 섞여 들어온다. 후자를 verdict로
+승격시키면 스코어카드가 오염되므로 판정형만 통과시킨다."""
+VERDICT_WORDS = re.compile(r"검증|정정|미확인|방향성|근사|과장|시점")
+
+
+def _verdict_of(lv) -> str | None:
+    """latest_videos 항목에서 판정을 뽑는다.
+
+    ★[2026-08-12 배선 사고] 롤오버가 `lv.get("verdict")`만 읽었는데 실제 기입 필드는
+    `tag`라서 **아카이브로 넘어가며 판정이 통째로 유실**됐다(454건 중 263건이 '미확인'으로
+    집계 → 채널 정확도 35%로 저평가). 바로 옆 `takeaway`는 `summary or note` 폴백이
+    이미 있었는데 verdict만 빠져 있었다 — 같은 클래스의 결함이 옆에 남아 있던 셈.
+    ⇒ verdict → tag(판정형만) → takeaway 본문의 [태그] 순으로 회수한다.
+    """
+    v = (lv.get("verdict") or "").strip()
+    if v:
+        return v
+    t = (lv.get("tag") or "").strip()
+    if t and VERDICT_WORDS.search(t):
+        return t
+    return verdict_from_text(lv.get("summary") or lv.get("note") or lv.get("takeaway"))
+
+
+def verdict_from_text(text) -> str | None:
+    """요약 본문에 박힌 [검증]/[정정]/[미확인] 표기에서 판정을 유도.
+
+    기존 아카이브의 복합 표기 관례('검증·일부미확인'·'검증·일부정정')를 그대로 따른다.
+    본문에 아무 표기도 없으면 None — **추측으로 채우지 않는다**(미채점은 미채점으로 남긴다).
+    """
+    t = (text or "").strip()
+    if not t:
+        return None
+    # 콘텐츠 유형 라벨 = 검증 대상인 종목콜이 아님 → 정확도 분모에서 빼야 한다.
+    if re.match(r"\s*\[(정보성|원칙론|교육)\]", t):
+        return "일반 콘텐츠"
+    has_v = re.search(r"\[[^\]]*검증[^\]]*\]|검증정밀|검증 정밀|검증방향|검증 방향", t)
+    has_c = re.search(r"\[정정[^\]]*\]|정정\(", t)
+    has_u = re.search(r"\[미확인[^\]]*\]|미확인\)", t) or "미확인" in t
+    if has_v and has_c:
+        return "검증·일부정정"
+    if has_v and has_u:
+        return "검증·일부미확인"
+    if has_v:
+        return "검증"
+    if has_c:
+        return "정정"
+    if has_u:
+        return "미확인"
+    return None
 
 
 def _norm_title(t: str) -> str:
@@ -221,7 +287,7 @@ def rollover_hunter_archive(hunter, archive) -> bool:
             "title": lv.get("title"),
             "theme": lv.get("theme"),
             "tickers": lv.get("tickers") or [],
-            "verdict": lv.get("verdict"),
+            "verdict": _verdict_of(lv),
             "takeaway": (lv.get("summary") or lv.get("note") or "").strip() or None,
             "views": lv.get("views"),
         }

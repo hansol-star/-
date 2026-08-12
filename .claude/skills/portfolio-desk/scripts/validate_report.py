@@ -130,6 +130,76 @@ _BLOCKED_STATUS = ("결정대기", "불가", "재검토")   # 문제를 이미 �
 def _is_kr(ticker: str) -> bool:
     return bool(re.search(r"\.(KS|KQ)$", ticker or "")) or bool(re.fullmatch(r"\d{6}", ticker or ""))
 
+import pathlib  # noqa: E402  (가격밴드 검사용)
+
+
+def _kr_tick(price: float) -> int:
+    """KRX 호가단위(2023 개편 기준, 주식)."""
+    if price >= 500_000: return 1000
+    if price >= 200_000: return 1000
+    if price >= 50_000:  return 100
+    if price >= 20_000:  return 50
+    if price >= 5_000:   return 10
+    if price >= 2_000:   return 5
+    return 1
+
+
+def check_kr_price_band():
+    """국내 지정가 오더가 당일 가격제한폭(±30%) 안인지 검사.
+
+    ★[2026-08-12 실사고] LG전자 익절 지정가 **240,000원**이 당일 상한가 **236,000원**
+    (8/11 종가 181,700 × 1.3, 호가단위 1,000원 반영)을 4,000원 초과해 **주문 자체가
+    접수 거부**됐다. 판단(무엇을 얼마에 팔까)은 맞았는데 **그 주문이 물리적으로 접수
+    가능한지**를 아무도 확인하지 않았다 — 8/1 '분수주는 지정가가 안 걸린다'(AAPL)와
+    같은 클래스다. 8/2 '오더북에 들어간 것만 집행된다'의 숨은 전제 =
+    **애초에 오더북에 들어갈 수 있는 가격일 것**.
+
+    밴드는 매일 전일 종가로 재계산되므로 **하루짜리 제약**이다 → FAIL이 아니라 WARN으로
+    내고, "며칠 뒤면 들어간다"는 판단은 사람이 한다. 기준가는 캐시된 일봉(data/history)의
+    직전 종가를 쓰며, 캐시가 없으면 조용히 건너뛴다(네트워크 호출 안 함).
+    """
+    d = load("data/app/tasks.json")
+    if not d:
+        return
+    import glob as _glob
+    for o in d.get("orders", []) or []:
+        st = str(o.get("status", ""))
+        if any(k in st for k in _BLOCKED_STATUS) or "체결" in st or "취소" in st:
+            continue
+        tk = str(o.get("ticker") or "")
+        price = o.get("price")
+        if not _is_kr(tk) or not isinstance(price, (int, float)) or price <= 0:
+            continue
+        act = str(o.get("action", "")) + " " + str(o.get("label", ""))
+        if "시장가" in act:
+            continue
+        # 기준가 = 캐시된 일봉(data/history/<ticker>.csv "date,close")의 마지막 종가.
+        # ⚠️ 캐시가 오늘까지 안 왔으면 기준가가 낡아 밴드도 낡는다 → 경고에 기준일을 병기한다.
+        base, base_date = None, None
+        for fp in _glob.glob(f"data/history/{tk}.csv"):
+            try:
+                rows = [r for r in pathlib.Path(fp).read_text(encoding="utf-8").splitlines() if r.strip()]
+                if len(rows) > 1:
+                    last = rows[-1].split(",")
+                    base_date, base = last[0], float(last[1])
+            except Exception:
+                pass
+            break
+        if not base:
+            continue
+        tick = _kr_tick(base * 1.3)
+        cap = int(base * 1.3 // tick * tick)
+        floor = int(-(-(base * 0.7) // tick) * tick)
+        oid = o.get("id") or o.get("label") or tk
+        if price > cap:
+            warn(f"오더 접수불가 우려 [{oid}]: 지정가 {price:,.0f}원 > 상한가 "
+                 f"{cap:,}원(기준가 {base:,.0f}원 @{base_date}×1.3) — 밴드는 매일 재계산되니 "
+                 f"기준가가 {price/1.3:,.0f}원 이상이면 등록 가능")
+        elif price < floor:
+            warn(f"오더 접수불가 우려 [{oid}]: 지정가 {price:,.0f}원 < 하한가 "
+                 f"{floor:,}원(기준가 {base:,.0f}원 @{base_date}×0.7)")
+
+
 def check_order_feasibility():
     """tasks.json orders가 토스 주문 제약을 위반하는지 검사.
     지정가 주문인데 수량이 분수(미국) / 1주 미만(국내)이면 그 주문은 낼 수 없다."""
@@ -1155,7 +1225,7 @@ def main():
         print()
         sys.exit(1 if FAILS else 0)
 
-    check_stocks(); check_flows(); check_tasks(); check_order_feasibility()
+    check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules()
     check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
     check_feeds(); check_guru()

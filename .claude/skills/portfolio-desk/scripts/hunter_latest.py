@@ -110,6 +110,35 @@ def discover_rss():
     return items
 
 
+def discover_pagescrape(per_tab=15):
+    """폴백②: 채널 /videos·/shorts 페이지 HTML에서 videoId 직접 추출.
+
+    ★[2026-08-12 실사고] YouTube **RSS(feeds/videos.xml)가 3개 채널 전부 HTTP 404**로
+    죽었다(채널 페이지는 200 = 차단이 아니라 엔드포인트 문제). yt-dlp 폴백도 동시 실패해
+    `[FAIL] 탐색 전부 실패`가 났고, 그대로 뒀으면 **다음날 R1이 무인으로 조용히 실패**했다.
+
+    ⚠️ 한계 — 이 경로는 **ID만** 준다. YouTube가 채널 그리드를 신규 레이아웃으로 바꿔
+    `ytInitialData`의 `videoRenderer`가 없어 제목·게시시각은 못 얻는다(실측 확인).
+    ID만 있으면 `--ids`/`--fetch` 경로로 자막·메타는 정상 취득되므로 탐색용으로는 충분하다.
+    published_kst='?'라 날짜 필터를 못 거니 **캐시 대조로 신규만 골라내는 용도**로 쓴다.
+    """
+    items, seen = [], set()
+    for tab in ("videos", "shorts"):
+        try:
+            h = http(f"https://www.youtube.com/channel/{CHANNEL}/{tab}")
+        except Exception as ex:
+            print(f"[WARN] 페이지 스크레이프 실패({tab}): {ex}", file=sys.stderr)
+            continue
+        for vid in re.findall(r'"videoId":"([\w-]{11})"', h):
+            if vid in seen:
+                continue
+            seen.add(vid)
+            items.append({"id": vid, "title": "", "published_kst": "?", "tab": tab + ":scrape"})
+            if len([i for i in items if i["tab"].startswith(tab)]) >= per_tab:
+                break
+    return items
+
+
 def discover_ytdlp(per_tab):
     """폴백: yt-dlp flat-playlist (설치돼 있을 때만)."""
     if not shutil.which("yt-dlp"):
@@ -306,7 +335,14 @@ def main():
             items = discover_rss()
         except Exception as ex:
             print(f"[WARN] RSS 탐색 실패({ex}) — yt-dlp 폴백", file=sys.stderr)
+            items = []
+        if not items:
             items = discover_ytdlp(args.per_tab)
+        if not items:
+            # ★[8/12] RSS·yt-dlp가 동시에 죽는 경우가 실제로 나왔다 → 페이지 스크레이프 3차 폴백.
+            print("[WARN] RSS·yt-dlp 모두 실패 — 채널 페이지 스크레이프 폴백(ID만 취득)",
+                  file=sys.stderr)
+            items = discover_pagescrape(args.per_tab)
         if not items:
             print(f"[FAIL] 채널({CHANNEL_NAME}) 탐색 전부 실패 — 웹검색 폴백 사용 권장 "
                   f"(검색어: {CHANNEL_NAME} + 주제 + 날짜)")

@@ -608,13 +608,16 @@
     var arch = D.hunter_archive || [];
     if (sc && sc.total) {
       var bk = sc.buckets || {};
-      h += '<div class="scard"><div class="row between"><span class="sck">📊 채널 정확도 <span class="mut sm">(분석 ' + sc.total + '건)</span></span><span class="scacc">' + sc.accuracy_pct + '%</span></div>';
+      // ★[8/12] 분모 정정 — 정확도는 '판정이 확정된 것'만 분모로 쓴다.
+      // 舊 계산은 미채점·일반 콘텐츠까지 분모에 넣어 35%로 눌렸다(실제 84%).
+      var scored = sc.scored != null ? sc.scored : sc.total;
+      h += '<div class="scard"><div class="row between"><span class="sck">📊 채널 정확도 <span class="mut sm">(채점 ' + scored + '건 기준)</span></span><span class="scacc">' + sc.accuracy_pct + '%</span></div>';
       h += '<div class="scbar">';
-      var segs = [["정확", "#34d399", bk["정확"]], ["근사", "#7dd3fc", bk["근사"]], ["시점", "#9db4ff", bk["시점"]], ["미확인", "#ffd87a", bk["미확인"]], ["정정", "#fb6a6a", bk["정정"]], ["과장", "#f0883e", bk["과장"]]];
+      var segs = [["정확", "#34d399", bk["정확"]], ["근사", "#7dd3fc", bk["근사"]], ["시점", "#9db4ff", bk["시점"]], ["미확인", "#ffd87a", bk["미확인"]], ["정정", "#fb6a6a", bk["정정"]], ["과장", "#f0883e", bk["과장"]], ["일반", "#8b93a7", bk["일반"]], ["미채점", "#4a5163", bk["미채점"]]];
       segs.forEach(function (s) { if (s[2]) h += '<span class="scseg" style="flex:' + s[2] + ';background:' + s[1] + '" title="' + s[0] + ' ' + s[2] + '"></span>'; });
       h += '</div><div class="row wrap sclegend">';
       segs.forEach(function (s) { if (s[2]) h += '<span><span class="lg" style="background:' + s[1] + '"></span>' + s[0] + ' ' + s[2] + '</span>'; });
-      h += '</div><div class="mut xs" style="margin-top:6px">방향성 채택 · 숫자는 교차검증 전제. 정확+근사 = 방향 적중.</div></div>';
+      h += '</div><div class="mut xs" style="margin-top:6px">방향성 채택 · 숫자는 교차검증 전제. 정확+근사 = 방향 적중.<br>분모 = 판정 확정분만. <b>일반</b>(종목콜 없는 교육·원칙론)과 <b>미채점</b>(아직 안 본 것)은 채널의 적중과 무관해 제외 — 총 ' + sc.total + '건 중 검증 커버리지 ' + (sc.coverage_pct != null ? sc.coverage_pct + '%' : '—') + '. ⚠️ 미채점분이 채점분과 같은 품질이라는 보장은 없다(선택 편향).</div></div>';
     }
     if (arch.length) h += '<div class="nav"><a class="navbtn" href="#archive">🗂️ 전체 영상 아카이브 (' + arch.length + ')</a></div>';
 

@@ -25,6 +25,7 @@
   python3 hunter_latest.py --channel jisik --fetch --max 3  # 지식인사이드(필터 적용)
 """
 import argparse, html, json, os, random, re, shutil, ssl, subprocess, sys, tempfile, time
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
@@ -107,6 +108,52 @@ def discover_rss():
         dt = datetime.fromisoformat(pub.group(1)).astimezone(KST)
         items.append({"id": vid.group(1), "title": html.unescape(title.group(1)),
                       "published_kst": dt.strftime("%Y-%m-%d %H:%M"), "tab": "rss"})
+    return items
+
+
+def discover_api(per_tab=15, published_after=None, published_before=None):
+    """탐색 0차: **YouTube Data API v3** (환경변수 `YOUTUBE_API_KEY` 있을 때만).
+
+    ★[2026-08-12 신설] 이 경로가 필요한 이유는 두 가지다.
+    ① **안정성** — 8/12에 RSS가 3채널 동시 404, yt-dlp도 동시 실패해 무인 R1이
+       조용히 죽을 뻔했다. 공식 API는 그 경로들과 독립이라 1차로 두면 가장 안전하다.
+    ② **과거 구간 열거** — 페이지 스크레이프는 최근 30편만 보여서 6주 전 영상을 못 찾는다.
+       `publishedAfter/Before`로 **날짜 구간 전량**(쇼츠 포함)을 뽑을 수 있는 건 이 경로뿐이다.
+       실제로 8/12에 7/1 영상 3건을 끝내 특정 못 해 `미채점(원본 특정 실패)`로 남겼다.
+
+    키가 없으면 조용히 빈 리스트를 반환한다 → 기존 RSS·yt-dlp·스크레이프 폴백이 그대로 동작.
+    할당량: search.list 1회 = 100 units / 일 10,000 units(무료) → 하루 100회, 우리 용도엔 충분.
+    """
+    key = os.environ.get("YOUTUBE_API_KEY", "").strip()
+    if not key:
+        return []
+    params = {
+        "key": key, "channelId": CHANNEL, "part": "snippet", "type": "video",
+        "order": "date", "maxResults": str(min(max(per_tab, 1), 50)),
+    }
+    if published_after:
+        params["publishedAfter"] = published_after
+    if published_before:
+        params["publishedBefore"] = published_before
+    url = "https://www.googleapis.com/youtube/v3/search?" + urllib.parse.urlencode(params)
+    try:
+        data = json.loads(http(url))
+    except Exception as ex:
+        print(f"[WARN] YouTube Data API 실패({ex}) — 키/할당량 확인 후 폴백 진행", file=sys.stderr)
+        return []
+    items = []
+    for it in data.get("items", []):
+        vid = (it.get("id") or {}).get("videoId")
+        sn = it.get("snippet") or {}
+        if not vid:
+            continue
+        pub = sn.get("publishedAt", "")
+        try:
+            kst = datetime.fromisoformat(pub.replace("Z", "+00:00")).astimezone(KST).strftime("%Y-%m-%d %H:%M")
+        except Exception:
+            kst = "?"
+        items.append({"id": vid, "title": html.unescape(sn.get("title", "")),
+                      "published_kst": kst, "tab": "api"})
     return items
 
 
@@ -308,6 +355,8 @@ def fetch_transcript(vid, title_hint=""):
 def main():
     global CHANNEL, CHANNEL_NAME, TITLE_FILTER, OUTDIR
     ap = argparse.ArgumentParser()
+    ap.add_argument("--after", help="RFC3339 시각 이후 업로드분만 (YouTube Data API 경로 전용, 예 2026-07-01T00:00:00Z)")
+    ap.add_argument("--before", help="RFC3339 시각 이전 업로드분만 (과거 구간 소급 탐색용)")
     ap.add_argument("--channel", default="hunter", choices=sorted(CHANNELS),
                     help="채널 slug (기본 hunter=경제사냥꾼)")
     ap.add_argument("--fetch", action="store_true", help="자막까지 추출")
@@ -331,8 +380,13 @@ def main():
         items = [{"id": v, "title": "", "published_kst": "?", "tab": "manual"}
                  for v in args.ids.split(",") if v.strip()]
     else:
+        # 0차 = 공식 API(키 있을 때만). 없으면 즉시 빈 리스트라 기존 흐름 그대로.
+        items = discover_api(args.per_tab, getattr(args, "after", None), getattr(args, "before", None))
+        if items:
+            print(f"[INFO] YouTube Data API 경로로 {len(items)}건 탐색", file=sys.stderr)
         try:
-            items = discover_rss()
+            if not items:
+                items = discover_rss()
         except Exception as ex:
             print(f"[WARN] RSS 탐색 실패({ex}) — yt-dlp 폴백", file=sys.stderr)
             items = []

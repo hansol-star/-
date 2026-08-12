@@ -108,6 +108,11 @@
         "done": false
       },
       {
+        "id": "w-0813-api",
+        "text": "[8/13] YouTube Data API v3 키 발급(무료·5분) → YOUTUBE_API_KEY 등록 → 영상 미채점 잔여 3건 소급 채점(코드 배선 완료)",
+        "done": false
+      },
+      {
         "id": "w-0812-1",
         "text": "8/13 AAPL 트림 2단계 재평가 (CPI 후 미체결이면 가격 낮춰 트림)",
         "done": false

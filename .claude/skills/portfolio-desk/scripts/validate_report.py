@@ -144,6 +144,133 @@ def _kr_tick(price: float) -> int:
     return 1
 
 
+def check_history_cache():
+    """data/history 일봉 캐시의 정지 여부 검사 [8/12 신설].
+
+    vol_gauge·garch·tranche_rules(하드플로어)·drawdown·chart_read·가격밴드 검사가
+    전부 이 캐시를 읽는다. 낡으면 **룰 판정이 낡은 값으로 나온다** — 8/12에 실제로
+    67/70 종목이 최대 8일 정지 상태였고, 그 캐시로 계산한 상한가가 4,000원 틀려
+    LG전자 오더 경고가 어긋났다. 거래일 기준이 아니라 달력일 기준의 느슨한 임계를 쓴다.
+    """
+    import glob as _glob
+    import csv as _csv
+    files = _glob.glob("data/history/*.csv")
+    if not files:
+        return
+    # ⚠️ 추적 대상만 본다 — 과거에 담았다가 빠진 종목(IBM 등)의 잔존 파일까지 FAIL로 잡으면
+    # 게이트가 소음이 되고, 소음이 되면 사람이 무시한다. 유니버스 = 보유 + 워치 + 지수/매크로.
+    pf = load(".claude/skills/portfolio-desk/portfolio.json") or {}
+    tracked = set()
+    for it in (list((pf.get("holdings") or {}).get("kr") or [])
+               + list((pf.get("holdings") or {}).get("us") or [])
+               + list(pf.get("watchlist") or [])):
+        if (it or {}).get("ticker"):
+            tracked.add(it["ticker"])
+    today = dt.date.today()
+    stale, orphan = [], []
+    for fp in files:
+        sym = os.path.basename(fp)[:-4]
+        # 지수·환율·원자재는 유니버스 목록엔 없지만 룰 판정(매크로 오버레이)에 쓰이므로 추적 대상.
+        # ⚠️ 파일명에서 Yahoo 심볼의 `=`·`^`가 `_`로 치환된다(BZ=F→BZ_F, KRW=X→KRW_X, ^GSPC→_GSPC)
+        #    → 접두만 보면 매크로를 '고아'로 오분류한다(8/12 실측).
+        _macro = (sym.startswith(("^", "_"))
+                  or sym.endswith(("_F", "_X", ".SS", ".IS", ".TA", ".NYB"))
+                  or "-" in sym)
+        if sym not in tracked and not _macro:
+            orphan.append(sym)
+            continue
+        try:
+            rows = pathlib.Path(fp).read_text(encoding="utf-8").splitlines()
+            last = rows[-1].split(",")[0]
+            age = (today - dt.date.fromisoformat(last)).days
+        except Exception:
+            continue
+        if age > HISTORY_MAX_STALE_DAYS:
+            stale.append((sym, last, age))
+    if orphan:
+        info = ", ".join(sorted(orphan)[:6])
+        warn(f"history 캐시에 추적목록 밖 잔존 파일 {len(orphan)}개 — {info}"
+             f"{' 외' if len(orphan) > 6 else ''} (워치 편입이면 portfolio.json에 등록, "
+             f"아니면 정리 대상 — 8/12 ANET '워치 전환' 미배선이 이렇게 발각됐다)")
+    if not stale:
+        return
+    stale.sort(key=lambda x: -x[2])
+    worst = ", ".join(f"{n}({a}d)" for n, _, a in stale[:5])
+    msg = (f"history 캐시 정지 {len(stale)}/{len(files)}종목 (최대 {stale[0][2]}일) — {worst}"
+           f"{' 외' if len(stale) > 5 else ''}. `{HISTORY_CMD}` 실행 필요 — "
+           f"vol_gauge·하드플로어·가격밴드 판정이 낡은 값으로 나온다")
+    (fail if stale[0][2] > HISTORY_MAX_STALE_DAYS * 2 else warn)(msg)
+
+
+def check_high_low_claims():
+    """'신고가·신저가' 주장을 일봉 캐시로 검증한다.
+
+    ★[2026-08-12 실사고] v73이 **LG전자 "52주 신고가"**를 3곳에 실었는데 오류였다.
+    실제 52주 고가는 종가 **392,500원(6/2)**·장중 438,000원이고 당일 205,000원은
+    고가 대비 **-47.8%**였다. 오늘 212,500원은 '당일 고가'일 뿐인데
+    토스 1일 차트의 '최고/최저' 표기를 52주 값으로 오독하기 쉽고,
+    데스크가 매체 헤드라인("52주 신고가 경신")을 검증 없이 받아썼다.
+
+    ⇒ 신고가 주장은 **매체가 아니라 우리 캐시**로 판정한다. 종가 기준이라
+    장중 신고가는 못 잡지만, '52주 고가 대비 -47.8%'처럼 **명백히 어긋나는 주장**은 잡는다.
+    """
+    import glob as _glob
+    import csv as _csv
+    latest = newest_report_file()
+    if not latest:
+        return
+    try:
+        body = pathlib.Path("docs/reports") .joinpath(latest).read_text(encoding="utf-8")
+    except Exception:
+        try:
+            body = pathlib.Path(latest).read_text(encoding="utf-8")
+        except Exception:
+            return
+    # "<종목명> ... 52주 신고가" 패턴 — 같은 줄에 있을 때만(문맥 밖 오탐 방지)
+    # 종목명 → 티커. stocks.json에는 이름 필드가 없다(8/12 음성테스트에서 확인) →
+    # portfolio.json의 label을 정본으로 쓴다(보유 kr/us + 워치리스트).
+    names = {}
+    pf = load(".claude/skills/portfolio-desk/portfolio.json") or {}
+    buckets = list((pf.get("holdings") or {}).get("kr") or []) \
+        + list((pf.get("holdings") or {}).get("us") or []) \
+        + list(pf.get("watchlist") or [])
+    for it in buckets:
+        lb, tk = (it or {}).get("label"), (it or {}).get("ticker")
+        if lb and tk:
+            names[lb] = tk
+    for line in body.splitlines():
+        if "신고가" not in line and "신저가" not in line:
+            continue
+        # 자기 정정문("…신고가는 오류다")이 스스로를 FAIL시키는 위양성 차단.
+        if any(k in line for k in ("오류", "아님", "정정", "🔧", "재발방지")):
+            continue
+        for nm, tk in names.items():
+            if nm not in line:
+                continue
+            fp = f"data/history/{tk}.csv"
+            if not _glob.glob(fp):
+                continue
+            try:
+                rows = list(_csv.reader(pathlib.Path(fp).read_text(encoding="utf-8").splitlines()))[1:]
+                ser = [(r[0], float(r[1])) for r in rows if len(r) > 1 and r[1]]
+            except Exception:
+                continue
+            if len(ser) < 30:
+                continue
+            cur = ser[-1][1]
+            win = ser[-252:] if "52주" in line or "신고가" in line else ser[-252:]
+            hi = max(win, key=lambda x: x[1])
+            lo = min(win, key=lambda x: x[1])
+            oid = f"{nm}"
+            if "신고가" in line and cur < hi[1] * 0.98:
+                fail(f"신고가 주장 오류 [{oid}]: 현재 종가 {cur:,.0f} vs 52주 고가 "
+                     f"{hi[1]:,.0f}(@{hi[0]}) = {cur/hi[1]-1:+.1%} — 신고가 아님. "
+                     f"매체 헤드라인이 아니라 data/history 캐시로 확인할 것")
+            if "신저가" in line and cur > lo[1] * 1.02:
+                fail(f"신저가 주장 오류 [{oid}]: 현재 종가 {cur:,.0f} vs 52주 저가 "
+                     f"{lo[1]:,.0f}(@{lo[0]}) = {cur/lo[1]-1:+.1%} — 신저가 아님")
+
+
 def check_kr_price_band():
     """국내 지정가 오더가 당일 가격제한폭(±30%) 안인지 검사.
 
@@ -806,6 +933,14 @@ COVERAGE_LAYERS = [
     ("transcripts.json",  30,  "transcripts.py --save",    "어닝콜 전문 Q&A (수요·공급 코멘트 · 분기 cadence)"),
 ]
 
+# ★[8/12 신설] data/history 일봉 캐시 — 위 표는 data/app/*.json만 봐서
+# **정작 가장 널리 쓰이는 레이어를 감시하지 않고 있었다.** 8/12 실측: 70종목 중 67종목이
+# 최대 8일 정지(대부분 8/4~8/5). 이 캐시는 vol_gauge·garch·tranche_rules(하드플로어)·
+# drawdown·chart_read·가격밴드 검사가 전부 읽는다 → 낡으면 **룰 판정 자체가 낡는다**.
+# 8/10 교훈("루틴에 배선된 것만 갱신된다")의 정확한 재발 — 게이트에 없으면 조용히 상한다.
+HISTORY_MAX_STALE_DAYS = 3
+HISTORY_CMD = "history_backfill.py"
+
 
 # ─────────────────── 폐기 룰 잔존 감지 [8/5 신설] ───────────────────
 # 왜: 8/5에 desk_playbook.md risk-desk 고정 룰에서 **7/30에 폐기된 룰 두 개**가 발견됐다
@@ -1225,7 +1360,7 @@ def main():
         print()
         sys.exit(1 if FAILS else 0)
 
-    check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band()
+    check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band(); check_high_low_claims(); check_history_cache()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules()
     check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
     check_feeds(); check_guru()

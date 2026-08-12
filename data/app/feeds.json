@@ -1,15 +1,23 @@
 {
  "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
- "updated": "2026-08-11",
- "source": "2026-08-11 R1 영상 프리페치 루틴 — 수페TV·지식인사이드 둘 다 신규 없음(수페 최신 8/8, 지식인 최신 투자콘텐츠 8/9 EP.158 유지). 8/8~8/9 캐시 그대로.",
+ "updated": "2026-08-12",
+ "source": "2026-08-12 R1 영상 프리페치 루틴 — 수페TV 신규 1편(J12wxfY5RSM, ISA개정안 정책의견), 지식인사이드 신규 없음(최신 투자콘텐츠 EP.158 8/9 유지, 8/10~12 필터링된 4편은 비투자 콘텐츠).",
  "channels": {
   "supe": {
    "name": "수페TV",
    "channel_id": "UCfnqgWlC5IvJEAPTmyjaixA",
    "channel_note": "주 2~3회 주간 시장랩업. 지수·섹터·수급·13F·실적일정까지 구체 수치 多 — 보유종목(MU·AAPL·META·MSFT·NVDA·GOOGL) 직결 주장이 많아 [검증/정정] 태깅·조건트래커 가치 높음. 배당·ETF 성향(커버드콜·SCHD)은 정훈 스타일과 결이 다름 → 종목·테마 팩트 위주 채택.",
-   "headline": "[8/10] 신규 1편(8/8, 9eaa4ZpmskA) — 美4대지수 주간 동반상승(오라클·팔란티어·엔비디아 강세), ISA 개편 대응, '타이밍 맞추려는 순간 투자가 무너진다' 원칙론.",
+   "headline": "[8/12] 신규 1편(8/11, J12wxfY5RSM) — ISA 개정안 정책비판+대안제시(가입기간 무기한·중도인출 자유화·점진적 비과세), 정훈 포트 직결 종목콜 없음.",
    "setups": [],
    "latest_videos": [
+    {
+     "id": "J12wxfY5RSM",
+     "date": "2026-08-11",
+     "title": "ISA 개정안 이렇게 바꿔야 합니다. (To. 재정경제부)",
+     "tag": "정책의견·1~2줄티어",
+     "tickers": [],
+     "summary": "8/5 재정경제부 ISA 세법개정안(만기5년제한·미사용한도이월폐지·생산적금융ISA신설) 발표 후 여론반발로 대통령 재검토 지시[방향성 서술]. 채널 제안: 가입기간 무기한·중도인출 자유화·투자연수별 점진적 비과세·국내주식30%+시 한도증액. 해외비교(영국·일본·캐나다)[미확인]. 정훈 포트폴리오 직결 종목콜 없음."
+    },
     {
      "id": "9eaa4ZpmskA",
      "date": "2026-08-08",

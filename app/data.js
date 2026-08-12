@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-12 18:13 KST",
+  "generated_at": "2026-08-12 18:34 KST",
   "as_of": "2026-08-12 (수) 17:0x KST · 마감 확정",
   "source_report": "docs/reports/report_v73_2026-08-12.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1416.33
+    "usdkrw": 1414.44
   },
   "totals": {
-    "assets_krw": 8167840,
-    "stocks_value_krw": 7983812,
+    "assets_krw": 8159760,
+    "stocks_value_krw": 7975732,
     "cash_krw": 184028,
-    "day_change_krw": 54577,
+    "day_change_krw": 54634,
     "day_change_pct": 0.69,
-    "total_pnl_krw": -60542,
-    "total_pnl_pct": -0.75
+    "total_pnl_krw": -68623,
+    "total_pnl_pct": -0.85
   },
   "safety": {
     "pin": 7500,
@@ -34,7 +34,7 @@ window.APP_DATA = {
       "label": "코스닥",
       "ticker": "^KQ11",
       "price": 858.91,
-      "change_pct": 0.12
+      "change_pct": 0.52
     },
     {
       "label": "S&P500",
@@ -781,9 +781,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 217.5,
       "change_pct": -0.02,
-      "value_krw": 1582833,
+      "value_krw": 1580720,
       "pnl_pct": 9.02,
-      "pnl_krw": 89741,
+      "pnl_krw": 87629,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -878,9 +878,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 599.12,
       "change_pct": 0.71,
-      "value_krw": 958109,
+      "value_krw": 956830,
       "pnl_pct": -5.5,
-      "pnl_krw": -84503,
+      "pnl_krw": -85781,
       "outlook": "core",
       "stars": 3,
       "score": 68,
@@ -961,8 +961,7 @@ window.APP_DATA = {
         588.77,
         589.9,
         592.1,
-        594.92,
-        599.12
+        594.92
       ],
       "sector": "빅테크"
     },
@@ -975,9 +974,9 @@ window.APP_DATA = {
       "cost": 648.75,
       "price": 708.42,
       "change_pct": -0.31,
-      "value_krw": 1072217,
+      "value_krw": 1070786,
       "pnl_pct": 9.2,
-      "pnl_krw": 62464,
+      "pnl_krw": 61033,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1076,9 +1075,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 503.81,
       "change_pct": -0.44,
-      "value_krw": 1029669,
+      "value_krw": 1028295,
       "pnl_pct": 22.82,
-      "pnl_krw": 167539,
+      "pnl_krw": 166165,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1167,9 +1166,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 304.91,
       "change_pct": -1.09,
-      "value_krw": 441558,
+      "value_krw": 440969,
       "pnl_pct": 18.58,
-      "pnl_krw": 58617,
+      "pnl_krw": 58028,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1264,9 +1263,9 @@ window.APP_DATA = {
       "cost": 353.62,
       "price": 343.8,
       "change_pct": -3.84,
-      "value_krw": 860239,
+      "value_krw": 859092,
       "pnl_pct": -2.78,
-      "pnl_krw": -49666,
+      "pnl_krw": -50814,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1363,9 +1362,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 145.48,
       "change_pct": -3.69,
-      "value_krw": 44339,
+      "value_krw": 44280,
       "pnl_pct": -37.33,
-      "pnl_krw": -28413,
+      "pnl_krw": -28472,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1462,9 +1461,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 868.52,
       "change_pct": 0.87,
-      "value_krw": 24603,
+      "value_krw": 24571,
       "pnl_pct": 15.96,
-      "pnl_krw": 2784,
+      "pnl_krw": 2751,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1559,9 +1558,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 416.08,
       "change_pct": -1.5,
-      "value_krw": 41945,
+      "value_krw": 41889,
       "pnl_pct": -1.18,
-      "pnl_krw": -1706,
+      "pnl_krw": -1762,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -2990,7 +2989,7 @@ window.APP_DATA = {
       1422.3,
       1407.0,
       1417.31,
-      1416.41
+      1414.44
     ]
   },
   "kospi_history": {

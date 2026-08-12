@@ -65,6 +65,21 @@ except Exception:
 
 phone_ok = (9 * 60 <= hm <= 20 * 60 + 50) if wd >= 5 else (17 * 60 + 30 <= hm <= 20 * 60 + 50)
 
+# 📌 당일 지시 채널 [2026-08-12 신설] — 정훈이 대화 세션에서 내린 '오늘만' 지시를 그날 모든 세션
+# (무인 루틴 포함)에 전달한다. 루틴 프롬프트는 에이전트가 못 고치므로(8/6 확정 — http_api 트리거는
+# update_trigger 거부) 배선은 코드 쪽에 심는다. date가 오늘(KST)일 때만 노출 = 자동 만료.
+directive_line = ""
+try:
+    with open("data/app/session_directive.json", encoding="utf-8") as f:
+        _d = json.load(f)
+    if _d.get("date") == now_kst.strftime("%Y-%m-%d") and _d.get("text"):
+        _scope = _d.get("scope") or "전체 세션"
+        directive_line = (
+            f"\n- 📌 **오늘 지시(정훈 · {_scope} · 오늘 한정)**: {_d['text']}"
+        )
+except Exception:
+    pass
+
 ctx = (
     "[세션 실측 앵커 — SessionStart 훅 자동 주입 (★7/6 날짜 앵커링 재발방지 기계화)]\n"
     f"- 오늘(KST): {now_kst.strftime('%Y-%m-%d')} ({day_kr}) {now_kst.strftime('%H:%M')} — 이 앵커가 날짜의 정본. 직전 보고서의 '오늘/다음 세션' 서사는 참조용.\n"
@@ -73,6 +88,7 @@ ctx = (
     f"- 최신 보고서: {best or '없음'} → 새 거래일 보고서는 v{next_v} (직전 보고서에 부록으로 덧붙이지 말 것)\n"
     f"- 정훈 폰: {'지금 가용' if phone_ok else '지금 불가'} (평일 17:30–20:50 / 주말 09:00–20:50 KST)"
     + tf_line
+    + directive_line
 )
 
 print(json.dumps({"hookSpecificOutput": {"hookEventName": "SessionStart",

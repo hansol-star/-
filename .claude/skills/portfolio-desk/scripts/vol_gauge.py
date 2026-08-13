@@ -28,8 +28,10 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import math
+import os
 import statistics
 import sys
 import urllib.error
@@ -48,6 +50,10 @@ except Exception:  # 임포트 실패 시 최소 폴백(코스피·코스닥)
     _IDX = [("코스피", "^KS11"), ("코스닥", "^KQ11")]
 
 YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+# 로컬 일봉 캐시(history_backfill.py 관리) — 폭풍 %ile 재현성의 바닥.
+# ⚠️ 경로 규칙은 history_backfill.HIST_DIR와 **반드시 동일**해야 한다(두 벌로 두면 갈라진다).
+_HERE = os.path.dirname(os.path.abspath(__file__))
+HISTORY_DIR = os.path.normpath(os.path.join(_HERE, "..", "..", "..", "..", "data", "history"))
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 TRADING_DAYS = 252  # 연율화 상수
 
@@ -70,19 +76,82 @@ def _regime(pct: float | None) -> str:
     return "극단"
 
 
-def fetch_closes(symbol: str, rng: str = "2y", timeout: float = 15.0):
-    """Yahoo chart에서 (일자 없이) 유효 종가 리스트를 최신순 아님·시간순으로 반환.
-    실패 시 None. null 종가(휴장·정지)는 건너뛴다(수익률은 연속 유효종가로 계산)."""
+def _cache_path(symbol: str) -> str:
+    """history_backfill.py와 동일한 파일명 규칙(^→_, =→_, /→_)."""
+    safe = symbol.replace("^", "_").replace("=", "_").replace("/", "_")
+    return os.path.join(HISTORY_DIR, f"{safe}.csv")
+
+
+def _load_cache(symbol: str) -> dict:
+    """data/history/<sym>.csv → {date: close}. 없으면 빈 dict."""
+    p = _cache_path(symbol)
+    out: dict[str, float] = {}
+    try:
+        with open(p, encoding="utf-8") as f:
+            next(f, None)  # header: date,close
+            for line in f:
+                d, _, c = line.strip().partition(",")
+                if d and c:
+                    try:
+                        out[d] = float(c)
+                    except ValueError:
+                        pass
+    except OSError:
+        pass
+    return out
+
+
+def _fetch_dated(symbol: str, rng: str, timeout: float) -> dict:
+    """Yahoo chart → {date: close}. 실패 시 빈 dict. null 종가는 건너뛴다."""
     url = YAHOO_CHART.format(symbol=urllib.parse.quote(symbol)) + f"?interval=1d&range={rng}"
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             data = json.loads(r.read().decode())
         res = data["chart"]["result"][0]
+        ts = res.get("timestamp") or []
         closes = res["indicators"]["quote"][0]["close"]
-        return [c for c in closes if c is not None]
-    except (urllib.error.HTTPError, urllib.error.URLError, KeyError, IndexError, TypeError, ValueError):
+        out = {}
+        for t, c in zip(ts, closes):
+            if c is None:
+                continue
+            out[dt.datetime.utcfromtimestamp(t).strftime("%Y-%m-%d")] = float(c)
+        return out
+    except (urllib.error.HTTPError, urllib.error.URLError, KeyError,
+            IndexError, TypeError, ValueError, OSError):
+        return {}
+
+
+def fetch_closes(symbol: str, rng: str = "2y", timeout: float = 15.0):
+    """시간순 유효 종가 리스트. 실패 시 None.
+
+    ★[8/13 결함 수정 — 폭풍 %ile 비결정성] 舊 구현은 Yahoo 응답의 종가 배열에서
+    null만 걸러 **일자를 버린 리스트**를 반환했다. 그런데 Yahoo가 동일 요청에
+    **호출마다 다른 개수의 봉**(실측 498 vs 501, 첫·끝 종가는 동일)을 돌려주는 바람에
+    252일 분포 창의 내용이 흔들려 `storm_pct`가 **72.2 ↔ 75.4로 튀었다.**
+    하필 하드플로어 임계가 70이라, **같은 시점에 매수 허용 여부가 호출마다 뒤집힐 수**
+    있었다(8/13 실측: triggers.py 75%ile vs tranche_rules.py 72%ile 동시 출력).
+
+    ⇒ 수정: ①일자를 유지해 **date 키로 병합·중복제거** ②로컬 일봉 캐시
+    (`data/history/`, history_backfill.py가 관리)를 과거 구간의 정본으로 깔고
+    Yahoo는 **최신 봉 보충용**으로만 쓴다. 캐시가 없으면 Yahoo 단독으로 동작(하위호환).
+
+    이 수정은 룰을 바꾸지 않는다 — 8/5에 `vol_gauge`를 폭풍 %ile **정본**으로 택한
+    근거가 *"닫힌 계산이라 재현된다"*였는데 실제로는 재현되지 않고 있었다.
+    그 결정을 바꾸는 게 아니라 **전제를 실제로 성립시키는** 수정이다.
+    (정본 = docs/research/storm_pct_canon_2026-08-05.md)
+    """
+    merged = _load_cache(symbol)
+    # 캐시가 이미 가진 날짜는 **캐시가 정본**이고, Yahoo는 캐시에 없는 최신 봉만 채운다.
+    #   · 덮어쓰기로 두면 Yahoo가 같은 날짜에 미세하게 다른 종가를 돌려줄 때 RV가 흔들린다
+    #     (실측 잔여 편차 rv 13.9 ↔ 14.0 → storm 71.4 ↔ 72.2).
+    #   · 두 소스가 **같은 필드**(indicators.quote[0].close, raw)를 쓰므로 seam 없음
+    #     — history_backfill.py:113과 동일. 조정종가/원종가 혼입 아님.
+    for d, c in _fetch_dated(symbol, rng, timeout).items():
+        merged.setdefault(d, c)
+    if not merged:
         return None
+    return [merged[d] for d in sorted(merged)]
 
 
 def log_returns(closes: list[float]) -> list[float]:

@@ -126,8 +126,16 @@ def chk_youtube_api():
 
 def chk_youtube_captions():
     """innertube 자막 경로 — hunter_latest가 쓰는 실제 경로.
-    ⚠️ 429 = 봇플래그(일시적 레이트리밋)이며 hunter_latest는 60초 백오프로 자동 복구한다
-    (8/12 실측 3회 전부 복구). 여기서도 1회 백오프 후 판정한다."""
+    ⚠️ 429 = 봇플래그(일시적 레이트리밋)이며 hunter_latest는 60→120→240초 백오프로 자동
+    복구한다(8/12·8/13 실측 전부 복구).
+
+    ★[8/13 수정 — 없는 장애를 만들지 않는다] 舊 구현은 10초 백오프 1회 후에도 429면
+    **🔴 실패**로 찍었다. 그런데 실사용 백오프는 60초부터라 10초는 애초에 부족했고,
+    같은 날 실제로는 자막 3건을 정상 추출한 상태에서 헬스체크만 빨간불이었다.
+    상시 빨간불은 읽히지 않는다 — 이 도구가 잡아야 할 **진짜 죽음**(8/1 FMP형)을
+    가리게 된다. ⇒ 429가 지속되면 실패가 아니라 **⚪(레이트리밋·폴백 동작)**로 보고한다.
+    실패로 올려야 하는 건 429가 아니라 '자막 트랙 자체가 안 나오는' 경우다.
+    (chk_naver 주석과 같은 원칙: 점검 도구가 본 스크립트와 다르게 굴면 없는 장애를 만든다.)"""
     url = "https://www.youtube.com/watch?v=lnU78beHI9E"
     try:
         st, body = _get(url)
@@ -135,7 +143,13 @@ def chk_youtube_captions():
         if e.code != 429:
             raise
         time.sleep(10)
-        st, body = _get(url)
+        try:
+            st, body = _get(url)
+        except urllib.error.HTTPError as e2:
+            if e2.code != 429:
+                raise
+            return None, ("429 레이트리밋 지속 — 실패 아님. hunter_latest는 60~240초 "
+                          "백오프로 복구한다(당일 자막 추출 실적으로 확인). 점검 시점만의 상태")
     ok = "captionTracks" in body or "playerCaptionsTracklistRenderer" in body
     return ok, "자막 트랙 노출" if ok else "자막 트랙 미노출(봇플래그 가능)"
 

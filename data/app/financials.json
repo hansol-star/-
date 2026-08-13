@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-12",
+ "updated": "2026-08-13",
  "covered": [
   "005380.KS",
   "005930.KS",
@@ -26,7 +26,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2026-01-25",
@@ -628,7 +628,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-08-28",
@@ -1206,7 +1206,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-09-27",
@@ -1797,7 +1797,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2026-06-30",
@@ -2410,7 +2410,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",
@@ -3000,7 +3000,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-11-02",
@@ -3603,7 +3603,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4223,7 +4223,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4432,6 +4432,47 @@
     }
    ],
    "quarterly": [
+    {
+     "end": "2026-06-30",
+     "period": "quarterly",
+     "revenue": 60801000000,
+     "gross_profit": null,
+     "operating_income": 18775000000,
+     "net_income": 15848000000,
+     "eps_diluted": 6.18,
+     "shares_diluted": 2566000000,
+     "rnd": 21656000000,
+     "assets": 449956000000,
+     "liabilities": 188735000000,
+     "equity": 261221000000,
+     "cash": 15462000000,
+     "inventory": null,
+     "receivables": 21752000000,
+     "assets_current": 125475000000,
+     "liabilities_current": 56379000000,
+     "deferred_revenue": null,
+     "cfo": null,
+     "capex": null,
+     "buyback": null,
+     "total_debt": 83664000000,
+     "fcf": null,
+     "_derived": [],
+     "gross_margin": null,
+     "op_margin": 0.3088,
+     "net_margin": 0.2607,
+     "fcf_margin": null,
+     "roe": 0.0607,
+     "debt_to_equity": 0.3203,
+     "current_ratio": 2.2256,
+     "net_cash": -68202000000,
+     "revenue_yoy": 43.69,
+     "eps_yoy": -3.888,
+     "net_income_yoy": -4.7825,
+     "inventory_yoy": null,
+     "receivables_yoy": 49.8691,
+     "shares_yoy": -0.9266,
+     "deferred_yoy": null
+    },
     {
      "end": "2026-03-31",
      "period": "quarterly",
@@ -4718,47 +4759,6 @@
      "receivables_yoy": 19.6223,
      "shares_yoy": -2.3074,
      "deferred_yoy": 25.3138
-    },
-    {
-     "end": "2023-09-30",
-     "period": "quarterly",
-     "revenue": 34146000000,
-     "gross_profit": null,
-     "operating_income": 13748000000,
-     "net_income": 11583000000,
-     "eps_diluted": 4.39,
-     "shares_diluted": 2641000000,
-     "rnd": 9241000000,
-     "assets": 216274000000,
-     "liabilities": 73401000000,
-     "equity": 142873000000,
-     "cash": 36890000000,
-     "inventory": null,
-     "receivables": 12944000000,
-     "assets_current": 78378000000,
-     "liabilities_current": 30531000000,
-     "deferred_revenue": 509000000,
-     "cfo": null,
-     "capex": null,
-     "buyback": null,
-     "total_debt": 18383000000,
-     "fcf": null,
-     "_derived": [],
-     "gross_margin": null,
-     "op_margin": 0.4026,
-     "net_margin": 0.3392,
-     "fcf_margin": null,
-     "roe": 0.0811,
-     "debt_to_equity": 0.1287,
-     "current_ratio": 2.5672,
-     "net_cash": 18507000000,
-     "revenue_yoy": 18.472,
-     "eps_yoy": 78.4553,
-     "net_income_yoy": 73.2167,
-     "inventory_yoy": null,
-     "receivables_yoy": 12.3124,
-     "shares_yoy": -2.6539,
-     "deferred_yoy": 5.6017
     }
    ],
    "flags": [
@@ -4793,13 +4793,13 @@
      ]
     }
    ],
-   "fund_subscore": 65.3,
+   "fund_subscore": 46.6,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
-     "score": 25,
+     "score": 11.5,
      "max": 25,
-     "why": "분기 희석EPS YoY +73.1%"
+     "why": "분기 희석EPS YoY -3.9%"
     },
     "A_연간EPS": {
      "score": 12.1,
@@ -4807,9 +4807,9 @@
      "why": "연간 희석EPS YoY -1.6%"
     },
     "마진방향": {
-     "score": 5.2,
+     "score": 0,
      "max": 20,
-     "why": "영업마진 -2.40%p (최근 3분기)"
+     "why": "영업마진 -9.19%p (최근 3분기)"
     },
     "FCF건전성": {
      "score": 15,
@@ -4832,7 +4832,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2026-05-31",
@@ -5474,7 +5474,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",
@@ -5864,7 +5864,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6239,7 +6239,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6622,7 +6622,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6997,7 +6997,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-12",
+   "as_of": "2026-08-13",
    "annual": [
     {
      "end": "2025-12-31",

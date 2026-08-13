@@ -1,6 +1,6 @@
 {
   "_comment": "SEC EDGAR 13F(무키 팩트) — 'rationale/our_takeaway/themes/narrative'는 guru-flow-desk가 주주서한·외신·sell-side로 채운다. 지연 확증 렌즈이지 매수 트리거 아님(단일출처 매수 금지).",
-  "updated": "2026-07-23",
+  "updated": "2026-08-13",
   "as_of_quarter": "2026-03-31",
   "source": "SEC EDGAR 13F-HR (무키) + guru-flow-desk 이유분석(WebSearch)",
   "gurus": {
@@ -113,118 +113,20 @@
         }
       ],
       "trajectory": {
-        "025816109": {
-          "issuer": "AMERICAN EXPRESS CO",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 151610700,
-              "pct": 16.84
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 151610700,
-              "pct": 15.77
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 151610700,
-              "pct": 18.78
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 151610700,
-              "pct": 18.84
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 151610700,
-              "pct": 20.46
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 151610700,
-              "pct": 17.43
-            }
-          ]
-        },
-        "02079K107": {
-          "issuer": "ALPHABET INC",
-          "ticker": "GOOGL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 3585215,
-              "pct": 0.39
-            }
-          ]
-        },
-        "191216100": {
-          "issuer": "COCA COLA CO",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 400000000,
-              "pct": 9.32
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 400000000,
-              "pct": 11.07
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 400000000,
-              "pct": 10.99
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 400000000,
-              "pct": 9.92
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 400000000,
-              "pct": 10.2
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 400000000,
-              "pct": 11.56
-            }
-          ]
-        },
         "674599105": {
           "issuer": "OCCIDENTAL PETE CORP",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 255281524,
+              "pct": 5.75
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 255281524,
+              "pct": 4.94
+            },
             {
               "quarter": "2024-12-31",
               "shares": 264178414,
@@ -257,75 +159,49 @@
             }
           ]
         },
-        "166764100": {
-          "issuer": "CHEVRON CORPORATION",
+        "191216100": {
+          "issuer": "COCA COLA CO",
           "ticker": null,
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 400000000,
+              "pct": 9.09
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 400000000,
+              "pct": 10.79
+            },
+            {
               "quarter": "2024-12-31",
-              "shares": 118610534,
-              "pct": 6.43
+              "shares": 400000000,
+              "pct": 9.32
             },
             {
               "quarter": "2025-03-31",
-              "shares": 118610534,
-              "pct": 7.67
+              "shares": 400000000,
+              "pct": 11.07
             },
             {
               "quarter": "2025-06-30",
-              "shares": 122064792,
-              "pct": 6.79
+              "shares": 400000000,
+              "pct": 10.99
             },
             {
               "quarter": "2025-09-30",
-              "shares": 122064792,
-              "pct": 7.09
+              "shares": 400000000,
+              "pct": 9.92
             },
             {
               "quarter": "2025-12-31",
-              "shares": 130156362,
-              "pct": 7.24
+              "shares": 400000000,
+              "pct": 10.2
             },
             {
               "quarter": "2026-03-31",
-              "shares": 84375856,
-              "pct": 6.64
-            }
-          ]
-        },
-        "037833100": {
-          "issuer": "APPLE INC",
-          "ticker": "AAPL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 300000000,
-              "pct": 28.12
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 300000000,
-              "pct": 25.76
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 280000000,
-              "pct": 22.31
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 238212764,
-              "pct": 22.69
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 227917808,
-              "pct": 22.6
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 227917808,
-              "pct": 21.99
+              "shares": 400000000,
+              "pct": 11.56
             }
           ]
         },
@@ -333,6 +209,16 @@
           "issuer": "BANK AMERICA CORP",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1032852006,
+              "pct": 14.67
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 797683307,
+              "pct": 11.88
+            },
             {
               "quarter": "2024-12-31",
               "shares": 680233587,
@@ -365,10 +251,158 @@
             }
           ]
         },
+        "025816109": {
+          "issuer": "AMERICAN EXPRESS CO",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 151610700,
+              "pct": 12.54
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 151610700,
+              "pct": 15.44
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 151610700,
+              "pct": 16.84
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 151610700,
+              "pct": 15.77
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 151610700,
+              "pct": 18.78
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 151610700,
+              "pct": 18.84
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 151610700,
+              "pct": 20.46
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 151610700,
+              "pct": 17.43
+            }
+          ]
+        },
+        "02079K305": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 17846142,
+              "pct": 1.62
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 17846142,
+              "pct": 2.04
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 54249798,
+              "pct": 5.93
+            }
+          ]
+        },
+        "02079K107": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3585215,
+              "pct": 0.39
+            }
+          ]
+        },
         "H1467J104": {
           "issuer": "CHUBB LTD SWITZ",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 27033784,
+              "pct": 2.46
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 27033784,
+              "pct": 2.93
+            },
             {
               "quarter": "2024-12-31",
               "shares": 27033784,
@@ -401,39 +435,95 @@
             }
           ]
         },
-        "02079K305": {
-          "issuer": "ALPHABET INC",
-          "ticker": "GOOGL",
+        "037833100": {
+          "issuer": "APPLE INC",
+          "ticker": "AAPL",
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 400000000,
+              "pct": 30.09
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 300000000,
+              "pct": 26.24
+            },
+            {
               "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
+              "shares": 300000000,
+              "pct": 28.12
             },
             {
               "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
+              "shares": 300000000,
+              "pct": 25.76
             },
             {
               "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
+              "shares": 280000000,
+              "pct": 22.31
             },
             {
               "quarter": "2025-09-30",
-              "shares": 17846142,
-              "pct": 1.62
+              "shares": 238212764,
+              "pct": 22.69
             },
             {
               "quarter": "2025-12-31",
-              "shares": 17846142,
-              "pct": 2.04
+              "shares": 227917808,
+              "pct": 22.6
             },
             {
               "quarter": "2026-03-31",
-              "shares": 54249798,
-              "pct": 5.93
+              "shares": 227917808,
+              "pct": 21.99
+            }
+          ]
+        },
+        "166764100": {
+          "issuer": "CHEVRON CORPORATION",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 118610534,
+              "pct": 6.63
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 118610534,
+              "pct": 6.56
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 118610534,
+              "pct": 6.43
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 118610534,
+              "pct": 7.67
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 122064792,
+              "pct": 6.79
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 122064792,
+              "pct": 7.09
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 130156362,
+              "pct": 7.24
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 84375856,
+              "pct": 6.64
             }
           ]
         }
@@ -479,11 +569,154 @@
           "tag": "미확인"
         },
         {
+          "cusip": "G9001E102",
+          "issuer": "LIBERTY LATIN AMERICA LTD",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2396665,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "531229755",
+          "issuer": "LIBERTY MEDIA CORP DEL",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3018555,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G0176J109",
+          "issuer": "ALLEGION PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 780133,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "16119P108",
+          "issuer": "CHARTER COMMUNICATIONS INC N",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1060882,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
           "cusip": "25754A201",
           "issuer": "DOMINOS PIZZA INC",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 3350000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "91324P102",
+          "issuer": "UNITEDHEALTH GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 5039564,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
+          "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "57636Q104",
+          "issuer": "MASTERCARD INCORPORATED",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3986648,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "Visa와 동반 결제망 청산.",
+          "our_takeaway": "우리 미보유. 성숙 컴파운더도 비중 줄이는 '신중' 분기 신호.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "047726302",
+          "issuer": "ATLANTA BRAVES HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 115428,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "G0403H108",
+          "issuer": "AON PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3602995,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "25243Q205",
+          "issuer": "DIAGEO PLC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 227750,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "92826C839",
+          "issuer": "VISA INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 8297460,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "결제 금융 비중 축소(밸류·성장 성숙).",
+          "our_takeaway": "우리 미보유. 금융 정리 = 방어적 현금 선호와 같은 결.",
+          "tag": "검증"
+        },
+        {
+          "cusip": "422806208",
+          "issuer": "HEICO CORP NEW",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1294612,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -518,128 +751,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "91324P102",
-          "issuer": "UNITEDHEALTH GROUP INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 5039564,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
-          "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
-          "tag": "검증"
-        },
-        {
-          "cusip": "G0403H108",
-          "issuer": "AON PLC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 3602995,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "16119P108",
-          "issuer": "CHARTER COMMUNICATIONS INC N",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1060882,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "047726302",
-          "issuer": "ATLANTA BRAVES HLDGS INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 115428,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
           "cusip": "73278L105",
           "issuer": "POOL CORP",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 3068885,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "92826C839",
-          "issuer": "VISA INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 8297460,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "결제 금융 비중 축소(밸류·성장 성숙).",
-          "our_takeaway": "우리 미보유. 금융 정리 = 방어적 현금 선호와 같은 결.",
-          "tag": "검증"
-        },
-        {
-          "cusip": "G0176J109",
-          "issuer": "ALLEGION PLC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 780133,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "422806208",
-          "issuer": "HEICO CORP NEW",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1294612,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "531229755",
-          "issuer": "LIBERTY MEDIA CORP DEL",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 3018555,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "25243Q205",
-          "issuer": "DIAGEO PLC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 227750,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -659,32 +775,6 @@
           "rationale": "Abel 재편·현금화. 저비중 기술주 정리.",
           "our_takeaway": "우리 미보유. 대가의 빅테크 선별(알파벳 집중 vs 아마존 청산) = 무차별 AI 강세 아님에 주목.",
           "tag": "검증"
-        },
-        {
-          "cusip": "57636Q104",
-          "issuer": "MASTERCARD INCORPORATED",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 3986648,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "Visa와 동반 결제망 청산.",
-          "our_takeaway": "우리 미보유. 성숙 컴파운더도 비중 줄이는 '신중' 분기 신호.",
-          "tag": "검증"
-        },
-        {
-          "cusip": "G9001E102",
-          "issuer": "LIBERTY LATIN AMERICA LTD",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 2396665,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
         },
         {
           "cusip": "02079K305",
@@ -851,7 +941,9 @@
         "SEC EDGAR 13F-HR acc 0001193125-25-282901 (2025-09-30)",
         "SEC EDGAR 13F-HR acc 0000950123-25-008343 (2025-06-30)",
         "SEC EDGAR 13F-HR acc 0000950123-25-005701 (2025-03-31)",
-        "SEC EDGAR 13F-HR acc 0000950123-25-002701 (2024-12-31)"
+        "SEC EDGAR 13F-HR acc 0000950123-25-002701 (2024-12-31)",
+        "SEC EDGAR 13F-HR acc 0000950123-24-011775 (2024-09-30)",
+        "SEC EDGAR 13F-HR acc 0000950123-24-008740 (2024-06-30)"
       ]
     },
     "scion": {
@@ -899,46 +991,20 @@
         }
       ],
       "trajectory": {
-        "78442P106": {
-          "issuer": "SLM CORP",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2024-09-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 480054,
-              "pct": 19.5
-            }
-          ]
-        },
         "116794207": {
           "issuer": "BRUKER CORP",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2023-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-06-30",
               "shares": 0,
@@ -971,10 +1037,20 @@
             }
           ]
         },
-        "550021109": {
-          "issuer": "LULULEMON ATHLETICA INC",
+        "78442P106": {
+          "issuer": "SLM CORP",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2023-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-06-30",
               "shares": 0,
@@ -997,13 +1073,13 @@
             },
             {
               "quarter": "2025-06-30",
-              "shares": 50000,
-              "pct": 21.12
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-09-30",
-              "shares": 100000,
-              "pct": 26.11
+              "shares": 480054,
+              "pct": 19.5
             }
           ]
         },
@@ -1011,6 +1087,16 @@
           "issuer": "MOLINA HEALTHCARE INC",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2023-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-06-30",
               "shares": 24530,
@@ -1040,6 +1126,52 @@
               "quarter": "2025-09-30",
               "shares": 125000,
               "pct": 35.11
+            }
+          ]
+        },
+        "550021109": {
+          "issuer": "LULULEMON ATHLETICA INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2023-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 50000,
+              "pct": 21.12
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 100000,
+              "pct": 26.11
             }
           ]
         }
@@ -1085,37 +1217,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "91324P102",
-          "issuer": "UNITEDHEALTH GROUP INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 20000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
           "cusip": "58733R102",
           "issuer": "MERCADOLIBRE INC",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 3000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "518439104",
-          "issuer": "LAUDER ESTEE COS INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 150000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -1137,11 +1243,37 @@
           "tag": "미확인"
         },
         {
+          "cusip": "518439104",
+          "issuer": "LAUDER ESTEE COS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 150000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
           "cusip": "75886F107",
           "issuer": "REGENERON PHARMACEUTICALS",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 15000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "91324P102",
+          "issuer": "UNITEDHEALTH GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 20000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -1175,7 +1307,9 @@
         "SEC EDGAR 13F-HR acc 0001879202-25-000025 (2025-03-31)",
         "SEC EDGAR 13F-HR acc 0001879202-25-000012 (2024-12-31)",
         "SEC EDGAR 13F-HR acc 0000905148-24-003106 (2024-09-30)",
-        "SEC EDGAR 13F-HR acc 0000905148-24-002196 (2024-06-30)"
+        "SEC EDGAR 13F-HR acc 0000905148-24-002196 (2024-06-30)",
+        "SEC EDGAR 13F-HR acc 0000905148-24-001390 (2024-03-31)",
+        "SEC EDGAR 13F-HR acc 0000905148-24-000653 (2023-12-31)"
       ]
     },
     "duquesne": {
@@ -1292,6 +1426,16 @@
           "ticker": null,
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
               "quarter": "2024-12-31",
               "shares": 0,
               "pct": 0.0
@@ -1328,6 +1472,16 @@
           "ticker": "AVGO",
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 239980,
+              "pct": 1.45
+            },
+            {
               "quarter": "2024-12-31",
               "shares": 0,
               "pct": 0.0
@@ -1359,118 +1513,20 @@
             }
           ]
         },
-        "013872106": {
-          "issuer": "Alcoa Corp",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 1376050,
-              "pct": 1.73
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 1493390,
-              "pct": 3.37
-            }
-          ]
-        },
-        "457669307": {
-          "issuer": "Insmed Inc",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 593470,
-              "pct": 1.15
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 1369050,
-              "pct": 3.5
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 2253435,
-              "pct": 5.79
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 2423435,
-              "pct": 8.88
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 1481752,
-              "pct": 6.11
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 1154090,
-              "pct": 6.43
-            }
-          ]
-        },
-        "632307104": {
-          "issuer": "Natera Inc",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 3566850,
-              "pct": 15.88
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 3402330,
-              "pct": 16.13
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 3085190,
-              "pct": 13.32
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 3214532,
-              "pct": 13.16
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 2511357,
-              "pct": 13.63
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 3063606,
-              "pct": 20.86
-            }
-          ]
-        },
         "N62509109": {
           "issuer": "Newamsterdam Pharma Company",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 287535,
+              "pct": 0.17
+            },
             {
               "quarter": "2024-12-31",
               "shares": 287535,
@@ -1503,10 +1559,158 @@
             }
           ]
         },
+        "874039100": {
+          "issuer": "Taiwan Semiconductor Manufac",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 57355,
+              "pct": 0.35
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 107515,
+              "pct": 0.6
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 598780,
+              "pct": 3.33
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 765085,
+              "pct": 4.43
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 765085,
+              "pct": 5.44
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 543085,
+              "pct": 3.91
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 495280,
+              "pct": 5.7
+            }
+          ]
+        },
+        "632307104": {
+          "issuer": "Natera Inc",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1974880,
+              "pct": 7.58
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 3566850,
+              "pct": 15.87
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 3566850,
+              "pct": 15.88
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 3402330,
+              "pct": 16.13
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 3085190,
+              "pct": 13.32
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 3214532,
+              "pct": 13.16
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2511357,
+              "pct": 13.63
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3063606,
+              "pct": 20.86
+            }
+          ]
+        },
+        "464286400": {
+          "issuer": "Ishares Inc",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 738800,
+              "pct": 0.54
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 3552575,
+              "pct": 2.67
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 3436170,
+              "pct": 4.49
+            }
+          ]
+        },
         "984245100": {
           "issuer": "Ypf Sociedad Anonima",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 638435,
+              "pct": 0.46
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 430100,
+              "pct": 0.32
+            },
             {
               "quarter": "2024-12-31",
               "shares": 1687716,
@@ -1544,6 +1748,16 @@
           "ticker": "MU",
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
               "quarter": "2024-12-31",
               "shares": 408885,
               "pct": 0.97
@@ -1575,10 +1789,20 @@
             }
           ]
         },
-        "464286400": {
-          "issuer": "Ishares Inc",
+        "013872106": {
+          "issuer": "Alcoa Corp",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-12-31",
               "shares": 0,
@@ -1591,8 +1815,8 @@
             },
             {
               "quarter": "2025-06-30",
-              "shares": 738800,
-              "pct": 0.54
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-09-30",
@@ -1601,49 +1825,59 @@
             },
             {
               "quarter": "2025-12-31",
-              "shares": 3552575,
-              "pct": 2.67
+              "shares": 1376050,
+              "pct": 1.73
             },
             {
               "quarter": "2026-03-31",
-              "shares": 3436170,
-              "pct": 4.49
+              "shares": 1493390,
+              "pct": 3.37
             }
           ]
         },
-        "874039100": {
-          "issuer": "Taiwan Semiconductor Manufac",
+        "457669307": {
+          "issuer": "Insmed Inc",
           "ticker": null,
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 20000,
+              "pct": 0.05
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 20000,
+              "pct": 0.05
+            },
+            {
               "quarter": "2024-12-31",
-              "shares": 107515,
-              "pct": 0.6
+              "shares": 593470,
+              "pct": 1.15
             },
             {
               "quarter": "2025-03-31",
-              "shares": 598780,
-              "pct": 3.33
+              "shares": 1369050,
+              "pct": 3.5
             },
             {
               "quarter": "2025-06-30",
-              "shares": 765085,
-              "pct": 4.43
+              "shares": 2253435,
+              "pct": 5.79
             },
             {
               "quarter": "2025-09-30",
-              "shares": 765085,
-              "pct": 5.44
+              "shares": 2423435,
+              "pct": 8.88
             },
             {
               "quarter": "2025-12-31",
-              "shares": 543085,
-              "pct": 3.91
+              "shares": 1481752,
+              "pct": 6.11
             },
             {
               "quarter": "2026-03-31",
-              "shares": 495280,
-              "pct": 5.7
+              "shares": 1154090,
+              "pct": 6.43
             }
           ]
         }
@@ -2040,37 +2274,24 @@
           "tag": "미확인"
         },
         {
-          "cusip": "171757206",
-          "issuer": "Cidara Therapeutics Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 49495,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "464287234",
-          "issuer": "Ishares Tr",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 902500,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
           "cusip": "38141G104",
           "issuer": "Goldman Sachs Group Inc",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 27500,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "169656105",
+          "issuer": "Chipotle Mexican Grill Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 391930,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -2092,11 +2313,232 @@
           "tag": "미확인"
         },
         {
+          "cusip": "G3643J108",
+          "issuer": "Flutter Entmt Plc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 115245,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "46137V357",
+          "issuer": "Invesco Exchange Traded Fd T",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1173925,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "81369Y605",
+          "issuer": "Select Sector Spdr Tr",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 5495600,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "64073B103",
+          "issuer": "Neptune Ins Hldgs Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 20000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "682189105",
+          "issuer": "On Semiconductor Corp",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 536260,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "247361702",
+          "issuer": "Delta Air Lines Inc Del",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 650910,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "29362U104",
+          "issuer": "Entegris Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 844160,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "256163106",
+          "issuer": "Docusign Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 1019085,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "171757206",
+          "issuer": "Cidara Therapeutics Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 49495,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
           "cusip": "98954M200",
           "issuer": "Zillow Group Inc",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 192640,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "74967X103",
+          "issuer": "Rh",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 88200,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "19240Q201",
+          "issuer": "Cogent Biosciences Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 2214470,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02079K305",
+          "issuer": "Alphabet Inc",
+          "ticker": "GOOGL",
+          "action": "EXIT",
+          "shares_from": 385000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "718172109",
+          "issuer": "Philip Morris Intl Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 67400,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "25809K105",
+          "issuer": "Doordash Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 35900,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "464287234",
+          "issuer": "Ishares Tr",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 902500,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02376R102",
+          "issuer": "American Airls Group Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 639785,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "04010E109",
+          "issuer": "Argan Inc",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 30000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -2123,214 +2565,6 @@
           "ticker": null,
           "action": "EXIT",
           "shares_from": 1824862,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "02079K305",
-          "issuer": "Alphabet Inc",
-          "ticker": "GOOGL",
-          "action": "EXIT",
-          "shares_from": 385000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "19240Q201",
-          "issuer": "Cogent Biosciences Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 2214470,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "682189105",
-          "issuer": "On Semiconductor Corp",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 536260,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "G3643J108",
-          "issuer": "Flutter Entmt Plc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 115245,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "29362U104",
-          "issuer": "Entegris Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 844160,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "169656105",
-          "issuer": "Chipotle Mexican Grill Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 391930,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "02376R102",
-          "issuer": "American Airls Group Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 639785,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "74967X103",
-          "issuer": "Rh",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 88200,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "247361702",
-          "issuer": "Delta Air Lines Inc Del",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 650910,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "04010E109",
-          "issuer": "Argan Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 30000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "256163106",
-          "issuer": "Docusign Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1019085,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "25809K105",
-          "issuer": "Doordash Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 35900,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "64073B103",
-          "issuer": "Neptune Ins Hldgs Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 20000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "81369Y605",
-          "issuer": "Select Sector Spdr Tr",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 5495600,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "718172109",
-          "issuer": "Philip Morris Intl Inc",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 67400,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "46137V357",
-          "issuer": "Invesco Exchange Traded Fd T",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1173925,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -2772,7 +3006,9 @@
         "SEC EDGAR 13F-HR acc 0001536411-25-000017 (2025-09-30)",
         "SEC EDGAR 13F-HR acc 0001536411-25-000011 (2025-06-30)",
         "SEC EDGAR 13F-HR acc 0001536411-25-000008 (2025-03-31)",
-        "SEC EDGAR 13F-HR acc 0001536411-25-000006 (2024-12-31)"
+        "SEC EDGAR 13F-HR acc 0001536411-25-000006 (2024-12-31)",
+        "SEC EDGAR 13F-HR acc 0001536411-24-000009 (2024-09-30)",
+        "SEC EDGAR 13F-HR acc 0001536411-24-000007 (2024-06-30)"
       ]
     },
     "pershing": {
@@ -2876,154 +3112,20 @@
         }
       ],
       "trajectory": {
-        "02079K305": {
-          "issuer": "ALPHABET INC",
-          "ticker": "GOOGL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 3986488,
-              "pct": 5.98
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 4437980,
-              "pct": 5.75
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 5362980,
-              "pct": 6.88
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 4843973,
-              "pct": 8.04
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 678297,
-              "pct": 1.37
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 32376,
-              "pct": 0.07
-            }
-          ]
-        },
-        "594918104": {
-          "issuer": "MICROSOFT CORP",
-          "ticker": "MSFT",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 5654078,
-              "pct": 15.26
-            }
-          ]
-        },
-        "02079K107": {
-          "issuer": "ALPHABET INC",
-          "ticker": "GOOGL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 7547582,
-              "pct": 11.39
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 6324031,
-              "pct": 8.28
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 6324031,
-              "pct": 8.17
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 6324031,
-              "pct": 10.52
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 6163871,
-              "pct": 12.46
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 311726,
-              "pct": 0.65
-            }
-          ]
-        },
-        "023135106": {
-          "issuer": "AMAZON COM INC",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 5823316,
-              "pct": 9.31
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 5823316,
-              "pct": 8.73
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 9607824,
-              "pct": 14.28
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 11451981,
-              "pct": 17.39
-            }
-          ]
-        },
         "11271J107": {
           "issuer": "BROOKFIELD CORP",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 6854510,
+              "pct": 2.73
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 32735883,
+              "pct": 13.47
+            },
             {
               "quarter": "2024-12-31",
               "shares": 34893064,
@@ -3056,46 +3158,20 @@
             }
           ]
         },
-        "812215200": {
-          "issuer": "SEAPORT ENTMT GROUP INC",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 5023780,
-              "pct": 1.11
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 5023780,
-              "pct": 0.9
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 5023780,
-              "pct": 0.68
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 5023780,
-              "pct": 0.79
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 5023780,
-              "pct": 0.64
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 5023780,
-              "pct": 0.79
-            }
-          ]
-        },
         "30303M102": {
           "issuer": "META PLATFORMS INC",
           "ticker": "META",
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-12-31",
               "shares": 0,
@@ -3128,10 +3204,20 @@
             }
           ]
         },
-        "90353T100": {
-          "issuer": "UBER TECHNOLOGIES INC",
-          "ticker": null,
+        "594918104": {
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-12-31",
               "shares": 0,
@@ -3139,28 +3225,74 @@
             },
             {
               "quarter": "2025-03-31",
-              "shares": 30301161,
-              "pct": 18.5
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-06-30",
-              "shares": 30301161,
-              "pct": 20.59
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-09-30",
-              "shares": 30270518,
-              "pct": 20.25
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-12-31",
-              "shares": 30207734,
-              "pct": 15.9
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2026-03-31",
-              "shares": 29958771,
-              "pct": 15.71
+              "shares": 5654078,
+              "pct": 15.26
+            }
+          ]
+        },
+        "812215200": {
+          "issuer": "SEAPORT ENTMT GROUP INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 2094673,
+              "pct": 0.44
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 5023780,
+              "pct": 1.11
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 5023780,
+              "pct": 0.9
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 5023780,
+              "pct": 0.68
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 5023780,
+              "pct": 0.79
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 5023780,
+              "pct": 0.64
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 5023780,
+              "pct": 0.79
             }
           ]
         },
@@ -3168,6 +3300,16 @@
           "issuer": "HOWARD HUGHES HOLDINGS INC",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 18852064,
+              "pct": 11.74
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 18852064,
+              "pct": 11.3
+            },
             {
               "quarter": "2024-12-31",
               "shares": 18852064,
@@ -3200,10 +3342,158 @@
             }
           ]
         },
+        "90353T100": {
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 30301161,
+              "pct": 18.5
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 30301161,
+              "pct": 20.59
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 30270518,
+              "pct": 20.25
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 30207734,
+              "pct": 15.9
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 29958771,
+              "pct": 15.71
+            }
+          ]
+        },
+        "02079K305": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 3986488,
+              "pct": 6.97
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 3986488,
+              "pct": 5.12
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 3986488,
+              "pct": 5.98
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 4437980,
+              "pct": 5.75
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 5362980,
+              "pct": 6.88
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 4843973,
+              "pct": 8.04
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 678297,
+              "pct": 1.37
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 32376,
+              "pct": 0.07
+            }
+          ]
+        },
+        "02079K107": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 7547582,
+              "pct": 13.3
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 7547582,
+              "pct": 9.77
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 7547582,
+              "pct": 11.39
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 6324031,
+              "pct": 8.28
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 6324031,
+              "pct": 8.17
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 6324031,
+              "pct": 10.52
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 6163871,
+              "pct": 12.46
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 311726,
+              "pct": 0.65
+            }
+          ]
+        },
         "76131D103": {
           "issuer": "RESTAURANT BRANDS INTL INC",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 23142542,
+              "pct": 15.64
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 23000914,
+              "pct": 12.84
+            },
             {
               "quarter": "2024-12-31",
               "shares": 23000914,
@@ -3233,6 +3523,52 @@
               "quarter": "2026-03-31",
               "shares": 22645483,
               "pct": 12.2
+            }
+          ]
+        },
+        "023135106": {
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 5823316,
+              "pct": 9.31
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 5823316,
+              "pct": 8.73
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 9607824,
+              "pct": 14.28
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 11451981,
+              "pct": 17.39
             }
           ]
         }
@@ -3399,7 +3735,9 @@
         "SEC EDGAR 13F-HR acc 0001172661-25-005039 (2025-09-30)",
         "SEC EDGAR 13F-HR acc 0001172661-25-003509 (2025-06-30)",
         "SEC EDGAR 13F-HR acc 0001172661-25-002315 (2025-03-31)",
-        "SEC EDGAR 13F-HR acc 0001172661-25-001119 (2024-12-31)"
+        "SEC EDGAR 13F-HR acc 0001172661-25-001119 (2024-12-31)",
+        "SEC EDGAR 13F-HR acc 0001172661-24-005218 (2024-09-30)",
+        "SEC EDGAR 13F-HR acc 0001172661-24-003511 (2024-06-30)"
       ]
     },
     "appaloosa": {
@@ -3511,226 +3849,20 @@
         }
       ],
       "trajectory": {
-        "594918104": {
-          "issuer": "MICROSOFT CORP",
-          "ticker": "MSFT",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 970000,
-              "pct": 6.33
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 510000,
-              "pct": 3.44
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 500000,
-              "pct": 3.86
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 462500,
-              "pct": 3.24
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 500000,
-              "pct": 3.53
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 90000,
-              "pct": 0.56
-            }
-          ]
-        },
-        "67066G104": {
-          "issuer": "NVIDIA CORPORATION",
-          "ticker": "NVDA",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 680001,
-              "pct": 1.41
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 300000,
-              "pct": 0.58
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 1750000,
-              "pct": 4.29
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 1900000,
-              "pct": 4.8
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 1700000,
-              "pct": 4.63
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 1471500,
-              "pct": 4.33
-            }
-          ]
-        },
-        "02079K107": {
-          "issuer": "ALPHABET INC",
-          "ticker": "GOOGL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 1881963,
-              "pct": 5.54
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 2010000,
-              "pct": 5.64
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 1500000,
-              "pct": 4.13
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 1387500,
-              "pct": 4.58
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 1786931,
-              "pct": 8.18
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 1732700,
-              "pct": 8.38
-            }
-          ]
-        },
-        "595112103": {
-          "issuer": "MICRON TECHNOLOGY INC",
-          "ticker": "MU",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 1200000,
-              "pct": 1.56
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 400000,
-              "pct": 0.62
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 825000,
-              "pct": 1.58
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 500000,
-              "pct": 1.13
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 1500000,
-              "pct": 6.25
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 1665000,
-              "pct": 9.48
-            }
-          ]
-        },
-        "874039100": {
-          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 250000,
-              "pct": 0.76
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 270000,
-              "pct": 0.81
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 1025000,
-              "pct": 3.6
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 1060000,
-              "pct": 4.01
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 1130000,
-              "pct": 5.01
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 1327500,
-              "pct": 7.56
-            }
-          ]
-        },
-        "023135106": {
-          "issuer": "AMAZON COM INC",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 2600000,
-              "pct": 8.82
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 2510000,
-              "pct": 8.58
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 2700000,
-              "pct": 9.19
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 2500000,
-              "pct": 7.43
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 2179391,
-              "pct": 7.34
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 4320000,
-              "pct": 15.16
-            }
-          ]
-        },
         "01609W102": {
           "issuer": "ALIBABA GROUP HLDG LTD",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 10500000,
+              "pct": 12.24
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 10000000,
+              "pct": 15.76
+            },
             {
               "quarter": "2024-12-31",
               "shares": 11843158,
@@ -3768,6 +3900,16 @@
           "ticker": "META",
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 935000,
+              "pct": 7.63
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 625000,
+              "pct": 5.31
+            },
+            {
               "quarter": "2024-12-31",
               "shares": 490000,
               "pct": 4.44
@@ -3799,46 +3941,20 @@
             }
           ]
         },
-        "90353T100": {
-          "issuer": "UBER TECHNOLOGIES INC",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 1500000,
-              "pct": 1.4
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 3200000,
-              "pct": 4.19
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 2750000,
-              "pct": 3.98
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 2406983,
-              "pct": 3.19
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 1850000,
-              "pct": 2.21
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 6332720,
-              "pct": 7.68
-            }
-          ]
-        },
         "92840M102": {
           "issuer": "VISTRA CORP",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 1270388,
+              "pct": 2.24
+            },
             {
               "quarter": "2024-12-31",
               "shares": 2700000,
@@ -3871,10 +3987,204 @@
             }
           ]
         },
+        "594918104": {
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1181356,
+              "pct": 8.55
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 970000,
+              "pct": 6.2
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 970000,
+              "pct": 6.33
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 510000,
+              "pct": 3.44
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 500000,
+              "pct": 3.86
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 462500,
+              "pct": 3.24
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 500000,
+              "pct": 3.53
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 90000,
+              "pct": 0.56
+            }
+          ]
+        },
+        "90353T100": {
+          "issuer": "UBER TECHNOLOGIES INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1500000,
+              "pct": 1.77
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 1410000,
+              "pct": 1.57
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 1500000,
+              "pct": 1.4
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 3200000,
+              "pct": 4.19
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2750000,
+              "pct": 3.98
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2406983,
+              "pct": 3.19
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1850000,
+              "pct": 2.21
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 6332720,
+              "pct": 7.68
+            }
+          ]
+        },
+        "02079K107": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1925000,
+              "pct": 5.72
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 1881964,
+              "pct": 4.67
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 1881963,
+              "pct": 5.54
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2010000,
+              "pct": 5.64
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1500000,
+              "pct": 4.13
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1387500,
+              "pct": 4.58
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1786931,
+              "pct": 8.18
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1732700,
+              "pct": 8.38
+            }
+          ]
+        },
+        "023135106": {
+          "issuer": "AMAZON COM INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 3475000,
+              "pct": 10.87
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 3200000,
+              "pct": 8.86
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 2600000,
+              "pct": 8.82
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 2510000,
+              "pct": 8.58
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 2700000,
+              "pct": 9.19
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2500000,
+              "pct": 7.43
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2179391,
+              "pct": 7.34
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 4320000,
+              "pct": 15.16
+            }
+          ]
+        },
         "464286772": {
           "issuer": "ISHARES INC",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-12-31",
               "shares": 0,
@@ -3904,6 +4214,144 @@
               "quarter": "2026-03-31",
               "shares": 2400000,
               "pct": 4.98
+            }
+          ]
+        },
+        "874039100": {
+          "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 460000,
+              "pct": 1.29
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 400000,
+              "pct": 1.03
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 250000,
+              "pct": 0.76
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 270000,
+              "pct": 0.81
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1025000,
+              "pct": 3.6
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1060000,
+              "pct": 4.01
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1130000,
+              "pct": 5.01
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1327500,
+              "pct": 7.56
+            }
+          ]
+        },
+        "67066G104": {
+          "issuer": "NVIDIA CORPORATION",
+          "ticker": "NVDA",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 690000,
+              "pct": 1.38
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 625000,
+              "pct": 1.13
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 680001,
+              "pct": 1.41
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 300000,
+              "pct": 0.58
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 1750000,
+              "pct": 4.29
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 1900000,
+              "pct": 4.8
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1700000,
+              "pct": 4.63
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1471500,
+              "pct": 4.33
+            }
+          ]
+        },
+        "595112103": {
+          "issuer": "MICRON TECHNOLOGY INC",
+          "ticker": "MU",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1175000,
+              "pct": 2.5
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 1050000,
+              "pct": 1.62
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 1200000,
+              "pct": 1.56
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 400000,
+              "pct": 0.62
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 825000,
+              "pct": 1.58
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 500000,
+              "pct": 1.13
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 1500000,
+              "pct": 6.25
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 1665000,
+              "pct": 9.48
             }
           ]
         }
@@ -3936,37 +4384,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "02376R102",
-          "issuer": "AMERICAN AIRLS GROUP INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 14150000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
           "cusip": "608190104",
           "issuer": "MOHAWK INDS INC",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 675000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "247361702",
-          "issuer": "DELTA AIR LINES INC DEL",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 475000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -3988,19 +4410,6 @@
           "tag": "미확인"
         },
         {
-          "cusip": "910047109",
-          "issuer": "UNITED AIRLS HLDGS INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 465000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
           "cusip": "46266C105",
           "issuer": "IQVIA HLDGS INC",
           "ticker": null,
@@ -4014,11 +4423,50 @@
           "tag": "미확인"
         },
         {
+          "cusip": "247361702",
+          "issuer": "DELTA AIR LINES INC DEL",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 475000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "910047109",
+          "issuer": "UNITED AIRLS HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 465000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
           "cusip": "690742101",
           "issuer": "OWENS CORNING NEW",
           "ticker": null,
           "action": "EXIT",
           "shares_from": 950000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "02376R102",
+          "issuer": "AMERICAN AIRLS GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 14150000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -4480,7 +4928,9 @@
         "SEC EDGAR 13F-HR acc 0001656456-25-000007 (2025-09-30)",
         "SEC EDGAR 13F-HR acc 0001656456-25-000006 (2025-06-30)",
         "SEC EDGAR 13F-HR acc 0001656456-25-000005 (2025-03-31)",
-        "SEC EDGAR 13F-HR acc 0001656456-25-000001 (2024-12-31)"
+        "SEC EDGAR 13F-HR acc 0001656456-25-000001 (2024-12-31)",
+        "SEC EDGAR 13F-HR acc 0001656456-24-000004 (2024-09-30)",
+        "SEC EDGAR 13F-HR acc 0001656456-24-000003 (2024-06-30)"
       ]
     },
     "thirdpoint": {
@@ -4592,154 +5042,20 @@
         }
       ],
       "trajectory": {
-        "67066G104": {
-          "issuer": "NVIDIA CORPORATION",
-          "ticker": "NVDA",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 1450000,
-              "pct": 2.47
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 2800000,
-              "pct": 5.81
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 2850000,
-              "pct": 6.34
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 2950000,
-              "pct": 7.56
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 190000,
-              "pct": 1.59
-            }
-          ]
-        },
-        "88023U101": {
-          "issuer": "SOMNIGROUP INTERNATIONAL INC",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 3000000,
-              "pct": 3.02
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 3400000,
-              "pct": 4.17
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 2270769,
-              "pct": 8.06
-            }
-          ]
-        },
-        "144285103": {
-          "issuer": "CARPENTER TECHNOLOGY CORP",
-          "ticker": null,
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 870000,
-              "pct": 1.98
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 870000,
-              "pct": 2.48
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 750000,
-              "pct": 2.72
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 850000,
-              "pct": 2.49
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 785000,
-              "pct": 3.4
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 310000,
-              "pct": 5.87
-            }
-          ]
-        },
-        "11135F101": {
-          "issuer": "BROADCOM INC",
-          "ticker": "AVGO",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 50000,
-              "pct": 0.74
-            }
-          ]
-        },
         "30303M102": {
           "issuer": "META PLATFORMS INC",
           "ticker": "META",
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1100000,
+              "pct": 6.35
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 545000,
+              "pct": 4.2
+            },
             {
               "quarter": "2024-12-31",
               "shares": 665000,
@@ -4777,6 +5093,16 @@
           "ticker": null,
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 2266060,
+              "pct": 0.54
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 2875000,
+              "pct": 0.9
+            },
+            {
               "quarter": "2024-12-31",
               "shares": 6000000,
               "pct": 2.75
@@ -4808,10 +5134,204 @@
             }
           ]
         },
+        "88023U101": {
+          "issuer": "SOMNIGROUP INTERNATIONAL INC",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 3000000,
+              "pct": 3.02
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 3400000,
+              "pct": 4.17
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 2270769,
+              "pct": 8.06
+            }
+          ]
+        },
+        "235851102": {
+          "issuer": "DANAHER CORP DEL",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 2050000,
+              "pct": 5.86
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 1950000,
+              "pct": 7.3
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 1900000,
+              "pct": 5.86
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 500000,
+              "pct": 1.3
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 50000,
+              "pct": 0.12
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 600000,
+              "pct": 1.89
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 525000,
+              "pct": 4.78
+            }
+          ]
+        },
+        "11135F101": {
+          "issuer": "BROADCOM INC",
+          "ticker": "AVGO",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 50000,
+              "pct": 0.74
+            }
+          ]
+        },
+        "02079K305": {
+          "issuer": "ALPHABET INC",
+          "ticker": "GOOGL",
+          "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 1980000,
+              "pct": 4.13
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 175000,
+              "pct": 2.42
+            }
+          ]
+        },
         "023135106": {
           "issuer": "AMAZON COM INC",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 5100000,
+              "pct": 11.28
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 3700000,
+              "pct": 9.28
+            },
             {
               "quarter": "2024-12-31",
               "shares": 3450000,
@@ -4849,6 +5369,16 @@
           "ticker": null,
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 2025000,
+              "pct": 4.03
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 1780000,
+              "pct": 4.16
+            },
+            {
               "quarter": "2024-12-31",
               "shares": 1780000,
               "pct": 4.72
@@ -4880,10 +5410,20 @@
             }
           ]
         },
-        "576323109": {
-          "issuer": "MASTEC INC",
-          "ticker": null,
+        "67066G104": {
+          "issuer": "NVIDIA CORPORATION",
+          "ticker": "NVDA",
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
             {
               "quarter": "2024-12-31",
               "shares": 0,
@@ -4891,28 +5431,74 @@
             },
             {
               "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
+              "shares": 1450000,
+              "pct": 2.47
             },
             {
               "quarter": "2025-06-30",
+              "shares": 2800000,
+              "pct": 5.81
+            },
+            {
+              "quarter": "2025-09-30",
+              "shares": 2850000,
+              "pct": 6.34
+            },
+            {
+              "quarter": "2025-12-31",
+              "shares": 2950000,
+              "pct": 7.56
+            },
+            {
+              "quarter": "2026-03-31",
+              "shares": 190000,
+              "pct": 1.59
+            }
+          ]
+        },
+        "144285103": {
+          "issuer": "CARPENTER TECHNOLOGY CORP",
+          "ticker": null,
+          "series": [
+            {
+              "quarter": "2024-06-30",
               "shares": 0,
               "pct": 0.0
             },
             {
+              "quarter": "2024-09-30",
+              "shares": 660000,
+              "pct": 1.42
+            },
+            {
+              "quarter": "2024-12-31",
+              "shares": 870000,
+              "pct": 1.98
+            },
+            {
+              "quarter": "2025-03-31",
+              "shares": 870000,
+              "pct": 2.48
+            },
+            {
+              "quarter": "2025-06-30",
+              "shares": 750000,
+              "pct": 2.72
+            },
+            {
               "quarter": "2025-09-30",
-              "shares": 725000,
-              "pct": 1.84
+              "shares": 850000,
+              "pct": 2.49
             },
             {
               "quarter": "2025-12-31",
-              "shares": 925000,
-              "pct": 2.76
+              "shares": 785000,
+              "pct": 3.4
             },
             {
               "quarter": "2026-03-31",
-              "shares": 320000,
-              "pct": 4.94
+              "shares": 310000,
+              "pct": 5.87
             }
           ]
         },
@@ -4920,6 +5506,16 @@
           "issuer": "CRH PLC",
           "ticker": null,
           "series": [
+            {
+              "quarter": "2024-06-30",
+              "shares": 650000,
+              "pct": 0.56
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 2050000,
+              "pct": 2.56
+            },
             {
               "quarter": "2024-12-31",
               "shares": 2715000,
@@ -4952,50 +5548,24 @@
             }
           ]
         },
-        "02079K305": {
-          "issuer": "ALPHABET INC",
-          "ticker": "GOOGL",
-          "series": [
-            {
-              "quarter": "2024-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-03-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-06-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-09-30",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2025-12-31",
-              "shares": 0,
-              "pct": 0.0
-            },
-            {
-              "quarter": "2026-03-31",
-              "shares": 175000,
-              "pct": 2.42
-            }
-          ]
-        },
-        "235851102": {
-          "issuer": "DANAHER CORP DEL",
+        "576323109": {
+          "issuer": "MASTEC INC",
           "ticker": null,
           "series": [
             {
+              "quarter": "2024-06-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
+              "quarter": "2024-09-30",
+              "shares": 0,
+              "pct": 0.0
+            },
+            {
               "quarter": "2024-12-31",
-              "shares": 1900000,
-              "pct": 5.86
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-03-31",
@@ -5004,23 +5574,23 @@
             },
             {
               "quarter": "2025-06-30",
-              "shares": 500000,
-              "pct": 1.3
+              "shares": 0,
+              "pct": 0.0
             },
             {
               "quarter": "2025-09-30",
-              "shares": 50000,
-              "pct": 0.12
+              "shares": 725000,
+              "pct": 1.84
             },
             {
               "quarter": "2025-12-31",
-              "shares": 600000,
-              "pct": 1.89
+              "shares": 925000,
+              "pct": 2.76
             },
             {
               "quarter": "2026-03-31",
-              "shares": 525000,
-              "pct": 4.78
+              "shares": 320000,
+              "pct": 4.94
             }
           ]
         }
@@ -5157,71 +5727,6 @@
           "tag": "미확인"
         },
         {
-          "cusip": "M98068105",
-          "issuer": "WIX COM LTD",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 225000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "77311W101",
-          "issuer": "ROCKET COS INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 9515000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "50212V100",
-          "issuer": "LPL FINL HLDGS INC",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 510000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "743315103",
-          "issuer": "PROGRESSIVE CORP",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 220000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "11271J107",
-          "issuer": "BROOKFIELD CORP",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 6200000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
           "cusip": "071734107",
           "issuer": "BAUSCH HEALTH COS INC",
           "ticker": null,
@@ -5235,50 +5740,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "594918104",
-          "issuer": "MICROSOFT CORP",
-          "ticker": "MSFT",
-          "action": "EXIT",
-          "shares_from": 925000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "22160N109",
-          "issuer": "COSTAR GROUP INC",
+          "cusip": "L8681T102",
+          "issuer": "SPOTIFY TECHNOLOGY S A",
           "ticker": null,
           "action": "EXIT",
-          "shares_from": 3165000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "01609W102",
-          "issuer": "ALIBABA GROUP HLDG LTD",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 825000,
-          "shares_to": 0,
-          "shares_delta_pct": null,
-          "value_to": 0,
-          "rationale": "",
-          "our_takeaway": "",
-          "tag": "미확인"
-        },
-        {
-          "cusip": "92840M102",
-          "issuer": "VISTRA CORP",
-          "ticker": null,
-          "action": "EXIT",
-          "shares_from": 1005000,
+          "shares_from": 100000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5300,11 +5766,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "126408103",
-          "issuer": "CSX CORP",
+          "cusip": "69331C306",
+          "issuer": "PG&E CORP",
           "ticker": null,
           "action": "EXIT",
-          "shares_from": 500000,
+          "shares_from": 140000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5318,6 +5784,110 @@
           "ticker": null,
           "action": "EXIT",
           "shares_from": 4725000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "50212V100",
+          "issuer": "LPL FINL HLDGS INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 510000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "126408103",
+          "issuer": "CSX CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 500000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "883556102",
+          "issuer": "THERMO FISHER SCIENTIFIC INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 50000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "743315103",
+          "issuer": "PROGRESSIVE CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 220000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "21037T109",
+          "issuer": "CONSTELLATION ENERGY CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 475000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "M98068105",
+          "issuer": "WIX COM LTD",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 225000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "69331C108",
+          "issuer": "PG&E CORP",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 34300000,
+          "shares_to": 0,
+          "shares_delta_pct": null,
+          "value_to": 0,
+          "rationale": "",
+          "our_takeaway": "",
+          "tag": "미확인"
+        },
+        {
+          "cusip": "22160N109",
+          "issuer": "COSTAR GROUP INC",
+          "ticker": null,
+          "action": "EXIT",
+          "shares_from": 3165000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5365,11 +5935,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "69331C108",
-          "issuer": "PG&E CORP",
+          "cusip": "92840M102",
+          "issuer": "VISTRA CORP",
           "ticker": null,
           "action": "EXIT",
-          "shares_from": 34300000,
+          "shares_from": 1005000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5378,11 +5948,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "21037T109",
-          "issuer": "CONSTELLATION ENERGY CORP",
+          "cusip": "77311W101",
+          "issuer": "ROCKET COS INC",
           "ticker": null,
           "action": "EXIT",
-          "shares_from": 475000,
+          "shares_from": 9515000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5391,11 +5961,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "69331C306",
-          "issuer": "PG&E CORP",
+          "cusip": "01609W102",
+          "issuer": "ALIBABA GROUP HLDG LTD",
           "ticker": null,
           "action": "EXIT",
-          "shares_from": 140000,
+          "shares_from": 825000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5404,11 +5974,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "883556102",
-          "issuer": "THERMO FISHER SCIENTIFIC INC",
+          "cusip": "11271J107",
+          "issuer": "BROOKFIELD CORP",
           "ticker": null,
           "action": "EXIT",
-          "shares_from": 50000,
+          "shares_from": 6200000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5417,11 +5987,11 @@
           "tag": "미확인"
         },
         {
-          "cusip": "L8681T102",
-          "issuer": "SPOTIFY TECHNOLOGY S A",
-          "ticker": null,
+          "cusip": "594918104",
+          "issuer": "MICROSOFT CORP",
+          "ticker": "MSFT",
           "action": "EXIT",
-          "shares_from": 100000,
+          "shares_from": 925000,
           "shares_to": 0,
           "shares_delta_pct": null,
           "value_to": 0,
@@ -5714,9 +6284,10 @@
         "SEC EDGAR 13F-HR acc 0001040273-25-000003 (2025-09-30)",
         "SEC EDGAR 13F-HR acc 0001085146-25-005277 (2025-06-30)",
         "SEC EDGAR 13F-HR acc 0001085146-25-003337 (2025-03-31)",
-        "SEC EDGAR 13F-HR acc 0001085146-25-001713 (2024-12-31)"
+        "SEC EDGAR 13F-HR acc 0001085146-25-001713 (2024-12-31)",
+        "SEC EDGAR 13F-HR acc 0001085146-24-005927 (2024-09-30)",
+        "SEC EDGAR 13F-HR acc 0001085146-24-004004 (2024-06-30)"
       ]
     }
-  },
-  "_cross_note": "GOOGL=대가 분열(버핏·로엡 매수 vs 애크먼·테퍼·드러켄밀러 매도). NVDA=광범 축소/숏(로엡-94%·테퍼트림·버리풋). MU·AVGO=메모리/인프라 축적(드러켄밀러·테퍼·로엡)."
+  }
 }

@@ -750,3 +750,17 @@
 {"date": "2026-08-12", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$260~335", "buy_zone": "눌림 비중관리(19.8%)", "source_report": "docs/reports/report_v73_2026-08-12.md"}
 {"date": "2026-08-12", "ticker": "ORCL", "stars": 3, "score": 55, "target": "$150~190 (중심 $168)", "buy_zone": "제외(매수후보 아님)", "source_report": "docs/reports/report_v73_2026-08-12.md"}
 {"date": "2026-08-12", "ticker": "VOO", "stars": 4, "score": null, "target": "ETF", "buy_zone": "적립(8월 미집행·재원부족)", "source_report": "docs/reports/report_v73_2026-08-12.md"}
+{"date": "2026-08-13", "ticker": "005380.KS", "stars": 2, "score": 50, "target": "39만~58만 (중심 48만)", "buy_zone": "—(물타기 영구금지)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "005930.KS", "stars": 5, "score": 93, "target": "24.6만~46만 (중심 34만)", "buy_zone": "사다리 D1 대상이나 해금 0%(재잠김)로 집행 불가", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "035420.KS", "stars": 3, "score": 60, "target": "21만~28.5만", "buy_zone": "보류(조건부 add 근거 소멸)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "066570.KS", "stars": 4, "score": 74, "target": "19.5만~29.5만 (중심 24만)", "buy_zone": "봉인(TF 해제 후)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "454910.KS", "stars": 1, "score": 32, "target": "분산 큼", "buy_zone": "—(추가매수 영구금지)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "AAPL", "stars": 3, "score": 55, "target": "$270~325", "buy_zone": "신규매수 금지", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "AVGO", "stars": 4, "score": 78, "target": "$430~525", "buy_zone": "조정 시 후보(TF 동결 우선)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "GOOGL", "stars": 5, "score": 88, "target": "$385~455", "buy_zone": "재진입 1순위(하드플로어 해제 후·현재 0원)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "META", "stars": 3, "score": 68, "target": "$650~815", "buy_zone": "제외(신규자금 영구제외)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "MSFT", "stars": 4, "score": 82, "target": "$540~655", "buy_zone": "—", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "MU", "stars": 5, "score": 86, "target": "$1,090~1,555", "buy_zone": "—", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "NVDA", "stars": 5, "score": 90, "target": "$260~335", "buy_zone": "눌림 비중관리(19.8%)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "ORCL", "stars": 3, "score": 55, "target": "$150~190 (중심 $168)", "buy_zone": "제외(매수후보 아님)", "source_report": "docs/reports/report_v74_2026-08-13.md"}
+{"date": "2026-08-13", "ticker": "VOO", "stars": 4, "score": null, "target": "ETF", "buy_zone": "적립(8월 미집행·재원부족)", "source_report": "docs/reports/report_v74_2026-08-13.md"}

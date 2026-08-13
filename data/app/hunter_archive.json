@@ -1,8 +1,18 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-08-13 자동 롤오버 +6편 (build_app_data)",
+  "updated": "2026-08-13 자동 롤오버 +1편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": null,
+      "title": "지금 모건스탠리가 '주가 2배' 갈 수 있다는 한국 종목",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "모건스탠리가 국내 기술주 최선호를 삼성전자→삼성전기로 교체, 목표가 262만원(강세 시나리오 300만원). 근거 3축 = ①MLCC(AI서버 전력 안정화 부품, 주문지표 1.3 = 신규주문>출하, 10여개 글로벌 고객 장기계약·공개분 하나만 2027년 4,540억원) ②FC-BGA(AI칩 고성능 기판, 2030년까지 기판 매출 대폭 확대 전망) ③실리콘 캐패시터(HBM 패키지 내 전력공급, 2027~28년 약 1,500억원 계약). 2Q 영업이익 4,404억원(+107% YoY)·매출 +24%. AI 매출 비중 2026년 20%→2027년 31% 전망. 채널도 리스크(AI 투자 둔화·원재료 가격) 병기.",
+      "views": null,
+      "id": "12qdMntrZyE"
+    },
     {
       "date": "2026-08-13",
       "title": "'AI반도체' 역대급 상승장 왔다는, 미국 주식 투자 포인트",

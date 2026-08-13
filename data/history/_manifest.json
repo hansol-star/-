@@ -1,20 +1,13 @@
 {
- "updated": "2026-08-12",
+ "updated": "2026-08-13",
  "symbols": {
-  "ANET": {
-   "label": "ANET",
-   "first": "2014-06-06",
-   "last": "2026-08-11",
-   "days": 3063,
-   "years": 12.2
-  },
-  "STM": {
-   "label": "STM",
-   "first": "1994-12-08",
-   "last": "2026-08-11",
-   "days": 7970,
-   "years": 31.7
+  "^KS11": {
+   "label": "코스피",
+   "first": "1996-12-11",
+   "last": "2026-08-13",
+   "days": 7304,
+   "years": 29.7
   }
  },
- "total_daily_bars": 11033
+ "total_daily_bars": 7304
 }

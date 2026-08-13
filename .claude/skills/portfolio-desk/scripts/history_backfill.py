@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import datetime as dt
 import json
 import os
 import time
@@ -163,22 +164,42 @@ def save_cached(symbol: str, rows) -> None:
             w.writerow([d, c])
 
 
+# 최근 이 일수 안의 봉은 값이 바뀔 수 있다고 보고 **매번 덮어쓴다**.
+# ★[8/13 실사고] 이 루틴이 14시대(KRX 장중)에 돌면서 **장중값을 그날 종가로 기록**했고,
+#   기존 로직이 "이미 있는 날짜는 건너뜀"이라 마감 후에 다시 돌려도 영영 안 고쳐졌다.
+#   결과: 코스피가 캐시엔 6,865.61(장중 고점 근처)로 남았는데 실제 종가는 6,813.34였고,
+#   낙폭이 -24.67% vs **-25.25%** 로 갈려 **룰1 D1(-25%) 해금 판정이 정반대**로 나왔다
+#   (보고서 v74는 "D1 재잠김·해금 0%"로 나갔다). 거래소 사후 정정도 같은 경로로 놓친다.
+#   ⇒ 최근 구간은 append가 아니라 **upsert**한다.
+REVISE_WINDOW_DAYS = 7
+
+
 def update_symbol(symbol: str, refresh: bool = False):
-    """캐시 있으면 마지막 날 이후만 증분(period1=마지막 ts). 없거나 refresh면 전체."""
+    """캐시 있으면 마지막 날 이후만 증분(period1=마지막 ts). 없거나 refresh면 전체.
+    단 최근 REVISE_WINDOW_DAYS 안의 날짜는 이미 있어도 **새 값으로 덮어쓴다**(장중 오염·사후정정 대응)."""
     cached = [] if refresh else load_cached(symbol)
     if cached:
         last_date = cached[-1][0]
-        p1 = int(time.mktime(time.strptime(last_date, "%Y-%m-%d")))
+        # 마지막 날 '이후'가 아니라 개정창 시작점부터 다시 받아야 덮어쓸 원본이 생긴다.
+        p1_dt = dt.date.fromisoformat(last_date) - dt.timedelta(days=REVISE_WINDOW_DAYS)
+        p1 = int(time.mktime(p1_dt.timetuple()))
         fresh = fetch_with_backoff(symbol, period1=p1)
         if not fresh:
             return cached, 0
-        have = {d for d, _ in cached}
-        added = [(d, c) for d, c in fresh if d not in have]
-        merged = cached + added
-        merged.sort(key=lambda x: x[0])
-        if added:
+        cutoff = (dt.date.today() - dt.timedelta(days=REVISE_WINDOW_DAYS)).isoformat()
+        book = dict(cached)
+        added = revised = 0
+        for d, c in fresh:
+            if d not in book:
+                book[d] = c
+                added += 1
+            elif d >= cutoff and book[d] != c:
+                book[d] = c          # 개정창 안 = 덮어쓴다
+                revised += 1
+        merged = sorted(book.items(), key=lambda x: x[0])
+        if added or revised:
             save_cached(symbol, merged)
-        return merged, len(added)
+        return merged, added + revised
     fresh = fetch_with_backoff(symbol, period1=0)
     if not fresh:
         return [], 0

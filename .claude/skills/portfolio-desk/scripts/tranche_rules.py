@@ -365,6 +365,33 @@ def _stale_warning(last_date: str):
             f"급등·급락일엔 상한이 크게 틀린다. `history_backfill.py --symbols '^KS11'` 먼저 실행할 것.")
 
 
+# ★[8/14 신설·정훈 승인] 국내 이월 적립 — 사다리가 국내에서 작동하지 않던 결함의 교정.
+#   토스는 국내 소수점 미지원 → 해금액 < 1주 가격이면 그 단계는 국내에서 집행 방법이 없다.
+#   8/14 실측: D1~D4 전부 합산 226,151원 < NAVER 227,500원(1,349원 부족).
+#   ⇒ 소멸시키지 않고 **대기(적립)**로 유지하고, 1주 가격 도달 시 그 단계가 열려 있으면 집행.
+#   ⚠️ 자동 집행 아님 — 도달 여부만 표시한다. 정본 = crash_tf §2b.
+KR_CANDIDATES = {           # 국내 매수후보 1주 가격(보고서 갱신 시 함께 갱신)
+    "NAVER": 227500, "삼성전자": 274000, "KT&G": 176300, "두산에너빌리티": 81800,
+}
+
+
+def _kr_accrual_note(allowed_krw, cash):
+    """해금 상한이 국내 1주에 얼마나 모자란지 / 어디까지 닿는지."""
+    reach = {k: v for k, v in KR_CANDIDATES.items() if allowed_krw >= v}
+    lines = ["\n═══ 🇰🇷 국내 이월 적립 (crash_tf §2b · 8/14 신설) ═══"]
+    if allowed_krw <= 0:
+        lines.append(f"  현재 허용 상한 **0원** — 적립 대기(사다리 잠김 또는 하드플로어).")
+    if reach:
+        lines.append(f"  ✅ 1주 도달: {', '.join(f'{k} {v:,}원' for k, v in sorted(reach.items(), key=lambda x: x[1]))}")
+    nearest = min((v for v in KR_CANDIDATES.values() if v > allowed_krw), default=None)
+    if nearest is not None:
+        name = next(k for k, v in KR_CANDIDATES.items() if v == nearest)
+        lines.append(f"  ⏳ 최근접 미달: {name} {nearest:,}원 — **{nearest - allowed_krw:,.0f}원 부족**")
+    lines.append(f"  참고 가용현금 {cash:,.0f}원 · 적립분은 미국 매수에 쓰지 않는다(§2b 규칙3)")
+    lines.append("  ⚠️ 표시 전용 — 도달해도 §5 3중 게이트·하드플로어가 위에 그대로 있다.")
+    return "\n".join(lines)
+
+
 def _provisional_warning(last_date: str):
     """★[2026-08-14 신설] _stale_warning의 **거울 짝** — 캐시가 너무 낡은 게 아니라
     **너무 이른** 경우를 잡는다.
@@ -524,6 +551,8 @@ def main():
         print(f"     분할 권고: **{r['storm_splits']}회** "
               f"(1회 ≈ {round(r['allowed_krw']/r['storm_splits']):,}원) — 금액이 아니라 속도로 조절")
         print("     ※ 상한이지 목표가 아니다. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")
+
+    print(_kr_accrual_note(r["allowed_krw"], cash))
 
     r2 = rule2(a.ticker)
     print(f"\n═══ 룰2 개정 — 추세형 훼손 ({r2.get('name') or a.ticker}) ═══")

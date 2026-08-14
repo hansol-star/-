@@ -303,8 +303,18 @@ def main() -> int:
                 r["cached"] = res.get("cached")
                 got += 1
             time.sleep(0.8)
-        added, total = save_index(rows)
-        print(f"📥 본문 확보 {got}건 · 인덱스 신규 {added}건 (누적 {total}건)")
+        print(f"📥 본문 확보 {got}건")
+
+    # ★[8/14 수정·배선 결함] save_index()가 `--fetch` 블록 **안에만** 있었다.
+    #   --fetch는 PDF를 통째로 받는 무거운 플래그라 루틴이 안 쓴다 → **메타 누적이 7/30에서 멈춰 있었다.**
+    #   그 사이 `--targets`(누적 인덱스를 읽는다)는 **2주 묵은 목표가로 컨센서스를 계산**하고 있었고,
+    #   실측: LG전자가 누적 3건(7/7~7/8)뿐이라 컨센 240,000으로 나왔는데
+    #   실제 최신은 iM 250,000(8/13)·IBK 180,000·SK 180,000(7/31)로 **레인지가 180,000~250,000**이었다.
+    #   ⇒ **저장은 조회의 부산물이어야 한다.** 본문 다운로드만 --fetch에 남기고 메타는 항상 누적한다.
+    #   (오늘 정리한 (B)계열 '죽은 배선' — 쓰는 쪽과 읽는 쪽이 갈리면 데이터는 조용히 낡는다.)
+    added, total = save_index(rows)
+    if added:
+        print(f"🗂️ 인덱스 신규 {added}건 (누적 {total}건)")
 
     if a.json:
         print(json.dumps(rows, ensure_ascii=False, indent=1))

@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-01",
+ "updated": "2026-08-14",
  "note": "SEC 8-K Item 2.02 보도자료 가이던스. 어닝콜 Q&A 전문은 미포함.",
  "rows": [
   {
@@ -23,24 +23,8 @@
    ]
   },
   {
-   "ticker": "MU",
-   "filed": "2026-06-24",
-   "accession": "0000723125-26-000013",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
-   "sources": [
-    "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm"
-   ],
-   "chars": 17662,
-   "outlook": "Business Outlook The following table presents Micron's guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion ± $1.0 billion $50.0 billion ± $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 ± $1.00 $31.00 ± $1.00 Further information regarding Micron's business outlook is included in the prepared remarks and slides, which have been posted at investors.micron.com .",
-   "metrics": {
-    "매출": "$50.0 billion ± $1.0 billion",
-    "매출총이익률": "86%",
-    "영업비용": "$1.86 billion",
-    "EPS": "$30.73 ± $1.00"
-   },
-   "commentary": [
-    "Sanjay Mehrotra: “Micron's record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,”"
-   ]
+   "error": "인덱스 조회 실패 HTTPError",
+   "ticker": "MU"
   },
   {
    "ticker": "AAPL",
@@ -76,20 +60,18 @@
   },
   {
    "ticker": "ANET",
-   "filed": "2026-05-05",
-   "accession": "0001596532-26-000074",
-   "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000074/ex991q126-earningsrelease.htm",
+   "filed": "2026-08-04",
+   "accession": "0001596532-26-000174",
+   "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000074/ex991q126-earningsrelease.htm"
+    "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
    ],
-   "chars": 18213,
-   "outlook": "Financial Outlook For the second quarter of 2026, we expect: • Revenue of approximately $2.8 billion; • Non-GAAP operating margin of 46 - 47%; and • Non-GAAP diluted net income per share of approximately $0.88. Guidance for",
+   "chars": 19153,
+   "outlook": "Financial Outlook For the third quarter of 2026, we expect: • Revenue of approximately $3.3 billion; • Non-GAAP operating margin of 48 - 49%; and • Non-GAAP diluted net income per share between $1.06 and $1.08. Guidance for",
    "metrics": {
-    "매출": "$2.8 billion"
+    "매출": "$3.3 billion"
    },
-   "commentary": [
-    "Jayshree Ullal: “Arista is off to a strong start in Q1 2026, with both our results and our industry-leading net promoter score,”"
-   ]
+   "commentary": []
   },
   {
    "ticker": "AVGO",

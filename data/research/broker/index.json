@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-01",
+ "updated": "2026-08-14",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -12,9 +12,7 @@
    "analyst": "김운호",
    "broker": "IBK투자증권",
    "name": "SK하이닉스",
-   "held": false,
-   "body_chars": 18491,
-   "cached": false
+   "held": false
   },
   "651258": {
    "date": "2026-07-30",
@@ -27,9 +25,7 @@
    "analyst": "한동희",
    "broker": "SK증권",
    "name": "SK하이닉스",
-   "held": false,
-   "body_chars": 20153,
-   "cached": false
+   "held": false
   },
   "651257": {
    "date": "2026-07-30",
@@ -42,9 +38,7 @@
    "analyst": "김용민",
    "broker": "유안타증권",
    "name": "HD현대중공업",
-   "held": false,
-   "body_chars": 15086,
-   "cached": false
+   "held": false
   },
   "651250": {
    "date": "2026-07-30",
@@ -57,9 +51,7 @@
    "analyst": "변용진",
    "broker": "iM증권",
    "name": "HD현대중공업",
-   "held": false,
-   "body_chars": 11281,
-   "cached": false
+   "held": false
   },
   "651194": {
    "date": "2026-07-28",
@@ -72,9 +64,7 @@
    "analyst": "변용진",
    "broker": "iM증권",
    "name": "한화오션",
-   "held": false,
-   "body_chars": 11668,
-   "cached": false
+   "held": false
   },
   "651184": {
    "date": "2026-07-28",
@@ -87,9 +77,7 @@
    "analyst": "김태현",
    "broker": "IBK투자증권",
    "name": "두산에너빌리티",
-   "held": false,
-   "body_chars": 15469,
-   "cached": false
+   "held": false
   },
   "651183": {
    "date": "2026-07-28",
@@ -102,9 +90,7 @@
    "analyst": "김태현",
    "broker": "IBK투자증권",
    "name": "두산에너빌리티",
-   "held": false,
-   "body_chars": 15469,
-   "cached": false
+   "held": false
   },
   "651176": {
    "date": "2026-07-28",
@@ -117,9 +103,7 @@
    "analyst": "한승한, 고서영",
    "broker": "SK증권",
    "name": "한화오션",
-   "held": false,
-   "body_chars": 10453,
-   "cached": false
+   "held": false
   },
   "651173": {
    "date": "2026-07-28",
@@ -132,9 +116,7 @@
    "analyst": "김도엽",
    "broker": "유안타증권",
    "name": "두산에너빌리티",
-   "held": false,
-   "body_chars": 15102,
-   "cached": false
+   "held": false
   },
   "651172": {
    "date": "2026-07-28",
@@ -147,9 +129,7 @@
    "analyst": "김용민",
    "broker": "유안타증권",
    "name": "한화오션",
-   "held": false,
-   "body_chars": 14682,
-   "cached": false
+   "held": false
   },
   "651163": {
    "date": "2026-07-28",
@@ -162,9 +142,7 @@
    "analyst": "김세련",
    "broker": "LS증권",
    "name": "두산에너빌리티",
-   "held": false,
-   "body_chars": 19553,
-   "cached": false
+   "held": false
   },
   "651162": {
    "date": "2026-07-28",
@@ -177,9 +155,7 @@
    "analyst": "이재혁",
    "broker": "LS증권",
    "name": "한화오션",
-   "held": false,
-   "body_chars": 14371,
-   "cached": false
+   "held": false
   },
   "651159": {
    "date": "2026-07-28",
@@ -192,9 +168,7 @@
    "analyst": "이서연",
    "broker": "상상인증권",
    "name": "한화오션",
-   "held": false,
-   "body_chars": 12563,
-   "cached": false
+   "held": false
   },
   "651149": {
    "date": "2026-07-28",
@@ -207,9 +181,7 @@
    "analyst": "문경원,이동석",
    "broker": "메리츠증권",
    "name": "두산에너빌리티",
-   "held": false,
-   "body_chars": 18011,
-   "cached": false
+   "held": false
   },
   "651147": {
    "date": "2026-07-28",
@@ -222,9 +194,7 @@
    "analyst": "배기연,김현비",
    "broker": "메리츠증권",
    "name": "한화오션",
-   "held": false,
-   "body_chars": 19820,
-   "cached": false
+   "held": false
   },
   "651139": {
    "date": "2026-07-28",
@@ -237,9 +207,7 @@
    "analyst": "양승윤",
    "broker": "유진투자증권",
    "name": "한화오션",
-   "held": false,
-   "body_chars": 10221,
-   "cached": false
+   "held": false
   },
   "651138": {
    "date": "2026-07-28",
@@ -252,9 +220,7 @@
    "analyst": "황성현",
    "broker": "유진투자증권",
    "name": "두산에너빌리티",
-   "held": false,
-   "body_chars": 12010,
-   "cached": false
+   "held": false
   },
   "651123": {
    "date": "2026-07-27",
@@ -267,9 +233,7 @@
    "analyst": "이재혁",
    "broker": "LS증권",
    "name": "삼성중공업",
-   "held": false,
-   "body_chars": 13854,
-   "cached": false
+   "held": false
   },
   "651117": {
    "date": "2026-07-27",
@@ -282,9 +246,7 @@
    "analyst": "변용진",
    "broker": "iM증권",
    "name": "삼성중공업",
-   "held": false,
-   "body_chars": 10195,
-   "cached": false
+   "held": false
   },
   "651081": {
    "date": "2026-07-27",
@@ -297,9 +259,7 @@
    "analyst": "이서연",
    "broker": "상상인증권",
    "name": "삼성중공업",
-   "held": false,
-   "body_chars": 11112,
-   "cached": false
+   "held": false
   },
   "651070": {
    "date": "2026-07-27",
@@ -312,9 +272,7 @@
    "analyst": "배기연,김현비",
    "broker": "메리츠증권",
    "name": "삼성중공업",
-   "held": false,
-   "body_chars": 21005,
-   "cached": false
+   "held": false
   },
   "651050": {
    "date": "2026-07-24",
@@ -327,9 +285,7 @@
    "analyst": "김성래,김예인",
    "broker": "한화투자증권",
    "name": "현대차",
-   "held": true,
-   "body_chars": 15227,
-   "cached": false
+   "held": true
   },
   "651034": {
    "date": "2026-07-24",
@@ -342,9 +298,7 @@
    "analyst": "이상수",
    "broker": "iM증권",
    "name": "현대차",
-   "held": true,
-   "body_chars": 17296,
-   "cached": false
+   "held": true
   },
   "651033": {
    "date": "2026-07-24",
@@ -357,9 +311,7 @@
    "analyst": "고의영, 박정하",
    "broker": "iM증권",
    "name": "삼성전기",
-   "held": false,
-   "body_chars": 5676,
-   "cached": false
+   "held": false
   },
   "651011": {
    "date": "2026-07-24",
@@ -372,9 +324,7 @@
    "analyst": "김용민",
    "broker": "유안타증권",
    "name": "현대차",
-   "held": true,
-   "body_chars": 13072,
-   "cached": false
+   "held": true
   },
   "650998": {
    "date": "2026-07-24",
@@ -387,9 +337,7 @@
    "analyst": "이병근",
    "broker": "LS증권",
    "name": "현대차",
-   "held": true,
-   "body_chars": 18173,
-   "cached": false
+   "held": true
   },
   "650993": {
    "date": "2026-07-24",
@@ -402,9 +350,7 @@
    "analyst": "이재일",
    "broker": "유진투자증권",
    "name": "현대차",
-   "held": true,
-   "body_chars": 17477,
-   "cached": false
+   "held": true
   },
   "650964": {
    "date": "2026-07-23",
@@ -417,9 +363,7 @@
    "analyst": "양승수",
    "broker": "메리츠증권",
    "name": "삼성전기",
-   "held": false,
-   "body_chars": 35646,
-   "cached": false
+   "held": false
   },
   "650806": {
    "date": "2026-07-16",
@@ -432,9 +376,7 @@
    "analyst": "im증권 리서치본부",
    "broker": "iM증권",
    "name": "현대차",
-   "held": true,
-   "body_chars": 7710,
-   "cached": false
+   "held": true
   },
   "650798": {
    "date": "2026-07-16",
@@ -447,9 +389,7 @@
    "analyst": "안현국",
    "broker": "한화투자증권",
    "name": "SK하이닉스",
-   "held": false,
-   "body_chars": 54656,
-   "cached": false
+   "held": false
   },
   "650745": {
    "date": "2026-07-14",
@@ -1014,6 +954,292 @@
    "analyst": "정경희",
    "broker": "LS증권",
    "name": "SK이노베이션",
+   "held": false
+  },
+  "651714": {
+   "date": "2026-08-14",
+   "report_idx": "651714",
+   "title": "테스",
+   "full_title": "테스(095610) 신규 수주 급증 테스(095610) 신규 수주 급증 신규 수주 급증",
+   "code": "095610",
+   "target_price": 230000.0,
+   "rating": "매수",
+   "analyst": "이동주",
+   "broker": "SK증권",
+   "name": "테스",
+   "held": false
+  },
+  "651661": {
+   "date": "2026-08-13",
+   "report_idx": "651661",
+   "title": "LG전자",
+   "full_title": "LG전자(066570) 시황을 사는 주식에서 수주를 사는 주식으로 LG전자(066570) 시황을 사는 주식에서 수주를 사는 주식으로 시황을 사는 주식에서 수주를 사는 주식으로",
+   "code": "066570",
+   "target_price": 250000.0,
+   "rating": "Buy",
+   "analyst": "고의영",
+   "broker": "iM증권",
+   "name": "LG전자",
+   "held": true
+  },
+  "651606": {
+   "date": "2026-08-11",
+   "report_idx": "651606",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) LTA 본격화, 서버가 이끄는 P와 Q 삼성전기(009150) LTA 본격화, 서버가 이끄는 P와 Q LTA 본격화, 서버가 이끄는 P와 Q",
+   "code": "009150",
+   "target_price": 2300000.0,
+   "rating": "Buy",
+   "analyst": "고선영, 임석민",
+   "broker": "유안타증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "651555": {
+   "date": "2026-08-07",
+   "report_idx": "651555",
+   "title": "원익IPS",
+   "full_title": "원익IPS(240810) 수주가 쌓이기 시작했습니다 원익IPS(240810) 수주가 쌓이기 시작했습니다 수주가 쌓이기 시작했습니다",
+   "code": "240810",
+   "target_price": 190000.0,
+   "rating": "매수",
+   "analyst": "이동주",
+   "broker": "SK증권",
+   "name": "원익IPS",
+   "held": false
+  },
+  "651522": {
+   "date": "2026-08-07",
+   "report_idx": "651522",
+   "title": "원익IPS",
+   "full_title": "원익IPS(240810) 상저하고, 남은 건 하반기 고성장 원익IPS(240810) 상저하고, 남은 건 하반기 고성장 상저하고, 남은 건 하반기 고성장",
+   "code": "240810",
+   "target_price": 153000.0,
+   "rating": "Buy",
+   "analyst": "김동관",
+   "broker": "메리츠증권",
+   "name": "원익IPS",
+   "held": false
+  },
+  "651423": {
+   "date": "2026-08-03",
+   "report_idx": "651423",
+   "title": "한화에어로스페이스",
+   "full_title": "한화에어로스페이스(012450) 대장의 품격 한화에어로스페이스(012450) 대장의 품격 대장의 품격",
+   "code": "012450",
+   "target_price": 1860000.0,
+   "rating": "Buy",
+   "analyst": "양승윤",
+   "broker": "유진투자증권",
+   "name": "한화에어로스페이스",
+   "held": false
+  },
+  "651405": {
+   "date": "2026-08-03",
+   "report_idx": "651405",
+   "title": "한화에어로스페이스",
+   "full_title": "한화에어로스페이스(012450) 자회사 실적 영향으로 컨센서스 상회 한화에어로스페이스(012450) 자회사 실적 영향으로 컨센서스 상회 자회사 실적 영향으로 컨센서스 상회",
+   "code": "012450",
+   "target_price": 1650000.0,
+   "rating": "Buy",
+   "analyst": "이재광",
+   "broker": "LS증권",
+   "name": "한화에어로스페이스",
+   "held": false
+  },
+  "651383": {
+   "date": "2026-08-03",
+   "report_idx": "651383",
+   "title": "한화에어로스페이스",
+   "full_title": "한화에어로스페이스(012450) 2Q26: 방산수요는 오히려 증가 중 한화에어로스페이스(012450) 2Q26: 방산수요는 오히려 증가 중 2Q26: 방산수요는 오히려 증가 중",
+   "code": "012450",
+   "target_price": 1490000.0,
+   "rating": "Buy",
+   "analyst": "변용진",
+   "broker": "iM증권",
+   "name": "한화에어로스페이스",
+   "held": false
+  },
+  "651362": {
+   "date": "2026-08-03",
+   "report_idx": "651362",
+   "title": "한화에어로스페이스",
+   "full_title": "한화에어로스페이스(012450) 어닝 서프, 하반기는 더 좋다 한화에어로스페이스(012450) 어닝 서프, 하반기는 더 좋다 어닝 서프, 하반기는 더 좋다",
+   "code": "012450",
+   "target_price": 1600000.0,
+   "rating": "매수",
+   "analyst": "한승한, 고서영",
+   "broker": "SK증권",
+   "name": "한화에어로스페이스",
+   "held": false
+  },
+  "651360": {
+   "date": "2026-08-03",
+   "report_idx": "651360",
+   "title": "SK하이닉스",
+   "full_title": "SK하이닉스(000660) 2Q26 NDR 후기: 오해와 본질 SK하이닉스(000660) 2Q26 NDR 후기: 오해와 본질 2Q26 NDR 후기: 오해와 본질",
+   "code": "000660",
+   "target_price": 4000000.0,
+   "rating": "매수",
+   "analyst": "한동희",
+   "broker": "SK증권",
+   "name": "SK하이닉스",
+   "held": false
+  },
+  "651333": {
+   "date": "2026-07-31",
+   "report_idx": "651333",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) 10년 평균치로 회귀한 밸류에이션과, 더 강해진 업황 삼성전기(009150) 10년 평균치로 회귀한 밸류에이션과, 더 강해진 업황 10년 평균치로 회귀한 밸류에이션과, 더 강해진 업황",
+   "code": "009150",
+   "target_price": 2000000.0,
+   "rating": "Buy",
+   "analyst": "고의영, 박정하",
+   "broker": "iM증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "651332": {
+   "date": "2026-07-31",
+   "report_idx": "651332",
+   "title": "SK이노베이션",
+   "full_title": "SK이노베이션(096770) 두 번의 전쟁으로 완전히 꼬여 버린 에너지 수급 SK이노베이션(096770) 두 번의 전쟁으로 완전히 꼬여 버린 에너지 수급 두 번의 전쟁으로 완전히 꼬여 버린 에너지 수급",
+   "code": "096770",
+   "target_price": 190000.0,
+   "rating": "Buy",
+   "analyst": "전유진, 장호",
+   "broker": "iM증권",
+   "name": "SK이노베이션",
+   "held": false
+  },
+  "651325": {
+   "date": "2026-07-31",
+   "report_idx": "651325",
+   "title": "삼성전자",
+   "full_title": "삼성전자(005930) 무시할 실적이 아니다 삼성전자(005930) 무시할 실적이 아니다 무시할 실적이 아니다",
+   "code": "005930",
+   "target_price": 460000.0,
+   "rating": "매수",
+   "analyst": "김운호",
+   "broker": "IBK투자증권",
+   "name": "삼성전자",
+   "held": true
+  },
+  "651324": {
+   "date": "2026-07-31",
+   "report_idx": "651324",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) MLCC 가격 인상! 쉽게 보면 안된다 삼성전기(009150) MLCC 가격 인상! 쉽게 보면 안된다 MLCC 가격 인상! 쉽게 보면 안된다",
+   "code": "009150",
+   "target_price": 1750000.0,
+   "rating": "매수",
+   "analyst": "김운호",
+   "broker": "IBK투자증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "651323": {
+   "date": "2026-07-31",
+   "report_idx": "651323",
+   "title": "LG전자",
+   "full_title": "LG전자(066570) 높아진 경쟁력, 신사업으로 한계에서 벗어난다 LG전자(066570) 높아진 경쟁력, 신사업으로 한계에서 벗어난다 높아진 경쟁력, 신사업으로 한계에서 벗어난다",
+   "code": "066570",
+   "target_price": 180000.0,
+   "rating": "매수",
+   "analyst": "김운호",
+   "broker": "IBK투자증권",
+   "name": "LG전자",
+   "held": true
+  },
+  "651318": {
+   "date": "2026-07-31",
+   "report_idx": "651318",
+   "title": "SK이노베이션",
+   "full_title": "SK이노베이션(096770) 윤활기유가 이끈 어닝 서프라이즈 SK이노베이션(096770) 윤활기유가 이끈 어닝 서프라이즈 윤활기유가 이끈 어닝 서프라이즈",
+   "code": "096770",
+   "target_price": 200000.0,
+   "rating": "매수",
+   "analyst": "이동",
+   "broker": "IBK투자증권",
+   "name": "SK이노베이션",
+   "held": false
+  },
+  "651310": {
+   "date": "2026-07-31",
+   "report_idx": "651310",
+   "title": "LG전자",
+   "full_title": "LG전자(066570) 전 사업부가 연초 우려 대비 선방 LG전자(066570) 전 사업부가 연초 우려 대비 선방 전 사업부가 연초 우려 대비 선방",
+   "code": "066570",
+   "target_price": 180000.0,
+   "rating": "매수",
+   "analyst": "박형우, 정영환",
+   "broker": "SK증권",
+   "name": "LG전자",
+   "held": true
+  },
+  "651308": {
+   "date": "2026-07-31",
+   "report_idx": "651308",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) “MLCC 개당 5원 시대”, 7년 만의 귀환 삼성전기(009150) “MLCC 개당 5원 시대”, 7년 만의 귀환 “MLCC 개당 5원 시대”, 7년 만의 귀환",
+   "code": "009150",
+   "target_price": 2000000.0,
+   "rating": "매수",
+   "analyst": "박형우, 정영환",
+   "broker": "SK증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "651304": {
+   "date": "2026-07-31",
+   "report_idx": "651304",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) 2Q26 Re: 아쉬움은 내려놓고 시선은 위로 삼성전기(009150) 2Q26 Re: 아쉬움은 내려놓고 시선은 위로 2Q26 Re: 아쉬움은 내려놓고 시선은 위로",
+   "code": "009150",
+   "target_price": 2300000.0,
+   "rating": "Buy",
+   "analyst": "고선영, 임석민",
+   "broker": "유안타증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "651291": {
+   "date": "2026-07-31",
+   "report_idx": "651291",
+   "title": "SK이노베이션",
+   "full_title": "SK이노베이션(096770) 투자의견 Buy 상향 SK이노베이션(096770) 투자의견 Buy 상향 투자의견 Buy 상향",
+   "code": "096770",
+   "target_price": 0.0,
+   "rating": "Buy",
+   "analyst": "노우호, 황현식",
+   "broker": "메리츠증권",
+   "name": "SK이노베이션",
+   "held": false
+  },
+  "651287": {
+   "date": "2026-07-31",
+   "report_idx": "651287",
+   "title": "LG전자",
+   "full_title": "LG전자(066570) 이제는 변화를 인정할 때 LG전자(066570) 이제는 변화를 인정할 때 이제는 변화를 인정할 때",
+   "code": "066570",
+   "target_price": 0.0,
+   "rating": "Buy",
+   "analyst": "양승수",
+   "broker": "메리츠증권",
+   "name": "LG전자",
+   "held": true
+  },
+  "651285": {
+   "date": "2026-07-31",
+   "report_idx": "651285",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) 독보적으로 가팔라지는 이익의 기울기 삼성전기(009150) 독보적으로 가팔라지는 이익의 기울기 독보적으로 가팔라지는 이익의 기울기",
+   "code": "009150",
+   "target_price": 0.0,
+   "rating": "Buy",
+   "analyst": "양승수",
+   "broker": "메리츠증권",
+   "name": "삼성전기",
    "held": false
   }
  }

@@ -1,12 +1,12 @@
 {
- "updated": "2026-08-01",
+ "updated": "2026-08-14",
  "note": "어닝콜 트랜스크립트 요약(earningscalls.dev·무키). 수치는 1차 출처 교차 필요.",
  "rows": [
   {
    "ticker": "NVDA",
    "date": "2026-06-04",
    "url": "https://earningscalls.dev/transcripts/nvidia-corporation_nvda_earnings_call_transcript_2026-06-04",
-   "chars": 36664,
+   "chars": 36680,
    "quotes": [
     {
      "key": "supply",
@@ -40,61 +40,53 @@
   },
   {
    "ticker": "MU",
-   "date": "2026-06-24",
-   "url": "https://earningscalls.dev/transcripts/micron-technology-inc_mu_earnings_call_transcript_2026-06-24",
-   "chars": 38772,
+   "date": "2026-08-10",
+   "url": "https://earningscalls.dev/transcripts/micron-technology-inc_mu_earnings_call_transcript_2026-08-10",
+   "chars": 42539,
    "quotes": [
     {
      "key": "supply",
-     "quote": "stable revenue streams. Sumit Sadana noted, \"These agreements cannot be canceled,\" providing confidence in future cash flows. Supply Constraints: Management acknowledged ongoing supply constraints, particularly in DRAM and HBM markets. Sumit Sadana remarked, \"The demand continues to be well above our supply,\" highlighting the challenges in meeting customer needs. CapEx and Greenf"
+     "quote": "earnings per share (EPS) of $1.10, both exceeding market expectations. Management indicated that demand would continue to outpace supply, prompting a revision of guidance for 2027, which is now expected to be tighter than previously anticipated due to escalating customer demand across various segments, particularly in data centers. What topics did Micron Technology, Inc. cover?"
     },
     {
      "key": "supply",
-     "quote": "greements cannot be canceled,\" providing confidence in future cash flows. Supply Constraints: Management acknowledged ongoing supply constraints, particularly in DRAM and HBM markets. Sumit Sadana remarked, \"The demand continues to be well above our supply,\" highlighting the challenges in meeting customer needs. CapEx and Greenfield Investments: Micron plans to increase capital e"
+     "quote": "tments, which management described as 'transformative' and binding, providing long-term visibility and stability in revenues. Supply Constraints: Management noted that 'we still don't have line of sight as to when the supply is going to be able to meet demand,' indicating ongoing supply challenges that could persist into 2027. Investment in Manufacturing: Micron plans to increase"
     },
     {
      "key": "demand",
-     "quote": "primarily through share buybacks. The company raised its guidance for Q4, anticipating revenue of $27 billion, reflecting strong demand across various sectors, particularly in AI and data centers. What topics did Micron Technology, Inc. cover? Revenue Growth Acceleration: Micron reported revenue of $25 billion for Q3 2026, a 15% increase year-over-year. Management stated, \"W"
+     "quote": "echnology, Inc.'s August 10, 2026 earnings call? In the fiscal Q3 2026 earnings call, Micron Technology, Inc. reported robust demand for memory products driven by AI applications, leading to a significant increase in strategic customer agreements. Revenue for the quarter was $6.5 billion, with earnings per share (EPS) of $1.10, both exceeding market expectations. Management indicated"
     },
     {
      "key": "demand",
-     "quote": "% increase year-over-year. Management stated, \"We expect cash flow growth will increase in the fourth quarter,\" indicating strong demand across sectors, particularly in AI and data centers. Shareholder Returns: Management confirmed a commitment to return 100% of free cash flow to shareholders, primarily through buybacks. Mark Murphy stated, \"We intend to increase our capital return f"
+     "quote": "e quarter was $6.5 billion, with earnings per share (EPS) of $1.10, both exceeding market expectations. Management indicated that demand would continue to outpace supply, prompting a revision of guidance for 2027, which is now expected to be tighter than previously anticipated due to escalating customer demand across various segments, particularly in data centers. What topics did M"
     },
     {
      "key": "pricing",
-     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Micron Technology, Inc. (MU) › June 24, 2026 Micron Technology, Inc. (MU) Earnings Call Transcript & Summary June 24, 2026 NASDAQ US Information Technology Semiconducto"
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Micron Technology, Inc. (MU) › August 10, 2026 Micron Technology, Inc. (MU) Earnings Call Transcript & Summary August 10, 2026 NASDAQ US Information Technology Semicond"
     },
     {
      "key": "pricing",
-     "quote": "onitor the execution of greenfield projects and the evolving competitive landscape, particularly regarding demand fulfillment and pricing dynamics in the DRAM and NAND markets. Earnings Call Speaker Segments Operator operator #1 Ladies and gentlemen, thank you for joining us, and welcome to Micron's Post-Earnings Analyst Call. [Operator Instruct"
-    },
-    {
-     "key": "capex",
-     "quote": "t Sadana remarked, \"The demand continues to be well above our supply,\" highlighting the challenges in meeting customer needs. CapEx and Greenfield Investments: Micron plans to increase capital expenditures to approximately $27 billion for FY26, focusing on greenfield investments. Management indicated that these investments will take time to ramp up, impacting costs in the near term."
-    },
-    {
-     "key": "capex",
-     "quote": "5) Q4 Revenue Guidance: $27B (up from previous guidance of $24B) Free Cash Flow: $30B+ (expected for next quarter) CapEx: $27B (increased from previous guidance) SCA Cash Deposits: $22B+ (includes $18B in cash commitments) Micron's strong Q3 performance and proactive capital return strategy position it well for future growth, despite ongoing supply constrai"
+     "quote": "urse, as time goes by, we will have more SCAs that we sign. Then these SCAs also have something that our LTAs never had, which is pricing. Some SCAs are going to be floating pricing. So the pricing will be consistent with whatever the market price is at that time. But most of the volume is going to be under these SCAs is going to have a price band. And so there is a ceiling price the c"
     },
     {
      "key": "guidance",
-     "quote": "th and a commitment to returning 100% of free cash flow to shareholders, primarily through share buybacks. The company raised its guidance for Q4, anticipating revenue of $27 billion, reflecting strong demand across various sectors, particularly in AI and data centers. What topics did Micron Technology, Inc. cover? Revenue Growth Acceleration: Micron reported revenue of $25 b"
-    },
-    {
-     "key": "guidance",
-     "quote": "nology, Inc.'s June 24, 2026 results? Revenue: $25B (vs $22B est, +15% YoY) EPS: $3.50 (beat by $0.25) Q4 Revenue Guidance: $27B (up from previous guidance of $24B) Free Cash Flow: $30B+ (expected for next quarter) CapEx: $27B (increased from previous guidance) SCA Cash Deposits: $22B+ (includes $18B in cash commitments) Micron's strong Q3 perfor"
+     "quote": "0, both exceeding market expectations. Management indicated that demand would continue to outpace supply, prompting a revision of guidance for 2027, which is now expected to be tighter than previously anticipated due to escalating customer demand across various segments, particularly in data centers. What topics did Micron Technology, Inc. cover? Increased Demand for Memory P"
     },
     {
      "key": "margin",
-     "quote": "se it was a more material effect to the business at that time. I think I had said at the time, maybe 0.5 point to 1 point plus of margin effect. Today, with the size of the business, this effect is much reduced from before. And obviously, the faster we can get capacity on, which we're obviously trying to do for our customers to get much needed supply, the benefit of that incremental bit"
+     "quote": "ogy, Inc.'s August 10, 2026 results? Revenue: $6.5B (vs $6.2B est, +15% YoY) EPS: $1.10 (beat by $0.15) Operating Margin: 8% (vs 7% prior quarter) Cash Commitments from SCAs: $22B (includes $18B in cash alone) Investment in U.S. Manufacturing: $250B (increased from $200B) 2027 Demand Outlook: Tighter than 2026 (due to increasing customer demand)"
+    },
+    {
+     "key": "margin",
+     "quote": "st be focused on market pricing. The floor pricing, which is a very important part for us is set at a level that provides a gross margin for us that is well above any prior peak in the cycles of the industry. And so these provide very high ROI that we can leverage to make long-term investments in capital. and in our capacity. With that said, we are going to have continued focus on disc"
     },
     {
      "key": "HBM",
-     "quote": "idence in future cash flows. Supply Constraints: Management acknowledged ongoing supply constraints, particularly in DRAM and HBM markets. Sumit Sadana remarked, \"The demand continues to be well above our supply,\" highlighting the challenges in meeting customer needs. CapEx and Greenfield Investments: Micron plans to increase capital expenditures to approximately $27 billion for"
+     "quote": "nk there is adequate appreciation for how long it takes for that supply vector to catch up. On top of that, we have this issue of HBM growing very significantly. And HBM is needed in these AI systems because in a lot of the workloads, the processor, whether it's a GPU or an ASC or a CPU is sitting idle for 50% of the time because it is waiting for data from the DRAM and that is a huge"
     },
     {
      "key": "HBM",
-     "quote": "y, the structural supply challenges that we've talked about the last couple of years, slower node or node migration yielding less HBM soaking up more wafers and the need for greenfield for incremental wafer capacity. So -- and then we have these strategic customer agreements, which we announced today, a meaningful number of these. So -- and we expect more. So we will hold what we believ"
+     "quote": "how long it takes for that supply vector to catch up. On top of that, we have this issue of HBM growing very significantly. And HBM is needed in these AI systems because in a lot of the workloads, the processor, whether it's a GPU or an ASC or a CPU is sitting idle for 50% of the time because it is waiting for data from the DRAM and that is a huge underutilization of an important asset"
     }
    ]
   },
@@ -102,7 +94,7 @@
    "ticker": "AAPL",
    "date": "2026-07-30",
    "url": "https://earningscalls.dev/transcripts/apple-inc_aapl_earnings_call_transcript_2026-07-30",
-   "chars": 56741,
+   "chars": 56773,
    "quotes": [
     {
      "key": "supply",
@@ -158,7 +150,7 @@
    "ticker": "MSFT",
    "date": "2026-07-29",
    "url": "https://earningscalls.dev/transcripts/microsoft-corporation_msft_earnings_call_transcript_2026-07-29",
-   "chars": 64167,
+   "chars": 64183,
    "quotes": [
     {
      "key": "supply",
@@ -220,53 +212,61 @@
   },
   {
    "ticker": "ANET",
-   "date": "2026-06-03",
-   "url": "https://earningscalls.dev/transcripts/arista-networks-inc_anet_earnings_call_transcript_2026-06-03",
-   "chars": 47323,
+   "date": "2026-08-04",
+   "url": "https://earningscalls.dev/transcripts/arista-networks-inc_anet_earnings_call_transcript_2026-08-04",
+   "chars": 50750,
    "quotes": [
     {
      "key": "supply",
-     "quote": "he enterprise sector. Management emphasized the sustainability of growth driven by AI and networking innovations, despite ongoing supply chain challenges that could impact margins. What topics did Arista Networks, Inc. cover? Revenue Growth Acceleration: Arista reported Q2 2026 revenue of $1.2 billion, a 25% increase year-over-year. Management raised the full-year revenue gro"
+     "quote": "1. Management noted, 'We are excited to increase our guidance for the third time this year to $12.6 billion revenue in 2026.' Supply Chain Improvements: Management highlighted significant progress in addressing supply chain challenges, stating, 'Arista is making solid progress here in addressing our tight supply chain.' This includes securing multiyear agreements with suppliers and i"
     },
     {
      "key": "supply",
-     "quote": "s a very sustainable advantage for AI, both networking for AI and AI for networking,\" suggesting a multi-decade growth cycle. Supply Chain Challenges: Management acknowledged ongoing supply chain issues affecting lead times and margins, particularly in memory and silicon components. Ullal remarked, \"This is a 2-year industry problem... but we will deal with it, and we will come out o"
+     "quote": "year to $12.6 billion revenue in 2026.' Supply Chain Improvements: Management highlighted significant progress in addressing supply chain challenges, stating, 'Arista is making solid progress here in addressing our tight supply chain.' This includes securing multiyear agreements with suppliers and improving lead times. AI Fabric Innovations: The company reported that its AI fabr"
     },
     {
      "key": "demand",
-     "quote": "$1.10, exceeding consensus estimates. The company raised its full-year revenue growth guidance from 25% to 28%, signaling strong demand from hyperscalers and the enterprise sector. Management emphasized the sustainability of growth driven by AI and networking innovations, despite ongoing supply chain challenges that could impact margins. What topics did Arista Networks, Inc. cover"
+     "quote": "assing guidance of $2.8 billion. The company achieved a significant milestone with its first $3 billion quarter, driven by strong demand from AI and enterprise customers. Management raised its full-year revenue guidance to $12.6 billion, reflecting a 40% annual growth rate, up from previous estimates, indicating robust momentum heading into the second half of the year. What topics"
     },
     {
      "key": "demand",
-     "quote": "illion, a 25% increase year-over-year. Management raised the full-year revenue growth guidance from 25% to 28%, indicating strong demand from cloud customers and the enterprise sector. CEO Jayshree Ullal stated, \"We pioneered the lease spine architecture, and we really redefined or reimagined networking for the cloud.\" AI as a Growth Driver: Management highlighted AI as a significant"
+     "quote": "ed its fiscal 2026 revenue guidance to $12.6 billion, an increase of $2.1 billion from the Analyst Day goal. This reflects strong demand across all product sectors, particularly in AI fabrics and campus solutions. Gross Margin Trends: The overall gross margin for Q2 was reported at 63.4%, down from 65.6% year-over-year but up from 62.4% in the prior quarter. Management noted this was"
     },
     {
      "key": "pricing",
-     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Arista Networks, Inc. (ANET) › June 3, 2026 Arista Networks, Inc. (ANET) Earnings Call Transcript & Summary June 3, 2026 NYSE US Information Technology Communications E"
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Arista Networks, Inc. (ANET) › August 4, 2026 Arista Networks, Inc. (ANET) Earnings Call Transcript & Summary August 4, 2026 NYSE US Information Technology Communicatio"
+    },
+    {
+     "key": "pricing",
+     "quote": "lification expansion in memory, strength in commitments from key suppliers. Are they getting more capacity? Are you offering more pricing on your side? Are you getting more customer advocacy? Any thoughts on there? Jayshree Ullal executive #18 Absolutely, Michael. So listen, I don't want you to believe that suddenly, we waved the magic wand and all our p"
+    },
+    {
+     "key": "inventory",
+     "quote": "l outlook for 2026 and beyond, our total addressable market and strategy for addressing these market opportunities, including AI, inventory levels and management, lead times, purchase commitments, component supply and product innovation, which are subject to the risks and uncertainties that we discuss in detail in our documents filed with the SEC, specifically in our most recent Form 10-"
+    },
+    {
+     "key": "inventory",
+     "quote": "y in a 12-month window and have strengthened our engagement and commitments from key suppliers. We've improved our lead times and inventory management of thousands of component SKUs, improving subcomponent pipelining and multisourcing and providing increased flexibility with reduced inventory risk. In a new area, we've now established a liquid cooling supply chain capable of driving and"
     },
     {
      "key": "capex",
-     "quote": "ons yet, that's just beginning. So I think this is a multiyear, in fact, a multi-decade cycle. Now having said that, some of this CapEx is just stunning to me. We never thought of CapEx in the trillions, let alone billions back when we started this. So it's important to understand, though, that the CapEx has many, many pieces to it. The biggest one being compute, power and obviously, all"
-    },
-    {
-     "key": "capex",
-     "quote": "a multiyear, in fact, a multi-decade cycle. Now having said that, some of this CapEx is just stunning to me. We never thought of CapEx in the trillions, let alone billions back when we started this. So it's important to understand, though, that the CapEx has many, many pieces to it. The biggest one being compute, power and obviously, all the real estate itself, the cooling, the chilling"
+     "quote": "They don't have to put a lot of staff. Most of these Neoclouds don't have staff. And even if they're paying a little more for the CapEx, it more than makes up for the operating cost that they would incur. So that's a huge piece. The second is the AI features themselves. You heard Ken talk about a few of them. There's a tremendous depth and breadth to EOS that they can't recreate in a wh"
     },
     {
      "key": "guidance",
-     "quote": "e, and adjusted earnings per share (EPS) of $1.10, exceeding consensus estimates. The company raised its full-year revenue growth guidance from 25% to 28%, signaling strong demand from hyperscalers and the enterprise sector. Management emphasized the sustainability of growth driven by AI and networking innovations, despite ongoing supply chain challenges that could impact margins."
+     "quote": "rter of fiscal 2026, Arista Networks reported revenues of over $3 billion, marking a 37.7% year-over-year increase and surpassing guidance of $2.8 billion. The company achieved a significant milestone with its first $3 billion quarter, driven by strong demand from AI and enterprise customers. Management raised its full-year revenue guidance to $12.6 billion, reflecting a 40% annual growt"
     },
     {
      "key": "guidance",
-     "quote": "n: Arista reported Q2 2026 revenue of $1.2 billion, a 25% increase year-over-year. Management raised the full-year revenue growth guidance from 25% to 28%, indicating strong demand from cloud customers and the enterprise sector. CEO Jayshree Ullal stated, \"We pioneered the lease spine architecture, and we really redefined or reimagined networking for the cloud.\" AI as a Growth Driver"
+     "quote": "h its first $3 billion quarter, driven by strong demand from AI and enterprise customers. Management raised its full-year revenue guidance to $12.6 billion, reflecting a 40% annual growth rate, up from previous estimates, indicating robust momentum heading into the second half of the year. What topics did Arista Networks, Inc. cover? Record Revenue Achievement: Arista achieve"
     },
     {
      "key": "margin",
-     "quote": "d the sustainability of growth driven by AI and networking innovations, despite ongoing supply chain challenges that could impact margins. What topics did Arista Networks, Inc. cover? Revenue Growth Acceleration: Arista reported Q2 2026 revenue of $1.2 billion, a 25% increase year-over-year. Management raised the full-year revenue growth guidance from 25% to 28%, indicating s"
+     "quote": "lyst Day goal. This reflects strong demand across all product sectors, particularly in AI fabrics and campus solutions. Gross Margin Trends: The overall gross margin for Q2 was reported at 63.4%, down from 65.6% year-over-year but up from 62.4% in the prior quarter. Management noted this was driven by customer mix and tariff refunds, indicating a stable gross margin outlook."
     },
     {
      "key": "margin",
-     "quote": "ti-decade growth cycle. Supply Chain Challenges: Management acknowledged ongoing supply chain issues affecting lead times and margins, particularly in memory and silicon components. Ullal remarked, \"This is a 2-year industry problem... but we will deal with it, and we will come out of it just like we did COVID.\" Market Positioning Against White Boxes: Ullal discussed Arista's com"
+     "quote": "ng demand across all product sectors, particularly in AI fabrics and campus solutions. Gross Margin Trends: The overall gross margin for Q2 was reported at 63.4%, down from 65.6% year-over-year but up from 62.4% in the prior quarter. Management noted this was driven by customer mix and tariff refunds, indicating a stable gross margin outlook. What were Arista Networks, Inc."
     }
    ]
   },
@@ -274,7 +274,7 @@
    "ticker": "AVGO",
    "date": "2026-06-03",
    "url": "https://earningscalls.dev/transcripts/broadcom-inc_avgo_earnings_call_transcript_2026-06-03",
-   "chars": 45815,
+   "chars": 45831,
    "quotes": [
     {
      "key": "supply",
@@ -454,7 +454,7 @@
    "ticker": "ORCL",
    "date": "2026-06-10",
    "url": "https://earningscalls.dev/transcripts/oracle-corporation_orcl_earnings_call_transcript_2026-06-10",
-   "chars": 49701,
+   "chars": 49717,
    "quotes": [
     {
      "key": "supply",

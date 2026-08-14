@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-14 18:58 KST",
+  "generated_at": "2026-08-15 05:55 KST",
   "as_of": "2026-08-14 18:13 KST (마감 확정 — R2 디벨롭)",
   "source_report": "docs/reports/report_v75_2026-08-14.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1412.28
+    "usdkrw": 1416.93
   },
   "totals": {
-    "assets_krw": 8435801,
-    "stocks_value_krw": 8169741,
+    "assets_krw": 8437804,
+    "stocks_value_krw": 8171744,
     "cash_krw": 266060,
-    "day_change_krw": 136011,
-    "day_change_pct": 1.69,
-    "total_pnl_krw": 125386,
-    "total_pnl_pct": 1.56
+    "day_change_krw": 53630,
+    "day_change_pct": 0.66,
+    "total_pnl_krw": 127389,
+    "total_pnl_pct": 1.58
   },
   "safety": {
     "pin": 7500,
@@ -39,26 +39,26 @@ window.APP_DATA = {
     {
       "label": "S&P500",
       "ticker": "^GSPC",
-      "price": 7798.99,
-      "change_pct": 0.65
+      "price": 7785.76,
+      "change_pct": -0.17
     },
     {
       "label": "나스닥",
       "ticker": "^IXIC",
-      "price": 26803.025,
-      "change_pct": 0.81
+      "price": 26729.164,
+      "change_pct": -0.28
     },
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 53839.99,
-      "change_pct": 0.13
+      "price": 53732.41,
+      "change_pct": -0.2
     },
     {
       "label": "필라델피아반도체",
       "ticker": "^SOX",
-      "price": 12455.998,
-      "change_pct": 0.46
+      "price": 12417.05,
+      "change_pct": -0.31
     }
   ],
   "alerts": [
@@ -185,7 +185,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "[7/6 체결 확인] 1주 매도·총판매액 $313.77(＄308 지정가 상단 초과 유리 체결)·수수료 $0.31·제세금 $0.01·순수령 $313.45(입금 7/8). 원가 $257.14 대비 +21.9% 익절. 잔여 1.022472주+분수는 글라스 옵셔널리티로 유지. 대금은 GOOGL $340/$330 재배치로 이동(아래 항목).",
-      "price": 305.26,
+      "price": 305.93,
       "fired": null
     },
     {
@@ -194,7 +194,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "[8/11 체결 확인·전량 청산] 8/5 절반 $30.17 → 8/11 잔여 0.141767주 $27.29 매도. 정훈 지시 \"절반안은 잔량 소액이라 실익 없음\" → 워치 전환·재진입 조건부. ⚠️ 매도 직후 8/11 종가 $197.85(+3.31%)로 반등 — Citi PT $173→$215(8/5)·FY26 가이던스 $12.6B(+40%) 상향. 재진입은 가격조정 시 조건부(추격금지 룰3).",
-      "price": 203.62,
+      "price": 198.82,
       "fired": null
     },
     {
@@ -371,8 +371,7 @@ window.APP_DATA = {
         230000.0,
         239500.0,
         255500.0,
-        268000.0,
-        274500.0
+        268000.0
       ],
       "sector": "반도체·AI"
     },
@@ -473,8 +472,7 @@ window.APP_DATA = {
         190000.0,
         181700.0,
         205000.0,
-        206500.0,
-        215000.0
+        206500.0
       ],
       "sector": "전력·피지컬"
     },
@@ -575,8 +573,7 @@ window.APP_DATA = {
         74700.0,
         74100.0,
         76300.0,
-        78000.0,
-        79200.0
+        78000.0
       ],
       "sector": "전력·피지컬"
     },
@@ -677,8 +674,7 @@ window.APP_DATA = {
         408000.0,
         403000.0,
         409500.0,
-        418500.0,
-        453000.0
+        418500.0
       ],
       "sector": "전력·피지컬"
     },
@@ -779,8 +775,7 @@ window.APP_DATA = {
         211500.0,
         214000.0,
         215500.0,
-        226500.0,
-        228000.0
+        226500.0
       ],
       "sector": "빅테크"
     },
@@ -791,11 +786,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 5.138203,
       "cost": 199.51,
-      "price": 225.3,
-      "change_pct": 0.54,
-      "value_krw": 1634908,
-      "pnl_pct": 12.93,
-      "pnl_krw": 141816,
+      "price": 225.16,
+      "change_pct": -0.06,
+      "value_krw": 1639272,
+      "pnl_pct": 12.86,
+      "pnl_krw": 146180,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -856,7 +851,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        211.8,
         212.5,
         207.4,
         202.81,
@@ -878,7 +872,8 @@ window.APP_DATA = {
         217.55,
         217.5,
         224.09,
-        225.3
+        225.3,
+        225.16
       ],
       "sector": "반도체·AI"
     },
@@ -889,11 +884,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.129111,
       "cost": 633.98,
-      "price": 594.97,
-      "change_pct": 2.78,
-      "value_krw": 948752,
-      "pnl_pct": -6.15,
-      "pnl_krw": -93860,
+      "price": 589.85,
+      "change_pct": -0.86,
+      "value_krw": 943684,
+      "pnl_pct": -6.96,
+      "pnl_krw": -98928,
       "outlook": "core",
       "stars": 2,
       "score": 50,
@@ -959,7 +954,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        661.04,
         681.31,
         664.54,
         646.01,
@@ -981,7 +975,8 @@ window.APP_DATA = {
         594.92,
         599.12,
         578.85,
-        594.97
+        594.97,
+        589.85
       ],
       "sector": "빅테크"
     },
@@ -992,11 +987,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.06863,
       "cost": 648.75,
-      "price": 714.95,
-      "change_pct": 0.67,
-      "value_krw": 1079006,
-      "pnl_pct": 10.2,
-      "pnl_krw": 69253,
+      "price": 713.61,
+      "change_pct": -0.19,
+      "value_krw": 1080530,
+      "pnl_pct": 10.0,
+      "pnl_krw": 70776,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1061,7 +1056,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        691.1,
         693.8,
         690.14,
         683.17,
@@ -1083,7 +1077,8 @@ window.APP_DATA = {
         710.65,
         708.42,
         710.17,
-        714.95
+        714.95,
+        713.61
       ],
       "sector": "지수ETF"
     },
@@ -1094,11 +1089,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.443,
       "cost": 410.2,
-      "price": 496.88,
-      "change_pct": 0.9,
-      "value_krw": 1012602,
-      "pnl_pct": 21.13,
-      "pnl_krw": 150472,
+      "price": 495.4,
+      "change_pct": -0.3,
+      "value_krw": 1012910,
+      "pnl_pct": 20.77,
+      "pnl_krw": 150780,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1153,7 +1148,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        384.93,
         395.63,
         401.1,
         393.82,
@@ -1175,7 +1169,8 @@ window.APP_DATA = {
         506.06,
         503.81,
         492.43,
-        496.88
+        496.88,
+        495.4
       ],
       "sector": "빅테크"
     },
@@ -1186,11 +1181,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.022472,
       "cost": 257.14,
-      "price": 305.26,
-      "change_pct": 1.0,
-      "value_krw": 440801,
-      "pnl_pct": 18.71,
-      "pnl_krw": 57860,
+      "price": 305.93,
+      "change_pct": 0.22,
+      "value_krw": 443223,
+      "pnl_pct": 18.97,
+      "pnl_krw": 60282,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1251,7 +1246,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        314.86,
         327.5,
         333.26,
         333.74,
@@ -1273,7 +1267,8 @@ window.APP_DATA = {
         308.26,
         304.91,
         302.25,
-        305.26
+        305.26,
+        305.93
       ],
       "sector": "빅테크"
     },
@@ -1284,11 +1279,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.766644,
       "cost": 353.62,
-      "price": 346.36,
-      "change_pct": 0.82,
-      "value_krw": 864167,
-      "pnl_pct": -2.05,
-      "pnl_krw": -45739,
+      "price": 345.9,
+      "change_pct": -0.13,
+      "value_krw": 865861,
+      "pnl_pct": -2.18,
+      "pnl_krw": -44045,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1351,7 +1346,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        359.51,
         370.92,
         354.46,
         346.77,
@@ -1373,7 +1367,8 @@ window.APP_DATA = {
         357.52,
         343.8,
         343.54,
-        346.36
+        346.36,
+        345.9
       ],
       "sector": "빅테크"
     },
@@ -1384,11 +1379,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.21519,
       "cost": 232.12,
-      "price": 156.22,
-      "change_pct": 1.92,
-      "value_krw": 47477,
-      "pnl_pct": -32.7,
-      "pnl_krw": -25275,
+      "price": 150.52,
+      "change_pct": -3.65,
+      "value_krw": 45895,
+      "pnl_pct": -35.15,
+      "pnl_krw": -26857,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1451,7 +1446,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        127.94,
         132.49,
         124.21,
         126.41,
@@ -1473,7 +1467,8 @@ window.APP_DATA = {
         151.05,
         145.48,
         153.28,
-        156.22
+        156.22,
+        150.52
       ],
       "sector": "빅테크"
     },
@@ -1484,11 +1479,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.020001,
       "cost": 749.0,
-      "price": 949.83,
-      "change_pct": 4.23,
-      "value_krw": 26830,
-      "pnl_pct": 26.81,
-      "pnl_krw": 5010,
+      "price": 971.66,
+      "change_pct": 2.3,
+      "value_krw": 27537,
+      "pnl_pct": 29.73,
+      "pnl_krw": 5717,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1549,7 +1544,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        983.12,
         904.28,
         853.2,
         848.95,
@@ -1571,7 +1565,8 @@ window.APP_DATA = {
         861.0,
         868.52,
         911.29,
-        949.83
+        949.83,
+        971.66
       ],
       "sector": "반도체·AI"
     },
@@ -1582,11 +1577,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.071177,
       "cost": 421.06,
-      "price": 417.82,
-      "change_pct": 0.43,
-      "value_krw": 42000,
-      "pnl_pct": -0.77,
-      "pnl_krw": -1651,
+      "price": 392.99,
+      "change_pct": -5.94,
+      "value_krw": 39634,
+      "pnl_pct": -6.67,
+      "pnl_krw": -4017,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -1651,7 +1646,6 @@ window.APP_DATA = {
         }
       ],
       "spark": [
-        389.11,
         394.28,
         374.45,
         370.83,
@@ -1673,7 +1667,8 @@ window.APP_DATA = {
         422.4,
         416.08,
         416.05,
-        417.82
+        417.82,
+        392.99
       ],
       "sector": "반도체·AI"
     }
@@ -1903,8 +1898,8 @@ window.APP_DATA = {
       "label": "GE Vernova",
       "ticker": "GEV",
       "currency": "USD",
-      "price": 1049.42,
-      "change_pct": 0.92,
+      "price": 1063.25,
+      "change_pct": 1.32,
       "stars": 4,
       "score": 78,
       "target": "$1,211.72 (Bernstein $1,206)",
@@ -2179,8 +2174,8 @@ window.APP_DATA = {
       "label": "SpaceX",
       "ticker": "SPCX",
       "currency": "USD",
-      "price": 141.29,
-      "change_pct": -3.33,
+      "price": 140.0,
+      "change_pct": -0.91,
       "stars": 2,
       "score": 32,
       "target": "$63~$190 (분산)",
@@ -2578,8 +2573,8 @@ window.APP_DATA = {
       "label": "T-Mobile",
       "ticker": "TMUS",
       "currency": "USD",
-      "price": 183.38,
-      "change_pct": 3.53,
+      "price": 182.61,
+      "change_pct": -0.42,
       "stars": 3,
       "score": 62,
       "target": "—",
@@ -2637,8 +2632,8 @@ window.APP_DATA = {
       "label": "팔란티어",
       "ticker": "PLTR",
       "currency": "USD",
-      "price": 179.01,
-      "change_pct": 4.66,
+      "price": 174.04,
+      "change_pct": -2.78,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -2691,8 +2686,8 @@ window.APP_DATA = {
       "label": "IONQ",
       "ticker": "IONQ",
       "currency": "USD",
-      "price": 44.98,
-      "change_pct": -0.49,
+      "price": 46.26,
+      "change_pct": 2.85,
       "stars": 2,
       "score": 42,
       "target": "컨센 $68.79 (고$100/저$44.78)",
@@ -2745,8 +2740,8 @@ window.APP_DATA = {
       "label": "TSLA",
       "ticker": "TSLA",
       "currency": "USD",
-      "price": 339.96,
-      "change_pct": 3.8,
+      "price": 342.27,
+      "change_pct": 0.68,
       "stars": 2,
       "score": 18,
       "target": "$420.55 (ARK 2029 $2,600)",
@@ -2848,8 +2843,8 @@ window.APP_DATA = {
       "label": "AMD",
       "ticker": "AMD",
       "currency": "USD",
-      "price": 483.01,
-      "change_pct": 0.02,
+      "price": 514.39,
+      "change_pct": 6.5,
       "stars": 4,
       "score": 77,
       "target": "$541.66 컨센 (고$725/저$320, Strong Buy 47명) — 현재가 상회(괴리-1.5%)",
@@ -2955,8 +2950,8 @@ window.APP_DATA = {
       "label": "Arista Networks",
       "ticker": "ANET",
       "currency": "USD",
-      "price": 203.62,
-      "change_pct": -3.27,
+      "price": 198.82,
+      "change_pct": -2.36,
       "stars": 4,
       "score": 87,
       "target": "$242(컨센 평균)",
@@ -2968,8 +2963,8 @@ window.APP_DATA = {
       "label": "STMicroelectronics",
       "ticker": "STM",
       "currency": "USD",
-      "price": 53.92,
-      "change_pct": -0.48,
+      "price": 54.29,
+      "change_pct": 0.69,
       "stars": 3,
       "score": 59,
       "target": "$72(컨센 평균)",
@@ -3049,7 +3044,7 @@ window.APP_DATA = {
       1417.31,
       1412.18,
       1416.46,
-      1412.32
+      1416.94
     ]
   },
   "kospi_history": {
@@ -3075,8 +3070,7 @@ window.APP_DATA = {
       "2026-08-10",
       "2026-08-11",
       "2026-08-12",
-      "2026-08-13",
-      "2026-08-14"
+      "2026-08-13"
     ],
     "closes": [
       6856.83,
@@ -3100,8 +3094,7 @@ window.APP_DATA = {
       6299.66,
       6345.53,
       6579.04,
-      6813.34,
-      6977.94
+      6813.34
     ]
   },
   "hunter": {
@@ -13064,7 +13057,7 @@ window.APP_DATA = {
   },
   "guru_flows": {
     "_comment": "SEC EDGAR 13F(무키 팩트) — 'rationale/our_takeaway/themes/narrative'는 guru-flow-desk가 주주서한·외신·sell-side로 채운다. 지연 확증 렌즈이지 매수 트리거 아님(단일출처 매수 금지).",
-    "updated": "2026-08-13",
+    "updated": "2026-08-14",
     "as_of_quarter": "2026-03-31",
     "source": "SEC EDGAR 13F-HR (무키) + guru-flow-desk 이유분석(WebSearch)",
     "gurus": {
@@ -13177,49 +13170,29 @@ window.APP_DATA = {
           }
         ],
         "trajectory": {
-          "674599105": {
-            "issuer": "OCCIDENTAL PETE CORP",
-            "ticker": null,
+          "02079K107": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 255281524,
-                "pct": 5.75
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 255281524,
-                "pct": 4.94
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 264178414,
-                "pct": 4.89
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 264941431,
-                "pct": 5.06
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 264941431,
-                "pct": 4.32
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 264941431,
-                "pct": 4.68
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 264941431,
-                "pct": 3.97
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 264941431,
-                "pct": 6.55
+                "shares": 3585215,
+                "pct": 0.39
               }
             ]
           },
@@ -13227,26 +13200,6 @@ window.APP_DATA = {
             "issuer": "COCA COLA CO",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 400000000,
-                "pct": 9.09
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 400000000,
-                "pct": 10.79
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 400000000,
-                "pct": 9.32
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 400000000,
-                "pct": 11.07
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 400000000,
@@ -13274,26 +13227,6 @@ window.APP_DATA = {
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 1032852006,
-                "pct": 14.67
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 797683307,
-                "pct": 11.88
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 680233587,
-                "pct": 11.19
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 631573531,
-                "pct": 10.19
-              },
-              {
                 "quarter": "2025-06-30",
                 "shares": 605267375,
                 "pct": 11.12
@@ -13315,168 +13248,10 @@ window.APP_DATA = {
               }
             ]
           },
-          "025816109": {
-            "issuer": "AMERICAN EXPRESS CO",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 151610700,
-                "pct": 12.54
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 151610700,
-                "pct": 15.44
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 151610700,
-                "pct": 16.84
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 151610700,
-                "pct": 15.77
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 151610700,
-                "pct": 18.78
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 151610700,
-                "pct": 18.84
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 151610700,
-                "pct": 20.46
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 151610700,
-                "pct": 17.43
-              }
-            ]
-          },
-          "02079K305": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 17846142,
-                "pct": 1.62
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 17846142,
-                "pct": 2.04
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 54249798,
-                "pct": 5.93
-              }
-            ]
-          },
-          "02079K107": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3585215,
-                "pct": 0.39
-              }
-            ]
-          },
           "H1467J104": {
             "issuer": "CHUBB LTD SWITZ",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 27033784,
-                "pct": 2.46
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 27033784,
-                "pct": 2.93
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 27033784,
-                "pct": 2.8
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 27033784,
-                "pct": 3.16
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 27033784,
@@ -13499,30 +13274,36 @@ window.APP_DATA = {
               }
             ]
           },
+          "025816109": {
+            "issuer": "AMERICAN EXPRESS CO",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 151610700,
+                "pct": 18.78
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 151610700,
+                "pct": 18.84
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 151610700,
+                "pct": 20.46
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 151610700,
+                "pct": 17.43
+              }
+            ]
+          },
           "037833100": {
             "issuer": "APPLE INC",
             "ticker": "AAPL",
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 400000000,
-                "pct": 30.09
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 300000000,
-                "pct": 26.24
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 300000000,
-                "pct": 28.12
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 300000000,
-                "pct": 25.76
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 280000000,
@@ -13545,30 +13326,36 @@ window.APP_DATA = {
               }
             ]
           },
+          "02079K305": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 17846142,
+                "pct": 1.62
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 17846142,
+                "pct": 2.04
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 54249798,
+                "pct": 5.93
+              }
+            ]
+          },
           "166764100": {
             "issuer": "CHEVRON CORPORATION",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 118610534,
-                "pct": 6.63
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 118610534,
-                "pct": 6.56
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 118610534,
-                "pct": 6.43
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 118610534,
-                "pct": 7.67
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 122064792,
@@ -13588,6 +13375,32 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 84375856,
                 "pct": 6.64
+              }
+            ]
+          },
+          "674599105": {
+            "issuer": "OCCIDENTAL PETE CORP",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 264941431,
+                "pct": 4.32
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 264941431,
+                "pct": 4.68
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 264941431,
+                "pct": 3.97
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 264941431,
+                "pct": 6.55
               }
             ]
           }
@@ -13633,6 +13446,19 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
+            "cusip": "G0403H108",
+            "issuer": "AON PLC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 3602995,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
             "cusip": "G9001E102",
             "issuer": "LIBERTY LATIN AMERICA LTD",
             "ticker": null,
@@ -13646,30 +13472,17 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "531229755",
-            "issuer": "LIBERTY MEDIA CORP DEL",
+            "cusip": "92826C839",
+            "issuer": "VISA INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 3018555,
+            "shares_from": 8297460,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G0176J109",
-            "issuer": "ALLEGION PLC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 780133,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
+            "rationale": "결제 금융 비중 축소(밸류·성장 성숙).",
+            "our_takeaway": "우리 미보유. 금융 정리 = 방어적 현금 선호와 같은 결.",
+            "tag": "검증"
           },
           {
             "cusip": "16119P108",
@@ -13698,19 +13511,6 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "91324P102",
-            "issuer": "UNITEDHEALTH GROUP INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 5039564,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
-            "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
-            "tag": "검증"
-          },
-          {
             "cusip": "57636Q104",
             "issuer": "MASTERCARD INCORPORATED",
             "ticker": null,
@@ -13737,11 +13537,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "G0403H108",
-            "issuer": "AON PLC",
+            "cusip": "G0176J109",
+            "issuer": "ALLEGION PLC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 3602995,
+            "shares_from": 780133,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -13750,29 +13550,16 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "25243Q205",
-            "issuer": "DIAGEO PLC",
+            "cusip": "023135106",
+            "issuer": "AMAZON COM INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 227750,
+            "shares_from": 2276000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "92826C839",
-            "issuer": "VISA INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 8297460,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "결제 금융 비중 축소(밸류·성장 성숙).",
-            "our_takeaway": "우리 미보유. 금융 정리 = 방어적 현금 선호와 같은 결.",
+            "rationale": "Abel 재편·현금화. 저비중 기술주 정리.",
+            "our_takeaway": "우리 미보유. 대가의 빅테크 선별(알파벳 집중 vs 아마존 청산) = 무차별 AI 강세 아님에 주목.",
             "tag": "검증"
           },
           {
@@ -13789,11 +13576,37 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
+            "cusip": "91324P102",
+            "issuer": "UNITEDHEALTH GROUP INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 5039564,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
+            "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
+            "tag": "검증"
+          },
+          {
             "cusip": "G9001E128",
             "issuer": "LIBERTY LATIN AMERICA LTD",
             "ticker": null,
             "action": "EXIT",
             "shares_from": 1284020,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "531229755",
+            "issuer": "LIBERTY MEDIA CORP DEL",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 3018555,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -13815,6 +13628,19 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
+            "cusip": "25243Q205",
+            "issuer": "DIAGEO PLC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 227750,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
             "cusip": "73278L105",
             "issuer": "POOL CORP",
             "ticker": null,
@@ -13826,19 +13652,6 @@ window.APP_DATA = {
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
-          },
-          {
-            "cusip": "023135106",
-            "issuer": "AMAZON COM INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 2276000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "Abel 재편·현금화. 저비중 기술주 정리.",
-            "our_takeaway": "우리 미보유. 대가의 빅테크 선별(알파벳 집중 vs 아마존 청산) = 무차별 AI 강세 아님에 주목.",
-            "tag": "검증"
           },
           {
             "cusip": "02079K305",
@@ -14003,11 +13816,7 @@ window.APP_DATA = {
           "SEC EDGAR 13F-HR acc 0001193125-26-226661 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001193125-26-054580 (2025-12-31)",
           "SEC EDGAR 13F-HR acc 0001193125-25-282901 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0000950123-25-008343 (2025-06-30)",
-          "SEC EDGAR 13F-HR acc 0000950123-25-005701 (2025-03-31)",
-          "SEC EDGAR 13F-HR acc 0000950123-25-002701 (2024-12-31)",
-          "SEC EDGAR 13F-HR acc 0000950123-24-011775 (2024-09-30)",
-          "SEC EDGAR 13F-HR acc 0000950123-24-008740 (2024-06-30)"
+          "SEC EDGAR 13F-HR acc 0000950123-25-008343 (2025-06-30)"
         ]
       },
       "scion": {
@@ -14055,30 +13864,62 @@ window.APP_DATA = {
           }
         ],
         "trajectory": {
+          "550021109": {
+            "issuer": "LULULEMON ATHLETICA INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2024-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-03-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-06-30",
+                "shares": 50000,
+                "pct": 21.12
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 100000,
+                "pct": 26.11
+              }
+            ]
+          },
+          "60855R100": {
+            "issuer": "MOLINA HEALTHCARE INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2024-12-31",
+                "shares": 25000,
+                "pct": 9.4
+              },
+              {
+                "quarter": "2025-03-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-06-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 125000,
+                "pct": 35.11
+              }
+            ]
+          },
           "116794207": {
             "issuer": "BRUKER CORP",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2023-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
               {
                 "quarter": "2024-12-31",
                 "shares": 0,
@@ -14106,26 +13947,6 @@ window.APP_DATA = {
             "ticker": null,
             "series": [
               {
-                "quarter": "2023-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
                 "quarter": "2024-12-31",
                 "shares": 0,
                 "pct": 0.0
@@ -14144,98 +13965,6 @@ window.APP_DATA = {
                 "quarter": "2025-09-30",
                 "shares": 480054,
                 "pct": 19.5
-              }
-            ]
-          },
-          "60855R100": {
-            "issuer": "MOLINA HEALTHCARE INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2023-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-06-30",
-                "shares": 24530,
-                "pct": 13.89
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 30000,
-                "pct": 12.45
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 25000,
-                "pct": 9.4
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 125000,
-                "pct": 35.11
-              }
-            ]
-          },
-          "550021109": {
-            "issuer": "LULULEMON ATHLETICA INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2023-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 50000,
-                "pct": 21.12
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 100000,
-                "pct": 26.11
               }
             ]
           }
@@ -14281,6 +14010,19 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
+            "cusip": "518439104",
+            "issuer": "LAUDER ESTEE COS INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 150000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
             "cusip": "58733R102",
             "issuer": "MERCADOLIBRE INC",
             "ticker": null,
@@ -14299,19 +14041,6 @@ window.APP_DATA = {
             "ticker": null,
             "action": "EXIT",
             "shares_from": 250000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "518439104",
-            "issuer": "LAUDER ESTEE COS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 150000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -14369,11 +14098,7 @@ window.APP_DATA = {
           "SEC EDGAR 13F-HR acc 0001649339-25-000007 (2025-09-30)",
           "SEC EDGAR 13F-HR acc 0001879202-25-000038 (2025-06-30)",
           "SEC EDGAR 13F-HR acc 0001879202-25-000025 (2025-03-31)",
-          "SEC EDGAR 13F-HR acc 0001879202-25-000012 (2024-12-31)",
-          "SEC EDGAR 13F-HR acc 0000905148-24-003106 (2024-09-30)",
-          "SEC EDGAR 13F-HR acc 0000905148-24-002196 (2024-06-30)",
-          "SEC EDGAR 13F-HR acc 0000905148-24-001390 (2024-03-31)",
-          "SEC EDGAR 13F-HR acc 0000905148-24-000653 (2023-12-31)"
+          "SEC EDGAR 13F-HR acc 0001879202-25-000012 (2024-12-31)"
         ]
       },
       "duquesne": {
@@ -14490,26 +14215,6 @@ window.APP_DATA = {
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
                 "quarter": "2025-06-30",
                 "shares": 360550,
                 "pct": 0.26
@@ -14531,30 +14236,62 @@ window.APP_DATA = {
               }
             ]
           },
+          "632307104": {
+            "issuer": "Natera Inc",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 3085190,
+                "pct": 13.32
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 3214532,
+                "pct": 13.16
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 2511357,
+                "pct": 13.63
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 3063606,
+                "pct": 20.86
+              }
+            ]
+          },
+          "595112103": {
+            "issuer": "Micron Technology Inc",
+            "ticker": "MU",
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 23400,
+                "pct": 0.27
+              }
+            ]
+          },
           "11135F101": {
             "issuer": "Broadcom Inc",
             "ticker": "AVGO",
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 239980,
-                "pct": 1.45
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 86140,
@@ -14582,26 +14319,6 @@ window.APP_DATA = {
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 287535,
-                "pct": 0.17
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 287535,
-                "pct": 0.21
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 800360,
-                "pct": 0.55
-              },
-              {
                 "quarter": "2025-06-30",
                 "shares": 832175,
                 "pct": 0.39
@@ -14623,30 +14340,36 @@ window.APP_DATA = {
               }
             ]
           },
+          "457669307": {
+            "issuer": "Insmed Inc",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 2253435,
+                "pct": 5.79
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 2423435,
+                "pct": 8.88
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1481752,
+                "pct": 6.11
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1154090,
+                "pct": 6.43
+              }
+            ]
+          },
           "874039100": {
             "issuer": "Taiwan Semiconductor Manufac",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 57355,
-                "pct": 0.35
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 107515,
-                "pct": 0.6
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 598780,
-                "pct": 3.33
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 765085,
@@ -14669,76 +14392,10 @@ window.APP_DATA = {
               }
             ]
           },
-          "632307104": {
-            "issuer": "Natera Inc",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 1974880,
-                "pct": 7.58
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 3566850,
-                "pct": 15.87
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 3566850,
-                "pct": 15.88
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 3402330,
-                "pct": 16.13
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 3085190,
-                "pct": 13.32
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 3214532,
-                "pct": 13.16
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 2511357,
-                "pct": 13.63
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3063606,
-                "pct": 20.86
-              }
-            ]
-          },
           "464286400": {
             "issuer": "Ishares Inc",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 738800,
@@ -14766,26 +14423,6 @@ window.APP_DATA = {
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 638435,
-                "pct": 0.46
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 430100,
-                "pct": 0.32
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 1687716,
-                "pct": 2.02
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 2075390,
-                "pct": 2.44
-              },
-              {
                 "quarter": "2025-06-30",
                 "shares": 703995,
                 "pct": 0.57
@@ -14807,76 +14444,10 @@ window.APP_DATA = {
               }
             ]
           },
-          "595112103": {
-            "issuer": "Micron Technology Inc",
-            "ticker": "MU",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 408885,
-                "pct": 0.97
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 23400,
-                "pct": 0.27
-              }
-            ]
-          },
           "013872106": {
             "issuer": "Alcoa Corp",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 0,
@@ -14896,52 +14467,6 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 1493390,
                 "pct": 3.37
-              }
-            ]
-          },
-          "457669307": {
-            "issuer": "Insmed Inc",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 20000,
-                "pct": 0.05
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 20000,
-                "pct": 0.05
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 593470,
-                "pct": 1.15
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 1369050,
-                "pct": 3.5
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 2253435,
-                "pct": 5.79
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 2423435,
-                "pct": 8.88
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1481752,
-                "pct": 6.11
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 1154090,
-                "pct": 6.43
               }
             ]
           }
@@ -15338,110 +14863,6 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "38141G104",
-            "issuer": "Goldman Sachs Group Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 27500,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "169656105",
-            "issuer": "Chipotle Mexican Grill Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 391930,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "97785W106",
-            "issuer": "Wolfspeed Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 186900,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G3643J108",
-            "issuer": "Flutter Entmt Plc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 115245,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "46137V357",
-            "issuer": "Invesco Exchange Traded Fd T",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1173925,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "81369Y605",
-            "issuer": "Select Sector Spdr Tr",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 5495600,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "64073B103",
-            "issuer": "Neptune Ins Hldgs Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 20000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "682189105",
-            "issuer": "On Semiconductor Corp",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 536260,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
             "cusip": "247361702",
             "issuer": "Delta Air Lines Inc Del",
             "ticker": null,
@@ -15455,11 +14876,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "29362U104",
-            "issuer": "Entegris Inc",
+            "cusip": "38141G104",
+            "issuer": "Goldman Sachs Group Inc",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 844160,
+            "shares_from": 27500,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15468,50 +14889,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "256163106",
-            "issuer": "Docusign Inc",
+            "cusip": "81369Y605",
+            "issuer": "Select Sector Spdr Tr",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 1019085,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "171757206",
-            "issuer": "Cidara Therapeutics Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 49495,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "98954M200",
-            "issuer": "Zillow Group Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 192640,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "74967X103",
-            "issuer": "Rh",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 88200,
+            "shares_from": 5495600,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15546,11 +14928,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "718172109",
-            "issuer": "Philip Morris Intl Inc",
+            "cusip": "97785W106",
+            "issuer": "Wolfspeed Inc",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 67400,
+            "shares_from": 186900,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15559,50 +14941,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "25809K105",
-            "issuer": "Doordash Inc",
+            "cusip": "64073B103",
+            "issuer": "Neptune Ins Hldgs Inc",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 35900,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "464287234",
-            "issuer": "Ishares Tr",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 902500,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "02376R102",
-            "issuer": "American Airls Group Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 639785,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "04010E109",
-            "issuer": "Argan Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 30000,
+            "shares_from": 20000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15624,11 +14967,193 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
+            "cusip": "04010E109",
+            "issuer": "Argan Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 30000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "171757206",
+            "issuer": "Cidara Therapeutics Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 49495,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "256163106",
+            "issuer": "Docusign Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 1019085,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "02376R102",
+            "issuer": "American Airls Group Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 639785,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "74967X103",
+            "issuer": "Rh",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 88200,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "682189105",
+            "issuer": "On Semiconductor Corp",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 536260,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "G3643J108",
+            "issuer": "Flutter Entmt Plc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 115245,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "25809K105",
+            "issuer": "Doordash Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 35900,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
             "cusip": "00835Q202",
             "issuer": "Aeva Technologies Inc",
             "ticker": null,
             "action": "EXIT",
             "shares_from": 1824862,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "29362U104",
+            "issuer": "Entegris Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 844160,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "46137V357",
+            "issuer": "Invesco Exchange Traded Fd T",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 1173925,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "464287234",
+            "issuer": "Ishares Tr",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 902500,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "169656105",
+            "issuer": "Chipotle Mexican Grill Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 391930,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "98954M200",
+            "issuer": "Zillow Group Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 192640,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "718172109",
+            "issuer": "Philip Morris Intl Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 67400,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16068,11 +15593,7 @@ window.APP_DATA = {
           "SEC EDGAR 13F-HR acc 0001536411-26-000004 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001536411-26-000002 (2025-12-31)",
           "SEC EDGAR 13F-HR acc 0001536411-25-000017 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0001536411-25-000011 (2025-06-30)",
-          "SEC EDGAR 13F-HR acc 0001536411-25-000008 (2025-03-31)",
-          "SEC EDGAR 13F-HR acc 0001536411-25-000006 (2024-12-31)",
-          "SEC EDGAR 13F-HR acc 0001536411-24-000009 (2024-09-30)",
-          "SEC EDGAR 13F-HR acc 0001536411-24-000007 (2024-06-30)"
+          "SEC EDGAR 13F-HR acc 0001536411-25-000011 (2025-06-30)"
         ]
       },
       "pershing": {
@@ -16176,352 +15697,10 @@ window.APP_DATA = {
           }
         ],
         "trajectory": {
-          "11271J107": {
-            "issuer": "BROOKFIELD CORP",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 6854510,
-                "pct": 2.73
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 32735883,
-                "pct": 13.47
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 34893064,
-                "pct": 15.89
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 41004657,
-                "pct": 18.01
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 41160397,
-                "pct": 18.54
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 41020231,
-                "pct": 19.21
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 61403089,
-                "pct": 18.15
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 59697208,
-                "pct": 17.62
-              }
-            ]
-          },
-          "30303M102": {
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 2673569,
-                "pct": 11.37
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 2660861,
-                "pct": 11.1
-              }
-            ]
-          },
-          "594918104": {
-            "issuer": "MICROSOFT CORP",
-            "ticker": "MSFT",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 5654078,
-                "pct": 15.26
-              }
-            ]
-          },
-          "812215200": {
-            "issuer": "SEAPORT ENTMT GROUP INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 2094673,
-                "pct": 0.44
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 5023780,
-                "pct": 1.11
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 5023780,
-                "pct": 0.9
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 5023780,
-                "pct": 0.68
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 5023780,
-                "pct": 0.79
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 5023780,
-                "pct": 0.64
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 5023780,
-                "pct": 0.79
-              }
-            ]
-          },
-          "44267T102": {
-            "issuer": "HOWARD HUGHES HOLDINGS INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 18852064,
-                "pct": 11.74
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 18852064,
-                "pct": 11.3
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 18852064,
-                "pct": 11.5
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 18852064,
-                "pct": 11.71
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 18852064,
-                "pct": 9.27
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 18852064,
-                "pct": 10.58
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 18852064,
-                "pct": 9.69
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 18852064,
-                "pct": 8.7
-              }
-            ]
-          },
-          "90353T100": {
-            "issuer": "UBER TECHNOLOGIES INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 30301161,
-                "pct": 18.5
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 30301161,
-                "pct": 20.59
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 30270518,
-                "pct": 20.25
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 30207734,
-                "pct": 15.9
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 29958771,
-                "pct": 15.71
-              }
-            ]
-          },
-          "02079K305": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 3986488,
-                "pct": 6.97
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 3986488,
-                "pct": 5.12
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 3986488,
-                "pct": 5.98
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 4437980,
-                "pct": 5.75
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 5362980,
-                "pct": 6.88
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 4843973,
-                "pct": 8.04
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 678297,
-                "pct": 1.37
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 32376,
-                "pct": 0.07
-              }
-            ]
-          },
           "02079K107": {
             "issuer": "ALPHABET INC",
             "ticker": "GOOGL",
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 7547582,
-                "pct": 13.3
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 7547582,
-                "pct": 9.77
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 7547582,
-                "pct": 11.39
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 6324031,
-                "pct": 8.28
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 6324031,
@@ -16544,49 +15723,159 @@ window.APP_DATA = {
               }
             ]
           },
-          "76131D103": {
-            "issuer": "RESTAURANT BRANDS INTL INC",
+          "44267T102": {
+            "issuer": "HOWARD HUGHES HOLDINGS INC",
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 23142542,
-                "pct": 15.64
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 23000914,
-                "pct": 12.84
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 23000914,
-                "pct": 11.88
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 23000914,
-                "pct": 12.85
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 23000914,
-                "pct": 11.11
+                "shares": 18852064,
+                "pct": 9.27
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 22915496,
-                "pct": 10.04
+                "shares": 18852064,
+                "pct": 10.58
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 22866773,
-                "pct": 10.05
+                "shares": 18852064,
+                "pct": 9.69
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 22645483,
-                "pct": 12.2
+                "shares": 18852064,
+                "pct": 8.7
+              }
+            ]
+          },
+          "812215200": {
+            "issuer": "SEAPORT ENTMT GROUP INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 5023780,
+                "pct": 0.68
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 5023780,
+                "pct": 0.79
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 5023780,
+                "pct": 0.64
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 5023780,
+                "pct": 0.79
+              }
+            ]
+          },
+          "594918104": {
+            "issuer": "MICROSOFT CORP",
+            "ticker": "MSFT",
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 5654078,
+                "pct": 15.26
+              }
+            ]
+          },
+          "30303M102": {
+            "issuer": "META PLATFORMS INC",
+            "ticker": "META",
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 2673569,
+                "pct": 11.37
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 2660861,
+                "pct": 11.1
+              }
+            ]
+          },
+          "02079K305": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 5362980,
+                "pct": 6.88
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 4843973,
+                "pct": 8.04
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 678297,
+                "pct": 1.37
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 32376,
+                "pct": 0.07
+              }
+            ]
+          },
+          "11271J107": {
+            "issuer": "BROOKFIELD CORP",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 41160397,
+                "pct": 18.54
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 41020231,
+                "pct": 19.21
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 61403089,
+                "pct": 18.15
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 59697208,
+                "pct": 17.62
               }
             ]
           },
@@ -16594,26 +15883,6 @@ window.APP_DATA = {
             "issuer": "AMAZON COM INC",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 5823316,
@@ -16633,6 +15902,58 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 11451981,
                 "pct": 17.39
+              }
+            ]
+          },
+          "90353T100": {
+            "issuer": "UBER TECHNOLOGIES INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 30301161,
+                "pct": 20.59
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 30270518,
+                "pct": 20.25
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 30207734,
+                "pct": 15.9
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 29958771,
+                "pct": 15.71
+              }
+            ]
+          },
+          "76131D103": {
+            "issuer": "RESTAURANT BRANDS INTL INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 23000914,
+                "pct": 11.11
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 22915496,
+                "pct": 10.04
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 22866773,
+                "pct": 10.05
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 22645483,
+                "pct": 12.2
               }
             ]
           }
@@ -16797,11 +16118,7 @@ window.APP_DATA = {
           "SEC EDGAR 13F-HR acc 0001172661-26-002336 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001172661-26-001091 (2025-12-31)",
           "SEC EDGAR 13F-HR acc 0001172661-25-005039 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0001172661-25-003509 (2025-06-30)",
-          "SEC EDGAR 13F-HR acc 0001172661-25-002315 (2025-03-31)",
-          "SEC EDGAR 13F-HR acc 0001172661-25-001119 (2024-12-31)",
-          "SEC EDGAR 13F-HR acc 0001172661-24-005218 (2024-09-30)",
-          "SEC EDGAR 13F-HR acc 0001172661-24-003511 (2024-06-30)"
+          "SEC EDGAR 13F-HR acc 0001172661-25-003509 (2025-06-30)"
         ]
       },
       "appaloosa": {
@@ -16913,260 +16230,10 @@ window.APP_DATA = {
           }
         ],
         "trajectory": {
-          "01609W102": {
-            "issuer": "ALIBABA GROUP HLDG LTD",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 10500000,
-                "pct": 12.24
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 10000000,
-                "pct": 15.76
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 11843158,
-                "pct": 15.54
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 9230000,
-                "pct": 21.92
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 7067271,
-                "pct": 12.43
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 6450000,
-                "pct": 15.61
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 5137931,
-                "pct": 10.99
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3465000,
-                "pct": 7.33
-              }
-            ]
-          },
-          "30303M102": {
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 935000,
-                "pct": 7.63
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 625000,
-                "pct": 5.31
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 490000,
-                "pct": 4.44
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 550000,
-                "pct": 5.69
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 400000,
-                "pct": 4.58
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 370000,
-                "pct": 3.68
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 600000,
-                "pct": 5.78
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 436500,
-                "pct": 4.21
-              }
-            ]
-          },
-          "92840M102": {
-            "issuer": "VISTRA CORP",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 1270388,
-                "pct": 2.24
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 2700000,
-                "pct": 5.76
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 2300000,
-                "pct": 4.85
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 1800000,
-                "pct": 5.41
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 1245000,
-                "pct": 3.3
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 945000,
-                "pct": 2.22
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 2022332,
-                "pct": 5.12
-              }
-            ]
-          },
-          "594918104": {
-            "issuer": "MICROSOFT CORP",
-            "ticker": "MSFT",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 1181356,
-                "pct": 8.55
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 970000,
-                "pct": 6.2
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 970000,
-                "pct": 6.33
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 510000,
-                "pct": 3.44
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 500000,
-                "pct": 3.86
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 462500,
-                "pct": 3.24
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 500000,
-                "pct": 3.53
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 90000,
-                "pct": 0.56
-              }
-            ]
-          },
-          "90353T100": {
-            "issuer": "UBER TECHNOLOGIES INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 1500000,
-                "pct": 1.77
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 1410000,
-                "pct": 1.57
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 1500000,
-                "pct": 1.4
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 3200000,
-                "pct": 4.19
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 2750000,
-                "pct": 3.98
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 2406983,
-                "pct": 3.19
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1850000,
-                "pct": 2.21
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 6332720,
-                "pct": 7.68
-              }
-            ]
-          },
           "02079K107": {
             "issuer": "ALPHABET INC",
             "ticker": "GOOGL",
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 1925000,
-                "pct": 5.72
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 1881964,
-                "pct": 4.67
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 1881963,
-                "pct": 5.54
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 2010000,
-                "pct": 5.64
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 1500000,
@@ -17189,141 +16256,107 @@ window.APP_DATA = {
               }
             ]
           },
-          "023135106": {
-            "issuer": "AMAZON COM INC",
-            "ticker": null,
+          "594918104": {
+            "issuer": "MICROSOFT CORP",
+            "ticker": "MSFT",
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 3475000,
-                "pct": 10.87
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 3200000,
-                "pct": 8.86
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 2600000,
-                "pct": 8.82
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 2510000,
-                "pct": 8.58
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 2700000,
-                "pct": 9.19
+                "shares": 500000,
+                "pct": 3.86
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 2500000,
-                "pct": 7.43
+                "shares": 462500,
+                "pct": 3.24
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 2179391,
-                "pct": 7.34
+                "shares": 500000,
+                "pct": 3.53
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 4320000,
-                "pct": 15.16
+                "shares": 90000,
+                "pct": 0.56
               }
             ]
           },
-          "464286772": {
-            "issuer": "ISHARES INC",
+          "01609W102": {
+            "issuer": "ALIBABA GROUP HLDG LTD",
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
+                "shares": 7067271,
+                "pct": 12.43
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
+                "shares": 6450000,
+                "pct": 15.61
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 1875000,
-                "pct": 2.66
+                "shares": 5137931,
+                "pct": 10.99
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 2400000,
-                "pct": 4.98
+                "shares": 3465000,
+                "pct": 7.33
               }
             ]
           },
-          "874039100": {
-            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
-            "ticker": null,
+          "595112103": {
+            "issuer": "MICRON TECHNOLOGY INC",
+            "ticker": "MU",
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 460000,
-                "pct": 1.29
+                "quarter": "2025-06-30",
+                "shares": 825000,
+                "pct": 1.58
               },
               {
-                "quarter": "2024-09-30",
+                "quarter": "2025-09-30",
+                "shares": 500000,
+                "pct": 1.13
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1500000,
+                "pct": 6.25
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1665000,
+                "pct": 9.48
+              }
+            ]
+          },
+          "30303M102": {
+            "issuer": "META PLATFORMS INC",
+            "ticker": "META",
+            "series": [
+              {
+                "quarter": "2025-06-30",
                 "shares": 400000,
-                "pct": 1.03
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 250000,
-                "pct": 0.76
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 270000,
-                "pct": 0.81
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 1025000,
-                "pct": 3.6
+                "pct": 4.58
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 1060000,
-                "pct": 4.01
+                "shares": 370000,
+                "pct": 3.68
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 1130000,
-                "pct": 5.01
+                "shares": 600000,
+                "pct": 5.78
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 1327500,
-                "pct": 7.56
+                "shares": 436500,
+                "pct": 4.21
               }
             ]
           },
@@ -17331,26 +16364,6 @@ window.APP_DATA = {
             "issuer": "NVIDIA CORPORATION",
             "ticker": "NVDA",
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 690000,
-                "pct": 1.38
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 625000,
-                "pct": 1.13
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 680001,
-                "pct": 1.41
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 300000,
-                "pct": 0.58
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 1750000,
@@ -17373,49 +16386,133 @@ window.APP_DATA = {
               }
             ]
           },
-          "595112103": {
-            "issuer": "MICRON TECHNOLOGY INC",
-            "ticker": "MU",
+          "874039100": {
+            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+            "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 1175000,
-                "pct": 2.5
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 1050000,
-                "pct": 1.62
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 1200000,
-                "pct": 1.56
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 400000,
-                "pct": 0.62
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 825000,
-                "pct": 1.58
+                "shares": 1025000,
+                "pct": 3.6
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 500000,
-                "pct": 1.13
+                "shares": 1060000,
+                "pct": 4.01
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 1500000,
-                "pct": 6.25
+                "shares": 1130000,
+                "pct": 5.01
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 1665000,
-                "pct": 9.48
+                "shares": 1327500,
+                "pct": 7.56
+              }
+            ]
+          },
+          "464286772": {
+            "issuer": "ISHARES INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1875000,
+                "pct": 2.66
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 2400000,
+                "pct": 4.98
+              }
+            ]
+          },
+          "92840M102": {
+            "issuer": "VISTRA CORP",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 1800000,
+                "pct": 5.41
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 1245000,
+                "pct": 3.3
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 945000,
+                "pct": 2.22
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 2022332,
+                "pct": 5.12
+              }
+            ]
+          },
+          "023135106": {
+            "issuer": "AMAZON COM INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 2700000,
+                "pct": 9.19
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 2500000,
+                "pct": 7.43
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 2179391,
+                "pct": 7.34
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 4320000,
+                "pct": 15.16
+              }
+            ]
+          },
+          "90353T100": {
+            "issuer": "UBER TECHNOLOGIES INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 2750000,
+                "pct": 3.98
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 2406983,
+                "pct": 3.19
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1850000,
+                "pct": 2.21
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 6332720,
+                "pct": 7.68
               }
             ]
           }
@@ -17430,19 +16527,6 @@ window.APP_DATA = {
             "shares_to": 281250,
             "shares_delta_pct": null,
             "value_to": 178689375,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "464287184",
-            "issuer": "ISHARES TR",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1087500,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17474,37 +16558,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "46266C105",
-            "issuer": "IQVIA HLDGS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 280000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
             "cusip": "247361702",
             "issuer": "DELTA AIR LINES INC DEL",
             "ticker": null,
             "action": "EXIT",
             "shares_from": 475000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "910047109",
-            "issuer": "UNITED AIRLS HLDGS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 465000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -17526,11 +16584,50 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
+            "cusip": "464287184",
+            "issuer": "ISHARES TR",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 1087500,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
             "cusip": "02376R102",
             "issuer": "AMERICAN AIRLS GROUP INC",
             "ticker": null,
             "action": "EXIT",
             "shares_from": 14150000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "46266C105",
+            "issuer": "IQVIA HLDGS INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 280000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "910047109",
+            "issuer": "UNITED AIRLS HLDGS INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 465000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -17990,11 +17087,7 @@ window.APP_DATA = {
           "SEC EDGAR 13F-HR acc 0001656456-26-000002 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001656456-26-000001 (2025-12-31)",
           "SEC EDGAR 13F-HR acc 0001656456-25-000007 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0001656456-25-000006 (2025-06-30)",
-          "SEC EDGAR 13F-HR acc 0001656456-25-000005 (2025-03-31)",
-          "SEC EDGAR 13F-HR acc 0001656456-25-000001 (2024-12-31)",
-          "SEC EDGAR 13F-HR acc 0001656456-24-000004 (2024-09-30)",
-          "SEC EDGAR 13F-HR acc 0001656456-24-000003 (2024-06-30)"
+          "SEC EDGAR 13F-HR acc 0001656456-25-000006 (2025-06-30)"
         ]
       },
       "thirdpoint": {
@@ -18106,187 +17199,29 @@ window.APP_DATA = {
           }
         ],
         "trajectory": {
-          "30303M102": {
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 1100000,
-                "pct": 6.35
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 545000,
-                "pct": 4.2
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 665000,
-                "pct": 5.23
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 150000,
-                "pct": 1.45
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 220000,
-                "pct": 1.93
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 90000,
-                "pct": 2.47
-              }
-            ]
-          },
-          "879433829": {
-            "issuer": "TELEPHONE & DATA SYS INC",
+          "144285103": {
+            "issuer": "CARPENTER TECHNOLOGY CORP",
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 2266060,
-                "pct": 0.54
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 2875000,
-                "pct": 0.9
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 6000000,
-                "pct": 2.75
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 6760000,
-                "pct": 4.11
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 6725000,
-                "pct": 3.14
+                "shares": 750000,
+                "pct": 2.72
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 6707274,
-                "pct": 3.14
+                "shares": 850000,
+                "pct": 2.49
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 6675000,
-                "pct": 3.76
+                "shares": 785000,
+                "pct": 3.4
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 6600000,
-                "pct": 13.34
-              }
-            ]
-          },
-          "88023U101": {
-            "issuer": "SOMNIGROUP INTERNATIONAL INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 3000000,
-                "pct": 3.02
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 3400000,
-                "pct": 4.17
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 2270769,
-                "pct": 8.06
-              }
-            ]
-          },
-          "235851102": {
-            "issuer": "DANAHER CORP DEL",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 2050000,
-                "pct": 5.86
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 1950000,
-                "pct": 7.3
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 1900000,
-                "pct": 5.86
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 500000,
-                "pct": 1.3
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 50000,
-                "pct": 0.12
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 600000,
-                "pct": 1.89
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 525000,
-                "pct": 4.78
+                "shares": 310000,
+                "pct": 5.87
               }
             ]
           },
@@ -18294,26 +17229,6 @@ window.APP_DATA = {
             "issuer": "BROADCOM INC",
             "ticker": "AVGO",
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 0,
@@ -18336,39 +17251,19 @@ window.APP_DATA = {
               }
             ]
           },
-          "02079K305": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
+          "30303M102": {
+            "issuer": "META PLATFORMS INC",
+            "ticker": "META",
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 1980000,
-                "pct": 4.13
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
+                "shares": 150000,
+                "pct": 1.45
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
+                "shares": 220000,
+                "pct": 1.93
               },
               {
                 "quarter": "2025-12-31",
@@ -18377,54 +17272,112 @@ window.APP_DATA = {
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 175000,
-                "pct": 2.42
+                "shares": 90000,
+                "pct": 2.47
               }
             ]
           },
-          "023135106": {
-            "issuer": "AMAZON COM INC",
+          "88023U101": {
+            "issuer": "SOMNIGROUP INTERNATIONAL INC",
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 5100000,
-                "pct": 11.28
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 3700000,
-                "pct": 9.28
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 3450000,
-                "pct": 10.17
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 2350000,
-                "pct": 7.02
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 2710000,
-                "pct": 7.8
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 2810000,
-                "pct": 7.36
+                "shares": 3000000,
+                "pct": 3.02
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 2165000,
-                "pct": 6.87
+                "shares": 3400000,
+                "pct": 4.17
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 1940000,
-                "pct": 19.4
+                "shares": 2270769,
+                "pct": 8.06
+              }
+            ]
+          },
+          "G25508105": {
+            "issuer": "CRH PLC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 2590000,
+                "pct": 3.12
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 2165000,
+                "pct": 3.1
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 2600000,
+                "pct": 4.46
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1900000,
+                "pct": 9.59
+              }
+            ]
+          },
+          "235851102": {
+            "issuer": "DANAHER CORP DEL",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 500000,
+                "pct": 1.3
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 50000,
+                "pct": 0.12
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 600000,
+                "pct": 1.89
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 525000,
+                "pct": 4.78
+              }
+            ]
+          },
+          "879433829": {
+            "issuer": "TELEPHONE & DATA SYS INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 6725000,
+                "pct": 3.14
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 6707274,
+                "pct": 3.14
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 6675000,
+                "pct": 3.76
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 6600000,
+                "pct": 13.34
               }
             ]
           },
@@ -18432,26 +17385,6 @@ window.APP_DATA = {
             "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 2025000,
-                "pct": 4.03
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 1780000,
-                "pct": 4.16
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 1780000,
-                "pct": 4.72
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 1780000,
-                "pct": 4.64
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 1430000,
@@ -18479,26 +17412,6 @@ window.APP_DATA = {
             "ticker": "NVDA",
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 1450000,
-                "pct": 2.47
-              },
-              {
                 "quarter": "2025-06-30",
                 "shares": 2800000,
                 "pct": 5.81
@@ -18520,95 +17433,55 @@ window.APP_DATA = {
               }
             ]
           },
-          "144285103": {
-            "issuer": "CARPENTER TECHNOLOGY CORP",
-            "ticker": null,
+          "02079K305": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
             "series": [
               {
-                "quarter": "2024-06-30",
+                "quarter": "2025-06-30",
                 "shares": 0,
                 "pct": 0.0
               },
               {
-                "quarter": "2024-09-30",
-                "shares": 660000,
-                "pct": 1.42
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 870000,
-                "pct": 1.98
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 870000,
-                "pct": 2.48
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 750000,
-                "pct": 2.72
-              },
-              {
                 "quarter": "2025-09-30",
-                "shares": 850000,
-                "pct": 2.49
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 785000,
-                "pct": 3.4
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 310000,
-                "pct": 5.87
+                "shares": 175000,
+                "pct": 2.42
               }
             ]
           },
-          "G25508105": {
-            "issuer": "CRH PLC",
+          "023135106": {
+            "issuer": "AMAZON COM INC",
             "ticker": null,
             "series": [
               {
-                "quarter": "2024-06-30",
-                "shares": 650000,
-                "pct": 0.56
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 2050000,
-                "pct": 2.56
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 2715000,
-                "pct": 3.38
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 2715000,
-                "pct": 3.75
-              },
-              {
                 "quarter": "2025-06-30",
-                "shares": 2590000,
-                "pct": 3.12
+                "shares": 2710000,
+                "pct": 7.8
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 2165000,
-                "pct": 3.1
+                "shares": 2810000,
+                "pct": 7.36
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 2600000,
-                "pct": 4.46
+                "shares": 2165000,
+                "pct": 6.87
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 1900000,
-                "pct": 9.59
+                "shares": 1940000,
+                "pct": 19.4
               }
             ]
           },
@@ -18616,26 +17489,6 @@ window.APP_DATA = {
             "issuer": "MASTEC INC",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2024-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
               {
                 "quarter": "2025-06-30",
                 "shares": 0,
@@ -18791,154 +17644,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "071734107",
-            "issuer": "BAUSCH HEALTH COS INC",
-            "ticker": null,
+            "cusip": "594918104",
+            "issuer": "MICROSOFT CORP",
+            "ticker": "MSFT",
             "action": "EXIT",
-            "shares_from": 350000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "L8681T102",
-            "issuer": "SPOTIFY TECHNOLOGY S A",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 100000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "69331CAL2",
-            "issuer": "PG&E CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 10000000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "69331C306",
-            "issuer": "PG&E CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 140000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "169656105",
-            "issuer": "CHIPOTLE MEXICAN GRILL INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 4725000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "50212V100",
-            "issuer": "LPL FINL HLDGS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 510000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "126408103",
-            "issuer": "CSX CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 500000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "883556102",
-            "issuer": "THERMO FISHER SCIENTIFIC INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 50000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "743315103",
-            "issuer": "PROGRESSIVE CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 220000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "21037T109",
-            "issuer": "CONSTELLATION ENERGY CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 475000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "M98068105",
-            "issuer": "WIX COM LTD",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 225000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "69331C108",
-            "issuer": "PG&E CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 34300000,
+            "shares_from": 925000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -18960,11 +17670,24 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "199908104",
-            "issuer": "COMFORT SYS USA INC",
+            "cusip": "50212V100",
+            "issuer": "LPL FINL HLDGS INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 105000,
+            "shares_from": 510000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "M98068105",
+            "issuer": "WIX COM LTD",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 225000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -18986,50 +17709,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "147528103",
-            "issuer": "CASEYS GEN STORES INC",
+            "cusip": "199908104",
+            "issuer": "COMFORT SYS USA INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 455000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "92840M102",
-            "issuer": "VISTRA CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1005000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "77311W101",
-            "issuer": "ROCKET COS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 9515000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "01609W102",
-            "issuer": "ALIBABA GROUP HLDG LTD",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 825000,
+            "shares_from": 105000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -19051,11 +17735,180 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "594918104",
-            "issuer": "MICROSOFT CORP",
-            "ticker": "MSFT",
+            "cusip": "69331C108",
+            "issuer": "PG&E CORP",
+            "ticker": null,
             "action": "EXIT",
-            "shares_from": 925000,
+            "shares_from": 34300000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "77311W101",
+            "issuer": "ROCKET COS INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 9515000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "071734107",
+            "issuer": "BAUSCH HEALTH COS INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 350000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "743315103",
+            "issuer": "PROGRESSIVE CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 220000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "L8681T102",
+            "issuer": "SPOTIFY TECHNOLOGY S A",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 100000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "01609W102",
+            "issuer": "ALIBABA GROUP HLDG LTD",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 825000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "69331CAL2",
+            "issuer": "PG&E CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 10000000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "147528103",
+            "issuer": "CASEYS GEN STORES INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 455000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "69331C306",
+            "issuer": "PG&E CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 140000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "883556102",
+            "issuer": "THERMO FISHER SCIENTIFIC INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 50000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "169656105",
+            "issuer": "CHIPOTLE MEXICAN GRILL INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 4725000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "126408103",
+            "issuer": "CSX CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 500000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "21037T109",
+            "issuer": "CONSTELLATION ENERGY CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 475000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "92840M102",
+            "issuer": "VISTRA CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 1005000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -19346,27 +18199,9 @@ window.APP_DATA = {
           "SEC EDGAR 13F-HR acc 0001040273-26-000002 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001040273-26-000001 (2025-12-31)",
           "SEC EDGAR 13F-HR acc 0001040273-25-000003 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0001085146-25-005277 (2025-06-30)",
-          "SEC EDGAR 13F-HR acc 0001085146-25-003337 (2025-03-31)",
-          "SEC EDGAR 13F-HR acc 0001085146-25-001713 (2024-12-31)",
-          "SEC EDGAR 13F-HR acc 0001085146-24-005927 (2024-09-30)",
-          "SEC EDGAR 13F-HR acc 0001085146-24-004004 (2024-06-30)"
+          "SEC EDGAR 13F-HR acc 0001085146-25-005277 (2025-06-30)"
         ]
       }
-    },
-    "_roster_note": "★[8/13 정훈 위임 결정 — 6인 → 5인 유지, 버리 대체 안 함]\n버리(Scion)가 2025/10 펀드 청산·11월 SEC 등록해제로 13F 의무가 소멸했다(2025Q3가 마지막). 6인 중 **유일한 명시적 베어**(NVDA·PLTR 풋)가 빠진 것이라 로스터가 강세로 기운다.\n**대체하지 않는 이유(구조적)**: 13F는 **롱 포지션만** 보고한다. 버리가 잡혔던 것도 풋옵션이라 예외적이었고, 숏 전문가를 넣어도 13F에는 그 관점이 안 잡힌다. 억지로 채우면 '베어 한 자리 메우기'를 위해 트랙레코드 없는 인물을 넣는 셈이라 데이터 품질이 오히려 나빠진다.\n**대신 하는 것** ①이 편향을 **매 출력에 단서로 명시**한다 ②베어 관점은 13F가 아니라 이미 있는 장치로 받는다 — risk-desk(상설 신중 관점)·룰2 추세형 훼손·financials 재무 플래그·peer_compare 횡단면. 이쪽이 45일 지연되는 13F보다 훨씬 빠르고 우리 보유에 직결된다.\n⇒ **이 데스크 산출물은 강세 편향으로 읽을 것.** '대가 6인 중 N인이 샀다'를 매수 근거로 쓰지 말 것(원래도 지연 확증 렌즈).",
-    "_roster": {
-      "active": [
-        "버핏",
-        "드러켄밀러",
-        "애크먼",
-        "테퍼",
-        "로엡"
-      ],
-      "retired": {
-        "버리": "2025-11 SEC 등록해제로 13F 의무 소멸 — 대체하지 않음(13F는 롱만 보고)"
-      },
-      "bias": "명시적 베어 부재 → 강세 편향. 베어 관점은 risk-desk·룰2·재무플래그가 담당"
     },
     "consensus": {
       "AAPL": {
@@ -20292,6 +19127,22 @@ window.APP_DATA = {
         "refs": ""
       },
       {
+        "id": "d113",
+        "date": "2026-08-14",
+        "topic": "증권사 리포트 원장 배선 결함 — save_index가 --fetch 안에만 있었다",
+        "decision": "save_index()를 --fetch 블록 밖으로 옮겨 상시 호출. 본문 PDF 다운로드만 --fetch에 남김. 누적 73 → 95건 복구(8/1 이후 10건).",
+        "rationale": "누적 인덱스가 7/30에서 정지 → --targets가 2주 묵은 목표가로 컨센서스를 계산하고 있었다. 실측: LG전자가 n=2·240,000 단일로 나왔는데 실제는 n=5·180,000~250,000(IBK 180,000·SK 180,000·iM 250,000 누락). 원인은 데이터 부재가 아니라 배선 — --fetch는 PDF를 통째로 받는 무거운 플래그라 루틴이 안 쓴다. 저장은 조회의 부산물이어야 한다. 오늘 정리한 (B)계열 '죽은 배선' 4번째 사례.",
+        "rejected": "루틴에 --fetch 추가(PDF 다운로드까지 매번 도는 건 과하다·문제는 저장 위치지 수집량이 아니다)",
+        "status": "closed",
+        "tags": [
+          "도구",
+          "배선",
+          "증권사리포트",
+          "집행완료"
+        ],
+        "refs": ""
+      },
+      {
         "id": "d97",
         "date": "2026-08-13",
         "topic": "[영구교정] 폭풍 %ile이 재현되지 않고 있었다 — 8/5 정본 결정의 전제 복구",
@@ -20460,27 +19311,10 @@ window.APP_DATA = {
         ],
         "refs": "",
         "_class": "결정완료(자동종결 8/14 — 종결어휘+3일경과)"
-      },
-      {
-        "id": "d85",
-        "date": "2026-08-07",
-        "topic": "ORCL 딥다이브 — 트림 아님·매수후보 제외",
-        "decision": "룰2 2/3 유지·⭐3/55 유지·트림하지 않음. 대신 하드플로어 해제 시 매수 우선순위(GOOGL→NAVER→MU→META)에서 ORCL 영구 제외. 재검토 트리거 4개 기한부 등록.",
-        "rationale": "훼손이 아니라 캐펙스 베팅. 매출 +17.3% 가속·CFO +54%(32.0B)·영업마진 30.6% 유지·D/E 9.98→3.05 개선·유동비율 0.71→1.11. 그러나 캐펙스 6.9→55.7B(2년 8배·매출의 83%)로 FCF -23.7B(마진 -35.2%), 총차입 +39.9%, 순부채 -98.3B, 자사주 16.2B→0.1B 중단. RPO 638B(+363%)는 1차출처 확인됐으나 이연매출은 9.9B(+5.6%)뿐 = 계약은 쌓였고 현금은 아직 아니다. 트림 안 하는 이유는 낙관이 아니라 실익 — 비중 0.5%(4.3만원)라 회수액으로 할 수 있는 게 없다(사다리 0원).",
-        "rejected": "①즉시 트림 — 기각(비중 0.5%, 회수 4.3만원의 용처가 없고 거래비용 수준). ②⭐2 하향 — 기각(서브스코어 54.3과 score 55가 정합이고 이벤트형 훼손 없음. 성장은 오히려 가속 중). ③룰2에 캐펙스형 축 즉시 추가 — 기각(표본 1개로 룰 변경 금지. 8/5 절차 ②③ 통과 필요).",
-        "status": "closed",
-        "tags": [
-          "ORCL",
-          "룰2",
-          "딥다이브",
-          "캐펙스"
-        ],
-        "refs": "",
-        "_class": "결정완료(자동종결 8/14 — 종결어휘+3일경과)"
       }
     ],
     "open_count": 26,
-    "total": 129
+    "total": 130
   },
   "reports": [
     {
@@ -20491,7 +19325,7 @@ window.APP_DATA = {
       "version": 75,
       "kind": "보고서",
       "preview": "⚠️ 다만 룰9 문언 위반이 기계적으로 발생했다 — 룰9는 \"재원 = 신규 입금 전용, 기존 USD 버퍼 불가침\"인데 토스가 그 버퍼($57.62 = ANET 매도대금 = GOOGL 재배치 재원)를 먼저 먹었다. 실질은 무해하다(신규 입금 중 원화로 ",
-      "content": "# 정훈 PORTFOLIO DESK · v75 · 2026-08-14 (금)\n\n## 🔔 18:0x R2 갱신 — 마감 지수 재정정 + 수급 확정 대사 + 미장 프리뷰\n\n**★코스피 종가 정정: 6,968.29 → 6,977.94(+2.42%, +164.60p) 확정.** 15:4x 대화 세션이 기록한 6,968.29(+2.26%)는 최종 체결 전 스냅샷으로 확인됐다 — 이투데이·뉴스핌·헤럴드경제 3개 매체가 독립적으로 **6,977.94**를 보도(전부 일치), `market_data.py`(Yahoo) 실측치(6,978, +2.42%)와도 부합. **`history_backfill.py`+`tranche_rules.py` 마감 후 재실행 결과 낙폭 **-23.4%**(舊 -23.55%는 정정 전 가격 기준 수계산)** → **D1 확정 잠김·누적 해금 0% 판정 자체는 불변**(경계 -25.0%/6,835.91 대비 +2.1% 위). 코스닥 865(+0.41%)로 장중 마이너스에서 플러스 전환 마감. 게이트①(7,500)까지 +7.5%. **허용 트랜치 0원 불변**(하드플로어 S&P 71%ile — vol_gauge 재실행 동일치).\n\n**외인 수급 마감 확정**(naver_flows KRX직결 + newspim·이투데이 교차): 코스피 외국인 **+3조387억**(기관 -1조298억·개인 -1조9,820억), **4거래일 연속 순매수**. 15:29 이투데이 속보치(+3조1,568억)는 확정치와 오차 3.9%(집계 시각차로 통상 범위) — naver 공식 데이터를 정본 채택. ⚠️ **종목별 마감 확정 세부 내역(SK하이닉스 단독 비중)은 naver 종목 이력이 T+1 지연이라 오늘 산출 불가** — 장중 14:43 스냅샷의 \"SK하이닉스 44%·삼성전자 외인 순매도\" 판정을 방향성 참고로만 유지하고, 정밀 재확인은 내일(8/15) 첫 단계로 이관.\n\n**flows.json 8/12 원장 불일치 대사 완료**: series **+28,357억**(이투데이·아주경제·스탠딩아웃·dailian 4개 매체 교차 일치)이 맞다. `market_flows.jsonl`의 naver 자동캡처 **21,364억**은 `flow_trend.py`가 참조하는 별도 롤링원장으로, 캡처 시각이 장 마감 전이었을 가능성이 높은 **잠정치**로 판정 — 마감기사 대사로 8/12 항목의 불일치는 종결(series 값 유지, 아래 영구교정에 원인 기록).\n\n**오늘 밤 미국 프리뷰**(폰창 20:50 종료 후 — 사전 조건부로만 대응 가능): **21:30 KST(8:30 ET) 7월 소매판매** 헤드라인 컨센 **+0.3%MoM**(전월 +0.2%) — 일부 은행 컨센 +0.1%로 더 보수적, 근원(ex-auto) +0.2~0.3% 혼재. **23:00 KST(10:00 ET) 미시간대 소비자심리 예비치** 컨센 **54.1**(7월 확정 55.2에서 하락 예상), 1년 기대인플레 4.2% 유지 전망. 두 지표 다 \"동결이냐 인상이냐\" 프레임(§3)의 입력 — 예상보다 강하면 9월 인상 확률 상승(현재 45~61% 소스별 편차), 예상보다 약하면 완화 재료. AAPL($312 예약)·MU 컨센서스와 직결되는 소비지표라 폰창 밖이지만 다음 세션 첫 단계에서 결과 대사 필수.\n\n**★봉인 해제 집행 완료 (정훈 위임 \"너 판단으로 봉인 해제할 거면 해\")** — '봉인 172,506 / 실가용 11,522' 구분 폐기, 원화 전액을 사다리 재원으로 단일화. `crash_tf §0-4`·`master.md §2`·`portfolio.json` 개정. **실질 변화 0원** — 사다리 base가 184,028 → 266,060원으로 커졌지만 D1이 잠겨 있어 허용액은 그대로 0원이다. 폐기한 것은 **라벨이지 규율이 아니다**(물타기 금지·사다리·하드플로어 전부 유지).\n\n**★VOO 8월분 주문 접수 확인 + 환전 대사 (정훈 \"왜 에러야\")** — **에러 아니다.** 토스 알림이 \"$12.67(17,968원) 환전\"만 표시한 이유는 **보유 달러 $57.62를 먼저 소진하고 부족분만 환전**했기 때문이다.\n\n| 항목 | 계산 | 토스 표기 |\n|---|---|---|\n| 원화 | 184,028 + 입금 100,000 − 환전 17,968 | **266,060원 ✅ 정확히 일치** |\n| 달러 | $57.62 + $12.67 = **$70.29** → 전액 주문 예치 | **$0.00 ✅** |\n| 주문 규모 | $70.29 × 1,418.2 = **99,682원** | 목표 10만원의 **99.7%** |\n\n⚠️ **다만 룰9 문언 위반이 기계적으로 발생했다** — 룰9는 *\"재원 = 신규 입금 전용, 기존 USD 버퍼 불가침\"*인데 토스가 그 버퍼($57.62 = ANET 매도대금 = GOOGL 재배치 재원)를 먼저 먹었다. **실질은 무해**하다(신규 입금 중 원화로 남은 **82,032원 ≈ $57.84**가 소진된 GOOGL 재원을 거의 정확히 대체). 하지만 **우연**이므로 영구제약으로 등재했다 — 아래 영구교정.\n\n**대기 주문 3건 전부 생존 확인**(토스 15:29): 해외 2건 = AAPL $312 + VOO / 국내 1건 = LG전자 240,000원.\n\n**국내 마감 확정 시세**(토스 15:29 대사): 삼성전자 **274,000원**(4주 1,096,000) · LG전자 **214,000원** · NAVER **227,500원** · 두산로보틱스 **79,200원** · 현대차 **453,000원**. 아래 본문 표의 14:43 장중값보다 전 종목 소폭 상승 마감.\n\n**총자산**: 토스 \"내 투자\" **8,171,034원(+81,403원·+1.0%)** + 현금 266,060원 = **8,437,094원**.\n\n---\n\n> **⚠️ 장중 선발행 — 14:5x KST 기준. KRX 마감(15:30) 전이다.**\n> 정훈 지시(\"보고서 미리 작성해봐\")로 정규장 중 작성했다. 국내 시세·수급은 **장중 잠정치**이고,\n> 미국은 **8/13 확정 종가**다. 마감 확정치 교체 + 13F는 **16:00 R2가 이 파일을 디벨롭**한다(새 번호 안 만듦 —\n> `session_directive.json` 등재 완료). 오늘의 판정 중 **임계에 붙어 있는 것**은 아래 ⓐ에 따로 모았다.\n\n## 변경점 (v74 대비)\n\n| 항목 | v74 (8/13) | v75 (8/14 장중) | 함의 |\n|---|---|---|---|\n| 코스피 | 6,813.34 (마감 확정) | **6,937.25 (+1.82%, 장중)** · 오전 한때 **7,000선 첫 돌파** 후 반납 | 4거래일 연속 상승. 고점대비 **-23.9%** / YTD **+61.0%** |\n| 룰1 사다리 | -25.25% → **D1 해금 15%** | **-24.1% → D1 재잠김 · 누적 해금 0%** | ★**RESET(재잠금)이 실제로 작동한 첫 사례** — v74가 하루 일찍 주장했다 철회한 그 일이 오늘 일어났다 |\n| 하드플로어 | S&P 폭풍 72.2%ile | **71%ile** (여전히 ≥70) | 임계 위 1%p. **허용 트랜치 0원 불변** |\n| 게이트② 외인 | 장중 잠정 +2조787억 | **마감 확정 +2조951억**(오차 0.8%) · 오늘 장중 **+2조4,498억** | 4거래일 연속 순매수. **실질 충족 확정** |\n| 현대차 | 421,250원 | **451,000원 (+7.77%)** | 휴머노이드 보도發 — **공식 발표 아님·계약 아님**(아래 §2) |\n| MU | $911.29 | **$949.83 (+4.23%)** | 시총 $1조 재진입. 메모리 공급타이트 |\n| 총자산 | 8,242,226원 | **8,416,644원** | 전일대비 **+174,418원** |\n\n### ⓐ 오늘 임계에 붙어 있는 판정 3개 (마감 후 뒤집힐 수 있음)\n\n| 판정 | 지금 | 임계 | 이격 |\n|---|---|---|---|\n| 룰1 D1 해금 | 코스피 **6,937(장중)** = -23.9% | **종가 6,835.91** = -25.0% | **+1.5%** — 오늘 종가가 6,835.91 **위면 잠김(현 상태) / 아래면 15% 해금** |\n| 하드플로어 | S&P 폭풍 **71%ile** | **70%ile** | **+1%p** — 뚫려도 사다리가 0%라 **이중 잠금** |\n| 폭풍 발산경보 | vol_gauge 71.4 vs garch 54.0 | 차이 **20p** | **17.4p** — 문턱 바로 아래. garch 기준이었으면 하드플로어가 **안 걸렸을** 지점 |\n\n---\n\n## 1. 시장 — 국장 / 미장\n\n### 국장 (마감 확정 — 18:0x R2 대사)\n\n코스피 **6,977.94(+2.42%, +164.60p) 마감 확정**, 오전 한때 **7,010선까지 터치**하며 7,000선을 처음 넘었다가 소폭 반납하고도 5거래일 연속 상승 마감했다. 코스닥은 **865(+0.41%)**로 장중 마이너스에서 막판 플러스 전환. 촉매는 미 7월 PPI 둔화(전월비 0.0%) + 간밤 MU +4.23% + 삼성·하이닉스 이틀새 +12%다.\n\n**수급이 오늘의 핵심이자 함정이다.** 코스피 전체 외인 순매수 **+3조387억**(기관 -1조298억·개인 -1조9,820억, naver 공식 확정치) — 4거래일 연속 순매수로 게이트② 확정을 재확인했다. 다만 장중 14:43 스냅샷에서 **시장 전체 외인 순매수의 44%가 SK하이닉스 한 종목**이었고 **삼성전자는 외인이 오히려 순매도(-1,090억)**, 상승은 기관(+554만주)이 만든 그림이었다 — 종목별 마감 확정 세부는 naver 소스 T+1 지연으로 오늘 재확인 불가하지만, 장중 구도(\"외인이 한국 주식을 사기 시작했다\"가 아니라 **\"외인이 하이닉스를 산다\"**)는 최종 수급 총량(+3조387억, 8/13 +2조951억 대비 오히려 확대)과 방향이 어긋나지 않는다 — 다음 세션 첫 단계에서 종목별 정밀 대사.\n\n| 종목 | 마감가(확정) | 당일 | 원가대비 |\n|---|---|---|---|\n| 삼성전자 | 274,000원 | +2.43%(장중 종가 기준) | +2.43% |\n| LG전자 | 214,000원 | +3.15%대(추정) | +37.89% |\n| 두산로보틱스 | 79,200원 | +1.55% | -20.80% |\n| 현대차 | 453,000원 | **+8.24%** | -28.10% |\n| NAVER | 227,500원 | -0.44% | -9.18% |\n| SK하이닉스(워치) | 1,645,000원 | +3.26% | — |\n\n**8/13 마감 확정 대사 완료(전일)**: 외인 **+2조951억**(fnnews·sedaily 일치 / wikitree 단독 \"+3조7,058억\"은 2배 괴리로 **미채택**). 3거래일 연속 확정, 5일 롤링 부호 양전환 → **게이트② 실질 충족 확정**. **8/14 확정치(+3조387억)로 4거래일 연속 연장.**\n\n### 미장 (8/13 확정 종가 — 오늘 밤 22:30 개장 전)\n\nS&P500 **7,798.99(+0.65%) 사상 최고 종가**, 나스닥 26,803.03(+0.81%), SOX 12,456.00(+0.46%). 동력은 **7월 PPI 전월비 0.0%** → 금리 하락 → 9월 인상 공포 후퇴다.\n\n⚠️ **프레임 주의**: 지금은 \"인하냐 동결이냐\"가 아니라 **\"동결이냐 인상이냐\"**다. CPI는 3.4%로 끈적한데 7월 고용은 -2.3만이다. 통상 사이클과 다르므로 매 세션 재확인한다.\n\n**MU $949.83(+4.23%, 시총 $1조 재진입)** — DRAM/HBM 공급타이트 + 자본환원 기대 + $1,000 저항 근접. **AAPL은 +1.00%로 언더퍼폼**했고, 이게 정훈의 $312 예약과 직결된다(§7b).\n\n**🌙 오늘 밤 개장 프리뷰(폰창 밖 — 사전 조건부만 유효)**: **21:30 KST 7월 소매판매**(컨센 헤드라인 +0.3%MoM, 은행별 편차 +0.1~0.3%, 전월 +0.2%) → **23:00 KST 미시간대 소비자심리 예비치**(컨센 54.1, 전월 확정 55.2에서 하락 예상 · 1년 기대인플레 4.2% 유지 전망). 둘 다 \"동결이냐 인상이냐\" 프레임의 직접 입력이다 — 서프라이즈 상방이면 9월 인상 확률(현재 45~61% 소스별 편차)이 올라가 금리 민감 성장주(GOOGL·MSFT 등)에 역풍, 하방이면 반대. AAPL $312·LG전자 240,000원 예약은 지표와 무관하게 정규장 자동 집행되므로 액션 변경 불필요 — 결과는 내일 첫 단계에서 대사.\n\n---\n\n## 2. 섹터 — 반도체·AI / 전력·피지컬AI\n\n### 반도체·AI인프라\n\n**§10-2 메모리 정점 판정 = 아직 정점 아님.** 3축 전부 가속 방향이다:\n- 마진: `margin_trend_break` 5종목 **전부 0건**\n- 가이던스: MU FQ4 GM **~86%**(FQ3 84.9%에서 추가 상승)\n- 수요 코멘트: MU FQ3 콜 원문 *\"demand continues to be well above our supply\"*(1차 대조 완료)\n\n삼성전자는 2Q26 잠정 **영업익 89.4조·DS 89.2조(사상최대, 전분기比 +56.2%)**를 이미 7/30에 반영한 뒤라 오늘 덜 움직였다(+1.31%). **DRAM 실물가**: TrendForce 스팟 직접 확인 — DDR4 1Gx8 3200 **$42.45(8/7)**, DDR5 16Gb 스팟 최고 $61(7월초). ※\"DDR5 +400%\"류는 2차 가공이라 **미확인 분리**(8/1 규율 준수).\n\n**미해소 리스크 1개 = AVGO.** 재고 YoY **+126.8%** vs 매출 +48.7%(78.1%p 초과) + 매출채권 +118.6%. NVDA의 재고 급증(+237%)은 백로그(+127.9%)로 설명되는데 **AVGO만 설명이 안 붙는다. 9/2 실적이 판별선**이고, 그 전까지 별점 상향 보류.\n\n원익IPS **-4.75%**는 개별 악재가 아니라 **코스닥 장비주 클러스터 일괄 조정**(주성엔지니어링 등 동반)으로 판정 — 대형 메모리로 자금이 옮겨간 하루다.\n\n⚠️ **컨센서스 품질 경보**: 삼성전자 목표가 평균 **493,542원**(현재가 대비 +82.8%)은 한경 컨센서스 원문 접근 실패 + 2차 블로그 재인용이 섞여 있어 **미확인으로 하향 분류**했다. 다음 세션 원문 확인 대상.\n\n### 전력·피지컬AI — 현대차 +7.77%의 정체\n\n**결론부터: 큰 로드맵은 이미 공식이고, 오늘 오른 건 그 로드맵의 '실행 단계 보도'다. 계약은 아니다.**\n\n두 층을 분리해야 정확하다 — 이걸 뭉치면 \"새 뉴스가 터졌다\"로 오독한다.\n\n| 층 | 내용 | 지위 |\n|---|---|---|\n| **로드맵(하부)** | 보스턴다이내믹스 완전자회사화(소프트뱅크 지분 인수) · 구글 딥마인드 제휴 · 아틀라스 **2028년 연 3만대** 양산 | ✅ **CES 2026(1월) 공식 발표** — 이미 알려진 사실 |\n| **오늘의 보도(상부)** | 1차 협력사 **약 200곳**에 휴머노이드 소재·부품 **사업계획서 제출 요청**(HL만도·디아이씨·에스비비테크·에스피지 등 거명) | ⚠️ **업계 취재(\"~로 전해졌다\")·[단독] 보도.** 공식 발표 아님, MOU·LOI도 아님, **금액 미공시** |\n\n확인된 숫자: 목표단가 **$10만+ → $2만~3만 인하** · **액추에이터가 원가의 30~50%** · 2028년 조지아 HMGMA 우선 투입. 7/26 정정룰(주체·범위·형식)로 읽으면 **\"구속력 있는 계약\"은 어디에도 없다.**\n\n**8/26 CEO 인베스터데이(여의도 콘래드)**에서 보스턴다이내믹스 지분구조·로보틱스 아메리카(3Q 설립)·RMAC(8월 가동) 4개 법인 역할분담이 **처음 구체화**된다. 오늘 산 사람은 12일 뒤 발표를 미리 사는 것이다.\n\n**⚠️ [데스크 간 불일치 — PM 교정]** 전력 데스크가 \"현대차 8/13 **+12.82%** → 8/14 +7.77% 2일 연속 랠리\"로 보고했으나, **8/13 등락은 +12.82%가 아니라 약 +2.2%**다(8/12 종가 ≈409,500원 → 8/13 ≈418,500원 역산). +12.82%는 **8/12 LG전자**의 등락률이다. §2a 규율대로 지역 데스크·마감 확정값을 채택하고 **\"2일 연속 로봇 랠리\" 서사는 기각** — 로봇發 급등은 **오늘 하루**다.\n\n**두산로보틱스는 이 뉴스의 수혜 대상이 아니다.** 거명된 200곳은 자동차 부품 전환그룹(HL만도·디아이씨 등)이고 **두산로보는 명단에 없다**. 실제로 오늘 +1.67%로 소외됐다. 두산로보의 휴머노이드는 **2028년 공개 목표**로 아직 먼 이야기다. ⇒ **두 종목을 \"로봇 테마\"로 뭉뚱그리지 말 것.**\n\n**셋업 판정**: `setup-현대차-피지컬AI-인베스터데이-0728`·`setup-현대차로봇리레이팅-0701` **둘 다 met 0% 그대로**다. 조건은 ①인베스터데이에서 로봇 매출화 시점 구체 공개 ②주주환원 정책 ③임단협 해소 / ①2Q 실적 방어 ②노조 타결 ③RMC 가동 가시화 ④BYD 효과 — **오늘 일어난 일은 이 중 하나도 아니다.**\n\n**피어 대조(peer_compare)**: 현대차 종합백분위 **33.6(그룹 7/10위)**. 갈리는 지점 = **영업마진 피어 55%ile vs 자기이력 12%ile** → 마진 압박이 업종 전반에도 있지만 **현대차는 자기 역사 대비 거의 최저 구간**(9.3→8.1→6.2%). **업종 탓이 아니라 자기 하락**이다.\n\n**LG전자**: 룰2 **1/3 정상**. 컨센서스가 최근 상향됐다 — iM증권 165,000→**250,000원**, 메리츠 적정주가 **260,000원**. ⚠️ **우리 익절가 240,000원이 컨센 상단보다 낮다** — 익절 자체는 정훈 승인(8/12)이고 원가 +54.6%로 충분하나, 이 사실은 기록해둔다.\n\n**SK이노베이션 +5.26%**: **빌 게이츠 8/14 방한** — 테라파워 2대주주 SK그룹과 SMR 협력 회동 전망. 한화오션·HD현대중 강세는 **개별 재료 특정 실패(3회 시도) → [미확인]**, 코스피 전반 리스크온 속 조선 순환매로 추정.\n\n---\n\n## 3. 매크로\n\n| 지표 | 값 | 변동 | 기준일 |\n|---|---|---|---|\n| 미국채 10Y | 4.68% | -2bp | 8/12 |\n| 미국채 2Y | 4.20% | -2bp | 8/12 |\n| 2s10s | **+48bp** | — | 8/12 |\n| 10Y 실질금리 | 2.42% | -1bp | 8/12 |\n| BEI(기대인플레) | 2.24% | -2bp | 8/13 |\n| EFFR | 3.63% | 0bp | 8/12 |\n| VIX | **14.55** | -0.73pt | 8/12 |\n| WTI | $84.77(FRED 8/11) / **~$81.27 실시간** | — | 병기 |\n| 미 CPI YoY | **3.4%(BLS 공식)** | 3.5%→3.4% 둔화 | 7월분 |\n| 미 실업률 | 4.1% | -0.1%p | 7월분 |\n| USD/KRW | **1,413.44** | -0.21% | 8/14 장중 |\n\n**환율**: 7월 위기 정점(1,600원대)에서 한 달 만에 **-8~11%**. 원인은 달러 약세가 아니라 **국내 수급 반전 주도**(외인 순매수·수출기업 네고·하이닉스 ADR 자금)다.\n\n**금리**: 9월 FOMC 인상 확률은 **자료 시점별 45~61%로 편차가 크다 — 단일 수치 인용 금지**. 7/29 회의는 **9-3 동결**(3인이 인상 소수의견 = 2016년 이후 최초의 통일된 방향성 이견).\n\n**한은 8/27 금통위(D-13)**: 현재 2.75%(7/16 인상). **8월은 점도표 발표월** — 언론 인용 기준 6개월 후 전망 중간값이 3.00%→**3.25% 상향**, 일부 위원 3.50%. ⚠️ BOK 공식 발표 전까지 **잠정**이고, 컨센서스는 \"매파적 동결\"(우리금융硏) vs \"25bp 추가 인상\"(Citi)로 **갈린다**.\n\n---\n\n## 4. 리서치 피드 (R1 캐시 + R2 델타 1편)\n\nR1(10:00)이 6편을 이미 분석했고, **13:47 업로드 1편을 델타로 추가 추출**했다.\n\n**「메모리·반도체 주식이 다시 폭등하는 진짜 이유」(13:47)** — 판정 **[검증]** (1건 미확인)\n\n논지: *\"실적이 좋아져서가 아니다. 반도체를 눌러오던 매크로 4개(물가·금리·유가·환율)가 같은 주에 전부 얌전해진 것이다.\"*\n\n검증 결과 — CPI 3.4% ✅ / PPI 0.0% MoM(YoY 4.7%, 직전 5.5%) ✅ / WTI $81대 ✅ / 환율 1,416원 ✅ / MU +4.2% ✅ / 샌디스크 +13.7% ✅ / 외인 8/13 **+2조951억** ✅ — **우리 하드넘버와 전부 일치**한다. 외인 수치는 우리가 오늘 독립적으로 대사한 확정치와 정확히 같다.\n\n**[미확인]** \"9월 인상확률 55%→32%\" — 우리 매크로 데스크는 같은 시점을 **45~61%**, 미장 데스크는 \"40%대\"로 잡았다. **방향(하락)은 일치하나 32%는 재현 안 된다.** 8/13에도 같은 수치가 미확인으로 남았던 항목이라 **2일 연속 동일 미확인**이다.\n\n**PM 판단**: 이 영상은 **우리 매크로 데스크가 오늘 독립적으로 낸 결론과 같은 그림**이라 채널 단독 근거가 아니다 → 프레임 채택. 단 채널의 결론은 **왜 오르는지의 설명이지 언제까지 오르는지의 근거가 아니다.** 매크로 완화는 게이트②·③에 유리한 재료로만 계상하고, 집행 판단은 §5 게이트가 한다.\n\n---\n\n## 5. 리스크 데스크\n\n**룰 위반 0건.** 경보 2건은 전부 \"룰이 작동 중\"이라는 뜻이다.\n\n- **룰1**: 낙폭 -24.1% → **D1 재잠김, 누적 해금 0%**. 하드플로어(S&P 폭풍 71%ile ≥70) 발동 → **허용 트랜치 0원**.\n- **룰2**: LG전자 **1/3 정상**(마진 3년 하락은 충족이나 FCF는 1,746→**3,731억 반등**, 순부채도 -76,694→**-51,905억 개선**). 두산로보 3/3(홀드 확정분) · 현대차 마진 1/1(금융연결 예외) 불변.\n- **룰4 메모리 정점**: 삼성·MU 둘 다 **트림 신호 없음**.\n- **참고 경보(자동매매 아님)**: NVDA·AAPL·AVGO `inventory_surge` / MSFT `margin_trend_break`(48.9→47.1→46.3%) + debt_buildup / GOOGL·META `debt_buildup`(캐펙스 조달).\n\n**집중도** — 이게 오늘 가장 불편한 숫자다:\n\n| 축 | 비중 |\n|---|---|\n| NVDA 단독 | **20.1%** (상한 25% 근접) |\n| 반도체·메모리(NVDA+삼성+MU+AVGO) | **34.2%** |\n| 미국 대형기술 생태계(+VOO 포함) | **70%+** |\n| 국내 : 미국 | 25.2% : **74.8%** |\n\n오늘처럼 MU·삼성·하이닉스·삼성전기가 **동시에** 오르는 날은 분산이 아니라 **같은 베팅의 레버리지 노출**이다.\n\n**🐻 신중 관점**: 오늘 가장 큰 리스크는 **\"미국은 잠잠하다\"를 VIX 하나로 단정하는 것**이다. VIX 14.55는 옵션 내재변동성(선행)이고, 하드플로어는 **실현변동성 1년 백분위(후행)** 기준이라 둘이 다른 그림을 보여주는 국면이다. 그리고 코스피가 7,500(게이트①)에 가까워질수록 \"거의 다 왔다\"는 심리적 압력이 커지겠지만 — **7,500 회복 자체는 매수 재개 신호가 아니다.** 사다리·하드플로어·3중 게이트는 **전부 별도로** 통과해야 한다.\n\n---\n\n## 6. 강세 vs 신중 디베이트\n\n**🐂 강세**: 매크로 4개 축이 같은 주에 동시에 완화됐다 — CPI 3.4% 둔화, PPI 0.0%, WTI $81대, 환율 1,413원. 이건 채널의 서사가 아니라 우리 FRED 하드넘버가 말하는 것이다. 외인은 4거래일 연속 순매수고 8/13 확정치 +2조951억은 교차검증됐다. 게이트②는 **실질로 충족 확정**됐다. 메모리 사이클은 3축(마진·가이던스·수요 코멘트) 전부 가속이라 **정점 신호가 아직 없다** — 우리 포트가 가장 크게 실린 축이 지금 가장 강하다. 코스피는 오늘 오전 **7,000선을 처음 뚫었고**, 7/28 저점(-33.9%)에서 -23.9%까지 되돌렸다.\n\n**🐻 신중**: 그런데 **오늘의 랠리가 만든 결과는 매수 권한이 아니라 사다리 재잠김**이다. -24.1%로 회복되며 D1마저 잠겨 **누적 해금 0%**가 됐고, 하드플로어도 71%ile로 여전히 위다 — **이중 잠금**. 오늘 우리가 살 수 있는 금액은 **0원**이고, 그게 룰이 고장난 게 아니라 룰대로다. 수급을 뜯어보면 더 불편하다: 외인 +2조4,498억 중 **44%가 하이닉스 한 종목**이고 **삼성전자는 외인이 순매도**했다. 코스닥은 -0.28%로 또 빠졌다. **폭이 좁은 랠리**는 8/5(+3.76% → 다음날 -4.58%)를 포함해 이 국면에서 6~8회 반납된 이력이 있다. 코스피 폭풍은 **96%ile 극단**이고 심리는 항복 국면이 아니다. 그리고 현대차 +7.77%는 **구속력 없는 업계 취재 보도** 하나에 붙은 값이다 — 이런 날 확신 톤을 올리는 것이 우리의 실측된 실패 패턴이다(⭐5 표현확신 85% vs 방향적중 12~20%, Brier 0.391).\n\n**⚖️ PM 판정**: 신중 쪽에 무게. 단 **이유가 \"시장이 나빠서\"가 아니라 \"룰이 안 열려서\"**라는 점을 분명히 한다. 시장 신호(게이트②)는 실제로 개선됐고 그건 기록한다. 다만 게이트는 1/3이고 하드플로어는 살아 있다. **오늘 우리가 할 일은 사는 게 아니라, 열렸을 때 무엇을 살지 순서를 확정해두는 것**이다.\n\n---\n\n## 7. PM 종합\n\n### 오늘의 한 줄\n\n> **코스피가 오전에 7,000을 처음 뚫었는데 우리 매수 권한은 0원이 됐다.** 회복이 사다리를 잠갔기 때문이고(RESET 첫 실전 작동), 이건 룰이 의도한 대로다. **오늘의 액션은 매수가 아니라 예약 2건 유지 + 현대차 급등의 정체 확정이다.**\n\n### 📊 보유 전종목 (14) — 국내 마감 확정(토스 15:29 대사) / 미국 8/13 확정 종가\n\n| 종목 | 현재가 | 당일 | 원가대비 | 목표가 | 여력 | 매수존 | 매도/트림 | ⭐ | 스코어 | 한줄 |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **삼성전자** | 274,000원 | +2.43% | **+2.43%** | 246,000~460,000원(중심 340,000원) | +24% | 사다리 D1 대상이나 **해금 0%로 집행 불가** | — | ⭐5 | **93** | 서브스코어 93.3. 2Q26 DS 영업익 89.2조 사상최대. ⚠️오늘 외인은 장중 **순매도**(-1,090억), 상승은 기관 — 마감 종목별 수급은 T+1 지연으로 미확인 |\n| **LG전자** | 214,000원 | +3.15%대 | **+37.89%** | 195,000~295,000원(중심 240,000원) ※iM 250,000·메리츠 260,000 최근 상향 | +12% | 봉인(TF 해제 후) | 🎯 **240,000원 익절 예약 접수됨**(현 -10.9%) | ⭐4 | **74** | 룰2 **1/3 정상**(FCF 3,731억 반등·순부채 개선). ⚠️익절가가 컨센 상단보다 낮다 |\n| **두산로보틱스** | 79,200원 | +1.55% | **-20.80%** | 분산 큼(적자·PER 무의미) | — | —(추가매수 영구금지) | 홀드·양방향(상방 90,000원 재검토 / 하방 3Q 매출<200억·적자확대, 기한 10/31) | ⭐1 | **32** | 룰2 3/3. 상방 트리거까지 +13.6% |\n| **현대차** | 453,000원 | **+8.24%** | **-28.10%** | 390,000~580,000원(중심 480,000원) ※국내 9개 하우스 컨센 **717,500원**은 7/25 기준·오늘 뉴스 前 [stale] | +5% | —(물타기 영구금지) | 홀드(8/26 인베스터데이까지·기한부) | ⭐2 | **50** | ★급등은 **구속력 없는 업계 취재 보도**. 셋업 met **0% 그대로**. 서브스코어 25.8·마진 자기이력 **12%ile** |\n| **NAVER** | 227,500원 | -0.44% | **-9.18%** | 210,000~285,000원 | +25% | add존(225,000~235,000) **진입** — 사다리 0원으로 **집행 불가** | — | ⭐3 | **60** | BlackRock **7.09%(+1.04%p)** 단순투자 목적 신규 대량보유 보고(8/10) |\n| **NVDA** | $225.30 | +0.54% | **+12.93%** | $260~335 | +15% | 눌림 비중관리(20.1%) | — | ⭐5 | **90** | 서브스코어 **99.5**. 재고+237%는 백로그+127.9%로 설명됨. 8/26 실적 D-12 |\n| **META** | $594.97 | +2.78% | **-6.15%** | $650~815 | +9% | 제외(신규자금 영구제외) | 홀드(3Q까지·기한부) | ⭐2 | **50** | 서브스코어 46.6. 8/13 하향분 유지 — 오늘 +2.78%는 판정 불변 |\n| **VOO** | $714.95 | +0.67% | **+10.20%** | ETF | — | 적립(8월 미집행·재원부족) | — | ⭐4 | — | 월 10만원 적립 룰, 8월분 여전히 미집행 |\n| **MSFT** | $496.88 | +0.90% | **+21.13%** | $540~655 | +8% | — | — | ⭐4 | **82** | 🟠 `margin_trend_break`(48.9→47.1→46.3%) + debt_buildup. 서브스코어 68.8 |\n| **AAPL** | $305.26 | +1.00% | **+18.71%** | $270~325 | +6% | 신규매수 금지 | 🎯 **$312 예약 접수됨**(현 -2.2%) | ⭐3 | **55** | Jefferies 언더퍼폼 강등(PT $264) — **근거가 메모리 원가**다. MU 강세의 반대편 |\n| **GOOGL** | $346.36 | +0.82% | **-2.05%** | $385~455 | +11% | **재진입 1순위**(해제 후·눌림) | — | ⭐5 | **88** | 서브스코어 86.1. 컨센 $428(+23.6%) |\n| **ORCL** | $156.22 | +1.92% | **-32.70%** | $150~190(중심 $168) | +8% | 제외(매수후보 아님) | —(트림 실익없음·비중 0.5%) | ⭐3 | **55** | 룰2 2/3 감시. 컨센 $247은 stale 의심 |\n| **MU** | $949.83 | +4.23% | **+26.81%** | $1,090~1,555 | +15% | — | 잔여 절반 홀딩 | ⭐5 | **86** | 서브스코어 87.7·**재무플래그 0건**. 컨센 $1,261(+32.7%, ±30% 플래그) |\n| **AVGO** | $417.82 | +0.43% | **-0.77%** | $430~525 | +3% | 조정 시 후보(TF 동결 우선) | — | ⭐4 | **78** | 🟠 **유일한 미해소 케이스** — 재고+126.8% vs 매출+48.7%. **9/2 판별선** |\n\n### 👀 워치리스트 (활성)\n\n| 종목 | 현재가 | 당일 | 목표(컨센) | 여력 | 매수존 | ⭐ | 스코어 | 한줄 |\n|---|---|---|---|---|---|---|---|---|\n| SK하이닉스 | 1,645,000원 | +3.26% | 1,480,000~4,700,000원(3배 스프레드) | 큼 | 분할·인내(추격금지) | ⭐4 | 78 | 서브스코어 **93.0**. 오늘 외인 순매수의 **44%가 이 종목** |\n| 삼성전기 | 1,549,000원 | +3.06% | — | — | 추격금지 | ⭐3 | 72 | 서브스코어 71.6. MLCC 탑재량 증가 방향은 유효(632% 수치는 자막오류) |\n| 원익IPS | 114,300원 | **-4.75%** | — | — | 눌림 관찰 | ⭐3 | 82 | 개별 악재 아님 — **코스닥 장비주 클러스터 조정** |\n| 테스 | 145,900원 | +0.62% | — | — | 눌림 관찰 | ⭐3 | 88 | 오늘 개별 데이터 부족 |\n| 두산에너빌리티 | 81,800원 | +1.11% | 143,000원 | +75% | 62,000~66,000원 | ⭐3 | 58 | 추세복귀 82,000 재접근. 집행은 TF 해제 후 |\n| SK이노베이션 | 128,100원 | **+5.26%** | — | — | 105,000~112,000원 | ⭐2 | 63 | 8/8 워치 재편입분. 눌림존 -18% 아래 |\n| 한화에어로 | 1,159,000원 | -2.19% | 1,620,000~1,900,000원 | +40%+ | 900,000~950,000원 | ⭐3 | 50 | 오늘 차익실현. 서브스코어 49.6 |\n| 한화오션 | 95,000원 | +4.74% | — | — | 추격금지 | ⭐3 | 83 | 조선 클러스터 강세 지속 |\n| HD현대중공업 | 510,000원 | +2.82% | — | — | 추격금지 | ⭐4 | **95** | 서브스코어 95.4(워치 최고) |\n| KT&G | 176,300원 | +1.44% | 240,000원 | +36% | **165,000원 이하** | ⭐3 | — | 현 +6.8% 위. 재원·딥다이브 조건부 존치(8/13 확정) |\n| GEV | $1,049.42 | +0.92% | $1,238 | +18% | 눌림 관찰 | ⭐4 | 92 | 서브스코어 91.8 |\n| ANET | $203.62 | -3.27% | $242 | +19% | 재진입 조건부 | ⭐4 | 87 | 8/11 전량 매도 완료. backlog +146.1% 견조 |\n| TMUS | $183.38 | +3.53% | $243 | +33% | — | ⭐3 | 66 | — |\n| SPCX | $141.29 | -3.33% | $236 | +67% | — | ⭐3 | — | **8/20 락업 해제** D-6 |\n| STM | $53.92 | -0.48% | $72 | +33% | — | ⭐2 | 59 | — |\n\n### 🎯 지정가 오더북\n\n| 종목 | 액션 | 지정가 | 수량 | 예약방식 | 발동조건 | 기대수익률 |\n|---|---|---|---|---|---|---|\n| **LG전자** | 익절 | **240,000원** | 정수 1주(전량) | ✅**예약 접수 완료**(8/13 확인) | 정규장 자동 집행 | 원가 155,200원 대비 **+54.6%** |\n| **AAPL** | 트림 | **$312** | 정수 1주 | ✅**예약 접수 완료**(8/13 확인) | 미 정규장 자동 집행 | 원가 $257.14 대비 **+21.3%** |\n| GOOGL | 매수 | 눌림 지정가(해제 후 확정) | 소수점 | ⛔ **3조건 미충족 대기** | D1 해금 + 하드플로어 해제 + 눌림 | 목표 $385~455 |\n| NAVER | 매수 | 225,000~235,000원 | 정수 1주 | ⛔ **사다리 0원** | 사다리 해금 | 목표 210,000~285,000원 |\n| KT&G | 신규편입 | 165,000원 | 정수 1주 | ⛔ 재원 부족 + 딥다이브 선행 | 위 2조건 + 가격 도달 | 목표 240,000원 |\n| VOO | 적립 | 시장가 | 10만원 | ⛔ **재원 부족** | 8월분 미집행 이월 | 상시 룰 |\n\n⚠️ **오늘 새로 낼 매수 오더는 없다** — 사다리 0원이라 낼 수 있는 매수 오더가 물리적으로 없다. 이건 관망이 아니라 **룰에 의한 집행 불가**이며, ⭐2 이하 두 종목(현대차·두산로보)은 **기한·트리거가 살아있는 홀드 결정** 상태다(§7c).\n\n⚠️ **LG전자 가격밴드 주의**: 240,000원은 오늘 **정규장 상한(전일 206,500×1.3 ≈ 268,450원) 안**이라 유효하다. 다만 **시간외단일가 상한 = 당일종가×1.1**이라 종가가 218,182원 미만이면 시간외로는 **재접수 불가**다. 이미 걸린 예약은 유지되므로 문제없고, **다시 걸어야 할 상황이 오면 정규장에서 걸어야 한다**.\n\n### 💰 현금 배분\n\n| 항목 | 금액 |\n|---|---|\n| 원화 현금 | **184,028원**(봉인 172,506 + 실가용 11,522) |\n| 달러 현금 | **$57.62** ≈ 81,422원 |\n| 총 현금 | **265,450원** |\n| **허용 트랜치** | **0원** (하드플로어 발동) |\n| 총자산 | **8,416,644원** (전일대비 +174,418원) |\n\n**🅰️ 관망(룰 정합·추천)**: 0원 유지. LG전자 240,000원이 체결되면 그 재원이 **GOOGL 1순위 실탄**이 된다. 지금 할 일은 재원 만들기지 쓰기가 아니다.\n**🅱️ 공격**: 하드플로어가 70 아래로 내려오고 코스피가 6,835.91 **아래로** 마감하면 D1 15%(약 27,600원)가 열린다 — 이 금액으로는 **국내 정수 1주도 못 산다**(삼성 271,500원). 실질적으로 **미국 소수점 GOOGL 외에는 선택지가 없다**. 이 계산이 🅱️안을 사실상 무의미하게 만든다.\n\n**🧺 VOO 8월 적립 — 정훈 8/14 입금 확정(10만원)**: 룰9는 **재원 = 신규 입금 전용**(봉인 현금·GOOGL 달러 불가침)이 채택 전제라 **사다리 0원·하드플로어와 무충돌**(별도 트랙). 오늘 폰창에 소수점 시장가 예약 → 22:30 자동 집행. 환산 ≈ **$70.77 → 약 0.099주**(1.068630 → 약 1.1676주). 비중 13.2%로 경계선(25%) 여유. 룰9 핵심대로 **시세 안 보고 기계적 집행**(눌림 대기 금지). 오더 = `ord-voo-dca-2026-08`.\n\n### 🔍 현금 제한 재분석 (정훈 요청 — \"제한 걸어둔 이유 다시 분석해봐\")\n\n제한은 **4겹**인데 걸린 근거가 서로 다르고, **두 겹은 이미 근거를 잃었다.**\n\n| # | 제한 | 언제·왜 | 지금 유효한가 |\n|---|---|---|---|\n| 1 | **봉인 172,506원** | 7/20 삼성 1주 248,500원 물타기(룰1 위반) **사후 조치** — \"잔여 재봉인·추가 물타기 전면금지\" | ⚠️ **근거 2개 다 소멸** |\n| 2 | 룰1 사다리 D1 잠김 | 7/30 개정 + 7/31 RESET | ✅ 유효(경계 6,835.91) |\n| 3 | 하드플로어 S&P 폭풍 ≥70%ile | 7/30 신설, 현재 71%ile | ✅ 유효(임계 +1%p) |\n| 4 | 예비 15% 영구봉인 | 회복 확인(게이트 2/3+) 전까지 | ✅ 유효(게이트 1/3) |\n\n**1번이 근거를 잃은 이유 2가지** — ⓐ 원래 목적인 **2차 트랜치 20만원 보존이 이미 붕괴**했다(crash_tf §0-4가 직접 *\"잔여 172,506 < 2차 트랜치(20만)라 트랜치 여력 붕괴\"*라고 적고 있다). 보존할 여력이 없는 돈을 보존 명목으로 묶고 있다. ⓑ 두 번째 목적인 **물타기 재발 방지는 대상이 사라졌다** — 7/20의 직접 원인이던 삼성전자가 지금 **271,500원 vs 평단 267,500원 = +1.5%**로 **평단 위**다. 평단 아래에서 사는 게 물타기인데 그 유혹이 물리적으로 없다.\n\n**그런데 진짜 제약은 룰이 아니다 — 제한을 전부 풀어도 국내에선 아무것도 못 산다.**\n\n| 해금 가정 | 집행 가능액 | 국내 1주 매수 |\n|---|---|---|\n| D1만 (15%) | **27,604원** | ❌ 전 종목 불가 |\n| D1+D2 (35%) | 64,410원 | ❌ 전 종목 불가 |\n| D1~D4 (85%) | 156,424원 | ❌ 전 종목 불가 |\n| 예비까지 전액 (100%) | 184,028원 | 두산에너빌리티(81,800)·KT&G(176,300)만 — NAVER 226,000·삼성 271,500 **여전히 불가** |\n\n토스는 **국내 소수점 미지원**이다. ⇒ 오늘 매수존에 들어온 **NAVER를 못 사는 진짜 이유는 사다리가 잠겨서가 아니라 원화 현금이 184,028원이기 때문**이고, 룰을 다 풀어도 결과는 같다.\n\n**★재해석**: §7b 재진입 우선순위 **GOOGL 1순위**를 그동안 \"펀더가 제일 좋아서\"로 설명해 왔으나, 실은 **미국 소수점만이 27,604원을 집행할 수 있는 유일한 경로**라서이기도 하다. D1이 열려도 국내는 선택지가 아니다 — **선호가 아니라 물리적 제약**이었다.\n\n**⇒ 실질 레버는 하나: LG전자 240,000원 체결.** 유입되면 원화 424,028원이 되어 삼성·NAVER 1주가 처음으로 사정권에 든다. **룰 완화 논의는 결과를 하나도 바꾸지 못하므로 권하지 않는다**(사다리 완화 방향은 8/5에 2건 검정해 둘 다 횡단면 재현 실패로 기각됨).\n\n**[정훈 승인 대기 1건]** \"봉인 172,506원\" 라벨을 폐기하고 원화 전액을 **'사다리 재원'으로 단일화** — 실질 변화 **0원**(사다리·하드플로어가 그대로 막는다). 얻는 것은 문서 정합성이고, 근거를 잃은 라벨이 남으면 다음 판단 때 잘못된 이유로 결정하게 된다(8/13 crash_tf §1이 철회된 주장을 하루 더 달고 있던 것과 같은 종류). 잃는 것은 \"7/20 위반을 기억한다\"는 규율 신호이나 그건 결정로그·self-review에 영구 기록돼 있다. **승인 시 crash_tf §0-4·master.md §2 개정.**\n\n### 지켜볼 것 (2주)\n\n| 날짜 | 이벤트 | 폰창 |\n|---|---|---|\n| 오늘 21:30 | 미 7월 소매판매(+0.3% 예상) | ⚠️ 폰창(20:50) 종료 후 — 사전 예약으로만 |\n| 오늘 23:00 | 미시간대 소비자심리(54.1 예상) | ❌ |\n| 8/20 | **현대차 딥다이브** + SPCX 락업 해제 | ✅ |\n| 8/21 | 셋업 유예 만료(발동권 5건) | ✅ |\n| **8/26** | **NVDA 실적**(KST 8/27 새벽) + **현대차 인베스터데이** | ❌ 둘 다 폰창 밖 — **사전 조건부 룰 필요** |\n| 8/27 | 한은 금통위 + **점도표** | ❌ 오전 발표 |\n| 9/2 | **AVGO 실적 — 재고 미스매치 판별선** | ❌ |\n\n### 🗣️ PM 사견\n\n**종합**: 오늘은 **좋은 소식과 나쁜 소식이 같은 사건**인 날이다. 코스피가 오르니까 매수 권한이 사라졌다. 이걸 \"룰이 답답하다\"로 읽으면 안 되는 이유는, 이 룰이 만들어진 계기가 정확히 **-38.6%에서 못 사고 +34% 오른 뒤에야 사게 되던 구조**를 고치기 위해서였기 때문이다. 지금은 그 반대편 — 되돌린 구간에서 사지 않기다. 대칭이다.\n\n내가 오늘 진짜로 신경 쓰는 건 지수가 아니라 **수급의 구성**이다. 외인 순매수의 44%가 하이닉스 한 종목이고 삼성전자는 외인이 팔았다. 게이트②를 \"외인 복귀\"로 부르고 있지만 정확히는 **\"외인의 하이닉스 복귀\"**다. 이 구분을 흐리면 나중에 게이트 판정을 자기 편한 대로 읽게 된다. 그래서 오늘 기록으로 박아둔다.\n\n그리고 **현대차**. 오늘 +7.77%는 기분 좋지만 나는 이걸 우리 판단이 맞아떨어진 걸로 계산하지 않는다. 우리는 현대차를 ⭐2로 두고 8/26까지 홀드한 것이지, 로봇 리레이팅을 예측한 게 아니다. 셋업 met는 0%다. **오늘 오른 이유와 우리가 들고 있는 이유가 다르면, 오른 것은 운이다.** 8/20 딥다이브에서 \"반등 초입 vs 데드캣\"을 가르고, 8/26 전에 **트림 가격과 수량을 미리 박는다** — 이벤트 당일 즉흥 판단을 막는 게 그 딥다이브의 유일한 목적이다.\n\n**핵심종목 한 줄**\n- **삼성전자** — 오늘 외인이 팔았다는 게 가장 중요한 정보다. 서사(반도체 랠리)와 수급(외인 순매도)이 갈릴 땐 수급을 믿는다. ⭐5는 펀더 때문이지 오늘 흐름 때문이 아니다.\n- **현대차** — 서사가 12일 앞선 값이다. 8/26에 숫자가 안 나오면 되돌린다. 나는 이 랠리를 **트림 기회 쪽**에 가깝게 본다.\n- **MU** — 우리 포트에서 유일하게 재무플래그 0건이다. 홀딩 근거가 가장 깨끗하다. 다만 컨센 목표가 상향 속도가 가격 상승 속도를 앞서고 있어 **\"저평가\"로 읽지는 않는다**.\n- **AVGO** — 9/2까지는 어떤 좋은 뉴스가 나와도 별점을 올리지 않는다. 재고 +126.8%에 설명이 안 붙은 게 3주째다.\n\n---\n\n## 7c. 채널 조건 트래커\n\n| 셋업 | 충족 | 상태 | 오늘 갱신 |\n|---|---|---|---|\n| setup-메모리코어-0629 | **100%** | fired | 매크로 4축 완화 + MU/삼성/하닉 동반 강세로 논지 재확인 |\n| setup-반도체마진방향-실적확인-0728 | 80% | armed | margin_trend_break 0건 유지 — 정점 신호 없음 |\n| setup-전력인프라-0629 | 80% | armed | 변화 없음 |\n| setup-반전트리거-0629 | 75% | armed | 조건③(유가) WTI $81대로 진정 방향 · 조건②(외인) 4일 연속 순매수 append |\n| setup-m7capex-0630 | 75% | armed | 변화 없음 |\n| setup-현대차-피지컬AI-인베스터데이-0728 | **0%** | watching | ⚠️ 오늘 +7.77%에도 **met 변화 없음** — 조건은 8/26 공개 내용이지 사전 보도가 아니다 |\n| setup-현대차로봇리레이팅-0701 | **0%** | watching | ⚠️ 동일. 4개 조건(2Q방어·노조·RMC·BYD) 중 오늘 충족된 것 없음 |\n\n**발동권(≥75%) 5건이 오더 미배선인 이유**: 전부 **매수 셋업**인데 사다리 0원 + 하드플로어로 **집행 자체가 불가능**하다. 조건 충족과 집행 권한은 별개이며, 해제 시 §7b 우선순위(GOOGL → NAVER → MU → META)로 배선한다. — 8/7 규율에 따른 **미배선 사유 명시**.\n\n---\n\n## 8. 오늘의 이슈 (4개 전부 심층)\n\n1. **RESET 첫 실전 작동** — v74가 하루 일찍 주장했다 철회한 재잠금이 오늘 실제로 일어났다(§변경점·⓪).\n2. **외인 순매수의 44%가 하이닉스** — 게이트② 해석의 정밀도 문제(§1).\n3. **현대차 휴머노이드 보도의 형식** — 공식 발표·계약 아님, 8/26 사전 포지셔닝(§2).\n4. **AVGO 재고 미스매치 3주째 미해소** — 9/2 판별선(§2).\n\n---\n\n## 9. 계획·할일\n\n**오늘(8/14)**\n- [x] 코스피 일봉 캐시 8/14 갱신 → D1 재잠금 확인 (⚠️ 장중값 기록 → **마감 후 재실행 필요**)\n- [x] 8/13 외인 마감 확정 대사(+2조951억) → flows.json 반영\n- [x] 13F Q2'26 재실행 → **6인 전원 Q1 그대로**(ET 01:3x, 제출 전) → **8/15 R3로 이관**\n- [x] R1 이후 신규 영상 1편 델타 추출·판정\n- [x] **15:30 이후 `history_backfill.py --symbols '^KS11'` + `tranche_rules.py` 재실행** → D1 확정 재판정(-23.4%, 잠김 불변)\n- [x] 마감 확정 외인 수급 flows.json series 추가(8/14 +3조387억)\n- [x] 코스피 종가 정정(6,968.29→6,977.94, 3매체 교차검증)\n- [x] 오늘 밤 미국 프리뷰 작성(소매판매·미시간대)\n\n**이번주**\n- [ ] 8/15(토) R3 — 13F Q2'26 재수집 + 주간 캘리브레이션\n- [x] flows.json 8/12 외인 원장 불일치 교정(series 28,357 확정 채택, market_flows.jsonl 21,364는 잠정치로 판정·원인 기록)\n- [ ] 삼성전자 컨센서스 493,542원 원문 재확인(2차 재인용 오염 의심)\n- [ ] SK하이닉스·삼성전자 8/14 종목별 마감 확정 수급 재확인(naver T+1 해소 후, 8/15 첫 단계)\n\n**이번달**\n- [ ] 8/20 현대차 딥다이브 — 8/26 3시나리오별 **트림 가격·수량 사전 확정**\n- [ ] 8/21 셋업 유예 만료 판정\n- [ ] 8/26 NVDA + 현대차 IR · 8/27 금통위 · 9/2 AVGO\n\n---\n\n```\n[STATE SNAPSHOT v75 2026-08-14 · 18:0x R2 마감 확정 — 최종본]\n시세: 코스피 **6,977.94(+2.42%, +164.60p) 마감 확정**(舊 6,968.29는 정정 — 이투데이·뉴스핌·헤럴드경제 3매체+Yahoo 일치) · 5거래일 연속 상승\n      코스닥 865(+0.41%, 장중 마이너스→막판 플러스 전환)\n      S&P 7,798.99(+0.65%, 사상최고 종가) / 나스닥 26,803.03(+0.81%) / SOX 12,456.00(+0.46%) — 전부 8/13 확정\n      USD/KRW 1,413.44(-0.21%) · WTI ~$81.27 · VIX 14.55 · 10Y 4.68%\n수급: 8/14 마감 확정 코스피 외인 **+3조387억**(기관 -1조298억·개인 -1조9,820억, naver KRX직결). 4거래일 연속 순매수\n      ⚠️종목별 마감 확정 세부(SK하이닉스 비중)는 naver 소스 T+1 지연으로 오늘 산출 불가 — 장중 14:43 스냅샷\n      (시장전체 외인 +2조4,498억 중 SK하이닉스 44%·삼성전자 외인 순매도)을 방향성 참고로만 유지, 8/15 첫 단계 재확인\n      8/13 마감 확정 +2조951억(fnnews·sedaily 일치, wikitree +3조7,058억은 이상치 미채택)\n현금: 266,060원(舊 \"봉인 172,506+실가용 11,522\" 라벨 폐기·단일화, 정훈 위임 집행) + $0.00(VOO 8월분 주문에 전액 예치)\n      총자산 8,437,094원(토스 \"내 투자\" 8,171,034 + 현금 266,060)\n룰1: 낙폭 **-23.4%(마감 확정, tranche_rules.py 재실행)** → **D1 확정 잠김 · 누적 해금 0%** — RESET 첫 실전 작동(확정)\n     D1 경계 = 종가 6,835.91(-25.0%) 대비 +2.1% 위 — 마감 후 재실행으로 판정 확정(舊 장중 -24.1%는 폐기)\n     폭풍 96%ile[극단] 3분할 · 항복 미충족 · 승수 ×1.0\n     🔴 S&P 폭풍 71%ile(vol_gauge 정본) ≥70 = 하드플로어 정지 → 허용 트랜치 0원(재실행 동일치)\n     ⚠️ garch 대조 54.0%ile — 차이 17.4p로 발산경보(20p) 문턱 아래\n룰2: LG전자 1/3 정상(FCF 3,731억 반등·순부채 개선) · 두산로보 3/3 · 현대차 1/1(금융연결) · ORCL 2/3 · MSFT 마진브레이크\n룰4: margin_trend_break 0건 — 삼성 DS 2Q 89.2조 사상최대 · MU FQ4 GM ~86% → 메모리 정점 아님, 홀딩 유지\nTF:  ACTIVE · 게이트 1/3 — ②외인 4일 연속(8/14 +3조387억)으로 **실질 충족 확정** / ①7,500 -7.5% ③WTI $81 vs 71.5 +13%\n보유: 14종목 (변동 없음) · 별점 변경 없음\n집중도: NVDA 20.1%(상한 25% 근접) · 반도체축 34.2% · 미국 74.8% vs 국내 25.2%\n대기 트리거: ✅LG전자 240,000원 예약 접수 / ✅AAPL $312 예약 접수 (둘 다 유지)\n            GOOGL 소수점(3조건) · NAVER add존 **진입했으나 집행불가** · KT&G 165,000 · VOO 8월 미집행(오늘 밤 22:30 자동집행 예정)\n자가검증: 대화세션 self-review 8/14 완료(별점 기준 무효화·목표가 낙관편향 확인 후 캡 최종기각·거증책임 기계화·오미션 집행가능성 게이트 신설·\n      시스템감사 3건). R2는 결과 반영만, 중복 실행 안 함 — 상세는 desk_playbook §2·call_scorecard.md·system_audit_2026-08-14.md.\n영구교정:\n  ★[8/14 R2 신규·가격정정] **15:4x 대화세션이 기록한 코스피 종가 6,968.29(+2.26%)는 최종 체결 전 스냅샷이었다.**\n    18:0x 재확인 결과 확정 종가는 **6,977.94(+2.42%)** — 이투데이·뉴스핌·헤럴드경제 3매체 독립 일치 + Yahoo 실측 부합.\n    수계산 낙폭(-23.55%)도 정정 전 가격 기준이었음 — `tranche_rules.py` 마감 후 재실행 결과 **-23.4%**가 정본.\n    ⇒ **판정(D1 잠김·해금 0%) 자체는 두 값 다 -25% 경계 위라 불변** — 숫자만 갈렸고 결론은 갈리지 않았다.\n    다만 마감가는 **기사 교차검증 또는 스크립트 재실행으로만 확정**하고, 장중 대화세션 스냅샷을 그대로 승격하지 않는다.\n  ★[8/14 R2 신규·원장해소] **flows.json 8/12 불일치 종결**: series **+28,357억**(이투데이·아주경제·스탠딩아웃·dailian 4매체\n    교차 일치)이 확정치. `market_flows.jsonl`의 naver 자동캡처 **21,364억**은 `flow_trend.py`가 참조하는 별도 롤링원장으로,\n    캡처 시각이 장 마감 전이었을 가능성이 높은 **잠정치**로 판정. ⇒ 두 원장이 갈리면 **마감 후 발행된 기사 3개+ 교차검증값을\n    승격 정본으로, 자동캡처값은 잠정 라벨**을 붙인다 — 8/14 가격정정과 같은 클래스(자동수집 파이프라인은 타이밍에 취약).\n  ★[8/14 신규·체결메커니즘] **토스는 외화 주문 시 보유 달러를 먼저 소진하고 부족분만 환전한다 — 재원 분리는 계좌가 강제해주지 않는다.**\n    룰9 VOO 10만원 주문에 토스 알림이 \"$12.67(17,968원) 환전\"만 떠서 정훈이 에러로 의심했으나 **정상 동작**이었다:\n    보유 $57.62(ANET 매도대금 = GOOGL 재배치 재원)를 먼저 쓰고 부족분만 환전해 $70.29 ≈ 99,682원 주문을 만든 것.\n    대사 완전 일치(원화 266,060원·달러 $0.00). **그러나 룰9의 전제(\"기존 USD 버퍼 불가침\")가 기계적으로 깨졌다.**\n    이번엔 신규 입금 잔여 82,032원(≈$57.84)이 소진분을 거의 정확히 대체해 무해했지만 **우연이다.**\n    ⇒ 규칙: 재원 트랙(사다리 / VOO 적립 / 매도대금 재배치)은 **계좌 잔액이 아니라 장부에서 관리**하고,\n      외화 주문 뒤에는 **원화·달러 양쪽을 반드시 대사**한다.\n    ⇒ 설계 함의: **달러 버퍼를 남겨두면 다음 외화 주문이 그걸 먼저 먹는다** — GOOGL 1순위 실탄을 달러로\n      들고 있는 설계는 VOO 월적립과 **매달 충돌**한다.\n    8/1(분수주 지정가 불가)·8/12(국내 가격제한폭)와 **같은 클래스** — 판단은 맞았는데 체결 메커니즘을 안 봤다.\n  ★[8/14 신규·라벨] **근거를 잃은 라벨은 실질이 0이어도 폐기한다** — '봉인 현금' 폐기(정훈 위임).\n    두 근거가 다 죽어 있었다: ①2차 트랜치 20만 보존 = 172,506<200,000으로 이미 붕괴(crash_tf가 스스로 그렇게 적고 있었다)\n    ②물타기 재발 방지 = 대상 소멸(삼성 종가 274,000 > 평단 267,500). **라벨을 남겨두면 다음 판단이 죽은 근거를 인용한다**\n    (8/13 crash_tf §1이 철회된 주장을 하루 더 달고 있던 것과 같은 병).\n  ★[8/14 신규·재발] **8/13에 고친 함정을 하루 만에 내가 다시 밟았다.** 14:35에 `history_backfill`을\n    장중 실행해 **오늘 장중값(6,920.08)이 종가 자리에 기록**됐고, 그 값으로 낙폭 -24.1%·D1 재잠금을\n    판정해 정훈에게 보고했다. 8/13 수정(upsert 개정창 7일) 덕에 **마감 후 재실행하면 자동 교정**되지만,\n    **\"지금 보는 이 숫자가 잠정치\"라고 말해주는 장치가 없었다** — upsert는 고쳐주되 경고하지 않는다.\n    ⇒ 조치: `tranche_rules._provisional_warning()` 신설(`_stale_warning`의 거울 짝).\n      마지막 봉이 **오늘이고 KRX 마감 전**이면 \"장중 잠정치\" 경고를 판정 위에 출력한다.\n      KST 고정 시각 계산이라 서버 TZ와 무관. 실측 확인 완료.\n    ⇒ 교훈: **자동 교정과 사용자 경고는 다른 문제다.** 데이터를 고치는 수정에는 \"고쳐지기 전 상태를\n      읽는 사람\"에 대한 경고가 같이 붙어야 한다. 8/12 교훈(*\"같은 필드를 쓰는 쪽과 읽는 쪽이 갈리면\n      데이터는 조용히 사라진다\"*)의 시간축 버전이다.\n  ★[8/14 신규·수급] **\"외인 순매수 2.4조\"를 종목 분해 없이 게이트 판정에 쓰지 말 것.**\n    오늘 시장 전체 외인 순매수의 **44%가 SK하이닉스 단일종목**이고, 우리가 실제로 보유한\n    **삼성전자는 외인이 순매도**했다. 지수 레벨 수급 숫자는 우리 포지션의 수급이 아니다.\n    ⇒ 게이트② 판정 시 **시장 전체 + 보유종목별 분해를 같이** 적는다(오늘부터 국장 데스크 표에 반영).\n  ★[8/14 신규·서사] **오른 이유와 들고 있는 이유가 다르면 그 상승은 우리 판단의 검증이 아니다.**\n    현대차 +7.77%는 **구속력 없는 업계 취재 보도**(사업계획서 제출 요청, 계약 아님)에 붙은 값이고,\n    우리 셋업 met는 **0% 그대로**다. 우리는 이 종목을 ⭐2 기한부 홀드로 들고 있었지 로봇 리레이팅을\n    예측한 게 아니다. ⇒ 급등일에 별점·확신을 올리지 않는다(캘리브레이션: 급등일 확신 상향 = 실측된 실패 패턴).\n  [데스크 간 불일치·교정] 전력 데스크가 현대차 **8/13 +12.82%**로 보고 → **오류**. 실제 8/13은 **약 +2.2%**\n    (8/12 종가 ≈409,500 → 8/13 ≈418,500 역산). +12.82%는 **8/12 LG전자** 등락률이다.\n    ⇒ \"현대차 2일 연속 로봇 랠리\" 서사 **기각** — 로봇發 급등은 오늘 하루. §2a 규율대로 지역 데스크값 채택.\n  [원장 불일치·해소완료] flows.json 8/12 외인 series **+28,357억** vs market_flows.jsonl 롤링캡처 **+21,364억**\n    — **18:0x R2가 4매체 교차검증으로 종결**(위 신규 영구교정 참조). series 값이 확정치, 롤링캡처는 잠정치로 판정.\n  ★[8/14 R2 부수발견] 위 대사 과정에서 **8/13 항목 note의 5일 롤링합 계산이 이미 오염돼 있었음을 발견**했다 —\n    note 산문이 8/12 항목에 series 확정치(28,357) 대신 잠정치(21,364)를 잘못 인용해 5일합을 **+20,967억으로\n    과소 계산**(정정치 +27,960억, 33% 과소). series 필드값 자체는 정확했으나 **note 산문에 손계산이 섞여 있으면\n    그 계산도 원장과 별개로 검증해야 한다** — 8/12 교훈의 \"같은 필드를 쓰는 쪽과 읽는 쪽이 갈린다\"가 여기선\n    \"같은 원장 안에서 필드와 산문이 갈린다\"로 변주됐다. flows.json에서 정정 완료.\n  [미확인·2일 연속] 경제사냥꾼 \"9월 인상확률 55%→32%\" — 우리 소스는 45~61%(FedWatch)·40%대(미장 데스크).\n    방향은 일치, 수치는 재현 실패. 8/13에도 같은 항목이 미확인이었다.\n  [미확인·품질] 삼성전자 컨센 493,542원(+82.8% 괴리) — 한경 원문 접근 실패·2차 블로그 재인용 혼입. 재확인 대상.\n  [정본 stale·해소완료] `crash_tf.md` §1 상황판의 철회된 주장(\"RESET 첫 실전 작동 — 8/13\")을 **18:0x R2가 갱신**\n    (실제 첫 작동 = 마감 확정 기준 8/14, -23.4%로 정정 반영).\n다음: 8/15(토) R3 — 13F Q2'26 재수집 + 주간 캘리브레이션 + SK하이닉스·삼성전자 8/14 종목별 수급 재확인(T+1 해소 후)\n```\n\n---\n\n*투자 자문 아님 — 모든 레벨(목표가·매수존·별점)은 분석 참고이며 최종 결정은 정훈.*\n"
+      "content": "# 정훈 PORTFOLIO DESK · v75 · 2026-08-14 (금)\n\n## 🔔 18:0x R2 갱신 — 마감 지수 재정정 + 수급 확정 대사 + 미장 프리뷰\n\n**★코스피 종가 정정: 6,968.29 → 6,977.94(+2.42%, +164.60p) 확정.** 15:4x 대화 세션이 기록한 6,968.29(+2.26%)는 최종 체결 전 스냅샷으로 확인됐다 — 이투데이·뉴스핌·헤럴드경제 3개 매체가 독립적으로 **6,977.94**를 보도(전부 일치), `market_data.py`(Yahoo) 실측치(6,978, +2.42%)와도 부합. **`history_backfill.py`+`tranche_rules.py` 마감 후 재실행 결과 낙폭 **-23.4%**(舊 -23.55%는 정정 전 가격 기준 수계산)** → **D1 확정 잠김·누적 해금 0% 판정 자체는 불변**(경계 -25.0%/6,835.91 대비 +2.1% 위). 코스닥 865(+0.41%)로 장중 마이너스에서 플러스 전환 마감. 게이트①(7,500)까지 +7.5%. **허용 트랜치 0원 불변**(하드플로어 S&P 71%ile — vol_gauge 재실행 동일치).\n\n**외인 수급 마감 확정**(naver_flows KRX직결 + newspim·이투데이 교차): 코스피 외국인 **+3조387억**(기관 -1조298억·개인 -1조9,820억), **4거래일 연속 순매수**. 15:29 이투데이 속보치(+3조1,568억)는 확정치와 오차 3.9%(집계 시각차로 통상 범위) — naver 공식 데이터를 정본 채택. ⚠️ **종목별 마감 확정 세부 내역(SK하이닉스 단독 비중)은 naver 종목 이력이 T+1 지연이라 오늘 산출 불가** — 장중 14:43 스냅샷의 \"SK하이닉스 44%·삼성전자 외인 순매도\" 판정을 방향성 참고로만 유지하고, 정밀 재확인은 내일(8/15) 첫 단계로 이관.\n\n**flows.json 8/12 원장 불일치 대사 완료**: series **+28,357억**(이투데이·아주경제·스탠딩아웃·dailian 4개 매체 교차 일치)이 맞다. `market_flows.jsonl`의 naver 자동캡처 **21,364억**은 `flow_trend.py`가 참조하는 별도 롤링원장으로, 캡처 시각이 장 마감 전이었을 가능성이 높은 **잠정치**로 판정 — 마감기사 대사로 8/12 항목의 불일치는 종결(series 값 유지, 아래 영구교정에 원인 기록).\n\n**오늘 밤 미국 프리뷰**(폰창 20:50 종료 후 — 사전 조건부로만 대응 가능): **21:30 KST(8:30 ET) 7월 소매판매** 헤드라인 컨센 **+0.3%MoM**(전월 +0.2%) — 일부 은행 컨센 +0.1%로 더 보수적, 근원(ex-auto) +0.2~0.3% 혼재. **23:00 KST(10:00 ET) 미시간대 소비자심리 예비치** 컨센 **54.1**(7월 확정 55.2에서 하락 예상), 1년 기대인플레 4.2% 유지 전망. 두 지표 다 \"동결이냐 인상이냐\" 프레임(§3)의 입력 — 예상보다 강하면 9월 인상 확률 상승(현재 45~61% 소스별 편차), 예상보다 약하면 완화 재료. AAPL($312 예약)·MU 컨센서스와 직결되는 소비지표라 폰창 밖이지만 다음 세션 첫 단계에서 결과 대사 필수.\n\n**★봉인 해제 집행 완료 (정훈 위임 \"너 판단으로 봉인 해제할 거면 해\")** — '봉인 172,506 / 실가용 11,522' 구분 폐기, 원화 전액을 사다리 재원으로 단일화. `crash_tf §0-4`·`master.md §2`·`portfolio.json` 개정. **실질 변화 0원** — 사다리 base가 184,028 → 266,060원으로 커졌지만 D1이 잠겨 있어 허용액은 그대로 0원이다. 폐기한 것은 **라벨이지 규율이 아니다**(물타기 금지·사다리·하드플로어 전부 유지).\n\n**★VOO 8월분 주문 접수 확인 + 환전 대사 (정훈 \"왜 에러야\")** — **에러 아니다.** 토스 알림이 \"$12.67(17,968원) 환전\"만 표시한 이유는 **보유 달러 $57.62를 먼저 소진하고 부족분만 환전**했기 때문이다.\n\n| 항목 | 계산 | 토스 표기 |\n|---|---|---|\n| 원화 | 184,028 + 입금 100,000 − 환전 17,968 | **266,060원 ✅ 정확히 일치** |\n| 달러 | $57.62 + $12.67 = **$70.29** → 전액 주문 예치 | **$0.00 ✅** |\n| 주문 규모 | $70.29 × 1,418.2 = **99,682원** | 목표 10만원의 **99.7%** |\n\n⚠️ **다만 룰9 문언 위반이 기계적으로 발생했다** — 룰9는 *\"재원 = 신규 입금 전용, 기존 USD 버퍼 불가침\"*인데 토스가 그 버퍼($57.62 = ANET 매도대금 = GOOGL 재배치 재원)를 먼저 먹었다. **실질은 무해**하다(신규 입금 중 원화로 남은 **82,032원 ≈ $57.84**가 소진된 GOOGL 재원을 거의 정확히 대체). 하지만 **우연**이므로 영구제약으로 등재했다 — 아래 영구교정.\n\n**대기 주문 3건 전부 생존 확인**(토스 15:29): 해외 2건 = AAPL $312 + VOO / 국내 1건 = LG전자 240,000원.\n\n**국내 마감 확정 시세**(토스 15:29 대사): 삼성전자 **274,000원**(4주 1,096,000) · LG전자 **214,000원** · NAVER **227,500원** · 두산로보틱스 **79,200원** · 현대차 **453,000원**. 아래 본문 표의 14:43 장중값보다 전 종목 소폭 상승 마감.\n\n**총자산**: 토스 \"내 투자\" **8,171,034원(+81,403원·+1.0%)** + 현금 266,060원 = **8,437,094원**.\n\n---\n\n> **⚠️ 장중 선발행 — 14:5x KST 기준. KRX 마감(15:30) 전이다.**\n> 정훈 지시(\"보고서 미리 작성해봐\")로 정규장 중 작성했다. 국내 시세·수급은 **장중 잠정치**이고,\n> 미국은 **8/13 확정 종가**다. 마감 확정치 교체 + 13F는 **16:00 R2가 이 파일을 디벨롭**한다(새 번호 안 만듦 —\n> `session_directive.json` 등재 완료). 오늘의 판정 중 **임계에 붙어 있는 것**은 아래 ⓐ에 따로 모았다.\n\n## 변경점 (v74 대비)\n\n| 항목 | v74 (8/13) | v75 (8/14 장중) | 함의 |\n|---|---|---|---|\n| 코스피 | 6,813.34 (마감 확정) | **6,937.25 (+1.82%, 장중)** · 오전 한때 **7,000선 첫 돌파** 후 반납 | 4거래일 연속 상승. 고점대비 **-23.9%** / YTD **+61.0%** |\n| 룰1 사다리 | -25.25% → **D1 해금 15%** | **-24.1% → D1 재잠김 · 누적 해금 0%** | ★**RESET(재잠금)이 실제로 작동한 첫 사례** — v74가 하루 일찍 주장했다 철회한 그 일이 오늘 일어났다 |\n| 하드플로어 | S&P 폭풍 72.2%ile | **71%ile** (여전히 ≥70) | 임계 위 1%p. **허용 트랜치 0원 불변** |\n| 게이트② 외인 | 장중 잠정 +2조787억 | **마감 확정 +2조951억**(오차 0.8%) · 오늘 장중 **+2조4,498억** | 4거래일 연속 순매수. **실질 충족 확정** |\n| 현대차 | 421,250원 | **451,000원 (+7.77%)** | 휴머노이드 보도發 — **공식 발표 아님·계약 아님**(아래 §2) |\n| MU | $911.29 | **$949.83 (+4.23%)** | 시총 $1조 재진입. 메모리 공급타이트 |\n| 총자산 | 8,242,226원 | **8,416,644원** | 전일대비 **+174,418원** |\n\n### ⓐ 오늘 임계에 붙어 있는 판정 3개 (마감 후 뒤집힐 수 있음)\n\n| 판정 | 지금 | 임계 | 이격 |\n|---|---|---|---|\n| 룰1 D1 해금 | 코스피 **6,937(장중)** = -23.9% | **종가 6,835.91** = -25.0% | **+1.5%** — 오늘 종가가 6,835.91 **위면 잠김(현 상태) / 아래면 15% 해금** |\n| 하드플로어 | S&P 폭풍 **71%ile** | **70%ile** | **+1%p** — 뚫려도 사다리가 0%라 **이중 잠금** |\n| 폭풍 발산경보 | vol_gauge 71.4 vs garch 54.0 | 차이 **20p** | **17.4p** — 문턱 바로 아래. garch 기준이었으면 하드플로어가 **안 걸렸을** 지점 |\n\n---\n\n## 1. 시장 — 국장 / 미장\n\n### 국장 (마감 확정 — 18:0x R2 대사)\n\n코스피 **6,977.94(+2.42%, +164.60p) 마감 확정**, 오전 한때 **7,010선까지 터치**하며 7,000선을 처음 넘었다가 소폭 반납하고도 5거래일 연속 상승 마감했다. 코스닥은 **865(+0.41%)**로 장중 마이너스에서 막판 플러스 전환. 촉매는 미 7월 PPI 둔화(전월비 0.0%) + 간밤 MU +4.23% + 삼성·하이닉스 이틀새 +12%다.\n\n**수급이 오늘의 핵심이자 함정이다.** 코스피 전체 외인 순매수 **+3조387억**(기관 -1조298억·개인 -1조9,820억, naver 공식 확정치) — 4거래일 연속 순매수로 게이트② 확정을 재확인했다. 다만 장중 14:43 스냅샷에서 **시장 전체 외인 순매수의 44%가 SK하이닉스 한 종목**이었고 **삼성전자는 외인이 오히려 순매도(-1,090억)**, 상승은 기관(+554만주)이 만든 그림이었다 — 종목별 마감 확정 세부는 naver 소스 T+1 지연으로 오늘 재확인 불가하지만, 장중 구도(\"외인이 한국 주식을 사기 시작했다\"가 아니라 **\"외인이 하이닉스를 산다\"**)는 최종 수급 총량(+3조387억, 8/13 +2조951억 대비 오히려 확대)과 방향이 어긋나지 않는다 — 다음 세션 첫 단계에서 종목별 정밀 대사.\n\n| 종목 | 마감가(확정) | 당일 | 원가대비 |\n|---|---|---|---|\n| 삼성전자 | 274,000원 | +2.43%(장중 종가 기준) | +2.43% |\n| LG전자 | 214,000원 | +3.15%대(추정) | +37.89% |\n| 두산로보틱스 | 79,200원 | +1.55% | -20.80% |\n| 현대차 | 453,000원 | **+8.24%** | -28.10% |\n| NAVER | 227,500원 | -0.44% | -9.18% |\n| SK하이닉스(워치) | 1,645,000원 | +3.26% | — |\n\n**8/13 마감 확정 대사 완료(전일)**: 외인 **+2조951억**(fnnews·sedaily 일치 / wikitree 단독 \"+3조7,058억\"은 2배 괴리로 **미채택**). 3거래일 연속 확정, 5일 롤링 부호 양전환 → **게이트② 실질 충족 확정**. **8/14 확정치(+3조387억)로 4거래일 연속 연장.**\n\n### 미장 (8/13 확정 종가 — 오늘 밤 22:30 개장 전)\n\nS&P500 **7,798.99(+0.65%) 사상 최고 종가**, 나스닥 26,803.03(+0.81%), SOX 12,456.00(+0.46%). 동력은 **7월 PPI 전월비 0.0%** → 금리 하락 → 9월 인상 공포 후퇴다.\n\n⚠️ **프레임 주의**: 지금은 \"인하냐 동결이냐\"가 아니라 **\"동결이냐 인상이냐\"**다. CPI는 3.4%로 끈적한데 7월 고용은 -2.3만이다. 통상 사이클과 다르므로 매 세션 재확인한다.\n\n**MU $949.83(+4.23%, 시총 $1조 재진입)** — DRAM/HBM 공급타이트 + 자본환원 기대 + $1,000 저항 근접. **AAPL은 +1.00%로 언더퍼폼**했고, 이게 정훈의 $312 예약과 직결된다(§7b).\n\n**🌙 오늘 밤 개장 프리뷰(폰창 밖 — 사전 조건부만 유효)**: **21:30 KST 7월 소매판매**(컨센 헤드라인 +0.3%MoM, 은행별 편차 +0.1~0.3%, 전월 +0.2%) → **23:00 KST 미시간대 소비자심리 예비치**(컨센 54.1, 전월 확정 55.2에서 하락 예상 · 1년 기대인플레 4.2% 유지 전망). 둘 다 \"동결이냐 인상이냐\" 프레임의 직접 입력이다 — 서프라이즈 상방이면 9월 인상 확률(현재 45~61% 소스별 편차)이 올라가 금리 민감 성장주(GOOGL·MSFT 등)에 역풍, 하방이면 반대. AAPL $312·LG전자 240,000원 예약은 지표와 무관하게 정규장 자동 집행되므로 액션 변경 불필요 — 결과는 내일 첫 단계에서 대사.\n\n---\n\n## 2. 섹터 — 반도체·AI / 전력·피지컬AI\n\n### 반도체·AI인프라\n\n**§10-2 메모리 정점 판정 = 아직 정점 아님.** 3축 전부 가속 방향이다:\n- 마진: `margin_trend_break` 5종목 **전부 0건**\n- 가이던스: MU FQ4 GM **~86%**(FQ3 84.9%에서 추가 상승)\n- 수요 코멘트: MU FQ3 콜 원문 *\"demand continues to be well above our supply\"*(1차 대조 완료)\n\n삼성전자는 2Q26 잠정 **영업익 89.4조·DS 89.2조(사상최대, 전분기比 +56.2%)**를 이미 7/30에 반영한 뒤라 오늘 덜 움직였다(+1.31%). **DRAM 실물가**: TrendForce 스팟 직접 확인 — DDR4 1Gx8 3200 **$42.45(8/7)**, DDR5 16Gb 스팟 최고 $61(7월초). ※\"DDR5 +400%\"류는 2차 가공이라 **미확인 분리**(8/1 규율 준수).\n\n**미해소 리스크 1개 = AVGO.** 재고 YoY **+126.8%** vs 매출 +48.7%(78.1%p 초과) + 매출채권 +118.6%. NVDA의 재고 급증(+237%)은 백로그(+127.9%)로 설명되는데 **AVGO만 설명이 안 붙는다. 9/2 실적이 판별선**이고, 그 전까지 별점 상향 보류.\n\n원익IPS **-4.75%**는 개별 악재가 아니라 **코스닥 장비주 클러스터 일괄 조정**(주성엔지니어링 등 동반)으로 판정 — 대형 메모리로 자금이 옮겨간 하루다.\n\n⚠️ **컨센서스 품질 경보**: 삼성전자 목표가 평균 **493,542원**(현재가 대비 +82.8%)은 한경 컨센서스 원문 접근 실패 + 2차 블로그 재인용이 섞여 있어 **미확인으로 하향 분류**했다. 다음 세션 원문 확인 대상.\n\n### 전력·피지컬AI — 현대차 +7.77%의 정체\n\n**결론부터: 큰 로드맵은 이미 공식이고, 오늘 오른 건 그 로드맵의 '실행 단계 보도'다. 계약은 아니다.**\n\n두 층을 분리해야 정확하다 — 이걸 뭉치면 \"새 뉴스가 터졌다\"로 오독한다.\n\n| 층 | 내용 | 지위 |\n|---|---|---|\n| **로드맵(하부)** | 보스턴다이내믹스 완전자회사화(소프트뱅크 지분 인수) · 구글 딥마인드 제휴 · 아틀라스 **2028년 연 3만대** 양산 | ✅ **CES 2026(1월) 공식 발표** — 이미 알려진 사실 |\n| **오늘의 보도(상부)** | 1차 협력사 **약 200곳**에 휴머노이드 소재·부품 **사업계획서 제출 요청**(HL만도·디아이씨·에스비비테크·에스피지 등 거명) | ⚠️ **업계 취재(\"~로 전해졌다\")·[단독] 보도.** 공식 발표 아님, MOU·LOI도 아님, **금액 미공시** |\n\n확인된 숫자: 목표단가 **$10만+ → $2만~3만 인하** · **액추에이터가 원가의 30~50%** · 2028년 조지아 HMGMA 우선 투입. 7/26 정정룰(주체·범위·형식)로 읽으면 **\"구속력 있는 계약\"은 어디에도 없다.**\n\n**8/26 CEO 인베스터데이(여의도 콘래드)**에서 보스턴다이내믹스 지분구조·로보틱스 아메리카(3Q 설립)·RMAC(8월 가동) 4개 법인 역할분담이 **처음 구체화**된다. 오늘 산 사람은 12일 뒤 발표를 미리 사는 것이다.\n\n**⚠️ [데스크 간 불일치 — PM 교정]** 전력 데스크가 \"현대차 8/13 **+12.82%** → 8/14 +7.77% 2일 연속 랠리\"로 보고했으나, **8/13 등락은 +12.82%가 아니라 약 +2.2%**다(8/12 종가 ≈409,500원 → 8/13 ≈418,500원 역산). +12.82%는 **8/12 LG전자**의 등락률이다. §2a 규율대로 지역 데스크·마감 확정값을 채택하고 **\"2일 연속 로봇 랠리\" 서사는 기각** — 로봇發 급등은 **오늘 하루**다.\n\n**두산로보틱스는 이 뉴스의 수혜 대상이 아니다.** 거명된 200곳은 자동차 부품 전환그룹(HL만도·디아이씨 등)이고 **두산로보는 명단에 없다**. 실제로 오늘 +1.67%로 소외됐다. 두산로보의 휴머노이드는 **2028년 공개 목표**로 아직 먼 이야기다. ⇒ **두 종목을 \"로봇 테마\"로 뭉뚱그리지 말 것.**\n\n**셋업 판정**: `setup-현대차-피지컬AI-인베스터데이-0728`·`setup-현대차로봇리레이팅-0701` **둘 다 met 0% 그대로**다. 조건은 ①인베스터데이에서 로봇 매출화 시점 구체 공개 ②주주환원 정책 ③임단협 해소 / ①2Q 실적 방어 ②노조 타결 ③RMC 가동 가시화 ④BYD 효과 — **오늘 일어난 일은 이 중 하나도 아니다.**\n\n**피어 대조(peer_compare)**: 현대차 종합백분위 **33.6(그룹 7/10위)**. 갈리는 지점 = **영업마진 피어 55%ile vs 자기이력 12%ile** → 마진 압박이 업종 전반에도 있지만 **현대차는 자기 역사 대비 거의 최저 구간**(9.3→8.1→6.2%). **업종 탓이 아니라 자기 하락**이다.\n\n**LG전자**: 룰2 **1/3 정상**. 컨센서스가 최근 상향됐다 — iM증권 165,000→**250,000원**, 메리츠 적정주가 **260,000원**. ⚠️ **우리 익절가 240,000원이 컨센 상단보다 낮다** — 익절 자체는 정훈 승인(8/12)이고 원가 +54.6%로 충분하나, 이 사실은 기록해둔다.\n\n**SK이노베이션 +5.26%**: **빌 게이츠 8/14 방한** — 테라파워 2대주주 SK그룹과 SMR 협력 회동 전망. 한화오션·HD현대중 강세는 **개별 재료 특정 실패(3회 시도) → [미확인]**, 코스피 전반 리스크온 속 조선 순환매로 추정.\n\n---\n\n## 3. 매크로\n\n| 지표 | 값 | 변동 | 기준일 |\n|---|---|---|---|\n| 미국채 10Y | 4.68% | -2bp | 8/12 |\n| 미국채 2Y | 4.20% | -2bp | 8/12 |\n| 2s10s | **+48bp** | — | 8/12 |\n| 10Y 실질금리 | 2.42% | -1bp | 8/12 |\n| BEI(기대인플레) | 2.24% | -2bp | 8/13 |\n| EFFR | 3.63% | 0bp | 8/12 |\n| VIX | **14.55** | -0.73pt | 8/12 |\n| WTI | $84.77(FRED 8/11) / **~$81.27 실시간** | — | 병기 |\n| 미 CPI YoY | **3.4%(BLS 공식)** | 3.5%→3.4% 둔화 | 7월분 |\n| 미 실업률 | 4.1% | -0.1%p | 7월분 |\n| USD/KRW | **1,413.44** | -0.21% | 8/14 장중 |\n\n**환율**: 7월 위기 정점(1,600원대)에서 한 달 만에 **-8~11%**. 원인은 달러 약세가 아니라 **국내 수급 반전 주도**(외인 순매수·수출기업 네고·하이닉스 ADR 자금)다.\n\n**금리**: 9월 FOMC 인상 확률은 **자료 시점별 45~61%로 편차가 크다 — 단일 수치 인용 금지**. 7/29 회의는 **9-3 동결**(3인이 인상 소수의견 = 2016년 이후 최초의 통일된 방향성 이견).\n\n**한은 8/27 금통위(D-13)**: 현재 2.75%(7/16 인상). **8월은 점도표 발표월** — 언론 인용 기준 6개월 후 전망 중간값이 3.00%→**3.25% 상향**, 일부 위원 3.50%. ⚠️ BOK 공식 발표 전까지 **잠정**이고, 컨센서스는 \"매파적 동결\"(우리금융硏) vs \"25bp 추가 인상\"(Citi)로 **갈린다**.\n\n---\n\n## 4. 리서치 피드 (R1 캐시 + R2 델타 1편)\n\nR1(10:00)이 6편을 이미 분석했고, **13:47 업로드 1편을 델타로 추가 추출**했다.\n\n**「메모리·반도체 주식이 다시 폭등하는 진짜 이유」(13:47)** — 판정 **[검증]** (1건 미확인)\n\n논지: *\"실적이 좋아져서가 아니다. 반도체를 눌러오던 매크로 4개(물가·금리·유가·환율)가 같은 주에 전부 얌전해진 것이다.\"*\n\n검증 결과 — CPI 3.4% ✅ / PPI 0.0% MoM(YoY 4.7%, 직전 5.5%) ✅ / WTI $81대 ✅ / 환율 1,416원 ✅ / MU +4.2% ✅ / 샌디스크 +13.7% ✅ / 외인 8/13 **+2조951억** ✅ — **우리 하드넘버와 전부 일치**한다. 외인 수치는 우리가 오늘 독립적으로 대사한 확정치와 정확히 같다.\n\n**[미확인]** \"9월 인상확률 55%→32%\" — 우리 매크로 데스크는 같은 시점을 **45~61%**, 미장 데스크는 \"40%대\"로 잡았다. **방향(하락)은 일치하나 32%는 재현 안 된다.** 8/13에도 같은 수치가 미확인으로 남았던 항목이라 **2일 연속 동일 미확인**이다.\n\n**PM 판단**: 이 영상은 **우리 매크로 데스크가 오늘 독립적으로 낸 결론과 같은 그림**이라 채널 단독 근거가 아니다 → 프레임 채택. 단 채널의 결론은 **왜 오르는지의 설명이지 언제까지 오르는지의 근거가 아니다.** 매크로 완화는 게이트②·③에 유리한 재료로만 계상하고, 집행 판단은 §5 게이트가 한다.\n\n---\n\n## 5. 리스크 데스크\n\n**룰 위반 0건.** 경보 2건은 전부 \"룰이 작동 중\"이라는 뜻이다.\n\n- **룰1**: 낙폭 -24.1% → **D1 재잠김, 누적 해금 0%**. 하드플로어(S&P 폭풍 71%ile ≥70) 발동 → **허용 트랜치 0원**.\n- **룰2**: LG전자 **1/3 정상**(마진 3년 하락은 충족이나 FCF는 1,746→**3,731억 반등**, 순부채도 -76,694→**-51,905억 개선**). 두산로보 3/3(홀드 확정분) · 현대차 마진 1/1(금융연결 예외) 불변.\n- **룰4 메모리 정점**: 삼성·MU 둘 다 **트림 신호 없음**.\n- **참고 경보(자동매매 아님)**: NVDA·AAPL·AVGO `inventory_surge` / MSFT `margin_trend_break`(48.9→47.1→46.3%) + debt_buildup / GOOGL·META `debt_buildup`(캐펙스 조달).\n\n**집중도** — 이게 오늘 가장 불편한 숫자다:\n\n| 축 | 비중 |\n|---|---|\n| NVDA 단독 | **20.1%** (상한 25% 근접) |\n| 반도체·메모리(NVDA+삼성+MU+AVGO) | **34.2%** |\n| 미국 대형기술 생태계(+VOO 포함) | **70%+** |\n| 국내 : 미국 | 25.2% : **74.8%** |\n\n오늘처럼 MU·삼성·하이닉스·삼성전기가 **동시에** 오르는 날은 분산이 아니라 **같은 베팅의 레버리지 노출**이다.\n\n**🐻 신중 관점**: 오늘 가장 큰 리스크는 **\"미국은 잠잠하다\"를 VIX 하나로 단정하는 것**이다. VIX 14.55는 옵션 내재변동성(선행)이고, 하드플로어는 **실현변동성 1년 백분위(후행)** 기준이라 둘이 다른 그림을 보여주는 국면이다. 그리고 코스피가 7,500(게이트①)에 가까워질수록 \"거의 다 왔다\"는 심리적 압력이 커지겠지만 — **7,500 회복 자체는 매수 재개 신호가 아니다.** 사다리·하드플로어·3중 게이트는 **전부 별도로** 통과해야 한다.\n\n---\n\n## 6. 강세 vs 신중 디베이트\n\n**🐂 강세**: 매크로 4개 축이 같은 주에 동시에 완화됐다 — CPI 3.4% 둔화, PPI 0.0%, WTI $81대, 환율 1,413원. 이건 채널의 서사가 아니라 우리 FRED 하드넘버가 말하는 것이다. 외인은 4거래일 연속 순매수고 8/13 확정치 +2조951억은 교차검증됐다. 게이트②는 **실질로 충족 확정**됐다. 메모리 사이클은 3축(마진·가이던스·수요 코멘트) 전부 가속이라 **정점 신호가 아직 없다** — 우리 포트가 가장 크게 실린 축이 지금 가장 강하다. 코스피는 오늘 오전 **7,000선을 처음 뚫었고**, 7/28 저점(-33.9%)에서 -23.9%까지 되돌렸다.\n\n**🐻 신중**: 그런데 **오늘의 랠리가 만든 결과는 매수 권한이 아니라 사다리 재잠김**이다. -24.1%로 회복되며 D1마저 잠겨 **누적 해금 0%**가 됐고, 하드플로어도 71%ile로 여전히 위다 — **이중 잠금**. 오늘 우리가 살 수 있는 금액은 **0원**이고, 그게 룰이 고장난 게 아니라 룰대로다. 수급을 뜯어보면 더 불편하다: 외인 +2조4,498억 중 **44%가 하이닉스 한 종목**이고 **삼성전자는 외인이 순매도**했다. 코스닥은 -0.28%로 또 빠졌다. **폭이 좁은 랠리**는 8/5(+3.76% → 다음날 -4.58%)를 포함해 이 국면에서 6~8회 반납된 이력이 있다. 코스피 폭풍은 **96%ile 극단**이고 심리는 항복 국면이 아니다. 그리고 현대차 +7.77%는 **구속력 없는 업계 취재 보도** 하나에 붙은 값이다 — 이런 날 확신 톤을 올리는 것이 우리의 실측된 실패 패턴이다(⭐5 표현확신 85% vs 방향적중 12~20%, Brier 0.391).\n\n**⚖️ PM 판정**: 신중 쪽에 무게. 단 **이유가 \"시장이 나빠서\"가 아니라 \"룰이 안 열려서\"**라는 점을 분명히 한다. 시장 신호(게이트②)는 실제로 개선됐고 그건 기록한다. 다만 게이트는 1/3이고 하드플로어는 살아 있다. **오늘 우리가 할 일은 사는 게 아니라, 열렸을 때 무엇을 살지 순서를 확정해두는 것**이다.\n\n---\n\n## 7. PM 종합\n\n### 오늘의 한 줄\n\n> **코스피가 오전에 7,000을 처음 뚫었는데 우리 매수 권한은 0원이 됐다.** 회복이 사다리를 잠갔기 때문이고(RESET 첫 실전 작동), 이건 룰이 의도한 대로다. **오늘의 액션은 매수가 아니라 예약 2건 유지 + 현대차 급등의 정체 확정이다.**\n\n### 📊 보유 전종목 (14) — 국내 마감 확정(토스 15:29 대사) / 미국 8/13 확정 종가\n\n| 종목 | 현재가 | 당일 | 원가대비 | 목표가 | 여력 | 매수존 | 매도/트림 | ⭐ | 스코어 | 한줄 |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **삼성전자** | 274,000원 | +2.43% | **+2.43%** | 246,000~460,000원(중심 340,000원) | +24% | 사다리 D1 대상이나 **해금 0%로 집행 불가** | — | ⭐5 | **93** | 서브스코어 93.3. 2Q26 DS 영업익 89.2조 사상최대. ⚠️오늘 외인은 장중 **순매도**(-1,090억), 상승은 기관 — 마감 종목별 수급은 T+1 지연으로 미확인 |\n| **LG전자** | 214,000원 | +3.15%대 | **+37.89%** | 195,000~295,000원(중심 240,000원) ※국내 컨센 n=5 **180,000~250,000(중앙 240,000)** | +12% | 봉인(TF 해제 후) | 🎯 **240,000원 익절 예약 접수됨**(현 -10.9%) | ⭐4 | **74** | 룰2 **1/3 정상**(FCF 3,731억 반등·순부채 개선). ✅익절가 240,000 = **컨센 중앙값과 일치**(20:5x 원장 복구 후 재산출) |\n| **두산로보틱스** | 79,200원 | +1.55% | **-20.80%** | 분산 큼(적자·PER 무의미) | — | —(추가매수 영구금지) | 홀드·양방향(상방 90,000원 재검토 / 하방 3Q 매출<200억·적자확대, 기한 10/31) | ⭐1 | **32** | 룰2 3/3. 상방 트리거까지 +13.6% |\n| **현대차** | 453,000원 | **+8.24%** | **-28.10%** | 390,000~580,000원(중심 480,000원) ※국내 9개 하우스 컨센 **717,500원**은 7/25 기준·오늘 뉴스 前 [stale] | +5% | —(물타기 영구금지) | 홀드(8/26 인베스터데이까지·기한부) | ⭐2 | **50** | ★급등은 **구속력 없는 업계 취재 보도**. 셋업 met **0% 그대로**. 서브스코어 25.8·마진 자기이력 **12%ile** |\n| **NAVER** | 227,500원 | -0.44% | **-9.18%** | 210,000~285,000원 | +25% | add존(225,000~235,000) **진입** — 사다리 0원으로 **집행 불가** | — | ⭐3 | **60** | BlackRock **7.09%(+1.04%p)** 단순투자 목적 신규 대량보유 보고(8/10) |\n| **NVDA** | $225.30 | +0.54% | **+12.93%** | $260~335 | +15% | 눌림 비중관리(20.1%) | — | ⭐5 | **90** | 서브스코어 **99.5**. 재고+237%는 백로그+127.9%로 설명됨. 8/26 실적 D-12 |\n| **META** | $594.97 | +2.78% | **-6.15%** | $650~815 | +9% | 제외(신규자금 영구제외) | 홀드(3Q까지·기한부) | ⭐2 | **50** | 서브스코어 46.6. 8/13 하향분 유지 — 오늘 +2.78%는 판정 불변 |\n| **VOO** | $714.95 | +0.67% | **+10.20%** | ETF | — | 적립(8월 미집행·재원부족) | — | ⭐4 | — | 월 10만원 적립 룰, 8월분 여전히 미집행 |\n| **MSFT** | $496.88 | +0.90% | **+21.13%** | $540~655 | +8% | — | — | ⭐4 | **82** | 🟠 `margin_trend_break`(48.9→47.1→46.3%) + debt_buildup. 서브스코어 68.8 |\n| **AAPL** | $305.26 | +1.00% | **+18.71%** | $270~325 | +6% | 신규매수 금지 | 🎯 **$312 예약 접수됨**(현 -2.2%) | ⭐3 | **55** | Jefferies 언더퍼폼 강등(PT $264) — **근거가 메모리 원가**다. MU 강세의 반대편 |\n| **GOOGL** | $346.36 | +0.82% | **-2.05%** | $385~455 | +11% | **재진입 1순위**(해제 후·눌림) | — | ⭐5 | **88** | 서브스코어 86.1. 컨센 $428(+23.6%) |\n| **ORCL** | $156.22 | +1.92% | **-32.70%** | $150~190(중심 $168) | +8% | 제외(매수후보 아님) | —(트림 실익없음·비중 0.5%) | ⭐3 | **55** | 룰2 2/3 감시. 컨센 $247은 stale 의심 |\n| **MU** | $949.83 | +4.23% | **+26.81%** | $1,090~1,555 | +15% | — | 잔여 절반 홀딩 | ⭐5 | **86** | 서브스코어 87.7·**재무플래그 0건**. 컨센 $1,261(+32.7%, ±30% 플래그) |\n| **AVGO** | $417.82 | +0.43% | **-0.77%** | $430~525 | +3% | 조정 시 후보(TF 동결 우선) | — | ⭐4 | **78** | 🟠 **유일한 미해소 케이스** — 재고+126.8% vs 매출+48.7%. **9/2 판별선** |\n\n### 👀 워치리스트 (활성)\n\n| 종목 | 현재가 | 당일 | 목표(컨센) | 여력 | 매수존 | ⭐ | 스코어 | 한줄 |\n|---|---|---|---|---|---|---|---|---|\n| SK하이닉스 | 1,645,000원 | +3.26% | 1,480,000~4,700,000원(3배 스프레드) | 큼 | 분할·인내(추격금지) | ⭐4 | 78 | 서브스코어 **93.0**. 오늘 외인 순매수의 **44%가 이 종목** |\n| 삼성전기 | 1,549,000원 | +3.06% | — | — | 추격금지 | ⭐3 | 72 | 서브스코어 71.6. MLCC 탑재량 증가 방향은 유효(632% 수치는 자막오류) |\n| 원익IPS | 114,300원 | **-4.75%** | — | — | 눌림 관찰 | ⭐3 | 82 | 개별 악재 아님 — **코스닥 장비주 클러스터 조정** |\n| 테스 | 145,900원 | +0.62% | — | — | 눌림 관찰 | ⭐3 | 88 | 오늘 개별 데이터 부족 |\n| 두산에너빌리티 | 81,800원 | +1.11% | 143,000원 | +75% | 62,000~66,000원 | ⭐3 | 58 | 추세복귀 82,000 재접근. 집행은 TF 해제 후 |\n| SK이노베이션 | 128,100원 | **+5.26%** | — | — | 105,000~112,000원 | ⭐2 | 63 | 8/8 워치 재편입분. 눌림존 -18% 아래 |\n| 한화에어로 | 1,159,000원 | -2.19% | 1,620,000~1,900,000원 | +40%+ | 900,000~950,000원 | ⭐3 | 50 | 오늘 차익실현. 서브스코어 49.6 |\n| 한화오션 | 95,000원 | +4.74% | — | — | 추격금지 | ⭐3 | 83 | 조선 클러스터 강세 지속 |\n| HD현대중공업 | 510,000원 | +2.82% | — | — | 추격금지 | ⭐4 | **95** | 서브스코어 95.4(워치 최고) |\n| KT&G | 176,300원 | +1.44% | 240,000원 | +36% | **165,000원 이하** | ⭐3 | — | 현 +6.8% 위. 재원·딥다이브 조건부 존치(8/13 확정) |\n| GEV | $1,049.42 | +0.92% | $1,238 | +18% | 눌림 관찰 | ⭐4 | 92 | 서브스코어 91.8 |\n| ANET | $203.62 | -3.27% | $242 | +19% | 재진입 조건부 | ⭐4 | 87 | 8/11 전량 매도 완료. backlog +146.1% 견조 |\n| TMUS | $183.38 | +3.53% | $243 | +33% | — | ⭐3 | 66 | — |\n| SPCX | $141.29 | -3.33% | $236 | +67% | — | ⭐3 | — | **8/20 락업 해제** D-6 |\n| STM | $53.92 | -0.48% | $72 | +33% | — | ⭐2 | 59 | — |\n\n### 🎯 지정가 오더북\n\n| 종목 | 액션 | 지정가 | 수량 | 예약방식 | 발동조건 | 기대수익률 |\n|---|---|---|---|---|---|---|\n| **LG전자** | 익절 | **240,000원** | 정수 1주(전량) | ✅**예약 접수 완료**(8/13 확인) | 정규장 자동 집행 | 원가 155,200원 대비 **+54.6%** |\n| **AAPL** | 트림 | **$312** | 정수 1주 | ✅**예약 접수 완료**(8/13 확인) | 미 정규장 자동 집행 | 원가 $257.14 대비 **+21.3%** |\n| GOOGL | 매수 | 눌림 지정가(해제 후 확정) | 소수점 | ⛔ **3조건 미충족 대기** | D1 해금 + 하드플로어 해제 + 눌림 | 목표 $385~455 |\n| NAVER | 매수 | 225,000~235,000원 | 정수 1주 | ⛔ **사다리 0원** | 사다리 해금 | 목표 210,000~285,000원 |\n| KT&G | 신규편입 | 165,000원 | 정수 1주 | ⛔ 재원 부족 + 딥다이브 선행 | 위 2조건 + 가격 도달 | 목표 240,000원 |\n| VOO | 적립 | 시장가 | 10만원 | ⛔ **재원 부족** | 8월분 미집행 이월 | 상시 룰 |\n\n⚠️ **오늘 새로 낼 매수 오더는 없다** — 사다리 0원이라 낼 수 있는 매수 오더가 물리적으로 없다. 이건 관망이 아니라 **룰에 의한 집행 불가**이며, ⭐2 이하 두 종목(현대차·두산로보)은 **기한·트리거가 살아있는 홀드 결정** 상태다(§7c).\n\n⚠️ **LG전자 가격밴드 주의**: 240,000원은 오늘 **정규장 상한(전일 206,500×1.3 ≈ 268,450원) 안**이라 유효하다. 다만 **시간외단일가 상한 = 당일종가×1.1**이라 종가가 218,182원 미만이면 시간외로는 **재접수 불가**다. 이미 걸린 예약은 유지되므로 문제없고, **다시 걸어야 할 상황이 오면 정규장에서 걸어야 한다**.\n\n### 💰 현금 배분\n\n| 항목 | 금액 |\n|---|---|\n| 원화 현금 | **266,060원** ※184,028 +정훈 입금 100,000 −VOO 환전 17,968 (★8/14 '봉인/실가용' 구분 폐기 — 아래 세션 종료 블록) |\n| 달러 현금 | **$57.62** ≈ 81,422원 |\n| 총 현금 | **265,450원** |\n| **허용 트랜치** | **0원** (하드플로어 발동) |\n| 총자산 | **8,416,644원** (전일대비 +174,418원) |\n\n**🅰️ 관망(룰 정합·추천)**: 0원 유지. LG전자 240,000원이 체결되면 그 재원이 **GOOGL 1순위 실탄**이 된다. 지금 할 일은 재원 만들기지 쓰기가 아니다.\n**🅱️ 공격**: 하드플로어가 70 아래로 내려오고 코스피가 6,835.91 **아래로** 마감하면 D1 15%(약 27,600원)가 열린다 — 이 금액으로는 **국내 정수 1주도 못 산다**(삼성 271,500원). 실질적으로 **미국 소수점 GOOGL 외에는 선택지가 없다**. 이 계산이 🅱️안을 사실상 무의미하게 만든다.\n\n**🧺 VOO 8월 적립 — 정훈 8/14 입금 확정(10만원)**: 룰9는 **재원 = 신규 입금 전용**(봉인 현금·GOOGL 달러 불가침)이 채택 전제라 **사다리 0원·하드플로어와 무충돌**(별도 트랙). 오늘 폰창에 소수점 시장가 예약 → 22:30 자동 집행. 환산 ≈ **$70.77 → 약 0.099주**(1.068630 → 약 1.1676주). 비중 13.2%로 경계선(25%) 여유. 룰9 핵심대로 **시세 안 보고 기계적 집행**(눌림 대기 금지). 오더 = `ord-voo-dca-2026-08`.\n\n### 🔍 현금 제한 재분석 (정훈 요청 — \"제한 걸어둔 이유 다시 분석해봐\")\n\n제한은 **4겹**인데 걸린 근거가 서로 다르고, **두 겹은 이미 근거를 잃었다.**\n\n| # | 제한 | 언제·왜 | 지금 유효한가 |\n|---|---|---|---|\n| 1 | **봉인 172,506원** | 7/20 삼성 1주 248,500원 물타기(룰1 위반) **사후 조치** — \"잔여 재봉인·추가 물타기 전면금지\" | ⚠️ **근거 2개 다 소멸** |\n| 2 | 룰1 사다리 D1 잠김 | 7/30 개정 + 7/31 RESET | ✅ 유효(경계 6,835.91) |\n| 3 | 하드플로어 S&P 폭풍 ≥70%ile | 7/30 신설, 현재 71%ile | ✅ 유효(임계 +1%p) |\n| 4 | 예비 15% 영구봉인 | 회복 확인(게이트 2/3+) 전까지 | ✅ 유효(게이트 1/3) |\n\n**1번이 근거를 잃은 이유 2가지** — ⓐ 원래 목적인 **2차 트랜치 20만원 보존이 이미 붕괴**했다(crash_tf §0-4가 직접 *\"잔여 172,506 < 2차 트랜치(20만)라 트랜치 여력 붕괴\"*라고 적고 있다). 보존할 여력이 없는 돈을 보존 명목으로 묶고 있다. ⓑ 두 번째 목적인 **물타기 재발 방지는 대상이 사라졌다** — 7/20의 직접 원인이던 삼성전자가 지금 **271,500원 vs 평단 267,500원 = +1.5%**로 **평단 위**다. 평단 아래에서 사는 게 물타기인데 그 유혹이 물리적으로 없다.\n\n**그런데 진짜 제약은 룰이 아니다 — 제한을 전부 풀어도 국내에선 아무것도 못 산다.**\n\n| 해금 가정 | 집행 가능액 | 국내 1주 매수 |\n|---|---|---|\n| D1만 (15%) | **27,604원** | ❌ 전 종목 불가 |\n| D1+D2 (35%) | 64,410원 | ❌ 전 종목 불가 |\n| D1~D4 (85%) | 156,424원 | ❌ 전 종목 불가 |\n| 예비까지 전액 (100%) | 184,028원 | 두산에너빌리티(81,800)·KT&G(176,300)만 — NAVER 226,000·삼성 271,500 **여전히 불가** |\n\n토스는 **국내 소수점 미지원**이다. ⇒ 오늘 매수존에 들어온 **NAVER를 못 사는 진짜 이유는 사다리가 잠겨서가 아니라 원화 현금이 184,028원이기 때문**이고, 룰을 다 풀어도 결과는 같다.\n\n**★재해석**: §7b 재진입 우선순위 **GOOGL 1순위**를 그동안 \"펀더가 제일 좋아서\"로 설명해 왔으나, 실은 **미국 소수점만이 27,604원을 집행할 수 있는 유일한 경로**라서이기도 하다. D1이 열려도 국내는 선택지가 아니다 — **선호가 아니라 물리적 제약**이었다.\n\n**⇒ 실질 레버는 하나: LG전자 240,000원 체결.** 유입되면 원화 424,028원이 되어 삼성·NAVER 1주가 처음으로 사정권에 든다. **룰 완화 논의는 결과를 하나도 바꾸지 못하므로 권하지 않는다**(사다리 완화 방향은 8/5에 2건 검정해 둘 다 횡단면 재현 실패로 기각됨).\n\n**[정훈 승인 대기 1건]** \"봉인 172,506원\" 라벨을 폐기하고 원화 전액을 **'사다리 재원'으로 단일화** — 실질 변화 **0원**(사다리·하드플로어가 그대로 막는다). 얻는 것은 문서 정합성이고, 근거를 잃은 라벨이 남으면 다음 판단 때 잘못된 이유로 결정하게 된다(8/13 crash_tf §1이 철회된 주장을 하루 더 달고 있던 것과 같은 종류). 잃는 것은 \"7/20 위반을 기억한다\"는 규율 신호이나 그건 결정로그·self-review에 영구 기록돼 있다. **승인 시 crash_tf §0-4·master.md §2 개정.**\n\n### 지켜볼 것 (2주)\n\n| 날짜 | 이벤트 | 폰창 |\n|---|---|---|\n| 오늘 21:30 | 미 7월 소매판매(+0.3% 예상) | ⚠️ 폰창(20:50) 종료 후 — 사전 예약으로만 |\n| 오늘 23:00 | 미시간대 소비자심리(54.1 예상) | ❌ |\n| 8/20 | **현대차 딥다이브** + SPCX 락업 해제 | ✅ |\n| 8/21 | 셋업 유예 만료(발동권 5건) | ✅ |\n| **8/26** | **NVDA 실적**(KST 8/27 새벽) + **현대차 인베스터데이** | ❌ 둘 다 폰창 밖 — **사전 조건부 룰 필요** |\n| 8/27 | 한은 금통위 + **점도표** | ❌ 오전 발표 |\n| 9/2 | **AVGO 실적 — 재고 미스매치 판별선** | ❌ |\n\n### 🗣️ PM 사견\n\n**종합**: 오늘은 **좋은 소식과 나쁜 소식이 같은 사건**인 날이다. 코스피가 오르니까 매수 권한이 사라졌다. 이걸 \"룰이 답답하다\"로 읽으면 안 되는 이유는, 이 룰이 만들어진 계기가 정확히 **-38.6%에서 못 사고 +34% 오른 뒤에야 사게 되던 구조**를 고치기 위해서였기 때문이다. 지금은 그 반대편 — 되돌린 구간에서 사지 않기다. 대칭이다.\n\n내가 오늘 진짜로 신경 쓰는 건 지수가 아니라 **수급의 구성**이다. 외인 순매수의 44%가 하이닉스 한 종목이고 삼성전자는 외인이 팔았다. 게이트②를 \"외인 복귀\"로 부르고 있지만 정확히는 **\"외인의 하이닉스 복귀\"**다. 이 구분을 흐리면 나중에 게이트 판정을 자기 편한 대로 읽게 된다. 그래서 오늘 기록으로 박아둔다.\n\n그리고 **현대차**. 오늘 +7.77%는 기분 좋지만 나는 이걸 우리 판단이 맞아떨어진 걸로 계산하지 않는다. 우리는 현대차를 ⭐2로 두고 8/26까지 홀드한 것이지, 로봇 리레이팅을 예측한 게 아니다. 셋업 met는 0%다. **오늘 오른 이유와 우리가 들고 있는 이유가 다르면, 오른 것은 운이다.** 8/20 딥다이브에서 \"반등 초입 vs 데드캣\"을 가르고, 8/26 전에 **트림 가격과 수량을 미리 박는다** — 이벤트 당일 즉흥 판단을 막는 게 그 딥다이브의 유일한 목적이다.\n\n**핵심종목 한 줄**\n- **삼성전자** — 오늘 외인이 팔았다는 게 가장 중요한 정보다. 서사(반도체 랠리)와 수급(외인 순매도)이 갈릴 땐 수급을 믿는다. ⭐5는 펀더 때문이지 오늘 흐름 때문이 아니다.\n- **현대차** — 서사가 12일 앞선 값이다. 8/26에 숫자가 안 나오면 되돌린다. 나는 이 랠리를 **트림 기회 쪽**에 가깝게 본다.\n- **MU** — 우리 포트에서 유일하게 재무플래그 0건이다. 홀딩 근거가 가장 깨끗하다. 다만 컨센 목표가 상향 속도가 가격 상승 속도를 앞서고 있어 **\"저평가\"로 읽지는 않는다**.\n- **AVGO** — 9/2까지는 어떤 좋은 뉴스가 나와도 별점을 올리지 않는다. 재고 +126.8%에 설명이 안 붙은 게 3주째다.\n\n---\n\n## 7c. 채널 조건 트래커\n\n| 셋업 | 충족 | 상태 | 오늘 갱신 |\n|---|---|---|---|\n| setup-메모리코어-0629 | **100%** | fired | 매크로 4축 완화 + MU/삼성/하닉 동반 강세로 논지 재확인 |\n| setup-반도체마진방향-실적확인-0728 | 80% | armed | margin_trend_break 0건 유지 — 정점 신호 없음 |\n| setup-전력인프라-0629 | 80% | armed | 변화 없음 |\n| setup-반전트리거-0629 | 75% | armed | 조건③(유가) WTI $81대로 진정 방향 · 조건②(외인) 4일 연속 순매수 append |\n| setup-m7capex-0630 | 75% | armed | 변화 없음 |\n| setup-현대차-피지컬AI-인베스터데이-0728 | **0%** | watching | ⚠️ 오늘 +7.77%에도 **met 변화 없음** — 조건은 8/26 공개 내용이지 사전 보도가 아니다 |\n| setup-현대차로봇리레이팅-0701 | **0%** | watching | ⚠️ 동일. 4개 조건(2Q방어·노조·RMC·BYD) 중 오늘 충족된 것 없음 |\n\n**발동권(≥75%) 5건이 오더 미배선인 이유**: 전부 **매수 셋업**인데 사다리 0원 + 하드플로어로 **집행 자체가 불가능**하다. 조건 충족과 집행 권한은 별개이며, 해제 시 §7b 우선순위(GOOGL → NAVER → MU → META)로 배선한다. — 8/7 규율에 따른 **미배선 사유 명시**.\n\n---\n\n## 8. 오늘의 이슈 (4개 전부 심층)\n\n1. **RESET 첫 실전 작동** — v74가 하루 일찍 주장했다 철회한 재잠금이 오늘 실제로 일어났다(§변경점·⓪).\n2. **외인 순매수의 44%가 하이닉스** — 게이트② 해석의 정밀도 문제(§1).\n3. **현대차 휴머노이드 보도의 형식** — 공식 발표·계약 아님, 8/26 사전 포지셔닝(§2).\n4. **AVGO 재고 미스매치 3주째 미해소** — 9/2 판별선(§2).\n\n---\n\n## 9. 계획·할일\n\n**오늘(8/14)**\n- [x] 코스피 일봉 캐시 8/14 갱신 → D1 재잠금 확인 (⚠️ 장중값 기록 → **마감 후 재실행 필요**)\n- [x] 8/13 외인 마감 확정 대사(+2조951억) → flows.json 반영\n- [x] 13F Q2'26 재실행 → **6인 전원 Q1 그대로**(ET 01:3x, 제출 전) → **8/15 R3로 이관**\n- [x] R1 이후 신규 영상 1편 델타 추출·판정\n- [x] **15:30 이후 `history_backfill.py --symbols '^KS11'` + `tranche_rules.py` 재실행** → D1 확정 재판정(-23.4%, 잠김 불변)\n- [x] 마감 확정 외인 수급 flows.json series 추가(8/14 +3조387억)\n- [x] 코스피 종가 정정(6,968.29→6,977.94, 3매체 교차검증)\n- [x] 오늘 밤 미국 프리뷰 작성(소매판매·미시간대)\n\n**이번주**\n- [ ] 8/15(토) R3 — 13F Q2'26 재수집 + 주간 캘리브레이션\n- [x] flows.json 8/12 외인 원장 불일치 교정(series 28,357 확정 채택, market_flows.jsonl 21,364는 잠정치로 판정·원인 기록)\n- [ ] 삼성전자 컨센서스 493,542원 원문 재확인(2차 재인용 오염 의심)\n- [ ] SK하이닉스·삼성전자 8/14 종목별 마감 확정 수급 재확인(naver T+1 해소 후, 8/15 첫 단계)\n\n**이번달**\n- [ ] 8/20 현대차 딥다이브 — 8/26 3시나리오별 **트림 가격·수량 사전 확정**\n- [ ] 8/21 셋업 유예 만료 판정\n- [ ] 8/26 NVDA + 현대차 IR · 8/27 금통위 · 9/2 AVGO\n\n---\n\n```\n[STATE SNAPSHOT v75 2026-08-14 · 18:0x R2 마감 확정 → ★20:3x 대화 세션 종료분 추가 = 최종본]\n\n★★[20:3x 세션 종료 — R2(18:0x) 이후 작업 5건. 다음 세션은 이 블록을 반드시 읽을 것]\n  이 블록이 없으면 내일 R3가 **바뀐 룰을 모른 채 옛 룰로 판단한다.**\n\n  1) ★룰1 개정 — **국내 이월 적립 신설**(정훈 승인 \"권고대로 하고\"). 정본 = crash_tf §2b.\n     문제: 토스 국내 소수점 미지원 → 해금액 < 1주 가격이면 국내에서 집행 방법이 없다.\n           실측 D1~D4 **전부 합산 226,151원 < NAVER 227,500원** = 사다리가 국내에서 구조적 작동 불가.\n     신설: ①1주 미달이어도 소멸시키지 않고 **대기(적립) 유지** ②1주 도달 시 그 단계가 열려 있으면 집행\n           ③**적립분은 미국 매수에 쓰지 않는다**(안 그러면 적립이 성립 안 함 — 오늘 토스가 달러 버퍼를\n           먼저 먹은 사례가 증거) ④단계 재진입 아님(해금액의 이월) ⑤자동 집행 아님.\n     ⚠️ 이 규칙은 허용액을 **1원도 늘리지 않는다** — 오늘도 0원. 배선 = tranche_rules._kr_accrual_note().\n  2) ★룰1 부수 — **'봉인 172,506 / 실가용 11,522' 라벨 폐기**(정훈 위임). 원화 전액이 사다리 재원.\n     실질 변화 0원. 근거 소멸 2건 = 2차 트랜치 20만 보존 이미 붕괴 · 물타기 대상 소멸(삼성 평단 위).\n  3) **self-review 9회차**(정본 = call_scorecard.md 맨 위) — ⓐ별점 역전 경보는 보정에서 **기각**\n     (LOO에서 NAVER 하나 빼면 부호 반전·CI 분리 0/3) → **별점 기준 변경 없음**, playbook §2의 옛 교훈 무효화\n     ⓑ목표가 캡은 **최종 기각** — 근거였던 편향 단조성이 **지평 불일치의 산물**이었다(프로레이트 보정 시 방향 반전).\n     남은 검사는 거증책임(check_target_multiple)뿐 ⓒ오미션 4건은 miss가 아니라 **집행 불가**(missed_moves에 게이트 신설).\n  4) **시스템 전면 감사**(정본 = docs/research/system_audit_2026-08-14.md) — 61일 성과 순입금보정 **-2.61%**\n     vs 혼합 벤치마크(원화) **-6.08%** = **+3.47%p**(표본 1회·통계 아님). 구조적 불일치 3건 + 선택 4건.\n     ★AI·빅테크·반도체 축 **88.1%** = '5축 분산'이 아니라 **의도된 단일 베팅**으로 명시,\n     대신 **팩터 조기경보 4종**(룰4 마진·AVGO 재고·NVDA 백로그·eps_revisions) 승격 — 현재 **1/4 부정**(임계 2).\n  5) **비중 컬럼 상시 노출** — stocks.json weight_pct 14종목. 분석 노력이 비중과 반대로 배분된 것을\n     숨지 않게 한다. 교정 방향 = 소액 축소가 **아니라** 상위 비중 종목을 같은 깊이로 격상(playbook §1).\n  · **결정 부채 68 → 25건** 정리(일지형 16·기록완료 4·결정완료 22·중복 2 종결, 백업 decisions.jsonl.bak-20260814).\n  · 오늘 현금 = **266,060원**(입금 10만 반영) · 대기 오더 3건(VOO 오늘밤 22:30 · AAPL $312 · LG전자 240,000).\n  · ⚠️ **미결 1건**: 코스피 8/14 종가가 Yahoo 캐시 **6,968.29** vs R2 3매체 교차 **6,977.94**로 갈린다.\n    D1 잠김 판정은 양쪽 동일이라 결론 불변이나, 원장은 하나여야 한다 → R3가 대사할 것.\n\n시세: 코스피 **6,977.94(+2.42%, +164.60p) 마감 확정**(舊 6,968.29는 정정 — 이투데이·뉴스핌·헤럴드경제 3매체+Yahoo 일치) · 5거래일 연속 상승\n      코스닥 865(+0.41%, 장중 마이너스→막판 플러스 전환)\n      S&P 7,798.99(+0.65%, 사상최고 종가) / 나스닥 26,803.03(+0.81%) / SOX 12,456.00(+0.46%) — 전부 8/13 확정\n      USD/KRW 1,413.44(-0.21%) · WTI ~$81.27 · VIX 14.55 · 10Y 4.68%\n수급: 8/14 마감 확정 코스피 외인 **+3조387억**(기관 -1조298억·개인 -1조9,820억, naver KRX직결). 4거래일 연속 순매수\n      ⚠️종목별 마감 확정 세부(SK하이닉스 비중)는 naver 소스 T+1 지연으로 오늘 산출 불가 — 장중 14:43 스냅샷\n      (시장전체 외인 +2조4,498억 중 SK하이닉스 44%·삼성전자 외인 순매도)을 방향성 참고로만 유지, 8/15 첫 단계 재확인\n      8/13 마감 확정 +2조951억(fnnews·sedaily 일치, wikitree +3조7,058억은 이상치 미채택)\n현금: 266,060원(舊 \"봉인 172,506+실가용 11,522\" 라벨 폐기·단일화, 정훈 위임 집행) + $0.00(VOO 8월분 주문에 전액 예치)\n      총자산 8,437,094원(토스 \"내 투자\" 8,171,034 + 현금 266,060)\n룰1: 낙폭 **-23.4%(마감 확정, tranche_rules.py 재실행)** → **D1 확정 잠김 · 누적 해금 0%** — RESET 첫 실전 작동(확정)\n     D1 경계 = 종가 6,835.91(-25.0%) 대비 +2.1% 위 — 마감 후 재실행으로 판정 확정(舊 장중 -24.1%는 폐기)\n     폭풍 96%ile[극단] 3분할 · 항복 미충족 · 승수 ×1.0\n     🔴 S&P 폭풍 71%ile(vol_gauge 정본) ≥70 = 하드플로어 정지 → 허용 트랜치 0원(재실행 동일치)\n     ⚠️ garch 대조 54.0%ile — 차이 17.4p로 발산경보(20p) 문턱 아래\n룰2: LG전자 1/3 정상(FCF 3,731억 반등·순부채 개선) · 두산로보 3/3 · 현대차 1/1(금융연결) · ORCL 2/3 · MSFT 마진브레이크\n룰4: margin_trend_break 0건 — 삼성 DS 2Q 89.2조 사상최대 · MU FQ4 GM ~86% → 메모리 정점 아님, 홀딩 유지\nTF:  ACTIVE · 게이트 1/3 — ②외인 4일 연속(8/14 +3조387억)으로 **실질 충족 확정** / ①7,500 -7.5% ③WTI $81 vs 71.5 +13%\n보유: 14종목 (변동 없음) · 별점 변경 없음\n집중도: NVDA 20.1%(상한 25% 근접) · 반도체축 34.2% · 미국 74.8% vs 국내 25.2%\n대기 트리거: ✅LG전자 240,000원 예약 접수 / ✅AAPL $312 예약 접수 (둘 다 유지)\n            GOOGL 소수점(3조건) · NAVER add존 **진입했으나 집행불가** · KT&G 165,000 · VOO 8월 미집행(오늘 밤 22:30 자동집행 예정)\n자가검증: 대화세션 self-review 8/14 완료(별점 기준 무효화·목표가 낙관편향 확인 후 캡 최종기각·거증책임 기계화·오미션 집행가능성 게이트 신설·\n      시스템감사 3건). R2는 결과 반영만, 중복 실행 안 함 — 상세는 desk_playbook §2·call_scorecard.md·system_audit_2026-08-14.md.\n영구교정:\n  ★[8/14 R2 신규·가격정정] **15:4x 대화세션이 기록한 코스피 종가 6,968.29(+2.26%)는 최종 체결 전 스냅샷이었다.**\n    18:0x 재확인 결과 확정 종가는 **6,977.94(+2.42%)** — 이투데이·뉴스핌·헤럴드경제 3매체 독립 일치 + Yahoo 실측 부합.\n    수계산 낙폭(-23.55%)도 정정 전 가격 기준이었음 — `tranche_rules.py` 마감 후 재실행 결과 **-23.4%**가 정본.\n    ⇒ **판정(D1 잠김·해금 0%) 자체는 두 값 다 -25% 경계 위라 불변** — 숫자만 갈렸고 결론은 갈리지 않았다.\n    다만 마감가는 **기사 교차검증 또는 스크립트 재실행으로만 확정**하고, 장중 대화세션 스냅샷을 그대로 승격하지 않는다.\n  ★[8/14 R2 신규·원장해소] **flows.json 8/12 불일치 종결**: series **+28,357억**(이투데이·아주경제·스탠딩아웃·dailian 4매체\n    교차 일치)이 확정치. `market_flows.jsonl`의 naver 자동캡처 **21,364억**은 `flow_trend.py`가 참조하는 별도 롤링원장으로,\n    캡처 시각이 장 마감 전이었을 가능성이 높은 **잠정치**로 판정. ⇒ 두 원장이 갈리면 **마감 후 발행된 기사 3개+ 교차검증값을\n    승격 정본으로, 자동캡처값은 잠정 라벨**을 붙인다 — 8/14 가격정정과 같은 클래스(자동수집 파이프라인은 타이밍에 취약).\n  ★[8/14 신규·체결메커니즘] **토스는 외화 주문 시 보유 달러를 먼저 소진하고 부족분만 환전한다 — 재원 분리는 계좌가 강제해주지 않는다.**\n    룰9 VOO 10만원 주문에 토스 알림이 \"$12.67(17,968원) 환전\"만 떠서 정훈이 에러로 의심했으나 **정상 동작**이었다:\n    보유 $57.62(ANET 매도대금 = GOOGL 재배치 재원)를 먼저 쓰고 부족분만 환전해 $70.29 ≈ 99,682원 주문을 만든 것.\n    대사 완전 일치(원화 266,060원·달러 $0.00). **그러나 룰9의 전제(\"기존 USD 버퍼 불가침\")가 기계적으로 깨졌다.**\n    이번엔 신규 입금 잔여 82,032원(≈$57.84)이 소진분을 거의 정확히 대체해 무해했지만 **우연이다.**\n    ⇒ 규칙: 재원 트랙(사다리 / VOO 적립 / 매도대금 재배치)은 **계좌 잔액이 아니라 장부에서 관리**하고,\n      외화 주문 뒤에는 **원화·달러 양쪽을 반드시 대사**한다.\n    ⇒ 설계 함의: **달러 버퍼를 남겨두면 다음 외화 주문이 그걸 먼저 먹는다** — GOOGL 1순위 실탄을 달러로\n      들고 있는 설계는 VOO 월적립과 **매달 충돌**한다.\n    8/1(분수주 지정가 불가)·8/12(국내 가격제한폭)와 **같은 클래스** — 판단은 맞았는데 체결 메커니즘을 안 봤다.\n  ★[8/14 신규·라벨] **근거를 잃은 라벨은 실질이 0이어도 폐기한다** — '봉인 현금' 폐기(정훈 위임).\n    두 근거가 다 죽어 있었다: ①2차 트랜치 20만 보존 = 172,506<200,000으로 이미 붕괴(crash_tf가 스스로 그렇게 적고 있었다)\n    ②물타기 재발 방지 = 대상 소멸(삼성 종가 274,000 > 평단 267,500). **라벨을 남겨두면 다음 판단이 죽은 근거를 인용한다**\n    (8/13 crash_tf §1이 철회된 주장을 하루 더 달고 있던 것과 같은 병).\n  ★[8/14 신규·재발] **8/13에 고친 함정을 하루 만에 내가 다시 밟았다.** 14:35에 `history_backfill`을\n    장중 실행해 **오늘 장중값(6,920.08)이 종가 자리에 기록**됐고, 그 값으로 낙폭 -24.1%·D1 재잠금을\n    판정해 정훈에게 보고했다. 8/13 수정(upsert 개정창 7일) 덕에 **마감 후 재실행하면 자동 교정**되지만,\n    **\"지금 보는 이 숫자가 잠정치\"라고 말해주는 장치가 없었다** — upsert는 고쳐주되 경고하지 않는다.\n    ⇒ 조치: `tranche_rules._provisional_warning()` 신설(`_stale_warning`의 거울 짝).\n      마지막 봉이 **오늘이고 KRX 마감 전**이면 \"장중 잠정치\" 경고를 판정 위에 출력한다.\n      KST 고정 시각 계산이라 서버 TZ와 무관. 실측 확인 완료.\n    ⇒ 교훈: **자동 교정과 사용자 경고는 다른 문제다.** 데이터를 고치는 수정에는 \"고쳐지기 전 상태를\n      읽는 사람\"에 대한 경고가 같이 붙어야 한다. 8/12 교훈(*\"같은 필드를 쓰는 쪽과 읽는 쪽이 갈리면\n      데이터는 조용히 사라진다\"*)의 시간축 버전이다.\n  ★[8/14 신규·수급] **\"외인 순매수 2.4조\"를 종목 분해 없이 게이트 판정에 쓰지 말 것.**\n    오늘 시장 전체 외인 순매수의 **44%가 SK하이닉스 단일종목**이고, 우리가 실제로 보유한\n    **삼성전자는 외인이 순매도**했다. 지수 레벨 수급 숫자는 우리 포지션의 수급이 아니다.\n    ⇒ 게이트② 판정 시 **시장 전체 + 보유종목별 분해를 같이** 적는다(오늘부터 국장 데스크 표에 반영).\n  ★[8/14 신규·서사] **오른 이유와 들고 있는 이유가 다르면 그 상승은 우리 판단의 검증이 아니다.**\n    현대차 +7.77%는 **구속력 없는 업계 취재 보도**(사업계획서 제출 요청, 계약 아님)에 붙은 값이고,\n    우리 셋업 met는 **0% 그대로**다. 우리는 이 종목을 ⭐2 기한부 홀드로 들고 있었지 로봇 리레이팅을\n    예측한 게 아니다. ⇒ 급등일에 별점·확신을 올리지 않는다(캘리브레이션: 급등일 확신 상향 = 실측된 실패 패턴).\n  [데스크 간 불일치·교정] 전력 데스크가 현대차 **8/13 +12.82%**로 보고 → **오류**. 실제 8/13은 **약 +2.2%**\n    (8/12 종가 ≈409,500 → 8/13 ≈418,500 역산). +12.82%는 **8/12 LG전자** 등락률이다.\n    ⇒ \"현대차 2일 연속 로봇 랠리\" 서사 **기각** — 로봇發 급등은 오늘 하루. §2a 규율대로 지역 데스크값 채택.\n  [원장 불일치·해소완료] flows.json 8/12 외인 series **+28,357억** vs market_flows.jsonl 롤링캡처 **+21,364억**\n    — **18:0x R2가 4매체 교차검증으로 종결**(위 신규 영구교정 참조). series 값이 확정치, 롤링캡처는 잠정치로 판정.\n  ★[8/14 R2 부수발견] 위 대사 과정에서 **8/13 항목 note의 5일 롤링합 계산이 이미 오염돼 있었음을 발견**했다 —\n    note 산문이 8/12 항목에 series 확정치(28,357) 대신 잠정치(21,364)를 잘못 인용해 5일합을 **+20,967억으로\n    과소 계산**(정정치 +27,960억, 33% 과소). series 필드값 자체는 정확했으나 **note 산문에 손계산이 섞여 있으면\n    그 계산도 원장과 별개로 검증해야 한다** — 8/12 교훈의 \"같은 필드를 쓰는 쪽과 읽는 쪽이 갈린다\"가 여기선\n    \"같은 원장 안에서 필드와 산문이 갈린다\"로 변주됐다. flows.json에서 정정 완료.\n  [미확인·2일 연속] 경제사냥꾼 \"9월 인상확률 55%→32%\" — 우리 소스는 45~61%(FedWatch)·40%대(미장 데스크).\n    방향은 일치, 수치는 재현 실패. 8/13에도 같은 항목이 미확인이었다.\n  [미확인·품질] 삼성전자 컨센 493,542원(+82.8% 괴리) — 한경 원문 접근 실패·2차 블로그 재인용 혼입. 재확인 대상.\n  [정본 stale·해소완료] `crash_tf.md` §1 상황판의 철회된 주장(\"RESET 첫 실전 작동 — 8/13\")을 **18:0x R2가 갱신**\n    (실제 첫 작동 = 마감 확정 기준 8/14, -23.4%로 정정 반영).\n다음: 8/15(토) R3 — 13F Q2'26 재수집 + 주간 캘리브레이션 + SK하이닉스·삼성전자 8/14 종목별 수급 재확인(T+1 해소 후)\n```\n\n---\n\n*투자 자문 아님 — 모든 레벨(목표가·매수존·별점)은 분석 참고이며 최종 결정은 정훈.*\n"
     },
     {
       "id": "report_v74_2026-08-13",

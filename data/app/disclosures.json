@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-10",
+ "updated": "2026-08-14",
  "days": 7,
  "universe": [
   "005930",
@@ -10,8 +10,8 @@
  ],
  "counts": {
   "critical": 0,
-  "notable": 5,
-  "routine": 32
+  "notable": 3,
+  "routine": 16
  },
  "items": [
   {
@@ -49,57 +49,17 @@
    "rcept_no": "20260807800026",
    "filer": "NAVER",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800026"
-  },
-  {
-   "code": "005380",
-   "name": "현대차",
-   "date": "20260804",
-   "title": "자기주식처분결과보고서",
-   "level": "notable",
-   "category": "자사주",
-   "why": "수급·주주환원",
-   "rcept_no": "20260804000313",
-   "filer": "현대자동차",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260804000313"
-  },
-  {
-   "code": "005380",
-   "name": "현대차",
-   "date": "20260803",
-   "title": "영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "하드넘버 갱신",
-   "rcept_no": "20260803800709",
-   "filer": "현대자동차",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260803800709"
   }
  ],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 24,
-   "net": -18177,
-   "n_buy": 3,
-   "n_sell": 21,
+   "n": 11,
+   "net": -10550,
+   "n_buy": 0,
+   "n_sell": 11,
    "top": [
-    {
-     "who": "이태관",
-     "ofcps": "부사장",
-     "regist": "비등기임원",
-     "delta": -2500,
-     "held": 10462,
-     "date": "2026-08-05"
-    },
-    {
-     "who": "나기홍",
-     "ofcps": "부사장",
-     "regist": "비등기임원",
-     "delta": -2370,
-     "held": 13740,
-     "date": "2026-08-04"
-    },
     {
      "who": "김홍경",
      "ofcps": "부사장",
@@ -115,6 +75,22 @@
      "delta": -2000,
      "held": 9636,
      "date": "2026-08-07"
+    },
+    {
+     "who": "김유석",
+     "ofcps": "부사장",
+     "regist": "비등기임원",
+     "delta": -1400,
+     "held": 5356,
+     "date": "2026-08-07"
+    },
+    {
+     "who": "이상우",
+     "ofcps": "부사장",
+     "regist": "비등기임원",
+     "delta": -1000,
+     "held": 11962,
+     "date": "2026-08-10"
     }
    ]
   },
@@ -139,44 +115,11 @@
   {
    "code": "005380",
    "name": "현대차",
-   "n": 4,
-   "net": 3823,
-   "n_buy": 4,
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
    "n_sell": 0,
-   "top": [
-    {
-     "who": "김혜인",
-     "ofcps": "부사장",
-     "regist": "비등기임원",
-     "delta": 2023,
-     "held": 2408,
-     "date": "2026-08-05"
-    },
-    {
-     "who": "권정현",
-     "ofcps": "부사장",
-     "regist": "비등기임원",
-     "delta": 931,
-     "held": 931,
-     "date": "2026-08-06"
-    },
-    {
-     "who": "피트 졸리",
-     "ofcps": "상무",
-     "regist": "비등기임원",
-     "delta": 700,
-     "held": 700,
-     "date": "2026-08-05"
-    },
-    {
-     "who": "필리페 게랑부토",
-     "ofcps": "Executive\nVice President",
-     "regist": "비등기임원",
-     "delta": 169,
-     "held": 169,
-     "date": "2026-08-05"
-    }
-   ]
+   "top": []
   },
   {
    "code": "035420",

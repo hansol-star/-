@@ -365,6 +365,37 @@ def _stale_warning(last_date: str):
             f"급등·급락일엔 상한이 크게 틀린다. `history_backfill.py --symbols '^KS11'` 먼저 실행할 것.")
 
 
+def _provisional_warning(last_date: str):
+    """★[2026-08-14 신설] _stale_warning의 **거울 짝** — 캐시가 너무 낡은 게 아니라
+    **너무 이른** 경우를 잡는다.
+
+    사고 재발: 8/13에 장중 수집 오염을 발견해 `history_backfill`에 upsert(개정창 7일)를
+    넣었는데, 그 다음날인 8/14 14:35에 같은 함정을 그대로 밟았다. backfill을 장중에 돌려
+    **그날 장중값(6,920.08)이 종가 자리에 기록**됐고, `tranche_rules`가 그 값으로
+    낙폭 -24.1%를 내며 **D1 재잠금**을 보고했다. 마감까지 1시간 남은 시점의 잠정치였다.
+
+    upsert는 **마감 후 재실행하면 고쳐준다**(8/13 수정의 효과) — 그러나 아무도
+    *"지금 보고 있는 이 숫자가 잠정치"*라고 말해주지 않는다는 점은 그대로였다.
+    D1 경계(-25% = 코스피 6,835.91)처럼 임계 근처에선 장중 몇십 포인트가 판정을 뒤집는다.
+
+    ⇒ 캐시 마지막 봉이 **오늘이고 KRX가 아직 안 닫혔으면** 잠정치라고 명시한다.
+      차단하지 않는 이유는 _stale_warning과 같다 — 판단은 사람이 한다.
+    """
+    try:
+        last = dt.date.fromisoformat(last_date[:10])
+    except Exception:
+        return None
+    now = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))   # KST 고정(서버 TZ 무관)
+    if last != now.date() or now.weekday() >= 5:
+        return None
+    if (now.hour, now.minute) >= (15, 30):        # 정규장 마감 후 = 종가 확정
+        return None
+    return (f"⚠️ 코스피 마지막 봉 **{last.isoformat()}**은 **장중 잠정치**다 "
+            f"(현재 KST {now:%H:%M} · 마감 15:30 전).\n     "
+            f"아래 낙폭·해금 판정은 확정이 아니다 — 임계 근처면 마감 후 뒤집힌다. "
+            f"`history_backfill.py --symbols '^KS11'`를 **마감 후 다시 돌려** 재판정할 것.")
+
+
 def _load_inputs(cash_arg):
     cash = cash_arg
     if cash is None:
@@ -382,7 +413,8 @@ def _load_inputs(cash_arg):
         dates, closes = D.load(KOSPI)
         if closes:
             dd = D.current_drawdown(dates, closes)["dd_pct"]
-            stale = _stale_warning(dates[-1])
+            # 둘은 배타적이다: stale = 마지막 봉 < 오늘 / provisional = 마지막 봉 == 오늘(장중)
+            stale = _stale_warning(dates[-1]) or _provisional_warning(dates[-1])
     except Exception:
         pass
     try:

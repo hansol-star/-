@@ -1,8 +1,18 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-08-14 자동 롤오버 +6편 (build_app_data)",
+  "updated": "2026-08-14 자동 롤오버 +1편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": null,
+      "title": "메모리·반도체 주식이 다시 폭등하는 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "논지=실적이 아니라 매크로 4개(물가·금리·유가·환율)가 같은 주에 동시 완화된 것이 메모리·반도체 급등의 진짜 원인. CPI 3.4%·PPI 0.0% MoM(YoY 4.7%, 직전 5.5%)·WTI $81대·환율 1,416원·MU +4.2%·샌디스크 +13.7%·외인 8/13 +2조951억 전부 우리 하드넘버와 일치. [미확인] '9월 인상확률 55%→32%'는 우리 소스(FedWatch 45~61%, 미장 데스크 40%대)로 재현 안 됨 — 2일 연속 같은 미확인 항목. 반도체가 매크로에 가장 예민한 이유(캐펙스 금리민감·원거리 현금흐름 할인·외인 환율) 설명은 타당.",
+      "views": null,
+      "id": "RZTgx3p7RwU"
+    },
     {
       "date": null,
       "title": "지금 나스닥, S&P500 역대급 상승장 온 이유",

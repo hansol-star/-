@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import datetime as dt
 import json
 import os
 import statistics as st
@@ -189,6 +190,8 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--tickers", default=",".join(OURS))
     ap.add_argument("--horizon", type=int, default=250, help="검증 지평(거래일·기본 250≈12M)")
+    ap.add_argument("--save", action="store_true",
+                    help="역사 정당배수 밴드를 data/app/multiple_bands.json에 저장(validate가 소비)")
     a = ap.parse_args()
 
     cache = {}
@@ -241,6 +244,21 @@ def main():
 
     os.makedirs(os.path.dirname(CACHE), exist_ok=True)
     json.dump(cache, open(CACHE, "w", encoding="utf-8"))
+
+    # ★[8/14 신설·정훈 승인] 밴드를 원장으로 떨궈 validate_report.check_target_multiple이 소비한다.
+    #   이 도구는 네트워크·EDGAR를 쓰므로 매 보고서 호출이 불가 → 주간 R3에서 갱신하고 검사기는 캐시를 읽는다.
+    if a.save:
+        bands = {"updated": dt.date.today().isoformat(), "horizon": a.horizon, "stocks": {}}
+        for tk, r, imp, verdict in rows:
+            bands["stocks"][tk] = {
+                "band": r["band"], "n": r["n"], "span": r["span"],
+                "realized_med": r["realized_med"],
+                "ttm_eps": (cache[tk][-1][1] if cache.get(tk) else None),
+                "implied": imp, "verdict": verdict,
+            }
+        out = os.path.join(ROOT, "data", "app", "multiple_bands.json")
+        json.dump(bands, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"\n  💾 {out} 저장 ({len(bands['stocks'])}종목)")
 
     n_over = sum(1 for *_, v in rows if v == "🔴 상단초과")
     n_in = sum(1 for *_, v in rows if v == "🟢 구간내")

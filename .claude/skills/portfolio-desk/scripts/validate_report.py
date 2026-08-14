@@ -348,6 +348,52 @@ def check_kr_price_band():
                  f"시간외로 걸려면 종가 {price/1.1:,.0f}원 이상 필요")
 
 
+def check_target_multiple():
+    """목표가가 함의하는 **후행 배수**가 역사 정당구간 상단을 넘으면 선행 EPS 가정을 요구한다.
+
+    ★[2026-08-14 신설·정훈 승인] 9회차 캘리브레이션에서 확인된 유일한 '콜 품질' 결함의 기계화.
+    `target_score`가 낸 낙관 편향이 **내재여력과 단조 비례**했고(+17.4 → +22.7 → +39.9 → +58.7%p),
+    `multiple_backtest`(16년 EPS×가격)도 같은 방향으로 **상단초과 5종**을 지목했다.
+
+    ⚠️ **그런데 '역사 정당배수 상단으로 캡'을 기계적으로 적용하면 안 된다** — 실측해보니
+    5종 전부 캡 적용 목표가가 **현재가 아래**로 떨어져(AAPL -23.1%·MU -31.5%·AVGO -26.3%·
+    ORCL -17.1%·ANET -5.3%) 동시 매도 신호가 된다. TTM(후행) 배수는 **이익이 급성장하는
+    국면에서 구조적으로 높게** 나오기 때문이다(MU = 메모리 사이클, AVGO·ANET = AI).
+    `multiple_backtest` 자신도 *"배수의 타당 범위이지 우리 목표가의 정오 판정이 아니다"*라고 경고한다.
+    ⇒ **캡이 아니라 거증책임으로 구현한다**: 상단을 넘는 목표가는 금지가 아니라
+      **선행 EPS 가정을 명시**해야 통과한다. 낙관을 막는 게 아니라 **말 없는 낙관**을 막는 것.
+
+    밴드 원장 = `data/app/multiple_bands.json`(`multiple_backtest.py --save`, 주간 R3 갱신).
+    원장이 없거나 낡아도 조용히 건너뛴다(네트워크 호출 안 함).
+    """
+    b = load("data/app/multiple_bands.json")
+    d = load("data/app/stocks.json")
+    if not b or not d:
+        return
+    # ⚠️ [8/14 음성테스트로 즉시 교정] 1차 구현은 토큰 매칭("컨센" 등)이었는데
+    #    "컨센 목표 $428" 같은 문구가 거의 모든 코멘트에 있어 **9/9 전부 통과 = 절대 발동 불가**였다.
+    #    오늘 정리한 (B)계열('죽은 배선')을 새로 만드는 짓이므로 그 자리에서 조인다.
+    #    ⇒ 요구조건 = `target_basis`에 **숫자를 가진 EPS 가정**이 있을 것(EPS $9.55 / EPS 155.56 형태).
+    #      코멘트는 보지 않는다 — 근거는 target_basis에 있어야 한다.
+    import re as _re
+    eps_num = _re.compile(r"EPS[^0-9$]{0,12}\$?\s*\*{0,2}\s*[0-9][0-9,\.]*", _re.I)
+    for tk, meta in (b.get("stocks") or {}).items():
+        band, imp = meta.get("band"), meta.get("implied")
+        if not band or not imp:
+            continue
+        if imp[0] <= band[1]:          # 하단이 밴드 상단 이내면 '상단초과'가 아니다
+            continue
+        ent = (d.get("stocks") or {}).get(tk) or (d.get("watchlist") or {}).get(tk)
+        if not isinstance(ent, dict):
+            continue
+        basis = str(ent.get("target_basis") or "")
+        if eps_num.search(basis):
+            continue
+        warn(f"{tk}: 목표가 내재배수 {imp[0]:.0f}~{imp[1]:.0f}x > 역사 정당구간 상단 {band[1]:.1f}x "
+             f"(TTM EPS {meta.get('ttm_eps')}) — **선행 EPS 가정을 target_basis에 명시할 것** "
+             f"(캡 아님·거증책임. 8/14 캘리브레이션 9회차)")
+
+
 def check_order_feasibility():
     """tasks.json orders가 토스 주문 제약을 위반하는지 검사.
     지정가 주문인데 수량이 분수(미국) / 1주 미만(국내)이면 그 주문은 낼 수 없다."""
@@ -1399,7 +1445,7 @@ def main():
         print()
         sys.exit(1 if FAILS else 0)
 
-    check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band(); check_high_low_claims(); check_history_cache()
+    check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band(); check_target_multiple(); check_high_low_claims(); check_history_cache()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules()
     check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
     check_feeds(); check_guru()

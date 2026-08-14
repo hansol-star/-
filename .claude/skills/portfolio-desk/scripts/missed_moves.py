@@ -132,10 +132,18 @@ def analyze(min_move, since):
             "peak_date": peak_date, "trough_date": trough_date,
             "clusters": clusters_of(tk),
         }
+        # ★[8/14] 집행가능성 판정 — 놓친매수에만 적용(매도는 현금 제약과 무관하다)
+        blk, blk_why = executability(_SNAPS, d0, tk, ref)
+        cand["blocked_exec"] = blk
+        cand["blocked_why"] = blk_why
+
         # 분류: 안 샀는데 급등 / 안 팔았는데 급락 / 올바른 무행동
         if no_buy and fwd_max >= min_move:
-            rows.append({**cand, "type": "놓친매수", "severity": round(fwd_max, 1),
-                         "note": f"{d0} {label} → {peak_date} +{fwd_max:.0f}% 고점"})
+            rows.append({**cand,
+                         "type": "집행불가" if blk else "놓친매수",
+                         "severity": round(fwd_max, 1),
+                         "note": (f"{d0} {label} → {peak_date} +{fwd_max:.0f}% 고점"
+                                  + (f" · ⛔{blk_why}" if blk else ""))})
         if no_sell and fwd_min <= -min_move:
             rows.append({**cand, "type": "놓친매도", "severity": round(abs(fwd_min), 1),
                          "note": f"{d0} {label} → {trough_date} {fwd_min:.0f}% 저점"})
@@ -170,6 +178,66 @@ def match_rejected(ticker):
     return out
 
 
+# ─────────────────────────────────────────────────────────────────────
+# ★[8/14 신설·정훈 승인] 집행가능성 게이트 — "놓쳤다"와 "못 샀다"를 가른다.
+#
+# 배경(9회차 캘리브레이션): 8/14 미스 4건(삼성전기 +22%·원익IPS +22%·LG이노텍 +18%·
+# SK하이닉스 +16%)이 전부 8/8 워치미진입으로 잡혔는데, 그 기간 내내
+# **사다리 허용액 0원 + 하드플로어 발동**이라 진입이 물리적으로 불가능했다.
+# 이 원장의 반사실은 "샀다면 어땠나"인데 **살 수 없었으면 반사실 자체가 성립하지 않는다.**
+# 제약을 판단 실패로 세면 오미션 지표가 부풀고, 거기서 잘못된 교훈이 나온다.
+#
+# 판정 2단계(둘 중 하나라도 걸리면 blocked):
+#   ① 그날 룰1 허용액이 0원(rule_log.jsonl `allowed_krw` / `halted`)
+#   ② 국내 종목인데 **1주 가격 > 그날 가용현금** (토스 국내 소수점 미지원)
+# 원장이 그날짜를 못 덮으면 **판정 보류(None)** — 없는 근거로 miss를 지우지 않는다.
+_RULE_LOG = os.path.join(ROOT, "data", "app", "rule_log.jsonl")
+
+
+def _rule_snapshots():
+    path = _RULE_LOG or os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                     "..", "..", "..", "..", "data", "app", "rule_log.jsonl")
+    out = {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            for ln in f:
+                ln = ln.strip()
+                if not ln:
+                    continue
+                try:
+                    d = json.loads(ln)
+                except Exception:
+                    continue
+                if d.get("date"):
+                    out[d["date"]] = d
+    except Exception:
+        return {}
+    return out
+
+
+def executability(snaps, decision_date, ticker, ref_price):
+    """(blocked: bool|None, reason: str) — None = 원장 미커버로 판정 보류."""
+    if not snaps:
+        return None, "원장 없음"
+    days = sorted(snaps)
+    prior = [d for d in days if d <= decision_date]
+    if not prior:
+        return None, "원장이 결정일을 못 덮음"
+    snap = snaps[prior[-1]]
+    allowed = snap.get("allowed_krw")
+    if snap.get("halted") or (allowed is not None and allowed <= 0):
+        return True, f"룰1 허용액 0원({prior[-1]} 기준" + (" ·하드플로어" if snap.get("halted") else "") + ")"
+    cash = snap.get("cash")
+    if allowed is not None and str(ticker).endswith((".KS", ".KQ")) and ref_price:
+        if ref_price > allowed:
+            return True, (f"국내 1주 {ref_price:,.0f}원 > 그날 허용액 {allowed:,.0f}원"
+                          f"{'' if cash is None else f' (가용현금 {cash:,.0f}원)'} · 소수점 불가")
+    return False, "집행 가능했음"
+
+
+_SNAPS = _rule_snapshots()
+
+
 def report(rows, net_err, min_move):
     print("\n" + "=" * 68)
     print(f"  결정 후행회고 — missed_moves.py  (임계 ±{min_move}%)")
@@ -180,13 +248,14 @@ def report(rows, net_err, min_move):
             print(f"시세 조회 실패: {net_err}")
         return
 
-    order = {"놓친매수": 0, "놓친매도": 1, "잘참음": 2, "잘홀딩": 3}
-    for typ in ("놓친매수", "놓친매도", "잘참음", "잘홀딩"):
+    order = {"놓친매수": 0, "놓친매도": 1, "집행불가": 2, "잘참음": 3, "잘홀딩": 4}
+    for typ in ("놓친매수", "놓친매도", "집행불가", "잘참음", "잘홀딩"):
         sub = sorted([r for r in rows if r["type"] == typ],
                      key=lambda r: -r["severity"])
         if not sub:
             continue
         head = {"놓친매수": "🔺 놓친 매수 (안 샀는데 급등 — '그때 살걸')",
+                "집행불가": "⛔ 집행 불가였음 (급등했으나 살 수 없었다 — miss 아님·반사실 미성립)",
                 "놓친매도": "🔻 놓친 매도/트림 (안 팔았는데 급락 — '그때 팔걸')",
                 "잘참음": "✅ 올바른 무행동 — 관망 후 하락(안 사길 잘함)",
                 "잘홀딩": "✅ 올바른 무행동 — 홀딩 후 상승(안 팔길 잘함)"}[typ]

@@ -1,20 +1,20 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-15 05:55 KST",
-  "as_of": "2026-08-14 18:13 KST (마감 확정 — R2 디벨롭)",
-  "source_report": "docs/reports/report_v75_2026-08-14.md",
+  "generated_at": "2026-08-16 18:09 KST",
+  "as_of": "2026-08-16 (일) 17:50 KST · 주말 보고서 · 8/14 시세 프로즌",
+  "source_report": "docs/reports/report_v76_2026-08-16.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1416.93
+    "usdkrw": 1412.0
   },
   "totals": {
-    "assets_krw": 8437804,
-    "stocks_value_krw": 8171744,
+    "assets_krw": 8515743,
+    "stocks_value_krw": 8249683,
     "cash_krw": 266060,
-    "day_change_krw": 53630,
-    "day_change_pct": 0.66,
-    "total_pnl_krw": 127389,
-    "total_pnl_pct": 1.58
+    "day_change_krw": 53507,
+    "day_change_pct": 0.65,
+    "total_pnl_krw": 102721,
+    "total_pnl_pct": 1.26
   },
   "safety": {
     "pin": 7500,
@@ -371,7 +371,8 @@ window.APP_DATA = {
         230000.0,
         239500.0,
         255500.0,
-        268000.0
+        268000.0,
+        274500.0
       ],
       "sector": "반도체·AI"
     },
@@ -472,7 +473,8 @@ window.APP_DATA = {
         190000.0,
         181700.0,
         205000.0,
-        206500.0
+        206500.0,
+        215000.0
       ],
       "sector": "전력·피지컬"
     },
@@ -573,7 +575,8 @@ window.APP_DATA = {
         74700.0,
         74100.0,
         76300.0,
-        78000.0
+        78000.0,
+        79200.0
       ],
       "sector": "전력·피지컬"
     },
@@ -674,7 +677,8 @@ window.APP_DATA = {
         408000.0,
         403000.0,
         409500.0,
-        418500.0
+        418500.0,
+        453000.0
       ],
       "sector": "전력·피지컬"
     },
@@ -775,7 +779,8 @@ window.APP_DATA = {
         211500.0,
         214000.0,
         215500.0,
-        226500.0
+        226500.0,
+        228000.0
       ],
       "sector": "빅테크"
     },
@@ -788,9 +793,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 225.16,
       "change_pct": -0.06,
-      "value_krw": 1639272,
+      "value_krw": 1633568,
       "pnl_pct": 12.86,
-      "pnl_krw": 146180,
+      "pnl_krw": 140476,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -886,9 +891,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 589.85,
       "change_pct": -0.86,
-      "value_krw": 943684,
+      "value_krw": 940401,
       "pnl_pct": -6.96,
-      "pnl_krw": -98928,
+      "pnl_krw": -102211,
       "outlook": "core",
       "stars": 2,
       "score": 50,
@@ -985,13 +990,13 @@ window.APP_DATA = {
       "ticker": "VOO",
       "region": "us",
       "currency": "USD",
-      "shares": 1.06863,
-      "cost": 648.75,
+      "shares": 1.167038,
+      "cost": 654.41,
       "price": 713.61,
       "change_pct": -0.19,
-      "value_krw": 1080530,
-      "pnl_pct": 10.0,
-      "pnl_krw": 70776,
+      "value_krw": 1175928,
+      "pnl_pct": 9.05,
+      "pnl_krw": 63568,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1091,9 +1096,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 495.4,
       "change_pct": -0.3,
-      "value_krw": 1012910,
+      "value_krw": 1009385,
       "pnl_pct": 20.77,
-      "pnl_krw": 150780,
+      "pnl_krw": 147256,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1183,9 +1188,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 305.93,
       "change_pct": 0.22,
-      "value_krw": 443223,
+      "value_krw": 441680,
       "pnl_pct": 18.97,
-      "pnl_krw": 60282,
+      "pnl_krw": 58740,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1281,9 +1286,9 @@ window.APP_DATA = {
       "cost": 353.62,
       "price": 345.9,
       "change_pct": -0.13,
-      "value_krw": 865861,
+      "value_krw": 862848,
       "pnl_pct": -2.18,
-      "pnl_krw": -44045,
+      "pnl_krw": -47058,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1381,9 +1386,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 150.52,
       "change_pct": -3.65,
-      "value_krw": 45895,
+      "value_krw": 45735,
       "pnl_pct": -35.15,
-      "pnl_krw": -26857,
+      "pnl_krw": -27017,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1481,9 +1486,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 971.66,
       "change_pct": 2.3,
-      "value_krw": 27537,
+      "value_krw": 27441,
       "pnl_pct": 29.73,
-      "pnl_krw": 5717,
+      "pnl_krw": 5622,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1579,9 +1584,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 392.99,
       "change_pct": -5.94,
-      "value_krw": 39634,
+      "value_krw": 39496,
       "pnl_pct": -6.67,
-      "pnl_krw": -4017,
+      "pnl_krw": -4155,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -3018,7 +3023,8 @@ window.APP_DATA = {
       "2026-08-10",
       "2026-08-11",
       "2026-08-12",
-      "2026-08-14"
+      "2026-08-13",
+      "2026-08-16"
     ],
     "closes": [
       1497.7,
@@ -3044,7 +3050,8 @@ window.APP_DATA = {
       1417.31,
       1412.18,
       1416.46,
-      1416.94
+      1416.85,
+      1412.0
     ]
   },
   "kospi_history": {
@@ -3070,7 +3077,8 @@ window.APP_DATA = {
       "2026-08-10",
       "2026-08-11",
       "2026-08-12",
-      "2026-08-13"
+      "2026-08-13",
+      "2026-08-14"
     ],
     "closes": [
       6856.83,
@@ -3094,7 +3102,8 @@ window.APP_DATA = {
       6299.66,
       6345.53,
       6579.04,
-      6813.34
+      6813.34,
+      6977.94
     ]
   },
   "hunter": {
@@ -13035,8 +13044,8 @@ window.APP_DATA = {
         "foreign": 30387,
         "inst": -10298,
         "indiv": -19820,
-        "foreign_hynix": null,
-        "note": "[마감 확정, naver_flows KRX직결 + newspim/이투데이 교차검증] 코스피 6,977.94(+2.42%, +164.60p) 마감 — 5거래일 연속 상승, 오전 한때 7,010선 터치. 외인 +3조387억(naver_flows.py --market 확정치, newspim 보도 3조387억과 정확히 일치)·기관 -1조298억·개인 -1조9,820억. 4거래일 연속 순매수(8/11 +2,129억→8/12 +2조8,357억→8/13 +2조951억→8/14 +3조387억), 5일 롤링(8/10~8/14): -14,887+2,129+28,357+20,951+30,387 = +66,937억(+6.69조) 견조. ⚠️종목별 마감 확정 세부(SK하이닉스 비중)는 naver 종목이력 API가 T+1 지연이라 오늘 산출 불가 — 장중 14:43 스냅샷 기준 시장전체 외인 +2조4,498억 중 SK하이닉스 단독 +1조690억(44%), 삼성전자는 외인 순매도(-1,090억)였고 이 구도는 8/15 종목별 마감 확정 데이터로 재확인 예정. foreign_hynix는 그때까지 null 유지(추측 금지)."
+        "foreign_hynix": 12297,
+        "note": "[마감 확정, naver_flows KRX직결 + newspim/이투데이 교차검증] 코스피 6,977.94(+2.42%, +164.60p) 마감 — 5거래일 연속 상승, 오전 한때 7,010선 터치. 외인 +3조387억(naver_flows.py --market 확정치, newspim 보도 3조387억과 정확히 일치)·기관 -1조298억·개인 -1조9,820억. 4거래일 연속 순매수(8/11 +2,129억→8/12 +2조8,357억→8/13 +2조951억→8/14 +3조387억), 5일 롤링(8/10~8/14): -14,887+2,129+28,357+20,951+30,387 = +66,937억(+6.69조) 견조. ★[8/15 R3 종목별 마감 확정 대사 완료] naver_flows.py --stock T+1 지연 해소 후 재산출: 삼성전자 외인 +4,913,433주(+13,487억, 시장전체의 44.4%) · SK하이닉스 외인 +747,508주(+12,297억, 40.5%) · LG전자 +387억(1.3%) · 현대차 +427억(1.4%) · NAVER +74억(0.2%) · 두산로보틱스 -31억(-0.1%). 6종목 합산 +26,641억으로 시장전체 순매수의 87.7%. ⚠️[정정] 8/14 R2가 인용한 '14:43 장중 스냅샷(삼성전자 순매도 -1,090억·기관 +554만주)'은 재검토 결과 실제로는 8/13 확정치(외인 -401,379주×268,000원≈-1,076억·기관 +5,544,777주)와 거의 일치 — naver 종목이력 T+1 지연 때문에 8/14 장중 조회 시점에 8/13 확정 데이터가 노출된 것으로 판단(추정, 원인 100% 특정은 미확인). 마감 확정 기준 8/14 삼성전자는 외인 순매도가 아니라 대규모 순매수(+13,487억)였다. 결론: 게이트②는 '외인이 한국을 산다'가 아니라 '외인이 삼성전자·SK하이닉스 두 메가캡 반도체를 산다'(둘이 84.9% 차지) — 폭넓은 지수 전체 매수가 아니라 여전히 반도체 쏠림. 골드만삭스도 8/11~14 4거래일 외인 순매수 8조2,093억 중 약 90%가 기술주 집중이라고 분석(한경 8/14) — 우리 종목별 대사와 방향 일치."
       }
     ],
     "as_of": "2026-08-13 (목) 13:4x KST · 장중",
@@ -13057,18 +13066,18 @@ window.APP_DATA = {
   },
   "guru_flows": {
     "_comment": "SEC EDGAR 13F(무키 팩트) — 'rationale/our_takeaway/themes/narrative'는 guru-flow-desk가 주주서한·외신·sell-side로 채운다. 지연 확증 렌즈이지 매수 트리거 아님(단일출처 매수 금지).",
-    "updated": "2026-08-14",
-    "as_of_quarter": "2026-03-31",
+    "updated": "2026-08-15",
+    "as_of_quarter": "2026-06-30",
     "source": "SEC EDGAR 13F-HR (무키) + guru-flow-desk 이유분석(WebSearch)",
     "gurus": {
       "berkshire": {
         "name": "BERKSHIRE HATHAWAY INC",
         "style": "가치·현금·AI는 알파벳 집중",
         "cik": "0001067983",
-        "filing_date": "2026-05-15",
-        "quarter": "2026-03-31",
-        "prev_quarter": "2025-12-31",
-        "portfolio_value_usd": 263095703570,
+        "filing_date": "2026-08-14",
+        "quarter": "2026-06-30",
+        "prev_quarter": "2026-03-31",
+        "portfolio_value_usd": 299253556246,
         "positions": 29,
         "options_latest": 0,
         "top_positions": [
@@ -13076,291 +13085,104 @@ window.APP_DATA = {
             "cusip": "037833100",
             "issuer": "APPLE INC",
             "ticker": "AAPL",
-            "value_usd": 57843260493,
+            "value_usd": 65950296923,
             "shares": 227917808,
-            "pct": 21.99
+            "pct": 22.04
           },
           {
             "cusip": "025816109",
             "issuer": "AMERICAN EXPRESS CO",
             "ticker": null,
-            "value_usd": 45859204536,
+            "value_usd": 51282319275,
             "shares": 151610700,
-            "pct": 17.43
+            "pct": 17.14
           },
           {
             "cusip": "191216100",
             "issuer": "COCA COLA CO",
             "ticker": null,
-            "value_usd": 30420000000,
+            "value_usd": 32508000000,
             "shares": 400000000,
-            "pct": 11.56
-          },
-          {
-            "cusip": "060505104",
-            "issuer": "BANK AMERICA CORP",
-            "ticker": null,
-            "value_usd": 25039178044,
-            "shares": 513624165,
-            "pct": 9.52
-          },
-          {
-            "cusip": "166764100",
-            "issuer": "CHEVRON CORPORATION",
-            "ticker": null,
-            "value_usd": 17457364606,
-            "shares": 84375856,
-            "pct": 6.64
-          },
-          {
-            "cusip": "674599105",
-            "issuer": "OCCIDENTAL PETE CORP",
-            "ticker": null,
-            "value_usd": 17221193015,
-            "shares": 264941431,
-            "pct": 6.55
+            "pct": 10.86
           },
           {
             "cusip": "02079K305",
             "issuer": "ALPHABET INC",
             "ticker": "GOOGL",
-            "value_usd": 15600071913,
-            "shares": 54249798,
-            "pct": 5.93
+            "value_usd": 28157599351,
+            "shares": 78791167,
+            "pct": 9.41
+          },
+          {
+            "cusip": "060505104",
+            "issuer": "BANK OF AMER CORP",
+            "ticker": null,
+            "value_usd": 27543790975,
+            "shares": 483394015,
+            "pct": 9.2
+          },
+          {
+            "cusip": "166764100",
+            "issuer": "CHEVRON CORPORATION",
+            "ticker": null,
+            "value_usd": 13986141890,
+            "shares": 84375856,
+            "pct": 4.67
+          },
+          {
+            "cusip": "674599105",
+            "issuer": "OCCIDENTAL PETE CORP",
+            "ticker": null,
+            "value_usd": 12868205304,
+            "shares": 264941431,
+            "pct": 4.3
           },
           {
             "cusip": "H1467J104",
-            "issuer": "CHUBB LTD SWITZ",
+            "issuer": "CHUBB LIMITED",
             "ticker": null,
-            "value_usd": 11162836215,
+            "value_usd": 11670066615,
             "shares": 34249183,
-            "pct": 4.24
+            "pct": 3.9
           },
           {
             "cusip": "615369105",
             "issuer": "MOODYS CORP",
             "ticker": null,
-            "value_usd": 10762190653,
+            "value_usd": 11173435852,
             "shares": 24669778,
-            "pct": 4.09
+            "pct": 3.73
+          },
+          {
+            "cusip": "02079K107",
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "value_usd": 9606489032,
+            "shares": 27188433,
+            "pct": 3.21
           },
           {
             "cusip": "500754106",
             "issuer": "KRAFT HEINZ CO",
             "ticker": null,
-            "value_usd": 7323527057,
+            "value_usd": 7691494401,
             "shares": 325634818,
-            "pct": 2.78
+            "pct": 2.57
           },
           {
             "cusip": "23918K108",
             "issuer": "DAVITA INC",
             "ticker": null,
-            "value_usd": 4626158909,
-            "shares": 30100585,
-            "pct": 1.76
-          },
-          {
-            "cusip": "501044101",
-            "issuer": "KROGER CO",
-            "ticker": null,
-            "value_usd": 3618000000,
-            "shares": 50000000,
-            "pct": 1.38
+            "value_usd": 6425268898,
+            "shares": 28880209,
+            "pct": 2.15
           }
         ],
         "trajectory": {
-          "02079K107": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3585215,
-                "pct": 0.39
-              }
-            ]
-          },
-          "191216100": {
-            "issuer": "COCA COLA CO",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 400000000,
-                "pct": 10.99
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 400000000,
-                "pct": 9.92
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 400000000,
-                "pct": 10.2
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 400000000,
-                "pct": 11.56
-              }
-            ]
-          },
-          "060505104": {
-            "issuer": "BANK AMERICA CORP",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 605267375,
-                "pct": 11.12
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 568070012,
-                "pct": 10.96
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 517295934,
-                "pct": 10.38
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 513624165,
-                "pct": 9.52
-              }
-            ]
-          },
-          "H1467J104": {
-            "issuer": "CHUBB LTD SWITZ",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 27033784,
-                "pct": 3.04
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 31332895,
-                "pct": 3.31
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 34249183,
-                "pct": 3.9
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 34249183,
-                "pct": 4.24
-              }
-            ]
-          },
-          "025816109": {
-            "issuer": "AMERICAN EXPRESS CO",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 151610700,
-                "pct": 18.78
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 151610700,
-                "pct": 18.84
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 151610700,
-                "pct": 20.46
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 151610700,
-                "pct": 17.43
-              }
-            ]
-          },
-          "037833100": {
-            "issuer": "APPLE INC",
-            "ticker": "AAPL",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 280000000,
-                "pct": 22.31
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 238212764,
-                "pct": 22.69
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 227917808,
-                "pct": 22.6
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 227917808,
-                "pct": 21.99
-              }
-            ]
-          },
-          "02079K305": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 17846142,
-                "pct": 1.62
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 17846142,
-                "pct": 2.04
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 54249798,
-                "pct": 5.93
-              }
-            ]
-          },
           "166764100": {
             "issuer": "CHEVRON CORPORATION",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 122064792,
-                "pct": 6.79
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 122064792,
@@ -13375,6 +13197,193 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 84375856,
                 "pct": 6.64
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 84375856,
+                "pct": 4.67
+              }
+            ]
+          },
+          "H1467J104": {
+            "issuer": "CHUBB LIMITED",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 31332895,
+                "pct": 3.31
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 34249183,
+                "pct": 3.9
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 34249183,
+                "pct": 4.24
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 34249183,
+                "pct": 3.9
+              }
+            ]
+          },
+          "025816109": {
+            "issuer": "AMERICAN EXPRESS CO",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 151610700,
+                "pct": 18.84
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 151610700,
+                "pct": 20.46
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 151610700,
+                "pct": 17.43
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 151610700,
+                "pct": 17.14
+              }
+            ]
+          },
+          "060505104": {
+            "issuer": "BANK OF AMER CORP",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 568070012,
+                "pct": 10.96
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 517295934,
+                "pct": 10.38
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 513624165,
+                "pct": 9.52
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 483394015,
+                "pct": 9.2
+              }
+            ]
+          },
+          "02079K305": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 17846142,
+                "pct": 1.62
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 17846142,
+                "pct": 2.04
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 54249798,
+                "pct": 5.93
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 78791167,
+                "pct": 9.41
+              }
+            ]
+          },
+          "02079K107": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 3585215,
+                "pct": 0.39
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 27188433,
+                "pct": 3.21
+              }
+            ]
+          },
+          "191216100": {
+            "issuer": "COCA COLA CO",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 400000000,
+                "pct": 9.92
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 400000000,
+                "pct": 10.2
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 400000000,
+                "pct": 11.56
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 400000000,
+                "pct": 10.86
+              }
+            ]
+          },
+          "037833100": {
+            "issuer": "APPLE INC",
+            "ticker": "AAPL",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 238212764,
+                "pct": 22.69
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 227917808,
+                "pct": 22.6
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 227917808,
+                "pct": 21.99
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 227917808,
+                "pct": 22.04
               }
             ]
           },
@@ -13382,11 +13391,6 @@ window.APP_DATA = {
             "issuer": "OCCIDENTAL PETE CORP",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 264941431,
-                "pct": 4.32
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 264941431,
@@ -13401,251 +13405,35 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 264941431,
                 "pct": 6.55
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 264941431,
+                "pct": 4.3
               }
             ]
           }
         },
         "moves": [
           {
-            "cusip": "247361702",
-            "issuer": "DELTA AIR LINES INC",
+            "cusip": "23331A109",
+            "issuer": "D R HORTON INC",
             "ticker": null,
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 39809456,
+            "shares_to": 3564,
             "shares_delta_pct": null,
-            "value_to": 2646532635,
-            "rationale": "$2.65B 항공 재진입(과거 코로나기 전량 청산했던 섹터).",
-            "our_takeaway": "우리 미보유. 대가의 '경기민감 저평가' 회귀 — 우리 관점 밖이나 밸류 신호로 기록.",
+            "value_to": 580504,
+            "rationale": "D.R.호턴 신규 + 레나 두 클래스 합산 +29.8%/+25.4% — 주택건설 섹터 신규 확대. 금리 하락 사이클에서 주택 수요 회복 베팅(Abel 체제의 매크로 콜).",
+            "our_takeaway": "정훈 미보유 섹터. 참고점 = 버크셔가 금리 인하 국면을 '금융주 축소 + 경기민감 소비재(주택·항공·백화점) 확대'로 해석 — 우리 매크로 데스크의 금리인하 서사와 교차 참고 가능.",
             "tag": "검증"
           },
           {
-            "cusip": "02079K107",
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 3585215,
-            "shares_delta_pct": null,
-            "value_to": 1028454775,
-            "rationale": "클래스A 신규까지 추가 — 양대 클래스로 익스포저 확대.",
-            "our_takeaway": "GOOGL 겹침 강화 신호. 우리 최대 확신주와 대가 최대 신규가 일치.",
-            "tag": "검증"
-          },
-          {
-            "cusip": "55616P104",
-            "issuer": "MACYS INC",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 3038355,
-            "shares_delta_pct": null,
-            "value_to": 54963842,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G0403H108",
-            "issuer": "AON PLC",
+            "cusip": "21036P108",
+            "issuer": "CONSTELLATION BRANDS INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 3602995,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G9001E102",
-            "issuer": "LIBERTY LATIN AMERICA LTD",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 2396665,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "92826C839",
-            "issuer": "VISA INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 8297460,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "결제 금융 비중 축소(밸류·성장 성숙).",
-            "our_takeaway": "우리 미보유. 금융 정리 = 방어적 현금 선호와 같은 결.",
-            "tag": "검증"
-          },
-          {
-            "cusip": "16119P108",
-            "issuer": "CHARTER COMMUNICATIONS INC N",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1060882,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "25754A201",
-            "issuer": "DOMINOS PIZZA INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 3350000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "57636Q104",
-            "issuer": "MASTERCARD INCORPORATED",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 3986648,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "Visa와 동반 결제망 청산.",
-            "our_takeaway": "우리 미보유. 성숙 컴파운더도 비중 줄이는 '신중' 분기 신호.",
-            "tag": "검증"
-          },
-          {
-            "cusip": "047726302",
-            "issuer": "ATLANTA BRAVES HLDGS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 115428,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G0176J109",
-            "issuer": "ALLEGION PLC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 780133,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "023135106",
-            "issuer": "AMAZON COM INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 2276000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "Abel 재편·현금화. 저비중 기술주 정리.",
-            "our_takeaway": "우리 미보유. 대가의 빅테크 선별(알파벳 집중 vs 아마존 청산) = 무차별 AI 강세 아님에 주목.",
-            "tag": "검증"
-          },
-          {
-            "cusip": "422806208",
-            "issuer": "HEICO CORP NEW",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1294612,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "91324P102",
-            "issuer": "UNITEDHEALTH GROUP INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 5039564,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "헬스 익스포저 정리(규제·실적 불확실). Q2'25 신규 후 조기 청산.",
-            "our_takeaway": "우리 미보유. 대가도 빠르게 손절 — 컨빅션 없는 신규는 접는다는 규율 참고.",
-            "tag": "검증"
-          },
-          {
-            "cusip": "G9001E128",
-            "issuer": "LIBERTY LATIN AMERICA LTD",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1284020,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "531229755",
-            "issuer": "LIBERTY MEDIA CORP DEL",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 3018555,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "512816109",
-            "issuer": "LAMAR ADVERTISING CO NEW",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1202410,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "25243Q205",
-            "issuer": "DIAGEO PLC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 227750,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "73278L105",
-            "issuer": "POOL CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 3068885,
+            "shares_from": 632890,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -13658,12 +13446,51 @@ window.APP_DATA = {
             "issuer": "ALPHABET INC",
             "ticker": "GOOGL",
             "action": "ADD",
-            "shares_from": 17846142,
-            "shares_to": 54249798,
-            "shares_delta_pct": 204.0,
-            "value_to": 15600071913,
-            "rationale": "버핏 개인 주도 신규→3배 증액. AI capex를 이익으로 전환할 '승자' 확신, 늦게 산 걸 후회.",
-            "our_takeaway": "우리 GOOGL ⭐5 컨빅션과 정합 — Great Pivot 가속. 단 과신 견제(우리가 이미 ⭐5인데 대가 추종으로 별점 못 올림, report_v54:82 가드레일). MANGOS 우회로(§10-3) 강세 보강.",
+            "shares_from": 54249798,
+            "shares_to": 78791167,
+            "shares_delta_pct": 45.2,
+            "value_to": 28157599351,
+            "rationale": "Abel 체제 첫 순매수 분기(14분기 연속 순매도 종료, 순매수 ~$19.8B). 알파벳 자사주 매입은 대부분 6월 $10B 사모(private placement) 형태 + 공개시장 매수 병행 — A클래스 +45.2%(5,425만→7,879만주).",
+            "our_takeaway": "우리 GOOGL ⭐5와 정합 — 버핏 개인 주도 확신(Q1)이 Abel 체제에서도 유지·확대. 단 과신 견제 유지(report_v54:82 가드레일, 이미 ⭐5인 종목 추가 상향 금지).",
+            "tag": "검증"
+          },
+          {
+            "cusip": "02079K107",
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "action": "ADD",
+            "shares_from": 3585215,
+            "shares_to": 27188433,
+            "shares_delta_pct": 658.3,
+            "value_to": 9606489032,
+            "rationale": "C클래스 +658.3%(359만→2,719만주) — A+C 합산 5,783만→10,598만주(+83.2%, $28.2B), 알파벳이 사상 처음 버크셔 top5(AAPL·AXP·KO·GOOGL·BAC) 진입. 대부분 6월 $10B 사모 배정분(공개시장 대비 약 6% 낮은 가격)으로 추정.",
+            "our_takeaway": "합산 관점에서 GOOGL이 버크셔 3대 성장축(AAPL 정체·AXP 안정) 중 유일한 순증 포지션. §10-3 MANGOS 우회로 강세 재확인.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "247361702",
+            "issuer": "DELTA AIR LINES INC",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 39809456,
+            "shares_to": 57320000,
+            "shares_delta_pct": 44.0,
+            "value_to": 5368591200,
+            "rationale": "델타항공 +44.0%(3,981만→5,732만주, $5.4B) — 항공 재진입 확대. 舊 버핏 '2020 항공 전량손절' 트랙레코드와 대비되는 재평가(팬데믹 후 항공 수요·가격결정력 회복 판단).",
+            "our_takeaway": "정훈 7/7 TSLA 매도와 무관. 참고점 = 대가도 틀렸다가 재진입하는 사례 — 항공 전량손절(2020)이 '영구 오판'이 아니라 국면판단이었음을 보여줌(도트린 '대가도 틀린다' 양면 서술).",
+            "tag": "검증"
+          },
+          {
+            "cusip": "526057104",
+            "issuer": "LENNAR CORP",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 10099642,
+            "shares_to": 13111741,
+            "shares_delta_pct": 29.8,
+            "value_to": 1186481443,
+            "rationale": "D.R.호턴 신규 + 레나 두 클래스 합산 +29.8%/+25.4% — 주택건설 섹터 신규 확대. 금리 하락 사이클에서 주택 수요 회복 베팅(Abel 체제의 매크로 콜).",
+            "our_takeaway": "정훈 미보유 섹터. 참고점 = 버크셔가 금리 인하 국면을 '금융주 축소 + 경기민감 소비재(주택·항공·백화점) 확대'로 해석 — 우리 매크로 데스크의 금리인하 서사와 교차 참고 가능.",
             "tag": "검증"
           },
           {
@@ -13671,23 +13498,23 @@ window.APP_DATA = {
             "issuer": "NEW YORK TIMES CO MTN BE",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 5065744,
-            "shares_to": 15146535,
-            "shares_delta_pct": 199.0,
-            "value_to": 1268219376,
+            "shares_from": 15146535,
+            "shares_to": 15700000,
+            "shares_delta_pct": 3.7,
+            "value_to": 1098686000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "526057104",
-            "issuer": "LENNAR CORP",
+            "cusip": "55616P104",
+            "issuer": "MACYS INC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 7050950,
-            "shares_to": 10099642,
-            "shares_delta_pct": 43.2,
-            "value_to": 877052911,
+            "shares_from": 3038355,
+            "shares_to": 7347426,
+            "shares_delta_pct": 141.8,
+            "value_to": 173031882,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -13697,126 +13524,126 @@ window.APP_DATA = {
             "issuer": "LENNAR CORP",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 180980,
-            "shares_to": 237703,
-            "shares_delta_pct": 31.3,
-            "value_to": 19995576,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
+            "shares_from": 237703,
+            "shares_to": 298117,
+            "shares_delta_pct": 25.4,
+            "value_to": 26445959,
+            "rationale": "D.R.호턴 신규 + 레나 두 클래스 합산 +29.8%/+25.4% — 주택건설 섹터 신규 확대. 금리 하락 사이클에서 주택 수요 회복 베팅(Abel 체제의 매크로 콜).",
+            "our_takeaway": "정훈 미보유 섹터. 참고점 = 버크셔가 금리 인하 국면을 '금융주 축소 + 경기민감 소비재(주택·항공·백화점) 확대'로 해석 — 우리 매크로 데스크의 금리인하 서사와 교차 참고 가능.",
+            "tag": "검증"
           },
           {
             "cusip": "060505104",
-            "issuer": "BANK AMERICA CORP",
+            "issuer": "BANK OF AMER CORP",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 517295934,
-            "shares_to": 513624165,
-            "shares_delta_pct": -0.7,
-            "value_to": 25039178044,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "166764100",
-            "issuer": "CHEVRON CORPORATION",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 130156362,
-            "shares_to": 84375856,
-            "shares_delta_pct": -35.2,
-            "value_to": 17457364606,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
+            "shares_from": 513624165,
+            "shares_to": 483394015,
+            "shares_delta_pct": -5.9,
+            "value_to": 27543790975,
+            "rationale": "뱅크오브아메리카 -5.9%(5.14억→4.83억주) — 캐피탈원(-58%)·앨라이파이낸셜(-6.9%)과 함께 금융 섹터 전방위 축소. 금리 하락 국면에서 은행 순이자마진(NIM) 민감도 회피로 해석(BofA 순이자수익, 금리 100bp 하락 시 12개월 약 $2B 감소 추정).",
+            "our_takeaway": "정훈 포트 직접 겹침 없음. 참고점 = 버크셔가 '금융 축소·AI 플랫폼 확대'로 섹터 배분을 재편 중 — 우리의 AI·빅테크 88.1% 집중(플레이북 8/14)과 방향은 같으나, 버크셔는 동시에 현금 $381.7B(12분기 연속 순매도 후 반전)를 쌓아 방어선도 유지한다는 점이 다르다.",
+            "tag": "검증"
           },
           {
             "cusip": "23918K108",
             "issuer": "DAVITA INC",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 31759065,
-            "shares_to": 30100585,
-            "shares_delta_pct": -5.2,
-            "value_to": 4626158909,
+            "shares_from": 30100585,
+            "shares_to": 28880209,
+            "shares_delta_pct": -4.1,
+            "value_to": 6425268898,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "530909308",
-            "issuer": "LIBERTY LIVE HOLDINGS INC",
+            "cusip": "501044101",
+            "issuer": "KROGER CO",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 10917661,
-            "shares_to": 10587143,
-            "shares_delta_pct": -3.0,
-            "value_to": 996356028,
+            "shares_from": 50000000,
+            "shares_to": 39000000,
+            "shares_delta_pct": -22.0,
+            "value_to": 2165670000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
+          },
+          {
+            "cusip": "02005N100",
+            "issuer": "ALLY FINL INC",
+            "ticker": null,
+            "action": "TRIM",
+            "shares_from": 29000000,
+            "shares_to": 27000000,
+            "shares_delta_pct": -6.9,
+            "value_to": 1240650000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "14040H105",
+            "issuer": "CAPITAL ONE FINL CORP",
+            "ticker": null,
+            "action": "TRIM",
+            "shares_from": 7150000,
+            "shares_to": 3000000,
+            "shares_delta_pct": -58.0,
+            "value_to": 601860000,
+            "rationale": "캐피탈원 -58%(715만→300만주) — 디스커버 합병 후 신용카드 대손충당 부담 우려·금융 섹터 전반 축소의 일환.",
+            "our_takeaway": "정훈 미보유. 참고 없음.",
+            "tag": "검증"
           },
           {
             "cusip": "670346105",
             "issuer": "NUCOR CORP",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 6407749,
-            "shares_to": 3907075,
-            "shares_delta_pct": -39.0,
-            "value_to": 660686383,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "21036P108",
-            "issuer": "CONSTELLATION BRANDS INC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 13000000,
-            "shares_to": 632890,
-            "shares_delta_pct": -95.1,
-            "value_to": 94933500,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
+            "shares_from": 3907075,
+            "shares_to": 1857752,
+            "shares_delta_pct": -52.5,
+            "value_to": 413814258,
+            "rationale": "뉴코어(철강) -52.5%(390만→186만주) — 포트 24위·비중 0.1%로 축소, 경기민감 산업재 비중 축소.",
+            "our_takeaway": "정훈 미보유. 참고 없음 — 단 방산·전력 인프라(두산로보·현대차)와 달리 버크셔는 산업재 익스포저를 줄이는 중이라는 대조점.",
+            "tag": "검증"
           }
         ],
         "overlap_with_holdings": [
           {
             "ticker": "AAPL",
             "issuer": "APPLE INC",
-            "value_to": 57843260493,
+            "value_to": 65950296923,
             "shares_to": 227917808,
             "shares_from": 227917808,
             "action": "HOLD",
             "shares_delta_pct": 0.0,
-            "our_takeaway": "[검증] 3분기 연속 트림 후 Q1 홀드(비중 22% 1위 유지). 우리 AAPL 트림 집행(7/6 완료)과 방향 정합 — 대가도 '줄이되 안 버림'. §10-4 애플 낙오 논지 지지."
+            "our_takeaway": "[검증] 2분기 연속 홀드(Q1·Q2 모두 227,917,808주 불변, 비중 22.04%·1위 유지). 버핏 본인 발언: '가격이 내려오면 더 살 의향' — 그러나 주가가 오히려 상승해 추가매수 안 함(Motley Fool 7/22). 애플 자사주매입으로 유통주식이 줄며 버크셔 지분율은 '가만히 있어도' 서서히 상승 중. 우리 AAPL 트림 집행(7/6 완료)과 방향은 다르나(우리는 축소, 버크셔는 홀드) 둘 다 '전량 정리는 아니다'라는 점에서 §10-4 애플 낙오 논지(성장 둔화하되 포기할 자산은 아님)와 정합."
           },
           {
             "ticker": "GOOGL",
             "issuer": "ALPHABET INC",
-            "value_to": 16628526688,
-            "shares_to": 57835013,
-            "shares_from": 17846142,
+            "value_to": 37764088383,
+            "shares_to": 105979600,
+            "shares_from": 57835013,
             "action": "ADD",
-            "shares_delta_pct": 224.1,
-            "our_takeaway": "[검증] +224% 증액($16.6B). 우리 GOOGL ⭐5와 정합하나 확증편향 견제 대상 — 대가 추종만으로 매수 트리거 삼지 않음(지연 확증 렌즈)."
+            "shares_delta_pct": 83.2,
+            "our_takeaway": "[검증] A+C 합산 +83.2%($16.6B 순증) — 상당 부분이 6월 $10B 사모(공개시장 대비 저가 배정). 우리 GOOGL ⭐5 컨빅션과 정합하나 확증편향 견제 대상(단일출처·대가추종 매수 금지). 대가 컨센서스도 이번 분기 GOOGL '매수' 쪽으로 크게 기움(버핏·드러켄밀러 재진입·로엡 대폭증액 3인 매수 vs 애커먼 Q1 트림 1인, 아래 consensus 참고) — 舊 '분열 종목'에서 이번 분기는 강세 쏠림으로 전환."
           }
         ],
         "themes": [
-          "[검증] Great Pivot to Alphabet — 버핏 개인 콜, AI 데이터센터 capex($180B+)를 '이겨낼 승자' 베팅. \"월가가 파는 것의 90~95%보다 승자일 가능성 높다\"(버핏)",
-          "[검증] 기록적 현금 $381.7B·12분기 연속 순매도 = 밸류에이션 부담장 방어적 신중 시그널",
-          "[검증] Abel 체제 재편 — 금융(Visa·MC)·헬스(UNH)·Amazon 청산, 항공(Delta $2.65B) 재진입"
+          "[검증] 14분기 연속 순매도 종료 — Abel 체제 첫 순매수 분기($19.8B 순매수), 현금은 여전히 기록적($381.7B) 유지하며 선별적 공세",
+          "[검증] 알파벳 최상위권 편입 — $10B 사모 포함 A+C 합산 +83.2%로 top5 신규 진입, AAPL·AXP·KO와 함께 4대 핵심주",
+          "[검증] 금융 섹터 전방위 축소(BofA -5.9%·캐피탈원 -58%·앨라이 -6.9%) ↔ 경기민감 소비재 확대(주택건설 신규·델타항공 +44%·메이시스 +141.8%) — 금리 인하 사이클 베팅으로 해석"
         ],
-        "narrative": "[검증] 2026Q1(공시 5/15) 버크셔 = Abel 체제 첫 대개편. 포트 $274B→$263B·40→26종목으로 압축하며 UNH·Amazon·Visa·Mastercard·Domino's 등 16종목 청산, 현금은 기록적 $381.7B·12분기 연속 순매도. 동시에 알파벳을 3배 증액(+224%)해 ~$41B(7월 기준)로 최상위권 편입 — 버핏이 '내가 직접 시작했다'고 밝힌 이례적 개인 콜. 방어적 현금 축적 ↔ AI 승자 집중이 공존하는 '신중 속 컨빅션' 분기.",
+        "narrative": "[검증] 2026Q2(공시 8/14) 버크셔 = Abel 체제 첫 순매수 전환 분기. 14분기 연속 순매도를 끝내고 $19.8B 순매수, 그 중심이 알파벳(A+C 합산 +83.2%·$16.6B 순증, 상당액이 6월 $10B 사모)로 사상 첫 top5 진입. 동시에 애플은 2분기 연속 완전 홀드(2.28억주 불변)로 '더 사지도 더 팔지도 않는' 국면 지속. 금융주(BofA·캐피탈원·앨라이)는 계속 축소하되 경기민감 소비재(주택건설·델타항공·메이시스)는 확대 — 금리 인하를 겨냥한 섹터 재배분과 알파벳 확신이 공존하는 분기. 현금은 $381.7B로 여전히 역대급이라 '신중 속 선별 공세' 기조는 유지.",
         "sources": [
+          "SEC EDGAR 13F-HR acc 0001193125-26-352200 (2026-06-30)",
           "SEC EDGAR 13F-HR acc 0001193125-26-226661 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001193125-26-054580 (2025-12-31)",
-          "SEC EDGAR 13F-HR acc 0001193125-25-282901 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0000950123-25-008343 (2025-06-30)"
+          "SEC EDGAR 13F-HR acc 0001193125-25-282901 (2025-09-30)"
         ]
       },
       "scion": {
@@ -13916,32 +13743,6 @@ window.APP_DATA = {
               }
             ]
           },
-          "116794207": {
-            "issuer": "BRUKER CORP",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2024-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-03-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 48334,
-                "pct": 19.28
-              }
-            ]
-          },
           "78442P106": {
             "issuer": "SLM CORP",
             "ticker": null,
@@ -13965,6 +13766,32 @@ window.APP_DATA = {
                 "quarter": "2025-09-30",
                 "shares": 480054,
                 "pct": 19.5
+              }
+            ]
+          },
+          "116794207": {
+            "issuer": "BRUKER CORP",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2024-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-03-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-06-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 48334,
+                "pct": 19.28
               }
             ]
           }
@@ -14010,45 +13837,6 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "518439104",
-            "issuer": "LAUDER ESTEE COS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 150000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "58733R102",
-            "issuer": "MERCADOLIBRE INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 3000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "116794108",
-            "issuer": "BRUKER CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 250000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
             "cusip": "75886F107",
             "issuer": "REGENERON PHARMACEUTICALS",
             "ticker": null,
@@ -14075,6 +13863,45 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
+            "cusip": "116794108",
+            "issuer": "BRUKER CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 250000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "518439104",
+            "issuer": "LAUDER ESTEE COS INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 150000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "58733R102",
+            "issuer": "MERCADOLIBRE INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 3000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
             "cusip": "550021109",
             "issuer": "LULULEMON ATHLETICA INC",
             "ticker": null,
@@ -14090,10 +13917,11 @@ window.APP_DATA = {
         ],
         "overlap_with_holdings": [],
         "themes": [
-          "[검증] AI 트레이드 과열 = 풋으로 숏(NVDA·PLTR) — 우리 포트의 반대편 시각",
+          "[검증] 2025Q3 = 영구 최종 공시 — SEC 등록 자진 말소(2025-11-10)로 향후 13F 공시 의무 자체가 소멸, '저빈도 제출자'가 아니라 '공개 트랙 완전 이탈'로 정정",
+          "[검증] AI 트레이드 과열 = 풋으로 숏(NVDA·PLTR) — 우리 포트의 반대편 시각, 이 포지션이 이후 어떻게 됐는지는 영구히 비공개",
           "[검증] 방어·가치(헬스케어·소비) 소량 롱 = 리스크오프 포지셔닝"
         ],
-        "narrative": "[검증] 2025Q3(최신 공시·이후 미제출) — 포트 ~80%가 NVDA·팔란티어 '풋옵션' = AI 과열 고확신 베어 베팅. 주식은 룰루레몬 2배(10만주)·SLM·몰리나(헬스케어) 등 방어·가치로 소폭. Scion은 13F 산발 제출.",
+        "narrative": "[검증] 2025Q3(2025-09-30, 최신이자 최종 공시)가 버리의 마지막 13F다. Scion Asset Management는 2025-11-10 SEC 등록을 자진 말소(deregister)했다 — 2025-10-27 투자자 서한에서 '연말까지 펀드 청산·자본 반환' 발표 후 2025-11-03 마지막 의무 제출을 끝으로 공개 13F 트랙을 완전히 벗어났다(Bloomberg·Sherwood News·WealthAdvisor 교차검증 [검증]). 패밀리오피스로 전환해 비공개 운용 가능성이 거론되며, 버리는 구독형 뉴스레터 'Cassandra Unchained'를 출시(첫날 2만+ 구독)해 공개 코멘터리로 활동 무대를 옮겼다. 포트 마지막 스냅샷 = ~80% NVDA·팔란티어 풋옵션(AI 과열 베어 베팅) + 룰루레몬·SLM·몰리나 등 소액 방어주 롱.",
         "sources": [
           "SEC EDGAR 13F-HR acc 0001649339-25-000007 (2025-09-30)",
           "SEC EDGAR 13F-HR acc 0001879202-25-000038 (2025-06-30)",
@@ -14105,108 +13933,108 @@ window.APP_DATA = {
         "name": "Duquesne Family Office LLC",
         "style": "매크로·모멘텀 — AI 사이클 타이밍",
         "cik": "0001536411",
-        "filing_date": "2026-05-15",
-        "quarter": "2026-03-31",
-        "prev_quarter": "2025-12-31",
-        "portfolio_value_usd": 2937172000,
-        "positions": 65,
-        "options_latest": 5,
+        "filing_date": "2026-08-14",
+        "quarter": "2026-06-30",
+        "prev_quarter": "2026-03-31",
+        "portfolio_value_usd": 4354220000,
+        "positions": 86,
+        "options_latest": 9,
         "top_positions": [
           {
             "cusip": "632307104",
             "issuer": "Natera Inc",
             "ticker": null,
-            "value_usd": 612691000,
-            "shares": 3063606,
-            "pct": 20.86
-          },
-          {
-            "cusip": "457669307",
-            "issuer": "Insmed Inc",
-            "ticker": null,
-            "value_usd": 188717000,
-            "shares": 1154090,
-            "pct": 6.43
+            "value_usd": 864923000,
+            "shares": 3186306,
+            "pct": 19.86
           },
           {
             "cusip": "874039100",
             "issuer": "Taiwan Semiconductor Manufac",
             "ticker": null,
-            "value_usd": 167380000,
-            "shares": 495280,
-            "pct": 5.7
-          },
-          {
-            "cusip": "984245100",
-            "issuer": "Ypf Sociedad Anonima",
-            "ticker": null,
-            "value_usd": 149566000,
-            "shares": 3235962,
-            "pct": 5.09
-          },
-          {
-            "cusip": "464286400",
-            "issuer": "Ishares Inc",
-            "ticker": null,
-            "value_usd": 131915000,
-            "shares": 3436170,
-            "pct": 4.49
-          },
-          {
-            "cusip": "G0896C103",
-            "issuer": "Bbb Foods Inc",
-            "ticker": null,
-            "value_usd": 109972000,
-            "shares": 3109202,
-            "pct": 3.74
-          },
-          {
-            "cusip": "013872106",
-            "issuer": "Alcoa Corp",
-            "ticker": null,
-            "value_usd": 99057000,
-            "shares": 1493390,
-            "pct": 3.37
-          },
-          {
-            "cusip": "N62509109",
-            "issuer": "Newamsterdam Pharma Company",
-            "ticker": null,
-            "value_usd": 98275000,
-            "shares": 3070146,
-            "pct": 3.35
-          },
-          {
-            "cusip": "81141R100",
-            "issuer": "Sea Ltd",
-            "ticker": null,
-            "value_usd": 91083000,
-            "shares": 1099905,
-            "pct": 3.1
+            "value_usd": 281613000,
+            "shares": 589680,
+            "pct": 6.47
           },
           {
             "cusip": "861012102",
             "issuer": "Stmicroelectronics N V",
             "ticker": null,
-            "value_usd": 90275000,
-            "shares": 2612880,
-            "pct": 3.07
+            "value_usd": 232375000,
+            "shares": 3102880,
+            "pct": 5.34
           },
           {
-            "cusip": "980745103",
-            "issuer": "Woodward Inc",
+            "cusip": "457669307",
+            "issuer": "Insmed Inc",
             "ticker": null,
-            "value_usd": 75648000,
-            "shares": 211355,
-            "pct": 2.58
+            "value_usd": 151900000,
+            "shares": 1424690,
+            "pct": 3.49
           },
           {
-            "cusip": "881624209",
-            "issuer": "Teva Pharmaceutical Inds Ltd",
+            "cusip": "984245100",
+            "issuer": "Ypf Sociedad Anonima",
             "ticker": null,
-            "value_usd": 71604000,
-            "shares": 2377285,
-            "pct": 2.44
+            "value_usd": 142726000,
+            "shares": 3138897,
+            "pct": 3.28
+          },
+          {
+            "cusip": "023135106",
+            "issuer": "Amazon Com Inc",
+            "ticker": null,
+            "value_usd": 129085000,
+            "shares": 541600,
+            "pct": 2.96
+          },
+          {
+            "cusip": "G0896C103",
+            "issuer": "Bbb Foods Inc",
+            "ticker": null,
+            "value_usd": 120915000,
+            "shares": 2901733,
+            "pct": 2.78
+          },
+          {
+            "cusip": "02079K305",
+            "issuer": "Alphabet Inc",
+            "ticker": "GOOGL",
+            "value_usd": 120184000,
+            "shares": 336300,
+            "pct": 2.76
+          },
+          {
+            "cusip": "464286400",
+            "issuer": "Ishares Inc",
+            "ticker": null,
+            "value_usd": 118548000,
+            "shares": 3436170,
+            "pct": 2.72
+          },
+          {
+            "cusip": "G7997R103",
+            "issuer": "Seagate Technology Hldngs Pl",
+            "ticker": null,
+            "value_usd": 117730000,
+            "shares": 122000,
+            "pct": 2.7
+          },
+          {
+            "cusip": "35137L105",
+            "issuer": "Fox Corp",
+            "ticker": null,
+            "value_usd": 114992000,
+            "shares": 2204600,
+            "pct": 2.64
+          },
+          {
+            "cusip": "910047109",
+            "issuer": "United Airls Hldgs Inc",
+            "ticker": null,
+            "value_usd": 108084000,
+            "shares": 794795,
+            "pct": 2.48
           }
         ],
         "trajectory": {
@@ -14214,11 +14042,6 @@ window.APP_DATA = {
             "issuer": "Bbb Foods Inc",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 360550,
-                "pct": 0.26
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 1183125,
@@ -14233,188 +14056,11 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 3109202,
                 "pct": 3.74
-              }
-            ]
-          },
-          "632307104": {
-            "issuer": "Natera Inc",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 3085190,
-                "pct": 13.32
               },
               {
-                "quarter": "2025-09-30",
-                "shares": 3214532,
-                "pct": 13.16
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 2511357,
-                "pct": 13.63
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3063606,
-                "pct": 20.86
-              }
-            ]
-          },
-          "595112103": {
-            "issuer": "Micron Technology Inc",
-            "ticker": "MU",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 23400,
-                "pct": 0.27
-              }
-            ]
-          },
-          "11135F101": {
-            "issuer": "Broadcom Inc",
-            "ticker": "AVGO",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 86140,
-                "pct": 0.61
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 195955,
-                "pct": 2.06
-              }
-            ]
-          },
-          "N62509109": {
-            "issuer": "Newamsterdam Pharma Company",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 832175,
-                "pct": 0.39
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 1923700,
-                "pct": 1.39
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 3070146,
-                "pct": 2.55
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3070146,
-                "pct": 3.35
-              }
-            ]
-          },
-          "457669307": {
-            "issuer": "Insmed Inc",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 2253435,
-                "pct": 5.79
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 2423435,
-                "pct": 8.88
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1481752,
-                "pct": 6.11
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 1154090,
-                "pct": 6.43
-              }
-            ]
-          },
-          "874039100": {
-            "issuer": "Taiwan Semiconductor Manufac",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 765085,
-                "pct": 4.43
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 765085,
-                "pct": 5.44
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 543085,
-                "pct": 3.91
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 495280,
-                "pct": 5.7
-              }
-            ]
-          },
-          "464286400": {
-            "issuer": "Ishares Inc",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 738800,
-                "pct": 0.54
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 3552575,
-                "pct": 2.67
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3436170,
-                "pct": 4.49
+                "quarter": "2026-06-30",
+                "shares": 2901733,
+                "pct": 2.78
               }
             ]
           },
@@ -14422,11 +14068,6 @@ window.APP_DATA = {
             "issuer": "Ypf Sociedad Anonima",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 703995,
-                "pct": 0.57
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 114695,
@@ -14441,18 +14082,122 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 3235962,
                 "pct": 5.09
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 3138897,
+                "pct": 3.28
               }
             ]
           },
-          "013872106": {
-            "issuer": "Alcoa Corp",
+          "023135106": {
+            "issuer": "Amazon Com Inc",
             "ticker": null,
             "series": [
               {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
+                "quarter": "2025-09-30",
+                "shares": 437070,
+                "pct": 2.44
               },
+              {
+                "quarter": "2025-12-31",
+                "shares": 737940,
+                "pct": 4.04
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 45800,
+                "pct": 0.32
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 541600,
+                "pct": 2.96
+              }
+            ]
+          },
+          "632307104": {
+            "issuer": "Natera Inc",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 3214532,
+                "pct": 13.16
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 2511357,
+                "pct": 13.63
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 3063606,
+                "pct": 20.86
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 3186306,
+                "pct": 19.86
+              }
+            ]
+          },
+          "874039100": {
+            "issuer": "Taiwan Semiconductor Manufac",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 765085,
+                "pct": 5.44
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 543085,
+                "pct": 3.91
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 495280,
+                "pct": 5.7
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 589680,
+                "pct": 6.47
+              }
+            ]
+          },
+          "457669307": {
+            "issuer": "Insmed Inc",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 2423435,
+                "pct": 8.88
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1481752,
+                "pct": 6.11
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1154090,
+                "pct": 6.43
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 1424690,
+                "pct": 3.49
+              }
+            ]
+          },
+          "861012102": {
+            "issuer": "Stmicroelectronics N V",
+            "ticker": null,
+            "series": [
               {
                 "quarter": "2025-09-30",
                 "shares": 0,
@@ -14460,625 +14205,253 @@ window.APP_DATA = {
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 1376050,
-                "pct": 1.73
+                "shares": 773555,
+                "pct": 0.48
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 1493390,
-                "pct": 3.37
+                "shares": 2612880,
+                "pct": 3.07
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 3102880,
+                "pct": 5.34
+              }
+            ]
+          },
+          "02079K305": {
+            "issuer": "Alphabet Inc",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 102200,
+                "pct": 0.63
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 385000,
+                "pct": 2.86
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 336300,
+                "pct": 2.76
               }
             ]
           }
         },
         "moves": [
           {
-            "cusip": "11135F101",
-            "issuer": "Broadcom Inc",
-            "ticker": "AVGO",
+            "cusip": "02079K305",
+            "issuer": "Alphabet Inc",
+            "ticker": "GOOGL",
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 195955,
+            "shares_to": 336300,
             "shares_delta_pct": null,
-            "value_to": 60650000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
+            "value_to": 120184000,
+            "rationale": "GOOGL 신규 $120.2M(336,300주) — Q1에 전량청산(38.5만주)했던 걸 Q2에 재진입. 동시에 Q1 신규였던 AVGO·MU를 이번 분기 전량청산(아래 참고)해 '메가캡→인프라' 로테이션을 다시 '인프라→메가캡'으로 되돌린 셈. 드러켄밀러 특유의 매크로 트레이딩 스타일(포지션을 분기 단위로 뒤집는) 반영.",
+            "our_takeaway": "[검증] GOOGL은 이번 분기 버핏·로엡과 함께 매수 3인 진영으로 쏠림(舊 '분열' 서술 철회). 단 드러켄밀러의 GOOGL은 Q1 전량매도→Q2 재매수의 왕복이라 확신의 깊이는 버핏(3배 증액 유지)보다 얕게 읽어야 함 — '지연 확증 렌즈'의 취약점을 스스로 보여주는 사례(분기마다 뒤집히는 신호를 트리거로 쓰면 안 됨).",
+            "tag": "검증"
           },
           {
-            "cusip": "37950E259",
-            "issuer": "Global X Fds",
+            "cusip": "35137L105",
+            "issuer": "Fox Corp",
             "ticker": null,
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 387400,
+            "shares_to": 2204600,
             "shares_delta_pct": null,
-            "value_to": 36152000,
+            "value_to": 114992000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "142152107",
-            "issuer": "Caris Life Sciences Inc",
+            "cusip": "12514G108",
+            "issuer": "Cdw Corp",
             "ticker": null,
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 1894450,
+            "shares_to": 743950,
             "shares_delta_pct": null,
-            "value_to": 33873000,
+            "value_to": 104629000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "76155X100",
-            "issuer": "Revolution Medicines Inc",
+            "cusip": "G11448100",
+            "issuer": "Bitdeer Technologies Group",
             "ticker": null,
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 315860,
+            "shares_to": 4074993,
             "shares_delta_pct": null,
-            "value_to": 30717000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "80004C200",
-            "issuer": "Sandisk Corp",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 38155,
-            "shares_delta_pct": null,
-            "value_to": 24241000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "444859102",
-            "issuer": "Humana Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 137505,
-            "shares_delta_pct": null,
-            "value_to": 23842000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "90138F102",
-            "issuer": "Twilio Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 181760,
-            "shares_delta_pct": null,
-            "value_to": 22869000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "466313103",
-            "issuer": "Jabil Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 82200,
-            "shares_delta_pct": null,
-            "value_to": 21835000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "46428R107",
-            "issuer": "Ishares S&P Gsci Commodity-",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 643000,
-            "shares_delta_pct": null,
-            "value_to": 20737000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G54950103",
-            "issuer": "Linde Plc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 41200,
-            "shares_delta_pct": null,
-            "value_to": 20425000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G7997R103",
-            "issuer": "Seagate Technology Hldngs Pl",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 50700,
-            "shares_delta_pct": null,
-            "value_to": 19862000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "67080N101",
-            "issuer": "Nuvation Bio Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 4539800,
-            "shares_delta_pct": null,
-            "value_to": 19476000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "458140100",
-            "issuer": "Intel Corp",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 411400,
-            "shares_delta_pct": null,
-            "value_to": 18155000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "07782B104",
-            "issuer": "Belite Bio Inc Sponsored",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 106100,
-            "shares_delta_pct": null,
-            "value_to": 16917000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "042068205",
-            "issuer": "Arm Holdings Plc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 106700,
-            "shares_delta_pct": null,
-            "value_to": 16142000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "68062P106",
-            "issuer": "Olema Pharmaceuticals Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 986827,
-            "shares_delta_pct": null,
-            "value_to": 14714000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "74743L100",
-            "issuer": "Qnity Electronics Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 125655,
-            "shares_delta_pct": null,
-            "value_to": 14498000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "98420N105",
-            "issuer": "Xenon Pharmaceuticals Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 238600,
-            "shares_delta_pct": null,
-            "value_to": 13875000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "N4732M103",
-            "issuer": "Jbs N.V.",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 655900,
-            "shares_delta_pct": null,
-            "value_to": 11780000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "18915M107",
-            "issuer": "Cloudflare Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 52535,
-            "shares_delta_pct": null,
-            "value_to": 10840000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "N53745100",
-            "issuer": "Lyondellbasell Industries Nv",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 131435,
-            "shares_delta_pct": null,
-            "value_to": 10588000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "92837L109",
-            "issuer": "Vista Energy S.A.B. De C.V.",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 134700,
-            "shares_delta_pct": null,
-            "value_to": 10166000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "90184D100",
-            "issuer": "Twist Bioscience Corp",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 206000,
-            "shares_delta_pct": null,
-            "value_to": 9789000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "19247G107",
-            "issuer": "Coherent Corp",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 40400,
-            "shares_delta_pct": null,
-            "value_to": 9624000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "15101Q207",
-            "issuer": "Celestica Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 33275,
-            "shares_delta_pct": null,
-            "value_to": 9373000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "23306J309",
-            "issuer": "Dbv Technologies S A Sponsored",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 383363,
-            "shares_delta_pct": null,
-            "value_to": 8008000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "595112103",
-            "issuer": "Micron Technology Inc",
-            "ticker": "MU",
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 23400,
-            "shares_delta_pct": null,
-            "value_to": 7905000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "55024U109",
-            "issuer": "Lumentum Hldgs Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 6963,
-            "shares_delta_pct": null,
-            "value_to": 4893000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "83443Q103",
-            "issuer": "Solstice Advanced Matls Inc",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 62525,
-            "shares_delta_pct": null,
-            "value_to": 4762000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "960413102",
-            "issuer": "Westlake Corporation",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 21194,
-            "shares_delta_pct": null,
-            "value_to": 2476000,
+            "value_to": 64670000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
             "cusip": "247361702",
-            "issuer": "Delta Air Lines Inc Del",
+            "issuer": "Delta Air Lines Inc",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 650910,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 603000,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 56477000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "38141G104",
-            "issuer": "Goldman Sachs Group Inc",
+            "cusip": "343412102",
+            "issuer": "Fluor Corp",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 27500,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 982200,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 51457000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "81369Y605",
-            "issuer": "Select Sector Spdr Tr",
+            "cusip": "23331A109",
+            "issuer": "D R Horton Inc",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 5495600,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 299000,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 48701000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "19240Q201",
-            "issuer": "Cogent Biosciences Inc",
+            "cusip": "007903107",
+            "issuer": "Advanced Micro Devices Inc",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 2214470,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 72900,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 42348000,
+            "rationale": "AMD 신규 $42.3M(72,900주) — 반도체 내에서도 GPU/CPU 경쟁 구도 재평가, 엔비디아 대안 벤더 베팅으로 추정.",
+            "our_takeaway": "정훈 미보유(AMD). 참고점 = 반도체 내에서도 드러켄밀러가 메모리(MU)·커스텀칩(AVGO)을 버리고 GPU 경쟁사(AMD)로 갈아탄 것 — '반도체 전체 하차'가 아니라 '반도체 내 종목 교체'임에 유의.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "697435105",
+            "issuer": "Palo Alto Networks Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 116650,
+            "shares_delta_pct": null,
+            "value_to": 39780000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "02079K305",
-            "issuer": "Alphabet Inc",
-            "ticker": "GOOGL",
-            "action": "EXIT",
-            "shares_from": 385000,
-            "shares_to": 0,
+            "cusip": "44812J104",
+            "issuer": "Hut 8 Corp",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 314150,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 36267000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "97785W106",
-            "issuer": "Wolfspeed Inc",
+            "cusip": "35137L204",
+            "issuer": "Fox Corp",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 186900,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 632600,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 29631000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "64073B103",
-            "issuer": "Neptune Ins Hldgs Inc",
+            "cusip": "149568107",
+            "issuer": "Cavco Inds Inc Del",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 20000,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 39500,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 24268000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "74340E103",
-            "issuer": "Progyny Inc",
+            "cusip": "44916Y106",
+            "issuer": "Hyperliquid Strategies Inc",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 295115,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 2941500,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 23150000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "04010E109",
-            "issuer": "Argan Inc",
+            "cusip": "750917106",
+            "issuer": "Rambus Inc Del",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 30000,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 173000,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 22964000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "171757206",
-            "issuer": "Cidara Therapeutics Inc",
+            "cusip": "76243J105",
+            "issuer": "Rhythm Pharmaceuticals Inc",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 49495,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 203618,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 22608000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "256163106",
-            "issuer": "Docusign Inc",
+            "cusip": "830830105",
+            "issuer": "Champion Homes Inc",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1019085,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 254400,
             "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "02376R102",
-            "issuer": "American Airls Group Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 639785,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "74967X103",
-            "issuer": "Rh",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 88200,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "682189105",
-            "issuer": "On Semiconductor Corp",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 536260,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G3643J108",
-            "issuer": "Flutter Entmt Plc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 115245,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "25809K105",
-            "issuer": "Doordash Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 35900,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "00835Q202",
-            "issuer": "Aeva Technologies Inc",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 1824862,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 22418000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15087,11 +14460,76 @@ window.APP_DATA = {
             "cusip": "29362U104",
             "issuer": "Entegris Inc",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 844160,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 118300,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 21277000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "00835Q202",
+            "issuer": "Aeva Technologies Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 720175,
+            "shares_delta_pct": null,
+            "value_to": 20683000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "767292105",
+            "issuer": "Riot Platforms Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 754800,
+            "shares_delta_pct": null,
+            "value_to": 20666000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "29444U700",
+            "issuer": "Equinix Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 18450,
+            "shares_delta_pct": null,
+            "value_to": 19232000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "512807306",
+            "issuer": "Lam Research Corp",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 43600,
+            "shares_delta_pct": null,
+            "value_to": 18893000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "24477V105",
+            "issuer": "Definium Therapeutics Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 356600,
+            "shares_delta_pct": null,
+            "value_to": 16774000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15100,8 +14538,294 @@ window.APP_DATA = {
             "cusip": "46137V357",
             "issuer": "Invesco Exchange Traded Fd T",
             "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 74400,
+            "shares_delta_pct": null,
+            "value_to": 15830000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "88025U109",
+            "issuer": "10X Genomics Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 403100,
+            "shares_delta_pct": null,
+            "value_to": 15455000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "532457108",
+            "issuer": "Eli Lilly & Co",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 12380,
+            "shares_delta_pct": null,
+            "value_to": 14849000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "759916109",
+            "issuer": "Repligen Corp",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 77400,
+            "shares_delta_pct": null,
+            "value_to": 10560000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "77311W101",
+            "issuer": "Rocket Cos Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 652220,
+            "shares_delta_pct": null,
+            "value_to": 10272000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "056752108",
+            "issuer": "Baidu Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 88200,
+            "shares_delta_pct": null,
+            "value_to": 10080000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "146869102",
+            "issuer": "Carvana Co",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 151000,
+            "shares_delta_pct": null,
+            "value_to": 9939000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "75734B100",
+            "issuer": "Reddit Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 56550,
+            "shares_delta_pct": null,
+            "value_to": 9816000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "883556102",
+            "issuer": "Thermo Fisher Scientific Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 19200,
+            "shares_delta_pct": null,
+            "value_to": 9626000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "235851102",
+            "issuer": "Danaher Corp Del",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 50300,
+            "shares_delta_pct": null,
+            "value_to": 9581000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "315616102",
+            "issuer": "F5 Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 22000,
+            "shares_delta_pct": null,
+            "value_to": 9151000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "83056P715",
+            "issuer": "Skeena Res Ltd New",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 300200,
+            "shares_delta_pct": null,
+            "value_to": 8003000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "61225M102",
+            "issuer": "Monte Rosa Therapeutics Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 297600,
+            "shares_delta_pct": null,
+            "value_to": 7202000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "75943R102",
+            "issuer": "Relay Therapeutics Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 349000,
+            "shares_delta_pct": null,
+            "value_to": 6530000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "12510Q100",
+            "issuer": "Ccc Intelligent Solutions Hl",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 1170900,
+            "shares_delta_pct": null,
+            "value_to": 6042000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "91823B109",
+            "issuer": "Uwm Holdings Corporation",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 2583000,
+            "shares_delta_pct": null,
+            "value_to": 5915000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "63942X106",
+            "issuer": "Navitas Semiconductor Corp",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 311100,
+            "shares_delta_pct": null,
+            "value_to": 5575000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "G3730V105",
+            "issuer": "Ftai Aviation Ltd",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 20200,
+            "shares_delta_pct": null,
+            "value_to": 5465000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "07373V105",
+            "issuer": "Beam Therapeutics Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 153600,
+            "shares_delta_pct": null,
+            "value_to": 5272000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "051774107",
+            "issuer": "Aurora Innovation Inc",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 633700,
+            "shares_delta_pct": null,
+            "value_to": 4322000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "Q4982L109",
+            "issuer": "Iren Limited",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 87100,
+            "shares_delta_pct": null,
+            "value_to": 3983000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "399909100",
+            "issuer": "Grupo Financiero Galicia S.A",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 59500,
+            "shares_delta_pct": null,
+            "value_to": 2977000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "093712107",
+            "issuer": "Bloom Energy Corp",
+            "ticker": null,
             "action": "EXIT",
-            "shares_from": 1173925,
+            "shares_from": 136320,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15110,11 +14834,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "464287234",
-            "issuer": "Ishares Tr",
+            "cusip": "N53745100",
+            "issuer": "Lyondellbasell Industries Nv",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 902500,
+            "shares_from": 131435,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15123,11 +14847,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "169656105",
-            "issuer": "Chipotle Mexican Grill Inc",
+            "cusip": "278768106",
+            "issuer": "Echostar Corp",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 391930,
+            "shares_from": 60765,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15136,11 +14860,24 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "98954M200",
-            "issuer": "Zillow Group Inc",
+            "cusip": "11135F101",
+            "issuer": "Broadcom Inc",
+            "ticker": "AVGO",
+            "action": "EXIT",
+            "shares_from": 195955,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "AVGO 전량청산(195,955주 전량, Q1 신규분을 한 분기 만에 정리) — GOOGL 재매수 자금원으로 추정(포트 내 스왑 성격). ⚠️舊 문서의 'AVGO 신규 $60.6M'은 Q1 스냅샷이었고 Q2엔 이미 사라짐 — 데이터 신선도 주의.",
+            "our_takeaway": "[검증] 우리 AVGO 보유와 배치되는 최신 신호. 단 같은 분기 테퍼는 AVGO 신규 진입(아래 참고) — 대가 사이에서도 AVGO는 갈림. AI 네트워킹/커스텀칩 '삽' 테마 자체가 훼손된 게 아니라 드러켄밀러의 초단기 로테이션 스타일 문제로 해석.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "020398707",
+            "issuer": "Almonty Inds Inc",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 192640,
+            "shares_from": 469880,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15149,11 +14886,232 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "718172109",
-            "issuer": "Philip Morris Intl Inc",
+            "cusip": "86384P109",
+            "issuer": "Stubhub Hldgs Inc",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 67400,
+            "shares_from": 1367177,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "19247G107",
+            "issuer": "Coherent Corp",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 40400,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "90184D100",
+            "issuer": "Twist Bioscience Corp",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 206000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "466313103",
+            "issuer": "Jabil Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 82200,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "444859102",
+            "issuer": "Humana Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 137505,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "595112103",
+            "issuer": "Micron Technology Inc",
+            "ticker": "MU",
+            "action": "EXIT",
+            "shares_from": 23400,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "MU 전량청산(23,400주 전량, Q1 신규 진입분을 한 분기 만에 정리) — AVGO·인텔·래티스세미·코히런트·셀레스티카 등 반도체 다수와 함께 청산. 7월 메모리주 급락(테퍼도 같은 시기 MU -41.4% 트림, CNBC 7월 '메모리 섹터 전반 조정 16%' 언급)을 앞서 피한 타이밍으로 사후 해석 가능하나, 드러켄밀러 본인의 명시적 코멘트는 확인 안 됨.",
+            "our_takeaway": "[정황·미확인 개별사유] 우리 MU 보유·§10-2 메모리 사이클 강세론과 정면 배치 — 대가 4인 중 드러켄밀러·애커먼(Q1 데이터, 미갱신) 계열은 신중, 테퍼는 트림(비중 유지), 우리는 홀드. '한 분기 만에 신규→전량청산'은 드러켄밀러 스타일 자체가 매크로 트레이딩(장기 확신 아님)이라는 걸 보여주는 신호이지 메모리 펀더 훼손의 증거는 아님(우리 재무 플래그 0건 유지) — 그대로 매도 근거로 쓰지 않는다.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "960413102",
+            "issuer": "Westlake Corporation",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 21194,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "349381103",
+            "issuer": "Figure Technology Solutio",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 1150415,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "58733R102",
+            "issuer": "Mercadolibre  Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 2766,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "76131D103",
+            "issuer": "Restaurant Brands Intl Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 454435,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "55024U109",
+            "issuer": "Lumentum Hldgs Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 6963,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "518415104",
+            "issuer": "Lattice Semiconductor Corp",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 323135,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "15101Q207",
+            "issuer": "Celestica Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 33275,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "458140100",
+            "issuer": "Intel Corp",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 411400,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "46428R107",
+            "issuer": "Ishares S&P Gsci Commodity-",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 643000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "68404L201",
+            "issuer": "Option Care Health Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 1868550,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "18915M107",
+            "issuer": "Cloudflare Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 52535,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "90138F102",
+            "issuer": "Twilio Inc",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 181760,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -15166,62 +15124,23 @@ window.APP_DATA = {
             "issuer": "Natera Inc",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 2511357,
-            "shares_to": 3063606,
-            "shares_delta_pct": 22.0,
-            "value_to": 612691000,
+            "shares_from": 3063606,
+            "shares_to": 3186306,
+            "shares_delta_pct": 4.0,
+            "value_to": 864923000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "984245100",
-            "issuer": "Ypf Sociedad Anonima",
+            "cusip": "874039100",
+            "issuer": "Taiwan Semiconductor Manufac",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 606990,
-            "shares_to": 3235962,
-            "shares_delta_pct": 433.1,
-            "value_to": 149566000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G0896C103",
-            "issuer": "Bbb Foods Inc",
-            "ticker": null,
-            "action": "ADD",
-            "shares_from": 2675152,
-            "shares_to": 3109202,
-            "shares_delta_pct": 16.2,
-            "value_to": 109972000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "013872106",
-            "issuer": "Alcoa Corp",
-            "ticker": null,
-            "action": "ADD",
-            "shares_from": 1376050,
-            "shares_to": 1493390,
-            "shares_delta_pct": 8.5,
-            "value_to": 99057000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "81141R100",
-            "issuer": "Sea Ltd",
-            "ticker": null,
-            "action": "ADD",
-            "shares_from": 944120,
-            "shares_to": 1099905,
-            "shares_delta_pct": 16.5,
-            "value_to": 91083000,
+            "shares_from": 495280,
+            "shares_to": 589680,
+            "shares_delta_pct": 19.1,
+            "value_to": 281613000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15231,49 +15150,88 @@ window.APP_DATA = {
             "issuer": "Stmicroelectronics N V",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 773555,
-            "shares_to": 2612880,
-            "shares_delta_pct": 237.8,
-            "value_to": 90275000,
+            "shares_from": 2612880,
+            "shares_to": 3102880,
+            "shares_delta_pct": 18.8,
+            "value_to": 232375000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "77543R102",
-            "issuer": "Roku Inc",
+            "cusip": "457669307",
+            "issuer": "Insmed Inc",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 582980,
-            "shares_to": 750190,
-            "shares_delta_pct": 28.7,
-            "value_to": 70983000,
+            "shares_from": 1154090,
+            "shares_to": 1424690,
+            "shares_delta_pct": 23.4,
+            "value_to": 151900000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "68404L201",
-            "issuer": "Option Care Health Inc",
+            "cusip": "023135106",
+            "issuer": "Amazon Com Inc",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 1745950,
-            "shares_to": 1868550,
-            "shares_delta_pct": 7.0,
-            "value_to": 50301000,
+            "shares_from": 45800,
+            "shares_to": 541600,
+            "shares_delta_pct": 1082.5,
+            "value_to": 129085000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "84265V105",
-            "issuer": "Southern Copper Corp",
+            "cusip": "G7997R103",
+            "issuer": "Seagate Technology Hldngs Pl",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 120817,
-            "shares_to": 121843,
-            "shares_delta_pct": 0.8,
-            "value_to": 20964000,
+            "shares_from": 50700,
+            "shares_to": 122000,
+            "shares_delta_pct": 140.6,
+            "value_to": 117730000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "910047109",
+            "issuer": "United Airls Hldgs Inc",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 262495,
+            "shares_to": 794795,
+            "shares_delta_pct": 202.8,
+            "value_to": 108084000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "76155X100",
+            "issuer": "Revolution Medicines Inc",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 315860,
+            "shares_to": 399587,
+            "shares_delta_pct": 26.5,
+            "value_to": 74835000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "G25508105",
+            "issuer": "Crh Plc",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 377555,
+            "shares_to": 553555,
+            "shares_delta_pct": 46.6,
+            "value_to": 59230000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15283,23 +15241,23 @@ window.APP_DATA = {
             "issuer": "Cleveland-Cliffs Inc New",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 1745655,
-            "shares_to": 2313455,
-            "shares_delta_pct": 32.5,
-            "value_to": 19549000,
+            "shares_from": 2313455,
+            "shares_to": 4216184,
+            "shares_delta_pct": 82.2,
+            "value_to": 39590000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "91332U101",
-            "issuer": "Unity Software Inc",
+            "cusip": "74366E102",
+            "issuer": "Protagonist Therapeutics Inc",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 410020,
-            "shares_to": 738785,
-            "shares_delta_pct": 80.2,
-            "value_to": 16209000,
+            "shares_from": 159700,
+            "shares_to": 208900,
+            "shares_delta_pct": 30.8,
+            "value_to": 25607000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15309,49 +15267,101 @@ window.APP_DATA = {
             "issuer": "Adma Biologics Inc",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 252200,
-            "shares_to": 1545610,
-            "shares_delta_pct": 512.9,
-            "value_to": 13926000,
+            "shares_from": 1545610,
+            "shares_to": 2784110,
+            "shares_delta_pct": 80.1,
+            "value_to": 23303000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "457669307",
-            "issuer": "Insmed Inc",
+            "cusip": "234264109",
+            "issuer": "Daktronics Inc",
             "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1481752,
-            "shares_to": 1154090,
-            "shares_delta_pct": -22.1,
-            "value_to": 188717000,
+            "action": "ADD",
+            "shares_from": 562637,
+            "shares_to": 1123109,
+            "shares_delta_pct": 99.6,
+            "value_to": 21968000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "874039100",
-            "issuer": "Taiwan Semiconductor Manufac",
+            "cusip": "74623V103",
+            "issuer": "Purecycle Technologies Inc",
             "ticker": null,
-            "action": "TRIM",
-            "shares_from": 543085,
-            "shares_to": 495280,
-            "shares_delta_pct": -8.8,
-            "value_to": 167380000,
+            "action": "ADD",
+            "shares_from": 963189,
+            "shares_to": 2681415,
+            "shares_delta_pct": 178.4,
+            "value_to": 21746000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "464286400",
-            "issuer": "Ishares Inc",
+            "cusip": "84265V105",
+            "issuer": "Southern Copper Corp",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 121843,
+            "shares_to": 123060,
+            "shares_delta_pct": 1.0,
+            "value_to": 21444000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "984245100",
+            "issuer": "Ypf Sociedad Anonima",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 3552575,
-            "shares_to": 3436170,
-            "shares_delta_pct": -3.3,
-            "value_to": 131915000,
+            "shares_from": 3235962,
+            "shares_to": 3138897,
+            "shares_delta_pct": -3.0,
+            "value_to": 142726000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "G0896C103",
+            "issuer": "Bbb Foods Inc",
+            "ticker": null,
+            "action": "TRIM",
+            "shares_from": 3109202,
+            "shares_to": 2901733,
+            "shares_delta_pct": -6.7,
+            "value_to": 120915000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "80004C200",
+            "issuer": "Sandisk Corp",
+            "ticker": null,
+            "action": "TRIM",
+            "shares_from": 38155,
+            "shares_to": 34900,
+            "shares_delta_pct": -8.5,
+            "value_to": 79353000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "37950E259",
+            "issuer": "Global X Fds",
+            "ticker": null,
+            "action": "TRIM",
+            "shares_from": 387400,
+            "shares_to": 328800,
+            "shares_delta_pct": -15.1,
+            "value_to": 30019000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15361,10 +15371,23 @@ window.APP_DATA = {
             "issuer": "Woodward Inc",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 590930,
-            "shares_to": 211355,
-            "shares_delta_pct": -64.2,
-            "value_to": 75648000,
+            "shares_from": 211355,
+            "shares_to": 67194,
+            "shares_delta_pct": -68.2,
+            "value_to": 28587000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "77543R102",
+            "issuer": "Roku Inc",
+            "ticker": null,
+            "action": "TRIM",
+            "shares_from": 750190,
+            "shares_to": 184055,
+            "shares_delta_pct": -75.5,
+            "value_to": 25425000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15374,88 +15397,10 @@ window.APP_DATA = {
             "issuer": "Teva Pharmaceutical Inds Ltd",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 5874870,
-            "shares_to": 2377285,
-            "shares_delta_pct": -59.5,
-            "value_to": 71604000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "22266T109",
-            "issuer": "Coupang Inc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 6772909,
-            "shares_to": 2667485,
-            "shares_delta_pct": -60.6,
-            "value_to": 50362000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G25508105",
-            "issuer": "Crh Plc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 474955,
-            "shares_to": 377555,
-            "shares_delta_pct": -20.5,
-            "value_to": 39689000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "349381103",
-            "issuer": "Figure Technology Solutio",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1539785,
-            "shares_to": 1150415,
-            "shares_delta_pct": -25.3,
-            "value_to": 39057000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "76131D103",
-            "issuer": "Restaurant Brands Intl Inc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1209000,
-            "shares_to": 454435,
-            "shares_delta_pct": -62.4,
-            "value_to": 33583000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "518415104",
-            "issuer": "Lattice Semiconductor Corp",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 925970,
-            "shares_to": 323135,
-            "shares_delta_pct": -65.1,
-            "value_to": 29974000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "910047109",
-            "issuer": "United Airls Hldgs Inc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 348400,
-            "shares_to": 262495,
-            "shares_delta_pct": -24.7,
-            "value_to": 24168000,
+            "shares_from": 2377285,
+            "shares_to": 624999,
+            "shares_delta_pct": -73.7,
+            "value_to": 21175000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15465,88 +15410,36 @@ window.APP_DATA = {
             "issuer": "Wabtec",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 300110,
-            "shares_to": 94895,
-            "shares_delta_pct": -68.4,
-            "value_to": 23715000,
+            "shares_from": 94895,
+            "shares_to": 56595,
+            "shares_delta_pct": -40.4,
+            "value_to": 15258000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "093712107",
-            "issuer": "Bloom Energy Corp",
+            "cusip": "042068205",
+            "issuer": "Arm Holdings Plc",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 740545,
-            "shares_to": 136320,
-            "shares_delta_pct": -81.6,
-            "value_to": 18470000,
+            "shares_from": 106700,
+            "shares_to": 28090,
+            "shares_delta_pct": -73.7,
+            "value_to": 9960000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "234264109",
-            "issuer": "Daktronics Inc",
+            "cusip": "013872106",
+            "issuer": "Alcoa Corp",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 852960,
-            "shares_to": 562637,
-            "shares_delta_pct": -34.0,
-            "value_to": 11000000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "023135106",
-            "issuer": "Amazon Com Inc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 737940,
-            "shares_to": 45800,
-            "shares_delta_pct": -93.8,
-            "value_to": 9539000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "86384P109",
-            "issuer": "Stubhub Hldgs Inc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 2305751,
-            "shares_to": 1367177,
-            "shares_delta_pct": -40.7,
-            "value_to": 8531000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "74623V103",
-            "issuer": "Purecycle Technologies Inc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 2878434,
-            "shares_to": 963189,
-            "shares_delta_pct": -66.5,
-            "value_to": 4999000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "58733R102",
-            "issuer": "Mercadolibre  Inc",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 47149,
-            "shares_to": 2766,
-            "shares_delta_pct": -94.1,
-            "value_to": 4782000,
+            "shares_from": 1493390,
+            "shares_to": 185640,
+            "shares_delta_pct": -87.6,
+            "value_to": 9679000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -15554,46 +15447,47 @@ window.APP_DATA = {
         ],
         "overlap_with_holdings": [
           {
-            "ticker": "AVGO",
-            "issuer": "Broadcom Inc",
-            "value_to": 60650000,
-            "shares_to": 195955,
+            "ticker": "GOOGL",
+            "issuer": "Alphabet Inc",
+            "value_to": 120184000,
+            "shares_to": 336300,
             "shares_from": 0,
             "action": "NEW",
             "shares_delta_pct": null,
-            "our_takeaway": "[검증] 신규 $60.6M — 우리 AVGO 보유 지지. AI 네트워킹/커스텀칩 '삽' 테마."
+            "our_takeaway": "[검증] 재진입(NEW, $120.2M) — Q1 전량청산 후 한 분기 만에 되돌아옴. GOOGL은 이번 분기 버핏·로엡과 함께 매수 3인으로 쏠림(舊 분열 서술 철회). 단 드러켄밀러의 왕복 매매 자체가 '지연 확증 렌즈'를 트리거로 쓰면 안 되는 이유를 보여줌."
           },
           {
             "ticker": "MU",
             "issuer": "Micron Technology Inc",
-            "value_to": 7905000,
-            "shares_to": 23400,
-            "shares_from": 0,
-            "action": "NEW",
-            "shares_delta_pct": null,
-            "our_takeaway": "[검증] 신규진입 — 우리 MU 보유·§10-2 메모리 사이클 강세론을 대가가 실탄으로 확인. 테퍼도 증량."
-          },
-          {
-            "ticker": "GOOGL",
-            "issuer": "Alphabet Inc",
             "value_to": 0,
             "shares_to": 0,
-            "shares_from": 385000,
+            "shares_from": 23400,
             "action": "EXIT",
             "shares_delta_pct": null,
-            "our_takeaway": "[검증] 전량청산 — 버핏·로엡의 GOOGL 매수와 정반대. GOOGL은 대가 사이 '분열' 종목(2매수 vs 3매도), 우리 ⭐5 과신 견제 신호."
+            "our_takeaway": "[검증] 전량청산(EXIT) — Q1 신규 진입 후 한 분기 만에 정리, 舊 서술('신규진입')과 정반대. 우리 MU 보유·§10-2 메모리 강세론과 배치되나 드러켄밀러 특유의 초단기 로테이션 스타일 문제로 해석 — 재무 플래그 0건인 우리 하드넘버를 이 신호로 흔들지 않는다."
+          },
+          {
+            "ticker": "AVGO",
+            "issuer": "Broadcom Inc",
+            "value_to": 0,
+            "shares_to": 0,
+            "shares_from": 195955,
+            "action": "EXIT",
+            "shares_delta_pct": null,
+            "our_takeaway": "[검증] 전량청산(EXIT) — 舊 서술('신규 $60.6M')과 정반대. 같은 분기 테퍼는 AVGO 신규 진입(아래) — 대가 사이에서도 갈림. AI 커스텀칩 테마 자체보다 드러켄밀러의 로테이션 스타일 문제로 해석, 우리 AVGO 보유 유지 판단에 단독 근거로 쓰지 않음."
           }
         ],
         "themes": [
-          "[검증] '붐비는 메가캡→언더오운드 인프라' 로테이션 — GOOGL·AMZN 빼고 AVGO·MU·SNDK·STX·ARM",
-          "[검증] 메모리·스토리지 '슈퍼사이클' 픽스앤쇼블 베팅(우리 §10-2 메모리 논지와 정합)"
+          "[검증] '한 분기 천하' 로테이션 — Q1에 신규 진입했던 MU·AVGO·인텔·ARM 등 반도체/스토리지 다수를 Q2에 전량·대폭 정리, GOOGL은 반대로 Q1 전량청산 후 Q2 재진입(왕복)",
+          "[검증] 헬스케어·바이오텍 대거 신규 편입(일라이릴리·리듬파마·모테로사·릴레이테라퓨틱스·빔테라퓨틱스 등) + 기존 최대 포지션 Natera(19.9%)·Insmed(비중 축소하되 유지) — 반도체 비중 축소분이 헬스케어로 이동",
+          "[검증] 크립토·AI인프라 프록시 신규 편입(Bitdeer·Hut8·Riot Platforms·IREN) — GPU/메모리 직접투자 대신 전력·데이터센터 인접 자산으로 AI 익스포저 우회"
         ],
-        "narrative": "[검증] 2026Q1 — 붐비는 메가캡 AI에서 '곡괭이·삽'으로 로테이션. 알파벳 전량청산(385K주·$153M)·아마존 99% 감축(738K→9.5K)하고 대신 브로드컴(신규 $60.6M)·마이크론·샌디스크·시게이트·ARM 등 AI 하드웨어/메모리/스토리지 신규. 종목당 소액 다분산($2.9B·65종목) 매크로 스타일.",
+        "narrative": "[검증] 2026Q2(공시 8/14) 드러켄밀러 = '한 분기 천하' 로테이션의 재반전. Q1에 GOOGL을 전량청산하고 사들였던 MU·AVGO(+인텔·ARM 등)를 이번 분기 대부분 정리하며, 그 자금으로 GOOGL을 재매수(신규 $120.2M)하고 AMD를 새로 편입했다. 동시에 포트 최대 축은 반도체가 아니라 헬스케어(Natera 19.9%·TSM 6.5%·STM 5.3%·Insmed 3.5%)로, 여기에 일라이릴리·리듬파마·베이테라퓨틱스 등 바이오텍 다수를 신규 편입했다. 크립토채굴/AI인프라 프록시(Bitdeer·Hut8·Riot·IREN)도 새로 담아 GPU를 직접 사는 대신 전력·인프라 우회로로 AI 익스포저를 잡는 모습. ⚠️ 종목 보유기간이 한 분기 안팎으로 짧아 '지연 확증 렌즈'로서의 신뢰도가 4인 중 가장 낮다 — 드러켄밀러 신호는 방향성 참고에 그치고 트리거로 쓰지 않는다.",
         "sources": [
+          "SEC EDGAR 13F-HR acc 0001536411-26-000006 (2026-06-30)",
           "SEC EDGAR 13F-HR acc 0001536411-26-000004 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001536411-26-000002 (2025-12-31)",
-          "SEC EDGAR 13F-HR acc 0001536411-25-000017 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0001536411-25-000011 (2025-06-30)"
+          "SEC EDGAR 13F-HR acc 0001536411-25-000017 (2025-09-30)"
         ]
       },
       "pershing": {
@@ -15697,55 +15591,55 @@ window.APP_DATA = {
           }
         ],
         "trajectory": {
-          "02079K107": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
+          "30303M102": {
+            "issuer": "META PLATFORMS INC",
+            "ticker": "META",
             "series": [
               {
                 "quarter": "2025-06-30",
-                "shares": 6324031,
-                "pct": 8.17
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 6324031,
-                "pct": 10.52
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 6163871,
-                "pct": 12.46
+                "shares": 2673569,
+                "pct": 11.37
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 311726,
-                "pct": 0.65
+                "shares": 2660861,
+                "pct": 11.1
               }
             ]
           },
-          "44267T102": {
-            "issuer": "HOWARD HUGHES HOLDINGS INC",
+          "023135106": {
+            "issuer": "AMAZON COM INC",
             "ticker": null,
             "series": [
               {
                 "quarter": "2025-06-30",
-                "shares": 18852064,
-                "pct": 9.27
+                "shares": 5823316,
+                "pct": 9.31
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 18852064,
-                "pct": 10.58
+                "shares": 5823316,
+                "pct": 8.73
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 18852064,
-                "pct": 9.69
+                "shares": 9607824,
+                "pct": 14.28
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 18852064,
-                "pct": 8.7
+                "shares": 11451981,
+                "pct": 17.39
               }
             ]
           },
@@ -15801,55 +15695,55 @@ window.APP_DATA = {
               }
             ]
           },
-          "30303M102": {
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
+          "44267T102": {
+            "issuer": "HOWARD HUGHES HOLDINGS INC",
+            "ticker": null,
             "series": [
               {
                 "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
+                "shares": 18852064,
+                "pct": 9.27
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
+                "shares": 18852064,
+                "pct": 10.58
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 2673569,
-                "pct": 11.37
+                "shares": 18852064,
+                "pct": 9.69
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 2660861,
-                "pct": 11.1
+                "shares": 18852064,
+                "pct": 8.7
               }
             ]
           },
-          "02079K305": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
+          "76131D103": {
+            "issuer": "RESTAURANT BRANDS INTL INC",
+            "ticker": null,
             "series": [
               {
                 "quarter": "2025-06-30",
-                "shares": 5362980,
-                "pct": 6.88
+                "shares": 23000914,
+                "pct": 11.11
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 4843973,
-                "pct": 8.04
+                "shares": 22915496,
+                "pct": 10.04
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 678297,
-                "pct": 1.37
+                "shares": 22866773,
+                "pct": 10.05
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 32376,
-                "pct": 0.07
+                "shares": 22645483,
+                "pct": 12.2
               }
             ]
           },
@@ -15879,29 +15773,55 @@ window.APP_DATA = {
               }
             ]
           },
-          "023135106": {
-            "issuer": "AMAZON COM INC",
-            "ticker": null,
+          "02079K107": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
             "series": [
               {
                 "quarter": "2025-06-30",
-                "shares": 5823316,
-                "pct": 9.31
+                "shares": 6324031,
+                "pct": 8.17
               },
               {
                 "quarter": "2025-09-30",
-                "shares": 5823316,
-                "pct": 8.73
+                "shares": 6324031,
+                "pct": 10.52
               },
               {
                 "quarter": "2025-12-31",
-                "shares": 9607824,
-                "pct": 14.28
+                "shares": 6163871,
+                "pct": 12.46
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 11451981,
-                "pct": 17.39
+                "shares": 311726,
+                "pct": 0.65
+              }
+            ]
+          },
+          "02079K305": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-06-30",
+                "shares": 5362980,
+                "pct": 6.88
+              },
+              {
+                "quarter": "2025-09-30",
+                "shares": 4843973,
+                "pct": 8.04
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 678297,
+                "pct": 1.37
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 32376,
+                "pct": 0.07
               }
             ]
           },
@@ -15928,32 +15848,6 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 29958771,
                 "pct": 15.71
-              }
-            ]
-          },
-          "76131D103": {
-            "issuer": "RESTAURANT BRANDS INTL INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 23000914,
-                "pct": 11.11
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 22915496,
-                "pct": 10.04
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 22866773,
-                "pct": 10.05
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 22645483,
-                "pct": 12.2
               }
             ]
           }
@@ -16111,9 +16005,10 @@ window.APP_DATA = {
         ],
         "themes": [
           "[검증] 'GOOGL→MSFT' 하이퍼스케일러 스왑 — AI 클라우드는 유지하되 말(馬)을 갈아탐",
-          "[검증] 초집중 퀄리티 컴파운더 스타일(11종목)"
+          "[검증] 초집중 퀄리티 컴파운더 스타일(11종목)",
+          "[미확인·후속확인 필요] Q2 13F 아직 미제출(마감 8/14 경과, 8/15 09시 기준 EDGAR 미반영) — 제출 즉시(다음 실행) 자동 갱신"
         ],
-        "narrative": "[검증] 2026Q1 — 하이퍼스케일러 교체. 알파벳 ~95% 청산(클래스C 610만→31만)하고 그 자금으로 MSFT 신규 $2.09B(565만주, 낙폭매수) — Azure 클라우드·M365 엔터프라이즈 논거. 11종목 초집중(Brookfield·Amazon·Uber ~51%).",
+        "narrative": "[검증] 2026Q1 — 하이퍼스케일러 교체. 알파벳 ~95% 청산(클래스C 610만→31만)하고 그 자금으로 MSFT 신규 $2.09B(565만주, 낙폭매수) — Azure 클라우드·M365 엔터프라이즈 논거. 11종목 초집중(Brookfield·Amazon·Uber ~51%). ⚠️[8/15 확인] Q2 2026(6/30 마감) 13F 법정 마감은 8/14였으나 이번 데스크 스크래핑 시점(8/15 09시경) 기준 EDGAR엔 아직 Q1 데이터만 존재 — 애커먼(Pershing)은 아직 미제출 상태. 참고: 전년도(2025Q2)는 마감일인 8/14 당일 제출 이력이 있어(WebSearch 확인) 이번에도 마감일 늦은 시각 제출 후 EDGAR 반영 지연이거나, 익일(8/17 이후 영업일) 제출 가능성 — 다음 데스크 소집 시 재확인 필요(guru_flows.py 재실행으로 자동 갱신됨).",
         "sources": [
           "SEC EDGAR 13F-HR acc 0001172661-26-002336 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001172661-26-001091 (2025-12-31)",
@@ -16125,224 +16020,115 @@ window.APP_DATA = {
         "name": "Appaloosa LP",
         "style": "테크·중국·경기민감 밸류",
         "cik": "0001656456",
-        "filing_date": "2026-05-15",
-        "quarter": "2026-03-31",
-        "prev_quarter": "2025-12-31",
-        "portfolio_value_usd": 5933477986,
-        "positions": 31,
-        "options_latest": 0,
+        "filing_date": "2026-08-14",
+        "quarter": "2026-06-30",
+        "prev_quarter": "2026-03-31",
+        "portfolio_value_usd": 7471257999,
+        "positions": 25,
+        "options_latest": 2,
         "top_positions": [
           {
             "cusip": "023135106",
             "issuer": "AMAZON COM INC",
             "ticker": null,
-            "value_usd": 899726400,
-            "shares": 4320000,
-            "pct": 15.16
+            "value_usd": 1191700000,
+            "shares": 5000000,
+            "pct": 15.95
           },
           {
             "cusip": "595112103",
             "issuer": "MICRON TECHNOLOGY INC",
             "ticker": "MU",
-            "value_usd": 562503600,
-            "shares": 1665000,
-            "pct": 9.48
-          },
-          {
-            "cusip": "02079K107",
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "value_usd": 497042322,
-            "shares": 1732700,
-            "pct": 8.38
-          },
-          {
-            "cusip": "90353T100",
-            "issuer": "UBER TECHNOLOGIES INC",
-            "ticker": null,
-            "value_usd": 455512550,
-            "shares": 6332720,
-            "pct": 7.68
+            "value_usd": 1125432750,
+            "shares": 975000,
+            "pct": 15.06
           },
           {
             "cusip": "874039100",
             "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
             "ticker": null,
-            "value_usd": 448628625,
-            "shares": 1327500,
-            "pct": 7.56
+            "value_usd": 787990500,
+            "shares": 1650000,
+            "pct": 10.55
           },
           {
-            "cusip": "01609W102",
-            "issuer": "ALIBABA GROUP HLDG LTD",
-            "ticker": null,
-            "value_usd": 434718900,
-            "shares": 3465000,
-            "pct": 7.33
+            "cusip": "02079K107",
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "value_usd": 653660500,
+            "shares": 1850000,
+            "pct": 8.75
           },
           {
-            "cusip": "92840M102",
-            "issuer": "VISTRA CORP",
+            "cusip": "90353T100",
+            "issuer": "UBER TECHNOLOGIES INC",
             "ticker": null,
-            "value_usd": 304017170,
-            "shares": 2022332,
-            "pct": 5.12
+            "value_usd": 555204163,
+            "shares": 7694071,
+            "pct": 7.43
           },
           {
             "cusip": "464286772",
             "issuer": "ISHARES INC",
             "ticker": null,
-            "value_usd": 295224000,
-            "shares": 2400000,
-            "pct": 4.98
-          },
-          {
-            "cusip": "67066G104",
-            "issuer": "NVIDIA CORPORATION",
-            "ticker": "NVDA",
-            "value_usd": 256629600,
-            "shares": 1471500,
-            "pct": 4.33
-          },
-          {
-            "cusip": "629377508",
-            "issuer": "NRG ENERGY INC",
-            "ticker": null,
-            "value_usd": 253471354,
-            "shares": 1734442,
-            "pct": 4.27
+            "value_usd": 489607500,
+            "shares": 2425000,
+            "pct": 6.55
           },
           {
             "cusip": "30303M102",
             "issuer": "META PLATFORMS INC",
             "ticker": "META",
-            "value_usd": 249734745,
-            "shares": 436500,
-            "pct": 4.21
+            "value_usd": 380220750,
+            "shares": 675000,
+            "pct": 5.09
           },
           {
-            "cusip": "80004C200",
-            "issuer": "SANDISK CORP",
+            "cusip": "92840M102",
+            "issuer": "VISTRA CORP",
             "ticker": null,
-            "value_usd": 178689375,
-            "shares": 281250,
-            "pct": 3.01
+            "value_usd": 351408597,
+            "shares": 2215272,
+            "pct": 4.7
+          },
+          {
+            "cusip": "67066G104",
+            "issuer": "NVIDIA CORPORATION",
+            "ticker": "NVDA",
+            "value_usd": 305137250,
+            "shares": 1525000,
+            "pct": 4.08
+          },
+          {
+            "cusip": "629377508",
+            "issuer": "NRG ENERGY INC",
+            "ticker": null,
+            "value_usd": 257065600,
+            "shares": 1760000,
+            "pct": 3.44
+          },
+          {
+            "cusip": "01609W102",
+            "issuer": "ALIBABA GROUP HLDG LTD",
+            "ticker": null,
+            "value_usd": 191960000,
+            "shares": 2000000,
+            "pct": 2.57
+          },
+          {
+            "cusip": "097023105",
+            "issuer": "BOEING CO",
+            "ticker": null,
+            "value_usd": 173176000,
+            "shares": 800000,
+            "pct": 2.32
           }
         ],
         "trajectory": {
-          "02079K107": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 1500000,
-                "pct": 4.13
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 1387500,
-                "pct": 4.58
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1786931,
-                "pct": 8.18
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 1732700,
-                "pct": 8.38
-              }
-            ]
-          },
-          "594918104": {
-            "issuer": "MICROSOFT CORP",
-            "ticker": "MSFT",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 500000,
-                "pct": 3.86
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 462500,
-                "pct": 3.24
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 500000,
-                "pct": 3.53
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 90000,
-                "pct": 0.56
-              }
-            ]
-          },
-          "01609W102": {
-            "issuer": "ALIBABA GROUP HLDG LTD",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 7067271,
-                "pct": 12.43
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 6450000,
-                "pct": 15.61
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 5137931,
-                "pct": 10.99
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 3465000,
-                "pct": 7.33
-              }
-            ]
-          },
-          "595112103": {
-            "issuer": "MICRON TECHNOLOGY INC",
-            "ticker": "MU",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 825000,
-                "pct": 1.58
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 500000,
-                "pct": 1.13
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1500000,
-                "pct": 6.25
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 1665000,
-                "pct": 9.48
-              }
-            ]
-          },
           "30303M102": {
             "issuer": "META PLATFORMS INC",
             "ticker": "META",
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 400000,
-                "pct": 4.58
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 370000,
@@ -16357,84 +16143,11 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 436500,
                 "pct": 4.21
-              }
-            ]
-          },
-          "67066G104": {
-            "issuer": "NVIDIA CORPORATION",
-            "ticker": "NVDA",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 1750000,
-                "pct": 4.29
               },
               {
-                "quarter": "2025-09-30",
-                "shares": 1900000,
-                "pct": 4.8
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1700000,
-                "pct": 4.63
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 1471500,
-                "pct": 4.33
-              }
-            ]
-          },
-          "874039100": {
-            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 1025000,
-                "pct": 3.6
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 1060000,
-                "pct": 4.01
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1130000,
-                "pct": 5.01
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 1327500,
-                "pct": 7.56
-              }
-            ]
-          },
-          "464286772": {
-            "issuer": "ISHARES INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 1875000,
-                "pct": 2.66
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 2400000,
-                "pct": 4.98
+                "quarter": "2026-06-30",
+                "shares": 675000,
+                "pct": 5.09
               }
             ]
           },
@@ -16442,11 +16155,6 @@ window.APP_DATA = {
             "issuer": "VISTRA CORP",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 1800000,
-                "pct": 5.41
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 1245000,
@@ -16461,6 +16169,37 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 2022332,
                 "pct": 5.12
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 2215272,
+                "pct": 4.7
+              }
+            ]
+          },
+          "67066G104": {
+            "issuer": "NVIDIA CORPORATION",
+            "ticker": "NVDA",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 1900000,
+                "pct": 4.8
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1700000,
+                "pct": 4.63
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1471500,
+                "pct": 4.33
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 1525000,
+                "pct": 4.08
               }
             ]
           },
@@ -16468,11 +16207,6 @@ window.APP_DATA = {
             "issuer": "AMAZON COM INC",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 2700000,
-                "pct": 9.19
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 2500000,
@@ -16487,6 +16221,115 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 4320000,
                 "pct": 15.16
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 5000000,
+                "pct": 15.95
+              }
+            ]
+          },
+          "874039100": {
+            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 1060000,
+                "pct": 4.01
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1130000,
+                "pct": 5.01
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1327500,
+                "pct": 7.56
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 1650000,
+                "pct": 10.55
+              }
+            ]
+          },
+          "11135F101": {
+            "issuer": "BROADCOM INC",
+            "ticker": "AVGO",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 150000,
+                "pct": 0.76
+              }
+            ]
+          },
+          "464286772": {
+            "issuer": "ISHARES INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1875000,
+                "pct": 2.66
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 2400000,
+                "pct": 4.98
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 2425000,
+                "pct": 6.55
+              }
+            ]
+          },
+          "02079K107": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 1387500,
+                "pct": 4.58
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1786931,
+                "pct": 8.18
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1732700,
+                "pct": 8.38
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 1850000,
+                "pct": 8.75
               }
             ]
           },
@@ -16494,11 +16337,6 @@ window.APP_DATA = {
             "issuer": "UBER TECHNOLOGIES INC",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 2750000,
-                "pct": 3.98
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 2406983,
@@ -16513,33 +16351,103 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 6332720,
                 "pct": 7.68
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 7694071,
+                "pct": 7.43
+              }
+            ]
+          },
+          "595112103": {
+            "issuer": "MICRON TECHNOLOGY INC",
+            "ticker": "MU",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 500000,
+                "pct": 1.13
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1500000,
+                "pct": 6.25
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1665000,
+                "pct": 9.48
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 975000,
+                "pct": 15.06
               }
             ]
           }
         },
         "moves": [
           {
-            "cusip": "80004C200",
-            "issuer": "SANDISK CORP",
+            "cusip": "097023105",
+            "issuer": "BOEING CO",
             "ticker": null,
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 281250,
+            "shares_to": 800000,
             "shares_delta_pct": null,
-            "value_to": 178689375,
+            "value_to": 173176000,
+            "rationale": "보잉 신규 $173.2M(80만주) + 아메리칸항공 신규 $135.5M(750만주) — 항공/방산 경기민감주 재진입. Q1에 항공 3사(AAL·UAL·DAL) 전량청산했던 것과 다시 정반대(테퍼 특유의 왕복 매매).",
+            "our_takeaway": "정훈 미보유. 참고점 없음 — 단 버핏(델타항공 +44%)과 테퍼(보잉·아메리칸항공 신규)가 같은 분기 나란히 항공/방산 재진입, 경기민감주에 대한 대가 시각이 동시에 완화되는 정황.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "02376R102",
+            "issuer": "AMERICAN AIRLINES GROUP INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 7500000,
+            "shares_delta_pct": null,
+            "value_to": 135525000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "608190104",
-            "issuer": "MOHAWK INDS INC",
+            "cusip": "21873S108",
+            "issuer": "COREWEAVE INC",
             "ticker": null,
-            "action": "EXIT",
-            "shares_from": 675000,
-            "shares_to": 0,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 1078248,
             "shares_delta_pct": null,
-            "value_to": 0,
+            "value_to": 107328806,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "11135F101",
+            "issuer": "BROADCOM INC",
+            "ticker": "AVGO",
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 150000,
+            "shares_delta_pct": null,
+            "value_to": 56662500,
+            "rationale": "AVGO 신규 $56.7M(150,000주) — 드러켄밀러가 같은 분기 AVGO를 전량청산한 것과 정반대 방향, 대가 사이 극명한 시각차.",
+            "our_takeaway": "[검증] 우리 AVGO 보유를 지지하는 쪽(테퍼) vs 배치되는 쪽(드러켄밀러)이 같은 분기에 정반대로 움직임 — 재고 미스매치(재고+126.8% vs 매출+48.7%, 8/14 노트) 미해소 상태와 겹쳐 우리도 판단을 서두르지 않는다.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "84615Q103",
+            "issuer": "SPACE EXPLORATION TECHN CORP",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 225000,
+            "shares_delta_pct": null,
+            "value_to": 38443500,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -16548,8 +16456,21 @@ window.APP_DATA = {
             "cusip": "382550101",
             "issuer": "GOODYEAR TIRE & RUBR CO",
             "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 1508591,
+            "shares_delta_pct": null,
+            "value_to": 9956701,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "47215P106",
+            "issuer": "JD.COM INC",
+            "ticker": null,
             "action": "EXIT",
-            "shares_from": 2500000,
+            "shares_from": 1305000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16558,11 +16479,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "247361702",
-            "issuer": "DELTA AIR LINES INC DEL",
+            "cusip": "55087P104",
+            "issuer": "LYFT INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 475000,
+            "shares_from": 2700000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16571,11 +16492,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "690742101",
-            "issuer": "OWENS CORNING NEW",
+            "cusip": "722304102",
+            "issuer": "PDD HOLDINGS INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 950000,
+            "shares_from": 900000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16584,11 +16505,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "464287184",
-            "issuer": "ISHARES TR",
+            "cusip": "500767306",
+            "issuer": "KRANESHARES TRUST",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 1087500,
+            "shares_from": 1080000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16597,11 +16518,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "02376R102",
-            "issuer": "AMERICAN AIRLS GROUP INC",
+            "cusip": "91324P102",
+            "issuer": "UNITEDHEALTH GROUP INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 14150000,
+            "shares_from": 90000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16610,11 +16531,24 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "46266C105",
-            "issuer": "IQVIA HLDGS INC",
+            "cusip": "594918104",
+            "issuer": "MICROSOFT CORP",
+            "ticker": "MSFT",
+            "action": "EXIT",
+            "shares_from": 90000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "MSFT 전량청산(90,000주 전량) — 소규모 포지션 정리, 애커먼(Q1)이 MSFT 신규 대량편입(GOOGL→MSFT 스왑)한 것과 대조적.",
+            "our_takeaway": "[검증] 우리 MSFT 보유와 배치되는 신호이나 포지션 절대 규모가 작아(청산 전에도 top12 밖) 확신의 무게는 낮음. 애커먼의 MSFT 대량 신규($2.09B, Q1)와 정반대 방향이라는 점에서 하이퍼스케일러 사이에서도 대가 컨센서스가 갈린다는 근거로만 사용.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "219350105",
+            "issuer": "CORNING INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 280000,
+            "shares_from": 1129500,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16623,11 +16557,63 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "910047109",
-            "issuer": "UNITED AIRLS HLDGS INC",
+            "cusip": "058498106",
+            "issuer": "BALL CORP",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 465000,
+            "shares_from": 837000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "75513E101",
+            "issuer": "RTX CORPORATION",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 342000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "D18190898",
+            "issuer": "DEUTSCHE BK AG",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 257616,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "80004C200",
+            "issuer": "SANDISK CORP",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 281250,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "샌디스크 전량청산($400M+ 규모, 281,250주 전량) — MU 트림과 같은 맥락(메모리 밸류에이션 경계, 상반기 급등분 차익실현).",
+            "our_takeaway": "우리 미보유. 참고점 = 메모리 스토리지(낸드) 축은 MU(DRAM 중심)보다 먼저·더 강하게 정리 — 대가가 메모리 내에서도 종목을 가려서 줄인다는 신호.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "502431109",
+            "issuer": "L3HARRIS TECHNOLOGIES INC",
+            "ticker": null,
+            "action": "EXIT",
+            "shares_from": 198000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -16640,62 +16626,49 @@ window.APP_DATA = {
             "issuer": "AMAZON COM INC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 2179391,
-            "shares_to": 4320000,
-            "shares_delta_pct": 98.2,
-            "value_to": 899726400,
-            "rationale": "+98% 대폭 증량 — AWS AI 재가속 베팅, 포트 1위(15.2%)",
-            "our_takeaway": "우리 미보유. 대가의 아마존 컨빅션 = 클라우드 AI 회복 신호(META/GOOGL 클라우드 논지 교차).",
+            "shares_from": 4320000,
+            "shares_to": 5000000,
+            "shares_delta_pct": 15.7,
+            "value_to": 1191700000,
+            "rationale": "아마존 +15.7%(432만→500만주, 포트 1위 15.95%) — AWS AI 재가속 베팅.",
+            "our_takeaway": "정훈 미보유. 참고점 = 클라우드 3사(AWS·Azure·GCP) 중 아마존에 대가 자금이 가장 크게 쏠림 — META/GOOGL 클라우드 지출 논지와 교차 참고.",
             "tag": "검증"
-          },
-          {
-            "cusip": "595112103",
-            "issuer": "MICRON TECHNOLOGY INC",
-            "ticker": "MU",
-            "action": "ADD",
-            "shares_from": 1500000,
-            "shares_to": 1665000,
-            "shares_delta_pct": 11.0,
-            "value_to": 562503600,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "90353T100",
-            "issuer": "UBER TECHNOLOGIES INC",
-            "ticker": null,
-            "action": "ADD",
-            "shares_from": 1850000,
-            "shares_to": 6332720,
-            "shares_delta_pct": 242.3,
-            "value_to": 455512550,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
           },
           {
             "cusip": "874039100",
             "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 1130000,
-            "shares_to": 1327500,
-            "shares_delta_pct": 17.5,
-            "value_to": 448628625,
+            "shares_from": 1327500,
+            "shares_to": 1650000,
+            "shares_delta_pct": 24.3,
+            "value_to": 787990500,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "92840M102",
-            "issuer": "VISTRA CORP",
+            "cusip": "02079K107",
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "action": "ADD",
+            "shares_from": 1732700,
+            "shares_to": 1850000,
+            "shares_delta_pct": 6.8,
+            "value_to": 653660500,
+            "rationale": "GOOGL +6.8%(173만→185만주, $654M) — 舊 서술('소폭 트림')과 정반대, 실제는 소폭 증량. 검색광고+클라우드+제미나이 확장에 대한 지속 확신.",
+            "our_takeaway": "[검증] 정정 — GOOGL은 애커먼(Q1, 미갱신)을 제외하면 이번 분기 버핏·드러켄밀러·로엡·테퍼 4인 모두 순증 방향. 우리 ⭐5와 강하게 정합하나 과신 견제(단일출처 매수 금지 원칙 유지) — 4인 동조는 '보강'이지 별점 추가상향의 근거는 아니다.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "90353T100",
+            "issuer": "UBER TECHNOLOGIES INC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 945000,
-            "shares_to": 2022332,
-            "shares_delta_pct": 114.0,
-            "value_to": 304017170,
+            "shares_from": 6332720,
+            "shares_to": 7694071,
+            "shares_delta_pct": 21.5,
+            "value_to": 555204163,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -16705,23 +16678,62 @@ window.APP_DATA = {
             "issuer": "ISHARES INC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 1875000,
-            "shares_to": 2400000,
-            "shares_delta_pct": 28.0,
-            "value_to": 295224000,
+            "shares_from": 2400000,
+            "shares_to": 2425000,
+            "shares_delta_pct": 1.0,
+            "value_to": 489607500,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
+          },
+          {
+            "cusip": "30303M102",
+            "issuer": "META PLATFORMS INC",
+            "ticker": "META",
+            "action": "ADD",
+            "shares_from": 436500,
+            "shares_to": 675000,
+            "shares_delta_pct": 54.6,
+            "value_to": 380220750,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "92840M102",
+            "issuer": "VISTRA CORP",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 2022332,
+            "shares_to": 2215272,
+            "shares_delta_pct": 9.5,
+            "value_to": 351408597,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "67066G104",
+            "issuer": "NVIDIA CORPORATION",
+            "ticker": "NVDA",
+            "action": "ADD",
+            "shares_from": 1471500,
+            "shares_to": 1525000,
+            "shares_delta_pct": 3.6,
+            "value_to": 305137250,
+            "rationale": "NVDA +3.6%(147.2만→152.5만주, 포트 4.08%) — 舊 서술('트림')과 정반대, 실제는 소폭 증량 유지. 비중은 4위권 밖으로 상대적으로 축소(아마존·MU·TSM·GOOGL이 더 커짐)됐으나 절대 주식수는 늘었다.",
+            "our_takeaway": "[검증] 정정 — 테퍼는 NVDA 순증 유지. 반면 로엡(전량청산)·버리(풋옵션 숏, 舊데이터)는 경계 진영이라 NVDA는 대가 사이에서 여전히 갈림. 우리 NVDA 보유(최대 비중 20.0%, 8/14 노트)에 단일 방향 시그널로 쓰지 않는다.",
+            "tag": "검증"
           },
           {
             "cusip": "629377508",
             "issuer": "NRG ENERGY INC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 1640000,
-            "shares_to": 1734442,
-            "shares_delta_pct": 5.8,
-            "value_to": 253471354,
+            "shares_from": 1734442,
+            "shares_to": 1760000,
+            "shares_delta_pct": 1.5,
+            "value_to": 257065600,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -16731,140 +16743,10 @@ window.APP_DATA = {
             "issuer": "BAIDU INC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 575000,
-            "shares_to": 692100,
-            "shares_delta_pct": 20.4,
-            "value_to": 77113782,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "02079K107",
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "action": "TRIM",
-            "shares_from": 1786931,
-            "shares_to": 1732700,
-            "shares_delta_pct": -3.0,
-            "value_to": 497042322,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "01609W102",
-            "issuer": "ALIBABA GROUP HLDG LTD",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 5137931,
-            "shares_to": 3465000,
-            "shares_delta_pct": -32.6,
-            "value_to": 434718900,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "67066G104",
-            "issuer": "NVIDIA CORPORATION",
-            "ticker": "NVDA",
-            "action": "TRIM",
-            "shares_from": 1700000,
-            "shares_to": 1471500,
-            "shares_delta_pct": -13.4,
-            "value_to": 256629600,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "30303M102",
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
-            "action": "TRIM",
-            "shares_from": 600000,
-            "shares_to": 436500,
-            "shares_delta_pct": -27.3,
-            "value_to": 249734745,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "219350105",
-            "issuer": "CORNING INC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1570200,
-            "shares_to": 1129500,
-            "shares_delta_pct": -28.1,
-            "value_to": 153578115,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "963320106",
-            "issuer": "WHIRLPOOL CORP",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 3910000,
-            "shares_to": 1950000,
-            "shares_delta_pct": -50.1,
-            "value_to": 105144000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "722304102",
-            "issuer": "PDD HOLDINGS INC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1775000,
-            "shares_to": 900000,
-            "shares_delta_pct": -49.3,
-            "value_to": 91962000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "512807306",
-            "issuer": "LAM RESEARCH CORP",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 425000,
-            "shares_to": 382500,
-            "shares_delta_pct": -10.0,
-            "value_to": 81724950,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "502431109",
-            "issuer": "L3HARRIS TECHNOLOGIES INC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 295000,
-            "shares_to": 198000,
-            "shares_delta_pct": -32.9,
-            "value_to": 68339700,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "75513E101",
-            "issuer": "RTX CORPORATION",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 500000,
-            "shares_to": 342000,
-            "shares_delta_pct": -31.6,
-            "value_to": 65971800,
+            "shares_from": 692100,
+            "shares_to": 1295000,
+            "shares_delta_pct": 87.1,
+            "value_to": 148005550,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -16873,37 +16755,37 @@ window.APP_DATA = {
             "cusip": "N07059210",
             "issuer": "ASML HLDG NV",
             "ticker": null,
-            "action": "TRIM",
-            "shares_from": 62500,
-            "shares_to": 49500,
-            "shares_delta_pct": -20.8,
-            "value_to": 65381085,
+            "action": "ADD",
+            "shares_from": 49500,
+            "shares_to": 50000,
+            "shares_delta_pct": 1.0,
+            "value_to": 99472000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "747525103",
-            "issuer": "QUALCOMM INC",
-            "ticker": null,
+            "cusip": "595112103",
+            "issuer": "MICRON TECHNOLOGY INC",
+            "ticker": "MU",
             "action": "TRIM",
-            "shares_from": 1145000,
-            "shares_to": 498613,
-            "shares_delta_pct": -56.5,
-            "value_to": 64211382,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
+            "shares_from": 1665000,
+            "shares_to": 975000,
+            "shares_delta_pct": -41.4,
+            "value_to": 1125432750,
+            "rationale": "MU -41.4%(166.5만→97.5만주, 여전히 포트 2위 15.06%) — 상반기 32% 수익률의 최대 기여주였던 메모리 베팅을 7월 조정 직전 선제 축소('get ahead of the drawdown', CNBC 8/14). 타이밍 결과론적으로 적중: 7월 이후 메모리 섹터 -16%. 단 SEC 8-K 등 1차 소스로 확인된 명시적 코멘트는 아니며 CNBC 해석 기사 기반.",
+            "our_takeaway": "[검증] '증량'이 아니라 대폭 트림 — 舊 서술('증량 +11%')은 오류, 정정. 그러나 완전청산이 아니라 15% 비중 유지 = '메모리 사이클 자체를 포기한 게 아니라 밸류에이션 경계'로 읽는 게 정확. §10-2 메모리 정점 판정(마진추세)과 결이 같음 — 우리도 마진 가속 지속 확인되면 홀드, 추세 하락 전환되면 트림 논리와 일치. 8/1 이후 테퍼가 재매수했다는 보도(하단 참고)도 있어 방향 전환이 아니라 트레이딩성 조절로 해석.",
+            "tag": "검증"
           },
           {
-            "cusip": "058498106",
-            "issuer": "BALL CORP",
+            "cusip": "01609W102",
+            "issuer": "ALIBABA GROUP HLDG LTD",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 1200000,
-            "shares_to": 837000,
-            "shares_delta_pct": -30.2,
-            "value_to": 49475070,
+            "shares_from": 3465000,
+            "shares_to": 2000000,
+            "shares_delta_pct": -42.3,
+            "value_to": 191960000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -16913,114 +16795,36 @@ window.APP_DATA = {
             "issuer": "ADVANCED MICRO DEVICES INC",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 325000,
-            "shares_to": 221400,
-            "shares_delta_pct": -31.9,
-            "value_to": 45039402,
+            "shares_from": 221400,
+            "shares_to": 197500,
+            "shares_delta_pct": -10.8,
+            "value_to": 114729725,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "47215P106",
-            "issuer": "JD.COM INC",
+            "cusip": "747525103",
+            "issuer": "QUALCOMM INC",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 4157046,
-            "shares_to": 1305000,
-            "shares_delta_pct": -68.6,
-            "value_to": 38588850,
+            "shares_from": 498613,
+            "shares_to": 250000,
+            "shares_delta_pct": -49.9,
+            "value_to": 46197500,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "55087P104",
-            "issuer": "LYFT INC",
+            "cusip": "963320106",
+            "issuer": "WHIRLPOOL CORP",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 3800000,
-            "shares_to": 2700000,
-            "shares_delta_pct": -28.9,
-            "value_to": 35910000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "594918104",
-            "issuer": "MICROSOFT CORP",
-            "ticker": "MSFT",
-            "action": "TRIM",
-            "shares_from": 500000,
-            "shares_to": 90000,
-            "shares_delta_pct": -82.0,
-            "value_to": 33315300,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "500767306",
-            "issuer": "KRANESHARES TRUST",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 4750000,
-            "shares_to": 1080000,
-            "shares_delta_pct": -77.3,
-            "value_to": 30704400,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "29273V100",
-            "issuer": "ENERGY TRANSFER L P",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 2191250,
-            "shares_to": 1576125,
-            "shares_delta_pct": -28.1,
-            "value_to": 30419213,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "55336V100",
-            "issuer": "MPLX LP",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 627500,
-            "shares_to": 502460,
-            "shares_delta_pct": -19.9,
-            "value_to": 28675392,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "91324P102",
-            "issuer": "UNITEDHEALTH GROUP INC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 200000,
-            "shares_to": 90000,
-            "shares_delta_pct": -55.0,
-            "value_to": 24353100,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "D18190898",
-            "issuer": "DEUTSCHE BK AG",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 3150000,
-            "shares_to": 257616,
-            "shares_delta_pct": -91.8,
-            "value_to": 7671804,
+            "shares_from": 1950000,
+            "shares_to": 715000,
+            "shares_delta_pct": -63.3,
+            "value_to": 28185300,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17028,446 +16832,192 @@ window.APP_DATA = {
         ],
         "overlap_with_holdings": [
           {
-            "ticker": "MU",
-            "issuer": "MICRON TECHNOLOGY INC",
-            "value_to": 562503600,
-            "shares_to": 1665000,
-            "shares_from": 1500000,
-            "action": "ADD",
-            "shares_delta_pct": 11.0,
-            "our_takeaway": "[검증] 증량(+11%) — 드러켄밀러 신규와 함께 '메모리 확신' 2인 겹침. 우리 MU 보유의 대가 확증(단 트리거 아님)."
-          },
-          {
-            "ticker": "GOOGL",
-            "issuer": "ALPHABET INC",
-            "value_to": 497042322,
-            "shares_to": 1732700,
-            "shares_from": 1786931,
-            "action": "TRIM",
-            "shares_delta_pct": -3.0,
-            "our_takeaway": "[검증] 소폭 트림 — GOOGL 분열의 매도 측. 우리 ⭐5 유지하되 대가 컨센 갈림 인지."
-          },
-          {
-            "ticker": "NVDA",
-            "issuer": "NVIDIA CORPORATION",
-            "value_to": 256629600,
-            "shares_to": 1471500,
-            "shares_from": 1700000,
-            "action": "TRIM",
-            "shares_delta_pct": -13.4,
-            "our_takeaway": "[검증] 트림 — 로엡·버리와 함께 'NVDA 비중축소' 진영. 우리 NVDA 단기 수급 경계 신호."
-          },
-          {
-            "ticker": "META",
-            "issuer": "META PLATFORMS INC",
-            "value_to": 249734745,
-            "shares_to": 436500,
-            "shares_from": 600000,
-            "action": "TRIM",
-            "shares_delta_pct": -27.3,
-            "our_takeaway": ""
+            "ticker": "AVGO",
+            "issuer": "BROADCOM INC",
+            "value_to": 56662500,
+            "shares_to": 150000,
+            "shares_from": 0,
+            "action": "NEW",
+            "shares_delta_pct": null,
+            "our_takeaway": "[검증] 신규($56.7M, 150,000주) — 드러켄밀러의 같은 분기 AVGO 전량청산과 정반대. 재고 미스매치 미해소(재고+126.8% vs 매출+48.7%, 9/2 판별선) 상태와 겹쳐 대가 신호도 갈리는 만큼 우리도 판단을 서두르지 않는다."
           },
           {
             "ticker": "MSFT",
             "issuer": "MICROSOFT CORP",
-            "value_to": 33315300,
-            "shares_to": 90000,
-            "shares_from": 500000,
+            "value_to": 0,
+            "shares_to": 0,
+            "shares_from": 90000,
+            "action": "EXIT",
+            "shares_delta_pct": null,
+            "our_takeaway": "[검증] 소규모 전량청산(90,000주 전량, 원래도 top12 밖 소액) — 애커먼의 MSFT 대량 신규 편입(Q1, $2.09B, GOOGL→MSFT 스왑)과 정반대 방향. 포지션 규모가 작아 확신 무게는 낮다."
+          },
+          {
+            "ticker": "GOOGL",
+            "issuer": "ALPHABET INC",
+            "value_to": 653660500,
+            "shares_to": 1850000,
+            "shares_from": 1732700,
+            "action": "ADD",
+            "shares_delta_pct": 6.8,
+            "our_takeaway": "[검증] 정정 — 舊 '소폭 트림'은 오류, 실제는 +6.8%(173만→185만주, $654M) 소폭 증량. 버핏·드러켄밀러·로엡과 함께 이번 분기 GOOGL 매수 4인 진영. 우리 ⭐5 보강이나 단독 상향 근거로 쓰지 않음(과신 견제)."
+          },
+          {
+            "ticker": "META",
+            "issuer": "META PLATFORMS INC",
+            "value_to": 380220750,
+            "shares_to": 675000,
+            "shares_from": 436500,
+            "action": "ADD",
+            "shares_delta_pct": 54.6,
+            "our_takeaway": "[검증] +54.6%(43.7만→67.5만주, $380M) 큰 폭 증량. 우리 META 보유 지지 — 로엡(전량청산)과는 정반대라 META도 대가 간 시각차 존재."
+          },
+          {
+            "ticker": "NVDA",
+            "issuer": "NVIDIA CORPORATION",
+            "value_to": 305137250,
+            "shares_to": 1525000,
+            "shares_from": 1471500,
+            "action": "ADD",
+            "shares_delta_pct": 3.6,
+            "our_takeaway": "[검증] 정정 — 舊 '트림'은 오류, 실제는 +3.6%(147.2만→152.5만주) 소폭 증량 유지(포트 내 비중 순위는 하락). 로엡(전량청산)·버리(풋 숏, 舊데이터)와는 반대 방향 — NVDA는 대가 사이에서 여전히 가장 크게 갈리는 종목, 우리 최대 비중(20.0%)에 단일 방향 시그널로 쓰지 않는다."
+          },
+          {
+            "ticker": "MU",
+            "issuer": "MICRON TECHNOLOGY INC",
+            "value_to": 1125432750,
+            "shares_to": 975000,
+            "shares_from": 1665000,
             "action": "TRIM",
-            "shares_delta_pct": -82.0,
-            "our_takeaway": ""
+            "shares_delta_pct": -41.4,
+            "our_takeaway": "[검증] 정정 — 舊 '증량 +11%'는 오류, 실제는 -41.4% 대폭 트림(단 완전청산 아님, 여전히 포트 2위·15.06%). 상반기 32% 수익률의 최대 기여주를 7월 조정 직전 선제 축소한 것으로 사후 해석(CNBC 8/14). 드러켄밀러는 같은 시기 전량청산해 방향은 같으나 강도는 테퍼가 약함(15% 유지 vs 0%). §10-2 메모리 정점 판정(마진추세)과 결이 같음 — 우리 재무 플래그 0건 유지 확인이 계속되면 트림 신호를 매도 트리거로 쓰지 않는다."
           }
         ],
         "themes": [
-          "[검증] AI 슈퍼사이클 올인이되 '리더 트림·메모리 증량' — NVDA·GOOGL 줄이고 MU 늘림",
-          "[검증] 경기민감(항공) 전량 정리 = 방어적 재편"
+          "[검증] 상반기 32% 수익률의 주역 메모리 베팅을 7월 조정 직전 선제 축소(MU -41.4%·SanDisk 전량청산) — 단 완전 이탈은 아니고 MU는 여전히 포트 2위",
+          "[검증] GOOGL·META·NVDA는 오히려 순증(舊 '트림' 서술 전부 정정) — '메모리만 선별적으로 줄이고 메가캡 AI는 유지·확대'가 정확한 그림",
+          "[검증] 경기민감주(항공·보잉) 재진입 — Q1 항공 전량청산 후 Q2 왕복 매매, 버핏(델타항공 확대)과 같은 시기 경기민감주 완화 시그널"
         ],
-        "narrative": "[검증] 2026Q1 — AI 인프라 집중·메가캡 선별 트림. 아마존 +98% 대폭 증량(1위 15.2%)·마이크론 증량(2위 9.5%)하되 GOOGL·META·NVDA·MSFT는 소폭 트림. 항공(AAL·UAL·DAL) 전량청산. ⚠️[정정] 일부 매체 'Q1 알파벳 +29%'는 Q4 얘기 — EDGAR상 Q1은 소폭 트림(179만→173만).",
+        "narrative": "[검증] 2026Q2(공시 8/14) 테퍼 = '메모리 선별 축소 + 메가캡 AI 유지'가 정확한 그림(舊 '증량'·'트림' 서술 다수 오류 — 이번에 EDGAR 원자료로 전면 정정). 상반기 32% 수익률(사실상 전액 Q2·메모리 베팅)을 만든 MU를 -41.4% 대폭 축소하고 SanDisk는 전량청산했지만, GOOGL(+6.8%)·META(+54.6%)·NVDA(+3.6%)·AVGO(신규)는 오히려 늘렸다 — '메모리 밸류에이션만 경계하고 메가캡 AI는 유지'가 핵심 축. 여기에 보잉·아메리칸항공을 신규 편입해 경기민감주도 재진입(Q1 항공 전량청산의 반전). MSFT는 소규모 전량청산. CNBC(8/14)는 이를 '메모리 축소, 매그니피센트7 확대'로 요약.",
         "sources": [
+          "SEC EDGAR 13F-HR acc 0001656456-26-000003 (2026-06-30)",
           "SEC EDGAR 13F-HR acc 0001656456-26-000002 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001656456-26-000001 (2025-12-31)",
-          "SEC EDGAR 13F-HR acc 0001656456-25-000007 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0001656456-25-000006 (2025-06-30)"
+          "SEC EDGAR 13F-HR acc 0001656456-25-000007 (2025-09-30)"
         ]
       },
       "thirdpoint": {
         "name": "Third Point LLC",
         "style": "행동주의·테크 재편",
         "cik": "0001040273",
-        "filing_date": "2026-05-15",
-        "quarter": "2026-03-31",
-        "prev_quarter": "2025-12-31",
-        "portfolio_value_usd": 2082795760,
-        "positions": 33,
-        "options_latest": 0,
+        "filing_date": "2026-08-14",
+        "quarter": "2026-06-30",
+        "prev_quarter": "2026-03-31",
+        "portfolio_value_usd": 4650771988,
+        "positions": 42,
+        "options_latest": 1,
         "top_positions": [
+          {
+            "cusip": "934423104",
+            "issuer": "WARNER BROS DISCOVERY INC",
+            "ticker": null,
+            "value_usd": 533200000,
+            "shares": 20000000,
+            "pct": 11.46
+          },
           {
             "cusip": "023135106",
             "issuer": "AMAZON COM INC",
             "ticker": null,
-            "value_usd": 404043800,
-            "shares": 1940000,
-            "pct": 19.4
-          },
-          {
-            "cusip": "879433829",
-            "issuer": "TELEPHONE & DATA SYS INC",
-            "ticker": null,
-            "value_usd": 277860000,
-            "shares": 6600000,
-            "pct": 13.34
-          },
-          {
-            "cusip": "G25508105",
-            "issuer": "CRH PLC",
-            "ticker": null,
-            "value_usd": 199728000,
-            "shares": 1900000,
-            "pct": 9.59
-          },
-          {
-            "cusip": "88023U101",
-            "issuer": "SOMNIGROUP INTERNATIONAL INC",
-            "ticker": null,
-            "value_usd": 167855244,
-            "shares": 2270769,
-            "pct": 8.06
-          },
-          {
-            "cusip": "144285103",
-            "issuer": "CARPENTER TECHNOLOGY CORP",
-            "ticker": null,
-            "value_usd": 122186500,
-            "shares": 310000,
-            "pct": 5.87
-          },
-          {
-            "cusip": "576323109",
-            "issuer": "MASTEC INC",
-            "ticker": null,
-            "value_usd": 102956800,
-            "shares": 320000,
-            "pct": 4.94
-          },
-          {
-            "cusip": "235851102",
-            "issuer": "DANAHER CORP DEL",
-            "ticker": null,
-            "value_usd": 99540000,
-            "shares": 525000,
-            "pct": 4.78
-          },
-          {
-            "cusip": "874039100",
-            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
-            "ticker": null,
-            "value_usd": 92936250,
-            "shares": 275000,
-            "pct": 4.46
-          },
-          {
-            "cusip": "00187Y100",
-            "issuer": "API GROUP CORP",
-            "ticker": null,
-            "value_usd": 82255600,
-            "shares": 2030000,
-            "pct": 3.95
-          },
-          {
-            "cusip": "538034109",
-            "issuer": "LIVE NATION ENTERTAINMENT IN",
-            "ticker": null,
-            "value_usd": 70917150,
-            "shares": 465000,
-            "pct": 3.4
-          },
-          {
-            "cusip": "30303M102",
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
-            "value_usd": 51491700,
-            "shares": 90000,
-            "pct": 2.47
+            "value_usd": 417095000,
+            "shares": 1750000,
+            "pct": 8.97
           },
           {
             "cusip": "02079K305",
             "issuer": "ALPHABET INC",
             "ticker": "GOOGL",
-            "value_usd": 50323000,
-            "shares": 175000,
-            "pct": 2.42
+            "value_usd": 366304250,
+            "shares": 1025000,
+            "pct": 7.88
+          },
+          {
+            "cusip": "G25508105",
+            "issuer": "CRH PLC",
+            "ticker": null,
+            "value_usd": 234865000,
+            "shares": 2195000,
+            "pct": 5.05
+          },
+          {
+            "cusip": "879433829",
+            "issuer": "TELEPHONE & DATA SYS INC",
+            "ticker": null,
+            "value_usd": 232237750,
+            "shares": 6275000,
+            "pct": 4.99
+          },
+          {
+            "cusip": "874039100",
+            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+            "ticker": null,
+            "value_usd": 219682200,
+            "shares": 460000,
+            "pct": 4.72
+          },
+          {
+            "cusip": "538034109",
+            "issuer": "LIVE NATION ENTERTAINMENT IN",
+            "ticker": null,
+            "value_usd": 207829850,
+            "shares": 1135000,
+            "pct": 4.47
+          },
+          {
+            "cusip": "49338L103",
+            "issuer": "KEYSIGHT TECHNOLOGIES INC",
+            "ticker": null,
+            "value_usd": 204790950,
+            "shares": 585000,
+            "pct": 4.4
+          },
+          {
+            "cusip": "88023U101",
+            "issuer": "SOMNIGROUP INTERNATIONAL INC",
+            "ticker": null,
+            "value_usd": 201548290,
+            "shares": 2570769,
+            "pct": 4.33
+          },
+          {
+            "cusip": "852234103",
+            "issuer": "BLOCK INC",
+            "ticker": null,
+            "value_usd": 194479668,
+            "shares": 2558943,
+            "pct": 4.18
+          },
+          {
+            "cusip": "655844108",
+            "issuer": "NORFOLK SOUTHN CORP",
+            "ticker": null,
+            "value_usd": 188754000,
+            "shares": 600000,
+            "pct": 4.06
+          },
+          {
+            "cusip": "Y2573F102",
+            "issuer": "FLEX LTD",
+            "ticker": null,
+            "value_usd": 166932100,
+            "shares": 1030000,
+            "pct": 3.59
           }
         ],
         "trajectory": {
-          "144285103": {
-            "issuer": "CARPENTER TECHNOLOGY CORP",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 750000,
-                "pct": 2.72
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 850000,
-                "pct": 2.49
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 785000,
-                "pct": 3.4
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 310000,
-                "pct": 5.87
-              }
-            ]
-          },
-          "11135F101": {
-            "issuer": "BROADCOM INC",
-            "ticker": "AVGO",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 50000,
-                "pct": 0.74
-              }
-            ]
-          },
-          "30303M102": {
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 150000,
-                "pct": 1.45
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 220000,
-                "pct": 1.93
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 90000,
-                "pct": 2.47
-              }
-            ]
-          },
-          "88023U101": {
-            "issuer": "SOMNIGROUP INTERNATIONAL INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 3000000,
-                "pct": 3.02
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 3400000,
-                "pct": 4.17
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 2270769,
-                "pct": 8.06
-              }
-            ]
-          },
-          "G25508105": {
-            "issuer": "CRH PLC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 2590000,
-                "pct": 3.12
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 2165000,
-                "pct": 3.1
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 2600000,
-                "pct": 4.46
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 1900000,
-                "pct": 9.59
-              }
-            ]
-          },
-          "235851102": {
-            "issuer": "DANAHER CORP DEL",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 500000,
-                "pct": 1.3
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 50000,
-                "pct": 0.12
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 600000,
-                "pct": 1.89
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 525000,
-                "pct": 4.78
-              }
-            ]
-          },
-          "879433829": {
-            "issuer": "TELEPHONE & DATA SYS INC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 6725000,
-                "pct": 3.14
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 6707274,
-                "pct": 3.14
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 6675000,
-                "pct": 3.76
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 6600000,
-                "pct": 13.34
-              }
-            ]
-          },
-          "874039100": {
-            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
-            "ticker": null,
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 1430000,
-                "pct": 4.25
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 1100000,
-                "pct": 3.67
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 425000,
-                "pct": 1.78
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 275000,
-                "pct": 4.46
-              }
-            ]
-          },
-          "67066G104": {
-            "issuer": "NVIDIA CORPORATION",
-            "ticker": "NVDA",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 2800000,
-                "pct": 5.81
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 2850000,
-                "pct": 6.34
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 2950000,
-                "pct": 7.56
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 190000,
-                "pct": 1.59
-              }
-            ]
-          },
-          "02079K305": {
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
-            "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-09-30",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2025-12-31",
-                "shares": 0,
-                "pct": 0.0
-              },
-              {
-                "quarter": "2026-03-31",
-                "shares": 175000,
-                "pct": 2.42
-              }
-            ]
-          },
           "023135106": {
             "issuer": "AMAZON COM INC",
             "ticker": null,
             "series": [
-              {
-                "quarter": "2025-06-30",
-                "shares": 2710000,
-                "pct": 7.8
-              },
               {
                 "quarter": "2025-09-30",
                 "shares": 2810000,
@@ -17482,98 +17032,454 @@ window.APP_DATA = {
                 "quarter": "2026-03-31",
                 "shares": 1940000,
                 "pct": 19.4
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 1750000,
+                "pct": 8.97
               }
             ]
           },
-          "576323109": {
-            "issuer": "MASTEC INC",
+          "49338L103": {
+            "issuer": "KEYSIGHT TECHNOLOGIES INC",
             "ticker": null,
             "series": [
               {
-                "quarter": "2025-06-30",
+                "quarter": "2025-09-30",
                 "shares": 0,
                 "pct": 0.0
               },
               {
-                "quarter": "2025-09-30",
-                "shares": 725000,
-                "pct": 1.84
-              },
-              {
                 "quarter": "2025-12-31",
-                "shares": 925000,
-                "pct": 2.76
+                "shares": 0,
+                "pct": 0.0
               },
               {
                 "quarter": "2026-03-31",
-                "shares": 320000,
-                "pct": 4.94
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 585000,
+                "pct": 4.4
+              }
+            ]
+          },
+          "874039100": {
+            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 1100000,
+                "pct": 3.67
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 425000,
+                "pct": 1.78
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 275000,
+                "pct": 4.46
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 460000,
+                "pct": 4.72
+              }
+            ]
+          },
+          "538034109": {
+            "issuer": "LIVE NATION ENTERTAINMENT IN",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 1350000,
+                "pct": 2.63
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 1725000,
+                "pct": 3.38
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 465000,
+                "pct": 3.4
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 1135000,
+                "pct": 4.47
+              }
+            ]
+          },
+          "934423104": {
+            "issuer": "WARNER BROS DISCOVERY INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 20000000,
+                "pct": 11.46
+              }
+            ]
+          },
+          "879433829": {
+            "issuer": "TELEPHONE & DATA SYS INC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 6707274,
+                "pct": 3.14
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 6675000,
+                "pct": 3.76
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 6600000,
+                "pct": 13.34
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 6275000,
+                "pct": 4.99
+              }
+            ]
+          },
+          "G25508105": {
+            "issuer": "CRH PLC",
+            "ticker": null,
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 2165000,
+                "pct": 3.1
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 2600000,
+                "pct": 4.46
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 1900000,
+                "pct": 9.59
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 2195000,
+                "pct": 5.05
+              }
+            ]
+          },
+          "02079K305": {
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "series": [
+              {
+                "quarter": "2025-09-30",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2025-12-31",
+                "shares": 0,
+                "pct": 0.0
+              },
+              {
+                "quarter": "2026-03-31",
+                "shares": 175000,
+                "pct": 2.42
+              },
+              {
+                "quarter": "2026-06-30",
+                "shares": 1025000,
+                "pct": 7.88
               }
             ]
           }
         },
         "moves": [
           {
-            "cusip": "30303M102",
-            "issuer": "META PLATFORMS INC",
-            "ticker": "META",
+            "cusip": "934423104",
+            "issuer": "WARNER BROS DISCOVERY INC",
+            "ticker": null,
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 90000,
+            "shares_to": 20000000,
             "shares_delta_pct": null,
-            "value_to": 51491700,
+            "value_to": 533200000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
           },
           {
-            "cusip": "02079K305",
-            "issuer": "ALPHABET INC",
-            "ticker": "GOOGL",
+            "cusip": "49338L103",
+            "issuer": "KEYSIGHT TECHNOLOGIES INC",
+            "ticker": null,
             "action": "NEW",
             "shares_from": 0,
-            "shares_to": 175000,
+            "shares_to": 585000,
             "shares_delta_pct": null,
-            "value_to": 50323000,
+            "value_to": 204790950,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
+          },
+          {
+            "cusip": "852234103",
+            "issuer": "BLOCK INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 2558943,
+            "shares_delta_pct": null,
+            "value_to": 194479668,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "Y2573F102",
+            "issuer": "FLEX LTD",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 1030000,
+            "shares_delta_pct": null,
+            "value_to": 166932100,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "87305R109",
+            "issuer": "TTM TECHNOLOGIES INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 505000,
+            "shares_delta_pct": null,
+            "value_to": 94445100,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "71377A103",
+            "issuer": "PERFORMANCE FOOD GROUP CO",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 675000,
+            "shares_delta_pct": null,
+            "value_to": 75458250,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "02079K404",
+            "issuer": "ALPHABET INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 1300000,
+            "shares_delta_pct": null,
+            "value_to": 66157000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "871829107",
+            "issuer": "SYSCO CORP",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 580000,
+            "shares_delta_pct": null,
+            "value_to": 48157226,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "03990B101",
+            "issuer": "ARES MANAGEMENT CORPORATION",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 375000,
+            "shares_delta_pct": null,
+            "value_to": 41741250,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "84615Q103",
+            "issuer": "SPACE EXPLORATION TECHN CORP",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 180415,
+            "shares_delta_pct": null,
+            "value_to": 30825707,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "02079K602",
+            "issuer": "ALPHABET INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 200000,
+            "shares_delta_pct": null,
+            "value_to": 10060000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "767292AB1",
+            "issuer": "RIOT PLATFORMS INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 3500000,
+            "shares_delta_pct": null,
+            "value_to": 7033950,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "071705107",
+            "issuer": "BAUSCH PLUS LOMB CORP",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 85000,
+            "shares_delta_pct": null,
+            "value_to": 1407600,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "21874A106",
+            "issuer": "CORE SCIENTIFIC INC NEW",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 54000,
+            "shares_delta_pct": null,
+            "value_to": 1381860,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "296013105",
+            "issuer": "EROCK INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 83030,
+            "shares_delta_pct": null,
+            "value_to": 1203935,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "038169207",
+            "issuer": "APPLIED DIGITAL CORP",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 22000,
+            "shares_delta_pct": null,
+            "value_to": 820600,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "53680QAA6",
+            "issuer": "LITHIUM ARGENTINA AG",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 625000,
+            "shares_delta_pct": null,
+            "value_to": 611750,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "97785W106",
+            "issuer": "WOLFSPEED INC",
+            "ticker": null,
+            "action": "NEW",
+            "shares_from": 0,
+            "shares_to": 10000,
+            "shares_delta_pct": null,
+            "value_to": 482500,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "67066G104",
+            "issuer": "NVIDIA CORPORATION",
+            "ticker": "NVDA",
+            "action": "EXIT",
+            "shares_from": 190000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "NVDA 전량청산(190,000주 전량) — 2분기 연속 축소의 완결판. Q1에 이미 295만주→19만주(-94%)로 급감시켰고, Q2에 나머지도 전부 정리. Q1 3월 기사('4분기 연속 증량하다 이번에 역전')와 결합하면 4분기 매수 후 2분기 연속 매도로 완전 반전.",
+            "our_takeaway": "[검증] 우리 NVDA 최대 비중(20.0%)에 대한 가장 강한 경계 데이터 — 2분기 연속·완전청산은 로엡의 확신 수준을 보여줌. 테퍼(순증 유지)와 정반대라 대가 컨센서스는 여전히 갈리나, '늘리다가 완전히 턴다'는 궤적 자체는 밸류에이션 경계 신호로 참고할 가치가 있다(단, 매도 트리거는 아님 — 우리 재고·백로그 정합 확인 지속 필요).",
+            "tag": "검증"
           },
           {
             "cusip": "78463V107",
             "issuer": "SPDR GOLD TR",
             "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 95000,
+            "action": "EXIT",
+            "shares_from": 95000,
+            "shares_to": 0,
             "shares_delta_pct": null,
-            "value_to": 40877550,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "44812J104",
-            "issuer": "HUT 8 CORP",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 869563,
-            "shares_delta_pct": null,
-            "value_to": 40791200,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "893641100",
-            "issuer": "TRANSDIGM GROUP INC",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 25000,
-            "shares_delta_pct": null,
-            "value_to": 28974000,
+            "value_to": 0,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17582,37 +17488,11 @@ window.APP_DATA = {
             "cusip": "482480100",
             "issuer": "KLA CORP",
             "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 11000,
+            "action": "EXIT",
+            "shares_from": 11000,
+            "shares_to": 0,
             "shares_delta_pct": null,
-            "value_to": 16196510,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "512807306",
-            "issuer": "LAM RESEARCH CORP",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 75000,
-            "shares_delta_pct": null,
-            "value_to": 16024500,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "N07059210",
-            "issuer": "ASML HLDG NV",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 12000,
-            "shares_delta_pct": null,
-            "value_to": 15849960,
+            "value_to": 0,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17621,255 +17501,21 @@ window.APP_DATA = {
             "cusip": "11135F101",
             "issuer": "BROADCOM INC",
             "ticker": "AVGO",
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 50000,
-            "shares_delta_pct": null,
-            "value_to": 15475500,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "92189F676",
-            "issuer": "VANECK ETF TRUST",
-            "ticker": null,
-            "action": "NEW",
-            "shares_from": 0,
-            "shares_to": 40000,
-            "shares_delta_pct": null,
-            "value_to": 15336000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "594918104",
-            "issuer": "MICROSOFT CORP",
-            "ticker": "MSFT",
-            "action": "EXIT",
-            "shares_from": 925000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "22160N109",
-            "issuer": "COSTAR GROUP INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 3165000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "50212V100",
-            "issuer": "LPL FINL HLDGS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 510000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "M98068105",
-            "issuer": "WIX COM LTD",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 225000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "49177J102",
-            "issuer": "KENVUE INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 3250000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "199908104",
-            "issuer": "COMFORT SYS USA INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 105000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "11271J107",
-            "issuer": "BROOKFIELD CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 6200000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "69331C108",
-            "issuer": "PG&E CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 34300000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "77311W101",
-            "issuer": "ROCKET COS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 9515000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "071734107",
-            "issuer": "BAUSCH HEALTH COS INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 350000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "743315103",
-            "issuer": "PROGRESSIVE CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 220000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "L8681T102",
-            "issuer": "SPOTIFY TECHNOLOGY S A",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 100000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "01609W102",
-            "issuer": "ALIBABA GROUP HLDG LTD",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 825000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "69331CAL2",
-            "issuer": "PG&E CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 10000000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "147528103",
-            "issuer": "CASEYS GEN STORES INC",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 455000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "69331C306",
-            "issuer": "PG&E CORP",
-            "ticker": null,
-            "action": "EXIT",
-            "shares_from": 140000,
-            "shares_to": 0,
-            "shares_delta_pct": null,
-            "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "883556102",
-            "issuer": "THERMO FISHER SCIENTIFIC INC",
-            "ticker": null,
             "action": "EXIT",
             "shares_from": 50000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
+            "rationale": "AVGO 전량청산(50,000주 전량) — 舊 서술('신규')과 정반대. NVDA·KLA·Lam Research와 함께 반도체 장비/AI칩 전반 정리.",
+            "our_takeaway": "[검증] 정정 — 테퍼의 같은 분기 AVGO 신규 편입과 정반대. AI 반도체 축 전체(NVDA·AVGO·KLA·Lam)를 로엡이 전량 정리한 건 '리더 교체' 테마(NVDA·AVGO 후퇴 → META·GOOGL 후퇴는 아님, GOOGL은 오히려 급증)의 일부.",
+            "tag": "검증"
           },
           {
-            "cusip": "169656105",
-            "issuer": "CHIPOTLE MEXICAN GRILL INC",
+            "cusip": "92189F676",
+            "issuer": "VANECK ETF TRUST",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 4725000,
+            "shares_from": 40000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -17878,11 +17524,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "126408103",
-            "issuer": "CSX CORP",
+            "cusip": "512807306",
+            "issuer": "LAM RESEARCH CORP",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 500000,
+            "shares_from": 75000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -17891,11 +17537,24 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "21037T109",
-            "issuer": "CONSTELLATION ENERGY CORP",
+            "cusip": "30303M102",
+            "issuer": "META PLATFORMS INC",
+            "ticker": "META",
+            "action": "EXIT",
+            "shares_from": 90000,
+            "shares_to": 0,
+            "shares_delta_pct": null,
+            "value_to": 0,
+            "rationale": "META 전량청산(90,000주 전량) — 舊 서술('신규진입')과 정반대. 실제로는 있던 소규모 포지션을 전부 정리.",
+            "our_takeaway": "[검증] 정정 — 우리 META 보유와 배치. 단 포지션이 원래도 작아(top12 밖) 확신 무게는 낮음. 애커먼(Q1 트림, 미갱신)과 함께 META 경계 진영, 테퍼(+54.6% 대폭 증량)와는 정반대.",
+            "tag": "검증"
+          },
+          {
+            "cusip": "62548M209",
+            "issuer": "CLARITEV CORPORATION",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 475000,
+            "shares_from": 44000,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -17904,11 +17563,11 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "92840M102",
-            "issuer": "VISTRA CORP",
+            "cusip": "G8068L108",
+            "issuer": "SHARKNINJA INC",
             "ticker": null,
             "action": "EXIT",
-            "shares_from": 1005000,
+            "shares_from": 130509,
             "shares_to": 0,
             "shares_delta_pct": null,
             "value_to": 0,
@@ -17917,14 +17576,170 @@ window.APP_DATA = {
             "tag": "미확인"
           },
           {
-            "cusip": "82835W108",
-            "issuer": "ARS PHARMACEUTICALS INC",
+            "cusip": "02079K305",
+            "issuer": "ALPHABET INC",
+            "ticker": "GOOGL",
+            "action": "ADD",
+            "shares_from": 175000,
+            "shares_to": 1025000,
+            "shares_delta_pct": 485.7,
+            "value_to": 366304250,
+            "rationale": "GOOGL +485.7%(17.5만→102.5만주, $366M, 포트 3위 7.88%) — Q1 신규(17.5만주) 이후 2분기 연속 확대, 여기에 클래스 다른 두 개 CUSIP(02079K404·02079K602)도 신규 편입해 익스포저를 더 키움. NVDA·AVGO·KLA·Lam Research 등 AI 반도체 라인을 정리한 자금이 GOOGL로 재배치된 것으로 추정.",
+            "our_takeaway": "[검증] GOOGL은 버핏·드러켄밀러·테퍼와 함께 이번 분기 대가 매수 4인 진영. 로엡은 그중 증가폭이 가장 커(+485.7%) 확신 강도가 가장 세다. 우리 ⭐5와 강하게 정합 — 단 대가 4인 동조를 별점 추가상향 근거로 쓰지 않는다(과신 견제 원칙).",
+            "tag": "검증"
+          },
+          {
+            "cusip": "G25508105",
+            "issuer": "CRH PLC",
             "ticker": null,
             "action": "ADD",
-            "shares_from": 556237,
-            "shares_to": 1000000,
-            "shares_delta_pct": 79.8,
-            "value_to": 8030000,
+            "shares_from": 1900000,
+            "shares_to": 2195000,
+            "shares_delta_pct": 15.5,
+            "value_to": 234865000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "874039100",
+            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 275000,
+            "shares_to": 460000,
+            "shares_delta_pct": 67.3,
+            "value_to": 219682200,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "538034109",
+            "issuer": "LIVE NATION ENTERTAINMENT IN",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 465000,
+            "shares_to": 1135000,
+            "shares_delta_pct": 144.1,
+            "value_to": 207829850,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "88023U101",
+            "issuer": "SOMNIGROUP INTERNATIONAL INC",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 2270769,
+            "shares_to": 2570769,
+            "shares_delta_pct": 13.2,
+            "value_to": 201548290,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "655844108",
+            "issuer": "NORFOLK SOUTHN CORP",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 100000,
+            "shares_to": 600000,
+            "shares_delta_pct": 500.0,
+            "value_to": 188754000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "14040H105",
+            "issuer": "CAPITAL ONE FINL CORP",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 140000,
+            "shares_to": 825000,
+            "shares_delta_pct": 489.3,
+            "value_to": 165511500,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "44812J104",
+            "issuer": "HUT 8 CORP",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 869563,
+            "shares_to": 1315000,
+            "shares_delta_pct": 51.2,
+            "value_to": 151810175,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "00187Y100",
+            "issuer": "API GROUP CORP",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 2030000,
+            "shares_to": 2865000,
+            "shares_delta_pct": 41.1,
+            "value_to": 121332750,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "893641100",
+            "issuer": "TRANSDIGM GROUP INC",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 25000,
+            "shares_to": 79000,
+            "shares_delta_pct": 216.0,
+            "value_to": 105231160,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "235851102",
+            "issuer": "DANAHER CORP DEL",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 525000,
+            "shares_to": 540000,
+            "shares_delta_pct": 2.9,
+            "value_to": 102859200,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "907818108",
+            "issuer": "UNION PAC CORP",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 100000,
+            "shares_to": 350000,
+            "shares_delta_pct": 250.0,
+            "value_to": 95200000,
+            "rationale": "",
+            "our_takeaway": "",
+            "tag": "미확인"
+          },
+          {
+            "cusip": "N07059210",
+            "issuer": "ASML HLDG NV",
+            "ticker": null,
+            "action": "ADD",
+            "shares_from": 12000,
+            "shares_to": 30000,
+            "shares_delta_pct": 150.0,
+            "value_to": 59606160,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17934,10 +17749,10 @@ window.APP_DATA = {
             "issuer": "AMAZON COM INC",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 2165000,
-            "shares_to": 1940000,
-            "shares_delta_pct": -10.4,
-            "value_to": 404043800,
+            "shares_from": 1940000,
+            "shares_to": 1750000,
+            "shares_delta_pct": -9.8,
+            "value_to": 417095000,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17947,36 +17762,10 @@ window.APP_DATA = {
             "issuer": "TELEPHONE & DATA SYS INC",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 6675000,
-            "shares_to": 6600000,
-            "shares_delta_pct": -1.1,
-            "value_to": 277860000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G25508105",
-            "issuer": "CRH PLC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 2600000,
-            "shares_to": 1900000,
-            "shares_delta_pct": -26.9,
-            "value_to": 199728000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "88023U101",
-            "issuer": "SOMNIGROUP INTERNATIONAL INC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 3400000,
-            "shares_to": 2270769,
-            "shares_delta_pct": -33.2,
-            "value_to": 167855244,
+            "shares_from": 6600000,
+            "shares_to": 6275000,
+            "shares_delta_pct": -4.9,
+            "value_to": 232237750,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17986,10 +17775,10 @@ window.APP_DATA = {
             "issuer": "CARPENTER TECHNOLOGY CORP",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 785000,
-            "shares_to": 310000,
-            "shares_delta_pct": -60.5,
-            "value_to": 122186500,
+            "shares_from": 310000,
+            "shares_to": 215000,
+            "shares_delta_pct": -30.6,
+            "value_to": 132620600,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -17999,140 +17788,10 @@ window.APP_DATA = {
             "issuer": "MASTEC INC",
             "ticker": null,
             "action": "TRIM",
-            "shares_from": 925000,
-            "shares_to": 320000,
-            "shares_delta_pct": -65.4,
-            "value_to": 102956800,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "235851102",
-            "issuer": "DANAHER CORP DEL",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 600000,
-            "shares_to": 525000,
-            "shares_delta_pct": -12.5,
-            "value_to": 99540000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "874039100",
-            "issuer": "TAIWAN SEMICONDUCTOR MANUFAC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 425000,
-            "shares_to": 275000,
-            "shares_delta_pct": -35.3,
-            "value_to": 92936250,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "00187Y100",
-            "issuer": "API GROUP CORP",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 3000000,
-            "shares_to": 2030000,
-            "shares_delta_pct": -32.3,
-            "value_to": 82255600,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "538034109",
-            "issuer": "LIVE NATION ENTERTAINMENT IN",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1725000,
-            "shares_to": 465000,
-            "shares_delta_pct": -73.0,
-            "value_to": 70917150,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "67066G104",
-            "issuer": "NVIDIA CORPORATION",
-            "ticker": "NVDA",
-            "action": "TRIM",
-            "shares_from": 2950000,
-            "shares_to": 190000,
-            "shares_delta_pct": -93.6,
-            "value_to": 33136000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "655844108",
-            "issuer": "NORFOLK SOUTHN CORP",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 975000,
-            "shares_to": 100000,
-            "shares_delta_pct": -89.7,
-            "value_to": 28700000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "14040H105",
-            "issuer": "CAPITAL ONE FINL CORP",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1100000,
-            "shares_to": 140000,
-            "shares_delta_pct": -87.3,
-            "value_to": 25540200,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "907818108",
-            "issuer": "UNION PAC CORP",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1810000,
-            "shares_to": 100000,
-            "shares_delta_pct": -94.5,
-            "value_to": 24262000,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "G8068L108",
-            "issuer": "SHARKNINJA INC",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 1200000,
-            "shares_to": 130509,
-            "shares_delta_pct": -89.1,
-            "value_to": 13820903,
-            "rationale": "",
-            "our_takeaway": "",
-            "tag": "미확인"
-          },
-          {
-            "cusip": "62548M209",
-            "issuer": "CLARITEV CORPORATION",
-            "ticker": null,
-            "action": "TRIM",
-            "shares_from": 145000,
-            "shares_to": 44000,
-            "shares_delta_pct": -69.7,
-            "value_to": 718960,
+            "shares_from": 320000,
+            "shares_to": 290000,
+            "shares_delta_pct": -9.4,
+            "value_to": 120657400,
             "rationale": "",
             "our_takeaway": "",
             "tag": "미확인"
@@ -18140,66 +17799,57 @@ window.APP_DATA = {
         ],
         "overlap_with_holdings": [
           {
-            "ticker": "META",
-            "issuer": "META PLATFORMS INC",
-            "value_to": 51491700,
-            "shares_to": 90000,
-            "shares_from": 0,
-            "action": "NEW",
-            "shares_delta_pct": null,
-            "our_takeaway": "[검증] 신규진입 — 우리 META 보유 지지. 반면 애크먼·테퍼는 META 트림 = 여기도 갈림."
-          },
-          {
-            "ticker": "GOOGL",
-            "issuer": "ALPHABET INC",
-            "value_to": 50323000,
-            "shares_to": 175000,
-            "shares_from": 0,
-            "action": "NEW",
-            "shares_delta_pct": null,
-            "our_takeaway": "[검증] 신규진입 — 버핏과 함께 GOOGL '매수' 진영. 분열 종목에서 강세 측 2인(우리 ⭐5 보강, 단 과신 견제)."
-          },
-          {
             "ticker": "NVDA",
             "issuer": "NVIDIA CORPORATION",
-            "value_to": 33136000,
-            "shares_to": 190000,
-            "shares_from": 2950000,
-            "action": "TRIM",
-            "shares_delta_pct": -93.6,
-            "our_takeaway": "[검증] -94% 급감 — 4분기 연속 매수 후 급반전. 테퍼·버리와 함께 NVDA 경계 3인. 우리 NVDA 최대 경계 데이터."
+            "value_to": 0,
+            "shares_to": 0,
+            "shares_from": 190000,
+            "action": "EXIT",
+            "shares_delta_pct": null,
+            "our_takeaway": "[검증] 2분기 연속 축소의 완결(Q1 295만→19만주 -94%, Q2 19만→0 전량청산) — 우리 NVDA 최대 비중(20.0%)에 대한 가장 강한 경계 데이터. 테퍼(순증 유지)와 정반대라 대가 컨센서스는 갈리나, 4분기 매수 후 2분기 연속 매도로 완전 반전한 궤적 자체는 밸류에이션 경계 신호로 참고할 가치가 있다(매도 트리거는 아님 — 우리 재고·백로그 정합 확인 지속)."
           },
           {
             "ticker": "AVGO",
             "issuer": "BROADCOM INC",
-            "value_to": 15475500,
-            "shares_to": 50000,
-            "shares_from": 0,
-            "action": "NEW",
-            "shares_delta_pct": null,
-            "our_takeaway": "[검증] 신규 — 드러켄밀러와 함께 AVGO 매수 2인. 우리 AVGO 보유 지지."
-          },
-          {
-            "ticker": "MSFT",
-            "issuer": "MICROSOFT CORP",
             "value_to": 0,
             "shares_to": 0,
-            "shares_from": 925000,
+            "shares_from": 50000,
             "action": "EXIT",
             "shares_delta_pct": null,
-            "our_takeaway": "[검증] 전량청산 — 애크먼 MSFT 신규와 정반대. MSFT도 대가 분열(우리 MSFT 판단은 자체 펀더로)."
+            "our_takeaway": "[검증] 정정 — 舊 '신규'는 오류, 실제는 전량청산(50,000주 전량). NVDA·KLA·Lam Research와 함께 AI반도체 라인 전체 정리. 테퍼의 같은 분기 AVGO 신규 편입과 정반대 — 재고 미스매치 미해소(9/2 판별선) 국면에서 대가 신호가 갈리는 만큼 판단을 서두르지 않는다."
+          },
+          {
+            "ticker": "META",
+            "issuer": "META PLATFORMS INC",
+            "value_to": 0,
+            "shares_to": 0,
+            "shares_from": 90000,
+            "action": "EXIT",
+            "shares_delta_pct": null,
+            "our_takeaway": "[검증] 정정 — 舊 '신규진입'은 오류, 실제는 소규모 전량청산(90,000주 전량, 원래도 top12 밖). 우리 META 보유와 배치되나 포지션 규모가 작아 확신 무게는 낮음. 테퍼(+54.6% 증량)와 정반대."
+          },
+          {
+            "ticker": "GOOGL",
+            "issuer": "ALPHABET INC",
+            "value_to": 366304250,
+            "shares_to": 1025000,
+            "shares_from": 175000,
+            "action": "ADD",
+            "shares_delta_pct": 485.7,
+            "our_takeaway": "[검증] +485.7%(17.5만→102.5만주, $366M) — 2분기 연속 확대로 포트 3위(7.88%) 진입(Q1 신규 17.5만주 이후 재차 대폭 증액). 버핏·드러켄밀러·테퍼와 함께 매수 4인 진영, 로엡이 증가폭 최대. 우리 ⭐5 보강(단독 상향 근거 아님, 과신 견제)."
           }
         ],
         "themes": [
-          "[검증] 'NVDA·MSFT 후퇴 → META·GOOGL·AVGO 전진' — 같은 빅테크 안에서 리더 교체 베팅",
-          "[검증] NVDA 4분기 연속 매수하다 이번에 -94% 급반전 = 고점 경계 신호"
+          "[검증] AI 반도체 라인(NVDA·AVGO·KLA·Lam Research) 전량 정리 완결 — NVDA는 2분기 연속(Q1 -94%→Q2 전량청산), 밸류에이션 고점 경계가 가장 뚜렷한 대가",
+          "[검증] GOOGL 2분기 연속 확대(+485.7%, 포트 3위 7.88%) — AI반도체에서 뺀 자금의 재배치처, 대가 4인 중 확신 강도 최대",
+          "[검증] 미디어·철도·크립토인프라로 재편 — 워너브라더스디스커버리 신규(포트 1위 11.46%)·노퍽서던/유니온퍼시픽 대폭 증량·라이엇플랫폼스·코어사이언티픽 신규(크립토채굴=AI 데이터센터 프록시)"
         ],
-        "narrative": "[검증] 2026Q1 — 대대적 재편($7.27B→$2.08B). MSFT 전량청산(925K주)·NVDA -94%(295만→19만) 대폭 축소·PG&E·Brookfield 청산. 대신 META·알파벳·브로드컴 신규 + Hut8·TransDigm. 아마존 1위(19.4%)로 집중.",
+        "narrative": "[검증] 2026Q2(공시 8/14) 로엡 = 'AI 반도체 완전 이탈 + 알파벳 올인'의 정점. Q1에 이미 시작된 NVDA 축소(295만→19만주)를 Q2에 완결(전량청산), AVGO·KLA·Lam Research도 함께 정리해 AI반도체 라인을 통째로 비웠다. 그 자금은 GOOGL(2분기 연속 확대, +485.7%·포트 3위)과 워너브라더스디스커버리(신규, 포트 1위 11.46%)·철도(노퍽서던 +500%·유니온퍼시픽 +250%)로 재배치. 크립토채굴주(라이엇·코어사이언티픽·Hut8 증액)도 새로 담아 AI 데이터센터 전력 수요의 우회 익스포저를 잡았다. 4대 대가(버핏·드러켄밀러·테퍼·로엡) 중 AI반도체 이탈이 가장 크고 GOOGL 확신이 가장 강한 극단값 — 대가 컨센서스 분열의 한 축을 대표한다.",
         "sources": [
+          "SEC EDGAR 13F-HR acc 0001040273-26-000003 (2026-06-30)",
           "SEC EDGAR 13F-HR acc 0001040273-26-000002 (2026-03-31)",
           "SEC EDGAR 13F-HR acc 0001040273-26-000001 (2025-12-31)",
-          "SEC EDGAR 13F-HR acc 0001040273-25-000003 (2025-09-30)",
-          "SEC EDGAR 13F-HR acc 0001085146-25-005277 (2025-06-30)"
+          "SEC EDGAR 13F-HR acc 0001040273-25-000003 (2025-09-30)"
         ]
       }
     },
@@ -18212,7 +17862,7 @@ window.APP_DATA = {
             "slug": "berkshire",
             "action": "HOLD",
             "delta_pct": 0.0,
-            "takeaway": "[검증] 3분기 연속 트림 후 Q1 홀드(비중 22% 1위 유지). 우리 AAPL 트림 집행(7/6 완료)과 방향 정합 — 대가도 '줄이되 안 버림'. §10-4 애플 낙오 논지 지지."
+            "takeaway": "[검증] 2분기 연속 홀드(Q1·Q2 모두 227,917,808주 불변, 비중 22.04%·1위 유지). 버핏 본인 발언: '가격이 내려오면 더 살 의향' — 그러나 주가가 오히려 상승해 추가매수 안 함(Motley Fool 7/22). 애플 자사주매입으로 유통주식이 줄며 버크셔 지분율은 '가만히 있어도' 서서히 상승 중. 우리 AAPL 트림 집행(7/6 완료)과 방향은 다르나(우리는 축소, 버크셔는 홀드) 둘 다 '전량 정리는 아니다'라는 점에서 §10-4 애플 낙오 논지(성장 둔화하되 포기할 자산은 아님)와 정합."
           }
         ],
         "buy": 0,
@@ -18227,15 +17877,15 @@ window.APP_DATA = {
             "guru": "BERKSHIRE HATHAWAY INC",
             "slug": "berkshire",
             "action": "ADD",
-            "delta_pct": 224.1,
-            "takeaway": "[검증] +224% 증액($16.6B). 우리 GOOGL ⭐5와 정합하나 확증편향 견제 대상 — 대가 추종만으로 매수 트리거 삼지 않음(지연 확증 렌즈)."
+            "delta_pct": 83.2,
+            "takeaway": "[검증] A+C 합산 +83.2%($16.6B 순증) — 상당 부분이 6월 $10B 사모(공개시장 대비 저가 배정). 우리 GOOGL ⭐5 컨빅션과 정합하나 확증편향 견제 대상(단일출처·대가추종 매수 금지). 대가 컨센서스도 이번 분기 GOOGL '매수' 쪽으로 크게 기움(버핏·드러켄밀러 재진입·로엡 대폭증액 3인 매수 vs 애커먼 Q1 트림 1인, 아래 consensus 참고) — 舊 '분열 종목'에서 이번 분기는 강세 쏠림으로 전환."
           },
           {
             "guru": "Duquesne Family Office LLC",
             "slug": "duquesne",
-            "action": "EXIT",
+            "action": "NEW",
             "delta_pct": null,
-            "takeaway": "[검증] 전량청산 — 버핏·로엡의 GOOGL 매수와 정반대. GOOGL은 대가 사이 '분열' 종목(2매수 vs 3매도), 우리 ⭐5 과신 견제 신호."
+            "takeaway": "[검증] 재진입(NEW, $120.2M) — Q1 전량청산 후 한 분기 만에 되돌아옴. GOOGL은 이번 분기 버핏·로엡과 함께 매수 3인으로 쏠림(舊 분열 서술 철회). 단 드러켄밀러의 왕복 매매 자체가 '지연 확증 렌즈'를 트리거로 쓰면 안 되는 이유를 보여줌."
           },
           {
             "guru": "Pershing Square Capital Management, L.P.",
@@ -18247,45 +17897,22 @@ window.APP_DATA = {
           {
             "guru": "Appaloosa LP",
             "slug": "appaloosa",
-            "action": "TRIM",
-            "delta_pct": -3.0,
-            "takeaway": "[검증] 소폭 트림 — GOOGL 분열의 매도 측. 우리 ⭐5 유지하되 대가 컨센 갈림 인지."
+            "action": "ADD",
+            "delta_pct": 6.8,
+            "takeaway": "[검증] 정정 — 舊 '소폭 트림'은 오류, 실제는 +6.8%(173만→185만주, $654M) 소폭 증량. 버핏·드러켄밀러·로엡과 함께 이번 분기 GOOGL 매수 4인 진영. 우리 ⭐5 보강이나 단독 상향 근거로 쓰지 않음(과신 견제)."
           },
           {
             "guru": "Third Point LLC",
             "slug": "thirdpoint",
-            "action": "NEW",
-            "delta_pct": null,
-            "takeaway": "[검증] 신규진입 — 버핏과 함께 GOOGL '매수' 진영. 분열 종목에서 강세 측 2인(우리 ⭐5 보강, 단 과신 견제)."
+            "action": "ADD",
+            "delta_pct": 485.7,
+            "takeaway": "[검증] +485.7%(17.5만→102.5만주, $366M) — 2분기 연속 확대로 포트 3위(7.88%) 진입(Q1 신규 17.5만주 이후 재차 대폭 증액). 버핏·드러켄밀러·테퍼와 함께 매수 4인 진영, 로엡이 증가폭 최대. 우리 ⭐5 보강(단독 상향 근거 아님, 과신 견제)."
           }
         ],
-        "buy": 2,
-        "sell": 3,
+        "buy": 4,
+        "sell": 1,
         "hold": 0,
-        "net": -1
-      },
-      "AVGO": {
-        "ticker": "AVGO",
-        "holders": [
-          {
-            "guru": "Duquesne Family Office LLC",
-            "slug": "duquesne",
-            "action": "NEW",
-            "delta_pct": null,
-            "takeaway": "[검증] 신규 $60.6M — 우리 AVGO 보유 지지. AI 네트워킹/커스텀칩 '삽' 테마."
-          },
-          {
-            "guru": "Third Point LLC",
-            "slug": "thirdpoint",
-            "action": "NEW",
-            "delta_pct": null,
-            "takeaway": "[검증] 신규 — 드러켄밀러와 함께 AVGO 매수 2인. 우리 AVGO 보유 지지."
-          }
-        ],
-        "buy": 2,
-        "sell": 0,
-        "hold": 0,
-        "net": 2
+        "net": 3
       },
       "MU": {
         "ticker": "MU",
@@ -18293,22 +17920,52 @@ window.APP_DATA = {
           {
             "guru": "Duquesne Family Office LLC",
             "slug": "duquesne",
-            "action": "NEW",
+            "action": "EXIT",
             "delta_pct": null,
-            "takeaway": "[검증] 신규진입 — 우리 MU 보유·§10-2 메모리 사이클 강세론을 대가가 실탄으로 확인. 테퍼도 증량."
+            "takeaway": "[검증] 전량청산(EXIT) — Q1 신규 진입 후 한 분기 만에 정리, 舊 서술('신규진입')과 정반대. 우리 MU 보유·§10-2 메모리 강세론과 배치되나 드러켄밀러 특유의 초단기 로테이션 스타일 문제로 해석 — 재무 플래그 0건인 우리 하드넘버를 이 신호로 흔들지 않는다."
           },
           {
             "guru": "Appaloosa LP",
             "slug": "appaloosa",
-            "action": "ADD",
-            "delta_pct": 11.0,
-            "takeaway": "[검증] 증량(+11%) — 드러켄밀러 신규와 함께 '메모리 확신' 2인 겹침. 우리 MU 보유의 대가 확증(단 트리거 아님)."
+            "action": "TRIM",
+            "delta_pct": -41.4,
+            "takeaway": "[검증] 정정 — 舊 '증량 +11%'는 오류, 실제는 -41.4% 대폭 트림(단 완전청산 아님, 여전히 포트 2위·15.06%). 상반기 32% 수익률의 최대 기여주를 7월 조정 직전 선제 축소한 것으로 사후 해석(CNBC 8/14). 드러켄밀러는 같은 시기 전량청산해 방향은 같으나 강도는 테퍼가 약함(15% 유지 vs 0%). §10-2 메모리 정점 판정(마진추세)과 결이 같음 — 우리 재무 플래그 0건 유지 확인이 계속되면 트림 신호를 매도 트리거로 쓰지 않는다."
           }
         ],
-        "buy": 2,
-        "sell": 0,
+        "buy": 0,
+        "sell": 2,
         "hold": 0,
-        "net": 2
+        "net": -2
+      },
+      "AVGO": {
+        "ticker": "AVGO",
+        "holders": [
+          {
+            "guru": "Duquesne Family Office LLC",
+            "slug": "duquesne",
+            "action": "EXIT",
+            "delta_pct": null,
+            "takeaway": "[검증] 전량청산(EXIT) — 舊 서술('신규 $60.6M')과 정반대. 같은 분기 테퍼는 AVGO 신규 진입(아래) — 대가 사이에서도 갈림. AI 커스텀칩 테마 자체보다 드러켄밀러의 로테이션 스타일 문제로 해석, 우리 AVGO 보유 유지 판단에 단독 근거로 쓰지 않음."
+          },
+          {
+            "guru": "Appaloosa LP",
+            "slug": "appaloosa",
+            "action": "NEW",
+            "delta_pct": null,
+            "takeaway": "[검증] 신규($56.7M, 150,000주) — 드러켄밀러의 같은 분기 AVGO 전량청산과 정반대. 재고 미스매치 미해소(재고+126.8% vs 매출+48.7%, 9/2 판별선) 상태와 겹쳐 대가 신호도 갈리는 만큼 우리도 판단을 서두르지 않는다."
+          },
+          {
+            "guru": "Third Point LLC",
+            "slug": "thirdpoint",
+            "action": "EXIT",
+            "delta_pct": null,
+            "takeaway": "[검증] 정정 — 舊 '신규'는 오류, 실제는 전량청산(50,000주 전량). NVDA·KLA·Lam Research와 함께 AI반도체 라인 전체 정리. 테퍼의 같은 분기 AVGO 신규 편입과 정반대 — 재고 미스매치 미해소(9/2 판별선) 국면에서 대가 신호가 갈리는 만큼 판단을 서두르지 않는다."
+          }
+        ],
+        "buy": 1,
+        "sell": 2,
+        "hold": 0,
+        "net": -1
       },
       "MSFT": {
         "ticker": "MSFT",
@@ -18323,22 +17980,15 @@ window.APP_DATA = {
           {
             "guru": "Appaloosa LP",
             "slug": "appaloosa",
-            "action": "TRIM",
-            "delta_pct": -82.0,
-            "takeaway": ""
-          },
-          {
-            "guru": "Third Point LLC",
-            "slug": "thirdpoint",
             "action": "EXIT",
             "delta_pct": null,
-            "takeaway": "[검증] 전량청산 — 애크먼 MSFT 신규와 정반대. MSFT도 대가 분열(우리 MSFT 판단은 자체 펀더로)."
+            "takeaway": "[검증] 소규모 전량청산(90,000주 전량, 원래도 top12 밖 소액) — 애커먼의 MSFT 대량 신규 편입(Q1, $2.09B, GOOGL→MSFT 스왑)과 정반대 방향. 포지션 규모가 작아 확신 무게는 낮다."
           }
         ],
         "buy": 1,
-        "sell": 2,
+        "sell": 1,
         "hold": 0,
-        "net": -1
+        "net": 0
       },
       "META": {
         "ticker": "META",
@@ -18353,16 +18003,16 @@ window.APP_DATA = {
           {
             "guru": "Appaloosa LP",
             "slug": "appaloosa",
-            "action": "TRIM",
-            "delta_pct": -27.3,
-            "takeaway": ""
+            "action": "ADD",
+            "delta_pct": 54.6,
+            "takeaway": "[검증] +54.6%(43.7만→67.5만주, $380M) 큰 폭 증량. 우리 META 보유 지지 — 로엡(전량청산)과는 정반대라 META도 대가 간 시각차 존재."
           },
           {
             "guru": "Third Point LLC",
             "slug": "thirdpoint",
-            "action": "NEW",
+            "action": "EXIT",
             "delta_pct": null,
-            "takeaway": "[검증] 신규진입 — 우리 META 보유 지지. 반면 애크먼·테퍼는 META 트림 = 여기도 갈림."
+            "takeaway": "[검증] 정정 — 舊 '신규진입'은 오류, 실제는 소규모 전량청산(90,000주 전량, 원래도 top12 밖). 우리 META 보유와 배치되나 포지션 규모가 작아 확신 무게는 낮음. 테퍼(+54.6% 증량)와 정반대."
           }
         ],
         "buy": 1,
@@ -18376,33 +18026,45 @@ window.APP_DATA = {
           {
             "guru": "Appaloosa LP",
             "slug": "appaloosa",
-            "action": "TRIM",
-            "delta_pct": -13.4,
-            "takeaway": "[검증] 트림 — 로엡·버리와 함께 'NVDA 비중축소' 진영. 우리 NVDA 단기 수급 경계 신호."
+            "action": "ADD",
+            "delta_pct": 3.6,
+            "takeaway": "[검증] 정정 — 舊 '트림'은 오류, 실제는 +3.6%(147.2만→152.5만주) 소폭 증량 유지(포트 내 비중 순위는 하락). 로엡(전량청산)·버리(풋 숏, 舊데이터)와는 반대 방향 — NVDA는 대가 사이에서 여전히 가장 크게 갈리는 종목, 우리 최대 비중(20.0%)에 단일 방향 시그널로 쓰지 않는다."
           },
           {
             "guru": "Third Point LLC",
             "slug": "thirdpoint",
-            "action": "TRIM",
-            "delta_pct": -93.6,
-            "takeaway": "[검증] -94% 급감 — 4분기 연속 매수 후 급반전. 테퍼·버리와 함께 NVDA 경계 3인. 우리 NVDA 최대 경계 데이터."
+            "action": "EXIT",
+            "delta_pct": null,
+            "takeaway": "[검증] 2분기 연속 축소의 완결(Q1 295만→19만주 -94%, Q2 19만→0 전량청산) — 우리 NVDA 최대 비중(20.0%)에 대한 가장 강한 경계 데이터. 테퍼(순증 유지)와 정반대라 대가 컨센서스는 갈리나, 4분기 매수 후 2분기 연속 매도로 완전 반전한 궤적 자체는 밸류에이션 경계 신호로 참고할 가치가 있다(매도 트리거는 아님 — 우리 재고·백로그 정합 확인 지속)."
           }
         ],
-        "buy": 0,
-        "sell": 2,
+        "buy": 1,
+        "sell": 1,
         "hold": 0,
-        "net": -2
+        "net": 0
       }
     }
   },
   "pm_view": {
     "_comment": "PM(클로드)의 객관적 사견 정본 — 정훈 룰을 잠시 빼고 순수 시장 관점으로 본 독립 의견. 앱 #pmview 화면. 룰 기반 포트 운용이 우선이고 이 칸은 '다른 시선' 보조용. 보고서·메모마다 새 항목 prepend, 오래된 건 유지(시계열).",
-    "updated": "2026-08-14",
-    "source_report": "docs/reports/report_v75_2026-08-14.md",
-    "as_of": "2026-08-14 (금) 14:5x KST (장중 선발행)",
-    "headline": "코스피가 오전에 7,000을 처음 뚫었는데 우리 매수 권한은 0원이 됐다 — 회복이 사다리를 잠근 첫 실제 사례. 그리고 외인 순매수의 44%는 하이닉스 한 종목이었다.",
+    "updated": "2026-08-16",
+    "source_report": "docs/reports/report_v76_2026-08-16.md",
+    "as_of": "2026-08-16 (일) 17:50 KST · 주말 보고서",
+    "headline": "이번 주말의 진짜 뉴스는 코스피 +11.5%가 아니라 신용시장이 AI 캐펙스 부채를 재평가하기 시작한 것이다 — 그리고 우리 빅테크 4곳이 전부 그 축 위에 있다. 참고로 이틀 전 내가 쓴 '삼성전자 외인 순매도'는 틀렸다.",
     "philosophy": "우리 룰대로 포트를 굴리는 게 항상 우선이다. 이 칸은 룰을 잠시 내려놓고 순수히 시장만 본 내 객관적 시선 — 룰과 어긋날 때가 진짜 볼 가치가 있는 지점이다. 같은 결론이면 확신 보강, 다르면 한 번 더 생각할 신호.",
     "items": [
+      {
+        "date": "2026-08-16",
+        "source_report": "docs/reports/report_v76_2026-08-16.md",
+        "title": "내가 이틀 전에 쓴 문장이 틀렸다 — 그리고 틀린 방향이 흥미롭다",
+        "body": "8/14에 나는 '게이트②는 외인의 하이닉스 복귀다, 삼성전자는 외인이 오히려 순매도했다'고 썼다. T+1이 풀리고 보니 삼성전자는 그날 외인 최대 순매수 종목이었다(+1조3,487억, 시장 전체의 44.4%). 내가 인용한 -1,090억은 naver 종목이력 API의 T+1 지연 때문에 8/13 수치가 8/14 조회에 뜬 것이었다(8/13 실제 -1,076억 — 거의 일치하는 게 결정적 증거다). 그런데 정정하고 나서도 내 결론은 안 바뀌었다. 오히려 강해졌다. 하이닉스 단독 44%가 아니라 삼성+하이닉스 85%였으니까. '외인이 한국을 산다'가 아니라 '외인이 메가캡 반도체 두 개를 산다'는 판정은 그대로다 — 틀린 건 어느 종목이냐였지 쏠림이라는 진단이 아니었다. 이런 종류의 오류는 기록해둘 가치가 있다. 데이터가 틀렸는데 결론이 맞았다는 건 운이 좋았다는 뜻이기도 하고, 진단이 단일 데이터에 의존하지 않았다는 뜻이기도 하다. 이번엔 후자였다고 보지만 다음에도 그러리란 보장은 없어서 T+1 규율을 새로 박았다."
+      },
+      {
+        "date": "2026-08-16",
+        "source_report": "docs/reports/report_v76_2026-08-16.md",
+        "title": "이익은 안 꺾였는데 조달이 비싸지고 있다 — 이게 지금의 정확한 그림이다",
+        "body": "8/14 하루에 AVGO가 -5.94%, ORCL이 -3.65% 빠지고 AMD는 +6.50% 올랐다. 셋 다 AI 캐펙스 뉴스인데 방향이 갈렸다. 가른 건 실적이 아니라 신용이다 — AVGO는 BofA가 발행사·채권등급을 내렸고(AI XPV 파이낸싱 플랫폼 리스크), ORCL은 S&P가 BBB-로 강등했고(CDS 198~203bp = 18년래 최고), AMD는 회사채 47.5억달러 발행에 성공했다. 결정적인 건 BofA가 AVGO 등급을 내리면서 동시에 FY26 매출·EBITDA 전망은 +10%/+13% 올렸다는 점이다. 수요가 꺾인 게 아니라 그 수요를 대는 자금이 비싸진 거다. 그래서 우리 EDGAR 숫자를 다시 봤더니 보유 빅테크 4곳이 전부 같은 방향이었다 — GOOGL 총차입금 +308.5%, META +103.8%, ORCL +39.9%, MSFT 순현금 악화. 동시에 MU·삼성 EPS 추정치는 90일 +52.1%·+33.1%에 하향이 0건이다. 두 사실이 모순돼 보이지만 아니다. 이익은 진짜고 조달비용도 진짜다. 그래서 나는 포지션을 안 바꾸고 감시축만 옮겼다. 다음에 이 포트가 깨진다면 그 경로는 실적 미스가 아니라 조달일 가능성이 높아졌다는 것 — 지금 적어둔다."
+      },
       {
         "date": "2026-08-14",
         "source_report": "docs/reports/report_v75_2026-08-14.md",
@@ -19043,6 +18705,40 @@ window.APP_DATA = {
           "정훈승인대기"
         ],
         "refs": ""
+      },
+      {
+        "id": "d114",
+        "date": "2026-08-16",
+        "topic": "게이트② 질(質) 조건 신설 — 총량 충족과 폭(breadth) 분리 기록",
+        "decision": "외인 게이트②는 총량 충족이어도 '질 미달'을 함께 적는다. 판정 시 ①종목분해(d104) ②원화 전이 여부 필수 병기.",
+        "rationale": "8/14 외인 +3조387억(4일 연속)으로 형식 충족했으나 84.9%가 삼성+SK하이닉스 2종목(골드만: 4일 8.2조 중 90% 기술주), 원화는 오히려 1,413→1,420 약세, 7,000은 장중 터치 후 반납. 총량이 문을 여는데 breadth가 없으면 '외국인이 한국에 돌아왔다'가 아니라 '글로벌 메모리 트레이드가 한국을 경유한다'이다.",
+        "rejected": "총량만으로 충족 판정 유지 — 기각(게이트를 편한 대로 읽는 경로를 남긴다)",
+        "status": "open",
+        "tags": [
+          "게이트",
+          "수급",
+          "국장",
+          "TF"
+        ],
+        "refs": ""
+      },
+      {
+        "id": "d115",
+        "date": "2026-08-16",
+        "topic": "감시축을 이익에서 조달로 재지정 — AI 캐펙스 부채 팩터",
+        "decision": "다음 훼손의 유력 경로를 '실적 미스'에서 '조달 비용'으로 재지정한다. 포지션은 바꾸지 않는다(이익 전망 멀쩡·팩터 경보 1/4로 임계 미달).",
+        "rationale": "8/14 AVGO -5.94%(BofA 발행사·채권등급 하향, AI XPV 파이낸싱)·ORCL -3.65%(S&P BBB- 강등·CDS 198~203bp 18년 최고)는 실적이 아니라 신용으로 맞았고, AMD는 회사채 발행 성공으로 +6.50%. 우리 EDGAR 하드넘버상 보유 빅테크 4곳이 전부 같은 방향: GOOGL 총차입금 +308.5%·META +103.8%·ORCL +39.9%(순현금 -98.25B·FCF -23.7B)·MSFT 순현금 악화. 결정적 반증거: BofA는 등급을 내리면서 AVGO FY26 매출·EBITDA를 +10%/+13% 상향 = 수요 정점이 아니라 조달 리스크.",
+        "rejected": "①AVGO 재고 플래그와 신용 하향을 합쳐 팩터경보 2/4로 격상 — 기각(메커니즘이 다르다. 재고=수요사이클, 등급=오프밸런스 조달구조) ②빅테크 트림 착수 — 기각(이익 전망 상향 중·표본 1일)",
+        "status": "open",
+        "tags": [
+          "팩터",
+          "조달",
+          "빅테크",
+          "리스크",
+          "AVGO",
+          "ORCL"
+        ],
+        "refs": ""
       }
     ],
     "closed": [
@@ -19313,10 +19009,20 @@ window.APP_DATA = {
         "_class": "결정완료(자동종결 8/14 — 종결어휘+3일경과)"
       }
     ],
-    "open_count": 26,
-    "total": 130
+    "open_count": 28,
+    "total": 132
   },
   "reports": [
+    {
+      "id": "report_v76_2026-08-16",
+      "file": "docs/reports/report_v76_2026-08-16.md",
+      "title": "정훈 PORTFOLIO DESK · v76 · 2026-08-16 (일)",
+      "date": "2026-08-16",
+      "version": 76,
+      "kind": "보고서",
+      "preview": "이건 \"외인이 한국을 산다\"가 아니라 \"외인이 메가캡 반도체 두 개를 산다\"이다. 게이트②는 형식상 충족이나",
+      "content": "# 정훈 PORTFOLIO DESK · v76 · 2026-08-16 (일)\n\n> **주말 보고서.** 시세는 **8/14(금) 확정 종가 프로즌** — 8/15(토)·8/16(일) 양일 휴장으로 새 시세 없음.\n> 수집은 8/15에 시작해 8/16 토스 스크린샷 정본으로 마감했다. **17:50 토스 대사 = 이 보고서의 수량·현금 정본.**\n\n## 변경점 (v75 대비)\n\n| 항목 | v75 (8/14) | v76 (8/16) | 함의 |\n|---|---|---|---|\n| **VOO 8월 적립** | 주문 접수·체결 미확인 | **✅ 체결 확정 1.06863 → 1.167038주**(+0.098408주·$70.22) | 룰9 8월분 완결. 룰5 실행후검토 미결 1건 해소 |\n| **8/14 외인 종목분해** | \"하이닉스 44%·**삼성전자 순매도**\"(장중 스냅샷) | **삼성 +1조3,487억(44.4%)·하닉 +1조2,297억(40.5%) = 2종목 85%** | ★**결론 반전** — T+1 지연으로 8/13 데이터를 8/14로 오독했던 것 |\n| **하드플로어** | S&P 폭풍 **71%ile** ≥70 = 정지 | **63%ile <70 = 해제** | 이중 잠금 → **단일 잠금**(사다리만). GOOGL 3조건 중 ②충족 |\n| AVGO | $421 근방 | **$392.99 (-5.94%)** | BofA 발행사·채권등급 하향(AI XPV 파이낸싱 신용) |\n| ORCL | $156 근방 | **$150.52 (-3.65%)** | S&P **BBB-** 강등·CDS 198~203bp(18년래 최고) |\n| 美 지표 | 프리뷰만(폰창 밖) | **소매판매 -0.6%**(컨센 +0.1%)·**미시간 51.0**(컨센 54.5) | 둘 다 대형 미스 |\n| 9월 FOMC 인상확률 | 45~61%(스테일) | **29~33%** | 인상 베팅 되돌림. 프레임은 여전히 \"동결 vs 인상\" |\n| 총자산(토스) | 8,437,094원 | **8,534,428원** | +97,334원 — 대부분 VOO 적립 유입분 |\n\n---\n\n## 0. TF 상황판 (crash_tf §1 갱신 · ACTIVE)\n\n| 항목 | 값 | 판정 |\n|---|---|---|\n| 코스피 | **6,977.94** (8/14 확정, 5거래일 연속 상승) | 고점(9,114.55) 대비 **-23.4%** · YTD **+61.0%** |\n| 룰1 사다리 | 낙폭 -23.4% → **D1 잠김 · 누적 해금 0%** | D1 경계 = 종가 **6,835.91**(-25.0%) 대비 **+2.1% 위** |\n| 하드플로어 | S&P 폭풍 **63.0%ile** (<70) | ★**해제** — 개정 전제(국지 사건) 성립 |\n| 허용 트랜치 | **0원** | 하드플로어가 풀려도 **사다리가 잠겨** 결과 동일 |\n| 폭풍(코스피) | vol_gauge **96.0%ile [폭풍]** / garch 92.0%ile | 3분할 권장 · 발산 4.0p(문턱 20p 아래) |\n| 항복 가산 | 미충족 (공포 23.7%ile·항복 55.4%ile) | 승수 **×1.0** |\n| 국내 이월 적립 | 최근접 미달 = 두산에너빌리티 81,800원 (**81,800원 부족**) | 적립 대기 |\n\n### §5 해제 3중 게이트 — **1/3** (변동 없음)\n\n| 게이트 | 기준 | 현재 | 판정 |\n|---|---|---|---|\n| ① 코스피 7,500 종가 | 7,500 | 6,977.94 | ❌ **-7.0%** |\n| ② 외인 순매수 재개 | 전환 확립 | +3조387억 · **4거래일 연속** · 5일합 +6.69조(직전 -5.94조) | ✅ **충족** |\n| ③ 유가 진정 | WTI 71.5 | **$82.40** | ❌ **+15.2%**, 최근 오히려 상승 |\n\n**⚠️ 게이트②의 질(質) 경고 — 이번 보고서의 핵심 발견:** 외인이 4일 연속 사고 있다는 사실은 맞지만,\n**8/14 순매수의 84.9%가 삼성전자+SK하이닉스 단 두 종목**이다(골드만: 8/11~14 4일간 8.2조 중 **약 90%가 기술주**, 한경 교차).\n이건 \"외인이 한국을 산다\"가 아니라 **\"외인이 메가캡 반도체 두 개를 산다\"**이다. 게이트②는 형식상 충족이나\n**지수 회복의 폭(breadth)은 없다** — 7,000선을 장중 터치하고 반납한 게 그 증거다.\n\n---\n\n## 1. 시장 — 국장 / 미장\n\n### 국장 (8/14 확정 · 프로즌)\n\n코스피 **6,977.94(+2.42%, +164.60p)**, 장중 한때 **7,010선 터치** 후 반납. 코스닥 **865(+0.41%)**. 5거래일 연속 상승, 주간 **+11.5%**.\n이번주(8/10~14) 누적 외인 순매수 **7조8,604억** — 지난달 8조6,313억 순매도를 한 주에 되감았다.\n**VKOSPI 55.31** — 6월말 사상최고 97에서 -42p 내려왔지만 **정상 레벨(15~20) 대비 여전히 극단**이다.\n\n**★8/14 종목별 외인 순매수 (T+1 확정 — v75 미결 해소)**\n\n| 종목 | 외인 순매수 | 시장 전체 대비 |\n|---|---:|---:|\n| 삼성전자 | **+1조3,487억** | **44.4%** |\n| SK하이닉스 | **+1조2,297억** | **40.5%** |\n| 현대차 | +427억 | 1.4% |\n| LG전자 | +387억 | 1.3% |\n| NAVER | +74억 | 0.2% |\n| 두산로보틱스 | -31억 | -0.1% |\n| **6종목 합** | **+2조6,641억** | **87.7%** |\n\nv75가 인용한 \"삼성전자 외인 순매도 -1,090억\"은 **naver 종목이력 API의 T+1 지연으로 8/13 확정치가 8/14 조회에 노출된 것**이었다(8/13 실제: -401,379주 ≈ -1,076억으로 거의 일치). 결론이 반전됐고, **쏠림은 오히려 더 심하다**(하닉 단독 44% → 반도체 2종목 85%).\n\n**리테일 심리**(naver_sentiment): 공포 23.7%ile[무관심] · 항복 55.4%ile[보통] · 유입 12.5%ile[무관심].\n5일 연속 급등에도 **개인은 아직 안 들어왔다** — 과열 아님(측정 참고, 매수신호 아님). 종목 관심도는 삼성 81.7%ile·LG전자 85.9%ile로 고조.\n**DART 수시공시 최근 2일: 🚨critical·⚠️notable 0건**, 5% 대량보유 변동 0건.\n\n### 미장 (8/14 확정)\n\n**S&P 7,785.76(-0.17%) · 나스닥 26,729.16(-0.28%) · 다우 53,732.41(-0.20%) · SOX 12,417.05(-0.31%).**\n8/13이 S&P **사상최고 종가**(7,798.99)였고 8/14는 그 다음날 소폭 반락 — **주간으로는 3주 연속 상승**, VIX 14.25로 차분.\n오전 강세가 오후에 사라진 건 미시간 소비자심리 51.0 쇼크 때문이지만, **지수를 크게 흔들지는 못했다.**\n\n**크로스에셋 폭풍%ile**: S&P 63.1 · 나스닥 74.6 · SOX 82.5 **vs 코스피 96.0** · 코스닥 88.9 · 니케이 84.9.\n반도체 지수(SOX 82.5)조차 코스피보다 한참 낮다 ⇒ **\"미장 조정 vs 국장 붕괴\"의 비대칭은 그대로 유지**된다.\n\n---\n\n## 2. 섹터\n\n### 2-1. ★이번 주말의 진짜 주제 — 신용시장이 AI 캐펙스 부채를 재평가하기 시작했다\n\n8/14 하루에 세 가지가 같이 일어났고, **셋은 같은 사건의 세 얼굴**이다.\n\n| 종목 | 당일 | 사건 | 성격 |\n|---|---:|---|---|\n| **AVGO** | **-5.94%** | **BofA가 발행사·채권등급 하향** — Apollo·Blackstone과 만든 **\"AI XPV\" 파이낸싱 플랫폼**(1호 ~$350억, Anthropic향 1GW+) 신용 리스크 | 오프밸런스 리스 부채 재평가 |\n| **ORCL** | **-3.65%** | **S&P가 BBB-로 강등**(투자등급 최하단). FY27 조달 필요 **~$400억**(그중 **ATM 지분발행 $200억 = 희석**) | 백로그 $6,380억의 **절반이 OpenAI 단일고객** |\n| **AMD** | **+6.50%** | 사상 최대 IG 회사채 **$47.5억** 발행 **성공** + BofA 톱픽 | 조달에 성공한 쪽은 올랐다 |\n\n**⇒ 시장은 \"AI에 돈을 쓰는가\"가 아니라 \"그 돈을 어떻게 조달하는가\"로 채점 기준을 바꿨다.**\n\n**그리고 이 렌즈로 우리 포트를 보면 — 우리 자체 하드넘버가 같은 걸 가리킨다**(`financials.py --flags`, EDGAR 1차):\n\n| 종목 | 총차입금 YoY | 순현금 변화 | 판정 |\n|---|---:|---|---|\n| **GOOGL** | **+308.5%** ($11.9B→$48.5B) | +$11.6B → **-$17.8B** | 🔴 debt_buildup |\n| **META** | **+103.8%** ($28.8B→$58.7B) | +$15.1B → **-$22.9B** | 🔴 debt_buildup |\n| **ORCL** | **+39.9%** ($92.6B→$129.5B) | **-$98.25B** · FCF **-$23.7B** | 🔴 debt_buildup (룰2 **2/3**) |\n| **MSFT** | — | -$12.9B → -$19.4B | 🟡 + 룰2 **마진 브레이크**(48.9→47.1→46.3%) |\n\n**보유 빅테크 4곳이 전부 같은 방향으로 레버리지를 쌓고 있다.** 이건 개별 악재가 아니라 **팩터**다.\n⚠️ 단 **이걸 매도 신호로 번역하지 않는다** — 같은 기업들의 **이익 전망은 안 꺾였다**(아래 2-2). 지금 단계는 *감시 축의 승격*이지 포지션 변경이 아니다.\n\n### 2-2. 반도체·AI — 이익 전망은 오히려 강해졌다\n\n`eps_revisions.py`(90일 변화·측정 전용, 별점과 다른 축):\n\n| 종목 | 90일 | 상/하향 | 점수 | 등급 |\n|---|---:|---:|---:|---|\n| **MU** | **+52.1%** | 30/0 | +94.1 | **강한상향** |\n| **삼성전자** | **+33.1%** | 22/0 | +75.4 | **강한상향** |\n| NVDA | +14.3% | 4/0 | +39.3 | 상향 ⚠️n=4 |\n| AVGO | +7.9% | 2/0 | +24.6 | 상향 ⚠️n=2 |\n| **두산로보틱스** | **-76.2%** | 0/1 | -60.0 | **강한하향** ⚠️n=1 |\n\n**MU·삼성 = 상향 30/0, 22/0으로 하향이 단 한 건도 없다.** 메모리 사이클 정점 신호는 아직 없다(룰4 margin_trend_break 0건 · MU 플래그 0건 · 삼성 DS 2Q 89.2조 사상최대 · MU FQ4 GM **~86%**, FQ3 84.9%에서 **추가 상승**).\n\n**★DRAM 실물가 — 이번엔 방향을 확보했다**(8/1 규율 준수, FRED 반도체 PPI 프록시 미사용):\nTrendForce **3Q26 서버 DRAM 계약가 +13~18% QoQ 상승 전망**. 단 **증가율은 둔화**하고 있다(1Q26 +95% → 2Q26 +63% → 3Q26 +13~18%).\n**⇒ 가격 하락 신호는 없다. 그러나 상승 속도는 꺾이는 중이다** — 이 둘을 같이 적어야 한다.\n⚠️ **스팟 실거래가(원/GB)는 유료 데이터라 여전히 미확인** — 계약가 방향성만 TrendForce 프레스센터로 확인했다.\n\n**팩터 조기경보 4종 판정 — 1/4 부정 (임계 2 미달, 변동 없음)**\n\n| # | 경보 | 현재 | 판정 |\n|---|---|---|---|\n| 1 | 룰4 마진(메모리 정점) | margin_trend_break 0건 | ✅ 정상 |\n| 2 | **AVGO 재고** | 재고 YoY **+126.8%** vs 매출 +48.7% (**78.1%p 초과**) + 매출채권 +118.6% | 🔴 **부정** |\n| 3 | NVDA 백로그 | 계약부채 YoY **+127.9%** 확대 | ✅ 정상(bull) |\n| 4 | eps_revisions | MU +52.1%·삼성 +33.1% 강한상향 | ✅ 정상 |\n\n⚠️ **AVGO 재고 플래그와 8/14 신용 급락은 별개 사건이다 — 합쳐서 \"2/4\"로 세지 않는다.**\n재고급증은 *제품·수요 사이클* 신호이고, 등급 하향은 *고객사(Anthropic) 데이터센터 조달을 대신 지는 오프밸런스 파이낸싱 구조* 리스크다.\n**결정적 증거: BofA는 등급을 내리면서 동시에 AVGO FY26 매출·EBITDA 전망을 각각 +10%·+13% 상향했다.**\n등급을 내린 그 애널리스트가 본업 전망은 올렸다는 건 이게 **수요 정점이 아니라 조달 리스크**라는 뜻이다.\n**판별선 = 9/2 FQ3 실적** — ①재고·매출채권 갭 축소 여부 ②XPV 관련 신규 코멘트, **둘 다 나쁠 때만** 2/4 격상을 재검토한다.\n\n### 2-3. 전력·피지컬AI — 현대차 급등은 우리 판단의 검증이 아니다\n\n**현대차 +8.24%**의 촉매는 한국경제(8/13) 보도 — 현대차그룹이 **1차 협력사 200여 곳에 휴머노이드 부품 사업계획서 제출을 요구**했다는 취재 건이다.\n**공식 발표도, 계약도 아니다.** 주말 사이 격상·철회 둘 다 없었다.\n- 우리 셋업 2개(`현대차-피지컬AI-인베스터데이`·`현대차로봇리레이팅`) **met 0% 그대로**.\n- **두산로보틱스는 이 명단에 없다** — 같은 날 +1.55%로 소외. \"로봇 테마\"로 두 종목을 묶지 말 것.\n- **판정 = 단발 뉴스 스파이크.** 구조적 리레이팅이 되려면 **8/26 인베스터데이**에서 로봇 매출화 시점·마진구조가 나와야 한다.\n- **급등을 근거로 별점을 올리지 않는다**(급등일 확신 상향 = 실측된 실패 패턴).\n\n**대조군 — SK이노베이션 +5.75%는 격이 다르다**: 8/14 **테라파워와 나트륨 SMR 협력 합의서 체결**(추형욱 대표·크리스 르베크 CEO 서명). 취재 보도가 아니라 **서명된 합의**다.\n**조선 3사 동반 강세**(한화오션 +5.62%·HD현대중 +2.82%·삼성중 +1.36%)는 트럼프의 **해외 조선소 미 해군 함정 건조 허용 메모**(한화 필라델피아 조선소 직접 수혜 언급) — 2차 매체 교차, 백악관 1차 발표 미대조 [부분검증].\n\n### 2-4. 빅테크 — GOOGL에 대가 4인이 동시에 들어왔다\n\n**13F Q2'26**(8/14 공시, guru-flow-desk 확정):\n\n| 대가 | 액션 | 근거 |\n|---|---|---|\n| **버핏(버크셔)** | **+83.2%** → $36.6B, **버크셔 3대 지주 진입** | 서치 모노폴리(91%+) + 클라우드 고마진 매출 +82% |\n| **로엡** | **+485.7%** 2분기 연속 확대, 포트 3위(7.88%) | **NVDA·AVGO·KLA·Lam 전량 이탈**시켜 만든 자금 |\n| **드러켄밀러** | Q1 전량청산 → **Q2 재진입** NEW $120.2M | **MU·AVGO 청산** 자금 재배치 |\n| **테퍼** | +6.8% | \"메모리는 선별 축소·메가캡 AI는 유지\" |\n| 애크먼 | **전량 청산** (유일한 반대) | — |\n\n**⇒ 대가들의 이유 = \"AI 반도체 픽스앤숍 과밀 트레이드 청산 → 플랫폼 레이어로 로테이션\".**\n이건 8/14 신용시장이 AVGO·ORCL을 때린 것과 **같은 방향의 이야기**다.\n⚠️ **우리 논지와 근거축이 다르다** — 우리는 밸류(fwd PER 17.1·서브스코어 86.1)+백로그(+45.8%), 대가는 모트+로테이션. **같은 결론에 다른 이유로 도달했으므로 확신 보강 재료이되, 대가 동조를 별점 상향 근거로 쓰지 않는다**(과신 견제).\n\n**AAPL — $312 트림 근거가 오히려 강해졌다.** 분기 매출총이익률이 FQ3'26 **50.1%**로 3분기 연속 확대됐지만 여기엔 **관세 환급 일회성 +2%p**가 섞여 있고(순수 ~48.1%), **FQ4 가이던스가 47~48%로 하향** = **첫 순차 마진 압축 신호**다. 여기에 `inventory_surge` 🔴(재고 YoY +76.9% vs 매출 +14.7%) = 메모리값 오르기 전 선매입 정황.\n**7/29 정정(CXMT는 삼성보다 비싸게 판다 = 애플에 원가 탈출구가 없다)이 지금 가이던스 숫자로 옮겨오는 중이다.**\n\n---\n\n## 3. 매크로\n\n**8/14 밤 두 지표 모두 대형 미스** — v75가 프리뷰만 하고 못 본 결과다.\n\n| 지표 | 실제 | 컨센 | 판정 |\n|---|---:|---:|---|\n| 7월 소매판매 (MoM) | **-0.6%** | +0.1% | 대형 미스. 자동차 -1.8%·전자 -0.5%. **컨트롤그룹도 작년 9월 이후 첫 마이너스** |\n| 미시간 소비자심리 예비 | **51.0** | 54.5 | 미스. 현재 51.8·기대 50.6 둘 다 하회. **1년 기대인플레 4.3%**(7월 4.2%↑) |\n\n**9월 FOMC**: 인상확률 **29~33%**(8/13밤 34% → 8/14 데이터 후 하락), 동결 ~70%. 프레임은 여전히 **\"동결 vs 인상\"**(인하 아님) — 7/29가 매파적 동결(9-3, 소수의견 3인 전원 인상 선호)이었기 때문.\n\n| 지표 | 값 | 변화 |\n|---|---:|---|\n| 10Y / 2Y | 4.63% / 4.15% | 각 **-5bp** |\n| 2s10s | 48bp | — |\n| 실질금리(10Y TIPS) | 2.39% | -3bp |\n| 10Y BEI | 2.27% | +3bp |\n| VIX | 14.25~14.63 | 차분 |\n| USD/KRW | **1,416~1,420** | 횡보 |\n| WTI | **$82.40** | **+1.42%** — 게이트③ 역행 |\n\n**⚠️ 원화가 안 따라온다**: 외인이 4일간 7.9조를 샀는데 환율은 1,413→1,420으로 오히려 소폭 약세다. **외인 유입이 아직 원화 강세로 전이되지 않았다** — 게이트②의 질 경고와 같은 이야기(사는 건 반도체 2종목이지 \"한국\"이 아니다).\n\n**한은**: 7/16 금통위에서 **2.50% → 2.75% 인상**(7-0 만장일치). **8/27 금통위 = 점도표 공개월**(2·5·8·11월). 컨센 갈림 — 매파적 동결(우리금융硏) vs 추가 25bp 인상(Citi). 유상대 부총재 퇴임 전 발언 \"추가 인상 가능성 높다\"로 매파 쪽 무게.\n\n---\n\n## 4. 리서치 피드\n\n**R1 프리페치는 평일 전용**이라 주말엔 안 돈다. `YOUTUBE_API_KEY`가 이번에 실제로 작동(`tab:api`)해 **R1(8/14 10:00) 이후 저녁 업로드 3편**을 잡아냈다 — 종전 구조적 누락(저녁 39%·주말 28%) 구간이다.\n\n**총 9편 분석 완료**(8/14 저녁 3편 + 8/15~16 주말 6편). **주말 6편은 RSS만 썼으면 전부 놓쳤을 분량** — 8/12 감사가 지적한 \"주말 커버리지 28%\"가 API 도입으로 실제 해소된 첫 사례다.\n\n| 영상(업로드) | 핵심 주장 | 판정 | 우리 데이터 대조 |\n|---|---|---|---|\n| **7000을 못 넘은 이유**(8/14 20:16) | 7,010 터치 후 6,977.94 마감. PPI 0.0%(예상 0.2%) 서프라이즈 + 외인 3조가 개인 1.98조 매도를 받아냄. 월가 \"황소가 한국으로\"(Bloomberg) | **[검증]** | 지수·PPI 정확. ⚠️단 **쏠림(2종목 85%)을 언급 안 함** — 황소론만 강조하고 폭의 부재는 누락 |\n| **다음주 한국 포인트**(8/14 21:38) | **8/17 휴장**·SK하닉 ADR로 야간 발견 → **8/18 갭이 핵심**. SK하닉 주주환원(3Q, 40~100조)이 7/29 -9.6%의 되감기 카드. 8/20 삼성 테크투어 | **[검증]** | ★**휴장 정보가 우리보다 빨랐다**(훅은 공휴일 미반영). SK하닉 2Q 79.32조·영업익 60.54조·**OPM 76%** 1차 확인 |\n| **최태원 5년뒤 하이닉스**(8/14 23:16) | \"AI는 겨우 네 살\" — 10년내 수요가 생산능력의 5배. HBM은 공간 4배 소모. 美 팹 건설비 韓 2배 | **[검증·단 시점 합성]** | 수치는 전부 실제 발언과 일치. ⚠️**7/11·7/17·7/19·8/14 4개 시점 발언을 하나로 합쳐 \"최근 인터뷰\"로 제시** — 편집 습관 |\n| **외국인이 삼성전자만 사는 이유**(8/15 19:00) | 8/14 삼전 491만주 vs 하닉 74만주 = **6배차**. 이유 = 삼성 HBM4/4E 후발 개선구간 + 삼성SDI-GM 합작 49.99% 단독인수(35억달러) | **[정정]** | ★**\"6배\"는 틀렸다** — 금액 기준 삼전 3.31조 vs 하닉 2.86조 = **15% 차**. 우리 확정치(1.35조 vs 1.23조)와도 정합. 삼성SDI-GM은 [검증] |\n| **악재: 통상교섭본부장 해임**(8/16 14:53) | 여한구 직권면직(8/15 자정) → 대미 3,500억달러·관세 15% 협상 컨트롤타워 공백 | **[검증]** | 뉴스핌·헤럴드·한국일보 교차. **현대차 신규 리스크로 등록** |\n| **다음주 미국 포인트**(8/15 17:00) | S&P 8/13 장중 첫 7,800 돌파. 8/20 FOMC 의사록이 최대 이벤트 | **[검증]** | FOMC 7/29 5연속 동결·반대 3인(해맥·카슈카리·로건 전원 인상 소수의견) 정확 |\n| 오닐 20-25% 익절룰 / 7000 넘으면 할 일 3가지 / 다음주 한국(재편집) | 원칙론 | 일반 | 검증 대상 수치 없음 |\n\n**채널 정정 3건**: ①등락종목수 313/549 → 실제 **333/533** ②삼전 vs 하닉 \"6배\" → **15% 차**(금액 기준) ③최태원 발언 **4개 시점 합성**을 \"최근 인터뷰\"로 프레이밍.\n\n**★트랙레코드 [정정] 종결 — 2일 연속 미확인이던 항목:**\n경제사냥꾼이 8/13·8/14 주장한 **\"9월 인상확률 55%→32%\"**는 **[정정]**이다.\n55%의 실체는 **Polymarket 7/29 스냅샷(53%)**, 32%는 **같은 날 SOFR 선물치**로 — KuCoin 기사의 *동시 크로스소스 비교*를 채널이 *2일간 시간축 변화*로 오독했다. 실제 시계열은 7/23~29 급등(70~82%) → 8/12 50.3% → 8/13밤 34% → 8/14 후 **29~33%**.\n**방향(하락)은 맞았고 수치·메커니즘은 틀렸다.** 채널의 8/14 매크로 4개(물가·금리·유가·환율) 논지 자체는 우리 하드넘버와 전부 일치해 [검증]으로 남는다.\n\n**셋업 현황**(setup_schema --check, 결손 0): 메모리코어 **100% fired** · 반도체마진방향 80% · 전력인프라 80% · 반전트리거 75% · m7capex 75% — **발동권(≥75%) 5개 도달**.\n⚠️ 다섯 개 모두 **사다리 0원으로 집행 불가**다. 이건 판단 실패가 아니라 재원 제약이며, 그 구분을 원장에 남긴다(d108).\n\n---\n\n## 5. 리스크 데스크 (PM 직접 수행 — 데스크 세션 토큰 한도 중단분 대체)\n\n1. **룰1**: 낙폭 -23.4% → D1 잠김·해금 0%·**허용 0원**. 휴장이라 v75 대비 불변(정상).\n2. **★하드플로어 해제**: S&P 폭풍 71%ile → **63.0%ile**. **舊 이중 잠금이 단일 잠금이 됐다.**\n   ⇒ **GOOGL 조건부 오더 3조건 중 ②가 충족됐다**(①D1 해금 ❌ · ②하드플로어 ✅ **신규** · ③해제 후 눌림 ❌).\n   ⚠️ **그래도 살 수 없다** — ①이 안 열렸다. 다만 **\"두 개 남았다\"에서 \"하나 반 남았다\"로 바뀐 것**은 기록해 둔다.\n3. **룰2**: 두산로보 **3/3 훼손 착수**(불변) · 현대차 **1/1 마진**(금융연결) · ORCL **2/3** · MSFT 마진브레이크 · LG전자 **1/3 정상**(FCF 3,731억 반등·순부채 개선).\n   ⚠️ **ORCL 3번째 조건(희석)이 다음 분기 열릴 소지** — $200억 ATM은 아직 재무제표에 안 잡힌 **선행 리스크**.\n4. **집중도**: NVDA **20.0%**(상한 25% 근접) · 반도체축 34.2% · **AI·빅테크·반도체 합산 88.1%** · 미국 74.8% vs 국내 25.2%.\n   → 8/14 확정대로 이건 '분산'이 아니라 **의도된 단일 베팅**이다. 팩터 조기경보 **1/4**(임계 2)로 아직 경보 아님.\n5. **대기 오더 3건 → 2건**(VOO 체결로 감소): AAPL $312(해외) · LG전자 240,000원(국내). 토스 \"대기 중인 주문 해외 1건·국내 1건\"과 대사 일치.\n6. **⭐2 이하 조치**(8/2 \"'관망'은 결정이 아니다\"): 아래 §7c 참조 — 두 종목 모두 **기한부 홀드 + 양방향 트리거**로 배선돼 있고 기한이 살아있다.\n\n**신중(bear) 관점 1단락:**\n지수는 5일 +11.5% 올랐는데 **breadth가 없다**(외인 매수의 85%가 2종목, 원화는 안 따라옴, 7,000 터치 후 반납). VKOSPI 55는 여전히 정상의 3배다. 여기에 **미 소비 지표가 동시에 두 개 깨졌고**(소매판매 -0.6%·미시간 51.0), 신용시장은 AI 캐펙스 부채를 때리기 시작했으며 **우리 빅테크 4곳이 전부 그 부채를 쌓고 있다**. 반등을 \"구조 사건의 해소\"로 읽기엔 **해소된 구조가 아직 하나도 없다** — 게이트는 여전히 1/3이고, 그 1개마저 질이 의심스럽다.\n\n---\n\n## 6. 강세 vs 신중 디베이트\n\n**강세**: 이익 전망이 안 꺾였다는 게 결정적이다. MU +52.1%·삼성 +33.1%가 **상향 30/0, 22/0** — 하향이 한 건도 없다. 메모리 정점 신호(룰4)는 0건이고 MU FQ4 GM ~86%로 오히려 확대 가이던스다. 외인은 4일간 7.9조를 순매수하며 한 달치 매도를 되감았고, 매크로 4개(물가·금리·유가·환율)가 같은 주에 진정됐다. 미장은 사상최고 부근에서 차분하고(S&P 폭풍 63%ile) 코스피 12M fwd PER은 여전히 역사적 최저권이다. **\"배수만 깎였고 이익은 안 꺾였다\"가 데이터로 지지된다.**\n\n**신중**: 그 상승의 폭이 없다. 외인 매수의 85%가 삼성+하이닉스이고 원화는 오히려 약해졌으며 7,000은 터치 후 반납됐다 — **지수가 오른 게 아니라 반도체 2종목이 오른 것**이다. VKOSPI 55는 정상의 3배고 게이트는 1/3, 유가는 오히려 역행 중이다. 미국에선 소비 지표 두 개가 동시에 깨졌고, 무엇보다 **신용시장이 AI 캐펙스의 조달 구조를 때리기 시작했다**(AVGO 등급 하향·ORCL BBB-·CDS 18년 최고). 우리 빅테크 4곳(GOOGL +308.5%·META +103.8%·ORCL +39.9%·MSFT)이 **전부 같은 방향으로 레버리지를 쌓고 있고**, ORCL은 백로그 절반이 단일 고객이다. 그리고 우리는 이 국면에서 **살 돈이 0원**이다.\n\n**PM 저울질**: 강세 논지가 **펀더(이익)**에서 이기고, 신중 논지가 **구조(폭·조달·재원)**에서 이긴다. 둘은 모순이 아니다 — **이익은 좋은데 그 이익을 만드는 데 드는 자본조달이 비싸지고 있다**는 게 지금의 정확한 그림이다. 그래서 결론은 **홀드 + 감시축 승격**이지 매수도 매도도 아니다. 어차피 재원이 0원이라 이 판단은 **당장 집행되지 않는다** — 그게 오히려 다행인 국면이다.\n\n---\n\n## 7. PM 종합\n\n### 오늘의 한 줄 결론\n> **\"이익은 안 꺾였는데 조달이 비싸지기 시작했다\"** — 이번 주말의 진짜 뉴스는 코스피 +11.5%가 아니라 **신용시장이 AI 캐펙스 부채를 재평가하기 시작한 것**이고, 우리 빅테크 4곳이 전부 그 축 위에 있다. 하드플로어는 풀렸지만 **사다리가 잠겨 여전히 0원** — 이번 주도 살 수 없다.\n\n### 보유 14종목 풀표\n\n**시세 = 8/14(금) 확정 프로즌. 수량·평단·손익은 8/16 17:50 토스 대사 정본.**\n\n| 종목 | 현재가 | 원가대비 | 비중 | 목표가 | 매수존 | 매도/트림 | ⭐ | 스코어 | 코멘트 |\n|---|---:|---:|---:|---|---|---|:---:|---:|---|\n| **삼성전자** | 274,500원 | **+2.62%** | 13.4% | 246,000~460,000원 (중심 340,000) | 사다리 D1 대상 (**해금 0%**) | — | ⭐5 | 93 | 외인 8/14 최대 순매수(+1.35조). EPS 90일 **+33.1%** 상향 22/0 |\n| **LG전자** | 215,000원 | **+38.53%** | 2.6% | 195,000~295,000원 (중심 240,000) | 봉인(TF 해제 후) | **240,000원 예약 접수** | ⭐4 | 74 | 보유 최고 수익. 룰2 **1/3 정상**(FCF 3,731억 반등). 목표까지 +11.6% |\n| **두산로보틱스** | 79,200원 | **-20.80%** | 1.0% | 분산 큼 | **—(추가매수 영구금지)** | 90,000원 상방 트림 재검토 | ⭐1 | 32 | 룰2 **3/3 훼손 착수**. EPS -76.2%(n=1). 순현금 2년 53% 감소 |\n| **현대차** | 459,500원 (토스) | **-27.06%** | 5.5% | 390,000~580,000원 (중심 480,000) | **—(물타기 영구금지)** | 8/26 인베스터데이 후 판정 | ⭐2 | 50 | +8.24%는 **취재 보도**發. 셋업 met **0%**. 마진 자기이력 12%ile |\n| **NAVER** | 227,500원 | **-9.18%** | 2.8% | 210,000~285,000원 | **add존 진입(225~235k)·집행불가** | 보류 | ⭐3 | 60 | BlackRock 7.09% 대량보유 신규. 하나 40만·삼성 30만 상향 |\n| **NVDA** | $225.16 | **+12.86%** | 20.0% | $260~335 | 눌림 비중관리(상한 25% 근접) | — | ⭐5 | 90 | 컨센 $302.83(+34.5%·n=58). 백로그 +127.9% |\n| **META** | $589.85 | **-6.96%** | 11.6% | $650~815 | **제외(신규자금 영구제외)** | 3Q 실적까지 홀드 | ⭐2 | 50 | 서브스코어 46.6(최저). 총차입금 **+103.8%** |\n| **VOO** | $713.61 | **+9.05%** | 13.2% | ETF | **월 10만원 정액(룰9)** | — | ⭐4 | — | ✅ **8월분 체결** 1.167038주 |\n| **MSFT** | $495.40 | **+20.77%** | 12.4% | $540~655 | — | — | ⭐4 | 82 | 룰2 **마진브레이크**(48.9→47.1→46.3%). 피어 1위(74.5%ile) |\n| **AAPL** | $305.93 | **+18.97%** | 5.4% | $270~325 | 신규매수 금지 | **$312 예약 접수(미체결)** | ⭐3 | 55 | **FQ4 가이던스 47~48% 하향 = 첫 순차 마진압축**. 트림 근거 강화 |\n| **GOOGL** | $345.90 | **-2.18%** | 10.6% | $385~455 | **재진입 1순위**(3조건 중 ②충족) | — | ⭐5 | 88 | **대가 4인 동시 매수**. 단 총차입금 **+308.5%** |\n| **ORCL** | $150.52 | **-35.15%** | 0.6% | $150~190 (중심 $168) | 제외(후보 아님) | 트림 안 함(실익) | ⭐3 | 55 | **S&P BBB- 강등**·CDS 198~203bp. 룰2 **2/3**, 희석이 3번째 |\n| **MU** | $971.66 | **+29.73%** | 0.3% | $1,090~1,555 | — | — | ⭐5 | 86 | EPS 90일 **+52.1%** 상향 30/0. 플래그 **0건** |\n| **AVGO** | $392.99 | **-6.67%** | 0.5% | $430~525 | 조정 시 후보(TF 우선) | — | ⭐4 | 78 | **-5.94%** BofA 등급하향. 재고 **+126.8%** 🔴. 판별선 9/2 |\n\n**별점 변경 없음** — 급등(현대차)·급락(AVGO·ORCL) 어느 쪽도 별점 근거를 바꾸지 않았다.\n\n### 워치리스트 (활성)\n\n| 종목 | 현재가 | 당일 | 목표/컨센 | 매수존 | ⭐ | 스코어 | 코멘트 |\n|---|---:|---:|---|---|:---:|---:|---|\n| SK하이닉스 | 1,645,000원 | +3.26% | 4,000,000원(SK증권) | 추격금지 | ⭐4 | 78 | 외인 +1.23조(40.5%). 지분율은 오히려 -1.41%p |\n| 삼성전기 | 1,558,000원 | +3.66% | — | — | ⭐4 | 70 | |\n| 두산에너빌리티 | 82,600원 | +2.10% | 143,000원 | 62,000~66,000원 | ⭐3 | 64 | **82,000 추세복귀 알림 도달**. 이월적립 최근접(81,800원 부족) |\n| SK이노베이션 | 128,700원 | **+5.75%** | — | 105,000~112,000원 | ⭐3 | 68 | ★**테라파워 SMR 합의서 체결**(서명 계약) |\n| 한화오션 | 95,800원 | **+5.62%** | — | — | ⭐3 | 62 | 트럼프 함정건조 메모(한화 직접 수혜) |\n| HD현대중공업 | 510,000원 | +2.82% | — | — | ⭐4 | 74 | 피어그룹 1위(79.3%ile) |\n| 한화에어로 | 1,160,000원 | -2.11% | 1,620,000~1,900,000원 | 900,000~950,000원 | ⭐4 | 74 | 하락 사유 [미확인] |\n| 삼성중공업 | 22,300원 | +1.36% | — | — | ⭐3 | 60 | |\n| 원익IPS | 116,600원 | -2.83% | — | — | ⭐3 | 56 | 장비주 순환매 이탈 |\n| 테스 | 147,500원 | +1.72% | — | — | ⭐3 | 57 | |\n| KT&G | 176,000원 | +1.27% | 240,000원 | 165,000원 | ⭐3 | 63 | 도달해도 **재원상 집행불가**(d103) |\n| GEV | $1,063.25 | +1.32% | $1,238 | — | ⭐4 | 78 | 실적일 [미확인] |\n| AMD | $514.39 | **+6.50%** | $613.33 | — | ⭐4 | 77 | 회사채 $47.5억 발행 성공 |\n| ANET | $198.82 | -2.36% | $241.82 | 재진입 조건부 | ⭐4 | 87 | 8/11 전량매도 완료 |\n| TMUS | $182.61 | -0.42% | $243.08 | — | ⭐3 | 62 | SpaceX가 파트너→경쟁자 전환 리스크 |\n| SPCX | $140.00 | -0.91% | $235.69 | — | ⭐2 | 32 | ⚠️1차 락업 **8/6 이미 만료**(주가 오히려 상승) |\n| PLTR | $174.04 | -2.78% | $191.68 | — | ⭐3 | 61 | |\n| TSLA | $342.27 | +0.68% | $396.62 | $390 이하 눌림 | ⭐2 | 18 | 재진입 조건 불변 |\n| STM | $54.29 | +0.69% | $71.52 | — | ⭐3 | 59 | |\n| IONQ | $46.26 | +2.85% | $67.68 | — | ⭐2 | 42 | |\n| 삼성바이오로직스 | 1,548,000원 | -1.02% | — | — | ⭐4 | 74 | |\n| LG이노텍 | 654,000원 | +6.34% | — | — | ⭐3 | 60 | |\n\n### 🎯 지정가 오더북\n\n| 종목 | 액션 | 지정가 | 수량 | 예약방식 | 발동조건 | 기대수익(익절 후보) |\n|---|---|---:|---|---|---|---|\n| **LG전자** | 트림(전량) | **240,000원** | 정수 1주 | ✅**예약 접수됨**(국내 대기 1건) | 도달 시 자동 | 원가 155,200 대비 **+54.6%** |\n| **AAPL** | 트림 | **$312** | 정수 1주 | ✅**예약 접수됨**(해외 대기 1건) | 도달 시 자동 (8/14 고가 $307.49) | 원가 $257.14 대비 **+21.3%** |\n| **VOO** | 적립 | 시장가 | 10만원 | 룰9 월 정액 | **9월분 = 9월 월급일 후 첫 폰창** | — (기계적 집행) |\n| **GOOGL** | 매수 | 소수점 시장가 | 해금액 전액 | 3조건 충족 시 폰창 | ①D1 해금 ❌ **②하드플로어 ✅** ③해제 후 눌림 ❌ | 목표 $385~455 (+11~32%) |\n| 두산로보틱스 | 트림 검토 | 90,000원 | 1주 | 상방 트리거 | +13.6% 도달 시 재검토 | — |\n| 현대차 | 홀드→판정 | — | — | 8/26 인베스터데이 | 제조부문 마진 분리 공시 | — |\n\n**신규 오더 없음.** 재원이 0원이고 가격 조건도 안 왔다 — 오더를 내지 않는 이유를 여기 명시한다(8/2 규율).\n\n### 현금 배분 플랜\n\n**현금 266,060원 · 허용 트랜치 0원.**\n- 🅰️ **관망(룰 정합·추천)**: 그대로 둔다. 사다리 D1은 코스피 **6,835.91 이하 종가**에서 열린다(현 6,977.94 대비 **-2.0%**). 열려도 D1 15% = 약 39,900원이라 **국내 1주는 여전히 불가** → 국내 이월 적립으로 대기하거나 미국 소수점(GOOGL)으로만 집행 가능.\n- 🅱️ **공격**: 하드플로어가 풀렸으니 D1 대기 없이 GOOGL 선집행 — **기각**. ①이 안 열렸고, 룰3 추격금지도 걸린다. 무엇보다 **8/14가 사상최고 부근**이라 눌림이 아니다.\n- **LG전자 240,000원 체결 시** 재원 약 240,000원 유입 → 그때 GOOGL 1순위 실탄이 된다(단 3조건 여전히 유효).\n\n### 지켜볼 것 (2주 캘린더)\n\n| 날짜 | 이벤트 | 폰창 |\n|---|---|---|\n| **8/17(월)** | 🇰🇷 **KRX 휴장 — 광복절(8/15 토) 대체공휴일**. 美 정상개장 · 뉴욕 엠파이어제조업(21:30) · 중국 소매판매·산업생산 | 국내 없음 / ❌ |\n| **8/18(화)** | ★**국내 재개장 = 이틀치 갭이 한 번에** (美 8/17 밤 + 주말 뉴스 동시 반영) · 신규주택착공(21:30) | 국내 장중 |\n| **8/19~20** | **FOMC 의사록**(7/29 회의, KST 8/20 03:00) | ❌ 심야 → **8/20 17:30 대응** |\n| 8/19~21 | 🇰🇷 **AI서밋 X4**(코엑스) | 국내 장중 |\n| **8/20(목)** | 🇰🇷 **삼성전자 테크투어**(노무라·JPM 주관) · 신규실업수당·필라델피아연은 | 국내 장중 / ❌ |\n| 8/21(금) | S&P글로벌 PMI 예비 / 🇰🇷 **국내 PPI**(6월 +8.6% YoY = 2022.7래 최고) · 8/1~20 수출 | ❌ / 국내 장중 |\n| 3Q 중 | ★**SK하이닉스 주주환원 발표**(증권가 40조 자사주~100조 전체 전망) | 미정 |\n| **8/26(수)** | ★**NVDA 실적** + ★**현대차 인베스터데이**(재검토 트리거) | ❌ / 국내 장중 |\n| **8/27(목)** | ★**한은 금통위 + 점도표**(8월=공개월) | 국내 오전 → 폰창 진입 시 이미 반영 |\n| 8/27~29 | 잭슨홀(8/28 워시 신임 의장 첫 기조연설) | ❌ |\n| **9/2** | **AVGO FQ3 실적** — 재고 플래그 판별선 | ❌ |\n\n⚠️ **다음주 미 지표는 전부 21:30 KST 이후 = 당일 폰창 밖.** 사전 조건부 룰로만 대응.\n\n### 🗣️ PM 사견\n\n**종합** — 나는 이번 주 반등을 **아직 사지 않는다**. 이유는 룰이 막아서가 아니라(막고 있긴 하다) **올라온 방식이 마음에 안 들어서**다. 외인이 4일간 7.9조를 샀다는 헤드라인은 훌륭한데 그 85%가 삼성+하이닉스이고, 원화는 안 따라왔고, 7,000은 터치하고 반납했다. 이건 **지수 회복이 아니라 반도체 2종목 리레이팅**이고, 우리는 이미 그 두 종목 쪽에 충분히 노출돼 있다(반도체축 34.2%). 여기서 더 사는 건 분산이 아니라 **같은 베팅을 두 번 하는 것**이다.\n\n동시에 나는 **비관론자가 아니다**. MU +52.1%·삼성 +33.1%에 하향 0건이라는 숫자는 강력하고, 이건 \"배수만 깎였고 이익은 안 꺾였다\"는 논지를 정면으로 지지한다. 메모리 정점 신호는 어디에도 없다. 그래서 **보유는 전량 홀드**다.\n\n이번 주말 내가 실제로 바꾼 건 하나다 — **감시축을 이익에서 조달로 옮겼다.** AVGO·ORCL이 실적이 아니라 **신용등급**으로 맞은 날, 우리 빅테크 4곳(GOOGL +308.5%·META +103.8%·ORCL +39.9%·MSFT)이 전부 같은 방향으로 부채를 쌓고 있다는 걸 우리 자체 EDGAR 숫자로 확인했다. 아직 팩터 경보는 1/4로 임계 미달이고 이익 전망이 멀쩡하므로 **포지션은 안 바꾼다.** 하지만 다음에 이 포트가 깨진다면 **그 경로는 실적 미스가 아니라 조달 비용일 가능성이 높아졌다.** 이걸 지금 적어둔다.\n\n**핵심 종목 한 줄**\n- **GOOGL**: 대가 4인이 같이 들어온 건 기분 좋지만 **그들이 판 게 NVDA·AVGO·MU**라는 게 더 중요하다. 우리는 그걸 다 들고 있다. GOOGL 1순위는 유지하되, 이 로테이션이 우리 포트 **반대편**을 향하고 있다는 걸 잊지 말 것.\n- **AAPL**: $312 트림 **유지·강화**. FQ4 가이던스 47~48%는 우리가 7/29에 예상한 마진 압축이 **숫자로 나타난 첫 분기**다. 논지가 맞아떨어졌을 때 파는 게 규율이다.\n- **현대차**: +8.24%에 아무 의미도 부여하지 않는다. 계약이 아니라 **사업계획서 제출 요구**다. 8/26이 진짜 시험이고, 그때 마진이 안 나오면 트림 착수다.\n- **삼성전자**: 유일하게 **원가 위**(+2.62%)로 올라온 국내 종목이고 EPS 상향 22/0이다. 사고 싶지만 **살 돈이 없다** — 이게 지금 우리 문제의 전부다. 룰이 아니라 계좌 규모가 구속이다.\n\n---\n\n## 7c. 채널 조건 트래커\n\n| 셋업 | 충족도 | 상태 | 비고 |\n|---|---:|---|---|\n| 메모리코어(0629) | **100%** | 🎯 fired | MU·삼성 EPS 강한상향으로 논지 재확인. **집행은 재원 0원으로 불가** |\n| 반도체마진방향-실적확인(0728) | 80% | armed | 룰4 0건 유지 |\n| 전력인프라(0629) | 80% | armed | SK이노-테라파워 SMR **서명**으로 논지 강화 |\n| 반전트리거(0629) | 75% | armed | 환율 1,416(조건2 충족·1,500 하회) · 외인 4일 연속(조건1) · **유가 $82.40 역행(조건3 미충족)** |\n| m7capex(0630) | 75% | armed | ⚠️ **신용 재평가로 논지 성격 변화** — 캐펙스 규모는 유지되나 조달비용 상승 |\n| 현대차 로봇 2종 | **0%** | watching | 8/14 급등에도 met 불변 |\n| 나머지 13개 | 0~50% | watching | 결손 0 |\n\n⚠️ **발동권(≥75%) 5개가 도달했지만 전부 집행 불가**다. 사유 = 사다리 0원(재원), 판단 실패 아님. 이 구분을 원장에 남긴다(d108 집행가능성 게이트).\n\n---\n\n## 8. 오늘의 이슈\n\n1. **신용발 AI 캐펙스 재평가** — 우리 빅테크 4곳 레버리지 축적을 어디까지 감시축으로 올릴 것인가\n2. **대가 4인의 GOOGL 매수 = 우리 보유 반도체에서 빠져나온 돈** — 로테이션에 올라탈 것인가 반대편을 지킬 것인가\n3. **외인 매수의 85% 쏠림** — 게이트②를 '충족'으로 계속 셀 것인가, 질(質) 조건을 추가할 것인가\n4. **현대차 8/26 인베스터데이** — 3시나리오별 트림 가격·수량 사전 확정(8/20 딥다이브 예정)\n\n---\n\n## 9. 계획·할일·매수추적\n\n### 📌 오늘(8/16 일) 할 일 — 폰창 20:50까지\n\n| # | 할 일 | 소요 | 왜 지금인가 |\n|---|---|---|---|\n| 1 | **아무 주문도 내지 않는다** — 대기 2건(AAPL $312·LG전자 240,000) 그대로 둔다 | 0분 | 허용 트랜치 **0원**. 오늘 할 수 있는 최선은 **안 건드리는 것**이다 |\n| 2 | **토스 대기주문 2건 생존 확인**(해외 1·국내 1) — 스크린샷의 \"대기 중인 주문\"만 다시 열어보기 | 1분 | 주말 사이 만료·취소가 없었는지. 8/12 LG전자 밴드 초과 거부 전례 |\n| 3 | (선택) **현대차 시간외 종가 확인** — 토스 459,500 vs Yahoo 453,000 중 어느 게 맞는지 | 2분 | 1.4% 이격. 손익 표시가 갈린다. 안 되면 8/17 장중에 내가 확인 |\n| 4 | (선택) **9월 VOO 적립 재원 메모** — 9월 월급일 확인 | 1분 | 룰9는 날짜 오면 시세 안 보고 기계 집행. 달러 잔액 $0.00라 이번엔 충돌 없음 |\n\n**오늘의 결론: 실질 액션 0건.** 이건 게으름이 아니라 룰이다 — 사다리 0원·게이트 1/3·8/14가 사상최고 부근이라 살 자리가 아니다.\n\n### 🗓️ 이번주(8/17~21)\n\n- [ ] **8/17(월) R2 = 주간 첫 보고서(v77)** — self-review 필수 주간 슬롯\n- [ ] 경제사냥꾼 8/14 저녁 신규 **3편 자막 분석**(이관분, R2 첫 단계)\n- [ ] 현대차 토스/Yahoo 가격 이격 검증\n- [ ] **8/20(목) 현대차 딥다이브** — 8/26 인베스터데이 3시나리오별 트림 가격·수량 사전 확정\n- [ ] **8/20(목) 17:30** FOMC 의사록(KST 8/20 03:00 발표) 결과 대사\n- [ ] 코스피 **6,835.91** 하향 이탈 감시 = D1 해금선(현재 -2.0%)\n\n### 📅 이번달 남은 것\n- **8/26** NVDA 실적 + 현대차 인베스터데이(재검토 트리거 만기)\n- **8/27** 한은 금통위 + 점도표(8월 = 공개월)\n- **9/2** AVGO FQ3 = 재고 플래그 판별선\n\n---\n\n## 10. 🔮 내일(8/17 월) v77 보고서 — 주요 내용 사전 구상\n\n> 정훈 지시로 미리 짜둔다.\n> ### ⚠️ 전제부터 수정 — **8/17(월)은 KRX 휴장이다** (광복절 8/15 토 → **대체공휴일**, 검증 완료)\n> SessionStart 훅은 *\"KRX 스케줄 기준 주말 휴장 ※공휴일 미반영\"*이라 **월요일을 개장일로 잘못 안내할 것이다.**\n> 리서치 피드가 경제사냥꾼 영상에서 먼저 잡아냈고 공휴일 API로 교차확인했다.\n> ⇒ **v77은 \"국내 3일 연휴 중 미장만 도는 날\"의 보고서**다. 국내 시세·수급은 **8/14 확정치가 계속 프로즌**이고,\n> 새로 들어오는 건 **미국 8/17 밤 거래**뿐이다. 국내 풀표는 프로즌 명시하고, 무게를 **미장·ADR·8/18 갭 준비**에 싣는다.\n\n**A. 개장 전 확정해야 할 것 (R2 첫 단계, 룰5 실행후검토)**\n1. 대기 오더 2건 상태(AAPL $312·LG전자 240,000) — 주말 만료 여부\n2. **현대차 459,500 vs 453,000 이격 결판** — 시간외단일가 가설 검증. 결과를 영구교정에 확정 기록\n3. 경제사냥꾼 **3편 자막 분석**(이관분) — 특히 \"다음주 투자 포인트\"를 우리 캘린더와 대조\n\n**B. 휴장일이라 대신 할 일 = 🇰🇷 국내 대리지표 3종으로 8/18 갭을 미리 읽는다**\n국내가 안 열리므로 \"오늘 코스피\"가 없다. 대신 **월요일 밤 미국에서 한국 자산의 가격이 발견된다:**\n- ① **SK하이닉스 나스닥 ADR** — 국내 휴장 중 유일한 실시간 한국 반도체 가격. 8/18 갭의 1차 선행지표\n- ② **MU·NVDA 8/17 미국 종가** — 메모리 트레이드가 이어지는지. 삼성·하닉 갭과 직결\n- ③ **USD/KRW 역외(NDF)** — 원화 전이가 시작되는지(지난주 미전이가 게이트② 질 경고의 근거였다)\n→ 이 셋으로 **8/18(화) 재개장 갭 시나리오**를 상·중·하로 미리 짜둔다. 화요일엔 **이틀치(미 8/17 밤 + 주말 뉴스)가 한꺼번에** 반영된다.\n\n**B-2. 이번 주 진짜 관전 포인트(8/18 이후) = \"폭(breadth)이 붙는가\"**\n지난주 상승의 약점은 명확했다 — 외인 매수의 **85%가 2종목**, 원화 미전이, 7,000 터치 후 반납. **볼 것은 지수 레벨이 아니라 이 셋:**\n- ① 외인 순매수가 **삼성·하이닉스 밖으로 퍼지는가**(종목분해 필수·d104)\n- ② 원화가 **1,400 아래로 따라오는가**(전이 확인)\n- ③ 코스피가 **7,000을 종가로 넘기는가**(터치가 아니라 종가)\n→ 셋 다 되면 게이트②의 질 경고를 내린다. 하나도 안 되면 **지난주는 반도체 랠리였지 지수 회복이 아니었다**로 확정한다.\n\n**B-3. 🆕 주말 새 재료 2건 — v77에서 다뤄야 할 것**\n- ★**SK하이닉스 주주환원 발표(3Q 중, 40조 자사주~100조 전체 전망)** — **7/29 -9.6% 폭락의 원인이 \"역대급 실적 + 주주환원 침묵\"이었다**는 게 채널 프레임이고 1차 실적치(2Q 매출 79.32조·영업익 60.54조·**영업이익률 76%**)로 검증된다. 발표가 밴드 상단이면 **되감기 촉매**, 하단이면 재현 리스크. **삼성전자 보유분에 직결**되므로 셋업 신규 등록(`watching`).\n- ⚠️**여한구 통상교섭본부장 직권면직(8/15 자정 확정)** — 대미 **3,500억달러 투자**(현금 2,000억 + 조선 1,500억)·**관세 15%** 협상의 컨트롤타워 공백. **현대차 등 대미수출 비중 종목의 신규 리스크**로 추적 등록. 8/26 인베스터데이 판정에 이 변수를 얹는다.\n\n**C. 이어갈 분석 축 (이번 주말에 새로 연 것)**\n- **조달 감시축** — 보유 빅테크 4곳 레버리지(GOOGL +308.5%·META +103.8%·ORCL +39.9%·MSFT). 월요일엔 **금리·크레딧 스프레드 방향**을 이 축에 연결해 본다. 10Y가 -5bp로 내려온 게 완화 신호인지 성장 둔화 신호인지가 갈림길\n- **ORCL 룰2 3번째 조건** — $200억 ATM이 희석으로 잡히는 시점 추적\n- **대가 로테이션의 반대편** — 그들이 판 NVDA·AVGO·MU를 우리가 들고 있다. 이걸 \"우리가 틀렸다\"로 읽을지 \"시차\"로 읽을지 self-review에서 다룬다\n\n**D. self-review(주간 필수)에서 볼 것**\n- 8/14 **삼성 수급 오독**이 왜 하루 동안 게이트 판정 근거로 쓰였는지 — T+1 규율 신설의 실효성 점검\n- **v75 마감가 3번째 재발**(15:29 스냅샷 승격) — 2번 고쳤는데 또 났다. 기계 가드가 필요한지 판단\n- 별점·스코어 후행 채점 + missed_moves(집행가능성 게이트 적용 후 첫 회차)\n\n**E. 시나리오별 액션 (사전 베이킹 — 폰창 밖 대응용)**\n| 시나리오 | 조건 | 액션 |\n|---|---|---|\n| 급락 | 코스피 종가 **6,835.91 이하** | **D1 15% 해금** → 해금액 확인 후 국내 이월 적립 or GOOGL 소수점(단 룰3 추격금지로 당일 진입 금지) |\n| 급등 | LG전자 **240,000원** 도달 | 예약 자동 체결 → 재원 약 24만원 → GOOGL 1순위 실탄(3조건 여전히 유효) |\n| 급등 | AAPL **$312** 도달 | 예약 자동 체결 → 원가 대비 +21.3% 확정 |\n| 횡보 | 아무것도 안 옴 | **아무것도 안 한다**(가장 가능성 높은 시나리오) |\n\n---\n\n[STATE SNAPSHOT v76 2026-08-16]\n\n시세: **8/14(금) 확정 프로즌** — 8/15·8/16 양일 휴장\n      코스피 **6,977.94(+2.42%)** · 코스닥 865(+0.41%) · 5거래일 연속 상승, 주간 +11.5%, 장중 7,010 터치 후 반납\n      S&P 7,785.76(-0.17%) / 나스닥 26,729.16(-0.28%) / 다우 53,732.41(-0.20%) / SOX 12,417.05(-0.31%)\n      USD/KRW 1,416~1,420 · WTI **$82.40** · VIX 14.25 · 10Y 4.63%(-5bp) · 2Y 4.15%(-5bp)\n수급: 8/14 외인 **+3조387억**(4거래일 연속) — ★**종목분해: 삼성 +1조3,487억(44.4%) + 하닉 +1조2,297억(40.5%) = 85%**\n      주간(8/10~14) 누적 외인 **+7조8,604억** · VKOSPI 55.31 · 리테일 공포 23.7%ile[무관심]\n현금: **266,060원** + $0.00 · **총자산 8,534,428원**(토스 \"내 투자\" 8,268,368 + 현금 266,060)\n보유변동: ★**VOO 8월 적립 체결 확정** 1.06863 → **1.167038주**(+0.098408·$70.22, 평단 $648.75→$654.41).\n      나머지 8종목 수량 토스 대사 전량 일치. 보유 14종목 불변.\n룰1: 낙폭 **-23.4%** → **D1 잠김 · 누적 해금 0% · 허용 0원**(휴장 불변)\n     D1 경계 = 종가 **6,835.91**(-25.0%), 현재 대비 **-2.0%**\n     폭풍 96.0%ile[폭풍] 3분할 · 항복 미충족 · 승수 ×1.0\n     ★**하드플로어 해제** — S&P 폭풍 71%ile → **63.0%ile(<70)**. 이중 잠금 → **단일 잠금**(사다리만)\n     국내 이월 적립: 최근접 미달 = 두산에너빌리티(81,800원 부족)\n룰2: 두산로보 **3/3 훼손 착수** · 현대차 1/1(금융연결) · **ORCL 2/3**(희석이 3번째, $200억 ATM 선행) · MSFT 마진브레이크 · LG전자 1/3 정상\n룰4: margin_trend_break **0건** — MU 플래그 0건·FQ4 GM ~86%·삼성 DS 2Q 89.2조 ⇒ **메모리 정점 아님**\n     ⚠️ **DRAM 실물가 미확인**(1차 출처 확보 실패 — FRED PPI 프록시 사용 금지 규율 준수)\n팩터 조기경보: **1/4 부정**(임계 2) — AVGO 재고 +126.8% 🔴 / NVDA 백로그 +127.9% ✅ / eps_revisions 강한상향 ✅ / 룰4 0건 ✅\nTF:  ACTIVE · 게이트 **1/3** — ②외인 충족(단 **질 경고: 2종목 85% 쏠림**) / ①7,500 -7.0% / ③WTI $82.40 +15.2% **역행**\n집중도: NVDA 20.0%(상한 25% 근접) · 반도체축 34.2% · **AI·빅테크·반도체 88.1%(의도된 단일 베팅)** · 미국 74.8% vs 국내 25.2%\n대기 트리거: **3건 → 2건**(VOO 체결로 감소) — ✅AAPL $312(해외 대기 1건, 8/14 고가 $307.49 미달) / ✅LG전자 240,000원(국내 대기 1건)\n      GOOGL 3조건 = ①D1 해금 ❌ **②하드플로어 ✅ 신규충족** ③해제 후 눌림 ❌\n      NAVER add존 진입(집행불가) · KT&G 165,000(재원상 불가) · 두산E 82,000 알림 도달\n자가검증: R3 주말 캘리브레이션은 **8/15 00:16~00:38 세션이 선행 수행**(13F Q2'26 · self-review 9회차 델타 · financials --with-peers 27/27).\n      이번 세션은 그 이후 미결분(VOO/AAPL 체결확인 · 종목별 수급 T+1 · 영상 델타)을 처리.\n영구교정:\n  ★[8/16 신규·수급정정] **v75의 \"8/14 삼성전자 외인 순매도(-1,090억)\"는 오독이었다.** T+1 확정 결과 삼성전자는\n    **+1조3,487억 순매수(시장 전체의 44.4%)**로 그날 최대 순매수 종목이었다. 원인 = naver 종목이력 API의 T+1 지연으로\n    **8/14 장중 조회에 8/13 확정치가 노출**된 것(8/13 실제 -401,379주 ≈ -1,076억으로 인용값과 거의 일치 = 결정적 증거).\n    ⇒ 규칙: **종목별 수급은 T+1 이후에만 확정 인용한다.** 장중 조회값은 \"전일치일 수 있음\"을 병기하고\n    게이트 판정 근거로 쓰지 않는다. 8/14 가격정정(장중 스냅샷 승격 금지)의 **수급판**이다.\n    ⚠️ 단 **결론(쏠림)은 약해지지 않고 오히려 강해졌다** — 하닉 단독 44%가 아니라 **반도체 2종목 85%**였다.\n  ★[8/16 신규·프레임] **게이트②는 총량으로 충족돼도 질이 미달일 수 있다.** 외인 4일 연속 +7.9조인데\n    85%가 2종목이고 **원화는 오히려 약세**(1,413→1,420)다. 총량이 게이트를 여는데 breadth가 없으면\n    그건 \"외국인이 한국에 돌아왔다\"가 아니라 \"글로벌 메모리 트레이드가 한국을 경유한다\"이다.\n    ⇒ 게이트② 판정에 **종목분해(d104) + 환율 전이 여부**를 함께 적는다.\n  ★[8/16 신규·팩터] **감시축을 이익에서 조달로 한 칸 옮긴다.** 8/14에 AVGO·ORCL이 실적이 아니라\n    **신용등급**으로 맞았고(BofA 발행사 하향 / S&P BBB-·CDS 198~203bp 18년 최고), AMD는 조달 성공으로 +6.50% 올랐다.\n    우리 자체 EDGAR 숫자로 확인한 결과 **보유 빅테크 4곳이 전부 같은 방향**이다:\n    GOOGL 총차입금 **+308.5%** · META **+103.8%** · ORCL **+39.9%**(순현금 -$98.25B·FCF -$23.7B) · MSFT 순현금 악화.\n    ⇒ **포지션은 안 바꾼다**(이익 전망 멀쩡·팩터 경보 1/4로 임계 미달). 다만 **다음 훼손의 유력 경로를\n    '실적 미스'에서 '조달 비용'으로 재지정**한다. ORCL 룰2 3번째 조건(희석)이 $200억 ATM으로 열릴 소지 — 다음 분기 확인.\n  ★[8/16 신규·집행] **VOO 8월 적립 체결 확정 — 룰9 대사 완결.** 1.06863 → **1.167038주**(+0.098408주·$70.22).\n    평단 $648.75 → **$654.41**. 토스 표기 +9.0%와 재계산 +9.05% 일치. 대기 주문 3건 → 2건으로 감소한 것도 교차 확인.\n    ⇒ 8/14에 등재한 룰9 제약(**달러 버퍼를 남기면 다음 외화 주문이 그걸 먼저 먹는다**)은 이번엔 문제되지 않았다\n    ($0.00로 소진 완료). 9월분부터는 **주문 전 달러 잔액을 먼저 확인**하고 GOOGL 재원과 충돌하는지 본다.\n  [데스크 간 불일치·교정] **SPCX 락업**: 미장 데스크 \"8/20 해제 D-5\" vs 빅테크 데스크 \"1차 대형 락업(911.5M주·$123B)은\n    **8/6 이미 만료**, 주가는 오히려 상승(CNN)\". **후자 채택**(구체 근거·1차 매체). 후속 트랜치 날짜는 소스별 8/12~8/20 편차로 **[미확인]**.\n    ⇒ v75의 \"8/20 D-6\" 표기는 폐기.\n  [데스크 간 불일치·교정] **국내 마감가**: v75가 \"토스 15:29 대사 = 마감 확정\"으로 적은 값 중 2건이 **장 마감 전 스냅샷**이었다.\n    확정 = **LG전자 215,000원(+4.12%)**(v75 214,000/+3.15% 폐기) · **NAVER 228,000원(+0.66%)**(v75 227,500/-0.44% 폐기, Yahoo+naver_chart 2소스 일치).\n    ⇒ **15:29 토스 스냅샷을 마감 확정으로 승격하지 말 것** — KRX 마감은 15:30이다. 8/14 코스피 종가정정과 동일 클래스, 3번째 재발.\n  [신규·미확인] **현대차 토스 평가액 459,500원 vs Yahoo 정규장 종가 453,000원(1.4% 이격).** NAVER도 227,500 vs 228,000.\n    가설 = 토스가 **시간외단일가(16:00~18:00) 최종가**를 반영(+1.43%는 시간외 상한 ±10% 내). **미검증** —\n    8/17 장중에 재확인한다. 손익·총자산은 토스 정본, 등락률 서술은 정규장 종가 기준으로 병기했다.\n  ★[8/16 신규·기각 종결] **삼성전자 컨센 \"493,542원\"은 존재하지 않는 숫자다 — 3일 연속 미확인 항목 결판.**\n    1차 경로 5개 전부 실패(comp.fnguide 404 · naver finance 차단 · consensus.hankyung 404 · wcomp.fnguide 시스템오류 · wisereport 503)\n    후 **`broker_reports.py`로 한경컨센서스 원문 PDF를 직접 파싱**해 확보: 국내 증권사 9건 누적 = **최저 460,000 · 중앙 480,000 · 최고 560,000원**\n    (최신 7/31 IBK 460,000). \"493,542원\"은 **bullstory.io 계열 개인/AI 블로그 3개 미러에서만** 등장하고 어떤 1차 출처로도 재현되지 않는다.\n    ⇒ **2차 재인용 오염으로 기각**(7/26·7/28 정정룰의 전형). ⚠️ 교훈: *평균처럼 보이는 소수점 숫자(493,542)일수록 1차 출처를 요구한다* —\n    깔끔한 레인지(46만~56만)보다 정밀해 보여서 신뢰를 얻지만, 그 정밀함 자체가 집계 출처 불명의 징후였다.\n    **우리 목표가(246,000~460,000·중심 340,000) 유지** — 국내 sell-side 중앙 48만은 반등 기저율·주주환원 재평가를 선반영한 낙관 편향이고,\n    외국계까지 더하면 46만~67만(골드만 8/3 49만·노무라 67만)으로 더 벌어진다. **격차 자체를 매수 신호로 쓰지 않는다.**\n  [미확인] 한화에어로 8/14 -2.11% 사유 · GEV 실적일 · SPCX 후속 락업일 · **DRAM 스팟 실거래가(원/GB, 유료)**.\n    ※ DRAM **계약가**는 이번에 확보 — TrendForce 3Q26 서버 DRAM **+13~18% QoQ**(1Q +95%·2Q +63% 대비 증가율 둔화, 방향은 상승).\n  ★[8/16 신규·달력] **2026-08-17(월)은 KRX 휴장이다 — 광복절(8/15 토)의 대체공휴일.**\n    **SessionStart 훅은 공휴일을 반영하지 않는다**(훅 문구 자체가 *\"KRX 스케줄 기준 ※공휴일 미반영\"*이라고 경고하고 있다).\n    이번엔 **경제사냥꾼 영상이 먼저 알려줬고** 공휴일 API(date.nager.at)로 교차확인했다.\n    ⇒ 규칙: **월요일·연휴 앞뒤 보고서는 훅의 '개장' 표기를 그대로 믿지 말고 공휴일을 따로 확인한다.**\n    훅은 요일만 보고, 달력은 보지 않는다 — 7/6 날짜 앵커링 사고의 **공휴일 버전**이 될 뻔했다.\n  ★[8/16 신규·소스] **`YOUTUBE_API_KEY` 실작동 확인(`tab:api`) — 8/12 감사가 지적한 누락 구간이 실제로 메워졌다.**\n    이번 수확 = 저녁 업로드 3편 + **주말 6편**(주말 커버리지 28%가 최악이었던 구간). 총 9편.\n    ⇒ 그중 **8/17 휴장·SK하이닉스 주주환원·여한구 해임 3건이 전부 주말 영상에서 나왔다** — 놓쳤으면 v77을 개장일로 잘못 쓸 뻔했다.\n    **주말 프리페치의 가치가 실증됐다**(현재 R1은 평일 전용 — 주말 슬롯 신설 검토 대상, 정훈 상의).\n채널: ★**\"9월 인상확률 55%→32%\" = [정정] 종결**(2일 연속 미확인 해소). 55%=Polymarket 7/29(53%)·32%=**같은 날** SOFR 선물치를\n    채널이 *2일간 시간축 변화*로 오독(KuCoin 기사 크로스소스 비교). 실제 현 레벨 **29~33%**. 방향은 맞고 수치·메커니즘은 틀림.\n    추가 [정정] 3건: 등락종목수 313/549→**333/533** · 삼전vs하닉 순매수 \"6배\"→**금액 15% 차** · 최태원 발언 **4개 시점 합성**을 \"최근\"으로 프레이밍.\n    ⇒ **트랙레코드 종합: 방향성은 계속 정확**(코스피·PPI·SK하닉 실적·FOMC·수출통계 전부 1차 출처 일치),\n      **약점은 일관되게 '숫자의 출처·단위·시점'**이다. 이 패턴이 3주째 반복된다 — 방향은 채택하되 **수치는 항상 우리가 다시 센다.**\n신규 셋업 2건(둘 다 `watching` — 채널 단독 근거로 발동하지 않음):\n    ①`setup-SK하이닉스주주환원-0816` — 3Q 발표 시점·규모(40~100조 밴드) 대비 실제치. **삼성전자 보유분에 직결**(섹터 베타)\n    ②`setup-여한구해임-관세리스크-0816` — 후임 임명·대미투자 발표 내용·관세 재상승 위협. **현대차 태그**\n다음: **v77 = 8/17(월) — ⚠️KRX 휴장일 보고서.** 국내는 8/14 프로즌 유지, 무게를 **미장 8/17 밤 + SK하닉 ADR + 8/18 갭 시나리오**에.\n      self-review(주간 필수)는 **8/18(화) 재개장일**로 이관하거나 8/17에 국내 무관 항목만 선행.\n```\n\n---\n\n*투자 자문 아님 — 모든 레벨(목표가·매수존·별점)은 분석 참고이며 최종 결정은 정훈.*\n"
+    },
     {
       "id": "report_v75_2026-08-14",
       "file": "docs/reports/report_v75_2026-08-14.md",
@@ -20380,169 +20086,154 @@ window.APP_DATA = {
   ],
   "outlook": [
     {
-      "tag": "오늘(8/14 금)",
+      "tag": "오늘(8/16 일)",
+      "dir": "→",
+      "text": "주말 휴장. 시세 8/14 프로즌. 실질 액션 0건 — 허용 트랜치 0원, 대기 오더 2건 유지만."
+    },
+    {
+      "tag": "내일(8/17 월)",
+      "dir": "→",
+      "text": "⚠️KRX 휴장(광복절 대체공휴일). 美 정상개장 — SK하이닉스 ADR·MU/NVDA가 8/18 갭의 선행지표."
+    },
+    {
+      "tag": "이번주(8/17~21)",
       "dir": "↑",
-      "text": "코스피 +2.42%(6,977.94 마감 확정) 5거래일 연속 상승, 오전 7,010선 터치. 코스닥 +0.41%로 막판 반전. 외인 +3조387억 4거래일 연속(게이트② 실질 충족). 룰1 D1 확정 잠김(-23.4%, 해금 0%) — 매수 권한 0원."
-    },
-    {
-      "tag": "오늘 밤",
-      "dir": "→",
-      "text": "21:30 미 7월 소매판매(컨센 +0.3%MoM) · 23:00 미시간대 소비자심리 예비치(컨센 54.1). 폰창 밖 — LG전자 240,000원·AAPL 12 예약은 지표와 무관하게 자동 집행."
-    },
-    {
-      "tag": "내일(8/15 토)",
-      "dir": "→",
-      "text": "휴장. R3 주간 캘리브레이션 + 13F Q2'26 재수집(오늘 마감일이었으나 KST 낮 = ET 01:3x라 제출 전이었음 — 6인 전원 Q1 그대로) + SK하이닉스·삼성전자 8/14 종목별 수급 재확인."
-    },
-    {
-      "tag": "이번주",
-      "dir": "→",
-      "text": "게이트② 외인 4일 연속 확정 충족(8/14 +3조387억). ①7,500(-7.5%)·③WTI $81 vs 71.5(+13%)는 미충족 → 3중 게이트 1/3. 하드플로어 S&P 71%ile로 여전히 매수 0원."
+      "text": "8/18 재개장 갭에 이틀치 반영. 관전 포인트=폭(breadth): 외인이 삼성·하닉 밖으로 퍼지나·원화 1,400 전이·7,000 종가 돌파."
     },
     {
       "tag": "이번달",
       "dir": "→",
-      "text": "8/20 현대차 딥다이브+SPCX 락업해제 · 8/21 셋업유예 만료 · 8/26 NVDA 실적+현대차 인베스터데이(둘 다 폰창 밖) · 8/27 금통위(점도표) · 9/2 AVGO 재고 판별선."
+      "text": "8/20 FOMC 의사록·삼성 테크투어 / 8/26 NVDA 실적+현대차 인베스터데이 / 8/27 한은 금통위+점도표 / 9/2 AVGO(재고 판별선)."
     }
   ],
   "index_forecast": [
     {
       "name": "코스피",
       "ref": 6977.94,
-      "low": 6600,
-      "base": 6950,
+      "low": 6700,
+      "base": 7050,
       "high": 7300,
       "dir": "↑",
-      "confidence": "확정(마감 종가, +2.42%)",
-      "note": "고점대비 -23.4%·YTD +61.9%. D1 확정 잠김(경계 6,835.91 대비 +2.1%). 게이트①(7,500)까지 +7.5%."
+      "confidence": "확정(8/14 종가)",
+      "note": "8/17 휴장 → 8/18 갭. D1 해금선 6,835.91(-2.0%). 7,000 종가 돌파가 폭 확인의 관문"
     },
     {
-      "name": "코스닥",
-      "ref": 865.0,
-      "low": 830,
-      "base": 860,
-      "high": 900,
+      "name": "나스닥",
+      "ref": 26729.16,
+      "low": 26000,
+      "base": 26900,
+      "high": 27400,
       "dir": "→",
-      "confidence": "확정(마감, +0.41%)",
-      "note": "장중 마이너스에서 막판 플러스 전환, 코스피(+2.42%)와 디커플링 지속. 대형 메모리로 자금 쏠림."
+      "confidence": "확정(8/14 종가)",
+      "note": "사상최고 부근 소폭 반락. 신용발 AI 캐펙스 재평가가 변수"
     },
     {
       "name": "S&P500",
-      "ref": 7798.99,
-      "low": 7650,
-      "base": 7820,
-      "high": 7980,
-      "dir": "↑",
-      "confidence": "확정(8/13 종가, +0.65%)",
-      "note": "사상 최고 종가. 동력은 7월 PPI 0.0% MoM → 9월 인상 공포 후퇴. 단 폭풍 71%ile로 하드플로어 임계(70) 위 — 우리 매수권한 0원 유지."
+      "ref": 7785.76,
+      "low": 7600,
+      "base": 7830,
+      "high": 7950,
+      "dir": "→",
+      "confidence": "확정(8/14 종가)",
+      "note": "8/13 사상최고 7,798.99. 폭풍 63.1%ile로 차분"
     },
     {
       "name": "필라델피아반도체",
-      "ref": 12456.0,
-      "low": 12100,
+      "ref": 12417.05,
+      "low": 11900,
       "base": 12550,
-      "high": 13100,
-      "dir": "↑",
-      "confidence": "확정(8/13 종가, +0.46%)",
-      "note": "MU +4.23%($949.83, 시총 $1조 재진입)가 견인. 메모리 공급타이트 + 자본환원 기대."
+      "high": 12900,
+      "dir": "→",
+      "confidence": "확정(8/14 종가)",
+      "note": "AVGO -5.94%가 눌렀으나 AMD +6.50%로 내부 디커플링"
     }
   ],
   "tasks": {
     "today": [
       {
         "id": "t1",
-        "text": "✅ 코스피 일봉 캐시 8/14 갱신 → D1 재잠금 확인 (⚠️장중값 기록 — 마감 후 재실행 필요)",
-        "done": true
+        "text": "주문 내지 않기 — 대기 2건(AAPL $312·LG전자 240,000) 그대로 유지",
+        "done": false
       },
       {
         "id": "t2",
-        "text": "✅ 8/13 외인 마감 확정 대사 +2조951억 → flows.json 반영 (wikitree 3조7,058억은 이상치 미채택)",
-        "done": true
+        "text": "토스 '대기 중인 주문' 2건 생존 확인(해외 1·국내 1)",
+        "done": false
       },
       {
         "id": "t3",
-        "text": "✅ 13F Q2'26 재실행 → 6인 전원 Q1 그대로(ET 01:3x, 제출 전) → 8/15 R3로 이관",
-        "done": true
+        "text": "(선택) 현대차 시간외 종가 확인 — 토스 459,500 vs Yahoo 453,000 이격",
+        "done": false
       },
       {
         "id": "t4",
-        "text": "✅ R1 이후 신규 영상 1편 델타 추출·판정(메모리 폭등 이유 = 매크로 4축 완화, [검증])",
-        "done": true
-      },
-      {
-        "id": "t5",
-        "text": "✅ 마감 재판정 완료 — 코스피 종가 6,977.94(+2.42%, 3매체 교차검증 정정)·낙폭 -23.4% → D1 확정 잠김(경계 6,835.91 대비 +2.1%)",
-        "done": true
-      },
-      {
-        "id": "t6",
-        "text": "✅ 마감 확정 외인 수급 flows.json series 8/14 항목 추가(+3조387억) + 8/12·8/13 원장 불일치 해소",
-        "done": true
-      },
-      {
-        "id": "t7",
-        "text": "✅ VOO 8월 적립 10만원 — 주문 접수 완료(토스 확인·22:30 집행 예정)",
-        "done": true
-      },
-      {
-        "id": "t8",
-        "text": "✅ 오늘 밤 미국 프리뷰 작성(21:30 소매판매·23:00 미시간대)",
-        "done": true
+        "text": "(선택) 9월 VOO 적립 월급일 메모 — 달러 잔액 $0.00라 충돌 없음",
+        "done": false
       }
     ],
     "week": [
       {
         "id": "w1",
-        "text": "8/15(토) R3 — 13F Q2'26 재수집 + 주간 캘리브레이션",
+        "text": "⚠️8/17(월) KRX 휴장 — v77은 미장 중심 보고서로",
         "done": false
       },
       {
         "id": "w2",
-        "text": "flows.json 8/12 외인 원장 불일치 교정(series 28,357억 vs 롤링계산 21,364억)",
+        "text": "8/18(화) 재개장 갭 대응 — 이틀치 반영, 외인 종목분해 필수",
         "done": false
       },
       {
         "id": "w3",
-        "text": "삼성전자 컨센 493,542원 원문 재확인(한경 접근 실패·2차 재인용 오염 의심)",
+        "text": "8/20(목) 현대차 딥다이브 — 8/26 3시나리오별 트림 가격·수량 사전 확정",
         "done": false
       },
       {
         "id": "w4",
-        "text": "매 세션 tranche_rules.py 재실행(D1 경계가 -1.5% 이내인 구간·강제 루틴)",
+        "text": "8/20(목) 17:30 FOMC 의사록 결과 대사",
+        "done": false
+      },
+      {
+        "id": "w5",
+        "text": "코스피 6,835.91 하향 이탈 감시 = D1 해금선",
+        "done": false
+      },
+      {
+        "id": "w6",
+        "text": "self-review 주간 슬롯(8/18 재개장일로 이관 가능)",
         "done": false
       }
     ],
     "month": [
       {
         "id": "m1",
-        "text": "8/20 현대차 딥다이브 — 8/26 3시나리오별 트림 가격·수량 사전 확정",
+        "text": "8/26 NVDA 실적 + 현대차 인베스터데이(재검토 트리거 만기)",
         "done": false
       },
       {
         "id": "m2",
-        "text": "8/21 셋업 유예 만료(발동권 5건) — 하드플로어 미해제 시 연장/폐기 결정",
+        "text": "8/27 한은 금통위 + 점도표(8월=공개월)",
         "done": false
       },
       {
         "id": "m3",
-        "text": "8/26 NVDA 실적 + 현대차 인베스터데이 · 8/27 금통위(점도표)",
+        "text": "9/2 AVGO FQ3 — 재고 플래그 판별선(재고·매출채권 갭 + XPV 코멘트)",
         "done": false
       },
       {
         "id": "m4",
-        "text": "9/2 AVGO 실적 — 재고 미스매치(재고+126.8% vs 매출+48.7%) 판별선",
+        "text": "SK하이닉스 주주환원 발표(3Q 중) 감시 — 삼성전자 보유분 직결",
         "done": false
       }
     ]
   },
   "task_counts": {
     "today": {
-      "done": 8,
-      "total": 8
+      "done": 0,
+      "total": 4
     },
     "week": {
       "done": 0,
-      "total": 4
+      "total": 6
     },
     "month": {
       "done": 0,
@@ -20555,12 +20246,12 @@ window.APP_DATA = {
       "label": "[룰9 8월분] VOO 정액 적립 10만원 — 정훈 8/14 입금 확정",
       "ticker": "VOO",
       "action": "매수(소수점·시장가)",
-      "status": "✅ 주문 접수 완료(토스 15:29 스크린샷 — 대기 중인 해외주식 2건에 포함). 미장 22:30 자동 집행 예정",
-      "price": null,
-      "shares": null,
+      "status": "✅ 체결완료(8/14 22:30 미장 시장가 — 8/16 토스 대사 확인)",
+      "price": 713.61,
+      "shares": 0.098408,
       "amount_krw": 99682,
       "date": "2026-08-14",
-      "note": "룰9(7/17 정훈 확정) 8월분. **재원 = 신규 입금 10만원 전용** — 봉인 현금(172,506원)·GOOGL 달러 재원 불가침이 룰9의 채택 전제이므로 사다리 0원·하드플로어와 무충돌(별도 트랙). 룰9 핵심 = '날짜 오면 시세 안 보고 기계적 집행'이라 눌림 대기·타이밍 판단 금지. 참고 환산: 10만원 ÷ 1,413.08 ≈ $70.77 → VOO $714.95 기준 약 0.0990주(1.068630 → 약 1.1676주). VOO 비중 13.2%로 경계선(25%) 여유. 체결 시 portfolio.json 수량·평단 + master.md §2 갱신 후 다음 세션 첫 단계에서 체결 검토(룰5). | ★[8/14 15:29 대사] 토스가 기존 USD 버퍼 $57.62를 먼저 소진하고 부족분 $12.67(17,968원)만 환전 → $70.29 ≈ 99,682원 주문. 정훈이 '왜 에러야'로 의심했으나 정상 동작이며 대사 정확히 일치(원화 266,060원). 룰9 문언(기존 USD 불가침)과 어긋나나 신규입금 원화 잔여 82,032원이 GOOGL 재원을 대체해 실질 무해 — 영구제약으로 master.md 등재.",
+      "note": "룰9(7/17 정훈 확정) 8월분. **재원 = 신규 입금 10만원 전용** — 봉인 현금(172,506원)·GOOGL 달러 재원 불가침이 룰9의 채택 전제이므로 사다리 0원·하드플로어와 무충돌(별도 트랙). 룰9 핵심 = '날짜 오면 시세 안 보고 기계적 집행'이라 눌림 대기·타이밍 판단 금지. 참고 환산: 10만원 ÷ 1,413.08 ≈ $70.77 → VOO $714.95 기준 약 0.0990주(1.068630 → 약 1.1676주). VOO 비중 13.2%로 경계선(25%) 여유. 체결 시 portfolio.json 수량·평단 + master.md §2 갱신 후 다음 세션 첫 단계에서 체결 검토(룰5). | ★[8/14 15:29 대사] 토스가 기존 USD 버퍼 $57.62를 먼저 소진하고 부족분 $12.67(17,968원)만 환전 → $70.29 ≈ 99,682원 주문. 정훈이 '왜 에러야'로 의심했으나 정상 동작이며 대사 정확히 일치(원화 266,060원). 룰9 문언(기존 USD 불가침)과 어긋나나 신규입금 원화 잔여 82,032원이 GOOGL 재원을 대체해 실질 무해 — 영구제약으로 master.md 등재. | ★[8/15 R3] 체결 확인 시도 — 토스 API 키 미제공(무인 루틴)이라 조회 불가. portfolio.json 보유수량 아직 8/14 시점(1.06863주) 그대로 = 반영 안 됨. 정훈 폰창(오늘 09:00~20:50) 확인 필요, 확인 시 룰5에 따라 즉시 반영. | ★[8/16 체결확정] 1.06863→1.167038주(+0.098408·$70.22), 평단 $648.75→$654.41. 토스 표기 +9.0% vs 재계산 +9.05% 일치. 대기주문 3건→2건 감소로 교차확인. 보유 달러 $57.62 선소진 + $12.67 환전 = $70.29 구조(룰9 문언 위반이나 실질 무해, 8/14 영구교정 참조).",
       "setup_id": null
     },
     {
@@ -20690,7 +20381,7 @@ window.APP_DATA = {
       "shares": 1,
       "amount_krw": null,
       "date": "2026-08-13",
-      "note": "[8/13 하향] 근거: ①7/29 결정트리(차기 마진 가이던스 47.5% 하회 시 익절 검토)가 조정GM 46.5%로 이미 발동 ②$318 이격이 -1.5%→-4.1%→-5.2%로 계속 확대돼 체결 가능성 소실 — 도달 불가 가격 방치는 8/2 원칙(관망은 결정이 아니다) 위반. 정수 1주(잔여 0.0225주 = 사실상 전량). 원가 $257.14 대비 +21%. 일일 지정가라 매일 소멸 → 매 폰창 재접수. ★[8/13 16:2x] 접수 확인. 참고: 토스 주문내역상 애플 \"1주 판매 실패\"가 8/6·8/7·8/8·8/11·8/13 5회 누적 — $318이 도달 불가였다는 증거이자 $312 하향 판단의 사후 근거.",
+      "note": "[8/13 하향] 근거: ①7/29 결정트리(차기 마진 가이던스 47.5% 하회 시 익절 검토)가 조정GM 46.5%로 이미 발동 ②$318 이격이 -1.5%→-4.1%→-5.2%로 계속 확대돼 체결 가능성 소실 — 도달 불가 가격 방치는 8/2 원칙(관망은 결정이 아니다) 위반. 정수 1주(잔여 0.0225주 = 사실상 전량). 원가 $257.14 대비 +21%. 일일 지정가라 매일 소멸 → 매 폰창 재접수. ★[8/13 16:2x] 접수 확인. 참고: 토스 주문내역상 애플 \"1주 판매 실패\"가 8/6·8/7·8/8·8/11·8/13 5회 누적 — $318이 도달 불가였다는 증거이자 $312 하향 판단의 사후 근거. | ★[8/15 R3] 체결 확인 시도 — 토스 API 키 미제공(무인 루틴)이라 조회 불가. 참고: AAPL 8/14 종가 $305.93로 $312 미도달(장중 고가 데이터 없어 단정은 불가). portfolio.json 보유수량 아직 8/14 시점(1.022472주) 그대로. 일일지정가라 매일 소멸 — 오늘(토요일) 재접수는 휴장이라 불가, 정훈 폰창 확인 후 다음 평일 재접수 여부 판단.",
       "setup_id": null
     },
     {
@@ -20960,6 +20651,6 @@ window.APP_DATA = {
       "note": "[8/7 d85 딥다이브 결론을 오더북에 배선 — 8/13] 트림하지 않는다. 이유는 낙관이 아니라 **실익**이다: 비중 0.5%(약 4.3만원)라 회수액으로 할 수 있는 게 없다(사다리 상한 0원). 룰2 2/3(감시)·⭐3/55 유지. 하드플로어 해제 시 매수 우선순위에서는 **영구 제외**. 재검토 트리거: ①FCF가 3개 분기 연속 마이너스 지속 ②순부채가 -$120B 돌파 ③RPO $638B가 이연매출로 전환되기 시작(이연매출 YoY +20% 초과) ④룰2 3/3 전환. 기한 2026-12-31. ⚠️8/12 -3.69%→8/13 +5.36% 반등은 정리해고發 비용통제 기대이지 펀더 개선이 아니므로 이 결정을 바꾸지 않는다. ★배선 사유: d85가 산문에만 있어 validate가 \"트림 3회 언급 vs 오더 미등록\"을 계속 경고했다 — 8/2 원칙(오더북에 들어간 것만 집행된다)은 \"안 판다\"는 결정에도 똑같이 적용된다."
     }
   ],
-  "tasks_updated": "2026-08-14",
+  "tasks_updated": "2026-08-16",
   "today_note": "코스피 6,813.34(+3.5%) 마감 확정. ✅LG전자 240,000원·AAPL $312 **둘 다 예약 접수 확인**(토스 16:18 스크린샷). ★정정 2건: ①토스 국내주식도 예약주문이 된다(8/12 \"없음\" 판단은 오기) ②낙폭 -25.25%로 **D1은 해금 상태(15%)** — 장중 캐시(6,865.61)로 계산해 \"재잠김\"이라고 쓴 것이 오류였다. 단 하드플로어(S&P 폭풍 72%ile)로 허용 트랜치는 여전히 0원."
 };

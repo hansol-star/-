@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-14",
+ "updated": "2026-08-16",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -1123,7 +1123,9 @@
    "analyst": "김운호",
    "broker": "IBK투자증권",
    "name": "삼성전자",
-   "held": true
+   "held": true,
+   "body_chars": 25430,
+   "cached": false
   },
   "651324": {
    "date": "2026-07-31",

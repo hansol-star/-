@@ -1,12 +1,12 @@
 {
- "updated": "2026-08-10",
+ "updated": "2026-08-19",
  "days": 90,
  "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
  "failed": [],
  "stocks": [
   {
    "ticker": "NVDA",
-   "filings": 22,
+   "filings": 23,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
@@ -19,8 +19,8 @@
     "n_10b5_1": 7
    },
    "other_grants_exercises": {
-    "n": 20,
-    "shares": 1972058.0
+    "n": 22,
+    "shares": 1974468.0
    },
    "top_buys": [],
    "top_sells": [
@@ -70,17 +70,17 @@
   },
   {
    "ticker": "MU",
-   "filings": 13,
+   "filings": 12,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 149,
-    "shares": 164179.0,
-    "value": 169385600.8,
-    "n_10b5_1": 149
+    "n": 147,
+    "shares": 162179.0,
+    "value": 167811530.8,
+    "n_10b5_1": 147
    },
    "other_grants_exercises": {
     "n": 5,
@@ -142,8 +142,8 @@
    },
    "sell_open_market": {
     "n": 3,
-    "shares": 51390.0,
-    "value": 15954696.24,
+    "shares": 51555.0,
+    "value": 16028088.49,
     "n_10b5_1": 3
    },
    "other_grants_exercises": {
@@ -168,17 +168,17 @@
     },
     {
      "code": "S",
-     "shares": 1274.0,
-     "price": 290.0,
+     "shares": 1439.0,
+     "price": 307.75,
      "ad": "D",
-     "date": "2026-05-08",
-     "after": 38713.0,
-     "value": 369460.0,
-     "owner": "Borders Ben",
-     "title": "Principal Accounting Officer",
+     "date": "2026-08-11",
+     "after": 40107.0,
+     "value": 442852.25,
+     "owner": "Newstead Jennifer",
+     "title": "SVP, GC and Secretary",
      "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126020871/form4.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126032884/form4.xml"
     },
     {
      "code": "S",
@@ -205,14 +205,14 @@
     "value": 0
    },
    "sell_open_market": {
-    "n": 6,
-    "shares": 38572.665,
-    "value": 17775635.000143997,
-    "n_10b5_1": 6
+    "n": 5,
+    "shares": 37310.353,
+    "value": 17256393.057439998,
+    "n_10b5_1": 5
    },
    "other_grants_exercises": {
     "n": 10,
-    "shares": 6469.338000000001
+    "shares": 6469.737
    },
    "top_buys": [],
    "top_sells": [
@@ -262,21 +262,21 @@
   },
   {
    "ticker": "ANET",
-   "filings": 36,
+   "filings": 37,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 278,
-    "shares": 4007811.0,
-    "value": 720069855.1500001,
-    "n_10b5_1": 278
+    "n": 304,
+    "shares": 4935168.0,
+    "value": 910692290.5006999,
+    "n_10b5_1": 304
    },
    "other_grants_exercises": {
-    "n": 30,
-    "shares": 918341.0
+    "n": 29,
+    "shares": 886341.0
    },
    "top_buys": [],
    "top_sells": [
@@ -296,6 +296,20 @@
     },
     {
      "code": "S",
+     "shares": 227485.0,
+     "price": 207.4275,
+     "ad": "D",
+     "date": "2026-08-12",
+     "after": 16160496.0,
+     "value": 47186644.8375,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000190/edgardoc.xml"
+    },
+    {
+     "code": "S",
      "shares": 152860.0,
      "price": 197.116,
      "ad": "D",
@@ -307,20 +321,6 @@
      "role": "이사·임원",
      "plan": true,
      "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000185/edgardoc.xml"
-    },
-    {
-     "code": "S",
-     "shares": 160802.0,
-     "price": 187.1756,
-     "ad": "D",
-     "date": "2026-07-10",
-     "after": 17155010.0,
-     "value": 30098210.8312,
-     "owner": "Ullal Jayshree",
-     "title": "CEO and Chairperson",
-     "role": "이사·임원",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000162/edgardoc.xml"
     }
    ]
   },
@@ -418,8 +418,8 @@
     "n_10b5_1": 36
    },
    "other_grants_exercises": {
-    "n": 140,
-    "shares": 822743.5370000001
+    "n": 139,
+    "shares": 2842340.9869999997
    },
    "top_buys": [],
    "top_sells": [
@@ -469,65 +469,65 @@
   },
   {
    "ticker": "META",
-   "filings": 35,
+   "filings": 27,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 75,
-    "shares": 41323.0,
-    "value": 25247785.684099983,
-    "n_10b5_1": 75
+    "n": 59,
+    "shares": 22952.0,
+    "value": 14223880.737599997,
+    "n_10b5_1": 59
    },
    "other_grants_exercises": {
-    "n": 56,
-    "shares": 1909200.0
+    "n": 42,
+    "shares": 1896052.0
    },
    "top_buys": [],
    "top_sells": [
     {
      "code": "S",
-     "shares": 2344.0,
-     "price": 609.1468,
-     "ad": "D",
-     "date": "2026-05-18",
-     "after": 14416.0,
-     "value": 1427840.0992,
-     "owner": "LI SUSAN J",
-     "title": "Chief Financial Officer",
-     "role": "·임원",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326007489/ownership.xml"
-    },
-    {
-     "code": "S",
-     "shares": 2230.0,
-     "price": 607.6018,
-     "ad": "D",
-     "date": "2026-05-18",
-     "after": 3682.0,
-     "value": 1354952.014,
-     "owner": "Bosworth Andrew",
-     "title": "Chief Technology Officer",
-     "role": "·임원",
-     "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326007490/ownership.xml"
-    },
-    {
-     "code": "S",
      "shares": 2127.0,
-     "price": 618.43,
+     "price": 689.85,
      "ad": "D",
-     "date": "2026-05-15",
-     "after": 15346.0,
-     "value": 1315400.6099999999,
+     "date": "2026-08-15",
+     "after": 15347.0,
+     "value": 1467310.95,
      "owner": "LI SUSAN J",
      "title": "Chief Financial Officer",
      "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326007489/ownership.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/ownership.xml"
+    },
+    {
+     "code": "S",
+     "shares": 2079.0,
+     "price": 609.92,
+     "ad": "D",
+     "date": "2026-05-27",
+     "after": 1118.0,
+     "value": 1268023.68,
+     "owner": "Mahoney Curtis J.",
+     "title": "Chief Legal Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326008089/ownership.xml"
+    },
+    {
+     "code": "S",
+     "shares": 2076.0,
+     "price": 600.4033,
+     "ad": "D",
+     "date": "2026-07-06",
+     "after": 10770.0,
+     "value": 1246437.2507999998,
+     "owner": "Olivan Javier",
+     "title": "Chief Operating Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326010417/ownership.xml"
     }
    ]
   },

@@ -559,6 +559,16 @@ def build(offline: bool) -> dict:
 
     day_change_krw = round(total_value_krw - total_prev_krw)
     cash = pf.get("cash_krw", 0)
+    # ★[8/19 결함 수정] 총자산이 **달러 현금을 빼먹고 있었다.**
+    # `assets_krw = total_value_krw + cash`에서 cash가 cash_krw뿐이라, 계좌에 달러가 있으면
+    # 그만큼 앱 총자산이 과소 표기된다. 8/14~8/18은 cash_usd가 $0.00이라 증상이 없었고,
+    # 오늘 AAPL 매도대금 $308.94(≈431,000원)가 들어오면서 5.3% 과소로 드러났다.
+    # (ANET 매도 후 $30.33이던 8/6~8/13에도 조용히 4만원씩 빠져 있었다.)
+    # 원화 현금만 쓰던 시절의 가정이 남아 있던 자리 — 8/12 "쓰는 쪽과 읽는 쪽이 갈리면
+    # 데이터는 조용히 사라진다"와 같은 클래스다. cash_krw는 그대로 두고(앱이 원화 재원을
+    # 따로 보여준다) 총자산 합계에만 달러 환산을 더한다.
+    cash_usd = pf.get("cash_usd", 0) or 0
+    cash_usd_krw = round(cash_usd * usdkrw) if (cash_usd and usdkrw) else 0
 
     # ── 시계열 차트 (환율·코스피) + 경제사냥꾼 + 수급 ──
     fx_history = fetch_history("KRW=X", offline=offline)
@@ -621,9 +631,11 @@ def build(offline: bool) -> dict:
         "offline": offline,
         "fx": {"usdkrw": round(usdkrw, 2) if usdkrw else None},
         "totals": {
-            "assets_krw": round(total_value_krw + cash),
+            "assets_krw": round(total_value_krw + cash + cash_usd_krw),
             "stocks_value_krw": round(total_value_krw),
             "cash_krw": cash,
+            "cash_usd": cash_usd,
+            "cash_usd_krw": cash_usd_krw,
             "day_change_krw": day_change_krw,
             "day_change_pct": pct(total_value_krw, total_prev_krw),
             "total_pnl_krw": round(total_value_krw - total_cost_krw),

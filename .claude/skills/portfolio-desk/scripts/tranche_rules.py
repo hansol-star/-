@@ -429,7 +429,25 @@ def _load_inputs(cash_arg):
         p = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "portfolio.json")
         try:
             with open(p, encoding="utf-8") as f:
-                cash = float((json.load(f) or {}).get("cash_krw") or 0)
+                pf = json.load(f) or {}
+            # ★[8/20 결함 수정] 원화만 읽고 **달러 현금을 빼먹고 있었다.**
+            # 사다리 상한 = 가용현금 × 해금%인데 그 '가용현금'이 cash_krw뿐이라,
+            # 매도대금이 달러로 들어와 있으면 상한이 그만큼 과소 계산된다.
+            # 8/19 AAPL 매도로 $308.94(≈431,000원)가 들어오며 드러났다 —
+            # 같은 날 build_app_data의 assets_krw에서 고친 것과 **같은 클래스**다
+            # (원화 현금만 쓰던 시절의 가정이 두 군데에 남아 있었다).
+            # 미국 소수점 매수는 이 달러로 바로 집행하므로 재원이 맞다.
+            cash = float(pf.get("cash_krw") or 0)
+            usd = float(pf.get("cash_usd") or 0)
+            if usd:
+                fx = float(pf.get("us_avg_fx_cost") or 0) or 1400.0
+                try:
+                    import market_data as _md
+                    q = _md.fetch_quote("KRW=X") or {}
+                    fx = float(q.get("price") or fx)
+                except Exception:
+                    pass  # 환율 조회 실패 시 us_avg_fx_cost 폴백(장부 평균)
+                cash += usd * fx
         except Exception:
             cash = 0.0
 

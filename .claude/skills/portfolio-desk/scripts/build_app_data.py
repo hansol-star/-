@@ -286,7 +286,7 @@ def rollover_hunter_archive(hunter, archive) -> bool:
         if (lv.get("id") and lv["id"] in known_ids) or (nt and nt in known_titles):
             continue
         entry = {
-            "date": lv.get("date"),
+            "date": lv.get("date") or ((lv.get("published_kst") or "").split()[0] or None),
             "title": lv.get("title"),
             "theme": lv.get("theme"),
             "tickers": lv.get("tickers") or [],

@@ -1,14 +1,6 @@
 /* 정훈 증권 PWA 서비스워커 — 앱 셸 캐시 + 오프라인 동작.
    data.js는 네트워크 우선(최신 시세) → 실패 시 캐시. 셸은 캐시 우선. */
-<<<<<<< HEAD
-var CACHE = "jh-portfolio-202608201827";
-=======
-<<<<<<< HEAD
-var CACHE = "jh-portfolio-202608081329";
-=======
-var CACHE = "jh-portfolio-202608081316";
->>>>>>> 4139c5a (목표가 근거(target_basis) 의무화 게이트 + ANET·삼성전자 재산정)
->>>>>>> 8547f77 (target_basis 13종목 전량 백필 + 목표가 파서 단위 버그 수정)
+var CACHE = "jh-portfolio-202608211015";
 var SHELL = [
   "./index.html",
   "./style.css",

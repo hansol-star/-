@@ -38,9 +38,25 @@ ETF = {"VOO"}
 
 # ── 결정 시그널 사전 ──────────────────────────────────────────────────────
 # 안 사는(매수 누락) 판단 vs 안 파는(매도 누락) 판단을 텍스트에서 뽑는다.
-NO_BUY_KW = ("관망", "보류", "추격 금지", "추격금지", "진입금지", "진입 금지", "신규매수 안함", "신규 보류")
-NO_SELL_KW = ("홀딩", "물타기 금지", "물타기금지", "패닉셀 금지", "패닉셀금지",
-              "손절선 없음", "손절선 영구 폐기", "인내", "정리후보")
+# ★[8/22 전면 수정] 8/22 감사에서 오미션 검출이 2건뿐이라 "no_sell 트랙이 비었다"고 진단했는데,
+#   실제 원인은 **트랙 부재가 아니라 ①키워드 미스매치 ②분류 오류** 둘이었다.
+#     ① 실제 표기는 "물타기 **영구**금지"·"추가매수 **영구**금지"·"신규매수 **금지**"인데
+#        키워드는 "물타기 금지"·"신규매수 **안함**"이라 **한 건도 안 걸렸다**
+#        (= 8/12 "쓰는 쪽과 읽는 쪽이 갈리면 데이터가 조용히 사라진다"의 재현).
+#     ② **"물타기 금지"가 NO_SELL_KW에 들어 있었다** — 물타기(추가매수) 금지는 '안 판다'가
+#        아니라 **'안 산다'**다. 분류가 반대로 박혀 no_buy 집계도 같이 오염됐다.
+#   ⇒ 문자열 상수 대신 **정규식**으로 바꿔 표기 변형(영구·永久·공백 유무)을 흡수한다.
+NO_BUY_RE = re.compile(
+    r"관망|보류|추격\s*금지|진입\s*금지|"
+    r"(물타기|추가\s*매수|추가매수|신규\s*매수|신규매수|신규\s*자금)\s*(영구)?\s*(금지|안함|제외)|"
+    r"봉인|매수후보\s*아님|신규자금\s*영구제외")
+NO_SELL_RE = re.compile(
+    r"홀딩|홀드|인내|장기\s*보유|"
+    r"패닉셀\s*금지|손절선\s*(없음|영구\s*폐기)|정리후보|"
+    r"트림\s*(실익없음|보류)|잔여\s*(절반\s*)?홀딩")
+# 하위호환(다른 스크립트가 import할 수 있음)
+NO_BUY_KW = ("관망", "보류", "추격 금지", "추격금지", "진입금지", "진입 금지")
+NO_SELL_KW = ("홀딩", "인내", "손절선 없음", "정리후보")
 
 # ── 클러스터(반복 편향 집계용) ────────────────────────────────────────────
 CLUSTER = {
@@ -69,11 +85,37 @@ def sig_from(v, is_watch):
         # 워치 = 미보유 후보. 룰차단(상장 전 등)만 아니면 '안 산' 결정으로 본다.
         label = "워치미진입(룰차단)" if rule_blocked else "워치미진입"
         return (True, False, label, rule_blocked)
-    no_buy = any(k in text for k in NO_BUY_KW)
-    no_sell = any(k in text for k in NO_SELL_KW)
+    no_buy = bool(NO_BUY_RE.search(text))
+    no_sell = bool(NO_SELL_RE.search(text))
     # 라벨 = 대표 시그널(표시용)
     label = (bz.strip()[:14] or trim.strip()[:14] or "—")
     return (no_buy, no_sell, label, rule_blocked)
+
+
+def _ensure_full_history():
+    """★[8/22] shallow clone이면 이 도구는 **조용히 잘린 범위만** 본다.
+
+    8/22 실측: 세션 클론이 shallow라 커밋 61개(8/14~)뿐이었고 stocks.json 이력이 11개였다
+    → 오미션 검출이 **2건**. `git fetch --unshallow` 후 658커밋·이력 133개가 되자
+    **놓친 매수 7건·놓친 매도 2건**이 드러났다(PLTR +51%·ANET +21%·META +21% 등).
+    즉 "오미션이 없다"는 결론 자체가 **클론 깊이의 산물**이었다.
+    ⇒ 사람 기억(validate WARN)에 맡기지 않고 도구가 직접 확인·복구한다."""
+    try:
+        r = subprocess.run(["git", "rev-parse", "--is-shallow-repository"],
+                           capture_output=True, text=True, timeout=30, cwd=REPO)
+        if r.stdout.strip() != "true":
+            return
+    except Exception:
+        return
+    print("[INFO] shallow clone 감지 — 히스토리를 복구한다(git fetch --unshallow). "
+          "이걸 안 하면 잘린 범위만 보고 '오미션 없음'이라는 틀린 결론이 나온다.",
+          file=sys.stderr)
+    try:
+        subprocess.run(["git", "fetch", "--unshallow", "origin"],
+                       capture_output=True, text=True, timeout=600, cwd=REPO)
+    except Exception as ex:
+        print(f"[WARN] unshallow 실패({str(ex)[:60]}) — 결과가 잘린 범위 기준임을 감안할 것.",
+              file=sys.stderr)
 
 
 def build_history(since):
@@ -304,6 +346,7 @@ def main():
     ap.add_argument("--since", type=str, default=None, help="결정 시점 하한 YYYY-MM-DD")
     ap.add_argument("--json", action="store_true", help="기계가독 출력")
     a = ap.parse_args()
+    _ensure_full_history()
     rows, net_err = analyze(a.min_move, a.since)
     if a.json:
         print(json.dumps({"min_move": a.min_move, "since": a.since,

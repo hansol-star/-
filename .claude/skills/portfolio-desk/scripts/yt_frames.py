@@ -201,9 +201,18 @@ def main() -> int:
             print("[FAIL] --sheets 는 숫자 또는 'all'", file=sys.stderr)
             return 1
 
+    # ★[8/22 실측] 쇼츠(세로 영상)는 같은 L2라도 타일이 **50×90**으로 쪼그라들어 판독이 안 된다.
+    #   경제사냥꾼 최근 업로드는 상당수가 쇼츠라 이 구분이 중요하다 — 받기 전에 알려준다.
+    #   (롱폼 160×90에서는 종목 화면 가격·뉴스 원문 문장까지 읽혔다.)
+    is_short = lvl["w"] < 100
     print(f"[정보] L{lvl_idx}: 타일 {lvl['w']}×{lvl['h']} · 프레임 {lvl['count']}개 · "
           f"시트 {total_sheets}장(장당 {per_sheet}프레임) · 간격 {step:.1f}초 "
           f"→ {len(wanted)}장 받는다", file=sys.stderr)
+    if is_short:
+        print(f"⚠️ **쇼츠(세로) 판정 — 타일 {lvl['w']}×{lvl['h']}로 판독 거의 불가.** "
+              "차트선·화면 전환만 보이고 숫자·문구는 안 읽힌다. 자막으로 갈음할 것. "
+              "(8/22 실측: 쇼츠 2편 판독 실패 / 롱폼 160×90은 종목가격·뉴스원문까지 판독)",
+              file=sys.stderr)
 
     saved = []
     for n in wanted:

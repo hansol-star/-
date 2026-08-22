@@ -64,9 +64,15 @@ your output is the desk section handed to the PM.
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/broker_reports.py --days 7    # 최근 1주 신규 리포트
      python3 .claude/skills/portfolio-desk/scripts/broker_reports.py --targets   # 누적분 목표가 컨센
+     python3 .claude/skills/portfolio-desk/scripts/broker_reports.py --vs-ours   # ★우리 목표가와 갭 대조
      ```
      → **신규 리포트가 있으면 리턴에 종목·증권사·목표가·의견을 표로 낸다**(0건이면 "신규 없음" 한 줄).
-     목표가가 우리 목표가와 20%+ 갈리면 그 사실을 명시 — 우리 수치를 덮어쓰지는 말고 병기한다.
+     **`--vs-ours`가 그 대조를 자동으로 한다**(우리 목표가 레인지 **상단** 기준 갭 · 상향/하향 이력 병기).
+     상단갭 **-20% 이하**면 보고서에 **양쪽 시각 병기**(우리 보수 근거 + 컨센 강세 근거) — 컨센으로
+     우리 수치를 덮어쓰지 않는다. ⚠️ **하한이 아니라 상단으로 본다**: 8/22 첫 대조에서 하한만 보고
+     "컨센 대비 -48%"라 읽었는데 상단 기준으로는 -4%였다(삼성전자). 레인지를 한쪽만 보면 갭이 왜곡된다.
+     **8/22 실측 기준선**: LG전자 +9% · 삼성전자 -4% · NAVER -17% · **현대차 -29%(유일한 유의 갭 —
+     우리 ⭐2·마진 훼손 판정 vs 컨센 720,000·n=12 강세. 병기 대상)**.
    - **📐 [8/22 배선] 이동평균선 보드 = `ma_board.py`** (정훈 8/4 지시 "5일 20일 60일 120일 그거 하자").
      naver_chart가 한국식 3층을 보는 것과 별개로 **4개 이평 배열·정배열/역배열**을 낸다. 같은 감사에서
      배선 누락이 확인돼 연결. `python3 .claude/skills/portfolio-desk/scripts/ma_board.py`

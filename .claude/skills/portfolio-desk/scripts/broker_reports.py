@@ -53,6 +53,8 @@ INDEX = os.path.join(BASE_DIR, "index.json")
 TEXT_DIR = os.path.join(BASE_DIR, "text")
 PDF_DIR = os.path.join(BASE_DIR, "pdf")
 
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "..", "..", "..", ".."))
 HOST = "https://consensus.hankyung.com"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
@@ -249,6 +251,52 @@ def target_consensus() -> list[dict]:
     return sorted(out, key=lambda x: (not x["held"], x["name"]))
 
 
+def _our_targets() -> dict:
+    """stocks.json에서 우리 목표가를 읽는다. 키는 티커('005930.KS')라 6자리로 정규화."""
+    path = os.path.join(REPO, "data", "app", "stocks.json")
+    try:
+        st = json.load(open(path, encoding="utf-8")).get("stocks") or {}
+    except Exception:
+        return {}
+    out = {}
+    items = st.items() if isinstance(st, dict) else [(x.get("ticker", ""), x) for x in st]
+    for tk, s in items:
+        code = str(tk).split(".")[0]
+        if re.fullmatch(r"\d{6}", code):
+            out[code] = s
+    return out
+
+
+def _range_bounds(txt):
+    """우리 목표가는 '251,000~460,000' 같은 레인지 문자열 — 하한·상한을 다 뽑는다.
+    ⚠️ 하한만 보면 갭이 과장된다(8/22 수동 대조에서 실제로 그랬다)."""
+    nums = [float(n.replace(",", "")) for n in re.findall(r"[\d,]{4,}", str(txt or ""))]
+    return (min(nums), max(nums)) if nums else (None, None)
+
+
+def consensus_gap() -> list[dict]:
+    """우리 목표가 ↔ 국내 sell-side 컨센 대조.
+
+    ★[8/22 신설] 배선 감사에서 이 스크립트가 7/30부터 89건을 쌓아두고도 **아무 데스크도
+      안 읽는** 상태였음이 드러났다. 손으로 대조해보니 우리 목표가가 컨센 대비 18~48% 낮았다
+      (현대차: 우리 390,000~512,000 vs 컨센 720,000·n=12). 보수적인 게 문제가 아니라
+      **모르고 보수적이었다는 게** 문제다 — 우리 원칙은 양쪽 시각 병기다.
+    ⚠️ 컨센으로 우리 목표가를 덮어쓰지 않는다. 갭을 **보이게** 만드는 게 전부다."""
+    ours = _our_targets()
+    rows = []
+    for c in target_consensus():
+        s = ours.get(c["code"])
+        if not s:
+            continue
+        lo, hi = _range_bounds(s.get("target"))
+        med = c.get("median")
+        rows.append({**c, "our_target": s.get("target"), "our_lo": lo, "our_hi": hi,
+                     "price": s.get("price"), "stars": s.get("stars"), "score": s.get("score"),
+                     "gap_hi_pct": ((hi / med - 1) * 100 if (hi and med) else None),
+                     "gap_lo_pct": ((lo / med - 1) * 100 if (lo and med) else None)})
+    return rows
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="증권사 리포트 수집·본문추출·누적")
     ap.add_argument("--days", type=int, default=7)
@@ -256,6 +304,8 @@ def main() -> int:
     ap.add_argument("--fetch", action="store_true", help="PDF 본문까지 다운로드·추출")
     ap.add_argument("--keep-pdf", action="store_true")
     ap.add_argument("--targets", action="store_true", help="누적분에서 목표가 컨센 산출")
+    ap.add_argument("--vs-ours", action="store_true",
+                    help="우리 목표가(stocks.json) 대 sell-side 컨센 갭 대조 [8/22]")
     ap.add_argument("--show", help="저장된 본문 출력 (report_idx)")
     ap.add_argument("--limit", type=int, default=12, help="--fetch 시 최대 건수")
     ap.add_argument("--json", action="store_true")
@@ -268,6 +318,29 @@ def main() -> int:
             return 1
         with open(p, encoding="utf-8") as f:
             print(f.read())
+        return 0
+
+    if a.vs_ours:
+        rows = consensus_gap()
+        if a.json:
+            print(json.dumps(rows, ensure_ascii=False, indent=1))
+            return 0
+        if not rows:
+            print("대조할 종목 없음 (stocks.json 국내 종목 ↔ 누적 리포트 교집합)")
+            return 0
+        print("\n📐 우리 목표가 ↔ 국내 sell-side 컨센 (측정 전용 — 컨센으로 덮어쓰지 않는다)")
+        print(f" {'종목':<10}{'현재가':>10}{'우리목표':>20}{'컨센중앙':>11}{'n':>3}{'상단갭':>8}  최신")
+        print(" " + "-" * 76)
+        for r in rows:
+            g = f"{r['gap_hi_pct']:+.0f}%" if r.get("gap_hi_pct") is not None else "?"
+            print(f" {r['name']:<10}{str(r.get('price','?')):>10}"
+                  f"{str(r.get('our_target',''))[:19]:>20}{r['median']:>11,.0f}"
+                  f"{r['n']:>3}{g:>8}  {r['latest_broker']} {r['latest_rating']}")
+            for d, b, dirn, o, n in (r.get("recent_moves") or [])[:2]:
+                icon = "🔺" if dirn == "상향" else "🔻"
+                print(f" {'':<10}   {icon} {d} {b} {o:,.0f} → {n:,.0f}")
+        print("\n※ 상단갭이 -20% 이하면 보고서에 **양쪽 시각 병기**"
+              "(우리 보수 근거 + 컨센 강세 근거). 컨센이 정답이라는 뜻이 아니다.")
         return 0
 
     if a.targets:

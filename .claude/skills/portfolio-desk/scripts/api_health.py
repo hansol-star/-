@@ -223,6 +223,24 @@ def chk_ytdlp():
     return None, f"봇차단 지속 — innertube 폴백이 대체 중 ({head})"
 
 
+def chk_web_shot():
+    """웹 화면 판독 경로(Playwright+Chromium) — web_shot.py·browser_captions.cjs 공용 기반.
+    ★[8/22 신설] 유튜브 영상 프레임은 이 환경에서 불가(watch=reCAPTCHA, 스트림=봇차단)
+    지만 **일반 웹페이지 캡처는 정상**이다(네이버금융 판독 실측). 그 경로가 살아 있는지
+    본다 — 브라우저 바이너리는 컨테이너 이미지 소속이라 죽으면 조용히 죽는다."""
+    import glob as _glob
+    base = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
+    chrome = _glob.glob(os.path.join(base, "chromium-*", "chrome-linux", "chrome"))
+    if not chrome:
+        return False, f"Chromium 바이너리 없음 ({base}) — web_shot·browser_captions 정지"
+    node_modules = os.environ.get("NODE_PATH", "/opt/node22/lib/node_modules")
+    if not os.path.isdir(os.path.join(node_modules, "playwright")):
+        return False, "playwright 모듈 없음 — NODE_PATH 확인"
+    if not shutil.which("node"):
+        return False, "node 없음"
+    return True, f"Chromium+playwright 준비됨 ({os.path.basename(os.path.dirname(os.path.dirname(chrome[0])))})"
+
+
 def chk_transcripts():
     """transcripts.py의 실제 경로 = {BASE}/company/{ticker}. 초판이 존재하지 않는
     /api/v1/transcripts를 때려 404를 냈다(자체 버그)."""
@@ -243,6 +261,7 @@ CHECKS = [
     ("FMP",                   "키",   chk_fmp,              "fundamentals·valuation (보조)"),
     ("earningscalls.dev",     "무키", chk_transcripts,      "transcripts (어닝콜 전문)"),
     ("yt-dlp 스트림",         "무키", chk_ytdlp,            "youtube-watch --frames/--comments"),
+    ("웹 화면 판독",          "무키", chk_web_shot,         "web_shot·browser_captions (Playwright)"),
 ]
 
 

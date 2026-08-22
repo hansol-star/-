@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-16",
+ "updated": "2026-08-22",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -766,9 +766,7 @@
    "analyst": "선유진",
    "broker": "LS증권",
    "name": "NAVER",
-   "held": true,
-   "body_chars": 17977,
-   "cached": false
+   "held": true
   },
   "650454": {
    "date": "2026-07-03",
@@ -807,9 +805,7 @@
    "analyst": "이효진,김수민",
    "broker": "메리츠증권",
    "name": "NAVER",
-   "held": true,
-   "body_chars": 18069,
-   "cached": false
+   "held": true
   },
   "650377": {
    "date": "2026-07-01",
@@ -835,9 +831,7 @@
    "analyst": "김소혜,김나우",
    "broker": "한화투자증권",
    "name": "NAVER",
-   "held": true,
-   "body_chars": 13779,
-   "cached": false
+   "held": true
   },
   "650372": {
    "date": "2026-07-01",
@@ -1123,9 +1117,7 @@
    "analyst": "김운호",
    "broker": "IBK투자증권",
    "name": "삼성전자",
-   "held": true,
-   "body_chars": 25430,
-   "cached": false
+   "held": true
   },
   "651324": {
    "date": "2026-07-31",

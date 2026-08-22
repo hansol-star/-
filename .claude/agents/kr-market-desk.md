@@ -56,6 +56,22 @@ your output is the desk section handed to the PM.
      python3 .claude/skills/portfolio-desk/scripts/vol_sizing.py   # 안전핀+폭풍%ile 트랜치 제안(TF ACTIVE 시 필수 — 동결/스케일 판정)
      ```
      TF ACTIVE 중엔 vol_sizing 결과(안전핀 동결 여부·폭풍스케일 배수)를 상황판에 반영. RSI 극단 침체(예 현대차<30)는 "싸 보임"이지 매수신호 아님을 명시(룰3·펀더 우선).
+   - **📑 [8/22 배선] 국내 sell-side 원문 = `broker_reports.py`** — 한경 컨센서스에서 우리 보유·워치
+     종목의 **증권사 리포트 실물**(목표가·투자의견·증권사·제목, `--fetch`면 PDF 본문까지)을 긁는다.
+     ⚠️ **8/22 감사에서 발견**: 도구는 7/30부터 멀쩡히 돌고 있었는데(60일 89건 실측) **아무 데스크도
+     안 읽고 있었다** — CLAUDE.md가 "증권사 리포트가 그 위에 얹힌다"고 선언까지 해둔 채로.
+     8/12 교훈("쓰는 쪽과 읽는 쪽이 갈리면 데이터는 조용히 사라진다")의 재현이라 여기에 배선한다.
+     ```bash
+     python3 .claude/skills/portfolio-desk/scripts/broker_reports.py --days 7    # 최근 1주 신규 리포트
+     python3 .claude/skills/portfolio-desk/scripts/broker_reports.py --targets   # 누적분 목표가 컨센
+     ```
+     → **신규 리포트가 있으면 리턴에 종목·증권사·목표가·의견을 표로 낸다**(0건이면 "신규 없음" 한 줄).
+     목표가가 우리 목표가와 20%+ 갈리면 그 사실을 명시 — 우리 수치를 덮어쓰지는 말고 병기한다.
+   - **📐 [8/22 배선] 이동평균선 보드 = `ma_board.py`** (정훈 8/4 지시 "5일 20일 60일 120일 그거 하자").
+     naver_chart가 한국식 3층을 보는 것과 별개로 **4개 이평 배열·정배열/역배열**을 낸다. 같은 감사에서
+     배선 누락이 확인돼 연결. `python3 .claude/skills/portfolio-desk/scripts/ma_board.py`
+   - ⏸️ `short_borrow.py`(공매도·대차)는 **KRX가 데이터센터 IP를 차단**해 지금은 못 쓴다(8/22 재확인).
+     12월 로컬 이전 후 자동 작동 — 그전까지 공매도는 WebSearch로 보강한다. 호출 시도해서 시간 쓰지 말 것.
    - **★★네이버 3층 융합 = `naver_chart.py` + `naver_value.py` [2026-07-22 신설·국장 배선]**: 한국 차트를 '한국식'(가격+수급+가치)으로 판독. **chart_read를 대체**(naver_chart가 chart_read 엔진을 네이버 봉으로 내장 재사용 + 수급·가치 층 추가). 매 보고서 보유 국내5+하닉에 병기.
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/naver_chart.py               # 보유5+하닉 가격+수급+가치+종합 한 방

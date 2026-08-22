@@ -27,6 +27,7 @@ import glob
 import json
 import os
 import py_compile
+import re
 import subprocess
 import sys
 
@@ -121,6 +122,28 @@ def run_validate(timeout: float = 120.0) -> tuple[str, str]:
     return status, (r.stdout or r.stderr or "").strip()
 
 
+def run_wiring(timeout: float = 90.0) -> tuple[str, str]:
+    """배선 감사 — '만들었는데 아무 데스크도 안 부르는' 스크립트 검출.
+    ★[8/22 신설] broker_reports가 7/30부터 멀쩡히 돌면서(60일 89건) 어떤 데스크도
+    안 읽고 있었다 — 사람 기억에 맡기면 또 생긴다. **WARN 단계**(게이트를 막지는 않는다):
+    신규 도구를 만든 직후엔 배선 전 상태가 정상이라 FAIL로 막으면 개발을 방해한다."""
+    wp = os.path.join(HERE, "wiring_audit.py")
+    if not os.path.exists(wp):
+        return "SKIP", ""
+    try:
+        r = subprocess.run([sys.executable, wp], capture_output=True, text=True,
+                           timeout=timeout, cwd=REPO)
+    except subprocess.TimeoutExpired:
+        return "SKIP", "wiring timeout"
+    out = (r.stdout or "")
+    m = re.search(r"미배선\(예상밖\) (\d+)", out)
+    n = int(m.group(1)) if m else 0
+    if n == 0:
+        return "PASS", ""
+    block = out[out.find("🔴"):out.find("→ 담당")] if "🔴" in out else out[-400:]
+    return "WARN", block.strip()
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="데스크 품질 게이트 (커밋·머지 전 스모크)")
     ap.add_argument("--no-validate", action="store_true", help="validate_report 단계 생략")
@@ -179,6 +202,14 @@ def main() -> int:
         print(f"\n=== validate_report: {icon} {val_status} ===")
         if val_status == "FAIL":
             print(val_out[-1500:])
+
+    w_status, w_out = run_wiring()
+    if w_status == "WARN":
+        print("\n=== 배선 감사: ⚠️ WARN — 아무 데스크도 안 부르는 스크립트가 있다 ===")
+        print(w_out)
+        print("   (게이트는 막지 않는다. 배선하거나 wiring_audit.EXPECTED_UNWIRED에 이유와 함께 등록)")
+    elif w_status == "PASS":
+        print("\n=== 배선 감사: ✅ 미배선 없음 ===")
 
     print("\n" + ("✅ GATE PASS — 커밋·머지 OK" if gate_ok
                   else f"❌ GATE FAIL — {len(fails)}개 스크립트 오류"

@@ -26,6 +26,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
+import subprocess
 import sys
 import time
 import urllib.error
@@ -195,6 +197,32 @@ def chk_fmp():
         return False, f"HTTP {e.code} (402=화이트리스트 밖 심볼)"
 
 
+def chk_ytdlp():
+    """yt-dlp 스트림/메타 경로 — youtube-watch(fetch_youtube.py)의 舊 단일 의존.
+
+    ★[8/22 신설] 7/2 메모에 "웹에서 SSL_CERT_FILE 지정 시 yt-dlp 정상(3/3편)"이라
+    적어둔 뒤 아무도 재확인하지 않았는데, 8/22 실측에서 web·android·ios·tv·mweb
+    **5개 클라이언트 전부** 봇차단("Sign in to confirm you're not a bot")이었다.
+    탐색·자막·스트림 어느 경로도 안 열린다. = 8/1 FMP형 '말없이 죽는 외부 도구'의 재발.
+    ⇒ 이 체크가 그 침묵을 깬다. **실패해도 파이프라인은 정상**이다(innertube 폴백이
+    받는다) → 그래서 🔴가 아니라 ⚪ 미설정으로 보고한다. 판단 기준은 하나:
+    **✅로 바뀌면 프레임 추출(--frames)이 다시 가능해졌다는 뜻**(로컬 이전 후 기대)."""
+    if not shutil.which("yt-dlp"):
+        return None, "미설치 — youtube-watch는 innertube 폴백으로 동작(웹 환경 정상)"
+    vid = "xwJio17IZZw"
+    try:
+        p = subprocess.run(["yt-dlp", "--skip-download", "-J", "--no-warnings",
+                            f"https://www.youtube.com/watch?v={vid}"],
+                           capture_output=True, text=True, timeout=90)
+    except Exception as ex:
+        return None, f"실행 실패: {str(ex)[:60]} — innertube 폴백 유효"
+    if p.returncode == 0 and p.stdout.strip():
+        return True, "메타 취득 OK — --frames(프레임 추출) 사용 가능"
+    err = (p.stderr or "").strip().splitlines()
+    head = err[-1][:80] if err else "무응답"
+    return None, f"봇차단 지속 — innertube 폴백이 대체 중 ({head})"
+
+
 def chk_transcripts():
     """transcripts.py의 실제 경로 = {BASE}/company/{ticker}. 초판이 존재하지 않는
     /api/v1/transcripts를 때려 404를 냈다(자체 버그)."""
@@ -214,6 +242,7 @@ CHECKS = [
     ("DART",                  "키",   chk_dart,             "dart_disclosure·financials(KR)"),
     ("FMP",                   "키",   chk_fmp,              "fundamentals·valuation (보조)"),
     ("earningscalls.dev",     "무키", chk_transcripts,      "transcripts (어닝콜 전문)"),
+    ("yt-dlp 스트림",         "무키", chk_ytdlp,            "youtube-watch --frames/--comments"),
 ]
 
 

@@ -368,8 +368,10 @@ def fetch_via_ytdlp(vid):
     url = f"https://www.youtube.com/watch?v={vid}"
     if os.path.exists(YW_SCRIPT):
         try:
+            # 재귀 차단: fetch_youtube는 실패 시 hunter_latest(=이 파일)를 되부른다.
+            env = dict(os.environ, YW_NO_INNERTUBE_FALLBACK="1")
             r = subprocess.run(["python3", YW_SCRIPT, url, "--outdir", OUTDIR],
-                               capture_output=True, text=True, timeout=240)
+                               capture_output=True, text=True, timeout=240, env=env)
             for line in r.stdout.strip().splitlines()[::-1]:
                 p = line.strip()
                 if p.endswith(".md") and os.path.exists(p):

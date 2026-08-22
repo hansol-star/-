@@ -28,6 +28,7 @@ import glob
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -64,6 +65,78 @@ def base_cmd(client):
 
 def run(cmd, timeout=180):
     return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+
+
+# ── innertube 폴백 (웹/데이터센터 IP 전용) ────────────────────────────────
+# ★[8/22 실측] 이 환경에서 yt-dlp는 web·android·ios·tv·mweb **5개 클라이언트 전부**
+#   "Sign in to confirm you're not a bot" — 탐색(flat-playlist)·자막(--list-subs)·
+#   스트림 어느 경로도 안 열린다. 반면 hunter_latest.py의 innertube(ANDROID→IOS)
+#   + Playwright 자막 사슬은 R1 루틴이 매일 정상 사용 중이다(hunter_log 8/21까지 갱신).
+#   ⇒ yt-dlp 단일 의존이던 이 스크립트에 그 사슬을 폴백으로 잇는다.
+#   ⚠️ hunter_latest는 자기 3차 폴백으로 이 스크립트를 부르므로 **상호 재귀**가 된다
+#      → YW_NO_INNERTUBE_FALLBACK 환경변수로 한 단계에서 끊는다.
+HUNTER_LATEST = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..", "..", "portfolio-desk", "scripts", "hunter_latest.py"))
+_VID_RE = re.compile(r"(?:v=|/shorts/|/live/|youtu\.be/|/embed/)([A-Za-z0-9_-]{11})")
+
+
+def extract_video_id(url):
+    m = _VID_RE.search(url or "")
+    if m:
+        return m.group(1)
+    u = (url or "").strip()
+    return u if re.fullmatch(r"[A-Za-z0-9_-]{11}", u) else None
+
+
+def innertube_fallback(url, outdir):
+    """hunter_latest.py --ids <vid> --fetch 를 재사용해 자막 md를 확보한다.
+    반환: 생성된 md 경로 또는 None."""
+    if os.environ.get("YW_NO_INNERTUBE_FALLBACK"):
+        return None                      # hunter_latest가 부른 호출 — 되부르지 않는다
+    vid = extract_video_id(url)
+    if not vid or not os.path.exists(HUNTER_LATEST):
+        return None
+    env = dict(os.environ, YW_NO_INNERTUBE_FALLBACK="1")
+    try:
+        p = subprocess.run([sys.executable, HUNTER_LATEST, "--ids", vid, "--fetch"],
+                           capture_output=True, text=True, timeout=900, env=env)
+    except Exception as ex:
+        print(f"  innertube 폴백 실행 실패: {ex}", file=sys.stderr)
+        return None
+    src = os.path.join(os.environ.get("HUNTER_OUTDIR",
+                                      os.path.join(tempfile.gettempdir(), "hunter_yt")),
+                       f"{vid}.md")
+    if not os.path.exists(src):
+        print((p.stderr or "")[-400:], file=sys.stderr)
+        return None
+    dst = os.path.join(outdir, f"{vid}.md")
+    if os.path.abspath(src) != os.path.abspath(dst):
+        shutil.copyfile(src, dst)
+    return dst
+
+
+def fallback_transcript(url, outdir):
+    """innertube 폴백 md에서 트랜스크립트 본문만 꺼낸다(메타는 yt-dlp 쪽이 더 풍부)."""
+    md = innertube_fallback(url, outdir)
+    if not md:
+        return ""
+    try:
+        body = open(md, encoding="utf-8").read()
+    except OSError:
+        return ""
+    # 폴백 md 안에 또 다른 md가 중첩될 수 있다(hunter_latest의 3차 폴백이 이 스크립트를
+    # 되부르는 경로) → **마지막** 트랜스크립트 섹션만 취한다.
+    head, sep, rest = body.rpartition("## 트랜스크립트")
+    text = (rest if sep else body).strip()
+    # ★ 가짜 자막 거부: 자막 미확보 md가 그대로 넘어오면 메타 마크업이 '자막'으로 둔갑한다
+    #   (8/22 실측 — 429 지속 중 이 경로로 메타 반복 텍스트가 통과했다).
+    #   "제목만 로깅(추측 분석) 금지" 원칙과 같은 자리의 가드.
+    if "자막을 가져올 수 없" in text or "자막 없음" in text:
+        return ""
+    if text.count("- **") >= 3 or text.lstrip().startswith("# "):
+        return ""                      # 자막이 아니라 메타 블록이다
+    return "" if len(text) < 80 else text
 
 
 def get_metadata(url):
@@ -262,7 +335,18 @@ def main():
     wanted = [l.strip() for l in args.langs.split(",") if l.strip()]
 
     print("Fetching metadata...", file=sys.stderr)
-    meta = get_metadata(args.url)
+    try:
+        meta = get_metadata(args.url)
+    except RuntimeError as ex:
+        print(f"  yt-dlp 전 클라이언트 실패 → innertube 폴백: {ex}", file=sys.stderr)
+        out = innertube_fallback(args.url, args.outdir)
+        if not out:
+            raise
+        if args.frames or args.comments:
+            print("  ⚠️ 폴백 경로는 자막·메타만 제공 — --frames/--comments는 스트림 접근이 "
+                  "필요해 이 환경에선 불가(로컬 이전 후 가능).", file=sys.stderr)
+        print(out)
+        return
     vid = meta.get("id", "video")
 
     lang_code, kind = pick_sub_langs(meta, wanted)
@@ -274,6 +358,14 @@ def main():
             if vtt:
                 transcript = vtt_to_transcript(vtt, args.interval)
                 sub_note = f"{lang_code} ({'자동 생성' if kind == 'auto' else '업로더 제공'})"
+
+    if not transcript:
+        # ★[8/22] yt-dlp는 `--ignore-no-formats-error` 덕에 **메타는 통과**하지만
+        #   자막·스트림은 봇차단으로 못 가져온다 → 고장 지점은 메타가 아니라 자막이다.
+        print("  자막 미확보 → innertube 폴백 시도...", file=sys.stderr)
+        alt = fallback_transcript(args.url, args.outdir)
+        if alt:
+            transcript, sub_note = alt, "innertube 폴백 (hunter_latest 경유)"
 
     chapters = meta.get("chapters") or []
     upload_date = meta.get("upload_date", "")

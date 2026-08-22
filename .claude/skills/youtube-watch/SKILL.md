@@ -44,7 +44,9 @@ The script already handles YouTube's quirks; don't reinvent them:
 - It falls back through player clients (`web → tv → mweb`) automatically. The `tv` client almost always gets through, including subtitle downloads, when the default `web` client hits "Sign in to confirm you're not a bot."
 - **On a normal home/office (residential) IP this bot-check is rare** — the old claude.ai sandbox hit it constantly because it ran from a datacenter IP. So locally the first client usually succeeds outright. The fallback chain is just insurance.
 - **TLS cert checking is ON by default** (correct for a local machine talking directly to YouTube). The old sandbox needed `--no-check-certificates` because of its egress proxy's self-signed cert — you do **not** need that locally. If you're behind a corporate proxy that breaks TLS, add `--insecure`.
-- `youtube-transcript-api` is unreliable from automated environments — this script uses `yt-dlp`, don't swap it.
+- `youtube-transcript-api` is unreliable from automated environments — this script uses `yt-dlp` first.
+- ★[2026-08-22 실측 — 웹(데이터센터 IP)에서 yt-dlp는 죽어 있다] web·android·ios·tv·mweb **5개 클라이언트 전부** "Sign in to confirm you're not a bot"이며 탐색·자막·스트림 어느 경로도 안 열린다. 舊 7/2 메모 *"SSL_CERT_FILE 지정 시 정상 작동(3/3편)"*은 **더 이상 사실이 아니다**(재확인 없이 굳어 있던 서술 — 8/1 FMP형 '말없이 죽는 외부 도구'의 재발). ⇒ `fetch_youtube.py`는 메타 취득이 전 클라이언트에서 실패하면 **`hunter_latest.py --ids <vid> --fetch`(innertube ANDROID→IOS + Playwright 사슬)로 자동 폴백**한다. 그 경로는 R1 루틴이 매일 쓰고 있어 살아 있다. 생존 여부는 `api_health.py`의 **yt-dlp 스트림** 항목이 상시 감시한다.
+- 폴백 경로는 **자막·메타만** 준다 — `--frames`/`--comments`는 스트림 접근이 필요해 웹 환경에선 불가(로컬 이전 후 가능). 재귀 차단용 `YW_NO_INNERTUBE_FALLBACK` 환경변수는 손대지 말 것.
 - Requires `ffmpeg`/`ffprobe` on PATH only for `--frames` (not for transcripts). Node.js is required by Claude Code anyway and helps yt-dlp's signature handling.
 - Transient `429 Too Many Requests` warnings are normal. If a whole run fails, wait ~10s and retry once.
 

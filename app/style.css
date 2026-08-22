@@ -80,6 +80,11 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .chip{background:var(--card2);border-radius:var(--r-sm);
   padding:11px 13px;font-size:12px;flex:1;min-width:90px;color:var(--mut)}
 .chip .v{font-weight:700;font-size:14.5px;margin-top:4px;color:var(--txt)}
+/* ★[8/22] 손익 색이 죽어 있던 버그 — `.chip .v`(0-2-0)가 `.up`/`.down`(0-1-0)을 이겨
+   평가손익 -297,074원이 검정으로 나왔다(2x 크롭 캡처로 발견). 손익을 색으로 즉시 읽는 게
+   이 앱의 핵심이라 specificity를 맞춰 되살린다. 같은 형태인 `.kv .b .v`도 함께. */
+.chip .v.up,.kv .b .v.up{color:var(--up)}
+.chip .v.down,.kv .b .v.down{color:var(--down)}
 
 /* pin banner */
 .pin{border-radius:var(--r-md);padding:14px 16px;margin-bottom:14px;font-size:13px;
@@ -170,9 +175,13 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 
 /* nav */
 .nav{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+/* ★[8/22] word-break:keep-all — 한국어는 어절 단위로만 줄바꿈한다.
+   없으면 좁은 폰 폭에서 "경제사 / 냥꾼"처럼 단어 중간이 잘린다(430px 캡처로 발견). */
 .navbtn{flex:1;text-align:center;background:var(--card);
-  border-radius:var(--r-sm);padding:14px;font-weight:700;font-size:14px;color:var(--txt);
-  min-width:0;transition:background .12s,transform .12s;box-shadow:var(--shadow-hero)}
+  border-radius:var(--r-sm);padding:13px 8px;font-weight:700;font-size:13px;color:var(--txt);
+  min-width:0;word-break:keep-all;overflow-wrap:break-word;line-height:1.35;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .12s,transform .12s;box-shadow:var(--shadow-hero)}
 .navbtn:active{background:var(--card2);transform:scale(.97)}
 .navbtn.run{background:var(--solid-bg);color:var(--solid-fg);box-shadow:none}
 .runhint{font-size:11px;color:var(--mut2);text-align:center;margin:-6px 0 16px}

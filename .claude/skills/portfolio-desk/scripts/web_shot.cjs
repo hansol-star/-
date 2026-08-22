@@ -22,6 +22,11 @@ function findChrome() {
 async function routeThroughNode(ctx) {
   await ctx.route('**/*', async (route) => {
     const req = route.request();
+    // ★[8/22] 로컬(file://·localhost·127.0.0.1)은 Node fetch로 라우팅하면 안 된다 —
+    //   fetch가 file 스킴을 못 열어 페이지 자체가 실패한다(우리 앱 app/index.html 캡처 시 발견).
+    //   프록시는 외부 호스트에만 필요하므로 로컬은 Chromium이 직접 처리하게 넘긴다.
+    const u = req.url();
+    if (/^file:|^https?:\/\/(localhost|127\.0\.0\.1)(:|\/)/.test(u)) return route.continue();
     if (req.resourceType() === 'font') return route.abort();
     try {
       const res = await fetch(req.url(), {

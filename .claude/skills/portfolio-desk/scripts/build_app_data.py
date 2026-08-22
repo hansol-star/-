@@ -518,19 +518,45 @@ def build(offline: bool) -> dict:
             "change_pct": q.get("change_pct"),
         })
 
-    # ── 코스피 안전핀 상태 ──
+    # ── 룰1 낙폭 사다리 상태 ──
+    # ★[8/22 교체] 舊 코드는 `{"pin": 7500, "level2": 8000}`을 **하드코딩**했고 앱 홈 최상단이
+    #   "코스피 매수 안전핀 7,500"을 그리고 있었다. 그런데 **7/30 룰 개정으로 이진 안전핀은
+    #   폐기**되고 낙폭 사다리(D1 -25%:15% … D4 -55%:25%) + S&P500 폭풍 하드플로어(≥70%ile)로
+    #   대체됐다 — 앱만 7주째 폐기된 룰을 현행처럼 표시하고 있었다(8/22 화면 캡처로 발견).
+    #   정본은 `tranche_rules.py`이므로 하드코딩 대신 **그 계산을 그대로 읽는다.**
     kospi = next((i for i in indices if i["ticker"] == "^KS11"), None)
     kospi_price = kospi["price"] if kospi else None
-    safety = {"pin": 7500, "level2": 8000, "price": kospi_price,
-              "change_pct": kospi["change_pct"] if kospi else None}
+    safety = {"price": kospi_price,
+              "change_pct": kospi["change_pct"] if kospi else None,
+              "rule": "낙폭 사다리"}
+    try:
+        import tranche_rules as _TR, drawdown_history as _D
+        _dates, _closes = _D.load(_TR.KOSPI)
+        _dd = _D.current_drawdown(_dates, _closes)["dd_pct"] if _closes else None
+        if _dd is not None:
+            _unlocked, _steps = _TR.ladder_state(_dd)
+            _nxt = next((st for st in _steps if not st.get("unlocked")), None)
+            safety.update({
+                "drawdown_pct": round(_dd, 1),
+                "unlocked_pct": round(_unlocked * 100, 1),
+                "next_thr_pct": (_nxt or {}).get("threshold"),
+                "next_gap_pct": (round(_dd - _nxt["threshold"], 1)
+                                 if _nxt and _nxt.get("threshold") is not None else None),
+            })
+            # global_contagion_check()는 (halted: bool, 설명: str) 튜플을 준다
+            _halt, _why = _TR.global_contagion_check()
+            safety["halted"] = bool(_halt)
+            safety["floor_note"] = _why
+    except Exception:
+        pass
     if kospi_price is None:
         safety["status"] = "unknown"
-    elif kospi_price < 7500:
-        safety["status"] = "freeze"   # 잔여 트랜치 전면 동결
-    elif kospi_price < 8000:
-        safety["status"] = "watch"    # 2차 트랜치 구간
+    elif safety.get("halted"):
+        safety["status"] = "freeze"   # 하드플로어 발동 = 사다리 전면 정지
+    elif (safety.get("unlocked_pct") or 0) > 0:
+        safety["status"] = "watch"    # 해금 구간 — 집행 가능
     else:
-        safety["status"] = "ok"
+        safety["status"] = "ok"       # 잠김(D1 미도달) = 평시
 
     # ── 트리거/알림 (가격 조건 평가) ──
     price_by_ticker = {h["ticker"]: h["price"] for h in holdings}

@@ -204,7 +204,15 @@
   // ── HOME ──
   function renderHome() {
     var t = D.totals || {}, s = D.safety || {};
-    var pinTxt = { ok: "정상 — 안전핀 이격 충분", watch: "주의 — 2차 트랜치 구간(8,000 부근)", freeze: "⚠ 동결 — 안전핀 하회, 잔여 트랜치 전면 동결", unknown: "코스피 시세 미확인" };
+    // ★[8/22] 舊 '코스피 매수 안전핀 7,500' 표시 교체 — 안전핀은 7/30 룰 개정으로 폐기됐고
+    //   낙폭 사다리(D1 -25%:15% … D4 -55%:25%) + S&P500 폭풍 하드플로어(>=70%ile)가 현행이다.
+    //   앱만 7주째 폐기된 룰을 현행처럼 표시하고 있었다(화면 캡처로 발견).
+    var pinTxt = {
+      ok: "잠김 — 다음 단계 미도달, 신규 매수 실탄 없음",
+      watch: "해금 — 사다리 집행 가능 구간",
+      freeze: "⚠ 정지 — 하드플로어 발동(S&P500 폭풍 ≥70%ile), 사다리 전면 정지",
+      unknown: "코스피 시세 미확인"
+    };
     var firedAlerts = (D.alerts || []).filter(function (a) { return a.fired; });
     var events = (D.alerts || []).filter(function (a) { return a.cond === "event" || a.cond === "signal" || a.cond === "done"; });
     var kr = (D.holdings || []).filter(function (h) { return h.region === "kr"; });
@@ -243,7 +251,18 @@
       + '</div>';
     h += '<div class="runhint">버튼 → GitHub 열림 → <b>Run workflow</b> 탭하면 실행. 시세=무료 · 전체 분석=API 키 필요.</div>';
 
-    h += '<div class="pin ' + (s.status || "unknown") + '"><div><div class="xs">코스피 매수 안전핀 ' + num(s.pin) + '</div><div>' + esc(pinTxt[s.status] || "") + '</div></div>';
+    var ladder = "룰1 낙폭 사다리";
+    if (s.drawdown_pct != null) {
+      ladder += " · 고점대비 " + s.drawdown_pct.toFixed(1) + "%";
+      ladder += " · 해금 " + (s.unlocked_pct != null ? s.unlocked_pct : 0) + "%";
+    }
+    h += '<div class="pin ' + (s.status || "unknown") + '"><div><div class="xs">' + esc(ladder) + '</div>';
+    h += '<div>' + esc(pinTxt[s.status] || "") + '</div>';
+    if (s.next_gap_pct != null && s.next_thr_pct != null) {
+      h += '<div class="xs">다음 단계 ' + s.next_thr_pct.toFixed(0) + '%까지 ' + s.next_gap_pct.toFixed(1) + '%p</div>';
+    }
+    if (s.floor_note) { h += '<div class="xs">' + esc(s.floor_note) + '</div>'; }
+    h += '</div>';
     h += '<div class="pv">' + num(s.price) + ' <span class="sm ' + cls(s.change_pct) + '">' + pct(s.change_pct) + '</span></div></div>';
 
     if (firedAlerts.length) {

@@ -8,6 +8,8 @@
   function el(html) { var t = document.createElement("template"); t.innerHTML = html.trim(); return t.content.firstChild; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function num(n) { return n == null ? "—" : Number(n).toLocaleString("ko-KR"); }
+  // 달러 현금은 센트까지 — 정수 반올림하면 $308.94가 $309로 보여 토스 화면과 안 맞는다
+  function num2(n) { return n == null ? "—" : Number(n).toLocaleString("ko-KR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
   function won(n) { return n == null ? "—" : Number(n).toLocaleString("ko-KR") + "원"; }
   function price(p, cur) {
     if (p == null) return "—";
@@ -233,7 +235,12 @@
     h += '<div class="row" style="gap:12px"><span class="' + cls(t.day_change_krw) + ' bold">당일 ' + (t.day_change_krw >= 0 ? "+" : "") + num(t.day_change_krw) + '원 (' + pct(t.day_change_pct) + ')</span></div>';
     h += '<div class="chips">';
     h += '<div class="chip"><div class="mut">평가손익</div><div class="v ' + cls(t.total_pnl_krw) + '">' + (t.total_pnl_krw >= 0 ? "+" : "") + num(t.total_pnl_krw) + '원<br><span class="sm">' + pct(t.total_pnl_pct) + '</span></div></div>';
-    h += '<div class="chip"><div class="mut">현금</div><div class="v">' + num(t.cash_krw) + '원</div></div>';
+    // ★[8/23 정훈 지적 "달러도 있잖아"] 舊 칩은 원화만 보여줬다 — 달러 $308.94(≈42.8만원)가 빠져
+    //   실제 현금의 38%만 표시됐다. 총자산엔 이미 들어가 있었는데 카드만 반쪽이었다.
+    //   사다리 재원 판정이 현금 총액에 달려 있으므로 합계를 크게, 통화별 내역을 작게 쓴다.
+    var cashTot = (t.cash_krw || 0) + (t.cash_usd_krw || 0);
+    h += '<div class="chip"><div class="mut">현금</div><div class="v">' + num(cashTot) + '원'
+      + '<br><span class="sm mut">₩' + num(t.cash_krw) + ' + $' + num2(t.cash_usd) + '</span></div></div>';
     h += '<div class="chip"><div class="mut">환율</div><div class="v">₩' + num(D.fx && D.fx.usdkrw) + '</div></div>';
     if (D.trades && D.trades.status === "live" && D.trades.sells) {
       var er = (D.trades.eras || {}).desk || {};

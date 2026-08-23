@@ -368,10 +368,12 @@ def summary(rows: list[dict], fx_now: float) -> dict:
             "closed_from": min([r["date"] for r in closed], default=None),
             "closed_to": max([r["date"] for r in closed], default=None),
             "toss_range": "2024-07-08 ~ 2026-08-23",
-            "complete": False,
-            "gaps": ["2024-07-08~2026-02-22 미수집",
-                     "2026-02-23 그룹 일부 누락(일계 +$13.59 vs 확보분 +$10.35 → $3.24 미확보)"],
-            "note": "실현손익 누계는 **확보된 구간의 합**이지 계좌 전체 실적이 아니다.",
+            # [8/23 2차 수령] 스크롤 끝까지 확인 — 마지막 항목이 "25년 1월 24일"로 연도 표기가 붙어 있고
+            # 그 아래는 피드백 섹션(리스트 끝)이다. 즉 조회범위 24.7.8~26.8.23에서 실현이 발생한 건은
+            # 이게 전부이며, 2025-01-24 ~ 2026-01-19 사이에는 청산이 없었다.
+            "complete": True,
+            "gaps": [],
+            "note": "토스 조회범위 전체를 덮는다(리스트 끝까지 확인). 단 **실현손익만** — 현재 보유분의 취득일·취득환율은 여전히 미상.",
         },
         "eras": _era_split(detail),
         "buys": sum(1 for r in fills if r["side"] == "buy"),

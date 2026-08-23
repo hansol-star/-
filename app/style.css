@@ -420,3 +420,10 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 
 /* ── 💰 체결 원장 (#trades) [8/23] ── */
 .trk .tx.src{font-size:11px;color:var(--mut2);margin-top:5px}
+
+/* ── 🔗 동조·실효 분산 (portfolio_stats.py) [8/23] ── */
+.enbrow{display:flex;align-items:center;gap:6px;margin:4px 0 9px}
+.enb{flex:1;background:var(--card2);border-radius:var(--r-sm);padding:9px 6px;text-align:center;min-width:0}
+.enb .v{font-weight:800;font-size:19px;font-variant-numeric:tabular-nums;margin-top:1px}
+.enb.hot{background:var(--tint-red)} .enb.hot .v{color:var(--on-red)}
+.enbar{color:var(--mut2);font-size:13px;flex:0 0 auto}

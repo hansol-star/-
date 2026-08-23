@@ -312,6 +312,7 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 python3 .claude/skills/portfolio-desk/scripts/trades.py --reconcile   # 체결원장 재생·대사 + 실현손익
 python3 .claude/skills/portfolio-desk/scripts/fx_exposure.py          # 통화 비중·환율 %ile·환손익 3분해
 python3 .claude/skills/portfolio-desk/scripts/portfolio_risk.py       # 포트 리스크 0~100 + 인사이트
+python3 .claude/skills/portfolio-desk/scripts/portfolio_stats.py      # 상관·베타·변동성·실효분산 (gs-quant 이식)
 ```
 - **① 원장 대사가 먼저다.** `--reconcile`이 실패하면 **보고서를 계속 쓰기 전에 원인부터 잡는다** —
   수량·평단이 틀린 상태의 손익·별점·오더는 전부 오염된다(8/6·8/19 실제 사고 2회).
@@ -321,6 +322,8 @@ python3 .claude/skills/portfolio-desk/scripts/portfolio_risk.py       # 포트 �
 - **③ 통화 축**: 달러 비중·환율 1% 민감도·환손익 3분해를 §5 리스크 데스크 블록에 인용.
   **종목 손익보다 환 기여가 크면 그 사실을 먼저 쓴다**(roadmap 3-1 열린 질문 상태 갱신).
 - **④ 리스크 점수는 기여 상위 2축과 함께** 쓴다. 숫자 하나만 쓰면 뭘 해야 할지 알 수 없다.
+- **⑤ 분산은 종목 수가 아니라 상관으로 말한다** — "14종목 보유"가 아니라 "**상관 기준 N종목어치**"로 쓴다.
+  비중 기준 실효종목수와 상관 기준이 크게 갈리면 그 차이를 §5 리스크 데스크에 명시(라벨로는 안 보이던 동조).
 - 세 산출물은 `build_app_data.py`가 그대로 앱(홈 리스크 카드·통화 카드·`#trades` 화면)에 싣는다.
 
 ## 5. 산출물 — 파일 저장 + git 커밋 (연속성)

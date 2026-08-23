@@ -53,12 +53,18 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/portfolio_risk.py    # 리스크 0~100 + 인사이트
    python3 .claude/skills/portfolio-desk/scripts/fx_exposure.py       # 통화 비중·환율 %ile·환손익 3분해
+   python3 .claude/skills/portfolio-desk/scripts/portfolio_stats.py   # 상관·베타·변동성·실효분산 (gs-quant 이식)
    ```
    - **리스크 점수와 기여도 상위 2축을 반드시 인용**한다("35/100 보통 · ⭐2이하 10.8 + 통화 7.6"처럼).
      점수 자체보다 **어느 축이 올렸는지**가 PM에게 필요한 정보다.
    - **통화 축**: 달러 비중·환율 1% 민감도(원)·환손익 3분해를 인용. roadmap 3-1(달러 71.9%가 의도된 것인가)이
      아직 열린 질문이므로 **매 보고서에서 상태를 갱신**한다. 종목 손익보다 환 기여가 크면 그 사실을 먼저 말한다.
-   - memory-bet overlap(삼성·NVDA·MU·AVGO·SK하이닉스)·빅테크 비중은 `facts.top_sector`로 교차확인.
+   - **★memory-bet overlap은 이제 눈대중이 아니다** — `portfolio_stats.py`가 **실제 일간 상관**으로 잰다.
+     인용 필수 3개: ①**실효 분산 종목수**(비중 기준 vs 상관 기준 — 둘의 차이가 곧 "라벨로는 안 보이던 동조")
+     ②**포트 변동성**(상관 무시한 가중평균과 함께) ③**가장 같이 움직이는 쌍 상위 3**.
+     섹터 라벨(`facts.top_sector`)은 보조로만 쓴다 — 라벨이 분산을 결정하지 않는다.
+   - **벤치마크 베타**(코스피·S&P500·필반·원/달러)로 "이 포트가 무엇에 걸려 있는가"를 한 줄로 말한다.
+   - ⚠️ 합성 시계열(현재 비중 고정)이라 **실제 계좌 수익률이 아니다** — 인용할 때 이 단서를 뗴지 말 것.
    - ⚠️ **측정 전용** — 점수가 높다고 매도 제안을 만들지 않는다. 룰(사다리·룰2)이 여전히 상위 판정자다.
 5. **체결 원장 대사 (기록 무결성) [8/23 신설]**:
    ```bash
@@ -82,6 +88,7 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
 - 🚨 위반·경보: {있으면 명시, 없으면 "현재 룰 위반 없음"}
 - 📑 재무 훼손 판정: {LG전자 룰2 훼손 여부(수치) / 삼성·MU margin_trend_break 룰4 상태 / 기타 플래그}
 - 📊 포트 리스크 {점수}/100 ({레벨}): 기여 상위 2축 · 최대종목·테마 비중  (portfolio_risk.py)
+- 🔗 동조·실효분산: 보유 N종목 → 비중 기준 {n}종목 → **상관 기준 {n}종목** · 포트 변동성 {n}% · 최상위 상관쌍  (portfolio_stats.py)
 - 💱 통화 익스포저: 달러 {n}% · 환율 1% = {n}원 · 환손익 3분해(종목/환율/교차) · 원/달러 1y %ile  (fx_exposure.py)
 - 🧾 원장 대사: {✅ 일치 / 🚨 불일치 종목·차이}  (trades.py --reconcile)
 - 집중도 리스크: {메모리 중복 등 1~2줄}

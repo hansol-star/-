@@ -42,14 +42,20 @@ KST = dt.timezone(dt.timedelta(hours=9))
 
 # 축 가중치 (합 100). 손실에 직결되는 순.
 WEIGHTS = {
-    "concentration": 22,   # 단일 종목 집중
-    "currency": 16,        # 통화 쏠림
-    "theme": 16,           # 테마(섹터) 집중
-    "low_star": 18,        # ⭐2 이하 보유 비중
+    "concentration": 20,   # 단일 종목 집중
+    "codependence": 14,    # ★[8/23] 동조 — 상관이 지운 분산 (portfolio_stats.py)
+    "currency": 14,        # 통화 쏠림
+    "theme": 12,           # 테마(섹터) 집중 — 라벨 기반이라 codependence보다 낮춘다
+    "low_star": 16,        # ⭐2 이하 보유 비중
     "drawdown": 12,        # 하락 종목
-    "cash": 10,            # 현금 대응력
-    "regime": 6,           # 시장 국면(사다리·하드플로어)
+    "cash": 8,             # 현금 대응력
+    "regime": 4,           # 시장 국면(사다리·하드플로어)
 }
+# ★[8/23] 축 신설·가중 재배분 (정훈 지시 "골드만삭스 코드 참고"로 상관 축이 생겼다)
+#   舊 7축은 집중도를 **비중과 사람이 붙인 섹터 라벨**로만 봤다. 라벨은 분산을 결정하지 않는다 —
+#   '빅테크'와 '반도체'로 갈라 적어도 같이 떨어지면 분산이 아니다. 상관 축이 그 실체를 재므로
+#   theme(라벨) 가중을 16→12로 낮추고 codependence(상관) 14를 신설했다.
+#   **측정 축의 개선이지 룰 변경이 아니다** — 어떤 매수·매도 판정도 이 점수를 참조하지 않는다.
 
 
 def _band(v, lo, hi):
@@ -63,7 +69,7 @@ def _band(v, lo, hi):
     return (v - lo) / (hi - lo) * 100
 
 
-def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None) -> dict:
+def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None, stats=None) -> dict:
     """holdings = build_app_data 종목 dict 리스트(value_krw·pnl_pct·stars·sector 필요)."""
     hs = [h for h in holdings if h.get("value_krw")]
     stock_total = sum(float(h["value_krw"]) for h in hs) or 1.0
@@ -105,7 +111,14 @@ def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None) ->
         # 현금은 적을수록 위험 — 방향을 뒤집는다 (15% 이상이면 0)
         "cash": 100 - _band(cash_w, 0, 15),
         "regime": 0.0,
+        # 동조 축 — 비중으로 센 실효 종목수 대비 상관까지 본 실효 종목수가 얼마나 깎였나.
+        # 30% 깎이면 0점, 80% 깎이면 만점. stats 미배선이면 None(0으로 채우지 않는다).
+        "codependence": None,
     }
+    enb_c = (stats or {}).get("effective_bets")
+    enb_w = (stats or {}).get("effective_bets_weight_only")
+    if enb_c and enb_w:
+        axes["codependence"] = _band((1 - enb_c / enb_w) * 100, 30, 80)
     s = (safety or {})
     if s.get("halted") or s.get("status") == "freeze":
         axes["regime"] = 100.0   # 하드플로어 발동 = 글로벌 확산 전제
@@ -160,6 +173,13 @@ def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None) ->
             f"{names} (비중 {low_star_w:.1f}%). 오더북 등록 {n_ord}건. "
             f"'관망'은 결정이 아니다 — 트림 오더 또는 기한부 홀드 중 하나여야 한다(8/2).")
 
+    if enb_c and enb_w:
+        lost = (1 - enb_c / enb_w) * 100
+        add("warning" if lost >= 55 else "info", "codependence", "분산 착시 — 상관이 지운 종목 수",
+            f"{len(hs)}종목 보유가 비중상 {enb_w}종목어치인데 **상관까지 보면 {enb_c}종목어치**"
+            f"(분산의 {lost:.0f}%가 동조로 사라짐). 포트 변동성 {stats.get('portfolio_vol')}% "
+            f"(상관 무시하면 {stats.get('weighted_vol')}%). 섹터 라벨이 아니라 실제 움직임 기준이다.")
+
     if losers:
         add("warning" if len(losers) >= 3 else "info", "drawdown", "하락 종목 점검",
             f"{len(losers)}개가 -10% 이하 (최대 {worst['label']} {worst.get('pnl_pct', 0):+.1f}%). "
@@ -189,9 +209,9 @@ def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None) ->
     return {
         "score": score, "level": level,
         "axes": [{"key": k, "label": {
-            "concentration": "종목 집중", "currency": "통화 쏠림", "theme": "테마 집중",
-            "low_star": "⭐2 이하", "drawdown": "하락 종목", "cash": "현금 대응력",
-            "regime": "시장 국면"}[k],
+            "concentration": "종목 집중", "codependence": "동조(상관)", "currency": "통화 쏠림",
+            "theme": "테마 집중", "low_star": "⭐2 이하", "drawdown": "하락 종목",
+            "cash": "현금 대응력", "regime": "시장 국면"}[k],
             "value": round(axes[k]) if axes[k] is not None else None, "weight": WEIGHTS[k],
             "contribution": round(axes[k] * WEIGHTS[k] / wsum, 1) if axes[k] is not None else None}
             for k in WEIGHTS],
@@ -200,6 +220,8 @@ def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None) ->
             "hhi": round(hhi), "top_sector": top_sec, "top_sector_weight": round(top_sec_w, 1),
             "usd_weight": round(usd_w, 1) if usd_w is not None else None, "low_star_weight": round(low_star_w, 1),
             "losers": len(losers), "holdings": len(hs), "cash_weight": round(cash_w, 1),
+            "effective_bets": enb_c, "effective_bets_weight_only": enb_w,
+            "portfolio_vol": (stats or {}).get("portfolio_vol"),
         },
         "insights": ins,
         "unmeasured": unmeasured,
@@ -233,8 +255,15 @@ def main() -> int:
                             t.get("cash_krw"), t.get("cash_usd"), pf.get("us_avg_fx_cost"))
         except Exception:
             fx = None
+    stats = d.get("stats")
+    if not stats or stats.get("status") != "live":
+        try:
+            from portfolio_stats import analyze as ps_analyze
+            stats = ps_analyze(d.get("holdings") or [])
+        except Exception:
+            stats = None
     res = compute(d.get("holdings") or [], d.get("totals") or {}, d.get("safety") or {},
-                  fx, d.get("trades"), (d.get("orders") or []))
+                  fx, d.get("trades"), (d.get("orders") or []), stats)
     res["as_of"] = dt.datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
     if args.json:
         print(json.dumps(res, ensure_ascii=False, indent=1))
@@ -250,6 +279,9 @@ def main() -> int:
         print(f"  {a['label']:<8} {bar} {a['value']:>3}  (가중 {a['weight']}% → 기여 {a['contribution']:>4.1f})")
     print(f"\n  최대 {f['top']} {f['top_weight']}% · 테마 {f['top_sector']} {f['top_sector_weight']}% · "
           f"달러 {f['usd_weight'] if f['usd_weight'] is not None else '미측정'}% · ⭐2이하 {f['low_star_weight']}% · 현금 {f['cash_weight']}%")
+    if f.get("effective_bets"):
+        print(f"  실효 분산 {f['effective_bets']}종목 (비중만 보면 {f['effective_bets_weight_only']}) · "
+              f"포트 변동성 {f['portfolio_vol']}%")
     print(f"\n── 인사이트 {len(res['insights'])}건 ──")
     icon = {"danger": "🔴", "warning": "🟠", "info": "🔵", "positive": "🟢"}
     for i in res["insights"]:

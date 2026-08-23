@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-23 20:09 KST",
+  "generated_at": "2026-08-23 20:20 KST",
   "as_of": "2026-08-23 14:50 KST · 주말 휴장 2일차(국내·미국 8/21 종가 프로즌) · 삼성 110조 주주환원 반영 · 트림 오더 4건 재등록 대상",
   "source_report": "docs/reports/report_v81_2026-08-23.md",
   "offline": false,
@@ -22424,37 +22424,447 @@ window.APP_DATA = {
     },
     "status": "live"
   },
+  "stats": {
+    "status": "live",
+    "window": 60,
+    "from": "2026-04-30",
+    "to": "2026-08-20",
+    "holdings": 14,
+    "missing": [],
+    "portfolio_vol": 36.3,
+    "weighted_vol": 54.7,
+    "diversification_ratio": 1.508,
+    "effective_bets": 2.28,
+    "effective_bets_weight_only": 7.41,
+    "enb_note": "상관 기반 ENB = 분산비율²(등가중·등변동성 가정하의 근사). 비중만 본 역-HHI와 갈리면 그 차이가 **라벨로는 안 보이던 동조**다.",
+    "vol_fallback": [],
+    "max_drawdown_pct": -20.1,
+    "period_return_pct": 8.8,
+    "benchmarks": {
+      "코스피": {
+        "beta": 0.393,
+        "corr": 0.82,
+        "vol": 80.2
+      },
+      "S&P500": {
+        "beta": 1.859,
+        "corr": 0.728,
+        "vol": 13.7
+      },
+      "필라델피아반도체": {
+        "beta": 0.303,
+        "corr": 0.518,
+        "vol": 63.8
+      },
+      "원/달러": {
+        "beta": 0.465,
+        "corr": 0.119,
+        "vol": 9.6
+      }
+    },
+    "vols": [
+      {
+        "label": "LG전자",
+        "ticker": "066570.KS",
+        "vol": 126.6,
+        "weight": 2.6
+      },
+      {
+        "label": "두산로보틱스",
+        "ticker": "454910.KS",
+        "vol": 113.6,
+        "weight": 0.9
+      },
+      {
+        "label": "삼성전자",
+        "ticker": "005930.KS",
+        "vol": 110.3,
+        "weight": 15.1
+      },
+      {
+        "label": "MU",
+        "ticker": "MU",
+        "vol": 105.5,
+        "weight": 0.4
+      },
+      {
+        "label": "NAVER",
+        "ticker": "035420.KS",
+        "vol": 85.9,
+        "weight": 3.0
+      },
+      {
+        "label": "ORCL",
+        "ticker": "ORCL",
+        "vol": 67.2,
+        "weight": 0.6
+      },
+      {
+        "label": "현대차",
+        "ticker": "005380.KS",
+        "vol": 65.9,
+        "weight": 5.6
+      },
+      {
+        "label": "AVGO",
+        "ticker": "AVGO",
+        "vol": 56.4,
+        "weight": 0.5
+      },
+      {
+        "label": "META",
+        "ticker": "META",
+        "vol": 49.6,
+        "weight": 11.5
+      },
+      {
+        "label": "MSFT",
+        "ticker": "MSFT",
+        "vol": 47.5,
+        "weight": 12.9
+      },
+      {
+        "label": "NVDA",
+        "ticker": "NVDA",
+        "vol": 40.3,
+        "weight": 20.4
+      },
+      {
+        "label": "GOOGL",
+        "ticker": "GOOGL",
+        "vol": 37.8,
+        "weight": 11.3
+      },
+      {
+        "label": "AAPL",
+        "ticker": "AAPL",
+        "vol": 32.6,
+        "weight": 0.1
+      },
+      {
+        "label": "VOO",
+        "ticker": "VOO",
+        "vol": 13.9,
+        "weight": 15.2
+      }
+    ],
+    "top_pairs": [
+      {
+        "a": "LG전자",
+        "b": "두산로보틱스",
+        "corr": 0.801,
+        "w_sum": 3.6
+      },
+      {
+        "a": "LG전자",
+        "b": "NAVER",
+        "corr": 0.697,
+        "w_sum": 5.6
+      },
+      {
+        "a": "삼성전자",
+        "b": "현대차",
+        "corr": 0.696,
+        "w_sum": 20.6
+      },
+      {
+        "a": "NVDA",
+        "b": "VOO",
+        "corr": 0.694,
+        "w_sum": 35.6
+      },
+      {
+        "a": "두산로보틱스",
+        "b": "NAVER",
+        "corr": 0.658,
+        "w_sum": 3.9
+      },
+      {
+        "a": "LG전자",
+        "b": "현대차",
+        "corr": 0.63,
+        "w_sum": 8.2
+      },
+      {
+        "a": "두산로보틱스",
+        "b": "현대차",
+        "corr": 0.628,
+        "w_sum": 6.5
+      },
+      {
+        "a": "NVDA",
+        "b": "AVGO",
+        "corr": 0.611,
+        "w_sum": 20.9
+      }
+    ],
+    "matrix": {
+      "삼성전자": {
+        "삼성전자": 1.0,
+        "LG전자": 0.54,
+        "두산로보틱스": 0.59,
+        "현대차": 0.7,
+        "NAVER": 0.45,
+        "NVDA": 0.55,
+        "META": 0.18,
+        "VOO": 0.49,
+        "MSFT": 0.04,
+        "AAPL": -0.22,
+        "GOOGL": 0.23,
+        "ORCL": 0.54,
+        "MU": 0.5,
+        "AVGO": 0.44
+      },
+      "LG전자": {
+        "삼성전자": 0.54,
+        "LG전자": 1.0,
+        "두산로보틱스": 0.8,
+        "현대차": 0.63,
+        "NAVER": 0.7,
+        "NVDA": 0.47,
+        "META": -0.1,
+        "VOO": 0.29,
+        "MSFT": 0.25,
+        "AAPL": -0.05,
+        "GOOGL": -0.07,
+        "ORCL": 0.59,
+        "MU": 0.32,
+        "AVGO": 0.45
+      },
+      "두산로보틱스": {
+        "삼성전자": 0.59,
+        "LG전자": 0.8,
+        "두산로보틱스": 1.0,
+        "현대차": 0.63,
+        "NAVER": 0.66,
+        "NVDA": 0.38,
+        "META": 0.11,
+        "VOO": 0.36,
+        "MSFT": 0.25,
+        "AAPL": -0.09,
+        "GOOGL": 0.01,
+        "ORCL": 0.53,
+        "MU": 0.22,
+        "AVGO": 0.44
+      },
+      "현대차": {
+        "삼성전자": 0.7,
+        "LG전자": 0.63,
+        "두산로보틱스": 0.63,
+        "현대차": 1.0,
+        "NAVER": 0.52,
+        "NVDA": 0.54,
+        "META": 0.15,
+        "VOO": 0.47,
+        "MSFT": 0.16,
+        "AAPL": -0.09,
+        "GOOGL": 0.2,
+        "ORCL": 0.46,
+        "MU": 0.43,
+        "AVGO": 0.3
+      },
+      "NAVER": {
+        "삼성전자": 0.45,
+        "LG전자": 0.7,
+        "두산로보틱스": 0.66,
+        "현대차": 0.52,
+        "NAVER": 1.0,
+        "NVDA": 0.37,
+        "META": -0.06,
+        "VOO": 0.25,
+        "MSFT": 0.26,
+        "AAPL": -0.1,
+        "GOOGL": -0.08,
+        "ORCL": 0.5,
+        "MU": 0.28,
+        "AVGO": 0.43
+      },
+      "NVDA": {
+        "삼성전자": 0.55,
+        "LG전자": 0.47,
+        "두산로보틱스": 0.38,
+        "현대차": 0.54,
+        "NAVER": 0.37,
+        "NVDA": 1.0,
+        "META": 0.19,
+        "VOO": 0.69,
+        "MSFT": 0.25,
+        "AAPL": -0.11,
+        "GOOGL": 0.27,
+        "ORCL": 0.52,
+        "MU": 0.46,
+        "AVGO": 0.61
+      },
+      "META": {
+        "삼성전자": 0.18,
+        "LG전자": -0.1,
+        "두산로보틱스": 0.11,
+        "현대차": 0.15,
+        "NAVER": -0.06,
+        "NVDA": 0.19,
+        "META": 1.0,
+        "VOO": 0.36,
+        "MSFT": 0.12,
+        "AAPL": -0.04,
+        "GOOGL": 0.58,
+        "ORCL": 0.08,
+        "MU": -0.26,
+        "AVGO": -0.05
+      },
+      "VOO": {
+        "삼성전자": 0.49,
+        "LG전자": 0.29,
+        "두산로보틱스": 0.36,
+        "현대차": 0.47,
+        "NAVER": 0.25,
+        "NVDA": 0.69,
+        "META": 0.36,
+        "VOO": 1.0,
+        "MSFT": 0.39,
+        "AAPL": 0.17,
+        "GOOGL": 0.5,
+        "ORCL": 0.57,
+        "MU": 0.53,
+        "AVGO": 0.58
+      },
+      "MSFT": {
+        "삼성전자": 0.04,
+        "LG전자": 0.25,
+        "두산로보틱스": 0.25,
+        "현대차": 0.16,
+        "NAVER": 0.26,
+        "NVDA": 0.25,
+        "META": 0.12,
+        "VOO": 0.39,
+        "MSFT": 1.0,
+        "AAPL": -0.05,
+        "GOOGL": 0.31,
+        "ORCL": 0.54,
+        "MU": -0.01,
+        "AVGO": 0.24
+      },
+      "AAPL": {
+        "삼성전자": -0.22,
+        "LG전자": -0.05,
+        "두산로보틱스": -0.09,
+        "현대차": -0.09,
+        "NAVER": -0.1,
+        "NVDA": -0.11,
+        "META": -0.04,
+        "VOO": 0.17,
+        "MSFT": -0.05,
+        "AAPL": 1.0,
+        "GOOGL": -0.08,
+        "ORCL": -0.01,
+        "MU": -0.01,
+        "AVGO": 0.05
+      },
+      "GOOGL": {
+        "삼성전자": 0.23,
+        "LG전자": -0.07,
+        "두산로보틱스": 0.01,
+        "현대차": 0.2,
+        "NAVER": -0.08,
+        "NVDA": 0.27,
+        "META": 0.58,
+        "VOO": 0.5,
+        "MSFT": 0.31,
+        "AAPL": -0.08,
+        "GOOGL": 1.0,
+        "ORCL": 0.27,
+        "MU": -0.15,
+        "AVGO": 0.0
+      },
+      "ORCL": {
+        "삼성전자": 0.54,
+        "LG전자": 0.59,
+        "두산로보틱스": 0.53,
+        "현대차": 0.46,
+        "NAVER": 0.5,
+        "NVDA": 0.52,
+        "META": 0.08,
+        "VOO": 0.57,
+        "MSFT": 0.54,
+        "AAPL": -0.01,
+        "GOOGL": 0.27,
+        "ORCL": 1.0,
+        "MU": 0.4,
+        "AVGO": 0.56
+      },
+      "MU": {
+        "삼성전자": 0.5,
+        "LG전자": 0.32,
+        "두산로보틱스": 0.22,
+        "현대차": 0.43,
+        "NAVER": 0.28,
+        "NVDA": 0.46,
+        "META": -0.26,
+        "VOO": 0.53,
+        "MSFT": -0.01,
+        "AAPL": -0.01,
+        "GOOGL": -0.15,
+        "ORCL": 0.4,
+        "MU": 1.0,
+        "AVGO": 0.55
+      },
+      "AVGO": {
+        "삼성전자": 0.44,
+        "LG전자": 0.45,
+        "두산로보틱스": 0.44,
+        "현대차": 0.3,
+        "NAVER": 0.43,
+        "NVDA": 0.61,
+        "META": -0.05,
+        "VOO": 0.58,
+        "MSFT": 0.24,
+        "AAPL": 0.05,
+        "GOOGL": 0.0,
+        "ORCL": 0.56,
+        "MU": 0.55,
+        "AVGO": 1.0
+      }
+    },
+    "caveat": "현재 비중을 과거에 고정한 **합성 시계열** — 실제 계좌 수익률이 아니다(실제 트랙레코드는 체결 원장이 6/13 이전까지 채워져야 나온다). 측정 전용.",
+    "method": "gs-quant v2.1.4 econometrics 정의 이식(Apache-2.0) — 수식만, 코드 복사 아님. 변동성은 각 심볼의 자기 거래일, 상관·베타는 공통 거래일 교집합(정렬이 필수라)."
+  },
   "risk": {
-    "score": 35,
+    "score": 41,
     "level": "보통",
     "axes": [
       {
         "key": "concentration",
         "label": "종목 집중",
         "value": 0,
-        "weight": 22,
+        "weight": 20,
         "contribution": 0.0
+      },
+      {
+        "key": "codependence",
+        "label": "동조(상관)",
+        "value": 78,
+        "weight": 14,
+        "contribution": 11.0
       },
       {
         "key": "currency",
         "label": "통화 쏠림",
         "value": 48,
-        "weight": 16,
-        "contribution": 7.6
+        "weight": 14,
+        "contribution": 6.7
       },
       {
         "key": "theme",
         "label": "테마 집중",
         "value": 31,
-        "weight": 16,
-        "contribution": 5.0
+        "weight": 12,
+        "contribution": 3.7
       },
       {
         "key": "low_star",
         "label": "⭐2 이하",
         "value": 60,
-        "weight": 18,
-        "contribution": 10.8
+        "weight": 16,
+        "contribution": 9.6
       },
       {
         "key": "drawdown",
@@ -22467,15 +22877,15 @@ window.APP_DATA = {
         "key": "cash",
         "label": "현금 대응력",
         "value": 43,
-        "weight": 10,
-        "contribution": 4.3
+        "weight": 8,
+        "contribution": 3.5
       },
       {
         "key": "regime",
         "label": "시장 국면",
         "value": 30,
-        "weight": 6,
-        "contribution": 1.8
+        "weight": 4,
+        "contribution": 1.2
       }
     ],
     "facts": {
@@ -22488,7 +22898,10 @@ window.APP_DATA = {
       "low_star_weight": 18.0,
       "losers": 6,
       "holdings": 14,
-      "cash_weight": 8.5
+      "cash_weight": 8.5,
+      "effective_bets": 2.28,
+      "effective_bets_weight_only": 7.41,
+      "portfolio_vol": 36.3
     },
     "insights": [
       {
@@ -22502,6 +22915,12 @@ window.APP_DATA = {
         "category": "low_star",
         "title": "⭐2 이하 보유 — 액션 의무",
         "detail": "두산로보틱스·현대차·META (비중 18.0%). 오더북 등록 3건. '관망'은 결정이 아니다 — 트림 오더 또는 기한부 홀드 중 하나여야 한다(8/2)."
+      },
+      {
+        "level": "warning",
+        "category": "codependence",
+        "title": "분산 착시 — 상관이 지운 종목 수",
+        "detail": "14종목 보유가 비중상 7.41종목어치인데 **상관까지 보면 2.28종목어치**(분산의 69%가 동조로 사라짐). 포트 변동성 36.3% (상관 무시하면 54.7%). 섹터 라벨이 아니라 실제 움직임 기준이다."
       },
       {
         "level": "warning",

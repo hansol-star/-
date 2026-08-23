@@ -698,6 +698,7 @@ def build(offline: bool) -> dict:
     # status를 달아 정직 표기한다(8/22 "가드 없는 폴백은 침묵보다 나쁘다").
     payload["trades"] = build_trades_block(usdkrw)
     payload["fx_exposure"] = build_fx_block(payload, pf, offline)
+    payload["stats"] = build_stats_block(payload)
     payload["risk"] = build_risk_block(payload)
     return payload
 
@@ -744,13 +745,25 @@ def build_fx_block(payload: dict, pf: dict, offline: bool) -> dict:
         return {"status": "unavailable", "reason": str(e)}
 
 
+def build_stats_block(payload: dict) -> dict:
+    """상관·베타·변동성·낙폭 (gs-quant econometrics 이식·오프라인 계산)."""
+    try:
+        import portfolio_stats as PS
+        return PS.analyze(payload.get("holdings") or [])
+    except Exception as e:  # noqa: BLE001
+        print(f"⚠️ portfolio_stats 블록 생성 실패: {e}", file=sys.stderr)
+        return {"status": "unavailable", "reason": str(e)}
+
+
 def build_risk_block(payload: dict) -> dict:
     """포트폴리오 레벨 리스크 점수·인사이트."""
     try:
         import portfolio_risk as PR
+        st = payload.get("stats")
         res = PR.compute(payload.get("holdings") or [], payload.get("totals") or {},
                          payload.get("safety") or {}, payload.get("fx_exposure"),
-                         payload.get("trades"), payload.get("orders") or [])
+                         payload.get("trades"), payload.get("orders") or [],
+                         st if (st or {}).get("status") == "live" else None)
         res["status"] = "live"
         return res
     except Exception as e:  # noqa: BLE001

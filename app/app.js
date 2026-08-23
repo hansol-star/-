@@ -397,7 +397,7 @@
     }).join("");
     var sec = '<div class="card"><div class="ctitle">테마 집중도 <span class="mut sm">(섹터별 비중)</span></div>' + secRows + "</div>";
 
-    return '<div class="sec"><h2>📊 내 포트폴리오 분석</h2></div>' + alloc + fxCard() + sec + ret;
+    return '<div class="sec"><h2>📊 내 포트폴리오 분석</h2></div>' + alloc + fxCard() + corrCard() + sec + ret;
   }
 
 
@@ -430,7 +430,12 @@
     var f = r.facts || {};
     h += '<div class="rkfacts">최대 ' + esc(f.top || "—") + ' ' + f.top_weight + '% · ' + esc(f.top_sector || "—") + ' ' + f.top_sector_weight + '%'
       + ' · 달러 ' + (f.usd_weight == null ? "미측정" : f.usd_weight + "%")
-      + ' · ⭐2이하 ' + f.low_star_weight + '% · 현금 ' + f.cash_weight + '%</div>';
+      + ' · ⭐2이하 ' + f.low_star_weight + '% · 현금 ' + f.cash_weight + '%';
+    if (f.effective_bets) {
+      h += '<br><b>실효 분산 ' + f.effective_bets + '종목</b> (비중만 보면 ' + f.effective_bets_weight_only
+        + ') · 포트 변동성 ' + f.portfolio_vol + '%';
+    }
+    h += '</div>';
     h += '</div>';
 
     (r.insights || []).forEach(function (i) {
@@ -478,6 +483,46 @@
     });
     h += '</div>';
     h += '<div class="fxnote">취득환율 ' + num(x.fx_cost_basis) + '원 기준 추정 — 환 기여 절대액은 오차를 안는다(체결별 실환율이 원장에 쌓이면 정밀화).</div>';
+    h += '</div>';
+    return h;
+  }
+
+  // ── 🔗 동조(상관) 카드 — gs-quant econometrics 이식(portfolio_stats.py) ──
+  // 섹터 라벨이 아니라 실제 일간 움직임으로 잰 분산. 종목 수는 착시일 수 있다.
+  function corrCard() {
+    var st = D.stats;
+    if (!st || st.status !== "live") return "";
+    var lost = st.effective_bets_weight_only
+      ? (1 - st.effective_bets / st.effective_bets_weight_only) * 100 : null;
+    var h = '<div class="card" id="corrcard"><div class="ctitle">동조 · 실효 분산 <span class="mut sm">(' + st.window + '거래일)</span></div>';
+    h += '<div class="enbrow"><div class="enb"><div class="mut sm">보유</div><div class="v">' + st.holdings + '</div></div>';
+    h += '<div class="enbar">→</div>';
+    h += '<div class="enb"><div class="mut sm">비중 기준</div><div class="v">' + st.effective_bets_weight_only + '</div></div>';
+    h += '<div class="enbar">→</div>';
+    h += '<div class="enb hot"><div class="mut sm">상관 기준</div><div class="v">' + st.effective_bets + '</div></div></div>';
+    if (lost != null) h += '<div class="fxsens">분산의 <b style="color:var(--on-red)">' + lost.toFixed(0) + '%</b>가 동조로 사라짐 · 포트 변동성 '
+      + st.portfolio_vol + '% <span class="mut">(상관 무시하면 ' + st.weighted_vol + '%)</span></div>';
+
+    var b = st.benchmarks || {};
+    var keys = Object.keys(b);
+    if (keys.length) {
+      h += '<div class="ctitle" style="margin-top:12px">벤치마크 베타 <span class="mut sm">(합성 시계열)</span></div>';
+      keys.forEach(function (k) {
+        h += '<div class="rdrow"><span class="rdlabel">' + esc(k) + '</span>'
+          + '<span class="rdval mut num" style="flex:1;text-align:right">β ' + b[k].beta + ' · ρ ' + b[k].corr + '</span></div>';
+      });
+    }
+    if ((st.top_pairs || []).length) {
+      h += '<div class="ctitle" style="margin-top:12px">가장 같이 움직이는 쌍</div>';
+      st.top_pairs.slice(0, 5).forEach(function (p) {
+        var w = Math.max(0, Math.min(100, p.corr * 100));
+        h += '<div class="rdrow"><span class="rdlabel">' + esc(p.a) + '·' + esc(p.b) + '</span>'
+          + '<div class="secbar"><div class="secseg" style="width:' + w.toFixed(0) + '%;background:'
+          + (p.corr >= 0.7 ? "var(--red)" : p.corr >= 0.5 ? "var(--gold)" : "var(--green)") + '"></div></div>'
+          + '<span class="rdval mut num">' + p.corr.toFixed(2) + '</span></div>';
+      });
+    }
+    h += '<div class="fxnote">' + esc(st.caveat) + '</div>';
     h += '</div>';
     return h;
   }

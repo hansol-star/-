@@ -53,3 +53,8 @@
 {"date": "2026-08-13", "index": "KOSPI", "foreign": 20787, "inst": 4136, "indiv": -24649, "src": "flows.json(확정)"}
 {"date": "2026-08-14", "index": "KOSDAQ", "foreign": -956, "inst": -2554, "indiv": 3478, "src": "naver"}
 {"date": "2026-08-14", "index": "KOSPI", "foreign": 24013, "inst": -9615, "indiv": -14128, "src": "naver"}
+{"date": "2026-08-18", "index": "KOSPI", "foreign": 367, "inst": -7854, "indiv": null, "src": "flows.json(확정)"}
+{"date": "2026-08-19", "index": "KOSPI", "foreign": -34884, "inst": -13232, "indiv": 46357, "src": "flows.json(확정)"}
+{"date": "2026-08-20", "index": "KOSPI", "foreign": 17079, "inst": -4906, "indiv": -22712, "src": "flows.json(확정)"}
+{"date": "2026-08-21", "index": "KOSDAQ", "foreign": -2837, "inst": -3462, "indiv": 6236, "src": "naver"}
+{"date": "2026-08-21", "index": "KOSPI", "foreign": -1760, "inst": 2481, "indiv": -11652, "src": "naver"}

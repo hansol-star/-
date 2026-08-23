@@ -236,8 +236,10 @@
     h += '<div class="chip"><div class="mut">현금</div><div class="v">' + num(t.cash_krw) + '원</div></div>';
     h += '<div class="chip"><div class="mut">환율</div><div class="v">₩' + num(D.fx && D.fx.usdkrw) + '</div></div>';
     if (D.trades && D.trades.status === "live" && D.trades.sells) {
-      h += '<div class="chip"><div class="mut">실현손익</div><div class="v ' + cls(D.trades.realized_krw) + '">'
-        + (D.trades.realized_krw >= 0 ? "+" : "") + num(D.trades.realized_krw) + '원<br><span class="sm">매도 ' + D.trades.sells + '건 · 승률 ' + D.trades.win_rate + '%</span></div></div>';
+      var er = (D.trades.eras || {}).desk || {};
+      var rv = er.realized_krw != null ? er.realized_krw : D.trades.realized_krw;
+      h += '<div class="chip"><div class="mut">실현손익 <span class="sm">(데스크 후)</span></div><div class="v ' + cls(rv) + '">'
+        + (rv >= 0 ? "+" : "") + num(rv) + '원<br><span class="sm">매도 ' + (er.n || D.trades.sells) + '건 · 승률 ' + (er.win_rate != null ? er.win_rate : D.trades.win_rate) + '%</span></div></div>';
     }
     h += '</div></div>';
 
@@ -552,21 +554,32 @@
     h += reconcileBanner();
     if (t.reconcile_ok) h += '<div class="hl" style="background:var(--tint-green);color:var(--on-green)">✅ 원장 재생 = portfolio.json (전 종목 일치)</div>';
 
-    h += '<div class="hero"><div class="lbl">누계 실현손익</div>';
+    var eras = t.eras || {}, ep = eras.pre || {}, ed = eras.desk || {};
+    h += '<div class="hero"><div class="lbl">누계 실현손익 <span class="sm mut">(확보 구간 합)</span></div>';
     h += '<div class="big ' + cls(t.realized_krw) + '">' + (t.realized_krw >= 0 ? "+" : "") + num(t.realized_krw) + '원</div>';
     h += '<div class="chips">';
-    h += '<div class="chip"><div class="mut">매도</div><div class="v">' + t.sells + '건</div></div>';
-    h += '<div class="chip"><div class="mut">승률</div><div class="v">' + t.win_rate + '%</div></div>';
-    h += '<div class="chip"><div class="mut">체결</div><div class="v">' + t.fills + '건</div></div>';
+    h += '<div class="chip"><div class="mut">데스크 이전</div><div class="v ' + cls(ep.realized_krw) + '">'
+      + (ep.realized_krw >= 0 ? "+" : "") + num(ep.realized_krw) + '원<br><span class="sm">' + ep.n + '건 · 승률 ' + ep.win_rate + '%</span></div></div>';
+    h += '<div class="chip"><div class="mut">데스크 이후</div><div class="v ' + cls(ed.realized_krw) + '">'
+      + (ed.realized_krw >= 0 ? "+" : "") + num(ed.realized_krw) + '원<br><span class="sm">' + ed.n + '건 · 승률 ' + ed.win_rate + '%</span></div></div>';
+    h += '<div class="chip"><div class="mut">체결</div><div class="v">' + t.fills + '건<br><span class="sm">+청산 ' + (t.closed_pre_desk || 0) + '</span></div></div>';
     h += '</div></div>';
+    var cov = t.coverage || {};
+    if (cov.complete === false) {
+      h += '<div class="alert ins warning"><div class="row between"><span class="aid">⚠️ 이건 계좌 전체 실적이 아닙니다</span>'
+        + '<span class="badge warning">범위</span></div><div class="act">데스크 이전 청산기록 확보 구간 ' + esc(cov.closed_from || "?") + ' ~ ' + esc(cov.closed_to || "?")
+        + ' · 토스 조회범위 ' + esc(cov.toss_range || "") + '.<br>' + (cov.gaps || []).map(esc).join('<br>') + '</div></div>';
+    }
     if (t.fx_estimated) h += '<div class="fxnote" style="margin-bottom:11px">일부 매도는 체결 시점 환율이 원장에 없어 현재 환율로 환산한 추정치입니다.</div>';
 
     h += '<div class="sec"><h2>확정 손익 (매도 ' + t.sells + '건)</h2></div>';
     (t.sells_detail || []).forEach(function (d) {
       h += '<div class="trk"><div class="row between"><span class="bold">' + esc(d.label) + '</span>'
         + '<span class="' + cls(d.realized) + ' bold">' + (d.realized_krw >= 0 ? "+" : "") + num(d.realized_krw) + '원 <span class="sm">(' + pct(d.return_pct) + ')</span></span></div>';
-      h += '<div class="tx mut">' + esc(d.date) + ' · ' + fmtShares(d.shares) + '주 @ ' + price(d.price, d.currency)
-        + ' · 원가 ' + price(d.cost_basis, d.currency) + (d.fx_estimated ? ' · ~추정환율' : '') + '</div>';
+      var qty = d.shares ? (fmtShares(d.shares) + '주 @ ' + price(d.price, d.currency)) : '주수·단가 미기록(청산 요약)';
+      h += '<div class="tx mut">' + esc(d.date) + ' · ' + qty
+        + (d.cost_basis ? ' · 원가 ' + price(d.cost_basis, d.currency) : '')
+        + (d.era === "pre" ? ' · <b>데스크 이전</b>' : '') + (d.fx_estimated ? ' · ~추정환율' : '') + '</div>';
       if (d.note) h += '<div class="tx">' + esc(d.note) + '</div>';
       h += '</div>';
     });

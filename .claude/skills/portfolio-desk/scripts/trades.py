@@ -58,7 +58,11 @@ PORTFOLIO_JSON = os.path.join(HERE, "..", "portfolio.json")
 QTY_TOL = 1e-6
 COST_TOL_PCT = 0.5
 
-SIDES = ("opening", "buy", "sell")
+SIDES = ("opening", "buy", "sell", "closed")
+# "closed" [8/23] = 원장 시작(6/13) 이전에 이미 청산된 포지션. 토스 **실현손익 화면**이 날짜·종목별
+#   확정 손익만 주고 체결 주수·단가는 안 주므로, 체결(buy/sell)로 위장하지 않고 별도 종류로 둔다.
+#   → 포지션 재생에는 들어가지 않고(이미 0), 실현손익 누계에만 더해진다.
+DESK_START = "2026-06-13"   # 이 날짜 이전 = 데스크 착수 전 실적(우리 판단의 성과가 아니다)
 
 
 def load_ledger(path: str = LEDGER) -> list[dict]:
@@ -109,6 +113,16 @@ def replay(rows: list[dict]) -> dict:
         fee = float(r.get("fee") or 0) + float(r.get("tax") or 0)
         p["fees"] += fee
 
+        if r["side"] == "closed":
+            # 이미 청산된 포지션 — 수량·평단에 영향 없음. 실현손익만 누적.
+            g = float(r.get("realized") or 0)
+            p["realized"] += g
+            p["closed_count"] = p.get("closed_count", 0) + 1
+            fx = r.get("fx_rate")
+            p["realized_krw"] += g * float(fx) if (p["currency"] == "USD" and fx) else (
+                g if p["currency"] != "USD" else 0)
+            continue
+
         if r["side"] in ("opening", "buy"):
             new_sh = p["shares"] + sh
             if new_sh > 0:
@@ -144,6 +158,20 @@ def realized_krw_detail(rows: list[dict], fx_now: float) -> list[dict]:
         sh = float(r.get("shares") or 0)
         amt = _amount(r)
         fee = float(r.get("fee") or 0) + float(r.get("tax") or 0)
+        if r["side"] == "closed":
+            cur = r.get("currency", "KRW")
+            rate = float(r.get("fx_rate") or (1.0 if cur != "USD" else fx_now))
+            g = float(r.get("realized") or 0)
+            out.append({
+                "date": r.get("date"), "ticker": tk, "label": r.get("label") or tk,
+                "shares": None, "price": None, "currency": cur,
+                "cost_basis": r.get("cost_basis_total"), "realized": round(g, 2),
+                "realized_krw": round(g * rate), "return_pct": r.get("return_pct"),
+                "fx_rate": round(rate, 2), "fx_estimated": cur == "USD",
+                "fx_source": r.get("fx_source") or "market_close", "era": "pre",
+                "source": r.get("source", ""), "note": r.get("note", ""),
+            })
+            continue
         if r["side"] in ("opening", "buy"):
             new_sh = p["shares"] + sh
             if new_sh > 0:
@@ -168,7 +196,7 @@ def realized_krw_detail(rows: list[dict], fx_now: float) -> list[dict]:
             "shares": sh, "price": float(r.get("price") or 0), "currency": cur,
             "cost_basis": p["avg"], "realized": gain, "realized_krw": gain * rate,
             "return_pct": (gain / (sh * p["avg"]) * 100) if p["avg"] and sh else None,
-            "fx_rate": round(rate, 2), "fx_estimated": est, "fx_source": src,
+            "fx_rate": round(rate, 2), "fx_estimated": est, "fx_source": src, "era": "desk",
             "source": r.get("source", ""), "note": r.get("note", ""),
         })
     return out
@@ -297,10 +325,31 @@ def _fx_coverage(rows: list[dict]) -> dict:
     }
 
 
+def _era_split(detail: list[dict]) -> dict:
+    """데스크 착수(6/13) 전후로 실현손익을 가른다.
+
+    왜 가르나: 합쳐 놓으면 **우리 판단의 성과와 그 이전 성과가 섞인다.** 데스크가 만든 결과만
+    따로 봐야 자기 채점이 성립하고, 그 전 실적은 '출발선'으로만 쓴다.
+    """
+    out = {}
+    for k, sel in (("pre", lambda d: d.get("era") == "pre"), ("desk", lambda d: d.get("era") != "pre")):
+        rs = [d for d in detail if sel(d)]
+        wins = [d for d in rs if d["realized"] > 0]
+        out[k] = {
+            "n": len(rs), "wins": len(wins),
+            "win_rate": round(len(wins) / len(rs) * 100, 1) if rs else None,
+            "realized_krw": round(sum(d["realized_krw"] for d in rs)),
+            "realized_usd": round(sum(d["realized"] for d in rs if d["currency"] == "USD"), 2),
+            "realized_krw_only": round(sum(d["realized"] for d in rs if d["currency"] == "KRW")),
+        }
+    return out
+
+
 def summary(rows: list[dict], fx_now: float) -> dict:
     """build_app_data가 소비할 요약 — 실현손익 누계 + 최근 체결."""
     detail = realized_krw_detail(rows, fx_now)
-    fills = [r for r in rows if r.get("side") != "opening"]
+    fills = [r for r in rows if r.get("side") in ("buy", "sell")]
+    closed = [r for r in rows if r.get("side") == "closed"]
     realized_krw = sum(d["realized_krw"] for d in detail)
     wins = [d for d in detail if d["realized"] > 0]
     # 합계를 낸 뒤 건별 표시값을 원 단위로 정리 — 앱이 소수점 원(72,255.786원)을 그리던 결함
@@ -312,6 +361,19 @@ def summary(rows: list[dict], fx_now: float) -> dict:
             d["return_pct"] = round(d["return_pct"], 1)
     return {
         "fills": len(fills),
+        "closed_pre_desk": len(closed),
+        "coverage": {
+            # 토스 실현손익 화면 조회범위는 2024-07-08~2026-08-23인데, 받은 스크린샷은 그 일부만 덮는다.
+            # 누계를 '전체 계좌 실적'으로 읽으면 틀린다 → 범위를 데이터에 박아 화면까지 따라가게 한다.
+            "closed_from": min([r["date"] for r in closed], default=None),
+            "closed_to": max([r["date"] for r in closed], default=None),
+            "toss_range": "2024-07-08 ~ 2026-08-23",
+            "complete": False,
+            "gaps": ["2024-07-08~2026-02-22 미수집",
+                     "2026-02-23 그룹 일부 누락(일계 +$13.59 vs 확보분 +$10.35 → $3.24 미확보)"],
+            "note": "실현손익 누계는 **확보된 구간의 합**이지 계좌 전체 실적이 아니다.",
+        },
+        "eras": _era_split(detail),
         "buys": sum(1 for r in fills if r["side"] == "buy"),
         "sells": len(detail),
         "realized_krw": round(realized_krw),
@@ -425,10 +487,18 @@ def main() -> int:
             est = "" if src in ("toss", "krw") else (
                 f" ~체결일종가 {d['fx_rate']:,.0f}" if src.startswith("market_close") else
                 f" ~현재환율 {d['fx_rate']:,.0f}")
-            print(f"  {d['date']} {d['label']:<8} {d['shares']:>10,.6f}주 @{d['price']:>10,.2f} "
-                  f"원가 {d['cost_basis']:>10,.2f} → {d['realized']:>+9,.2f} {d['currency']} "
-                  f"({d['return_pct']:+.1f}%) = {d['realized_krw']:>+10,.0f}원{est}")
+            # 데스크 이전 청산분(closed)은 주수·단가가 화면에 없다 — 없는 칸을 지어내지 않는다.
+            qty = f"{d['shares']:>10,.6f}주 @{d['price']:>10,.2f}" if d.get("shares") else f"{'(주수·단가 미기록)':>22}"
+            cb = f"{d['cost_basis']:>10,.2f}" if d.get("cost_basis") else f"{'—':>10}"
+            rp = f"({d['return_pct']:+.1f}%)" if d.get("return_pct") is not None else "        "
+            tag = "  ·이전" if d.get("era") == "pre" else ""
+            print(f"  {d['date']} {d['label']:<10} {qty} 원가 {cb} → {d['realized']:>+9,.2f} {d['currency']} "
+                  f"{rp} = {d['realized_krw']:>+10,.0f}원{est}{tag}")
         print(f"  {'':-<100}")
+        e = summ["eras"]
+        print(f"  {'':-<100}")
+        print(f"  데스크 이전({e['pre']['n']}건·승률 {e['pre']['win_rate']}%) {e['pre']['realized_krw']:+,}원"
+              f"   |   데스크 이후({e['desk']['n']}건·승률 {e['desk']['win_rate']}%) {e['desk']['realized_krw']:+,}원")
         print(f"  누계 실현손익 {summ['realized_krw']:+,}원 "
               f"(USD {summ['realized_usd']:+,.2f} · KRW {summ['realized_krw_only']:+,}) · "
               f"승률 {summ['win_rate']}% ({len([d for d in det if d['realized']>0])}/{len(det)})")

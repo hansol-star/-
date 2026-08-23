@@ -255,7 +255,7 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 ## 6. 강세 vs 신중 디베이트   ← 각 1단락 맞세움 (TradingAgents 차용)
 ## 7. PM 종합 (최종)
    - 오늘의 한 줄 결론
-   - 보유 전종목 표(현재 15 — 정본 = validate_report.py HOLDINGS·portfolio.json): 현재가 | 수익률(원가 대비, master.md 원가로 계산) | 목표가 | 매수존 | ⭐(1~5) | **스코어(0~100)** | 한줄코멘트
+   - 보유 전종목 표(현재 14 — 정본 = validate_report.py HOLDINGS·portfolio.json): 현재가 | 수익률(원가 대비, master.md 원가로 계산) | 목표가 | 매수존 | ⭐(1~5) | **스코어(0~100)** | 한줄코멘트
      - **스코어 = 정량 채점**(별점의 근거 숫자). 검증된 방법론 렌즈(오닐 CANSLIM·미너비니 추세템플릿·드러켄밀러 매크로)로 채점.
        환산 고정: **85~100=⭐5 / 70~84=⭐4 / 55~69=⭐3 / 40~54=⭐2 / <40=⭐1.** 별점↔스코어 어긋나면 근거 재점검.
        상세 채점 기준은 `stock-deepdive` 스킬의 "검증된 방법론 체크리스트" 참조(두 스킬 동일 기준 사용).

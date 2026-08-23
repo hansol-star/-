@@ -154,17 +154,58 @@ def realized_krw_detail(rows: list[dict], fx_now: float) -> list[dict]:
         p["shares"] -= sh
         cur = r.get("currency", "KRW")
         fx = r.get("fx_rate")
-        est = cur == "USD" and not fx
-        rate = float(fx) if fx else (fx_now if cur == "USD" else 1.0)
+        # 우선순위: ①원장 기록(토스 기준환율) ②체결일 시장 종가 ③현재 환율(최후)
+        if cur != "USD":
+            rate, src = 1.0, "krw"
+        elif fx:
+            rate, src = float(fx), r.get("fx_source") or "toss"
+        else:
+            got, gsrc = fx_on(r.get("date") or "")
+            rate, src = (got, gsrc) if got else (fx_now, "current")
+        est = cur == "USD" and src != "toss"
         out.append({
             "date": r.get("date"), "ticker": tk, "label": r.get("label") or tk,
             "shares": sh, "price": float(r.get("price") or 0), "currency": cur,
             "cost_basis": p["avg"], "realized": gain, "realized_krw": gain * rate,
             "return_pct": (gain / (sh * p["avg"]) * 100) if p["avg"] and sh else None,
-            "fx_rate": rate, "fx_estimated": est,
+            "fx_rate": round(rate, 2), "fx_estimated": est, "fx_source": src,
             "source": r.get("source", ""), "note": r.get("note", ""),
         })
     return out
+
+
+def fx_on(date: str) -> tuple[float, str] | tuple[None, None]:
+    """체결일의 원/달러 종가. (rate, source) — 없으면 (None, None).
+
+    왜 있나 [8/23]: 초판은 체결 시점 환율이 원장에 없으면 **오늘 환율**로 환산했다.
+    6/24 매도를 두 달 뒤 환율로 재는 셈이라, 원/달러가 그 사이 1,554→1,384로 11% 움직인
+    구간에서는 실현손익 원화가 통째로 왜곡된다. 로컬 일봉 캐시(data/history/KRW_X.csv,
+    history_backfill.py가 관리)에서 **그날 종가**를 읽고, 주말·휴장이면 직전 영업일로 내려간다.
+
+    ⚠️ 이건 **시장 종가**이지 토스가 실제 적용한 환율이 아니다(스프레드·체결시각 차이).
+       토스 스크린샷에 기준환율이 찍힌 건은 원장의 fx_rate가 우선이고 이 함수는 안 쓴다.
+    """
+    path = os.path.join(REPO, "data", "history", "KRW_X.csv")
+    if not os.path.exists(path):
+        return (None, None)
+    try:
+        rows = {}
+        with open(path, encoding="utf-8") as f:
+            next(f, None)
+            for ln in f:
+                d, _, c = ln.strip().partition(",")
+                if c:
+                    rows[d] = float(c)
+    except (OSError, ValueError):
+        return (None, None)
+    if not rows:
+        return (None, None)
+    # 그날이 없으면 직전 영업일 (주말·공휴일 체결 표기 대응)
+    cands = [d for d in rows if d <= date]
+    if not cands:
+        return (None, None)
+    d = max(cands)
+    return (rows[d], "market_close" if d == date else f"market_close({d})")
 
 
 def current_fx(default: float = 1383.9) -> float:
@@ -229,6 +270,33 @@ def reconcile(pos: dict, book: dict) -> list[dict]:
     return rows
 
 
+def _fx_coverage(rows: list[dict]) -> dict:
+    """미국주 취득원가 중 **체결 환율을 우리가 아는 비중**.
+
+    왜 재는가: 환손익 분해(fx_exposure)의 F₀는 지금 `us_avg_fx_cost`(토스 실손익 역산 **추정치**)다.
+    원장에 실제 체결환율이 쌓일수록 그 추정을 실측으로 대체할 수 있는데, **얼마나 왔는지**를
+    숫자로 안 보면 "곧 정밀해진다"는 말만 반복하게 된다.
+    ⚠️ 기초 잔고(opening)는 6/13 이전 매입이라 취득환율을 모른다 — **그날 종가로 채우지 않는다**
+       (그건 데이터가 아니라 가짜 정밀도다). 그래서 분모엔 들어가고 분자엔 안 들어간다.
+    """
+    known = total = 0.0
+    for r in rows:
+        if r.get("currency") != "USD" or r.get("side") not in ("opening", "buy"):
+            continue
+        amt = _amount(r)
+        total += amt
+        if r.get("side") == "buy" and r.get("fx_rate"):
+            known += amt
+    wsum = sum(_amount(r) * float(r["fx_rate"]) for r in rows
+               if r.get("currency") == "USD" and r.get("side") == "buy" and r.get("fx_rate"))
+    return {
+        "known_pct": round(known / total * 100, 1) if total else 0.0,
+        "known_usd": round(known, 2), "total_usd": round(total, 2),
+        "weighted_fx": round(wsum / known, 1) if known else None,
+        "note": "기초 잔고는 취득환율 미상(원장 시작 이전) — 분모에만 포함. 체결이 쌓일수록 known_pct가 오른다.",
+    }
+
+
 def summary(rows: list[dict], fx_now: float) -> dict:
     """build_app_data가 소비할 요약 — 실현손익 누계 + 최근 체결."""
     detail = realized_krw_detail(rows, fx_now)
@@ -251,6 +319,8 @@ def summary(rows: list[dict], fx_now: float) -> dict:
         "realized_krw_only": round(sum(d["realized"] for d in detail if d["currency"] == "KRW")),
         "win_rate": round(len(wins) / len(detail) * 100, 1) if detail else None,
         "fx_estimated": any(d["fx_estimated"] for d in detail),
+        "fx_sources": sorted({d.get("fx_source") for d in detail if d["currency"] == "USD"}),
+        "fx_cost_coverage": _fx_coverage(rows),
         "first_date": fills[0]["date"] if fills else None,
         "last_date": fills[-1]["date"] if fills else None,
         "sells_detail": sorted(detail, key=lambda d: d["date"], reverse=True),
@@ -351,7 +421,10 @@ def main() -> int:
         det = summ["sells_detail"]
         print(f"── 실현손익 {len(det)}건 (매도 확정분) ──")
         for d in det:
-            est = " ~추정환율" if d["fx_estimated"] else ""
+            src = d.get("fx_source") or ""
+            est = "" if src in ("toss", "krw") else (
+                f" ~체결일종가 {d['fx_rate']:,.0f}" if src.startswith("market_close") else
+                f" ~현재환율 {d['fx_rate']:,.0f}")
             print(f"  {d['date']} {d['label']:<8} {d['shares']:>10,.6f}주 @{d['price']:>10,.2f} "
                   f"원가 {d['cost_basis']:>10,.2f} → {d['realized']:>+9,.2f} {d['currency']} "
                   f"({d['return_pct']:+.1f}%) = {d['realized_krw']:>+10,.0f}원{est}")
@@ -359,8 +432,10 @@ def main() -> int:
         print(f"  누계 실현손익 {summ['realized_krw']:+,}원 "
               f"(USD {summ['realized_usd']:+,.2f} · KRW {summ['realized_krw_only']:+,}) · "
               f"승률 {summ['win_rate']}% ({len([d for d in det if d['realized']>0])}/{len(det)})")
-        if summ["fx_estimated"]:
-            print(f"  ⚠️ 일부 매도는 체결 시점 환율이 원장에 없어 현재 환율({fx_now:,.1f})로 환산 — 추정치")
+        srcs = {d.get("fx_source") for d in det if d["currency"] == "USD"}
+        if srcs - {"toss"}:
+            print(f"  ⚠️ 환율 출처 — toss=스크린샷 기준환율(정확) / 체결일종가=시장 종가(스프레드 미반영) / "
+                  f"현재환율=최후 폴백. 현재 원장: {', '.join(sorted(s or '?' for s in srcs))}")
         return 0
 
     # 기본: 포지션 재생 + 대사 요약

@@ -118,6 +118,7 @@
     else if (h === "hunter") renderHunter();
     else if (h === "pmview") renderPMView();
     else if (h === "decisions") renderDecisions();
+    else if (h === "trades") renderTrades();
     else renderHome();
     window.scrollTo(0, 0);
   }
@@ -234,10 +235,14 @@
     h += '<div class="chip"><div class="mut">평가손익</div><div class="v ' + cls(t.total_pnl_krw) + '">' + (t.total_pnl_krw >= 0 ? "+" : "") + num(t.total_pnl_krw) + '원<br><span class="sm">' + pct(t.total_pnl_pct) + '</span></div></div>';
     h += '<div class="chip"><div class="mut">현금</div><div class="v">' + num(t.cash_krw) + '원</div></div>';
     h += '<div class="chip"><div class="mut">환율</div><div class="v">₩' + num(D.fx && D.fx.usdkrw) + '</div></div>';
+    if (D.trades && D.trades.status === "live" && D.trades.sells) {
+      h += '<div class="chip"><div class="mut">실현손익</div><div class="v ' + cls(D.trades.realized_krw) + '">'
+        + (D.trades.realized_krw >= 0 ? "+" : "") + num(D.trades.realized_krw) + '원<br><span class="sm">매도 ' + D.trades.sells + '건 · 승률 ' + D.trades.win_rate + '%</span></div></div>';
+    }
     h += '</div></div>';
 
     var GH = "https://github.com/hansol-star/-/actions/workflows/";
-    h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a><a class="navbtn" href="#feeds">📡 외부 리서치</a><a class="navbtn" href="#pmview">💭 PM 사견</a></div>';
+    h += '<div class="nav"><a class="navbtn" href="#plan">🗓️ 계획·할일</a><a class="navbtn" href="#reports">📄 일일 보고서</a><a class="navbtn" href="#hunter">🎬 경제사냥꾼</a><a class="navbtn" href="#feeds">📡 외부 리서치</a><a class="navbtn" href="#pmview">💭 PM 사견</a><a class="navbtn" href="#trades">💰 체결 원장</a></div>';
     var guruN = ((D.guru_flows || {}).gurus && Object.keys(D.guru_flows.gurus).length) || 0;
     if (guruN) h += '<div class="nav"><a class="navbtn" href="#gurus">🏛️ 대가 흐름 · 13F (' + guruN + ')</a></div>';
     var decN = (D.decisions && D.decisions.open_count) || 0;
@@ -264,6 +269,9 @@
     if (s.floor_note) { h += '<div class="xs">' + esc(s.floor_note) + '</div>'; }
     h += '</div>';
     h += '<div class="pv">' + num(s.price) + ' <span class="sm ' + cls(s.change_pct) + '">' + pct(s.change_pct) + '</span></div></div>';
+
+    h += reconcileBanner();
+    h += riskCard();
 
     if (firedAlerts.length) {
       h += '<div class="sec"><h2>🔔 발동 트리거 (' + firedAlerts.length + ')</h2></div>';
@@ -389,7 +397,153 @@
     }).join("");
     var sec = '<div class="card"><div class="ctitle">테마 집중도 <span class="mut sm">(섹터별 비중)</span></div>' + secRows + "</div>";
 
-    return '<div class="sec"><h2>📊 내 포트폴리오 분석</h2></div>' + alloc + sec + ret;
+    return '<div class="sec"><h2>📊 내 포트폴리오 분석</h2></div>' + alloc + fxCard() + sec + ret;
+  }
+
+
+  // ── 🧭 포트폴리오 리스크 게이지 + 인사이트 (portfolio_risk.py 산출) ──
+  // 종목별 별점과 다른 층위 — "조합이 어디로 기울었나". 측정 전용, 매매 신호 아님.
+  function riskCard() {
+    var r = D.risk;
+    if (!r || r.status !== "live") return "";
+    var tone = r.score >= 60 ? "down" : r.score >= 35 ? "gold" : "up";
+    var col = r.score >= 60 ? "var(--red)" : r.score >= 35 ? "var(--gold)" : "var(--green)";
+    var h = '<div id="riskblock"><div class="sec"><h2>🧭 포트폴리오 리스크</h2></div>';
+    h += '<div class="card">';
+    h += '<div class="rkhead"><div><span class="rknum" style="color:' + col + '">' + r.score + '</span><span class="rkmax">/100</span></div>';
+    h += '<span class="rklv" style="background:' + col + '">' + esc(r.level) + '</span></div>';
+    h += '<div class="rkbar"><div class="rkfill" style="width:' + r.score + '%;background:' + col + '"></div></div>';
+
+    (r.axes || []).slice().sort(function (a, b) {
+      return (b.contribution == null ? -1 : b.contribution) - (a.contribution == null ? -1 : a.contribution);
+    }).forEach(function (a) {
+      h += '<div class="rdrow"><span class="rdlabel">' + esc(a.label) + '</span>';
+      if (a.value == null) {
+        h += '<div class="secbar"></div><span class="rdval mut">미측정</span></div>';
+        return;
+      }
+      var seg = a.value >= 66 ? "var(--red)" : a.value >= 33 ? "var(--gold)" : "var(--green)";
+      h += '<div class="secbar"><div class="secseg" style="width:' + a.value + '%;background:' + seg + '"></div></div>';
+      h += '<span class="rdval mut num">' + a.value + '</span></div>';
+    });
+
+    var f = r.facts || {};
+    h += '<div class="rkfacts">최대 ' + esc(f.top || "—") + ' ' + f.top_weight + '% · ' + esc(f.top_sector || "—") + ' ' + f.top_sector_weight + '%'
+      + ' · 달러 ' + (f.usd_weight == null ? "미측정" : f.usd_weight + "%")
+      + ' · ⭐2이하 ' + f.low_star_weight + '% · 현금 ' + f.cash_weight + '%</div>';
+    h += '</div>';
+
+    (r.insights || []).forEach(function (i) {
+      h += '<div class="alert ins ' + esc(i.level) + '"><div class="row between"><span class="aid">' + esc(i.title) + '</span>'
+        + '<span class="badge ' + esc(i.level) + '">' + ({ danger: "위험", warning: "주의", info: "안내", positive: "긍정" }[i.level] || "") + '</span></div>'
+        + '<div class="act">' + esc(i.detail) + '</div></div>';
+    });
+    return h + '</div>';
+  }
+
+  // ── 💱 통화 익스포저 + 환손익 3분해 (fx_exposure.py · roadmap P0 2-3) ──
+  // 달러가 7할인 포트에서 환율은 종목보다 큰 단일 변수인데 그동안 측정 축이 없었다.
+  function fxCard() {
+    var x = D.fx_exposure;
+    if (!x || x.status !== "live") return "";
+    var COL = { USD: "#2a78d6", KRW: "#12b886" };
+    var segs = "", leg = "";
+    (x.buckets || []).forEach(function (b) {
+      segs += '<span style="width:' + b.weight + '%;background:' + (COL[b.currency] || "#9a9a95") + '"></span>';
+      leg += '<span class="palg"><i style="background:' + (COL[b.currency] || "#9a9a95") + '"></i>' + esc(b.currency) + ' ' + b.weight + '%</span>';
+    });
+    var h = '<div class="card" id="fxcard"><div class="ctitle">통화 익스포저 <span class="mut sm">(주식+현금)</span></div>';
+    h += '<div class="stackbar">' + segs + '</div><div class="palegend">' + leg + '</div>';
+    (x.buckets || []).forEach(function (b) {
+      h += '<div class="rdrow"><span class="rdlabel">' + esc(b.currency) + '</span>'
+        + '<span class="rdval mut num" style="flex:1;text-align:right">' + num(b.value_krw) + '원 <span class="mut sm">(주식 ' + num(b.stock_krw) + ' · 현금 ' + num(b.cash_krw) + ')</span></span></div>';
+    });
+
+    var p = x.percentile || {};
+    var w = p.windows || {};
+    if (p.status === "live" && w["1y"]) {
+      var parts = ["1y", "3y", "5y"].filter(function (k) { return w[k]; }).map(function (k) {
+        return k + ' ' + w[k].percentile + '%ile';
+      }).join(" · ");
+      h += '<div class="fxpct">원/달러 ' + num(x.fx_rate) + ' — ' + esc(parts)
+        + (p.chg_3m_pct != null ? ' <span class="' + cls(p.chg_3m_pct) + '">(3개월 ' + pct(p.chg_3m_pct) + ')</span>' : '') + '</div>';
+    }
+    h += '<div class="fxsens">환율 1% 변동 = 총자산 <b class="' + cls(x.sensitivity_1pct_krw) + '">' + (x.sensitivity_1pct_krw >= 0 ? "+" : "") + num(x.sensitivity_1pct_krw) + '원</b></div>';
+
+    var a = x.attribution || {};
+    h += '<div class="ctitle" style="margin-top:13px">환손익 3분해 <span class="mut sm">(미국주)</span></div>';
+    h += '<div class="fxatt">';
+    [["종목", a.price_krw], ["환율", a.fx_krw], ["교차", a.cross_krw]].forEach(function (kv) {
+      h += '<div class="fxa"><div class="mut sm">' + kv[0] + '</div><div class="v ' + cls(kv[1]) + '">' + (kv[1] >= 0 ? "+" : "") + num(kv[1]) + '</div></div>';
+    });
+    h += '</div>';
+    h += '<div class="fxnote">취득환율 ' + num(x.fx_cost_basis) + '원 기준 추정 — 환 기여 절대액은 오차를 안는다(체결별 실환율이 원장에 쌓이면 정밀화).</div>';
+    h += '</div>';
+    return h;
+  }
+
+  // ── 대사 실패 배너: 원장 기입을 빠뜨리면 폰에서 바로 보인다 ──
+  function reconcileBanner() {
+    var t = D.trades;
+    if (!t || t.status !== "live" || t.reconcile_ok !== false) return "";
+    var names = (t.reconcile || []).map(function (r) { return r.label + "(" + r.detail + ")"; }).join(" · ");
+    return '<div class="alert ins danger"><div class="row between"><span class="aid">⚠️ 체결 원장 대사 실패</span>'
+      + '<span class="badge danger">확인</span></div>'
+      + '<div class="act">원장 재생과 portfolio.json이 어긋납니다 — ' + esc(names)
+      + '. 체결 기입 누락이거나 장부가 틀렸습니다.</div></div>';
+  }
+
+  // ── 💰 체결 원장 화면 (#trades) ──
+  function renderTrades() {
+    var t = D.trades || {};
+    var h = '<header><a class="back" href="#">← 포트폴리오</a><div class="title" style="margin-top:6px">💰 체결 원장 · 실현손익</div>';
+    h += '<div class="sub">원장(trades.jsonl)이 정본 · 수량·평단·실현손익은 재생된 파생물</div></header>';
+
+    if (t.status !== "live") {
+      h += '<div class="empty">원장 데이터가 없습니다.</div>';
+      root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>')); return;
+    }
+
+    h += reconcileBanner();
+    if (t.reconcile_ok) h += '<div class="hl" style="background:var(--tint-green);color:var(--on-green)">✅ 원장 재생 = portfolio.json (전 종목 일치)</div>';
+
+    h += '<div class="hero"><div class="lbl">누계 실현손익</div>';
+    h += '<div class="big ' + cls(t.realized_krw) + '">' + (t.realized_krw >= 0 ? "+" : "") + num(t.realized_krw) + '원</div>';
+    h += '<div class="chips">';
+    h += '<div class="chip"><div class="mut">매도</div><div class="v">' + t.sells + '건</div></div>';
+    h += '<div class="chip"><div class="mut">승률</div><div class="v">' + t.win_rate + '%</div></div>';
+    h += '<div class="chip"><div class="mut">체결</div><div class="v">' + t.fills + '건</div></div>';
+    h += '</div></div>';
+    if (t.fx_estimated) h += '<div class="fxnote" style="margin-bottom:11px">일부 매도는 체결 시점 환율이 원장에 없어 현재 환율로 환산한 추정치입니다.</div>';
+
+    h += '<div class="sec"><h2>확정 손익 (매도 ' + t.sells + '건)</h2></div>';
+    (t.sells_detail || []).forEach(function (d) {
+      h += '<div class="trk"><div class="row between"><span class="bold">' + esc(d.label) + '</span>'
+        + '<span class="' + cls(d.realized) + ' bold">' + (d.realized_krw >= 0 ? "+" : "") + num(d.realized_krw) + '원 <span class="sm">(' + pct(d.return_pct) + ')</span></span></div>';
+      h += '<div class="tx mut">' + esc(d.date) + ' · ' + fmtShares(d.shares) + '주 @ ' + price(d.price, d.currency)
+        + ' · 원가 ' + price(d.cost_basis, d.currency) + (d.fx_estimated ? ' · ~추정환율' : '') + '</div>';
+      if (d.note) h += '<div class="tx">' + esc(d.note) + '</div>';
+      h += '</div>';
+    });
+
+    h += '<div class="sec"><h2>체결 이력 (' + t.fills + '건)</h2></div>';
+    (t.recent || []).forEach(function (r) {
+      var isBuy = r.side === "buy";
+      h += '<div class="trk"><div class="row between"><span><span class="badge ' + (isBuy ? "buy" : "sell") + '">' + (isBuy ? "매수" : "매도") + '</span> <b>' + esc(r.label) + '</b></span>'
+        + '<span class="mut sm">' + esc(r.date) + '</span></div>';
+      h += '<div class="tx mut">' + fmtShares(r.shares) + '주 @ ' + price(r.price, r.currency) + '</div>';
+      if (r.note) h += '<div class="tx">' + esc(r.note) + '</div>';
+      if (r.source) h += '<div class="tx src">📎 ' + esc(r.source) + '</div>';
+      h += '</div>';
+    });
+
+    h += '<div class="foot">체결 기입은 토스 스크린샷 확인 후에만 · 대사는 매 빌드에서 자동.<br>투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
+    root.innerHTML = ""; root.appendChild(el('<div>' + h + '</div>'));
+  }
+
+  function fmtShares(v) {
+    if (v == null) return "—";
+    return v % 1 === 0 ? String(v) : v.toFixed(6).replace(/0+$/, "").replace(/\.$/, "");
   }
 
   function itemRow(st, isHolding) {

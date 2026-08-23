@@ -1067,7 +1067,10 @@ _HISTORICAL = re.compile(
 # (이름, 탐지 패턴, 허용 맥락 패턴|None, 심각도, 무엇으로 대체됐나)
 REPEALED_RULES = [
     ("룰1 매수 안전핀 7,500 (7/30 폐기)",
-     re.compile(r"안전핀[^\n]{0,20}7[,.]?500|7[,.]?500[^\n]{0,12}안전핀"),
+     # ★[8/23] 창을 20→60자로 넓힘 — risk-desk.md의 영문 서술
+     #   ("매수 안전핀: when 코스피 falls **below 7,500**")이 20자 창을 넘겨 **7주간 통과**했다.
+     #   같은 파일 아래쪽엔 "舊 안전핀은 폐기"라고 적혀 있었는데 절대룰 블록만 옛 문구였다(손으로 발견).
+     re.compile(r"안전핀[^\n]{0,60}7[,.]?500|7[,.]?500[^\n]{0,40}안전핀"),
      # 7,500은 §5 **해제 게이트 조건①**로만 유효하다.
      # ⚠️ 초판은 허용어에 '해제'를 단독으로 넣어 crash_tf §6("…하드 플로어 그대로 … 해제 후 각 트랜치")을
      #    통째로 면제해버렸다(8/5 실측 false negative). 게이트 맥락을 **구체적으로** 요구한다.
@@ -1115,8 +1118,14 @@ REPEALED_RULES = [
 REPEAL_SCAN = [
     "CLAUDE.md", "docs/desk_playbook.md", "docs/crash_tf.md", "docs/master.md",
     "docs/routines.md", "docs/data_coverage.md",
-    ".claude/skills/portfolio-desk/SKILL.md",
 ]
+# ★[8/23] 舊 목록은 portfolio-desk 하나만 봤다 → quick-check/SKILL.md가 "안전핀 7,500 하회 시 전면 동결"을
+#   현행처럼 적고 있었는데 스캔 밖이라 안 걸렸다. 스킬은 계속 늘어나므로 **하드코딩 대신 열거**한다.
+_SKILLS_DIR = os.path.join(ROOT, ".claude", "skills")
+if os.path.isdir(_SKILLS_DIR):
+    REPEAL_SCAN += [os.path.join(".claude", "skills", d, "SKILL.md")
+                    for d in sorted(os.listdir(_SKILLS_DIR))
+                    if os.path.exists(os.path.join(_SKILLS_DIR, d, "SKILL.md"))]
 
 def check_score_basis():
     """[8/7 신설] score ↔ fund_subscore 괴리 게이트.
@@ -1330,6 +1339,40 @@ def check_git_depth():
          "(score_calls --backfill·self-review §1 콜 스냅샷 복원이 영향)")
 
 
+def check_trade_ledger():
+    """[8/23 신설] 체결 원장 ↔ portfolio.json 대사 게이트.
+
+    master.md §2가 **같은 결함을 두 번** 기록했다 — 8/6 GOOGL 매수가 1주일, 8/19 ANET 전량매도·VOO
+    적립체결이 8일간 산문 표에 반영 안 됨. 그때 결론이 *"산문 표는 기계가 안 보므로 validate_report도
+    못 잡는다 ⇒ 다짐이 아니라 절차로 막는다"*였는데, **절차(한 커밋에 세 곳 동시수정)는 사람이 지키는
+    것**이라 같은 다짐을 적어둔 뒤에 재발했다.
+
+    이제 원장(trades.jsonl)이 정본이고 수량·평단은 재생된 파생물이다 → 기입을 빠뜨리면 **수량이 안 맞는다.**
+    그 불일치를 여기서 FAIL로 잡는다(허용오차: 수량 1e-6주·평단 0.5%).
+
+    ⚠️ FAIL이 떴을 때 고칠 곳은 **둘 중 하나**다 — 원장에 체결을 안 넣었거나(대부분), 장부가 틀렸거나.
+       `python3 trades.py --reconcile`로 어느 종목인지 보고, 체결이면 `trades.py --add`로 먼저 원장에 넣는다.
+    """
+    import subprocess
+    script = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts", "trades.py")
+    if not os.path.exists(script) or not os.path.exists(os.path.join(ROOT, "data", "app", "trades.jsonl")):
+        return  # 원장 미도입 상태면 조용히 통과(하위호환)
+    try:
+        r = subprocess.run([sys.executable, script, "--json"], capture_output=True, text=True, timeout=60)
+        data = json.loads(r.stdout) if r.stdout.strip() else {}
+    except Exception as e:  # noqa: BLE001
+        WARNS.append(f"체결 원장 대사를 실행하지 못했다 ({e}) — trades.py --reconcile 수동 확인")
+        return
+    bad = [x for x in (data.get("reconcile") or []) if x.get("status") == "diff"]
+    if bad:
+        for x in bad:
+            FAILS.append(f"체결 원장 불일치 — {x['label']}: {x['detail']} "
+                         f"(원장 기입 누락이거나 portfolio.json이 틀렸다. trades.py --reconcile 참조)")
+    else:
+        n = (data.get("summary") or {}).get("fills")
+        print(f"  ✅ 체결 원장 대사 일치 (체결 {n}건 재생 = portfolio.json)")
+
+
 def check_repealed_rules():
     """정본 문서에 **폐기된 룰**이 살아 있는지 감지 [8/5 신설].
 
@@ -1462,7 +1505,7 @@ def main():
         sys.exit(1 if FAILS else 0)
 
     check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band(); check_target_multiple(); check_high_low_claims(); check_history_cache()
-    check_low_star_action(); check_pending_decisions(); check_repealed_rules()
+    check_low_star_action(); check_pending_decisions(); check_repealed_rules(); check_trade_ledger()
     check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
     check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)

@@ -388,3 +388,35 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .pmrule{margin-top:10px;padding:10px 12px;background:var(--bg2);border:1px dashed var(--line);
   border-radius:var(--r-sm);font-size:12px;color:var(--txt2);line-height:1.6}
 .pmrule b{color:var(--accent)}
+
+/* ── 🧭 포트폴리오 리스크 게이지 (portfolio_risk.py) [8/23] ── */
+.rkhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.rknum{font-size:30px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.rkmax{font-size:14px;color:var(--mut);margin-left:2px}
+.rklv{font-size:11px;font-weight:700;color:#fff;padding:4px 11px;border-radius:20px}
+.rkbar{height:7px;background:var(--card2);border-radius:5px;overflow:hidden;margin-bottom:12px}
+.rkfill{height:100%;border-radius:5px;transition:width .3s}
+.rkfacts{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--mut);line-height:1.6}
+
+/* 인사이트 카드 — 레벨별 좌측 바 색 */
+.alert.ins.danger{border-left-color:var(--red);background:var(--tint-red)}
+.alert.ins.warning{border-left-color:var(--gold);background:var(--tint-gold)}
+.alert.ins.info{border-left-color:var(--blue)}
+.alert.ins.positive{border-left-color:var(--green);background:var(--tint-green)}
+.badge.danger{background:var(--red)}
+.badge.warning{background:var(--gold)}
+.badge.info{background:var(--tint-blue);color:var(--on-blue)}
+.badge.positive{background:var(--green)}
+
+/* ── 💱 통화 익스포저 (fx_exposure.py) [8/23] ── */
+.fxpct{margin-top:9px;font-size:12px;color:var(--txt2);line-height:1.6}
+.fxsens{margin-top:5px;font-size:12px;color:var(--mut)}
+.fxatt{display:flex;gap:7px}
+.fxa{flex:1;background:var(--card2);border-radius:var(--r-sm);padding:9px 10px;text-align:center;min-width:0}
+.fxa .v{font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;margin-top:2px}
+.fxa .v.up{color:var(--up)} .fxa .v.down{color:var(--down)}
+.fxnote{margin-top:8px;font-size:11px;color:var(--mut2);line-height:1.55}
+
+/* ── 💰 체결 원장 (#trades) [8/23] ── */
+.trk .tx.src{font-size:11px;color:var(--mut2);margin-top:5px}

@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-23 15:35 KST",
+  "generated_at": "2026-08-23 18:16 KST",
   "as_of": "2026-08-23 14:50 KST · 주말 휴장 2일차(국내·미국 8/21 종가 프로즌) · 삼성 110조 주주환원 반영 · 트림 오더 4건 재등록 대상",
   "source_report": "docs/reports/report_v81_2026-08-23.md",
   "offline": false,
@@ -19797,6 +19797,25 @@ window.APP_DATA = {
         "refs": "report_v81_2026-08-23.md · master §10-4 · bigtech-platform-desk 8/23"
       },
       {
+        "id": "d129",
+        "date": "2026-08-23",
+        "topic": "체결 원장을 정본으로 — 수량·평단·실현손익을 파생물로 뒤집음 (참고소스 Stockfolio 설계 이식)",
+        "decision": "data/app/trades.jsonl(체결 원장)을 정본으로 두고 수량·평단·실현손익은 trades.py가 이동평균법으로 재생하는 파생물로 전환. portfolio.json 대사를 validate_report.check_trade_ledger()에서 FAIL 게이트로 강제. 함께 fx_exposure.py(roadmap P0 2-3)·portfolio_risk.py 신설, 셋 다 build_app_data→앱(홈 리스크·통화 카드·#trades)·risk-desk Task 4~5·SKILL §4b에 배선.",
+        "rationale": "정훈이 가져온 Stockfolio 소스의 유일한 구조적 우위가 '거래 이력이 단일 진실 소스'였다. 우리는 반대(수량·평단 정본 + 체결은 산문)라 체결마다 세 곳을 수기 동기화해야 했고 8/6·8/19 두 번 어긋났다. master.md가 8/19에 '절차로 막는다'고 적었으나 절차는 사람이 지키는 것이라 같은 다짐 뒤에 재발했다. 원장을 정본으로 두면 파생물은 어긋날 수 없고 남는 위험(기입 누락)은 수량 불일치로 기계가 잡는다. 실측: 산문에서 복원한 체결 12건이 portfolio.json 16종목과 전부 일치(누계 실현손익 +173,902원·승률 83.3%).",
+        "rejected": "①서버+React 전면 재구축(참고소스 구조) — 폰 상시 서버 불가·오프라인 PWA·무비용 호스팅·git 정본 연속성을 전부 잃는다 ②앱에서 체결 입력(백엔드 없이 Actions 우회) — 설계 논의부터 필요해 별건 ③원장 없이 앱 화면만 추가 — 8/19 사고 클래스가 그대로 남는다 ④기초 잔고를 가짜 체결로 기입 — 6/13 이전은 우리 기록이 아니므로 side:opening으로 명시",
+        "status": "closed",
+        "tags": [
+          "원장",
+          "실현손익",
+          "통화익스포저",
+          "리스크게이지",
+          "앱",
+          "배선",
+          "정본구조"
+        ],
+        "refs": ""
+      },
+      {
         "id": "d120",
         "date": "2026-08-22",
         "topic": "별점 캘리브레이션 재보정 — STAR_PROB + ⭐1/⭐2 분리",
@@ -20027,26 +20046,10 @@ window.APP_DATA = {
           "자기정정"
         ],
         "refs": ""
-      },
-      {
-        "id": "d113",
-        "date": "2026-08-14",
-        "topic": "증권사 리포트 원장 배선 결함 — save_index가 --fetch 안에만 있었다",
-        "decision": "save_index()를 --fetch 블록 밖으로 옮겨 상시 호출. 본문 PDF 다운로드만 --fetch에 남김. 누적 73 → 95건 복구(8/1 이후 10건).",
-        "rationale": "누적 인덱스가 7/30에서 정지 → --targets가 2주 묵은 목표가로 컨센서스를 계산하고 있었다. 실측: LG전자가 n=2·240,000 단일로 나왔는데 실제는 n=5·180,000~250,000(IBK 180,000·SK 180,000·iM 250,000 누락). 원인은 데이터 부재가 아니라 배선 — --fetch는 PDF를 통째로 받는 무거운 플래그라 루틴이 안 쓴다. 저장은 조회의 부산물이어야 한다. 오늘 정리한 (B)계열 '죽은 배선' 4번째 사례.",
-        "rejected": "루틴에 --fetch 추가(PDF 다운로드까지 매번 도는 건 과하다·문제는 저장 위치지 수집량이 아니다)",
-        "status": "closed",
-        "tags": [
-          "도구",
-          "배선",
-          "증권사리포트",
-          "집행완료"
-        ],
-        "refs": ""
       }
     ],
     "open_count": 17,
-    "total": 145
+    "total": 146
   },
   "reports": [
     {
@@ -21784,5 +21787,496 @@ window.APP_DATA = {
     }
   ],
   "tasks_updated": "2026-08-23",
-  "today_note": "오늘 할 일 = META $580 정수 1주 예약 하나(20:50 전). 체결돼도 환전 금지 — 원/달러 1년 %ile 0.8. 통화 익스포저 최초 측정: 달러 71.9%/원화 28.1%. 로드맵 문서 신설(docs/roadmap.md)."
+  "today_note": "오늘 할 일 = META $580 정수 1주 예약 하나(20:50 전). 체결돼도 환전 금지 — 원/달러 1년 %ile 0.8. 통화 익스포저 최초 측정: 달러 71.9%/원화 28.1%. 로드맵 문서 신설(docs/roadmap.md).",
+  "trades": {
+    "fills": 12,
+    "buys": 6,
+    "sells": 6,
+    "realized_krw": 173902,
+    "realized_usd": 125.36,
+    "realized_krw_only": 0,
+    "win_rate": 83.3,
+    "fx_estimated": true,
+    "first_date": "2026-06-24",
+    "last_date": "2026-08-19",
+    "sells_detail": [
+      {
+        "date": "2026-08-19",
+        "ticker": "AAPL",
+        "label": "AAPL",
+        "shares": 1.0,
+        "price": 309.25,
+        "currency": "USD",
+        "cost_basis": 257.14,
+        "realized": 51.8,
+        "realized_krw": 72256,
+        "return_pct": 20.1,
+        "fx_rate": 1394.9,
+        "fx_estimated": false,
+        "source": "master.md §2 '✅ AAPL 트림 체결 — 정수 1주 @$309.25' — 8/19 18:49 토스 스크린샷",
+        "note": "원가 $257.14 대비 +20.3% 익절, 실현 +$52.11(≈+72,693원). 잔여 0.022472주는 의도적 dust."
+      },
+      {
+        "date": "2026-08-10",
+        "ticker": "ANET",
+        "label": "ANET",
+        "shares": 0.141767,
+        "price": 192.5,
+        "currency": "USD",
+        "cost_basis": 162.07,
+        "realized": 4.31,
+        "realized_krw": 5970,
+        "return_pct": 18.8,
+        "fx_rate": 1383.9,
+        "fx_estimated": true,
+        "source": "CLAUDE.md '[8/11] ANET 전량 매도 체결' — 8/11 08:35 토스 주문내역 스크린샷",
+        "note": "정훈 지시 '절반안은 잔량 소액이라 실익 없음' → 잔여 전량. 단가는 매도대금/주수 역산. 워치 전환."
+      },
+      {
+        "date": "2026-08-05",
+        "ticker": "ANET",
+        "label": "ANET",
+        "shares": 0.141734,
+        "price": 212.55,
+        "currency": "USD",
+        "cost_basis": 162.07,
+        "realized": 7.16,
+        "realized_krw": 9908,
+        "return_pct": 31.2,
+        "fx_rate": 1383.9,
+        "fx_estimated": true,
+        "source": "master.md §2 '✅ ANET 절반 sell-into-strength 트림 체결(8/5 22:30)' — 8/6 토스 스크린샷",
+        "note": "원가 $162.07 대비 +31.1% 익절. 매도대금 $30.13은 세후 순수령. 0.283501→0.141767주."
+      },
+      {
+        "date": "2026-07-07",
+        "ticker": "TSLA",
+        "label": "TSLA",
+        "shares": 0.157708,
+        "price": 415.9,
+        "currency": "USD",
+        "cost_basis": 422.51,
+        "realized": -1.04,
+        "realized_krw": -1598,
+        "return_pct": -1.6,
+        "fx_rate": 1531.8,
+        "fx_estimated": false,
+        "source": "master.md §9 d-log 2026-07-07 '✅ TSLA 전량 매도 체결' — 토스 스크린샷 검증",
+        "note": "22:32 시장가 제출·22:37 체결. USD 실현 -$1.04(-1.6%)이나 환차익 포함 +3,436원. 보유 16→15종목."
+      },
+      {
+        "date": "2026-07-06",
+        "ticker": "AAPL",
+        "label": "AAPL",
+        "shares": 1.0,
+        "price": 313.77,
+        "currency": "USD",
+        "cost_basis": 257.14,
+        "realized": 56.63,
+        "realized_krw": 78370,
+        "return_pct": 22.0,
+        "fx_rate": 1383.9,
+        "fx_estimated": true,
+        "source": "report_v41_2026-07-07 §미장 '7/6 밤 $313.77 트림 체결가' + v33 부록 오더($308 지정가)",
+        "note": "MANGOS 재배치 1단계 — 이 대금이 7/17 GOOGL 정수 1주 재원. 2.022472→1.022472주."
+      },
+      {
+        "date": "2026-06-24",
+        "ticker": "MU",
+        "label": "MU",
+        "shares": 0.019999,
+        "price": 1075.55,
+        "currency": "USD",
+        "cost_basis": 749.0,
+        "realized": 6.5,
+        "realized_krw": 8996,
+        "return_pct": 43.4,
+        "fx_rate": 1383.9,
+        "fx_estimated": true,
+        "source": "master.md §7 '✅ MU 절반차익 체결 확정' — 2026-06-25 토스 스크린샷",
+        "note": "실적 전 절반차익(원가 $749 대비 +43.6%). 순수령 $21.48·입금 6/26. 단가는 매도금액/주수 역산."
+      }
+    ],
+    "recent": [
+      {
+        "date": "2026-08-19",
+        "ticker": "AAPL",
+        "label": "AAPL",
+        "side": "sell",
+        "shares": 1.0,
+        "price": 309.25,
+        "currency": "USD",
+        "note": "원가 $257.14 대비 +20.3% 익절, 실현 +$52.11(≈+72,693원). 잔여 0.022472주는 의도적 dust.",
+        "source": "master.md §2 '✅ AAPL 트림 체결 — 정수 1주 @$309.25' — 8/19 18:49 토스 스크린샷"
+      },
+      {
+        "date": "2026-08-14",
+        "ticker": "VOO",
+        "label": "VOO",
+        "side": "buy",
+        "shares": 0.098408,
+        "price": 713.61,
+        "currency": "USD",
+        "note": "룰9 8월분 ≈99,682원. 토스가 보유 USD $57.62를 먼저 소진하고 $12.67만 환전(master 영구제약).",
+        "source": "tasks.json ord-voo-dca-2026-08 '✅ 체결완료(8/14 22:30 미장 시장가 — 8/16 토스 대사)'"
+      },
+      {
+        "date": "2026-08-10",
+        "ticker": "ANET",
+        "label": "ANET",
+        "side": "sell",
+        "shares": 0.141767,
+        "price": 192.5,
+        "currency": "USD",
+        "note": "정훈 지시 '절반안은 잔량 소액이라 실익 없음' → 잔여 전량. 단가는 매도대금/주수 역산. 워치 전환.",
+        "source": "CLAUDE.md '[8/11] ANET 전량 매도 체결' — 8/11 08:35 토스 주문내역 스크린샷"
+      },
+      {
+        "date": "2026-08-05",
+        "ticker": "ANET",
+        "label": "ANET",
+        "side": "sell",
+        "shares": 0.141734,
+        "price": 212.55,
+        "currency": "USD",
+        "note": "원가 $162.07 대비 +31.1% 익절. 매도대금 $30.13은 세후 순수령. 0.283501→0.141767주.",
+        "source": "master.md §2 '✅ ANET 절반 sell-into-strength 트림 체결(8/5 22:30)' — 8/6 토스 스크린샷"
+      },
+      {
+        "date": "2026-07-29",
+        "ticker": "GOOGL",
+        "label": "GOOGL",
+        "side": "buy",
+        "shares": 0.328638,
+        "price": 334.4,
+        "currency": "USD",
+        "note": "신규자금 소수점 시장가. 평단 $358.01→$353.62.",
+        "source": "master.md §2 '✅ GOOGL 1차 재진입 체결(7/29, 8/4 스크린샷 확인)'"
+      },
+      {
+        "date": "2026-07-20",
+        "ticker": "005930.KS",
+        "label": "삼성전자",
+        "side": "buy",
+        "shares": 1.0,
+        "price": 248500.0,
+        "currency": "KRW",
+        "note": "⚠️ 룰1 안전핀 위반·물타기 — 정훈 오너재량·취소불가로 기록됨.",
+        "source": "master.md §2 국내 표 '7/20 시간외 248,500원 1주 추가'"
+      },
+      {
+        "date": "2026-07-17",
+        "ticker": "GOOGL",
+        "label": "GOOGL",
+        "side": "buy",
+        "shares": 1.0,
+        "price": 345.0,
+        "currency": "USD",
+        "note": "AAPL 7/6 트림 재원 GTC 자동체결. 평단 $387.73→$358.01. 총 $345.34·출금 7/21.",
+        "source": "master.md §2 '✅ GOOGL 재배치 체결(7/17)'"
+      },
+      {
+        "date": "2026-07-17",
+        "ticker": "VOO",
+        "label": "VOO",
+        "side": "buy",
+        "shares": 0.097846,
+        "price": 682.09,
+        "currency": "USD",
+        "note": "⚠️ 원문의 '@$66.74'는 단가가 아니라 매수금액(총 $66.80). 단가는 금액/주수 역산 $682.09. 재원=신규입금 10만원.",
+        "source": "master.md §2 '✅ VOO 적립 1회차 체결(7/17·룰9 첫 집행)'"
+      },
+      {
+        "date": "2026-07-07",
+        "ticker": "005930.KS",
+        "label": "삼성전자",
+        "side": "buy",
+        "shares": 1.0,
+        "price": 295500.0,
+        "currency": "KRW",
+        "note": "2Q26 잠정 89.4조(컨센 84.4조 상회)+존 재진입 충족. 출금예정 7/9.",
+        "source": "master.md §2 '✅1차(235,000원 배정) — 7/7 11:15 집행'"
+      },
+      {
+        "date": "2026-07-07",
+        "ticker": "TSLA",
+        "label": "TSLA",
+        "side": "sell",
+        "shares": 0.157708,
+        "price": 415.9,
+        "currency": "USD",
+        "note": "22:32 시장가 제출·22:37 체결. USD 실현 -$1.04(-1.6%)이나 환차익 포함 +3,436원. 보유 16→15종목.",
+        "source": "master.md §9 d-log 2026-07-07 '✅ TSLA 전량 매도 체결' — 토스 스크린샷 검증"
+      },
+      {
+        "date": "2026-07-06",
+        "ticker": "AAPL",
+        "label": "AAPL",
+        "side": "sell",
+        "shares": 1.0,
+        "price": 313.77,
+        "currency": "USD",
+        "note": "MANGOS 재배치 1단계 — 이 대금이 7/17 GOOGL 정수 1주 재원. 2.022472→1.022472주.",
+        "source": "report_v41_2026-07-07 §미장 '7/6 밤 $313.77 트림 체결가' + v33 부록 오더($308 지정가)"
+      },
+      {
+        "date": "2026-06-24",
+        "ticker": "MU",
+        "label": "MU",
+        "side": "sell",
+        "shares": 0.019999,
+        "price": 1075.55,
+        "currency": "USD",
+        "note": "실적 전 절반차익(원가 $749 대비 +43.6%). 순수령 $21.48·입금 6/26. 단가는 매도금액/주수 역산.",
+        "source": "master.md §7 '✅ MU 절반차익 체결 확정' — 2026-06-25 토스 스크린샷"
+      }
+    ],
+    "status": "live",
+    "reconcile_ok": true,
+    "reconcile": []
+  },
+  "fx_exposure": {
+    "fx_rate": 1383.9,
+    "fx_cost_basis": 1456.5,
+    "total_krw": 8168965,
+    "buckets": [
+      {
+        "currency": "USD",
+        "value_krw": 5874505,
+        "weight": 71.9,
+        "stock_krw": 5446963,
+        "cash_krw": 427542
+      },
+      {
+        "currency": "KRW",
+        "value_krw": 2294460,
+        "weight": 28.1,
+        "stock_krw": 2028400,
+        "cash_krw": 266060
+      }
+    ],
+    "sensitivity_1pct_krw": 58745,
+    "attribution": {
+      "price_krw": 165976,
+      "fx_krw": -277477,
+      "cross_krw": -8273,
+      "total_krw": -119774,
+      "note": "미국주만 분해 · F₀=us_avg_fx_cost(추정치)라 환 기여 절대액은 오차를 안는다"
+    },
+    "by_stock": [
+      {
+        "label": "NVDA",
+        "ticker": "NVDA",
+        "total_krw": 33731,
+        "price_krw": 113828,
+        "fx_krw": -74424,
+        "cross_krw": -5674
+      },
+      {
+        "label": "VOO",
+        "ticker": "VOO",
+        "total_krw": 24176,
+        "price_krw": 83800,
+        "fx_krw": -55446,
+        "cross_krw": -4177
+      },
+      {
+        "label": "META",
+        "ticker": "META",
+        "total_krw": -183351,
+        "price_krw": -138274,
+        "fx_krw": -51970,
+        "cross_krw": 6892
+      },
+      {
+        "label": "GOOGL",
+        "ticker": "GOOGL",
+        "total_krw": -66869,
+        "price_krw": -22643,
+        "fx_krw": -45355,
+        "cross_krw": 1129
+      },
+      {
+        "label": "MSFT",
+        "ticker": "MSFT",
+        "total_krw": 102885,
+        "price_krw": 153510,
+        "fx_krw": -42973,
+        "cross_krw": -7652
+      },
+      {
+        "label": "ORCL",
+        "ticker": "ORCL",
+        "total_krw": -29133,
+        "price_krw": -26845,
+        "fx_krw": -3626,
+        "cross_krw": 1338
+      },
+      {
+        "label": "AVGO",
+        "ticker": "AVGO",
+        "total_krw": -7358,
+        "price_krw": -5454,
+        "fx_krw": -2176,
+        "cross_krw": 272
+      },
+      {
+        "label": "MU",
+        "ticker": "MU",
+        "total_krw": 4940,
+        "price_krw": 6344,
+        "fx_krw": -1088,
+        "cross_krw": -316
+      },
+      {
+        "label": "AAPL",
+        "ticker": "AAPL",
+        "total_krw": 1204,
+        "price_krw": 1709,
+        "fx_krw": -420,
+        "cross_krw": -85
+      }
+    ],
+    "percentile": {
+      "symbol": "KRW=X",
+      "windows": {
+        "1y": {
+          "percentile": 1.2,
+          "low": 1377.64,
+          "high": 1554.48,
+          "n": 252
+        },
+        "3y": {
+          "percentile": 43.7,
+          "low": 1276.47,
+          "high": 1554.48,
+          "n": 756
+        },
+        "5y": {
+          "percentile": 63.0,
+          "low": 1167.06,
+          "high": 1554.48,
+          "n": 1260
+        }
+      },
+      "status": "live",
+      "current": 1383.9,
+      "chg_3m_pct": -8.16
+    },
+    "status": "live"
+  },
+  "risk": {
+    "score": 35,
+    "level": "보통",
+    "axes": [
+      {
+        "key": "concentration",
+        "label": "종목 집중",
+        "value": 0,
+        "weight": 22,
+        "contribution": 0.0
+      },
+      {
+        "key": "currency",
+        "label": "통화 쏠림",
+        "value": 48,
+        "weight": 16,
+        "contribution": 7.6
+      },
+      {
+        "key": "theme",
+        "label": "테마 집중",
+        "value": 31,
+        "weight": 16,
+        "contribution": 5.0
+      },
+      {
+        "key": "low_star",
+        "label": "⭐2 이하",
+        "value": 60,
+        "weight": 18,
+        "contribution": 10.8
+      },
+      {
+        "key": "drawdown",
+        "label": "하락 종목",
+        "value": 46,
+        "weight": 12,
+        "contribution": 5.5
+      },
+      {
+        "key": "cash",
+        "label": "현금 대응력",
+        "value": 43,
+        "weight": 10,
+        "contribution": 4.3
+      },
+      {
+        "key": "regime",
+        "label": "시장 국면",
+        "value": 30,
+        "weight": 6,
+        "contribution": 1.8
+      }
+    ],
+    "facts": {
+      "top": "NVDA",
+      "top_weight": 20.4,
+      "hhi": 1349,
+      "top_sector": "빅테크",
+      "top_sector_weight": 39.4,
+      "usd_weight": 71.9,
+      "low_star_weight": 18.0,
+      "losers": 6,
+      "holdings": 14,
+      "cash_weight": 8.5
+    },
+    "insights": [
+      {
+        "level": "warning",
+        "category": "currency",
+        "title": "통화 쏠림 — 달러 편중",
+        "detail": "달러 자산 71.9% · 원/달러 1년 1.2%ile. 환율 1% 변동 = 총자산 +58,745원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
+      },
+      {
+        "level": "warning",
+        "category": "low_star",
+        "title": "⭐2 이하 보유 — 액션 의무",
+        "detail": "두산로보틱스·현대차·META (비중 18.0%). 오더북 등록 3건. '관망'은 결정이 아니다 — 트림 오더 또는 기한부 홀드 중 하나여야 한다(8/2)."
+      },
+      {
+        "level": "warning",
+        "category": "drawdown",
+        "title": "하락 종목 점검",
+        "detail": "6개가 -10% 이하 (최대 ORCL -36.9%). 단기 손절선은 영구 폐기 — 룰2 3중조건(마진·FCF·순부채)으로만 트림을 판단한다."
+      },
+      {
+        "level": "info",
+        "category": "currency",
+        "title": "환손익이 종목손익을 잠식 중",
+        "detail": "미국주 종목 기여 +165,976원인데 환 기여 -277,477원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -8,273원)."
+      },
+      {
+        "level": "info",
+        "category": "cash",
+        "title": "현금 대응력",
+        "detail": "현금 비중 8.5%. 사다리가 해금돼도 넣을 실탄이 얇다."
+      },
+      {
+        "level": "info",
+        "category": "regime",
+        "title": "낙폭 사다리 상태",
+        "detail": "고점대비 -24.2% · 해금 0.0%. RESET 정책 — 회복하면 다시 잠긴다(누적 상한이지 목표 아님)."
+      },
+      {
+        "level": "positive",
+        "category": "realized",
+        "title": "실현손익 누계",
+        "detail": "매도 6건 확정 +173,902원 · 승률 83.3%. 평가손익과 별개 — 원장(trades.jsonl) 재생 기준."
+      }
+    ],
+    "unmeasured": [],
+    "disclaimer": "측정 전용 — 점수는 조합의 기울기를 보여줄 뿐, 매매 신호가 아니다.",
+    "status": "live"
+  }
 };

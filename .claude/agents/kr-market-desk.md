@@ -55,7 +55,7 @@ your output is the desk section handed to the PM.
      python3 .claude/skills/portfolio-desk/scripts/garch.py --tickers 005930.KS,066570.KS,454910.KS,005380.KS,035420.KS   # 내일 선행변동성·폭풍%ile
      python3 .claude/skills/portfolio-desk/scripts/vol_sizing.py   # 안전핀+폭풍%ile 트랜치 제안(TF ACTIVE 시 필수 — 동결/스케일 판정)
      ```
-     TF ACTIVE 중엔 vol_sizing 결과(안전핀 동결 여부·폭풍스케일 배수)를 상황판에 반영. RSI 극단 침체(예 현대차<30)는 "싸 보임"이지 매수신호 아님을 명시(룰3·펀더 우선).
+     TF ACTIVE 중엔 사다리 해금단계·상한(`tranche_rules.py`가 정본)과 하드플로어(S&P500 폭풍 ≥70%ile) 판정을 상황판에 반영. ⚠️ **폭풍에 따른 금액 감산은 7/30 폐지**(폭풍은 분할 횟수만 바꾼다) — vol_sizing은 제안 전용. RSI 극단 침체(예 현대차<30)는 "싸 보임"이지 매수신호 아님을 명시(룰3·펀더 우선).
    - **📑 [8/22 배선] 국내 sell-side 원문 = `broker_reports.py`** — 한경 컨센서스에서 우리 보유·워치
      종목의 **증권사 리포트 실물**(목표가·투자의견·증권사·제목, `--fetch`면 PDF 본문까지)을 긁는다.
      ⚠️ **8/22 감사에서 발견**: 도구는 7/30부터 멀쩡히 돌고 있었는데(60일 89건 실측) **아무 데스크도

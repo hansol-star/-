@@ -650,7 +650,7 @@ def build(offline: bool) -> dict:
     task_counts = {k: {"done": sum(1 for x in v if x.get("done")), "total": len(v)}
                    for k, v in tasks.items()}
 
-    return {
+    payload = {
         "generated_at": dt.datetime.now(KST).strftime("%Y-%m-%d %H:%M KST"),
         "as_of": sj.get("as_of", ""),
         "source_report": sj.get("source_report", ""),
@@ -692,6 +692,70 @@ def build(offline: bool) -> dict:
         "tasks_updated": tj.get("updated", ""),
         "today_note": tj.get("today_note", ""),
     }
+
+    # ── [8/23 신설] 파생 3종 — 체결원장 · 통화 익스포저 · 리스크 게이지 ──
+    # 셋 다 **측정 전용**이며 어떤 룰도 바꾸지 않는다. 실패하면 조용히 0을 넣지 않고
+    # status를 달아 정직 표기한다(8/22 "가드 없는 폴백은 침묵보다 나쁘다").
+    payload["trades"] = build_trades_block(usdkrw)
+    payload["fx_exposure"] = build_fx_block(payload, pf, offline)
+    payload["risk"] = build_risk_block(payload)
+    return payload
+
+
+def build_trades_block(usdkrw: float | None) -> dict:
+    """체결 원장(trades.jsonl) 재생 + portfolio.json 대사 결과.
+
+    앱이 '실현손익'과 '거래 내역'을 보여줄 수 있게 하고, 동시에 **대사 실패를 화면에 띄운다** —
+    원장 기입을 빠뜨리면 수량이 안 맞으므로 그 사실이 폰에서 바로 보인다."""
+    try:
+        import trades as T
+        rows = T.load_ledger()
+        if not rows:
+            return {"status": "unavailable", "reason": "원장 비어 있음"}
+        fx = usdkrw or T.current_fx()
+        pos = T.replay(rows)
+        rec = T.reconcile(pos, T.portfolio_positions(T.load_portfolio()))
+        summ = T.summary(rows, fx)
+        summ["status"] = "live"
+        summ["reconcile_ok"] = all(r["status"] != "diff" for r in rec)
+        summ["reconcile"] = [r for r in rec if r["status"] == "diff"]
+        return summ
+    except Exception as e:  # noqa: BLE001
+        print(f"⚠️ trades 블록 생성 실패: {e}", file=sys.stderr)
+        return {"status": "unavailable", "reason": str(e)}
+
+
+def build_fx_block(payload: dict, pf: dict, offline: bool) -> dict:
+    """통화별 비중 + 환율 %ile + 환손익 3분해 (roadmap P0 2-3)."""
+    try:
+        import fx_exposure as FX
+        t = payload.get("totals") or {}
+        rate = (payload.get("fx") or {}).get("usdkrw")
+        if not rate:
+            return {"status": "unavailable", "reason": "환율 미확인"}
+        res = FX.compute(payload.get("holdings") or [], float(rate),
+                         t.get("cash_krw"), t.get("cash_usd"), pf.get("us_avg_fx_cost"))
+        # 오프라인 빌드에선 %ile을 건너뛴다(네트워크 호출) — 없다는 사실을 status로 남긴다
+        res["percentile"] = {"status": "skipped"} if offline else FX.fx_percentiles()
+        res["status"] = "live"
+        return res
+    except Exception as e:  # noqa: BLE001
+        print(f"⚠️ fx_exposure 블록 생성 실패: {e}", file=sys.stderr)
+        return {"status": "unavailable", "reason": str(e)}
+
+
+def build_risk_block(payload: dict) -> dict:
+    """포트폴리오 레벨 리스크 점수·인사이트."""
+    try:
+        import portfolio_risk as PR
+        res = PR.compute(payload.get("holdings") or [], payload.get("totals") or {},
+                         payload.get("safety") or {}, payload.get("fx_exposure"),
+                         payload.get("trades"), payload.get("orders") or [])
+        res["status"] = "live"
+        return res
+    except Exception as e:  # noqa: BLE001
+        print(f"⚠️ portfolio_risk 블록 생성 실패: {e}", file=sys.stderr)
+        return {"status": "unavailable", "reason": str(e)}
 
 
 def main() -> int:

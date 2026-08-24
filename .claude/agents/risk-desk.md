@@ -54,6 +54,7 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
    python3 .claude/skills/portfolio-desk/scripts/portfolio_risk.py    # 리스크 0~100 + 인사이트
    python3 .claude/skills/portfolio-desk/scripts/fx_exposure.py       # 통화 비중·환율 %ile·환손익 3분해
    python3 .claude/skills/portfolio-desk/scripts/portfolio_stats.py   # 상관·베타·변동성·실효분산 (gs-quant 이식)
+   python3 .claude/skills/portfolio-desk/scripts/diversify_candidates.py  # 분산 후보 랭킹 (워치 종목 편입 시 ENB 개선)
    ```
    - **리스크 점수와 기여도 상위 2축을 반드시 인용**한다("35/100 보통 · ⭐2이하 10.8 + 통화 7.6"처럼).
      점수 자체보다 **어느 축이 올렸는지**가 PM에게 필요한 정보다.
@@ -63,6 +64,13 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
      인용 필수 3개: ①**실효 분산 종목수**(비중 기준 vs 상관 기준 — 둘의 차이가 곧 "라벨로는 안 보이던 동조")
      ②**포트 변동성**(상관 무시한 가중평균과 함께) ③**가장 같이 움직이는 쌍 상위 3**.
      섹터 라벨(`facts.top_sector`)은 보조로만 쓴다 — 라벨이 분산을 결정하지 않는다.
+   - **★[8/24 신설] 진단에서 멈추지 말 것** — `diversify_candidates.py`가 워치 종목을 가상 편입했을 때의
+     **ΔENB(실효 분산 개선)**를 준다. 실효분산이 낮다고 보고만 하고 끝내면 처방이 다시 사람의 섹터 라벨
+     눈대중으로 돌아간다(8/23이 고친 바로 그 병). **인용 = 상위 3개와 하위 3개**(하위 = 편입하면 오히려
+     동조를 키우는 종목 — 워치에 있다는 이유로 후보 취급되던 것들을 걸러낸다).
+     ⚠️ **매수 추천이 아니다.** ΔENB는 "같이 안 움직인다"일 뿐이고 별점·스코어·룰(사다리·하드플로어·룰3)이
+     그 위에 그대로 있다. 두 축이 어긋나는 종목(ΔENB 상위인데 ⭐2 등)은 **어긋난다는 사실 자체를 보고**한다.
+     ⚠️ 위기에는 상관이 1로 수렴한다 — 이 표가 가장 약해지는 때가 분산이 가장 필요한 때다.
    - **벤치마크 베타**(코스피·S&P500·필반·원/달러)로 "이 포트가 무엇에 걸려 있는가"를 한 줄로 말한다.
    - ⚠️ 합성 시계열(현재 비중 고정)이라 **실제 계좌 수익률이 아니다** — 인용할 때 이 단서를 뗴지 말 것.
    - ⚠️ **측정 전용** — 점수가 높다고 매도 제안을 만들지 않는다. 룰(사다리·룰2)이 여전히 상위 판정자다.

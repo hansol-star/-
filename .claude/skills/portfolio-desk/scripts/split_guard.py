@@ -261,6 +261,18 @@ def selftest() -> int:
     print(f"  {'✅' if not hi3 else '❌'} 분할 없는 종목엔 high 미부여(크기만으로 단정하지 않음)")
     ok = ok and not hi3
 
+    # 오프라인 경로(= validate_report가 쓰는 조건) — 분할 이벤트 조회 없이도 표면화되는가.
+    #   high는 이벤트 확인이 필요해 오프라인에선 구조적으로 못 뜬다 → validate는 조건을 낮춰
+    #   "이격이 분할비율에 근접"만으로 WARN을 낸다. 그 경로가 실제로 잡는지 여기서 고정한다.
+    r4 = audit_rows("OFFLINE", dirty, "quarterly", use_network=False)
+    surfaced = [x for x in r4
+                if x["level"] == "high"
+                or (x["kind"] == "yoy_identity_gap" and near_split_ratio(x["gap"]))]
+    print(f"  {'✅' if surfaced else '❌'} 오프라인(validate 조건)에서도 표면화"
+          + (f" — 이격 {surfaced[0]['gap']}배 → 분할비율 {near_split_ratio(surfaced[0]['gap'])} 근접"
+             if surfaced else " ← 게이트가 조용히 아무것도 안 잡는다"))
+    ok = ok and bool(surfaced)
+
     print("-" * 78)
     print("✅ 통과 — 가드가 실제로 작동한다" if ok else "❌ 실패 — 가드를 고칠 것")
     return 0 if ok else 1

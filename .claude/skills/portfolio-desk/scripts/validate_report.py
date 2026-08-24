@@ -921,20 +921,23 @@ def check_split_scale():
     except Exception:
         return
     try:
-        r = SG.audit_all(use_network=False)   # 게이트는 오프라인으로 빠르게(항등식만)
+        r = SG.audit_all(use_network=False)   # 게이트는 오프라인(빠르게·결정적)
     except Exception:
         return
-    gaps = [(tk, x) for tk, fl in r["flagged"].items() for x in fl
-            if x["kind"] == "yoy_identity_gap"]
-    if r["high"]:
-        for tk, fl in r["flagged"].items():
-            for x in fl:
-                if x["level"] == "high":
-                    warn(f"분할 스케일 혼재 의심 {tk} [{x['period'][:4]}] {x['end']} "
-                         f"이격 {x['gap']}배 — eps_yoy·shares_yoy 채점 제외됨 (split_guard)")
-    elif gaps:
-        # 정보성 이격은 조용히 — 적자·증자·반올림이 대부분이라 상시 WARN이면 경보 피로가 된다
-        pass
+    # ⚠️ 오프라인이면 분할 **이벤트** 조회가 없어 `high`가 구조적으로 뜰 수 없다
+    #   (high = 이격이 분할비율에 근접 **AND** 구간에 실제 분할). 그래서 여기서는 조건을 낮춰
+    #   **이격이 분할비율에 근접하기만 해도** WARN을 낸다 — 게이트는 '사람에게 알림'이 역할이고,
+    #   실제 채점 제외는 네트워크를 쓰는 `financials` 배선이 판정한다(층위 분리).
+    #   이 구분을 안 두면 게이트가 조용히 아무것도 안 잡는다(8/22 "가드 없는 폴백은 침묵보다 나쁘다").
+    for tk, fl in r["flagged"].items():
+        for x in fl:
+            if x["level"] == "high":
+                warn(f"분할 스케일 혼재 {tk} [{x['period'][:4]}] {x['end']} "
+                     f"이격 {x['gap']}배 — eps_yoy·shares_yoy 채점 제외됨 (split_guard)")
+            elif x["kind"] == "yoy_identity_gap" and SG.near_split_ratio(x["gap"]):
+                warn(f"분할 스케일 혼재 **의심** {tk} [{x['period'][:4]}] {x['end']} "
+                     f"이격 {x['gap']}배가 분할비율에 근접 — "
+                     f"`split_guard.py --ticker {tk}`로 분할 이벤트까지 확인할 것")
 
 
 def check_financials(latest=None):

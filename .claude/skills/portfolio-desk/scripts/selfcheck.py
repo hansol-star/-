@@ -13,6 +13,7 @@ selfcheck.py — 데스크 품질 게이트 (dev 작업 커밋·머지 전 스�
   3) --help      — argparse 파서 구성 검증 (1·2가 절대 안 건드리는 __main__ 안쪽)
   4) validate    — validate_report.py 실행(보고서/풀표/밴드/정본버전 게이트)
   5) lookahead   — lookahead_guard.py 실행(미래참조 회귀 가드·FAIL 단계)
+  6) guard-self  — guard_selftest.py 실행(가드가 실제로 위반을 잡는지·FAIL 단계)
 
 사용:
   python3 .claude/skills/portfolio-desk/scripts/selfcheck.py
@@ -145,6 +146,28 @@ def run_lookahead(timeout: float = 90.0) -> tuple[str, str]:
     return "FAIL", out[-1200:]
 
 
+def run_guard_selftest(timeout: float = 240.0) -> tuple[str, str]:
+    """가드 자가검증 — **가드가 실제로 위반을 잡는지** 확인한다.
+
+    ★[8/24 신설] 같은 실패가 세 번 반복됐다(8/23 check_repealed_rules 7주 초록불 ·
+    8/24 lookahead_guard 픽스처 버그 · 8/24 split_guard 오프라인 무력화). 전부
+    **초록불인데 아무것도 안 잡던** 형태다. 그동안 손으로(git stash) 확인하고 주석에만
+    남겨 재실행이 불가능했다 — 이 단계가 그 절차를 기계로 고정한다.
+    **FAIL 단계**: 가드가 무력해지면 그 뒤의 모든 초록불이 거짓이 되므로 게이트를 막는다."""
+    gp = os.path.join(HERE, "guard_selftest.py")
+    if not os.path.exists(gp):
+        return "SKIP", "guard_selftest.py 없음"
+    try:
+        r = subprocess.run([sys.executable, gp], capture_output=True, text=True,
+                           timeout=timeout, cwd=REPO)
+    except subprocess.TimeoutExpired:
+        return "FAIL", f"guard_selftest timeout >{timeout:.0f}s"
+    if r.returncode == 0:
+        m = re.search(r"커버리지: .*", r.stdout or "")
+        return "PASS", (m.group(0) if m else "")
+    return "FAIL", (r.stdout or r.stderr or "").strip()[-1200:]
+
+
 def run_wiring(timeout: float = 90.0) -> tuple[str, str]:
     """배선 감사 — '만들었는데 아무 데스크도 안 부르는' 스크립트 검출.
     ★[8/22 신설] broker_reports가 7/30부터 멀쩡히 돌면서(60일 89건) 어떤 데스크도
@@ -199,12 +222,13 @@ def main() -> int:
 
     fails = [r for r in results if failed(r)]
     la_status, la_out = run_lookahead()
+    gs_status, gs_out = run_guard_selftest()
     gate_ok = (not fails and val_status in ("PASS", "SKIP")
-               and la_status in ("PASS", "SKIP"))
+               and la_status in ("PASS", "SKIP") and gs_status in ("PASS", "SKIP"))
 
     if args.json:
         print(json.dumps({"scripts": results, "validate": val_status,
-                          "validate_out": val_out, "lookahead": la_status, "ok": gate_ok},
+                          "validate_out": val_out, "lookahead": la_status, "guard_selftest": gs_status, "ok": gate_ok},
                          ensure_ascii=False, indent=2))
         return 0 if gate_ok else 1
 
@@ -234,6 +258,15 @@ def main() -> int:
         print(la_out)
         print("   (접두사 불변성 위반 = 미래 데이터가 과거 산출을 바꿨다. "
               "픽스처 오류일 수도 있으니 lookahead_guard.synth_dates 주석 참조)")
+
+    icon_gs = {"PASS": "✅", "FAIL": "❌", "SKIP": "·"}[gs_status]
+    print(f"\n=== 가드 자가검증: {icon_gs} {gs_status} ===")
+    if gs_status == "FAIL":
+        print(gs_out)
+        print("   (가드가 무력해지면 그 뒤의 초록불이 전부 거짓이 된다. "
+              "`guard_selftest.py --selftest`로 메타 가드 자신도 점검)")
+    elif gs_out:
+        print(f"   {gs_out}")
 
     w_status, w_out = run_wiring()
     if w_status == "WARN":

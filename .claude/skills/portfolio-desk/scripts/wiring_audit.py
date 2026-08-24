@@ -39,6 +39,8 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
     "frr_validate.py":            "일회성 검정 — 외국인 지분율 프록시 품질(7/22)",
+    "guard_selftest.py":          "메타 가드 — selfcheck가 6단계로 직접 호출(8/24). "
+                                  "가드를 검증하는 도구라 데스크가 읽을 산출물이 아니다",
     "split_guard.py":             "가드 라이브러리 — financials가 채점 제외에 직접 쓰고 "
                                   "validate_report가 WARN으로 표면화(8/24). 데스크가 읽을 산출물이 아니다",
     "lookahead_guard.py":         "dev 게이트 도구 — selfcheck가 5단계로 직접 호출(8/24). "

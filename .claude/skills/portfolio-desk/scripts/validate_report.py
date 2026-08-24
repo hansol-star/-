@@ -907,6 +907,36 @@ def check_freshness(latest):
         except Exception:
             pass
 
+def check_split_scale():
+    """분할 스케일 혼재 검사 — eps_yoy가 별점 근거로 들어가므로 왜곡되면 스코어가 틀린다.
+
+    ★[8/24 신설·roadmap 2-1b] EDGAR는 분할 후 과거 EPS를 소급 재보고하되 약 1년 뒤에 온다.
+    그 사이엔 최신 분기(조정본)와 4분기 전(원본)이 섞여 **yoy가 분할 비율만큼(최대 10배) 왜곡**되고,
+    `shares_yoy`가 망가지면 **가짜 희석 경보**까지 뜬다. 판정은 크기 추측이 아니라
+    항등식 `(1+eps_yoy) == (1+ni_yoy)/(1+shares_yoy)` 검산 + 실제 분할 이벤트 대조로 한다.
+    **WARN**: `financials`가 이미 해당 축을 채점에서 빼도록 배선돼 있어 스코어는 보호된다 —
+    여기서는 사람이 알아채도록 표면화만 한다."""
+    try:
+        import split_guard as SG
+    except Exception:
+        return
+    try:
+        r = SG.audit_all(use_network=False)   # 게이트는 오프라인으로 빠르게(항등식만)
+    except Exception:
+        return
+    gaps = [(tk, x) for tk, fl in r["flagged"].items() for x in fl
+            if x["kind"] == "yoy_identity_gap"]
+    if r["high"]:
+        for tk, fl in r["flagged"].items():
+            for x in fl:
+                if x["level"] == "high":
+                    warn(f"분할 스케일 혼재 의심 {tk} [{x['period'][:4]}] {x['end']} "
+                         f"이격 {x['gap']}배 — eps_yoy·shares_yoy 채점 제외됨 (split_guard)")
+    elif gaps:
+        # 정보성 이격은 조용히 — 적자·증자·반올림이 대부분이라 상시 WARN이면 경보 피로가 된다
+        pass
+
+
 def check_financials(latest=None):
     """재무제표 **데이터 레이어**의 결손 검사 — [7/30 신설, docs/data_coverage.md §0]
 
@@ -1534,6 +1564,7 @@ def main():
     check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
+    check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
         if rel: check_report(rel); check_prose_order_link(rel)

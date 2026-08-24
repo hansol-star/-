@@ -127,6 +127,19 @@ def derive(rows: list[dict], prior: list[dict]) -> list[dict]:
     return out
 
 
+def _split_suspect(rec: dict, period: str) -> bool:
+    """최신 행의 eps/shares yoy가 분할 스케일 혼재로 의심되는가 (split_guard 항등식)."""
+    rows = rec.get(period) or []
+    if not rows:
+        return False
+    try:
+        import split_guard as SG
+        fl = SG.audit_rows(rec.get("ticker") or "", rows, period)
+        return any(x["level"] == "high" and x["end"] == rows[0].get("end") for x in fl)
+    except Exception:
+        return False
+
+
 def _m(v, nd=4):
     """반올림만 — 스케일은 건드리지 않는다(마진은 비율 0~1, 성장률은 %)."""
     return None if v is None else round(v, nd)
@@ -299,8 +312,9 @@ def flags(rec: dict) -> list[dict]:
             f"계약부채(선수금·백로그) YoY +{q[0]['deferred_yoy']:.1f}% — 수주 잔고 확대",
             [{"end": q[0]["end"], "deferred_yoy": q[0]["deferred_yoy"]}])
 
-    # ⑦ 희석
-    if a and a[0].get("shares_yoy") is not None and a[0]["shares_yoy"] > 2:
+    # ⑦ 희석 — ⚠️ 분할이 나면 shares_yoy가 +900%가 되어 **가짜 희석 경보**가 뜬다(8/24).
+    if a and a[0].get("shares_yoy") is not None and a[0]["shares_yoy"] > 2 \
+            and not _split_suspect(rec, "annual"):
         add("dilution", "low", f"희석주식수 YoY +{a[0]['shares_yoy']:.1f}%",
             [{"end": a[0]["end"], "shares_yoy": a[0]["shares_yoy"]}])
 
@@ -319,18 +333,40 @@ def subscore(rec: dict) -> dict:
     a = rec.get("annual") or []
     axes: dict[str, dict] = {}
 
+    # ★[8/24] 분할 스케일 혼재 방어 — EDGAR는 분할 후 과거 EPS를 소급 재보고하되 약 1년 뒤에
+    # 온다. 그 사이엔 최신 분기(조정본)와 4분기 전(원본)이 섞여 eps_yoy가 분할 비율만큼
+    # 왜곡될 수 있다. 의심되면 **그 축을 채점에서 뺀다**(0으로 채우지 않는다 —
+    # 8/22 "미측정 축은 분모에서 제외"). 판정 = `split_guard` 항등식 검산.
+    _susp = set()
+    try:
+        import split_guard as _SG
+        for _per, _rows in (("quarterly", q), ("annual", a)):
+            if not _rows:
+                continue
+            _fl = _SG.audit_rows(rec.get("ticker") or "", _rows, _per)
+            if any(x["level"] == "high" and x["end"] == _rows[0].get("end") for x in _fl):
+                _susp.add(_per)
+    except Exception:                      # 가드 실패가 채점을 막지는 않는다
+        _susp = set()
+
     def ax(name, pts, cap, why):
         axes[name] = {"score": None if pts is None else round(pts, 1), "max": cap, "why": why}
 
     # C — 분기 EPS YoY (오닐: +25% 이상이 기준선)
-    c = q[0].get("eps_yoy") if q else None
-    ax("C_분기EPS", None if c is None else max(0, min(25, 12.5 + c / 4)), 25,
-       "—" if c is None else f"분기 희석EPS YoY {c:+.1f}%")
+    c = None if "quarterly" in _susp else (q[0].get("eps_yoy") if q else None)
+    if "quarterly" in _susp:
+        ax("C_분기EPS", None, 25, "⚠️ 분할 스케일 혼재 의심 — 채점 제외(split_guard)")
+    else:
+        ax("C_분기EPS", None if c is None else max(0, min(25, 12.5 + c / 4)), 25,
+           "—" if c is None else f"분기 희석EPS YoY {c:+.1f}%")
 
     # A — 연간 EPS YoY
-    an = a[0].get("eps_yoy") if a else None
-    ax("A_연간EPS", None if an is None else max(0, min(25, 12.5 + an / 4)), 25,
-       "—" if an is None else f"연간 희석EPS YoY {an:+.1f}%")
+    an = None if "annual" in _susp else (a[0].get("eps_yoy") if a else None)
+    if "annual" in _susp:
+        ax("A_연간EPS", None, 25, "⚠️ 분할 스케일 혼재 의심 — 채점 제외(split_guard)")
+    else:
+        ax("A_연간EPS", None if an is None else max(0, min(25, 12.5 + an / 4)), 25,
+           "—" if an is None else f"연간 희석EPS YoY {an:+.1f}%")
 
     # 마진 방향 (최근 3분기 영업마진 기울기)
     oms = [r.get("op_margin") for r in q[:3] if r.get("op_margin") is not None]

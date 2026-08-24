@@ -99,11 +99,56 @@ def prices(tk):
     return out
 
 
+def eps_facts(tk):
+    """분기 희석EPS를 **(기말, filed, 값)** 으로. companyfacts 재사용(추가 호출 없음).
+
+    ★[8/24] `filed`가 왜 필요한가 — **EDGAR는 분할 후 과거 EPS를 소급 조정해 재보고한다.**
+    후속 보고서의 비교 컬럼에 실린 분기만 다시 신고되므로, 한 시계열 안에
+    **원본·1차 조정·2차 조정이 섞인다**. NVDA 실측(24분기):
+      · 2020-04-26 = 1.47 (원본, filed 2021-05)      → 40배 보정 필요
+      · 2020-07-26 = 0.25 (4:1 조정본, filed 2021-08) → 10배만 필요한데 40배 적용 = **4배 과소**
+      · 2023-10-29 = 0.37 (10:1 조정본, filed 2024-11) → 보정 불필요한데 10배 적용 = **10배 과소**
+    기말일 기준으로 보정하면 6/24분기가 틀린다(PE가 4~10배 과대).
+    ⇒ **filed 이후에 일어난 분할만** 적용하는 것이 유일하게 옳은 규칙이다
+      (filed 이전 분할은 이미 그 보고값에 반영돼 있다).
+    """
+    import edgar_facts as EF
+    cik = EF.cik_map().get(tk.upper())
+    if not cik:
+        return []
+    try:
+        cf = EF.company_facts(cik)
+    except Exception:
+        return []
+    units = ((((cf.get("facts") or {}).get("us-gaap") or {})
+              .get("EarningsPerShareDiluted") or {}).get("units") or {})
+    best = {}
+    for f in (units.get("USD/shares") or []):
+        if f.get("form") not in ("10-Q", "10-K"):
+            continue
+        st, en = f.get("start"), f.get("end")
+        if not st or not en:
+            continue
+        try:
+            span = (dt.date.fromisoformat(en) - dt.date.fromisoformat(st)).days
+        except ValueError:
+            continue
+        if not (80 <= span <= 100):        # 분기 팩트만(연간·반기 제외)
+            continue
+        prev = best.get(en)
+        if prev is None or (f.get("filed") or "") > (prev[0] or ""):
+            best[en] = (f.get("filed"), f.get("val"))
+    return sorted((en, fi, v) for en, (fi, v) in best.items() if v is not None)
+
+
 def ttm_series(tk, cache):
     """분기 희석EPS → TTM EPS [(기말일, ttm_eps)]. EDGAR 전 시계열 사용.
 
-    ⚠️ [8/8 필수 보정] **주식분할**. Yahoo 가격 이력은 분할조정(현재 주식수 기준)인데
-    EDGAR EPS는 **당시 보고치**다. 그대로 PE를 만들면 분할한 종목이 전부 망가진다 —
+    ⚠️ [8/8 보정 → 8/24 정정] **주식분할**. Yahoo 가격 이력은 분할조정(현재 주식수 기준)이다.
+    8/8엔 "EDGAR EPS는 **당시 보고치**"라 전제하고 기말일 기준으로 나눴는데, 그 전제가 반만 맞다 —
+    **EDGAR는 분할 후 과거 EPS를 소급 조정해 재보고**하므로 한 시계열에 원본과 조정본이 섞인다.
+    기말일 기준 보정은 이미 조정된 분기를 **또** 나눠 NVDA 24분기 중 6개를 4~10배 과소로 만들었다.
+    ⇒ 8/24부터 **filed(보고일) 기준**으로 그 이후 분할만 적용한다(`eps_facts` 주석). 그대로 PE를 만들면 분할한 종목이 전부 망가진다 —
     첫 실행에서 NVDA 실현PE **1.6배**, AAPL 4.7, GOOGL 2.3처럼 불가능한 값이 나왔고
     '상단초과' 5종목이 정확히 분할 종목이었다.
     ⇒ 분할 이력을 **Yahoo에서 직접** 받아(무키·권위 있음) 그 시점 이전 EPS를
@@ -114,22 +159,28 @@ def ttm_series(tk, cache):
     """
     if tk in cache:
         return [(d, v) for d, v in cache[tk]]
-    import edgar_facts
-    rec = edgar_facts.fetch(tk)
-    q = rec.get("quarterly") or []
-    rows = sorted(((x["end"], x.get("eps_diluted"))
-                   for x in q if x.get("eps_diluted")), key=lambda x: x[0])
+    rows = eps_facts(tk)                   # [(기말, filed, 값)]
+    if not rows:                           # 폴백 — filed를 못 얻으면 기존 경로(정확도 낮음)
+        import edgar_facts
+        rec = edgar_facts.fetch(tk)
+        q = rec.get("quarterly") or []
+        rows = [(x["end"], None, x.get("eps_diluted"))
+                for x in sorted(q, key=lambda z: z["end"]) if x.get("eps_diluted")]
 
     splits = yahoo_splits(tk)              # [(YYYY-MM-DD, ratio)]
+
     def factor_after(d):
-        """d 시점 **이후** 일어난 분할의 누적배수."""
+        """d **이후** 일어난 분할의 누적배수. d = 보고일(filed)이지 기말일이 아니다.
+        기말일을 쓰면 '기말 후 재보고로 이미 조정된 값'을 또 나눠 이중 조정된다(8/24 실측)."""
         f = 1.0
         for sd, r in splits:
             if sd > d:
                 f *= r
         return f
 
-    adj = [(d, (e / factor_after(d)) if e is not None else None) for d, e in rows]
+    # filed가 없으면(폴백) 기말일로 근사 — 부정확할 수 있음을 감수
+    adj = [(d, (v / factor_after(fi or d)) if v is not None else None)
+           for d, fi, v in rows]
     out = []
     for i in range(3, len(adj)):
         vals = [adj[j][1] for j in range(i - 3, i + 1)]

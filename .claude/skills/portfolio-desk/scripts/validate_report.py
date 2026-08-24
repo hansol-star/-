@@ -731,10 +731,29 @@ def check_hunter():
         # 내부 구멍(=앱 최신일보다 오래됐는데 빠진 날짜)만 대상.
         # 로그 헤더가 브리핑 날짜(영상 업로드일보다 하루 뒤)인 경우가 있어
         # (archive ∪ latest) 최신일보다 '새로운' 로그 날짜는 오탐이므로 제외.
+        #
+        # [2026-08-24 정정] 위 주석의 '하루 뒤' 톨러런스가 "지금 이 순간 최신"에만
+        # 적용돼 있었다 — frontier가 하루 더 전진하면(다음날 새 영상이 archive에 들어오면)
+        # 예전엔 봐줬던 브리핑 헤더가 그대로 FAIL로 뒤집힌다(실측: 2026-08-23 헤더가
+        # 8/24 신규 영상 반영 직후 FAIL 전환 — 콘텐츠는 그대로인데 frontier만 움직였다).
+        # ⇒ '가장 최신 헤더만 봐준다'가 아니라 **frontier 기준 1일 이내 헤더는 상시 톨러런스**로
+        # 바꾼다(브리핑 헤더는 원래 구조상 항상 다음날 표기될 수 있으므로).
         all_dates = arch_dates | latest_dates
         if all_dates:
             newest = max(all_dates)
-            missing = sorted(d for d in log_dates if d not in arch_dates and d <= newest)
+            try:
+                newest_d = dt.date.fromisoformat(newest)
+            except ValueError:
+                newest_d = None
+            def _briefing_offset_ok(d):
+                if newest_d is None:
+                    return False
+                try:
+                    return (newest_d - dt.date.fromisoformat(d)).days <= 1
+                except ValueError:
+                    return False
+            missing = sorted(d for d in log_dates
+                              if d not in arch_dates and d <= newest and not _briefing_offset_ok(d))
             if missing:
                 fail(f"hunter 아카이브 정체(로그엔 있으나 hunter_archive.json 미반영): {missing}"
                      " — build_app_data.py 실행 시 latest→archive 자동 롤오버로 해소")

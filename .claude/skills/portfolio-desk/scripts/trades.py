@@ -325,6 +325,44 @@ def _fx_coverage(rows: list[dict]) -> dict:
     }
 
 
+def _payoff(detail: list[dict]) -> dict:
+    """승률로는 안 보이는 축 — 손익비·기대값 (측정 전용).
+
+    ■ 왜 신설했나 [8/24 — 외부 트레이딩 리포 10개 검토 중 발견]
+       우리 검증기 10종(score_calls·target_score·drawdown_history·ma_test·signal_score·
+       rule_tracker·multiple_backtest·ratchet_test·capitulation_validate·trades)은
+       **전부 승률·중앙값만** 쟀다. 손익비·기대값을 내는 스크립트가 83개 중 **0개**였다.
+       그런데 원장이 실측한 우리 실패 유형은 승률이 아니라 **손익비**다:
+         · 미국주 40건 = 승률 **72.5%**인데 손익비 **0.81** (평균이익 +14.9% vs 평균손실 -18.4%)
+           → *자주 이기지만 작게 이기고 크게 진다* (처분효과 — 옳은 건 빨리 팔고 내린 건 붙든다)
+         · 국내주 6건 = 승률 33.3%인데 손익비 3.05 (드물게 이기지만 크게 이긴다)
+       **승률만 보면 "72%면 잘하는 중"으로 읽혀 이 병이 안 보인다.** 8/23에 이 숫자를 손으로
+       계산해 CLAUDE.md 산문에만 적어뒀는데, 산문에 있는 지표는 다음 세션에 갱신되지 않는다
+       (8/2 *"오더북에 들어간 것만 집행된다"* 의 지표판) → 원장이 매번 자동 산출하게 옮긴다.
+
+    ⚠️ **측정 전용 — 별점·트랜치·안전핀 어떤 룰도 바꾸지 않는다.**
+    ⚠️ 표본이 작으면(특히 데스크 이후 6건) 손익비는 한 건에 크게 흔들린다 — n을 항상 같이 읽을 것.
+    """
+    rs = [d for d in detail if d.get("return_pct") is not None]
+    if not rs:
+        return {"n": 0}
+    w = [d["return_pct"] for d in rs if d["return_pct"] > 0]
+    l = [d["return_pct"] for d in rs if d["return_pct"] <= 0]
+    avg_w = (sum(w) / len(w)) if w else 0.0
+    avg_l = (sum(l) / len(l)) if l else 0.0
+    # 손익비 = 평균이익 / |평균손실|. 손실 0건이면 정의되지 않는다(무한대로 쓰지 않음).
+    payoff = round(avg_w / abs(avg_l), 2) if l and avg_l else None
+    return {
+        "n": len(rs),
+        "win_rate": round(len(w) / len(rs) * 100, 1),
+        "avg_win_pct": round(avg_w, 1),
+        "avg_loss_pct": round(avg_l, 1),
+        "payoff_ratio": payoff,
+        # 기대값 = 승률·평균이익 + 패률·평균손실 (건당 기대 수익률 %)
+        "expectancy_pct": round(len(w) / len(rs) * avg_w + len(l) / len(rs) * avg_l, 2),
+    }
+
+
 def _era_split(detail: list[dict]) -> dict:
     """데스크 착수(6/13) 전후로 실현손익을 가른다.
 
@@ -341,6 +379,10 @@ def _era_split(detail: list[dict]) -> dict:
             "realized_krw": round(sum(d["realized_krw"] for d in rs)),
             "realized_usd": round(sum(d["realized"] for d in rs if d["currency"] == "USD"), 2),
             "realized_krw_only": round(sum(d["realized"] for d in rs if d["currency"] == "KRW")),
+            # 통화별로 갈라 본다 — 손익비가 미국주 0.81 vs 국내주 3.05로 **정반대**라 합치면 병이 사라진다.
+            "payoff": _payoff(rs),
+            "payoff_usd": _payoff([d for d in rs if d["currency"] == "USD"]),
+            "payoff_krw": _payoff([d for d in rs if d["currency"] == "KRW"]),
         }
     return out
 
@@ -382,6 +424,7 @@ def summary(rows: list[dict], fx_now: float) -> dict:
         "realized_usd": round(sum(d["realized"] for d in detail if d["currency"] == "USD"), 2),
         "realized_krw_only": round(sum(d["realized"] for d in detail if d["currency"] == "KRW")),
         "win_rate": round(len(wins) / len(detail) * 100, 1) if detail else None,
+        "payoff": _payoff(detail),
         "fx_estimated": any(d["fx_estimated"] for d in detail),
         "fx_sources": sorted({d.get("fx_source") for d in detail if d["currency"] == "USD"}),
         "fx_cost_coverage": _fx_coverage(rows),
@@ -504,6 +547,18 @@ def main() -> int:
         print(f"  누계 실현손익 {summ['realized_krw']:+,}원 "
               f"(USD {summ['realized_usd']:+,.2f} · KRW {summ['realized_krw_only']:+,}) · "
               f"승률 {summ['win_rate']}% ({len([d for d in det if d['realized']>0])}/{len(det)})")
+        po = summ.get("payoff") or {}
+        if po.get("payoff_ratio") is not None:
+            print(f"  손익비 {po['payoff_ratio']} (평균이익 {po['avg_win_pct']:+.1f}% / 평균손실 "
+                  f"{po['avg_loss_pct']:+.1f}%) · 건당 기대값 {po['expectancy_pct']:+.2f}%")
+            for era_k, era_ko in (("pre", "이전"), ("desk", "이후")):
+                for cur_k, cur_ko in (("payoff_usd", "미국주"), ("payoff_krw", "국내주")):
+                    q = (e.get(era_k) or {}).get(cur_k) or {}
+                    if q.get("n") and q.get("payoff_ratio") is not None:
+                        print(f"    데스크 {era_ko}·{cur_ko} n={q['n']} 승률 {q['win_rate']}% · "
+                              f"손익비 {q['payoff_ratio']} ({q['avg_win_pct']:+.1f}% / {q['avg_loss_pct']:+.1f}%)"
+                              + ("   ⚠️표본 극소" if q["n"] < 10 else ""))
+            print("  ⚠️ 손익비는 측정 전용 — 룰 판정에 쓰지 않는다. 표본 수와 함께 읽을 것.")
         srcs = {d.get("fx_source") for d in det if d["currency"] == "USD"}
         if srcs - {"toss"}:
             print(f"  ⚠️ 환율 출처 — toss=스크린샷 기준환율(정확) / 체결일종가=시장 종가(스프레드 미반영) / "

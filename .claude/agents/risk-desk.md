@@ -74,12 +74,20 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
    - **벤치마크 베타**(코스피·S&P500·필반·원/달러)로 "이 포트가 무엇에 걸려 있는가"를 한 줄로 말한다.
    - ⚠️ 합성 시계열(현재 비중 고정)이라 **실제 계좌 수익률이 아니다** — 인용할 때 이 단서를 뗴지 말 것.
    - ⚠️ **측정 전용** — 점수가 높다고 매도 제안을 만들지 않는다. 룰(사다리·룰2)이 여전히 상위 판정자다.
-5. **체결 원장 대사 (기록 무결성) [8/23 신설]**:
+5. **체결 원장 대사 + 손익비 (기록 무결성 & 실측 편향) [8/23 신설 · 8/24 손익비 배선]**:
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/trades.py --reconcile
+   python3 .claude/skills/portfolio-desk/scripts/trades.py --realized | tail -8   # 손익비·기대값
    ```
    원장 재생과 `portfolio.json`이 어긋나면 **체결 기입 누락**이다(8/6·8/19에 실제로 두 번 났다).
    실패 시 🚨 위반·경보에 올린다 — 장부가 틀린 채로 내리는 판단은 전부 오염된다.
+   **★[8/24] 손익비를 함께 읽고 보고한다.** 우리 실측 실패 유형은 승률이 아니라 **손익비**다:
+   미국주 40건이 **승률 72.5%인데 손익비 0.81**(평균이익 +14.9% vs 평균손실 −18.4%)
+   = *자주 이기지만 **작게 이기고 크게 진다*** — 처분효과(옳은 건 빨리 팔고 내린 건 붙든다)의 실측 증거다.
+   승률만 보면 "72%면 잘하는 중"으로 읽혀 이 편향이 안 보인다.
+   ⇒ **브레이크로서 할 일**: PM이 ①이익 종목의 조기 익절 ②손실 종목의 무기한 홀드를 제안하면
+   이 수치를 들이대고 반론한다. ⚠️ **룰(익절·트림 기준) 변경은 정훈 승인 사안** — 데스크는 제안까지만.
+   ⚠️ 데스크 **이후** 6건(손익비 16.94)을 우월 근거로 쓰지 말 것 — 표본 6건·전부 의도적 익절 = 선택편향.
 6. **Event-risk calendar cross-check**: FOMC 6/18 03:00 (3rd tranche), 이란 MOU weekend gap, CPI, etc. — flag 'needs pre-baking' when they clash with the phone window.
 7. **Caution (bear) paragraph**: give the PM the opposing view — factors that could weaken today's bull case (foreign net-selling flip, macro shock, etc.).
 8. **캘리브레이션 브레이크 [7/4 신설 공식 임무]**: PM(또는 데스크)이 ⭐4~5·고확신 단기 콜을 낼 조짐이면,
@@ -99,6 +107,7 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
 - 🔗 동조·실효분산: 보유 N종목 → 비중 기준 {n}종목 → **상관 기준 {n}종목** · 포트 변동성 {n}% · 최상위 상관쌍  (portfolio_stats.py)
 - 💱 통화 익스포저: 달러 {n}% · 환율 1% = {n}원 · 환손익 3분해(종목/환율/교차) · 원/달러 1y %ile  (fx_exposure.py)
 - 🧾 원장 대사: {✅ 일치 / 🚨 불일치 종목·차이}  (trades.py --reconcile)
+- ⚖️ 손익비: 전체 {n} · 미국주 {n}(승률 {n}%) · 국내주 {n} · 건당 기대값 {n}%  (trades.py --realized) — **작게 이기고 크게 지는 편향이 이번 판단에 재현되는지** 한 줄 판정
 - 집중도 리스크: {메모리 중복 등 1~2줄}
 - 신중(bear) 관점: {강세론 약화 요인 1단락}
 - 베이킹 필요: {야간 이벤트 → 사전 조건부 룰/예약주문 제안}

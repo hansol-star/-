@@ -23,6 +23,7 @@ python3 .claude/skills/portfolio-desk/scripts/score_calls.py              # 별�
 python3 .claude/skills/portfolio-desk/scripts/star_validate.py            # [8/7] 별점 예측력 재검정 — 클러스터 보정·고정지평·구간층화·LOO (score_calls의 콜단위 집계 교정)
 python3 .claude/skills/portfolio-desk/scripts/multiple_backtest.py        # [8/8] 배수 선택의 역사적 검증 — 16년 EPS×가격으로 '기다리지 않고' 지금 채점
 python3 .claude/skills/portfolio-desk/scripts/target_score.py --by-ticker # [8/8] 목표가 사후 채점 — 내재여력 vs 실현·낙관편향·진도율 (배수 선택이 맞았나)
+python3 .claude/skills/portfolio-desk/scripts/trades.py --realized        # [8/24] **실현 손익비·기대값** — 우리 실패 유형은 승률이 아니라 손익비다(era×통화별)
 python3 .claude/skills/portfolio-desk/scripts/hunter_score.py             # 경제사냥꾼 트랙레코드(검증/정정/미확인 추세 = 채널 신뢰도)
 python3 .claude/skills/portfolio-desk/scripts/missed_moves.py             # 놓친 매수/매도(오미션) + good_inaction + 반복 패턴 → §6 [오미션]
 python3 .claude/skills/portfolio-desk/scripts/sizing_backtest.py --symbol ^KS11   # [7/21] 변동성타겟 사이징 캘리브레이션(전이력 MDD·샤프·CAGR 대가). vol_sizing 곡선이 실제 낙폭을 줄이는지 주간 점검
@@ -30,6 +31,12 @@ python3 .claude/skills/portfolio-desk/scripts/signal_score.py --pooled          
 ```
 - 원장 = `data/app/calls_log.jsonl` (구조화된 콜의 시계열, git 히스토리에서 백필·보고서마다 `--append` 누적).
 - **Brier proper score**(외부 예측연구 차용): 별점→내재확률(⭐5=.85…⭐1=.15) 매핑 후 실현방향 대비 Brier. 무정보(0.5고정=0.25)보다 **높으면 과신** 신호. 버킷별 '표현확신 vs 실제상승률' 갭으로 ⭐4~5 과신/⭐1~2 과소를 숫자로 본다.
+- **손익비·기대값** [8/24 신설]: Brier·방향적중이 *"맞췄나"* 를 본다면 이건 *"맞췄을 때 얼마나 벌고 틀렸을 때 얼마나 잃나"* 를 본다.
+  **두 축은 갈릴 수 있고, 우리는 실제로 갈렸다** — 미국주 40건이 **승률 72.5%인데 손익비 0.81**
+  (평균이익 +14.9% vs 평균손실 −18.4%) = *자주 이기지만 작게 이기고 크게 진다*(처분효과).
+  ⇒ **주간 추적 항목**: 손익비가 **개선되는 방향인가**. 승률이 올라도 손익비가 안 오르면 편향이 그대로다.
+  ⚠️ 데스크 이후 표본이 작아(6건) 한 건에 크게 흔들린다 — **n을 항상 병기**하고 단정하지 말 것.
+  ⚠️ 이건 측정이다. 익절·트림 **룰 변경은 정훈 승인 사안** — §5 교정 제안까지만 낸다.
 - **hunter_score**: 채널 누적 [정정]률=수치 신뢰도, [검증]률=방향성 신뢰도의 대리지표 → §3 '경제사냥꾼 트랙레코드'를 수동→기계로 닫는다.
 - **star_validate** [8/7 신설]: `score_calls`는 **콜 단위**로 집계해 유효표본을 46배 부풀린다(같은 종목이 매일 1표씩).
   이 도구가 ①종목 클러스터 보정(종목 1개=1표·종목단위 부트스트랩 CI) ②고정지평(+5·+10일) ③반등 제외·LOO로 재검정한다.

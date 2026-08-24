@@ -1,22 +1,22 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-24 16:45 KST",
+  "generated_at": "2026-08-24 18:08 KST",
   "as_of": "2026-08-24 16:50 KST",
   "source_report": "docs/reports/report_v83_2026-08-24.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1383.88
+    "usdkrw": 1382.78
   },
   "totals": {
-    "assets_krw": 8075480,
-    "stocks_value_krw": 7381884,
+    "assets_krw": 8070811,
+    "stocks_value_krw": 7377555,
     "cash_krw": 266060,
     "cash_usd": 308.94,
-    "cash_usd_krw": 427536,
-    "day_change_krw": -82030,
+    "cash_usd_krw": 427196,
+    "day_change_krw": -82039,
     "day_change_pct": -1.1,
-    "total_pnl_krw": -432213,
-    "total_pnl_pct": -5.53
+    "total_pnl_krw": -436543,
+    "total_pnl_pct": -5.59
   },
   "safety": {
     "price": 6696.96,
@@ -870,9 +870,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 214.72,
       "change_pct": -0.98,
-      "value_krw": 1526800,
+      "value_krw": 1525587,
       "pnl_pct": 7.62,
-      "pnl_krw": 22535,
+      "pnl_krw": 21321,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -983,9 +983,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 549.9,
       "change_pct": 0.75,
-      "value_krw": 859249,
+      "value_krw": 858566,
       "pnl_pct": -13.26,
-      "pnl_krw": -191166,
+      "pnl_krw": -191849,
       "outlook": "core",
       "stars": 2,
       "score": 50,
@@ -1096,9 +1096,9 @@ window.APP_DATA = {
       "cost": 654.41,
       "price": 703.71,
       "change_pct": 0.39,
-      "value_krw": 1136520,
+      "value_krw": 1135617,
       "pnl_pct": 7.53,
-      "pnl_krw": 15835,
+      "pnl_krw": 14932,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1203,9 +1203,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 483.24,
       "change_pct": 0.43,
-      "value_krw": 965001,
+      "value_krw": 964234,
       "pnl_pct": 17.81,
-      "pnl_krw": 96419,
+      "pnl_krw": 95652,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1305,9 +1305,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 309.35,
       "change_pct": -0.63,
-      "value_krw": 9620,
+      "value_krw": 9613,
       "pnl_pct": 20.3,
-      "pnl_krw": 1141,
+      "pnl_krw": 1133,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1418,9 +1418,9 @@ window.APP_DATA = {
       "cost": 353.62,
       "price": 344.82,
       "change_pct": 1.22,
-      "value_krw": 843024,
+      "value_krw": 842354,
       "pnl_pct": -2.49,
-      "pnl_krw": -73691,
+      "pnl_krw": -74361,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1533,9 +1533,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 146.47,
       "change_pct": 3.1,
-      "value_krw": 43618,
+      "value_krw": 43584,
       "pnl_pct": -36.9,
-      "pnl_krw": -29678,
+      "pnl_krw": -29713,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1643,9 +1643,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 966.78,
       "change_pct": -0.77,
-      "value_krw": 26759,
+      "value_krw": 26738,
       "pnl_pct": 29.08,
-      "pnl_krw": 4777,
+      "pnl_krw": 4755,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1751,9 +1751,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 368.45,
       "change_pct": 1.21,
-      "value_krw": 36292,
+      "value_krw": 36264,
       "pnl_pct": -12.49,
-      "pnl_krw": -7685,
+      "pnl_krw": -7714,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -3454,7 +3454,7 @@ window.APP_DATA = {
       1413.58,
       1389.4,
       1390.79,
-      1384.39
+      1383.33
     ]
   },
   "kospi_history": {
@@ -23309,16 +23309,16 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1383.88,
+    "fx_rate": 1382.78,
     "fx_cost_basis": 1467.4,
-    "total_krw": 8075479,
+    "total_krw": 8070813,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 5874419,
+        "value_krw": 5869753,
         "weight": 72.7,
-        "stock_krw": 5446883,
-        "cash_krw": 427536
+        "stock_krw": 5442557,
+        "cash_krw": 427196
       },
       {
         "currency": "KRW",
@@ -23328,86 +23328,86 @@ window.APP_DATA = {
         "cash_krw": 266060
       }
     ],
-    "sensitivity_1pct_krw": 58744,
+    "sensitivity_1pct_krw": 58698,
     "attribution": {
       "price_krw": 167218,
-      "fx_krw": -319213,
-      "cross_krw": -9518,
-      "total_krw": -161513,
+      "fx_krw": -323417,
+      "cross_krw": -9643,
+      "total_krw": -165843,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(추정치)라 환 기여 절대액은 오차를 안는다"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": 22535,
+        "total_krw": 21321,
         "price_krw": 114680,
-        "fx_krw": -85618,
-        "cross_krw": -6527
+        "fx_krw": -86746,
+        "cross_krw": -6613
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": 15835,
+        "total_krw": 14932,
         "price_krw": 84427,
-        "fx_krw": -63786,
-        "cross_krw": -4805
+        "fx_krw": -64626,
+        "cross_krw": -4869
       },
       {
         "label": "META",
         "ticker": "META",
-        "total_krw": -191166,
+        "total_krw": -191849,
         "price_krw": -139309,
-        "fx_krw": -59786,
-        "cross_krw": 7929
+        "fx_krw": -60574,
+        "cross_krw": 8033
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -73691,
+        "total_krw": -74361,
         "price_krw": -22813,
-        "fx_krw": -52177,
-        "cross_krw": 1298
+        "fx_krw": -52864,
+        "cross_krw": 1316
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 96419,
+        "total_krw": 95652,
         "price_krw": 154659,
-        "fx_krw": -49437,
-        "cross_krw": -8803
+        "fx_krw": -50088,
+        "cross_krw": -8919
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -29678,
+        "total_krw": -29713,
         "price_krw": -27046,
-        "fx_krw": -4172,
-        "cross_krw": 1539
+        "fx_krw": -4227,
+        "cross_krw": 1560
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -7685,
+        "total_krw": -7714,
         "price_krw": -5495,
-        "fx_krw": -2503,
-        "cross_krw": 313
+        "fx_krw": -2536,
+        "cross_krw": 317
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 4777,
+        "total_krw": 4755,
         "price_krw": 6392,
-        "fx_krw": -1251,
-        "cross_krw": -364
+        "fx_krw": -1268,
+        "cross_krw": -369
       },
       {
         "label": "AAPL",
         "ticker": "AAPL",
-        "total_krw": 1141,
+        "total_krw": 1133,
         "price_krw": 1722,
-        "fx_krw": -483,
-        "cross_krw": -98
+        "fx_krw": -489,
+        "cross_krw": -99
       }
     ],
     "percentile": {
@@ -23420,85 +23420,85 @@ window.APP_DATA = {
           "n": 252
         },
         "3y": {
-          "percentile": 43.8,
+          "percentile": 43.7,
           "low": 1276.47,
           "high": 1554.48,
           "n": 756
         },
         "5y": {
-          "percentile": 63.1,
+          "percentile": 63.0,
           "low": 1167.06,
           "high": 1554.48,
           "n": 1260
         }
       },
       "status": "live",
-      "current": 1384.39,
-      "chg_3m_pct": -8.13
+      "current": 1384.07,
+      "chg_3m_pct": -8.15
     },
     "status": "live"
   },
   "stats": {
     "status": "live",
     "window": 60,
-    "from": "2026-04-30",
-    "to": "2026-08-20",
+    "from": "2026-05-04",
+    "to": "2026-08-21",
     "holdings": 14,
     "missing": [],
-    "portfolio_vol": 35.6,
-    "weighted_vol": 54.0,
-    "diversification_ratio": 1.52,
-    "effective_bets": 2.31,
-    "effective_bets_weight_only": 7.43,
+    "portfolio_vol": 35.7,
+    "weighted_vol": 54.2,
+    "diversification_ratio": 1.517,
+    "effective_bets": 2.3,
+    "effective_bets_weight_only": 7.44,
     "enb_note": "상관 기반 ENB = 분산비율²(등가중·등변동성 가정하의 근사). 비중만 본 역-HHI와 갈리면 그 차이가 **라벨로는 안 보이던 동조**다.",
     "vol_fallback": [],
     "max_drawdown_pct": -19.9,
-    "period_return_pct": 8.6,
+    "period_return_pct": 8.2,
     "benchmarks": {
       "코스피": {
-        "beta": 0.382,
-        "corr": 0.81,
+        "beta": 0.385,
+        "corr": 0.812,
         "vol": 80.3
       },
       "S&P500": {
-        "beta": 1.839,
-        "corr": 0.733,
+        "beta": 1.843,
+        "corr": 0.735,
         "vol": 13.7
       },
       "필라델피아반도체": {
-        "beta": 0.296,
+        "beta": 0.295,
         "corr": 0.514,
-        "vol": 63.8
+        "vol": 63.7
       },
       "원/달러": {
-        "beta": 0.44,
-        "corr": 0.115,
-        "vol": 9.6
+        "beta": 0.418,
+        "corr": 0.109,
+        "vol": 9.5
       }
     },
     "vols": [
       {
         "label": "LG전자",
         "ticker": "066570.KS",
-        "vol": 126.6,
+        "vol": 126.7,
         "weight": 2.7
       },
       {
         "label": "두산로보틱스",
         "ticker": "454910.KS",
-        "vol": 113.6,
+        "vol": 113.5,
         "weight": 0.9
       },
       {
         "label": "삼성전자",
         "ticker": "005930.KS",
-        "vol": 110.3,
+        "vol": 111.7,
         "weight": 13.9
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "vol": 105.5,
+        "vol": 105.3,
         "weight": 0.4
       },
       {
@@ -23510,7 +23510,7 @@ window.APP_DATA = {
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "vol": 67.2,
+        "vol": 67.6,
         "weight": 0.6
       },
       {
@@ -23528,13 +23528,13 @@ window.APP_DATA = {
       {
         "label": "META",
         "ticker": "META",
-        "vol": 49.6,
+        "vol": 49.0,
         "weight": 11.6
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "vol": 47.5,
+        "vol": 47.4,
         "weight": 13.1
       },
       {
@@ -23546,7 +23546,7 @@ window.APP_DATA = {
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "vol": 37.8,
+        "vol": 37.9,
         "weight": 11.4
       },
       {
@@ -23572,25 +23572,25 @@ window.APP_DATA = {
       {
         "a": "LG전자",
         "b": "NAVER",
-        "corr": 0.697,
+        "corr": 0.696,
         "w_sum": 5.7
       },
       {
         "a": "삼성전자",
         "b": "현대차",
-        "corr": 0.696,
+        "corr": 0.693,
         "w_sum": 19.5
       },
       {
         "a": "NVDA",
         "b": "VOO",
-        "corr": 0.694,
+        "corr": 0.69,
         "w_sum": 36.1
       },
       {
         "a": "두산로보틱스",
         "b": "NAVER",
-        "corr": 0.658,
+        "corr": 0.657,
         "w_sum": 4.0
       },
       {
@@ -23602,46 +23602,46 @@ window.APP_DATA = {
       {
         "a": "두산로보틱스",
         "b": "현대차",
-        "corr": 0.628,
+        "corr": 0.63,
         "w_sum": 6.6
       },
       {
-        "a": "NVDA",
-        "b": "AVGO",
-        "corr": 0.611,
-        "w_sum": 21.2
+        "a": "LG전자",
+        "b": "ORCL",
+        "corr": 0.609,
+        "w_sum": 3.3
       }
     ],
     "matrix": {
       "삼성전자": {
         "삼성전자": 1.0,
-        "LG전자": 0.54,
+        "LG전자": 0.53,
         "두산로보틱스": 0.59,
-        "현대차": 0.7,
+        "현대차": 0.69,
         "NAVER": 0.45,
         "NVDA": 0.55,
         "META": 0.18,
         "VOO": 0.49,
         "MSFT": 0.04,
-        "AAPL": -0.22,
+        "AAPL": -0.24,
         "GOOGL": 0.23,
         "ORCL": 0.54,
-        "MU": 0.5,
+        "MU": 0.49,
         "AVGO": 0.44
       },
       "LG전자": {
-        "삼성전자": 0.54,
+        "삼성전자": 0.53,
         "LG전자": 1.0,
         "두산로보틱스": 0.8,
         "현대차": 0.63,
         "NAVER": 0.7,
-        "NVDA": 0.47,
+        "NVDA": 0.48,
         "META": -0.1,
         "VOO": 0.29,
         "MSFT": 0.25,
         "AAPL": -0.05,
         "GOOGL": -0.07,
-        "ORCL": 0.59,
+        "ORCL": 0.61,
         "MU": 0.32,
         "AVGO": 0.45
       },
@@ -23657,12 +23657,12 @@ window.APP_DATA = {
         "MSFT": 0.25,
         "AAPL": -0.09,
         "GOOGL": 0.01,
-        "ORCL": 0.53,
-        "MU": 0.22,
+        "ORCL": 0.56,
+        "MU": 0.23,
         "AVGO": 0.44
       },
       "현대차": {
-        "삼성전자": 0.7,
+        "삼성전자": 0.69,
         "LG전자": 0.63,
         "두산로보틱스": 0.63,
         "현대차": 1.0,
@@ -23670,7 +23670,7 @@ window.APP_DATA = {
         "NVDA": 0.54,
         "META": 0.15,
         "VOO": 0.47,
-        "MSFT": 0.16,
+        "MSFT": 0.15,
         "AAPL": -0.09,
         "GOOGL": 0.2,
         "ORCL": 0.46,
@@ -23689,13 +23689,13 @@ window.APP_DATA = {
         "MSFT": 0.26,
         "AAPL": -0.1,
         "GOOGL": -0.08,
-        "ORCL": 0.5,
-        "MU": 0.28,
+        "ORCL": 0.53,
+        "MU": 0.29,
         "AVGO": 0.43
       },
       "NVDA": {
         "삼성전자": 0.55,
-        "LG전자": 0.47,
+        "LG전자": 0.48,
         "두산로보틱스": 0.38,
         "현대차": 0.54,
         "NAVER": 0.37,
@@ -23703,10 +23703,10 @@ window.APP_DATA = {
         "META": 0.19,
         "VOO": 0.69,
         "MSFT": 0.25,
-        "AAPL": -0.11,
+        "AAPL": -0.1,
         "GOOGL": 0.27,
-        "ORCL": 0.52,
-        "MU": 0.46,
+        "ORCL": 0.54,
+        "MU": 0.48,
         "AVGO": 0.61
       },
       "META": {
@@ -23734,43 +23734,43 @@ window.APP_DATA = {
         "NVDA": 0.69,
         "META": 0.36,
         "VOO": 1.0,
-        "MSFT": 0.39,
+        "MSFT": 0.4,
         "AAPL": 0.17,
         "GOOGL": 0.5,
-        "ORCL": 0.57,
-        "MU": 0.53,
+        "ORCL": 0.6,
+        "MU": 0.54,
         "AVGO": 0.58
       },
       "MSFT": {
         "삼성전자": 0.04,
         "LG전자": 0.25,
         "두산로보틱스": 0.25,
-        "현대차": 0.16,
+        "현대차": 0.15,
         "NAVER": 0.26,
         "NVDA": 0.25,
         "META": 0.12,
-        "VOO": 0.39,
+        "VOO": 0.4,
         "MSFT": 1.0,
-        "AAPL": -0.05,
+        "AAPL": -0.06,
         "GOOGL": 0.31,
-        "ORCL": 0.54,
-        "MU": -0.01,
+        "ORCL": 0.55,
+        "MU": -0.02,
         "AVGO": 0.24
       },
       "AAPL": {
-        "삼성전자": -0.22,
+        "삼성전자": -0.24,
         "LG전자": -0.05,
         "두산로보틱스": -0.09,
         "현대차": -0.09,
         "NAVER": -0.1,
-        "NVDA": -0.11,
+        "NVDA": -0.1,
         "META": -0.04,
         "VOO": 0.17,
-        "MSFT": -0.05,
+        "MSFT": -0.06,
         "AAPL": 1.0,
         "GOOGL": -0.08,
-        "ORCL": -0.01,
-        "MU": -0.01,
+        "ORCL": -0.04,
+        "MU": -0.03,
         "AVGO": 0.05
       },
       "GOOGL": {
@@ -23785,39 +23785,39 @@ window.APP_DATA = {
         "MSFT": 0.31,
         "AAPL": -0.08,
         "GOOGL": 1.0,
-        "ORCL": 0.27,
-        "MU": -0.15,
-        "AVGO": 0.0
+        "ORCL": 0.29,
+        "MU": -0.16,
+        "AVGO": 0.01
       },
       "ORCL": {
         "삼성전자": 0.54,
-        "LG전자": 0.59,
-        "두산로보틱스": 0.53,
+        "LG전자": 0.61,
+        "두산로보틱스": 0.56,
         "현대차": 0.46,
-        "NAVER": 0.5,
-        "NVDA": 0.52,
+        "NAVER": 0.53,
+        "NVDA": 0.54,
         "META": 0.08,
-        "VOO": 0.57,
-        "MSFT": 0.54,
-        "AAPL": -0.01,
-        "GOOGL": 0.27,
+        "VOO": 0.6,
+        "MSFT": 0.55,
+        "AAPL": -0.04,
+        "GOOGL": 0.29,
         "ORCL": 1.0,
-        "MU": 0.4,
-        "AVGO": 0.56
+        "MU": 0.36,
+        "AVGO": 0.59
       },
       "MU": {
-        "삼성전자": 0.5,
+        "삼성전자": 0.49,
         "LG전자": 0.32,
-        "두산로보틱스": 0.22,
+        "두산로보틱스": 0.23,
         "현대차": 0.43,
-        "NAVER": 0.28,
-        "NVDA": 0.46,
+        "NAVER": 0.29,
+        "NVDA": 0.48,
         "META": -0.26,
-        "VOO": 0.53,
-        "MSFT": -0.01,
-        "AAPL": -0.01,
-        "GOOGL": -0.15,
-        "ORCL": 0.4,
+        "VOO": 0.54,
+        "MSFT": -0.02,
+        "AAPL": -0.03,
+        "GOOGL": -0.16,
+        "ORCL": 0.36,
         "MU": 1.0,
         "AVGO": 0.55
       },
@@ -23832,8 +23832,8 @@ window.APP_DATA = {
         "VOO": 0.58,
         "MSFT": 0.24,
         "AAPL": 0.05,
-        "GOOGL": 0.0,
-        "ORCL": 0.56,
+        "GOOGL": 0.01,
+        "ORCL": 0.59,
         "MU": 0.55,
         "AVGO": 1.0
       }
@@ -23913,16 +23913,16 @@ window.APP_DATA = {
       "losers": 6,
       "holdings": 14,
       "cash_weight": 8.6,
-      "effective_bets": 2.31,
-      "effective_bets_weight_only": 7.43,
-      "portfolio_vol": 35.6
+      "effective_bets": 2.3,
+      "effective_bets_weight_only": 7.44,
+      "portfolio_vol": 35.7
     },
     "insights": [
       {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 72.7% · 원/달러 1년 1.2%ile. 환율 1% 변동 = 총자산 +58,744원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
+        "detail": "달러 자산 72.7% · 원/달러 1년 1.2%ile. 환율 1% 변동 = 총자산 +58,698원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
       },
       {
         "level": "warning",
@@ -23934,7 +23934,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "codependence",
         "title": "분산 착시 — 상관이 지운 종목 수",
-        "detail": "14종목 보유가 비중상 7.43종목어치인데 **상관까지 보면 2.31종목어치**(분산의 69%가 동조로 사라짐). 포트 변동성 35.6% (상관 무시하면 54.0%). 섹터 라벨이 아니라 실제 움직임 기준이다."
+        "detail": "14종목 보유가 비중상 7.44종목어치인데 **상관까지 보면 2.3종목어치**(분산의 69%가 동조로 사라짐). 포트 변동성 35.7% (상관 무시하면 54.2%). 섹터 라벨이 아니라 실제 움직임 기준이다."
       },
       {
         "level": "warning",
@@ -23946,7 +23946,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +167,218원인데 환 기여 -319,213원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -9,518원)."
+        "detail": "미국주 종목 기여 +167,218원인데 환 기여 -323,417원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -9,643원)."
       },
       {
         "level": "info",

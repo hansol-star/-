@@ -163,7 +163,7 @@ def check_history_cache():
     """
     import glob as _glob
     import csv as _csv
-    files = _glob.glob("data/history/*.csv")
+    files = _glob.glob(os.path.join(ROOT, "data", "history", "*.csv"))
     if not files:
         return
     # ⚠️ 추적 대상만 본다 — 과거에 담았다가 빠진 종목(IBM 등)의 잔존 파일까지 FAIL로 잡으면
@@ -256,7 +256,7 @@ def check_high_low_claims():
         for nm, tk in names.items():
             if nm not in line:
                 continue
-            fp = f"data/history/{tk}.csv"
+            fp = os.path.join(ROOT, "data", "history", f"{tk}.csv")
             if not _glob.glob(fp):
                 continue
             try:
@@ -293,6 +293,7 @@ def check_kr_price_band():
     밴드는 매일 전일 종가로 재계산되므로 **하루짜리 제약**이다 → FAIL이 아니라 WARN으로
     내고, "며칠 뒤면 들어간다"는 판단은 사람이 한다. 기준가는 캐시된 일봉(data/history)의
     직전 종가를 쓰며, 캐시가 없으면 조용히 건너뛴다(네트워크 호출 안 함).
+    ⚠️[8/24] 캐시 경로를 **상대경로 → ROOT 기준**으로 고쳤다 — cwd가 레포 밖이면 조용히 건너뛰어 *검사한 척*이 된다(주입 테스트를 짜다 발견). 같은 결함이 `check_history_cache`·`check_high_low_claims`에도 있어 함께 수정.
     """
     d = load("data/app/tasks.json")
     if not d:
@@ -312,7 +313,7 @@ def check_kr_price_band():
         # 기준가 = 캐시된 일봉(data/history/<ticker>.csv "date,close")의 마지막 종가.
         # ⚠️ 캐시가 오늘까지 안 왔으면 기준가가 낡아 밴드도 낡는다 → 경고에 기준일을 병기한다.
         base, base_date = None, None
-        for fp in _glob.glob(f"data/history/{tk}.csv"):
+        for fp in _glob.glob(os.path.join(ROOT, "data", "history", f"{tk}.csv")):
             try:
                 rows = [r for r in pathlib.Path(fp).read_text(encoding="utf-8").splitlines() if r.strip()]
                 if len(rows) > 1:

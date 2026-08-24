@@ -88,6 +88,8 @@ VIOLATING_CLAUDE = (
     "- **매수 안전핀 — 코스피 종가가 7,500을 하회하면 신규 매수 전면 동결(0원).**\n"
 )
 
+HIST_LG = "date,close\n2026-08-11,181700.0\n"   # 8/12 사고 당시 전일 종가
+
 INJECTION_TESTS = [
     {
         "name": "check_repealed_rules",
@@ -129,6 +131,53 @@ INJECTION_TESTS = [
                 {"stocks": {"005380.KS": {"stars": 2, "trim": "470,000원 1주 트림 지정가"}}},
                 ensure_ascii=False),
             "data/app/tasks.json": json.dumps({"orders": [{"ticker": "005380.KS"}]}),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_kr_price_band",
+        "desc": "국내 지정가가 당일 가격제한폭(±30%)을 넘으면 잡는가",
+        "why": "8/12 실사고 — LG전자 익절 지정가 240,000원이 상한가 236,000원(전일종가 181,700×1.3)을 "
+               "초과해 주문 자체가 접수 거부됐다. 판단은 맞았는데 물리적 접수 가능성을 아무도 안 봤다",
+        "pattern": r"제한폭|상한|밴드|price_band|접수",
+        "violate": {
+            "data/history/066570.KS.csv": HIST_LG,
+            "data/app/tasks.json": json.dumps(
+                {"orders": [{"ticker": "066570.KS", "price": 240000,
+                             "action": "트림 지정가", "status": "대기"}]}, ensure_ascii=False),
+        },
+        "clean": {
+            "data/history/066570.KS.csv": HIST_LG,
+            "data/app/tasks.json": json.dumps(
+                # ⚠️ clean 가격은 **정규장 ±30%와 시간외 ±10%를 둘 다** 통과해야 한다.
+                #   230,000원으로 잡았다가 시간외 밴드(181,700×1.1=199,870) 초과로 정당한 WARN이
+                #   떠서 '오탐'으로 오판했다 — 또 픽스처 문제였다(8/24 세 번째).
+                {"orders": [{"ticker": "066570.KS", "price": 195000,
+                             "action": "트림 지정가", "status": "대기"}]}, ensure_ascii=False),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_order_feasibility",
+        "desc": "국내 오더에 분수주가 들어가면 잡는가 (토스는 국내 분수주 미지원)",
+        "why": "8/1 실사고 — AAPL 25% 트림을 지정가로 적었는데 0.2556주라 분수주 지정가가 원천 불가였다. "
+               "국내는 분수주 자체가 미지원이라 1주 미만 계획은 성립조차 안 한다(6/21 교정)",
+        "pattern": r"실행불가|분수주|정수 1주",
+        "violate": {
+            "data/app/tasks.json": json.dumps(
+                {"orders": [{"ticker": "005930.KS", "shares": 0.4,
+                             "action": "매수 지정가", "status": "대기"}]}, ensure_ascii=False),
+            ".claude/skills/portfolio-desk/portfolio.json": json.dumps(
+                # ⚠️ portfolio.json의 holdings는 **지역별 dict**다({"kr":[...], "us":[...]}).
+                #   리스트로 줬다가 AttributeError로 죽어 "못 잡는다"로 오판했다 — 픽스처 문제였다.
+                {"holdings": {"kr": [{"ticker": "005930.KS", "shares": 1}]}}, ensure_ascii=False),
+        },
+        "clean": {
+            "data/app/tasks.json": json.dumps(
+                {"orders": [{"ticker": "005930.KS", "shares": 1,
+                             "action": "매수 지정가", "status": "대기"}]}, ensure_ascii=False),
+            ".claude/skills/portfolio-desk/portfolio.json": json.dumps(
+                {"holdings": {"kr": [{"ticker": "005930.KS", "shares": 1}]}}, ensure_ascii=False),
         },
         "args": (),
     },

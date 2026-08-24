@@ -150,21 +150,24 @@ def recommend_tranche(cfg, kospi):
         return {"amount": None,
                 "reason": "tranche_rules.py 로드 실패 — 사다리 판정 불가(수동 판단)"}
 
+    # ⚠️[8/24 버그픽스] 舊 코드가 여기서 cfg["cash_krw"](원화만)로 cash를 덮어써
+    # TR._load_inputs()가 이미 정확히 합산한 KRW+USD환산 현금을 버리고 있었다(둘 다 같은
+    # portfolio.json을 읽으므로 이 덮어쓰기는 USD 현금만 무단 폐기하는 효과였다 — 8/24 리스크
+    # 데스크가 tranche_rules.py 직접실행과 39,909원 vs 103,999원(2.6배) 괴리로 발견).
+    # cash_krw 오버라이드는 폐기하고 TR._load_inputs()의 합산 현금을 그대로 쓴다.
     cash, dd, storm, fear, capit, _stale = TR._load_inputs(None)
-    if cfg.get("cash_krw"):
-        cash = float(cfg["cash_krw"])
     if dd is None:
         return {"amount": None,
                 "reason": "코스피 낙폭 산출 실패 — history_backfill.py 필요(수동 판단)"}
 
     r = TR.rule1(cash, dd, storm, fear, capit)
     if r["halted"]:
-        return {"amount": 0, "dd_pct": dd, "reason": r["halt_why"], "ladder": r}
+        return {"amount": 0, "dd_pct": dd, "reason": r["halt_why"], "ladder": r, "cash_total": cash}
     steps = "+".join(f"D{i+1}" for i, s_ in enumerate(r["steps"]) if s_["unlocked"]) or "없음"
     return {
         "amount": r["allowed_krw"],
         "per_split": round(r["allowed_krw"] / 3) if r["allowed_krw"] else 0,
-        "dd_pct": dd, "ladder": r,
+        "dd_pct": dd, "ladder": r, "cash_total": cash,
         "reason": (f"낙폭 {dd:+.1f}% → 해금 {steps}({r['unlocked_ratio']*100:.0f}%) "
                    f"× 승수 {r['final_mult']} = **상한** {r['allowed_krw']:,}원 "
                    f"({r['storm_why']}; {r['capitulation_why']}). 상한이지 목표 아님·자동집행 아님"),
@@ -200,10 +203,13 @@ def sizing_panel(cfg):
     kospi = None if (not kq or kq.get("error")) else kq.get("price")
     rec = recommend_tranche(cfg, kospi)
     con = concentration(cfg)
-    cash = cfg.get("cash_krw")
+    cash_krw_only = cfg.get("cash_krw")
+    cash = rec.get("cash_total") or cash_krw_only
     print("\n## 포지션 사이징 (정량)\n")
     if cash is not None:
-        print(f"- 가용 현금: **{cash:,.0f}원**")
+        krw_tail = (f" (원화 {cash_krw_only:,.0f}원 + 외화환산 {cash - cash_krw_only:,.0f}원)"
+                    if cash_krw_only is not None and abs(cash - cash_krw_only) > 1 else "")
+        print(f"- 가용 현금: **{cash:,.0f}원**{krw_tail}")
     if rec.get("amount") is None:
         print(f"- 권장 트랜치: — ({rec['reason']})")
     elif rec["amount"] == 0:
@@ -225,7 +231,8 @@ def sizing_panel(cfg):
                 print(f"    ⚠️ **{k} {w}%** > 상한 {CONCENTRATION_CAP*100:.0f}% — 추가매수 금지·트림 후보")
         else:
             print(f"    ✅ 상한 초과 종목 없음")
-    return {"recommend": rec, "concentration": con, "kospi": kospi, "cash_krw": cash}
+    return {"recommend": rec, "concentration": con, "kospi": kospi,
+            "cash_krw": cash_krw_only, "cash_total": cash}
 
 
 def main() -> int:

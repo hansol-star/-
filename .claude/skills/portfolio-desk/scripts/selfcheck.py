@@ -12,6 +12,7 @@ selfcheck.py — 데스크 품질 게이트 (dev 작업 커밋·머지 전 스�
   2) import      — 각 스크립트를 서브프로세스로 임포트(모듈 최상위 실행 오류 적발; 네트워크 미접속)
   3) --help      — argparse 파서 구성 검증 (1·2가 절대 안 건드리는 __main__ 안쪽)
   4) validate    — validate_report.py 실행(보고서/풀표/밴드/정본버전 게이트)
+  5) lookahead   — lookahead_guard.py 실행(미래참조 회귀 가드·FAIL 단계)
 
 사용:
   python3 .claude/skills/portfolio-desk/scripts/selfcheck.py
@@ -122,6 +123,28 @@ def run_validate(timeout: float = 120.0) -> tuple[str, str]:
     return status, (r.stdout or r.stderr or "").strip()
 
 
+def run_lookahead(timeout: float = 90.0) -> tuple[str, str]:
+    """룩어헤드(미래참조) 회귀 가드 — 접두사 불변성 f(x[:k]) == f(x)[:k].
+
+    ★[8/24 신설] 룩어헤드를 **주석으로 주장**하는 파일이 5개인데 검사 장치가 0개였다
+    (외부 리포 검토에서 발견). 우리 구조의 원본 TradingAgents가 같은 자리에서 넘어졌고
+    (#1115 — 필터가 한 번도 실행되지 않음) 회귀 테스트로 고정했다.
+    **FAIL 단계**로 건다: 룩어헤드는 백테스트 결과 전체를 무효로 만들기 때문에
+    배선 감사(WARN)와 달리 게이트를 막아야 한다."""
+    lp = os.path.join(HERE, "lookahead_guard.py")
+    if not os.path.exists(lp):
+        return "SKIP", "lookahead_guard.py 없음"
+    try:
+        r = subprocess.run([sys.executable, lp], capture_output=True, text=True,
+                           timeout=timeout, cwd=REPO)
+    except subprocess.TimeoutExpired:
+        return "FAIL", f"lookahead timeout >{timeout:.0f}s"
+    if r.returncode == 0:
+        return "PASS", ""
+    out = (r.stdout or r.stderr or "").strip()
+    return "FAIL", out[-1200:]
+
+
 def run_wiring(timeout: float = 90.0) -> tuple[str, str]:
     """배선 감사 — '만들었는데 아무 데스크도 안 부르는' 스크립트 검출.
     ★[8/22 신설] broker_reports가 7/30부터 멀쩡히 돌면서(60일 89건) 어떤 데스크도
@@ -175,11 +198,13 @@ def main() -> int:
         return (not r["compile"]) or (r["import"] is False) or (r["cli"] is False)
 
     fails = [r for r in results if failed(r)]
-    gate_ok = not fails and val_status in ("PASS", "SKIP")
+    la_status, la_out = run_lookahead()
+    gate_ok = (not fails and val_status in ("PASS", "SKIP")
+               and la_status in ("PASS", "SKIP"))
 
     if args.json:
         print(json.dumps({"scripts": results, "validate": val_status,
-                          "validate_out": val_out, "ok": gate_ok},
+                          "validate_out": val_out, "lookahead": la_status, "ok": gate_ok},
                          ensure_ascii=False, indent=2))
         return 0 if gate_ok else 1
 
@@ -202,6 +227,13 @@ def main() -> int:
         print(f"\n=== validate_report: {icon} {val_status} ===")
         if val_status == "FAIL":
             print(val_out[-1500:])
+
+    icon_la = {"PASS": "✅", "FAIL": "❌", "SKIP": "·"}[la_status]
+    print(f"\n=== 룩어헤드 가드: {icon_la} {la_status} ===")
+    if la_status == "FAIL":
+        print(la_out)
+        print("   (접두사 불변성 위반 = 미래 데이터가 과거 산출을 바꿨다. "
+              "픽스처 오류일 수도 있으니 lookahead_guard.synth_dates 주석 참조)")
 
     w_status, w_out = run_wiring()
     if w_status == "WARN":

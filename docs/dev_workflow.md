@@ -26,6 +26,14 @@ python3 .claude/skills/portfolio-desk/scripts/selfcheck.py
   게이트를 통과하고 있었다(8/2 오디텍 조사 중 발견). argparse 미사용 스크립트는 자동 제외.
   ⚠️ **help 문자열에 리터럴 `%`를 쓸 땐 반드시 `%%`** (`5%%` · `%%ile` · `절대%%`).
 - **validate**: `validate_report.py`(보고서 풀표·별점/스코어 밴드·정본 버전 stale) 실행.
+- **lookahead** [8/24 신설]: `lookahead_guard.py` — 백테스트·검증 코드의 **미래참조 회귀 가드**.
+  판정 원리 = **접두사 불변성** `f(x[:k]) == f(x)[:k]` (미래를 안 쓰면 뒤에 데이터를 붙여도
+  과거 산출이 안 변한다). 대상 = 룩어헤드를 주석으로 **주장**하던 5개 파일(signal_score·
+  sizing_backtest·flow_edge·star_validate·snapshot_state_backfill) 20개 불변식.
+  **FAIL 단계**(배선 감사와 달리 게이트를 막는다) — 룩어헤드는 백테스트 결과 전체를 무효로 만든다.
+  ⚠️ `--negative`로 **가드 자신을 검증**한다(일부러 룩어헤드를 심어 잡히는지). 가드를 고칠 땐 이걸 먼저 돌릴 것.
+  ⚠️ 위반이 뜨면 **대상 코드보다 테스트 픽스처를 먼저 의심**한다 — 첫 실행의 위반 1건이
+  실제로는 픽스처의 날짜 순환 버그였다(`synth_dates` 주석).
 - **종료코드 0 = GATE PASS** 여야 커밋·머지. `--json`(파이프라인)·`--no-validate`(코드만 빠르게)·
   `--no-cli`(--help 단계 생략) 지원.
 
@@ -53,7 +61,7 @@ git push origin HEAD:main HEAD:claude/<작업브랜치>
 
 ## 체크리스트 (완료 선언 전)
 
-- [ ] `selfcheck.py` → **GATE PASS**
+- [ ] `selfcheck.py` → **GATE PASS** (compile·import·--help·validate·**lookahead**)
 - [ ] 로직 변경 시 `/code-review` 통과 / 동작 변경 시 실행 확인
 - [ ] 새 스크립트면 docstring(용도·사용법·데이터소스)·stdlib 우선(포터블)
 - [ ] 정본 변경(보유·룰·워치·스키마)이면 `docs/master.md`·관련 정본도 갱신

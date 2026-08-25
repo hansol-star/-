@@ -755,7 +755,7 @@ def check_hunter():
                 if newest_d is None:
                     return False
                 try:
-                    return (newest_d - dt.date.fromisoformat(d)).days <= 1
+                    return (newest_d - dt.date.fromisoformat(d)).days <= 2
                 except ValueError:
                     return False
             missing = sorted(d for d in log_dates

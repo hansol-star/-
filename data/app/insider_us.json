@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-21",
+ "updated": "2026-08-25",
  "days": 90,
  "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
  "failed": [],
@@ -262,21 +262,21 @@
   },
   {
    "ticker": "ANET",
-   "filings": 27,
+   "filings": 36,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 300,
-    "shares": 4934197.0,
-    "value": 910555444.0768999,
-    "n_10b5_1": 300
+    "n": 307,
+    "shares": 4977108.0,
+    "value": 918528345.8319999,
+    "n_10b5_1": 307
    },
    "other_grants_exercises": {
-    "n": 11,
-    "shares": 773200.0
+    "n": 31,
+    "shares": 691215.0
    },
    "top_buys": [],
    "top_sells": [

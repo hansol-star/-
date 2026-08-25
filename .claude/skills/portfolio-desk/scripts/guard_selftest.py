@@ -88,6 +88,14 @@ VIOLATING_CLAUDE = (
     "- **매수 안전핀 — 코스피 종가가 7,500을 하회하면 신규 매수 전면 동결(0원).**\n"
 )
 
+RISK_SPEC = """## Return format (to PM)
+```
+## 리스크 데스크
+- 🚦 트리거 상태: {...}
+- ⚖️ 손익비: {...}
+```
+"""
+
 HIST_LG = "date,close\n2026-08-11,181700.0\n"   # 8/12 사고 당시 전일 종가
 
 INJECTION_TESTS = [
@@ -180,6 +188,24 @@ INJECTION_TESTS = [
                 {"holdings": {"kr": [{"ticker": "005930.KS", "shares": 1}]}}, ensure_ascii=False),
         },
         "args": (),
+    },
+    {
+        "name": "check_desk_output_items",
+        "desc": "리스크 데스크 Return format 항목이 보고서 산출물에 없으면 잡는가",
+        "why": "8/25 실사고 — 8/24 23:30에 손익비를 risk-desk에 배선했는데 17시간 뒤 돌아간 R2(v84)가 "
+               "그 항목만 빠뜨렸다. 같은 Task의 --reconcile은 보고했으니 스폰은 됐다. "
+               "wiring_audit은 '지시층에 텍스트가 있다'까지만 본다 — 배선→실행→**산출**의 마지막 칸이 비어 있었다",
+        "pattern": r"산출 누락",
+        "violate": {
+            ".claude/agents/risk-desk.md": RISK_SPEC,
+            "docs/reports/report_v99_2026-08-25.md": "# v99\n\n## 9. 리스크 데스크\n- 트리거 상태: D1 해금\n",
+        },
+        "clean": {
+            ".claude/agents/risk-desk.md": RISK_SPEC,
+            "docs/reports/report_v99_2026-08-25.md":
+                "# v99\n\n## 9. 리스크 데스크\n- 트리거 상태: D1 해금\n- ⚖️ 손익비 1.13\n",
+        },
+        "args": ("docs/reports/report_v99_2026-08-25.md",),
     },
 ]
 

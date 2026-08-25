@@ -1431,6 +1431,60 @@ def check_trade_ledger():
         print(f"  ✅ 체결 원장 대사 일치 (체결 {n}건 재생 = portfolio.json)")
 
 
+def check_desk_output_items(rel=None):
+    """리스크 데스크 **Return format의 항목이 실제 보고서에 나타났는지** 검사 [8/25 신설].
+
+    ★[8/25 실사고] 8/24 23:30에 `risk-desk.md` Task5·Return format에 **손익비**를 배선했는데,
+    17시간 뒤 돌아간 R2(v84)의 리스크 섹션에 **손익비가 없었다**. 같은 Task5의 `--reconcile`
+    (원장 대사)은 보고했으니 데스크는 스폰됐고 Task를 봤는데 **뒤에 추가된 부분만 빠뜨린** 것이다.
+    ⇒ `wiring_audit`은 "지시층에 텍스트가 있다"까지만 본다. **배선 → 실행 → 산출**의
+      마지막 단계를 보는 장치가 없었다. 이 검사가 그 자리다.
+
+    판정: `risk-desk.md`의 Return format 블록에서 `- 이모지 라벨:` 항목을 **자동 추출**해
+    최신 보고서 본문과 대조한다(항목을 추가하면 검사 대상도 자동으로 늘어난다).
+    **WARN** — 데스크가 스폰되지 않는 날(quick-check·경량 세션)이 정상적으로 있기 때문이다.
+    """
+    import re as _re
+    rd = os.path.join(ROOT, ".claude", "agents", "risk-desk.md")
+    if rel is None or not os.path.exists(rd):
+        return
+    rp = os.path.join(ROOT, rel)
+    if not os.path.exists(rp):
+        return
+    try:
+        spec = open(rd, encoding="utf-8").read()
+        body = open(rp, encoding="utf-8").read()
+    except OSError:
+        return
+    # Return format 블록만
+    m = _re.search(r"## Return format.*?```(.*?)```", spec, _re.S)
+    if not m:
+        return
+    # "- 🚦 트리거 상태: {...}" → ("🚦", "트리거 상태")
+    items = _re.findall(r"^-\s*([^\w\s#-])\s*([^:{\n]{2,20}):", m.group(1), _re.M)
+    if not items:
+        return
+    # 보고서에 리스크 섹션이 없으면(경량 세션) 건너뛴다
+    if "리스크 데스크" not in body:
+        return
+    # 라벨 전체가 그대로 쓰이는 일은 드물다(데스크가 문장으로 푼다) → **핵심어 부분매칭**.
+    #   "💱 통화 익스포저" 는 본문 소제목 "동조·실효분산·통화"로 나타난다(8/25 위양성 실측).
+    #   이모지 · 라벨 전체 · 라벨의 각 토큰(2자 이상) 중 **하나라도** 있으면 산출된 것으로 본다.
+    missing = []
+    for ico, name in items:
+        nm = name.strip()
+        toks = [w for w in _re.split(r"[·\s/]+", nm) if len(w) >= 2]
+        if ico in body or nm in body or any(w in body for w in toks):
+            continue
+        missing.append(f"{ico} {nm}")
+    if missing:
+        warn(f"리스크 데스크 산출 누락 {len(missing)}건 — {' · '.join(missing[:4])}"
+             + (" 외" if len(missing) > 4 else "")
+             + f" (risk-desk.md Return format에 있는데 {os.path.basename(rel)} 본문에 없다. "
+               "8/25 실사고: 손익비를 배선하고 17시간 뒤 R2가 그 항목만 빠뜨렸다 — "
+               "**배선했다고 산출되지 않는다**)")
+
+
 def check_repealed_rules():
     """정본 문서에 **폐기된 룰**이 살아 있는지 감지 [8/5 신설].
 
@@ -1571,7 +1625,7 @@ def main():
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
-        if rel: check_report(rel); check_prose_order_link(rel)
+        if rel: check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel)
 
     print("\n" + "=" * 56)
     print("  보고서 완료-검증 (validate_report.py)")

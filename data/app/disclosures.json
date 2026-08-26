@@ -1,6 +1,6 @@
 {
- "updated": "2026-08-25",
- "days": 7,
+ "updated": "2026-08-26",
+ "days": 2,
  "universe": [
   "005930",
   "066570",
@@ -10,31 +10,18 @@
  ],
  "counts": {
   "critical": 0,
-  "notable": 1,
-  "routine": 10
+  "notable": 0,
+  "routine": 8
  },
- "items": [
-  {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "20260821",
-   "title": "주요사항보고서(자기주식취득결정)",
-   "level": "notable",
-   "category": "자사주",
-   "why": "수급·주주환원",
-   "rcept_no": "20260821000616",
-   "filer": "삼성전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821000616"
-  }
- ],
+ "items": [],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 4,
-   "net": -1054,
+   "n": 3,
+   "net": -637,
    "n_buy": 1,
-   "n_sell": 3,
+   "n_sell": 2,
    "top": [
     {
      "who": "안성준",
@@ -45,28 +32,20 @@
      "date": "2026-08-24"
     },
     {
-     "who": "김경태",
+     "who": "김경륜",
      "ofcps": "상무",
      "regist": "비등기임원",
-     "delta": -450,
-     "held": 1803,
-     "date": "2026-08-20"
+     "delta": -173,
+     "held": 2250,
+     "date": "2026-08-26"
     },
     {
-     "who": "이명재",
+     "who": "조미선",
      "ofcps": "상무",
      "regist": "비등기임원",
-     "delta": -100,
-     "held": 798,
-     "date": "2026-08-21"
-    },
-    {
-     "who": "이희곤",
-     "ofcps": "상무",
-     "regist": "비등기임원",
-     "delta": 40,
-     "held": 40,
-     "date": "2026-08-20"
+     "delta": 80,
+     "held": 3489,
+     "date": "2026-08-26"
     }
    ]
   },
@@ -91,19 +70,11 @@
   {
    "code": "005380",
    "name": "현대차",
-   "n": 2,
-   "net": -340,
+   "n": 1,
+   "net": 360,
    "n_buy": 1,
-   "n_sell": 1,
+   "n_sell": 0,
    "top": [
-    {
-     "who": "피트 졸리",
-     "ofcps": "상무",
-     "regist": "비등기임원",
-     "delta": -700,
-     "held": 0,
-     "date": "2026-08-18"
-    },
     {
      "who": "이용석",
      "ofcps": "상무",

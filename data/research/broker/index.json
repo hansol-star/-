@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-26",
+ "updated": "2026-08-27",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -1456,6 +1456,45 @@
    "broker": "메리츠증권",
    "name": "삼성전기",
    "held": false
+  },
+  "651946": {
+   "date": "2026-08-27",
+   "report_idx": "651946",
+   "title": "현대차",
+   "full_title": "현대차(005380) CEO Investor Day 후기 현대차(005380) CEO Investor Day 후기 CEO Investor Day 후기",
+   "code": "005380",
+   "target_price": 720000.0,
+   "rating": "Buy",
+   "analyst": "이병근",
+   "broker": "LS증권",
+   "name": "현대차",
+   "held": true
+  },
+  "651942": {
+   "date": "2026-08-27",
+   "report_idx": "651942",
+   "title": "SK이노베이션",
+   "full_title": "SK이노베이션(096770) SKIET와 합병, 이노 주주에게 긍정적인가가 핵심 SK이노베이션(096770) SKIET와 합병, 이노 주주에게 긍정적인가가 핵심 SKIET와 합병, 이노 주주에게 긍정적인가가 핵심",
+   "code": "096770",
+   "target_price": 126000.0,
+   "rating": "Hold",
+   "analyst": "정경희",
+   "broker": "LS증권",
+   "name": "SK이노베이션",
+   "held": false
+  },
+  "651941": {
+   "date": "2026-08-27",
+   "report_idx": "651941",
+   "title": "현대차",
+   "full_title": "현대차(005380) CID 2026 Review: 자동차라는 본질에 집중 현대차(005380) CID 2026 Review: 자동차라는 본질에 집중 CID 2026 Review: 자동차라는 본질에 집중",
+   "code": "005380",
+   "target_price": 650000.0,
+   "rating": "Buy",
+   "analyst": "이상수",
+   "broker": "iM증권",
+   "name": "현대차",
+   "held": true
   }
  }
 }

@@ -1,22 +1,22 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-27 16:31 KST",
+  "generated_at": "2026-08-27 16:35 KST",
   "as_of": "2026-08-27 15:40 KST",
   "source_report": "docs/reports/report_v86_2026-08-27.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1380.56
+    "usdkrw": 1380.37
   },
   "totals": {
-    "assets_krw": 8099995,
-    "stocks_value_krw": 7441884,
+    "assets_krw": 8099185,
+    "stocks_value_krw": 7441128,
     "cash_krw": 266060,
     "cash_usd": 283.98,
-    "cash_usd_krw": 392051,
-    "day_change_krw": -12607,
+    "cash_usd_krw": 391997,
+    "day_change_krw": -12605,
     "day_change_pct": -0.17,
-    "total_pnl_krw": -408853,
-    "total_pnl_pct": -5.21
+    "total_pnl_krw": -409609,
+    "total_pnl_pct": -5.22
   },
   "safety": {
     "price": 6912.37,
@@ -980,9 +980,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 209.66,
       "change_pct": -1.59,
-      "value_krw": 1487244,
+      "value_krw": 1487039,
       "pnl_pct": 5.09,
-      "pnl_krw": -17022,
+      "pnl_krw": -17226,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1098,9 +1098,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 576.14,
       "change_pct": 1.07,
-      "value_krw": 898090,
+      "value_krw": 897967,
       "pnl_pct": -9.12,
-      "pnl_krw": -152324,
+      "pnl_krw": -152448,
       "outlook": "core",
       "stars": 2,
       "score": 50,
@@ -1221,9 +1221,9 @@ window.APP_DATA = {
       "cost": 654.41,
       "price": 704.2,
       "change_pct": 0.03,
-      "value_krw": 1134583,
+      "value_krw": 1134427,
       "pnl_pct": 7.61,
-      "pnl_krw": 13898,
+      "pnl_krw": 13742,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1328,9 +1328,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 496.37,
       "change_pct": 0.95,
-      "value_krw": 988843,
+      "value_krw": 988706,
       "pnl_pct": 21.01,
-      "pnl_krw": 120261,
+      "pnl_krw": 120125,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1430,9 +1430,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 313.45,
       "change_pct": 1.15,
-      "value_krw": 9724,
+      "value_krw": 9723,
       "pnl_pct": 21.9,
-      "pnl_krw": 1245,
+      "pnl_krw": 1244,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1543,9 +1543,9 @@ window.APP_DATA = {
       "cost": 353.23,
       "price": 342.0,
       "change_pct": -1.43,
-      "value_krw": 868420,
+      "value_krw": 868300,
       "pnl_pct": -3.18,
-      "pnl_krw": -84935,
+      "pnl_krw": -85054,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1663,9 +1663,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 148.87,
       "change_pct": 2.84,
-      "value_krw": 44227,
+      "value_krw": 44221,
       "pnl_pct": -35.87,
-      "pnl_krw": -29070,
+      "pnl_krw": -29076,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1773,9 +1773,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 938.4,
       "change_pct": 0.58,
-      "value_krw": 25912,
+      "value_krw": 25908,
       "pnl_pct": 25.29,
-      "pnl_krw": 3929,
+      "pnl_krw": 3925,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1891,9 +1891,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 355.59,
       "change_pct": -0.32,
-      "value_krw": 34942,
+      "value_krw": 34937,
       "pnl_pct": -15.55,
-      "pnl_krw": -9036,
+      "pnl_krw": -9041,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -3618,7 +3618,7 @@ window.APP_DATA = {
       1384.98,
       1380.76,
       1381.49,
-      1380.55
+      1380.08
     ]
   },
   "kospi_history": {
@@ -20813,6 +20813,38 @@ window.APP_DATA = {
           "8월"
         ],
         "refs": "report_v85_2026-08-26.md"
+      },
+      {
+        "id": "d150",
+        "date": "2026-08-27",
+        "topic": "룰2 3번째 조건(순부채 증가)이 M&A와 영업악화를 못 가른다 — 두산로보 사례",
+        "decision": "현행 유지(3/3 판정 그대로) · 재설계는 정훈 승인 대기",
+        "rationale": "두산로보 순현금 3,002→2,628→1,407억 감소가 룰2 3번째 조건을 켰는데, 실제 원인은 **원엑시아 인수**(1차: 2026Q2 실적 보도 4사)다. 연간 FCF는 -327억인데 순현금은 1,222억 빠졌다 = 차액 대부분이 M&A. 현대차 금융연결 예외(FCF·순부채 무효, 마진만 유효)와 같은 클래스의 구조적 왜곡이다. 다만 두산로보는 마진(-36.1→-88.0→-180.3%)·FCF 두 조건이 독립으로 켜져 2/3 = 감시상향은 어차피 성립하므로 판정 방향은 안 바뀐다. ⚠️ 다른 종목에서 M&A 한 건이 2/3를 3/3으로 밀어올릴 수 있다 — 그때는 등급이 뒤집힌다.",
+        "rejected": "지금 자동으로 M&A 예외를 넣는 것 = 룰 변경이라 정훈 승인 없이 불가(CLAUDE.md). 또 '인수는 좋은 지출'이라는 전제 자체가 검증 안 됐다 — 적자기업의 적자기업 인수는 훼손일 수도 있다.",
+        "status": "open",
+        "tags": [
+          "rule2",
+          "두산로보",
+          "M&A",
+          "재무플래그"
+        ],
+        "refs": "tranche_rules.py --rule2 · financials.json 454910.KS · 2026Q2 실적 보도(newspim/ZDNet/EBN/디지털투데이 4사)"
+      },
+      {
+        "id": "d151",
+        "date": "2026-08-27",
+        "topic": "ⓑ 등록선(트림가×0.95)이 변동성을 무시한다 — 두산로보 과소등록",
+        "decision": "오늘은 기저율 근거로 등록 권고(오더 레벨은 78,000 유지) · ⓑ선 재설계는 정훈 승인 대기",
+        "rationale": "두산로보 1년 실측: 익일 고가가 전일종가 대비 +6.7%(트림가 78,000) 이상인 날 38/242=15.7%, 5거래일 내 터치 48.3%. ⓑ 등록선 74,100(+1.4%)은 242일 중 156일(64.5%)이 충족해 필터 기능이 거의 없으면서, 오늘처럼 1.35% 모자라면 15.7% 확률의 유효 오더를 막는다. 제안 = 고정 5% 대신 종목별 '익일 고가 도달확률 ~15%' 분위수.",
+        "rejected": "ⓑ선 폐지(=매일 등록): 폰창은 하루 3시간20분이고 오더가 1거래일에 소멸하므로 무한 등록은 실행 불가. 필터 자체는 필요하다.",
+        "status": "open",
+        "tags": [
+          "오더집행",
+          "두산로보",
+          "변동성",
+          "ⓑ방식"
+        ],
+        "refs": "portfolio.json alert 74100 · tasks.json o-doosanrobo-trim-0819 · d128(토스 1거래일 소멸)"
       }
     ],
     "closed": [
@@ -21090,8 +21122,8 @@ window.APP_DATA = {
         "refs": ""
       }
     ],
-    "open_count": 20,
-    "total": 166
+    "open_count": 22,
+    "total": 168
   },
   "reports": [
     {
@@ -22527,7 +22559,7 @@ window.APP_DATA = {
       "shares": 1,
       "amount_krw": null,
       "date": "2026-08-23",
-      "note": "★[8/27 트림가 현실화·정훈 승인] **근거 3가지**: ①**목표가가 없다** — stocks.json target='목표 미부여(적자·PER 산정 불가)'인데 트림가만 90,000이 박혀 있었다. 밸류 근거 없는 종목에 밸류 기반 트림가를 둔 구조적 모순. ②**1주·비중 1.0%(70,200원)** — 국내는 분수주 미지원이라 트림=전량청산이고 '일부 트림'이 물리적으로 불가능하다. ③**⭐1 실측 알파 -8.75%**(8/22 n=12)로 ⭐1 구간은 트림이 맞다 + 룰2 3/3 훼손 판정(7/30)의 '딥다이브+트림 검토' 착수가 한 달간 미이행. **78,000원 = 현재가 +8.6%** — 도달 불가(90,000)도 즉시 손절도 아닌 현실적 반등 지점. 밴드 OK(71,800×1.3=93,340). 체결 시 회수액 78,000원은 **GOOGL 2·3회차 재원**(≈34,668원/회)의 2회분 = ⭐1/32점을 ⭐5/88점으로 교체하는 것이 우리 채점 체계의 지시다. ⚠️ **반대 근거 병기**: 두산로보는 8/26 +2.28%로 로봇·피지컬AI 테마가 반등 중이고 현대차 CID 주제도 보스턴다이내믹스·피지컬AI였다 — 테마 온기 초입에서 파는 것일 수 있다. 그래서 시장가 즉시청산이 아니라 **반등 지점 지정가**로 설계했다. | ★[8/27 16:2x] ⓑ 등록선(트림가×0.95)은 **변동성 무시 고정 5%**라 두산로보처럼 일중 레인지가 넓은 종목에선 과소등록한다 — 74,100선(+1.4%)은 242일 중 156일(64.5%)이 충족해 필터 역할도 거의 못 한다. **정훈 승인 필요한 룰 후보**: ⓑ선을 고정 5%가 아니라 종목별 '익일 고가 도달확률 15%' 분위수로 잡는다. 오늘은 룰이 아니라 기저율로 등록을 권고한다.",
+      "note": "★[8/27 트림가 현실화·정훈 승인] **근거 3가지**: ①**목표가가 없다** — stocks.json target='목표 미부여(적자·PER 산정 불가)'인데 트림가만 90,000이 박혀 있었다. 밸류 근거 없는 종목에 밸류 기반 트림가를 둔 구조적 모순. ②**1주·비중 1.0%(70,200원)** — 국내는 분수주 미지원이라 트림=전량청산이고 '일부 트림'이 물리적으로 불가능하다. ③**⭐1 실측 알파 -8.75%**(8/22 n=12)로 ⭐1 구간은 트림이 맞다 + 룰2 3/3 훼손 판정(7/30)의 '딥다이브+트림 검토' 착수가 한 달간 미이행. **78,000원 = 현재가 +8.6%** — 도달 불가(90,000)도 즉시 손절도 아닌 현실적 반등 지점. 밴드 OK(71,800×1.3=93,340). 체결 시 회수액 78,000원은 **GOOGL 2·3회차 재원**(≈34,668원/회)의 2회분 = ⭐1/32점을 ⭐5/88점으로 교체하는 것이 우리 채점 체계의 지시다. ⚠️ **반대 근거 병기**: 두산로보는 8/26 +2.28%로 로봇·피지컬AI 테마가 반등 중이고 현대차 CID 주제도 보스턴다이내믹스·피지컬AI였다 — 테마 온기 초입에서 파는 것일 수 있다. 그래서 시장가 즉시청산이 아니라 **반등 지점 지정가**로 설계했다. | ★[8/27 16:2x] ⓑ 등록선(트림가×0.95)은 **변동성 무시 고정 5%**라 두산로보처럼 일중 레인지가 넓은 종목에선 과소등록한다 — 74,100선(+1.4%)은 242일 중 156일(64.5%)이 충족해 필터 역할도 거의 못 한다. **정훈 승인 필요한 룰 후보**: ⓑ선을 고정 5%가 아니라 종목별 '익일 고가 도달확률 15%' 분위수로 잡는다. 오늘은 룰이 아니라 기저율로 등록을 권고한다. | ★[8/27 2026Q2 실적 1차확인·4사 교차] 매출 **176.7억(+290% YoY)** · 영업손실 **-144억(-7.9% YoY)** · 순손실 -127.9억. 상반기 누계 매출 **329.7억(+236%)** = **FY2025 연간 매출 330억과 동일** — 매출 변곡은 진짜다(중대형 수주 + 원엑시아 인수 효과). **단 매출이 3.4배 느는 동안 영업적자는 4.6%밖에 안 줄었다**(미국법인 확장·AI R&D 인건비). ⇒ 컨센 목표주가 103,667원은 **FY2026 영업이익 +130억 흑자 전망** 위에 서 있는데 상반기가 이미 **-264.9억**이라, 하반기에 +395억을 내야 성립한다 = **성립 불가**. 목표가 대비 +42% 여력은 근거가 무너진 숫자다. ⚠️룰2 3번째 조건(순부채 증가)은 **원엑시아 인수**가 켠 것 — 연간 FCF -327억 vs 순현금 -1,222억의 차액이 M&A다(d-신규 아젠다). M&A를 제외해도 마진·FCF 2/3 = 감시상향은 그대로.",
       "setup_id": null
     },
     {
@@ -24122,16 +24154,16 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1380.56,
+    "fx_rate": 1380.37,
     "fx_cost_basis": 1467.4,
-    "total_krw": 8099996,
+    "total_krw": 8099185,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 5884036,
+        "value_krw": 5883225,
         "weight": 72.6,
-        "stock_krw": 5491985,
-        "cash_krw": 392051
+        "stock_krw": 5491228,
+        "cash_krw": 391997
       },
       {
         "currency": "KRW",
@@ -24141,85 +24173,85 @@ window.APP_DATA = {
         "cash_krw": 266060
       }
     ],
-    "sensitivity_1pct_krw": 58840,
+    "sensitivity_1pct_krw": 58832,
     "attribution": {
       "price_krw": 192404,
-      "fx_krw": -334070,
-      "cross_krw": -11386,
-      "total_krw": -153053,
+      "fx_krw": -334801,
+      "cross_krw": -11411,
+      "total_krw": -153809,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(추정치)라 환 기여 절대액은 오차를 안는다"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": -17022,
+        "total_krw": -17226,
         "price_krw": 76529,
-        "fx_krw": -89022,
-        "cross_krw": -4529
+        "fx_krw": -89216,
+        "cross_krw": -4539
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": 13898,
+        "total_krw": 13742,
         "price_krw": 85266,
-        "fx_krw": -66322,
-        "cross_krw": -5046
+        "fx_krw": -66467,
+        "cross_krw": -5057
       },
       {
         "label": "META",
         "ticker": "META",
-        "total_krw": -152324,
+        "total_krw": -152448,
         "price_krw": -95833,
-        "fx_krw": -62163,
-        "cross_krw": 5671
+        "fx_krw": -62299,
+        "cross_krw": 5684
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -84935,
+        "total_krw": -85054,
         "price_krw": -30309,
-        "fx_krw": -56419,
-        "cross_krw": 1794
+        "fx_krw": -56542,
+        "cross_krw": 1798
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 120261,
+        "total_krw": 120125,
         "price_krw": 182461,
-        "fx_krw": -51402,
-        "cross_krw": -10798
+        "fx_krw": -51515,
+        "cross_krw": -10822
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -29070,
+        "total_krw": -29076,
         "price_krw": -26288,
-        "fx_krw": -4338,
-        "cross_krw": 1556
+        "fx_krw": -4347,
+        "cross_krw": 1559
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -9036,
+        "total_krw": -9041,
         "price_krw": -6838,
-        "fx_krw": -2603,
-        "cross_krw": 405
+        "fx_krw": -2608,
+        "cross_krw": 406
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 3929,
+        "total_krw": 3925,
         "price_krw": 5559,
-        "fx_krw": -1301,
-        "cross_krw": -329
+        "fx_krw": -1304,
+        "cross_krw": -330
       },
       {
         "label": "AAPL",
         "ticker": "AAPL",
-        "total_krw": 1245,
+        "total_krw": 1244,
         "price_krw": 1857,
-        "fx_krw": -502,
+        "fx_krw": -503,
         "cross_krw": -110
       }
     ],
@@ -24233,21 +24265,21 @@ window.APP_DATA = {
           "n": 252
         },
         "3y": {
-          "percentile": 39.8,
+          "percentile": 39.6,
           "low": 1276.47,
           "high": 1554.48,
           "n": 756
         },
         "5y": {
-          "percentile": 60.6,
+          "percentile": 60.5,
           "low": 1167.33,
           "high": 1554.48,
           "n": 1260
         }
       },
       "status": "live",
-      "current": 1380.55,
-      "chg_3m_pct": -9.95
+      "current": 1380.28,
+      "chg_3m_pct": -9.97
     },
     "status": "live"
   },
@@ -24735,7 +24767,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 72.6% · 원/달러 1년 1.2%ile. 환율 1% 변동 = 총자산 +58,840원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
+        "detail": "달러 자산 72.6% · 원/달러 1년 1.2%ile. 환율 1% 변동 = 총자산 +58,832원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
       },
       {
         "level": "warning",
@@ -24759,7 +24791,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +192,404원인데 환 기여 -334,070원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -11,386원)."
+        "detail": "미국주 종목 기여 +192,404원인데 환 기여 -334,801원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -11,411원)."
       },
       {
         "level": "info",

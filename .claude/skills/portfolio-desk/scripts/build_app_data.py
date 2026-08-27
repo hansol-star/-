@@ -240,6 +240,12 @@ def _norm_title(t: str) -> str:
     return re.sub(r"[\s'\"‘’“”·,:=+?!.…—\-]", "", t).lower()
 
 
+def _first_token(v):
+    """공백 앞 첫 토큰(날짜부). 값이 없거나 빈 문자열이면 None — split()[0] IndexError 방지."""
+    parts = str(v or "").split()
+    return parts[0] if parts else None
+
+
 def rollover_hunter_archive(hunter, archive) -> bool:
     """latest_videos → hunter_archive 자동 병합 [2026-07-04 신설].
 
@@ -286,7 +292,9 @@ def rollover_hunter_archive(hunter, archive) -> bool:
         if (lv.get("id") and lv["id"] in known_ids) or (nt and nt in known_titles):
             continue
         entry = {
-            "date": lv.get("date") or ((lv.get("published_kst") or "").split()[0] or None),
+            # ★[8/27] published_kst가 없으면 "".split()[0]로 IndexError가 났다(실사고).
+        #   영상 기입처가 published_kst / published / date 셋으로 갈려 있어 어느 쪽이 와도 살아야 한다.
+        "date": lv.get("date") or _first_token(lv.get("published_kst")) or _first_token(lv.get("published")),
             "title": lv.get("title"),
             "theme": lv.get("theme"),
             "tickers": lv.get("tickers") or [],

@@ -5,6 +5,46 @@
   "videos": [
     {
       "date": "2026-08-27",
+      "title": "오늘 투자자들이 '엔비디아'만 보다가 놓친 'AI 호재' 정체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "세일즈포스 실적 매출 $113.5억(+11%)·RPO $335억(+14%)·AI(Agentforce+Data360) ARR $39억(전년비3배) — 시간외+13%(2024/8이후 최대). AI가 반도체 넘어 기업 실매출로 전환되는 증거로 해석.",
+      "views": null,
+      "id": "ESyNS-whqos"
+    },
+    {
+      "date": "2026-08-27",
+      "title": "투자자들이 지금 엔비디아 실적발표를 꼭 봐야 하는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "NVDA GM 75→74%(월가기대 75% 대비 미스)로 초기-3%, 컨콜서 CFO \"수요는 100%인데 공급 70%만 가능\" 발언에 +4%반전. 공급약정 반년새 3배 증가·대부분 메모리 — 메모리가 병목이라는 자백.",
+      "views": null,
+      "id": "UT4iqB9rzi0"
+    },
+    {
+      "date": "2026-08-27",
+      "title": "8월 27일 미국 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": null,
+      "takeaway": "NVDA 시간외+4%대·정규장은 물가지표 상회로 -1.6%(지표명 미확정, CPI/PCE 확인필요). GM 74%→다음분기 71-72%(메모리원가). 잭슨홀 개막·워시연설 내일밤.",
+      "views": null,
+      "id": "lHNkRMU4Olg"
+    },
+    {
+      "date": "2026-08-26",
+      "title": "AI 투자자들이 앤트로픽 상장을 꼭 봐야하는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "부분검증(수치 1차소스 확인필요)",
+      "takeaway": "앤트로픽 IPO서류 제출·밸류 최대 2,780조원 거론(5월대비 2배)·Q2매출116억달러. SK하이닉스·마이크론 전략파트너 동시편입, SKT지분 장부가 1.4조→3.5조, NAVER Claude Code 전사배포.",
+      "views": null,
+      "id": "qIZoa8UYEtc"
+    },
+    {
+      "date": "2026-08-27",
       "title": "8월 27일 투자자들이 꼭 알아야 하는 투자 포인트",
       "theme": null,
       "tickers": [],

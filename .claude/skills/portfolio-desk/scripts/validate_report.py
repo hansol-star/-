@@ -1594,6 +1594,215 @@ def check_coverage():
     print("     '있는 것 목록'이 아니라 '없는 것 목록'이 이 감사의 핵심이다.\n")
 
 
+
+# ── R. 무가드 3클래스 (2026-08-27 신설) ─────────────────────────────────
+# 배경: 영구교정 150건을 오류 클래스로 분류해보니 **가드가 붙은 클래스는 재발이 멈췄고
+# (D stale·H 지표설계 = 가드 후 0건, G 물리제약 = 5건→1건), 가드가 없는 클래스만
+# 4개월째 그대로 재발**했다 — A 확인 전 단정(6건)·B 1차출처 미도달(2건)·C 단위/범위(16건).
+# 8/27 금통위 [정정] 사고가 A의 최신 재발이다. 교훈을 산문으로 적는 것은 재발을 막지 못한다.
+# ⚠️ 셋 다 WARN — 문장 판독은 오탐이 나므로 사람이 최종 판단한다(게이트를 막지 않는다).
+
+def _claim_scope(txt, pos, span=320):
+    """[정정] 한 건의 근거 문맥을 **그 절 안으로** 자른다.
+
+    ★[2026-08-27 주입테스트에서 발견] ±320자 고정 윈도우가 다음 섹션까지 넘어가
+    거기 있던 '체결·나왔'을 결과어로 주워왔고, 그래서 금통위 실사고(전망만으로 [정정])가
+    통과했다. 가드가 claim 경계를 안 지키면 옆 문단이 알리바이가 된다 —
+    8/24 룩어헤드 픽스처 버그와 같은 클래스.
+    """
+    a, b = max(0, pos - span), min(len(txt), pos + span)
+    for sep in ("\n\n", "\n#"):
+        j = txt.rfind(sep, a, pos)
+        if j > a:
+            a = j + len(sep)
+        j = txt.find(sep, pos, b)
+        if 0 < j < b:
+            b = j
+    seg = txt[a:b]
+    # 헤딩 줄은 제목이지 근거가 아니다 — 제목의 낱말이 결과어 알리바이가 되면 안 된다
+    # (2026-08-27 주입테스트: 제목 "확인 전 단정"의 '확인'이 금통위 사례를 통과시켰다)
+    lines, off = [], 0
+    for ln in seg.split("\n"):
+        keep = not ln.lstrip().startswith("#")
+        if not keep and off + len(ln) < pos - a:
+            pos -= len(ln) + 1
+            a_shift = True
+        lines.append(ln if keep else "")
+        off += len(ln) + 1
+    return "\n".join(lines), max(0, pos - a)
+
+
+def _para_of(txt, sent):
+    """문장이 속한 문단을 돌려준다 — 단위 병기는 문장이 아니라 문단에서 판정한다."""
+    i = txt.find(sent.strip()[:40])
+    if i < 0:
+        return sent
+    a = txt.rfind("\n\n", 0, i) + 2
+    b = txt.find("\n\n", i)
+    para = txt[a: b if b > 0 else len(txt)]
+    # 헤딩 줄("## …")은 서술이 아니다 — 제목의 번호가 수치로 오독된다("## C1." → "1. bp")
+    return "\n".join(l for l in para.split("\n") if not l.lstrip().startswith("#"))
+
+
+_FORECAST_MK = ("전망", "예상", "설문", "컨센서스", "기대", "가능성", "관측", "예측", "추정")
+_OUTCOME_MK = ("확정됐", "확정된", "확정 —", "확정.", "발표했", "발표됐", "실제로", "실제 ",
+               "마감", "집계됐", "의결", "확인됐", "확인된", "체결됐", "체결 확인", "공시했",
+               "나왔다", "결정됐", "결과 ")
+
+def check_verdict_grounding(rel):
+    """[정정] 태그가 '확정된 사실'이 아니라 '경쟁 전망'에 기대고 있는지 검사 (오류 클래스 A).
+
+    ★[2026-08-27 실사고] 경제사냥꾼의 금통위 인상 전망을 **채권전문가 설문(80% 동결)**을
+    근거로 [정정] 처리했는데, 그날 오후 한은이 실제로 2.75→3.00% 인상했다. 컨센서스는
+    사실이 아니다 — 두 예측이 대립할 때 올바른 태깅은 [정정]이 아니라 **[대립·미결]**이고,
+    [정정]은 사실이 확정된 뒤에만 붙는다(master §7).
+    같은 오류가 6/22·6/24·7/2·7/3·7/6·8/1에도 있었고 **가드가 없어 8/27에 또 났다.**
+
+    판정: [정정] 주변 문맥에 전망어(전망·설문·컨센서스…)만 있고 결과어(확정·발표·실제…)가
+    없으면 WARN. 미래 날짜를 참조하는 [정정]은 결과가 아직 없다는 뜻이므로 별도 WARN.
+    """
+    p = os.path.join(ROOT, rel)
+    if not os.path.exists(p):
+        return
+    txt = open(p, encoding="utf-8").read()
+    # 보고서 날짜 = 파일명 report_v{N}_{YYYY-MM-DD}.md
+    m = re.search(r"_(\d{4}-\d{2}-\d{2})\.md$", rel)
+    rdate = dt.date.fromisoformat(m.group(1)) if m else None
+
+    hits = [mm.start() for mm in re.finditer(r"\[정정", txt)]
+    ungrounded, future = [], []
+    for pos in hits:
+        win, rel_pos = _claim_scope(txt, pos)
+        if "철회" in win or "대립" in win:      # 이미 교정된 자리는 통과
+            continue
+        has_fc = any(k in win for k in _FORECAST_MK)
+        has_oc = any(k in win for k in _OUTCOME_MK)
+        line = re.sub(r"\s+", " ", win[max(0, rel_pos - 90): rel_pos + 90]).strip()
+        if has_fc and not has_oc:
+            ungrounded.append(line)
+        if rdate:
+            for ds in re.findall(r"(\d{1,2})/(\d{1,2})", win):
+                try:
+                    d = dt.date(rdate.year, int(ds[0]), int(ds[1]))
+                except ValueError:
+                    continue
+                if d > rdate:
+                    future.append(f"{d:%-m/%-d} · {line}")
+                    break
+    for l in ungrounded[:3]:
+        warn(f"{rel}: [정정]이 전망·설문에만 기대고 결과어가 없다 — **[대립·미결]이 맞는 태그**"
+             f"(8/27 금통위 재발): …{l}…")
+    for l in future[:3]:
+        warn(f"{rel}: [정정]이 **아직 오지 않은 날짜**를 참조 — 결과 없이 단정한 것 아닌지: {l}")
+
+
+_DEAL_AMT = re.compile(r"(\$\s?[\d,]+(?:\.\d+)?\s?(?:억|조|B\b|billion)|[\d,]+\s?조\s?원?|[\d,]{4,}\s?억\s?원?)")
+_DEAL_CTX = ("계약", "수주", "약정", "MOU", "LOI", "공급계약", "인수합병", "피인수")
+_DEAL_FORM = ("LOI", "MOU", "의향서", "확정계약", "본계약", "구속력", "잠정", "공시", "체결",
+              "공급약정", "공급/캐파", "캐파 약정", "구매약정", "purchase obligation",
+              "취소·조정 가능", "cancelable", "확정 발주")
+
+def check_magnitude_sanity(rel):
+    """단위·자릿수·범위 표기 규율 (오류 클래스 C — 영구교정 최다 16건, 5/7~8/23 상시 재발).
+
+    세 규칙을 기계화한다:
+    ① **bp/%p 병기**(7/28 CDS 사고 — '4~5%p 상승'이 실제 +14bp→82bp, 30배 과장):
+       변동폭을 쓰면 **절대수준을 같이** 적는다. 같은 문장에 수치가 하나뿐이면 WARN.
+    ② **계약금액 3종 병기**(7/26 SK-엔비디아 사고 — 그룹/계열사·단독/합계·LOI/확정계약이 섞였다):
+       큰 금액이 계약 문맥에 나오면 **형식**(LOI·MOU·확정계약…)이 같은 문장에 있어야 한다.
+    ③ **자릿수 sanity**: |변화율| > 1000%는 대개 단위 착오다(NVDA '170억' 자막오류 계열).
+    """
+    p = os.path.join(ROOT, rel)
+    if not os.path.exists(p):
+        return
+    txt = open(p, encoding="utf-8").read()
+    sents = [s for s in re.split(r"(?<=[.!?。])\s+|\n", txt) if s.strip()]
+
+    bad_bp, bad_deal, bad_mag = [], [], []
+    _seen_deal = set()
+    for s in sents:
+        if s.lstrip().startswith(("|", ">")) or "```" in s:
+            continue          # 표·인용 블록은 문장 규율 대상이 아니다
+        short = re.sub(r"\s+", " ", s.strip())[:110]
+
+        # ① bp/%p — 변동폭만 있고 절대수준이 없나
+        if re.search(r"\d+(?:\.\d+)?\s?(?:bp|%p)", s):
+            para = _para_of(txt, s)
+            nums = re.findall(r"\d+(?:\.\d+)?\s?(?:bp|%p|%)", para)
+            if len(nums) < 2 and "→" not in para:
+                bad_bp.append(short)
+
+        # ② 계약금액 — 형식 표기 누락
+        _m = _DEAL_AMT.search(s)
+        if any(k in s for k in _DEAL_CTX) and _m:
+            if not any(f in _para_of(txt, s) for f in _DEAL_FORM):
+                _k = _m.group(1).replace(" ", "")
+                if _k not in _seen_deal:
+                    _seen_deal.add(_k)
+                    bad_deal.append(short)
+
+        # ③ 자릿수 sanity
+        for v in re.findall(r"([+\-]?[\d,]+(?:\.\d+)?)\s?%", s):
+            try:
+                x = abs(float(v.replace(",", "")))
+            except ValueError:
+                continue
+            if x > 1000 and "배" not in s and "자릿수" not in s:
+                bad_mag.append(f"{v}% · {short}")
+                break
+
+    for l in bad_bp[:3]:
+        warn(f"{rel}: bp/%p 변동폭에 **절대수준 병기 없음**(7/28 CDS 30배 과장 재발 방지): {l}")
+    for l in bad_deal[:2]:
+        warn(f"{rel}: 계약 금액에 **형식(LOI/MOU/확정계약) 미표기**(7/26 주체·범위·형식 병기 룰){f' (외 {len(bad_deal)-2}건)' if len(bad_deal) > 2 else ''}: {l}")
+    for l in bad_mag[:2]:
+        warn(f"{rel}: 변화율 |1000%| 초과 — **단위 착오 가능**, 자릿수 sanity check 요망: {l}")
+
+
+_PRIMARY_MK = ("sec.gov", "dart.fss", "EDGAR", "8-K", "10-Q", "10-K", "20-F", "6-K", "뉴스룸", "IR ", "IR자료", "공시원문",
+               "사업보고서", "반기보고서", "분기보고서", "보도자료", "1차 출처", "원문 확인")
+
+def check_primary_source(rel):
+    """큰 계약·공시 금액이 1차 출처에 닿았는지 (오류 클래스 B — 7/29 CXMT·7/26 SK 사고의 구조).
+
+    2차 매체는 **합계와 단독, 그룹과 계열사를 섞는다**. 큰 숫자일수록 회사 공식 뉴스룸·
+    공시 원문까지 내려가야 한다(master §7). 문단 안에 계약성 금액이 있는데 그 문단에
+    1차 출처 표지가 하나도 없으면 WARN — '2차 매체 받아쓰기'의 기계 감지다.
+    ⚠️ 문단 단위 근사라 오탐이 난다. 게이트가 아니라 **거증책임을 되돌리는 장치**다.
+    """
+    p = os.path.join(ROOT, rel)
+    if not os.path.exists(p):
+        return
+    txt = open(p, encoding="utf-8").read()
+    paras = [x for x in txt.split("\n\n") if x.strip()]
+    naked, seen = [], set()
+    for para in paras:
+        # 표(|...|)는 서술이 아니라 데이터 — 1차출처 거증책임의 대상이 아니다
+        body = "\n".join(l for l in para.split("\n") if not l.lstrip().startswith("|"))
+        if any(k in body for k in _PRIMARY_MK):
+            continue
+        # 계약어와 금액이 **같은 문장**에 있어야 계약 금액이다.
+        # (문단 단위로 보면 옆 문장의 매출 가이던스 $108B가 계약 금액으로 오탐된다)
+        _m = None
+        for _sent in re.split(r"(?<=[.!?。])\s+|\n", body):
+            if any(k in _sent for k in _DEAL_CTX):
+                _m = _DEAL_AMT.search(_sent)
+                if _m:
+                    body = _sent
+                    break
+        if not _m:
+            continue
+        _k = _m.group(1).replace(" ", "")
+        if _k in seen:
+            continue
+        seen.add(_k)
+        naked.append(re.sub(r"\s+", " ", body.strip())[:110])
+    for l in naked[:2]:
+        warn(f"{rel}: 계약성 금액에 **1차 출처 표지 없음**(뉴스룸·공시원문·8-K) — "
+             f"2차 매체 합계/단독 혼동 위험(7/29 CXMT 계열)"
+             f"{f' (외 {len(naked)-2}건)' if len(naked) > 2 else ''}: {l}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", help="검사할 보고서 .md (생략 시 최신 자동)")
@@ -1625,7 +1834,9 @@ def main():
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
-        if rel: check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel)
+        if rel:
+            check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel)
+            check_verdict_grounding(rel); check_magnitude_sanity(rel); check_primary_source(rel)
 
     print("\n" + "=" * 56)
     print("  보고서 완료-검증 (validate_report.py)")

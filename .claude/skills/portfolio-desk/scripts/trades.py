@@ -514,9 +514,16 @@ def main() -> int:
             return 1
         print(f"── {hits[0].get('label')} ({hits[0]['ticker']}) 체결 이력 {len(hits)}건 ──")
         for r in hits:
-            mark = {"opening": "기초", "buy": "매수", "sell": "매도"}[r["side"]]
-            print(f"  {r['date']} {mark} {r['shares']:>12,.6f}주 @ {r['price']:>12,.2f} {r['currency']}"
-                  f"{'  (derived)' if r.get('derived') else ''}")
+            # closed = 데스크 이전 청산분(토스 실현손익 화면) — 주수·단가가 애초에 없다.
+            mark = {"opening": "기초", "buy": "매수", "sell": "매도", "closed": "청산"}.get(r["side"], r["side"])
+            if r.get("shares") is None or r.get("price") is None:
+                rp = f" ({r['return_pct']:+.1f}%)" if r.get("return_pct") is not None else ""
+                real = f" 실현 {r['realized']:>+10,.2f}" if r.get("realized") is not None else ""
+                print(f"  {r['date']} {mark} {'(주수·단가 미기록)':>22} {r['currency']}{real}{rp}"
+                      f"{'  (derived)' if r.get('derived') else ''}")
+            else:
+                print(f"  {r['date']} {mark} {r['shares']:>12,.6f}주 @ {r['price']:>12,.2f} {r['currency']}"
+                      f"{'  (derived)' if r.get('derived') else ''}")
             if r.get("note"):
                 print(f"          {r['note']}")
         p = pos.get(hits[0]["ticker"])

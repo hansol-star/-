@@ -307,10 +307,10 @@ def rule2(ticker="066570.KS"):
     nc = _series(ann, "net_cash")
     if nc and nc[0] < nc[1] < nc[2]:
         conds.append(True)
-        detail.append(f"✅ 순부채 2년 연속 증가 {nc[2]/1e8:,.0f}→{nc[1]/1e8:,.0f}→{nc[0]/1e8:,.0f}억")
+        detail.append(f"✅ 순부채 2년 연속 증가 (순현금 {nc[2]/1e8:,.0f}→{nc[1]/1e8:,.0f}→{nc[0]/1e8:,.0f}억)")
     else:
         conds.append(False)
-        detail.append(f"❌ 순부채 연속 증가 아님 {'→'.join(f'{x/1e8:,.0f}' for x in reversed(nc))}억" if nc
+        detail.append(f"❌ 순부채 연속 증가 아님 (순현금 {'→'.join(f'{x/1e8:,.0f}' for x in reversed(nc))}억)" if nc
                       else "❌ 순현금 결측")
 
     caveat = None

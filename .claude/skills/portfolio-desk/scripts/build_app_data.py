@@ -586,7 +586,7 @@ def build(offline: bool) -> dict:
             "ticker": a.get("ticker"),
             "cond": cond,
             "when": a.get("when"),
-            "action": a["action"],
+            "action": a.get("action",""),
             "price": p,
             "fired": fired,
         })

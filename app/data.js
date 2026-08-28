@@ -1,21 +1,21 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-28 16:14 KST",
+  "generated_at": "2026-08-28 16:17 KST",
   "as_of": "2026-08-27 15:40 KST",
   "source_report": "docs/reports/report_v86_2026-08-27.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1372.46
+    "usdkrw": 1372.51
   },
   "totals": {
-    "assets_krw": 8181561,
-    "stocks_value_krw": 7525750,
+    "assets_krw": 8181780,
+    "stocks_value_krw": 7525955,
     "cash_krw": 266060,
     "cash_usd": 283.98,
-    "cash_usd_krw": 389751,
-    "day_change_krw": 116089,
+    "cash_usd_krw": 389765,
+    "day_change_krw": 116094,
     "day_change_pct": 1.57,
-    "total_pnl_krw": -324986,
+    "total_pnl_krw": -324782,
     "total_pnl_pct": -4.14
   },
   "safety": {
@@ -40,8 +40,8 @@ window.APP_DATA = {
     {
       "label": "코스닥",
       "ticker": "^KQ11",
-      "price": 837.65,
-      "change_pct": 1.3
+      "price": 838.41,
+      "change_pct": 0.09
     },
     {
       "label": "S&P500",
@@ -339,7 +339,7 @@ window.APP_DATA = {
       "stars": 5,
       "score": 93,
       "target": "251,000~460,000원 (중심 355,000원)",
-      "buy_zone": "사다리 D1 해금(15%) — 단 재원(≈104,000원)이 국내 정수 1주 미달, 실집행 불가",
+      "buy_zone": "사다리 D1 **재해금**(코스피 -25.5%) — 단 오늘 잔여 **63,705원**(상한 98,373 − 8/24 기집행 34,668)이라 **1주 257,000원에 한참 미달 = 국내는 집행 불가**(막는 건 현금이 아니라 룰 상한. 원화 잔고는 266,060원)",
       "trim": "—",
       "forecast": {
         "week": {
@@ -980,9 +980,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 227.98,
       "change_pct": 8.74,
-      "value_krw": 1607710,
+      "value_krw": 1607769,
       "pnl_pct": 14.27,
-      "pnl_krw": 103445,
+      "pnl_krw": 103503,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1098,9 +1098,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 571.1,
       "change_pct": -0.87,
-      "value_krw": 885011,
+      "value_krw": 885043,
       "pnl_pct": -9.92,
-      "pnl_krw": -165404,
+      "pnl_krw": -165372,
       "outlook": "core",
       "stars": 2,
       "score": 50,
@@ -1221,9 +1221,9 @@ window.APP_DATA = {
       "cost": 654.41,
       "price": 708.75,
       "change_pct": 0.65,
-      "value_krw": 1135214,
+      "value_krw": 1135255,
       "pnl_pct": 8.3,
-      "pnl_krw": 14529,
+      "pnl_krw": 14571,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1328,9 +1328,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 505.06,
       "change_pct": 1.75,
-      "value_krw": 1000251,
+      "value_krw": 1000287,
       "pnl_pct": 23.13,
-      "pnl_krw": 131670,
+      "pnl_krw": 131706,
       "outlook": "core",
       "stars": 4,
       "score": 82,
@@ -1430,7 +1430,7 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 314.58,
       "change_pct": 0.36,
-      "value_krw": 9702,
+      "value_krw": 9703,
       "pnl_pct": 22.34,
       "pnl_krw": 1223,
       "outlook": "hold",
@@ -1543,14 +1543,14 @@ window.APP_DATA = {
       "cost": 353.23,
       "price": 340.65,
       "change_pct": -0.39,
-      "value_krw": 859917,
+      "value_krw": 859948,
       "pnl_pct": -3.56,
-      "pnl_krw": -93438,
+      "pnl_krw": -93406,
       "outlook": "core",
       "stars": 5,
       "score": 88,
       "target": "$384~458 (중심 $421)",
-      "buy_zone": "✅1회차 체결 확인(8/24 $24.96·8/27 스크린샷) — 2·3회차는 **D1 재잠김으로 소멸**(코스피 낙폭 -24.5% < -25%). 다음 몫은 재차 -25% 도달 시",
+      "buy_zone": "✅1회차 체결(8/24 $24.96) · **D1 재해금으로 2회차 창 부활** — 오늘 잔여 63,705원 내 2분할 권고(1회 ≈31,848원 ≈$23). 소수점 시장가만 가능(지정가 불가). ⚠️D1은 코스피 반등 시 다시 잠긴다(RESET)",
       "trim": "—",
       "forecast": {
         "week": {
@@ -1663,9 +1663,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 151.94,
       "change_pct": 2.06,
-      "value_krw": 44874,
+      "value_krw": 44876,
       "pnl_pct": -34.54,
-      "pnl_krw": -28423,
+      "pnl_krw": -28421,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1773,9 +1773,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 935.39,
       "change_pct": -0.32,
-      "value_krw": 25677,
+      "value_krw": 25678,
       "pnl_pct": 24.89,
-      "pnl_krw": 3694,
+      "pnl_krw": 3695,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1891,9 +1891,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 371.54,
       "change_pct": 4.49,
-      "value_krw": 36295,
+      "value_krw": 36296,
       "pnl_pct": -11.76,
-      "pnl_krw": -7683,
+      "pnl_krw": -7681,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -3618,7 +3618,7 @@ window.APP_DATA = {
       1380.76,
       1381.49,
       1383.49,
-      1372.3
+      1372.77
     ]
   },
   "kospi_history": {
@@ -21065,6 +21065,39 @@ window.APP_DATA = {
     ],
     "closed": [
       {
+        "id": "d153",
+        "date": "2026-08-28",
+        "topic": "두산로보 별점 ⭐1→⭐2·스코어 32→41 (정훈 위임 판단)",
+        "decision": "상향하되 트림 오더는 78,000 그대로 유지",
+        "rationale": "우리 스코어 32는 매출이 *감소*하던 FY2025 연간(530→468→330억) 위에 서 있었는데, 2026Q2에 매출 176.7억(+290% YoY)·상반기 누계 329.7억으로 **작년 1년치와 같아졌고** GM도 8.0%→28.3%로 붙었다. 스코어가 이 변곡을 전혀 반영 못 했다. 결정타 = **오버라이드 방향 불일치**: 현대차 +24.2p(서브 25.8→50) vs 두산로보 -16.2p(48.2→32)로, 이익 내지만 악화되는 종목엔 후하고 적자지만 변곡 중인 종목엔 박했다(LG전자 +6.0·NAVER +5.3은 온건). 41 = ⭐2 최하단, 오버라이드 -7.2p로 축소 — '적자라 PER·목표가 앵커 자체가 없다'로 방어 가능한 폭. **트림은 별점과 다른 층위**라 유지: 별점='회사가 어떤가', 트림='이 포지션을 들 것인가'. 후자의 근거는 ⓐ컨센 목표 103,667원이 FY2026 영업이익 +130억 전망 위에 있는데 상반기가 이미 -264.9억 ⓑLG전자와 상관 0.805 = 분산 아님 ⓒ비중 1%라 상방도 무의미.",
+        "rejected": "①⭐1 유지: 매출 3.4배 변곡을 스코어가 무시한다는 지적에 답이 안 된다 ②⭐3(55+)까지 상향: 분기 영업적자 -144억이 매출 3.4배에도 -4.6%만 줄었고 현 GM 28%에서 손익분기는 분기매출 3.8배가 필요하다 — 회사가 건강하다는 신호가 아니다 ③트림가 인하(78,000→시가 근처): 주가 빠질 때마다 낮추면 쫓아 내려가는 것이고 이미 8/27에 90,000→78,000으로 현실화했다",
+        "status": "closed",
+        "tags": [
+          "두산로보",
+          "별점",
+          "스코어",
+          "오버라이드",
+          "트림"
+        ],
+        "refs": "2026Q2 실적 4사 교차 · financials.json 454910.KS · portfolio_stats 상관 0.805 · validate check_score_basis WARN 해소"
+      },
+      {
+        "id": "d154",
+        "date": "2026-08-28",
+        "topic": "사다리 원장이 이진(단계 전체 소진)이라 분할 권고와 모순 — 금액 누적으로 개정",
+        "decision": "ledger를 금액 누적으로 개정 + 8/24 GOOGL D1 34,668원 소급 기입",
+        "rationale": "8/24 GOOGL D1 1회차를 집행하고도 **이 아예 생성되지 않았다**(--execute 호출 누락). 그래서 8/28 D1 재해금 시 상한 98,373원이 기집행 34,668원을 안 빼고 통째로 부활했다 — 그대로 샀으면 룰1 누적 상한 초과다. 더 근본적으로 舊 원장은 **단계 이진**이라 첫 집행에 D1 15% 전체를 소진 처리하고 재진입을 막았는데, 같은 도구가 '폭풍 %ile에 따라 2~3분할'을 권고한다 = 1회차를 넣는 순간 2·3회차가 불가능해지는 자기모순. 룰 문구가 *'누적 상한이지 목표 아님'*이므로 금액 누적이 옳은 해석이고, 이건 룰 변경이 아니라 룰의 정확한 구현이다. 부수 수정: '가용 0원' 메시지가 원인을 항상 '이미 집행했다'로 단정해 해금 0%일 때도 그렇게 나왔다(8/27 오독 원인).",
+        "rejected": "이진 유지 + 분할 권고 삭제: 분할은 폭풍 %ile 기반 속도 조절이라 리스크 관리 기능이 있다. 없애면 급락일에 한 번에 다 넣게 된다.",
+        "status": "closed",
+        "tags": [
+          "룰1",
+          "사다리",
+          "원장",
+          "tranche_rules"
+        ],
+        "refs": "tranche_rules.py ledger_executed/ledger_execute · data/app/tranche_ledger.json"
+      },
+      {
         "id": "d149",
         "date": "2026-08-27",
         "topic": "현대차 감시 트리거 신설 제안 — 외인 지분율 24% 하회",
@@ -21299,47 +21332,10 @@ window.APP_DATA = {
           "메모리원가"
         ],
         "refs": "report_v81_2026-08-23.md · master §10-4 · bigtech-platform-desk 8/23"
-      },
-      {
-        "id": "d129",
-        "date": "2026-08-23",
-        "topic": "체결 원장을 정본으로 — 수량·평단·실현손익을 파생물로 뒤집음 (참고소스 Stockfolio 설계 이식)",
-        "decision": "data/app/trades.jsonl(체결 원장)을 정본으로 두고 수량·평단·실현손익은 trades.py가 이동평균법으로 재생하는 파생물로 전환. portfolio.json 대사를 validate_report.check_trade_ledger()에서 FAIL 게이트로 강제. 함께 fx_exposure.py(roadmap P0 2-3)·portfolio_risk.py 신설, 셋 다 build_app_data→앱(홈 리스크·통화 카드·#trades)·risk-desk Task 4~5·SKILL §4b에 배선.",
-        "rationale": "정훈이 가져온 Stockfolio 소스의 유일한 구조적 우위가 '거래 이력이 단일 진실 소스'였다. 우리는 반대(수량·평단 정본 + 체결은 산문)라 체결마다 세 곳을 수기 동기화해야 했고 8/6·8/19 두 번 어긋났다. master.md가 8/19에 '절차로 막는다'고 적었으나 절차는 사람이 지키는 것이라 같은 다짐 뒤에 재발했다. 원장을 정본으로 두면 파생물은 어긋날 수 없고 남는 위험(기입 누락)은 수량 불일치로 기계가 잡는다. 실측: 산문에서 복원한 체결 12건이 portfolio.json 16종목과 전부 일치(누계 실현손익 +173,902원·승률 83.3%).",
-        "rejected": "①서버+React 전면 재구축(참고소스 구조) — 폰 상시 서버 불가·오프라인 PWA·무비용 호스팅·git 정본 연속성을 전부 잃는다 ②앱에서 체결 입력(백엔드 없이 Actions 우회) — 설계 논의부터 필요해 별건 ③원장 없이 앱 화면만 추가 — 8/19 사고 클래스가 그대로 남는다 ④기초 잔고를 가짜 체결로 기입 — 6/13 이전은 우리 기록이 아니므로 side:opening으로 명시",
-        "status": "closed",
-        "tags": [
-          "원장",
-          "실현손익",
-          "통화익스포저",
-          "리스크게이지",
-          "앱",
-          "배선",
-          "정본구조"
-        ],
-        "refs": ""
-      },
-      {
-        "id": "d130",
-        "date": "2026-08-23",
-        "topic": "gs-quant econometrics 이식 — 분산을 라벨이 아니라 상관으로 재기 시작",
-        "decision": "portfolio_stats.py 신설(stdlib 재구현): 변동성·상관행렬·베타·최대낙폭·실효분산. portfolio_risk를 7축→8축으로 확장해 '동조(상관)' 축(가중 14)을 신설하고 라벨 기반 theme 가중을 16→12로 낮춤. build_app_data→앱 상관 카드·risk-desk Task 4·SKILL §4b 배선.",
-        "rationale": "gs-quant는 pandas/numpy 의존이라 stdlib 전용인 우리 레포에 import 불가 → 코드가 아니라 정의를 이식(Apache-2.0). 우리 시스템의 실제 공백은 백테스트나 팩터모델이 아니라 '분산이 진짜인가'를 재는 축이었다 — risk-desk가 memory-bet overlap을 눈대중으로 보고 있었다. 첫 산출: 보유 14종목이 비중 기준 7.41 → 상관 기준 2.28종목어치(분산의 69% 소멸), 동조 축이 즉시 최대 기여 축(78)이 되며 점수 35→41.",
-        "rejected": "①gs-quant 팩터 리스크 모델 — 팩터 노출이 GS Marquee API 전용이라 키 없이 불가 ②백테스트 프레임워크 — sizing_backtest·multiple_backtest·ratchet_test로 이미 커버, 룰 검정 절차도 확립 ③numpy/pandas 도입 — 12월 로컬 이전 대비 stdlib 전용 설계를 깨뜨림 ④theme(라벨) 축 제거 — 상관이 못 잡는 이벤트성 동조가 있어 보조로 유지",
-        "status": "closed",
-        "tags": [
-          "상관",
-          "분산",
-          "gs-quant",
-          "리스크게이지",
-          "포트통계",
-          "배선"
-        ],
-        "refs": ""
       }
     ],
     "open_count": 23,
-    "total": 169
+    "total": 171
   },
   "reports": [
     {
@@ -22713,6 +22709,19 @@ window.APP_DATA = {
     }
   },
   "orders": [
+    {
+      "id": "o-googl-d1-t2-0828",
+      "label": "[PM 권고] GOOGL 낙폭사다리 D1 2회차 — $23 소수점 시장가",
+      "ticker": "GOOGL",
+      "action": "매수(소수점·시장가 예약)",
+      "status": "🔴 **오늘 밤 최우선 1건** — 22:30 미장 개장 시장가. D1이 코스피 -25.5%로 재해금됐고 잔여 63,705원(상한 98,373 − 기집행 34,668) 중 2분할 1회분. ⚠️**D1은 코스피 반등 시 다시 잠긴다** — 8/27에 실제로 잠겨 2·3회차 창이 하루 사라졌었다.",
+      "price": null,
+      "shares": null,
+      "amount_usd": 23.0,
+      "amount_krw": 31848,
+      "date": "2026-08-28",
+      "note": "매수 1순위 근거(7/30 확정 순위 GOOGL→NAVER→MU→META)는 밸류가 아니라 **상관**이다 — GOOGL은 포트 상위 상관쌍에 없고 실효분산 2.28종목 문제에 유일하게 맞는 방향. 가격도 1회차($343.62)보다 낮다($340.65). 💵결제 = 보유 달러 $283.98에서 직접 출금(환전 없음) → 환율 논거 무효(8/24 정훈 지적). ⚠️**META 체결 확인이 먼저다** — 체결됐으면 현금이 늘어 사다리 상한 자체가 올라간다(cash×15%). $23은 두 시나리오 모두에서 안전한 크기라 확인 전에도 낼 수 있다. ⚠️소수점 = 지정가 불가, 개장 갭 그대로 수용(영구제약)."
+    },
     {
       "id": "o-googl-d1-t1-0824",
       "label": "[정훈 승인·집행] GOOGL 낙폭사다리 D1 해금 1회차 — $25 소수점 시장가",
@@ -24370,16 +24379,16 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1372.46,
+    "fx_rate": 1372.51,
     "fx_cost_basis": 1467.4,
-    "total_krw": 8181562,
+    "total_krw": 8181780,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 5994402,
+        "value_krw": 5994620,
         "weight": 73.3,
-        "stock_krw": 5604651,
-        "cash_krw": 389751
+        "stock_krw": 5604855,
+        "cash_krw": 389765
       },
       {
         "currency": "KRW",
@@ -24389,75 +24398,75 @@ window.APP_DATA = {
         "cash_krw": 266060
       }
     ],
-    "sensitivity_1pct_krw": 59944,
+    "sensitivity_1pct_krw": 59946,
     "attribution": {
       "price_krw": 347316,
-      "fx_krw": -365231,
-      "cross_krw": -22471,
-      "total_krw": -40386,
+      "fx_krw": -365039,
+      "cross_krw": -22459,
+      "total_krw": -40182,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(추정치)라 환 기여 절대액은 오차를 안는다"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": 103445,
+        "total_krw": 103503,
         "price_krw": 214658,
-        "fx_krw": -97325,
-        "cross_krw": -13888
+        "fx_krw": -97274,
+        "cross_krw": -13881
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": 14529,
+        "total_krw": 14571,
         "price_krw": 93058,
-        "fx_krw": -72508,
-        "cross_krw": -6021
+        "fx_krw": -72470,
+        "cross_krw": -6018
       },
       {
         "label": "META",
         "ticker": "META",
-        "total_krw": -165404,
+        "total_krw": -165372,
         "price_krw": -104183,
-        "fx_krw": -67961,
-        "cross_krw": 6741
+        "fx_krw": -67925,
+        "cross_krw": 6737
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -93438,
+        "total_krw": -93406,
         "price_krw": -33953,
-        "fx_krw": -61682,
-        "cross_krw": 2197
+        "fx_krw": -61649,
+        "cross_krw": 2196
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 131670,
+        "total_krw": 131706,
         "price_krw": 200862,
-        "fx_krw": -56197,
-        "cross_krw": -12996
+        "fx_krw": -56167,
+        "cross_krw": -12989
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -28423,
+        "total_krw": -28421,
         "price_krw": -25318,
-        "fx_krw": -4742,
-        "cross_krw": 1638
+        "fx_krw": -4740,
+        "cross_krw": 1637
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -7683,
+        "total_krw": -7681,
         "price_krw": -5172,
-        "fx_krw": -2845,
-        "cross_krw": 335
+        "fx_krw": -2844,
+        "cross_krw": 334
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 3694,
+        "total_krw": 3695,
         "price_krw": 5470,
         "fx_krw": -1422,
         "cross_krw": -354
@@ -24467,8 +24476,8 @@ window.APP_DATA = {
         "ticker": "AAPL",
         "total_krw": 1223,
         "price_krw": 1894,
-        "fx_krw": -549,
-        "cross_krw": -123
+        "fx_krw": -548,
+        "cross_krw": -122
       }
     ],
     "percentile": {
@@ -24476,26 +24485,26 @@ window.APP_DATA = {
       "windows": {
         "1y": {
           "percentile": 0.4,
-          "low": 1372.3,
+          "low": 1372.77,
           "high": 1554.48,
           "n": 252
         },
         "3y": {
-          "percentile": 33.1,
+          "percentile": 33.2,
           "low": 1276.47,
           "high": 1554.48,
           "n": 756
         },
         "5y": {
-          "percentile": 56.2,
+          "percentile": 56.3,
           "low": 1167.33,
           "high": 1554.48,
           "n": 1260
         }
       },
       "status": "live",
-      "current": 1372.3,
-      "chg_3m_pct": -10.49
+      "current": 1372.77,
+      "chg_3m_pct": -10.46
     },
     "status": "live"
   },
@@ -24983,7 +24992,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 73.3% · 원/달러 1년 0.4%ile. 환율 1% 변동 = 총자산 +59,944원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
+        "detail": "달러 자산 73.3% · 원/달러 1년 0.4%ile. 환율 1% 변동 = 총자산 +59,946원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
       },
       {
         "level": "warning",
@@ -25007,7 +25016,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +347,316원인데 환 기여 -365,231원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -22,471원)."
+        "detail": "미국주 종목 기여 +347,316원인데 환 기여 -365,039원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -22,459원)."
       },
       {
         "level": "info",

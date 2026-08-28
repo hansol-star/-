@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-29 08:50 KST",
+  "generated_at": "2026-08-29 08:52 KST",
   "as_of": "2026-08-28 16:37",
   "source_report": "docs/reports/report_v87_2026-08-28.md",
   "offline": false,

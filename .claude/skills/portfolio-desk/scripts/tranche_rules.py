@@ -156,14 +156,29 @@ def _ledger_read() -> dict:
 
 
 def ledger_executed() -> dict:
-    """{단계번호(int): {date, amount, note}} — 이미 집행이 끝난 단계."""
+    """{단계번호(int): {date, amount, note, fills:[...]}} — 그 단계에 **누적 집행된 금액**.
+
+    ★[2026-08-28 개정 — 이진 → 금액 누적] 舊 구조는 단계를 **이진**으로 봐서 첫 집행에
+    그 단계 전체(예: D1 15%)를 소진 처리하고 재진입을 막았다. 그런데 같은 도구가
+    "폭풍 %ile에 따라 2~3분할" 을 권고한다 — **1회차를 넣는 순간 2·3회차가 불가능**해지는
+    자기모순이었다. 룰 문구는 *"누적 상한이지 목표 아님"*(CLAUDE.md 리스크룰1)이므로
+    **금액 누적**이 옳은 해석이다.
+    ⚠️ 이 결함은 8/24 GOOGL D1 1회차를 집행하고도 **원장 파일 자체가 생성되지 않아**
+    (아무도 --execute를 부르지 않았다) 8/28에 상한이 통째로 부활하면서 발견됐다.
+    """
     d = _ledger_read()
     out = {}
     for k, v in (d.get("executed") or {}).items():
         try:
-            out[int(k)] = v
+            step = int(k)
         except (TypeError, ValueError):
             continue
+        fills = v.get("fills")
+        if fills is None:                       # 舊 스키마(단건) 호환
+            fills = [{"date": v.get("date"), "amount": v.get("amount"), "note": v.get("note")}]
+        total = sum(float(f.get("amount") or 0) for f in fills)
+        out[step] = {"date": fills[-1].get("date"), "amount": total,
+                     "note": fills[-1].get("note"), "fills": fills, "n": len(fills)}
     return out
 
 
@@ -174,12 +189,15 @@ def ledger_execute(step: int, amount: float, note: str = "", date: str | None = 
     d = _ledger_read()
     ex = d.setdefault("executed", {})
     key = str(step)
-    if key in ex:
-        raise SystemExit(f"[tranche_rules] D{step}은 이미 집행됨 "
-                         f"({ex[key].get('date')} · {ex[key].get('amount'):,.0f}원). "
-                         f"단계 재진입 금지(crash_tf §2b 안전장치 2).")
-    ex[key] = {"date": date or dt.date.today().isoformat(),
-               "amount": round(float(amount)), "note": note}
+    rec = ex.setdefault(key, {"fills": []})
+    if "fills" not in rec:                       # 舊 스키마 승격
+        rec = ex[key] = {"fills": [{"date": rec.get("date"), "amount": rec.get("amount"),
+                                    "note": rec.get("note")}]}
+    rec["fills"].append({"date": date or dt.date.today().isoformat(),
+                         "amount": round(float(amount)), "note": note})
+    rec["date"] = rec["fills"][-1]["date"]
+    rec["amount"] = sum(float(f.get("amount") or 0) for f in rec["fills"])
+    rec["note"] = note
     d["updated"] = dt.date.today().isoformat()
     os.makedirs(os.path.dirname(LEDGER), exist_ok=True)
     with open(LEDGER, "w", encoding="utf-8") as f:
@@ -217,14 +235,17 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
 
     # 이미 집행한 단계는 해금돼 있어도 **가용분에서 뺀다**(단계 재진입 금지).
     done = ledger_executed() if use_ledger else {}
-    spent_ratio = 0.0
+    spent_krw = 0.0
     for i, s in enumerate(steps, 1):
         s["executed"] = i in done
         if s["executed"]:
             s["executed_on"] = done[i].get("date")
+            s["executed_krw"] = done[i].get("amount")
+            s["executed_n"] = done[i].get("n")
             if s["unlocked"]:
-                spent_ratio += s["alloc"]
-    available = max(0.0, unlocked - spent_ratio)
+                spent_krw += float(done[i].get("amount") or 0)
+    available = unlocked   # 해금 비율 자체는 낙폭이 정한다(RESET). 소진은 금액으로 뺀다.
+    spent_ratio = (spent_krw / cash) if cash else 0.0
 
     capit = (fear_pct is not None and capit_pct is not None
              and fear_pct >= 90 and capit_pct >= 90)
@@ -233,12 +254,15 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
 
     # 백테스트(rule_tracker --backfill)는 수천 번 호출하므로 네트워크 조회를 끈다.
     halted, hwhy = global_contagion_check() if check_contagion else (False, '확산 판정 생략(백테스트)')
-    allowed = 0.0 if halted else cash * available * mult
+    # 누적 상한 = 해금분 전체. 여기서 **이미 집행한 금액**을 뺀 잔여가 오늘 여력이다.
+    cap = cash * available * mult
+    allowed = 0.0 if halted else max(0.0, cap - spent_krw)
 
     return {
         "dd_pct": dd_pct, "cash": cash,
         "unlocked_ratio": unlocked, "steps": steps,
         "spent_ratio": spent_ratio, "available_ratio": available,
+        "spent_krw": round(spent_krw), "cap_krw": round(cap),
         "executed_steps": sorted(done),
         "storm_splits": splits, "storm_why": swhy,
         "storm_mult": 1.0,   # 하위호환(원장 스키마) — 금액 감산 폐지로 항상 1.0
@@ -546,26 +570,37 @@ def main():
     print(f"  {'단계':<6}{'낙폭':>8}{'배분':>7}  상태   근거")
     for i, s in enumerate(r["steps"], 1):
         mark = ("✅집행" if s.get("executed") else "🟢해금") if s["unlocked"] else "🔒잠김"
-        why = (f"{s['why']}  ← {s.get('executed_on')} 집행 완료(재진입 금지)"
+        _n = s.get("executed_n") or 1
+        _nlabel = f"({_n}회)" if _n > 1 else ""
+        why = (f"{s['why']}  ← {s.get('executed_on')} 집행 {s.get('executed_krw', 0):,.0f}원{_nlabel}"
                if s.get("executed") else s["why"])
         print(f"  D{i:<5}{s['threshold']:>7.0f}%{s['alloc']*100:>6.0f}%  {mark}  {why}")
     print(f"  {'예비':<6}{'—':>8}{RESERVE*100:>6.0f}%  🔒봉인  회복 확인(게이트 2/3+) 전까지 영구 봉인")
 
-    print(f"\n  누적 해금 **{r['unlocked_ratio']*100:.0f}%**"
-          + (f" − 기집행 {r['spent_ratio']*100:.0f}%(D{',D'.join(map(str, r['executed_steps']))}) "
-             f"= **가용 {r['available_ratio']*100:.0f}%**" if r["spent_ratio"] else ""))
+    print(f"\n  누적 해금 **{r['unlocked_ratio']*100:.0f}%** = 상한 {r['cap_krw']:,}원"
+          + (f" − 기집행 **{r['spent_krw']:,}원**(D{',D'.join(map(str, r['executed_steps']))}) "
+             f"= **잔여 {r['allowed_krw']:,}원**" if r["spent_krw"] else ""))
     print(f"  {r['storm_why']}")
     print(f"  {r['capitulation_why']}")
     print(f"  → 최종 승수 **×{r['final_mult']}**  (하한 {MULT_FLOOR}·상한 {MULT_CAP} — 금액 감산 폐지)")
     print(f"\n  {r['halt_why']}")
     if r["halted"]:
         print("\n  🔴 **허용 트랜치 0원** — 글로벌 확산으로 개정 전제가 깨졌다.")
-    elif r["available_ratio"] <= 0:
-        print("\n  ⛔ **가용 0원** — 해금된 단계를 이미 전부 집행했다(단계 재진입 금지). "
-              "다음 단계 낙폭에 도달해야 새 몫이 열린다.")
+    elif r["allowed_krw"] <= 0:
+        # ★[8/28] 舊 문구는 원인을 항상 '이미 집행했다'로 단정했다 — 해금 자체가 0일 때도
+        # 그렇게 나와 8/27에 오독을 만들었다(실제 원인은 낙폭이 -25%를 안 넘긴 것).
+        if r["unlocked_ratio"] <= 0:
+            print(f"\n  ⛔ **가용 0원** — 낙폭 {r['dd_pct']:.1f}%로 **어느 단계도 해금되지 않았다**"
+                  f"(D1 기준 -25%). 더 빠져야 열린다.")
+        else:
+            print(f"\n  ⛔ **가용 0원** — 해금 상한 {r['cap_krw']:,}원을 "
+                  f"기집행 {r['spent_krw']:,}원으로 **모두 소진**했다. "
+                  f"다음 단계 낙폭에 도달해야 새 몫이 열린다.")
     else:
-        print(f"\n  💰 **허용 트랜치 상한 = {r['allowed_krw']:,}원**"
-              f"  ({cash:,.0f} × {r['available_ratio']*100:.0f}% × {r['final_mult']})")
+        print(f"\n  💰 **오늘 허용 잔여 = {r['allowed_krw']:,}원**"
+              f"  (상한 {cash:,.0f} × {r['available_ratio']*100:.0f}% × {r['final_mult']}"
+              f" = {r['cap_krw']:,}원"
+              + (f" − 기집행 {r['spent_krw']:,}원)" if r["spent_krw"] else ")"))
         print(f"     분할 권고: **{r['storm_splits']}회** "
               f"(1회 ≈ {round(r['allowed_krw']/r['storm_splits']):,}원) — 금액이 아니라 속도로 조절")
         print("     ※ 상한이지 목표가 아니다. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")

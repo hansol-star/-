@@ -145,6 +145,7 @@ def ladder_state(dd_pct: float):
 #   낙폭이 오르내릴 때마다 같은 단계를 반복 집행하는 물타기가 되는 것이다.
 #   ⇒ 집행분을 원장에 남기고, 판정에서 **이미 쓴 단계는 제외**한다.
 LEDGER = os.path.join(ROOT, "data", "app", "tranche_ledger.json")
+RULE_LOG = os.path.join(ROOT, "data", "app", "rule_log.jsonl")
 
 
 def _ledger_read() -> dict:
@@ -203,6 +204,43 @@ def ledger_execute(step: int, amount: float, note: str = "", date: str | None = 
     with open(LEDGER, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=1)
     return ex[key]
+
+
+def cap_delta_explain(cash, unlocked, mult):
+    """오늘 상한이 어제와 달라진 이유를 **낙폭 기여 vs 현금 기여**로 분해한다.
+
+    ★[2026-08-29 신설 — 리스크 데스크 지적 채택] 사다리 상한은 `cash × 해금비율 × 승수`라
+    **포지션을 팔아 현금이 늘어도 상한이 커진다.** 실제로 8/28 META 1주 매도로 현금이
+    655,618 → 1,455,006원(+122%)이 되면서 상한이 63,675 → 183,583원(+188%)으로 뛰었는데
+    **코스피 낙폭은 -25.5% 그대로였다.** 이걸 그냥 보여주면 "사다리가 더 열렸다"는 착시가 된다.
+    사다리 비율은 *낙폭 심도에 대한 위험허용도*를 재려는 설계이므로, 매도 재원으로 커진 몫은
+    **낙폭과 무관하다는 사실을 숫자로 갈라서** 표시한다.
+    ⚠️ 표시 전용 — 상한 계산 자체는 바꾸지 않는다(룰 변경은 정훈 승인 사항).
+    """
+    try:
+        rows = [json.loads(l) for l in open(RULE_LOG, encoding="utf-8") if l.strip()]
+    except Exception:
+        return None
+    # ⚠️ 컨테이너가 UTC라 dt.date.today()는 KST 자정~09시에 **하루 전**을 준다.
+    # 그대로 쓰면 어제 기록을 '오늘'로 오인해 건너뛴다(2026-08-29 실측 — 7/13 triggers.py와 같은 버그 클래스).
+    _today = (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=9)).date().isoformat()
+    prev = next((r for r in reversed(rows)
+                 if r.get("date") != _today and r.get("cash") is not None), None)
+    if not prev:
+        return None
+    c0, u0 = float(prev["cash"]), float(prev.get("unlocked_ratio") or 0)
+    m0 = float(prev.get("final_mult") or 1.0)
+    cap0, cap1 = c0 * u0 * m0, cash * unlocked * mult
+    if abs(cap1 - cap0) < 1:
+        return None
+    dd_part = c0 * (unlocked * mult - u0 * m0)      # 낙폭·승수가 바꾼 몫
+    cash_part = (cash - c0) * u0 * m0               # 현금이 바꾼 몫
+    cross = (cap1 - cap0) - dd_part - cash_part     # 교차항
+    return {"prev_date": prev.get("date"), "cap_prev": round(cap0), "cap_now": round(cap1),
+            "delta": round(cap1 - cap0), "by_drawdown": round(dd_part),
+            "by_cash": round(cash_part), "cross": round(cross),
+            "cash_prev": round(c0), "cash_now": round(cash),
+            "dd_prev": prev.get("dd_pct")}
 
 
 def global_contagion_check():
@@ -604,6 +642,16 @@ def main():
         print(f"     분할 권고: **{r['storm_splits']}회** "
               f"(1회 ≈ {round(r['allowed_krw']/r['storm_splits']):,}원) — 금액이 아니라 속도로 조절")
         print("     ※ 상한이지 목표가 아니다. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")
+        _ex = cap_delta_explain(cash, r["available_ratio"], r["final_mult"])
+        if _ex and abs(_ex["by_cash"]) > 1000:
+            print(f"\n  🔍 **상한 변동 분해** ({_ex['prev_date']} {_ex['cap_prev']:,}원 → 오늘 {_ex['cap_now']:,}원 · {_ex['delta']:+,}원)")
+            print(f"     · 낙폭·승수 기여 **{_ex['by_drawdown']:+,}원**  (낙폭 {_ex['dd_prev']:+.1f}% → {r['dd_pct']:+.1f}%)")
+            print(f"     · 현금 기여     **{_ex['by_cash']:+,}원**  (현금 {_ex['cash_prev']:,}원 → {_ex['cash_now']:,}원)")
+            if abs(_ex["cross"]) >= 1:
+                print(f"     · 교차항        {_ex['cross']:+,}원")
+            if _ex["by_cash"] > abs(_ex["by_drawdown"]):
+                print("     ⚠️ **상한 증가의 주된 원인이 낙폭이 아니라 현금이다** — 매도·입금으로 늘어난 몫은")
+                print("        '사다리가 더 열렸다'는 뜻이 아니다. 사다리 비율은 낙폭 심도에 대한 위험허용도다.")
 
     print(_kr_accrual_note(r["allowed_krw"], cash))
 

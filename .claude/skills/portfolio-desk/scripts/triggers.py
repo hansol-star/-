@@ -164,9 +164,12 @@ def recommend_tranche(cfg, kospi):
     if r["halted"]:
         return {"amount": 0, "dd_pct": dd, "reason": r["halt_why"], "ladder": r, "cash_total": cash}
     steps = "+".join(f"D{i+1}" for i, s_ in enumerate(r["steps"]) if s_["unlocked"]) or "없음"
+    # ★[8/28] 분할 횟수는 폭풍 %ile이 정한다(tranche_rules.storm_splits) — 3 하드코딩이었다.
+    _sp = r.get("storm_splits") or 3
     return {
         "amount": r["allowed_krw"],
-        "per_split": round(r["allowed_krw"] / 3) if r["allowed_krw"] else 0,
+        "splits": _sp,
+        "per_split": round(r["allowed_krw"] / _sp) if r["allowed_krw"] else 0,
         "dd_pct": dd, "ladder": r, "cash_total": cash,
         "reason": (f"낙폭 {dd:+.1f}% → 해금 {steps}({r['unlocked_ratio']*100:.0f}%) "
                    f"× 승수 {r['final_mult']} = **상한** {r['allowed_krw']:,}원 "
@@ -219,8 +222,12 @@ def sizing_panel(cfg):
         # 舊 'buffer_pct'(안전핀까지 거리)는 사다리 개정으로 사라졌다 → 낙폭%로 대체.
         dd = rec.get("dd_pct")
         tail = f" · 코스피 낙폭 {dd:+.1f}%" if dd is not None else ""
+        # ★[8/28] 분할 횟수를 3으로 하드코딩하고 있었다 — 폭풍 %ile이 정하는 값인데
+        # 같은 실행의 reason 문자열은 "2분할 권장"이라 **한 화면에서 2와 3이 동시에 보였다**.
+        # 집행 금액이 갈리는 자리라 tranche_rules가 준 값을 그대로 쓴다.
+        nsp = rec.get("splits") or 3
         print(f"- 권장 트랜치 **상한**: **{cap_amt:,.0f}원** "
-              f"(3분할 1회 ≈ {round(cap_amt/3):,.0f}원){tail}")
+              f"({nsp}분할 1회 ≈ {round(cap_amt/nsp):,.0f}원){tail}")
         print(f"    ↳ {rec['reason']}")
     if con["total_krw"]:
         print(f"- 주식 평가액 {con['total_krw']:,.0f}원 · 단일종목 상한 {CONCENTRATION_CAP*100:.0f}%")

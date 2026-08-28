@@ -1,10 +1,9 @@
 {
-  "date": "2026-08-27",
-  "target_version": 87,
-  "status": "running",
+  "date": "2026-08-29",
+  "target_version": null,
   "session_kind": "R2",
-  "started_at": "2026-08-27T16:23:14+09:00",
-  "completed_at": null,
-  "reset_est": "2026-08-27T21:23:14+09:00",
-  "resume_trigger_id": null
+  "started_at": null,
+  "reset_est": null,
+  "status": "done",
+  "completed_at": "2026-08-29T08:50:59+09:00"
 }

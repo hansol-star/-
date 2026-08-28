@@ -115,8 +115,13 @@ def check_tasks():
     sr = d.get("source_report")
     if not sr:
         warn("tasks.json: source_report 비어있음")
-    elif not os.path.exists(os.path.join(ROOT, sr)):
-        fail(f"tasks.json: source_report 파일 없음 → {sr}")
+    elif not (os.path.exists(os.path.join(ROOT, sr))
+              or os.path.exists(os.path.join(ROOT, "docs", "reports", os.path.basename(sr)))):
+        # ★[8/29] 정본 형식은 **레포 루트 기준 경로**(docs/reports/report_vNN_날짜.md)다.
+        # 파일명만 넣어도 통과시키되(check_stocks는 파일명 비교라 두 체크가 서로 다른 형식을
+        # 기대하고 있었다 — 실제로 8/29에 파일명만 넣어 FAIL이 났다), 메시지에 기대 형식을 밝힌다.
+        fail(f"tasks.json: source_report 파일 없음 → {sr} "
+             f"(기대 형식 = 'docs/reports/report_vNN_YYYY-MM-DD.md')")
     if not d.get("as_of"): warn("tasks.json: as_of 비어있음")
 
 # ── C2. 오더 실행가능성: 토스 주문 제약과 모순되는 계획 주문 적발 ────────────────
@@ -1681,7 +1686,13 @@ def check_verdict_grounding(rel):
         if has_fc and not has_oc:
             ungrounded.append(line)
         if rdate:
-            for ds in re.findall(r"(\d{1,2})/(\d{1,2})", win):
+            # ★[8/28] 표 행은 셀 단위로 좁힌다 — 舊엔 표 전체가 한 문단이라
+            # 옆 셀의 무관한 날짜(예: 신주배정기준일)를 [정정]의 근거로 오인했다.
+            scan = win
+            if "|" in win:
+                cells = win.split("|")
+                scan = next((c for c in cells if "[정정" in c), "")
+            for ds in re.findall(r"(\d{1,2})/(\d{1,2})", scan):
                 try:
                     d = dt.date(rdate.year, int(ds[0]), int(ds[1]))
                 except ValueError:
@@ -1721,8 +1732,9 @@ def check_magnitude_sanity(rel):
     bad_bp, bad_deal, bad_mag = [], [], []
     _seen_deal = set()
     for s in sents:
-        if s.lstrip().startswith(("|", ">")) or "```" in s:
-            continue          # 표·인용 블록은 문장 규율 대상이 아니다
+        if s.lstrip().startswith(("|", ">", "#")) or "```" in s:
+            continue          # 표·인용·헤딩은 문장 규율 대상이 아니다
+                              # (★8/28: 제목에 든 금액이 '빈 문단'과 대조돼 항상 미표기로 잡혔다)
         short = re.sub(r"\s+", " ", s.strip())[:110]
 
         # ① bp/%p — 변동폭만 있고 절대수준이 없나
@@ -1778,7 +1790,8 @@ def check_primary_source(rel):
     naked, seen = [], set()
     for para in paras:
         # 표(|...|)는 서술이 아니라 데이터 — 1차출처 거증책임의 대상이 아니다
-        body = "\n".join(l for l in para.split("\n") if not l.lstrip().startswith("|"))
+        body = "\n".join(l for l in para.split("\n")
+                         if not l.lstrip().startswith(("|", "#")))
         if any(k in body for k in _PRIMARY_MK):
             continue
         # 계약어와 금액이 **같은 문장**에 있어야 계약 금액이다.

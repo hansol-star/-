@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-27",
+ "updated": "2026-08-28",
  "covered": [
   "005380.KS",
   "005930.KS",
@@ -26,7 +26,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2026-01-25",
@@ -640,7 +640,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-08-28",
@@ -1218,7 +1218,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-09-27",
@@ -1809,7 +1809,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2026-06-30",
@@ -2422,7 +2422,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -3012,7 +3012,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-11-02",
@@ -3615,7 +3615,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4235,7 +4235,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4844,7 +4844,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2026-05-31",
@@ -5486,7 +5486,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -5876,7 +5876,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6251,7 +6251,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6634,7 +6634,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -7009,7 +7009,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-08-27",
+   "as_of": "2026-08-28",
    "annual": [
     {
      "end": "2025-12-31",

@@ -31,6 +31,7 @@ import argparse
 import csv
 import json
 import os
+import math
 import random
 import statistics as st
 from collections import defaultdict
@@ -123,6 +124,154 @@ def build(horizon):
             continue
         rows.append((tk, stars, d, fr - br, fr))
     return rows
+
+
+def build_score(horizon):
+    """원장 → [(ticker, score, date, alpha)] — **연속 스코어 축**.
+
+    ★[8/29 신설 · 정훈 승인] 왜 필요한가: 별점은 스코어(0~100)를 **15점 폭 밴드**로
+    이산화한 값이다. 실측(8/29): 10주간 **스코어는 69회 움직였는데 별점은 15회**만 바뀌었다
+    (MSFT 66→84 +18점 동안 ⭐4 고정 · ORCL 71→55 -16점 동안 ⭐3 고정). 즉 **정보의 약 78%가
+    밴드에서 버려진 채** 채점되고 있었다. 게다가 버킷이 4개뿐이라 버킷당 종목이 3~4개로
+    쪼개져 부트스트랩 CI가 벌어졌다(=8/29 '판정 불가'의 상당 부분이 이산화의 산물).
+    ⇒ 같은 원장을 **연속값 순위상관**으로 다시 본다. 버킷을 안 나누므로 전 종목이 한 표본이다.
+    """
+    rows = []
+    for ln in open(LEDGER, encoding="utf-8"):
+        if not ln.strip():
+            continue
+        r = json.loads(ln)
+        tk, sc, d = r.get("ticker"), r.get("score"), r.get("date")
+        if not tk or not isinstance(sc, (int, float)) or not d:
+            continue
+        b = bench_of(tk)
+        if not b:
+            continue
+        fr = fwd_return(tk, d, horizon)
+        br = fwd_return(b, d, horizon)
+        if fr is None or br is None:
+            continue
+        rows.append((tk, float(sc), d, fr - br))
+    return rows
+
+
+def _ranks(v):
+    """동점 평균순위(ties → average rank). Spearman의 전제."""
+    order = sorted(range(len(v)), key=lambda i: v[i])
+    out = [0.0] * len(v)
+    i = 0
+    while i < len(order):
+        j = i
+        while j + 1 < len(order) and v[order[j + 1]] == v[order[i]]:
+            j += 1
+        avg = (i + j) / 2.0 + 1
+        for k in range(i, j + 1):
+            out[order[k]] = avg
+        i = j + 1
+    return out
+
+
+def spearman(xs, ys):
+    if len(xs) < 3:
+        return None
+    rx, ry = _ranks(xs), _ranks(ys)
+    mx, my = st.fmean(rx), st.fmean(ry)
+    num = sum((a - mx) * (b - my) for a, b in zip(rx, ry))
+    dx = math.sqrt(sum((a - mx) ** 2 for a in rx))
+    dy = math.sqrt(sum((b - my) ** 2 for b in ry))
+    return (num / (dx * dy)) if dx and dy else None
+
+
+def score_axis(horizon, boot=2000, seed=11):
+    """연속 스코어 축 — 두 렌즈로 본다(둘이 갈리는 지점이 정보다).
+
+      ⓐ **횡단면(종목 간)**: 종목 평균스코어 ↔ 종목 평균알파의 Spearman.
+         "스코어 높은 종목이 실제로 더 이겼나" = 별점이 답하려던 바로 그 질문.
+      ⓑ **시계열(종목 내)**: 종목마다 자기 스코어 변화 ↔ 자기 알파의 Spearman을 구해
+         종목 평균. "스코어가 **오를 때** 실제로 더 이겼나" = 이산화로 버려지던 69회의 정보.
+
+    ⚠️ 둘 다 **측정 전용**이고, ⓑ는 같은 종목 안의 중첩 전진창을 쓰므로 자기상관이 있다
+       (CI가 실제보다 좁게 나온다) — 부호와 크기만 읽고 유의성으로 쓰지 말 것.
+    """
+    rows = build_score(horizon)
+    if not rows:
+        return None
+    by = defaultdict(list)
+    for tk, sc, d, a in rows:
+        by[tk].append((sc, a, d))
+
+    keys = sorted(by)
+    m_sc = {t: st.fmean([x[0] for x in by[t]]) for t in keys}
+    m_al = {t: st.fmean([x[1] for x in by[t]]) for t in keys}
+    rho_x = spearman([m_sc[t] for t in keys], [m_al[t] for t in keys])
+
+    within = {}
+    for t in keys:
+        v = by[t]
+        if len(v) >= 5 and len({x[0] for x in v}) >= 2:
+            r = spearman([x[0] for x in v], [x[1] for x in v])
+            if r is not None:
+                within[t] = r
+    rho_w = st.fmean(within.values()) if within else None
+
+    rnd = random.Random(seed)
+    ci_x = ci_w = None
+    if len(keys) >= 3:
+        samp = []
+        for _ in range(boot):
+            pick = [rnd.choice(keys) for _ in keys]
+            r = spearman([m_sc[t] for t in pick], [m_al[t] for t in pick])
+            if r is not None:
+                samp.append(r)
+        if len(samp) > 20:
+            samp.sort()
+            ci_x = (samp[int(0.025 * len(samp))], samp[int(0.975 * len(samp))])
+    if len(within) >= 3:
+        wk = sorted(within)
+        samp = [st.fmean([within[rnd.choice(wk)] for _ in wk]) for _ in range(boot)]
+        samp.sort()
+        ci_w = (samp[int(0.025 * boot)], samp[int(0.975 * boot)])
+
+    # 이산화 손실 — 같은 행을 별점으로 묶었을 때의 횡단면 상관과 비교
+    st_rows = build(horizon)
+    by_st = defaultdict(list)
+    for tk, stars, d, a, _ in st_rows:
+        by_st[tk].append((float(stars), a))
+    sk = sorted(by_st)
+    rho_star = spearman([st.fmean([x[0] for x in by_st[t]]) for t in sk],
+                        [st.fmean([x[1] for x in by_st[t]]) for t in sk]) if len(sk) >= 3 else None
+
+    return {"h": horizon, "n_calls": len(rows), "n_tk": len(keys),
+            "rho_cross": rho_x, "ci_cross": ci_x,
+            "rho_within": rho_w, "ci_within": ci_w, "n_within": len(within),
+            "rho_star_cross": rho_star, "within_detail": within}
+
+
+def print_score_axis(o):
+    if not o:
+        print("\n── ④ 연속 스코어 축: 원장에 score가 없어 판정 불가")
+        return
+    def fmt(r, ci):
+        if r is None:
+            return "판정 불가"
+        c = f"  [{ci[0]:+.2f}, {ci[1]:+.2f}]" if ci else ""
+        return f"ρ {r:+.3f}{c}"
+    print(f"\n── ④ 연속 스코어 축 (Spearman · 종목 부트스트랩)  "
+          f"{o['n_calls']}행 · 종목 {o['n_tk']}개")
+    print(f"   ⓐ 횡단면(종목 간)  스코어↔알파 : {fmt(o['rho_cross'], o['ci_cross'])}")
+    print(f"   ⓑ 시계열(종목 내)  스코어↔알파 : {fmt(o['rho_within'], o['ci_within'])}"
+          f"   (판정가능 종목 {o['n_within']}개)")
+    if o["rho_star_cross"] is not None and o["rho_cross"] is not None:
+        d = o["rho_cross"] - o["rho_star_cross"]
+        print(f"   ↳ 같은 행을 **별점**으로 묶으면 ρ {o['rho_star_cross']:+.3f} "
+              f"(연속 대비 {d:+.3f}) — 이산화가 신호를 {'죽인다' if d > 0.05 else '거의 안 바꾼다' if abs(d) <= 0.05 else '오히려 키운다'}")
+    if o["within_detail"]:
+        top = sorted(o["within_detail"].items(), key=lambda kv: -kv[1])
+        head = " · ".join(f"{t} {r:+.2f}" for t, r in top[:4])
+        tail = " · ".join(f"{t} {r:+.2f}" for t, r in top[-3:])
+        print(f"   ↳ 종목 내 상위: {head}")
+        print(f"   ↳ 종목 내 하위: {tail}")
+    print("   ⚠️ 측정 전용. ⓑ는 중첩 전진창이라 자기상관이 있다 — 부호·크기만 읽을 것.")
 
 
 def cluster_stats(rows, boot=2000, seed=7):
@@ -251,6 +400,9 @@ def main():
         # ① 집계 (클러스터 보정만 적용)
         o_all = table(rows, f"① 전체 집계 — 종목 클러스터 보정", a.boot)
         v_all = verdict(o_all, "전체")
+
+        # ④ 연속 스코어 축 [8/29] — 별점 이산화로 버려진 정보를 되찾는다
+        print_score_axis(score_axis(h, a.boot))
 
         # ② 구간 층화
         # ⚠️ 콜 날짜로 나누면 '폭락기 콜'의 전진창이 7/31 반등을 품는다(창이 겹침).

@@ -6,8 +6,8 @@
       그 시점의 forward 1/3/6/12개월 수익률 분포를 비교한다(drawdown_history와 같은 문법).
 ⚠️ 표본은 중첩된다(overlapping windows) — 승률을 '확률'로 읽지 말 것.
 """
-import sys, json, statistics as st
-sys.path.insert(0, "/home/user/-/.claude/skills/portfolio-desk/scripts")
+import sys, os, json, tempfile, statistics as st
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ma_board as M
 
 FWD = {"1M": 21, "3M": 63, "6M": 126, "12M": 252}
@@ -96,5 +96,5 @@ if __name__ == "__main__":
                        "mean": round(sum(v) / len(v), 2) if v else None,
                        "win": round(sum(1 for x in v if x > 0) / len(v) * 100, 1) if v else None}
                    for h, v in d.items()} for k, d in b.items()},
-              open("/tmp/claude-0/-home-user--/0f4f0eaa-b665-50f2-baea-19b76c8b2ac7/scratchpad/ma_test.json", "w"),
+              open(os.path.join(tempfile.gettempdir(), "ma_test.json"), "w"),
               ensure_ascii=False, indent=1)

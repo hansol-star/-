@@ -370,7 +370,9 @@ def fetch_via_ytdlp(vid):
         try:
             # 재귀 차단: fetch_youtube는 실패 시 hunter_latest(=이 파일)를 되부른다.
             env = dict(os.environ, YW_NO_INNERTUBE_FALLBACK="1")
-            r = subprocess.run(["python3", YW_SCRIPT, url, "--outdir", OUTDIR],
+            # 인터프리터는 sys.executable로 — "python3"는 윈도우 로컬에 없어
+            # 이 경로가 조용히 죽는다(except Exception: pass에 먹힘).
+            r = subprocess.run([sys.executable, YW_SCRIPT, url, "--outdir", OUTDIR],
                                capture_output=True, text=True, timeout=240, env=env)
             for line in r.stdout.strip().splitlines()[::-1]:
                 p = line.strip()

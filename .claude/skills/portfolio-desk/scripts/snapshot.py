@@ -30,7 +30,7 @@ def trading_day() -> str:
     """스냅샷 귀속 거래일 = KST 현재시각 − 9h 의 날짜.
     [7/13 교정] 새벽 실행분(05:30 KST 미장 마감 크론)은 전일 거래일 파일에 귀속되고,
     낮/저녁 실행분은 당일 — UTC 컨테이너·KST 로컬 어디서 돌려도 같은 결과(기존 UTC
-    date.today() 동작을 명시적 규칙으로 고정, 12월 로컬 이전 후에도 파일 체계 동일)."""
+    date.today() 동작을 명시적 규칙으로 고정, 로컬 이전 후에도 파일 체계 동일)."""
     return (dt.datetime.now(KST) - dt.timedelta(hours=9)).date().isoformat()
 
 

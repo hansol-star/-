@@ -58,7 +58,7 @@ EXPECTED_UNWIRED = {
     "star_validate.py":           "주기적 검증 — 별점 예측력 재검정(self-review 재량)",
     "export_financials_xlsx.py":  "수동 유틸 — 정훈이 엑셀로 요청할 때만",
     "read_doc.py":                "수동 유틸 — 정훈이 PDF·문서를 줄 때만",
-    "short_borrow.py":            "⏸️ KRX가 데이터센터 IP 차단 — 12월 로컬 이전 후 배선(8/22 재확인)",
+    "short_borrow.py":            "⏸️ KRX가 데이터센터 IP 차단 — 로컬 이전 후 배선(8/22 재확인)",
     "wiring_audit.py":            "이 감사 도구 자신",
     # ── 라이브러리: 데스크가 직접 부르지 않고 다른 스크립트가 import 한다 ──
     "cli_common.py":              "라이브러리 — 22개 스크립트 공용 CLI/포맷",

@@ -8,7 +8,7 @@
 ⚠️ 데이터 접근 현실(2026-07-22 실측): KRX(data.krx.co.kr) 공매도 JSON은 **데이터센터 IP에서 차단**
    (getJsonData 400 / download 302 'document moved'). 네이버 모바일엔 공매도 필드 없음(404).
    → 이 페처는 **쿠키 프라이밍 + 2단계 OTP**로 시도하되, 막히면 **정직하게 degrade**(추측 금지).
-   **정훈 로컬 이전(12월·주거용 IP) 후 그대로 작동** — youtube 페처와 동일 포터블 설계.
+   **정훈 로컬 이전(1단계 8/31 예정·주거용 IP) 후 그대로 작동** — youtube 페처와 동일 포터블 설계.
    그전까지 공매도는 매 보고서 WebSearch(공매도 과열종목·대차잔고 뉴스)로 보강.
 
 사용:
@@ -135,7 +135,7 @@ def main() -> int:
         print(f"■ KRX 공매도 접근 점검 ({code}): {state} — {r['status']}"
               + (f" · {r.get('reason')}" if r.get("reason") else ""))
         if not r["ok"]:
-            print("  = 현재 데이터센터 IP에서 KRX 공매도 JSON 차단. 정훈 로컬 이전(12월) 후 자동 작동.")
+            print("  = 현재 데이터센터 IP에서 KRX 공매도 JSON 차단. 로컬 이전(1단계 8/31 예정) 후 작동 예상 — 그때 --status로 실측 확인.")
             print("  = 그전까지 공매도/대차는 WebSearch(공매도 과열종목·대차잔고 급증 뉴스)로 보강.")
         return 0
     print(f"■ 공매도 일별 {code} (최근 {len(r['rows'])}행)")

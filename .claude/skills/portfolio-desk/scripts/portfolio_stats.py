@@ -13,7 +13,7 @@ portfolio_stats.py — 상관·베타·변동성·낙폭 (gs-quant econometrics 
 
 `goldmansachs/gs-quant`(Apache-2.0, v2.1.4) `gs_quant/timeseries/econometrics.py`의 정의를
 **stdlib로 다시 구현**했다(코드 복사가 아니라 수식 이식 — gs-quant는 pandas/numpy 의존이고
-우리 레포는 12월 로컬 이전 대비 stdlib 전용이라 import 자체가 불가):
+우리 레포는 로컬 이전 대비 stdlib 전용이라 import 자체가 불가):
 
   · volatility   sample std(N-1) of simple returns × √252 × 100   (20% → 20.0)
   · correlation  Pearson on simple returns (표본평균 사용)
@@ -28,7 +28,7 @@ portfolio_stats.py — 상관·베타·변동성·낙폭 (gs-quant econometrics 
 ⚠️ **측정 전용 — 어떤 룰도 바꾸지 않는다.** 상관이 높다고 파는 게 아니라, 우리가 분산됐다고
    믿고 있었는지 아닌지를 숫자로 보여줄 뿐이다. 판정은 룰, 결정은 정훈.
 ⚠️ **합성 시계열이다** — 현재 비중을 과거에 고정해 되돌린 것이지 실제 계좌 수익률이 아니다.
-   라벨을 항상 같이 쓴다. 실제 계좌 기준으로의 승격은 **12월 로컬 이전·토스 API로 매수 이력을
+   라벨을 항상 같이 쓴다. 실제 계좌 기준으로의 승격은 **로컬 이전·토스 API로 매수 이력을
    수집한 뒤**다(정훈 8/23 지시, CLAUDE.md 실행환경 §대기목록 1번) — 그 전엔 시도하지 않는다.
 
 사용법:

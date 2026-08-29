@@ -3,7 +3,7 @@
 macro_data.py — 무키(無key) 매크로 하드넘버 수집기 (FRED CSV + Polymarket)
 
 매크로 데스크가 WebSearch 추정 대신 인용할 수 있는 검증된 숫자를 키 없이 가져온다.
-표준 라이브러리만 사용 — pip 불필요, 12월 로컬 이전 시 그대로 이식.
+표준 라이브러리만 사용 — pip 불필요, 로컬 이전 시 그대로 이식.
 (착안: TradingAgents v0.3.0이 FRED·Polymarket을 데이터 벤더로 편입 — 2026-07-14 B5 라운드)
 
 데이터 소스:

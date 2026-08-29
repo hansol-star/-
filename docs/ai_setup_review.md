@@ -75,7 +75,7 @@ Anthropic: 멀티에이전트는 단일대비 **토큰 ~15배**, 가치 높고 �
 **2026-07-13 시스템 전면 점검 (B4 — 하네스 견고화)**: 전 스크립트 스모크·정합 감사에서 잡은 결함 일괄 수정 —
 ① `validate_report.py` 최신 보고서 판정을 **mtime→git 커밋시각**으로(fresh clone은 mtime이 전부 클론 시각으로 뭉개져 비결정 — v47 본편·부록 동일 커밋인데 가짜 FAIL 난 실사고. 같은 커밋 파일들은 tie-set으로 어느 쪽을 source_report로 가리켜도 통과, 미커밋 새 보고서는 mtime 폴백으로 여전히 감지).
 ② Stop 훅 판정 grep "FAIL" → **exit code**(통과 문구 "✅ FAIL 없음"에 오탐하던 버그).
-③ **날짜·시각 KST 고정**: build_app_data(generated_at이 UTC 시각에 KST 라벨 — 앱 헤더 9시간 오표기)·snapshot(거래일 귀속 = KST−9h 명시, 05:30 크론 전일 귀속을 규칙으로 고정)·decisions/score_calls/missed_moves/earnings/triggers의 today() 전부 KST — 12월 로컬(KST) 이전 후에도 동작 동일.
+③ **날짜·시각 KST 고정**: build_app_data(generated_at이 UTC 시각에 KST 라벨 — 앱 헤더 9시간 오표기)·snapshot(거래일 귀속 = KST−9h 명시, 05:30 크론 전일 귀속을 규칙으로 고정)·decisions/score_calls/missed_moves/earnings/triggers의 today() 전부 KST — 로컬(KST) 이전 후에도 동작 동일.
 ④ 신규 가드 2: pm_view 신선도 WARN(≥1일 — PM 사견 매 보고서 필수인데 앱 4파일 의무에 빠져 있던 구멍) + app/data.js↔stocks.json source_report 대조(빌드 재실행 누락 감지).
 ⑤ 문서 모순 청산: 한은 점도표 옛 문구(master §7·SKILL §3b), 보유16→전종목(CLAUDE.md·SKILL), 3개→8개 데스크(SKILL 서두), 全opus·舊루틴(config_overview·본 문서).
 
@@ -103,7 +103,7 @@ Anthropic: 멀티에이전트는 단일대비 **토큰 ~15배**, 가치 높고 �
 
 **조사했으나 즉시 적용 안 한 것(7/14·근거 포함)**:
 - **Anthropic 공식 finance 플러그인**(knowledge-work 마켓플레이스): 보류 확정(7/15) — 우리 커스텀 스킬과 중복 가능성.
-- **fallbackModel 체인**(6월, 최대 3개 폴백): 웹 하네스에선 모델이 세션 고정이라 미적용 — 12월 로컬 이전 시 재검토.
+- **fallbackModel 체인**(6월, 최대 3개 폴백): 웹 하네스에선 모델이 세션 고정이라 미적용 — 로컬 이전 시 재검토.
 - **중첩 서브에이전트(5레벨)·동적 워크플로(수백 에이전트)**: 8데스크 1레벨 팬아웃에 과잉 — 비용규율(§3) 위배.
 - **금융 MCP 서버**(Yahoo/FMP/Shibui 등): 기존 stdlib 스크립트와 기능 중복, 무의존 포터빌리티(12월 이전) 우선 → 기각.
 - **ai-hedge-fund 상시 펀드화·백테스터**: §5 기존 기각 유지(콜단위 후행평가가 더 직결).
@@ -129,7 +129,7 @@ Anthropic: 멀티에이전트는 단일대비 **토큰 ~15배**, 가치 높고 �
   **★[8/24 부분 수정]** 이 기각 자체는 유지(VectorBT는 의존 42개로 stdlib 정책·12월 포터빌리티와 충돌, Backtrader는 GPL+3년 4개월 휴면).
   다만 *"지표는 필요 없다"* 로 읽으면 틀렸다는 것이 8/24에 확인됐다 — **손익비·기대값이 83개 중 0곳**이었고,
   그게 우리 실제 실패 유형(작게 이기고 크게 진다)을 가리고 있었다. **엔진은 안 가져오되 지표 축은 가져온다**(`trades.py _payoff()`).
-- **GitHub Actions CI 게이트**: Stop훅이 이미 로컬 강제 + 12월 로컬 머신 이전 예정 → 한계효용 낮음. 보류.
+- **GitHub Actions CI 게이트**: Stop훅이 이미 로컬 강제 + 로컬 머신 이전 예정(1단계 8/31) → 한계효용 낮음. 보류.
 - **다중모델 앙상블**(과신완화엔 유효): opus 4.8 단일 품질 우선(d2)·1인 비용. Bull/Bear 디베이트가 단일모델 내 유사 효과.
 - **크립토·고빈도**: 포트폴리오 범위 밖.
 

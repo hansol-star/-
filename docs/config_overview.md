@@ -150,7 +150,7 @@ TradingAgents 패턴(애널리스트→강세/신중 디베이트→리스크매
 ## 9. 실행 환경
 
 - 현재 = **Claude Code 웹(클라우드 원격)**. 데이터센터 IP — Yahoo·웹검색·유튜브 전부 정상(RSS+innertube 경로, 7/2 확립 — 봇플래그는 일시 레이트리밋, 페이싱·백오프로 해소).
-- 12월경 로컬 머신 이전 예정(주거용 IP). 스크립트 stdlib만 써서 그대로 이식.
+- 로컬 머신 이전 = 1단계 윈도우 8/31 예정 (정본 docs/local_migration.md)(주거용 IP). 스크립트 stdlib만 써서 그대로 이식.
 - 글로벌 하네스 훅(`~/.claude/`의 stop-hook·git-identity 등)은 웹 환경 제공분이며 레포 설정 아님.
 
 ---

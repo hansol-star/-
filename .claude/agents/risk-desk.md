@@ -55,6 +55,10 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
    python3 .claude/skills/portfolio-desk/scripts/fx_exposure.py       # 통화 비중·환율 %ile·환손익 3분해
    python3 .claude/skills/portfolio-desk/scripts/portfolio_stats.py   # 상관·베타·변동성·실효분산 (gs-quant 이식)
    python3 .claude/skills/portfolio-desk/scripts/diversify_candidates.py  # 분산 후보 랭킹 (워치 종목 편입 시 ENB 개선)
+   python3 .claude/skills/portfolio-desk/scripts/diversify_candidates.py --trim  # ★[8/29] 역방향: 무엇을 줄이면 분산이 오르나
+   # ⚠️ 크래시 TF ACTIVE 동안 위 '편입' 표는 **집행이 안 된다**(래더 밖 신규 매수 금지).
+   #    TF 하에서 분산을 실제로 움직일 수 있는 경로는 --trim 쪽뿐이다(TF는 매수 동결이지 매도 동결이 아님·8/2).
+   #    두 표를 같이 읽고, TF 중이면 --trim 결과를 우선 보고할 것.
    ```
    - **리스크 점수와 기여도 상위 2축을 반드시 인용**한다("35/100 보통 · ⭐2이하 10.8 + 통화 7.6"처럼).
      점수 자체보다 **어느 축이 올렸는지**가 PM에게 필요한 정보다.

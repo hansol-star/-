@@ -173,12 +173,118 @@ def run(window: int = 60, new_weight: float = 5.0) -> dict:
     }
 
 
+def run_trim(window: int = 60, trim_pct: float = 50.0) -> dict:
+    """**역방향** — 보유 종목을 줄였을 때 실효 분산이 얼마나 오르는가.
+
+    왜 필요한가 [8/29 신설]: 이 파일의 `run()`은 **편입(매수)** 관점만 본다. 그런데
+    **크래시 TF가 ACTIVE인 동안 래더 밖 신규 매수는 룰이 막는다** — 즉 그 표는 진단은 되지만
+    **집행이 안 되는 처방**이다. 실제로 8/24에 도구를 만들고 risk-desk에 배선까지 했는데
+    실효 분산은 2.28(8/23) → **2.13**(8/29)으로 **오히려 나빠졌다**. 처방이 오더가 된 적이 없다.
+
+    TF 하에서 집행 가능한 경로는 **트림**뿐이다(8/2 확정: *크래시 TF는 매수 동결이지 매도 동결이
+    아니다*). 그래서 "무엇을 **줄이면** 분산이 오르나"를 같은 ENB 문법으로 계산한다.
+    비중을 뺀 만큼은 **나머지 보유에 비례 재분배**된다(= 현금화가 아니라 상대비중 이동 가정).
+
+    ⚠️ **측정 전용 — 매도 트리거가 아니다.** ENB가 오른다는 건 '그 종목이 포트를 지배하고
+       있다'는 뜻이지 '그 종목이 나쁘다'는 뜻이 아니다. 별점·룰2(펀더 훼손)·룰4가 위에 그대로 있다.
+    ⚠️ 합성 시계열·과거 상관의 한계는 `run()`과 동일하다. 위기엔 상관이 1로 수렴한다.
+    """
+    holdings = ps._load_holdings()
+    hs = [h for h in holdings if h.get("value_krw") and h.get("ticker")]
+    if not hs:
+        return {"status": "unavailable", "reason": "보유 데이터 없음 (app/data.js 미생성?)"}
+
+    _BM = [b[0] for b in ps.BENCHMARKS]
+    dates, series = ps.align([h["ticker"] for h in hs] + _BM, window)
+    covered = [h for h in hs if h["ticker"] in series]
+    if len(dates) < 20 or len(covered) < 3:
+        return {"status": "unavailable",
+                "reason": f"공통 거래일 {len(dates)}일·보유 {len(covered)}종목 — 계산 불가"}
+
+    tks = [h["ticker"] for h in covered]
+    label = {h["ticker"]: h["label"] for h in covered}
+    val = {h["ticker"]: h["value_krw"] for h in covered}
+    tot = sum(val[t] for t in tks)
+    w0 = {t: val[t] / tot for t in tks}
+
+    rets = {t: ps.simple_returns(series[t], dates) for t in tks}
+    vols = {}
+    for t in tks:
+        v = ps.own_calendar_vol(series[t], window)
+        vols[t] = v if v is not None else ps.volatility(rets[t])
+    corr = {a: {b: ps.correlation(rets[a], rets[b]) for b in tks} for a in tks}
+
+    base_enb, base_vol = _enb(tks, w0, vols, corr)
+    frac = trim_pct / 100.0
+    rows = []
+    for t in tks:
+        freed = w0[t] * frac
+        rest = 1.0 - w0[t]
+        if rest <= 0:
+            continue
+        w2 = {u: (w0[u] + freed * (w0[u] / rest) if u != t else w0[u] - freed) for u in tks}
+        enb2, vol2 = _enb(tks, w2, vols, corr)
+        if enb2 is None:
+            continue
+        # 포트 평균과의 상관(자기 제외 가중평균) — 왜 이 종목이 포트를 지배하는지의 근거
+        rho_bar = None
+        if rest > 0:
+            acc = sum(w0[u] * (corr.get(t, {}).get(u) or 0.0) for u in tks if u != t)
+            rho_bar = acc / rest
+        rows.append({
+            "ticker": t, "label": label[t],
+            "weight_pct": round(w0[t] * 100, 1),
+            "value_krw": val[t],
+            "trim_krw": int(val[t] * frac),
+            "vol": round(vols[t], 1),
+            "rho_bar": round(rho_bar, 3) if rho_bar is not None else None,
+            "enb_after": round(enb2, 3),
+            "d_enb": round(enb2 - base_enb, 3),
+            "vol_after": round(vol2, 1),
+            "d_vol": round(vol2 - base_vol, 1),
+        })
+    rows.sort(key=lambda r: -r["d_enb"])
+    return {"status": "ok", "mode": "trim", "window": window,
+            "dates": len(dates) - 1, "from": dates[0], "to": dates[-1],
+            "trim_pct": trim_pct, "base_enb": round(base_enb, 3),
+            "base_vol": round(base_vol, 1), "holdings_n": len(tks), "rows": rows}
+
+
+def print_trim(res):
+    print(f"\n✂️  트림 시 분산 개선 — 보유 종목을 {res['trim_pct']:.0f}% 줄였을 때")
+    print(f"   창 {res['window']}거래일 ({res['from']}~{res['to']}) · 보유 {res['holdings_n']}종목")
+    print(f"   현재 실효 분산 **{res['base_enb']}종목** · 포트 변동성 {res['base_vol']}%")
+    print("   ※ 뺀 비중은 나머지에 비례 재분배 가정. **측정 전용 — 매도 트리거 아님.**\n")
+    print(f"   {'종목':<14}{'비중%':>6}{'ρ̄(포트)':>9}{'변동성':>7}{'실효분산':>9}{'Δ':>7}"
+          f"{'포트변동성':>10}{'Δ':>7}{'트림액(원)':>12}")
+    for r in res["rows"]:
+        rb = f"{r['rho_bar']:+.3f}" if r["rho_bar"] is not None else "  —  "
+        print(f"   {r['label'][:13]:<14}{r['weight_pct']:>6.1f}{rb:>9}{r['vol']:>7.1f}"
+              f"{r['enb_after']:>9.2f}{r['d_enb']:>+7.2f}{r['vol_after']:>10.1f}{r['d_vol']:>+7.1f}"
+              f"{r['trim_krw']:>12,}")
+    print("\n   ⚠️ ΔENB가 크다 = 그 종목이 포트를 **지배**하고 있다는 뜻이지, 나쁘다는 뜻이 아니다.")
+    print("   ⚠️ 트림 판단은 별점·룰2(펀더 훼손)·룰4가 위에 있다. 이 표는 **분산 축 하나**만 본다.")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="분산 후보 랭킹 (ENB 개선 기여도·측정 전용)")
     ap.add_argument("--window", type=int, default=60, help="거래일 창 (기본 60)")
     ap.add_argument("--weight", type=float, default=5.0, help="가상 편입 비중%% (기본 5)")
+    ap.add_argument("--trim", nargs="?", const=50.0, type=float, default=None,
+                    metavar="PCT",
+                    help="역방향: 보유를 PCT%% 트림했을 때의 ENB 개선 (기본 50). "
+                         "크래시 TF 하에서 집행 가능한 유일한 분산 경로")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
+
+    if a.trim is not None:
+        res = run_trim(a.window, a.trim)
+        if a.json:
+            print(json.dumps(res, ensure_ascii=False, indent=1)); return 0
+        if res.get("status") != "ok":
+            print(f"⚠️  {res.get('reason')}"); return 1
+        print_trim(res)
+        return 0
 
     res = run(a.window, a.weight)
     if a.json:

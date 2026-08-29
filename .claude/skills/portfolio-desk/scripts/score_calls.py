@@ -55,7 +55,16 @@ ETF = {"VOO"}
 #   ⚠️ 표본이 코스피 -24% 붕괴장에 몰려 있어 ⭐2 상승분에 '낙폭과대 반등'이 섞였을 수 있다.
 #      알파 기준 Brier(0.271)도 무정보(0.250)보다 나쁘다는 게 레짐만은 아니라는 방증이나,
 #      정상장 표본이 쌓이면 재보정할 것(R3 주간 캘리브레이션에서 추적).
-STAR_PROB = {5: 0.65, 4: 0.60, 3: 0.45, 2: 0.50, 1: 0.17}
+# ★[8/29 단조 복원 · 정훈 승인] ⭐2를 0.50 → 0.38.
+#   8/22 재보정은 "⭐2 실측 상승 62% = 과소확신"을 근거로 0.32→0.50으로 올렸는데,
+#   8/29 star_validate ③횡단면에서 그 62%의 정체가 **NAVER 단일 종목(+22.2%·n33)의
+#   낙폭과대 반등**임이 드러났다(⭐2 버킷 4종목 중 하나가 버킷을 지배). 근거가 오염 표본이다.
+#   결과로 ⭐2(0.50) > ⭐3(0.45)의 **비단조**가 생겼고, 순서 척도 위의 Brier가 무의미해졌다.
+#   ⇒ 최소 개입으로 **단조성만 복원**한다(⭐1 0.17 < ⭐2 0.38 < ⭐3 0.45).
+#   ⚠️ 이건 실측 재보정이 **아니다** — 舊 0.32로 되돌리지도 않았다(그 값도 근거가 약하다).
+#      실측 재보정은 star_validate의 CI가 분리될 만큼 표본이 쌓인 뒤에 한다(현재 0/3 지평).
+#   가드 = validate_report.check_star_prob_monotonic (비단조면 FAIL).
+STAR_PROB = {5: 0.65, 4: 0.60, 3: 0.45, 2: 0.38, 1: 0.17}
 
 # ── 콜 문자열에서 가격 레벨 추출 ("480,000~530,000원", "$220~250", "295,000원 (눌림)") ──
 _UNIT = {"만": 10_000, "억": 100_000_000, "조": 1_000_000_000_000,
@@ -379,6 +388,24 @@ def score(min_age=1):
         hit = sum(1 for g in tg if g["target_hit"])
         print(f"목표가 하단 터치:        {hit}/{len(tg)}  ({hit/len(tg)*100:.0f}%)")
 
+    # ── 유효표본 경고 (★8/29 신설 — 이 블록 없이는 아래 숫자가 반드시 오독된다) ──
+    # 이 원장은 stocks.json 스냅샷 백필이라 **매 보고서마다 전 종목이 1행씩 복제**된다.
+    # 즉 "n=949 콜"의 실체는 (종목 수) × (보고서 수)이고, 독립 판단은 **별점이 바뀐 횟수**뿐이다.
+    # 8/29에 PM이 이 구분을 놓치고 아래 Brier를 그대로 인용해 "별점은 동전던지기"라고
+    # 단정했다(8/12 '분모를 의심하라'의 재발). 그래서 숫자보다 먼저 분모를 찍는다.
+    _seq = {}
+    for g in sorted(graded, key=lambda r: r.get("date") or ""):
+        _seq.setdefault(g["ticker"], []).append(g.get("stars"))
+    _changes = sum(sum(1 for a, b in zip(v, v[1:]) if a != b) for v in _seq.values())
+    _flat = [t for t, v in _seq.items() if len(set(v)) == 1]
+    print("\n— ⚠️ 유효표본 (아래 통계를 읽기 전에) —")
+    print(f"  스냅샷 {len(graded)}행 = 종목 {len(_seq)}개 × 보고서 {len({g.get('date') for g in graded})}일")
+    print(f"  독립 판단 ≈ {len(_seq)} 초기 + {_changes} 변경 = **{len(_seq) + _changes}개**"
+          f"  (10주 내내 불변 {len(_flat)}종목)")
+    print("  ⇒ 버킷 평균·Brier의 유효 n은 **콜 수가 아니라 종목 수**다. 한 종목의 운명이")
+    print("     수십 번 투표한다 → 이 출력으로 별점 기준을 판정하지 말 것.")
+    print("     정본 = star_validate.py (종목 클러스터 보정·고정지평·부트스트랩 CI).")
+
     # 편향 플래그(self-review가 찾던 것 — 자동 탐지)
     print("\n— 편향 점검 —")
     means = {st: sum(r["fwd"] for r in by[st]) / len(by[st])
@@ -400,7 +427,10 @@ def score(min_age=1):
         else:
             print(f"  ✅ 알파 기준 순서 정상: ⭐5 알파({a_means[5]:+.2f}%) ≥ ⭐3({a_means[3]:+.2f}%) — 절대수익 역전은 레짐(시장 전체 하락) 소산")
     star_dist = {st: len(by[st]) for st in sorted(by) if isinstance(st, int)}
-    print(f"  별점 분포(최신 원장 비중 포함): {star_dist}")
+    # 콜 수만 찍으면 ⭐5 223건이 4종목의 복제라는 사실이 안 보인다 → 고유 종목 수 병기.
+    star_uniq = {st: len({r["ticker"] for r in by[st]}) for st in sorted(by) if isinstance(st, int)}
+    print(f"  별점 분포(콜 수): {star_dist}")
+    print(f"  └ 고유 종목 수  : {star_uniq}   ← 이쪽이 유효 n")
     if net_err:
         print(f"  시세 조회 실패(채점 제외): {sorted(set(net_err))}")
 

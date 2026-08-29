@@ -13,7 +13,7 @@ validate_report.py — 보고서 '완료의 정의' 게이트 (하네스 엔지�
 FAIL(❌, exit 1) = 반드시 고치고 커밋.  WARN(⚠️, exit 0) = 눈으로 확인.
 의존성 없음(stdlib). 정본 = data/app/{stocks,flows,tasks}.json · CLAUDE.md · docs/reports/.
 """
-import argparse, datetime as dt, json, os, re, subprocess, sys
+import argparse, ast, datetime as dt, json, os, re, subprocess, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
@@ -1380,6 +1380,48 @@ def check_rule_ledger(latest=None):
         (fail if gap >= 3 else warn)(msg)
 
 
+def check_star_prob_monotonic():
+    """[8/29 신설] 별점→내재확률 매핑(STAR_PROB)의 **단조성** 가드.
+
+    별점은 순서 척도(⭐1<…<⭐5 = 확신 증가)다. 그 위에 얹는 확률 매핑이 비단조면
+    Brier(proper scoring rule) 계산 자체가 의미를 잃는다 — 낮은 등급이 높은 등급보다
+    강한 확신을 표현하게 되기 때문.
+
+    실사고: 8/22 재보정이 *"⭐2 실측 상승 62% = 과소확신"*을 근거로 ⭐2를 0.32→**0.50**
+    으로 올려 **⭐2(0.50) > ⭐3(0.45)** 이 됐다. 8/29 star_validate ③횡단면에서 그 62%의
+    정체가 **NAVER 단일 종목(+22.2%·n33)의 낙폭과대 반등**임이 드러났다 = 재보정 근거가
+    오염 표본이었다. 그리고 그 비단조 매핑 위에서 나온 Brier 0.249를 PM이
+    "별점은 동전던지기"로 인용했다(8/29). 산문 교훈으로는 이걸 못 막는다 → 기계가 본다.
+
+    ⚠️ 이 가드는 **단조성만** 본다. 값의 옳음(캘리브레이션)은 표본 문제라 여기서 못 판정한다.
+    """
+    # ROOT 아래 **소스 텍스트**에서 읽는다 — import로 가져오면 실제 모듈이 캐시돼
+    # 임시 ROOT 주입 테스트가 무력해진다(8/24 split_guard 오프라인 무력화와 같은 형태).
+    src = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts", "score_calls.py")
+    try:
+        with open(src, encoding="utf-8") as f:
+            text = f.read()
+        m = re.search(r"^STAR_PROB\s*=\s*(\{[^}]*\})", text, re.M)
+        if not m:
+            warn("STAR_PROB 리터럴을 score_calls.py에서 찾지 못함 — 단조성 가드가 무력화됐다")
+            return
+        STAR_PROB = ast.literal_eval(m.group(1))
+    except FileNotFoundError:
+        return
+    except Exception as e:
+        warn(f"STAR_PROB 파싱 실패({type(e).__name__}) — 단조성 가드가 무력화됐다")
+        return
+    order = sorted(STAR_PROB)                      # ⭐1 → ⭐5
+    probs = [STAR_PROB[k] for k in order]
+    bad = [(order[i], probs[i], order[i + 1], probs[i + 1])
+           for i in range(len(probs) - 1) if probs[i] >= probs[i + 1]]
+    if bad:
+        detail = " · ".join(f"⭐{a}({pa:.2f}) ≥ ⭐{b}({pb:.2f})" for a, pa, b, pb in bad)
+        fail(f"STAR_PROB 비단조 — {detail}. 별점은 순서 척도라 확신확률이 등급과 함께 "
+             f"올라가야 한다. 비단조 매핑 위의 Brier는 무의미(8/22 오염표본 재보정 사고). "
+             f"score_calls.py STAR_PROB 수정 필요.")
+
+
 def check_git_depth():
     """[8/6 신설] 얕은 클론 감지 — git 히스토리를 소급 재구성하는 도구의 안전장치.
 
@@ -1844,6 +1886,7 @@ def main():
     check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
+    check_star_prob_monotonic()
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

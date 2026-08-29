@@ -306,10 +306,27 @@ def main():
     print(f"  ③  CI 분리(통계적 유의)    : {len(sep)}/{n} 지평 {sep}")
 
     # 견고성(방향이 보정에서 살아남았나)과 유의성(구분 가능한가)은 다른 축이다.
-    robust = (pure_testable and len(pure_inv) == len(pure_testable)
-              and loo_testable and len(loo_ok) == len(loo_testable))
+    # ★[8/29 교정] 舊 robust는 **전 지평 만장일치**만 견고로 봤다 → ②ⓑ 3/3인데 ③b가
+    # 2/3이면 곧장 "무너졌다"(🟢)로 떨어졌고, 그 초록불이 **"별점 정상"으로 오독**된다.
+    # 실제 8/29 실측이 그 경우였다(①3/3·②ⓑ3/3·③b2/3·CI 0/3). 방향이 대부분 살아남은
+    # 것과 방향이 깨진 것은 다른 상태이므로 **부분 견고** 단계를 신설해 가른다.
+    def _ratio(ok, testable):
+        return (len(ok) / len(testable)) if testable else None
+
+    pure_r, loo_r = _ratio(pure_inv, pure_testable), _ratio(loo_ok, loo_testable)
+    robust = (pure_r == 1.0 and loo_r == 1.0)
+    robust_part = (not robust and pure_r is not None and loo_r is not None
+                   and pure_r >= 0.5 and loo_r >= 0.5)
     print()
-    if robust and not sep:
+    if robust_part and not sep:
+        print("  ⇒ 🟡 **방향은 부분적으로 견고, 유의성은 없음 = 판정 불가.**")
+        print(f"     역전(⭐5<⭐2)이 반등 제외 {len(pure_inv)}/{len(pure_testable)}·"
+              f"LOO {len(loo_ok)}/{len(loo_testable)} 지평에서 살아남았다 —")
+        print("     **'보정하니 사라졌다'가 아니다.** 그러나 95% CI가 전부 겹쳐")
+        print("     ⭐5와 ⭐2를 통계적으로 구분할 수 없다(버킷당 종목 3~4개).")
+        print("     ⇒ **룰 변경 근거로 부족하고, '별점이 잘 가른다'는 반대 주장도 못 한다.**")
+        print("     ⇒ 표본 축적 후 재검정(8/5 절차 ③ 미달).")
+    elif robust and not sep:
         print("  ⇒ 🟡 **방향은 견고, 유의성은 없음.**")
         print("     역전(⭐5<⭐2)이 클러스터 보정·고정지평·반등 제외·LOO를 **전부 통과**했다.")
         print("     즉 8/6의 '⭐2 +9.93%'가 통째로 반등 착시였다는 결론은 **틀렸다** —")
@@ -320,9 +337,12 @@ def main():
         print("     ⇒ 단 '별점이 forward 수익을 잘 가른다'는 반대 주장도 이 데이터로는 못 한다.")
     elif robust and sep:
         print("  ⇒ 🔴 **역전이 견고하고 통계적으로도 유의하다. 채점기준 재교정 검토 대상.**")
-    elif not robust:
+    elif not robust and not robust_part:
         print("  ⇒ 🟢 **역전이 보정에서 무너졌다** — 레짐·중복집계·단일종목의 산물.")
         print("     별점 기준을 이 근거로 바꾸지 말 것(8/5 절차 ②③ 불통과).")
+        if not sep:
+            print("     ⚠️ 단 CI도 전부 겹친다 — 이건 '별점이 정상임을 확인했다'는 뜻이 **아니다**.")
+            print("        역전을 못 세운 것이지 예측력을 입증한 게 아니다(무판정).")
     else:
         print("  ⇒ 판정 보류 — 표본 축적 후 재검정.")
 

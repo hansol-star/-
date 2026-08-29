@@ -103,6 +103,22 @@ RPT = "docs/reports/report_v99_2026-08-27.md"
 
 INJECTION_TESTS = [
     {
+        "name": "check_star_prob_monotonic",
+        "desc": "별점→확신확률 매핑이 비단조면 잡는가",
+        "why": "8/22 재보정이 ⭐2를 0.32→0.50으로 올려 ⭐2(0.50) > ⭐3(0.45)의 비단조를 만들었다. "
+               "근거였던 '⭐2 실측 상승 62%'의 정체는 8/29 star_validate ③횡단면에서 "
+               "**NAVER 단일 종목(+22.2%·n33)의 낙폭과대 반등**으로 드러났다 = 오염 표본. "
+               "그리고 그 비단조 매핑 위에서 나온 Brier 0.249를 PM이 '별점은 동전던지기'로 "
+               "인용했다(8/29). 순서 척도 위의 proper scoring rule은 단조성이 전제다",
+        "pattern": r"STAR_PROB 비단조",
+        "violate": {".claude/skills/portfolio-desk/scripts/score_calls.py":
+            "STAR_PROB = {5: 0.65, 4: 0.60, 3: 0.45, 2: 0.50, 1: 0.17}\n"},
+        "clean": {".claude/skills/portfolio-desk/scripts/score_calls.py":
+            "STAR_PROB = {5: 0.65, 4: 0.60, 3: 0.45, 2: 0.38, 1: 0.17}\n"},
+        "args": (),
+    },
+
+    {
         "name": "check_verdict_grounding",
         "desc": "[정정]이 확정 사실이 아니라 경쟁 전망(설문·컨센서스)에만 기대면 잡는가",
         "why": "8/27 실사고 — 경제사냥꾼의 금통위 인상 전망을 채권전문가 설문(80% 동결)을 "

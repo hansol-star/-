@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-08-29 08:52 KST",
+  "generated_at": "2026-08-29 11:52 KST",
   "as_of": "2026-08-28 16:37",
   "source_report": "docs/reports/report_v87_2026-08-28.md",
   "offline": false,
@@ -413,7 +413,8 @@ window.APP_DATA = {
         257000.0,
         257000.0,
         261500.0,
-        266000.0
+        266000.0,
+        257000.0
       ],
       "sector": "반도체·AI"
     },
@@ -539,7 +540,8 @@ window.APP_DATA = {
         199800.0,
         200500.0,
         200500.0,
-        198300.0
+        198300.0,
+        201500.0
       ],
       "sector": "전력·피지컬"
     },
@@ -670,7 +672,8 @@ window.APP_DATA = {
         69700.0,
         70200.0,
         71800.0,
-        73100.0
+        73100.0,
+        71600.0
       ],
       "sector": "전력·피지컬"
     },
@@ -801,7 +804,8 @@ window.APP_DATA = {
         414000.0,
         421000.0,
         408000.0,
-        398000.0
+        398000.0,
+        399500.0
       ],
       "sector": "전력·피지컬"
     },
@@ -912,7 +916,8 @@ window.APP_DATA = {
         223500.0,
         220500.0,
         220000.0,
-        216500.0
+        216500.0,
+        220500.0
       ],
       "sector": "빅테크"
     },
@@ -21072,6 +21077,38 @@ window.APP_DATA = {
           "무인실패"
         ],
         "refs": "trig_01QqreSasgVvMyiWbfLNNrTF(R4a) · docs/routines.md R4 · 세션 cse_01SVi2VMv4y6SnoTpir3HjaZ(R2)·cse_01QLcBzX31t2z2njvFrssqR5(R4a)·cse_01Bhs9DyTcc2JBCKFUCjUUfE(R1)"
+      },
+      {
+        "id": "d155",
+        "date": "2026-08-29",
+        "topic": "로컬 이전 1단계(윈도우) — 무인 루틴은 웹 유지 권고",
+        "decision": "8/31(월) 윈도우로 1단계 착수. 루틴 이전(경로 B)은 보류하고 웹 Routines 유지(경로 A)를 권고 — 정훈 결정 대기(open).",
+        "rationale": "이전의 값어치는 막힌 경로 열기(KRX 공매도·yt-dlp 프레임·토스 매수이력·전체 히스토리)이고 그건 대화형 세션만으로 전부 달성된다. 루틴까지 옮기면 무인 실패가 조용해지는 위험을 검증 없이 떠안는다(웹 Routines는 실패가 기록에 남고 push 알림이 검증됨). 토큰 한도는 구독 한도라 로컬로 가도 그대로 — 로컬 이전이 8/27 루틴 3개 사망을 해결하지 않는다.",
+        "rejected": "전부 로컬 이전(경로 B) 즉시 = 무인 claude -p 권한 모델·완료 알림 대체·머신 상시가동 3건이 전부 미확인. 실측 후 별건 결정.",
+        "status": "open",
+        "tags": [
+          "local",
+          "infra",
+          "routines",
+          "ops"
+        ],
+        "refs": "docs/local_migration.md"
+      },
+      {
+        "id": "d156",
+        "date": "2026-08-29",
+        "topic": "별점 채점기준 — 역전은 판정 불가(표본 부족), STAR_PROB 단조 복원",
+        "decision": "star_validate 판정 로직 교정(부분 견고 단계 신설)·score_calls 유효표본 경고 상시화·STAR_PROB ⭐2 0.50→0.38 단조 복원 + check_star_prob_monotonic 가드 신설. 별점 밴드 자체는 미변경.",
+        "rationale": "949콜의 독립 판단은 31개(종목16×보고서63의 복제). 보정 후 역전은 방향 부분 견고·CI 0/3 = 판정 불가이며, 실체는 MU·NAVER 2종목(LOO에서 소멸). 체계 고장이 아니라 개별 판단 2건이므로 밴드를 건드릴 근거가 없다.",
+        "rejected": "①score_calls Brier로 별점 기준 변경 = 오염 표본(비단조 매핑 위 계산) ②STAR_PROB 실측 재보정 = 8/22와 같은 오염 표본 재사용 ③舊 0.32 복귀 = 그 값도 근거 약함",
+        "status": "open",
+        "tags": [
+          "stars",
+          "calibration",
+          "guard",
+          "measurement"
+        ],
+        "refs": "docs/master.md §7, star_validate.py, score_calls.py"
       }
     ],
     "closed": [
@@ -21345,8 +21382,8 @@ window.APP_DATA = {
         "refs": "report_v81_2026-08-23.md · master §10-4 · bigtech-platform-desk 8/23"
       }
     ],
-    "open_count": 23,
-    "total": 171
+    "open_count": 25,
+    "total": 173
   },
   "reports": [
     {

@@ -432,22 +432,71 @@ def _stale_warning(last_date: str):
 #   8/14 실측: D1~D4 전부 합산 226,151원 < NAVER 227,500원(1,349원 부족).
 #   ⇒ 소멸시키지 않고 **대기(적립)**로 유지하고, 1주 가격 도달 시 그 단계가 열려 있으면 집행.
 #   ⚠️ 자동 집행 아님 — 도달 여부만 표시한다. 정본 = crash_tf §2b.
-KR_CANDIDATES = {           # 국내 매수후보 1주 가격(보고서 갱신 시 함께 갱신)
-    "NAVER": 227500, "삼성전자": 274000, "KT&G": 176300, "두산에너빌리티": 81800,
+# 국내 매수후보 티커 — 1주 가격은 **실시간 조회**가 1차, 아래 스냅샷은 폴백이다.
+KR_CANDIDATE_TICKERS = {
+    "NAVER": "035420.KS", "삼성전자": "005930.KS",
+    "KT&G": "033780.KS", "두산에너빌리티": "034020.KS",
 }
+
+# ★[2026-08-29 결함 수정 — 하드코딩 가격이 stale이라 판정이 뒤집혔다]
+#   舊 주석은 *"보고서 갱신 시 함께 갱신"*이었으나 실제로는 갱신되지 않았고,
+#   8/29 실측에서 **4개 중 3개가 틀렸다**:
+#     NAVER 227,500 → 실제 220,500 (-7,000) · 삼성전자 274,000 → 257,000 (-17,000)
+#     두산에너빌리티 81,800 → 88,200 (+6,400) · KT&G 176,300 → 일치
+#   이 오차가 판정을 실제로 뒤집었다: 항복 가산(×1.2) 발동 시 상한 226,585원인데
+#   舊 값(227,500)으로는 **915원 부족 = 불가**, 실제가(220,500)로는 **6,085원 여유 = 가능**.
+#   "1주를 살 수 있나"는 이진 판정이라 몇 천 원 오차가 결론을 바꾼다.
+#   ⇒ market_data 실시간 조회를 1차로 두고, 실패 시에만 아래 스냅샷으로 폴백한다.
+#   (CLAUDE.md 8/12 교훈 — 문서의 값은 마지막 확인일의 사실일 뿐이다.)
+KR_CANDIDATES = {           # 폴백 스냅샷 — 최종 실측 2026-08-29
+    "NAVER": 220500, "삼성전자": 257000, "KT&G": 176300, "두산에너빌리티": 88200,
+}
+
+
+def kr_candidate_prices():
+    """국내 매수후보 1주 가격 {이름: 원} + 출처 라벨.
+
+    실시간 조회가 1차(위 주석 참조). 종목별로 개별 폴백하므로 일부만 실패해도
+    나머지는 실가격을 쓴다. 폴백이 섞이면 라벨에 명시한다 — 어느 값이 스냅샷인지
+    보이지 않으면 8/29 이전과 같은 침묵형 stale이 된다.
+    """
+    prices = dict(KR_CANDIDATES)
+    stale = sorted(prices)
+    try:
+        import market_data as _md
+        for name, tk in KR_CANDIDATE_TICKERS.items():
+            try:
+                q = _md.fetch_quote(tk) or {}
+                px = q.get("price")
+                if px and float(px) > 0:
+                    prices[name] = int(round(float(px)))
+                    stale.remove(name)
+            except Exception:
+                pass
+    except Exception:
+        pass
+    if not stale:
+        src = "실시간"
+    elif len(stale) == len(prices):
+        src = "폴백 스냅샷(2026-08-29) — 실시간 조회 실패"
+    else:
+        src = f"실시간 + 폴백({', '.join(stale)})"
+    return prices, src
 
 
 def _kr_accrual_note(allowed_krw, cash):
     """해금 상한이 국내 1주에 얼마나 모자란지 / 어디까지 닿는지."""
-    reach = {k: v for k, v in KR_CANDIDATES.items() if allowed_krw >= v}
-    lines = ["\n═══ 🇰🇷 국내 이월 적립 (crash_tf §2b · 8/14 신설) ═══"]
+    prices, src = kr_candidate_prices()
+    reach = {k: v for k, v in prices.items() if allowed_krw >= v}
+    lines = [f"\n═══ 🇰🇷 국내 이월 적립 (crash_tf §2b · 8/14 신설) ═══",
+             f"  1주 가격 출처: {src}"]
     if allowed_krw <= 0:
         lines.append(f"  현재 허용 상한 **0원** — 적립 대기(사다리 잠김 또는 하드플로어).")
     if reach:
         lines.append(f"  ✅ 1주 도달: {', '.join(f'{k} {v:,}원' for k, v in sorted(reach.items(), key=lambda x: x[1]))}")
-    nearest = min((v for v in KR_CANDIDATES.values() if v > allowed_krw), default=None)
+    nearest = min((v for v in prices.values() if v > allowed_krw), default=None)
     if nearest is not None:
-        name = next(k for k, v in KR_CANDIDATES.items() if v == nearest)
+        name = next(k for k, v in prices.items() if v == nearest)
         lines.append(f"  ⏳ 최근접 미달: {name} {nearest:,}원 — **{nearest - allowed_krw:,.0f}원 부족**")
     lines.append(f"  참고 가용현금 {cash:,.0f}원 · 적립분은 미국 매수에 쓰지 않는다(§2b 규칙3)")
     lines.append("  ⚠️ 표시 전용 — 도달해도 §5 3중 게이트·하드플로어가 위에 그대로 있다.")

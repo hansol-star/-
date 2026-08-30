@@ -458,6 +458,35 @@ def save(data: dict) -> str:
         }
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(slim, f, ensure_ascii=False, indent=1)
+
+    # ── 원본 전 시계열 영구 저장 ★[8/30 정훈 지시 "기업들 자료 n개년치 다 저장"] ──
+    # 舊 코드는 위 주석에 *"원본은 data/financials/"* 라고 **적어만 두고 실제로는 저장하지
+    # 않았다.** EDGAR XBRL은 상장 이래 전 시계열을 주는데(MU 연간 17기·분기 63기) app 요약은
+    # 5기/8기로 자르고, 잘린 나머지는 **어디에도 남지 않았다** — 매번 다시 받아야 했고
+    # 과거 재무 추세 분석이 5년으로 제한됐다. 8/30 자막 사고(받아오는데 /tmp에 버림)와
+    # **같은 클래스**이며, 여기서는 주석이 사실과 달라 아무도 결손을 눈치채지 못했다.
+    # ⇒ 종목별 원본을 data/financials/<TICKER>.json에 통째로 남긴다(연 1~2MB 수준).
+    raw_dir = os.path.join(ROOT, "data", "financials")
+    os.makedirs(raw_dir, exist_ok=True)
+    saved = 0
+    for t, r in data["stocks"].items():
+        if not (r.get("annual") or r.get("quarterly")):
+            continue                       # 수집 실패분은 기존 원본을 덮어쓰지 않는다
+        fp = os.path.join(raw_dir, f"{t.replace('/', '_')}.json")
+        try:
+            with open(fp, "w", encoding="utf-8") as f:
+                json.dump({"ticker": t, "name": r.get("name"), "region": r.get("region"),
+                           "currency": r.get("currency"), "source": r.get("source"),
+                           "depth": r.get("depth"), "as_of": r.get("as_of"),
+                           "saved_at": data["updated"],
+                           "annual": r.get("annual", []),        # ← 자르지 않는다
+                           "quarterly": r.get("quarterly", [])},
+                          f, ensure_ascii=False, indent=1)
+            saved += 1
+        except OSError:
+            continue
+    if saved:
+        print(f"  💾 원본 전 시계열 {saved}종목 → data/financials/<TICKER>.json")
     return OUT
 
 

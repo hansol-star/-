@@ -1389,6 +1389,98 @@ def check_rule_ledger(latest=None):
         (fail if gap >= 3 else warn)(msg)
 
 
+# 정정·부정 문맥 — 이 근처의 숫자는 "틀렸다고 적어둔 옛 값"이므로 대조 대상에서 뺀다.
+# ★ 이 목록이 없으면 가드가 **정정문 자체를 위반으로 오인**한다(8/27 check_verdict_grounding에서
+#   ±320자 윈도우가 옆 섹션을 주웠던 것과 같은 함정).
+_FACT_NEG = re.compile(
+    r"(舊|구\s*표기|이전\s*표기|폐기|오류|틀렸|틀린|아니라|잘못|정정|오기|오독|→|이었|였다|였던)")
+
+
+def check_canonical_facts():
+    """[8/30 신설 · 정훈 지시 "없으면 만들고"] 핵심 수치 정본 대조 — 문서의 숫자가 원장과 어긋나면 잡는다.
+
+    왜 있나: 7/29 CXMT 점유율 오류(문서 '~11%' vs 실제 7%)가 **5주간 CLAUDE.md·master.md·
+    crash_tf.md 세 곳에 살아 있었고**, 잡은 것은 우리 가드가 아니라 **유튜브 채널**이었다.
+    기존 가드는 *폐기된 룰*·*단위 누락*·*1차 출처 표지*를 보지만
+    **"숫자 자체가 틀렸는지"를 보는 장치는 0개**였다.
+
+    설계: `data/app/facts.json`에 수치 + **그 수치를 문서에서 식별하는 정규식(pattern)**을 등록한다.
+      · 캡처그룹 1의 값이 원장과 tolerance 밖 → **FAIL**
+      · verified_on + recheck_days 경과 → **WARN**(원장 자체가 낡는 것을 막는다)
+
+    ⚠️ **pattern 필수**: 초판은 alias+context 근접 윈도우의 *모든 숫자*를 대조해
+       **위양성 38건**을 냈다(SK하이닉스 26%·연도·금액까지 CXMT 점유율로 오인).
+       8/27 `check_verdict_grounding`이 ±320자 윈도우로 옆 섹션을 주웠던 것과 같은 함정 —
+       **넓은 윈도우는 가드를 못 쓰게 만든다.** 패턴 없는 fact는 조용히 건너뛴다.
+    ⚠️ **정정문 오인 방지**: 우리 문서는 틀린 값을 지우지 않고 "舊 11%는 오류"로 남긴다 →
+       부정·정정 문맥(`_FACT_NEG`) 근처 매치는 제외한다. 없으면 **고칠수록 빨개진다.**
+    ⚠️ 원장은 **작게 유지**한다 — 유지 못 하는 원장은 그 자체가 stale 소스가 된다.
+    """
+    fp = os.path.join(ROOT, "data", "app", "facts.json")
+    try:
+        with open(fp, encoding="utf-8") as f:
+            facts = (json.load(f) or {}).get("facts") or []
+    except FileNotFoundError:
+        return
+    except Exception as e:
+        warn(f"facts.json 파싱 실패({type(e).__name__}) — 수치 정본 가드가 무력화됐다")
+        return
+
+    docs = {}
+    for rel in ("CLAUDE.md", "docs/master.md", "docs/crash_tf.md", "docs/holdings_outlook.md"):
+        try:
+            docs[rel] = open(os.path.join(ROOT, rel), encoding="utf-8").read()
+        except Exception:
+            continue
+
+    today = dt.date.today()
+    for fact in facts:
+        val, pat = fact.get("value"), fact.get("pattern")
+        if val is None:
+            continue
+        label = fact.get("label") or fact.get("key")
+        tol = float(fact.get("tolerance") or 0.5)
+
+        try:
+            vd = dt.date.fromisoformat(str(fact.get("verified_on")))
+            rd = int(fact.get("recheck_days") or 120)
+            if (today - vd).days > rd:
+                warn(f"수치 정본 stale — {label} 마지막 확인 {vd}"
+                     f"({(today - vd).days}일 경과 > {rd}일). 1차 출처({fact.get('source')}) "
+                     f"재확인 후 facts.json 갱신할 것")
+        except Exception:
+            pass
+
+        if not pat:
+            continue
+        try:
+            rx = re.compile(pat)
+        except re.error:
+            warn(f"facts.json pattern 정규식 오류 — {label}: {pat!r}")
+            continue
+
+        for rel, text in docs.items():
+            for m in rx.finditer(text):
+                # 패턴이 여러 표기형(정순·역순)을 |로 묶을 수 있으므로 첫 non-None 그룹을 쓴다.
+                raw = next((g for g in m.groups() if g), None)
+                if raw is None:
+                    continue
+                try:
+                    got = float(raw.replace(",", ""))
+                except ValueError:
+                    continue
+                if abs(got - float(val)) <= tol:
+                    continue
+                near = text[max(0, m.start() - 90): m.end() + 90]
+                if _FACT_NEG.search(near):
+                    continue            # "舊 11%는 오류" 같은 정정 서술
+                fail(f"수치 정본 불일치 — {rel}: {label} = **{val}{fact.get('unit', '')}**"
+                     f"({fact.get('basis', '')} · {fact.get('source', '')}) 인데 문서엔 "
+                     f"**{got}**이 정정 표시 없이 적혀 있다 (…{m.group(0)[:40]}…). "
+                     f"원장 = data/app/facts.json — 문서를 고치거나, 값이 낡았으면 "
+                     f"1차 출처 재확인 후 원장을 갱신할 것")
+
+
 def check_allocation_band():
     """[8/30 신설 · 정훈 승인] 리스크룰 6 — 지역 배분 밴드(국내주 18~22%) 이탈 감지.
 
@@ -1933,7 +2025,7 @@ def main():
     check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
-    check_star_prob_monotonic(); check_allocation_band()
+    check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

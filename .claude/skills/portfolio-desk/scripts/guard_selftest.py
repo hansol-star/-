@@ -103,6 +103,17 @@ RPT = "docs/reports/report_v99_2026-08-27.md"
 
 INJECTION_TESTS = [
     {
+        "name": "check_canonical_facts",
+        "desc": "\ubb38\uc11c\uc758 \ud575\uc2ec \uc218\uce58\uac00 \uc815\ubcf8 \uc6d0\uc7a5\uacfc \uc5b4\uae0b\ub098\uba74 \uc7a1\ub294\uac00",
+        "why": "7/29 CXMT \uc810\uc720\uc728 \uc624\ub958(\ubb38\uc11c ~11% vs \uc2e4\uc81c 7%)\uac00 5\uc8fc\uac04 \uc138 \ubb38\uc11c\uc5d0 \uc0b4\uc544 \uc788\uc5c8\uace0, "
+               "\uc7a1\uc740 \uac83\uc740 \uc6b0\ub9ac \uac00\ub4dc\uac00 \uc544\ub2c8\ub77c \uc720\ud29c\ube0c \ucc44\ub110\uc774\uc5c8\ub2e4. '\uc22b\uc790 \uc790\uccb4\uac00 \ud2c0\ub838\ub294\uc9c0'\ub97c \ubcf4\ub294 \uc7a5\uce58\uac00 0\uac1c\uc600\ub2e4",
+        "pattern": r"\uc218\uce58 \uc815\ubcf8 \ubd88\uc77c\uce58",
+        "violate": {'data/app/facts.json': '{"facts": [{"key": "cxmt_dram_share", "label": "CXMT D램 점유율", "value": 7.0, "unit": "%", "tolerance": 0.6, "basis": "매출 기준", "asof": "2026-Q2", "source": "Counterpoint", "verified_on": "2026-08-30", "recheck_days": 120, "pattern": "(?:CXMT|창신메모리)(?:는|가|의|\\\\s)*\\\\**(\\\\d{1,2}(?:\\\\.\\\\d)?)\\\\s*%"}]}', 'CLAUDE.md': '# CLAUDE.md\n\nCXMT 점유율은 세계 4위로 CXMT 11% 수준이다.\n'},
+        "clean":   {'data/app/facts.json': '{"facts": [{"key": "cxmt_dram_share", "label": "CXMT D램 점유율", "value": 7.0, "unit": "%", "tolerance": 0.6, "basis": "매출 기준", "asof": "2026-Q2", "source": "Counterpoint", "verified_on": "2026-08-30", "recheck_days": 120, "pattern": "(?:CXMT|창신메모리)(?:는|가|의|\\\\s)*\\\\**(\\\\d{1,2}(?:\\\\.\\\\d)?)\\\\s*%"}]}', 'CLAUDE.md': '# CLAUDE.md\n\nCXMT 점유율은 세계 4위로 CXMT 7% 수준이다.\n'},
+        "args": (),
+    },
+
+    {
         "name": "check_allocation_band",
         "desc": "\uad6d\ub0b4\uc8fc \ube44\uc911\uc774 \ubaa9\ud45c \ubc34\ub4dc(18~22%)\ub97c \ubc97\uc5b4\ub098\uba74 \uc7a1\ub294\uac00",
         "why": "8/30 \uc2e0\uc124 \ub8f06. \uc774 \ub8f0\uc774 \uc0dd\uae30\uae30 \uc804\uae4c\uc9c0 \uad6d\ub0b4 28.7%\ub294 \ub204\uac00 \uc815\ud55c \uac12\uc774 \uc544\ub2c8\ub77c "

@@ -1,0 +1,95 @@
+{
+ "_comment": "핵심 수치 정본 원장 [2026-08-30 신설]. 정훈 지시 '없으면 만들고'. 배경 = 7/29 CXMT 점유율 오류(11% vs 실제 7%)가 5주간 세 문서에 살아 있었고, 우리 가드가 아니라 유튜브 채널이 잡았다. check_repealed_rules류는 '폐기된 룰'을 잡지 '틀린 수치'를 못 잡는다. ⚠️ 여기 등록하는 것은 '자주 인용되고 틀리면 판단이 갈리는' 수치만. 전부 등록하려 하지 말 것 — 유지 못 하는 원장은 stale 소스가 된다. ★ pattern = 이 수치를 문서에서 식별하는 정규식(캡처그룹 1 = 값). 패턴 없는 fact는 대조를 건너뛴다 — 넓은 윈도우 스캔은 위양성이 폭발한다(8/30 초판이 38건 오탐).",
+ "updated": "2026-08-30",
+ "facts": [
+  {
+   "key": "cxmt_dram_share",
+   "label": "CXMT D램 점유율",
+   "value": 7.0,
+   "unit": "%",
+   "tolerance": 0.6,
+   "basis": "매출(revenue) 기준 — 비트(물량) 기준은 다를 수 있음",
+   "asof": "2026-Q2",
+   "source": "Counterpoint Research · Global Memory Tracker (2026-08)",
+   "verified_on": "2026-08-30",
+   "recheck_days": 120,
+   "aliases": [
+    "CXMT",
+    "창신메모리"
+   ],
+   "context": [
+    "점유율",
+    "share"
+   ],
+   "note": "1Q 8% → 2Q 7% 하락. 舊 문서의 '~11%'는 오류였고 '舊 8%가 하향 오류'라던 7/29 판단 자체가 틀렸다.",
+   "pattern": "(?:CXMT|창신메모리)(?:는|가|의|\\s)*\\**(\\d{1,2}(?:\\.\\d)?)\\s*%"
+  },
+  {
+   "key": "samsung_dram_share",
+   "label": "삼성전자 D램 점유율",
+   "value": 39.0,
+   "unit": "%",
+   "tolerance": 0.6,
+   "basis": "매출(revenue) 기준",
+   "asof": "2026-Q2",
+   "source": "Counterpoint Research · Global Memory Tracker (2026-08)",
+   "verified_on": "2026-08-30",
+   "recheck_days": 120,
+   "aliases": [
+    "삼성전자 D램",
+    "삼성 D램",
+    "삼성전자 디램"
+   ],
+   "context": [
+    "점유율",
+    "share"
+   ],
+   "note": "38% → 39% 상승, 3분기 연속 1위. SK하이닉스 26%·마이크론 25%.",
+   "pattern": "(?:D램|디램|DRAM)[^\\n]{0,90}?삼성(?:전자)?\\s*\\**(\\d{1,2}(?:\\.\\d)?)\\s*%|삼성(?:전자)?(?!전기)[^\\n]{0,25}?점유[^%\\d\\n]{0,15}\\**(\\d{1,2}(?:\\.\\d)?)\\s*%"
+  },
+  {
+   "key": "mu_fq4_gm_guidance",
+   "label": "MU FQ4 매출총이익률 가이던스",
+   "value": 86.0,
+   "unit": "%",
+   "tolerance": 1.0,
+   "basis": "회사 가이던스(분기)",
+   "asof": "FY2026 Q4",
+   "source": "SEC 8-K Item 2.02 EX-99.1 (2026-06-24)",
+   "verified_on": "2026-08-30",
+   "recheck_days": 100,
+   "aliases": [
+    "MU",
+    "마이크론"
+   ],
+   "context": [
+    "가이던스",
+    "GM",
+    "매출총이익률"
+   ],
+   "note": "FQ3 실제 84.9%(non-GAAP) → FQ4 가이던스 약 86%. 분기 매출 가이던스 $50.0B는 전년 연간($37.4B) 초과.",
+   "pattern": "(?:FQ4|Q4)\\s*(?:가이던스)?\\s*GM[^%\\d\\n]{0,12}?(?:약\\s*)?(\\d{1,3}(?:\\.\\d)?)\\s*%"
+  },
+  {
+   "key": "kospi_peak",
+   "label": "코스피 사상 최고점",
+   "value": 9114.55,
+   "unit": "p",
+   "tolerance": 0.5,
+   "basis": "장중/종가 고점 (2026-06-22)",
+   "asof": "2026-06-22",
+   "source": "KRX · 우리 history 캐시 실측",
+   "verified_on": "2026-08-30",
+   "recheck_days": 60,
+   "aliases": [
+    "코스피"
+   ],
+   "context": [
+    "고점",
+    "최고점"
+   ],
+   "note": "낙폭 사다리(리스크룰 1) 판정의 분모. 이 값이 틀리면 해금 단계 전체가 어긋난다.",
+   "pattern": "고점\\s*\\(?[^)\\n]{0,18}?\\)?\\s*\\*{0,2}(\\d{1,2},\\d{3}\\.\\d{2})"
+  }
+ ]
+}

@@ -190,6 +190,22 @@ def main() -> int:
         parts = [f"{k} {v['percentile']:>5.1f}%ile" for k, v in p["windows"].items()]
         print(f"\n  원/달러 위치: " + " · ".join(parts)
               + (f"  (3개월 {p['chg_3m_pct']:+.1f}%)" if p.get("chg_3m_pct") is not None else ""))
+        # ★[8/30] 창이 판단을 뒤집는다 — 1y만 읽으면 오독한다.
+        #   실측(8/30): 1y **0.4%ile**(달러 극단 저평가로 읽힘) vs 5y **55.9%ile**(중립).
+        #   같은 날 같은 환율인데 결론이 '달러 사라' ↔ '가만히 둬라'로 갈린다.
+        #   1년 창은 최근 추세를 100%로 정규화하므로 방향성 이동 구간에서 늘 극단값을 뱉는다.
+        #   ⇒ 통화 비중 판단의 **기준 창은 5y**로 읽고, 1y는 '최근 얼마나 빨리 움직였나'로만 쓴다.
+        w = p.get("windows") or {}
+        y5 = (w.get("5y") or {}).get("percentile")
+        y1 = (w.get("1y") or {}).get("percentile")
+        if y5 is not None:
+            band = ("달러 저평가권 — 달러 자산 비중 상단 허용" if y5 < 30 else
+                    "달러 고평가권 — 달러 비중 축소 검토" if y5 > 70 else
+                    "중립 — 통화 비중 현행 유지(조정 근거 없음)")
+            print(f"  ▸ **판단 기준 창 = 5년: {y5:.1f}%ile → {band}**")
+            if y1 is not None and abs(y1 - y5) >= 30:
+                print(f"    ⚠️ 1y({y1:.1f})와 5y({y5:.1f}) 괴리 {abs(y1-y5):.0f}p — "
+                      f"**1y 수치를 단독 인용하지 말 것**(창이 결론을 뒤집는 구간).")
     elif not args.no_percentile:
         print("\n  ⚠️ 환율 %ile 미확인 (히스토리 조회 실패)")
 

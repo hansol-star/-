@@ -125,6 +125,14 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
   → 검증한 케이스만 missed_moves.jsonl append + docs/research/hindsight_log.md 맨 위 회고 블록 prepend
   (결과론 함정 경계 — 히스토리 짧으면 noise, good_inaction으로 무행동 편향 균형). 반복 편향은 desk_playbook §2/§3 반영 제안.
 - **[8/6] 피어 재무 주간 갱신**: `python3 .claude/skills/portfolio-desk/scripts/financials.py --with-peers --save`
+- **★[8/30] 데이터 자산 주간 갱신** — 받아온 걸 남기는 축(정훈 지시 "n개년치 다 저장"):
+    python3 .claude/skills/portfolio-desk/scripts/ohlcv_backfill.py            # 주가 OHLCV 41종목(상장 이래)
+    python3 .claude/skills/portfolio-desk/scripts/ohlcv_backfill.py --stats    # 현황만 볼 때
+  재무 원본은 위 `financials.py --save`가 자동으로 `data/financials/<TICKER>.json`에 **전 시계열**을 남긴다
+  (舊엔 app 요약 5기/8기만 남기고 나머지를 버렸다 — 주석은 저장한다고 적혀 있었으나 실제로는 안 했다).
+  ⚠️ 국내 재무 심화(DART 2015~)는 상장·정정 이슈가 없으면 **분기 1회면 충분**:
+    python3 .claude/skills/portfolio-desk/scripts/dart_facts.py --code 005930 --years 2015,...,2025 --json
+  ⚠️ 보유량 감소는 `validate_report.check_data_archive()`가 WARN으로 잡는다.
   → `peer_compare.py`가 쓰는 워치 종목(SK하이닉스·삼성전기·두산에너빌·한화에어로 등 13종) 재무를 채운다.
   **매일 도는 R2엔 붙이지 않는다**(국내 1종목 1~2분 = 완주 예산 잠식). 피어 펀더는 분기 단위로 바뀌므로 주 1회로 충분.
   저장은 **병합**이라 보유 14종목 데이터를 덮어쓰지 않는다.

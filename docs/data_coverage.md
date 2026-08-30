@@ -1,5 +1,19 @@
 # 데이터 레이어 역량 감사 (Data Coverage Audit)
 
+> ## 🗄️ 데이터 자산 (영구 보관) — 2026-08-30 신설
+> | 축 | 위치 | 규모 | 소급 범위 | 수집 |
+> |---|---|---|---|---|
+> | **영상 자막** | `data/transcripts/hunter/` | 434편·165만자·5.1MB | 2026-06-27~ | `hunter_latest.py --archive-backfill N` |
+> | **재무제표 원본** | `data/financials/<TICKER>.json` | 19종목·**900기**·1.4MB | AAPL 2007~·MSFT 2008~ | `financials.py --all --save` |
+> | **국내 재무 심화** | `data/financials/<TICKER>_dart.json` | 5종목·연 11기/분기 41기 | 2015~ (DART 1차 출처) | `dart_facts.py --years 2015,...` |
+> | **주가 OHLCV** | `data/history_ohlcv/` | 41종목·**242,071행**·12MB | 1970~ (S&P) · AAPL 1980~ | `ohlcv_backfill.py` |
+> | **주가 종가(레거시)** | `data/history/` | 9.6MB | 동일 | `history_backfill.py` |
+>
+> ⚠️ **`data/history/`는 헤더가 `date,close`뿐**이라 여러 도구가 `(date, close)` 2튜플을 전제로 읽는다.
+> 헤더를 바꾸면 조용히 깨지므로(8/12 교훈) OHLCV는 **별도 축**으로 두었다 — 소비자는 준비되는 대로 옮긴다.
+> ⚠️ 세 축의 보유량 감소는 `validate_report.check_data_archive()`가 WARN으로 잡는다.
+> ⚠️ **국내 재무는 DART가 2015년이 하한**이다(그 이전 XBRL 미제공). 미국(EDGAR 2007~)과 깊이가 다르다.
+
 > **정본.** 정훈 지시(2026-07-30): *"완전 기본도 빼먹고 있을 줄은 몰랐어. 다시 우리 세팅들 다 다시 생각해봐."*
 > 재무제표가 두 달간 0건이었던 사고의 **구조적 재발방지 장치**.
 > 갱신 = 주간 R3(토 09:00) 캘리브레이션에서 §4 감사 절차 수행.

@@ -1396,6 +1396,40 @@ _FACT_NEG = re.compile(
     r"(舊|구\s*표기|이전\s*표기|폐기|오류|틀렸|틀린|아니라|잘못|정정|오기|오독|→|이었|였다|였던)")
 
 
+def check_data_archive():
+    """[8/30 신설 · 정훈 지시 "기업들 자료 n개년치 다 저장"] 데이터 자산 영속성 감시.
+
+    같은 날 결손 3건이 **전부 같은 클래스**로 드러났다 — *받아오는데 남기지 않는다*:
+      ① 자막 → `/tmp`에 저장돼 세션마다 소멸(648편 중 원문 0편)
+      ② 재무 원본 → EDGAR가 상장 이래 전 시계열을 주는데 app 요약이 **5기/8기로 자르고
+         나머지를 버렸다**. 코드 주석은 *"원본은 data/financials/"* 라고 적혀 있었으나
+         **실제로는 저장하지 않았다** — 주석이 사실과 달라 아무도 눈치채지 못했다.
+      ③ 주가 → `date,close` 2컬럼뿐이라 거래량·고저가 없고, `signal_score`가 스스로
+         *"거래량·고저 필요한 지표는 제외"* 라고 적은 채 반쪽으로 돌았다.
+
+    ⇒ 세 축의 **보유량이 줄면 즉시 잡는다**(WARN). 수집 실패·경로 회귀·실수 삭제가
+       조용히 진행되는 것을 막는 것이 목적이라 임계는 느슨하게 둔다.
+    """
+    checks = [
+        ("재무 원본", os.path.join(ROOT, "data", "financials"), ".json", 15,
+         "financials.py --all --save"),
+        ("주가 OHLCV", os.path.join(ROOT, "data", "history_ohlcv"), ".csv", 35,
+         "ohlcv_backfill.py"),
+        ("주가 종가", os.path.join(ROOT, "data", "history"), ".csv", 35,
+         "history_backfill.py --refresh"),
+    ]
+    for label, d, ext, floor, cmd in checks:
+        if not os.path.isdir(d):
+            warn(f"데이터 자산 없음 — {label} 디렉터리 부재({os.path.relpath(d, ROOT)}). "
+                 f"`{cmd}`로 수집할 것")
+            continue
+        n = len([f for f in os.listdir(d)
+                 if f.endswith(ext) and not f.startswith("_")])
+        if n < floor:
+            warn(f"데이터 자산 감소 — {label} {n}개 (기대 {floor}+). "
+                 f"수집 실패·경로 회귀·삭제 여부 확인 후 `{cmd}` 재실행")
+
+
 def check_transcript_persistence():
     """[8/30 신설 · 정훈 지적 "데이터는 다 저장해두라고 했잖아"] 자막 영구 저장 회귀 방지.
 
@@ -2079,7 +2113,7 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
-    check_transcript_persistence()
+    check_transcript_persistence(); check_data_archive()
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

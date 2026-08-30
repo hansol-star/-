@@ -26,6 +26,7 @@ python3 .claude/skills/portfolio-desk/scripts/target_score.py --by-ticker # [8/8
 python3 .claude/skills/portfolio-desk/scripts/trades.py --realized        # [8/24] **실현 손익비·기대값** — 우리 실패 유형은 승률이 아니라 손익비다(era×통화별)
 python3 .claude/skills/portfolio-desk/scripts/hunter_score.py             # 경제사냥꾼 트랙레코드(검증/정정/미확인 추세 = 채널 신뢰도)
 python3 .claude/skills/portfolio-desk/scripts/hunter_replay.py            # ★[8/30] 아카이브 전수 재분석 — 채널 언급을 **가격**으로 검정(알파·스파이크·판정 시계열)
+python3 .claude/skills/portfolio-desk/scripts/hunter_stance.py            # ★[8/30] 자막 논조(강세/약세) → 방향 있는 콜 검정
 python3 .claude/skills/portfolio-desk/scripts/missed_moves.py             # 놓친 매수/매도(오미션) + good_inaction + 반복 패턴 → §6 [오미션]
 python3 .claude/skills/portfolio-desk/scripts/sizing_backtest.py --symbol ^KS11   # [7/21] 변동성타겟 사이징 캘리브레이션(전이력 MDD·샤프·CAGR 대가). vol_sizing 곡선이 실제 낙폭을 줄이는지 주간 점검
 python3 .claude/skills/portfolio-desk/scripts/signal_score.py --pooled            # [7/22] 기술신호 예측력 채점(edge vs 기준선) — 13지표가 장식인지 매주 재검증, 결과는 ta_methodology.md §4b 갱신
@@ -46,6 +47,7 @@ python3 .claude/skills/portfolio-desk/scripts/signal_score.py --pooled          
   현재 5건·손실 실현 1건이라 손익비 14.39는 부풀려진 값 = **판정이 아니라 유보**.
 - **hunter_score**: 채널 누적 [정정]률=수치 신뢰도, [검증]률=방향성 신뢰도의 대리지표 → §3 '경제사냥꾼 트랙레코드'를 수동→기계로 닫는다.
 - **hunter_replay** ★[8/30 신설]: hunter_score가 재는 것은 **팩트체크 정확도**이지 **종목 콜의 수익성이 아니다**. 이 도구가 그 갭을 메운다 — 채널이 종목을 다룬 날 기준 forward 알파(종목 클러스터 보정·부트스트랩 CI)와 **언급 스파이크 뒤 되돌림**을 잰다. **첫 산출(8/30·615언급·62종목)**: 언급 전체 알파 +0.61%(5일)·+0.12%(20일)로 **CI가 0을 포함 = 무정보**, 반면 언급 급증 구간은 **-2.97%p·-1.78%p로 되돌림 방향**(GSVI 문헌과 일치, 단 CI 0 포함=미확정). ⚠️ 언급에 **방향(강세/약세) 필드가 없다** — '채널이 틀렸다'가 아니라 '언급 자체는 신호가 아니다'까지만 읽을 것.
+- **hunter_stance** ★[8/30 신설]: hunter_replay가 남긴 한계(*언급에 방향 필드가 없다*)를 **자막 432편 전량 회수**로 푼 것. 종목명 ±180자 문맥의 강세/약세 어휘로 논조를 분류해 **강세 콜만 골라** forward 알파를 잰다. **첫 산출**: 강세 -1.32%(5일)·-2.81%(20일), 약세 -1.19%·-2.02% → **강세−약세 = -0.12%p·-0.79%p로 방향 판별력 없음**(CI 전부 0 포함=무판정). ⇒ *채널 단독 근거 매수 금지*(CLAUDE.md 신뢰-견제 균형)가 **처음으로 데이터 지지**를 받았다. ⚠️ 키워드 논조는 거친 대리지표이고 종목 13~16개·레짐 1개라 **'채널이 틀렸다'는 결론도 못 낸다** — 무판정이다.
 - **star_validate** [8/7 신설]: `score_calls`는 **콜 단위**로 집계해 유효표본을 46배 부풀린다(같은 종목이 매일 1표씩).
   이 도구가 ①종목 클러스터 보정(종목 1개=1표·종목단위 부트스트랩 CI) ②고정지평(+5·+10일) ③반등 제외·LOO로 재검정한다.
   **8/7 판정 = 🟡 방향 견고·유의성 없음** — ⭐5<⭐2 역전이 보정에서 살아남았으나 CI가 전부 겹쳐 구분 불가.

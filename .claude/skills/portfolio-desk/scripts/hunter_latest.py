@@ -445,7 +445,12 @@ def main():
         have = set()
         if os.path.isdir(OUTDIR):
             have = {fn[:-3] for fn in os.listdir(OUTDIR) if fn.endswith(".md")}
-        todo = [v for v in vids if v.get("id") and v["id"] not in have]
+        # 아카이브 id에는 **내부 라벨**이 섞여 있다(예: "v-0703-power" 8건) — 실제 YouTube ID가
+        # 아니라 회수가 원천 불가하다. 거르지 않으면 매 실행마다 헛되이 시도해 FAILED를 내고,
+        # 커버리지가 영원히 100%에 못 닿아 가드 WARN이 상시 켜진 채 무뎌진다.
+        _YT = re.compile(r"^[A-Za-z0-9_-]{11}$")
+        todo = [v for v in vids
+                if v.get("id") and _YT.match(v["id"]) and v["id"] not in have]
         todo.sort(key=lambda v: v.get("date") or "")
         pick = todo[:args.archive_backfill]
         if not pick:

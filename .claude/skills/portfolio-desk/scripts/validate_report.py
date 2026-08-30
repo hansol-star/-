@@ -1432,7 +1432,10 @@ def check_transcript_persistence():
             vids = (json.load(f) or {}).get("videos") or []
     except Exception:
         return
-    ids = {v.get("id") for v in vids if v.get("id")}
+    # 내부 라벨(YouTube ID 아님)은 회수 대상이 아니다 — 분모에서 빼지 않으면
+    # 커버리지가 영원히 100%에 못 닿는다(8/12 "분모를 의심하라").
+    _YT = re.compile(r"^[A-Za-z0-9_-]{11}$")
+    ids = {v.get("id") for v in vids if v.get("id") and _YT.match(v["id"])}
     if not ids:
         return
     miss = len(ids - have)

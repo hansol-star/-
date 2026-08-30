@@ -37,7 +37,9 @@ import tempfile
 YTDLP_BASE = ["yt-dlp", "--js-runtimes", "node", "--ignore-no-formats-error"]
 INSECURE_FLAG = "--no-check-certificates"
 
-DEFAULT_OUTDIR = os.environ.get("YT_OUTDIR", os.path.join(tempfile.gettempdir(), "yt_cache"))
+# ★[8/30] 레포 내 영구 저장 — 舊 tempfile 기본값은 세션 종료 시 소멸했다(hunter_latest와 동일 사고).
+_REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
+DEFAULT_OUTDIR = os.environ.get("YT_OUTDIR", os.path.join(_REPO, "data", "transcripts", "yt"))
 
 # YouTube intermittently throws "Sign in to confirm you're not a bot" at the
 # default web client. ios 클라이언트가 메타 우회에 안정적이나, 데이터센터 IP에서
@@ -104,8 +106,10 @@ def innertube_fallback(url, outdir):
     except Exception as ex:
         print(f"  innertube 폴백 실행 실패: {ex}", file=sys.stderr)
         return None
+    # ⚠️ 기본값을 여기서 **다시 계산**한다 — hunter_latest와 갈리면 폴백이 조용히 빈 곳을 본다
+    #    (8/12 "쓰는 쪽과 읽는 쪽이 갈리면 데이터는 조용히 사라진다"). 두 곳을 같이 고칠 것.
     src = os.path.join(os.environ.get("HUNTER_OUTDIR",
-                                      os.path.join(tempfile.gettempdir(), "hunter_yt")),
+                                      os.path.join(_REPO, "data", "transcripts", "hunter")),
                        f"{vid}.md")
     if not os.path.exists(src):
         print((p.stderr or "")[-400:], file=sys.stderr)

@@ -1396,6 +1396,53 @@ _FACT_NEG = re.compile(
     r"(舊|구\s*표기|이전\s*표기|폐기|오류|틀렸|틀린|아니라|잘못|정정|오기|오독|→|이었|였다|였던)")
 
 
+def check_transcript_persistence():
+    """[8/30 신설 · 정훈 지적 "데이터는 다 저장해두라고 했잖아"] 자막 영구 저장 회귀 방지.
+
+    실사고: `hunter_latest.OUTDIR` 기본값이 `tempfile.gettempdir()`이라 **세션이 끝나면
+    자막이 통째로 사라졌다.** 게다가 `.gitignore`에 `**/hunter_yt/`가 있어 **두 겹으로** 막혀
+    있었다. 그 결과 아카이브 648편 중 원문 자막은 **0편**이 남았고, 8/30 전수 재분석이
+    메타데이터로 제한됐다. 8/13(d101)에 이미 "94건 재추출 = 1시간+" 비용을 치렀고
+    8/14(d113)에 *"저장은 조회의 부산물이어야 한다"* 는 교훈까지 세웠는데 **같은 도구군에
+    적용하지 않았다** — 산문 교훈이 배선을 바꾸지 못한 전형.
+
+    검사 2종:
+      ① **경로 회귀** — 자막 기본 저장 경로가 임시 디렉터리로 되돌아가면 **FAIL**.
+         (누군가 편의로 되돌리면 다음 세션부터 조용히 다시 사라진다.)
+      ② **누적 커버리지** — 아카이브에 id가 있는 영상 중 자막 파일이 없는 비율을 **WARN**으로
+         보고한다. 과거분은 재추출(429 페이싱)이 필요하므로 FAIL이 아니라 진척 표시다.
+    """
+    hp = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts", "hunter_latest.py")
+    try:
+        src = open(hp, encoding="utf-8").read()
+    except Exception:
+        return
+    m = re.search(r"^OUTDIR\s*=\s*os\.environ\.get\([^)]*\)", src, re.M)
+    if m and "gettempdir" in m.group(0):
+        fail("자막 저장 경로 회귀 — hunter_latest.OUTDIR 기본값이 임시 디렉터리다. "
+             "세션 종료 시 자막이 사라진다(8/30 실사고: 아카이브 648편 중 원문 0편). "
+             "기본값은 레포 내 data/transcripts/ 여야 한다")
+
+    tdir = os.path.join(ROOT, "data", "transcripts", "hunter")
+    have = set()
+    if os.path.isdir(tdir):
+        have = {f[:-3] for f in os.listdir(tdir) if f.endswith(".md")}
+    try:
+        with open(os.path.join(ROOT, "data", "app", "hunter_archive.json"), encoding="utf-8") as f:
+            vids = (json.load(f) or {}).get("videos") or []
+    except Exception:
+        return
+    ids = {v.get("id") for v in vids if v.get("id")}
+    if not ids:
+        return
+    miss = len(ids - have)
+    if miss:
+        warn(f"자막 원문 미보유 {miss}/{len(ids)}편 "
+             f"(보유 {len(ids & have)}편). 과거분은 innertube 429 페이싱 탓에 "
+             f"`hunter_latest.py --archive-backfill N`으로 **점진 회수**한다 "
+             f"(로컬 이전 후 일괄 배치 권장). 신규분은 이제 자동 영구 저장된다")
+
+
 def check_canonical_facts():
     """[8/30 신설 · 정훈 지시 "없으면 만들고"] 핵심 수치 정본 대조 — 문서의 숫자가 원장과 어긋나면 잡는다.
 
@@ -2026,6 +2073,7 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
+    check_transcript_persistence()
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

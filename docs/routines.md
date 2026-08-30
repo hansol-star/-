@@ -32,6 +32,14 @@
     python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 10
     python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 3
     python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel jisik --fetch --max 3
+- ★[8/30 신설] **자막 원문 소급 회수** — 신규 수집이 끝난 뒤 과거분을 매일 조금씩 채운다:
+    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --archive-backfill 20
+  배경 = 舊 기본 저장경로가 `/tmp`(세션 종료 시 소멸) + `.gitignore`가 `**/hunter_yt/`를 막아
+  **두 겹으로** 유실됐고, 아카이브 441편 중 자막 원문이 **0편** 남아 있었다(8/30 발견).
+  경로는 이제 `data/transcripts/hunter/`(레포 내·커밋됨)이고 신규분은 자동 영구 저장된다.
+  ⚠️ 429 페이싱 탓에 20편 ≈ 13~30분 — R1은 영상 전용 창이라 감당 가능하다. 하루 20편이면
+  약 3주에 전량 회수. **로컬 이전 후엔 `--archive-backfill 500`으로 일괄 처리**할 것.
+  ⚠️ 진척은 `validate_report.check_transcript_persistence()`가 WARN으로 상시 보고한다.
   → 오늘/어제 필터 = 전날 저녁 배치(~5) + 밤 + 오늘 아침(~3) ≈ 8편. 이미 캐시(hunter.json latest_videos)에 있는 ID는 건너뛴다(디둡, 재분석 X).
 - 영상별 핵심주장 → [검증/정정/미확인] 태깅(미확인 최소화 = 추가 WebSearch 2~3회 교차검증), 종목 추천+발동조건은 setups로 분해.
 - **깊이 티어링(고volume 일 예산 관리)**: 종목 콜·setups 있는 영상 = 풀 분석·교차검증 / 순수 매크로 리캡·중복·쇼츠 = 1~2줄 요약. 단 전부 [검증/정정/미확인] 태깅·로깅은 유지(제목만 로깅 금지).

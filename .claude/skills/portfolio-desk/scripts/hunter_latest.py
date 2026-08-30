@@ -73,7 +73,14 @@ YW_SCRIPT = os.environ.get(
     os.path.normpath(os.path.join(HERE, "..", "..", "youtube-watch", "scripts", "fetch_youtube.py")),
 )
 BROWSER_SCRIPT = os.path.join(HERE, "browser_captions.cjs")
-OUTDIR = os.environ.get("HUNTER_OUTDIR", os.path.join(tempfile.gettempdir(), "hunter_yt"))
+# ★[8/30 정훈 지적 "데이터는 다 저장해두라고 했잖아"] 기본 저장 위치를 **레포 안**으로 옮긴다.
+# 舊 기본값은 tempfile.gettempdir()이라 **세션이 끝나면 자막이 통째로 사라졌다.**
+# 그 결과 8/13(d101)에 이미 "94건 자막 재추출 = 1시간+"의 비용을 치렀고,
+# 8/30엔 아카이브 648편 중 원문이 **0편** 남아 재분석이 메타데이터로 제한됐다.
+# 8/14(d113) 교훈 *"저장은 조회의 부산물이어야 한다"*를 같은 도구군에 적용하지 않은 것이 원인.
+# 자막은 텍스트(편당 ~5KB)라 648편이어도 ~3MB — 레포에 담기에 무해하다.
+_REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
+OUTDIR = os.environ.get("HUNTER_OUTDIR", os.path.join(_REPO, "data", "transcripts", "hunter"))
 
 # 페이싱: 영상 간 간격(초). 버스트 레이트리밋 방지 — 실측상 8초 미만 연속 호출이 위험.
 PACE_MIN, PACE_MAX = 8, 15
@@ -418,7 +425,38 @@ def main():
                     help="오늘/어제 필터 없이 RSS 전체를 자막 대상에 포함")
     ap.add_argument("--since-days", type=int, default=None,
                     help="며칠 전 업로드까지 자막 대상에 포함(기본: 1일, 월요일은 주말 커버로 3일)")
+    ap.add_argument("--archive-backfill", type=int, metavar="N", default=None,
+                    help="★[8/30] 아카이브에 있으나 **자막 원문이 없는** 과거 영상 N편을 소급 수집. "
+                         "舊 기본 저장경로가 /tmp라 648편 중 원문이 0편 남은 사고의 회수 경로 "
+                         "(429 페이싱 탓에 한 번에 다 못 받는다 → R1이 매일 소량씩 호출)")
     args = ap.parse_args()
+
+    # ── 아카이브 소급 회수 ──────────────────────────────────────────────
+    # 신규 탐색을 건너뛰고 "자막이 없는 과거 id"만 골라 --ids 경로로 흘린다.
+    # ⚠️ 오래된 것부터 채운다 — 최신분은 어차피 R1이 매일 받는다.
+    if args.archive_backfill:
+        arch = os.path.join(_REPO, "data", "app", "hunter_archive.json")
+        try:
+            with open(arch, encoding="utf-8") as f:
+                vids = (json.load(f) or {}).get("videos") or []
+        except Exception as e:
+            print(f"[archive-backfill] 아카이브를 읽지 못했다: {e}")
+            return 1
+        have = set()
+        if os.path.isdir(OUTDIR):
+            have = {fn[:-3] for fn in os.listdir(OUTDIR) if fn.endswith(".md")}
+        todo = [v for v in vids if v.get("id") and v["id"] not in have]
+        todo.sort(key=lambda v: v.get("date") or "")
+        pick = todo[:args.archive_backfill]
+        if not pick:
+            print("[archive-backfill] 회수할 영상 없음 — 아카이브 자막 커버리지 100%")
+            return 0
+        print(f"[archive-backfill] 미보유 {len(todo)}편 중 {len(pick)}편 소급 (오래된 순) "
+              f"→ 저장 {OUTDIR}")
+        args.ids = ",".join(v["id"] for v in pick)
+        args.fetch = True
+        args.all_dates = True
+        args.max = len(pick)
 
     ch = CHANNELS[args.channel]
     CHANNEL, CHANNEL_NAME = ch["id"], ch["name"]

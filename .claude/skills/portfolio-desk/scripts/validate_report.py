@@ -1435,7 +1435,10 @@ def check_transcript_persistence():
     # 내부 라벨(YouTube ID 아님)은 회수 대상이 아니다 — 분모에서 빼지 않으면
     # 커버리지가 영원히 100%에 못 닿는다(8/12 "분모를 의심하라").
     _YT = re.compile(r"^[A-Za-z0-9_-]{11}$")
-    ids = {v.get("id") for v in vids if v.get("id") and _YT.match(v["id"])}
+    # `transcript_unavailable`은 회수가 원천 불가하다고 확정된 항목(내부 라벨 등) —
+    # 분모에 남기면 커버리지가 100%에 못 닿아 WARN이 상시 켜진 채 무뎌진다.
+    ids = {v.get("id") for v in vids
+           if v.get("id") and _YT.match(v["id"]) and not v.get("transcript_unavailable")}
     if not ids:
         return
     miss = len(ids - have)

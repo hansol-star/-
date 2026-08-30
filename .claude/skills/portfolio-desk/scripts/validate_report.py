@@ -1389,6 +1389,44 @@ def check_rule_ledger(latest=None):
         (fail if gap >= 3 else warn)(msg)
 
 
+def check_allocation_band():
+    """[8/30 신설 · 정훈 승인] 리스크룰 6 — 지역 배분 밴드(국내주 18~22%) 이탈 감지.
+
+    왜 있나: 이 룰이 생기기 전까지 국내 28.7%·달러 73.1%는 **누가 정한 값이 아니라
+    우연히 그렇게 된 값**이었다. 그런데 데스크 기간 손실의 실체가 거기였다 —
+    국내 23.6%×코스피 -20.56% = **-4.85%p** vs 미국 58.6%×S&P +1.63% = +0.96%p.
+    위험 기준으로 보면 더 크다: 국내 5종목이 **비중 28.7%인데 포트 위험의 60.2%**를 만든다.
+
+    ⚠️ **WARN이지 FAIL이 아니다.** 밴드 이탈은 '지금 팔라'는 뜻이 아니다 — 룰 6 ⓷가
+       **저점 매도를 금지**하고 조정을 *신규 자금·반등(코스피 고점대비 -15% 이내) 시*로 묶었다.
+       그래서 이 검사는 **이탈 사실과 조정 경로를 상기시키는 역할**만 한다.
+    ⚠️ 비중은 **주식 기준**(현금 제외)이다 — 현금 비중이 흔들려도 배분 판정이 안 흔들리게.
+    """
+    js = os.path.join(ROOT, "app", "data.js")
+    try:
+        raw = open(js, encoding="utf-8").read()
+        d = json.loads(raw[raw.index("{"):raw.rindex("}") + 1])
+    except Exception:
+        return
+    hs = [h for h in (d.get("holdings") or []) if h.get("value_krw")]
+    if not hs:
+        return
+    tot = sum(h["value_krw"] for h in hs)
+    if tot <= 0:
+        return
+    kr = sum(h["value_krw"] for h in hs
+             if (h.get("region") == "kr" or str(h.get("ticker", "")).endswith((".KS", ".KQ"))))
+    pct = kr / tot * 100
+    lo, hi = 18.0, 22.0
+    if pct > hi:
+        warn(f"배분 밴드 이탈 — 국내주 {pct:.1f}% > 목표 상단 {hi:.0f}% (룰6). "
+             f"조정은 **신규 자금·반등 시만**: ⓐ신규 입금은 100% 미국 배분 "
+             f"ⓑ국내 트림은 코스피 고점대비 -15% 이내 회복 시 착수. **지금 팔지 말 것.**")
+    elif pct < lo:
+        warn(f"배분 밴드 이탈 — 국내주 {pct:.1f}% < 목표 하단 {lo:.0f}% (룰6). "
+             f"국내 비중 회복은 사다리·매수존 룰 안에서만(추격매수 금지·룰3).")
+
+
 def check_star_prob_monotonic():
     """[8/29 신설] 별점→내재확률 매핑(STAR_PROB)의 **단조성** 가드.
 
@@ -1895,7 +1933,7 @@ def main():
     check_feeds(); check_guru()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
-    check_star_prob_monotonic()
+    check_star_prob_monotonic(); check_allocation_band()
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

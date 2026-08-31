@@ -50,9 +50,25 @@ def _prime(op):
         return False
 
 
+def _d(back: int) -> str:
+    """오늘(KST) 기준 back일 전을 YYYYMMDD로. 舊엔 20260601/20260722가 하드코딩돼
+    있어 시간이 갈수록 조용히 낡았다 (8/31)."""
+    import datetime as _dt
+    kst = _dt.timezone(_dt.timedelta(hours=9))
+    return (_dt.datetime.now(kst) - _dt.timedelta(days=back)).strftime("%Y%m%d")
+
+
 def _isu(code: str) -> str:
-    """6자리 → KRX 표준 ISU 코드(KR7+코드+0). (대부분 보통주 규칙, 예외 종목은 실패 가능)"""
-    return f"KR7{code}0" + "03"[:1] * 0 + "3" if len(code) == 6 else code
+    """6자리 -> KRX 표준 ISU 코드. 보통주 = KR7 + 코드 + 003 (총 12자).
+
+    ⚠️ [8/31 수정] 舊 구현 `f"KR7{code}0" + "03"[:1]*0 + "3"` 은 11자
+    (KR700593003)를 만들었다 — `"03"[:1]*0` 이 빈 문자열이라 0이 한 개 모자란다.
+    삼성전자 정답은 KR7005930003. 우선주(005935 -> KR7005931001 등)는 규칙이
+    달라 이 함수로 못 만든다.
+    """
+    if len(code) == 6 and code.isdigit():
+        return f"KR7{code}003"
+    return code
 
 
 def fetch_short(code: str, bld: str = BLD_TRADE, days: int = 30) -> dict:
@@ -61,7 +77,7 @@ def fetch_short(code: str, bld: str = BLD_TRADE, days: int = 30) -> dict:
     primed = _prime(op)
     params = {
         "locale": "ko_KR", "bld": bld, "mktId": "STK",
-        "isuCd": _isu(code), "strtDd": "20260601", "endDd": "20260722",
+        "isuCd": _isu(code), "strtDd": _d(days + 10), "endDd": _d(0),
         "share": "1", "money": "1", "csvxls_isNo": "false",
     }
     data = urllib.parse.urlencode(params).encode()
@@ -73,12 +89,26 @@ def fetch_short(code: str, bld: str = BLD_TRADE, days: int = 30) -> dict:
     try:
         raw = op.open(req, timeout=20).read().decode("utf-8", "replace")
     except urllib.error.HTTPError as e:
-        return {"ok": False, "status": f"HTTP {e.code}", "reason": "KRX 차단(IP/세션 가드)", "primed": primed}
+        # 무엇이 막았는지 본문으로 가른다 — "IP 차단"으로 뭉뚱그리면 오진한다(8/31).
+        body = ""
+        try:
+            body = e.read().decode("cp949", "replace")[:400]
+        except Exception:  # noqa: BLE001
+            pass
+        if e.code == 400 and "LOGOUT" in body.upper():
+            reason = ("세션 가드 — 포털은 열리는데(prime OK) getJsonData가 'LOGOUT'. "
+                      "IP 문제 아님(로컬 실측 8/31)")
+        elif e.code == 403:
+            reason = "헤더/Referer 가드 — 접근제한 페이지 반환"
+        else:
+            reason = f"HTTP 오류 (본문 앞부분: {body[:60]!r})"
+        return {"ok": False, "status": f"HTTP {e.code}", "reason": reason,
+                "primed": primed, "guard": "session" if e.code == 400 else "header"}
     except Exception as e:
         return {"ok": False, "status": "ERR", "reason": str(e)[:80], "primed": primed}
     if not raw or raw.lstrip()[:1] not in "{[":
         return {"ok": False, "status": "non-JSON",
-                "reason": "302/HTML 응답(데이터센터 IP 차단) — 로컬 이전 후 작동", "primed": primed}
+                "reason": "302/HTML 응답 — 리다이렉트 또는 차단 페이지", "primed": primed}
     try:
         j = json.loads(raw)
     except ValueError:
@@ -103,9 +133,9 @@ def nat_proxy(code: str) -> dict:
     # NAT 해석 — 두 축이 다 있을 때만 완결(외인 매집↑ + 공매도↓ = 강세 차익; 반대 = 약세)
     if sh["ok"] and out.get("foreign_axis") and not out["foreign_axis"].get("_error"):
         fdir = out["foreign_axis"]["direction"]
-        out["nat_note"] = f"외인 {fdir} + 공매도 데이터 확보 → NAT 산출 가능(로컬)"
+        out["nat_note"] = f"외인 {fdir} + 공매도 데이터 확보 → NAT 산출 가능"
     else:
-        out["nat_note"] = ("반쪽(외인 지분율 축만) — 공매도 축 차단. "
+        out["nat_note"] = ("반쪽(외인 지분율 축만) — 공매도 축 미확보. "
                            "매 보고서 WebSearch 공매도 과열/대차 뉴스로 보강.")
     return out
 
@@ -135,8 +165,14 @@ def main() -> int:
         print(f"■ KRX 공매도 접근 점검 ({code}): {state} — {r['status']}"
               + (f" · {r.get('reason')}" if r.get("reason") else ""))
         if not r["ok"]:
-            print("  = 현재 데이터센터 IP에서 KRX 공매도 JSON 차단. 로컬 이전(1단계 8/31 예정) 후 작동 예상 — 그때 --status로 실측 확인.")
-            print("  = 그전까지 공매도/대차는 WebSearch(공매도 과열종목·대차잔고 급증 뉴스)로 보강.")
+            if r.get("guard") == "session":
+                print("  = KRX 세션 가드. 포털 HTML은 200으로 열리므로 IP 차단이 아니다"
+                      " — 로컬(한국 IP)에서 실측 확인(8/31).")
+                print("  = 舊 안내 '데이터센터 IP 차단 → 로컬 이전 후 작동'은 오진이었다."
+                      " 이전해도 안 열린다.")
+            else:
+                print(f"  = 차단 형태: {r.get('reason')}")
+            print("  = 공매도/대차는 당분간 WebSearch(공매도 과열종목·대차잔고 급증 뉴스)로 보강.")
         return 0
     print(f"■ 공매도 일별 {code} (최근 {len(r['rows'])}행)")
     for row in r["rows"][:10]:

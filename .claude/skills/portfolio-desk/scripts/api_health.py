@@ -243,20 +243,35 @@ def chk_ytdlp():
 
 def chk_web_shot():
     """웹 화면 판독 경로(Playwright+Chromium) — web_shot.py·browser_captions.cjs 공용 기반.
-    ★[8/22 신설] 유튜브 영상 프레임은 이 환경에서 불가(watch=reCAPTCHA, 스트림=봇차단)
-    지만 **일반 웹페이지 캡처는 정상**이다(네이버금융 판독 실측). 그 경로가 살아 있는지
-    본다 — 브라우저 바이너리는 컨테이너 이미지 소속이라 죽으면 조용히 죽는다."""
-    import glob as _glob
-    base = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
-    chrome = _glob.glob(os.path.join(base, "chromium-*", "chrome-linux", "chrome"))
-    if not chrome:
-        return False, f"Chromium 바이너리 없음 ({base}) — web_shot·browser_captions 정지"
-    node_modules = os.environ.get("NODE_PATH", "/opt/node22/lib/node_modules")
-    if not os.path.isdir(os.path.join(node_modules, "playwright")):
-        return False, "playwright 모듈 없음 — NODE_PATH 확인"
+    ★[8/22 신설] 유튜브 영상 프레임은 불가(watch=reCAPTCHA)지만 **일반 웹페이지 캡처는 정상**이다.
+
+    ★[9/1 정정 — 경로를 보지 말고 실제로 띄워본다] 舊 구현은 `/opt/pw-browsers/chromium-*/
+    chrome-linux/chrome` 존재 여부로 판정했다. **리눅스 경로 규약에 기댄 검사**라 윈도우에선
+    브라우저가 멀쩡히 설치되고 네이버금융 캡처가 실제로 성공하는데도 🔴를 냈다
+    (8/31 "환경을 옮기면 실행파일 이름·경로에 기댄 코드가 먼저 틀린다"의 네 번째 사례).
+    ⇒ 판정을 **최종 산출물**로 바꾼다 = 실제로 chromium을 띄워 페이지를 하나 연다.
+    느리지만(1~3초) 이 검사의 존재 이유가 '조용히 죽는 것'을 잡는 것이므로 값을 치른다."""
     if not shutil.which("node"):
-        return False, "node 없음"
-    return True, f"Chromium+playwright 준비됨 ({os.path.basename(os.path.dirname(os.path.dirname(chrome[0])))})"
+        return False, "node 없음 — web_shot·browser_captions 정지"
+    probe = ("const{chromium}=require('playwright');"
+             "chromium.launch({args:['--no-sandbox']}).then(async b=>{"
+             "const p=await b.newPage();await p.setContent('<h1>ok</h1>');"
+             "const t=await p.evaluate(()=>document.querySelector('h1').textContent);"
+             "await b.close();console.log(t);})"
+             ".catch(e=>{console.error(String(e.message).slice(0,120));process.exit(1)})")
+    try:
+        r = subprocess.run(["node", "-e", probe], capture_output=True, text=True,
+                           timeout=90,
+                           cwd=os.path.abspath(os.path.join(
+                               os.path.dirname(os.path.abspath(__file__)),
+                               "..", "..", "..", "..")))   # 레포 루트 = node_modules 위치
+    except Exception as ex:
+        return False, f"실행 실패: {str(ex)[:60]}"
+    if r.returncode == 0 and "ok" in (r.stdout or ""):
+        return True, "Chromium 기동·페이지 렌더 확인"
+    err = ((r.stderr or "").strip().splitlines() or ["무응답"])[-1][:80]
+    hint = " — `npm install playwright && npx playwright install chromium`"            if "Cannot find module" in err or "Executable doesn" in err else ""
+    return False, f"기동 실패: {err}{hint}"
 
 
 def chk_transcripts():

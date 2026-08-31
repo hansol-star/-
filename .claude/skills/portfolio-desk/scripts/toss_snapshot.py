@@ -116,6 +116,33 @@ def req(method, path, ctx, headers=None, data=None, form=False):
         return None
 
 
+def _orders(ctx, auth, acc_list, limit: int) -> int:
+    """체결 이력 전량 수집 — 커서 페이징. GET이라 주문 차단 가드를 그대로 통과한다."""
+    for acc in acc_list if isinstance(acc_list, list) else []:
+        seq = acc.get("accountSeq")
+        if seq is None:
+            continue
+        h = dict(auth); h["X-Tossinvest-Account"] = str(seq)
+        rows, cursor, pages = [], None, 0
+        while pages < 50:  # 안전 상한 — 커서가 안 끝나도 무한루프 금지
+            q = "/api/v1/orders?status=CLOSED&limit=" + str(min(limit, 100))
+            if cursor:
+                q += "&cursor=" + urllib.parse.quote(str(cursor))
+            r = req("GET", q, ctx, headers=h)
+            res = (r or {}).get("result") or {}
+            batch = res.get("orders") or []
+            rows += batch
+            cursor = res.get("nextCursor") or res.get("cursor")
+            pages += 1
+            if not batch or not cursor:
+                break
+        filled = [o for o in rows if o.get("status") == "FILLED"]
+        print(json.dumps({"accountSeq": seq, "accountNo": acc.get("accountNo"),
+                          "total": len(rows), "filled": len(filled), "pages": pages,
+                          "orders": filled}, ensure_ascii=False, indent=1))
+    return 0
+
+
 def _selftest() -> int:
     """가드가 '있다'가 아니라 '이 사례를 잡는가'를 확인한다 (8/23 규약).
     네트워크를 타기 전에 raise 되므로 키 없이 검증된다."""
@@ -172,6 +199,9 @@ def main():
                     help="자가서명 인증서 프록시 뒤일 때만: TLS 검증 끔(보안 저하)")
     ap.add_argument("--selftest", action="store_true",
                     help="주문 차단 가드 자가검증(네트워크·키 불필요)")
+    ap.add_argument("--orders", action="store_true",
+                    help="체결 주문 이력 조회(GET, 조회 전용) — 체결 원장 채우기용")
+    ap.add_argument("--limit", type=int, default=100, help="--orders 페이지 크기(최대 100)")
     args = ap.parse_args()
 
     if args.selftest:
@@ -188,23 +218,39 @@ def main():
         sys.exit("토큰 발급 실패 — 키 확인 또는 Open API 정식 오픈 여부 확인 필요")
     auth = {"Authorization": f"Bearer {tok['access_token']}"}
 
-    fx = req("GET", "/api/v1/exchange-rate", ctx, headers=auth)
+    # [8/31 실측] baseCurrency + quoteCurrency 둘 다 필수. 하나만 주면 400 invalid-request.
+    fx = req("GET", "/api/v1/exchange-rate?baseCurrency=USD&quoteCurrency=KRW", ctx, headers=auth)
     accounts = req("GET", "/api/v1/accounts", ctx, headers=auth)
     if args.raw:
         print(json.dumps({"fx": fx, "accounts": accounts}, ensure_ascii=False, indent=1))
     acc_list = (accounts or {}).get("result") or (accounts or {}).get("accounts") or accounts or []
+    if args.orders:
+        return _orders(ctx, auth, acc_list, args.limit)
     if isinstance(acc_list, dict):
         acc_list = acc_list.get("accounts", [acc_list])
     print(f"\n=== 토스증권 스냅샷 ===\n환율: {json.dumps(fx, ensure_ascii=False)[:200]}")
 
     for acc in acc_list if isinstance(acc_list, list) else []:
-        acc_no = acc.get("accountNo") or acc.get("account_no") or acc.get("id") or ""
-        h = dict(auth); h["X-Tossinvest-Account"] = str(acc_no)
+        # [8/31 실측] 헤더는 accountNo(11자리)가 아니라 accountSeq(작은 정수)다.
+        # 舊 코드는 accountNo를 보내 holdings/buying-power가 전부 400 account-not-found였다.
+        # 인증은 멀쩡한데 조회만 죽는 형태라 "키가 잘못됐나"로 오진하기 쉽다.
+        acc_seq = acc.get("accountSeq")
+        acc_no = acc.get("accountNo") or ""
+        if acc_seq is None:
+            print("[WARN] accountSeq 없음 — 응답 키: " + str(list(acc)), file=sys.stderr)
+            continue
+        h = dict(auth); h["X-Tossinvest-Account"] = str(acc_seq)
         holdings = req("GET", "/api/v1/holdings", ctx, headers=h)
-        power = req("GET", "/api/v1/buying-power", ctx, headers=h)
-        print(f"\n--- 계좌 {acc_no} ({acc.get('name', '')}) ---")
-        print("매수가능금액:", json.dumps(power, ensure_ascii=False)[:300])
-        print("보유종목:", json.dumps(holdings, ensure_ascii=False, indent=1)[:4000])
+        # 현금은 통화별로 따로 물어야 한다(currency 필수).
+        # 8/24 교훈 "현금은 한 덩어리가 아니라 2계정"이 API 레벨에서도 그대로다.
+        power = {}
+        for _cur in ("KRW", "USD"):
+            _r = req("GET", "/api/v1/buying-power?currency=" + _cur, ctx, headers=h)
+            power[_cur] = ((_r or {}).get("result") or {}).get("cashBuyingPower")
+        print(f"\n--- 계좌 {acc_no} (seq {acc_seq}, {acc.get('accountType', '')}) ---")
+        print("현금: KRW " + str(power.get("KRW")) + " · USD " + str(power.get("USD")))
+        # [8/31] 舊 [:4000] 절단은 14종목에서 표를 잘랐다 — 보유 축소 금지 원칙과 충돌.
+        print("보유종목:", json.dumps(holdings, ensure_ascii=False, indent=1))
     print("\n※ 조회 전용 스크립트. 주문 API는 호출하지 않음.")
 
 

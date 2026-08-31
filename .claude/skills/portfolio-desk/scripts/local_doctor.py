@@ -28,6 +28,7 @@ import os
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timedelta, timezone
 import time
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
@@ -139,8 +140,18 @@ def checks():
             "web_shot.py")
 
     # 5. yt-dlp — 로컬 이전의 성과 판정 대상
-    ytdlp = shutil.which("yt-dlp")
-    add("yt-dlp", OK if ytdlp else WARN, ytdlp or "미설치 (pip install -U yt-dlp)",
+    # ★[8/31] `shutil.which`만 보면 **설치돼 있는데도 미설치로 잡힌다** —
+    # 윈도우 pip은 Scripts/에 깔고 그 디렉터리가 PATH에 없을 수 있다(실측).
+    # 판정은 ytdlp_bin의 해석 순서(PATH → `-m yt_dlp`)를 그대로 쓴다.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    try:
+        from ytdlp_bin import ytdlp_label
+        _yt = ytdlp_label()
+    except Exception:
+        _yt = "미설치"
+    ok_yt = _yt != "미설치"
+    add("yt-dlp", OK if ok_yt else WARN,
+        _yt if ok_yt else "미설치 (pip install -U yt-dlp)",
         "대기목록 2 — 고해상도 프레임·댓글. 실제 생존은 api_health가 판정")
 
     # 6. 선택 pip 패키지
@@ -168,11 +179,33 @@ def checks():
         add("SSL_CERT_FILE", OK if not sc else FAIL, sc or "미설정 (정답)",
             "로컬에서 설정하면 정상 인증서 검증이 깨진다 — §2b")
 
-    # 9. 토스 키는 저장 금지(영구 룰)
-    leaked = [k for k in ("TOSS_CLIENT_ID", "TOSS_CLIENT_SECRET") if os.environ.get(k)]
-    add("토스 키 미저장", OK if not leaked else FAIL,
-        "미설정 (정답)" if not leaked else f"환경변수에 있음: {','.join(leaked)}",
-        "세션마다 정훈이 제공하는 조회 전용 키 — 저장 금지(영구 룰)")
+    # 9. 토스 — ★[8/31 정훈 승인] 룰이 뒤집혔다: 舊 "저장 금지"(웹 전제) → 로컬은 **환경변수 저장**.
+    #    ⇒ 이 항목이 검사할 것도 뒤집힌다. "키가 없는가"가 아니라 **"주문 차단 가드가 실제로 막는가"**.
+    #    (舊 판정을 그대로 뒀더니 승인된 설정을 FAIL로 찍었다 = 폐기된 룰을 집행하는 가드 —
+    #     8/23 check_repealed_rules와 같은 클래스라 여기서 같이 고친다.)
+    have = [k for k in ("TOSS_CLIENT_ID", "TOSS_CLIENT_SECRET") if os.environ.get(k)]
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import toss_snapshot as _ts
+        blocked = 0
+        for m, path in (("POST", "/api/v1/orders"), ("POST", "/API/V1//Orders/?x=1"),
+                        ("DELETE", "/api/v1/orders/1"), ("POST", "/api/v1/conditional-orders")):
+            try:
+                _ts._assert_readonly(m, path)
+            except Exception:
+                blocked += 1
+        ok_get = True
+        try:
+            _ts._assert_readonly("GET", "/api/v1/accounts")
+        except Exception:
+            ok_get = False
+        guard_ok = blocked == 4 and ok_get
+        detail = (f"주문 4종 차단·조회 통과 (키 {len(have)}/2 보유)" if guard_ok
+                  else f"가드 이상 — 차단 {blocked}/4 · 조회통과 {ok_get}")
+    except Exception as ex:
+        guard_ok, detail = False, f"가드 점검 실패: {str(ex)[:50]}"
+    add("토스 주문차단 가드", OK if guard_ok else FAIL, detail,
+        "조회 전용 불변식 — 키를 저장한 전제 조건(CLAUDE.md 운영제약)")
 
     # 10. 클론 깊이
     rc, o = run(["git", "-C", REPO, "rev-parse", "--is-shallow-repository"])
@@ -213,12 +246,17 @@ def checks():
         add("data/ 쓰기", FAIL, str(e), "빌더·원장이 전부 막힌다")
 
     # 13. KST 시계
-    os.environ.setdefault("TZ", "Asia/Seoul")
-    try:
-        time.tzset()  # 윈도우엔 없음
-    except AttributeError:
-        pass
-    add("KST 시각", OK, time.strftime("%Y-%m-%d (%a) %H:%M %Z"),
+    # ★[8/31 정정] 舊 구현은 `TZ=Asia/Seoul` + `time.tzset()`이었는데 **윈도우엔 tzset이 없다**.
+    # TZ만 남아 MSVC 런타임이 "Asia/Seoul"을 파싱 못 해 **UTC로 떨어진 07:49를 KST라며 OK로
+    # 찍고 있었다**(9시간 오차 · %Z는 "a/S" 쓰레기). 날짜 앵커링(7/6 사고)의 가드가
+    # 스스로 틀린 날짜를 만들던 셈 = 8/23 *"초록불은 탐지기가 그 형태를 안 본다는 뜻일 수 있다"*.
+    # ⇒ 고정 오프셋(+9 · 한국은 서머타임 없음)으로 계산하고 시스템 로컬시각과 어긋나면 경고.
+    kst = datetime.now(timezone.utc) + timedelta(hours=9)
+    local = datetime.now()
+    skew = abs((local - kst.replace(tzinfo=None)).total_seconds())
+    add("KST 시각", OK if skew < 300 else WARN,
+        kst.strftime("%Y-%m-%d (%a) %H:%M")
+        + ("" if skew < 300 else f" · 시스템시계와 {skew/3600:.1f}h 차"),
         "SessionStart 훅 앵커와 일치해야 한다")
 
     return out

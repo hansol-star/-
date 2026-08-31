@@ -34,7 +34,17 @@ import sys
 import tempfile
 
 # cert 검증 ON 이 기본. 프록시 뒤라면 --insecure 사용.
-YTDLP_BASE = ["yt-dlp", "--js-runtimes", "node", "--ignore-no-formats-error"]
+# ★[8/31] 실행 경로는 형제 모듈이 해석한다 — PATH에 exe가 없어도(윈도우 pip 기본)
+# `-m yt_dlp`로 부른다. `--js-runtimes node`는 node가 있을 때만 붙인다.
+sys.path.insert(0, os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "portfolio-desk", "scripts")))
+try:
+    from ytdlp_bin import ytdlp_cmd as _ytdlp_cmd
+except Exception:  # pragma: no cover
+    def _ytdlp_cmd(): return [shutil.which("yt-dlp") or "yt-dlp"]
+
+YTDLP_BASE = (_ytdlp_cmd() or ["yt-dlp"]) + (
+    ["--js-runtimes", "node"] if shutil.which("node") else []) + ["--ignore-no-formats-error"]
 INSECURE_FLAG = "--no-check-certificates"
 
 # ★[8/30] 레포 내 영구 저장 — 舊 tempfile 기본값은 세션 종료 시 소멸했다(hunter_latest와 동일 사고).

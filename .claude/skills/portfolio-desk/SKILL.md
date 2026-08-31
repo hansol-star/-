@@ -13,7 +13,8 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
 
 00. **⚠️⚠️ 오늘 날짜·장 상태부터 실측 [2026-07-06 신설 — 날짜 하루 밀림 재발방지, 최우선 0단계]**: 직전 보고서의 서사('주말'·'다음 세션=…')보다 **먼저 실제 오늘을 확정**한다. 보고서 내부 표기에서 오늘을 추론하면 하루씩 밀린다(7/6 실제 사고).
    ```bash
-   TZ=Asia/Seoul date '+%Y-%m-%d %H:%M %A'                          # 실제 KST 날짜·요일·시각 (시스템 currentDate와 대조)
+   python3 .claude/skills/portfolio-desk/scripts/kst_now.py     # 실제 KST 날짜·요일·시각 (시스템 currentDate와 대조)
+   # ⚠️ `TZ=Asia/Seoul date`는 쓰지 말 것 — 윈도우 Git Bash엔 zoneinfo가 없어 **UTC로 폴백**한다(9시간 밀림, 8/31 실측)
    python3 .claude/skills/portfolio-desk/scripts/market_data.py     # 지수 실시세 → 코스피가 '장중 등락'이면 평일 개장·'종가 고정(전일과 동일)'이면 휴장
    ```
    - **시스템 currentDate + 실시세 = 날짜의 정본.** 직전 보고서의 '오늘/다음 세션' 문구는 참조용(작성 시점 기준이라 이미 지났을 수 있음).
@@ -336,7 +337,7 @@ python3 .claude/skills/portfolio-desk/scripts/portfolio_stats.py      # 상관·
 2. **영구 변경**(보유·원가·룰·워치리스트·정정)이 생기면 `docs/master.md` **및 `portfolio.json`**(기계 정본)을 둘 다 갱신.
 2b. **📱 앱 데이터 갱신 (매 보고서 필수 — ⚠️[2026-07-02] EXEC·밤 대화·부록 세션도 예외 없음)** — 아래 정본들을 이번 보고서값으로 갱신. **[7/2 사고 재발 방지]**: v37 아침 서사(코스피 8,303 "존 근접")가 EXEC 폭락(7,648) 뒤에도 stocks.json에 남아 앱이 시세=폭락/서사=아침 분열 상태로 노출됐음 → `_exec`/`_night` 부록 세션도 **stocks(as_of·source_report·forecast·buy_zone·comment)·hunter·tasks·flows 4파일을 반드시 그 세션 상태로 동기화**하고 build 재실행. validate_report.py가 source_report **파일명 전체**를 최신 보고서 파일과 대조해 intra-version stale을 FAIL로 적발한다:
    - `data/app/stocks.json`: 종목별 `stars`·**`score`(0~100 정량점수, self-review가 후행검증)**·`target`·`buy_zone`·`trim`·`comment`·`issues`(최신 [검증/정정/미확인] 이슈 날짜와 함께 prepend)·`as_of`·`source_report`.
-     - ⚠️ **`as_of` 실시각 필수 [2026-07-23 신설]**: `16:xx` 같은 **플레이스홀더 금지** — Task 0의 `TZ=Asia/Seoul date '+%H:%M'` 실제 분(minute)을 기입한다(stocks·tasks·pm_view·crash_tf §1 상황판 공통). 舊 습관적 `16:xx` 방치가 정본성 흠으로 지적됨(v58 정리 계기). 과거 프리즈된 보고서 .md는 소급 수정 안 함.
+     - ⚠️ **`as_of` 실시각 필수 [2026-07-23 신설]**: `16:xx` 같은 **플레이스홀더 금지** — Task 0의 `python3 .claude/skills/portfolio-desk/scripts/kst_now.py '+%H:%M'` 실제 분(minute)을 기입한다(stocks·tasks·pm_view·crash_tf §1 상황판 공통). 舊 습관적 `16:xx` 방치가 정본성 흠으로 지적됨(v58 정리 계기). 과거 프리즈된 보고서 .md는 소급 수정 안 함.
    - `data/app/hunter.json`: 경제사냥꾼 신규 영상(latest_videos)·트랙레코드(track_record 최신 prepend)·headline·themes — `docs/research/hunter_log.md`와 동기화.
      - ⚠️ **영상 요약 필드명 = `summary`(필수)**. `note`로 쓰면 앱 상세가 "—" 빈칸 됨(track_record의 `note`와 혼동 금지). build_app_data가 note→summary 폴백을 넣지만 정본은 항상 `summary`로 쓴다.
      - 🔁 **롤오버 [7/4 자동화]**: latest_videos는 최신 ~9편만 유지. 아카이브 이관은 **build_app_data.py가 자동 수행**(latest 중 archive에 없는 영상을 `hunter_archive.json` `videos` 맨 앞에 prepend, summary→takeaway 매핑, 중복 판정 = id·정규화 제목) — 수동 이관 불필요, **빌드만 돌리면 정체 없음**. validate_report.py는 로그↔archive 날짜 갭을 **FAIL**로 적발(latest에만 있는 날짜는 커버로 안 침 — 앱 '전체 영상 아카이브' 화면은 archive만 읽으므로. 6/20·7/3 정체 재발 원인 봉합).

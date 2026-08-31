@@ -27,7 +27,7 @@
 
 ```
 영상 리서치 프리페치 (무인 루틴 — research-feed 전용, 보고서 작성 아님, 선택지 띄우고 멈추지 말 것).
-- TZ=Asia/Seoul date 로 오늘 날짜 확인 → 오늘자 블록을 쌓는다.
+- `python3 .claude/skills/portfolio-desk/scripts/kst_now.py` 로 오늘 날짜 확인 → 오늘자 블록을 쌓는다.
 - research-feed 스킬/에이전트로 3채널(경제사냥꾼·수페TV·지식인사이드) 신규 영상 탐색·자막 추출 (경제사냥꾼 일 7~8편·저녁 몰림 → --max 10):
     python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 10
     python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 3
@@ -68,7 +68,7 @@
 
 ```
 보고서 (메인 풀 브리핑 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
-- 0단계 실측: TZ=Asia/Seoul date + market_data.py 로 오늘 날짜·요일·장상태 확정(직전 보고서 서사에 끌리지 말 것).
+- 0단계 실측: `python3 .claude/skills/portfolio-desk/scripts/kst_now.py` + market_data.py 로 오늘 날짜·요일·장상태 확정(직전 보고서 서사에 끌리지 말 것).
 - 0단계 가드: python3 .claude/skills/portfolio-desk/scripts/report_guard.py --start --kind R2 --version {오늘 번호} (running 마커 = 저녁 R4가 '막혔나' 판정할 신호. 첫 액션).
 - 컨텍스트 복원: 최신 report STATE SNAPSHOT + decisions.py.
 - ⚡ 영상: 오늘자 R1 프리페치 캐시(hunter_log.md·feeds_log.md 맨 위 블록 + hunter.json·feeds.json setups)를 읽어 리서치 피드·조건 트래커를 채운다. **3채널 풀 재추출 금지.** 단 R1(10:00) 이후 신규 업로드는 싸게 델타로 잡는다 = hunter_latest.py(--fetch 없이 RSS 목록만) 3채널 → 캐시에 없는 신규 ID만 `--ids <신규> --fetch`로 추가 태깅(보통 2~4편, 오후분). 오늘자 캐시가 없으면(R1 실패) 폴백으로 경제사냥꾼 1채널만 경량 인라인(SKILL §2c).

@@ -1,7 +1,7 @@
 # 8월 31일 투자자들이 꼭 알아야 하는 투자 포인트
 - 채널: 경제사냥꾼
 - URL: https://www.youtube.com/watch?v=Lec9YQRcVHk
-- 업로드: ?
+- 업로드: 2026-08-30
 
 ## 트랜스크립트
 

@@ -73,6 +73,12 @@ YW_SCRIPT = os.environ.get(
     os.path.normpath(os.path.join(HERE, "..", "..", "youtube-watch", "scripts", "fetch_youtube.py")),
 )
 BROWSER_SCRIPT = os.path.join(HERE, "browser_captions.cjs")
+sys.path.insert(0, HERE)
+try:
+    from ytdlp_bin import ytdlp_cmd, have_ytdlp  # 형제 모듈 — PATH 없이도 yt-dlp를 찾는다
+except Exception:  # pragma: no cover
+    def ytdlp_cmd(): return None
+    def have_ytdlp(): return False
 # ★[8/30 정훈 지적 "데이터는 다 저장해두라고 했잖아"] 기본 저장 위치를 **레포 안**으로 옮긴다.
 # 舊 기본값은 tempfile.gettempdir()이라 **세션이 끝나면 자막이 통째로 사라졌다.**
 # 그 결과 8/13(d101)에 이미 "94건 자막 재추출 = 1시간+"의 비용을 치렀고,
@@ -240,14 +246,15 @@ def discover_pagescrape(per_tab=15):
 
 def discover_ytdlp(per_tab):
     """폴백: yt-dlp flat-playlist (설치돼 있을 때만)."""
-    if not shutil.which("yt-dlp"):
+    _yt = ytdlp_cmd()
+    if not _yt:
         return []
     items = []
     for tab in ("videos", "shorts"):
         url = f"https://www.youtube.com/channel/{CHANNEL}/{tab}"
         try:
             r = subprocess.run(
-                ["yt-dlp", "--flat-playlist", "--playlist-items", f"1-{per_tab}",
+                _yt + ["--flat-playlist", "--playlist-items", f"1-{per_tab}",
                  "--print", "%(id)s\t%(title)s", url],
                 capture_output=True, text=True, timeout=180)
             for line in r.stdout.strip().splitlines():
@@ -369,8 +376,72 @@ def fetch_via_browser(vid):
     return None
 
 
+def _vtt_to_text(path):
+    """VTT → 평문. 자동자막은 롤링 표시라 같은 줄이 연속 반복된다 → 인접 중복 제거."""
+    out, prev = [], None
+    for raw in open(path, encoding="utf-8", errors="replace"):
+        line = raw.strip()
+        if (not line or line.startswith(("WEBVTT", "Kind:", "Language:", "NOTE"))
+                or "-->" in line or line.isdigit()):
+            continue
+        line = re.sub(r"<[^>]+>", "", line).strip()
+        if line and line != prev:
+            out.append(line)
+            prev = line
+    return " ".join(out)
+
+
+def fetch_via_ytdlp_subs(vid):
+    """★[8/31 로컬] yt-dlp 자막 직행 — innertube 429를 우회하는 두 번째 경로.
+
+    로컬(주거 IP) 실측: 3편 연속 **페이싱 0초로 21.2초**(편당 3.6~13.9초) 전량 성공.
+    같은 일을 innertube로 하면 편당 8~15초 페이싱 + 429 백오프(60~240초)가 붙는다
+    (8/23 실측 = 12편에 편당 40~90초). 웹(데이터센터 IP)에선 yt-dlp가 통째로 봇차단이므로
+    `have_ytdlp()`가 False → 이 경로는 발동하지 않고 기존 사슬 그대로다.
+
+    ⚠️ 8/22 *"폴백은 '무언가 받았다'가 아니라 '쓸 것을 받았다'로 판정한다"* —
+    메타(제목·날짜)만 오고 자막이 비어 오는 경우가 실제로 있으므로 **본문 길이로 판정**한다.
+    """
+    cmd = ytdlp_cmd()
+    if not cmd:
+        return None
+    url = f"https://www.youtube.com/watch?v={vid}"
+    tmp = tempfile.mkdtemp(prefix="ytsub_")
+    try:
+        r = subprocess.run(
+            # ⚠️ `--print`은 simulate를 켜서 **자막 파일이 안 써진다**(rc=0·메타만 통과 —
+            # 8/22 "메타 성공 ≠ 생존"의 재현). `--no-simulate`가 그걸 되돌린다.
+            cmd + ["-q", "--no-warnings", "--skip-download", "--no-simulate",
+                   "--write-subs", "--write-auto-subs",
+                   "--sub-langs", "ko.*,en.*", "--sub-format", "vtt",
+                   "--print", "%(title)s	%(upload_date)s",
+                   "-o", os.path.join(tmp, "s"), url],
+            capture_output=True, text=True, timeout=180)
+        title, date = "", ""
+        for line in (r.stdout or "").splitlines():
+            if "	" in line:
+                title, ymd = line.split("	", 1)
+                ymd = ymd.strip()
+                if len(ymd) == 8 and ymd.isdigit():
+                    date = f"{ymd[:4]}-{ymd[4:6]}-{ymd[6:]}"
+                break
+        vtts = sorted(f for f in os.listdir(tmp) if f.endswith(".vtt"))
+        # 한국어 채널이라 ko 우선, 없으면 아무거나
+        vtts.sort(key=lambda f: (0 if ".ko" in f else 1, len(f)))
+        for f in vtts:
+            text = _vtt_to_text(os.path.join(tmp, f))
+            if len(text) > 200:            # ← '쓸 것을 받았다' 판정
+                return title.strip(), date, text
+        return None
+    except Exception as ex:
+        print(f"[WARN] yt-dlp 자막 실패({vid}): {ex}", file=sys.stderr)
+        return None
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def fetch_via_ytdlp(vid):
-    if not shutil.which("yt-dlp"):
+    if not have_ytdlp():
         return None
     url = f"https://www.youtube.com/watch?v={vid}"
     if os.path.exists(YW_SCRIPT):
@@ -390,10 +461,25 @@ def fetch_via_ytdlp(vid):
     return None
 
 
+LAST_SOURCE = None  # 직전 자막이 어느 경로로 왔나 — 페이싱 필요 여부 판단용
+
+
 def fetch_transcript(vid, title_hint=""):
-    """3중 차선 자막 확보 → md 파일 경로. 실패 시 None (제목 기반 추측 분석 금지)."""
+    """4중 차선 자막 확보 → md 파일 경로. 실패 시 None (제목 기반 추측 분석 금지).
+
+    ★[8/31 로컬] 주거 IP에선 yt-dlp 자막이 0차다 — innertube 429·페이싱을 통째로 건너뛴다.
+    웹(데이터센터 IP)에선 yt-dlp가 봇차단이라 have_ytdlp()가 False → 舊 3중 사슬 그대로.
+    """
     os.makedirs(OUTDIR, exist_ok=True)
-    got = fetch_via_innertube(vid) or fetch_via_browser(vid) or fetch_via_ytdlp(vid)
+    global LAST_SOURCE
+    LAST_SOURCE = None
+    got = None
+    if have_ytdlp():
+        got = fetch_via_ytdlp_subs(vid)
+        if got:
+            LAST_SOURCE = "ytdlp-subs"
+    if not got:
+        got = fetch_via_innertube(vid) or fetch_via_browser(vid) or fetch_via_ytdlp(vid)
     if not got:
         return None
     title, date, text = got
@@ -532,10 +618,12 @@ def main():
                 if (today - d).days <= span:
                     targets.append(it)
         targets = targets[: args.max]
-        print(f"\n--- 자막 추출 ({len(targets)}편, 영상 간 {PACE_MIN}~{PACE_MAX}초 페이싱) ---")
+        _pace = "페이싱 없음(yt-dlp 자막 0차)" if have_ytdlp() else f"영상 간 {PACE_MIN}~{PACE_MAX}초 페이싱"
+        print(f"\n--- 자막 추출 ({len(targets)}편, {_pace}) ---")
         failed = []
         for i, it in enumerate(targets):
-            if i:
+            # yt-dlp 경로로 받았으면 innertube 레이트리밋과 무관하므로 대기하지 않는다.
+            if i and LAST_SOURCE != "ytdlp-subs":
                 time.sleep(random.uniform(PACE_MIN, PACE_MAX))
             path = fetch_transcript(it["id"], it["title"])
             print(f"{it['id']} [{it['published_kst']}] {it['title'][:40]}: {path or 'FAILED'}")

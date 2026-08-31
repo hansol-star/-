@@ -38,6 +38,9 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/
 TIMEOUT = 20
 
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ytdlp_bin import ytdlp_cmd  # noqa: E402  PATH에 exe가 없어도 찾는다
+
 def _get(url: str, headers: dict | None = None) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": UA, **(headers or {})})
     with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
@@ -207,17 +210,32 @@ def chk_ytdlp():
     ⇒ 이 체크가 그 침묵을 깬다. **실패해도 파이프라인은 정상**이다(innertube 폴백이
     받는다) → 그래서 🔴가 아니라 ⚪ 미설정으로 보고한다. 판단 기준은 하나:
     **✅로 바뀌면 프레임 추출(--frames)이 다시 가능해졌다는 뜻**(로컬 이전 후 기대)."""
-    if not shutil.which("yt-dlp"):
+    cmd = ytdlp_cmd()
+    if not cmd:
         return None, "미설치 — youtube-watch는 innertube 폴백으로 동작(웹 환경 정상)"
     vid = "xwJio17IZZw"
     try:
-        p = subprocess.run(["yt-dlp", "--skip-download", "-J", "--no-warnings",
+        p = subprocess.run(cmd + ["--skip-download", "-J", "--no-warnings",
                             f"https://www.youtube.com/watch?v={vid}"],
                            capture_output=True, text=True, timeout=90)
     except Exception as ex:
         return None, f"실행 실패: {str(ex)[:60]} — innertube 폴백 유효"
     if p.returncode == 0 and p.stdout.strip():
-        return True, "메타 취득 OK — --frames(프레임 추출) 사용 가능"
+        # ⚠️ 8/22 "메타 성공 ≠ 생존" — `--ignore-no-formats-error` 탓에 봇차단 상태에서도
+        # 메타는 통과한다. 프레임 추출이 실제로 가능한지는 **영상 포맷 유무**로 판정한다
+        # (스토리보드 sb*는 CDN이라 차단돼도 남으므로 제외하고 센다).
+        try:
+            import json as _json
+            fmts = _json.loads(p.stdout).get("formats") or []
+            real = [f for f in fmts
+                    if not str(f.get("format_id", "")).startswith("sb")
+                    and (f.get("vcodec") not in (None, "none")
+                         or f.get("acodec") not in (None, "none"))]
+        except Exception:
+            real = []
+        if not real:
+            return False, "메타만 통과·스트림 0개 = 봇차단(프레임 추출 불가)"
+        return True, f"스트림 {len(real)}개 취득 — --frames(프레임 추출) 사용 가능"
     err = (p.stderr or "").strip().splitlines()
     head = err[-1][:80] if err else "무응답"
     return None, f"봇차단 지속 — innertube 폴백이 대체 중 ({head})"

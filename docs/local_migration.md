@@ -21,10 +21,11 @@
 ### 열리는 것 (환경이 원인이던 것들)
 | 항목 | 지금(웹) | 로컬 | 근거 |
 |---|---|---|---|
-| **yt-dlp 스트림** | 🔴 5개 클라이언트 전부 봇차단 | ✅ 주거용 IP | `api_health` "yt-dlp 스트림" ⚪미설정 · 대기목록 2 |
+| **yt-dlp 스트림** | 🔴 5개 클라이언트 전부 봇차단 | ✅ **실측 확인 8/31** (스트림 47개) | `api_health` "yt-dlp 스트림" ✅ · 대기목록 2 해소 |
 | **유튜브 고해상도 프레임** | 🔴 googlevideo 403 (URL이 발급 IP 바인딩) | ✅ 발급·수신 IP 일치 | 지금은 스토리보드 160×90이 한계(`yt_frames.py`) |
 | **유튜브 댓글·`--frames`** | 🔴 스트림 접근 필요 | ✅ | `youtube-watch` SKILL §49 |
-| **innertube 자막 429** | ⚠️ 상시 레이트리밋(편당 40~90초 페이싱) | 🟢 완화 예상 | 8/29 api_health에서도 429 지속 |
+| **innertube 자막 429** | ⚠️ 상시 레이트리밋(편당 40~90초 페이싱) | ✅ **우회 확인 8/31** — yt-dlp 자막이 0차로 승격 | 3편 **페이싱 0초·12.9초** 전량 성공 |
+| **자막 업로드일** | ⚠️ innertube는 `업로드: ?`를 자주 남긴다 | ✅ yt-dlp가 실제 업로드일 반환 | 같은 3편에서 `?` → `2026-08-29` 등 |
 | **토스 매수 이력** | 🔴 (키를 세션마다 받아야 함) | ✅ 대화형으로 수집 | 대기목록 1 |
 | **git 전체 히스토리** | 🔴 얕은 클론(50 커밋) | ✅ **실측 확인 8/31** (767커밋) | 대기목록 3 · roadmap 2-10 |
 | **matplotlib·pypdf 등** | ⚪ 미설치 | ✅ **설치 완료 8/31** | `charts.py`·`read_doc.py` 활성 |
@@ -103,7 +104,8 @@ git rev-parse --is-shallow-repository               # → false 여야 대기목
 ### 2d. 첫 세션 검증 순서 (이 순서대로 — 하나라도 FAIL이면 거기서 멈춘다)
 ```
 python3 .../scripts/local_doctor.py                  # ★0단계 프리플라이트 — FAIL 0 아니면 여기서 멈춤
-TZ=Asia/Seoul date                                   # SessionStart 훅 앵커와 일치 확인
+python3 .../scripts/kst_now.py                       # SessionStart 훅 앵커와 일치 확인
+#   ⚠️ `TZ=Asia/Seoul date`는 윈도우에서 UTC로 폴백해 9시간 밀린다(8/31 실측) — 쓰지 말 것
 python3 .../scripts/api_health.py                    # 12개 소스 실호출 — 웹 대비 어디가 바뀌었나
 python3 .../scripts/short_borrow.py --status         # ★ KRX가 실제로 열렸는지 = 이전의 첫 성과 판정
 python3 .../scripts/selfcheck.py                     # GATE PASS 필요 (compile·import·--help + 가드 자가검증)
@@ -137,7 +139,10 @@ python3 .../scripts/selfcheck.py                     # GATE PASS 필요 (compile
 ## §4 대기 목록 3건 — 집행 순서
 
 1. **`git fetch --unshallow`** (§2c) — 가장 싸고 즉시. roadmap 2-10 해소, `score_calls --backfill` 표본 복구.
-2. **yt-dlp 설치 → `api_health`의 'yt-dlp 스트림' ✅ 확인** — ✅ 되면 고해상도 프레임 재개.
+2. ~~**yt-dlp 설치 → `api_health`의 'yt-dlp 스트림' ✅ 확인**~~ → **✅ 해소(8/31)**. 스트림 47개 취득.
+   부산물이 더 컸다: **자막 경로가 innertube 429에서 풀렸다**(`hunter_latest`가 yt-dlp 자막을 0차로 씀 —
+   3편 페이싱 0초 12.9초 vs 舊 편당 8~15초 페이싱 + 429 백오프 60~240초). R1 프리페치가 그만큼 빨라진다.
+   ⚠️ **고해상도 프레임은 아직**이다 — `ffmpeg` 미설치. 스트림은 열렸으나 프레임 추출은 그 다음 단계.
 3. **토스 매수 이력 수집 → 원장 완성** [8/23 정훈 지시]. 남은 건 **현재 보유 14종목의 취득일·수량·단가·환율**뿐(실현손익 46건은 확보 완결).
    들어오면 ①`us_avg_fx_cost` 추정치 1,456.5 → 실측 교체 ②`portfolio_stats` 상관·베타를 **합성 시계열 → 실제 계좌 기준**으로 승격 ③`trades.fx_cost_coverage` 13.3% → 100%.
    ⚠️ **조회 경로로만.** 주문 API 금지.
@@ -179,3 +184,34 @@ python3 .../scripts/selfcheck.py                     # GATE PASS 필요 (compile
 **교훈**: 이식성은 "stdlib만 썼다"로 보장되지 않는다. **깨지는 건 인터프리터 이름·절대경로·셸 의존** 세 가지였고, 셋 다 grep 세 번으로 나왔다. 로컬에서 새 결함이 나오면 이 표에 append한다.
 
 ⚠️ **아직 안 잡힌 것**: 이 3건은 grep으로 찾은 것이지 **실행으로 확인한 게 아니다**(윈도우가 없으니 실측 불가). 월요일 첫 세션의 `selfcheck.py`가 진짜 답안지다.
+
+
+---
+
+## §7 1단계 실행 기록 (2026-08-31~09-01) — 실측으로 갈린 것들
+
+### 7a. 확인된 성과 (예상대로 열림)
+| 항목 | 실측 |
+|---|---|
+| yt-dlp 스트림 | ✅ 포맷 47개(1080p 포함) — 웹에선 5개 클라이언트 전부 봇차단이던 그 경로 |
+| yt-dlp 자막 | ✅ 3편 **페이싱 0초 12.9초** 전량 · 업로드일까지 취득 → `hunter_latest` 0차로 배선 |
+| git 전체 히스토리 | ✅ 776 커밋 (얕은 클론 해소) |
+| matplotlib·openpyxl·pdfminer·pypdf | ✅ 설치 — `charts.py`·`read_doc.py` 활성 |
+| api_health | **정상 12 · 실패 1**(Playwright Chromium) — 웹 대비 개선 |
+
+### 7b. 이전이 **만들어낸** 결함 3건 (환경이 바뀌어 조용히 틀리기 시작한 것들)
+이게 이번 이전의 진짜 교훈이다. 열린 것보다 **틀리기 시작한 것**을 찾는 게 어려웠다.
+
+1. **`TZ=Asia/Seoul date`가 UTC를 준다.** MSYS(Git Bash)엔 `/usr/share/zoneinfo`가 없어 알 수 없는 TZ 이름이 **UTC로 폴백**한다 — `date`는 16:50(맞음)인데 `TZ=Asia/Seoul date`는 **07:50**. 지시층 6곳이 전부 이 명령을 쓰고 있었다. **00~09시 KST엔 어제가 나온다** = 7/6 날짜 앵커링 사고의 재발 경로. ⇒ `kst_now.py` 신설(UTC+9 고정, OS 무관) + 6곳 교체.
+2. **`local_doctor`의 KST 항목이 그 틀린 시각을 ✅로 찍고 있었다.** `TZ` 설정 후 `time.tzset()`을 부르는데 **윈도우엔 tzset이 없어** except로 넘어가고, MSVC 런타임이 "Asia/Seoul"을 못 읽어 UTC로 떨어진 07:49를 KST라며 통과시켰다(`%Z`는 `a/S` 쓰레기). **날짜를 지키는 가드가 스스로 틀린 날짜를 만들고 있었다.**
+3. **설치된 yt-dlp가 '미설치'로 판정됐다.** 윈도우 pip은 `Scripts/yt-dlp.exe`에 깔고 그 디렉터리는 PATH에 없을 수 있는데, call site 5곳이 전부 `shutil.which("yt-dlp")` → None → `return None`으로 **조용히** 폴백했다. 이전의 최대 성과가 **발견 실패 한 줄에 통째로 묻힐 뻔했다.** ⇒ `ytdlp_bin.py` 신설(PATH → `-m yt_dlp`).
+
+### 7c. 부수로 드러난 것
+- **`zoneinfo`가 윈도우에선 빈손이다.** `ZoneInfo("Asia/Seoul")`이 `ZoneInfoNotFoundError`(tzdata 패키지 부재). `report_guard`·SessionStart 훅은 폴백이 있어 KST는 살았지만 **훅의 미국장 판정은 `ET 계산 불가`로 죽어 있었다.** ⇒ `pip install tzdata`로 복구(훅이 다시 ET를 계산한다).
+- **환경변수는 프로세스 시작 시각에 고정된다.** 키 5개를 시스템에 등록해도 **이미 떠 있던 세션은 못 본다** — 그 세션의 모든 키 소스가 조용히 폴백으로 강등된다(local_doctor가 ❌ 4건으로 잡았고, 재시작 후 전부 ✅). **키를 새로 넣으면 Claude Code를 재시작할 것.**
+- **`local_doctor`가 폐기된 룰을 집행하고 있었다.** 토스 키는 8/31에 *저장 금지 → 환경변수 저장*으로 뒤집혔는데(정훈 승인) 항목은 여전히 "키가 있으면 FAIL"이었다. ⇒ 검사 대상을 **"키가 없는가"에서 "주문 차단 가드가 실제로 막는가"**로 교체(POST /orders 등 4종 차단 + GET 통과를 매번 실증).
+
+### 7d. 남은 것
+- **Node.js + Playwright Chromium** — `web_shot`·`browser_captions`가 이것 때문에 멈춰 있다(api_health 유일한 🔴).
+- **ffmpeg** — 스트림은 열렸으나 프레임 추출엔 이게 있어야 한다.
+- **무인 루틴 경로 A/B 결정**(§3) — 미결. 지금은 경로 A(웹 루틴 유지)라 **위에서 열린 것들은 대화형 세션에서만 쓰인다.**

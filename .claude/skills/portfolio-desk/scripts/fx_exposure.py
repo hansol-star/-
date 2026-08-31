@@ -23,8 +23,10 @@ roadmap 2-3이 **P0(손실 직결)**로 올려둔 채 미구현이던 축이다.
     환 기여   = P₀·Q·(F₁−F₀)      주가 고정, 환율만 변한 몫
     교차항    = (P₁−P₀)·Q·(F₁−F₀) 둘이 같이 움직인 몫 (분해의 잔차 — 숨기지 않고 표기)
 
-취득환율(F₀)은 portfolio.json `us_avg_fx_cost`(현재 1,456.5 — 토스 실손익 역산 추정치).
-⚠️ **추정치이므로 환 기여 절대액은 ±오차를 안는다** — 방향과 크기 감각용이다.
+취득환율(F₀)은 portfolio.json `us_avg_fx_cost`(현재 1,460.9 — ★8/31 토스 API 체결 286건
+재구성 후 보유 9종목 매수를 체결일 종가로 가중평균한 **실측치**. 舊 역산 1,467.4와 6.5원 차).
+⚠️ **여전히 근사다** — 체결일 *시장 종가*이지 토스가 실제 적용한 환율이 아니다(스프레드·체결시각).
+   커버리지는 13.3% -> 99.9%로 올랐으나 절대액엔 여전히 오차가 남는다.
    실측 교체는 **로컬 이전·토스 API 때**(정훈 8/23 지시, CLAUDE.md 실행환경 §대기목록 1번).
    현재 원장이 환율을 아는 비중은 13.3%뿐이라 지금 교체하면 오히려 나빠진다.
 
@@ -138,7 +140,7 @@ def compute(holdings: list[dict], fx_rate: float, cash_krw: float = 0.0,
         "attribution": {
             "price_krw": round(px_krw), "fx_krw": round(fx_krw), "cross_krw": round(cross_krw),
             "total_krw": round(px_krw + fx_krw + cross_krw),
-            "note": "미국주만 분해 · F₀=us_avg_fx_cost(추정치)라 환 기여 절대액은 오차를 안는다",
+            "note": "미국주만 분해 · F₀=us_avg_fx_cost(체결 실측·시장종가 기준)라 환 기여 절대액에 잔여 오차",
         },
         "by_stock": per_stock,
     }
@@ -179,7 +181,7 @@ def main() -> int:
         return 0
 
     print(f"── 통화 익스포저 ({res['as_of']}) ──")
-    print(f"  원/달러 {res['fx_rate']:,.2f} · 취득환율(추정) {res['fx_cost_basis']:,.1f}")
+    print(f"  원/달러 {res['fx_rate']:,.2f} · 취득환율(체결 실측) {res['fx_cost_basis']:,.1f}")
     for b in res["buckets"]:
         print(f"  {b['currency']:<4} {b['value_krw']:>10,}원 ({b['weight']:>5.1f}%)"
               f"  주식 {b['stock_krw']:>9,} · 현금 {b['cash_krw']:>8,}")

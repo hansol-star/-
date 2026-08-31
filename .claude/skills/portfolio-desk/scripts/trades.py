@@ -148,6 +148,18 @@ def replay(rows: list[dict]) -> dict:
     return pos
 
 
+def _era(date: str | None) -> str:
+    """실현 건이 데스크 착수(6/13) 전인지 후인지 — **날짜로만** 판정한다.
+
+    ⚠️ [8/31 수정] 舊 구현은 era를 **행 종류**로 하드코딩했다: closed -> "pre", sell -> "desk".
+       舊 원장에선 closed가 곧 데스크 이전분이라 우연히 맞았지만, 토스 API로 2024-07부터의
+       실제 매도가 들어오자 **2024·2025년 매도까지 전부 "데스크 이후"로 둔갑**했다
+       (52건 중 45건이 오분류 = 데스크 성과가 3배 부풀려짐).
+       데이터 모양이 바뀌면 모양에 기댄 라벨은 조용히 거짓말을 한다.
+    """
+    return "pre" if (date or "") < DESK_START else "desk"
+
+
 def realized_krw_detail(rows: list[dict], fx_now: float) -> list[dict]:
     """매도 건별 실현손익(USD/KRW) — 환율 미기록분은 현재 환율로 추정 표기."""
     pos = {}
@@ -168,7 +180,7 @@ def realized_krw_detail(rows: list[dict], fx_now: float) -> list[dict]:
                 "cost_basis": r.get("cost_basis_total"), "realized": round(g, 2),
                 "realized_krw": round(g * rate), "return_pct": r.get("return_pct"),
                 "fx_rate": round(rate, 2), "fx_estimated": cur == "USD",
-                "fx_source": r.get("fx_source") or "market_close", "era": "pre",
+                "fx_source": r.get("fx_source") or "market_close", "era": _era(r.get("date")),
                 "source": r.get("source", ""), "note": r.get("note", ""),
             })
             continue
@@ -196,7 +208,7 @@ def realized_krw_detail(rows: list[dict], fx_now: float) -> list[dict]:
             "shares": sh, "price": float(r.get("price") or 0), "currency": cur,
             "cost_basis": p["avg"], "realized": gain, "realized_krw": gain * rate,
             "return_pct": (gain / (sh * p["avg"]) * 100) if p["avg"] and sh else None,
-            "fx_rate": round(rate, 2), "fx_estimated": est, "fx_source": src, "era": "desk",
+            "fx_rate": round(rate, 2), "fx_estimated": est, "fx_source": src, "era": _era(r.get("date")),
             "source": r.get("source", ""), "note": r.get("note", ""),
         })
     return out

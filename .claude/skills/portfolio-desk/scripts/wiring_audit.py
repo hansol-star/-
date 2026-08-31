@@ -44,6 +44,11 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
+    "toss_import.py":             "체결 원장 재구성 — 토스 API 체결 이력을 trades.jsonl로 옮기는 "
+                                  "**수동 임포트 유틸**(8/31). 원장을 통째로 갈아끼우므로 "
+                                  "자동 호출 대상이 아니다(--write 없이는 dry-run). 데스크가 읽는 것은 "
+                                  "이 도구의 산출물이 아니라 trades.py가 재생한 원장이다. "
+                                  "신규 체결의 상시 반영 경로는 trades.py --add",
     "local_doctor.py":            "이전 프리플라이트 — 새 기계 첫 세션에 사람이 1회 돌리는 수동 유틸(8/31). "
                                   "네트워크를 안 쓰고 어떤 산출물도 안 만들어서 데스크가 읽을 것이 없다. "
                                   "정본 = docs/local_migration.md §2d 0단계",

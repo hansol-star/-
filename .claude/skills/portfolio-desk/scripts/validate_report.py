@@ -1568,6 +1568,48 @@ def check_canonical_facts():
                      f"1차 출처 재확인 후 원장을 갱신할 것")
 
 
+
+def check_routine_health(today=None):
+    """무인 루틴이 실제로 돌고 있나 — 경로 B(로컬 스케줄러)의 유일한 감시자.
+
+    ★[9/1] 무인 루틴을 웹 Routines → 윈도우 작업 스케줄러로 옮기면서 신설.
+    웹은 **실패가 기록에 남았다**(대시보드에 빨간 줄). 로컬은 아무 데도 안 남는다 —
+    `docs/local_migration.md` §3이 경로 B의 단점으로 콕 집어 적어둔 "실패가 조용하다"가 이것이다.
+    런처(`run_routine.ps1`)가 매 실행 끝에 `last_status.json`을 남기므로 **여기서 그걸 읽는다.**
+
+    잡는 것 3가지:
+      ① 상태 파일 자체가 없다        = 루틴이 한 번도 안 돌았다(등록·로그인 누락)
+      ② verdict != OK                = 마지막 실행이 실패했다(토큰·권한·미로그인)
+      ③ 마지막 실행이 오래됐다        = 스케줄러가 조용히 멈췄다(절전·작업 삭제·머신 종료)
+    ⚠️ WARN이다 — 보고서 자체의 결함이 아니라 **운영 상태**이므로 커밋을 막지 않는다.
+    """
+    import datetime as _dt
+    path = os.path.join(ROOT, "data", "logs", "routines", "last_status.json")
+    if not os.path.exists(path):
+        warn("무인 루틴 상태파일 없음 — 아직 한 번도 안 돌았거나 런처 미배선 "
+             "(.claude/routines/run_routine.ps1 · docs/routines.md §스케줄)")
+        return
+    try:
+        st = json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        warn(f"무인 루틴 상태파일을 못 읽음 ({e}) — {path}")
+        return
+    verdict = st.get("verdict")
+    kind = st.get("kind", "?")
+    when = (st.get("kst") or "")[:16]
+    if verdict != "OK":
+        warn(f"무인 루틴 마지막 실행 실패 — {kind} verdict={verdict} @ {when} "
+             f"(로그 {st.get('log')}). NOT_LOGGED_IN이면 `claude` 대화형 1회 로그인 필요")
+    try:
+        last = _dt.datetime.strptime(st.get("kst", "")[:10], "%Y-%m-%d").date()
+        base = today or (_dt.datetime.utcnow() + _dt.timedelta(hours=9)).date()
+        gap = (base - last).days
+        if gap > 3:
+            warn(f"무인 루틴이 {gap}일째 안 돌았다 (마지막 {kind} @ {when}) — "
+                 f"작업 스케줄러 상태 확인: Get-ScheduledTask -TaskPath JeonghunDesk")
+    except Exception:
+        pass
+
 def check_allocation_band():
     """[8/30 신설 · 정훈 승인] 리스크룰 6 — 지역 배분 밴드(국내주 18~22%) 이탈 감지.
 
@@ -2113,6 +2155,7 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
+    check_routine_health()
     check_transcript_persistence(); check_data_archive()
     check_split_scale()
     if not a.no_report:

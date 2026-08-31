@@ -36,6 +36,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 import os
 import re
@@ -102,6 +103,10 @@ HIST_LG = "date,close\n2026-08-11,181700.0\n"   # 8/12 사고 당시 전일 종�
 # 2026-08-27 신설 3가드가 쓰는 픽스처 보고서 경로(파일명에서 날짜를 파싱하므로 형식 고정)
 RPT = "docs/reports/report_v99_2026-08-27.md"
 
+# 픽스처의 날짜는 "오늘"이어야 한다 — check_routine_health는 3일 이상 정지도 WARN으로 잡으므로
+# 고정 날짜를 쓰면 clean 픽스처가 시간이 지나며 저절로 위반이 된다(자기부패 픽스처).
+_TODAY_KST = (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).strftime("%Y-%m-%d")
+
 INJECTION_TESTS = [
     {
         "name": "check_canonical_facts",
@@ -111,6 +116,23 @@ INJECTION_TESTS = [
         "pattern": r"\uc218\uce58 \uc815\ubcf8 \ubd88\uc77c\uce58",
         "violate": {'data/app/facts.json': '{"facts": [{"key": "cxmt_dram_share", "label": "CXMT D램 점유율", "value": 7.0, "unit": "%", "tolerance": 0.6, "basis": "매출 기준", "asof": "2026-Q2", "source": "Counterpoint", "verified_on": "2026-08-30", "recheck_days": 120, "pattern": "(?:CXMT|창신메모리)(?:는|가|의|\\\\s)*\\\\**(\\\\d{1,2}(?:\\\\.\\\\d)?)\\\\s*%"}]}', 'CLAUDE.md': '# CLAUDE.md\n\nCXMT 점유율은 세계 4위로 CXMT 11% 수준이다.\n'},
         "clean":   {'data/app/facts.json': '{"facts": [{"key": "cxmt_dram_share", "label": "CXMT D램 점유율", "value": 7.0, "unit": "%", "tolerance": 0.6, "basis": "매출 기준", "asof": "2026-Q2", "source": "Counterpoint", "verified_on": "2026-08-30", "recheck_days": 120, "pattern": "(?:CXMT|창신메모리)(?:는|가|의|\\\\s)*\\\\**(\\\\d{1,2}(?:\\\\.\\\\d)?)\\\\s*%"}]}', 'CLAUDE.md': '# CLAUDE.md\n\nCXMT 점유율은 세계 4위로 CXMT 7% 수준이다.\n'},
+        "args": (),
+    },
+
+    {
+        "name": "check_routine_health",
+        "desc": "무인 루틴이 실패했거나 오래 안 돌았으면 잡는가",
+        "why": "9/1 무인 루틴을 웹 Routines에서 윈도우 작업 스케줄러로 옮겼다(경로 B). "
+               "웹은 실패가 대시보드에 남았지만 로컬은 아무 데도 안 남는다 — "
+               "local_migration §3이 경로 B의 단점으로 콕 집어 적어둔 '실패가 조용하다'가 이것이다. "
+               "런처가 남기는 last_status.json을 읽는 이 검사가 유일한 감시자다",
+        "pattern": r"무인 루틴",
+        "violate": {'data/logs/routines/last_status.json':
+                    '{"kind":"r2","verdict":"NOT_LOGGED_IN","exit_code":1,'
+                    '"kst":"' + _TODAY_KST + ' 16:05:00","minutes":0,"log":"x"}'},
+        "clean":   {'data/logs/routines/last_status.json':
+                    '{"kind":"r2","verdict":"OK","exit_code":0,'
+                    '"kst":"' + _TODAY_KST + ' 16:45:00","minutes":41,"log":"x"}'},
         "args": (),
     },
 

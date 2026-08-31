@@ -43,6 +43,17 @@ import argparse, json, os, sys, urllib.request, urllib.parse, urllib.error, ssl
 BASE = "https://openapi.tossinvest.com"
 
 
+def _decode_body(raw: bytes) -> str:
+    """gzip/deflate/평문 어느 쪽이든 사람이 읽을 문자열로."""
+    import gzip as _gz, zlib as _zl
+    for f in (_gz.decompress, lambda b: _zl.decompress(b, -15), lambda b: b):
+        try:
+            return f(raw).decode("utf-8", "replace")
+        except Exception:  # noqa: BLE001
+            continue
+    return repr(raw[:200])
+
+
 def make_ctx(insecure: bool):
     ctx = ssl.create_default_context()
     if insecure:
@@ -95,7 +106,9 @@ def req(method, path, ctx, headers=None, data=None, form=False):
         with urllib.request.urlopen(r, context=ctx, timeout=30) as resp:
             return json.loads(resp.read().decode())
     except urllib.error.HTTPError as e:
-        err = e.read().decode()[:500]
+        # 토스는 오류 본문도 gzip으로 준다 — 그냥 decode()하면 에러 처리기 자신이 죽어서
+        # 정작 원인 메시지를 못 본다(8/31 실측: UnicodeDecodeError 0x8b = gzip 매직).
+        err = _decode_body(e.read())[:500]
         print(f"[HTTP {e.code}] {method} {path}: {err}", file=sys.stderr)
         return None
     except Exception as e:

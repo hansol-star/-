@@ -105,6 +105,28 @@ RPT = "docs/reports/report_v99_2026-08-27.md"
 
 # 픽스처의 날짜는 "오늘"이어야 한다 — check_routine_health는 3일 이상 정지도 WARN으로 잡으므로
 # 고정 날짜를 쓰면 clean 픽스처가 시간이 지나며 저절로 위반이 된다(자기부패 픽스처).
+def _DAYS_AGO(n: int) -> str:
+    """픽스처용 상대 날짜 — 고정 날짜를 쓰면 시간이 지나며 clean이 저절로 위반이 된다."""
+    return (datetime.date.today() - datetime.timedelta(days=n)).isoformat()
+
+
+def _LINES(*rows: str) -> str:
+    return "\n".join(rows) + "\n"
+
+
+def _CSV(day: str) -> str:
+    return _LINES("date,open,high,low,close", day + ",1,1,1,1")
+
+
+_TRIM_REPORT = _LINES("# v99", "- 삼성전자 트림 검토", "- 삼성전자 일부 매도 고려",
+                      "- 삼성전자 트림 시점 재검토")
+
+
+_ARCHIVE_OK = {f"data/financials/T{i}.json": "{}" for i in range(20)}
+_ARCHIVE_OK.update({f"data/history_ohlcv/T{i}.csv": "d" for i in range(40)})
+_ARCHIVE_OK.update({f"data/history/T{i}.csv": "d" for i in range(40)})
+
+
 _TODAY_KST = (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).strftime("%Y-%m-%d")
 
 INJECTION_TESTS = [
@@ -117,6 +139,160 @@ INJECTION_TESTS = [
         "violate": {'data/app/facts.json': '{"facts": [{"key": "cxmt_dram_share", "label": "CXMT D램 점유율", "value": 7.0, "unit": "%", "tolerance": 0.6, "basis": "매출 기준", "asof": "2026-Q2", "source": "Counterpoint", "verified_on": "2026-08-30", "recheck_days": 120, "pattern": "(?:CXMT|창신메모리)(?:는|가|의|\\\\s)*\\\\**(\\\\d{1,2}(?:\\\\.\\\\d)?)\\\\s*%"}]}', 'CLAUDE.md': '# CLAUDE.md\n\nCXMT 점유율은 세계 4위로 CXMT 11% 수준이다.\n'},
         "clean":   {'data/app/facts.json': '{"facts": [{"key": "cxmt_dram_share", "label": "CXMT D램 점유율", "value": 7.0, "unit": "%", "tolerance": 0.6, "basis": "매출 기준", "asof": "2026-Q2", "source": "Counterpoint", "verified_on": "2026-08-30", "recheck_days": 120, "pattern": "(?:CXMT|창신메모리)(?:는|가|의|\\\\s)*\\\\**(\\\\d{1,2}(?:\\\\.\\\\d)?)\\\\s*%"}]}', 'CLAUDE.md': '# CLAUDE.md\n\nCXMT 점유율은 세계 4위로 CXMT 7% 수준이다.\n'},
         "args": (),
+    },
+
+    {
+        "name": "check_tasks",
+        "desc": "tasks.json이 존재하지 않는 보고서를 가리키면 잡는가",
+        "why": "source_report는 앱 #plan 화면이 '어느 보고서 기준인가'를 말하는 유일한 근거다. "
+               "존재하지 않는 파일을 가리키면 앱은 멀쩡해 보이는데 근거가 없는 상태가 된다 "
+               "(7/2 intra-version stale 사고의 같은 계열)",
+        "pattern": "source_report 파일 없음",
+        "violate": {"data/app/tasks.json": json.dumps(
+            {"source_report": "docs/reports/report_v404_2026-01-01.md", "as_of": "16:05"},
+            ensure_ascii=False)},
+        "clean": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/tasks.json": json.dumps(
+                {"source_report": "docs/reports/report_v99_2026-08-25.md", "as_of": "16:05"},
+                ensure_ascii=False),
+        },
+        "args": (),
+    },
+
+    {
+        "name": "check_freshness",
+        "desc": "tasks.json이 최신 보고서보다 낡으면 잡는가",
+        "why": "7/12 실사고 — v46 R2가 stocks·hunter·flows는 갱신하고 tasks.json은 as_of/source_report "
+               "스탬프만 바꾼 채 내용은 v45(7/9) 상태로 뒀다. 앱 #plan 화면이 '오늘 7/9 미장 개장' 같은 "
+               "옛 정보를 노출했고, 舊 check_tasks는 source_report 존재만 봐서 통과시켰다 — "
+               "스탬프만 갱신하는 stale을 잡는 것이 이 검사다",
+        "pattern": "tasks.json updated",
+        "violate": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/tasks.json": json.dumps({"updated": "2026-08-20"}, ensure_ascii=False),
+        },
+        "clean": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/tasks.json": json.dumps({"updated": "2026-08-25"}, ensure_ascii=False),
+        },
+        "args": (99,),
+    },
+
+    {
+        "name": "check_flows",
+        "desc": "수급 원장에 숫자 대신 추측 문자열이 들어가면 잡는가",
+        "why": "수급 수치는 '순매도 우위' 같은 산문으로 적히는 순간 계산에서 빠지고 추세 판정이 죽는다. "
+               "CLAUDE.md 상시 원칙(추측 금지·미확인 명시)을 원장 층위에서 기계로 강제한다",
+        "pattern": "추측 문자열 금지",
+        "violate": {"data/app/flows.json": json.dumps(
+            {"updated": "2026-08-25",
+             "series": [{"date": "2026-08-25", "foreign": "순매도 우위"}]}, ensure_ascii=False)},
+        "clean": {"data/app/flows.json": json.dumps(
+            {"updated": "2026-08-25",
+             "series": [{"date": "2026-08-25", "foreign": -1234}]}, ensure_ascii=False)},
+        "args": (),
+    },
+
+    {
+        "name": "check_rule_ledger",
+        "desc": "룰1 사다리 원장이 보고서 날짜보다 뒤처지면 잡는가",
+        "why": "8/6 실사고 — 원장이 7/30 1건에서 멈춰 있었고, 그 1건이 말하는 상태"
+               "(해금 35%·상한 282,438원·halted=false)와 8/6 실제(해금 15%·상한 0원·halted=true)가 "
+               "정반대였다. 룰1은 7/31 RESET 정책상 매일 재계산이 전제라 원장이 멈추면 "
+               "self-review 룰 추적이 통째로 옛 상태를 본다",
+        "pattern": "rule_log 최신",
+        "violate": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/rule_log.jsonl": _LINES(json.dumps({"date": "2026-08-01"})),
+        },
+        "clean": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/rule_log.jsonl": _LINES(json.dumps({"date": "2026-08-25"})),
+        },
+        "args": (99,),
+    },
+
+    {
+        "name": "check_data_archive",
+        "desc": "받아온 원본 데이터 자산이 사라지거나 줄면 잡는가",
+        "why": "8/30 정훈 지시 '데이터는 다 저장해두라고 했잖아'. 舊엔 app 요약 5기/8기만 남기고 "
+               "나머지를 버렸다 — 주석은 저장한다고 적혀 있었으나 실제로는 안 했다. "
+               "받아온 걸 남기는 축이 조용히 비면 소급 분석이 통째로 불가능해진다",
+        "pattern": "데이터 자산",
+        "violate": {"docs/reports/report_v99_2026-08-25.md": "# v99"},
+        "clean": _ARCHIVE_OK,
+        "args": (),
+    },
+
+    {
+        "name": "check_history_cache",
+        "desc": "일봉 캐시가 정지되면 잡는가",
+        "why": "8/12 실사고 — 67/70종목이 최대 8일 정지였고 그 캐시로 계산한 상한가가 4,000원 틀려 "
+               "LG전자 오더 경고가 어긋났다. vol_gauge·하드플로어·가격밴드가 전부 이 캐시를 읽으므로 "
+               "낡으면 룰 판정이 낡은 값으로 나온다",
+        "pattern": "history 캐시 정지",
+        "violate": {
+            ".claude/skills/portfolio-desk/portfolio.json":
+                json.dumps({"holdings": {"kr": [{"ticker": "005930.KS"}]}}, ensure_ascii=False),
+            "data/history/005930.KS.csv": _CSV(_DAYS_AGO(30)),
+        },
+        "clean": {
+            ".claude/skills/portfolio-desk/portfolio.json":
+                json.dumps({"holdings": {"kr": [{"ticker": "005930.KS"}]}}, ensure_ascii=False),
+            "data/history/005930.KS.csv": _CSV(_DAYS_AGO(0)),
+        },
+        "args": (),
+    },
+
+    {
+        "name": "check_transcript_persistence",
+        "desc": "자막 기본 저장 경로가 임시 디렉터리로 되돌아가면 잡는가",
+        "why": "8/30 실사고 — hunter_latest.OUTDIR 기본값이 gettempdir이라 세션이 끝나면 자막이 사라졌고 "
+               "gitignore가 겹쳐 두 겹으로 막혔다. 아카이브 648편 중 원문 자막이 0편 남아 "
+               "전수 재분석이 메타데이터로 제한됐다. 편의로 되돌리면 다음 세션부터 조용히 다시 사라진다",
+        "pattern": "자막 저장 경로 회귀",
+        "violate": {".claude/skills/portfolio-desk/scripts/hunter_latest.py":
+                    _LINES('import os, tempfile',
+                           'OUTDIR = os.environ.get("HUNTER_OUTDIR", tempfile.gettempdir())')},
+        "clean": {".claude/skills/portfolio-desk/scripts/hunter_latest.py":
+                  _LINES('import os',
+                         'OUTDIR = os.environ.get("HUNTER_OUTDIR", _REPO_TRANSCRIPTS)')},
+        "args": (),
+    },
+
+    {
+        "name": "check_pending_decisions",
+        "desc": "정훈 결정 대기가 14일 넘게 방치되면 잡는가",
+        "why": "d21(GOOGL 재배치 지정가 상향)이 7/7부터 26일째 미결이었다. "
+               "대기 항목은 아무도 재촉하지 않으면 영원히 대기한다 — 결정 큐에 SLA를 건다",
+        "pattern": "결정 대기",
+        "violate": {"data/app/decisions.jsonl": _LINES(json.dumps(
+            {"id": "d99", "date": "2026-08-01", "topic": "테스트 안건", "status": "결정 대기"},
+            ensure_ascii=False))},
+        "clean": {"data/app/decisions.jsonl": _LINES(json.dumps(
+            {"id": "d99", "date": "2026-08-29", "topic": "테스트 안건", "status": "결정 대기"},
+            ensure_ascii=False))},
+        "args": (datetime.date(2026, 8, 30),),
+    },
+
+    {
+        "name": "check_prose_order_link",
+        "desc": "보고서 산문이 트림을 3회 이상 논하는데 orders에 없으면 잡는가",
+        "why": "8/2 실측 — 7주 손실의 68.7%가 별점2 두 종목에서 났는데 보고서 산문엔 트림이 8~9회 "
+               "등장하고 tasks.json orders엔 0회였다(git log -S). 체결된 7건은 전부 orders 경유. "
+               "오더북에 들어간 것만 집행된다 — 산문에 남은 판단은 증발한다",
+        "pattern": "orders 미등록",
+        "violate": {
+            "data/app/tasks.json": json.dumps({"orders": []}, ensure_ascii=False),
+            "docs/reports/report_v99_2026-08-25.md": _TRIM_REPORT,
+        },
+        "clean": {
+            "data/app/tasks.json": json.dumps(
+                {"orders": [{"ticker": "005930.KS", "action": "트림 지정가"}]}, ensure_ascii=False),
+            "docs/reports/report_v99_2026-08-25.md": _TRIM_REPORT,
+        },
+        "args": ("docs/reports/report_v99_2026-08-25.md",),
     },
 
     {

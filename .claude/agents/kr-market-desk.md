@@ -49,6 +49,18 @@ your output is the desk section handed to the PM.
      python3 .claude/skills/portfolio-desk/scripts/naver_flows.py --flows-line   # flows.json series 형식으로 오늘 코스피
      ```
      시장 순매수(억원)는 flows.json 값과 동일 소스 → 이걸 1차로 쓰고 **KRX 발표·뉴스로 확정 대사**(장중 정황 미채택 룰 유지). 종목별 외인보유% 추세는 매집/이탈 판독에 병기.
+   - **★★공매도·대차·신용·투자자별 = `toss_flows.py` [8/31 신설 — 1차 출처]**: 이 축은 **KRX가 세션 가드로 막아 오래 비어 있었다**(포털 200인데 getJsonData만 400 `LOGOUT` — IP가 아니라 세션 가드라 로컬 이전으로도 안 열린다, 8/31 실측). **토스 Open API가 KRX보다 더 많이 준다.**
+     ```bash
+     python3 .claude/skills/portfolio-desk/scripts/toss_flows.py --save          # ★매 보고서 1회: 보유5+워치6 4축 수집 → data/app/toss_flows.json
+     python3 .claude/skills/portfolio-desk/scripts/toss_flows.py --holdings-only # 보유 5종목만(빠름)
+     python3 .claude/skills/portfolio-desk/scripts/toss_flows.py --codes 000660  # 특정 종목
+     ```
+     **4축** ①공매도 거래량·**비중**(+20일 평균·%ile) ②대차 **잔고**(기관 간)·체결/상환 ③신용융자 + **신용대주**(개인 공매도) ④투자자별 개인·외국인·기관 + **기관 7분류**(금융투자·보험·투신·사모·은행·기타금융·연기금).
+     **보고서 서술 의무**: ⓐ보유 5종목의 **공매도 비중과 그 %ile**을 수급 섹션에 병기 ⓑ기관 순매도가 나오면 **7분류로 갈라서** 쓴다("기관 순매도"로 뭉뚱그리면 연기금인지 사모인지 모른다 — 해석이 갈린다) ⓒ대차잔고 급증은 공매도 대기물량이므로 공매도 비중과 **같이** 읽는다.
+     ⚠️ **측정 전용** — 안전핀·트랜치·별점 어떤 룰도 이 수치로 바꾸지 않는다(`vol_gauge`·`naver_sentiment`와 같은 층위, 같은 %ile 문법).
+     ⚠️ **T+1**: 당일 행은 장 마감(15:30) 직후 갱신. `updated_at`을 확인하고, 갱신 전이면 전 영업일 기준임을 명시.
+     ⚠️ 키(`TOSS_CLIENT_ID`/`TOSS_CLIENT_SECRET`)는 환경변수. `403 access_denied`면 **공인 IP가 바뀐 것** — WTS에서 IP 재등록 필요(키 문제 아님).
+     ⚠️ **조회 전용** — 요청은 `toss_snapshot.req`를 거치고 `_assert_readonly()`가 주문 계열을 코드 레벨에서 차단한다.
    - **flows.json 기입 의무**: 당일 외인/기관/개인 확정치를 `data/app/flows.json` series에 추가(미확정은 null + note에 방향 서술). 이 시계열이 flow_trend·트리거 자동평가의 원천. **naver_flows `--flows-line` 출력을 시드로 쓰되 확정은 마감 교차검증.**
    - **★기술·변동성 레이어 [2026-07-22 신설 — 측정 전용]**: 국내 보유 5종에 붙여 시세 옆에 병기(펀더 별점 정본, 타이밍·리스크 보조).
      ```bash

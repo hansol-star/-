@@ -58,6 +58,20 @@ def run(cmd, timeout=20):
         return -1, str(e)
 
 
+def _find_bash():
+    """PATH에 없어도 Git for Windows 기본 설치 경로를 본다 (8/31 신설).
+    훅은 Claude Code가 자체 셸로 부르므로 PATH 부재 = 훅 사망이 아니다."""
+    import glob as _g
+    cands = []
+    for base in ("C:/Program Files/Git", "C:/Program Files (x86)/Git"):
+        cands += [base + "/bin/bash.exe", base + "/usr/bin/bash.exe"]
+    cands += _g.glob("C:/Users/*/AppData/Local/Programs/Git/bin/bash.exe")
+    for c in cands:
+        if os.path.exists(c):
+            return c
+    return None
+
+
 def mask(v: str) -> str:
     return (v[:4] + "…") if len(v) > 4 else "설정됨"
 
@@ -74,17 +88,28 @@ def checks():
         f"{v.major}.{v.minor}.{v.micro} @ {sys.executable}",
         "3.11+ 필요 (docs/local_migration.md §2a)")
 
-    # 2. ★ python3 런처 — 지시층 561곳의 전제
+    # 2. * python3 런처 — 지시층 561곳의 전제
+    # !! which()로 "있다"만 보면 안 된다 — 윈도우 MS Store 별칭(WindowsApps)은
+    #    PATH에 잡히지만 실행하면 exit 9009로 죽는다(8/31 실측).
+    #    "메타 성공 != 생존"(8/22) — 실제로 돌려서 버전이 나오는지로 판정한다.
     p3 = shutil.which("python3")
-    if p3:
-        add("`python3` 런처", OK, p3,
-            "agents·skills·settings.json이 전부 `python3 ...`로 부른다")
-    else:
+    if not p3:
         add("`python3` 런처", FAIL, "PATH에 없음",
-            "인터프리터는 있어도 지시층 561곳의 호출이 전부 실패한다 → §2a 심(shim) 설치")
+            "인터프리터는 있어도 지시층 561곳의 호출이 전부 실패한다 -> §2a 심(shim) 설치")
+    else:
+        rc, o = run([p3, "-c", "import sys;print('PY%d.%d' % sys.version_info[:2])"], timeout=25)
+        if rc == 0 and "PY" in o:
+            add("`python3` 런처", OK, "%s -> %s" % (p3, o.strip().splitlines()[-1]),
+                "agents·skills·settings.json이 전부 `python3 ...`로 부른다")
+        else:
+            stub = "WindowsApps" in (p3 or "")
+            add("`python3` 런처", FAIL,
+                "%s — 실행 실패(rc=%s)%s" % (p3, rc, " · MS Store 별칭 스텁" if stub else ""),
+                "PATH엔 잡히나 실행이 죽는다 -> 지시층 561곳 전부 실패. "
+                "실제 python.exe를 가리키는 심(shim)으로 교체 (§2a)")
 
     # 3. bash + 훅
-    bash = shutil.which("bash")
+    bash = shutil.which("bash") or _find_bash()
     add("bash", OK if bash else FAIL, bash or "PATH에 없음",
         "훅 2개가 bash 스크립트 — 없으면 날짜 앵커링 가드(7/6)가 죽는다")
     for h in ("session-start.sh", "validate-on-stop.sh"):
@@ -158,10 +183,23 @@ def checks():
         f"{'얕은 클론' if shallow else '전체'} · {n} 커밋",
         "얕으면 score_calls --backfill 표본이 조용히 빈다 → git fetch --unshallow (대기목록 1)")
 
-    # 11. 콘솔 인코딩 (윈도우 cp949 사고)
-    enc = (sys.stdout.encoding or "").lower()
-    add("콘솔 인코딩", OK if "utf" in enc else WARN, enc or "미상",
-        "cp949면 한글이 깨진다 → PYTHONUTF8=1 또는 chcp 65001")
+    # 11. ★ UTF-8 모드 (윈도우 cp949 사고)
+    # !! sys.stdout.encoding을 보면 안 된다 — main()에서 reconfigure 하므로 항상 utf-8이
+    #    나와 영구 false PASS가 된다(8/31, 이 가드 자신이 그렇게 깨졌다).
+    #    실제로 죽는 건 **자식 프로세스의 텍스트 파이프**다: selfcheck가 92개 스크립트를
+    #    subprocess(text=True)로 읽는데 기본 코덱이 cp949면 한글 출력에서 통째로 터진다.
+    import locale as _loc
+    pref = (_loc.getpreferredencoding(False) or "").lower()
+    utf8_mode = bool(getattr(sys.flags, "utf8_mode", 0))
+    if utf8_mode or "utf" in pref:
+        add("UTF-8 모드", OK,
+            "utf8_mode=%s · 기본코덱=%s" % (int(utf8_mode), pref or "미상"),
+            "자식 프로세스 파이프가 한글을 견딘다")
+    else:
+        add("UTF-8 모드", FAIL,
+            "utf8_mode=0 · 기본코덱=%s" % (pref or "미상"),
+            "selfcheck(커밋 게이트)가 92개 스크립트 한글 출력에서 죽는다 "
+            "→ 환경변수 PYTHONUTF8=1 영구 설정 (8/31 실측)")
 
     # 12. 쓰기 권한
     probe = os.path.join(REPO, "data", "app", ".doctor_probe")
@@ -187,6 +225,14 @@ def checks():
 
 
 def main():
+    # 파이프로 넘길 때 윈도우 기본 코덱(cp949)이 '—' 같은 문자에서 죽는다 (8/31 실측).
+    # 도구가 파이프 뒤에서 죽으면 루틴·훅에서 조용히 사라진다.
+    for _st in (sys.stdout, sys.stderr):
+        try:
+            _st.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:  # noqa: BLE001
+            pass
+
     ap = argparse.ArgumentParser(description="로컬 이전 프리플라이트 점검 (네트워크 미사용)")
     ap.add_argument("--json", action="store_true", help="기계 판독용 JSON 출력")
     a = ap.parse_args()

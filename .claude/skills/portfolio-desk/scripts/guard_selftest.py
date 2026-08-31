@@ -55,6 +55,7 @@ SUBPROCESS_TESTS = [
     ("lookahead_guard.py", ["--negative"], "룩어헤드 접두사 불변성 — 심어둔 미래참조 3종 적발"),
     ("split_guard.py", ["--selftest"], "분할 스케일 혼재 — 10배 왜곡 적발 + 오프라인 경로"),
     ("wiring_audit.py", ["--selftest"], "기능 단위 배선 — 걷어낸 기능 적발 + 동명 플래그 오인 방지"),
+    ("toss_snapshot.py", ["--selftest"], "토스 주문 차단 — 매매 가능 자격증명의 조회 전용 불변식(우회 4종 포함)"),
 ]
 
 

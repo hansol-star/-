@@ -45,12 +45,18 @@ import argparse
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import tempfile
 import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+try:
+    from ytdlp_bin import ytdlp_cmd
+except Exception:  # pragma: no cover
+    def ytdlp_cmd(): return None
 OUTDIR = os.environ.get("YTFRAME_OUTDIR", os.path.join(tempfile.gettempdir(), "yt_frames"))
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120 Safari/537.36"
 _VID_RE = re.compile(r"(?:v=|/shorts/|/live/|youtu\.be/|/embed/)([A-Za-z0-9_-]{11})")
@@ -136,6 +142,120 @@ def fetch_thumbs(vid: str, outdir: str) -> list[str]:
     return got
 
 
+
+# ── 고해상도 프레임 (yt-dlp 스트림 + ffmpeg) ────────────────────────────────
+#
+# ★[9/1] 8/22에 "로컬 이전 후 yt-dlp가 살아나면 가능하다"고 적어둔 그 경로다.
+# 8/31 로컬(주거 IP)에서 스트림 47개가 열렸고 ffmpeg도 깔려 실제로 배선했다.
+# 스토리보드(160×90)가 못 읽던 **차트 축 눈금·표 세부 숫자**가 이 경로의 존재 이유다.
+#
+# ⚠️ 토큰 규율이 스토리보드보다 **더** 엄하다. 1280px 프레임 1장 ≈ 1,500~2,500토큰이라
+#    4장이면 시트 5장(전체 스토리보드)과 맞먹는다. 그래서:
+#      · 기본 프레임 수 4장 · 하드캡 12장
+#      · **`--at`(단일 시점) 이 이 도구의 정석 사용법**이다 — 자막에서 "이 수치"가 나온
+#        시점을 집어 1장만 받는다. 훑어보기는 여전히 스토리보드가 싸다.
+# ⚠️ 판독 보조 전용 — 어떤 룰도 바꾸지 않는다(vol_gauge·web_shot과 같은 층위).
+
+def _mmss(sec: float) -> str:
+    return f"{int(sec)//60}:{int(sec)%60:02d}"
+
+
+def _duration(path: str) -> float:
+    """ffprobe로 길이. 실패하면 0(호출부가 균등분할을 포기하고 앞부분만 뽑는다)."""
+    try:
+        r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                            "-of", "csv=p=0", path], capture_output=True, text=True, timeout=60)
+        return float((r.stdout or "0").strip() or 0)
+    except Exception:
+        return 0.0
+
+
+def _download_stream(vid: str, tmp: str, res: int) -> str | None:
+    """영상만(무음) 받는다 — 오디오는 프레임 추출에 불필요하고 용량만 늘린다.
+
+    ⚠️ 해상도는 `-f bestvideo[height<=N]`이 아니라 **`-S res:N`**으로 고른다.
+    실측(9/1): 경제사냥꾼 업로드는 **세로 1080×1920**이라 `height<=720`이 세로 1920을 걸러내
+    360×640짜리를 집어왔다. yt-dlp의 `res`는 **짧은 변** 기준이라 가로·세로 어느 쪽이든
+    의도대로 720급을 고른다(같은 영상에서 720×1280 13MB 취득 확인).
+    """
+    cmd = ytdlp_cmd()
+    if not cmd:
+        print("[FAIL] yt-dlp 없음 — pip install -U yt-dlp "
+              "(웹 환경에선 봇차단이라 스토리보드 경로를 쓸 것)", file=sys.stderr)
+        return None
+    r = subprocess.run(
+        cmd + ["-q", "--no-warnings", "-f", "bestvideo/best", "-S", f"res:{res}",
+               "-o", os.path.join(tmp, "v.%(ext)s"),
+               f"https://www.youtube.com/watch?v={vid}"],
+        capture_output=True, text=True, timeout=900)
+    files = [f for f in os.listdir(tmp) if f.startswith("v.")]
+    if not files:
+        err = ((r.stderr or "").strip().splitlines() or ["무응답"])[-1][:160]
+        print(f"[FAIL] 스트림 내려받기 실패: {err}", file=sys.stderr)
+        return None
+    return os.path.join(tmp, files[0])
+
+
+def _grab(src, sec, out, vf):
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", str(sec), "-i", src,
+                    "-frames:v", "1", "-vf", vf, "-q:v", "2", out],
+                   capture_output=True, text=True, timeout=300)
+    return os.path.exists(out)
+
+
+def fetch_hires(vid, outdir, at=None, count=4, res=720, width=1280):
+    """고해상도 프레임. at 지정 = 그 시점 1장 / 미지정 = 영상 전체를 균등분할 count장.
+
+    ⚠️ **장면전환(scene) 추출은 쓰지 않는다 — 실측으로 기각(9/1).** ffmpeg 9의 `scdet`으로
+    이 채널 영상의 컷 점수를 재보니 **0.000~0.127**이었다(threshold 0.01에서도 0장).
+    연속 애니메이션에 자막만 바뀌는 구성이라 **잘라낼 컷 자체가 없다.** 균등분할이 답이다.
+    (구현 전에 재봤기에 '돌지만 아무것도 못 잡는' 기능을 안 만들었다.)
+    """
+    if not shutil.which("ffmpeg"):
+        print("[FAIL] ffmpeg 없음 — winget install Gyan.FFmpeg", file=sys.stderr)
+        return []
+    tmp = tempfile.mkdtemp(prefix="ythires_")
+    try:
+        src = _download_stream(vid, tmp, res)
+        if not src:
+            return []
+        # 긴 변을 기준으로 캡한다. 폭만 캡하면 **세로 영상이 원본 그대로** 나와 토큰을 두 배 먹는다.
+        vf = (f"scale=w='min({width},iw)':h='min({width},ih)'"
+              ":force_original_aspect_ratio=decrease")
+        saved = []
+
+        if at is not None:
+            sec = parse_time(at)
+            out = os.path.join(outdir, f"{vid}_hires_{int(sec)}s.jpg")
+            if _grab(src, sec, out, vf):
+                saved.append(f"{out}  [{_mmss(sec)}]")
+            else:
+                print("[FAIL] 프레임 추출 실패 — 시점이 영상 길이를 넘지 않는지 확인",
+                      file=sys.stderr)
+            return saved
+
+        dur = _duration(src)
+        if dur <= 0:
+            print("[WARN] 길이를 못 읽어 앞부분 10초 간격으로 뽑는다", file=sys.stderr)
+            marks = [i * 10 for i in range(count)]
+        else:
+            # 양 끝(인트로·아웃트로)을 피해 안쪽을 균등분할한다.
+            marks = [dur * (i + 1) / (count + 1) for i in range(count)]
+        for k, sec in enumerate(marks, 1):
+            out = os.path.join(outdir, f"{vid}_f{k:02d}.jpg")
+            if _grab(src, sec, out, vf):
+                saved.append(f"{out}  [{_mmss(sec)}]")
+        if not saved:
+            print("[FAIL] 프레임을 하나도 못 뽑았다", file=sys.stderr)
+        elif dur > 0:
+            print(f"[정보] 길이 {_mmss(dur)} · {count}등분 지점 {len(saved)}장 "
+                  f"(정확한 시점이 필요하면 --at 로 1장만 받는 편이 싸다)", file=sys.stderr)
+        return saved
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)   # 영상 원본은 남기지 않는다(용량)
+
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(
         description="유튜브 화면 확보 (스토리보드·썸네일 — 판독 보조 전용, 룰 변경 없음)")
@@ -146,6 +266,14 @@ def main() -> int:
                     help="받을 시트 수 (기본 1 = 앞부분만) 또는 'all'")
     ap.add_argument("--at", help="이 시점(예 5:30)이 든 시트만 받고 타일 위치를 알려준다")
     ap.add_argument("--thumbs", action="store_true", help="썸네일(표지+25/50/75%%)만 받는다")
+    ap.add_argument("--hires", action="store_true",
+                    help="★고해상도 프레임(yt-dlp 스트림+ffmpeg). --at 과 함께면 그 시점 1장, "
+                         "아니면 영상 전체 균등분할 --count 장. 스토리보드가 못 읽는 차트 축·표 숫자용")
+    ap.add_argument("--count", type=int, default=4,
+                    help="(--hires) 균등분할 프레임 수 · 기본 4 · 하드캡 12 (1장 ≈1,500~2,500토큰)")
+    ap.add_argument("--res", type=int, default=720,
+                    help="(--hires) 내려받을 해상도 · **짧은 변** 기준 · 기본 720 "
+                         "(세로 영상도 의도대로 잡힌다)")
     ap.add_argument("--outdir", default=OUTDIR)
     a = ap.parse_args()
 
@@ -154,6 +282,20 @@ def main() -> int:
         print("[FAIL] 영상 ID를 못 읽었다", file=sys.stderr)
         return 1
     os.makedirs(a.outdir, exist_ok=True)
+
+    if a.hires:
+        n = max(1, min(a.count, 12))
+        if n != a.count:
+            print(f"[안내] --count {a.count} → {n}로 제한(토큰 규율·하드캡 12)", file=sys.stderr)
+        got = fetch_hires(vid, a.outdir, at=a.at, count=n, res=a.res)
+        if not got:
+            print("  → 스토리보드 경로로 갈음: python3 yt_frames.py <ID> --sheets 1",
+                  file=sys.stderr)
+            return 1
+        print(chr(10).join(got))
+        print(f"→ 위 경로를 Read로 판독. 고해상도라 차트 축·표 숫자까지 읽힌다. "
+              f"⚠️수치는 자막·API 정본과 교차할 것(화면도 2차 출처다).", file=sys.stderr)
+        return 0
 
     if a.thumbs:
         got = fetch_thumbs(vid, a.outdir)

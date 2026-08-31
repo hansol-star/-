@@ -12,6 +12,8 @@
 로컬 이전의 값어치는 **데이터센터 IP 때문에 닫혀 있던 경로가 열리는 것**이고, 그게 전부다.
 ⇒ **"로컬 가면 좋아진다"를 막연히 쓰지 말 것.** 아래 §1이 열리는 것과 안 열리는 것의 확정 목록이다.
 
+**첫 세션에 딱 하나만 돌린다면 `local_doctor.py`** — 이 기계가 레포를 돌릴 조건을 갖췄는지 네트워크 없이 23항목 점검한다(§2d 0단계).
+
 ---
 
 ## §1 무엇이 열리고, 무엇은 그대로인가 (2026-08-29 실측 기준)
@@ -51,6 +53,32 @@
 | **openpyxl** | `export_financials_xlsx.py` | 엑셀 내보내기 불가 |
 | **pdfminer.six · pypdf** | `read_doc.py` | PDF 리포트 판독 불가 |
 
+### 2a-2. ★ `python3` 런처 — 이 이전의 가장 큰 지뢰 (8/31 발견)
+
+**윈도우 네이티브엔 `python3`가 없다.** 공식 인스톨러는 `python.exe`·`py.exe`만 깐다.
+그런데 우리 **지시층은 전부 `python3 ...`로 스크립트를 부른다** — 실측 **561곳**
+(skills 460 · agents 49 · docs 49 · hooks 3) + `settings.json` 권한 허용 25줄.
+⇒ 파이썬을 제대로 깔아도 **에이전트의 호출이 통째로 실패**하고, `settings.json`의
+`Bash(python3 ...)` 허용이 하나도 안 걸려 **매 호출이 권한 프롬프트**가 된다.
+
+§6이 잡은 이식 결함 3건은 **코드층**이었다. 이건 **지시층**이라 grep 대상이 달랐고 그래서 새 나갔다.
+
+**해법 = 561곳을 고치지 말고 심(shim) 하나를 깐다.** (맥·WSL로 가면 심은 그냥 무시된다)
+
+Git Bash에서 1회:
+```bash
+mkdir -p ~/bin
+printf '#!/bin/sh\nexec py -3 "$@"\n' > ~/bin/python3
+chmod +x ~/bin/python3
+grep -q 'HOME/bin' ~/.bashrc || echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+```
+확인: 새 Git Bash 창에서 `python3 -V` → `Python 3.11+`
+
+⚠️ **Claude Code는 비대화형 셸로 Bash 도구를 돌린다** — `~/.bashrc`가 안 읽힐 수 있다.
+그때는 PATH를 **시스템 환경변수**(`%USERPROFILE%\bin`)에 넣고, 거기에
+확장자 없는 `python3` **와** `python3.cmd`(`@py -3 %*`)를 **둘 다** 둔다.
+`local_doctor.py`의 「`python3` 런처」 항목이 FAIL이면 아직 안 걸린 것이다.
+
 ### 2b. 환경변수 (조회 전용 키 — 값은 여기 적지 않는다)
 `YOUTUBE_API_KEY` · `DART_API_KEY` · `FMP_API_KEY` · `NAVER_NCP_KEY_ID` · `NAVER_NCP_KEY`
 
@@ -67,6 +95,7 @@ git rev-parse --is-shallow-repository               # → false 여야 대기목
 
 ### 2d. 첫 세션 검증 순서 (이 순서대로 — 하나라도 FAIL이면 거기서 멈춘다)
 ```
+python3 .../scripts/local_doctor.py                  # ★0단계 프리플라이트 — FAIL 0 아니면 여기서 멈춤
 TZ=Asia/Seoul date                                   # SessionStart 훅 앵커와 일치 확인
 python3 .../scripts/api_health.py                    # 12개 소스 실호출 — 웹 대비 어디가 바뀌었나
 python3 .../scripts/short_borrow.py --status         # ★ KRX가 실제로 열렸는지 = 이전의 첫 성과 판정
@@ -137,6 +166,8 @@ python3 .../scripts/selfcheck.py                     # GATE PASS 필요 (compile
 | `hunter_latest.py:373` | `subprocess.run(["python3", ...])` 하드코딩 → `sys.executable` | **윈도우엔 `python3`가 없다.** 게다가 이 호출은 `except Exception: pass`에 싸여 있어 **조용히 실패**한다 — yt-dlp가 로컬에서 살아나는 바로 그 경로라, 안 고쳤으면 "로컬인데 왜 자막이 안 붙지"를 원인 모른 채 겪었을 것이다(8/22 *"가드 없는 폴백은 침묵보다 나쁘다"*의 재발 형태). |
 | `ma_test.py:99` | 죽은 세션 스크래치패드 절대경로에 write | 어디서 재실행해도 크래시. `tempfile.gettempdir()`로 교체. |
 | `ma_test.py:10` | `sys.path.insert(0, "/home/user/-/...")` | 레포 위치가 바뀌는 순간 import 실패. `__file__` 기준으로 교체. |
+
+| **지시층 전체** (skills·agents·docs·settings.json) | `python3` 하드코딩 **561곳** | 코드가 아니라 **에이전트가 읽는 문서·권한 목록**이라 §6의 grep(코드 대상)에 안 걸렸다. 파이썬이 멀쩡해도 호출이 전부 실패한다 — 8/31 발견, 해법은 §2a-2 심. |
 
 **교훈**: 이식성은 "stdlib만 썼다"로 보장되지 않는다. **깨지는 건 인터프리터 이름·절대경로·셸 의존** 세 가지였고, 셋 다 grep 세 번으로 나왔다. 로컬에서 새 결함이 나오면 이 표에 append한다.
 

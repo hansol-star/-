@@ -44,6 +44,9 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
+    "local_doctor.py":            "이전 프리플라이트 — 새 기계 첫 세션에 사람이 1회 돌리는 수동 유틸(8/31). "
+                                  "네트워크를 안 쓰고 어떤 산출물도 안 만들어서 데스크가 읽을 것이 없다. "
+                                  "정본 = docs/local_migration.md §2d 0단계",
     "frr_validate.py":            "일회성 검정 — 외국인 지분율 프록시 품질(7/22)",
     "guard_selftest.py":          "메타 가드 — selfcheck가 6단계로 직접 호출(8/24). "
                                   "가드를 검증하는 도구라 데스크가 읽을 산출물이 아니다",

@@ -1,0 +1,29 @@
+# 줄바꿈 정책 [2026-08-31 신설 — 윈도우 로컬 이전]
+#
+# 왜 필요한가: Git for Windows의 기본값(core.autocrlf=true)은 체크아웃 시
+# 텍스트 파일을 CRLF로 바꾼다. 그러면 .claude/hooks/*.sh 두 개가
+# `$'\r': command not found`로 죽는다 = 7/6 날짜 앵커링 가드와
+# Stop 훅 validate가 조용히 사라진다.
+# .gitattributes가 없으면 이 정책이 "클론한 사람의 설정"에 맡겨진다.
+# ⇒ 레포가 직접 못박는다. 개인 설정보다 이 파일이 우선한다.
+
+* text=auto eol=lf
+
+*.sh   text eol=lf
+*.py   text eol=lf
+*.cjs  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.html text eol=lf
+*.css  text eol=lf
+*.csv  text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.pdf  binary
+*.xlsx binary
+*.ico  binary

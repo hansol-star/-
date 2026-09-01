@@ -1581,6 +1581,8 @@ def check_routine_health(today=None):
       ① 상태 파일 자체가 없다        = 루틴이 한 번도 안 돌았다(등록·로그인 누락)
       ② verdict != OK                = 마지막 실행이 실패했다(토큰·권한·미로그인)
       ③ 마지막 실행이 오래됐다        = 스케줄러가 조용히 멈췄다(절전·작업 삭제·머신 종료)
+      ④ verdict=UNCOMMITTED          = **일은 했는데 커밋을 못 했다**(9/1 R1 실측 — 가장 조용한 실패)
+      ⑤ late_min >= 45               = 절전이 예약을 먹었다(9/1 R1 10:00 예약 → 12:00 실행)
     ⚠️ WARN이다 — 보고서 자체의 결함이 아니라 **운영 상태**이므로 커밋을 막지 않는다.
     """
     import datetime as _dt
@@ -1597,9 +1599,22 @@ def check_routine_health(today=None):
     verdict = st.get("verdict")
     kind = st.get("kind", "?")
     when = (st.get("kst") or "")[:16]
-    if verdict != "OK":
+    if verdict == "UNCOMMITTED":
+        # ★[9/1] 가장 조용한 실패 — 루틴이 **일은 다 하고 커밋만 못 한 상태**.
+        # 프로세스는 0으로 끝나고 로그도 정상이라 exit code로는 절대 안 보인다.
+        n = st.get("uncommitted") or "?"
+        warn(f"무인 루틴이 커밋을 못 했다 — {kind} @ {when} · 미커밋 {n}건. "
+             f"작업물은 워킹트리에 살아 있지만 **다음 세션은 못 본다**(연속성 규약 파손). "
+             f"원인 대부분 = .claude/settings.json permissions.allow에 git add/commit/push 누락")
+    elif verdict != "OK":
         warn(f"무인 루틴 마지막 실행 실패 — {kind} verdict={verdict} @ {when} "
              f"(로그 {st.get('log')}). NOT_LOGGED_IN이면 `claude` 대화형 1회 로그인 필요")
+    # ★[9/1] 지각 — 절전이 예약을 먹은 경우. 성공(OK)이어도 늦었으면 말한다.
+    late = st.get("late_min")
+    if isinstance(late, (int, float)) and 45 <= late <= 600:
+        warn(f"무인 루틴 지각 실행 — {kind}이 예정({st.get('scheduled')})보다 {int(late)}분 늦게 돌았다 "
+             f"@ {when}. 절전 복귀 후 StartWhenAvailable로 기동된 정황(9/1 실측 R1 10:00→12:00) — "
+             f"전원 옵션에서 최대 절전 진입을 막거나 실행 시각을 앞당길 것")
     try:
         last = _dt.datetime.strptime(st.get("kst", "")[:10], "%Y-%m-%d").date()
         base = today or (_dt.datetime.utcnow() + _dt.timedelta(hours=9)).date()

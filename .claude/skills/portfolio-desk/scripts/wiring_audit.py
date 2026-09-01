@@ -110,6 +110,10 @@ CALLER_GLOBS = [
     ".claude/agents/*.md",
     ".claude/skills/*/SKILL.md",
     "docs/routines.md",
+    # ★[9/1] 런처 추가 — 경로 B 이후 **무인 루틴을 실제로 실행하는 주체**가 이 .ps1이다.
+    #   여기서 부르는 스크립트(notify.py 등)를 '아무도 안 부른다'로 판정하면 오탐이고,
+    #   반대로 여길 안 보면 런처에서만 부르던 도구가 배선 감사의 사각에 남는다.
+    ".claude/routines/*.ps1",
     "docs/desk_playbook.md",   # 전 데스크가 Task 0에서 읽는 공통 지침 = 지시층
 ]
 

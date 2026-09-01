@@ -301,14 +301,23 @@ INJECTION_TESTS = [
         "why": "9/1 무인 루틴을 웹 Routines에서 윈도우 작업 스케줄러로 옮겼다(경로 B). "
                "웹은 실패가 대시보드에 남았지만 로컬은 아무 데도 안 남는다 — "
                "local_migration §3이 경로 B의 단점으로 콕 집어 적어둔 '실패가 조용하다'가 이것이다. "
-               "런처가 남기는 last_status.json을 읽는 이 검사가 유일한 감시자다",
+               "런처가 남기는 last_status.json을 읽는 이 검사가 유일한 감시자다. "
+               "★9/1 실측: R1이 영상 6편을 분석해놓고 커밋을 못 했는데 verdict=OK로 찍혔다 — "
+               "런처의 영어 정규식(permission denied 등)이 한국어 산문 설명을 못 잡았다. "
+               "⇒ 판정을 '말'에서 '워킹트리(git status)'로 옮겼고 이 케이스가 그걸 지킨다",
         "pattern": r"무인 루틴",
+        # ★[9/1] 픽스처를 **실제로 일어난 사고**로 교체했다. 舊 픽스처(NOT_LOGGED_IN)는
+        #   verdict!=OK 한 줄이면 잡히는 쉬운 형태였고, 정작 그날 새어나간 건
+        #   "exit 0 · verdict OK · 로그도 정상인데 커밋만 못 한" 조용한 실패였다.
+        #   가드는 잡기 쉬운 걸로 시험하면 안 된다 — 실제로 통과당한 형태로 시험한다.
         "violate": {'data/logs/routines/last_status.json':
-                    '{"kind":"r2","verdict":"NOT_LOGGED_IN","exit_code":1,'
-                    '"kst":"' + _TODAY_KST + ' 16:05:00","minutes":0,"log":"x"}'},
+                    '{"kind":"r1","verdict":"UNCOMMITTED","exit_code":0,'
+                    '"kst":"' + _TODAY_KST + ' 12:08:06","minutes":7,"log":"x",'
+                    '"uncommitted":11,"scheduled":"10:00","late_min":120}'},
         "clean":   {'data/logs/routines/last_status.json':
                     '{"kind":"r2","verdict":"OK","exit_code":0,'
-                    '"kst":"' + _TODAY_KST + ' 16:45:00","minutes":41,"log":"x"}'},
+                    '"kst":"' + _TODAY_KST + ' 16:45:00","minutes":41,"log":"x",'
+                    '"uncommitted":0,"scheduled":"16:00","late_min":0}'},
         "args": (),
     },
 

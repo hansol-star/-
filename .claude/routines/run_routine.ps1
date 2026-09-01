@@ -77,6 +77,20 @@ else { Write-Log "토스 키 없음 — 제거 불요" }
 
 Set-Location $Repo
 
+# ── 지각 감지 — 절전이 루틴을 먹는다 [9/1 신설] ──────────────────────────
+#   9/1 실측: R1은 10:00 예약인데 **12:00에 돌았다**. 이벤트로그상 04:27 절전 → 11:57 복귀 →
+#   StartWhenAvailable로 뒤늦게 기동. WakeToRun=True·wake timer도 켜져 있는데 안 깼다.
+#   물리 한계라 못 막지만 **조용히 넘어가면 안 된다** — 2시간 늦은 R1은 '오늘 오전 영상'을
+#   놓치고, 그 공백은 다음날 R1이 메운다는 전제가 깨진다. 기록해서 보이게 만든다.
+$SchedMap = @{ r1='10:00'; r2='16:00'; r3='09:00'; r4a='20:00'; r4b='21:15' }
+$Scheduled = $SchedMap[$Kind]
+$LateMin = 0
+try {
+  $due = [datetime]::ParseExact("$($kst.ToString('yyyy-MM-dd')) $Scheduled", 'yyyy-MM-dd HH:mm', $null)
+  $LateMin = [int]([math]::Round(($kst - $due).TotalMinutes))
+  if ($LateMin -ge 45) { Write-Log "지각 실행 ${LateMin}분 (예정 $Scheduled) — 절전/전원 확인" }
+} catch { $LateMin = 0 }
+
 # ── 프롬프트 = docs/routines.md 정본에서 직접 ───────────────────────────
 # ⚠️ 파일 경유로 읽는다. 네이티브 stdout을 PowerShell 5.1이 콘솔 코드페이지(cp949)로
 # 디코딩해 **한글 프롬프트가 통째로 깨진 채 모델에 전달**된다(첫 구현에서 실측).
@@ -134,10 +148,30 @@ $hitLimit = $outText -match 'session limit|usage limit|rate limit'
 $permBlock = $outText -match 'permission denied|requires approval|not allowed'
 $notLogged = $outText -match 'Not logged in|/login'
 
+# ★[9/1 신설] 산출물 검사 — 문자열 매칭이 아니라 **워킹트리**로 판정한다.
+#   왜: 9/1 R1이 영상 6편을 분석해놓고 git add/commit/push가 allow에 없어 커밋을 못 했는데
+#   verdict=OK로 기록됐다. 위 $permBlock 정규식이 못 잡은 이유 = 모델이 그 사실을
+#   **한국어 산문**("승인 대기로 실패")으로 설명해서다. 영어 패턴을 더 늘리는 건 같은 실패의 반복이다
+#   ⇒ 말이 아니라 결과를 본다. 루틴의 결과물은 '커밋된 변경'이지 '설명'이 아니다.
+#   (8/23 "초록불은 위반이 없다는 뜻이 아니라 탐지기가 그 형태를 안 본다는 뜻일 수 있다")
+#   ⚠️ data/logs/ 는 .gitignore에 있으므로 루틴 자신의 로그는 여기 안 잡힌다(오탐 없음).
+$dirty = @()
+try {
+  $prevEAP2 = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+  $dirty = @(& git -C $Repo status --porcelain 2>$null | Where-Object { $_ -ne '' })
+  $ErrorActionPreference = $prevEAP2
+} catch { Write-Log "git status 확인 실패(무시): $($_.Exception.Message)" }
+$uncommitted = $dirty.Count
+if ($uncommitted -gt 0) {
+  Write-Log "미커밋 $uncommitted건 — 연속성 규약 미이행(다음 세션이 이 작업을 못 본다):"
+  foreach ($d in ($dirty | Select-Object -First 12)) { Write-Log "    $d" }
+}
+
 $verdict = if ($notLogged) { 'NOT_LOGGED_IN' }
            elseif ($hitLimit) { 'TOKEN_LIMIT' }
            elseif ($code -ne 0) { 'FAILED' }
            elseif ($permBlock) { 'PERMISSION_BLOCKED' }
+           elseif ($uncommitted -gt 0) { 'UNCOMMITTED' }
            else { 'OK' }
 
 Write-Log "=== 종료 verdict=$verdict exit=$code 소요=$([int]$sw.Elapsed.TotalMinutes)분 ==="
@@ -148,12 +182,25 @@ $status = [ordered]@{
   minutes = [int]$sw.Elapsed.TotalMinutes
   log = $LogFile
   toss_scrubbed = $scrubbed
+  uncommitted = $uncommitted
+  scheduled = $Scheduled
+  late_min = $LateMin
 }
 # BOM 없는 UTF-8 — Out-File -Encoding utf8은 5.1에서 BOM을 붙여 python json.load가 깨진다.
 [IO.File]::WriteAllText($StatusFile, ($status | ConvertTo-Json -Depth 3),
                         (New-Object System.Text.UTF8Encoding($false)))
 
-# ── 알림 — 웹 Routines의 push를 대체한다(폰 푸시는 아니다·§3d 참조) ──────
+# ── 알림 ①폰(텔레그램) — 웹 Routines push의 실제 대체재 [9/1 신설] ──────
+#   토스트는 PC 앞에 있을 때만 보인다. 정훈 폰창(평일 17:30~20:50)이 열리기 전에
+#   R2의 오더북이 폰에 닿아야 국내 시간외단일가(~18:00)를 쓸 수 있다.
+#   ⚠️ 미설정이면 notify.py가 exit 3으로 **미발송을 분명히 말한다** — 성공한 척하지 않는다.
+try {
+  $nOut = & python3 (Join-Path $Scripts 'notify.py') --routine $Kind --verdict $verdict --status $StatusFile 2>&1
+  $nCode = $LASTEXITCODE
+  Write-Log "폰 알림: exit=$nCode $(($nOut | Out-String).Trim() -replace '\s+', ' ')"
+} catch { Write-Log "폰 알림 호출 실패(무시): $($_.Exception.Message)" }
+
+# ── 알림 ②윈도우 토스트 — PC 앞에 있을 때의 즉시 경보 ────────────────────
 if ($verdict -ne 'OK') {
   try {
     Add-Type -AssemblyName System.Windows.Forms

@@ -267,14 +267,40 @@ powershell -ExecutionPolicy Bypass -File .claude/routines/run_routine.ps1 -Kind 
 ### ⚠️ 사람이 해야 하는 3가지 (에이전트가 못 함)
 1. **로그인 + 워크스페이스 신뢰** — 레포에서 `claude`를 대화형으로 1회 실행 → `/login` + 신뢰 대화상자 수락.
    안 하면 모든 루틴이 `NOT_LOGGED_IN`으로 끝난다(실측). 신뢰를 수락해야 `.claude/settings.json`의
-   허용목록 37줄이 적용된다 — 안 그러면 매 실행이 권한에 막힌다.
+   허용목록이 적용된다 — 안 그러면 매 실행이 권한에 막힌다. ✅ 9/1 수락 확인.
+   **1b. ★git 쓰기 권한 — 에이전트가 못 여는 유일한 항목.** `.claude/settings.json`은 **대화형 세션에서도
+   에이전트가 쓸 수 없다**(자기 권한 상향 방지 가드가 Bash·Edit 양쪽을 막는다 — 9/1 실측).
+   `permissions.allow`에 `git add`·`git commit`·`git push origin HEAD:*`·`git merge-base`·`git rebase origin/main`이
+   없으면 **모든 루틴이 일만 하고 커밋을 못 한다**(9/1 R1 실측). 정훈이 직접 넣어야 한다.
+   ⚠️ allow는 **접두사 매칭**이라 뒤에 붙는 `--force`를 못 막는다 ⇒ `.claude/hooks/git-write-guard.sh`가
+   인자 순서와 무관하게 force push·`reset --hard`·`clean -f`·`checkout main`을 차단한다(음성테스트 11/11).
 2. **웹 Routines 5개 끄기** — 안 끄면 웹·로컬이 같은 보고서를 두 번 낸다(푸시 충돌).
 3. **절전 정책** — 10:00·16:00·20:00·21:15에 머신이 깨어 있어야 한다. `WakeToRun`은 절전은 깨우지만 종료는 못 깨운다.
+   ⚠️ **9/1 실측: `WakeToRun=True`·wake timer(AC/DC 둘 다 1)인데도 안 깼다.** R1 10:00 예약 → 04:27 절전 →
+   11:57 복귀 → **12:00 지각 실행**(StartWhenAvailable). 최대 절전(하이버네이트) 진입 시 wake timer 불발로
+   추정하나 **미확정**. 지각은 이제 `late_min`으로 기록·WARN되지만 **감지일 뿐 해결이 아니다.**
 
-### 알림 — 폰 푸시는 대체되지 않는다 (인정된 후퇴)
-웹 R2/R4의 **push ON**(17:30 폰창 확인용)에 해당하는 로컬 대체재가 없다. 현재는
-①실패 시 윈도우 풍선 알림 ②`last_status.json` ③루틴이 커밋·푸시한 결과를 앱/깃에서 확인 — 셋뿐이다.
-**보고서가 났는지 폰으로 즉시 아는 경로는 지금 없다.** 필요하면 별건으로 만들어야 한다.
+### 알림 — ★[9/1 해소] 폰 푸시 = `notify.py`(텔레그램)
+舊 서술("대체되지 않는다·인정된 후퇴")은 9/1에 해소됐다. 웹 R2/R4의 **push ON**을 대체하는 이유는
+편의가 아니다 — 정훈 폰창(평일 17:30~20:50)은 **국내 시간외단일가(~18:00)와 겹치는 유일한 실시간 거래창**인데,
+16:00 R2가 오더북을 내도 앱을 직접 열어야만 알 수 있었다. 윈도우 토스트는 **PC 앞에 있을 때만** 보인다.
+
+- **경로**: `notify.py` — 텔레그램 봇 API(무료·stdlib urllib·서버 불요). 런처가 매 루틴 종료 시 호출한다.
+- **내용**: 판정 아이콘 + 소요시간 + (지각/미커밋 있으면 그 사실) + **OK일 때 대기 오더 요약**
+  (최근 14일 · 미체결분만 — 상태만으로 거르면 6~7월 잔재까지 23건이 딸려와 노이즈가 된다).
+- **키**: `TELEGRAM_BOT_TOKEN` · `TELEGRAM_CHAT_ID`. ⚠️ **알림 전송 전용이라 계좌 권한이 없다** —
+  토스 키와 달리 무인 세션에 노출해도 매매 위험이 없으므로 런처의 §토스 스크럽 대상이 아니다.
+- ⚠️ **미설정이면 exit 3으로 미발송을 분명히 말한다**(런처 로그에 남는다).
+  성공한 척하는 폴백을 만들지 않는다 — 8/22 *"가드 없는 폴백은 침묵보다 나쁘다"*.
+- 확인: `python3 .claude/skills/portfolio-desk/scripts/notify.py --check` ·
+  본문 미리보기 `--orders --dry-run`
+
+### 판정 — 런처는 '말'이 아니라 '워킹트리'를 본다 [9/1 신설]
+`run_routine.ps1`이 매 실행 끝에 `git status --porcelain`을 보고, 비어 있지 않으면 **`verdict=UNCOMMITTED`**로 찍는다.
+9/1 R1이 영상 6편을 분석해놓고 커밋을 못 했는데 **`verdict=OK`로 기록된** 사고 때문이다 —
+런처의 영어 정규식(`permission denied` 등)이 모델의 **한국어 산문** 설명을 못 잡았다.
+같이 기록되는 필드: `uncommitted`(건수) · `scheduled`(예정시각) · `late_min`(지각 분).
+`validate_report.check_routine_health()`가 이 셋을 읽어 WARN으로 올린다.
 
 ## 백업 자동화 (`.github/workflows/`) — 루틴과 별개, 유지
 - `daily-report.yml` — 수동(workflow_dispatch)만. Routines 백업용.

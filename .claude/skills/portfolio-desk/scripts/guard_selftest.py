@@ -584,8 +584,25 @@ def selftest() -> int:
     print("=" * 78)
     ok = True
 
-    target = INJECTION_TESTS[0]["name"]          # check_repealed_rules
+    target_t = INJECTION_TESTS[0]
+    target = target_t["name"]
     orig = getattr(V, target)
+
+    # ★[9/1 수정] 주입 메시지를 **하드코딩하지 않는다.**
+    #   舊 코드는 `V.fail("7,500 안전핀 위반 (무조건)")`을 심고 그게 오탐으로 잡히길 기대했다 —
+    #   INJECTION_TESTS[0]이 check_repealed_rules(패턴에 '7,500' 포함)였을 때만 성립하는 가정이다.
+    #   그 뒤 목록 앞에 다른 테스트가 들어가 [0]이 check_canonical_facts로 바뀌자
+    #   주입 메시지가 그 가드의 패턴('수치 정본 불일치')과 안 맞아 false_positive=False가 됐고,
+    #   **테스트 ②가 계속 ❌인 채로 방치됐다**(게이트는 --selftest를 안 부르므로 아무도 못 봤다).
+    #   ⇒ 대상 가드가 실제로 내는 위반 메시지를 뽑아 쓴다. 목록이 바뀌어도 따라간다.
+    _rx = re.compile(target_t["pattern"])
+    _real = [m for m in _run_check(target, target_t["violate"], target_t["args"])
+             if _rx.search(m)]
+    if not _real:
+        print(f"  ❌ 픽스처 결함 — {target}의 violate가 패턴에 맞는 메시지를 안 낸다. "
+              f"이 상태로는 메타 검증이 성립하지 않는다")
+        return 1
+    _always_msg = _real[0]
 
     # ① no-op — 위반을 심어도 아무 말이 없다
     setattr(V, target, lambda *a, **k: None)
@@ -596,7 +613,7 @@ def selftest() -> int:
     ok = ok and caught_noop
 
     # ② 무조건 fail — 정상 데이터에서도 걸린다
-    setattr(V, target, lambda *a, **k: V.fail("7,500 안전핀 위반 (무조건)"))
+    setattr(V, target, lambda *a, **k: V.fail(_always_msg))
     r = [x for x in run_injection_tests() if x["guard"] == target][0]
     caught_always = r["ok"] is False and r["false_positive"]
     print(f"  {'✅' if caught_always else '❌'} 무조건 잡는 가드(오탐)를 적발"
@@ -628,6 +645,8 @@ def main() -> int:
     ap.add_argument("--selftest", action="store_true",
                     help="이 메타 가드 자신을 검증(무력한 가드를 잡는지)")
     ap.add_argument("--json", action="store_true", help="기계 출력")
+    ap.add_argument("-q", "--quiet", action="store_true",
+                    help="통과한 가드는 숨기고 실패·미실행·커버리지만 (규약: docs/dev_workflow.md §1c)")
     a = ap.parse_args()
 
     if a.selftest:
@@ -657,24 +676,40 @@ def main() -> int:
 
     print("가드 자가검증 — 위반을 심고 **실제로 잡는지** 본다")
     print("=" * 78)
-    print("\n■ 자체 음성 테스트를 가진 가드")
-    for r in subs:
-        icon = "·" if r["ok"] is None else ("✅" if r["ok"] else "❌")
-        print(f"  {icon} {r['guard']}")
-        print(f"       {r['desc']}")
-        if r["msg"]:
-            print(f"       └ {r['msg']}")
-    print("\n■ 주입 테스트 (임시 ROOT에 위반을 심는다)")
-    for r in injs:
-        icon = "·" if r["ok"] is None else ("✅" if r["ok"] else "❌")
-        print(f"  {icon} {r['guard']} — {r['desc']}")
-        if r.get("why"):
-            print(f"       근거: {r['why']}")
-        if r.get("ok") is not None:
-            print(f"       위반 적발 {'O' if r['caught'] else 'X'} · 정상 오탐 "
-                  f"{'있음' if r['false_positive'] else '없음'}")
-        if r["msg"]:
-            print(f"       └ {r['msg']}")
+    # `--quiet` 규약 [9/1]: 통과한 가드만 숨긴다.
+    #   ⚠️ ok is None = **실행되지 않은 가드**다. quiet에서도 반드시 보인다 —
+    #      안 돈 가드를 통과한 가드처럼 보이게 하는 순간 이 도구의 존재 이유가 무너진다.
+    _n_skip = sum(1 for r in rows if r["ok"] is None)
+    if a.quiet:
+        print(f"  가드 {len(rows)}개 — 실패 {len(fails)} · 미실행 {_n_skip} · "
+              f"통과 {len(rows) - len(fails) - _n_skip}(숨김)")
+        for r in rows:
+            if r["ok"] is True:
+                continue
+            icon = "·" if r["ok"] is None else "❌"
+            print(f"  {icon} {r['guard']} — {r['desc']}"
+                  + ("  ← 실행 안 됨" if r["ok"] is None else ""))
+            if r["msg"]:
+                print(f"       └ {r['msg']}")
+    else:
+        print("\n■ 자체 음성 테스트를 가진 가드")
+        for r in subs:
+            icon = "·" if r["ok"] is None else ("✅" if r["ok"] else "❌")
+            print(f"  {icon} {r['guard']}")
+            print(f"       {r['desc']}")
+            if r["msg"]:
+                print(f"       └ {r['msg']}")
+        print("\n■ 주입 테스트 (임시 ROOT에 위반을 심는다)")
+        for r in injs:
+            icon = "·" if r["ok"] is None else ("✅" if r["ok"] else "❌")
+            print(f"  {icon} {r['guard']} — {r['desc']}")
+            if r.get("why"):
+                print(f"       근거: {r['why']}")
+            if r.get("ok") is not None:
+                print(f"       위반 적발 {'O' if r['caught'] else 'X'} · 정상 오탐 "
+                      f"{'있음' if r['false_positive'] else '없음'}")
+            if r["msg"]:
+                print(f"       └ {r['msg']}")
 
     print("\n" + "-" * 78)
     print(f"  커버리지: validate_report check {len(cov['checks'])}개 중 "

@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-28",
+ "updated": "2026-09-01",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -1495,6 +1495,19 @@
    "broker": "iM증권",
    "name": "현대차",
    "held": true
+  },
+  "652050": {
+   "date": "2026-09-01",
+   "report_idx": "652050",
+   "title": "SK이노베이션",
+   "full_title": "SK이노베이션(096770) SK-On, NeoVolta ESS 수주 코멘트 SK이노베이션(096770) SK-On, NeoVolta ESS 수주 코멘트 SK-On, NeoVolta ESS 수주 코멘트",
+   "code": "096770",
+   "target_price": 190000.0,
+   "rating": "Buy",
+   "analyst": "전유진",
+   "broker": "iM증권",
+   "name": "SK이노베이션",
+   "held": false
   }
  }
 }

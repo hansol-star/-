@@ -275,6 +275,8 @@ def main() -> int:
     ap.add_argument("--strict", action="store_true",
                     help="예상 밖 UNWIRED가 있으면 exit 1 (selfcheck 게이트용)")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("-q", "--quiet", action="store_true",
+                    help="의도적 미배선 목록(이유 전문)을 접고 문제·합계만 (규약: docs/dev_workflow.md §1c)")
     a = ap.parse_args()
 
     if a.selftest:
@@ -307,9 +309,15 @@ def main() -> int:
         print(f"\n🟡 호출처 1곳 {len(thin)}건 — 그 한 곳이 사라지면 같이 죽는다")
         print("   " + ", ".join(r["script"] for r in thin))
     if parked:
-        print(f"\n⏸️  의도적 미배선 {len(parked)}건")
-        for r in parked:
-            print(f"   {r['script']:<28} {r['note']}")
+        # `--quiet` 규약 [9/1]: 이유까지 적어 **의도적으로** 파킹해둔 목록만 접는다.
+        #   숨겨도 안전한 유일한 부류다 — 이미 사람이 판단해 이유를 남긴 것들이라
+        #   매번 다시 읽을 새 정보가 없다. 반대로 🔴·🟡은 quiet에서도 전부 나온다.
+        if a.quiet:
+            print(f"\n⏸️  의도적 미배선 {len(parked)}건 (이유는 --features 또는 EXPECTED_UNWIRED 참조)")
+        else:
+            print(f"\n⏸️  의도적 미배선 {len(parked)}건")
+            for r in parked:
+                print(f"   {r['script']:<28} {r['note']}")
     # ── 기능 단위 [8/24 신설] — 스크립트는 불리는데 그 **기능**은 안 불리는 것
     feat_rows = [r for r in rows if r["unused_features"]]
     n_feat = sum(len(r["unused_features"]) for r in feat_rows)

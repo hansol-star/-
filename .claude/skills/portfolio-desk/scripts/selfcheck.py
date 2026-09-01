@@ -14,6 +14,7 @@ selfcheck.py — 데스크 품질 게이트 (dev 작업 커밋·머지 전 스�
   4) validate    — validate_report.py 실행(보고서/풀표/밴드/정본버전 게이트)
   5) lookahead   — lookahead_guard.py 실행(미래참조 회귀 가드·FAIL 단계)
   6) guard-self  — guard_selftest.py 실행(가드가 실제로 위반을 잡는지·FAIL 단계)
+                   ★9/1: `--selftest`(메타 가드 자신의 검증)를 먼저 돌린다
 
 사용:
   python3 .claude/skills/portfolio-desk/scripts/selfcheck.py
@@ -157,8 +158,23 @@ def run_guard_selftest(timeout: float = 240.0) -> tuple[str, str]:
     gp = os.path.join(HERE, "guard_selftest.py")
     if not os.path.exists(gp):
         return "SKIP", "guard_selftest.py 없음"
+    # ★[9/1] **--selftest를 먼저 돌린다** — 메타 가드 자신이 성한지부터.
+    #   9/1 실측: `guard_selftest --selftest`의 테스트 ②가 깨진 채 방치돼 있었다.
+    #   INJECTION_TESTS[0]이 check_repealed_rules → check_canonical_facts로 바뀌었는데
+    #   주입 메시지가 옛 가드의 패턴에 맞춰 하드코딩돼 있어서다. 게이트가 --selftest를
+    #   안 부르니 **아무도 못 봤다** — "가드를 검증하는 가드"가 스스로는 미검증이었다.
+    #   ⇒ 8/23의 그 교훈("초록불은 탐지기가 그 형태를 안 본다는 뜻일 수 있다")이
+    #     한 층 위에서 그대로 재현된 것이므로, 여기서 한 층 위까지 게이트에 넣는다.
     try:
-        r = subprocess.run([sys.executable, gp], capture_output=True, text=True,
+        rs = subprocess.run([sys.executable, gp, "--selftest"], capture_output=True,
+                            text=True, timeout=timeout, cwd=REPO)
+    except subprocess.TimeoutExpired:
+        return "FAIL", f"guard_selftest --selftest timeout >{timeout:.0f}s"
+    if rs.returncode != 0:
+        return "FAIL", ("[--selftest 실패 — 메타 가드 자신이 무력하다]\n"
+                        + (rs.stdout or rs.stderr or "").strip()[-800:])
+    try:
+        r = subprocess.run([sys.executable, gp, "--quiet"], capture_output=True, text=True,
                            timeout=timeout, cwd=REPO)
     except subprocess.TimeoutExpired:
         return "FAIL", f"guard_selftest timeout >{timeout:.0f}s"
@@ -177,7 +193,7 @@ def run_wiring(timeout: float = 90.0) -> tuple[str, str]:
     if not os.path.exists(wp):
         return "SKIP", ""
     try:
-        r = subprocess.run([sys.executable, wp], capture_output=True, text=True,
+        r = subprocess.run([sys.executable, wp, "--quiet"], capture_output=True, text=True,
                            timeout=timeout, cwd=REPO)
     except subprocess.TimeoutExpired:
         return "SKIP", "wiring timeout"
@@ -196,6 +212,8 @@ def main() -> int:
     ap.add_argument("--no-import", action="store_true", help="import 단계 생략(문법만)")
     ap.add_argument("--no-cli", action="store_true", help="--help(argparse) 스모크 생략")
     ap.add_argument("--json", action="store_true", help="JSON 출력")
+    ap.add_argument("-q", "--quiet", action="store_true",
+                    help="통과한 항목은 숨기고 문제·결론만 (세션 토큰 절감 — 규약: docs/dev_workflow.md §1c)")
     args = ap.parse_args()
 
     scripts = discover_scripts()
@@ -232,12 +250,26 @@ def main() -> int:
                          ensure_ascii=False, indent=2))
         return 0 if gate_ok else 1
 
-    print(f"=== selfcheck: {len(scripts)}개 스크립트 ===")
+    # ── 출력 ────────────────────────────────────────────────────────────
+    # `--quiet` 규약 [9/1 신설]: **통과한 항목만 숨긴다.**
+    #   전부 초록일 때 99줄의 `compile ✅ import ✅ --help ✅`는 정보량이 0인데
+    #   매 게이트 실행마다 ~7,700자(≈2,200토큰)를 세션에 밀어넣는다(9/1 실측: 전체 9,609자).
+    #   ⚠️ 숨기는 것은 **통과**뿐이다. 실패·건너뜀은 quiet에서도 반드시 나온다 —
+    #      "안 돈 검사"를 "통과한 검사"처럼 보이게 만들면 그게 8/22의 그 실패다.
+    n_fail = sum(1 for r in results if failed(r))
+    n_skip = sum(1 for r in results if r["import"] is None or r["cli"] is None)
+    if args.quiet:
+        print(f"=== selfcheck: 스크립트 {len(scripts)}개 — 실패 {n_fail}"
+              + (f" · 단계건너뜀 {n_skip}" if n_skip else "") + " ===")
+    else:
+        print(f"=== selfcheck: {len(scripts)}개 스크립트 ===")
     for r in results:
         c = "✅" if r["compile"] else "❌"
         i = "·" if r["import"] is None else ("✅" if r["import"] else "❌")
         h = "·" if r["cli"] is None else ("✅" if r["cli"] else "❌")
         mark = "" if not failed(r) else "  ← FAIL"
+        if args.quiet and not failed(r):
+            continue
         print(f"  compile {c}  import {i}  --help {h}   {r['script']}{mark}")
         if not r["compile"]:
             print(f"        └ compile: {r['compile_msg']}")

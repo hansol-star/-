@@ -302,6 +302,8 @@ def main():
     ap = argparse.ArgumentParser(description="외부 데이터 소스 생존 점검 (측정 전용)")
     ap.add_argument("--quick", action="store_true", help="키 없는 무료 소스만")
     ap.add_argument("--json", action="store_true", help="기계 판독 출력")
+    ap.add_argument("-q", "--quiet", action="store_true",
+                    help="정상 소스는 숨기고 실패·미설정·합계만 (규약: docs/dev_workflow.md §1c)")
     a = ap.parse_args()
 
     results = []
@@ -332,8 +334,11 @@ def main():
             mark, up = "✅ 정상", up + 1
         else:
             mark, down = "🔴 실패", down + 1
-        print(f"{mark:9} {r['name']:22} {r['ms']:>5}ms  {r['msg'][:52]}")
-        print(f"{'':9} └ 사용처: {r['used_by']}")
+        # `--quiet` 규약 [9/1]: **정상만 숨긴다.** 미설정(⚪)은 "폴백으로 돌고 있다"는
+        #   뜻이라 조용히 낡을 수 있는 축이므로 quiet에서도 반드시 보인다.
+        if not (getattr(a, "quiet", False) and r["ok"] is True):
+            print(f"{mark:9} {r['name']:22} {r['ms']:>5}ms  {r['msg'][:52]}")
+            print(f"{'':9} └ 사용처: {r['used_by']}")
     print("-" * 76)
     print(f"정상 {up} · 실패 {down} · 미설정(폴백 동작) {skip}")
     if down:

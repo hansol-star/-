@@ -220,6 +220,9 @@ def main():
     ap.add_argument("--kind", choices=sorted(set(k.split("_")[0] for k in KIND_WEIGHT)),
                     help="원장 종류로 필터 (decision·missed·call·rule)")
     ap.add_argument("--json", action="store_true", help="기계 소비용 JSON")
+    ap.add_argument("--semantic", action="store_true",
+                    help="의미검색 병행 (memory_embed 인덱스 · 어휘가 안 겹치는 기억까지)")
+    ap.add_argument("--no-semantic", action="store_true", help="의미검색 끄기")
     args = ap.parse_args()
 
     items = collect(args.query, since=args.since)
@@ -227,8 +230,23 @@ def main():
         items = [i for i in items if i["kind"].split("_")[0] == args.kind]
     shown = items[:args.limit]
 
+    # ── 의미검색 병행 [9/1 신설] ─────────────────────────────────────────
+    # 이 스크립트의 매칭은 **어휘 일치**라, 질의어가 안 박힌 기록은 원리적으로 못 찾는다.
+    # bge-m3 인덱스가 그 사각을 덮는다. 하이브리드인 이유: 티커 정확매칭은
+    # 문자열 쪽이 더 정확하다 — 의미검색은 **대체가 아니라 보강**이다.
+    # ⚠️ 인덱스가 없으면 조용히 넘어가지 않고 **"미수행"을 화면에 적는다.**
+    sem, sem_err = [], None
+    if args.semantic and not args.no_semantic:
+        try:
+            sys.path.insert(0, HERE)
+            import memory_embed as ME
+            sem = ME.search(args.query, limit=max(6, args.limit // 2), contra=2)
+        except Exception as e:                                 # noqa: BLE001
+            sem_err = f"{type(e).__name__}: {e}"
+
     if args.json:
-        print(json.dumps({"query": args.query, "total": len(items), "items": shown},
+        print(json.dumps({"query": args.query, "total": len(items), "items": shown,
+                          "semantic": sem, "semantic_error": sem_err},
                          ensure_ascii=False, indent=2))
         return 0
 
@@ -254,6 +272,21 @@ def main():
             if v:
                 print(f"        · {k}: {str(v)[:160]}")
         print()
+
+    if sem_err:
+        # "찾은 게 없다"와 "찾아보지 못했다"는 다르다 — 후자는 반드시 말한다.
+        print(f"   ⚠️ 의미검색 미수행 — {sem_err}")
+        print(f"      (인덱스 생성: memory_embed.py --build · 위 결과는 **어휘 일치만**이다)")
+    elif sem:
+        print(f"   🔎 의미검색 추가 {len(sem)}건 — 어휘가 안 겹쳐 위에 안 잡힌 기억")
+        SRC = {"decisions": "🔵 결정", "missed": "🟣 미스무브", "hunter": "🎬 채널", "report": "📄 보고서"}
+        seen_ids = {str(i.get("id")) for i in shown if i.get("id")}
+        for h in sem:
+            dup = " (위와 중복)" if str(h.get("id")) in seen_ids else ""
+            flag = " ⚖️" if h["contra"] else ""
+            print(f"      [{h['score']:.3f}] {SRC.get(h['src'], h['src'])} {h['date']}{flag}{dup} "
+                  f" {str(h['headline'])[:60]}")
+        print("      ⚖️ = 반대 증거 슬롯(기각안·miss·정정) — 확증편향 방지로 강제 확보된 자리다.")
 
     open_n = counts.get("decision_open", 0)
     if open_n:

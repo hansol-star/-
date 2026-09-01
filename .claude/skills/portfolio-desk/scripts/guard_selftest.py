@@ -322,6 +322,30 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_memory_index",
+        "desc": "의미검색 인덱스가 원장보다 낡으면 잡는가",
+        "why": "9/1 신설. memory_embed 인덱스는 파생물이라 원장이 늘어도 안 따라오는데 "
+               "회수는 **성공한 것처럼 보인다**(옛 인덱스에서 그럴듯한 결과가 나온다). "
+               "사라지는 게 하필 **최근 기억**이라 오늘 내린 결정이 회수에서 통째로 빠진다 — "
+               "8/12 '쓰는 쪽과 읽는 쪽이 갈리면 데이터는 조용히 사라진다'의 인덱스판",
+        "pattern": r"의미검색 인덱스",
+        # 지문 해시가 안 맞는 인덱스 = 낡은 인덱스
+        "violate": {'data/cache/memory_index.meta.json':
+                    '{"model":"BAAI/bge-m3","n":10,"dim":1024,"metas":[],"texts":[],'
+                    '"fingerprint":{"hash":"deadbeefcafe","reports_n":1}}',
+                    'data/cache/memory_index.npz': 'x'},
+        # clean = 인덱스가 **그 ROOT의 원장과 일치**하는 상태.
+        # 빈 임시 ROOT의 지문 해시(43e774664ee2)를 박아둔다 — _fingerprint가 결정적이라 안정적이다.
+        # ⚠️ _fingerprint 계산식을 바꾸면 이 해시도 같이 갱신해야 한다(안 하면 이 케이스가 먼저 깨져 알려준다).
+        "clean": {'data/cache/memory_index.meta.json':
+                  '{"model":"BAAI/bge-m3","n":10,"dim":1024,"metas":[],"texts":[],'
+                  '"fingerprint":{"decisions.jsonl":0,"missed_moves.jsonl":0,'
+                  '"hunter_archive.json":0,"reports_n":0,"reports_bytes":0,'
+                  '"hash":"43e774664ee2"}}'},
+        "args": (),
+    },
+
+    {
         "name": "check_allocation_band",
         "desc": "\uad6d\ub0b4\uc8fc \ube44\uc911\uc774 \ubaa9\ud45c \ubc34\ub4dc(18~22%)\ub97c \ubc97\uc5b4\ub098\uba74 \uc7a1\ub294\uac00",
         "why": "8/30 \uc2e0\uc124 \ub8f06. \uc774 \ub8f0\uc774 \uc0dd\uae30\uae30 \uc804\uae4c\uc9c0 \uad6d\ub0b4 28.7%\ub294 \ub204\uac00 \uc815\ud55c \uac12\uc774 \uc544\ub2c8\ub77c "

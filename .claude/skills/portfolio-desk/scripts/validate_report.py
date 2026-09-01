@@ -1625,6 +1625,49 @@ def check_routine_health(today=None):
     except Exception:
         pass
 
+def check_memory_index():
+    """[9/1 신설] 의미검색 인덱스가 원장보다 낡았는지 — 조용히 낡는 회수를 막는다.
+
+    ★ 왜 필요한가: `memory_embed.py`(bge-m3)는 **파생 인덱스**라 원장이 늘어도 자동으로
+      안 따라온다. 그런데 회수는 **성공한 것처럼** 보인다 — 옛 인덱스에서 그럴듯한 결과가
+      나오기 때문이다. 8/12 *"쓰는 쪽과 읽는 쪽이 갈리면 데이터는 조용히 사라진다"*의
+      인덱스판이고, 여기선 사라지는 게 **최근 기억**이라 더 나쁘다(오늘 내린 결정이 회수 안 됨).
+
+    판정 3단:
+      · 라이브러리 미설치        → 침묵 (기능 미도입 상태 = 정상. 강요하지 않는다)
+      · 설치됐는데 인덱스 없음   → WARN (쓸 수 있는데 안 만든 상태)
+      · 인덱스가 원장보다 낡음   → WARN (가장 위험 — 회수가 성공한 척한다)
+    ⚠️ WARN이다. 의미검색은 **랭킹 보조**이지 판정 근거가 아니므로 커밋을 막지 않는다.
+    """
+    import importlib.util as _u
+    if _u.find_spec("sentence_transformers") is None:
+        return                                   # 기능 미도입 — 정상
+    try:
+        sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts"))
+        import memory_embed as ME
+    except Exception:                            # noqa: BLE001
+        return
+    try:
+        # ⚠️ ROOT 상대로 읽는다 — 모듈 상수(절대경로)를 쓰면 주입 테스트가 임시 ROOT를
+        #    못 쓰고, 그러면 이 가드는 **음성 테스트가 불가능한 가드**가 된다(9/1 실측).
+        mp = ME.meta_path(ROOT)
+        meta = json.load(open(mp, encoding="utf-8")) if os.path.exists(mp) else None
+        cur = ME._fingerprint(ROOT)
+    except Exception as e:                       # noqa: BLE001
+        warn(f"의미검색 인덱스 상태를 못 읽음 ({e}) — memory_embed.py --status")
+        return
+    if meta is None:
+        warn("의미검색 인덱스 미생성 — sentence-transformers는 깔려 있는데 인덱스가 없다. "
+             "`memory_embed.py --build` (없으면 memory_recall이 어휘 일치로만 회수한다)")
+        return
+    old = meta.get("fingerprint") or {}
+    if old.get("hash") != cur.get("hash"):
+        dn = (cur.get("reports_n") or 0) - (old.get("reports_n") or 0)
+        warn(f"의미검색 인덱스가 원장보다 낡았다 — 보고서 {old.get('reports_n')}→{cur.get('reports_n')}편"
+             + (f"(+{dn})" if dn else "") + ". `memory_embed.py --build`로 갱신할 것 — "
+             "낡은 인덱스는 **최근 기억을 회수에서 통째로 누락시키면서 성공한 것처럼 보인다**")
+
+
 def check_allocation_band():
     """[8/30 신설 · 정훈 승인] 리스크룰 6 — 지역 배분 밴드(국내주 18~22%) 이탈 감지.
 
@@ -2170,7 +2213,7 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
-    check_routine_health()
+    check_routine_health(); check_memory_index()
     check_transcript_persistence(); check_data_archive()
     check_split_scale()
     if not a.no_report:

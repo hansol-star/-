@@ -145,6 +145,8 @@ python3 .claude/skills/portfolio-desk/scripts/missed_moves.py --min-move 8    # 
 ```bash
 python3 .claude/skills/portfolio-desk/scripts/validate_report.py --coverage
 python3 .claude/skills/portfolio-desk/scripts/guard_selftest.py --coverage   # [8/24] 음성테스트 없는 가드 = 초록불 진위 미확인
+python3 .claude/skills/portfolio-desk/scripts/memory_embed.py --build --quiet    # [9/1] 의미검색 인덱스 주간 재생성(원장이 늘면 낡는다)
+python3 .claude/skills/portfolio-desk/scripts/memory_recall.py <종목|주제> --semantic  # [9/1] 어휘 일치 + 의미검색 하이브리드 회수
 python3 .claude/skills/portfolio-desk/scripts/wiring_audit.py --features     # [8/24] 스크립트는 불리는데 그 기능은 안 불리는 것
 ```
 

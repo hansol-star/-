@@ -26,7 +26,8 @@
 
 ■ 모델
   BAAI/bge-m3 (568M·1024차원·다국어). 정훈 9/1 지시 "더 정확한 거로".
-  CPU로 돈다(이 머신 GTX 1060 6GB는 배치 인덱싱에 이득이 크지 않다 — 필요하면 --device cuda).
+  CPU로 돈다. 전체 빌드 4~5시간 · 이후 증분은 수 분(--build가 기본 증분).
+  ⚠️ CPU를 다 쓰면 같은 시간대 R2 보고서와 경합한다 — OMP_NUM_THREADS로 코어를 나눠 쓸 것.
   ⚠️ 첫 실행 시 모델을 내려받는다(~2.2GB, HuggingFace 캐시).
 
 ■ 사용
@@ -186,32 +187,104 @@ def _model(device=None):
     return SentenceTransformer(MODEL, device=device)
 
 
-def build(device=None, quiet=False):
+def _key(text):
+    """청크 신원 = 내용 해시. 원장에 줄이 추가돼도 기존 청크의 키는 안 변한다."""
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()[:16]
+
+
+def build(device=None, quiet=False, full=False):
+    """인덱스 생성. 기본은 **증분** — 이미 임베딩한 청크는 재계산하지 않는다.
+
+    ★ 왜 증분이 필수인가: 이 머신(Ryzen 5 1600·CPU)에서 전체 3,797청크가 **4~5시간**이다
+      (9/2 실측 69초/16청크. max_seq_length를 512로 줄여도 안 빨라진다 — 패딩이 아니라 연산량 문제.
+       ⚠️ 첫 추정 '88분'은 짧은 decisions 청크만으로 벤치마크해서 나온 값이라 **틀렸다** —
+       코퍼스의 77%는 4배 긴 보고서 청크다. 표본이 모집단을 안 닮으면 추정이 그만큼 빗나간다).
+      R3가 매주 재생성하는데 매번 88분이면 실제로는 아무도 안 돌리게 되고,
+      그러면 인덱스가 낡은 채 **회수만 성공한 척**한다 — 이 도구가 막으려던 바로 그 상태다.
+      주간 갱신분(보고서 5편 ≈ 130청크)은 증분으로 약 3분이면 끝난다.
+    """
     import numpy as np
     docs = build_corpus()
     if not docs:
         sys.exit("인덱싱할 문서가 없다 — 원장 경로 확인")
     texts = [t for t, _ in docs]
     metas = [m for _, m in docs]
+    keys = [_key(t) for t in texts]
+
+    cached = {}
+    if not full:
+        old_emb, old_meta = load()
+        if old_emb is not None and old_meta.get("keys"):
+            for k, row in zip(old_meta["keys"], old_emb):
+                cached[k] = row
+    todo = [i for i, k in enumerate(keys) if k not in cached]
+
     if not quiet:
         by = {}
         for m in metas:
             by[m["src"]] = by.get(m["src"], 0) + 1
         print(f"코퍼스 {len(texts):,}청크 — " + " · ".join(f"{k} {v}" for k, v in sorted(by.items())))
-        print(f"모델 로딩 {MODEL} (첫 실행이면 ~2.2GB 다운로드)...")
-    mdl = _model(device)
-    emb = mdl.encode(texts, batch_size=16, normalize_embeddings=True,
-                     show_progress_bar=not quiet, convert_to_numpy=True)
-    os.makedirs(CACHE, exist_ok=True)
-    np.savez_compressed(IDX, emb=emb.astype("float16"))
-    json.dump({"model": MODEL, "n": len(texts), "dim": int(emb.shape[1]),
-               "metas": metas, "texts": [t[:400] for t in texts],
-               "fingerprint": _fingerprint()},
-              open(META, "w", encoding="utf-8"), ensure_ascii=False)
+        print(f"재사용 {len(texts)-len(todo):,} · 신규 임베딩 {len(todo):,}"
+              + (" (전체 재생성)" if full else ""))
+        if todo:
+            print(f"모델 로딩 {MODEL} (첫 실행이면 ~2.2GB 다운로드)... "
+                  f"CPU 기준 약 {len(todo)*69.0/16/60:.0f}분 예상 "
+                  f"(9/2 실측 69초/16청크 — 보고서 청크가 길어 첫 추정 22초는 과소였다)")
+
+    dim = len(next(iter(cached.values()))) if cached else 1024
+    if todo:
+        mdl = _model(device)
+        # ── 체크포인트 [9/2 신설] ────────────────────────────────────────
+        # 전체 빌드는 이 머신에서 **4~5시간**이다(9/2 실측 69초/16청크 — 보고서 청크가
+        # decisions보다 4배 길어 첫 추정 88분이 크게 빗나갔다). 그동안 저장이 없으면
+        # **중간에 꺼질 때 전부 소실**된다 — 바로 전날(9/1 14:34) 머신이 실제로 꺼졌고
+        # 그게 R2·R4·R1을 통째로 날린 사건이다. 같은 사고가 이 작업을 통째로 날리게 두지 않는다.
+        # ⇒ SLICE마다 저장한다. 다시 돌리면 증분 로직이 남은 것부터 이어간다.
+        SLICE = 160
+        for s0 in range(0, len(todo), SLICE):
+            part = todo[s0:s0 + SLICE]
+            new = mdl.encode([texts[i] for i in part], batch_size=16,
+                             normalize_embeddings=True, show_progress_bar=not quiet,
+                             convert_to_numpy=True)
+            dim = int(new.shape[1])
+            for j, i in enumerate(part):
+                cached[keys[i]] = new[j]
+            _save(cached, keys, metas, texts, dim)
+            if not quiet:
+                done = min(s0 + SLICE, len(todo))
+                print(f"  체크포인트 {done:,}/{len(todo):,} 저장 — 여기서 끊겨도 이어서 재개된다")
+    else:
+        _save(cached, keys, metas, texts, dim)
+
     if not quiet:
-        print(f"인덱스 저장 — {len(texts):,}청크 x {emb.shape[1]}차원 "
+        print(f"인덱스 저장 — {len(texts):,}청크 x {dim}차원 "
               f"({os.path.getsize(IDX)/1e6:.1f}MB) -> {IDX}")
     return 0
+
+
+def _save(cached, keys, metas, texts, dim):
+    """부분 저장 — 아직 임베딩 안 된 청크는 **인덱스에서 빼고** 저장한다.
+
+    ⚠️ 0벡터로 채우지 않는다. 채우면 그 청크가 '검색은 되는데 절대 안 걸리는' 유령이 되고,
+       회수는 성공한 척한다(8/22 "가드 없는 폴백은 침묵보다 나쁘다"). **없으면 없는 것**으로 둔다.
+    ⚠️ 그래서 부분 저장본은 fingerprint를 **의도적으로 안 맞춘다** — check_memory_index가
+       "낡았다"고 WARN을 계속 띄워 미완성 상태를 드러낸다.
+    """
+    import numpy as np
+    have = [(k, m, t) for k, m, t in zip(keys, metas, texts) if k in cached]
+    if not have:
+        return
+    emb = np.vstack([cached[k] for k, _, _ in have]).astype("float16")
+    os.makedirs(CACHE, exist_ok=True)
+    np.savez_compressed(IDX, emb=emb)
+    complete = len(have) == len(keys)
+    json.dump({"model": MODEL, "n": len(have), "dim": dim,
+               "metas": [m for _, m, _ in have],
+               "texts": [t[:400] for _, _, t in have],
+               "keys": [k for k, _, _ in have],
+               "complete": complete, "total_chunks": len(keys),
+               "fingerprint": (_fingerprint() if complete else {"hash": "partial"})},
+              open(META, "w", encoding="utf-8"), ensure_ascii=False)
 
 
 def load():
@@ -322,7 +395,9 @@ def query(q, limit=10, contra=2, device=None, as_json=False):
 
 def main():
     ap = argparse.ArgumentParser(description="기억 의미검색 인덱스 (bge-m3) — 랭킹 전용")
-    ap.add_argument("--build", action="store_true", help="인덱스 생성/갱신")
+    ap.add_argument("--build", action="store_true", help="인덱스 생성/갱신 (기본 증분)")
+    ap.add_argument("--full", action="store_true",
+                    help="증분 무시하고 전체 재계산 (모델·청킹 규칙을 바꿨을 때만)")
     ap.add_argument("--query", help="의미검색 질의")
     ap.add_argument("--status", action="store_true", help="인덱스 신선도")
     ap.add_argument("--limit", type=int, default=10, help="표시 건수")
@@ -333,7 +408,7 @@ def main():
     ap.add_argument("-q", "--quiet", action="store_true", help="진행 표시 없이")
     a = ap.parse_args()
     if a.build:
-        return build(a.device, a.quiet)
+        return build(a.device, a.quiet, a.full)
     if a.status:
         return status(a.json)
     if a.query:

@@ -18,7 +18,9 @@ param([switch]$Unregister)
 $ErrorActionPreference = 'Stop'
 $Repo     = 'C:\Users\sd182\portfolio-desk'
 $Launcher = Join-Path $Repo '.claude\routines\run_routine.ps1'
+$Catchup  = Join-Path $Repo '.claude\routines\catchup.ps1'
 $Folder   = '\JeonghunDesk'
+$CatchupName = 'JD-catchup-on-wake'
 
 $Weekdays = @('Monday','Tuesday','Wednesday','Thursday','Friday')
 
@@ -32,6 +34,10 @@ $Routines = @(
 )
 
 if ($Unregister) {
+  if (Get-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
+    Unregister-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -Confirm:$false
+    Write-Output "removed  $CatchupName"
+  }
   foreach ($r in $Routines) {
     if (Get-ScheduledTask -TaskName $r.Name -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
       Unregister-ScheduledTask -TaskName $r.Name -TaskPath "$Folder\" -Confirm:$false
@@ -56,6 +62,26 @@ foreach ($r in $Routines) {
   }
   Register-ScheduledTask -TaskName $r.Name -TaskPath $Folder -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "$($r.Desc) - 정본 docs/routines.md" | Out-Null
   Write-Output ("registered  {0,-22} {1}  {2}" -f $r.Name, $r.Time, ($r.Days -join ','))
+}
+
+# ── 캐치업 [9/2 신설] — 꺼져 있어 놓친 루틴을 켜지자마자 따라잡는다 ──────────
+#   StartWhenAvailable은 **절전**은 따라잡지만 **전원 종료**는 못 따라잡는다.
+#   9/1 14:34~9/2 15:13 머신이 꺼져 R2·R4a·R4b·R1이 통째로 증발한 것이 그 증거다
+#   (경로 B 전환 이후 보고서 0건의 실제 원인). 부팅·로그온 시 한 번 점검한다.
+#   ⚠️ 이 태스크 자체는 가볍다 — 놓친 게 없으면 즉시 종료한다(판정만 하고 끝).
+if (Test-Path $Catchup) {
+  $cAction = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -File `"$Catchup`"" -WorkingDirectory $Repo
+  # 로그온 트리거만 쓴다. 3분 지연 = 네트워크·PATH가 준비될 시간(스케줄러 세션은 늦게 붙는다).
+  # ⚠️ `-AtStartup`은 **관리자 권한이 필요해 쓸 수 없다**(9/2 실측: Access is denied).
+  #    실효 손실은 거의 없다 — 꺼진 머신을 켜면 정훈이 로그온하기 때문이다.
+  #    (자동 로그인 없이 잠금화면에 방치되는 경우만 사각으로 남는다.)
+  $cTriggers = @( (New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME") )
+  foreach ($t in $cTriggers) { $t.Delay = 'PT3M' }
+  if (Get-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
+    Unregister-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -Confirm:$false
+  }
+  Register-ScheduledTask -TaskName $CatchupName -TaskPath $Folder -Action $cAction -Trigger $cTriggers -Principal $principal -Settings $settings -Description "부팅·로그온 시 놓친 루틴 따라잡기 - 정본 docs/routines.md" | Out-Null
+  Write-Output ("registered  {0,-22} {1}" -f $CatchupName, '로그온 +3분')
 }
 
 Write-Output ""

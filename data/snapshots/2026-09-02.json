@@ -1,13 +1,13 @@
 {
   "date": "2026-09-02",
-  "fx_usdkrw": 1358.37,
+  "fx_usdkrw": 1358.5,
   "kr_value": 1855500,
   "kr_pnl": -350200,
   "us_value_usd": 3471.46,
   "us_pnl_usd": 258.42,
   "cash_krw": 267308,
-  "total_assets_krw": 6838338,
-  "stock_pnl_krw": 836,
+  "total_assets_krw": 6838790,
+  "stock_pnl_krw": 869,
   "positions": {
     "삼성전자": {
       "price": 250500.0,
@@ -75,7 +75,7 @@
       "rsi": 51.1,
       "cross": "골든크로스(가격이탈·래깅)",
       "struct": "range",
-      "macd_h": 63.8,
+      "macd_h": 55.3,
       "pct_from_hi": -27.2
     },
     "^KQ11": {
@@ -83,10 +83,10 @@
       "storm_pct": 46.0,
       "regime": "보통",
       "bias": "약약세",
-      "rsi": 49.8,
+      "rsi": 49.6,
       "cross": "데드크로스(가격회복)",
-      "struct": "down",
-      "macd_h": 2.4,
+      "struct": "range",
+      "macd_h": 2.0,
       "pct_from_hi": -33.2
     }
   },

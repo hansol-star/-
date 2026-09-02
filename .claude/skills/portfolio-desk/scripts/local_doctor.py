@@ -23,6 +23,7 @@ docs/local_migration.md §2d의 검증 순서(api_health → short_borrow → se
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import os
 import shutil
@@ -123,6 +124,29 @@ def checks():
                 "문법 OK" if rc == 0 else "bash 문법 오류", "")
         else:
             add(f"훅 {h}", SKIP, "bash 없어 검사 불가", "")
+
+    # 3b. 런처 .ps1 의 UTF-8 BOM  [9/2 신설]
+    #   ★ PowerShell 5.1은 **BOM 없는 .ps1을 ANSI(cp949)로 읽는다.** 그래서 스크립트 안의
+    #     한글 문자열이 **파싱 단계에서** 깨지고, 로그·상태 메시지가 통째로 판독 불능이 된다
+    #     (9/2 실측: catchup.ps1 첫 실행 로그가 "罹먯튂???먭?"로 나왔다).
+    #   ★ 이게 위험한 이유는 **깨져도 스크립트가 정상 종료한다**는 것이다 — 예외가 안 나고
+    #     exit 0이라 아무 가드에도 안 걸린다. 8/31의 그 패턴(조용히 그럴듯한 값을 낸다)이다.
+    #   ⇒ 새 .ps1을 UTF-8(BOM 없음)로 저장하는 편집기가 흔하므로 기계로 본다.
+    ps1s = sorted(glob.glob(os.path.join(REPO, ".claude", "routines", "*.ps1")))
+    if not ps1s:
+        add("런처 .ps1 BOM", SKIP, "런처 없음", "")
+    else:
+        bad = []
+        for f in ps1s:
+            try:
+                if open(f, "rb").read(3) != b"\xef\xbb\xbf":
+                    bad.append(os.path.basename(f))
+            except Exception:                                  # noqa: BLE001
+                bad.append(os.path.basename(f) + "(읽기실패)")
+        add("런처 .ps1 BOM", OK if not bad else FAIL,
+            f"{len(ps1s)}개 전부 UTF-8 BOM" if not bad else f"BOM 없음: {', '.join(bad)}",
+            "" if not bad else "PowerShell 5.1이 cp949로 읽어 한글이 조용히 깨진다 — "
+                               "파일 앞에 UTF-8 BOM을 붙일 것")
 
     # 4. Node / Playwright
     node = shutil.which("node")

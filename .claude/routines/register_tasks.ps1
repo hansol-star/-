@@ -38,6 +38,10 @@ if ($Unregister) {
     Unregister-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -Confirm:$false
     Write-Output "removed  $CatchupName"
   }
+  if (Get-ScheduledTask -TaskName 'JD-price-watch' -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
+    Unregister-ScheduledTask -TaskName 'JD-price-watch' -TaskPath "$Folder\" -Confirm:$false
+    Write-Output "removed  JD-price-watch"
+  }
   foreach ($r in $Routines) {
     if (Get-ScheduledTask -TaskName $r.Name -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
       Unregister-ScheduledTask -TaskName $r.Name -TaskPath "$Folder\" -Confirm:$false
@@ -62,6 +66,40 @@ foreach ($r in $Routines) {
   }
   Register-ScheduledTask -TaskName $r.Name -TaskPath $Folder -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "$($r.Desc) - 정본 docs/routines.md" | Out-Null
   Write-Output ("registered  {0,-22} {1}  {2}" -f $r.Name, $r.Time, ($r.Days -join ','))
+}
+
+# ── 장중 트리거 감시 [9/3 신설] — 폰 상시 가용 전환에 따른 실시간 대응 ──────
+#   정훈 폰창이 하루 3시간20분일 땐 실시간으로 알 이유가 없었다(그 창에서만 집행하니까).
+#   9/3 평일 상시 전환으로 "가격이 닿는 순간"이 곧 행동 가능 시점이 됐다.
+#   ⚠️ 알림 전용 — 자동 매매 없음. price_watch.py는 notify.py로 텔레그램만 보낸다.
+#   ⚠️ 스크립트 자신이 장 시간을 판정해 밖이면 즉시 종료하므로, 트리거가 넉넉해도 무해하다.
+$WatchName = 'JD-price-watch'
+$Watcher = Join-Path $Repo '.claude\skills\portfolio-desk\scripts\price_watch.py'
+if (Test-Path $Watcher) {
+  $wAction = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument (
+    "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -Command " +
+    "`"& { `$env:Path='$env:LOCALAPPDATA\Programs\Python\Python312;' + `$env:Path; " +
+    "python '$Watcher' --once --quiet }`"") -WorkingDirectory $Repo
+  # KRX 정규장(09:00~15:30)과 미국 정규장(22:30~05:00)에 10분 간격.
+  $wt1 = New-ScheduledTaskTrigger -Daily -At '09:00'
+  $wt1.Repetition = (New-ScheduledTaskTrigger -Once -At '09:00' `
+      -RepetitionInterval (New-TimeSpan -Minutes 10) `
+      -RepetitionDuration (New-TimeSpan -Hours 6 -Minutes 30)).Repetition
+  $wt2 = New-ScheduledTaskTrigger -Daily -At '22:30'
+  $wt2.Repetition = (New-ScheduledTaskTrigger -Once -At '22:30' `
+      -RepetitionInterval (New-TimeSpan -Minutes 10) `
+      -RepetitionDuration (New-TimeSpan -Hours 6 -Minutes 30)).Repetition
+  # 감시는 가볍고 자주 돈다 — 2시간 상한(루틴용)은 과하므로 5분으로 줄인다.
+  $wSettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries `
+      -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 5) `
+      -MultipleInstances IgnoreNew
+  if (Get-ScheduledTask -TaskName $WatchName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
+    Unregister-ScheduledTask -TaskName $WatchName -TaskPath "$Folder\" -Confirm:$false
+  }
+  Register-ScheduledTask -TaskName $WatchName -TaskPath $Folder -Action $wAction `
+      -Trigger @($wt1, $wt2) -Principal $principal -Settings $wSettings `
+      -Description "장중 트리거 감시(10분) - 알림 전용 - 정본 docs/routines.md" | Out-Null
+  Write-Output ("registered  {0,-22} {1}" -f $WatchName, '09:00·22:30 +10분 반복')
 }
 
 # ── 캐치업 [9/2 신설] — 꺼져 있어 놓친 루틴을 켜지자마자 따라잡는다 ──────────

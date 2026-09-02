@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-01",
+ "updated": "2026-09-03",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -1507,6 +1507,32 @@
    "analyst": "전유진",
    "broker": "iM증권",
    "name": "SK이노베이션",
+   "held": false
+  },
+  "652090": {
+   "date": "2026-09-02",
+   "report_idx": "652090",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) MLCC 수주 공시 코멘트: 플랫폼 단위로 확대된 LTA 삼성전기(009150) MLCC 수주 공시 코멘트: 플랫폼 단위로 확대된 LTA MLCC 수주 공시 코멘트: 플랫폼 단위로 확대된 LTA",
+   "code": "009150",
+   "target_price": 2000000.0,
+   "rating": "Buy",
+   "analyst": "고의영,박정하",
+   "broker": "iM증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "652065": {
+   "date": "2026-09-02",
+   "report_idx": "652065",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) MLCC 수주 공시 코멘트: 문전성시 삼성전기(009150) MLCC 수주 공시 코멘트: 문전성시 MLCC 수주 공시 코멘트: 문전성시",
+   "code": "009150",
+   "target_price": 0.0,
+   "rating": "투자의견없음",
+   "analyst": "양승수",
+   "broker": "메리츠증권",
+   "name": "삼성전기",
    "held": false
   }
  }

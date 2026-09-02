@@ -116,8 +116,17 @@ def req(method, path, ctx, headers=None, data=None, form=False):
         return None
 
 
-def _orders(ctx, auth, acc_list, limit: int) -> int:
-    """체결 이력 전량 수집 — 커서 페이징. GET이라 주문 차단 가드를 그대로 통과한다."""
+def _orders(ctx, auth, acc_list, limit: int, status: str = "CLOSED") -> int:
+    """주문 이력 수집 — 커서 페이징. GET이라 주문 차단 가드를 그대로 통과한다.
+
+    ★[9/3] status 파라미터 신설 — **OPEN(미체결 대기) 조회가 이 스크립트의 사각이었다.**
+      열린 아젠다 d127(8/23): *"오더 생존 확인을 매 보고서 고정 절차로 승격"*.
+      그 아젠다가 만들어진 계기 = v81 감사에서 **'4건 접수 완료'로 3일간 보고했는데
+      실제로는 4건 다 비어 있었던** 사고다. 그때 확인 수단은 정훈 스크린샷뿐이었다.
+      CLOSED만 보면 **"체결된 적 없음"과 "지금 대기 중"을 구분할 수 없다** —
+      둘 다 CLOSED 목록에 안 나오기 때문이다. 그 구분이 바로 이 아젠다가 요구한 것이다.
+    ⚠️ 여전히 GET이다. 주문 차단 가드(_assert_readonly)는 그대로 적용된다.
+    """
     for acc in acc_list if isinstance(acc_list, list) else []:
         seq = acc.get("accountSeq")
         if seq is None:
@@ -125,7 +134,8 @@ def _orders(ctx, auth, acc_list, limit: int) -> int:
         h = dict(auth); h["X-Tossinvest-Account"] = str(seq)
         rows, cursor, pages = [], None, 0
         while pages < 50:  # 안전 상한 — 커서가 안 끝나도 무한루프 금지
-            q = "/api/v1/orders?status=CLOSED&limit=" + str(min(limit, 100))
+            q = ("/api/v1/orders?status=" + urllib.parse.quote(status)
+                 + "&limit=" + str(min(limit, 100)))
             if cursor:
                 q += "&cursor=" + urllib.parse.quote(str(cursor))
             r = req("GET", q, ctx, headers=h)
@@ -136,10 +146,14 @@ def _orders(ctx, auth, acc_list, limit: int) -> int:
             pages += 1
             if not batch or not cursor:
                 break
-        filled = [o for o in rows if o.get("status") == "FILLED"]
+        if status.upper() == "CLOSED":
+            shown = [o for o in rows if o.get("status") == "FILLED"]
+        else:
+            shown = rows          # 대기 주문은 전량 그대로 — 걸러내면 '없다'와 구분이 안 된다
         print(json.dumps({"accountSeq": seq, "accountNo": acc.get("accountNo"),
-                          "total": len(rows), "filled": len(filled), "pages": pages,
-                          "orders": filled}, ensure_ascii=False, indent=1))
+                          "status_query": status, "total": len(rows),
+                          "shown": len(shown), "pages": pages,
+                          "orders": shown}, ensure_ascii=False, indent=1))
     return 0
 
 
@@ -199,6 +213,9 @@ def main():
                     help="자가서명 인증서 프록시 뒤일 때만: TLS 검증 끔(보안 저하)")
     ap.add_argument("--selftest", action="store_true",
                     help="주문 차단 가드 자가검증(네트워크·키 불필요)")
+    ap.add_argument("--status", default="CLOSED",
+                    help="주문 조회 상태 — CLOSED(체결이력·기본) / OPEN(미체결 대기). "
+                         "OPEN은 열린 아젠다 d127 '오더 생존 확인'의 기계 확인 수단이다")
     ap.add_argument("--orders", action="store_true",
                     help="체결 주문 이력 조회(GET, 조회 전용) — 체결 원장 채우기용")
     ap.add_argument("--limit", type=int, default=100, help="--orders 페이지 크기(최대 100)")
@@ -225,7 +242,7 @@ def main():
         print(json.dumps({"fx": fx, "accounts": accounts}, ensure_ascii=False, indent=1))
     acc_list = (accounts or {}).get("result") or (accounts or {}).get("accounts") or accounts or []
     if args.orders:
-        return _orders(ctx, auth, acc_list, args.limit)
+        return _orders(ctx, auth, acc_list, args.limit, args.status)
     if isinstance(acc_list, dict):
         acc_list = acc_list.get("accounts", [acc_list])
     print(f"\n=== 토스증권 스냅샷 ===\n환율: {json.dumps(fx, ensure_ascii=False)[:200]}")

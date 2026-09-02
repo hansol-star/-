@@ -765,15 +765,31 @@ def check_hunter():
                 newest_d = dt.date.fromisoformat(newest)
             except ValueError:
                 newest_d = None
-            def _briefing_offset_ok(d):
-                if newest_d is None:
-                    return False
+            # [2026-09-03 재정정] 위 8/24 수정도 **여전히 frontier 상대**였다 —
+            # 톨러런스를 1일→2일로 넓혔을 뿐 기준점이 움직이는 값이라, 영상이 없는 날짜의
+            # 브리핑 헤더는 frontier가 3일만 더 가면 **반드시** FAIL로 뒤집힌다.
+            # 실측: `## 2026-08-30 — 대화형 최신화 5편 (8/28 23:00~8/29 21:56)` 헤더가
+            # frontier 9/2가 되자 FAIL(콘텐츠는 그대로, 다룬 영상 8/28·8/29는 아카이브에 있다).
+            # ⇒ 기준을 **헤더 자신**으로 옮긴다: "이 로그 세션이 다룬 영상이 아카이브에 있나".
+            #   로그 세션은 직전 며칠치 영상을 묶어 쓰므로 [d-3, d] 구간에 영상이 있으면 커버된 것이다.
+            #   frontier와 무관해져 시간이 지나도 판정이 뒤집히지 않는다.
+            arch_ds = set()
+            for s in arch_dates:
                 try:
-                    return (newest_d - dt.date.fromisoformat(d)).days <= 2
+                    arch_ds.add(dt.date.fromisoformat(s))
+                except (ValueError, TypeError):
+                    pass
+
+            def _covered_by_session(d):
+                """헤더 날짜 d의 로그 세션이 다룬 영상이 아카이브에 있나 (d-3 ~ d)."""
+                try:
+                    dd = dt.date.fromisoformat(d)
                 except ValueError:
                     return False
+                return any((dd - a).days in (0, 1, 2, 3) for a in arch_ds)
+
             missing = sorted(d for d in log_dates
-                              if d not in arch_dates and d <= newest and not _briefing_offset_ok(d))
+                              if d not in arch_dates and d <= newest and not _covered_by_session(d))
             if missing:
                 fail(f"hunter 아카이브 정체(로그엔 있으나 hunter_archive.json 미반영): {missing}"
                      " — build_app_data.py 실행 시 latest→archive 자동 롤오버로 해소")

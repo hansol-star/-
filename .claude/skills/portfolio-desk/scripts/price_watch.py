@@ -109,8 +109,33 @@ def save_state(st: dict) -> None:
 
 
 def evaluate_all() -> list[dict]:
-    """triggers.evaluate()를 그대로 쓴다 — 판정 로직을 복제하지 않는다."""
-    from triggers import evaluate
+    """triggers.evaluate()를 그대로 쓴다 — 판정 로직을 복제하지 않는다.
+
+    ⚡ 1회 실행에 한해 시세를 메모한다. 알림 21건이 고유 티커 13개를 쓰므로
+       같은 값을 8번 더 받아오고 있었다(같은 순간이라 값도 동일하다).
+       하루 80회 실행이면 1,680 → 1,040콜 — Yahoo 레이트리밋 여유를 벌어둔다.
+    """
+    import market_data as _md
+    _memo = {}
+    _orig = _md.fetch_quote
+
+    def _cached(ticker, *a, **k):
+        if ticker not in _memo:
+            _memo[ticker] = _orig(ticker, *a, **k)
+        return _memo[ticker]
+
+    _md.fetch_quote = _cached
+    try:
+        return _evaluate_all_inner()
+    finally:
+        _md.fetch_quote = _orig          # 원복 — 다른 호출자에 새어나가지 않게
+
+
+def _evaluate_all_inner() -> list[dict]:
+    import triggers as _t
+    import market_data as _md
+    _t.fetch_quote = _md.fetch_quote     # triggers가 from-import한 참조도 교체
+    evaluate = _t.evaluate
     cfg = _load(CFG, {})
     out = []
     for a in (cfg.get("alerts") or []):

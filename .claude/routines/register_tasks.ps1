@@ -80,11 +80,13 @@ if (Test-Path $Watcher) {
     "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -Command " +
     "`"& { `$env:Path='$env:LOCALAPPDATA\Programs\Python\Python312;' + `$env:Path; " +
     "python '$Watcher' --once --quiet }`"") -WorkingDirectory $Repo
-  # KRX 정규장(09:00~15:30)과 미국 정규장(22:30~05:00)에 10분 간격.
+  # KRX 정규장(09:00~15:30) + 시간외단일가(16:00~18:00) → 09:00부터 9시간.
+  # ⚠️ [9/3 정정] 첫 등록은 6시간30분이라 15:30에 끊겼다 — 시간외가 감시 사각이었다.
+  #    스크립트가 15:30~16:00 공백을 스스로 건너뛰므로 9시간으로 늘려도 헛돌지 않는다.
   $wt1 = New-ScheduledTaskTrigger -Daily -At '09:00'
   $wt1.Repetition = (New-ScheduledTaskTrigger -Once -At '09:00' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `
-      -RepetitionDuration (New-TimeSpan -Hours 6 -Minutes 30)).Repetition
+      -RepetitionDuration (New-TimeSpan -Hours 9)).Repetition
   $wt2 = New-ScheduledTaskTrigger -Daily -At '22:30'
   $wt2.Repetition = (New-ScheduledTaskTrigger -Once -At '22:30' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `
@@ -99,7 +101,7 @@ if (Test-Path $Watcher) {
   Register-ScheduledTask -TaskName $WatchName -TaskPath $Folder -Action $wAction `
       -Trigger @($wt1, $wt2) -Principal $principal -Settings $wSettings `
       -Description "장중 트리거 감시(10분) - 알림 전용 - 정본 docs/routines.md" | Out-Null
-  Write-Output ("registered  {0,-22} {1}" -f $WatchName, '09:00·22:30 +10분 반복')
+  Write-Output ("registered  {0,-22} {1}" -f $WatchName, '09:00(9h)·22:30(6.5h) +10분')
 }
 
 # ── 캐치업 [9/2 신설] — 꺼져 있어 놓친 루틴을 켜지자마자 따라잡는다 ──────────

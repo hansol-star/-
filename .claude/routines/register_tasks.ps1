@@ -80,13 +80,17 @@ if (Test-Path $Watcher) {
     "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -Command " +
     "`"& { `$env:Path='$env:LOCALAPPDATA\Programs\Python\Python312;' + `$env:Path; " +
     "python '$Watcher' --once --quiet }`"") -WorkingDirectory $Repo
-  # KRX 정규장(09:00~15:30) + 시간외단일가(16:00~18:00) → 09:00부터 9시간.
-  # ⚠️ [9/3 정정] 첫 등록은 6시간30분이라 15:30에 끊겼다 — 시간외가 감시 사각이었다.
-  #    스크립트가 15:30~16:00 공백을 스스로 건너뛰므로 9시간으로 늘려도 헛돌지 않는다.
+  # KRX 정규장(09:00~15:30) + 애프터마켓 → 09:00부터 11시간(=20:00).
+  # ⚠️ [9/3 정정①] 첫 등록은 6h30m이라 15:30에 끊겼다 — 시간외가 감시 사각이었다.
+  # ⚠️ [9/3 정정②] 9h(18:00)도 부족하다 — **9/14부터 애프터마켓이 20:00까지**다
+  #    (시간외단일가 폐지 → 시간외접속매매 16:00~20:00, 한국거래소 확정).
+  #    스크립트가 장 시간을 스스로 판정해 밖이면 즉시 종료하므로 11시간이어도 헛돌지 않는다.
+  #    ⚠️ 프리마켓(07:00~07:50, 9/14~)은 이 트리거 밖이라 **아직 감시 사각**이다 —
+  #      9/14 전에 07:00 트리거를 추가할 것(지금 넣으면 11일간 매일 헛돈다).
   $wt1 = New-ScheduledTaskTrigger -Daily -At '09:00'
   $wt1.Repetition = (New-ScheduledTaskTrigger -Once -At '09:00' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `
-      -RepetitionDuration (New-TimeSpan -Hours 9)).Repetition
+      -RepetitionDuration (New-TimeSpan -Hours 11)).Repetition
   $wt2 = New-ScheduledTaskTrigger -Daily -At '22:30'
   $wt2.Repetition = (New-ScheduledTaskTrigger -Once -At '22:30' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `
@@ -101,7 +105,7 @@ if (Test-Path $Watcher) {
   Register-ScheduledTask -TaskName $WatchName -TaskPath $Folder -Action $wAction `
       -Trigger @($wt1, $wt2) -Principal $principal -Settings $wSettings `
       -Description "장중 트리거 감시(10분) - 알림 전용 - 정본 docs/routines.md" | Out-Null
-  Write-Output ("registered  {0,-22} {1}" -f $WatchName, '09:00(9h)·22:30(6.5h) +10분')
+  Write-Output ("registered  {0,-22} {1}" -f $WatchName, '09:00(11h)·22:30(6.5h) +10분')
 }
 
 # ── 캐치업 [9/2 신설] — 꺼져 있어 놓친 루틴을 켜지자마자 따라잡는다 ──────────

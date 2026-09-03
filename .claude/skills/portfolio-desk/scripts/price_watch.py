@@ -55,16 +55,31 @@ STATE_DIR = os.path.join(ROOT, "data", "logs")
 STATE = os.path.join(STATE_DIR, "price_watch_state.json")
 
 # 가격이 실제로 움직이는 시간대만 본다(KST). 그 밖엔 호출 자체를 아낀다.
-#   KRX 정규장 09:00~15:30 · 시간외단일가 16:00~18:00
 #   미국 정규장 22:30~05:00(익일) — 서머타임은 ±1h 오차를 허용해 넉넉히 잡는다
+#
+# ★[9/3] 국내 거래시간이 **2026-09-14부터 바뀐다**(한국거래소 확정·다출처 [검증]):
+#   舊  정규장 09:00~15:30 + 시간외단일가 16:00~18:00(10분 일괄체결·당일종가 ±10%)
+#   新  프리마켓 07:00~07:50 + 정규장 09:00~15:30 + 애프터마켓 16:00~20:00
+#       애프터마켓은 **정규장과 동일한 실시간 접속매매**(전일종가 ±30%·지정가만)
+#   ⇒ 시행일로 갈라 자동 전환한다. 미리 켜면 9/13까지 안 열리는 시간에 헛돌고,
+#     안 켜면 9/14부터 애프터마켓 4시간(16:00~20:00)이 통째로 감시 사각이 된다.
+AFTER_MKT_REFORM = dt.date(2026, 9, 14)
+
+
 def market_open_kst(now: dt.datetime) -> tuple[bool, str]:
     if now.weekday() >= 5:                      # 토·일 — 정훈 폰도 주말은 제외다
         return False, "주말"
     m = now.hour * 60 + now.minute
+    reformed = now.date() >= AFTER_MKT_REFORM
+    if reformed and 420 <= m <= 470:
+        return True, "KRX 프리마켓"
     if 540 <= m <= 930:
         return True, "KRX 정규장"
-    if 960 <= m <= 1080:
-        return True, "KRX 시간외"
+    if reformed:
+        if 960 <= m <= 1200:
+            return True, "KRX 애프터마켓"
+    elif 960 <= m <= 1080:
+        return True, "KRX 시간외단일가"
     if m >= 1350 or m <= 330:
         return True, "미국 정규장"
     return False, "장 마감"

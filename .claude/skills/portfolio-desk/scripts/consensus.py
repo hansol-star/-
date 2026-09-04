@@ -81,6 +81,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="애널리스트 목표주가 (Yahoo crumb)")
     ap.add_argument("--tickers", help="쉼표·공백구분 티커 (기본: portfolio.json US 보유+워치)")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--save", action="store_true",
+                    help="data/app/consensus.json 저장 — archive_daily가 날짜별로 누적한다 [9/4]")
     args = ap.parse_args()
 
     if args.tickers:
@@ -100,6 +102,23 @@ def main() -> int:
         return 1
 
     rows = [fetch_consensus(op, crumb, s) for s in syms]
+
+    if args.save:
+        # ★[9/4] 저장 경로 신설. 舊엔 조회만 하고 버려서 **목표가가 언제 어떻게
+        #   바뀌었는지**를 되짚을 수 없었다(9/4 누적 감사). 스냅샷을 쓰면
+        #   archive_daily.py가 날짜별로 누적한다 — 이 파일 자체는 계속 덮어써도 된다.
+        import datetime as _dt
+        _kst = _dt.datetime.now(_dt.timezone.utc) + _dt.timedelta(hours=9)
+        _p = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "..", "..", "..", "..", "data", "app", "consensus.json")
+        _p = os.path.abspath(_p)
+        os.makedirs(os.path.dirname(_p), exist_ok=True)
+        json.dump({"updated": _kst.strftime("%Y-%m-%d %H:%M"),
+                   "note": "Yahoo financialData 컨센서스 스냅샷. 과거 시계열은 API가 주지 않으므로 "
+                           "오늘부터 archive_daily로 누적해야 '언제 바뀌었나'가 답이 된다.",
+                   "rows": rows},
+                  open(_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"저장: {_p}")
 
     if args.json:
         print(json.dumps(rows, ensure_ascii=False, indent=2))

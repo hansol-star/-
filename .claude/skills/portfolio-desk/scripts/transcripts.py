@@ -183,13 +183,31 @@ def main():
         render(rows, a.full, keys)
 
     if a.save:
+        # ★[9/4] **병합 저장**으로 교체. 舊엔 매 호출이 rows를 통째로 덮어써서,
+        #   보유 7종목을 연속 호출해도 **마지막 1종목만 남았다**(9/4 실측 rows=1).
+        #   --save가 있는데도 코퍼스가 안 쌓이던 이유가 이것이다.
+        #   ⇒ ticker+quarter 키로 기존 행과 합친다. 같은 키는 새 값으로 갱신한다.
         os.makedirs(os.path.dirname(OUT), exist_ok=True)
+        prev = {}
+        try:
+            old_doc = json.load(open(OUT, encoding="utf-8"))
+            for r in old_doc.get("rows") or []:
+                prev[(r.get("ticker"), r.get("quarter") or r.get("period"))] = r
+        except Exception:                                          # noqa: BLE001
+            pass
+        for r in rows:
+            if r.get("error"):
+                continue                                           # 실패행은 원장을 오염시키지 않는다
+            prev[(r.get("ticker"), r.get("quarter") or r.get("period"))] =                 {k: v for k, v in r.items() if k != "text"}
+        merged = sorted(prev.values(),
+                        key=lambda x: (str(x.get("ticker")), str(x.get("quarter") or "")))
         with open(OUT, "w", encoding="utf-8") as f:
             json.dump({"updated": dt.date.today().isoformat(),
-                       "note": "어닝콜 트랜스크립트 요약(earningscalls.dev·무키). 수치는 1차 출처 교차 필요.",
-                       "rows": [{k: v for k, v in r.items() if k != "text"} for r in rows]},
+                       "note": "어닝콜 트랜스크립트 요약(earningscalls.dev·무키). 수치는 1차 출처 교차 필요. "
+                               "ticker+quarter 키로 누적 병합(9/4~).",
+                       "rows": merged},
                       f, ensure_ascii=False, indent=1)
-        print(f"저장: {OUT}")
+        print(f"저장: {OUT} (누적 {len(merged)}행)")
     return 1 if any(r.get("error") for r in rows) else 0
 
 

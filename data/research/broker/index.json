@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-03",
+ "updated": "2026-09-04",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -1532,6 +1532,71 @@
    "rating": "투자의견없음",
    "analyst": "양승수",
    "broker": "메리츠증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "650006": {
+   "date": "2026-06-11",
+   "report_idx": "650006",
+   "title": "HD현대중공업",
+   "full_title": "HD현대중공업(329180) 안정과 성장, 확실히 잡은 두 마리 토끼 HD현대중공업(329180) 안정과 성장, 확실히 잡은 두 마리 토끼 안정과 성장, 확실히 잡은 두 마리 토끼",
+   "code": "329180",
+   "target_price": 860000.0,
+   "rating": "Buy",
+   "analyst": "-",
+   "broker": "iM증권",
+   "name": "HD현대중공업",
+   "held": false
+  },
+  "650005": {
+   "date": "2026-06-11",
+   "report_idx": "650005",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) 기다린다, 특수선 한화오션(042660) 기다린다, 특수선 기다린다, 특수선",
+   "code": "042660",
+   "target_price": 167000.0,
+   "rating": "Buy",
+   "analyst": "-",
+   "broker": "iM증권",
+   "name": "한화오션",
+   "held": false
+  },
+  "650004": {
+   "date": "2026-06-11",
+   "report_idx": "650004",
+   "title": "삼성중공업",
+   "full_title": "삼성중공업(010140) LNG로 흥하고 Floating으로 더뜬다 삼성중공업(010140) LNG로 흥하고 Floating으로 더뜬다 LNG로 흥하고 Floating으로 더뜬다",
+   "code": "010140",
+   "target_price": 35000.0,
+   "rating": "Buy",
+   "analyst": "-",
+   "broker": "iM증권",
+   "name": "삼성중공업",
+   "held": false
+  },
+  "649986": {
+   "date": "2026-06-11",
+   "report_idx": "649986",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 긍정적 모멘텀 추가 NAVER(035420) 긍정적 모멘텀 추가 긍정적 모멘텀 추가",
+   "code": "035420",
+   "target_price": 303000.0,
+   "rating": "Buy",
+   "analyst": "선유진",
+   "broker": "LS증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "649928": {
+   "date": "2026-06-09",
+   "report_idx": "649928",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) 가늠할 수 없는 이익의 지평 삼성전기(009150) 가늠할 수 없는 이익의 지평 가늠할 수 없는 이익의 지평",
+   "code": "009150",
+   "target_price": 2300000.0,
+   "rating": "Buy",
+   "analyst": "고의영,박정하",
+   "broker": "iM증권",
    "name": "삼성전기",
    "held": false
   }

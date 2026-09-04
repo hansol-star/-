@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 import urllib.parse
@@ -297,6 +298,8 @@ def main():
     ap.add_argument("--limit", type=int, default=10, help="FTS 표시 건수(기본 10)")
     ap.add_argument("--routine", action="store_true", help="routine 등급 8-K도 표시")
     ap.add_argument("--json", action="store_true", help="기계 소비용 JSON 출력")
+    ap.add_argument("--save", action="store_true",
+                    help="data/app/edgar_events.json 저장 — archive_daily가 날짜별로 누적 [9/4]")
     args = ap.parse_args()
 
     if not args.q and not args.events:
@@ -332,6 +335,23 @@ def main():
 
     if args.json:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
+
+    if args.save:
+        # ★[9/4] 저장 경로 신설. 舊엔 8-K 이벤트를 조회만 하고 버려서, 나중에
+        #   "그 공시가 언제 떴나"를 되짚을 수 없었다(9/4 누적 감사 — dart_disclosure의
+        #   미국 짝인데 그쪽만 --save가 있었다. 형제 버그가 옆에 남아 있었다).
+        import datetime as _dt
+        _kst = _dt.datetime.now(_dt.timezone.utc) + _dt.timedelta(hours=9)
+        _p = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "..", "..", "..", "..", "data", "app", "edgar_events.json"))
+        os.makedirs(os.path.dirname(_p), exist_ok=True)
+        json.dump({"updated": _kst.strftime("%Y-%m-%d %H:%M"),
+                   "days": args.days,
+                   "note": "SEC 8-K item 코드 스트림. item 코드는 '사건이 있었다'는 사실이지 "
+                           "내용이 아니다 — 논지를 바꿀 건이면 원문 URL로 내려갈 것.",
+                   **payload},
+                  open(_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"저장: {_p}")
     return 0
 
 

@@ -54,6 +54,7 @@ TARGETS = [
     ("disclosures", "data/app/disclosures.json"),      # 국내 공시(중대성 3단)
     ("transcripts", "data/app/transcripts.json"),      # 어닝콜 전문
     ("consensus", "data/app/consensus.json"),          # 증권사 목표가
+    ("edgar_events", "data/app/edgar_events.json"),    # 미국 8-K 이벤트 [9/4]
     ("eps_revisions", "data/app/eps_revisions.json"),  # 추정치 리비전
     ("sentiment", "data/app/sentiment.json"),          # 리테일 심리
     ("toss_flows", "data/app/toss_flows.json"),        # 국내 수급 4축

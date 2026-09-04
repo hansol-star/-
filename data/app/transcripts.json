@@ -1,7 +1,307 @@
 {
  "updated": "2026-09-04",
- "note": "어닝콜 트랜스크립트 요약(earningscalls.dev·무키). 수치는 1차 출처 교차 필요.",
+ "note": "어닝콜 트랜스크립트 요약(earningscalls.dev·무키). 수치는 1차 출처 교차 필요. ticker+quarter 키로 누적 병합(9/4~).",
  "rows": [
+  {
+   "ticker": "AAPL",
+   "date": "2026-07-30",
+   "url": "https://earningscalls.dev/transcripts/apple-inc_aapl_earnings_call_transcript_2026-07-30",
+   "chars": 56727,
+   "quotes": [
+    {
+     "key": "supply",
+     "quote": "ached $2.02, up 29% year-over-year. Management guided for a revenue growth of 9% to 11% in the upcoming September quarter, citing supply constraints and foreign exchange headwinds as key factors affecting performance. Overall, the strong iPhone and Mac sales drove the results, but the anticipated deceleration in growth may raise concerns among investors. What topics did Apple Inc."
+    },
+    {
+     "key": "supply",
+     "quote": "ion, representing a 16% year-over-year increase and a June quarter record. Tim Cook stated, \"We were able to achieve this despite supply constraints and sequential foreign exchange headwinds.\" iPhone and Mac Performance: iPhone revenue grew 22% year-over-year to $54.3 billion, while Mac revenue surged 29% to $10.4 billion, both achieving June quarter records. Cook noted, \"This is the"
+    },
+    {
+     "key": "demand",
+     "quote": "its distinctive design and excellent value resonating with customers around the world, and we're continuing to work hard to meet demand. MacBook Air, the world's most popular laptop, continues to deliver the portability and performance customers love with M5. And MacBook Pro, powered by M5 Pro and M5 Max remains the go-to choice for professionals tackling the most demanding AI developme"
+    },
+    {
+     "key": "demand",
+     "quote": "ustomers love with M5. And MacBook Pro, powered by M5 Pro and M5 Max remains the go-to choice for professionals tackling the most demanding AI development and creative workflows. In iPad, revenue was $6.2 billion for the June quarter. iPad continues to be the ultimate go anywhere, do anything device for students, entrepreneurs and creators of all kinds, thanks to its incredible power,"
+    },
+    {
+     "key": "pricing",
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Apple Inc. (AAPL) › July 30, 2026 Apple Inc. (AAPL) Earnings Call Transcript & Summary July 30, 2026 NASDAQ US Information Technology Technology Hardware, Storage and P"
+    },
+    {
+     "key": "pricing",
+     "quote": "pecting lower cost on certain non-memory components that are in our BOM. And then if you look beyond September, we see the market pricing for memory continuing to increase, which could drive an increasing impact on our business, and we're continuing to evaluate this. In terms of the sources of supply, primarily the DRAM market has 3 suppliers. And obviously, if there were more supplier"
+    },
+    {
+     "key": "inventory",
+     "quote": "ly more in the June quarter than the March quarter, and that is what happened. It was partially offset by the benefit of carry-in inventory. For September, we expect to pay even higher memory costs, and we're able to offset partly by a few factors, and let me walk through kind of what they are. The first is, as you would expect, we have a benefit from some carry-in inventory in the Sep"
+    },
+    {
+     "key": "inventory",
+     "quote": "factors, and let me walk through kind of what they are. The first is, as you would expect, we have a benefit from some carry-in inventory in the September quarter. However, we believe this -- we will see decreasing benefit from this over time beyond the September quarter. The second is we're expecting lower cost on certain non-memory components that are in our BOM. And then if you look"
+    },
+    {
+     "key": "guidance",
+     "quote": "ne, Mac, and iPad. Cook mentioned, \"We expect the impact from the supply constraints to increase significantly sequentially.\" Guidance for September Quarter: Apple guided for revenue growth of 9% to 11% in the September quarter, reflecting a deceleration from the June quarter. CFO Kevan Parekh noted, \"We expect foreign exchange to be a sequential headwind of about 2.5 percentage poin"
+    },
+    {
+     "key": "guidance",
+     "quote": "e Ask to Browse and Time Allowances will help parents encourage kids to develop healthy digital habits. These new tools integrate guidance from leading clinical and child development research, including the American Academy of Pediatrics. Our goal is to make it easier for parents to manage what their children see, who they interact with and how and when they can use their devices. We're"
+    },
+    {
+     "key": "margin",
+     "quote": "iPhone Revenue: $54.3B (up 22% YoY) Mac Revenue: $10.4B (up 29% YoY) Services Revenue: $30.7B (up 12% YoY) Gross Margin: 50.1% (up 80 bps sequentially) Apple's strong performance in Q3 2026, driven by record sales in iPhone and Mac, is overshadowed by concerns regarding supply constraints and foreign exchange headwinds. The leadership transition adds uncertain"
+    },
+    {
+     "key": "margin",
+     "quote": "ng our discussion today will consist of forward-looking statements, including, without limitation, those regarding revenue, gross margin, operating expenses, other income and expense, taxes and future business outlook. These statements involve risks and uncertainties that may cause actual results or trends to differ materially from our forecast including risks related to the potential im"
+    }
+   ]
+  },
+  {
+   "ticker": "AVGO",
+   "date": "2026-09-02",
+   "url": "https://earningscalls.dev/transcripts/broadcom-inc_avgo_earnings_call_transcript_2026-09-02",
+   "chars": 44339,
+   "quotes": [
+    {
+     "key": "supply",
+     "quote": ". Our engagement with Google has never been stronger. This has been recently strengthened by a long-term agreement to develop and supply future generations of TPUs and AI networking. Under this agreement, we're planning to deliver multi tens of billions of dollars of TPUs annually over the next several years. We expect this growing demand in '28 and '29 to be fulfilled through successive"
+    },
+    {
+     "key": "supply",
+     "quote": "progress with this key group of LLM customers, here is our outlook for our AI semiconductor revenue: in 2027, we have secured the supply to again double AI revenue to approximately $115 billion. Our demand actually exceeds this outlook, and we will work to improve supply. In 2028, we expect the trajectory of growth to continue. We have line of sight for fiscal 2028 AI semiconductor reven"
+    },
+    {
+     "key": "demand",
+     "quote": "grew even faster at 92% year-on-year with operating margin at a record 68% of revenue, reflecting strong operating leverage. Q3 demand was simply hot and we're just getting started. Our 6 XPU customers are accelerating the adoption of custom accelerators. And AI semiconductor revenue more than tripled year-over-year to $16.7 billion. During the quarter, we delivered Ironwood TPU v7, ve"
+    },
+    {
+     "key": "demand",
+     "quote": "or the year, up 186% year upon year and above our prior guidance of $56 million. We are continuing to see exponential growth in demand from our XPU customers. We believe the vast majority of compute demand for AI workloads today originates from these concentrated group who develops state-of-the-art frontier models, and we expect the need for compute infrastructure to inflect even more"
+    },
+    {
+     "key": "pricing",
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Broadcom Inc. (AVGO) › September 2, 2026 Broadcom Inc. (AVGO) Earnings Call Transcript & Summary September 2, 2026 NASDAQ US Information Technology Semiconductors and S"
+    },
+    {
+     "key": "inventory",
+     "quote": "$24 billion of cash compared to $19.6 billion in the prior quarter, up $4.3 billion sequentially. We ended the third quarter with inventory of $4.5 billion to support our strong semiconductor demand. Moving on to cash flow. Free cash flow in the quarter was a record $13.7 billion and represented 46% of revenue. We spent $532 million on capital expenditures in the quarter. Turning to ca"
+    },
+    {
+     "key": "capex",
+     "quote": "ons of XPU, can you talk to how your dollar per gigawatt should improve into the subsequent XPU generations? And also, I saw your CapEx went up. Just wondering if you're adding capacity on the [indiscernible] side. Hock Tan executive #47 Well, Charlie, you want to take the CapEx issue? Charlie Kawwas executive #48 We --"
+    },
+    {
+     "key": "capex",
+     "quote": "apacity on the [indiscernible] side. Hock Tan executive #47 Well, Charlie, you want to take the CapEx issue? Charlie Kawwas executive #48 We -- so on the CapEx side, as we've been sharing with you, Hock and I, for several quarters, we continue to invest in our factories. Substrate is what Hock talked about, which was act"
+    },
+    {
+     "key": "guidance",
+     "quote": "s website. During the prepared comments, Hock and Amie will be providing details of our third quarter fiscal year 2026 results, guidance for our fourth quarter of fiscal year 2026 as well as commentary regarding the business environment. We'll take questions after the end of our prepared comments. Please refer to our press release today and our recent filings with the SEC for informa"
+    },
+    {
+     "key": "guidance",
+     "quote": "ect these deployments to drive our Q4 AI revenue to $21.7 billion, which is up 236% year-on-year. Based on all this -- on this Q4 guidance, I should say, we expect our fiscal 2026 AI revenue to be $58 billion for the year, up 186% year upon year and above our prior guidance of $56 million. We are continuing to see exponential growth in demand from our XPU customers. We believe the vast"
+    },
+    {
+     "key": "margin",
+     "quote": "ated revenue to $29.6 billion which was up 86% year-on-year. Operating income grew even faster at 92% year-on-year with operating margin at a record 68% of revenue, reflecting strong operating leverage. Q3 demand was simply hot and we're just getting started. Our 6 XPU customers are accelerating the adoption of custom accelerators. And AI semiconductor revenue more than tripled year-ov"
+    },
+    {
+     "key": "margin",
+     "quote": "to $34.8 billion, up 93% year-on-year. We expect Q4 AI revenue to be $21.7 billion, up 236% year-on-year, and we expect operating margin to be approximately 66% of revenue. And with that, let me turn it over to Amie. Amie O'Toole executive #4 Thank you, Hock. Let me now provide additional detail on our Q3 financial performance. Consolidated revenue was"
+    },
+    {
+     "key": "HBM",
+     "quote": "ve the strongest IP portfolio in semiconductor design, including industry-leading SerDes, chip-to-chip interconnect, leading-edge HBM and SRAM integration and simply differentiated advanced packaging. Most of all, we have been consistently -- we have consistently, I should say, delivered the fastest time to market for TPUs from product definition to production. We found the need for [ind"
+    },
+    {
+     "key": "HBM",
+     "quote": "th respect to our customers, the size of what we have and against the supply chain we have in leading-edge wafers, substrates and HBM memory. And so this is, again, a carefully structured outlook that we believe we can achieve. Operator operator #8 One moment for our next question. That will come from the line of Blayne Curtis with Jefferies."
+    }
+   ]
+  },
+  {
+   "ticker": "GOOGL",
+   "date": "2026-07-22",
+   "url": "https://earningscalls.dev/transcripts/alphabet-inc_googl_earnings_call_transcript_2026-07-22",
+   "chars": 60103,
+   "quotes": [
+    {
+     "key": "supply",
+     "quote": "s and the expansion of the Gemini platform signal positive momentum for future growth, although analysts expressed concerns about supply constraints and margin pressures. What topics did Alphabet Inc. cover? Strong Revenue Growth: Alphabet's revenue grew 24% year-over-year, with Google Services revenues increasing 15% to $94.5 billion, driven by Search and YouTube. Management"
+    },
+    {
+     "key": "supply",
+     "quote": "growing demand for AI capabilities. This indicates a commitment to long-term investments despite short-term margin pressures. Supply Constraints and Margin Pressure: Management acknowledged ongoing supply constraints impacting capacity and margins, particularly in Cloud. They indicated that using third-party capacity may create \"modest margin pressure\" in the near term. Wha"
+    },
+    {
+     "key": "demand",
+     "quote": "Management raised full-year CapEx guidance to $195-$205 billion, indicating continued investment in AI infrastructure. The strong demand for AI solutions and the expansion of the Gemini platform signal positive momentum for future growth, although analysts expressed concerns about supply constraints and margin pressures. What topics did Alphabet Inc. cover? Strong Revenue Gro"
+    },
+    {
+     "key": "demand",
+     "quote": "what's possible across every part of our business.\" Cloud Revenue Surge: Cloud revenue soared 82% to $24.8 billion, fueled by demand for AI infrastructure. The backlog for Google Cloud reached $514 billion, indicating strong future revenue potential. AI Integration in Advertising: The integration of Gemini into advertising has improved targeting and ad quality, contributing to a"
+    },
+    {
+     "key": "pricing",
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Communication Services › Alphabet Inc. (GOOGL) › July 22, 2026 Alphabet Inc. (GOOGL) Earnings Call Transcript & Summary July 22, 2026 NASDAQ US Communication Services Interactive Media and Serv"
+    },
+    {
+     "key": "inventory",
+     "quote": "on, up 18%. TAC was $16.2 billion, up 10%. Other cost of revenues was $29.8 billion, up 22%, driven by increases in depreciation, inventory costs, primarily from the sales of TPU systems to customers and content acquisition costs largely for YouTube. Total operating expenses were up 27% to $33.1 billion. R&D expenses increased by 32%, driven by compensation from investments in AI talent"
+    },
+    {
+     "key": "inventory",
+     "quote": "he $514 billion of cloud backlog is the GCP agreements, but the TPU system sales are reflected in that backlog. We start building inventory to be able to sell those systems. So you see that impact on the cash from operations because we built ahead obviously, as we're building that business and ramping up. And then once we start delivering the sales, generally, that's when we start recogn"
+    },
+    {
+     "key": "capex",
+     "quote": "Search. Earnings per share increased significantly, reflecting unrealized gains in equity securities. Management raised full-year CapEx guidance to $195-$205 billion, indicating continued investment in AI infrastructure. The strong demand for AI solutions and the expansion of the Gemini platform signal positive momentum for future growth, although analysts expressed concerns about supply"
+    },
+    {
+     "key": "capex",
+     "quote": "gement stated, \"Gemini supercharges our ability to understand what people are looking for and match the right ads.\" Increased CapEx Guidance: Management raised full-year CapEx guidance to $195-$205 billion, up from $180-$190 billion, to support growing demand for AI capabilities. This indicates a commitment to long-term investments despite short-term margin pressures. Supply Cons"
+    },
+    {
+     "key": "guidance",
+     "quote": ". Earnings per share increased significantly, reflecting unrealized gains in equity securities. Management raised full-year CapEx guidance to $195-$205 billion, indicating continued investment in AI infrastructure. The strong demand for AI solutions and the expansion of the Gemini platform signal positive momentum for future growth, although analysts expressed concerns about supply const"
+    },
+    {
+     "key": "guidance",
+     "quote": "stated, \"Gemini supercharges our ability to understand what people are looking for and match the right ads.\" Increased CapEx Guidance: Management raised full-year CapEx guidance to $195-$205 billion, up from $180-$190 billion, to support growing demand for AI capabilities. This indicates a commitment to long-term investments despite short-term margin pressures. Supply Constraint"
+    },
+    {
+     "key": "margin",
+     "quote": "the Gemini platform signal positive momentum for future growth, although analysts expressed concerns about supply constraints and margin pressures. What topics did Alphabet Inc. cover? Strong Revenue Growth: Alphabet's revenue grew 24% year-over-year, with Google Services revenues increasing 15% to $94.5 billion, driven by Search and YouTube. Management noted, \"Our AI investm"
+    },
+    {
+     "key": "margin",
+     "quote": "0 billion, to support growing demand for AI capabilities. This indicates a commitment to long-term investments despite short-term margin pressures. Supply Constraints and Margin Pressure: Management acknowledged ongoing supply constraints impacting capacity and margins, particularly in Cloud. They indicated that using third-party capacity may create \"modest margin pressure\" in the ne"
+    }
+   ]
+  },
+  {
+   "ticker": "META",
+   "date": "2026-07-29",
+   "url": "https://earningscalls.dev/transcripts/meta-platforms-inc_meta_earnings_call_transcript_2026-07-29",
+   "chars": 67159,
+   "quotes": [
+    {
+     "key": "supply",
+     "quote": "uilt historically for the wave of AI adoption, making existing capacity, including our own, extremely valuable. Longer term, the supply chains need to be built out to support the capacity that we anticipate we and others will need for AI-powered experiences. Second, we have high confidence in our ability to utilize capacity to scale and build on top of our existing experiences as well a"
+    },
+    {
+     "key": "supply",
+     "quote": "ng strategic investments in areas like our internal custom silicon effort, which will provide long-term strategic flexibility and supply chain leverage. This will be helpful in driving better returns on those long-term investments. Finally, we believe that overall industry capacity is going to remain tight for the foreseeable future. As we've said earlier, we strongly believe that the mo"
+    },
+    {
+     "key": "demand",
+     "quote": "rowth. Li stated, \"We expect third quarter 2026 total revenue to be in the range of $61 billion to $64 billion,\" signaling strong demand. What were Meta Platforms, Inc.'s July 29, 2026 results? Total Revenue: $60.8 billion (up 28% YoY, beat expectations) Net Income: $15.8 billion (or $6.18 per share, inline with expectations) Ad Revenue: $59.4 billion (up 27% Yo"
+    },
+    {
+     "key": "demand",
+     "quote": "revenue growth than any other company's reported ad business. So these AI investments are paying off. We are also seeing a lot of demand for our new AI-powered creative tools. 9 million small businesses on our platforms are now using at least one of our AI ad creative tools, and we're rolling out new end-to-end creative solutions that help advertisers translate performance data into thei"
+    },
+    {
+     "key": "pricing",
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Communication Services › Meta Platforms, Inc. (META) › July 29, 2026 Meta Platforms, Inc. (META) Earnings Call Transcript & Summary July 29, 2026 NASDAQ US Communication Services Interactive Me"
+    },
+    {
+     "key": "pricing",
+     "quote": "that provides more tools and AI features across our apps. As demand grows, we're going to offer a variety of different tiers and pricing options there as well. And I'm also excited about how AI is helping our teams speed up product development. Earlier this year, we shipped Instagram Instants. We also just launched Forum, a stand-alone Groups app and Seller, a stand-alone Marketplace ap"
+    },
+    {
+     "key": "capex",
+     "quote": "s an approximately 1% headwind to year-over-year total revenue growth based on current exchange rates. Turning to the expense and CapEx outlook. We are raising the lower end of our expense outlook to incorporate the $2.4 billion charge related to legal proceedings recognized in Q2. We now expect full year 2026 total expenses to be in the range of $165 billion to $169 billion. We continue"
+    },
+    {
+     "key": "capex",
+     "quote": "And then Susan, there's been some public comments about capacity in '27 and doubling capacity, and I appreciate your color about CapEx. Any early comments on '27 CapEx, even the philosophy around sources of upside or sources of downward pressure as you sort of think through different ways to finance this multiyear build and have '27 CapEx. Mark Zuckerberg executive"
+    },
+    {
+     "key": "guidance",
+     "quote": "its platforms. The company achieved a net income of $15.8 billion, translating to $6.18 per share. Management raised its revenue guidance for Q3 2026 to a range of $61 billion to $64 billion, indicating continued momentum in its advertising business and AI-driven initiatives, which are expected to enhance user engagement and monetization. What topics did Meta Platforms, Inc. cover"
+    },
+    {
+     "key": "guidance",
+     "quote": "solutions that help advertisers translate performance data into their creative decisions,\" indicating a focus on innovation. Guidance for Future Revenue: Meta raised its Q3 revenue guidance to a range of $61 billion to $64 billion, reflecting confidence in continued growth. Li stated, \"We expect third quarter 2026 total revenue to be in the range of $61 billion to $64 billion,\" sign"
+    },
+    {
+     "key": "margin",
+     "quote": "of Q3 2026. Second quarter GAAP operating income was $18.8 billion, representing an 8% decline year-over-year and a 31% operating margin. Excluding the Q2 legal charges and severance expenses, our second quarter operating income would have increased 9% year-over-year. Our tax rate for the quarter was 16%. Net income was $15.8 billion or $6.18 per share. Capital expenditures, including p"
+    },
+    {
+     "key": "margin",
+     "quote": "e paid for the compute. The question in thinking about this is we believe that there will continue to be a significantly higher margin on selling intelligence rather than selling compute directly. But we think that there is a big opportunity, obviously, to sell compute as well. So we're thinking through -- I think you asked what one area would likely scale the most. But I mean I'm actu"
+    }
+   ]
+  },
+  {
+   "ticker": "MSFT",
+   "date": "2026-07-29",
+   "url": "https://earningscalls.dev/transcripts/microsoft-corporation_msft_earnings_call_transcript_2026-07-29",
+   "chars": 64137,
+   "quotes": [
+    {
+     "key": "supply",
+     "quote": ", we have been reinventing Dynamics 365 for an agent-first world. We are exposing over 650,000 MCP actions across sales, finance, supply chain, HR, and customer service so that agents can now access business context and take action using the same data models, rules, permission, security guardrails, and audit trails as any application user. And we are also moving from seats to seats plus"
+    },
+    {
+     "key": "supply",
+     "quote": "ency, and we remain focused on delivering efficiencies that help us bridge the gaps we see as customer demand continues to exceed supply. Even with the strong close to Q4, we continue to expect H1 growth to accelerate. And as a reminder, year-over-year Azure growth rates can vary quarter-to-quarter based on capacity timing and contract mix. In our on-premises server business, we expect"
+    },
+    {
+     "key": "demand",
+     "quote": "ar. Management provided a positive outlook for fiscal year 2027, expecting continued double-digit revenue growth driven by strong demand in cloud services, particularly Azure, which saw a 43% revenue increase this quarter. What topics did Microsoft Corporation cover? Record Annual Revenue: Microsoft's annual revenue surpassed $331 billion, up 18% year-over-year, driven by str"
+    },
+    {
+     "key": "demand",
+     "quote": "on cover? Record Annual Revenue: Microsoft's annual revenue surpassed $331 billion, up 18% year-over-year, driven by strong demand across its cloud and AI services. CEO Satya Nadella stated, \"It was a very strong close to what was a record fiscal year for us.\" Azure Growth Acceleration: Azure revenue grew 43% year-over-year, reflecting strong demand and improved efficiency in c"
+    },
+    {
+     "key": "pricing",
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Microsoft Corporation (MSFT) › July 29, 2026 Microsoft Corporation (MSFT) Earnings Call Transcript & Summary July 29, 2026 NASDAQ US Information Technology Software e"
+    },
+    {
+     "key": "pricing",
+     "quote": "gain on investment in Anthropic noted earlier. Capital expenditures were $41 billion, including the impact from higher component pricing, as noted in our guide. Roughly 2/3 of our CapEx was for short-lived assets, primarily CPUs and GPUs as customers increasingly build solutions that leverage both AI and non-AI infrastructure. The remaining spend was for long-lived assets. This quarter,"
+    },
+    {
+     "key": "inventory",
+     "quote": "e that benefited from Windows 10 end of support. Results were ahead of expectations as OEM and channel partners continue to build inventory given increasing component prices. Search advertising revenue ex TAC increased 10% and 9% in constant currency with growth driven by higher revenue per search across Edge and Bing as well as higher volume, though growth was impacted by third-party pa"
+    },
+    {
+     "key": "inventory",
+     "quote": "igher component cost increased device pricing, a prior year comparable that benefited from Windows 10 end-of-support and elevated inventory levels. As a result, we expect revenue to decline in the high teens for the fiscal year. Moving to FX. Assuming current rates remain stable, we now expect FX to decrease full year fiscal revenue growth by less than 1 point with no meaningful impact"
+    },
+    {
+     "key": "capex",
+     "quote": "ital expenditures were $41 billion, including the impact from higher component pricing, as noted in our guide. Roughly 2/3 of our CapEx was for short-lived assets, primarily CPUs and GPUs as customers increasingly build solutions that leverage both AI and non-AI infrastructure. The remaining spend was for long-lived assets. This quarter, total finance leases were $5.6 billion and were pr"
+    },
+    {
+     "key": "capex",
+     "quote": "s are included in capital expenditures while operating leases are not. Outside of this useful life impact, our calendar year 2026 CapEx investment expectations remain unchanged. However, the shift from finance to operating leases adjust our expectation to approximately $175 billion. Now moving to our outlook. Let me start with some full year commentary for FY '27. First, some reminders."
+    },
+    {
+     "key": "guidance",
+     "quote": "\"The number of customers with more than 50,000 seats increased over 7x year-over-year,\" signaling robust enterprise adoption. Guidance for FY 2027: Management expects continued double-digit revenue growth for FY 2027, with cloud revenue projected to grow approximately 33% to 34%. Hood stated, \"We expect another fiscal year of double-digit revenue and operating income growth.\""
+    },
+    {
+     "key": "guidance",
+     "quote": "r share was $4.74, an increase of 23% when adjusted for the impact from our investment in OpenAI. And FX was roughly in line with guidance. Several discrete items impacted our financial results in the quarter when compared to our forward-looking guidance provided on our April earnings call, resulting in a benefit of $0.27 on diluted earnings per share. These included a $3.2 billion gain"
+    },
+    {
+     "key": "margin",
+     "quote": "while continuing to expand operating leverage. This quarter, revenue was $90 billion, up 18% and 17% in constant currency. Gross margin dollars increased 15% and operating income increased 18%. Earnings per share was $4.74, an increase of 23% when adjusted for the impact from our investment in OpenAI. And FX was roughly in line with guidance. Several discrete items impacted our financi"
+    },
+    {
+     "key": "margin",
+     "quote": "ations across revenue, operating income, and earnings per share due to strong demand and execution in the quarter. Company gross margin percentage was 67%, down year-over-year, driven by sales mix shift to Azure as well as continued investments in AI infrastructure and growing product usage, partially offset by ongoing efficiency gains, particularly in Azure and M365 Commercial cloud."
+    }
+   ]
+  },
   {
    "ticker": "MU",
    "date": "2026-08-10",
@@ -51,6 +351,102 @@
     {
      "key": "HBM",
      "quote": "how long it takes for that supply vector to catch up. On top of that, we have this issue of HBM growing very significantly. And HBM is needed in these AI systems because in a lot of the workloads, the processor, whether it's a GPU or an ASC or a CPU is sitting idle for 50% of the time because it is waiting for data from the DRAM and that is a huge underutilization of an important asset"
+    }
+   ]
+  },
+  {
+   "ticker": "NVDA",
+   "date": "2026-08-26",
+   "url": "https://earningscalls.dev/transcripts/nvidia-corporation_nvda_earnings_call_transcript_2026-08-26",
+   "chars": 52878,
+   "quotes": [
+    {
+     "key": "supply",
+     "quote": "$4.50, significantly above expectations, and provided guidance for fiscal year 2028 revenue growth of approximately 70%, despite supply constraints. Management indicated that data center revenue increased 18% quarter-over-quarter, with a strong outlook for continued growth in both hyperscale and enterprise segments. What topics did NVIDIA Corporation cover? Record Revenue Gr"
+    },
+    {
+     "key": "supply",
+     "quote": "r 2028: NVIDIA provided a preliminary revenue growth expectation of approximately 70% for fiscal year 2028, despite acknowledging supply constraints. Kress emphasized, \"We expect supply to remain a bottleneck, at least through the end of fiscal year '28,\" indicating cautious optimism. Gross Margin Outlook: Management expects GAAP and non-GAAP gross margins to decline to 74% in Q3, wi"
+    },
+    {
+     "key": "demand",
+     "quote": "f fiscal 2027, NVIDIA Corporation reported record revenue of $96 billion, more than doubling year-over-year, driven by surging AI demand. The company achieved an EPS of $4.50, significantly above expectations, and provided guidance for fiscal year 2028 revenue growth of approximately 70%, despite supply constraints. Management indicated that data center revenue increased 18% quarter-over"
+    },
+    {
+     "key": "demand",
+     "quote": "ch is more than double the previous year, marking a significant acceleration in growth. CEO Jensen Huang stated, \"The surge in AI demand is driving a global infrastructure buildout,\" highlighting the ongoing expansion in various customer segments. Data Center Revenue Surge: Data center revenue reached $89 billion, up 18% quarter-over-quarter, with hyperscale revenue growing 13% seque"
+    },
+    {
+     "key": "pricing",
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › NVIDIA Corporation (NVDA) › August 26, 2026 NVIDIA Corporation (NVDA) Earnings Call Transcript & Summary August 26, 2026 NASDAQ US Information Technology Semiconductors"
+    },
+    {
+     "key": "pricing",
+     "quote": "s margins to decline to 74% in Q3, with a potential bottoming out at 71% to 72% in Q4. Kress stated, \"We are experiencing extreme pricing conditions in memory,\" which is impacting margins. Expansion of Partnerships: NVIDIA announced an expansion of its partnership with AWS, involving the deployment of an additional 2 million GPUs. Huang remarked, \"We are delighted to announce an expa"
+    },
+    {
+     "key": "inventory",
+     "quote": "s costs. Our non-GAAP effective tax rate of 16% increased from a year ago, primarily due to higher revenue. On our balance sheet, inventory increased to $32 billion as we prepared for the vera ruben launch. Days of sales outstanding increased to 60 days, reflecting extended payment terms for large purchases by certain investment-grade customers to be shipped over multiple quarters. In Q2"
+    },
+    {
+     "key": "capex",
+     "quote": "in the quarter with accelerating revenue growth and expanding margins. With cloud industry backlog now greater than $2 trillion, CapEx by the top 5 hyperscalers is expected to reach nearly $800 billion in 2026 and $1.3 trillion in 2027. Today, we are delighted to announce an expansion of our partnership with AWS, building on its already vast installed base of NVIDIA compute, AWS is depl"
+    },
+    {
+     "key": "guidance",
+     "quote": "year-over-year, driven by surging AI demand. The company achieved an EPS of $4.50, significantly above expectations, and provided guidance for fiscal year 2028 revenue growth of approximately 70%, despite supply constraints. Management indicated that data center revenue increased 18% quarter-over-quarter, with a strong outlook for continued growth in both hyperscale and enterprise segmen"
+    },
+    {
+     "key": "guidance",
+     "quote": "ed strong financial results in the quarter with accelerating revenue growth and expanding margins,\" indicating robust demand. Guidance for Fiscal Year 2028: NVIDIA provided a preliminary revenue growth expectation of approximately 70% for fiscal year 2028, despite acknowledging supply constraints. Kress emphasized, \"We expect supply to remain a bottleneck, at least through the end of"
+    },
+    {
+     "key": "margin",
+     "quote": "ess noted, \"Hyperscale customers delivered strong financial results in the quarter with accelerating revenue growth and expanding margins,\" indicating robust demand. Guidance for Fiscal Year 2028: NVIDIA provided a preliminary revenue growth expectation of approximately 70% for fiscal year 2028, despite acknowledging supply constraints. Kress emphasized, \"We expect supply to remain a"
+    },
+    {
+     "key": "margin",
+     "quote": ", \"We expect supply to remain a bottleneck, at least through the end of fiscal year '28,\" indicating cautious optimism. Gross Margin Outlook: Management expects GAAP and non-GAAP gross margins to decline to 74% in Q3, with a potential bottoming out at 71% to 72% in Q4. Kress stated, \"We are experiencing extreme pricing conditions in memory,\" which is impacting margins. Expansion"
+    }
+   ]
+  },
+  {
+   "ticker": "ORCL",
+   "date": "2026-08-26",
+   "url": "https://earningscalls.dev/transcripts/oracle-corporation_orcl_earnings_call_transcript_2026-08-26",
+   "chars": 51843,
+   "quotes": [
+    {
+     "key": "supply",
+     "quote": "we're in the heart of what the business does. I mean we're providing the core banking systems. We're providing the merchandising supply chain management systems. We're supplying a meter data management and grid sharing system for utilities, the property management systems, reservation systems for hotels. And these are all businesses that we've been in. You don't see the oral logo on t"
+    },
+    {
+     "key": "supply",
+     "quote": "s does. I mean we're providing the core banking systems. We're providing the merchandising supply chain management systems. We're supplying a meter data management and grid sharing system for utilities, the property management systems, reservation systems for hotels. And these are all businesses that we've been in. You don't see the oral logo on them because they're private labeled by"
+    },
+    {
+     "key": "demand",
+     "quote": "on of AI discussions with clients, stating, \"the disruption factor that we're seeing is really stunning.\" This indicates a strong demand for AI solutions, which could drive future sales. Deferred Revenue Growth: Oracle's deferred revenue continues to grow faster than in-period revenue, signaling strong future bookings. Sicilia noted, \"we actually saw an acceleration because of the bu"
+    },
+    {
+     "key": "demand",
+     "quote": ".dev API. Get the API View API docs → This call discussed Agentic AI Data Centers AI Inference Demand Cloud Computing Generative AI Supply Chain Other Oracle Corporation earnings calls Q4 FY2026 Q3 FY2026 Q2 FY2026 Oct 16, 2025 All ORCL calls → Peers in Information Technology S"
+    },
+    {
+     "key": "pricing",
+     "quote": "EARNINGSCALLS DEV Home S&P 500 Sectors Trends Transcripts Blog API Pricing Home › Information Technology › Oracle Corporation (ORCL) › August 26, 2026 Oracle Corporation (ORCL) Earnings Call Transcript & Summary August 26, 2026 NYSE US Information Technology Software confe"
+    },
+    {
+     "key": "pricing",
+     "quote": "on applications.\" AI Monetization Strategies: Management discussed diverse monetization options for AI, including usage-based pricing and outcome-based pricing, stating, \"the combination of the 3 things that you mentioned will continue to be popular choices for our customers.\" Infrastructure and Cloud Database Growth: Oracle reported a 400% growth in its multi-cloud database busi"
+    },
+    {
+     "key": "guidance",
+     "quote": "2% year-over-year increase. Earnings per share (EPS) came in at $2.40, beating the consensus estimate of $2.25. Management raised guidance for fiscal year 2027, now expecting revenue growth of 10-12%, up from previous guidance of 8-10%. This positive outlook, particularly in AI-driven applications, positions Oracle favorably in a competitive landscape. What topics did Oracle Corpor"
+    },
+    {
+     "key": "guidance",
+     "quote": "nsus estimate of $2.25. Management raised guidance for fiscal year 2027, now expecting revenue growth of 10-12%, up from previous guidance of 8-10%. This positive outlook, particularly in AI-driven applications, positions Oracle favorably in a competitive landscape. What topics did Oracle Corporation cover? AI Integration and Customer Conversations: Management highlighted the"
     }
    ]
   }

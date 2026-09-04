@@ -140,8 +140,12 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
   원리적으로 답이 안 나온다.
   저장 = `data/archive/<축>/YYYY-MM/YYYY-MM-DD.json` · **직전과 내용 같으면 건너뜀**(용량 절약) ·
   원본 미존재는 **건너뛰되 말한다**(그 도구가 --save로 안 돌았다는 신호).
-  현재 10축: disclosures·transcripts·consensus·eps_revisions·sentiment·toss_flows·
-  toss_market·guru_flows·financials·flows.
+  현재 **11축**: disclosures·transcripts·consensus·**edgar_events**·eps_revisions·sentiment·
+  toss_flows·toss_market·guru_flows·financials·flows.
+  ★[9/4] `consensus.py --save`·`edgar_search.py --save` 신설(舊 조회 전용) +
+  `transcripts.py --save`를 **병합 저장으로 교체** — 舊엔 매 호출이 rows를 통째로 덮어써서
+  보유 7종목을 연속 호출해도 **마지막 1종목만 남았다**(실측 rows=1 → 병합 후 8행).
+  `--save`가 있는데도 코퍼스가 안 쌓이던 이유가 이것이다.
   ⚠️ 8/30 자막(/tmp)·9/4 뉴스(경로 없음)·9/4 프레임(%TEMP%)과 **같은 클래스의 네 번째 사례**다.
     매번 그 도구만 고쳐서 옆에 남은 형제를 못 봤다(8/12 교훈).
 - 📑 **[9/4 배선] `--save`가 있는데 안 불리던 것들** — R2에서 실제로 호출한다:

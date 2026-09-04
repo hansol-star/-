@@ -1,0 +1,197 @@
+{
+ "updated": "2026-09-04 12:42",
+ "note": "Yahoo financialData 컨센서스 스냅샷. 과거 시계열은 API가 주지 않으므로 오늘부터 archive_daily로 누적해야 '언제 바뀌었나'가 답이 된다.",
+ "rows": [
+  {
+   "symbol": "NVDA",
+   "price": 228.45,
+   "target_mean": 325.98773,
+   "target_high": 515.0,
+   "target_low": 180.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 57,
+   "gap_pct": 42.7,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "META",
+   "price": 610.68,
+   "target_mean": 754.77405,
+   "target_high": 1000.0,
+   "target_low": 580.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 57,
+   "gap_pct": 23.6,
+   "flag": ""
+  },
+  {
+   "symbol": "VOO",
+   "error": "HTTP Error 404: Not Found"
+  },
+  {
+   "symbol": "MSFT",
+   "price": 510.12,
+   "target_mean": 571.3767,
+   "target_high": 870.0,
+   "target_low": 400.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 52,
+   "gap_pct": 12.0,
+   "flag": ""
+  },
+  {
+   "symbol": "AAPL",
+   "price": 328.21,
+   "target_mean": 324.52975,
+   "target_high": 400.0,
+   "target_low": 215.0,
+   "rec_key": "buy",
+   "n_analysts": 39,
+   "gap_pct": -1.1,
+   "flag": ""
+  },
+  {
+   "symbol": "GOOGL",
+   "price": 342.48,
+   "target_mean": 428.06668,
+   "target_high": 515.0,
+   "target_low": 340.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 54,
+   "gap_pct": 25.0,
+   "flag": ""
+  },
+  {
+   "symbol": "ORCL",
+   "price": 154.04,
+   "target_mean": 241.97476,
+   "target_high": 400.0,
+   "target_low": 110.0,
+   "rec_key": "buy",
+   "n_analysts": 42,
+   "gap_pct": 57.1,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "MU",
+   "price": 958.16,
+   "target_mean": 1513.1111,
+   "target_high": 2200.0,
+   "target_low": 361.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 45,
+   "gap_pct": 57.9,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "AVGO",
+   "price": 357.16,
+   "target_mean": 525.97394,
+   "target_high": 675.0,
+   "target_low": 215.88,
+   "rec_key": "strong_buy",
+   "n_analysts": 46,
+   "gap_pct": 47.3,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "GEV",
+   "price": 941.84,
+   "target_mean": 1236.4318,
+   "target_high": 1450.0,
+   "target_low": 940.0,
+   "rec_key": "buy",
+   "n_analysts": 33,
+   "gap_pct": 31.3,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "TMUS",
+   "price": 188.02,
+   "target_mean": 243.375,
+   "target_high": 300.0,
+   "target_low": 169.0,
+   "rec_key": "none",
+   "n_analysts": 24,
+   "gap_pct": 29.4,
+   "flag": ""
+  },
+  {
+   "symbol": "SPCX",
+   "price": 149.74,
+   "target_mean": 222.3158,
+   "target_high": 450.0,
+   "target_low": 117.0,
+   "rec_key": "buy",
+   "n_analysts": 19,
+   "gap_pct": 48.5,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "PLTR",
+   "price": 182.53,
+   "target_mean": 191.68,
+   "target_high": 255.0,
+   "target_low": 80.0,
+   "rec_key": "buy",
+   "n_analysts": 27,
+   "gap_pct": 5.0,
+   "flag": ""
+  },
+  {
+   "symbol": "IONQ",
+   "price": 39.02,
+   "target_mean": 67.67538,
+   "target_high": 100.0,
+   "target_low": 44.78,
+   "rec_key": "strong_buy",
+   "n_analysts": 13,
+   "gap_pct": 73.4,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "TSLA",
+   "price": 376.365,
+   "target_mean": 390.09283,
+   "target_high": 600.0,
+   "target_low": 125.0,
+   "rec_key": "buy",
+   "n_analysts": 39,
+   "gap_pct": 3.6,
+   "flag": ""
+  },
+  {
+   "symbol": "AMD",
+   "price": 456.16,
+   "target_mean": 613.8449,
+   "target_high": 1250.0,
+   "target_low": 365.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 49,
+   "gap_pct": 34.6,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "ANET",
+   "price": 191.44,
+   "target_mean": 241.03607,
+   "target_high": 289.0,
+   "target_low": 185.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 28,
+   "gap_pct": 25.9,
+   "flag": ""
+  },
+  {
+   "symbol": "STM",
+   "price": 51.28,
+   "target_mean": 75.04167,
+   "target_high": 98.0,
+   "target_low": 52.0,
+   "rec_key": "buy",
+   "n_analysts": 12,
+   "gap_pct": 46.3,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  }
+ ]
+}

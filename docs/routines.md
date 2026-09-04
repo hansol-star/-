@@ -337,6 +337,10 @@ powershell -ExecutionPolicy Bypass -File .claude/routines/run_routine.ps1 -Kind 
   ★[9/4 정훈 요청 "카톡으로는 못해?"] 카카오를 1순위로 둔다 — 텔레그램이 설정은 두 줄로 간단하지만
   **정훈이 안 쓰는 앱**이고, 안 보는 알림은 없는 알림이다. 설정 부담보다 도달률이 우선.
   · 카카오 = '나에게 보내기'(`/v2/api/talk/memo/default/send`). 환경변수 `KAKAO_REST_KEY`·`KAKAO_REFRESH_TOKEN`.
+    ✅ **9/4 연결·실발송 검증 완료** — price_watch 전이 → notify → 카톡 도착까지 실경로 확인.
+    ⚠️ 콘솔 경로가 바뀌었다(2026 UI): Redirect URI는 **앱 > 플랫폼 키 > REST API 키 [⋮] 수정** 안에 있다
+      (舊 안내의 '카카오 로그인 > 일반'엔 없다). 동의항목 `talk_message`는 **이용 중 동의**로,
+      **클라이언트 시크릿(카카오 로그인)은 OFF** — 기본 ON이라 안 끄면 토큰 발급이 실패한다.
     설정 = developers.kakao.com 앱 생성 → REST API 키 → 카카오 로그인 활성화 + 동의항목 **talk_message** →
     인가코드로 refresh_token 1회 발급.
     ⚠️ **토큰 수명이 이 채널의 유일한 함정**: access_token **6시간**(자동 재발급) · refresh_token **2개월**.

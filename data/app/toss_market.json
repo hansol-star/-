@@ -1,0 +1,173 @@
+{
+ "updated": "2026-09-04 12:27",
+ "calendars": {
+  "KR": {
+   "today": {
+    "date": "2026-09-04",
+    "integrated": {
+     "preMarket": {
+      "startTime": "2026-09-04T08:00:00.000+09:00",
+      "singlePriceAuctionStartTime": "2026-09-04T08:50:00.000+09:00",
+      "endTime": "2026-09-04T09:00:00.000+09:00"
+     },
+     "regularMarket": {
+      "startTime": "2026-09-04T09:00:00.000+09:00",
+      "singlePriceAuctionStartTime": "2026-09-04T15:20:00.000+09:00",
+      "endTime": "2026-09-04T15:30:00.000+09:00"
+     },
+     "afterMarket": {
+      "startTime": "2026-09-04T15:30:00.000+09:00",
+      "singlePriceAuctionEndTime": "2026-09-04T15:40:00.000+09:00",
+      "endTime": "2026-09-04T20:00:00.000+09:00"
+     }
+    }
+   },
+   "previousBusinessDay": {
+    "date": "2026-09-03",
+    "integrated": {
+     "preMarket": {
+      "startTime": "2026-09-03T08:00:00.000+09:00",
+      "singlePriceAuctionStartTime": "2026-09-03T08:50:00.000+09:00",
+      "endTime": "2026-09-03T09:00:00.000+09:00"
+     },
+     "regularMarket": {
+      "startTime": "2026-09-03T09:00:00.000+09:00",
+      "singlePriceAuctionStartTime": "2026-09-03T15:20:00.000+09:00",
+      "endTime": "2026-09-03T15:30:00.000+09:00"
+     },
+     "afterMarket": {
+      "startTime": "2026-09-03T15:30:00.000+09:00",
+      "singlePriceAuctionEndTime": "2026-09-03T15:40:00.000+09:00",
+      "endTime": "2026-09-03T20:00:00.000+09:00"
+     }
+    }
+   },
+   "nextBusinessDay": {
+    "date": "2026-09-07",
+    "integrated": {
+     "preMarket": {
+      "startTime": "2026-09-07T08:00:00.000+09:00",
+      "singlePriceAuctionStartTime": "2026-09-07T08:50:00.000+09:00",
+      "endTime": "2026-09-07T09:00:00.000+09:00"
+     },
+     "regularMarket": {
+      "startTime": "2026-09-07T09:00:00.000+09:00",
+      "singlePriceAuctionStartTime": "2026-09-07T15:20:00.000+09:00",
+      "endTime": "2026-09-07T15:30:00.000+09:00"
+     },
+     "afterMarket": {
+      "startTime": "2026-09-07T15:30:00.000+09:00",
+      "singlePriceAuctionEndTime": "2026-09-07T15:40:00.000+09:00",
+      "endTime": "2026-09-07T20:00:00.000+09:00"
+     }
+    }
+   }
+  },
+  "US": {
+   "today": {
+    "date": "2026-09-04",
+    "dayMarket": {
+     "startTime": "2026-09-04T09:00:00.000+09:00",
+     "endTime": "2026-09-04T17:00:00.000+09:00"
+    },
+    "preMarket": {
+     "startTime": "2026-09-04T17:00:00.000+09:00",
+     "endTime": "2026-09-04T22:30:00.000+09:00"
+    },
+    "regularMarket": {
+     "startTime": "2026-09-04T22:30:00.000+09:00",
+     "endTime": "2026-09-05T05:00:00.000+09:00"
+    },
+    "afterMarket": {
+     "startTime": "2026-09-05T05:00:00.000+09:00",
+     "endTime": "2026-09-05T08:50:00.000+09:00"
+    }
+   },
+   "previousBusinessDay": {
+    "date": "2026-09-03",
+    "dayMarket": {
+     "startTime": "2026-09-03T09:00:00.000+09:00",
+     "endTime": "2026-09-03T17:00:00.000+09:00"
+    },
+    "preMarket": {
+     "startTime": "2026-09-03T17:00:00.000+09:00",
+     "endTime": "2026-09-03T22:30:00.000+09:00"
+    },
+    "regularMarket": {
+     "startTime": "2026-09-03T22:30:00.000+09:00",
+     "endTime": "2026-09-04T05:00:00.000+09:00"
+    },
+    "afterMarket": {
+     "startTime": "2026-09-04T05:00:00.000+09:00",
+     "endTime": "2026-09-04T08:50:00.000+09:00"
+    }
+   },
+   "nextBusinessDay": {
+    "date": "2026-09-08",
+    "dayMarket": {
+     "startTime": "2026-09-08T09:00:00.000+09:00",
+     "endTime": "2026-09-08T17:00:00.000+09:00"
+    },
+    "preMarket": {
+     "startTime": "2026-09-08T17:00:00.000+09:00",
+     "endTime": "2026-09-08T22:30:00.000+09:00"
+    },
+    "regularMarket": {
+     "startTime": "2026-09-08T22:30:00.000+09:00",
+     "endTime": "2026-09-09T05:00:00.000+09:00"
+    },
+    "afterMarket": {
+     "startTime": "2026-09-09T05:00:00.000+09:00",
+     "endTime": "2026-09-09T08:50:00.000+09:00"
+    }
+   }
+  }
+ },
+ "stocks": {
+  "005930": {
+   "limits": {
+    "timestamp": "2026-09-04T12:27:55.726+09:00",
+    "upperLimitPrice": "325000",
+    "lowerLimitPrice": "175000",
+    "currency": "KRW"
+   },
+   "warnings": []
+  },
+  "066570": {
+   "limits": {
+    "timestamp": "2026-09-04T12:27:56.379+09:00",
+    "upperLimitPrice": "259500",
+    "lowerLimitPrice": "139800",
+    "currency": "KRW"
+   },
+   "warnings": []
+  },
+  "454910": {
+   "limits": {
+    "timestamp": "2026-09-04T12:27:56.968+09:00",
+    "upperLimitPrice": "86000",
+    "lowerLimitPrice": "46400",
+    "currency": "KRW"
+   },
+   "warnings": []
+  },
+  "005380": {
+   "limits": {
+    "timestamp": "2026-09-04T12:27:57.536+09:00",
+    "upperLimitPrice": "498500",
+    "lowerLimitPrice": "268500",
+    "currency": "KRW"
+   },
+   "warnings": []
+  },
+  "035420": {
+   "limits": {
+    "timestamp": "2026-09-04T12:27:58.152+09:00",
+    "upperLimitPrice": "269500",
+    "lowerLimitPrice": "145500",
+    "currency": "KRW"
+   },
+   "warnings": []
+  }
+ }
+}

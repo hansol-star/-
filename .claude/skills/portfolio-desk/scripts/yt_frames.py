@@ -57,7 +57,14 @@ try:
     from ytdlp_bin import ytdlp_cmd
 except Exception:  # pragma: no cover
     def ytdlp_cmd(): return None
-OUTDIR = os.environ.get("YTFRAME_OUTDIR", os.path.join(tempfile.gettempdir(), "yt_frames"))
+# ★[9/4] 기본 저장 경로를 %TEMP% → **data/frames/** 로 옮긴다.
+#   舊: tempfile.gettempdir()/yt_frames — 재부팅하면 사라져 **누적이 원리적으로 불가능**했다.
+#   8/30에 자막을 /tmp → data/transcripts/ 로 옮긴 것과 **같은 결함**이 프레임에 남아 있었다
+#   (그때 자막만 고치고 프레임은 안 봤다 — 8/12 "형제 버그가 옆에 남아 있었다"의 재발).
+#   ⚠️ 실측 9/4: %TEMP%/yt_frames 폴더가 아예 없었다 = R1이 한 번도 안 불렀다는 뜻이다.
+#     프롬프트(docs/routines.md §R1)엔 적혀 있는데 호출이 안 됐다 — 선언과 배선은 다르다.
+_REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+OUTDIR = os.environ.get("YTFRAME_OUTDIR", os.path.join(_REPO, "data", "frames"))
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120 Safari/537.36"
 _VID_RE = re.compile(r"(?:v=|/shorts/|/live/|youtu\.be/|/embed/)([A-Za-z0-9_-]{11})")
 

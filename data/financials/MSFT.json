@@ -5,8 +5,8 @@
  "currency": "USD",
  "source": "SEC EDGAR XBRL companyfacts",
  "depth": "full",
- "as_of": "2026-08-30",
- "saved_at": "2026-08-30",
+ "as_of": "2026-09-04",
+ "saved_at": "2026-09-04",
  "annual": [
   {
    "end": "2026-06-30",

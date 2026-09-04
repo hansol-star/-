@@ -80,17 +80,20 @@ if (Test-Path $Watcher) {
     "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -Command " +
     "`"& { `$env:Path='$env:LOCALAPPDATA\Programs\Python\Python312;' + `$env:Path; " +
     "python '$Watcher' --once --quiet }`"") -WorkingDirectory $Repo
-  # KRX 정규장(09:00~15:30) + 애프터마켓 → 09:00부터 11시간(=20:00).
+  # KRX 프리(08:00~) + 정규 + 애프터(~20:00) → **08:00부터 12시간**.
+  # ★[9/4] 토스 market-calendar 1차 출처로 확인: integrated(KRX+NXT) 기준
+  #   **오늘도 이미 08:00~20:00**이다. 우리가 "9/14부터 확장"이라고 적은 건
+  #   NXT(넥스트레이드)를 빼먹은 서술이었다 — 09:00 시작은 프리마켓 1시간을 통째로 놓쳤다.
   # ⚠️ [9/3 정정①] 첫 등록은 6h30m이라 15:30에 끊겼다 — 시간외가 감시 사각이었다.
   # ⚠️ [9/3 정정②] 9h(18:00)도 부족하다 — **9/14부터 애프터마켓이 20:00까지**다
   #    (시간외단일가 폐지 → 시간외접속매매 16:00~20:00, 한국거래소 확정).
   #    스크립트가 장 시간을 스스로 판정해 밖이면 즉시 종료하므로 11시간이어도 헛돌지 않는다.
   #    ⚠️ 프리마켓(07:00~07:50, 9/14~)은 이 트리거 밖이라 **아직 감시 사각**이다 —
   #      9/14 전에 07:00 트리거를 추가할 것(지금 넣으면 11일간 매일 헛돈다).
-  $wt1 = New-ScheduledTaskTrigger -Daily -At '09:00'
-  $wt1.Repetition = (New-ScheduledTaskTrigger -Once -At '09:00' `
+  $wt1 = New-ScheduledTaskTrigger -Daily -At '08:00'
+  $wt1.Repetition = (New-ScheduledTaskTrigger -Once -At '08:00' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `
-      -RepetitionDuration (New-TimeSpan -Hours 11)).Repetition
+      -RepetitionDuration (New-TimeSpan -Hours 12)).Repetition
   $wt2 = New-ScheduledTaskTrigger -Daily -At '22:30'
   $wt2.Repetition = (New-ScheduledTaskTrigger -Once -At '22:30' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `
@@ -105,7 +108,38 @@ if (Test-Path $Watcher) {
   Register-ScheduledTask -TaskName $WatchName -TaskPath $Folder -Action $wAction `
       -Trigger @($wt1, $wt2) -Principal $principal -Settings $wSettings `
       -Description "장중 트리거 감시(10분) - 알림 전용 - 정본 docs/routines.md" | Out-Null
-  Write-Output ("registered  {0,-22} {1}" -f $WatchName, '09:00(11h)·22:30(6.5h) +10분')
+  Write-Output ("registered  {0,-22} {1}" -f $WatchName, '08:00(12h)·22:30(6.5h) +10분')
+}
+
+# ── 정기 브리핑 [9/4 신설] — 할 일 중심 카톡 요약 하루 3회 ────────────────
+#   정훈 9/4: "내가 할 일, 그리고 했는지도 체크해서 확인 느낌으로".
+#   ⚠️ **10분마다 보내지 않는다.** 감시는 10분마다 돌지만(토큰 0) 카톡은
+#     ①새 전이 ②하루 3회 정기 뿐이다. 10분 간격이면 하루 60통이고,
+#     매일 같은 알림이 오면 알림 자체를 안 보게 된다 — 그러면 만든 의미가 사라진다.
+#     (price_watch의 전이 기반 설계와 같은 이유)
+#   시각 = 국내 개장 09:05 · 국내 마감 15:40 · 미국 개장 22:35
+$BriefName = 'JD-brief'
+$Notify = Join-Path $Repo '.claude\skills\portfolio-desk\scripts\notify.py'
+if (Test-Path $Notify) {
+  $bAction = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument (
+    "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -Command " +
+    "`"& { `$env:Path='$env:LOCALAPPDATA\Programs\Python\Python312;' + `$env:Path; " +
+    "python '$Notify' --brief }`"") -WorkingDirectory $Repo
+  $bTriggers = @(
+    (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At '09:05'),
+    (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At '15:40'),
+    (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At '22:35')
+  )
+  $bSettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries `
+      -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 5) `
+      -MultipleInstances IgnoreNew
+  if (Get-ScheduledTask -TaskName $BriefName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
+    Unregister-ScheduledTask -TaskName $BriefName -TaskPath "$Folder\" -Confirm:$false
+  }
+  Register-ScheduledTask -TaskName $BriefName -TaskPath $Folder -Action $bAction `
+      -Trigger $bTriggers -Principal $principal -Settings $bSettings `
+      -Description "정기 브리핑(할 일 중심) 09:05·15:40·22:35 - 정본 docs/routines.md" | Out-Null
+  Write-Output ("registered  {0,-22} {1}" -f $BriefName, '09:05·15:40·22:35')
 }
 
 # ── 캐치업 [9/2 신설] — 꺼져 있어 놓친 루틴을 켜지자마자 따라잡는다 ──────────

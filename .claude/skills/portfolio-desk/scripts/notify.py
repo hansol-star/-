@@ -192,6 +192,66 @@ def send(text: str, dry: bool = False) -> int:
         print(f"⚠️ 발송 실패 {type(e).__name__}: {e}", file=sys.stderr); return 4
 
 
+def _todos() -> str:
+    """오늘 할 일 — **알림 맨 위**. 정훈 9/4 지시 "내가 할 일, 그리고 했는지도 체크".
+
+    알림을 여는 이유는 '지금 뭘 해야 하나'를 알기 위해서다. 시세·지표는 그 다음이다.
+    ⚠️ 완료분도 ✅로 같이 보여준다 — 안 보이면 '내가 했던가?'를 매번 다시 확인해야 한다.
+    """
+    try:
+        d = json.load(open(os.path.join(ROOT, "data", "app", "tasks.json"), encoding="utf-8"))
+    except Exception:                                             # noqa: BLE001
+        return ""
+    items = (d.get("tasks") or {}).get("today") or []
+    if not items:
+        return ""
+    undone = [x for x in items if not x.get("done")]
+    done = [x for x in items if x.get("done")]
+    lines = [f"📌 오늘 할 일 {len(done)}/{len(items)}"]
+    for x in undone:
+        lines.append(f"☐ {str(x.get('text',''))[:60]}")
+    for x in done:
+        lines.append(f"✅ {str(x.get('text',''))[:44]}")
+    return "\n".join(lines)
+
+
+def _market_line() -> str:
+    """상세 — 알림 **아래쪽**. 판단 배경이지 행동 지시가 아니다."""
+    try:
+        raw = open(os.path.join(ROOT, "app", "data.js"), encoding="utf-8").read()
+        d = json.loads(raw[raw.index("{"):raw.rindex("}") + 1])
+    except Exception:                                             # noqa: BLE001
+        return ""
+    out = []
+    tot = d.get("total_krw") or d.get("total_assets")
+    chg = d.get("total_change_krw") or d.get("daily_change_krw")
+    if tot:
+        s = f"💰 총자산 {int(tot):,}원"
+        if chg:
+            s += f" ({int(chg):+,})"
+        out.append(s)
+    idx = d.get("indices") or {}
+    for k in ("코스피", "KOSPI"):
+        v = idx.get(k) if isinstance(idx, dict) else None
+        if isinstance(v, dict) and v.get("price"):
+            out.append(f"📈 코스피 {v['price']:,} ({v.get('change_pct', 0):+.2f}%)")
+            break
+    return " · ".join(out)
+
+
+def compose(trigger_block: str = "") -> str:
+    """알림 표준 형식 — **할 일 → 트리거 → 상세** 순서.
+
+    정훈 9/4: "자세한 내용은 아래로 내리고 내가 할 일, 그리고 했는지도 체크".
+    순서가 곧 우선순위다. 폰을 여는 이유는 행동이지 관찰이 아니다.
+    """
+    parts = [p for p in (_todos(), trigger_block) if p]
+    tail = _market_line()
+    if tail:
+        parts.append("─────────\n" + tail)
+    return "\n\n".join(parts)
+
+
 def msg_routine(kind: str, verdict: str, status_path: str) -> str:
     st = {}
     try:
@@ -253,6 +313,8 @@ def main() -> int:
     ap.add_argument("--status", default=os.path.join(ROOT, "data", "logs", "routines",
                                                      "last_status.json"))
     ap.add_argument("--orders", action="store_true", help="대기 오더북만 발송")
+    ap.add_argument("--brief", action="store_true",
+                    help="정기 브리핑 — 할 일 먼저, 상세는 아래(하루 3회: 개장·마감·미장)")
     ap.add_argument("--text", help="임의 텍스트 발송")
     ap.add_argument("--check", action="store_true", help="설정 여부만 확인")
     ap.add_argument("--dry-run", action="store_true", help="발송 없이 본문만 출력")
@@ -269,7 +331,11 @@ def main() -> int:
               f"TELEGRAM_CHAT_ID: {'설정됨' if chat else '없음'}")
         return 0 if (tok and chat) else 3
 
-    if a.text:
+    if a.brief:
+        text = compose()
+        if not text.strip():
+            print("보낼 내용 없음 — 할 일도 시세도 비었다"); return 0
+    elif a.text:
         text = a.text
     elif a.orders:
         text = _orders_digest(limit=12).strip() or "대기 오더 없음"

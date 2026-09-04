@@ -66,10 +66,52 @@ STATE = os.path.join(STATE_DIR, "price_watch_state.json")
 AFTER_MKT_REFORM = dt.date(2026, 9, 14)
 
 
+def _calendar_window(now: dt.datetime):
+    """토스 1차 출처로 오늘 장 운영시간을 읽는다 [9/4 배선].
+
+    하드코딩은 **공휴일을 모른다** — 그게 이 함수 이전의 구조적 약점이었다
+    (market_open_kst 주석에 "공휴일 미반영"이 약점으로 적혀 있었다).
+    토스 `market-calendar`는 today/nextBusinessDay를 주므로 휴장일이 자동 처리되고,
+    9/14 제도 변경도 API가 알아서 반영한다 — 우리가 날짜 분기를 유지할 필요가 없어진다.
+
+    ⚠️ 실패하면 **조용히 넘어가지 않고 None을 반환**해 하드코딩 폴백으로 내려간다.
+       그 사실은 호출부가 phase 문자열에 남긴다("추정") — 어느 근거로 판정했는지 보이게.
+    ⚠️ `integrated` = KRX + NXT 통합이다. 9/4 실측: 오늘도 이미 08:00~20:00으로,
+       "9/14부터 확장"이라는 우리 서술이 NXT를 빼먹은 것이었다.
+    """
+    try:
+        cache = _load(os.path.join(ROOT, "data", "app", "toss_market.json"), {})
+        day = ((cache.get("calendars") or {}).get("KR") or {}).get("today") or {}
+        if day.get("date") != now.strftime("%Y-%m-%d"):
+            return None                       # 캐시가 오늘 것이 아니면 못 믿는다
+        seg = day.get("integrated") or {}
+        spans = []
+        for k, nm in (("preMarket", "KRX 프리"), ("regularMarket", "KRX 정규"),
+                      ("afterMarket", "KRX 애프터")):
+            v = seg.get(k)
+            if not v:
+                continue
+            st, en = str(v.get("startTime"))[11:16], str(v.get("endTime"))[11:16]
+            if len(st) == 5 and len(en) == 5:
+                spans.append((int(st[:2]) * 60 + int(st[3:]), int(en[:2]) * 60 + int(en[3:]), nm))
+        return spans or None
+    except Exception:                                              # noqa: BLE001
+        return None
+
+
 def market_open_kst(now: dt.datetime) -> tuple[bool, str]:
     if now.weekday() >= 5:                      # 토·일 — 정훈 폰도 주말은 제외다
         return False, "주말"
     m = now.hour * 60 + now.minute
+    # 1차 출처가 있으면 그걸 쓴다. 없을 때만 아래 하드코딩으로 내려간다.
+    spans = _calendar_window(now)
+    if spans:
+        for st, en, nm in spans:
+            if st <= m <= en:
+                return True, nm
+        if m >= 1350 or m <= 330:
+            return True, "미국 정규장"
+        return False, "장 마감"
     reformed = now.date() >= AFTER_MKT_REFORM
     if reformed and 420 <= m <= 470:
         return True, "KRX 프리마켓"
@@ -213,8 +255,17 @@ def run_once(dry: bool = False, quiet: bool = False) -> int:
             act = str(r.get("action") or "")[:110]
             if act:
                 lines.append(f"   → {act}")
-        lines.append("\n⚠️ 알림일 뿐 자동 집행 아님 — 룰 확인 후 정훈 결정.")
-        code, msg = send("\n".join(lines), dry)
+        lines.append("⚠️ 알림일 뿐 자동 집행 아님 — 룰 확인 후 정훈 결정.")
+        # 정훈 9/4: "내가 할 일을 위로, 자세한 내용은 아래로".
+        #   notify.compose()가 [할 일 → 트리거 → 상세] 순서로 조립한다.
+        #   ⚠️ 조립이 실패해도 알림 자체는 나가야 한다 — 형식 때문에 신호를 잃지 않는다.
+        try:
+            sys.path.insert(0, HERE)
+            import notify as _n
+            body = _n.compose(chr(10).join(lines))
+        except Exception:                                          # noqa: BLE001
+            body = chr(10).join(lines)
+        code, msg = send(body, dry)
         if not quiet:
             print(f"  발송: exit={code} {msg}")
         if code == 0:                       # 발송 성공한 것만 '보냈다'로 기록한다

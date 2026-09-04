@@ -1,26 +1,26 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-09-04 10:41 KST",
+  "generated_at": "2026-09-04 12:29 KST",
   "as_of": "2026-09-03 18:26",
   "source_report": "docs/reports/report_v90_2026-09-03.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1358.08
+    "usdkrw": 1355.99
   },
   "totals": {
-    "assets_krw": 8123947,
-    "stocks_value_krw": 6774913,
+    "assets_krw": 8116257,
+    "stocks_value_krw": 6768887,
     "cash_krw": 267500,
     "cash_usd": 796.37,
-    "cash_usd_krw": 1081534,
-    "day_change_krw": 113493,
-    "day_change_pct": 1.7,
-    "total_pnl_krw": -222415,
-    "total_pnl_pct": -3.18
+    "cash_usd_krw": 1079870,
+    "day_change_krw": 114861,
+    "day_change_pct": 1.73,
+    "total_pnl_krw": -228440,
+    "total_pnl_pct": -3.26
   },
   "safety": {
-    "price": 6666.71,
-    "change_pct": 1.58,
+    "price": 6665.27,
+    "change_pct": 1.3,
     "rule": "낙폭 사다리",
     "drawdown_pct": -25.0,
     "unlocked_pct": 15.0,
@@ -34,14 +34,14 @@ window.APP_DATA = {
     {
       "label": "코스피",
       "ticker": "^KS11",
-      "price": 6666.71,
-      "change_pct": 1.58
+      "price": 6665.27,
+      "change_pct": 1.3
     },
     {
       "label": "코스닥",
       "ticker": "^KQ11",
-      "price": 800.78,
-      "change_pct": -0.4
+      "price": 809.85,
+      "change_pct": 2.49
     },
     {
       "label": "S&P500",
@@ -58,7 +58,7 @@ window.APP_DATA = {
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 53686.11,
+      "price": 53686.1,
       "change_pct": 1.18
     },
     {
@@ -75,7 +75,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[9/3 위임결정] 룰6 ⓷ 국내 트림 착수 조건 충족. 국내 28.2% → 22%로 트림 (필요액 410,164원). 우선순위 = ①현대차 1주 378,000(⭐2·룰2 마진훼손·증권사 19/20 목표가 하향) ②그래도 남으면 삼성전자 1주. ⚠️ 삼성은 위험기여 39.6%로 효율 최고지만 ⭐5·마진 가속이라 펀더로는 팔 이유가 없다 — 순서를 지킬 것. 자동집행 아님·PM 재판정 후 정훈 결정.",
-      "price": 6666.71,
+      "price": 6665.27,
       "fired": false
     },
     {
@@ -84,7 +84,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[8/24 정훈 승인 방식ⓑ] 종가가 240,000원 익절가의 -5% 이내(228,000원 이상) = **그날 폰창(17:30~20:50)에 익일분 예약 등록**. 점등 전에는 등록하지 않는다(매일 재등록 폐지). ⚠️등록 시 밴드 확인 필수 — 정규장 상한 = 전일종가×1.3.",
-      "price": 202500.0,
+      "price": 201500.0,
       "fired": false
     },
     {
@@ -93,7 +93,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[8/24 정훈 승인 방식ⓑ] 종가가 470,000원 트림가의 -5% 이내(446,500원 이상) = 그날 폰창에 익일분 예약 등록. ⚠️**예외 = 8/26(수) CEO 인베스터데이 당일은 점등 여부와 무관하게 반드시 등록**(⭐2 홀드 판정선, 470,000원이 손에 닿는 유일한 날. 당일 종가 427,273원 이상이면 17:30~18:00 시간외단일가로 즉시 대응 가능).",
-      "price": 385000.0,
+      "price": 383000.0,
       "fired": false
     },
     {
@@ -102,7 +102,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "✅[8/27 19:5x 등록 완료 — 정훈 '오케이 걸었음'] 78,000원 1주 판매 지정가 접수. 이 알림의 역할은 **미체결 시 재등록 판단**으로 전환(토스 국내 예약 1거래일 소멸·d128). | [8/27 트림가 현실화 반영] 舊 85,500은 트림가 90,000 기준이라 폐기. 새 트림가 78,000의 -5% = **74,100원** 이상이면 그날 폰창에 익일분 예약 등록. ⭐1은 트림 우선(실측 알파 -8.75%)·룰2 3/3 훼손. 1주=전량청산. | ★[8/27 기저율 실측] 이 5% 선은 변동성을 무시한 고정값이다 — 두산로보는 **익일 고가가 +6.7%(트림가 78,000) 이상인 날이 15.7%(38/242)**, **5거래일 내 터치 48.3%**. 74,100 미달이어도 등록 가치가 있다(오늘 종가 73,100에서 권고). ⚠️ⓑ선 자체의 재설계(고정 5% → 종목별 도달확률 분위수)는 정훈 승인 대기.",
-      "price": 68000.0,
+      "price": 68500.0,
       "fired": false
     },
     {
@@ -120,7 +120,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[급락 TF] 해제 게이트 조건① 점등 — docs/crash_tf.md §5 판정(②외인 순매수 재개 ③유가/이란 진정과 동시충족 + 2거래일 유지 시에만 해제). 부분 충족은 액션 아님",
-      "price": 6666.71,
+      "price": 6665.27,
       "fired": false
     },
     {
@@ -129,7 +129,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[급락 TF] S2 악화 국면 공식 진입(crash_tf.md §3-S2) — 방어 극대화·여전히 안 산다. 반대매매 연쇄·엔캐리 청산·레버리지ETF 재귀투매 감시 강화",
-      "price": 6666.71,
+      "price": 6665.27,
       "fired": false
     },
     {
@@ -147,7 +147,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[7/30 룰1 전면개정으로 라벨 정정] 舊 \"매수 안전핀(7,500 하회=전면 동결)\"은 폐기됐다. 7,500은 이제 **급락TF §5 해제 3중 게이트의 조건①**로만 유효하며, 매수 상한은 `tranche_rules.py`의 낙폭 사다리(D1 -25%/D2 -35%/D3 -45%/D4 -55%)와 S&P500 폭풍 ≥70%ile 하드플로어가 정한다. 이 알림은 게이트① 도달 통지 전용 — 이것만으로는 아무것도 해금되지 않는다(게이트 3중 + 사다리 + 하드플로어 전부 별도).",
-      "price": 6666.71,
+      "price": 6665.27,
       "fired": true
     },
     {
@@ -156,7 +156,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[7/30 폐기·기록보존] 舊 이진 트랜치 체계(8,000 하회 시 2차 ~20만 투입)는 낙폭 사다리로 대체됐다. 현행 판정은 `tranche_rules.py` 단일 정본 — 지수 절대레벨이 아니라 **고점대비 낙폭**이 단계를 정하고, RESET 정책상 매일 재계산된다. 이 알림은 발동해도 액션 없음(라벨만 남긴 것).",
-      "price": 6666.71,
+      "price": 6665.27,
       "fired": true
     },
     {
@@ -165,7 +165,7 @@ window.APP_DATA = {
       "cond": "between",
       "when": null,
       "action": "[7/25 재평가] 정리후보 해제·⭐3 홀드. 지금은 홀드(add 트리거 없음). 추가매수는 TF 해제(§5 3중 게이트) + 사다리 해금 + (2Q26 순익 반등 or 소버린AI 매출 가시화) 충족 후에만 국장 정수 1주(≈229,500) 지정가.",
-      "price": 211500.0,
+      "price": 213500.0,
       "fired": false
     },
     {
@@ -174,7 +174,7 @@ window.APP_DATA = {
       "cond": "done",
       "when": null,
       "action": "✅[7/7 11:15 체결] 정수 1주 @295,500원(총 295,500원, 출금예정 7/9) — 2Q26 잠정실적 89.4조(컨센 84.4조↑, DS단독 80조+ 마진가속) 확인 후 눌림(-6.9%, 최저293,000)에서 집행. 신규 평단 273,833.33원(3주 합산). 대기중 GOOGL $330 GTC는 유지.",
-      "price": 254500.0,
+      "price": 255000.0,
       "fired": null
     },
     {
@@ -183,7 +183,7 @@ window.APP_DATA = {
       "cond": "between",
       "when": null,
       "action": "[7/14 정훈 승인 — 舊 10만 돌파 폐기] 눌림존 진입 시 편입 딥다이브 재검토(목표 평균 14.3만 = +117%). ⚠️집행은 TF 해제(§5 3중 게이트) + 사다리 해금 + 하드플로어 해제 후 — 지금은 알림·검토만 (舊 '안전핀 7,500' 표현은 7/30 폐기). 에너빌리티 부문 이익률(3%) 회복 확인 병행",
-      "price": 79300.0,
+      "price": 79100.0,
       "fired": false
     },
     {
@@ -192,7 +192,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[7/14 정훈 승인] 82,000 회복 = 조정 이탈·추세복귀 알림 — 눌림존 미체결 시 모멘텀 재평가 신호(추격매수 아님, 룰3)",
-      "price": 79300.0,
+      "price": 79100.0,
       "fired": false
     },
     {
@@ -255,7 +255,7 @@ window.APP_DATA = {
       "cond": "below",
       "when": null,
       "action": "[경제사냥꾼 셋업·지정가 오더북] 165,000 이하 눌림서 신규편입 정수 1주 지정가 검토. 외인 51.24%·해외궐련 +56%·자사주 9.5% 소각·DS 목표 240,000=디펜시브 분산. 편입 전 /stock-deepdive 권장",
-      "price": 173400.0,
+      "price": 173800.0,
       "fired": false
     },
     {
@@ -282,7 +282,7 @@ window.APP_DATA = {
       "cond": "between",
       "when": null,
       "action": "[8/8 정훈 지시 — self-review 4회 연속 miss(6/21 이후 알파 +50.5%p vs 코스피 붕괴장 -30.4%) 근거로 7/23 '5축 밖' 제외 재검토·워치 재편입] 눌림존(7/29~8/6 다졌던 지지구간) 진입 시 정수 1주 지정가 편입 딥다이브 검토. ⚠️펀더 서브스코어 63.4 — 2025 순손실 -3.35조(SK온 배터리 적자, 영업이익은 흑자)·부채비율 189%·FCF 마이너스. 정유/2차전지는 5축(반도체·전력·피지컬AI·방산·빅테크) 밖이라는 원 배제 논거는 유효, 이번은 AI전력망(SMR·테라파워 지분) 테마 알파 근거의 예외적 재검토. 집행은 TF 해제(§5 3중 게이트) + 사다리 해금 + 하드플로어 해제 후만 (舊 '안전핀' 표현은 7/30 폐기).",
-      "price": 139250.0,
+      "price": 138600.0,
       "fired": false
     },
     {
@@ -291,7 +291,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[8/8] 7/23 고점(132,200) 재도전 신호 — 눌림존 미체결 시 모멘텀 재평가 알림(추격매수 아님, 룰3).",
-      "price": 139250.0,
+      "price": 138600.0,
       "fired": true
     },
     {
@@ -300,7 +300,7 @@ window.APP_DATA = {
       "cond": "between",
       "when": null,
       "action": "[8/8 정훈 지시 — 공식 매수존 등록] 눌림존(8/3~8/5 지지구간) 진입 시 정수 1주 지정가 편입 검토. self-review 8회차 미스무브 회고에서 6/21 이후 절대수익 -2.5%(거의 보합)나 코스피 -30.4%(붕괴장) 대비 알파 +27.9%p — 방산 상대강도 뚜렷. 증권사 목표가(SK 190만·하나 175만·KB 162만, 7/4 기준) 대비 여력 +48~73%나 밸류 부담 상존. 집행은 TF 해제(§5 3중 게이트) + 사다리 해금 + 하드플로어 해제 후만 (舊 '안전핀' 표현은 7/30 폐기).",
-      "price": 1046000.0,
+      "price": 1045000.0,
       "fired": false
     },
     {
@@ -309,7 +309,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[8/8] 6월 저항권(6/17 고점 1,264,000) 재접근 신호 — 눌림존 미체결 시 모멘텀 재평가 알림(추격매수 아님, 룰3). 🔧[8/12 정정] 舊 명칭 '신고가 갱신'은 오표기 — 52주 고가는 1,537,000원(2026-04-07)이라 1,150,000원은 신고가가 아니라 **고가 대비 -25% 수준의 회복 지점**이다.",
-      "price": 1046000.0,
+      "price": 1045000.0,
       "fired": false
     },
     {
@@ -318,7 +318,7 @@ window.APP_DATA = {
       "cond": "above",
       "when": null,
       "action": "[8/12 정훈 승인] 정수 1주 240,000원 지정가 익절 — 원가 155,200원 대비 +54.6%. 보유 1주라 전량 청산. 등록 창 = 국내 시간외단일가 17:30~18:00. 체결 시 portfolio.json 보유·현금 + master.md 갱신 후 다음 세션에서 체결 검토(룰5). 재원 = 하드플로어 해제 시 GOOGL 1순위 집행 실탄.",
-      "price": 202500.0,
+      "price": 201500.0,
       "fired": false
     },
     {
@@ -327,7 +327,7 @@ window.APP_DATA = {
       "cond": "event",
       "when": null,
       "action": "★[8/27 정훈 승인 d149] **별점 하향 대신 감시 트리거**로 신설. 외인 지분율 35.95%(작년말)→25.17%→**24.41%(8/27 실측)** 하락 지속 + 연초 이래 외인 10.88조 순매도 + 2Q -21% + 룰2 마진 9.3→8.1→6.2% 3년 연속 하락(훼손 판정). **24% 하회 = 이탈이 안 멈춘다는 확인 → ⭐2 재평가·트림 재검토 착수 신호.** ⚠️ 자동 매도 아님(딥다이브 착수 트리거) · ⚠️ 자동 평가 불가 — **매 보고서 `naver_flows.py` 외인보유% 실측으로 수동 판정**한다. ⚠️ 반대 근거: 8/22 실측 ⭐2 알파 +3.31%로 기계적 트림은 역효과. 기한부 홀드 재검토 = 3Q 실적(10월말).",
-      "price": 385000.0,
+      "price": 383000.0,
       "fired": null
     }
   ],
@@ -339,11 +339,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 4,
       "cost": 267500,
-      "price": 254500.0,
-      "change_pct": 1.8,
-      "value_krw": 1018000,
-      "pnl_pct": -4.86,
-      "pnl_krw": -52000,
+      "price": 255000.0,
+      "change_pct": 2.0,
+      "value_krw": 1020000,
+      "pnl_pct": -4.67,
+      "pnl_krw": -50000,
       "outlook": "core",
       "stars": 5,
       "score": 93,
@@ -423,7 +423,7 @@ window.APP_DATA = {
         261000.0,
         250500.0,
         250000.0,
-        254500.0
+        255000.0
       ],
       "sector": "반도체·AI"
     },
@@ -434,11 +434,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 155200,
-      "price": 202500.0,
-      "change_pct": 1.4,
-      "value_krw": 202500,
-      "pnl_pct": 30.48,
-      "pnl_krw": 47300,
+      "price": 201500.0,
+      "change_pct": 0.9,
+      "value_krw": 201500,
+      "pnl_pct": 29.83,
+      "pnl_krw": 46300,
       "outlook": "core",
       "stars": 4,
       "score": 74,
@@ -550,7 +550,7 @@ window.APP_DATA = {
         206500.0,
         200500.0,
         199700.0,
-        202500.0
+        201500.0
       ],
       "sector": "전력·피지컬"
     },
@@ -561,11 +561,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 100000,
-      "price": 68000.0,
-      "change_pct": 2.72,
-      "value_krw": 68000,
-      "pnl_pct": -32.0,
-      "pnl_krw": -32000,
+      "price": 68500.0,
+      "change_pct": 3.47,
+      "value_krw": 68500,
+      "pnl_pct": -31.5,
+      "pnl_krw": -31500,
       "outlook": "momentum",
       "stars": 2,
       "score": 41,
@@ -682,7 +682,7 @@ window.APP_DATA = {
         69000.0,
         66000.0,
         66200.0,
-        68000.0
+        68500.0
       ],
       "sector": "전력·피지컬"
     },
@@ -693,11 +693,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 630000,
-      "price": 385000.0,
-      "change_pct": 0.39,
-      "value_krw": 385000,
-      "pnl_pct": -38.89,
-      "pnl_krw": -245000,
+      "price": 383000.0,
+      "change_pct": -0.13,
+      "value_krw": 383000,
+      "pnl_pct": -39.21,
+      "pnl_krw": -247000,
       "outlook": "hold",
       "stars": 2,
       "score": 50,
@@ -814,7 +814,7 @@ window.APP_DATA = {
         400500.0,
         378000.0,
         383500.0,
-        385000.0
+        383000.0
       ],
       "sector": "전력·피지컬"
     },
@@ -825,11 +825,11 @@ window.APP_DATA = {
       "currency": "KRW",
       "shares": 1,
       "cost": 250500,
-      "price": 211500.0,
-      "change_pct": 1.93,
-      "value_krw": 211500,
-      "pnl_pct": -15.57,
-      "pnl_krw": -39000,
+      "price": 213500.0,
+      "change_pct": 2.89,
+      "value_krw": 213500,
+      "pnl_pct": -14.77,
+      "pnl_krw": -37000,
       "outlook": "hold",
       "stars": 3,
       "score": 60,
@@ -926,7 +926,7 @@ window.APP_DATA = {
         215000.0,
         209000.0,
         207500.0,
-        211500.0
+        213500.0
       ],
       "sector": "빅테크"
     },
@@ -939,9 +939,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 228.45,
       "change_pct": 1.8,
-      "value_krw": 1594145,
+      "value_krw": 1591692,
       "pnl_pct": 14.51,
-      "pnl_krw": 96543,
+      "pnl_krw": 94090,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1043,7 +1043,8 @@ window.APP_DATA = {
         217.55,
         220.78,
         217.44,
-        224.41
+        224.41,
+        228.45
       ],
       "sector": "반도체·AI"
     },
@@ -1056,9 +1057,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 610.68,
       "change_pct": 3.01,
-      "value_krw": 107079,
+      "value_krw": 106914,
       "pnl_pct": -3.68,
-      "pnl_krw": -12502,
+      "pnl_krw": -12666,
       "outlook": "core",
       "stars": 2,
       "score": 50,
@@ -1165,7 +1166,8 @@ window.APP_DATA = {
         578.02,
         572.34,
         578.54,
-        592.85
+        592.85,
+        610.68
       ],
       "sector": "빅테크"
     },
@@ -1178,9 +1180,9 @@ window.APP_DATA = {
       "cost": 654.41,
       "price": 710.72,
       "change_pct": 1.04,
-      "value_krw": 1126442,
+      "value_krw": 1124709,
       "pnl_pct": 8.6,
-      "pnl_krw": 10722,
+      "pnl_krw": 8988,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1271,7 +1273,8 @@ window.APP_DATA = {
         707.24,
         704.89,
         700.28,
-        703.41
+        703.41,
+        710.72
       ],
       "sector": "지수ETF"
     },
@@ -1284,9 +1287,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 510.12,
       "change_pct": 2.68,
-      "value_krw": 999687,
+      "value_krw": 998149,
       "pnl_pct": 24.36,
-      "pnl_krw": 134953,
+      "pnl_krw": 133415,
       "outlook": "core",
       "stars": 4,
       "score": 79,
@@ -1372,7 +1375,8 @@ window.APP_DATA = {
         513.53,
         507.29,
         501.02,
-        496.82
+        496.82,
+        510.12
       ],
       "sector": "빅테크"
     },
@@ -1385,9 +1389,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 328.21,
       "change_pct": 1.0,
-      "value_krw": 10017,
+      "value_krw": 10001,
       "pnl_pct": 27.64,
-      "pnl_krw": 1575,
+      "pnl_krw": 1559,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1484,7 +1488,8 @@ window.APP_DATA = {
         319.7,
         316.85,
         325.13,
-        324.96
+        324.96,
+        328.21
       ],
       "sector": "빅테크"
     },
@@ -1497,9 +1502,9 @@ window.APP_DATA = {
       "cost": 351.973907,
       "price": 342.48,
       "change_pct": 1.59,
-      "value_krw": 946975,
+      "value_krw": 945518,
       "pnl_pct": -2.7,
-      "pnl_krw": -99934,
+      "pnl_krw": -101391,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1603,7 +1608,8 @@ window.APP_DATA = {
         346.59,
         339.35,
         335.02,
-        337.12
+        337.12,
+        342.48
       ],
       "sector": "빅테크"
     },
@@ -1616,9 +1622,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 154.04,
       "change_pct": 5.69,
-      "value_krw": 45017,
+      "value_krw": 44948,
       "pnl_pct": -33.64,
-      "pnl_krw": -27954,
+      "pnl_krw": -28024,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1712,7 +1718,8 @@ window.APP_DATA = {
         150.85,
         149.12,
         141.32,
-        145.75
+        145.75,
+        154.04
       ],
       "sector": "빅테크"
     },
@@ -1725,9 +1732,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 958.16,
       "change_pct": 0.22,
-      "value_krw": 26026,
+      "value_krw": 25986,
       "pnl_pct": 27.93,
-      "pnl_krw": 4141,
+      "pnl_krw": 4101,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1829,7 +1836,8 @@ window.APP_DATA = {
         932.86,
         958.73,
         933.44,
-        956.08
+        956.08,
+        958.16
       ],
       "sector": "반도체·AI"
     },
@@ -1842,9 +1850,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 357.16,
       "change_pct": -2.74,
-      "value_krw": 34525,
+      "value_krw": 34471,
       "pnl_pct": -15.18,
-      "pnl_krw": -9258,
+      "pnl_krw": -9311,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -1950,7 +1958,8 @@ window.APP_DATA = {
         368.79,
         370.34,
         369.68,
-        367.24
+        367.24,
+        357.16
       ],
       "sector": "반도체·AI"
     }
@@ -1960,8 +1969,8 @@ window.APP_DATA = {
       "label": "SK하이닉스",
       "ticker": "000660.KS",
       "currency": "KRW",
-      "price": 1645000.0,
-      "change_pct": 3.07,
+      "price": 1643000.0,
+      "change_pct": 2.94,
       "stars": 4,
       "score": 78,
       "target": "Strong Buy",
@@ -2115,8 +2124,8 @@ window.APP_DATA = {
       "label": "삼성전기",
       "ticker": "009150.KS",
       "currency": "KRW",
-      "price": 1384000.0,
-      "change_pct": 2.67,
+      "price": 1388000.0,
+      "change_pct": 2.97,
       "stars": 4,
       "score": 70,
       "target": "KB 3,000,000원 (220만→상향)",
@@ -2279,8 +2288,8 @@ window.APP_DATA = {
       "label": "두산에너빌리티",
       "ticker": "034020.KS",
       "currency": "KRW",
-      "price": 79300.0,
-      "change_pct": 0.13,
+      "price": 79100.0,
+      "change_pct": -0.13,
       "stars": 3,
       "score": 64,
       "target": "135,000~165,000원",
@@ -2353,8 +2362,8 @@ window.APP_DATA = {
       "label": "LG이노텍",
       "ticker": "011070.KS",
       "currency": "KRW",
-      "price": 556000.0,
-      "change_pct": 0.0,
+      "price": 554000.0,
+      "change_pct": -0.36,
       "stars": 3,
       "score": 68,
       "target": "KB 1,600,000원",
@@ -2427,8 +2436,8 @@ window.APP_DATA = {
       "label": "한화오션",
       "ticker": "042660.KS",
       "currency": "KRW",
-      "price": 86900.0,
-      "change_pct": 0.46,
+      "price": 86700.0,
+      "change_pct": 0.23,
       "stars": 3,
       "score": 65,
       "target": "—",
@@ -2616,8 +2625,8 @@ window.APP_DATA = {
       "label": "KT&G",
       "ticker": "033780.KS",
       "currency": "KRW",
-      "price": 173400.0,
-      "change_pct": -0.74,
+      "price": 173800.0,
+      "change_pct": -0.52,
       "stars": 3,
       "score": 62,
       "target": "DS증권 240,000원",
@@ -2685,8 +2694,8 @@ window.APP_DATA = {
       "label": "원익IPS",
       "ticker": "240810.KQ",
       "currency": "KRW",
-      "price": 109900.0,
-      "change_pct": 4.67,
+      "price": 111600.0,
+      "change_pct": 6.29,
       "stars": 3,
       "score": 56,
       "target": "눌림 130,000~150,000원 검토",
@@ -2749,8 +2758,8 @@ window.APP_DATA = {
       "label": "테스",
       "ticker": "095610.KQ",
       "currency": "KRW",
-      "price": 140100.0,
-      "change_pct": 4.63,
+      "price": 143200.0,
+      "change_pct": 6.95,
       "stars": 3,
       "score": 57,
       "target": "눌림 대기",
@@ -2818,8 +2827,8 @@ window.APP_DATA = {
       "label": "한화에어로",
       "ticker": "012450.KS",
       "currency": "KRW",
-      "price": 1046000.0,
-      "change_pct": -0.1,
+      "price": 1045000.0,
+      "change_pct": -0.19,
       "stars": 4,
       "score": 74,
       "target": "1,620,000~1,900,000원 (SK·KB·하나증권 목표가, 7/4 기준)",
@@ -2887,8 +2896,8 @@ window.APP_DATA = {
       "label": "삼성중공업",
       "ticker": "010140.KS",
       "currency": "KRW",
-      "price": 21050.0,
-      "change_pct": -2.77,
+      "price": 21000.0,
+      "change_pct": -3.0,
       "stars": 3,
       "score": 60,
       "target": "—",
@@ -2946,8 +2955,8 @@ window.APP_DATA = {
       "label": "HD현대중공업",
       "ticker": "329180.KS",
       "currency": "KRW",
-      "price": 443500.0,
-      "change_pct": 1.95,
+      "price": 436000.0,
+      "change_pct": 0.23,
       "stars": 3,
       "score": 60,
       "target": "—",
@@ -3203,7 +3212,7 @@ window.APP_DATA = {
       "ticker": "TSLA",
       "currency": "USD",
       "price": 376.365,
-      "change_pct": 5.42,
+      "change_pct": -0.0,
       "stars": 2,
       "score": 18,
       "target": "$420.55 (ARK 2029 $2,600)",
@@ -3369,8 +3378,8 @@ window.APP_DATA = {
       "label": "삼성바이오로직스",
       "ticker": "207940.KS",
       "currency": "KRW",
-      "price": 1455000.0,
-      "change_pct": -1.49,
+      "price": 1439000.0,
+      "change_pct": -2.57,
       "stars": 4,
       "score": 74,
       "target": "2,020,333원 컨센 (괴리+46.5%·Strong Buy 24명 / 한투195·IBK209·현대차210만)",
@@ -3423,8 +3432,8 @@ window.APP_DATA = {
       "label": "SK이노베이션",
       "ticker": "096770.KS",
       "currency": "KRW",
-      "price": 139250.0,
-      "change_pct": 6.46,
+      "price": 138600.0,
+      "change_pct": 5.96,
       "stars": 3,
       "score": 63,
       "target": "컨센서스 목표가 미확인 — 편입 전 딥다이브 시 확인",
@@ -3568,7 +3577,7 @@ window.APP_DATA = {
       1366.62,
       1372.86,
       1358.39,
-      1358.08
+      1355.98
     ]
   },
   "kospi_history": {
@@ -3594,6 +3603,7 @@ window.APP_DATA = {
       "2026-08-31",
       "2026-09-01",
       "2026-09-02",
+      "2026-09-03",
       "2026-09-04"
     ],
     "closes": [
@@ -3618,7 +3628,8 @@ window.APP_DATA = {
       6820.02,
       6835.8,
       6562.72,
-      6666.71
+      6579.48,
+      6665.27
     ]
   },
   "hunter": {
@@ -21862,6 +21873,22 @@ window.APP_DATA = {
     ],
     "closed": [
       {
+        "id": "d174",
+        "date": "2026-09-04",
+        "topic": "카카오톡 알림 연결 완료 — 9/1부터 열려 있던 마지막 구멍",
+        "decision": "카카오 '나에게 보내기' 채널 연결·검증 완료(9/4 12:0x). price_watch 전이 → notify → 카톡 도착까지 실경로 확인. 환경변수 KAKAO_REST_KEY·KAKAO_REFRESH_TOKEN 영구 등록",
+        "rationale": "9/1 경로 B 전환에서 잃은 '폰 푸시'가 이걸로 복구됐다. 9/2·9/3 R2 실패도 로그에만 남고 폰엔 안 갔던 게 이 구멍이다. 정훈이 텔레그램 대신 카톡을 택했고, 그게 옳다 — 안 보는 알림은 없는 알림이다. 콘솔 UI가 바뀌어 Redirect URI가 '앱 > 플랫폼 키 > REST API 키 수정' 안으로 들어가 있었고(문서로 확인), 클라이언트 시크릿이 기본 ON이라 끄지 않으면 토큰 발급이 조용히 실패할 자리였다",
+        "rejected": "①텔레그램 — 설정은 2분이고 만료도 없지만 정훈이 안 쓰는 앱이라 도달률이 0에 수렴한다. 폴백으로만 남긴다 ②앱 화면 확인으로 갈음 — 푸시가 아니라 정훈이 열어봐야 안다. 폰창 개념 자체가 무의미해진다",
+        "status": "closed",
+        "tags": [
+          "알림",
+          "카카오톡",
+          "notify",
+          "price_watch"
+        ],
+        "refs": ""
+      },
+      {
         "id": "d168",
         "date": "2026-09-03",
         "topic": "오더 생존 확인 기계화 — 토스 OPEN 조회 신설로 d127 이행",
@@ -22111,25 +22138,10 @@ window.APP_DATA = {
           "정정"
         ],
         "refs": "시사저널e·한경·인베스트조선·뉴스퀘스트·시사오늘·글로벌이코노믹 (2026-08-24 교차) · report_v83 §15①"
-      },
-      {
-        "id": "d138",
-        "date": "2026-08-24",
-        "topic": "외부 트레이딩 리포 10개 검토 — 신규 도입 0건",
-        "decision": "인스타 추천 10개(Freqtrade·Hummingbot·VectorBT·Backtrader·CCXT·FinRL·Nautilus·TradingAgents·Lumibot·Polymarket) 전수 실측 후 신규 도입 0건 확정",
-        "rationale": "6개가 주문 집행기라 토스 조회전용 룰과 정면충돌·3개가 크립토 전용·1개(Polymarket py-clob-client)는 2026-05-25 아카이브된 죽은 리포. TradingAgents는 이미 우리 구조의 원본이고 Polymarket은 macro_data에 편입済. 게시물의 '전부 무료 오픈소스'는 부정확(VectorBT=Commons Clause 비-OSI, Backtrader=GPL-3.0+3년4개월 휴면)",
-        "rejected": "VectorBT/Backtrader 백테스트 엔진 도입 — 의존 42개로 stdlib 정책·12월 로컬 이전 포터빌리티와 충돌, GPL 전염",
-        "status": "closed",
-        "tags": [
-          "tooling",
-          "external",
-          "backtest"
-        ],
-        "refs": "docs/research/repo_review_2026-08-24.md"
       }
     ],
     "open_count": 37,
-    "total": 190
+    "total": 191
   },
   "reports": [
     {
@@ -23421,17 +23433,17 @@ window.APP_DATA = {
     "today": [
       {
         "id": "t1",
-        "text": "✅ GOOGL $67 체결 완료(9/3 22:30:17 · 0.196569주 @$340.49)",
+        "text": "카톡 알림 연결 완료 — 트리거·루틴 결과가 폰으로 온다",
         "done": true
       },
       {
         "id": "t2",
-        "text": "AVGO 9/3 정규장 갭 확정 확인(시간외 -5~6%)",
+        "text": "GOOGL $67 체결 완료 (9/3 22:30 · 0.196569주 @$340.49)",
         "done": true
       },
       {
         "id": "t3",
-        "text": "텔레그램 키 등록 — 없으면 실시간 감시가 폰에 안 간다",
+        "text": "16:00 R2 결과 확인 (실패 시 카톡 옴 · R4a 20:00 재시도)",
         "done": false
       }
     ],
@@ -28199,105 +28211,105 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1358.08,
+    "fx_rate": 1355.99,
     "fx_cost_basis": 1460.9,
-    "total_krw": 8123947,
+    "total_krw": 8116258,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 5971447,
+        "value_krw": 5962258,
         "weight": 73.5,
-        "stock_krw": 4889913,
-        "cash_krw": 1081534
+        "stock_krw": 4882388,
+        "cash_krw": 1079870
       },
       {
         "currency": "KRW",
-        "value_krw": 2152500,
+        "value_krw": 2154000,
         "weight": 26.5,
-        "stock_krw": 1885000,
+        "stock_krw": 1886500,
         "cash_krw": 267500
       }
     ],
-    "sensitivity_1pct_krw": 59714,
+    "sensitivity_1pct_krw": 59623,
     "attribution": {
       "price_krw": 468500,
-      "fx_krw": -337241,
-      "cross_krw": -32974,
-      "total_krw": 98285,
+      "fx_krw": -344096,
+      "cross_krw": -33644,
+      "total_krw": 90760,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(체결 실측·시장종가 기준)라 환 기여 절대액에 잔여 오차"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": 96543,
+        "total_krw": 94090,
         "price_krw": 217235,
-        "fx_krw": -105403,
-        "cross_krw": -15289
+        "fx_krw": -107546,
+        "cross_krw": -15600
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": 10722,
+        "total_krw": 8988,
         "price_krw": 96004,
-        "fx_krw": -78526,
-        "cross_krw": -6757
+        "fx_krw": -80122,
+        "cross_krw": -6894
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -99934,
+        "total_krw": -101391,
         "price_krw": -28239,
-        "fx_krw": -73683,
-        "cross_krw": 1987
+        "fx_krw": -75181,
+        "cross_krw": 2028
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 134953,
+        "total_krw": 133415,
         "price_krw": 210639,
-        "fx_krw": -60861,
-        "cross_krw": -14825
+        "fx_krw": -62098,
+        "cross_krw": -15126
       },
       {
         "label": "META",
         "ticker": "META",
-        "total_krw": -12502,
+        "total_krw": -12666,
         "price_krw": -4395,
-        "fx_krw": -8416,
-        "cross_krw": 309
+        "fx_krw": -8587,
+        "cross_krw": 316
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -27954,
+        "total_krw": -28024,
         "price_krw": -24546,
-        "fx_krw": -5136,
-        "cross_krw": 1728
+        "fx_krw": -5240,
+        "cross_krw": 1763
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -9258,
+        "total_krw": -9311,
         "price_krw": -6644,
-        "fx_krw": -3081,
-        "cross_krw": 468
+        "fx_krw": -3144,
+        "cross_krw": 477
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 4141,
+        "total_krw": 4101,
         "price_krw": 6112,
-        "fx_krw": -1540,
-        "cross_krw": -430
+        "fx_krw": -1572,
+        "cross_krw": -439
       },
       {
         "label": "AAPL",
         "ticker": "AAPL",
-        "total_krw": 1575,
+        "total_krw": 1559,
         "price_krw": 2333,
-        "fx_krw": -594,
-        "cross_krw": -164
+        "fx_krw": -606,
+        "cross_krw": -168
       }
     ],
     "percentile": {
@@ -28305,26 +28317,26 @@ window.APP_DATA = {
       "windows": {
         "1y": {
           "percentile": 0.4,
-          "low": 1358.08,
+          "low": 1355.98,
           "high": 1554.48,
           "n": 252
         },
         "3y": {
-          "percentile": 25.7,
+          "percentile": 24.7,
           "low": 1276.47,
           "high": 1554.48,
           "n": 756
         },
         "5y": {
-          "percentile": 51.3,
+          "percentile": 50.8,
           "low": 1172.56,
           "high": 1554.48,
           "n": 1260
         }
       },
       "status": "live",
-      "current": 1358.08,
-      "chg_3m_pct": -10.5
+      "current": 1355.98,
+      "chg_3m_pct": -10.64
     },
     "status": "live"
   },
@@ -28336,7 +28348,7 @@ window.APP_DATA = {
     "holdings": 14,
     "missing": [],
     "portfolio_vol": 34.2,
-    "weighted_vol": 50.2,
+    "weighted_vol": 50.3,
     "diversification_ratio": 1.469,
     "effective_bets": 2.16,
     "effective_bets_weight_only": 6.56,
@@ -28352,7 +28364,7 @@ window.APP_DATA = {
       },
       "S&P500": {
         "beta": 1.876,
-        "corr": 0.707,
+        "corr": 0.706,
         "vol": 12.7
       },
       "필라델피아반도체": {
@@ -28361,7 +28373,7 @@ window.APP_DATA = {
         "vol": 59.6
       },
       "원/달러": {
-        "beta": 0.942,
+        "beta": 0.945,
         "corr": 0.201,
         "vol": 8.4
       }
@@ -28371,7 +28383,7 @@ window.APP_DATA = {
         "label": "삼성전자",
         "ticker": "005930.KS",
         "vol": 106.4,
-        "weight": 15.0
+        "weight": 15.1
       },
       {
         "label": "MU",
@@ -28395,7 +28407,7 @@ window.APP_DATA = {
         "label": "NAVER",
         "ticker": "035420.KS",
         "vol": 69.8,
-        "weight": 3.1
+        "weight": 3.2
       },
       {
         "label": "현대차",
@@ -28425,7 +28437,7 @@ window.APP_DATA = {
         "label": "MSFT",
         "ticker": "MSFT",
         "vol": 44.0,
-        "weight": 14.8
+        "weight": 14.7
       },
       {
         "label": "NVDA",
@@ -28475,7 +28487,7 @@ window.APP_DATA = {
         "a": "LG전자",
         "b": "현대차",
         "corr": 0.692,
-        "w_sum": 8.7
+        "w_sum": 8.6
       },
       {
         "a": "두산로보틱스",
@@ -28487,19 +28499,19 @@ window.APP_DATA = {
         "a": "두산로보틱스",
         "b": "NAVER",
         "corr": 0.652,
-        "w_sum": 4.1
+        "w_sum": 4.2
       },
       {
         "a": "NVDA",
         "b": "VOO",
         "corr": 0.642,
-        "w_sum": 40.2
+        "w_sum": 40.1
       },
       {
         "a": "LG전자",
         "b": "ORCL",
         "corr": 0.621,
-        "w_sum": 3.7
+        "w_sum": 3.6
       }
     ],
     "matrix": {
@@ -28759,14 +28771,14 @@ window.APP_DATA = {
       {
         "key": "theme",
         "label": "테마 집중",
-        "value": 31,
+        "value": 32,
         "weight": 12,
         "contribution": 3.8
       },
       {
         "key": "low_star",
         "label": "⭐2 이하",
-        "value": 28,
+        "value": 27,
         "weight": 16,
         "contribution": 4.4
       },
@@ -28797,9 +28809,9 @@ window.APP_DATA = {
       "top_weight": 23.5,
       "hhi": 1524,
       "top_sector": "반도체·AI",
-      "top_sector_weight": 39.4,
+      "top_sector_weight": 39.5,
       "usd_weight": 73.5,
-      "low_star_weight": 8.3,
+      "low_star_weight": 8.2,
       "losers": 5,
       "holdings": 14,
       "cash_weight": 16.6,
@@ -28812,31 +28824,31 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 73.5% · 원/달러 1년 0.4%ile. 환율 1% 변동 = 총자산 +59,714원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
+        "detail": "달러 자산 73.5% · 원/달러 1년 0.4%ile. 환율 1% 변동 = 총자산 +59,623원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
       },
       {
         "level": "warning",
         "category": "low_star",
         "title": "⭐2 이하 보유 — 액션 의무",
-        "detail": "두산로보틱스·현대차·META (비중 8.3%). 오더북 등록 1건. '관망'은 결정이 아니다 — 트림 오더 또는 기한부 홀드 중 하나여야 한다(8/2)."
+        "detail": "두산로보틱스·현대차·META (비중 8.2%). 오더북 등록 1건. '관망'은 결정이 아니다 — 트림 오더 또는 기한부 홀드 중 하나여야 한다(8/2)."
       },
       {
         "level": "warning",
         "category": "codependence",
         "title": "분산 착시 — 상관이 지운 종목 수",
-        "detail": "14종목 보유가 비중상 6.56종목어치인데 **상관까지 보면 2.16종목어치**(분산의 67%가 동조로 사라짐). 포트 변동성 34.2% (상관 무시하면 50.2%). 섹터 라벨이 아니라 실제 움직임 기준이다."
+        "detail": "14종목 보유가 비중상 6.56종목어치인데 **상관까지 보면 2.16종목어치**(분산의 67%가 동조로 사라짐). 포트 변동성 34.2% (상관 무시하면 50.3%). 섹터 라벨이 아니라 실제 움직임 기준이다."
       },
       {
         "level": "warning",
         "category": "drawdown",
         "title": "하락 종목 점검",
-        "detail": "5개가 -10% 이하 (최대 현대차 -38.9%). 단기 손절선은 영구 폐기 — 룰2 3중조건(마진·FCF·순부채)으로만 트림을 판단한다."
+        "detail": "5개가 -10% 이하 (최대 현대차 -39.2%). 단기 손절선은 영구 폐기 — 룰2 3중조건(마진·FCF·순부채)으로만 트림을 판단한다."
       },
       {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +468,500원인데 환 기여 -337,241원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -32,974원)."
+        "detail": "미국주 종목 기여 +468,500원인데 환 기여 -344,096원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -33,644원)."
       },
       {
         "level": "info",

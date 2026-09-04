@@ -26,10 +26,24 @@
   notify.py --text "임의 메시지"
   notify.py --check                  # 설정 여부만 확인(발송 안 함)
 """
-import argparse, json, os, sys, urllib.parse, urllib.request, urllib.error
+import argparse, json, os, sys, time, urllib.parse, urllib.request, urllib.error
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 API = "https://api.telegram.org/bot{token}/sendMessage"
+
+# ── 카카오톡 "나에게 보내기" [9/4 신설 · 정훈 요청 "카톡으로는 못해?"] ──────────
+#   왜 넣나: 텔레그램은 설정이 두 줄이지만 **정훈이 안 쓰는 앱**이다.
+#   안 보는 알림은 없는 알림이라, 설정이 번거로워도 실제로 보는 채널이 낫다.
+#
+#   ⚠️ 토큰 수명이 짧다 — 이 채널의 유일한 함정이다:
+#     · access_token  6시간   → 매번 refresh로 재발급(자동)
+#     · refresh_token 2개월   → **남은 기간이 1개월 미만일 때만** 새 값이 응답에 실려 온다
+#   ⇒ 응답에 refresh_token이 오면 **반드시 저장**해야 한다. 안 하면 2개월 뒤
+#     조용히 죽고, 그날부터 알림이 안 가는데 아무도 모른다(이 레포가 가장 싫어하는 형태).
+#     아래 _kakao_refresh()가 그걸 파일에 즉시 덮어쓰고, 저장 사실을 출력한다.
+KAKAO_TOKEN_URL = "https://kauth.kakao.com/oauth/token"
+KAKAO_SEND_URL = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+KAKAO_CACHE = os.path.join(ROOT, "data", "logs", "kakao_token.json")
 LIMIT = 4000                      # 텔레그램 메시지 상한 4096자 — 여유를 둔다
 
 
@@ -37,12 +51,120 @@ def _creds():
     return os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
 
 
+def _kakao_creds():
+    return os.environ.get("KAKAO_REST_KEY"), os.environ.get("KAKAO_REFRESH_TOKEN")
+
+
+def _kakao_cache():
+    try:
+        return json.load(open(KAKAO_CACHE, encoding="utf-8"))
+    except Exception:                                             # noqa: BLE001
+        return {}
+
+
+def _kakao_save(d):
+    os.makedirs(os.path.dirname(KAKAO_CACHE), exist_ok=True)
+    json.dump(d, open(KAKAO_CACHE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+
+def _kakao_refresh(rest_key, refresh_token):
+    """access_token 재발급. 응답에 refresh_token이 오면 **반드시 저장한다.**
+
+    카카오는 refresh_token 잔여가 1개월 미만일 때만 새 값을 준다 — 그 한 번을 놓치면
+    2개월 뒤 만료되고, 그때부터 알림이 조용히 끊긴다. 저장은 선택이 아니라 필수다.
+    """
+    body = urllib.parse.urlencode({
+        "grant_type": "refresh_token", "client_id": rest_key,
+        "refresh_token": refresh_token}).encode()
+    req = urllib.request.Request(KAKAO_TOKEN_URL, data=body,
+                                 headers={"Content-Type":
+                                          "application/x-www-form-urlencoded;charset=utf-8"})
+    with urllib.request.urlopen(req, timeout=15) as r:
+        d = json.load(r)
+    cache = _kakao_cache()
+    cache["access_token"] = d.get("access_token")
+    cache["expires_at"] = time.time() + int(d.get("expires_in", 21600)) - 300  # 5분 여유
+    if d.get("refresh_token"):
+        cache["refresh_token"] = d["refresh_token"]
+        print("🔑 카카오 refresh_token 갱신됨 — 저장 완료. "
+              "환경변수 KAKAO_REFRESH_TOKEN도 이 값으로 바꿔둘 것(캐시 유실 대비)",
+              file=sys.stderr)
+    _kakao_save(cache)
+    return cache["access_token"]
+
+
+def _kakao_token():
+    rest_key, env_refresh = _kakao_creds()
+    if not rest_key:
+        return None
+    cache = _kakao_cache()
+    if cache.get("access_token") and cache.get("expires_at", 0) > time.time():
+        return cache["access_token"]
+    refresh = cache.get("refresh_token") or env_refresh
+    if not refresh:
+        return None
+    return _kakao_refresh(rest_key, refresh)
+
+
+def send_kakao(text: str) -> tuple[int, str]:
+    """0=성공 · 3=미설정 · 4=실패. 성공을 가장하지 않는다."""
+    rest_key, refresh = _kakao_creds()
+    if not (rest_key and (refresh or _kakao_cache().get("refresh_token"))):
+        return 3, "KAKAO_REST_KEY/KAKAO_REFRESH_TOKEN 미설정"
+    try:
+        tok = _kakao_token()
+        if not tok:
+            return 3, "카카오 토큰 발급 불가"
+        tpl = {"object_type": "text", "text": text[:1900],
+               "link": {"web_url": "https://github.com", "mobile_web_url": "https://github.com"}}
+        body = urllib.parse.urlencode({"template_object":
+                                       json.dumps(tpl, ensure_ascii=False)}).encode()
+        req = urllib.request.Request(KAKAO_SEND_URL, data=body, headers={
+            "Authorization": "Bearer " + tok,
+            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            res = json.load(r)
+        if res.get("result_code") == 0:
+            return 0, "카카오톡 발송"
+        return 4, f"카카오 result_code={res.get('result_code')}"
+    except urllib.error.HTTPError as e:
+        return 4, f"카카오 HTTP {e.code} — {e.read()[:160]!r}"
+    except Exception as e:                                        # noqa: BLE001
+        return 4, f"카카오 {type(e).__name__}: {e}"
+
+
 def send(text: str, dry: bool = False) -> int:
-    """0=발송 · 3=미설정 · 4=발송실패. 성공을 가장하지 않는 것이 이 함수의 계약이다."""
-    token, chat = _creds()
+    """0=발송 · 3=미설정 · 4=발송실패. 성공을 가장하지 않는 것이 이 함수의 계약이다.
+
+    채널 우선순위 = **카카오톡 → 텔레그램**. 정훈이 실제로 보는 앱이 카톡이라
+    거기가 1순위이고, 텔레그램은 카톡 미설정·실패 시의 폴백이다.
+    ⚠️ 하나라도 성공하면 0이지만 **어느 채널로 갔는지 반드시 출력**한다 —
+       "보냈다"만 알고 어디로 갔는지 모르면 한쪽이 죽어도 눈치채지 못한다.
+    """
     if dry:
         print(text); return 0
+
+    k_code, k_msg = send_kakao(text)
+    if k_code == 0:
+        print(f"✅ {k_msg}"); return 0
+    if k_code == 4:                       # 설정은 됐는데 실패 — 조용히 넘기지 않는다
+        print(f"⚠️ {k_msg} → 텔레그램 폴백 시도", file=sys.stderr)
+
+    token, chat = _creds()
     if not token or not chat:
+        if k_code == 3:
+            print("⚠️ 알림 미발송 — 카카오·텔레그램 **둘 다 미설정**.\n"
+                  "   카카오(권장·정훈이 실제로 보는 채널):\n"
+                  "     developers.kakao.com 앱 생성 → REST API 키 획득\n"
+                  "     → 카카오 로그인 활성화 + 동의항목 'talk_message' 체크\n"
+                  "     → 인가코드로 refresh_token 발급\n"
+                  "     → setx KAKAO_REST_KEY <키> ; setx KAKAO_REFRESH_TOKEN <토큰>\n"
+                  "   텔레그램(설정은 더 간단):\n"
+                  "     @BotFather → /newbot → 토큰 →\n"
+                  "     setx TELEGRAM_BOT_TOKEN <토큰> ; setx TELEGRAM_CHAT_ID <id>\n"
+                  "   ⚠️ setx 후 Claude Code·작업 스케줄러 재시작 필요"
+                  "(환경변수는 프로세스 시작 시각에 고정된다 — 8/31 교훈)", file=sys.stderr)
+            return 3
         missing = [n for n, v in (("TELEGRAM_BOT_TOKEN", token),
                                   ("TELEGRAM_CHAT_ID", chat)) if not v]
         print(f"⚠️ 알림 미발송 — 환경변수 없음: {', '.join(missing)}\n"
@@ -137,6 +259,11 @@ def main() -> int:
     a = ap.parse_args()
 
     if a.check:
+        kk, kr = _kakao_creds()
+        cached = _kakao_cache().get("refresh_token")
+        print(f"KAKAO_REST_KEY: {'설정됨' if kk else '없음'} · "
+              f"KAKAO_REFRESH_TOKEN: {'설정됨' if (kr or cached) else '없음'}"
+              + ("  (캐시본 사용 중)" if cached and not kr else ""))
         tok, chat = _creds()
         print(f"TELEGRAM_BOT_TOKEN: {'설정됨' if tok else '없음'} · "
               f"TELEGRAM_CHAT_ID: {'설정됨' if chat else '없음'}")

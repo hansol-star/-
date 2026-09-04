@@ -333,7 +333,19 @@ powershell -ExecutionPolicy Bypass -File .claude/routines/run_routine.ps1 -Kind 
 편의가 아니다 — 정훈 폰창(평일 17:30~20:50)은 **국내 시간외단일가(~18:00)와 겹치는 유일한 실시간 거래창**인데,
 16:00 R2가 오더북을 내도 앱을 직접 열어야만 알 수 있었다. 윈도우 토스트는 **PC 앞에 있을 때만** 보인다.
 
-- **경로**: `notify.py` — 텔레그램 봇 API(무료·stdlib urllib·서버 불요). 런처가 매 루틴 종료 시 호출한다.
+- **경로**: `notify.py` — **카카오톡 → 텔레그램 순서**로 시도(둘 다 stdlib urllib·서버 불요).
+  ★[9/4 정훈 요청 "카톡으로는 못해?"] 카카오를 1순위로 둔다 — 텔레그램이 설정은 두 줄로 간단하지만
+  **정훈이 안 쓰는 앱**이고, 안 보는 알림은 없는 알림이다. 설정 부담보다 도달률이 우선.
+  · 카카오 = '나에게 보내기'(`/v2/api/talk/memo/default/send`). 환경변수 `KAKAO_REST_KEY`·`KAKAO_REFRESH_TOKEN`.
+    설정 = developers.kakao.com 앱 생성 → REST API 키 → 카카오 로그인 활성화 + 동의항목 **talk_message** →
+    인가코드로 refresh_token 1회 발급.
+    ⚠️ **토큰 수명이 이 채널의 유일한 함정**: access_token **6시간**(자동 재발급) · refresh_token **2개월**.
+      카카오는 refresh 잔여가 **1개월 미만일 때만** 새 refresh_token을 응답에 실어준다 —
+      그 한 번을 저장 안 하면 2개월 뒤 **조용히 죽고 그날부터 알림이 안 간다**.
+      `_kakao_refresh()`가 받는 즉시 `data/logs/kakao_token.json`에 덮어쓰고 그 사실을 출력한다.
+      (캐시는 gitignore 하위라 토큰이 커밋되지 않는다.)
+  · 텔레그램 = 폴백. `TELEGRAM_BOT_TOKEN`·`TELEGRAM_CHAT_ID`. 만료 없음.
+  · **어느 채널로 갔는지 매번 출력한다** — '보냈다'만 알고 경로를 모르면 한쪽이 죽어도 눈치 못 챈다.
 - **내용**: 판정 아이콘 + 소요시간 + (지각/미커밋 있으면 그 사실) + **OK일 때 대기 오더 요약**
   (최근 14일 · 미체결분만 — 상태만으로 거르면 6~7월 잔재까지 23건이 딸려와 노이즈가 된다).
 - **키**: `TELEGRAM_BOT_TOKEN` · `TELEGRAM_CHAT_ID`. ⚠️ **알림 전송 전용이라 계좌 권한이 없다** —

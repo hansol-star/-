@@ -104,7 +104,7 @@ def fetch(query: str, display: int = 20) -> list[dict]:
                 arts.append(cur)
             cur = {"title": _strip(m.group(2)), "pubDate": m.group(1).strip(),
                    "description": "", "link": None,
-                   "query": [query], "collected_at": now}
+                   "query": [query], "source": "naver", "collected_at": now}
             continue
         if cur is None:
             continue
@@ -120,7 +120,45 @@ def fetch(query: str, display: int = 20) -> list[dict]:
     return arts
 
 
-def collect(queries: list[str], display: int = 20, quiet: bool = False) -> int:
+# 해외 기사 — 보유 미국 9종목 + 워치. Yahoo Finance RSS(무키·종목별).
+# ⚠️ 국내(네이버)와 **같은 파일에 섞어 저장**하되 source로 구분한다.
+#    분리 저장하면 "그날 무슨 일이 있었나"를 두 군데서 봐야 한다 — 시점 대조가 목적이므로 한 곳에 둔다.
+US_TICKERS = ["NVDA", "MSFT", "GOOGL", "AAPL", "META", "AVGO", "MU", "ORCL", "VOO"]
+YF_RSS = "https://feeds.finance.yahoo.com/rss/2.0/headline?s={t}&region=US&lang=en-US"
+
+
+def fetch_intl(ticker: str) -> list[dict]:
+    """해외 기사 — Yahoo Finance RSS. 키 불요·종목별.
+
+    ⚠️ RSS는 조용히 빈 결과를 준다(종목 폐지·심볼 오타). 0건이면 그 사실을 남긴다.
+    """
+    import urllib.request
+    now = _kst().strftime("%Y-%m-%d %H:%M")
+    try:
+        req = urllib.request.Request(YF_RSS.format(t=ticker),
+                                     headers={"User-Agent": "Mozilla/5.0"})
+        x = urllib.request.urlopen(req, timeout=25).read().decode("utf-8", "replace")
+    except Exception as e:                                         # noqa: BLE001
+        print(f"  ⚠️ {ticker}: {type(e).__name__}", file=sys.stderr)
+        return []
+    out = []
+    for it in re.findall(r"<item>(.*?)</item>", x, re.S):
+        def g(tag):
+            m = re.search(rf"<{tag}>(.*?)</{tag}>", it, re.S)
+            return _strip(m.group(1)) if m else ""
+        link = g("link")
+        if not link:
+            continue
+        out.append({"title": g("title"), "link": link, "pubDate": g("pubDate"),
+                    "description": g("description")[:400], "query": [ticker],
+                    "source": "yahoo", "collected_at": now})
+    if not out:
+        print(f"  ⚠️ {ticker}: 0건(심볼 확인)", file=sys.stderr)
+    return out
+
+
+def collect(queries: list[str], display: int = 20, quiet: bool = False,
+            intl: bool = True) -> int:
     today = _kst().date()
     p = _path(today)
     os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -139,7 +177,20 @@ def collect(queries: list[str], display: int = 20, quiet: bool = False) -> int:
             else:
                 by_link[a["link"]] = a
         if not quiet:
-            print(f"  {q:<20} {len(got):>3}건")
+            print(f"  🇰🇷 {q:<18} {len(got):>3}건")
+    if intl:
+        for t in US_TICKERS:
+            got = fetch_intl(t)
+            for a in got:
+                ex = by_link.get(a["link"])
+                if ex:
+                    for qq in a["query"]:
+                        if qq not in ex.setdefault("query", []):
+                            ex["query"].append(qq)
+                else:
+                    by_link[a["link"]] = a
+            if not quiet:
+                print(f"  🇺🇸 {t:<18} {len(got):>3}건")
     arts = sorted(by_link.values(), key=lambda x: str(x.get("pubDate") or ""), reverse=True)
     json.dump({"date": today.isoformat(), "updated": _kst().strftime("%Y-%m-%d %H:%M"),
                "queries": queries, "articles": arts},
@@ -194,6 +245,7 @@ def main() -> int:
     ap.add_argument("--status", action="store_true", help="누적 현황")
     ap.add_argument("--search", help="아카이브에서 되짚기")
     ap.add_argument("--days", type=int, default=14, help="--search 기간")
+    ap.add_argument("--no-intl", action="store_true", help="해외(Yahoo RSS) 생략")
     ap.add_argument("-q", "--quiet", action="store_true")
     a = ap.parse_args()
     if a.status:
@@ -201,7 +253,7 @@ def main() -> int:
     if a.search:
         return search(a.search, a.days)
     if a.collect:
-        return collect(a.query or DEFAULT_QUERIES, a.display, a.quiet)
+        return collect(a.query or DEFAULT_QUERIES, a.display, a.quiet, not a.no_intl)
     ap.error("--collect · --status · --search 중 하나가 필요하다")
 
 

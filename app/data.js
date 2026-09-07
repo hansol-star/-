@@ -1,22 +1,22 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-09-07 23:18 KST",
+  "generated_at": "2026-09-08 07:57 KST",
   "as_of": "2026-09-03 18:26",
   "source_report": "docs/reports/report_v90_2026-09-03.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1346.72
+    "usdkrw": 1344.84
   },
   "totals": {
-    "assets_krw": 8145910,
-    "stocks_value_krw": 6805923,
+    "assets_krw": 8137669,
+    "stocks_value_krw": 6799179,
     "cash_krw": 267500,
     "cash_usd": 796.37,
-    "cash_usd_krw": 1072487,
-    "day_change_krw": 67942,
+    "cash_usd_krw": 1070990,
+    "day_change_krw": 67968,
     "day_change_pct": 1.01,
-    "total_pnl_krw": -191405,
-    "total_pnl_pct": -2.74
+    "total_pnl_krw": -198148,
+    "total_pnl_pct": -2.83
   },
   "safety": {
     "price": 6995.39,
@@ -929,9 +929,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 230.36,
       "change_pct": 0.84,
-      "value_krw": 1594027,
+      "value_krw": 1591802,
       "pnl_pct": 15.46,
-      "pnl_krw": 96425,
+      "pnl_krw": 94200,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1047,9 +1047,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 616.77,
       "change_pct": 1.0,
-      "value_krw": 107242,
+      "value_krw": 107092,
       "pnl_pct": -2.71,
-      "pnl_krw": -12338,
+      "pnl_krw": -12488,
       "outlook": "core",
       "stars": 2,
       "score": 50,
@@ -1170,9 +1170,9 @@ window.APP_DATA = {
       "cost": 654.41,
       "price": 708.01,
       "change_pct": -0.38,
-      "value_krw": 1112760,
+      "value_krw": 1111207,
       "pnl_pct": 8.19,
-      "pnl_krw": -2960,
+      "pnl_krw": -4513,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1277,9 +1277,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 499.7,
       "change_pct": -2.04,
-      "value_krw": 971075,
+      "value_krw": 969720,
       "pnl_pct": 21.82,
-      "pnl_krw": 106342,
+      "pnl_krw": 104986,
       "outlook": "core",
       "stars": 4,
       "score": 79,
@@ -1379,9 +1379,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 319.97,
       "change_pct": -2.51,
-      "value_krw": 9683,
+      "value_krw": 9670,
       "pnl_pct": 24.43,
-      "pnl_krw": 1242,
+      "pnl_krw": 1228,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1492,9 +1492,9 @@ window.APP_DATA = {
       "cost": 351.973907,
       "price": 338.46,
       "change_pct": -1.17,
-      "value_krw": 928031,
+      "value_krw": 926736,
       "pnl_pct": -3.84,
-      "pnl_krw": -118878,
+      "pnl_krw": -120173,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1612,9 +1612,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 158.78,
       "change_pct": 3.08,
-      "value_krw": 46015,
+      "value_krw": 45950,
       "pnl_pct": -31.6,
-      "pnl_krw": -26957,
+      "pnl_krw": -27021,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1722,9 +1722,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 1016.59,
       "change_pct": 6.1,
-      "value_krw": 27383,
+      "value_krw": 27344,
       "pnl_pct": 35.73,
-      "pnl_krw": 5497,
+      "pnl_krw": 5459,
       "outlook": "core",
       "stars": 5,
       "score": 86,
@@ -1840,9 +1840,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 357.895,
       "change_pct": -0.0,
-      "value_krw": 34306,
+      "value_krw": 34258,
       "pnl_pct": -15.0,
-      "pnl_krw": -9477,
+      "pnl_krw": -9525,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -3539,6 +3539,7 @@ window.APP_DATA = {
       "2026-09-01",
       "2026-09-02",
       "2026-09-03",
+      "2026-09-06",
       "2026-09-07"
     ],
     "closes": [
@@ -3563,7 +3564,8 @@ window.APP_DATA = {
       1372.86,
       1358.39,
       1355.41,
-      1346.72
+      1345.06,
+      1344.85
     ]
   },
   "kospi_history": {
@@ -3587,8 +3589,7 @@ window.APP_DATA = {
       "2026-09-01",
       "2026-09-02",
       "2026-09-03",
-      "2026-09-04",
-      "2026-09-07"
+      "2026-09-04"
     ],
     "closes": [
       6258.77,
@@ -3610,8 +3611,7 @@ window.APP_DATA = {
       6835.8,
       6562.72,
       6579.48,
-      6687.21,
-      6995.39
+      6687.21
     ]
   },
   "hunter": {
@@ -28193,105 +28193,105 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1346.72,
+    "fx_rate": 1344.84,
     "fx_cost_basis": 1460.9,
-    "total_krw": 8145909,
+    "total_krw": 8137669,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 5903009,
-        "weight": 72.5,
-        "stock_krw": 4830522,
-        "cash_krw": 1072487
+        "value_krw": 5894769,
+        "weight": 72.4,
+        "stock_krw": 4823779,
+        "cash_krw": 1070990
       },
       {
         "currency": "KRW",
         "value_krw": 2242900,
-        "weight": 27.5,
+        "weight": 27.6,
         "stock_krw": 1975400,
         "cash_krw": 267500
       }
     ],
-    "sensitivity_1pct_krw": 59030,
+    "sensitivity_1pct_krw": 58948,
     "attribution": {
       "price_krw": 448445,
-      "fx_krw": -374501,
-      "cross_krw": -35049,
-      "total_krw": 38895,
+      "fx_krw": -380667,
+      "cross_krw": -35626,
+      "total_krw": 32152,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(체결 실측·시장종가 기준)라 환 기여 절대액에 잔여 오차"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": 96425,
+        "total_krw": 94200,
         "price_krw": 231572,
-        "fx_krw": -117049,
-        "cross_krw": -18099
+        "fx_krw": -118976,
+        "cross_krw": -18397
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": -2960,
+        "total_krw": -4513,
         "price_krw": 91384,
-        "fx_krw": -87202,
-        "cross_krw": -7142
+        "fx_krw": -88637,
+        "cross_krw": -7260
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -118878,
+        "total_krw": -120173,
         "price_krw": -40196,
-        "fx_krw": -81824,
-        "cross_krw": 3142
+        "fx_krw": -83171,
+        "cross_krw": 3193
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 106342,
+        "total_krw": 104986,
         "price_krw": 188673,
-        "fx_krw": -67585,
-        "cross_krw": -14746
+        "fx_krw": -68698,
+        "cross_krw": -14989
       },
       {
         "label": "META",
         "ticker": "META",
-        "total_krw": -12338,
+        "total_krw": -12488,
         "price_krw": -3246,
-        "fx_krw": -9346,
-        "cross_krw": 254
+        "fx_krw": -9500,
+        "cross_krw": 258
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -26957,
+        "total_krw": -27021,
         "price_krw": -23056,
-        "fx_krw": -5703,
-        "cross_krw": 1802
+        "fx_krw": -5797,
+        "cross_krw": 1832
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -9477,
+        "total_krw": -9525,
         "price_krw": -6568,
-        "fx_krw": -3422,
-        "cross_krw": 513
+        "fx_krw": -3478,
+        "cross_krw": 522
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 5497,
+        "total_krw": 5459,
         "price_krw": 7819,
-        "fx_krw": -1711,
-        "cross_krw": -611
+        "fx_krw": -1739,
+        "cross_krw": -621
       },
       {
         "label": "AAPL",
         "ticker": "AAPL",
-        "total_krw": 1242,
+        "total_krw": 1228,
         "price_krw": 2063,
-        "fx_krw": -660,
-        "cross_krw": -161
+        "fx_krw": -671,
+        "cross_krw": -164
       }
     ],
     "percentile": {
@@ -28299,26 +28299,26 @@ window.APP_DATA = {
       "windows": {
         "1y": {
           "percentile": 0.4,
-          "low": 1346.72,
+          "low": 1344.91,
           "high": 1554.48,
           "n": 252
         },
         "3y": {
-          "percentile": 19.8,
+          "percentile": 19.3,
           "low": 1276.47,
           "high": 1554.48,
           "n": 756
         },
         "5y": {
-          "percentile": 47.0,
+          "percentile": 46.5,
           "low": 1172.56,
           "high": 1554.48,
           "n": 1260
         }
       },
       "status": "live",
-      "current": 1346.72,
-      "chg_3m_pct": -10.78
+      "current": 1344.91,
+      "chg_3m_pct": -11.13
     },
     "status": "live"
   },
@@ -28350,12 +28350,12 @@ window.APP_DATA = {
         "vol": 12.7
       },
       "필라델피아반도체": {
-        "beta": 0.333,
+        "beta": 0.334,
         "corr": 0.525,
         "vol": 59.6
       },
       "원/달러": {
-        "beta": 1.004,
+        "beta": 1.005,
         "corr": 0.21,
         "vol": 8.4
       }
@@ -28457,13 +28457,13 @@ window.APP_DATA = {
         "a": "LG전자",
         "b": "NAVER",
         "corr": 0.724,
-        "w_sum": 6.3
+        "w_sum": 6.4
       },
       {
         "a": "삼성전자",
         "b": "현대차",
         "corr": 0.716,
-        "w_sum": 21.6
+        "w_sum": 21.7
       },
       {
         "a": "LG전자",
@@ -28748,7 +28748,7 @@ window.APP_DATA = {
         "label": "통화 쏠림",
         "value": 50,
         "weight": 14,
-        "contribution": 7.0
+        "contribution": 6.9
       },
       {
         "key": "theme",
@@ -28792,7 +28792,7 @@ window.APP_DATA = {
       "hhi": 1515,
       "top_sector": "반도체·AI",
       "top_sector_weight": 40.2,
-      "usd_weight": 72.5,
+      "usd_weight": 72.4,
       "low_star_weight": 8.4,
       "losers": 5,
       "holdings": 14,
@@ -28806,7 +28806,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 72.5% · 원/달러 1년 0.4%ile. 환율 1% 변동 = 총자산 +59,030원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
+        "detail": "달러 자산 72.4% · 원/달러 1년 0.4%ile. 환율 1% 변동 = 총자산 +58,948원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
       },
       {
         "level": "warning",
@@ -28830,7 +28830,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +448,445원인데 환 기여 -374,501원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -35,049원)."
+        "detail": "미국주 종목 기여 +448,445원인데 환 기여 -380,667원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -35,626원)."
       },
       {
         "level": "info",

@@ -99,7 +99,7 @@ def save(symbol: str, rows) -> str:
     os.makedirs(OUT_DIR, exist_ok=True)
     path = os.path.join(OUT_DIR, _safe(symbol) + ".csv")
     with open(path, "w", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")  # .gitattributes가 *.csv eol=lf로 못박음 — csv 기본값 \r\n이면 매 실행 재churn
         w.writerow(["date", "open", "high", "low", "close", "volume"])
         w.writerows(rows)
     return path

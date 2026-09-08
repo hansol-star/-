@@ -30,7 +30,10 @@ $Routines = @(
   @{ Kind='r2';  Name='JD-R2-main-report';    Time='16:00'; Days=$Weekdays;     Desc='메인 풀 보고서' },
   @{ Kind='r3';  Name='JD-R3-calibration';    Time='09:00'; Days=@('Saturday'); Desc='주말 콜 캘리브레이션' },
   @{ Kind='r4a'; Name='JD-R4a-retry-2000';    Time='20:00'; Days=$Weekdays;     Desc='토큰-리셋 재시도 파수꾼 1' },
-  @{ Kind='r4b'; Name='JD-R4b-retry-2115';    Time='21:15'; Days=$Weekdays;     Desc='토큰-리셋 재시도 파수꾼 2' }
+  @{ Kind='r4b'; Name='JD-R4b-retry-2115';    Time='21:15'; Days=$Weekdays;     Desc='토큰-리셋 재시도 파수꾼 2' },
+  # ★[9/9] R4c — 9/8에 R2·R4a·R4b가 전부 TOKEN_LIMIT으로 죽었다. 실측 리셋(02:00 KST) 직후 창을 덮는다.
+  #   화~토인 이유 = 월~금 거래일 보고서를 각각 '다음날 새벽'에 덮기 때문(월요일 새벽엔 덮을 거래일이 없다).
+  @{ Kind='r4c'; Name='JD-R4c-retry-0230';    Time='02:30'; Days=@('Tuesday','Wednesday','Thursday','Friday','Saturday'); Desc='토큰-리셋 재시도 파수꾼 3 (새벽·마지막 기회)' }
 )
 
 if ($Unregister) {
@@ -88,12 +91,14 @@ if (Test-Path $Watcher) {
   # ⚠️ [9/3 정정②] 9h(18:00)도 부족하다 — **9/14부터 애프터마켓이 20:00까지**다
   #    (시간외단일가 폐지 → 시간외접속매매 16:00~20:00, 한국거래소 확정).
   #    스크립트가 장 시간을 스스로 판정해 밖이면 즉시 종료하므로 11시간이어도 헛돌지 않는다.
-  #    ⚠️ 프리마켓(07:00~07:50, 9/14~)은 이 트리거 밖이라 **아직 감시 사각**이다 —
-  #      9/14 전에 07:00 트리거를 추가할 것(지금 넣으면 11일간 매일 헛돈다).
-  $wt1 = New-ScheduledTaskTrigger -Daily -At '08:00'
-  $wt1.Repetition = (New-ScheduledTaskTrigger -Once -At '08:00' `
+  # ★[9/9 해소] 프리마켓 사각을 닫았다 — **07:00부터 13시간**(07:00~20:00).
+  #    9/13까지 07:00~08:00 구간은 market_open_kst가 '장 마감'으로 판정해 아무것도 안 하고 끝나고,
+  #    9/14부터 코드가 스스로 'KRX 프리마켓'을 인식한다(AFTER_MKT_REFORM 분기) — 날짜 분기를 여기 둘 필요가 없다.
+  #    새 태스크를 만들지 않고 기존 창을 앞으로 늘렸다: 태스크가 둘이면 알림도 둘이 된다.
+  $wt1 = New-ScheduledTaskTrigger -Daily -At '07:00'
+  $wt1.Repetition = (New-ScheduledTaskTrigger -Once -At '07:00' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `
-      -RepetitionDuration (New-TimeSpan -Hours 12)).Repetition
+      -RepetitionDuration (New-TimeSpan -Hours 13)).Repetition
   $wt2 = New-ScheduledTaskTrigger -Daily -At '22:30'
   $wt2.Repetition = (New-ScheduledTaskTrigger -Once -At '22:30' `
       -RepetitionInterval (New-TimeSpan -Minutes 10) `

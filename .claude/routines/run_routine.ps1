@@ -23,7 +23,7 @@
 #>
 param(
   [Parameter(Mandatory=$true)]
-  [ValidateSet('r1','r2','r3','r4a','r4b')]
+  [ValidateSet('r1','r2','r3','r4a','r4b','r4c')]
   [string]$Kind,
 
   # 무인 기본값 = acceptEdits. 권한에 막히면 **조용히 넘어가지 말고** settings.json
@@ -82,7 +82,7 @@ Set-Location $Repo
 #   StartWhenAvailable로 뒤늦게 기동. WakeToRun=True·wake timer도 켜져 있는데 안 깼다.
 #   물리 한계라 못 막지만 **조용히 넘어가면 안 된다** — 2시간 늦은 R1은 '오늘 오전 영상'을
 #   놓치고, 그 공백은 다음날 R1이 메운다는 전제가 깨진다. 기록해서 보이게 만든다.
-$SchedMap = @{ r1='10:00'; r2='16:00'; r3='09:00'; r4a='20:00'; r4b='21:15' }
+$SchedMap = @{ r1='10:00'; r2='16:00'; r3='09:00'; r4a='20:00'; r4b='21:15'; r4c='02:30' }
 $Scheduled = $SchedMap[$Kind]
 $LateMin = 0
 try {

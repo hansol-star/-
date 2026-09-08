@@ -1,0 +1,452 @@
+[
+  {
+    "symbol": "005930.KS",
+    "price": 269500.0,
+    "prev_close": 270000.0,
+    "prev_src": "series",
+    "change_pct": -0.19,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "삼성전자"
+  },
+  {
+    "symbol": "066570.KS",
+    "price": 205000.0,
+    "prev_close": 214000.0,
+    "prev_src": "series",
+    "change_pct": -4.21,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "LG전자"
+  },
+  {
+    "symbol": "454910.KS",
+    "price": 69300.0,
+    "prev_close": 70400.0,
+    "prev_src": "series",
+    "change_pct": -1.56,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "두산로보틱스"
+  },
+  {
+    "symbol": "005380.KS",
+    "price": 385000.0,
+    "prev_close": 393000.0,
+    "prev_src": "series",
+    "change_pct": -2.04,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "현대차"
+  },
+  {
+    "symbol": "035420.KS",
+    "price": 214500.0,
+    "prev_close": 218000.0,
+    "prev_src": "series",
+    "change_pct": -1.61,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "NAVER"
+  },
+  {
+    "symbol": "NVDA",
+    "price": 230.36,
+    "prev_close": 228.4499969482422,
+    "prev_src": "series",
+    "change_pct": 0.84,
+    "currency": "USD",
+    "market_state": null,
+    "label": "NVDA"
+  },
+  {
+    "symbol": "META",
+    "price": 616.77,
+    "prev_close": 610.6799926757812,
+    "prev_src": "series",
+    "change_pct": 1.0,
+    "currency": "USD",
+    "market_state": null,
+    "label": "META"
+  },
+  {
+    "symbol": "VOO",
+    "price": 708.01,
+    "prev_close": 710.719970703125,
+    "prev_src": "series",
+    "change_pct": -0.38,
+    "currency": "USD",
+    "market_state": null,
+    "label": "VOO"
+  },
+  {
+    "symbol": "MSFT",
+    "price": 499.7,
+    "prev_close": 510.1199951171875,
+    "prev_src": "series",
+    "change_pct": -2.04,
+    "currency": "USD",
+    "market_state": null,
+    "label": "MSFT"
+  },
+  {
+    "symbol": "AAPL",
+    "price": 319.97,
+    "prev_close": 328.2099914550781,
+    "prev_src": "series",
+    "change_pct": -2.51,
+    "currency": "USD",
+    "market_state": null,
+    "label": "AAPL"
+  },
+  {
+    "symbol": "GOOGL",
+    "price": 338.46,
+    "prev_close": 342.4800109863281,
+    "prev_src": "series",
+    "change_pct": -1.17,
+    "currency": "USD",
+    "market_state": null,
+    "label": "GOOGL"
+  },
+  {
+    "symbol": "ORCL",
+    "price": 158.78,
+    "prev_close": 154.0399932861328,
+    "prev_src": "series",
+    "change_pct": 3.08,
+    "currency": "USD",
+    "market_state": null,
+    "label": "ORCL"
+  },
+  {
+    "symbol": "MU",
+    "price": 1016.59,
+    "prev_close": 958.1599731445312,
+    "prev_src": "series",
+    "change_pct": 6.1,
+    "currency": "USD",
+    "market_state": null,
+    "label": "MU"
+  },
+  {
+    "symbol": "AVGO",
+    "price": 357.895,
+    "prev_close": 357.8999938964844,
+    "prev_src": "series",
+    "change_pct": -0.0,
+    "currency": "USD",
+    "market_state": null,
+    "label": "AVGO"
+  },
+  {
+    "symbol": "240810.KQ",
+    "price": 115800.0,
+    "prev_close": 117600.0,
+    "prev_src": "series",
+    "change_pct": -1.53,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "원익IPS"
+  },
+  {
+    "symbol": "095610.KQ",
+    "price": 148100.0,
+    "prev_close": 152700.0,
+    "prev_src": "series",
+    "change_pct": -3.01,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "테스"
+  },
+  {
+    "symbol": "034020.KS",
+    "price": 89500.0,
+    "prev_close": 87900.0,
+    "prev_src": "series",
+    "change_pct": 1.82,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "두산에너빌리티"
+  },
+  {
+    "symbol": "GEV",
+    "price": 941.95,
+    "prev_close": 941.8400268554688,
+    "prev_src": "series",
+    "change_pct": 0.01,
+    "currency": "USD",
+    "market_state": null,
+    "label": "GE Vernova"
+  },
+  {
+    "symbol": "TMUS",
+    "price": 181.52,
+    "prev_close": 188.02000427246094,
+    "prev_src": "series",
+    "change_pct": -3.46,
+    "currency": "USD",
+    "market_state": null,
+    "label": "T-Mobile"
+  },
+  {
+    "symbol": "SPCX",
+    "price": 147.95,
+    "prev_close": 149.74000549316406,
+    "prev_src": "series",
+    "change_pct": -1.2,
+    "currency": "USD",
+    "market_state": null,
+    "label": "SpaceX"
+  },
+  {
+    "symbol": "009150.KS",
+    "price": 1370000.0,
+    "prev_close": 1454000.0,
+    "prev_src": "series",
+    "change_pct": -5.78,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "삼성전기"
+  },
+  {
+    "symbol": "000660.KS",
+    "price": 1793000.0,
+    "prev_close": 1783000.0,
+    "prev_src": "series",
+    "change_pct": 0.56,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "SK하이닉스"
+  },
+  {
+    "symbol": "012450.KS",
+    "price": 1027000.0,
+    "prev_close": 1039000.0,
+    "prev_src": "series",
+    "change_pct": -1.15,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "한화에어로"
+  },
+  {
+    "symbol": "042660.KS",
+    "price": 86100.0,
+    "prev_close": 87300.0,
+    "prev_src": "series",
+    "change_pct": -1.37,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "한화오션"
+  },
+  {
+    "symbol": "010140.KS",
+    "price": 21300.0,
+    "prev_close": 21400.0,
+    "prev_src": "series",
+    "change_pct": -0.47,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "삼성중공업"
+  },
+  {
+    "symbol": "329180.KS",
+    "price": 444500.0,
+    "prev_close": 449000.0,
+    "prev_src": "series",
+    "change_pct": -1.0,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "HD현대중공업"
+  },
+  {
+    "symbol": "011070.KS",
+    "price": 545000.0,
+    "prev_close": 586000.0,
+    "prev_src": "series",
+    "change_pct": -7.0,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "LG이노텍"
+  },
+  {
+    "symbol": "PLTR",
+    "price": 174.33,
+    "prev_close": 182.52999877929688,
+    "prev_src": "series",
+    "change_pct": -4.49,
+    "currency": "USD",
+    "market_state": null,
+    "label": "팔란티어"
+  },
+  {
+    "symbol": "033780.KS",
+    "price": 169800.0,
+    "prev_close": 170300.0,
+    "prev_src": "series",
+    "change_pct": -0.29,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "KT&G"
+  },
+  {
+    "symbol": "IONQ",
+    "price": 39.52,
+    "prev_close": 39.02000045776367,
+    "prev_src": "series",
+    "change_pct": 1.28,
+    "currency": "USD",
+    "market_state": null,
+    "label": "IONQ"
+  },
+  {
+    "symbol": "TSLA",
+    "price": 354.08,
+    "prev_close": 376.3699951171875,
+    "prev_src": "series",
+    "change_pct": -5.92,
+    "currency": "USD",
+    "market_state": null,
+    "label": "테슬라"
+  },
+  {
+    "symbol": "AMD",
+    "price": 477.57,
+    "prev_close": 456.1600036621094,
+    "prev_src": "series",
+    "change_pct": 4.69,
+    "currency": "USD",
+    "market_state": null,
+    "label": "AMD"
+  },
+  {
+    "symbol": "207940.KS",
+    "price": 1440000.0,
+    "prev_close": 1466000.0,
+    "prev_src": "series",
+    "change_pct": -1.77,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "삼성바이오로직스"
+  },
+  {
+    "symbol": "096770.KS",
+    "price": 138000.0,
+    "prev_close": 137900.0,
+    "prev_src": "series",
+    "change_pct": 0.07,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "SK이노베이션"
+  },
+  {
+    "symbol": "ANET",
+    "price": 193.78,
+    "prev_close": 191.44000244140625,
+    "prev_src": "series",
+    "change_pct": 1.22,
+    "currency": "USD",
+    "market_state": null,
+    "label": "ANET"
+  },
+  {
+    "symbol": "STM",
+    "price": 52.24,
+    "prev_close": 51.279998779296875,
+    "prev_src": "series",
+    "change_pct": 1.87,
+    "currency": "USD",
+    "market_state": null,
+    "label": "STM"
+  },
+  {
+    "symbol": "^KS11",
+    "price": 6954.52,
+    "prev_close": 6995.39013671875,
+    "prev_src": "series",
+    "change_pct": -0.58,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "코스피"
+  },
+  {
+    "symbol": "^KQ11",
+    "price": 811.88,
+    "prev_close": 822.1900024414062,
+    "prev_src": "series",
+    "change_pct": -1.25,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "코스닥"
+  },
+  {
+    "symbol": "^GSPC",
+    "price": 7718.6,
+    "prev_close": 7747.7099609375,
+    "prev_src": "series",
+    "change_pct": -0.38,
+    "currency": "USD",
+    "market_state": null,
+    "label": "S&P500"
+  },
+  {
+    "symbol": "^IXIC",
+    "price": 26506.99,
+    "prev_close": 26584.060546875,
+    "prev_src": "series",
+    "change_pct": -0.29,
+    "currency": "USD",
+    "market_state": null,
+    "label": "나스닥"
+  },
+  {
+    "symbol": "^DJI",
+    "price": 53414.25,
+    "prev_close": 53686.109375,
+    "prev_src": "series",
+    "change_pct": -0.51,
+    "currency": "USD",
+    "market_state": null,
+    "label": "다우"
+  },
+  {
+    "symbol": "^SOX",
+    "price": 11735.263,
+    "prev_close": 11352.1298828125,
+    "prev_src": "series",
+    "change_pct": 3.37,
+    "currency": "USD",
+    "market_state": null,
+    "label": "필라델피아반도체"
+  },
+  {
+    "symbol": "KRW=X",
+    "price": 1346.09,
+    "prev_close": 1345.06005859375,
+    "prev_src": "series",
+    "change_pct": 0.08,
+    "currency": "KRW",
+    "market_state": null,
+    "label": "USD/KRW"
+  },
+  {
+    "symbol": "CL=F",
+    "price": 94.15,
+    "prev_close": 91.4800033569336,
+    "prev_src": "series",
+    "change_pct": 2.92,
+    "currency": "USD",
+    "market_state": null,
+    "label": "WTI"
+  },
+  {
+    "symbol": "BZ=F",
+    "price": 98.71,
+    "prev_close": 96.27999877929688,
+    "prev_src": "series",
+    "change_pct": 2.52,
+    "currency": "USD",
+    "market_state": null,
+    "label": "브렌트"
+  }
+]

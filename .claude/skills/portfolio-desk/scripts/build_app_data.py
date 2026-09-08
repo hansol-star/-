@@ -779,6 +779,54 @@ def build_risk_block(payload: dict) -> dict:
         return {"status": "unavailable", "reason": str(e)}
 
 
+# ── 보고서 본문 지연 로딩 ★[2026-09-09 신설] ──────────────────────────────
+# 왜: 폰이 앱을 열 때마다 data.js를 통째로 받는데, 실측 결과 **보고서 본문이 1.83MB로
+#     전체 2.87MB의 69.3%**였다. 정훈이 실제로 여는 건 최신 1~3편인데 123편을 매번 받고 있었다.
+# 어떻게: 최신 N편만 data.js에 인라인으로 남기고, 나머지 본문은 `app/r/<id>.js` 개별 파일로 뺀다.
+#     앱은 목록·미리보기는 그대로 보여주고(메타는 data.js에 남는다), **탭했을 때만** 그 한 편을 받는다.
+# 왜 fetch가 아니라 <script>인가: 이 앱은 file://·GitHub Pages 양쪽에서 열린다 —
+#     fetch는 file://에서 CORS로 막히지만 script 태그는 뜬다. 그리고 sw.js가 이미
+#     "그 외 = 캐시 우선"이라 **한 번 연 보고서는 자동으로 오프라인에 남는다.**
+INLINE_REPORT_BODIES = 3
+
+
+def split_report_bodies(data: dict) -> float:
+    """최신 N편 외의 보고서 본문을 app/r/<id>.js 로 분리한다. 반환 = 덜어낸 KB."""
+    reports = data.get("reports") or []
+    rdir = os.path.join(os.path.dirname(OUT_JS), "r")
+    os.makedirs(rdir, exist_ok=True)
+
+    keep_ids, moved = set(), 0
+    for i, r in enumerate(reports):
+        if i < INLINE_REPORT_BODIES:
+            keep_ids.add(r["id"])
+            continue
+        body = r.get("content") or ""
+        if not body:
+            continue
+        rid = r["id"]
+        # 파일명은 id 그대로 — id는 파일명에서 왔으므로 경로 문자가 섞이지 않지만, 방어적으로 검사한다.
+        if not re.fullmatch(r"[A-Za-z0-9._-]+", rid):
+            keep_ids.add(rid)          # 이상한 id는 분리하지 않고 인라인 유지(조용한 유실 방지)
+            continue
+        with open(os.path.join(rdir, rid + ".js"), "w", encoding="utf-8", newline="\n") as f:
+            f.write("window.__REPORT_BODY__ = " + json.dumps({"id": rid, "content": body},
+                                                             ensure_ascii=False) + ";\n")
+        moved += len(body)
+        r["content"] = None            # ⚠️ 키는 남긴다 — 앱이 "없음"과 "빈 본문"을 구별해야 한다
+        r["lazy"] = True
+
+    # 삭제된 보고서의 잔재 정리 — 안 지우면 app/r/ 가 영원히 자란다
+    valid = {r["id"] + ".js" for r in reports}
+    for fn in os.listdir(rdir):
+        if fn.endswith(".js") and fn not in valid:
+            try:
+                os.remove(os.path.join(rdir, fn))
+            except OSError:
+                pass
+    return moved / 1024.0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--offline", action="store_true", help="시세 호출 없이 빌드")
@@ -786,6 +834,7 @@ def main() -> int:
 
     data = build(args.offline)
     os.makedirs(os.path.dirname(OUT_JS), exist_ok=True)
+    split_kb = split_report_bodies(data)      # ★[9/9] 본문 지연 로딩 — 아래 함수 주석 참조
     payload = json.dumps(data, ensure_ascii=False, indent=2)
     with open(OUT_JS, "w", encoding="utf-8") as f:
         f.write("// 자동 생성 — build_app_data.py. 직접 수정 금지.\n")
@@ -809,7 +858,7 @@ def main() -> int:
     print(f"✅ app/data.js 생성 — 총자산 {t['assets_krw']:,}원 "
           f"(당일 {t['day_change_krw']:+,}원 / {t['day_change_pct']}%) "
           f"· 보유 {len(data['holdings'])} · 워치 {len(data['watchlist'])} "
-          f"· 보고서 {len(data['reports'])} "
+          f"· 보고서 {len(data['reports'])}(본문 지연 {split_kb:,.0f}KB 분리) "
           f"· 발동 알림 {sum(1 for a in data['alerts'] if a['fired'])}건 "
           f"· 할일 {sum(c['total'] for c in data['task_counts'].values())}"
           f"(완료 {sum(c['done'] for c in data['task_counts'].values())}) "

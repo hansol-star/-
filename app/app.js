@@ -1335,23 +1335,57 @@
   }
 
   // ── REPORT (보고서 전문) ──
+  // 지연 로딩된 본문 캐시 — 같은 보고서를 두 번 열 때 다시 받지 않는다
+  var lazyBodies = {};
+
+  // 최신 3편 외의 본문은 app/r/<id>.js 로 분리돼 있다(build_app_data.split_report_bodies).
+  // ⚠️ fetch가 아니라 <script>인 이유: 이 앱은 file:// 로도 열린다 — fetch는 거기서 CORS로 막힌다.
+  // ⚠️ 실패를 조용히 넘기지 않는다. 빈 본문을 그냥 렌더하면 "보고서가 비었다"로 오독된다
+  //    (8/22 "가드 없는 폴백은 침묵보다 나쁘다").
+  function loadReportBody(id, cb) {
+    if (lazyBodies[id] != null) { cb(lazyBodies[id]); return; }
+    var s = document.createElement("script");
+    s.src = "r/" + encodeURIComponent(id) + ".js";
+    s.onload = function () {
+      var got = window.__REPORT_BODY__;
+      window.__REPORT_BODY__ = null;
+      if (got && got.id === id && got.content) { lazyBodies[id] = got.content; cb(got.content); }
+      else cb(null);
+      s.parentNode && s.parentNode.removeChild(s);
+    };
+    s.onerror = function () { cb(null); s.parentNode && s.parentNode.removeChild(s); };
+    document.head.appendChild(s);
+  }
+
   function renderReport(id) {
     var reps = D.reports || [];
     var r = null;
     for (var i = 0; i < reps.length; i++) if (reps[i].id === id) { r = reps[i]; break; }
     if (!r) { root.innerHTML = '<header><a class="back" href="#reports">← 보고서 목록</a></header><div class="empty">보고서를 찾을 수 없어요.</div>'; return; }
 
-    var h = '<header><a class="back" href="#reports">← 보고서 목록</a></header>';
-    h += '<div class="rphead"><div class="row" style="gap:6px"><span class="tag">' + esc(r.kind || "") + '</span>';
-    if (r.version != null) h += '<span class="tag vtag">v' + esc(r.version) + '</span>';
-    if (r.date) h += '<span class="dt">' + esc(r.date) + '</span>';
-    h += '</div><div class="rptitle">' + esc(r.title) + '</div><div class="rpfile mut sm">' + esc(r.file) + '</div></div>';
-    // 본문 첫 H1은 헤더 제목과 중복 → 제거하고 렌더
-    var body = String(r.content || "").replace(/^﻿?\s*#\s+.*(\r?\n|$)/, "");
-    h += '<div class="md-body">' + mdToHtml(body) + '</div>';
-    h += '<div class="foot">투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
-    root.innerHTML = "";
-    root.appendChild(el('<div>' + h + '</div>'));
+    var head = '<header><a class="back" href="#reports">← 보고서 목록</a></header>';
+    head += '<div class="rphead"><div class="row" style="gap:6px"><span class="tag">' + esc(r.kind || "") + '</span>';
+    if (r.version != null) head += '<span class="tag vtag">v' + esc(r.version) + '</span>';
+    if (r.date) head += '<span class="dt">' + esc(r.date) + '</span>';
+    head += '</div><div class="rptitle">' + esc(r.title) + '</div><div class="rpfile mut sm">' + esc(r.file) + '</div></div>';
+
+    function paint(body, note) {
+      // 본문 첫 H1은 헤더 제목과 중복 → 제거하고 렌더
+      var b = String(body || "").replace(/^﻿?\s*#\s+.*(\r?\n|$)/, "");
+      var h = head;
+      if (note) h += '<div class="empty">' + esc(note) + '</div>';
+      else h += '<div class="md-body">' + mdToHtml(b) + '</div>';
+      h += '<div class="foot">투자 자문 아님 · 분석 참고 · 최종 결정은 정훈.</div>';
+      root.innerHTML = "";
+      root.appendChild(el('<div>' + h + '</div>'));
+    }
+
+    if (r.content) { paint(r.content); return; }
+    paint("", "본문 불러오는 중…");
+    loadReportBody(r.id, function (body) {
+      if (body) paint(body);
+      else paint("", "본문을 불러오지 못했어요. 오프라인이면 이 보고서는 아직 이 기기에 안 받아졌을 수 있어요 — 온라인에서 한 번 열면 다음부터는 오프라인에서도 보여요.");
+    });
   }
 
   // ── VIDEO (경제사냥꾼 영상 상세) ──

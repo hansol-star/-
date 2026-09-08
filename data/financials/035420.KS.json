@@ -5,8 +5,8 @@
  "currency": "KRW",
  "source": "Yahoo fundamentals-timeseries",
  "depth": "full",
- "as_of": "2026-09-04",
- "saved_at": "2026-09-04",
+ "as_of": "2026-09-09",
+ "saved_at": "2026-09-09",
  "annual": [
   {
    "end": "2025-12-31",
@@ -164,6 +164,46 @@
  ],
  "quarterly": [
   {
+   "end": "2026-06-30",
+   "period": "quarterly",
+   "revenue": 3388755080300.0,
+   "gross_profit": null,
+   "operating_income": 520309210910.0,
+   "net_income": 698619542970.0,
+   "eps_diluted": 4635.0,
+   "shares_diluted": 150726978.0,
+   "assets": 44656683622470.0,
+   "liabilities": 13626888366640.0,
+   "equity": 29539564060070.0,
+   "cash": 6384369789990.0,
+   "inventory": 35560688810.0,
+   "receivables": null,
+   "assets_current": 11320878049410.0,
+   "liabilities_current": 7614541505990.0,
+   "total_debt": 5199738618470.0,
+   "cfo": 687339344790.0,
+   "capex": 402743812240.0,
+   "fcf": 284595532550.0,
+   "_derived": [
+    "gross_profit 무효화(매출과 동일 — Yahoo 매핑 이상)"
+   ],
+   "gross_margin": null,
+   "op_margin": 0.1535,
+   "net_margin": 0.2062,
+   "fcf_margin": 0.084,
+   "roe": 0.0237,
+   "debt_to_equity": 0.176,
+   "current_ratio": 1.4867,
+   "net_cash": 1184631171520.0,
+   "revenue_yoy": 16.2489,
+   "eps_yoy": 43.6319,
+   "net_income_yoy": 42.931,
+   "inventory_yoy": 40.2429,
+   "receivables_yoy": null,
+   "shares_yoy": -0.488,
+   "deferred_yoy": null
+  },
+  {
    "end": "2026-03-31",
    "period": "quarterly",
    "revenue": 3241061102900.0,
@@ -194,14 +234,7 @@
    "roe": 0.0097,
    "debt_to_equity": 0.1655,
    "current_ratio": 1.2015,
-   "net_cash": 1501132482750.0,
-   "revenue_yoy": 16.3012,
-   "eps_yoy": -32.1689,
-   "net_income_yoy": -32.8393,
-   "inventory_yoy": 50.4323,
-   "receivables_yoy": null,
-   "shares_yoy": -0.9884,
-   "deferred_yoy": null
+   "net_cash": 1501132482750.0
   },
   {
    "end": "2025-12-31",
@@ -301,39 +334,6 @@
    "debt_to_equity": 0.1481,
    "current_ratio": 1.2996,
    "net_cash": 962354756140.0
-  },
-  {
-   "end": "2025-03-31",
-   "period": "quarterly",
-   "revenue": 2786783351910.0,
-   "gross_profit": null,
-   "operating_income": 505301333940.0,
-   "net_income": 424841996580.0,
-   "eps_diluted": 2748.0,
-   "shares_diluted": 154600435.0,
-   "assets": 39314022130830.0,
-   "liabilities": 11284404608990.0,
-   "equity": 26462786261120.0,
-   "cash": 4721082033750.0,
-   "inventory": 21515348620.0,
-   "receivables": null,
-   "assets_current": 9756883369950.0,
-   "liabilities_current": 7728357254800.0,
-   "total_debt": 3827502715420.0,
-   "cfo": 606714754350.0,
-   "capex": 204724371180.0,
-   "fcf": 401990383170.0,
-   "_derived": [
-    "gross_profit 무효화(매출과 동일 — Yahoo 매핑 이상)"
-   ],
-   "gross_margin": null,
-   "op_margin": 0.1813,
-   "net_margin": 0.1524,
-   "fcf_margin": 0.1442,
-   "roe": 0.0161,
-   "debt_to_equity": 0.1446,
-   "current_ratio": 1.2625,
-   "net_cash": 893579318330.0
   }
  ]
 }

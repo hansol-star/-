@@ -2104,7 +2104,10 @@ def check_verdict_grounding(rel):
                 except ValueError:
                     continue
                 if d > rdate:
-                    future.append(f"{d:%-m/%-d} · {line}")
+                    # ⚠️ `%-m/%-d`는 glibc 전용 — 윈도우 MSVC에선 ValueError로 가드가 통째로 죽는다
+                    # (2026-09-09 실사고: 이 한 줄 때문에 validate 전체가 traceback으로 중단).
+                    # 포터블하게 정수 포맷으로 만든다.
+                    future.append(f"{d.month}/{d.day} · {line}")
                     break
     for l in ungrounded[:3]:
         warn(f"{rel}: [정정]이 전망·설문에만 기대고 결과어가 없다 — **[대립·미결]이 맞는 태그**"

@@ -83,6 +83,28 @@ Set-Location $Repo
 #   물리 한계라 못 막지만 **조용히 넘어가면 안 된다** — 2시간 늦은 R1은 '오늘 오전 영상'을
 #   놓치고, 그 공백은 다음날 R1이 메운다는 전제가 깨진다. 기록해서 보이게 만든다.
 $SchedMap = @{ r1='10:00'; r2='16:00'; r3='09:00'; r4a='20:00'; r4b='21:15'; r4c='02:30' }
+
+# ── 모델 배분 ★[2026-09-09 정훈 지시 "모델 잘 선택해서 해, opus만 쓰지 말고"] ──────
+#
+# 왜: 런처가 `--model`을 안 줘서 **루틴 7개가 전부 기본값(opus)으로** 돌고 있었다.
+#     데스크 9개는 이미 sonnet인데(7/15 정훈 지시) 정작 그걸 부르는 세션이 opus였다.
+#
+# 배분 원칙 — **판단의 무게로 가른다**:
+#   R1  영상 프리페치   sonnet : 자막 태깅·교차검증. 양이 많고 판정 난이도는 낮다.
+#                                (hunter_digest가 이미 3.5x 압축해 입력도 정제돼 있다)
+#   R2  메인 보고서     sonnet : 매일 도는 가장 무거운 세션. 데스크가 이미 sonnet이므로
+#                                종합 단계만 opus로 두는 이득이 크지 않다고 판단.
+#   R4  재시도 파수꾼   sonnet : R2와 같은 일을 한다.
+#   R3  주말 캘리브레이션 opus  : 주 1회뿐이고 **통계 해석·편향 판정**이라 난이도가 다르다.
+#                                별점 기준·목표가 방법론을 건드리는 자리다.
+#
+# ⚠️ **롤백 조건부다** — 7/15에 데스크를 opus→sonnet으로 바꿀 때와 같은 조건을 건다:
+#    별점·스코어·PM 종합의 **품질 저하 징후가 R3 주간 캘리브레이션에서 감지되면 R2를 opus로 즉시 복귀**한다.
+#    (`target_score` 낙관편향·`star_validate`·밴드 적중률이 그 감시 지표다)
+# ⚠️ 모델 이름은 별칭을 쓴다 — 버전이 올라가도 런처를 안 고쳐도 되게.
+$ModelMap = @{ r1='sonnet'; r2='sonnet'; r3='opus'; r4a='sonnet'; r4b='sonnet'; r4c='sonnet' }
+$Model = $ModelMap[$Kind]
+if (-not $Model) { $Model = 'sonnet' }
 $Scheduled = $SchedMap[$Kind]
 $LateMin = 0
 try {
@@ -126,7 +148,7 @@ pm 확인 · npm install -g @anthropic-ai/claude-code)"
                           (New-Object System.Text.UTF8Encoding($false)))
   exit 127
 }
-Write-Log "claude = $($claudeCmd.Source)"
+Write-Log "claude = $($claudeCmd.Source) · model=$Model"
 
 # ⚠️ PowerShell 5.1은 네이티브 exe의 stderr를 ErrorRecord로 감싸고, $ErrorActionPreference='Stop'
 # 이면 **거기서 스크립트를 끝낸다.** 첫 구현이 실제로 그렇게 죽어 상태파일도 못 남겼다 —
@@ -135,7 +157,7 @@ Write-Log "claude = $($claudeCmd.Source)"
 $prevEAP = $ErrorActionPreference
 $ErrorActionPreference = 'Continue'
 $sw = [Diagnostics.Stopwatch]::StartNew()
-$out = $prompt | & claude -p --permission-mode $PermissionMode --output-format text 2>&1
+$out = $prompt | & claude -p --permission-mode $PermissionMode --model $Model --output-format text 2>&1
 $code = $LASTEXITCODE
 $sw.Stop()
 $ErrorActionPreference = $prevEAP

@@ -20,7 +20,14 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 
 ## Tasks
 
-0. **공용 플레이북 먼저 Read**: `docs/desk_playbook.md` — §1 공통 지침(소스 우선순위·검증 규율)
+0. **공용 플레이북 — 전문 대신 내 뷰만 읽는다** ★[9/9 토큰 절감]:
+   ```
+   python3 .claude/skills/portfolio-desk/scripts/playbook.py --desk power-physical-desk
+   ```
+   §1 공통 지침(소스 우선순위·검증 규율) + §2 캘리브레이션 최신 2건(+과거 헤드라인)
+   + **내 데스크 §3 누적 교훈** + §4 유지 규약만 나온다. 전문 31,994자 → 약 1만 자.
+   ⚠️ **정본은 여전히 `docs/desk_playbook.md`** — 교훈을 append할 땐 원문에 쓴다(§4).
+   ⚠️ 다른 데스크 §3·§2 과거 항목이 필요하면 그때 원문을 Read한다.
    + §2 캘리브레이션 교훈 + §3 **power-physical-desk** 누적 교훈(모멘텀 분류 별점 상한 등). 그 지침 위에서 작업한다.
 
 1. **Theme trends (WebSearch)**:

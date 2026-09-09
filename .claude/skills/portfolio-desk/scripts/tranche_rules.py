@@ -293,7 +293,21 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
     # 백테스트(rule_tracker --backfill)는 수천 번 호출하므로 네트워크 조회를 끈다.
     halted, hwhy = global_contagion_check() if check_contagion else (False, '확산 판정 생략(백테스트)')
     # 누적 상한 = 해금분 전체. 여기서 **이미 집행한 금액**을 뺀 잔여가 오늘 여력이다.
-    cap = cash * available * mult
+    #
+    # ★[2026-09-09 정정 — 이중 차감 제거 · 정훈 지시 "룰1 상한 계산 방식 좀 바꿔보자"]
+    # 舊: cap = cash * available * mult  ← **현재 현금**이 분모였다.
+    #   그러면 집행이 두 번 깎인다: ①사면 cash가 줄어 cap이 작아지고 ②spent_krw로 또 뺀다.
+    #   설계 의도는 §2b가 적은 대로 "**총 재원**을 낙폭 단계별로 나눠 쓴다"인데,
+    #   재원을 '매일의 잔액'으로 잡으면 사다리가 낙폭이 아니라 **현금 잔액**을 따라간다.
+    #   실측(rule_log): 8/26 낙폭 -25.3%·현금 69.4만 → 상한 104,070 /
+    #                   8/28 낙폭 -25.5%·현금 145.5만 → 상한 183,583.
+    #   **낙폭은 0.2%p 차이인데 상한이 76% 뛰었다 — 상한을 움직인 건 낙폭이 아니라 입금이었다.**
+    # 新: base = cash + spent_krw  (집행해도 불변 · 입금·매도로만 증가)
+    #   → 같은 낙폭이면 같은 상한. 이게 "낙폭 사다리"라는 이름에 맞는 동작이다.
+    # ⚠️ 효과는 크지 않다(8/24 +5,200원·9/03 +18,840원). **이건 정확성 수정이지 완화가 아니다** —
+    #    진짜 병목은 D1 문턱(-25%)이고 그건 8/5 룰 검정 절차를 거쳐야 바꿀 수 있다.
+    base = cash + spent_krw
+    cap = base * available * mult
     allowed = 0.0 if halted else max(0.0, cap - spent_krw)
 
     return {

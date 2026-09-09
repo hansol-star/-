@@ -646,7 +646,7 @@ def main():
     ap.add_argument("--fear", type=float)
     ap.add_argument("--capitulation", type=float)
     ap.add_argument("--execute", type=int, metavar="STEP",
-                    help="사다리 단계 집행 기록(1~4). --amount 필수. 조회·기록 전용 — 주문 안 냄")
+                    help="사다리 단계 집행 기록(1~5 = D0~D4. ⚠️D0 신설로 1=D0다). --amount 필수. 조회·기록 전용 — 주문 안 냄")
     ap.add_argument("--amount", type=float, help="--execute 와 함께 쓰는 집행 금액(원)")
     ap.add_argument("--note", default="", help="--execute 메모(종목·체결가 등)")
     ap.add_argument("--rule2", action="store_true")
@@ -674,7 +674,13 @@ def main():
         if a.amount is None:
             sys.exit("[tranche_rules] --execute 에는 --amount 가 필요하다")
         rec = ledger_execute(a.execute, a.amount, a.note)
-        print(f"\n📒 D{a.execute} 집행 기록 — {rec['date']} · {rec['amount']:,}원 "
+        # ⚠️[9/9] 같은 버그를 **세 번** 고쳤다(사다리 표시부·triggers.py·여기).
+        #   `f"D{a.execute}"`처럼 인덱스로 D번호를 만들면 단계가 늘어난 순간 라벨이 거짓말한다.
+        #   실제로 D0 첫 집행을 "D1 집행 기록"으로 찍었다 — 금액·원장은 정확한데 표시만 틀려서
+        #   더 위험하다(원장을 안 열어보면 D1을 또 쓴 줄 안다). STEP_LABELS가 정본이다.
+        _lab = (STEP_LABELS[a.execute - 1] if 0 < a.execute <= len(STEP_LABELS)
+                else f"D{a.execute}")
+        print(f"\n📒 {_lab} 집행 기록 — {rec['date']} · {rec['amount']:,}원 "
               f"{('· ' + rec['note']) if rec['note'] else ''}")
         print(f"   원장: {os.path.relpath(LEDGER, ROOT)} (단계 재진입 금지가 다음 판정부터 적용된다)\n")
         return

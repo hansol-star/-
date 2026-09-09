@@ -54,13 +54,33 @@ KOSPI = "^KS11"
 #
 # 배분 근거 = 낙폭연구 §4 조건부 기저율 + 역대 낙폭 분포(29년 8회·최악 -64.7%).
 # 깊을수록 몫을 키우되, 표본이 급감하는 구간(-45% 이하)은 신중히 나눈다.
+# ★[2026-09-09 개정·정훈 승인 "D0 승인, 적용해줘"] **D0(-20%) 신설 · 예비 15% → 7%**
+#
+# 왜: 룰1 원장 24일 실측에서 **상한 0원인 날이 14일(58%)**이었고, 그중 **9일의 사유가
+#     "낙폭이 -25%(D1 문턱)에 못 미쳐서"**였다. 코스피가 -22~-25%를 오가는 내내 사다리가
+#     잠겨 있었고 그 사이 현금은 69만 → 145만으로 늘었다 — 재원은 쌓이는데 쓸 문이 없었다.
+# 검정(`d0_test.py`, 8/5 3단 절차):
+#   ① 집계     -25~-20% 12M 중앙 **+9.5%·승률 75%**(n=855)
+#              vs 대조 D2(-40~-35%) +16.7%·83%(n=168) → **D0가 확실히 못하다**
+#   ② 에피소드 **6/6 = 100% 일관**(소수 에피소드가 만든 값이 아니다)
+#   ③ 횡단면   **18/21 = 86% 재현**(반대 3 = 코스닥·니케이·유로스톡스)
+# 배분 8%인 근거: D0의 12M 중앙값이 D2의 **57% 수준**이고 D1(15%)보다 얕은 구간이므로
+#   그보다 작아야 한다 → D1의 절반을 보수적으로 잡았다. 재원은 **예비에서 뗀다**(15% → 7%).
+# ⚠️ **반대 근거도 남긴다**: 코스닥이 -7.4%·승률 29%로 반대이고(우리 워치에 코스닥 2종목),
+#    얕은 조정에서 실탄을 먼저 써 깊은 구간에서 모자랄 위험이 생긴다 — 예비 축소가 그 대가다.
+# ⚠️ **인덱스가 한 칸씩 밀렸다**: 舊 1=D1 → 新 2=D1. `tranche_ledger.json`을 같은 날
+#    리맵했다(백업 .bak-20260909). 안 하면 기존 D1 집행 125,598원이 D0 집행으로 둔갑한다.
 LADDER = [
+    (-20.0, 0.08, "0차 — 얕은 조정. 12M 중앙 +9.5%·승률 75%(표본 855)"),
     (-25.0, 0.15, "1차 — 통상 조정 하단"),
     (-35.0, 0.20, "2차 — 12M 기저율 중앙 +43%·승률 97%(표본 750) 구간"),
     (-45.0, 0.25, "3차 — 29년 8회 중 3~4번째 깊이. 표본 급감"),
     (-55.0, 0.25, "4차 — IMF(-64.7%)·IT버블(-55.7%)급. 전례 2회뿐"),
 ]
-RESERVE = 0.15  # 영구 예비 — 회복 확인(게이트 2/3+) 전까지 봉인
+# 표시 라벨 — **인덱스로 D 번호를 만들지 않는다.** D0 신설로 i와 D번호가 어긋났고,
+# `D{i}` 식으로 찍으면 D0가 "D1"으로 표시된다(라벨이 조용히 거짓말하는 그 클래스).
+STEP_LABELS = ["D0", "D1", "D2", "D3", "D4"]
+RESERVE = 0.07  # 영구 예비 — 회복 확인(게이트 2/3+) 전까지 봉인. [9/9] D0 재원으로 15%→7%
 
 # ★[2026-07-30 2차 개정·정훈 승인 "해금 구간 감산 제거하자"] 폭풍 **금액 감산 폐지**.
 #
@@ -186,7 +206,7 @@ def ledger_executed() -> dict:
 def ledger_execute(step: int, amount: float, note: str = "", date: str | None = None):
     """단계 집행을 기록한다. **조회·기록 전용 — 주문을 내지 않는다.**"""
     if not (1 <= step <= len(LADDER)):
-        raise ValueError(f"단계는 1~{len(LADDER)} (D1~D{len(LADDER)})")
+        raise ValueError(f"단계는 1~{len(LADDER)} ({STEP_LABELS[0]}~{STEP_LABELS[len(LADDER)-1]})")
     d = _ledger_read()
     ex = d.setdefault("executed", {})
     key = str(step)
@@ -273,15 +293,24 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
 
     # 이미 집행한 단계는 해금돼 있어도 **가용분에서 뺀다**(단계 재진입 금지).
     done = ledger_executed() if use_ledger else {}
+    # 두 가지 합계를 **따로** 센다 — 쓰임이 다르다.
+    #   spent_krw   = **해금된 단계**의 기집행 → 오늘 여력에서 차감할 금액
+    #   total_spent = **모든 단계**의 기집행   → base(총 재원) 복원용
+    # ⚠️ 9/9 실측: 이 둘을 하나로 쓰면 잠긴 단계의 집행분이 base에서도 빠져
+    #    재원이 과소 계산된다(오늘 D1이 잠기자 base가 125,598원만큼 줄었다).
+    #    "총 재원"은 낙폭과 무관하게 이미 쓴 돈을 포함해야 한다.
     spent_krw = 0.0
+    total_spent = 0.0
     for i, s in enumerate(steps, 1):
         s["executed"] = i in done
         if s["executed"]:
             s["executed_on"] = done[i].get("date")
             s["executed_krw"] = done[i].get("amount")
             s["executed_n"] = done[i].get("n")
+            amt = float(done[i].get("amount") or 0)
+            total_spent += amt
             if s["unlocked"]:
-                spent_krw += float(done[i].get("amount") or 0)
+                spent_krw += amt
     available = unlocked   # 해금 비율 자체는 낙폭이 정한다(RESET). 소진은 금액으로 뺀다.
     spent_ratio = (spent_krw / cash) if cash else 0.0
 
@@ -306,7 +335,7 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
     #   → 같은 낙폭이면 같은 상한. 이게 "낙폭 사다리"라는 이름에 맞는 동작이다.
     # ⚠️ 효과는 크지 않다(8/24 +5,200원·9/03 +18,840원). **이건 정확성 수정이지 완화가 아니다** —
     #    진짜 병목은 D1 문턱(-25%)이고 그건 8/5 룰 검정 절차를 거쳐야 바꿀 수 있다.
-    base = cash + spent_krw
+    base = cash + total_spent      # 총 재원 = 남은 현금 + 이미 사다리로 쓴 돈(잠긴 단계 포함)
     cap = base * available * mult
     allowed = 0.0 if halted else max(0.0, cap - spent_krw)
 
@@ -675,11 +704,12 @@ def main():
         _nlabel = f"({_n}회)" if _n > 1 else ""
         why = (f"{s['why']}  ← {s.get('executed_on')} 집행 {s.get('executed_krw', 0):,.0f}원{_nlabel}"
                if s.get("executed") else s["why"])
-        print(f"  D{i:<5}{s['threshold']:>7.0f}%{s['alloc']*100:>6.0f}%  {mark}  {why}")
+        _lab = STEP_LABELS[i - 1] if i - 1 < len(STEP_LABELS) else f"D{i}"
+        print(f"  {_lab:<6}{s['threshold']:>7.0f}%{s['alloc']*100:>6.0f}%  {mark}  {why}")
     print(f"  {'예비':<6}{'—':>8}{RESERVE*100:>6.0f}%  🔒봉인  회복 확인(게이트 2/3+) 전까지 영구 봉인")
 
     print(f"\n  누적 해금 **{r['unlocked_ratio']*100:.0f}%** = 상한 {r['cap_krw']:,}원"
-          + (f" − 기집행 **{r['spent_krw']:,}원**(D{',D'.join(map(str, r['executed_steps']))}) "
+          + (f" − 기집행 **{r['spent_krw']:,}원**({','.join(STEP_LABELS[i-1] for i in r['executed_steps'])}) "
              f"= **잔여 {r['allowed_krw']:,}원**" if r["spent_krw"] else ""))
     print(f"  {r['storm_why']}")
     print(f"  {r['capitulation_why']}")
@@ -692,7 +722,7 @@ def main():
         # 그렇게 나와 8/27에 오독을 만들었다(실제 원인은 낙폭이 -25%를 안 넘긴 것).
         if r["unlocked_ratio"] <= 0:
             print(f"\n  ⛔ **가용 0원** — 낙폭 {r['dd_pct']:.1f}%로 **어느 단계도 해금되지 않았다**"
-                  f"(D1 기준 -25%). 더 빠져야 열린다.")
+                  f"(D0 기준 -20%). 더 빠져야 열린다.")
         else:
             print(f"\n  ⛔ **가용 0원** — 해금 상한 {r['cap_krw']:,}원을 "
                   f"기집행 {r['spent_krw']:,}원으로 **모두 소진**했다. "

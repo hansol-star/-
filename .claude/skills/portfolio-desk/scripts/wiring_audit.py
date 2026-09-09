@@ -44,7 +44,8 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
-    "ytdlp_bin.py":               "순수 라이브러리 — yt-dlp 실행 경로 해석기(8/31). 자체 산출물이 없고 hunter_latest·api_health·fetch_youtube가 import해서 쓴다. 데스크가 읽을 결과물이 없는 것이 정상이며, 생존 판정은 api_health의 'yt-dlp 스트림' 항목이 한다",
+    "d0_test.py":                 "일회성 룰 검정 — 룰1 사다리에 D0(-20%) 단계를 신설할지 8/5 3단 절차(집계→에피소드→횡단면)로 판정(9/9). ratchet_test·storm_pct 검정과 같은 성격이며, 결론이 crash_tf §2b 정본에 박히고 스크립트는 재현용으로 남는다. 매 세션 부를 이유가 없다 — 룰 변경 가설이 새로 생길 때만 다시 돌린다",
+    "ytdlp_bin.py":             "순수 라이브러리 — yt-dlp 실행 경로 해석기(8/31). 자체 산출물이 없고 hunter_latest·api_health·fetch_youtube가 import해서 쓴다. 데스크가 읽을 결과물이 없는 것이 정상이며, 생존 판정은 api_health의 'yt-dlp 스트림' 항목이 한다",
     "kst_now.py":                 "순수 시각 유틸 — 날짜 앵커링용 KST 실측(8/31). 지시층(SKILL §0·routines)이 세션 0단계에서 직접 부르는 커맨드라 데스크 산출물이 없다. 舊 `TZ=Asia/Seoul date`가 윈도우에서 UTC로 9시간 밀리는 것의 대체",
     "toss_import.py":             "체결 원장 재구성 — 토스 API 체결 이력을 trades.jsonl로 옮기는 "
                                   "**수동 임포트 유틸**(8/31). 원장을 통째로 갈아끼우므로 "

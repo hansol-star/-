@@ -1,7 +1,7 @@
 {
  "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
- "updated": "2026-08-31",
- "source": "2026-08-28 R1 프리페치 (평일 10시 루틴)",
+ "updated": "2026-09-09",
+ "source": "2026-09-09 R1 프리페치 (평일 10시 루틴) — 지식인사이드 신규 1편, 수페TV 신규 없음(최신 9/5 여전)",
  "channels": {
   "supe": {
    "name": "수페TV",
@@ -346,7 +346,7 @@
    "name": "지식인사이드",
    "channel_id": "UCA_hgsFzmynpv1zkvA5A7jA",
    "channel_note": "전문가 인터뷰 채널(윤지호·오건영·빈센트 등). 매일 업로드하나 비투자 콘텐츠 다수 → hunter_latest.py --channel jisik이 투자 키워드 제목필터 적용. 성격 = 종목 콜이 아닌 프레임·통찰 → 태깅 위주, setups는 명확한 조건부 콜일 때만. study_log.md의 오건영·빈센트 수동 기록과 이어짐.",
-   "headline": "[8/28 캐치업] 신규 1편(8/27, 성상현 부부장 2부) — 8/27 삼성전자·하이닉스 급락 원인 = 삼성 주주환원(90~110조) 시장기대 미달 vs 하이닉스 40조 소각 호응차[검증]. 코스피 PER 5배 저평가론+조건부 비중확대 콜, 명시적 가격조건 없어 setups 미등록.",
+   "headline": "[9/9 R1] 신규 1편(9/8, 워런 버핏·멍거 회고 — 모니시 파브라이 인터뷰) — 원칙론·복리·자선 위주, 종목콜 없음. 나머지 5편은 비투자 콘텐츠로 필터링. [8/28 캐치업] 성상현 부부장 2부 — 삼성전자·하이닉스 급락 원인 = 삼성 주주환원(90~110조) 시장기대 미달 vs 하이닉스 40조 소각 호응차[검증]. 코스피 PER 5배 저평가론+조건부 비중확대 콜, 명시적 가격조건 없어 setups 미등록.",
    "setups": [
     {
      "id": "setup-코스피박스권밴드-윤지호-0809",
@@ -381,6 +381,20 @@
     }
    ],
    "latest_videos": [
+    {
+     "id": "xLm7X5MCHkw",
+     "date": "2026-09-08",
+     "title": "『텍사스 촬영』워렌 버핏과 찰리 멍거에게 들은 인생 최고의 투자 조언 | 글로벌초대석 EP.9",
+     "guest": "모니시 파브라이",
+     "tickers": [],
+     "verdict": "종목콜 없음 — 원칙론·인생조언 콘텐츠",
+     "tag": "일반(원칙론)",
+     "summary": "버핏·멍거와 오래 교류한 투자자 모니시 파브라이 인터뷰(영어). 401k/IRA 선공제 저축+복리(rule of 72)로 평범한 소득자도 장기 부자가 될 수 있다는 논지, '보람 없는 지출보다 지속적 저축'을 강조. 버핏·멍거의 겸손·평등주의적 인간관계, 저비용 인덱스펀드(버크셔 지수펀드) 권유. 자선재단(Dakshana Foundation)으로 인도 저소득층 우수학생 교육지원. 종목·가격 콜 없음, 정훈 스타일(장기코어+매크로확인 스윙)과 결이 다른 원칙론 콘텐츠 — setups 미등록.",
+     "caveats": [
+      "영어 인터뷰 — 자동자막 기반, 고유명사(Mohnish Pabrai 등) 표기 오류 가능성"
+     ],
+     "link": "https://www.youtube.com/watch?v=xLm7X5MCHkw"
+    },
     {
      "id": "tlVHzJxs8Ik",
      "date": "2026-08-27",

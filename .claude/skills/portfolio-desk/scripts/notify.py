@@ -239,13 +239,50 @@ def _market_line() -> str:
     return " · ".join(out)
 
 
+def _reregister() -> str:
+    """**국내 예약은 1거래일이면 소멸한다** — 오늘 다시 걸어야 할 오더를 띄운다.
+
+    ★[2026-09-09 신설 — 실사고에서 나왔다]
+    9/9에 ⓑ등록선을 폐지하고 국내 트림을 '상시 등록'으로 바꿨는데, **매일 누가 다시 거는지를
+    정하지 않았다.** 그날 두산로보(78,000)·현대차(470,000)를 걸었고 둘 다 미체결 만료됐다.
+    상시 등록 정책은 재등록 루프가 있어야 성립한다 — 없으면 정책이 이름만 있는 것이다.
+    (8/2 *"오더북에 들어간 것만 집행된다"*의 국내판: **매일 다시 넣어야 들어가 있는 것이다.**)
+
+    ⚠️ 만료 주문은 토스 API에 남지 않는다(OPEN·CLOSED 어디에도 없다 — 9/9 실측).
+       그래서 "걸었는지"를 API로 확인할 수 없다 → 이 블록은 **기억이 아니라 목록**으로 대신한다.
+    """
+    try:
+        d = json.load(open(os.path.join(ROOT, "data", "app", "tasks.json"), encoding="utf-8"))
+    except Exception:                                             # noqa: BLE001
+        return ""
+    rows = []
+    for o in d.get("orders") or []:
+        tk = str(o.get("ticker") or "")
+        if not (tk.endswith(".KS") or tk.endswith(".KQ")):
+            continue                                   # 미국은 소멸 안 함(예약 유지)
+        if o.get("status") != "예약":
+            continue
+        # ⚠️ **매일 거는 것과 등록선을 기다리는 것은 다르다.**
+        #   9/9 ⓑ등록선 부분 폐지 = ⭐2 이하 + 룰2 훼손 종목만 상시 등록(register_policy="always").
+        #   LG전자(⭐4·룰2 정상)는 ⓑ선 유지라 등록선(228,000) 도달 전엔 걸지 않는다 —
+        #   이걸 안 가르면 매일 아침 "체결 원치 않는 가격"까지 재등록하라고 뜬다(d151 기각 사유).
+        if o.get("register_policy") != "always":
+            continue
+        px = o.get("price")
+        rows.append(f"↻ {o.get('label') or tk} — {o.get('action','')} "
+                    + (f"{px:,.0f}원" if isinstance(px, (int, float)) else "지정가 미정"))
+    if not rows:
+        return ""
+    return ("🔁 오늘 **재등록** 필요 (국내 예약은 1거래일 소멸)\n" + "\n".join(rows[:6]))
+
+
 def compose(trigger_block: str = "") -> str:
-    """알림 표준 형식 — **할 일 → 트리거 → 상세** 순서.
+    """알림 표준 형식 — **할 일 → 재등록 → 트리거 → 상세** 순서.
 
     정훈 9/4: "자세한 내용은 아래로 내리고 내가 할 일, 그리고 했는지도 체크".
     순서가 곧 우선순위다. 폰을 여는 이유는 행동이지 관찰이 아니다.
     """
-    parts = [p for p in (_todos(), trigger_block) if p]
+    parts = [p for p in (_todos(), _reregister(), trigger_block) if p]
     tail = _market_line()
     if tail:
         parts.append("─────────\n" + tail)

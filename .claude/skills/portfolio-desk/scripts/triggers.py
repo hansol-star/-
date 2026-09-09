@@ -163,7 +163,14 @@ def recommend_tranche(cfg, kospi):
     r = TR.rule1(cash, dd, storm, fear, capit)
     if r["halted"]:
         return {"amount": 0, "dd_pct": dd, "reason": r["halt_why"], "ladder": r, "cash_total": cash}
-    steps = "+".join(f"D{i+1}" for i, s_ in enumerate(r["steps"]) if s_["unlocked"]) or "없음"
+    # ⚠️[2026-09-09] `f"D{i+1}"`은 **인덱스로 D번호를 만든다** — D0 신설로 i와 D번호가
+    #   어긋나면서 해금된 D0가 "D1"으로 표시되고 있었다(금액은 정합, 라벨만 거짓말).
+    #   tranche_rules의 STEP_LABELS를 정본으로 쓴다. 같은 실수를 두 파일에서 반복하지 않는다.
+    _labels = getattr(TR, "STEP_LABELS", None)
+    steps = "+".join(
+        (_labels[i] if _labels and i < len(_labels) else f"D{i+1}")
+        for i, s_ in enumerate(r["steps"]) if s_["unlocked"]
+    ) or "없음"
     # ★[8/28] 분할 횟수는 폭풍 %ile이 정한다(tranche_rules.storm_splits) — 3 하드코딩이었다.
     _sp = r.get("storm_splits") or 3
     return {

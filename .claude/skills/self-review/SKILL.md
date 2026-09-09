@@ -23,6 +23,7 @@ python3 .claude/skills/portfolio-desk/scripts/score_calls.py              # 별�
 python3 .claude/skills/portfolio-desk/scripts/star_validate.py            # [8/7] 별점 예측력 재검정 — 클러스터 보정·고정지평·구간층화·LOO (score_calls의 콜단위 집계 교정)
 python3 .claude/skills/portfolio-desk/scripts/multiple_backtest.py        # [8/8] 배수 선택의 역사적 검증 — 16년 EPS×가격으로 '기다리지 않고' 지금 채점
 python3 .claude/skills/portfolio-desk/scripts/target_score.py --by-ticker # [8/8] 목표가 사후 채점 — 내재여력 vs 실현·낙관편향·진도율 (배수 선택이 맞았나)
+python3 .claude/skills/portfolio-desk/scripts/target_reset.py            # [9/9] 위 채점의 **짝** — 목표가 재산정 제안(12M·낙관 보정). --save 로만 반영
 python3 .claude/skills/portfolio-desk/scripts/trades.py --realized        # [8/24] **실현 손익비·기대값** — 우리 실패 유형은 승률이 아니라 손익비다(era×통화별)
 python3 .claude/skills/portfolio-desk/scripts/hunter_score.py             # 경제사냥꾼 트랙레코드(검증/정정/미확인 추세 = 채널 신뢰도)
 python3 .claude/skills/portfolio-desk/scripts/hunter_replay.py            # ★[8/30] 아카이브 전수 재분석 — 채널 언급을 **가격**으로 검정(알파·스파이크·판정 시계열)
@@ -52,6 +53,13 @@ python3 .claude/skills/portfolio-desk/scripts/signal_score.py --pooled          
   이 도구가 ①종목 클러스터 보정(종목 1개=1표·종목단위 부트스트랩 CI) ②고정지평(+5·+10일) ③반등 제외·LOO로 재검정한다.
   **8/7 판정 = 🟡 방향 견고·유의성 없음** — ⭐5<⭐2 역전이 보정에서 살아남았으나 CI가 전부 겹쳐 구분 불가.
   ⇒ 별점 기준을 이 근거로 바꾸지 말 것. 표본이 쌓이면 CI가 좁혀진다(매주 재실행이 그 축적이다).
+- **target_reset** [9/9 신설 — target_score의 짝]: 채점기가 *"여력을 크게 부를수록 그만큼 빗나갔다"*(+50%↑ 목표 편향 **+52.6%p**)와 *"밴드 적중률 0~6%"*를 가리켰는데, **고칠 도구가 없었다** — 채점만 하고 끝났다.
+  이제 채점 다음에 재산정을 돌린다: `중심 = 현재가 × (1 + 컨센여력 × (1−낙관계수))`,
+  낙관계수 = 펀더 서브스코어 + stale + **재무경보 가산**(margin_trend_break 0.15·inventory_surge 0.08 등).
+  ⚠️ **제안 전용 — `--save` 없이는 stocks.json을 안 바꾼다.** 별점·스코어·트랜치는 안 건드린다.
+  ⚠️ 편향의 상당 부분은 **지평 불일치**다(12M 목표를 20거래일로 채점). 그래서 여력을 통째로 깎지 않고 일부만 깎는다.
+  ⚠️ **컨센이 낡으면 우리 목표도 낡는다** — `naver_value`의 stale 플래그(현대차·NAVER)를 반드시 반영할 것.
+
 - **target_score** [8/8 신설]: `check_target_basis`가 목표가 근거의 **존재·나이**만 보는 것의 짝 —
   **근거가 타당했는지**를 사후 채점한다. 핵심 지표 = **내재여력(콜 시점 약속) vs 실현**, 그 차이가 **낙관 편향**.
   ⚠️ 12개월 목표를 20일 지평으로 재면 편향은 **기계적으로 양수**다 → 절대값을 '틀렸다'로 읽지 말고

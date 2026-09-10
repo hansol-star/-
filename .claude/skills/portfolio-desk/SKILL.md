@@ -33,6 +33,10 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    - 직전 보고서 **전문**·tasks.json·stocks.json을 통째로 Read하지 않는다(9/10 R2: 전문 2만 자 + tasks 3만 자 + stocks 5회 재독 → 메인 59→94턴). 수정할 때만 해당 구간을 offset/Grep으로 연다. **같은 파일 재독 금지.**
    - 데스크는 백그라운드로 띄우고 완료 알림을 기다린다 — `ListAgents` 반복 확인 금지(턴마다 전체 컨텍스트를 다시 읽는다).
    - 보고서 본문은 **Write 1회로 완성**하고, validate FAIL만 핀포인트 Edit한다(섹션별 조각 Edit 금지).
+1b. **☁️ 클라우드 준비본 먼저 [9/10 분업 전환 — 정훈 지시]**: `git fetch origin main && git rebase origin/main` 후 **오늘자 `docs/prep/prep_{YYYY-MM-DD}.md`**(클라우드 C2가 평일 16:00에 만든 재료)가 있으면 그것을 **데스크 결과로 쓴다.**
+   - prep이 덮은 데스크는 **재스폰하지 않는다** — prep ⓪ 현황표에서 실패한 수집·데스크, 또는 16:00 이후 급변(±3% 이상·신규 공시)만 보강한다.
+   - prep에 **없는 것 = 로컬만 할 수 있는 것**: 토스 실계좌(`toss_snapshot.py`) · 별점/스코어 판정 · PM 종합·사견 · 지정가 오더북 · tasks.json 할일 · STATE SNAPSHOT. 이것만 쓰면 된다.
+   - prep이 없으면(주말·C2 실패) 기존 절차대로 데스크를 돌린다. 정본 = `docs/routines.md` §C2.
 2. `docs/master.md` Read → 원가 고정·룰·워치리스트·일정의 source of truth.
 2b. **결정 메모리 기계검색** — master §9(결정로그)·§10(전략 아젠다)은 사람용 산문 정본, 아래는 그 **기계 인덱스**(검색 가능 = 세션마다 손으로 안 훑어도 됨):
    ```bash

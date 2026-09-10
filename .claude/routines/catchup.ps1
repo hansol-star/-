@@ -65,27 +65,15 @@ function Ran([string]$kind) { Test-Path (Join-Path $LogDir "$kind`_$stamp.log") 
 
 $todo = @()
 
-if ($dow -eq 'Saturday') {
-  # 주말은 R3만. 평일 루틴을 소급하지 않는다.
-  if ($mins -ge 540 -and $mins -lt 1200 -and -not (Ran 'r3')) { $todo += 'r3' }
-  else { Say "주말 — R3 대상 아님(이미 돌았거나 창 밖)" }
-}
-elseif ($dow -eq 'Sunday') {
-  Say "일요일 — 예정 루틴 없음"
+# ★[2026-09-10 분업 전환] 로컬 스케줄은 R1만 남았다 — R2 보고서는 정훈 "보고서 작성" 시 대화형,
+#   재료는 클라우드 C2(평일 16:00), R3는 클라우드(토 09:00). 여기서 R2·R3를 소급하면 클라우드와 중복된다.
+if ($dow -eq 'Saturday' -or $dow -eq 'Sunday') {
+  Say "주말 — 로컬 소급 대상 없음(R3는 클라우드)"
 }
 else {
-  # R1 영상 프리페치: 10:00 예정. 15:30 넘으면 포기 — R2가 소비할 캐시를
-  # 만드는 게 목적인데 R2(16:00)를 코앞에 두고 시작하면 둘이 같은 토큰 창에서 겹친다
-  # (7/11 재설계가 정확히 그걸 피하려고 두 루틴을 6시간 떼어놓은 것).
+  # R1 영상 프리페치: 10:00 예정. 15:30 넘으면 포기 — 클라우드 C2(16:00)가 소비할 캐시를
+  # 만드는 게 목적이라, 그 뒤에 만들면 C2가 못 본다.
   if ($mins -ge 600 -and $mins -lt 930 -and -not (Ran 'r1')) { $todo += 'r1' }
-
-  # R2 메인 보고서: 16:00 예정. 23:00 넘으면 포기(폰창 20:50이 닫혀 읽는 사람이 없다).
-  # 판정은 로그가 아니라 **산출물**로 한다 — report_guard가 오늘 보고서 유무를 본다.
-  if ($mins -ge 960 -and $mins -lt 1380) {
-    & python3 (Join-Path $Scripts 'report_guard.py') --check --kind R2 2>&1 | Out-Null
-    if ($LASTEXITCODE -ne 0) { $todo += 'r2' }
-    else { Say "R2 — 오늘 보고서 이미 있음" }
-  }
 }
 
 if ($todo.Count -eq 0) { Say "따라잡을 것 없음"; Say "=== 종료 ==="; exit 0 }

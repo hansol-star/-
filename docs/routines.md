@@ -120,6 +120,33 @@
 - build_app_data → validate_report(FAIL 자가교정) → **rule_tracker.py --snapshot**([8/6] 룰1 사다리 원장 매일 append — RESET 정책상 매일 재계산이 전제. 7/30~8/5 7일 정지 재발방지, validate가 FAIL로 감시) → score_calls --append → snapshot.py → **market_log.py**([7/20] 오늘 시세 시계열 append, once-per-day 가드) → **build_dashboard.py**([7/20] output/dashboard.html 재생성 → Artifact 툴 있으면 `data/app/dashboard_url.txt`의 URL로 재발행해 링크 유지) → **report_guard.py --done**(validate PASS 뒤 완료 마커) → 커밋(data/app/report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동). 추측 금지·미확인 명시.
 ```
 
+> ★[2026-09-10 정훈 지시 — 분업 전환] **R2는 더 이상 스케줄로 돌지 않는다.** 정훈이 "보고서 작성"이라고 할 때 **로컬 대화형**으로 돈다.
+> 재료(시장·데이터·데스크 분석)는 아래 **C2 클라우드 준비**가 16:00에 미리 만들어 main에 올려둔다 → 로컬 R2는 `git pull` 후
+> 오늘자 `docs/prep/prep_{날짜}.md`를 데스크 결과로 쓰고(데스크 재스폰 금지 — 없거나 stale한 것만), **토스 실계좌 + PM 종합 + 별점·오더북·할일·STATE SNAPSHOT**만 쓴다.
+> 왜: 로컬 무인 R2는 9/1~9/10 **자력 완주 0/8**(권한거부 23.8% · 대화형과 예산 충돌 · PC 절전) — `docs/research/local_regression_audit_2026-09-10.md`.
+
+### C2. 클라우드 준비 브리핑 (평일 16:00 KST · 클라우드 루틴) — 보고서의 재료만 [2026-09-10 신설]
+실행 = claude.ai 클라우드 루틴(PC 전원과 무관). 클라우드 프롬프트는 "이 블록을 읽고 수행"만 담는다 → **정본은 이 블록**(git으로 수정).
+클라우드에서 **안 되는 것**(호출 금지): 토스 API(`toss_*` — 키·IP 허용목록이 로컬 전용) · yt-dlp 자막(봇차단) · `notify.py`(알림 토큰 로컬) · `memory_embed`(로컬 모델).
+
+```
+클라우드 준비 브리핑 C2 (무인·클라우드 — 보고서 작성 아님, 선택지 띄우고 멈추지 말 것).
+목적: 로컬 최종 보고서의 '재료'를 미리 만든다. 결론·별점·스코어·오더북·할일은 로컬이 쓴다(정훈 "보고서 작성" 시).
+0. python3 .claude/skills/portfolio-desk/scripts/kst_now.py → 주말·휴장이면 prep 파일에 "휴장" 한 줄만 쓰고 7번으로.
+1. 복원: python3 .claude/skills/portfolio-desk/scripts/r2_brief.py 1회 + decisions.py. 파일 통째 Read·재독 금지.
+2. 수집(실패는 기록하고 계속 — 멈추지 말 것): market_data.py · macro_data.py · vol_gauge.py · tranche_rules.py · rule_tracker.py --snapshot · triggers.py · fx_exposure.py · portfolio_risk.py · event_calendar.py --within 45 · dart_disclosure.py · edgar_search.py --events --days 30 · naver_flows.py · flow_trend.py · financials.py --all --save → peer_compare.py · eps_revisions.py · market_log.py
+   (전부 .claude/skills/portfolio-desk/scripts/ 아래. 토스·yt-dlp·notify·memory_embed 호출 금지. 폭풍 %ile 정본 = vol_gauge, garch 인용 금지.)
+3. 영상: 오늘자 docs/research/hunter_log.md 맨 위 블록이 있으면(로컬 R1) 핵심만 옮긴다. 없으면 hunter_latest.py(--fetch 없이 목록만)로 제목만 적고 "로컬 R1 미실행" 표기.
+4. 데스크: kr-market·us-market·macro·risk 항상 + 섹터 3종은 desk_gate.py 게이트 통과분만. 백그라운드 병렬 → 완료 알림 대기(ListAgents 반복 확인 금지).
+5. 산출: docs/prep/prep_{YYYY-MM-DD}.md 한 파일, Write 1회로 완성.
+   ⓪수집 현황표(스크립트별 OK/실패·사유) ①국장 ②미장 ③매크로 ④섹터 ⑤리스크(사다리 상한 원화·하드플로어·트리거 발동·배분밴드·룰2)
+   ⑥리서치 ⑦보유+워치 데이터표(현재가·당일%·원가대비%·매수존/트림까지 거리 — 별점·스코어는 쓰지 말 것) ⑧이벤트·공시
+   ⑨강세 vs 신중 논점(결론 없이 양쪽 근거만) ⑩로컬이 결정할 것(오더·트림·재등록 후보와 그 근거 숫자).
+   숫자는 스크립트 출력 그대로. 미확인은 미확인. 추측 금지.
+6. 쓰지 않는 파일: docs/reports/report_v*.md · data/app/stocks.json · tasks.json · portfolio.json · docs/master.md · CLAUDE.md (로컬 최종본 전용). build_app_data·snapshot도 안 돈다(GitHub Actions 17:25).
+7. 커밋(docs/prep/ + 스크립트가 갱신한 data 캐시) → git fetch origin main → git rebase origin/main → git push origin HEAD:main. data 캐시 충돌은 origin 쪽 채택 후 해당 스크립트 재실행.
+```
+
 ### R3. 주말 캘리브레이션 + 리뷰 (토 09:00) — 콜 후행검증
 콜 캘리브레이션을 독립 루틴으로 분리(주간 첫 보고서 끼워넣기는 자꾸 누락됨 — 6/22 실제 누락). 주말 폰 풀가용창(09:00~)에 캘리브레이션 부채를 매주 청산. 풀 데스크 X. 주말은 신규영상 적어 영상은 경량 인라인.
 

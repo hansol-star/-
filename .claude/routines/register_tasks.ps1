@@ -25,16 +25,15 @@ $CatchupName = 'JD-catchup-on-wake'
 $Weekdays = @('Monday','Tuesday','Wednesday','Thursday','Friday')
 
 # 정본 표와 1:1 — docs/routines.md 「실제 스케줄 등록」
+# ★[2026-09-10 정훈 지시 — 분업 전환] 로컬 스케줄은 **R1(영상)만** 남긴다.
+#   R2 보고서 = 정훈 "보고서 작성" 시 로컬 대화형 / 재료 = 클라우드 C2(평일 16:00) / R3 = 클라우드(토 09:00).
+#   R4a·R4b·R4c(재시도 파수꾼)는 무인 R2가 없어졌으므로 폐지.
+#   근거 = docs/research/local_regression_audit_2026-09-10.md (로컬 무인 R2 자력 완주 0/8).
+#   아래 $Retired는 이 스크립트를 다시 돌리면 **비활성화**한다(삭제 아님 — 되돌리기 쉽게).
 $Routines = @(
-  @{ Kind='r1';  Name='JD-R1-video-prefetch'; Time='10:00'; Days=$Weekdays;     Desc='영상 리서치 프리페치 (3채널 자막)' },
-  @{ Kind='r2';  Name='JD-R2-main-report';    Time='16:00'; Days=$Weekdays;     Desc='메인 풀 보고서' },
-  @{ Kind='r3';  Name='JD-R3-calibration';    Time='09:00'; Days=@('Saturday'); Desc='주말 콜 캘리브레이션' },
-  @{ Kind='r4a'; Name='JD-R4a-retry-2000';    Time='20:00'; Days=$Weekdays;     Desc='토큰-리셋 재시도 파수꾼 1' },
-  @{ Kind='r4b'; Name='JD-R4b-retry-2115';    Time='21:15'; Days=$Weekdays;     Desc='토큰-리셋 재시도 파수꾼 2' },
-  # ★[9/9] R4c — 9/8에 R2·R4a·R4b가 전부 TOKEN_LIMIT으로 죽었다. 실측 리셋(02:00 KST) 직후 창을 덮는다.
-  #   화~토인 이유 = 월~금 거래일 보고서를 각각 '다음날 새벽'에 덮기 때문(월요일 새벽엔 덮을 거래일이 없다).
-  @{ Kind='r4c'; Name='JD-R4c-retry-0230';    Time='02:30'; Days=@('Tuesday','Wednesday','Thursday','Friday','Saturday'); Desc='토큰-리셋 재시도 파수꾼 3 (새벽·마지막 기회)' }
+  @{ Kind='r1';  Name='JD-R1-video-prefetch'; Time='10:00'; Days=$Weekdays;     Desc='영상 리서치 프리페치 (3채널 자막)' }
 )
+$Retired = @('JD-R2-main-report','JD-R3-calibration','JD-R4a-retry-2000','JD-R4b-retry-2115','JD-R4c-retry-0230')
 
 if ($Unregister) {
   if (Get-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
@@ -69,6 +68,14 @@ foreach ($r in $Routines) {
   }
   Register-ScheduledTask -TaskName $r.Name -TaskPath $Folder -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "$($r.Desc) - 정본 docs/routines.md" | Out-Null
   Write-Output ("registered  {0,-22} {1}  {2}" -f $r.Name, $r.Time, ($r.Days -join ','))
+}
+
+foreach ($n in $Retired) {
+  $t = Get-ScheduledTask -TaskName $n -TaskPath "$Folder\" -ErrorAction SilentlyContinue
+  if ($t -and $t.State -ne 'Disabled') {
+    Disable-ScheduledTask -TaskName $n -TaskPath "$Folder\" | Out-Null
+    Write-Output "disabled    $n (9/10 분업 전환 — 클라우드 C2/R3 + 로컬 대화형 R2)"
+  }
 }
 
 # ── 장중 트리거 감시 [9/3 신설] — 폰 상시 가용 전환에 따른 실시간 대응 ──────

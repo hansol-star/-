@@ -78,8 +78,23 @@ def now_kst():
     return datetime.now(KST)
 
 
+# ★[2026-09-10] 거래일 앵커 — 자정~09:00 KST는 '전 거래일'의 연장이다.
+#   왜: R4c(02:30)가 부르는 --check가 **새 날짜** 기준으로 판정하고 있었다.
+#   ① 화~금 새벽: 전날 보고서가 멀쩡히 나왔어도 "오늘(새 날짜) 보고서 없음 → exit 1"
+#      → **매일 새벽 중복 풀 보고서**를 쓰게 된다(docs/routines.md는 "~0토큰으로 즉시 끝난다"고 적었다).
+#   ② 토 새벽(금요일분): 새 날짜가 토요일이라 "주말 → exit 0" → **금요일 재시도가 절대 안 돈다.**
+#   R4c 등록(9/9) 후 첫 슬롯(9/10 02:30)이 절전으로 13:21에 밀려 죽는 바람에 한 번도 발현되지 않았다.
+#   ⇒ 09:00(KRX 정규 개장) 전에는 어떤 보고서도 '그날'을 다룰 수 없다 — 전 거래일로 본다.
+DAY_ROLLOVER_HOUR = 9
+
+
+def trading_day(dt=None):
+    dt = dt or now_kst()
+    return dt - timedelta(days=1) if dt.hour < DAY_ROLLOVER_HOUR else dt
+
+
 def today_str(dt=None):
-    return (dt or now_kst()).strftime("%Y-%m-%d")
+    return trading_day(dt).strftime("%Y-%m-%d")
 
 
 def load_marker():
@@ -178,7 +193,7 @@ def cmd_check(args):
     now = now_kst()
     day = today_str(now)
 
-    if now.weekday() >= 5:
+    if trading_day(now).weekday() >= 5:
         print(f"[report_guard] {day} 주말 — 평일 보고서 대상 아님 → 완료 취급(재시도 불필요).")
         return 0
 

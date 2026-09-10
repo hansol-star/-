@@ -30,7 +30,10 @@ param(
   # allow 목록에 추가하는 것이 정답이다(bypassPermissions는 최후수단·정훈 판단).
   [string]$PermissionMode = 'acceptEdits',
 
-  [switch]$DryRun
+  [switch]$DryRun,
+
+  # 지각 한도(아래 $MaxLateMap)를 무시하고 강제 실행 — 사람이 손으로 돌릴 때만.
+  [switch]$Force
 )
 
 $ErrorActionPreference = 'Stop'
@@ -62,7 +65,9 @@ $env:PYTHONIOENCODING = 'utf-8'
 try {
   [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
   [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
-  $OutputEncoding = [System.Text.Encoding]::UTF8
+  # BOM 없는 UTF-8 — [Text.Encoding]::UTF8은 파이프 앞에 BOM을 붙인다.
+  # 9/10 세션 기록에서 프롬프트 첫머리가 '﻿﻿'(파일 BOM + 파이프 BOM)로 들어간 게 확인됐다.
+  $OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 } catch { }
 
 # ── §토스: 매매 가능한 자격증명을 자식에게 물려주지 않는다 ────────────────
@@ -113,6 +118,21 @@ try {
   if ($LateMin -ge 45) { Write-Log "지각 실행 ${LateMin}분 (예정 $Scheduled) — 절전/전원 확인" }
 } catch { $LateMin = 0 }
 
+# ── 지각 한도 — 너무 늦은 실행은 안 하느니만 못하다 [2026-09-10 신설] ──────────
+#   9/10 실측: 머신이 절전에서 13:20에 깨자 StartWhenAvailable이 **02:30 예약 R4c를
+#   11시간 늦게(651분)** 띄웠다. 시작 직후 죽어서 피해는 없었지만, 끝까지 돌았다면
+#   `report_guard --check`가 "오늘 보고서 없음 → 지금 내라"(exit 1)를 돌려줘
+#   **장중 13시에 R2보다 먼저 보고서를 쓰기 시작했을 것이다.**
+#   ⇒ 루틴마다 '이 시각 넘으면 의미 없음' 한도를 둔다. catchup.ps1의 포기 시각과 맞춘다
+#     (R1 15:30 · R2 23:00). R4a는 R4b가 넘겨받는 21:15까지, R4c는 새벽 04:00까지.
+#   ⚠️ 건너뛸 땐 last_status.json을 **덮지 않는다** — 직전 실제 실행의 판정을 지우면 안 된다.
+$MaxLateMap = @{ r1=330; r2=420; r3=660; r4a=75; r4b=105; r4c=90 }
+$MaxLate = $MaxLateMap[$Kind]
+if ($MaxLate -and $LateMin -gt $MaxLate -and -not $Force) {
+  Write-Log "지각 한도 초과 — ${LateMin}분 > ${MaxLate}분 (예정 $Scheduled). 건너뜀 (강제 = -Force)"
+  exit 0
+}
+
 # ── 프롬프트 = docs/routines.md 정본에서 직접 ───────────────────────────
 # ⚠️ 파일 경유로 읽는다. 네이티브 stdout을 PowerShell 5.1이 콘솔 코드페이지(cp949)로
 # 디코딩해 **한글 프롬프트가 통째로 깨진 채 모델에 전달**된다(첫 구현에서 실측).
@@ -122,7 +142,7 @@ if ($LASTEXITCODE -ne 0 -or -not (Test-Path $PromptFile)) {
   Write-Log "프롬프트 추출 실패 — docs/routines.md 구조 확인 (routine_prompts.py --check)"
   exit 2
 }
-$prompt = Get-Content -Path $PromptFile -Raw -Encoding UTF8
+$prompt = (Get-Content -Path $PromptFile -Raw -Encoding UTF8).TrimStart([char]0xFEFF)
 if ([string]::IsNullOrWhiteSpace($prompt)) { Write-Log "프롬프트가 비었다"; exit 2 }
 Write-Log "프롬프트 $($prompt.Length)자 추출 (정본 = docs/routines.md)"
 
@@ -156,6 +176,7 @@ Write-Log "claude = $($claudeCmd.Source) · model=$Model"
 # ⇒ 자식 호출 구간에서만 Continue로 낮춘다.
 $prevEAP = $ErrorActionPreference
 $ErrorActionPreference = 'Continue'
+$headBefore = (& git -C $Repo rev-parse HEAD 2>$null | Out-String).Trim()
 $sw = [Diagnostics.Stopwatch]::StartNew()
 $out = $prompt | & claude -p --permission-mode $PermissionMode --model $Model --output-format text 2>&1
 $code = $LASTEXITCODE
@@ -189,11 +210,23 @@ if ($uncommitted -gt 0) {
   foreach ($d in ($dirty | Select-Object -First 12)) { Write-Log "    $d" }
 }
 
+# ★[2026-09-10 신설] 무산출 검사 — '깨끗한 워킹트리'는 '다 커밋했다'와 '아무것도 안 했다'를 못 가른다.
+#   9/10 실측: R1(sonnet)이 프롬프트를 정상 수신하고도 **도구 호출 0회**로 "대기 중입니다"만
+#   답하고 21초 만에 끝났다. 워킹트리가 깨끗하니 위 검사는 통과 → verdict=OK → 카톡 ✅,
+#   catchup은 로그가 있으니 '이미 돌았다'로 넘겼다. 성공 알림이 실패를 덮은 것이다(8/22 계열).
+#   ⇒ 매번 산출물을 커밋해야 하는 루틴(R1 = 오늘자 블록 · R2 = 보고서)은 **HEAD가 움직였는지**로 본다.
+#   ⚠️ R3·R4는 제외 — R4는 보고서가 이미 있으면 아무것도 안 하고 끝나는 게 정상이다.
+$headAfter = ''
+try { $headAfter = (& git -C $Repo rev-parse HEAD 2>$null | Out-String).Trim() } catch { }
+$noOutput = ($Kind -in 'r1','r2') -and $headBefore -and ($headBefore -eq $headAfter) -and ($uncommitted -eq 0)
+if ($noOutput) { Write-Log "무산출 — HEAD 불변($($headBefore.Substring(0,7)))·워킹트리 깨끗 = 이 루틴은 아무것도 남기지 않았다" }
+
 $verdict = if ($notLogged) { 'NOT_LOGGED_IN' }
            elseif ($hitLimit) { 'TOKEN_LIMIT' }
            elseif ($code -ne 0) { 'FAILED' }
            elseif ($permBlock) { 'PERMISSION_BLOCKED' }
            elseif ($uncommitted -gt 0) { 'UNCOMMITTED' }
+           elseif ($noOutput) { 'NO_OUTPUT' }
            else { 'OK' }
 
 Write-Log "=== 종료 verdict=$verdict exit=$code 소요=$([int]$sw.Elapsed.TotalMinutes)분 ==="

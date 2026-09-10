@@ -1644,6 +1644,11 @@ def check_routine_health(today=None):
         warn(f"무인 루틴이 커밋을 못 했다 — {kind} @ {when} · 미커밋 {n}건. "
              f"작업물은 워킹트리에 살아 있지만 **다음 세션은 못 본다**(연속성 규약 파손). "
              f"원인 대부분 = .claude/settings.json permissions.allow에 git add/commit/push 누락")
+    elif verdict == "NO_OUTPUT":
+        # ★[9/10] 워킹트리 깨끗 + HEAD 불변 = 돌긴 돌았는데 아무것도 안 남겼다.
+        # 9/10 R1: 프롬프트 정상 수신 후 도구 0회로 "대기 중입니다"만 답하고 OK로 기록됐다.
+        warn(f"무인 루틴이 아무것도 안 남겼다 — {kind} @ {when} (HEAD 불변·워킹트리 깨끗). "
+             f"로그의 모델 응답을 볼 것 — 프롬프트를 작업이 아니라 인사로 받았을 가능성 (로그 {st.get('log')})")
     elif verdict != "OK":
         warn(f"무인 루틴 마지막 실행 실패 — {kind} verdict={verdict} @ {when} "
              f"(로그 {st.get('log')}). NOT_LOGGED_IN이면 `claude` 대화형 1회 로그인 필요")

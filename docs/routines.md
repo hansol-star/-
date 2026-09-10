@@ -98,7 +98,8 @@
 보고서 (메인 풀 브리핑 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
 - 0단계 실측: `python3 .claude/skills/portfolio-desk/scripts/kst_now.py` + market_data.py 로 오늘 날짜·요일·장상태 확정(직전 보고서 서사에 끌리지 말 것).
 - 0단계 가드: python3 .claude/skills/portfolio-desk/scripts/report_guard.py --start --kind R2 --version {오늘 번호} (running 마커 = 저녁 R4가 '막혔나' 판정할 신호. 첫 액션).
-- 컨텍스트 복원: 최신 report STATE SNAPSHOT + decisions.py.
+- 컨텍스트 복원: `python3 .claude/skills/portfolio-desk/scripts/r2_brief.py` **1회**(직전 STATE SNAPSHOT + 미완 할일 + 활성 오더 + 종목 등급) + decisions.py. 직전 보고서 전문·tasks.json·stocks.json 통째 Read 금지.
+- ⚡ 메인 세션 규율 [9/10 실측 — 메인 턴 1개 ≈ 20만 토큰 재독]: ①데스크는 백그라운드로 띄우고 **완료 알림을 기다린다**(ListAgents 반복 확인 금지 — 9/10에 12회) ②같은 파일 **재독 금지**, 수정할 구간만 offset/Grep ③보고서는 **Write 1회로 완성**, 조각 Edit 금지(9/10에 21회) — validate FAIL만 핀포인트 Edit ④인라인 `python3 -c`·heredoc은 무인에서 거부된다 → 스크립트를 쓴다.
 - ⚡ 영상: 오늘자 R1 프리페치 캐시(hunter_log.md·feeds_log.md 맨 위 블록 + hunter.json·feeds.json setups)를 읽어 리서치 피드·조건 트래커를 채운다. **3채널 풀 재추출 금지.** 단 R1(10:00) 이후 신규 업로드는 싸게 델타로 잡는다 = hunter_latest.py(--fetch 없이 RSS 목록만) 3채널 → 캐시에 없는 신규 ID만 `--ids <신규> --fetch`로 추가 태깅(보통 2~4편, 오후분). 오늘자 캐시가 없으면(R1 실패) 폴백으로 경제사냥꾼 1채널만 경량 인라인(SKILL §2c).
 - 첫 실행 단계 = 전일 밤 미국 지정가 예약 체결 점검(체결이면 portfolio.json·tasks.json·master.md 갱신) + 전일 밤 21:30발 지표(NFP·CPI 등) 반영.
 - **이벤트 캘린더** [7/20]: `event_calendar.py --within 45` = 보유 실적일 + FOMC·CPI·금통위 D-day → §3 매크로/§9 할일에 '지켜볼 것'으로 반영, 폰창 밖 이벤트는 사전 조건부 룰·예약주문 베이킹.

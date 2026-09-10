@@ -26,10 +26,13 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    git ls-tree origin/main docs/reports/ | grep -oE 'report_v[0-9]+' | sort -u | tail -3
    ```
    로컬보다 origin/main이 앞서면 작업 브랜치에서 `git rebase origin/main`으로 정합 후 시작(로컬 `main` 브랜치는 unrelated 히스토리일 수 있어 체크아웃 금지). **새 보고서 번호 = origin 최신 버전 +1**(같은 날이라도 번호 겹치면 안 됨). 끝의 main 반영은 `git push origin HEAD:main` ref 직접 ff(연속성 규약 — CLAUDE.md 표준 절차).
-1. `docs/reports/`에서 **가장 높은 버전 보고서**(`report_v*.md`)를 Read → STATE SNAPSHOT이 직전 상태.
+1. **직전 상태 = `r2_brief.py` 1회** [9/10 — 복원 단계를 호출 하나로]: 최신 보고서의 STATE SNAPSHOT + tasks.json 미완 할일·**활성 오더만** + 보유/워치 등급 한 줄씩.
    ```bash
-   ls docs/reports/ | grep -E 'report_v[0-9]+' | sort -t v -k2 -n | tail -1
+   python3 .claude/skills/portfolio-desk/scripts/r2_brief.py
    ```
+   - 직전 보고서 **전문**·tasks.json·stocks.json을 통째로 Read하지 않는다(9/10 R2: 전문 2만 자 + tasks 3만 자 + stocks 5회 재독 → 메인 59→94턴). 수정할 때만 해당 구간을 offset/Grep으로 연다. **같은 파일 재독 금지.**
+   - 데스크는 백그라운드로 띄우고 완료 알림을 기다린다 — `ListAgents` 반복 확인 금지(턴마다 전체 컨텍스트를 다시 읽는다).
+   - 보고서 본문은 **Write 1회로 완성**하고, validate FAIL만 핀포인트 Edit한다(섹션별 조각 Edit 금지).
 2. `docs/master.md` Read → 원가 고정·룰·워치리스트·일정의 source of truth.
 2b. **결정 메모리 기계검색** — master §9(결정로그)·§10(전략 아젠다)은 사람용 산문 정본, 아래는 그 **기계 인덱스**(검색 가능 = 세션마다 손으로 안 훑어도 됨):
    ```bash

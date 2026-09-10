@@ -158,7 +158,7 @@ def save_cached(symbol: str, rows) -> None:
     os.makedirs(HIST_DIR, exist_ok=True)
     path = os.path.join(HIST_DIR, _safe(symbol) + ".csv")
     with open(path, "w", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")  # [9/10] csv 기본 \r\n 금지 — .gitattributes eol=lf와 맞춘다
         w.writerow(["date", "close"])
         for d, c in rows:
             w.writerow([d, c])

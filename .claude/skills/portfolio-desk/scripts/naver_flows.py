@@ -164,7 +164,8 @@ def cache_stock(code: str, label: str, pages: int = 1) -> tuple[int, int]:
     rows = [old[d] for d in sorted(old)]
     with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["date", "close", "foreign_qty", "organ_qty",
-                                          "indiv_qty", "foreign_hold_pct"])
+                                          "indiv_qty", "foreign_hold_pct"],
+                           lineterminator="\n")  # [9/10] csv 기본값 \r\n → 클라우드(리눅스) 체크아웃에서 유령 수정으로 뜬다
         w.writeheader()
         w.writerows(rows)
     return len(rows), added

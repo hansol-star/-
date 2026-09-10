@@ -21,6 +21,7 @@ description: 자가 품질점검·콜 검증 루프. 과거 보고서에서 내�
 python3 .claude/skills/portfolio-desk/scripts/score_calls.py --backfill   # git 히스토리 → calls_log.jsonl (처음/재동기화 시)
 python3 .claude/skills/portfolio-desk/scripts/score_calls.py              # 별점버킷 평균전진%·방향적중 + Brier 캘리브레이션 갭(과신 플래그) [커미션]
 python3 .claude/skills/portfolio-desk/scripts/star_validate.py            # [8/7] 별점 예측력 재검정 — 클러스터 보정·고정지평·구간층화·LOO (score_calls의 콜단위 집계 교정)
+python3 .claude/skills/portfolio-desk/scripts/shadow_bench.py             # [9/10] "지수만 샀으면 얼마였나" — 원장 전 체결을 VOO·코스피로 재생, 목적(돈을 키운다)의 최상위 지표. 스코어카드 맨 위 한 줄
 python3 .claude/skills/portfolio-desk/scripts/multiple_backtest.py        # [8/8] 배수 선택의 역사적 검증 — 16년 EPS×가격으로 '기다리지 않고' 지금 채점
 python3 .claude/skills/portfolio-desk/scripts/target_score.py --by-ticker # [8/8] 목표가 사후 채점 — 내재여력 vs 실현·낙관편향·진도율 (배수 선택이 맞았나)
 python3 .claude/skills/portfolio-desk/scripts/target_reset.py            # [9/9] 위 채점의 **짝** — 목표가 재산정 제안(12M·낙관 보정). --save 로만 반영

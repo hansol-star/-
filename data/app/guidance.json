@@ -1,30 +1,46 @@
 {
- "updated": "2026-08-14",
+ "updated": "2026-09-12",
  "note": "SEC 8-K Item 2.02 보도자료 가이던스. 어닝콜 Q&A 전문은 미포함.",
  "rows": [
   {
    "ticker": "NVDA",
-   "filed": "2026-05-20",
-   "accession": "0001045810-26-000051",
-   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000051/q1fy27pr.htm",
+   "filed": "2026-08-26",
+   "accession": "0001045810-26-000073",
+   "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000051/q1fy27pr.htm",
-    "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000051/q1fy27cfocommentary.htm"
+    "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm",
+    "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27cfocommentary.htm"
    ],
-   "chars": 36428,
-   "outlook": "outlook for the second quarter of fiscal 2027 is as follows: • Revenue is expected to be $91.0 billion, plus or minus 2%. NVIDIA is not assuming any Data Center compute revenue from China in its outlook. • GAAP and non-GAAP gross margins are expected to be 74.9% and 75.0%, respectively, plus or minus 50 basis points. • GAAP and non-GAAP operating expenses are expected to be approximately $8.5 billion and $8.3 billion, respectively. For the full year fiscal 2027, NVIDIA expects GAAP and non-GAAP tax rates to be between 16.0% and 18.0%, excluding any discrete items and material changes to NVIDIA's tax environment. Highlights Data Center • First-quarter revenue was a record $75.2 billion, up 21% from the previous quarter and up 92% from a year ago. • Announced the NVIDIA Vera Rubin platform, including the NVIDIA Vera CPU, the world's first processor purpose-built for agentic AI, and NVIDIA BlueField®-4 STX, accelerated storage infrastructure for agentic AI factories. • Entered production with NVIDIA Dynamo 1.0, open source software that boosts generative and agentic inference on NVIDIA Blackwell GPUs by up to 7x, with widespread global adoption. • Announced NVIDIA NemoClaw™ for the OpenClaw agent platform, NVIDIA OpenShell™ with privacy and security controls for autonomous AI agents, and NVIDIA Agent Toolkit, an open source platform for building autonomous enterprise AI agents. •",
+   "chars": 42071,
+   "outlook": "outlook for the third quarter of fiscal 2027 is as follows: • Revenue is expected to be $108.0 billion, plus or minus 2%. NVIDIA is not assuming any Data Center compute revenue from China in its outlook. • GAAP and non-GAAP gross margins are expected to be 74.0%, plus or minus 50 basis points. • GAAP and non-GAAP operating expenses are expected to be approximately $9.2 billion and $9.0 billion, respectively. For the full year fiscal 2027, NVIDIA expects GAAP and non-GAAP tax rates to be between 16.0% and 18.0%, excluding any discrete items and material changes to NVIDIA's tax environment. Highlights Data Center • Second-quarter revenue was $89.0 billion, up 18% from the previous quarter and up 117% from a year ago. • Announced the NVIDIA Vera Rubin platform is ramping into full production with racks running at partners including CoreWeave, Google Cloud, Microsoft Azure, Oracle Cloud Infrastructure and Nebius. • Revealed that NVIDIA Spectrum™-6 switch systems - supporting both pluggable and co-packaged optics as part of the NVIDIA Vera Rubin platform - are arriving across the world's gigascale AI factories. • Unveiled NVIDIA Vera, the first CPU built for AI agents, with broad adoption planned across the world's leading technology providers. • Announced that NVIDIA Groq 3 LPX, the interactive AI inference accelerator, is now in full production. • Introduced new security innovatio",
    "metrics": {
-    "매출": "$91.0 billion, plus or minus 2%",
-    "매출총이익률": "74.9%",
-    "영업비용": "$8.5 billion"
+    "매출": "$108.0 billion, plus or minus 2%",
+    "매출총이익률": "74.0%, plus or minus 50 basis points",
+    "영업비용": "$9.2 billion"
    },
    "commentary": [
-    "Jensen Huang: “The buildout of AI factories - the largest infrastructure expansion in human history - is accelerating at extraordinary speed,”"
+    "Jensen Huang: “AI has reached its inflection point. It's doing useful work. Its tokens are productive and profitable. Now, compute is revenue,”"
    ]
   },
   {
-   "error": "인덱스 조회 실패 HTTPError",
-   "ticker": "MU"
+   "ticker": "MU",
+   "filed": "2026-06-24",
+   "accession": "0000723125-26-000013",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+   "sources": [
+    "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm"
+   ],
+   "chars": 17662,
+   "outlook": "Business Outlook The following table presents Micron's guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion ± $1.0 billion $50.0 billion ± $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 ± $1.00 $31.00 ± $1.00 Further information regarding Micron's business outlook is included in the prepared remarks and slides, which have been posted at investors.micron.com .",
+   "metrics": {
+    "매출": "$50.0 billion ± $1.0 billion",
+    "매출총이익률": "86%",
+    "영업비용": "$1.86 billion",
+    "EPS": "$30.73 ± $1.00"
+   },
+   "commentary": [
+    "Sanjay Mehrotra: “Micron's record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,”"
+   ]
   },
   {
    "ticker": "AAPL",
@@ -75,20 +91,20 @@
   },
   {
    "ticker": "AVGO",
-   "filed": "2026-06-03",
-   "accession": "0001730168-26-000051",
-   "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000051/avgo-05032026x8kxex99.htm",
+   "filed": "2026-09-02",
+   "accession": "0001730168-26-000076",
+   "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000076/avgo-08022026x8kxex99.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000051/avgo-05032026x8kxex99.htm"
+    "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000076/avgo-08022026x8kxex99.htm"
    ],
-   "chars": 24132,
-   "outlook": "Business Outlook Based on current business trends and conditions, the outlook for the third quarter of fiscal year 2026, ending August 2, 2026, is expected to be as follows: • Third quarter revenue guidance of approximately $29.4 billion; • Third quarter non-GAAP operating income guidance of approximately 67 percent of projected revenue; • Third quarter Adjusted EBITDA guidance of approximately 68 percent of projected revenue. The guidance provided above is only an estimate of what the Company believes is realizable as of the date of this release. The Company is not readily able to provide a reconciliation of projected",
+   "chars": 23161,
+   "outlook": "Business Outlook Based on current business trends and conditions, the outlook for the fourth quarter of fiscal year 2026, ending November 1, 2026, is expected to be as follows: • Fourth quarter revenue guidance of approximately $34.8 billion; • Fourth quarter non-GAAP operating income guidance of approximately 66 percent of projected revenue. The guidance provided above is only an estimate of what the Company believes is realizable as of the date of this release. The Company is not readily able to provide a reconciliation of projected",
    "metrics": {
-    "매출": "$29.4 billion"
+    "매출": "$34.8 billion"
    },
    "commentary": [
-    "Hock Tan: “Broadcom achieved record revenue, operating profit and free cash flow in Q2 driven by accelerating growth in AI semiconductor revenue and strong operating leverage. Q2 semiconductor revenue from AI of $10.8 billion grew 143% year-over-year, above our forecast, driven by increasing demand for custom AI accelerators and AI networking,”",
-    "Kirsten Spears: “Q2 consolidated revenue grew 48% year-over-year to a record $22.2 billion. Adjusted EBITDA increased 52% year-over-year to a record $15.2 billion, representing 69% of revenue,”"
+    "Hock Tan: “Demand for our custom AI accelerators and networking continues to be very strong. Q3 AI semiconductor revenue of $16.7 billion grew 221% year-over-year, and 54% quarter-over-quarter,”",
+    "Amie Thuener: “Broadcom achieved record revenue, operating profit and free cash flow in Q3. We delivered non-GAAP operating income growth of 92% year-over-year, as consolidated revenue grew 86% year-over-year to $29.6 billion,”"
    ]
   },
   {
@@ -124,13 +140,13 @@
   },
   {
    "ticker": "ORCL",
-   "filed": "2026-06-10",
-   "accession": "0001193125-26-265848",
-   "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+   "filed": "2026-09-10",
+   "accession": "0001193125-26-387905",
+   "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm"
+    "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm"
    ],
-   "chars": 39606,
+   "chars": 29061,
    "outlook": "",
    "metrics": {},
    "commentary": []

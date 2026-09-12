@@ -195,6 +195,41 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_trade_ledger",
+        "desc": "체결 원장 대사에서 수량 불일치(status=diff)가 나오면 FAIL로 올리는가",
+        "why": "**돈이 걸린 유일한 무검증 가드였다**(9/1~9/12 커버리지 리포트가 매주 최대 결핍으로 지목). "
+               "master.md §2가 같은 결함을 두 번 적었다 — 8/6 GOOGL 매수 1주일 미반영, 8/19 ANET "
+               "전량매도·VOO 적립체결 8일 미반영. 그때 결론이 '다짐이 아니라 절차로 막는다'였는데 "
+               "절차도 사람이 지키는 것이라 재발했고, 그래서 이 가드가 생겼다. 그 가드가 정작 "
+               "'위반을 심으면 잡는가'를 한 번도 확인받지 않은 상태였다. "
+               "미등록 사유는 '픽스처에 trades.py 실행이 필요해서'였는데, 가드의 책임은 "
+               "재생 산수가 아니라 **diff 행을 FAIL로 올리는 것**이므로 스텁으로 그 계약만 검정한다 "
+               "(JSON 키 이름이 바뀌어 조용히 통과하는 형태도 이걸로 잡힌다)",
+        "pattern": "체결 원장 불일치",
+        "violate": {
+            "data/app/trades.jsonl": _LINES(json.dumps({"date": "2026-08-25", "ticker": "GOOGL"})),
+            ".claude/skills/portfolio-desk/scripts/trades.py":
+                "import json\n"
+                "print(json.dumps({'summary': {'fills': 1}, 'reconcile': ["
+                "{'ticker': 'GOOGL', 'label': 'GOOGL', 'status': 'diff',"
+                " 'ledger_shares': 2.0, 'book_shares': 1.0,"
+                " 'ledger_cost': 300.0, 'book_cost': 300.0,"
+                " 'detail': '수량 원장 2.0 vs 장부 1.0'}]}))\n",
+        },
+        "clean": {
+            "data/app/trades.jsonl": _LINES(json.dumps({"date": "2026-08-25", "ticker": "GOOGL"})),
+            ".claude/skills/portfolio-desk/scripts/trades.py":
+                "import json\n"
+                "print(json.dumps({'summary': {'fills': 1}, 'reconcile': ["
+                "{'ticker': 'GOOGL', 'label': 'GOOGL', 'status': 'ok',"
+                " 'ledger_shares': 1.0, 'book_shares': 1.0,"
+                " 'ledger_cost': 300.0, 'book_cost': 300.0,"
+                " 'detail': '일치'}]}))\n",
+        },
+        "args": (),
+    },
+
+    {
         "name": "check_rule_ledger",
         "desc": "룰1 사다리 원장이 보고서 날짜보다 뒤처지면 잡는가",
         "why": "8/6 실사고 — 원장이 7/30 1건에서 멈춰 있었고, 그 1건이 말하는 상태"
@@ -343,6 +378,10 @@ INJECTION_TESTS = [
                   '"hunter_archive.json":0,"reports_n":0,"reports_bytes":0,'
                   '"hash":"43e774664ee2"}}'},
         "args": (),
+        # ⚠️ 이 가드는 sentence_transformers 미설치면 **의도적으로 침묵**한다(기능 미도입 = 정상).
+        #    그 환경에서 이 픽스처를 돌리면 '위반을 못 잡았다'로 오판되므로 미실행으로 분류한다.
+        #    (클라우드 R3 환경이 정확히 그 경우다 — 9/12에 false ❌로 발견.)
+        "requires_modules": ("sentence_transformers",),
     },
 
     {
@@ -558,10 +597,37 @@ def _run_check(check_name: str, files: dict, args: tuple) -> list[str]:
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def _unmet_requirement(t: dict) -> str | None:
+    """이 픽스처를 **돌릴 수 없는 환경**이면 그 이유를 돌려준다(아니면 None).
+
+    ★[9/12 신설] 왜 필요한가 — `check_memory_index`가 이 환경에서 ❌ '무력한 가드'로 찍히고
+    있었는데, 실제로는 가드가 무력한 게 아니라 **돌지 않은** 것이었다: 그 가드는
+    `sentence_transformers` 미설치 시 의도적으로 침묵한다(기능 미도입 = 정상). 그런데 러너는
+    '메시지가 안 나왔다 = 못 잡았다'로만 읽어서 위반을 심어도 못 잡는 가드로 보고했다.
+
+    ⚠️ 이 false ❌를 그냥 두면 **빨간불이 의미를 잃는다** — 매주 같은 ❌가 떠 있으면 사람은
+    그 줄을 건너뛰는 법을 배우고, 그때 진짜 무력한 가드가 같은 자리에 숨는다.
+    CLAUDE.md 교훈의 대칭축이다: *안 돈 검사를 통과한 것처럼* 보이게 하지 않는 만큼,
+    *안 돈 검사를 실패한 것처럼* 보이게 해서도 안 된다. 둘 다 초록/빨강을 거짓말로 만든다.
+    ⇒ 돌릴 수 없으면 **미실행(ok=None)**으로 분류한다(러너가 이미 가진 상태다).
+    """
+    import importlib.util as _u
+
+    for mod in t.get("requires_modules") or ():
+        if _u.find_spec(mod) is None:
+            return f"{mod} 미설치 — 가드가 의도적으로 침묵하는 환경(무력함과 구분)"
+    return None
+
+
 def run_injection_tests() -> list[dict]:
     out = []
     for t in INJECTION_TESTS:
         rx = re.compile(t["pattern"])
+        unmet = _unmet_requirement(t)
+        if unmet:
+            out.append({"guard": t["name"], "ok": None, "desc": t["desc"],
+                        "why": t.get("why", ""), "msg": f"미실행: {unmet}"})
+            continue
         got_v = _run_check(t["name"], t["violate"], t["args"])
         got_c = _run_check(t["name"], t["clean"], t["args"])
         if got_v == ["__MISSING__"]:

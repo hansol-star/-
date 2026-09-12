@@ -1131,7 +1131,12 @@ def check_debt_integrity(stocks: dict):
 COVERAGE_LAYERS = [
     ("financials.json", 7,  "financials.py --all --save", "재무제표 3표 — 스코어의 하드넘버 근거 (2개월 0건 사고 재발방지)"),
     ("stocks.json",     1,  "보고서 파이프라인",            "종목별 콜(별점·스코어·매수존)"),
-    ("flows.json",      1,  "naver_flows.py",             "외인·기관 수급"),
+    # ⚠️ [9/12] 舊 힌트는 `naver_flows.py`였는데 **그 스크립트는 flows.json을 쓰지 않는다**
+    #    (writer 없음 · build_app_data.py도 632행에서 읽기만 한다). stale일 때 힌트를 그대로
+    #    따라도 층이 안 갱신되는, 조용히 헛도는 안내였다 → 실제 경로(보고서 파이프라인)로 교정.
+    #    기계 수집분은 `naver_flows.py --flows-line`이 series 항목 형식으로 찍어주고, 그걸
+    #    파이프라인이 flows.json에 적는다.
+    ("flows.json",      1,  "보고서 파이프라인 (값 = naver_flows.py --flows-line)", "외인·기관 수급"),
     ("tasks.json",      1,  "보고서 파이프라인",            "계획·할일·매수추적 (앱 #plan)"),
     ("hunter.json",     3,  "hunter_latest.py (R1)",       "경제사냥꾼 영상 논지·setups"),
     ("feeds.json",      3,  "hunter_latest.py (R1)",       "수페TV·지식인사이드"),

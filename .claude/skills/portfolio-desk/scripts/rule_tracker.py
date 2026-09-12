@@ -292,7 +292,7 @@ def score(rows: list[dict]):
     print(f"     {'단계':<9}{'표본':>7}{'국면':>6}" + "".join(f"{lbl:>10}" for _, lbl in HORIZONS))
     for k in sorted(by_step):
         rs = by_step[k]
-        line = f"     {('D'+str(k)+'까지') if k else '해금없음':<9}{len(rs):>7}{episodes(rs):>6}"
+        line = f"     {(_step_label(k)+'까지') if k else '해금없음':<9}{len(rs):>7}{episodes(rs):>6}"
         for h, _ in HORIZONS:
             vals = [v for v in (_fwd_row(cache, r, h) for r in rs) if v is not None]
             line += f"{statistics.median(vals):>+9.1f}%" if vals else f"{'—':>10}"
@@ -318,10 +318,10 @@ def score(rows: list[dict]):
             ep = episodes(rs) if rs else 0
             if len(rs) < 15 or ep < MIN_EPISODES:
                 if rs:
-                    print(f"     {('D'+str(k)) if k else '없음':<7}{label:<15}{len(rs):>7}{ep:>6}"
+                    print(f"     {_step_label(k) if k else '없음':<7}{label:<15}{len(rs):>7}{ep:>6}"
                           f"   ⏳ 표본/국면 부족(최소 15표본·{MIN_EPISODES}국면)")
                 continue
-            line = f"     {('D'+str(k)) if k else '없음':<7}{label:<15}{len(rs):>7}{ep:>6}"
+            line = f"     {_step_label(k) if k else '없음':<7}{label:<15}{len(rs):>7}{ep:>6}"
             med = {}
             for h, _ in HORIZONS:
                 vals = [v for v in (_fwd_row(cache, r, h) for r in rs) if v is not None]
@@ -338,7 +338,7 @@ def score(rows: list[dict]):
         print("\n     [12개월 순효과 판정 — 강한 감산이 더 좋으면 감산은 역효과]")
         for k, a, b in verdicts:
             tag = "🔴 역효과" if a > b else "🟢 감산 유효"
-            print(f"       D{k}: 강한 {a:+.1f}% vs 약한 {b:+.1f}%  (차 {a-b:+.1f}%p) → {tag}")
+            print(f"       {_step_label(k)}: 강한 {a:+.1f}% vs 약한 {b:+.1f}%  (차 {a-b:+.1f}%p) → {tag}")
     else:
         print("\n     ⏳ 모든 단계에서 표본/국면 부족 — 폭풍 감산 순효과 판정 불가.")
 
@@ -398,10 +398,26 @@ def _rule2_score(rows, D):
     print("     ↳ 훼손 경보가 옳았다면 **이후 수익률이 음(-)**이어야 한다.")
 
 
+def _step_label(i: int) -> str:
+    """1-based 단계 인덱스 → 사다리 라벨(D0~D4).
+
+    ⚠️ **인덱스로 라벨을 만들지 말 것**(CLAUDE.md 영구교정 · 9/9 D0 신설 때 세 곳에서 같은 버그를 고쳤다).
+    `steps_unlocked`는 1부터 시작하는 인덱스라 `f"D{i}"`로 찍으면 전부 한 칸 밀린다 —
+    -24.2% 낙폭(= D0·8%)이 "D1"로 나오고, D1(15%)은 "D2"로 나온다.
+    정본은 `tranche_rules.STEP_LABELS`다(`triggers.py`도 이미 그쪽을 쓴다).
+    """
+    import tranche_rules as TR
+
+    labels = getattr(TR, "STEP_LABELS", None) or []
+    return labels[i - 1] if 0 < i <= len(labels) else f"D?{i}"
+
+
 def _quick_state(r):
     print("  [최신 스냅샷]")
+    steps = r.get("steps_unlocked") or []
+    lab = _step_label(max(steps)) if steps else "해금없음"
     print(f"    코스피 {r.get('kospi') or 0:,.0f} · 낙폭 {r['dd_pct']:+.1f}% "
-          f"· 해금 D{r['steps_unlocked']}({r['unlocked_ratio']*100:.0f}%)")
+          f"· 해금 {lab}({r['unlocked_ratio']*100:.0f}%)")
     print(f"    폭풍 {r.get('storm_pct')}%ile ×{r['storm_mult']} · 항복 "
           f"{'ON' if r['capitulation'] else 'OFF'} → 승수 ×{r['final_mult']}")
     print(f"    허용 상한 {r['allowed_krw']:,}원 " + ("(🔴 하드 플로어 정지)" if r["halted"] else ""))

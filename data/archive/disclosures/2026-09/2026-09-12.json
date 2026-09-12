@@ -1,0 +1,110 @@
+{
+ "updated": "2026-09-11",
+ "days": 7,
+ "universe": [
+  "005930",
+  "066570",
+  "454910",
+  "005380",
+  "035420"
+ ],
+ "counts": {
+  "critical": 0,
+  "notable": 1,
+  "routine": 5
+ },
+ "items": [
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "date": "20260904",
+   "title": "주식등의대량보유상황보고서(일반)",
+   "level": "notable",
+   "category": "5%보고",
+   "why": "대주주 매매",
+   "rcept_no": "20260904000401",
+   "filer": "두산",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260904000401"
+  }
+ ],
+ "insider": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "n": 1,
+   "net": -1164,
+   "n_buy": 0,
+   "n_sell": 1,
+   "top": [
+    {
+     "who": "배상기",
+     "ofcps": "부사장",
+     "regist": "비등기임원",
+     "delta": -1164,
+     "held": 1846,
+     "date": "2026-09-09"
+    }
+   ]
+  },
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "n": 1,
+   "net": -4750,
+   "n_buy": 0,
+   "n_sell": 1,
+   "top": [
+    {
+     "who": "이종화",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": -4750,
+     "held": 0,
+     "date": "2026-09-11"
+    }
+   ]
+  }
+ ],
+ "major": [
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "date": "2026-09-04",
+   "who": "두산",
+   "qty": 32394277,
+   "d_qty": 0,
+   "rate": "49.98",
+   "d_rate": "0",
+   "reason": "계약 내용의 변경",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260904000401"
+  }
+ ],
+ "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
+}

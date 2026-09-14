@@ -357,6 +357,33 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_watch_calls",
+        "desc": "워치 콜 원장이 최신 보고서를 안 담고 있으면 잡는가",
+        "why": "9/14 신설. **이미 한 번 통째로 잃은 축이다** — 매 보고서 워치 22종목에 별점을 "
+               "매기면서 score_calls의 백필 소스는 stocks.json(보유만)이라 워치 콜은 구조적으로 "
+               "원장에 못 들어갔다. 3개월간 매일 만들어 매일 버렸고 소급에서 887콜·종목 23개가 "
+               "회수됐다. 그 사이 star_validate는 종목 16개로 돌아 버킷당 3~4개 → CI가 전부 겹쳤고 "
+               "5회 연속 '판정 불가'가 나왔다. 병합하니 독립 단위 16→37, LOO 2/3→3/3, "
+               "판정이 🟡'역전 견고'→🟢'역전이 무너졌다'로 **뒤집혔다** — 누락이 통계를 흐린 게 "
+               "아니라 **결론을 반대로 만들고 있었다**",
+        "pattern": r"워치 콜 원장",
+        # ⚠️ 잡기 쉬운 '파일 없음'이 아니라 **실제로 통과당할 형태**로 시험한다:
+        #    원장은 있고 내용도 그럴듯한데 **최신 보고서 날짜만 빠진** 상태 = 조용히 낡은 원장.
+        #    이게 위험한 이유 = --with-watch가 성공한 척하며 옛 표본을 본다(8/22 '초록불≠위반없음').
+        "violate": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/watch_calls.jsonl":
+                '{"date":"2026-08-20","ticker":"000660.KS","stars":4,"score":null,"origin":"watch"}\n',
+        },
+        "clean": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/watch_calls.jsonl":
+                '{"date":"2026-08-25","ticker":"000660.KS","stars":4,"score":null,"origin":"watch"}\n',
+        },
+        "args": (99,),
+    },
+
+    {
         "name": "check_memory_index",
         "desc": "의미검색 인덱스가 원장보다 낡으면 잡는가",
         "why": "9/1 신설. memory_embed 인덱스는 파생물이라 원장이 늘어도 안 따라오는데 "

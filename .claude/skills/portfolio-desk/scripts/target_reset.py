@@ -37,8 +37,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import statistics
 import subprocess
 import sys
+from collections import Counter
 
 _HERE = os.path.abspath(__file__)
 ROOT = os.path.abspath(os.path.join(_HERE, *([os.pardir] * 5)))
@@ -111,19 +113,88 @@ FLAG_PENALTY = {
 }
 
 
-def optimism(sub, stale, flags=()) -> float:
+# ── 종목별 실측 편향 → 낙관계수 보정 ────────────────────────────────────────
+# ★[9/14 신설 — 정훈 "데이터 많이 쌓이지 않았나? 점점 잘 맞았으면"]
+#
+# **왜 — 자기교정 루프가 끊겨 있었다.**
+# 낙관계수 0.33은 8/8 `target_score` 실측을 **사람이 읽고 손으로 코드에 박은 상수**다(9/9).
+# 그래서 편향이 커져도 계수는 0.33, 편향이 사라져도 0.33이다. 측정은 매주 도는데
+# **보정은 한 번 돌고 멈춘 상태**였다 — "점점 잘 맞는다"가 막히는 정확한 지점이다.
+# 8/2 원칙의 목표가판: *"오더북에 들어간 것만 집행된다"* ⇒ **코드가 읽는 것만 되먹임된다.**
+#
+# 더 나쁜 건 **종목별 편차를 통째로 무시**했다는 것이다(9/14 실측, 20일 지평):
+#     삼성전자 +64.0%p · ORCL +58.7 · NVDA +40.8 · 현대차 +40.8  ↔  AAPL −1.3 · ANET +1.7
+# 편향이 65%p 벌어지는데 전 종목에 같은 0.33을 먹였다. AAPL은 정직했는데 똑같이 깎였고,
+# 삼성전자는 여력을 통째로 헛불렀는데 똑같이만 깎였다.
+#
+# **왜 절대값이 아니라 중앙값 대비 편차를 쓰나 — 지평 불일치 때문이다.**
+# 12개월 목표를 20거래일로 채점하므로 실현이 0 근처로 나오는 건 **전 종목 공통**이고,
+# 그 공통분은 이미 기본계수 0.33이 흡수한다. 여기서 `k = 1 − 실현/내재`처럼 절대값을 쓰면
+# k가 1에 붙어 목표가가 현재가로 붕괴한다. 우리가 실제로 모르는 건 **상대적 정직도**이고,
+# 중앙값 대비 편차는 지평 편의가 상쇄된 뒤 남는 그 부분이다.
+#
+# ⚠️ **기본값 OFF.** `--calibrated` 없이는 현행 계수를 그대로 쓴다.
+#    목표가는 매수존·트림 판단에 들어가므로 **적용 여부는 정훈 승인 사항**이다(CLAUDE.md 8/12 단서).
+#    단 계수 비교표는 **항상 출력**한다 — 안 보이면 승인 여부를 물을 수조차 없다.
+CALIB_LAMBDA = 0.5      # 편차 1.00(=100%p) 당 계수 이동폭. 0.5 = 절반만 반영(과적합 방지)
+CALIB_MIN_CALLS = 20    # 이보다 적은 콜의 종목은 보정하지 않는다(추정 불안정)
+CALIB_HORIZON = 20      # target_score 기본 지평과 일치
+
+
+def measured_bias(horizon: int = CALIB_HORIZON):
+    """target_score 실측 → {ticker: (편향%p, 콜수)} + 전체 중앙값 편향.
+
+    실패(모듈 없음·표본 없음)해도 **예외를 올리지 않는다** — 보정은 부가 기능이고,
+    채점기가 죽었다고 목표가 계산기까지 멈추면 안 된다. 실패 시 ({}, None)을 준다.
+    """
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import target_score as ts
+        rows = ts.build(horizon)
+        if not rows:
+            return {}, None
+        per = ts.by_cluster(rows, lambda r: "all")["all"]["per"]
+        counts = Counter(r["ticker"] for r in rows)
+        out = {t: (v["bias"], counts[t]) for t, v in per.items()}
+        med = statistics.median([v["bias"] for v in per.values()])
+        return out, med
+    except Exception:
+        return {}, None
+
+
+def optimism(sub, stale, flags=(), ticker=None, bias_map=None, bias_med=None) -> float:
     k = 0.33 if sub is None else (0.25 if sub >= 85 else (0.50 if sub < 40 else 0.33))
     if stale:
         k += 0.15
     for fl in set(flags):
         k += FLAG_PENALTY.get(fl, 0.0)
-    return round(min(k, 0.65), 3)
+    # 실측 보정 — 중앙값보다 낙관적이었던 종목은 더 깎고, 정직했던 종목은 덜 깎는다.
+    if bias_map and bias_med is not None and ticker in bias_map:
+        b, n = bias_map[ticker]
+        if n >= CALIB_MIN_CALLS:
+            k += CALIB_LAMBDA * (b - bias_med) / 100.0
+    return round(min(max(k, 0.10), 0.65), 3)
+
+
+BIAS_MAP: dict = {}
+BIAS_MED = None
+USE_CALIB = False
+KTAB: list = []          # (종목명, 티커, 현행k, 실측보정k, 편향%p, 콜수)
 
 
 def main() -> int:
+    global BIAS_MAP, BIAS_MED, USE_CALIB
     ap = argparse.ArgumentParser(description="목표가 재산정 (12M · 낙관 보정)")
     ap.add_argument("--save", action="store_true", help="stocks.json 목표가에 실제 반영")
+    ap.add_argument("--calibrated", action="store_true",
+                    help="종목별 실측 편향으로 낙관계수 보정 (기본 OFF — 적용은 정훈 승인 사항)")
     a = ap.parse_args()
+
+    BIAS_MAP, BIAS_MED = measured_bias()
+    USE_CALIB = a.calibrated
+    if a.calibrated and not BIAS_MAP:
+        print("⚠️ 실측 편향을 못 읽었다(target_score 표본 없음) — 현행 계수로 진행한다.")
+        USE_CALIB = False
 
     cons = load(os.path.join(APP, "consensus.json"), {}) or {}
     rows = {r["symbol"]: r for r in cons.get("rows", [])}
@@ -179,7 +250,11 @@ def main() -> int:
             continue
 
         fl = flags.get(tk, [])
-        k = optimism(sub.get(tk), stale, fl)
+        k_cur = optimism(sub.get(tk), stale, fl)
+        k_cal = optimism(sub.get(tk), stale, fl, tk, BIAS_MAP, BIAS_MED)
+        k = k_cal if USE_CALIB else k_cur
+        if tk in BIAS_MAP and BIAS_MAP[tk][1] >= CALIB_MIN_CALLS:
+            KTAB.append((name, tk, k_cur, k_cal, BIAS_MAP[tk][0], BIAS_MAP[tk][1]))
         up_c = anchor / price - 1
         center = price * (1 + up_c * (1 - k))
 
@@ -198,6 +273,24 @@ def main() -> int:
               f"  {'·'.join(sorted(pen)) if pen else ''}")
         updates[tk] = dict(low=lo, center=center, high=hi, anchor=anchor, n=n,
                            k=k, src=src, stale=stale, price=price, kr=kr, flags=sorted(pen))
+
+    # ── 낙관계수: 현행(고정) vs 실측보정 — 적용 여부와 무관하게 **항상** 보여준다.
+    #    안 보이면 정훈이 승인 여부를 물을 수조차 없다(8/2 '오더북에 들어간 것만 집행된다'의 보고판).
+    if KTAB:
+        print("\n" + "─" * 78)
+        print(f"  낙관계수 — 현행(고정) vs 실측보정   "
+              f"[{'✅ 보정 적용 중' if USE_CALIB else '기본 OFF · --calibrated로 적용'}]")
+        print("─" * 78)
+        print(f"  중앙값 편향 {BIAS_MED:+.1f}%p 기준 · λ={CALIB_LAMBDA} · 최소 {CALIB_MIN_CALLS}콜 · 지평 {CALIB_HORIZON}일")
+        print(f"  {'종목':<12}{'실측편향%p':>11}{'콜':>5}{'현행k':>8}{'보정k':>8}{'Δ':>8}   해석")
+        for name, tk, kc, kk, b, n in sorted(KTAB, key=lambda x: -x[4]):
+            d = kk - kc
+            note = ("여력을 크게 헛불렀다 → 더 깎는다" if d > 0.03 else
+                    "정직했다 → 덜 깎는다" if d < -0.03 else "중앙값 수준")
+            print(f"  {name:<12}{b:>+11.1f}{n:>5}{kc:>8.2f}{kk:>8.2f}{d:>+8.2f}   {note}")
+        print("  ⚠️ 편향의 절대값엔 **지평 불일치**(12M 목표를 20일로 채점)가 섞여 있다 —")
+        print("     그 공통분은 기본계수가 이미 먹었고, 여기서 쓰는 건 **중앙값 대비 상대 편차**뿐이다.")
+        print("  ⚠️ 목표가는 매수존·트림 판단에 들어간다 — **적용은 정훈 승인 사항**이다.")
 
     print("\n※ 중심 = 현재가 × (1 + 컨센여력 × (1−낙관계수)). 컨센을 앵커로 쓰되 종속되지 않는다.")
     print("※ 낙관계수 근거 = target_score 실측 '여력이 클수록 편향이 크다'(+50%↑ 목표는 +52.6%p 빗나갔다).")

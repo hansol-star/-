@@ -1673,6 +1673,52 @@ def check_routine_health(today=None):
     except Exception:
         pass
 
+def check_watch_calls(latest=None):
+    """[9/14 신설] 워치 콜 원장이 최신 보고서를 담고 있는지 — 채점 표본이 조용히 새는 것을 막는다.
+
+    ★ 왜 필요한가 — **우리는 이미 한 번 이걸 통째로 잃었다.**
+      매 보고서 워치 22종목에 ⭐별점을 매기면서(풀표 규약) `score_calls.py`의 백필 소스는
+      `stocks.json`(보유만)이었다 → 워치 콜은 **구조적으로 원장에 못 들어갔다.**
+      3개월간 매일 22건씩 만들어 매일 버렸고, 9/14 소급에서 **887콜·종목 23개**가 회수됐다.
+      그 사이 `star_validate`는 종목 16개로만 돌아 버킷당 3~4개 → CI가 전부 겹쳤고,
+      5회 연속 '판정 불가'가 나왔다. **표본이 부족했던 게 아니라 버리고 있었다.**
+
+      병합 후 실측: 독립 단위 16→37, LOO 부호 유지가 2/3→3/3(단일종목 취약성 해소),
+      최종 판정이 🟡'역전 견고'→🟢'역전이 보정에서 무너졌다'로 **뒤집혔다.**
+      즉 이 누락은 통계를 흐린 정도가 아니라 **결론을 반대로 만들고 있었다.**
+
+    ⚠️ WARN이다 — 워치 원장은 측정 축이고 어떤 룰도 바꾸지 않으므로 커밋을 막지 않는다.
+       단 조용히 낡으면 안 된다: 낡은 채로 `--with-watch`를 돌리면 **표본이 는 줄 알고 옛 표본**을 본다.
+    """
+    led = os.path.join(ROOT, "data", "app", "watch_calls.jsonl")
+    rel = "watch_calls.py --save"
+    if not os.path.exists(led):
+        warn(f"워치 콜 원장 없음 — 매 보고서 워치 별점이 채점에 안 들어간다. `{rel}`")
+        return
+    days = set()
+    try:
+        with open(led, encoding="utf-8") as f:
+            for ln in f:
+                if ln.strip():
+                    d = json.loads(ln).get("date")
+                    if d:
+                        days.add(d)
+    except (OSError, json.JSONDecodeError) as e:
+        warn(f"워치 콜 원장을 못 읽음 ({e}) — `{rel}`")
+        return
+    if not days:
+        warn(f"워치 콜 원장이 비었다 — `{rel}`")
+        return
+    # 최신 보고서 날짜가 원장에 있는가. 없으면 그 보고서의 워치 별점이 통째로 빠진 것이다.
+    rp = latest_report_path(latest) if latest else None
+    m = re.search(r"_(\d{4}-\d{2}-\d{2})\.md$", rp or "")
+    if not m:
+        return
+    rday = m.group(1)
+    if rday not in days:
+        warn(f"워치 콜 원장에 최신 보고서 날짜({rday})가 없다 — 그날 워치 별점이 채점에서 빠진다. `{rel}`")
+
+
 def check_memory_index():
     """[9/1 신설] 의미검색 인덱스가 원장보다 낡았는지 — 조용히 낡는 회수를 막는다.
 
@@ -2264,7 +2310,7 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
-    check_routine_health(); check_memory_index()
+    check_routine_health(); check_memory_index(); check_watch_calls(latest)
     check_transcript_persistence(); check_data_archive()
     check_split_scale()
     if not a.no_report:

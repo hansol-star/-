@@ -39,9 +39,18 @@ from collections import defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 LEDGER = os.path.join(ROOT, "data/app/calls_log.jsonl")
+WATCH_LEDGER = os.path.join(ROOT, "data/app/watch_calls.jsonl")   # ★9/14 — watch_calls.py 산출
 HIST = os.path.join(ROOT, "data/history")
 ETF = {"VOO"}
 REGIME_SPLIT = "2026-07-31"      # 코스피 +17.91%(사상 최대 상승) = 폭락→반등 전환일
+
+# ── 런타임 설정 (main이 채운다) ───────────────────────────────────────────────
+# 모듈 전역인 이유: build()/build_score()가 세 군데서 인자 없이 호출된다.
+# 인자를 늘리면 호출부 전부를 고쳐야 하고, 그 과정에서 한 곳을 빠뜨리면
+# **조용히 옛 경로로 계산된다** — 그게 8/23 '가드가 있어도 서사가 그 앞을 지나간다'의 형태다.
+CFG = {"ledgers": [LEDGER], "beta_adj": False}
+
+BETA_START = "2025-09-01"        # 베타 추정 시작(데스크 이전 1년 포함 — 추정 안정성)
 
 
 def load_series(sym):
@@ -105,13 +114,95 @@ def bench_of(ticker):
     return "^KS11" if ticker.endswith((".KS", ".KQ")) else "VOO"
 
 
+_BETA = {}
+def beta_of(ticker):
+    """종목의 벤치 대비 베타(일간수익 OLS 기울기). 표본 60일 미만이면 None.
+
+    ★[9/14 신설 — 정훈 "점점 잘 맞았으면"]
+    **왜 이게 필요한가 — 역전의 절반은 우리 측정기가 만든 것이었다.**
+    舊 알파 = `fr - br`(단순 차분)는 베타를 조정하지 않는다. 벤치가 -25% 빠지는 구간에서
+    베타 2.0인 종목은 품질과 무관하게 -50% 빠지고, 차분 알파는 **자동으로 -25%p**가 찍힌다.
+    실측(9/14): ⭐5 평균 베타 **1.98**(NVDA 1.91·MU 3.32·GOOGL 1.38·삼성전자 1.31) vs
+    ⭐2 **1.09**(현대차 0.80·NAVER 0.49·두산로보 0.84) — **거의 2배**다.
+    별점↔베타 상관 r=+0.35: 우리가 높은 별점을 주는 종목이 구조적으로 고베타다.
+
+    그래서 레짐이 부호를 뒤집었다 — 폭락기 Δ(⭐5−⭐2) -7.06%p vs 반등기 +2.39%p.
+    이건 별점의 결함이 아니라 **베타 미조정의 교과서적 징후**다.
+
+    베타조정(젠센) 알파 = `fr − β·br`로 다시 재면 역전 폭이 **절반으로 줄어든다**
+    (20일 지평 -4.26%p → -2.15%p · 10일 -3.51 → -1.97 · 5일 -2.20 → -1.49).
+    ⚠️ **부호는 안 바뀐다** — 나머지 절반은 베타로 설명되지 않는다.
+       "보정하니 사라졌다"가 아니라 **"절반은 허상, 절반은 남았다"**가 정확한 서술이다.
+
+    ⚠️ 한계: 단일 베타를 전 기간에 적용한다(시변 베타 아님). 무위험이자율은 0으로 근사한다
+       (지평 5~20거래일이라 무시 가능). 베타 추정 자체가 폭락장을 포함하므로 상향 편의가 있을 수 있다.
+    """
+    if ticker in _BETA:
+        return _BETA[ticker]
+    b = bench_of(ticker)
+    s, bs = series(ticker), series(b) if b else []
+    if not s or not bs:
+        _BETA[ticker] = None
+        return None
+
+    def rets(ser):
+        f = [x for x in ser if x[0] >= BETA_START]
+        return {f[i][0]: f[i][1] / f[i - 1][1] - 1
+                for i in range(1, len(f)) if f[i - 1][1]}
+
+    rs, rb = rets(s), rets(bs)
+    common = sorted(set(rs) & set(rb))
+    if len(common) < 60:
+        _BETA[ticker] = None
+        return None
+    x = [rb[d] for d in common]
+    y = [rs[d] for d in common]
+    vx = st.variance(x)
+    if not vx:
+        _BETA[ticker] = None
+        return None
+    mx, my = st.mean(x), st.mean(y)
+    _BETA[ticker] = sum((a - mx) * (c - my) for a, c in zip(x, y)) / (len(x) - 1) / vx
+    return _BETA[ticker]
+
+
+def _alpha(ticker, fr, br):
+    """전진수익 → 알파. CFG['beta_adj']면 젠센 알파(fr − β·br), 아니면 단순 차분."""
+    if CFG["beta_adj"]:
+        bt = beta_of(ticker)
+        if bt is not None:
+            return fr - bt * br
+    return fr - br
+
+
+def _iter_ledger():
+    """설정된 원장들을 순회한다(보유 + 선택적으로 워치).
+
+    ⚠️ 같은 (날짜, 종목)이 두 원장에 있으면 **보유 원장이 이긴다** — 보유 쪽이
+       stocks.json 구조화 필드에서 나와 스코어까지 갖고 있다(워치는 마크다운 파싱이라 별점만).
+    """
+    seen = set()
+    for path in CFG["ledgers"]:
+        if not os.path.exists(path):
+            continue
+        for ln in open(path, encoding="utf-8"):
+            if not ln.strip():
+                continue
+            try:
+                r = json.loads(ln)
+            except json.JSONDecodeError:
+                continue
+            key = (r.get("date"), r.get("ticker"))
+            if key in seen:
+                continue
+            seen.add(key)
+            yield r
+
+
 def build(horizon):
     """원장 → [(ticker, stars, date, alpha, raw)] (알파 계산 가능한 것만)."""
     rows = []
-    for ln in open(LEDGER, encoding="utf-8"):
-        if not ln.strip():
-            continue
-        r = json.loads(ln)
+    for r in _iter_ledger():
         tk, stars, d = r.get("ticker"), r.get("stars"), r.get("date")
         if not tk or not isinstance(stars, int) or not d:
             continue
@@ -122,7 +213,7 @@ def build(horizon):
         br = fwd_return(b, d, horizon)
         if fr is None or br is None:
             continue
-        rows.append((tk, stars, d, fr - br, fr))
+        rows.append((tk, stars, d, _alpha(tk, fr, br), fr))
     return rows
 
 
@@ -137,10 +228,7 @@ def build_score(horizon):
     ⇒ 같은 원장을 **연속값 순위상관**으로 다시 본다. 버킷을 안 나누므로 전 종목이 한 표본이다.
     """
     rows = []
-    for ln in open(LEDGER, encoding="utf-8"):
-        if not ln.strip():
-            continue
-        r = json.loads(ln)
+    for r in _iter_ledger():
         tk, sc, d = r.get("ticker"), r.get("score"), r.get("date")
         if not tk or not isinstance(sc, (int, float)) or not d:
             continue
@@ -151,7 +239,7 @@ def build_score(horizon):
         br = fwd_return(b, d, horizon)
         if fr is None or br is None:
             continue
-        rows.append((tk, float(sc), d, fr - br))
+        rows.append((tk, float(sc), d, _alpha(tk, fr, br)))
     return rows
 
 
@@ -381,7 +469,18 @@ def main():
     ap.add_argument("--horizons", default="5,10,20", help="고정 지평(거래일), 쉼표구분")
     ap.add_argument("--boot", type=int, default=2000, help="부트스트랩 반복(기본 2000)")
     ap.add_argument("--split", default=REGIME_SPLIT, help=f"레짐 분할일(기본 {REGIME_SPLIT})")
+    ap.add_argument("--with-watch", action="store_true",
+                    help="워치 콜 원장(watch_calls.jsonl)을 병합 — 독립 단위 16→37")
+    ap.add_argument("--beta-adj", action="store_true",
+                    help="젠센 알파(fr − β·br)로 채점 — 고베타 종목의 구조적 음알파 제거")
     a = ap.parse_args()
+
+    CFG["beta_adj"] = a.beta_adj
+    if a.with_watch:
+        if not os.path.exists(WATCH_LEDGER):
+            print(f"⚠️ 워치 원장 없음 — 먼저 `watch_calls.py --save`를 돌릴 것: {WATCH_LEDGER}")
+            return 1
+        CFG["ledgers"] = [LEDGER, WATCH_LEDGER]
 
     print("=" * 74)
     print("  별점 예측력 재검정 — 클러스터 보정 · 구간 층화 · 고정지평")
@@ -389,6 +488,11 @@ def main():
     print(f"\n검정 절차(8/5 확립): ①집계 → ②구간 분해 → ③횡단면 재현")
     print(f"②·③을 통과 못 하면 역전은 '없었던 것'으로 본다.")
     print(f"\n레짐 분할일: {a.split} (코스피 +17.91% = 사상 최대 상승일)")
+    print(f"원장: {'보유+워치(병합)' if a.with_watch else '보유만'}"
+          f" · 알파: {'베타조정(젠센 fr−β·br)' if a.beta_adj else '단순차분(fr−br)'}")
+    if not a.beta_adj:
+        print("  ↳ ⚠️ 단순차분은 고베타 종목에 구조적 음알파를 씌운다"
+              "(⭐5 평균 β 1.98 vs ⭐2 1.09) — `--beta-adj`와 함께 읽을 것.")
 
     summary = {}
     for h in [int(x) for x in a.horizons.split(",")]:

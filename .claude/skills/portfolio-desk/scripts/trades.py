@@ -455,6 +455,10 @@ def cmd_add(args) -> int:
     if not args.source:
         print("❌ --source 필수 — 체결 확인 근거(토스 스크린샷·보고서)를 반드시 남긴다.", file=sys.stderr)
         return 1
+    # ★[9/16] --ticker 없이 --label만 주면 ticker=null 행이 들어가 --reconcile이 TypeError로 죽었다
+    if not args.ticker:
+        print("❌ --ticker 필수 — 원장 키는 티커다(--label은 표시명일 뿐). 예: --ticker GOOGL", file=sys.stderr)
+        return 1
     row = {
         "date": args.date, "ticker": args.ticker, "label": args.label or args.ticker,
         "side": args.side, "shares": args.shares, "price": args.price,

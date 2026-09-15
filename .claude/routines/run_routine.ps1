@@ -61,6 +61,10 @@ $env:Path = "$env:APPDATA\npm;$env:LOCALAPPDATA\Programs\Python\Python312;" +
             "C:\Program Files\Git\bin;C:\Program Files\nodejs;$env:Path"
 $env:PYTHONUTF8 = '1'          # 콘솔 cp949에서 한글 출력이 깨지는 것 방지
 $env:PYTHONIOENCODING = 'utf-8'
+# ★[9/16] print 모드는 백그라운드 서브에이전트를 600초 뒤 강제 종료한다. 9/15 R1이 마무리(로그·앱 반영·커밋)를
+#   research-feed 백그라운드에 넘긴 채 잘려 verdict=UNCOMMITTED·반영 0건으로 끝났다(9/9 이후 영상 공백의 실체).
+#   0 = 무제한 대기 — 루틴 전체 상한은 작업 스케줄러 실행시간 제한이 맡는다.
+$env:CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS = '0'
 # 자식 프로세스와 주고받는 텍스트를 UTF-8로 고정(한글 프롬프트·로그 깨짐 방지)
 try {
   [Console]::OutputEncoding = [System.Text.Encoding]::UTF8

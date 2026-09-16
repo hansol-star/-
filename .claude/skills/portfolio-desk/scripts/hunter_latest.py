@@ -617,7 +617,10 @@ def main():
                 d = datetime.strptime(it["published_kst"][:10], "%Y-%m-%d").date()
                 if (today - d).days <= span:
                     targets.append(it)
-        targets = targets[: args.max]
+        # ★[9/17] --ids로 명시한 목록은 --max(기본 4)로 자르지 않는다. 舊 = 54편을 넘겨도 조용히 4편만
+        # 추출하고 나머지 50편은 로그에 이름만 남았다(누락 회수 경로가 누락을 만들던 버그).
+        if not args.ids:
+            targets = targets[: args.max]
         _pace = "페이싱 없음(yt-dlp 자막 0차)" if have_ytdlp() else f"영상 간 {PACE_MIN}~{PACE_MAX}초 페이싱"
         print(f"\n--- 자막 추출 ({len(targets)}편, {_pace}) ---")
         failed = []

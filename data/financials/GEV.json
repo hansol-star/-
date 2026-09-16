@@ -5,8 +5,8 @@
  "currency": "USD",
  "source": "SEC EDGAR XBRL companyfacts",
  "depth": "full",
- "as_of": "2026-09-12",
- "saved_at": "2026-09-12",
+ "as_of": "2026-09-17",
+ "saved_at": "2026-09-17",
  "annual": [
   {
    "end": "2025-12-31",
@@ -200,13 +200,13 @@
    "debt_to_equity": 0.2337,
    "current_ratio": 0.8496,
    "net_cash": 10326000000,
-   "revenue_yoy": 38.247,
-   "eps_yoy": 171.4286,
-   "net_income_yoy": 162.9921,
-   "inventory_yoy": 38.6195,
-   "receivables_yoy": 55.5353,
-   "shares_yoy": -3.2258,
-   "deferred_yoy": 113.5129
+   "revenue_yoy": 21.8747,
+   "eps_yoy": 32.7957,
+   "net_income_yoy": 29.9611,
+   "inventory_yoy": 29.1807,
+   "receivables_yoy": 59.7438,
+   "shares_yoy": -2.1739,
+   "deferred_yoy": 103.7647
   },
   {
    "end": "2026-03-31",
@@ -241,13 +241,13 @@
    "debt_to_equity": 0.2016,
    "current_ratio": 0.8934,
    "net_cash": 7366000000,
-   "revenue_yoy": 4.7795,
-   "eps_yoy": 5082.8571,
-   "net_income_yoy": 5042.7083,
-   "inventory_yoy": 27.1089,
-   "receivables_yoy": null,
-   "shares_yoy": -1.0909,
-   "deferred_yoy": 88.2541
+   "revenue_yoy": 16.2724,
+   "eps_yoy": 1816.4835,
+   "net_income_yoy": 1768.1102,
+   "inventory_yoy": 30.1769,
+   "receivables_yoy": 34.0807,
+   "shares_yoy": -2.509,
+   "deferred_yoy": 70.1411
   },
   {
    "end": "2025-09-30",
@@ -282,13 +282,13 @@
    "debt_to_equity": null,
    "current_ratio": 1.0285,
    "net_cash": null,
-   "revenue_yoy": 21.5139,
-   "eps_yoy": -64.7312,
-   "net_income_yoy": -65.0696,
-   "inventory_yoy": 7.34,
+   "revenue_yoy": 11.8479,
+   "eps_yoy": 568.5714,
+   "net_income_yoy": 570.8333,
+   "inventory_yoy": 6.9852,
    "receivables_yoy": null,
-   "shares_yoy": -1.0791,
-   "deferred_yoy": 21.8614
+   "shares_yoy": 0.0,
+   "deferred_yoy": 19.1803
   },
   {
    "end": "2025-06-30",
@@ -323,13 +323,13 @@
    "debt_to_equity": null,
    "current_ratio": 1.0281,
    "net_cash": null,
-   "revenue_yoy": 25.4959,
-   "eps_yoy": 495.7447,
-   "net_income_yoy": 495.3846,
-   "inventory_yoy": 10.9042,
+   "revenue_yoy": 11.0556,
+   "eps_yoy": -60.0,
+   "net_income_yoy": -60.2782,
+   "inventory_yoy": 5.1252,
    "receivables_yoy": null,
-   "shares_yoy": 0.7299,
-   "deferred_yoy": 23.1422
+   "shares_yoy": -0.7194,
+   "deferred_yoy": 18.5474
   },
   {
    "end": "2025-03-31",
@@ -364,13 +364,13 @@
    "debt_to_equity": null,
    "current_ratio": 1.0385,
    "net_cash": null,
-   "revenue_yoy": -2.6778,
-   "eps_yoy": 246.7742,
-   "net_income_yoy": 249.4118,
-   "inventory_yoy": null,
+   "revenue_yoy": 10.6336,
+   "eps_yoy": 293.617,
+   "net_income_yoy": 295.3846,
+   "inventory_yoy": 3.3525,
    "receivables_yoy": null,
    "shares_yoy": 1.8248,
-   "deferred_yoy": null
+   "deferred_yoy": 17.5199
   },
   {
    "end": "2024-09-30",
@@ -405,9 +405,9 @@
    "debt_to_equity": null,
    "current_ratio": 1.0611,
    "net_cash": null,
-   "revenue_yoy": 9.7795,
-   "eps_yoy": 36.3636,
-   "net_income_yoy": 36.0,
+   "revenue_yoy": 7.9971,
+   "eps_yoy": 43.5484,
+   "net_income_yoy": 43.5294,
    "inventory_yoy": null,
    "receivables_yoy": null,
    "shares_yoy": 0.365,
@@ -446,12 +446,12 @@
    "debt_to_equity": null,
    "current_ratio": 1.057,
    "net_cash": null,
-   "revenue_yoy": 20.258,
-   "eps_yoy": null,
-   "net_income_yoy": 510.7937,
+   "revenue_yoy": 1.0469,
+   "eps_yoy": 945.4545,
+   "net_income_yoy": 962.6667,
    "inventory_yoy": null,
    "receivables_yoy": null,
-   "shares_yoy": null,
+   "shares_yoy": 1.4599,
    "deferred_yoy": null
   },
   {
@@ -486,7 +486,14 @@
    "roe": -0.0145,
    "debt_to_equity": null,
    "current_ratio": 0.9908,
-   "net_cash": null
+   "net_cash": null,
+   "revenue_yoy": 6.4204,
+   "eps_yoy": null,
+   "net_income_yoy": 58.7302,
+   "inventory_yoy": null,
+   "receivables_yoy": null,
+   "shares_yoy": null,
+   "deferred_yoy": null
   },
   {
    "end": "2023-09-30",

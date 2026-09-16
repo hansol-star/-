@@ -108,13 +108,24 @@ def derive(rows: list[dict], prior: list[dict]) -> list[dict]:
         d["current_ratio"] = _m(_ratio(r.get("assets_current"), r.get("liabilities_current")))
         cash, debt = r.get("cash"), r.get("total_debt")
         d["net_cash"] = (cash - debt) if (cash is not None and debt is not None) else None
-        # YoY = 4기 전(분기) / 1기 전(연간) — ends는 내림차순
+        # YoY = 기말일 기준 약 1년 전 기간(±21일 — 52/53주 회계연도 흡수).
+        # ★[9/17 버그 수정] 舊 = 인덱스 4칸 뒤(분기)/1칸 뒤(연간). EDGAR 분기 시계열엔 **4분기가 없다**
+        # (10-K는 연간 보고라 분기 행이 안 생긴다) → 4칸 뒤가 **5분기 전**이 돼 YoY가 부풀었다.
+        # 실측: ANET 2Q26 EPS 0.95를 1Q25 0.64와 비교해 +48.4%(실제 2Q25 0.70 대비 +35.7%),
+        # GEV 매출 +38.2%(실제 +21.9%). 이 값이 서브스코어 C축에 그대로 들어갔다.
+        # 날짜로 못 찾으면 틀린 기간과 비교하느니 YoY를 비워 둔다.
+        base = None
         try:
-            i = ends.index(r["end"])
-        except ValueError:
-            i = -1
-        lag = 4 if r.get("period") == "quarterly" else 1
-        base = by_end.get(ends[i + lag]) if 0 <= i and i + lag < len(ends) else None
+            end_d = dt.date.fromisoformat(r["end"])
+            target = end_d - dt.timedelta(days=365)
+            best = None
+            for e in ends:
+                gap = abs((dt.date.fromisoformat(e) - target).days)
+                if gap <= 21 and e != r["end"] and (best is None or gap < best[0]):
+                    best = (gap, e)
+            base = by_end.get(best[1]) if best else None
+        except (ValueError, TypeError, KeyError):
+            base = None
         if base:
             d["revenue_yoy"] = _m(_pct(rev, base.get("revenue")))
             d["eps_yoy"] = _m(_pct(r.get("eps_diluted"), base.get("eps_diluted")))

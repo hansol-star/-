@@ -55,7 +55,15 @@ GURUS = {
                     "style": "역발상·베어·풋옵션 — AI 회의론"},
     "duquesne":    {"cik": "0001536411", "name": "Duquesne Family Office (Stanley Druckenmiller)",
                     "style": "매크로·모멘텀 — AI 사이클 타이밍"},
-    "pershing":    {"cik": "0001336528", "name": "Pershing Square (Bill Ackman)",
+    # ★[9/17] 2026-08-14부터 13F-HR이 신설 지주사 Pershing Square Inc.(CIK 0002026053) 명의로 나간다.
+    # 舊 CIK 0001336528은 같은 날 13F-NT(통지)만 냈다 → 舊 CIK만 보던 이 레지스트리는 **에러 없이**
+    # 2026Q1에서 멈췄고, 그 사이 애크먼의 GOOGL 전량 청산(2026Q2)을 못 봤다. 분기 비교(diff)는
+    # 직전 분기가 舊 CIK에 있으므로 두 CIK의 제출목록을 합쳐 읽는다(cik_prior).
+    # ⚠️ 신 CIK에도 2025Q2~2026Q1 13F-HR이 **따로 있다**(1종목·$0.57B = 다른 법인 몫) → 분기로 가른다:
+    #    report_date ≥ cik_switch = 신 CIK / 그 전 = 舊 CIK. 안 가르면 직전 분기가 $0.57B짜리로 잡혀
+    #    전 종목이 'NEW'로 찍힌다(9/17 실측).
+    "pershing":    {"cik": "0002026053", "cik_prior": ["0001336528"], "cik_switch": "2026-06-30",
+                    "name": "Pershing Square (Bill Ackman)",
                     "style": "집중·퀄리티 컴파운더"},
     "appaloosa":   {"cik": "0001656456", "name": "Appaloosa (David Tepper)",
                     "style": "테크·중국·경기민감 밸류"},
@@ -128,27 +136,41 @@ def _autoscale_value(holdings: dict) -> None:
             h["value"] *= 1000
 
 
-def list_13f(cik: str, limit: int = 8):
-    """제출목록에서 최근 13F-HR(및 /A) 파일링 메타를 최신순으로 반환."""
-    cik10 = str(cik).zfill(10)
-    body = _get(f"https://data.sec.gov/submissions/CIK{cik10}.json")
-    j = json.loads(body.decode("utf-8", "replace"))
-    name = j.get("name", "")
-    rec = j["filings"]["recent"]
-    forms, accs = rec["form"], rec["accessionNumber"]
-    fdates, rdates = rec["filingDate"], rec.get("reportDate", [""] * len(forms))
+def list_13f(cik: str, limit: int = 8, prior=(), switch: str | None = None):
+    """제출목록에서 최근 13F-HR(및 /A) 파일링 메타를 최신순으로 반환.
+    prior = 같은 운용사의 舊 CIK들(지주사 재편 등) — 제출목록을 합쳐 읽는다. 각 메타에 cik를 싣는다.
+    switch = 'YYYY-MM-DD' — 이 분기부터 현행 CIK, 그 전 분기는 舊 CIK만 채택."""
+    name = ""
     by_report = {}
-    for i, f in enumerate(forms):
-        if f not in ("13F-HR", "13F-HR/A"):
+    for n, c in enumerate([cik, *prior]):
+        cik10 = str(c).zfill(10)
+        try:
+            body = _get(f"https://data.sec.gov/submissions/CIK{cik10}.json")
+        except Exception:
+            if n == 0:
+                raise
             continue
-        by_report.setdefault(rdates[i], []).append(
-            {"form": f, "accession": accs[i], "filing_date": fdates[i],
-             "report_date": rdates[i]})
+        j = json.loads(body.decode("utf-8", "replace"))
+        if n == 0:
+            name = j.get("name", "")
+        rec = j["filings"]["recent"]
+        forms, accs = rec["form"], rec["accessionNumber"]
+        fdates, rdates = rec["filingDate"], rec.get("reportDate", [""] * len(forms))
+        for i, f in enumerate(forms):
+            if f not in ("13F-HR", "13F-HR/A"):
+                continue
+            if switch and prior and ((n == 0) != (rdates[i] >= switch)):
+                continue
+            by_report.setdefault(rdates[i], []).append(
+                {"form": f, "accession": accs[i], "filing_date": fdates[i],
+                 "report_date": rdates[i], "cik": cik10, "_primary": n == 0})
+        if n < len(prior):
+            time.sleep(0.4)
     chosen = []
     for rd, cands in by_report.items():
         # 원본 13F-HR 우선(부분 정정 /A가 전체 포트를 덮어써 종목이 사라지는 것 방지),
-        # 같은 폼이면 최신 제출.
-        cands.sort(key=lambda c: (c["form"] == "13F-HR", c["filing_date"]), reverse=True)
+        # 같은 폼이면 현행 CIK·최신 제출.
+        cands.sort(key=lambda c: (c["form"] == "13F-HR", c["_primary"], c["filing_date"]), reverse=True)
         chosen.append(cands[0])
     chosen.sort(key=lambda c: c["report_date"], reverse=True)
     return name, chosen[:limit]
@@ -271,17 +293,17 @@ def build_trajectory(snaps: list, cusips: set):
     return traj
 
 
-def collect(cik: str, quarters: int = 4):
+def collect(cik: str, quarters: int = 4, prior=(), switch: str | None = None):
     """한 대가의 다분기 13F를 수집·분석해 구조화 dict 반환."""
     try:
-        name, filings = list_13f(cik, limit=quarters + 1)  # diff용 +1
+        name, filings = list_13f(cik, limit=quarters + 1, prior=prior, switch=switch)  # diff용 +1
     except Exception as e:
         return {"cik": cik, "error": f"submissions: {e}"}
     if not filings:
         return {"cik": cik, "name": "", "error": "no 13F-HR filings"}
     snaps = []
     for meta in filings:
-        snap = fetch_infotable(cik, meta["accession"], meta["filing_date"])
+        snap = fetch_infotable(meta.get("cik") or cik, meta["accession"], meta["filing_date"])
         snaps.append({"meta": meta, "snap": snap})
         time.sleep(0.4)  # SEC 예우(≤10req/s)
     # 정정(/A)·지연 제출로 filing 순서 ≠ 분기 순서 → report_date로 정렬(최신 먼저).
@@ -370,7 +392,8 @@ def main() -> int:
 
     result = {}
     for slug, meta in targets:
-        result[slug] = collect(meta["cik"], quarters=args.quarters)
+        result[slug] = collect(meta["cik"], quarters=args.quarters, prior=meta.get("cik_prior", ()),
+                               switch=meta.get("cik_switch"))
         if not result[slug].get("name"):
             result[slug]["name"] = meta["name"]
         result[slug]["style"] = meta.get("style", "")

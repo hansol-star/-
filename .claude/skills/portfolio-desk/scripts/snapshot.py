@@ -78,14 +78,18 @@ def compute(tag_state: bool = True) -> dict:
     us_val = sum(r["value"] for r in us if r["value"])
     us_pnl = sum(r["pnl"] for r in us if r["pnl"] is not None)
     cash = cfg.get("cash_krw", 0)
+    # ★[9/16] 달러 현금 누락 수정 — 舊 total은 원화 현금만 더해 달러 잔고(≈95만원)가 총자산에서 빠졌다
+    #   (v94 총자산 6,914,278원 과소표기의 원인). pnl.py 합계와 같은 정의로 맞춘다.
+    cash_usd = cfg.get("cash_usd", 0) or 0
     us_val_krw = us_val * fx if fx else 0
-    total = kr_val + us_val_krw + cash
+    total = kr_val + us_val_krw + cash + (cash_usd * fx if fx else 0)
     out = {
         "date": trading_day(),
         "fx_usdkrw": fx,
         "kr_value": round(kr_val), "kr_pnl": round(kr_pnl),
         "us_value_usd": round(us_val, 2), "us_pnl_usd": round(us_pnl, 2),
         "cash_krw": cash,
+        "cash_usd": cash_usd,
         "total_assets_krw": round(total),
         "stock_pnl_krw": round(kr_pnl + (us_pnl * fx if fx else 0)),
         "positions": {r["label"]: {"price": r["price"], "ret_pct": r["ret_pct"]}
@@ -133,10 +137,14 @@ def main() -> int:
     print(f"- 주식 평가손익 합계: {snap['stock_pnl_krw']:+,}원")
     print(f"- 환율: {snap['fx_usdkrw']:,.2f}" if snap["fx_usdkrw"] else "- 환율: 미확인")
     if prev:
-        d_total = snap["total_assets_krw"] - prev["total_assets_krw"]
         d_pnl = snap["stock_pnl_krw"] - prev["stock_pnl_krw"]
         print(f"\n### 직전({prev['date']}) 대비")
-        print(f"- 총 자산: {d_total:+,}원")
+        if "cash_usd" in prev:
+            d_total = snap["total_assets_krw"] - prev["total_assets_krw"]
+            print(f"- 총 자산: {d_total:+,}원")
+        else:
+            # 직전 스냅샷은 달러 현금이 빠진 舊 정의 — 그대로 빼면 가짜 +95만원이 찍힌다
+            print("- 총 자산: 비교 생략(직전 스냅샷은 달러 현금 미포함 舊 정의 · 9/16 수정)")
         print(f"- 주식 평가손익: {d_pnl:+,}원")
         # 종목별 수익률 변화 큰 것 top3
         deltas = []

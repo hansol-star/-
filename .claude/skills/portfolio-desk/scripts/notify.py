@@ -260,7 +260,12 @@ def _reregister() -> str:
         tk = str(o.get("ticker") or "")
         if not (tk.endswith(".KS") or tk.endswith(".KQ")):
             continue                                   # 미국은 소멸 안 함(예약 유지)
-        if o.get("status") != "예약":
+        # ★[9/16 수정] 舊 필터 `status != "예약"`이 7일 공백의 원인이었다 — 9/9 상시 등록 오더의 status가
+        #   '재등록필요'로 바뀌는 순간 이 블록에서 빠져 **재등록하라는 알림이 한 번도 안 떴다**(9/9~9/16).
+        #   상시 등록 오더는 '예약'이든 '계획'이든 매일 다시 걸어야 한다 → 종결 상태만 제외한다.
+        st = str(o.get("status") or "")
+        if st in ("체결", "취소", "폐기", "종결") or st.startswith(("✅", "⚪", "⛔")) \
+                or "취소" in st or "폐기" in st:
             continue
         # ⚠️ **매일 거는 것과 등록선을 기다리는 것은 다르다.**
         #   9/9 ⓑ등록선 부분 폐지 = ⭐2 이하 + 룰2 훼손 종목만 상시 등록(register_policy="always").

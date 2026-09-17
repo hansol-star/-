@@ -1,8 +1,20 @@
 {
  "updated": "2026-09-17",
  "covered": [
-  "AMAT",
-  "TSM"
+  "005380.KS",
+  "005930.KS",
+  "035420.KS",
+  "066570.KS",
+  "454910.KS",
+  "AAPL",
+  "ANET",
+  "AVGO",
+  "GOOGL",
+  "META",
+  "MSFT",
+  "MU",
+  "NVDA",
+  "ORCL"
  ],
  "errors": {},
  "stocks": {

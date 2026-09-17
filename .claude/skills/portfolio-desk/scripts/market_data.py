@@ -45,15 +45,14 @@ HOLDINGS_KR = [
 ]
 HOLDINGS_US = [
     ("NVDA", "NVDA"), ("META", "META"), ("VOO", "VOO"), ("MSFT", "MSFT"),
-    ("AAPL", "AAPL"), ("GOOGL", "GOOGL"), ("TSLA", "TSLA"), ("ORCL", "ORCL"),
-    ("ANET", "ANET"), ("MU", "MU"), ("AVGO", "AVGO"),
-]
+    ("AAPL", "AAPL"), ("GOOGL", "GOOGL"), ("ORCL", "ORCL"),
+    ("MU", "MU"), ("AVGO", "AVGO"),
+]  # [9/17] 폴백 정합 — TSLA(7/7)·ANET(8/11) 매도분 제거
 WATCHLIST = [  # 폴백 (portfolio.json 없을 때만). 정본은 portfolio.json.
-    ("원익IPS", "240810.KQ"), ("테스", "095610.KQ"),
-    ("두산에너빌리티", "034020.KS"),
-    ("GEV", "GEV"), ("TMUS", "TMUS"), ("SPCX", "SPCX"),
-    ("AMD", "AMD"), ("삼성바이오로직스", "207940.KS"),
-]
+    ("두산에너빌리티", "034020.KS"), ("SK이노베이션", "096770.KS"),
+    ("GEV", "GEV"), ("ANET", "ANET"), ("TSM", "TSM"), ("AMAT", "AMAT"),
+    ("TMUS", "TMUS"), ("AMD", "AMD"), ("삼성바이오로직스", "207940.KS"),
+]  # [9/17 워치 개편 d193] 원익IPS·테스·SPCX 제외, TSM·AMAT 편입
 INDEX = [
     ("코스피", "^KS11"), ("코스닥", "^KQ11"), ("S&P500", "^GSPC"),
     ("나스닥", "^IXIC"), ("다우", "^DJI"), ("필라델피아반도체", "^SOX"),
@@ -91,6 +90,26 @@ GROUPS = {
     "oil": [("WTI", "CL=F"), ("브렌트", "BZ=F")],
 }
 GROUPS["all"] = GROUPS["holdings"] + GROUPS["watchlist"] + GROUPS["index"] + GROUPS["fx"] + GROUPS["oil"]
+
+
+def _load_retired_watch(today=None):
+    """[9/17 d193] 워치에서 뺐지만 **채점 꼬리(track_until)**가 남은 종목.
+    GROUPS에는 넣지 않는다 — 시세표·데스크엔 안 나오고 history_backfill(일봉 캐시)만 소비한다.
+    제외와 동시에 캐시 갱신이 끊기면 제외 직전 워치 콜의 +20거래일 채점이 조용히 불가가 된다."""
+    import datetime as _dt
+    here = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(here, "..", "portfolio.json")
+    today = (today or _dt.date.today()).isoformat()
+    try:
+        with open(path, encoding="utf-8") as f:
+            items = json.load(f).get("watch_retired") or []
+    except (OSError, ValueError):
+        return []
+    return [(d["label"], d["ticker"]) for d in items
+            if d.get("ticker") and str(d.get("track_until") or "") >= today]
+
+
+RETIRED_WATCH = _load_retired_watch()
 
 
 def _prev_close(data: dict, meta: dict, price):

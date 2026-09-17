@@ -90,6 +90,11 @@ def _universe(include_xasset: bool = True) -> list[tuple[str, str]]:
                 if sym not in seen:
                     seen.add(sym)
                     base.append((label, sym))
+        # [9/17 d193] 제외 워치의 채점 꼬리 — track_until까지만 갱신(제외 직전 콜의 +20거래일 채점용)
+        for label, sym in getattr(md, "RETIRED_WATCH", []):
+            if sym not in seen:
+                seen.add(sym)
+                base.append((label, sym))
     if include_xasset:
         have = {s for _, s in base}
         base += [(l, s) for (l, s) in XASSET if s not in have]

@@ -98,9 +98,9 @@ python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secre
 - **us-market-desk** (미장): S&P·나스닥·다우·필반·위험선호·미 특징주 + 미국 보유 11 + 미 워치 시세
 
 **섹터축 데스크 (테마·펀더멘털·컨센서스, 지역 교차)**
-- **semi-ai-desk** (반도체·AI인프라): 삼성전자·NVDA·MU·AVGO·ANET / 원익IPS·테스·삼성전기·SK하이닉스·STM
-- **power-physical-desk** (전력·인프라·피지컬AI): LG전자·두산로보·현대차·TSLA / 두산E·GEV·SK이노·방산조선
-- **bigtech-platform-desk** (빅테크·플랫폼): META·MSFT·AAPL·GOOGL·ORCL·NAVER / TMUS·SPCX
+- **semi-ai-desk** (반도체·AI인프라): 삼성전자·NVDA·MU·AVGO / ANET·TSM·AMAT·AMD·삼성전기·SK하이닉스
+- **power-physical-desk** (전력·인프라·피지컬AI): LG전자·두산로보·현대차 / 두산E·GEV·SK이노·한화에어로·한화오션
+- **bigtech-platform-desk** (빅테크·플랫폼): META·MSFT·AAPL·GOOGL·ORCL·NAVER / TMUS·PLTR  *(워치 9/17 개편 d193)*
 
 **매크로·리서치·리스크 데스크**
 - **macro-desk**: 환율·금리·지표·유가·이벤트 캘린더

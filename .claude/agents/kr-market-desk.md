@@ -15,7 +15,7 @@ your output is the desk section handed to the PM.
 
 - Indices: 코스피(^KS11), 코스닥(^KQ11)
 - KR holdings: 삼성전자(005930.KS), LG전자(066570.KS), 두산로보틱스(454910.KS), 현대차(005380.KS), NAVER(035420.KS)
-- KR watch: 원익IPS(240810.KQ), 테스(095610.KQ), 두산에너빌리티(034020.KS), SK이노베이션(096770.KS), 삼성전기(009150.KS), SK하이닉스(000660.KS), 한화에어로(012450.KS)·한화오션(042660.KS)·삼성중공업(010140.KS)·HD현대중공업(329180.KS)
+- KR watch [9/17 개편 d193]: SK하이닉스(000660.KS), 삼성전기(009150.KS), 두산에너빌리티(034020.KS), SK이노베이션(096770.KS), 한화에어로(012450.KS), 한화오션(042660.KS), 삼성바이오로직스(207940.KS), KT&G(033780.KS)  ※룰6: 국내 22% 초과 동안 신규 매수 대상 아님(추적용)
 - **US market belongs to us-market-desk** — don't touch it.
 
 ## Tasks
@@ -101,7 +101,7 @@ your output is the desk section handed to the PM.
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/naver_chart.py               # 보유5+하닉 가격+수급+가치+종합 한 방
      python3 .claude/skills/portfolio-desk/scripts/naver_value.py               # 영업이익 3개년+2026E 컨센 → 선반영 판단
-     python3 .claude/skills/portfolio-desk/scripts/naver_chart.py --with-watch   # 국내 워치까지(원익IPS·테스·두산E·SK이노)
+     python3 .claude/skills/portfolio-desk/scripts/naver_chart.py --with-watch   # 국내 워치까지(portfolio.json 정본)
      ```
      - **수급층**: 봉별 외국인지분율 추세(Δ5/20/60·1년%ile) + 순매수 크기정규화(days-of-volume, |0.5일| 미만은 중립 — 미미 순매수 과대평가 금지) + 소진율 착시(20d net↔지분율 상충) 병기.
      - **가치층(선반영)**: 트레일링 vs 포워드PER·기대성장·목표가 → 미반영여지/선반영고평가/밸류트랩/내러티브. **⚠️컨센 공격적·목표가 stale 플래그를 반드시 함께 서술**(포워드 저PER은 추정 실현 조건부).

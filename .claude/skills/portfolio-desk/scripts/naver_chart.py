@@ -65,7 +65,7 @@ except Exception:
     md = None
     _KR = [("삼성전자", "005930.KS"), ("LG전자", "066570.KS"),
            ("두산로보틱스", "454910.KS"), ("현대차", "005380.KS"), ("NAVER", "035420.KS")]
-    _KR_WATCH = [("원익IPS", "240810.KQ"), ("테스", "095610.KQ")]
+    _KR_WATCH = [("두산에너빌리티", "034020.KS"), ("SK이노베이션", "096770.KS")]   # [9/17 d193]
 
 WATCH_FLOW = [("SK하이닉스", "000660.KS")]  # 하닉 수급 트리거(CLAUDE.md foreign_hynix)
 
@@ -417,7 +417,7 @@ def build_universe(args):
 def main() -> int:
     ap = argparse.ArgumentParser(description="네이버 네이티브 한국식 차트 리더(가격+수급·무키)")
     ap.add_argument("--code", "--tickers", help="종목코드/티커(쉼표·공백구분). 예: 005930 또는 005930.KS")
-    ap.add_argument("--with-watch", action="store_true", help="국내 워치(원익IPS·테스 등) 포함")
+    ap.add_argument("--with-watch", action="store_true", help="국내 워치(portfolio.json 정본) 포함")
     ap.add_argument("--json", action="store_true", help="JSON 출력")
     ap.add_argument("--verbose", action="store_true", help="피보나치·미너비니·스윙 상세")
     args = ap.parse_args()

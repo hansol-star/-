@@ -181,6 +181,10 @@ def check_history_cache():
         if (it or {}).get("ticker"):
             tracked.add(it["ticker"])
     today = dt.date.today()
+    # [9/17 d193] 제외 워치는 track_until까지 추적 대상(채점 꼬리). 지나면 고아 → 정리 대상으로 알린다.
+    for it in pf.get("watch_retired") or []:
+        if (it or {}).get("ticker") and str(it.get("track_until") or "") >= today.isoformat():
+            tracked.add(it["ticker"])
     stale, orphan = [], []
     for fp in files:
         sym = os.path.basename(fp)[:-4]
@@ -1645,10 +1649,18 @@ def check_routine_health(today=None):
     if verdict == "UNCOMMITTED":
         # ★[9/1] 가장 조용한 실패 — 루틴이 **일은 다 하고 커밋만 못 한 상태**.
         # 프로세스는 0으로 끝나고 로그도 정상이라 exit code로는 절대 안 보인다.
+        # ★[9/17] 舊 힌트는 원인을 '권한 누락'으로 고정해 적었다. 9/14·9/15의 실제 원인은 백그라운드 강제 종료였고
+        #   git add/commit은 9/2부터 허용목록에 있었다 — **틀린 원인을 가리키는 경보는 조사를 엉뚱한 데로 보낸다.**
         n = st.get("uncommitted") or "?"
         warn(f"무인 루틴이 커밋을 못 했다 — {kind} @ {when} · 미커밋 {n}건. "
              f"작업물은 워킹트리에 살아 있지만 **다음 세션은 못 본다**(연속성 규약 파손). "
-             f"원인 대부분 = .claude/settings.json permissions.allow에 git add/commit/push 누락")
+             f"로그 판독 원인: {_routine_log_cause(st.get('log'))}")
+    elif verdict == "BG_KILLED":
+        warn(f"무인 루틴이 백그라운드 에이전트에 일을 넘기고 강제 종료됐다 — {kind} @ {when}. "
+             f"반영 0건(9/14·9/15 R1과 같은 사인). 런처 머리말의 run_in_background:false 규칙이 먹혔는지 로그 확인")
+    elif verdict == "UNPUSHED":
+        warn(f"무인 루틴 커밋이 origin/main에 없다 — {kind} @ {when} · 푸시 {st.get('pushed')}. "
+             f"클라우드 C2·다음 세션이 못 본다. 대화형 세션에서 `git fetch` → rebase → `git push origin HEAD:main`")
     elif verdict == "NO_OUTPUT":
         # ★[9/10] 워킹트리 깨끗 + HEAD 불변 = 돌긴 돌았는데 아무것도 안 남겼다.
         # 9/10 R1: 프롬프트 정상 수신 후 도구 0회로 "대기 중입니다"만 답하고 OK로 기록됐다.

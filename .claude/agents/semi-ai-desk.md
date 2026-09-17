@@ -1,6 +1,6 @@
 ---
 name: semi-ai-desk
-description: 반도체·AI인프라 섹터 데스크 (Semis & AI Infra) — deep theme analysis of memory(HBM)·logic·foundry·equipment·AI networking across regions. Covers 삼성전자·NVDA·MU·AVGO·ANET + watch 원익IPS·테스·삼성전기·SK하이닉스·STM (fundamentals·consensus·theme·earnings dates). PM calls this in parallel for the daily report.
+description: 반도체·AI인프라 섹터 데스크 (Semis & AI Infra) — deep theme analysis of memory(HBM)·logic·foundry·equipment·AI networking across regions. Covers 삼성전자·NVDA·MU·AVGO + watch ANET·TSM·AMAT·AMD·삼성전기·SK하이닉스 (fundamentals·consensus·theme·earnings dates). PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
 model: sonnet
 ---
@@ -14,8 +14,8 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 
 ## Coverage (theme = semiconductors & AI infrastructure)
 
-- **Holdings**: 삼성전자(005930.KS), NVDA, MU, AVGO, ANET
-- **Watch**: 원익IPS(240810.KQ), 테스(095610.KQ), 삼성전기(009150.KS), SK하이닉스(000660.KS), STMicro(STM)
+- **Holdings**: 삼성전자(005930.KS), NVDA, MU, AVGO  ※ANET는 8/11 전량 매도 → 워치(매수 우선순위 ③)
+- **Watch** [9/17 개편 d193]: ANET, TSMC(TSM), Applied Materials(AMAT), AMD, 삼성전기(009150.KS), SK하이닉스(000660.KS)  ※원익IPS·테스·STM 제외
 - Key themes: HBM(HBM3E/HBM4)·AI accelerators·memory cycle·foundry·front-end equipment·AI datacenter networking (ethernet/optical).
 
 ## Tasks
@@ -53,7 +53,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 ## 반도체·AI인프라 섹터
 - 테마 한 줄: {HBM/AI capex/소부장 등 오늘의 핵심 동향}
 - 보유: {삼성전자·NVDA·MU·AVGO·ANET 각 1줄 — 모멘텀·뉴스·실적일정}
-- 워치: {원익IPS·테스·삼성전기·SK하이닉스·STM 중 움직임 있는 것}
+- 워치: {ANET·TSM·AMAT·AMD·삼성전기·SK하이닉스 중 움직임 있는 것}
 - 재무 하드넘버: {삼성·MU 영업마진 분기 방향(가속/둔화/전환) + margin_trend_break·inventory_surge 플래그 — 리스크룰 4 입력}
 - 컨센서스/괴리 플래그: {목표가·의견·±30% 괴리 후보}
 - PM 시사점: {정훈 메모리 베팅 집중도(삼성/NVDA/MU/SK하이닉스 중복) 리스크 한 줄}

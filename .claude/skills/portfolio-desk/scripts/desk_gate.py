@@ -34,13 +34,14 @@ ROOT = os.path.abspath(os.path.join(_HERE, *([os.pardir] * 5)))
 
 # 섹터 데스크 담당 범위 — agent 파일의 커버리지와 1:1 (바뀌면 같이 고칠 것)
 SECTOR = {
+    # [9/17 워치 개편 d193] 원익IPS·테스·STM·TSLA·삼성중공업·HD현대중·SPCX 제외 / TSM·AMAT 편입
     "semi-ai-desk": ["005930.KS", "NVDA", "MU", "AVGO", "ANET",
-                     "240810.KQ", "095610.KQ", "009150.KS", "000660.KS", "STM"],
-    "power-physical-desk": ["066570.KS", "454910.KS", "005380.KS", "TSLA",
+                     "009150.KS", "000660.KS", "TSM", "AMAT", "AMD"],
+    "power-physical-desk": ["066570.KS", "454910.KS", "005380.KS",
                             "034020.KS", "GEV", "096770.KS", "012450.KS",
-                            "042660.KS", "010140.KS", "329180.KS"],
+                            "042660.KS"],
     "bigtech-platform-desk": ["META", "MSFT", "AAPL", "GOOGL", "ORCL",
-                              "035420.KS", "TMUS", "SPCX"],
+                              "035420.KS", "TMUS", "PLTR"],
 }
 MOVE_PCT = 5.0
 EARN_DAYS = 7

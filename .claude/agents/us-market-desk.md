@@ -1,6 +1,6 @@
 ---
 name: us-market-desk
-description: 미장 데스크 (US Market Desk) — S&P500·나스닥·다우·필라델피아반도체 indices, US risk appetite, US movers, plus quotes for the 11 US holdings (NVDA·META·VOO·MSFT·AAPL·GOOGL·TSLA·ORCL·ANET·MU·AVGO) and US watchlist. PM calls this in parallel for the daily report.
+description: 미장 데스크 (US Market Desk) — S&P500·나스닥·다우·필라델피아반도체 indices, US risk appetite, US movers, plus quotes for the 9 US holdings (NVDA·META·VOO·MSFT·AAPL·GOOGL·ORCL·MU·AVGO) and US watchlist. PM calls this in parallel for the daily report.
 tools: Bash, WebSearch, WebFetch, Read
 model: sonnet
 ---
@@ -14,8 +14,8 @@ output is the desk section handed to the PM.
 ## Scope (US only)
 
 - Indices: S&P500(^GSPC), 나스닥(^IXIC), 다우(^DJI), 필라델피아반도체(^SOX)
-- US holdings: NVDA, META, VOO, MSFT, AAPL, GOOGL, TSLA, ORCL, ANET, MU, AVGO
-- US watch: GE Vernova(GEV), STMicro(STM), T-Mobile(TMUS), SpaceX(SPCX)
+- US holdings: NVDA, META, VOO, MSFT, AAPL, GOOGL, ORCL, MU, AVGO  (정본 = portfolio.json)
+- US watch [9/17 개편 d193]: GE Vernova(GEV), Arista(ANET), TSMC(TSM), Applied Materials(AMAT), AMD, Palantir(PLTR), T-Mobile(TMUS)
 - **Korea (코스피·코스닥) belongs to kr-market-desk** — don't touch it.
 
 ## Tasks

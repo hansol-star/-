@@ -1,20 +1,13 @@
 {
  "updated": "2026-09-17",
  "symbols": {
-  "TSM": {
-   "label": "TSMC",
-   "first": "1997-10-09",
-   "last": "2026-09-16",
-   "days": 7278,
-   "years": 28.9
-  },
-  "AMAT": {
-   "label": "Applied Materials",
-   "first": "1980-03-17",
-   "last": "2026-09-16",
-   "days": 11720,
-   "years": 46.5
+  "^KS11": {
+   "label": "코스피",
+   "first": "1996-12-11",
+   "last": "2026-09-17",
+   "days": 7328,
+   "years": 29.8
   }
  },
- "total_daily_bars": 18998
+ "total_daily_bars": 7328
 }

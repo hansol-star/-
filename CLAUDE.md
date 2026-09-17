@@ -209,7 +209,7 @@
 - **★[8/31 이전 완료 · 9/1 루틴까지] 전부 로컬 윈도우**(한국 주거 IP·Python 3.12·전체 히스토리 776커밋).
   ★**[9/10 분업 전환 — 정훈 지시]** 로컬 무인 R2가 9/1~9/10 **자력 완주 0/8**(`docs/research/local_regression_audit_2026-09-10.md`) →
   **클라우드 = 재료**(C2 평일 16:00 → `docs/prep/prep_{날짜}.md` · R3 토 09:00) / **로컬 = 영상 R1(10:00) + 최종 보고서(정훈 "보고서 작성" 시 대화형)**.
-  로컬 전용 = 토스 API · yt-dlp 자막 · 알림(notify·price_watch·brief) · memory_embed. R2·R3·R4a~c 로컬 태스크는 비활성.
+  로컬 전용 = 토스 API · yt-dlp 자막 · 알림(notify·price_watch·brief) · memory_embed. R3·R4a~c 로컬 태스크는 비활성. ★**[9/17 정훈 지시] R2 무인 재가동 = 평일 16:30 C2 prep 소비형**(런처가 prep을 최대 60분 기다린 뒤 데스크 스폰 없이 보고서 → `notify.py --routine r2`가 할 일 카톡). ⚠️ 토스 미대조·PC 절전 시 불발 — 대화형 '보고서 작성'은 같은 날 보고서를 토스 대조로 보강한다.
   (舊: 무인 루틴 R1~R4b = 윈도우 작업 스케줄러 — 정훈 9/1 *"무인 다 로컬로 빼자"*.)
   운영 정본 = `docs/routines.md` 「실제 스케줄 등록」 · 런처 `.claude/routines/run_routine.ps1`.
   ⇒ 프롬프트 정본과 실행물이 같아졌다(런처가 `docs/routines.md`를 매 실행 직접 읽는다 — 8/6 '프롬프트 수정 불가' 제약 해소).

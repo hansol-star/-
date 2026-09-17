@@ -33,7 +33,11 @@ param(
   [switch]$DryRun,
 
   # 지각 한도(아래 $MaxLateMap)를 무시하고 강제 실행 — 사람이 손으로 돌릴 때만.
-  [switch]$Force
+  [switch]$Force,
+
+  # R2 전용: 클라우드 C2 준비본(docs/prep/prep_{날짜}.md)이 origin/main에 올라올 때까지 기다리는 최대 분.
+  # 손으로 돌릴 때 기다리기 싫으면 -PrepWaitMin 0.
+  [int]$PrepWaitMin = 60
 )
 
 $ErrorActionPreference = 'Stop'
@@ -91,7 +95,8 @@ Set-Location $Repo
 #   StartWhenAvailable로 뒤늦게 기동. WakeToRun=True·wake timer도 켜져 있는데 안 깼다.
 #   물리 한계라 못 막지만 **조용히 넘어가면 안 된다** — 2시간 늦은 R1은 '오늘 오전 영상'을
 #   놓치고, 그 공백은 다음날 R1이 메운다는 전제가 깨진다. 기록해서 보이게 만든다.
-$SchedMap = @{ r1='10:00'; r2='16:00'; r3='09:00'; r4a='20:00'; r4b='21:15'; r4c='02:30' }
+# ★[9/17] R2 16:00 → 16:30 — 무인 R2 재가동(C2 prep 소비형). C2 커밋 실측 16:28~16:37이라 그 직후에 붙인다.
+$SchedMap = @{ r1='10:00'; r2='16:30'; r3='09:00'; r4a='20:00'; r4b='21:15'; r4c='02:30' }
 
 # ── 모델 배분 ★[2026-09-09 정훈 지시 "모델 잘 선택해서 해, opus만 쓰지 말고"] ──────
 #
@@ -164,6 +169,64 @@ $prompt = (Get-Content -Path $PromptFile -Raw -Encoding UTF8).TrimStart([char]0x
 if ([string]::IsNullOrWhiteSpace($prompt)) { Write-Log "프롬프트가 비었다"; exit 2 }
 Write-Log "프롬프트 $($prompt.Length)자 추출 (정본 = docs/routines.md)"
 
+# ── R2 전용: C2 준비본 대기 [2026-09-17 신설 — 정훈 "16시 루틴 끝나면 자동으로 보고서 작성 후 할 일 카톡"] ──
+#   클라우드 C2(16:00)가 docs/prep/prep_{날짜}.md를 origin/main에 올리는 시각 = 실측 16:28~16:37(9/10~9/16 커밋).
+#   prep 없이 돌면 데스크를 직접 띄워야 하는데, 그게 9/1~9/10 무인 R2 자력 완주 0/8의 주범이었다(데스크 1개 ≈ 13만 토큰).
+#   ⇒ 최대 $PrepWaitMin분 기다린다. 끝내 없으면 '없음'을 머리말로 알리고 경량 수집으로 쓰게 한다(멈추지 않는다).
+#   ⚠️ 로컬 main은 **fast-forward만** 시도한다 — 다른 세션의 미완 파일과 겹치면 git이 거부하고 아무것도 안 바뀐다.
+#      그땐 prep 본문만 data/tmp/에 사본으로 꺼낸다(스크래치 = 미커밋 판정 제외).
+$PrepNote = ''
+$PrepState = ''
+if ($Kind -eq 'r2') {
+  $prevEAPp = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+  # 오늘 보고서가 이미 있으면(대화형으로 먼저 썼으면) 다시 쓰지 않는다 — 할 일 카톡만 보낸다.
+  $todayRep = @(Get-ChildItem (Join-Path $Repo 'docs\reports') -Filter "report_v*_$stamp.md" -ErrorAction SilentlyContinue)
+  if ($todayRep.Count -gt 0 -and -not $DryRun) {
+    Write-Log "오늘 보고서 이미 있음($($todayRep[-1].Name)) — 무인 작성 생략, 할 일 알림만"
+    $exStatus = [ordered]@{ kind=$Kind; verdict='REPORT_EXISTS'; exit_code=0
+                            kst=(Get-Kst).ToString('yyyy-MM-dd HH:mm:ss'); minutes=0; log=$LogFile
+                            scheduled=$Scheduled; late_min=$LateMin }
+    [IO.File]::WriteAllText($StatusFile, ($exStatus | ConvertTo-Json -Depth 3), (New-Object System.Text.UTF8Encoding($false)))
+    $nOut = & python3 (Join-Path $Scripts 'notify.py') --routine $Kind --verdict REPORT_EXISTS --status $StatusFile 2>&1
+    Write-Log "폰 알림: exit=$LASTEXITCODE $(($nOut | Out-String).Trim() -replace '\s+', ' ')"
+    exit 0
+  }
+  $prepRel = "docs/prep/prep_$stamp.md"
+  $waitStart = Get-Date
+  $found = $false
+  while ($true) {
+    & git -C $Repo fetch origin main --quiet 2>$null | Out-Null
+    & git -C $Repo cat-file -e "origin/main:$prepRel" 2>$null
+    if ($LASTEXITCODE -eq 0) { $found = $true; break }
+    if ($DryRun -or ((Get-Date) - $waitStart).TotalMinutes -ge $PrepWaitMin) { break }
+    Start-Sleep -Seconds 120
+  }
+  $waited = [int]((Get-Date) - $waitStart).TotalMinutes
+  if ($found) {
+    $PrepState = "$((Get-Kst).ToString('HH:mm')) 확인(대기 ${waited}분)"
+    $branch = (& git -C $Repo symbolic-ref --short HEAD 2>$null | Out-String).Trim()
+    if (-not $DryRun -and $branch -eq 'main') {
+      & git -C $Repo merge --ff-only --quiet origin/main 2>$null | Out-Null
+      Write-Log "로컬 main ← origin/main fast-forward: $(if ($LASTEXITCODE -eq 0) { '완료' } else { "불가(exit $LASTEXITCODE — 갈라졌거나 미완 파일과 겹침, 사본으로 진행)" })"
+    }
+    $PrepPath = $prepRel
+    if (-not (Test-Path (Join-Path $Repo ($prepRel -replace '/', '\')))) {
+      $PrepPath = "data/tmp/prep_$stamp.md"
+      # ⚠️ cmd 리다이렉트 = 바이트 그대로. PowerShell 파이프는 cp949로 디코딩해 한글이 깨진다(프롬프트 추출과 같은 함정).
+      if (-not $DryRun) {
+        & cmd /c "git -C `"$Repo`" show origin/main:$prepRel > `"$(Join-Path $Repo ($PrepPath -replace '/', '\'))`""
+      }
+    }
+    Write-Log "C2 prep 확인 — $PrepPath (대기 ${waited}분)"
+    $PrepNote = "- 오늘 재료 = ``$PrepPath`` (클라우드 C2 준비본). 이것이 데스크 결과다 — 데스크 서브에이전트를 스폰하지 말 것. 이 파일은 읽기만 하고 커밋하지 말 것.`n"
+  } else {
+    $PrepState = "missing(대기 ${waited}분)"
+    Write-Log "C2 prep 없음 — ${waited}분 대기 후에도 origin/main에 $prepRel 없음. 경량 수집 모드로 진행"
+    $PrepNote = "- 오늘 C2 prep 없음(${waited}분 기다렸으나 origin/main에 없다). 데스크를 스폰하지 말고 아래 문서 1번의 경량 수집으로 쓴다.`n"
+  }
+  $ErrorActionPreference = $prevEAPp
+}
+
 # ── 무인 실행 머리말 [2026-09-17 신설] — 문서가 아니라 런처가 매번 말한다 ────────
 #   세 가지 실패가 문서 프롬프트를 지나갔다(세션 기록 실측):
 #   ① 9/10·9/11 R1: 프롬프트를 정상 수신하고도 **도구 0회**로 "대기 중입니다"/"무엇을 도와드릴까요?"만 답했다.
@@ -179,7 +242,7 @@ $Preamble = @"
 - 서브에이전트(Agent)는 반드시 run_in_background: false로 부르고, 결과를 받은 뒤 이 세션에서 마무리(기록·커밋)까지 한다. 백그라운드로 넘기고 턴을 끝내면 작업이 버려진다.
 - git은 add·commit까지만 한다. push·rebase·checkout·switch·branch·symbolic-ref는 이 세션에 권한이 없다 — 시도하지 말 것. 푸시는 런처가 종료 후 수행한다(아래 문서의 push 지시는 이 규칙으로 대체된다).
 - git add는 이번 작업에서 만들거나 고친 파일만 경로로 지정한다(-A·. 금지 — 다른 세션의 미완 작업이 섞인다).
----
+$PrepNote---
 
 "@
 $prompt = $Preamble + $prompt
@@ -333,6 +396,7 @@ $status = [ordered]@{
   attempts = $attempts
   scheduled = $Scheduled
   late_min = $LateMin
+  prep = $PrepState
 }
 # BOM 없는 UTF-8 — Out-File -Encoding utf8은 5.1에서 BOM을 붙여 python json.load가 깨진다.
 [IO.File]::WriteAllText($StatusFile, ($status | ConvertTo-Json -Depth 3),

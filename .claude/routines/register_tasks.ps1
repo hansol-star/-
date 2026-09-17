@@ -30,10 +30,15 @@ $Weekdays = @('Monday','Tuesday','Wednesday','Thursday','Friday')
 #   R4a·R4b·R4c(재시도 파수꾼)는 무인 R2가 없어졌으므로 폐지.
 #   근거 = docs/research/local_regression_audit_2026-09-10.md (로컬 무인 R2 자력 완주 0/8).
 #   아래 $Retired는 이 스크립트를 다시 돌리면 **비활성화**한다(삭제 아님 — 되돌리기 쉽게).
+# ★[2026-09-17 정훈 지시 "16시 루틴 끝나면 자동으로 보고서 작성 후 할 일 나한테 카톡으로 보내"]
+#   R2를 **C2 prep 소비형**으로 되살린다 — 16:30 시작 → 런처가 prep을 최대 60분 기다림 → 보고서 → 할 일 카톡.
+#   9/10에 끈 원인 셋 중 ①권한(허용목록 보강·push는 런처) ②데스크 토큰(prep이 대신 = 스폰 0)은 해소, ③PC 절전은 그대로다.
+#   Hours = 실행시간 상한. R2는 대기 60분 + 작성 시간이라 2시간이면 한창 쓰다 잘린다 → 3시간.
 $Routines = @(
-  @{ Kind='r1';  Name='JD-R1-video-prefetch'; Time='10:00'; Days=$Weekdays;     Desc='영상 리서치 프리페치 (3채널 자막)' }
+  @{ Kind='r1';  Name='JD-R1-video-prefetch'; Time='10:00'; Days=$Weekdays;     Desc='영상 리서치 프리페치 (3채널 자막)'; Hours=2 },
+  @{ Kind='r2';  Name='JD-R2-main-report';    Time='16:30'; Days=$Weekdays;     Desc='무인 보고서 (C2 prep 소비) + 할 일 카톡'; Hours=3 }
 )
-$Retired = @('JD-R2-main-report','JD-R3-calibration','JD-R4a-retry-2000','JD-R4b-retry-2115','JD-R4c-retry-0230')
+$Retired = @('JD-R3-calibration','JD-R4a-retry-2000','JD-R4b-retry-2115','JD-R4c-retry-0230')
 
 if ($Unregister) {
   if (Get-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
@@ -63,10 +68,12 @@ foreach ($r in $Routines) {
   $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -File `"$Launcher`" -Kind $($r.Kind)" -WorkingDirectory $Repo
   $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek $r.Days -At $r.Time
 
+  $rSettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -WakeToRun -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours $r.Hours) -MultipleInstances IgnoreNew
+
   if (Get-ScheduledTask -TaskName $r.Name -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
     Unregister-ScheduledTask -TaskName $r.Name -TaskPath "$Folder\" -Confirm:$false
   }
-  Register-ScheduledTask -TaskName $r.Name -TaskPath $Folder -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description "$($r.Desc) - 정본 docs/routines.md" | Out-Null
+  Register-ScheduledTask -TaskName $r.Name -TaskPath $Folder -Action $action -Trigger $trigger -Principal $principal -Settings $rSettings -Description "$($r.Desc) - 정본 docs/routines.md" | Out-Null
   Write-Output ("registered  {0,-22} {1}  {2}" -f $r.Name, $r.Time, ($r.Days -join ','))
 }
 
@@ -74,7 +81,7 @@ foreach ($n in $Retired) {
   $t = Get-ScheduledTask -TaskName $n -TaskPath "$Folder\" -ErrorAction SilentlyContinue
   if ($t -and $t.State -ne 'Disabled') {
     Disable-ScheduledTask -TaskName $n -TaskPath "$Folder\" | Out-Null
-    Write-Output "disabled    $n (9/10 분업 전환 — 클라우드 C2/R3 + 로컬 대화형 R2)"
+    Write-Output "disabled    $n (9/10 분업 전환 — 클라우드 C2/R3 · R2는 9/17 prep 소비형으로 재가동)"
   }
 }
 

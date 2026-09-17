@@ -208,10 +208,12 @@ def _todos() -> str:
     undone = [x for x in items if not x.get("done")]
     done = [x for x in items if x.get("done")]
     lines = [f"📌 오늘 할 일 {len(done)}/{len(items)}"]
+    # ★[9/17] 60자 → 110자. 첫 R2 할 일 카톡 미리보기에서 "현대차 종가 361,54"처럼 **가격·조건이 잘렸다** —
+    #   할 일 알림의 알맹이는 뒤쪽(가격·조건)에 있다. 카톡 한도 1,900자 안에서 6건 × 110자면 충분하다.
     for x in undone:
-        lines.append(f"☐ {str(x.get('text',''))[:60]}")
+        lines.append(f"☐ {str(x.get('text',''))[:110]}")
     for x in done:
-        lines.append(f"✅ {str(x.get('text',''))[:44]}")
+        lines.append(f"✅ {str(x.get('text',''))[:50]}")
     return "\n".join(lines)
 
 
@@ -303,12 +305,14 @@ def msg_routine(kind: str, verdict: str, status_path: str) -> str:
     # ★[9/17] 9/11 NO_OUTPUT이 사전에 없어 🔴로는 갔지만 **무엇이 실패인지 문구가 없었다** — 판정마다 한 줄 뜻을 붙인다.
     icon = {"OK": "✅", "UNCOMMITTED": "🟠", "TOKEN_LIMIT": "🟡", "NOT_LOGGED_IN": "🔴",
             "PERMISSION_BLOCKED": "🟠", "NO_OUTPUT": "🔴", "BG_KILLED": "🔴", "UNPUSHED": "🟠",
-            "SKIPPED_LATE": "⏭️"}.get(verdict, "🔴")
+            "SKIPPED_LATE": "⏭️", "REPORT_EXISTS": "✅"}.get(verdict, "🔴")
     meaning = {
-        "NO_OUTPUT": "아무것도 안 남겼다(도구 0회 응답 의심) — 오늘 영상이 빈다",
+        "NO_OUTPUT": "아무것도 안 남겼다(도구 0회 응답 의심) — 오늘 산출물이 빈다",
         "BG_KILLED": "백그라운드 에이전트가 강제 종료돼 반영 0건",
         "UNPUSHED": "커밋은 했지만 origin/main에 못 올렸다 — 대화형 세션에서 push 필요",
         "SKIPPED_LATE": "머신이 늦게 깨어 지각 한도 초과로 건너뜀 — 다음 실행의 --catchup이 메운다",
+        "REPORT_EXISTS": "오늘 보고서가 이미 있어 무인 작성은 건너뜀",
+        "TOKEN_LIMIT": "토큰 한도에 막혀 중단",
     }.get(verdict)
     lines = [f"{icon} 루틴 {kind} — {verdict}",
              meaning or "",
@@ -319,9 +323,43 @@ def msg_routine(kind: str, verdict: str, status_path: str) -> str:
         lines.append(f"⚠️ 미커밋 {st['uncommitted']}건 — 다음 세션이 못 본다")
     if st.get("pushed") and st["pushed"] not in ("NOTHING", "OK", "OK_REBASED"):
         lines.append(f"⚠️ 푸시 {st['pushed']}")
+    if kind == "r2":
+        return _msg_r2(verdict, st, lines)
     if verdict == "OK":
         lines.append(_orders_digest(limit=5))
     return "\n".join(x for x in lines if x)
+
+
+def _msg_r2(verdict: str, st: dict, status_lines: list) -> str:
+    """★[2026-09-17 정훈 지시] "16시 루틴 끝나면 자동으로 보고서 작성 후 할 일 나한테 카톡으로 보내".
+
+    무인 R2가 끝나면 **할 일이 맨 위**다(9/4 순서 원칙 — 폰을 여는 이유는 행동이다). 루틴 판정은 맨 아래 꼬리.
+    ⚠️ 보고서가 안 나온 날도 보낸다 — 단 그 할 일은 **오늘 반영 전의 목록**이라는 걸 맨 윗줄에 박는다.
+       "보고서 완료"로 읽히는 실패 알림은 침묵보다 나쁘다(8/22).
+    """
+    import datetime as _dt
+    import glob as _glob
+    day = str(st.get("kst") or "")[:10] or \
+        (_dt.datetime.now(_dt.timezone.utc) + _dt.timedelta(hours=9)).date().isoformat()
+    reps = sorted(_glob.glob(os.path.join(ROOT, "docs", "reports", f"report_v*_{day}.md")))
+    rep = os.path.basename(reps[-1]).split("_")[1] if reps else ""
+    ok = verdict in ("OK", "REPORT_EXISTS") and bool(rep)
+    if ok:
+        head = f"📄 {rep} 보고서 완료 ({day[5:]}) — 오늘 밤~내일 할 일"
+    else:
+        head = (f"🔴 보고서 미완 — {verdict}"
+                + ("" if rep else " · 오늘 보고서 파일 없음")
+                + "\n⚠️ 아래 할 일은 오늘 반영 전 목록이다(대화형 '보고서 작성' 필요)")
+    prep = str(st.get("prep") or "")
+    if prep.startswith("missing"):
+        status_lines.append("⚠️ C2 prep 없음 — 데스크 분석 없이 스크립트만으로 작성")
+    elif prep:
+        status_lines.append(f"재료 C2 prep {prep}")
+    if ok:
+        status_lines.append("토스 미대조(무인) — 체결·현금은 다음 대화형에서 확인")
+    body = compose()
+    tail = "\n".join(x for x in status_lines if x)
+    return "\n\n".join(p for p in (head, body, "─────────\n" + tail) if p)
 
 
 def _orders_digest(limit: int = 8, days: int = 14) -> str:

@@ -110,41 +110,42 @@
 - 보고서 파일(report_v*)은 만들지 않는다. 이건 데이터 프리페치 전용.
 ```
 
-### R2. 메인 풀 보고서 (평일 16:00) — 신선 창에서 하루 1회 종합
-하루 중 유일한 풀 보고서. R1 프리페치 창(10:00~15:00) 만료 후 시작 = 신선한 예산. **영상은 R1 캐시 소비**(재추출 X). 완료 ~16:45 → 17:30 폰창에 대기 = "메인 다 완료". 최종 flows·집행은 정훈 17:30 대화 세션서 탑업.
-> [7/14] SessionStart 훅이 모든 세션(루틴 포함) 시작 시 KST 날짜·장상태·최신 보고서 버전을 자동 주입 — R2 0단계 실측과 이중 안전망(프롬프트 변경·재등록 불필요).
-→ 산출: `report_v{N}` (보유15 풀표 + 지정가 오더북 + PM 사견 + STATE SNAPSHOT). 영구변경 시 master.md·portfolio.json. data/app → build_app_data → main 푸시.
+### R2. 메인 보고서 — 무인 (평일 16:30 · C2 prep 소비형) ★[2026-09-17 재가동]
+정훈 9/17 *"보고서 16시 루틴 끝나면 자동으로 보고서 작성 후 할 일 나한테 카톡으로 보내"*.
+흐름 = 작업 스케줄러 16:30 → 런처가 origin/main에 오늘자 `docs/prep/prep_{날짜}.md`가 올라올 때까지 **최대 60분 대기**
+(C2 커밋 실측 16:28~16:37) → 로컬 main fast-forward(미완 파일과 겹치면 `data/tmp/` 사본) → 아래 블록 실행 →
+`routine_push.py`로 푸시 → `notify.py --routine r2`가 **tasks.json 오늘 할 일을 맨 위에** 카톡 발송(보고서가 안 나온 날도 '반영 전 목록' 경고를 달고 보낸다).
+→ 산출: `report_v{N}` (보유·워치 풀표 + 지정가 오더북 + PM 사견 + STATE SNAPSHOT) · tasks.json today(= 카톡 본문).
+
+> **9/10에 끈 원인 셋과 지금** (근거 = `docs/research/local_regression_audit_2026-09-10.md` 무인 R2 자력 완주 0/8)
+> ① 권한 거부 23.8% → settings.json 허용목록 보강 · push는 런처가(`routine_push.py`, 9/17) — **해소**
+> ② 데스크 재스폰 토큰(데스크 1개 ≈ 13만) → **C2 prep이 데스크 결과를 대신한다 = 스폰 0** — **해소 설계**(첫 주 실측으로 확인할 것)
+> ③ PC 절전·전원 → **못 막는다**(물리 한계). 지각 한도 420분(23:30), catchup 소급 대상 아님.
+> ⚠️ **무인이라 토스 실계좌 대조가 없다**(런처가 키 제거). 보유·현금은 portfolio.json 기준이고 본문에 "토스 미대조"를 쓴다 — 체결 확인은 다음 대화형 세션 첫 단계(룰5).
+> ⚠️ 오늘 보고서가 이미 있으면(대화형으로 먼저 썼으면) 런처가 작성을 건너뛰고 할 일 카톡만 보낸다(`REPORT_EXISTS`).
+> 대화형 "보고서 작성"은 그대로 쓸 수 있다 — 같은 날 무인 보고서가 있으면 새 번호를 내지 말고 **그 보고서를 토스 대조로 보강**한다.
 
 ```
-보고서 (메인 풀 브리핑 — 무인 루틴, 선택지 띄우고 멈추지 말 것).
-- 0단계 실측: `python3 .claude/skills/portfolio-desk/scripts/kst_now.py` + market_data.py 로 오늘 날짜·요일·장상태 확정(직전 보고서 서사에 끌리지 말 것).
-- 0단계 가드: python3 .claude/skills/portfolio-desk/scripts/report_guard.py --start --kind R2 --version {오늘 번호} (running 마커 = 저녁 R4가 '막혔나' 판정할 신호. 첫 액션).
-- 컨텍스트 복원: `python3 .claude/skills/portfolio-desk/scripts/r2_brief.py` **1회**(직전 STATE SNAPSHOT + 미완 할일 + 활성 오더 + 종목 등급) + decisions.py. 직전 보고서 전문·tasks.json·stocks.json 통째 Read 금지.
-- ⚡ 메인 세션 규율 [9/10 실측 — 메인 턴 1개 ≈ 20만 토큰 재독]: ①데스크는 백그라운드로 띄우고 **완료 알림을 기다린다**(ListAgents 반복 확인 금지 — 9/10에 12회) ②같은 파일 **재독 금지**, 수정할 구간만 offset/Grep ③보고서는 **Write 1회로 완성**, 조각 Edit 금지(9/10에 21회) — validate FAIL만 핀포인트 Edit ④인라인 `python3 -c`·heredoc은 무인에서 거부된다 → 스크립트를 쓴다.
-- ⚡ 영상: 오늘자 R1 프리페치 캐시(hunter_log.md·feeds_log.md 맨 위 블록 + hunter.json·feeds.json setups)를 읽어 리서치 피드·조건 트래커를 채운다. **3채널 풀 재추출 금지.** 단 R1(10:00) 이후 신규 업로드는 싸게 델타로 잡는다 = hunter_latest.py(--fetch 없이 RSS 목록만) 3채널 → 캐시에 없는 신규 ID만 `--ids <신규> --fetch`로 추가 태깅(보통 2~4편, 오후분). 오늘자 캐시가 없으면(R1 실패) 폴백으로 경제사냥꾼 1채널만 경량 인라인(SKILL §2c).
-- 첫 실행 단계 = 전일 밤 미국 지정가 예약 체결 점검(체결이면 portfolio.json·tasks.json·master.md 갱신) + 전일 밤 21:30발 지표(NFP·CPI 등) 반영.
-- **이벤트 캘린더** [7/20]: `event_calendar.py --within 45` = 보유 실적일 + FOMC·CPI·금통위 D-day → §3 매크로/§9 할일에 '지켜볼 것'으로 반영, 폰창 밖 이벤트는 사전 조건부 룰·예약주문 베이킹.
-- **[8/5 배선] 신규 3종** — SKILL §0-2c·§2 수집단계에 상세. 여기선 실행 순서만:
-  · `memory_recall.py <종목>` = **⭐2 이하 보유 필수** + 그날 오더 나가는 종목(3~5회, 전 종목 순회 금지).
-    🟠 열린 아젠다가 뜨면 이번 보고서에서 상태 갱신. 불리한 항목 건너뛰지 말 것.
-  · `edgar_search.py --events --days 30` = 미국 8-K item 스트림(`dart_disclosure`의 미국 짝). 🚨critical은 본문 노출.
-    `--q "문구"` 전문검색은 **트리거 게이트**(논지를 1차 문서로 확정할 때만 — 습관적 호출 금지).
-  · `peer_compare.py` = **반드시 `financials.py --all --save` 다음**(먼저 돌리면 어제 숫자로 순위를 매긴다).
-    두 렌즈가 갈리는 지점만 보고서에 쓴다. [8/6] 워치 편입으로 n이 커졌으나(전력 3→10·반도체 5→10)
-    **그룹은 경제적 동질 피어가 아니라 데스크 담당 범위**다 — "업종 내 위치"가 아니라
-    "우리 커버리지 안 순위"로 서술할 것. 피어 재무 갱신은 R3(`--with-peers`) 담당.
-  ⚠️ 셋 다 **측정·탐색·읽기 전용 — 별점·스코어·트랜치 어떤 룰도 바꾸지 않는다.**
-- **[8/5] 폭풍 %ile 정본 = `vol_gauge.py`.** 하드플로어(S&P ≥70%ile)·항복 가산 판정에 **`garch` 값을 인용하지 말 것** — 8/1~8/4 보고서 4회 연속으로 garch 값을 하드플로어에 인용해 판정이 갈렸다. `garch`는 선행 대조·발산 경보(|두 %ile 차이| ≥20p = 국면 전환) 전용.
-- 데스크 병렬(리서치 제외 최대 7 — 지역2+매크로+리스크 항상, 섹터 3종 = 트리거 게이트: ±5%·실적 D-7·테마뉴스·정훈 지목 없으면 지역데스크 시세로 갈음) → 강세/신중 디베이트 → PM 종합.
-- 주간 첫 보고서면 self-review는 R3(주말)에서 청산되므로 평일 중복 X. 단 R3 누락 주면 맨 먼저 self-review.
-- 보유15+워치 풀표(별점·스코어·매수존·트림)·지정가 오더북·PM 사견·tasks.json 동기화. 오늘의 이슈 4개는 전부 자동 심층(선택 대기 X).
-- build_app_data → validate_report(FAIL 자가교정) → **rule_tracker.py --snapshot**([8/6] 룰1 사다리 원장 매일 append — RESET 정책상 매일 재계산이 전제. 7/30~8/5 7일 정지 재발방지, validate가 FAIL로 감시) → score_calls --append → snapshot.py → **market_log.py**([7/20] 오늘 시세 시계열 append, once-per-day 가드) → **build_dashboard.py**([7/20] output/dashboard.html 재생성 → Artifact 툴 있으면 `data/app/dashboard_url.txt`의 URL로 재발행해 링크 유지) → **report_guard.py --done**(validate PASS 뒤 완료 마커) → 커밋(data/app/report_run.json + data/timeseries 포함) → git push origin HEAD:main(ff, 자동). 추측 금지·미확인 명시.
+보고서 (무인 R2 — C2 prep 소비형. 선택지 띄우고 멈추지 말 것. 데스크 서브에이전트 스폰 금지).
+스크립트는 전부 `python3 .claude/skills/portfolio-desk/scripts/<이름>.py` 형태로 부른다(무인 허용목록이 이 접두사만 통과시킨다 — `cd`·`python`·인라인 `-c` 금지).
+0. 실측: kst_now.py → 주말·휴장이면 보고서 없이 종료. 번호 N = docs/reports/ 최신 report_v 번호 + 1. report_guard.py --start --kind R2 --version N.
+1. 재료: 머리말이 알려준 오늘자 prep 파일을 Read 1회 — 국장·미장·매크로·섹터·리스크 데스크 결과다(재독 금지, 필요 구간만 offset).
+   머리말이 "prep 없음"이면 데스크를 부르지 말고 market_data.py · macro_data.py · vol_gauge.py · tranche_rules.py · triggers.py 5개만 돌려 쓰고, 보고서 머리에 "C2 prep 없음 — 데스크 분석 생략" 명시.
+2. 복원: r2_brief.py 1회 + decisions.py. 직전 보고서 전문·tasks.json·stocks.json 통째 Read 금지(수정할 구간만 Grep/offset). ⭐2 이하 보유는 memory_recall.py <종목> --limit 6.
+3. 시세 보강: market_data.py 1회 — prep 작성 이후 ±3% 움직임·신규 공시만 본문에 더한다.
+4. 영상: docs/research/hunter_log.md·feeds_log.md 맨 위 오늘자 블록만 읽는다. 자막 추출(hunter_latest --fetch) 금지.
+5. 토스 호출 금지(키 없음). 보유·현금 = portfolio.json. 본문과 STATE SNAPSHOT에 "토스 미대조(무인)" 한 줄.
+6. 보고서 docs/reports/report_v{N}_{YYYY-MM-DD}.md — Write 1회로 완성(섹션별 조각 Edit 금지):
+   보유 전종목 풀표 + 워치 전종목 풀표(현재가·당일·원가대비·목표·여력·매수존·매도/트림·⭐·스코어·근거) · TF 상황판(crash_tf §1·§5 게이트) · 사다리 상한(tranche_rules 원화·하드플로어) · 오늘의 이슈 4개 전부 심층 · 강세 vs 신중 · 지정가 오더북(미국은 $) · PM 사견 · STATE SNAPSHOT.
+   별점·스코어는 stocks.json 기존값을 쓰고 근거가 바뀐 종목만 조정한다. CLAUDE.md의 '현재 vN' 숫자 +1.
+7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다**: tasks.today를 '오늘 밤~내일 할 일'로 다시 쓴다.
+   항목마다 한 줄(100자 이내 — 넘으면 카톡에서 잘린다) = 시각 · 종목 · 매수/매도 · 가격(미국 $ / 국내 원) · 수량 · 조건. 최대 6개, 끝난 건 done=true. 오더는 orders에 등록·갱신(체결 확인 전 완료 처리 금지). 바뀐 종목은 stocks.json도.
+8. 마무리: build_app_data.py → validate_report.py(FAIL 0까지 핀포인트 Edit) → rule_tracker.py --snapshot → score_calls.py --append → snapshot.py → market_log.py → report_guard.py --done → git add <만들거나 고친 파일 경로> → git commit.
+   푸시·카톡은 런처가 한다(git push·notify.py 호출 금지). 추측 금지·미확인은 미확인.
 ```
 
-> ★[2026-09-10 정훈 지시 — 분업 전환] **R2는 더 이상 스케줄로 돌지 않는다.** 정훈이 "보고서 작성"이라고 할 때 **로컬 대화형**으로 돈다.
-> 재료(시장·데이터·데스크 분석)는 아래 **C2 클라우드 준비**가 16:00에 미리 만들어 main에 올려둔다 → 로컬 R2는 `git pull` 후
-> 오늘자 `docs/prep/prep_{날짜}.md`를 데스크 결과로 쓰고(데스크 재스폰 금지 — 없거나 stale한 것만), **토스 실계좌 + PM 종합 + 별점·오더북·할일·STATE SNAPSHOT**만 쓴다.
-> 왜: 로컬 무인 R2는 9/1~9/10 **자력 완주 0/8**(권한거부 23.8% · 대화형과 예산 충돌 · PC 절전) — `docs/research/local_regression_audit_2026-09-10.md`.
+> ☁️ 舊 [9/10] *"R2는 더 이상 스케줄로 돌지 않는다 — 정훈 '보고서 작성' 시 로컬 대화형"* → **9/17 위 무인 R2로 대체**(대화형은 보강용으로 유지).
+> 舊 풀 파이프라인 프롬프트(데스크 병렬·hunter 델타·dashboard 재발행 포함)는 git 히스토리(`306a55e` 시점 docs/routines.md)에 있다 — 대화형 보고서의 절차 정본은 `portfolio-desk` 스킬이다.
 
 ### C2. 클라우드 준비 브리핑 (평일 16:00 KST · 클라우드 루틴) — 보고서의 재료만 [2026-09-10 신설]
 실행 = claude.ai 클라우드 루틴(PC 전원과 무관). 클라우드 프롬프트는 "이 블록을 읽고 수행"만 담는다 → **정본은 이 블록**(git으로 수정).
@@ -386,7 +387,7 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
 | 루틴 | 작업 이름 | KST | 요일 |
 |---|---|---|---|
 | R1 | `JD-R1-video-prefetch` | 10:00 | 평일 |
-| R2 | `JD-R2-main-report` | 16:00 | 평일 |
+| R2 | `JD-R2-main-report` | **16:30** | 평일 ★[9/17 재가동 — C2 prep 대기 최대 60분 → 무인 보고서 → 할 일 카톡] |
 | R3 | `JD-R3-calibration` | 09:00 | 토 |
 | R4a | `JD-R4a-retry-2000` | 20:00 | 평일 |
 | R4b | `JD-R4b-retry-2115` | 21:15 | 평일 |

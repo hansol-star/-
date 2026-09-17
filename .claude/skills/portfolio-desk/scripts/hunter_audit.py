@@ -130,8 +130,25 @@ def main():
     today_n = sum(1 for v in missing.values() if _kst(v["published"]).strftime("%Y-%m-%d") == today_kst)
     structural = len(missing) - today_n
 
+    # ★[9/17] '아카이브 미등재'를 셋으로 가른다. 9/17 소급 회수(54편)는 로그 블록·자막만 남기고 아카이브엔 안 들어가
+    #   회수 직후에도 이 감사가 44.2%를 그대로 찍었다 — **회수를 했는지 안 했는지 이 숫자로는 구별이 안 됐다.**
+    #   (8/27 '미확인을 셋으로 가른다'와 같은 이유: 한 바구니면 서로 다른 상태가 같은 숫자로 보인다)
+    tdir = os.path.join(REPO, "data", "transcripts", "hunter")
+    have_tx = {fn[:-3] for fn in os.listdir(tdir) if fn.endswith(".md")} if os.path.isdir(tdir) else set()
+    try:
+        log = open(os.path.join(REPO, "docs", "research", "hunter_log.md"), encoding="utf-8").read()
+    except OSError:
+        log = ""
+    logged = set(re.findall(r"`([A-Za-z0-9_-]{11})`", log))
+    for line in re.findall(r"회수 ID:([^\n]+)", log):
+        logged |= set(re.findall(r"[A-Za-z0-9_-]{11}", line))
+    n_logged = sum(1 for k in missing if k in logged)
+    n_tx_only = sum(1 for k in missing if k not in logged and k in have_tx)
+    truly = [k for k in missing if k not in logged and k not in have_tx]
+
     if a.emit_ids:
-        print(",".join(missing))
+        # 소급 대상은 자막조차 없는 것만 — 이미 받은 자막을 다시 뽑지 않는다
+        print(",".join(truly))
         return 0
 
     cov = (1 - len(missing) / len(uploads)) * 100 if uploads else 100.0
@@ -144,6 +161,11 @@ def main():
     print(f"  ★ 누락        : {len(missing):>4}건   → 커버리지 {cov:.1f}%")
     print(f"     └ 오늘분   : {today_n:>4}건  (R1 이후 업로드 = 정상 지연)")
     print(f"     └ 구조적   : {structural:>4}건  ← 이게 진짜 구멍")
+    cov_collected = (1 - len(truly) / len(uploads)) * 100 if uploads else 100.0
+    print(f"  아카이브 미등재 {len(missing)}건의 실제 상태:")
+    print(f"     ├ 로그 기록·자막 있음 : {n_logged:>4}건  (분석은 됐고 앱 아카이브만 빠짐)")
+    print(f"     ├ 자막만 있음(미분석) : {n_tx_only:>4}건  (수집 후 세션이 죽은 흔적 — --catchup이 분석 대상으로 올린다)")
+    print(f"     └ 자막도 없음         : {len(truly):>4}건  → 수집 기준 커버리지 {cov_collected:.1f}%")
 
     if missing:
         wd = collections.Counter("월화수목금토일"[_kst(v["published"]).weekday()] for v in missing.values())

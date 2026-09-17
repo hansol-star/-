@@ -1672,9 +1672,11 @@ def check_routine_health(today=None):
     # ★[9/1] 지각 — 절전이 예약을 먹은 경우. 성공(OK)이어도 늦었으면 말한다.
     late = st.get("late_min")
     if isinstance(late, (int, float)) and 45 <= late <= 600:
+        # ★[9/17 원인 확정] 9/11·9/15·9/16·9/17 네 번 다 Kernel-Power 42 TargetState=6(종료)→EffectiveState=5(하이버네이트)
+        #   = **빠른 시작 켜진 '종료'**였고 복귀 WakeSourceType=0(사람). wake timer는 종료 상태를 못 깨운다 — 9/1의 '미확정'이 이것.
         warn(f"무인 루틴 지각 실행 — {kind}이 예정({st.get('scheduled')})보다 {int(late)}분 늦게 돌았다 "
-             f"@ {when}. 절전 복귀 후 StartWhenAvailable로 기동된 정황(9/1 실측 R1 10:00→12:00) — "
-             f"전원 옵션에서 최대 절전 진입을 막거나 실행 시각을 앞당길 것")
+             f"@ {when}. 밤에 PC를 '종료'하면(빠른 시작 = 하이버네이트) 예약이 못 깨운다 — "
+             f"'절전'으로 두면 WakeToRun이 동작한다(9/17 이벤트로그 확정)")
     try:
         last = _dt.datetime.strptime(st.get("kst", "")[:10], "%Y-%m-%d").date()
         base = today or (_dt.datetime.utcnow() + _dt.timedelta(hours=9)).date()
@@ -1684,6 +1686,88 @@ def check_routine_health(today=None):
                  f"작업 스케줄러 상태 확인: Get-ScheduledTask -TaskPath JeonghunDesk")
     except Exception:
         pass
+    _check_r1_streak(today)
+
+
+def _routine_log_cause(log_path):
+    """루틴 로그 본문에서 실패 원인 사인을 읽는다 — 원인을 고정 문구로 추측하지 않는다."""
+    try:
+        text = open(log_path, encoding="utf-8", errors="replace").read()
+    except (OSError, TypeError):
+        return "로그를 못 읽음"
+    if "Background tasks still running" in text:
+        return "백그라운드 에이전트 강제 종료(600초) — 9/14·9/15 R1 사인"
+    if re.search(r"requires approval|승인 대기|허용목록", text):
+        return "권한 게이트(승인 대기) — settings.json 허용목록 매칭 확인"
+    return "로그 본문에 사인 없음 — 모델 응답을 직접 볼 것"
+
+
+def _check_r1_streak(today=None, window=5):
+    """★[9/17 신설] R1을 **하루 단위로** 본다 — last_status.json 한 장으로는 연속 실패가 안 보인다.
+
+    9/9~9/16 R1은 날마다 **다른 이유로** 실패했다(푸시 차단→도구 0회 2일→백그라운드 강제종료 2일→지각 건너뜀).
+    매번 그날의 증상 하나만 고쳤고, 마지막 한 장만 보는 이 검사는 '9/15 UNCOMMITTED'만 말했다.
+    **5평일 동안 영상 블록이 하나도 안 쌓였다**는 사실은 어디에도 안 떴다 → 9/17 감사 커버리지 45.9%로 뒤늦게 발견.
+    ⇒ 두 축으로 본다: ①일별 R1 로그의 최종 판정(없음·건너뜀 포함) ②**산출물** = hunter_log.md 최신 블록 날짜
+      (8/22 '메타 성공 ≠ 생존' — 런처 판정이 OK여도 main에 블록이 없으면 실패다. 9/9·9/10이 OK였다).
+    """
+    import datetime as _dt
+    now = _dt.datetime.utcnow() + _dt.timedelta(hours=9)
+    base = today or now.date()
+    logdir = os.path.join(ROOT, "data", "logs", "routines")
+    try:
+        have = sorted(fn[3:13] for fn in os.listdir(logdir) if re.match(r"r1_\d{4}-\d{2}-\d{2}\.log$", fn))
+    except OSError:
+        have = []
+    if not have:
+        return
+    first = _dt.date.fromisoformat(have[0])
+    days, d = [], base
+    # R1 창(10:00~15:30)이 안 끝난 오늘은 판정하지 않는다.
+    if not (today is None and now.hour * 60 + now.minute >= 930):
+        d -= _dt.timedelta(days=1)
+    while len(days) < window and d >= first:
+        if d.weekday() < 5:
+            days.append(d)
+        d -= _dt.timedelta(days=1)
+    outcomes = []
+    for day in reversed(days):
+        path = os.path.join(logdir, f"r1_{day.isoformat()}.log")
+        try:
+            text = open(path, encoding="utf-8", errors="replace").read()
+        except OSError:
+            outcomes.append((day, "미실행"))
+            continue
+        verdicts = re.findall(r"=== 종료 verdict=(\w+)", text)
+        if verdicts:
+            outcomes.append((day, verdicts[-1]))
+        elif "지각 한도 초과" in text:
+            outcomes.append((day, "SKIPPED_LATE"))
+        else:
+            outcomes.append((day, "중단(종료줄 없음)"))
+    bad = [o for o in outcomes if o[1] != "OK"]
+    streak = 0
+    for _, v in reversed(outcomes):
+        if v == "OK":
+            break
+        streak += 1
+    if len(bad) >= 3 or streak >= 2:
+        seq = " · ".join(f"{day.month}/{day.day} {v}" for day, v in outcomes)
+        warn(f"R1 영상 프리페치가 최근 {len(outcomes)}평일 중 {len(bad)}일 실패(연속 {streak}) — {seq}. "
+             f"날마다 원인이 달라도 결과는 같다: 영상 블록이 안 쌓인다. "
+             f"`hunter_audit.py --days 14`로 커버리지 확인 후 `hunter_latest.py --catchup --fetch`로 회수")
+    # ② 산출물 — 누가 썼든 hunter_log.md에 최근 블록이 있는가
+    try:
+        text = open(os.path.join(ROOT, "docs", "research", "hunter_log.md"), encoding="utf-8").read()
+        dates = re.findall(r"^## (\d{4}-\d{2}-\d{2})", text, re.M)
+        last = max(_dt.date.fromisoformat(x) for x in dates) if dates else None
+    except (OSError, ValueError):
+        last = None
+    if last and days:
+        gap = [x for x in days if x > last]
+        if len(gap) >= 2:
+            warn(f"hunter_log.md 최신 블록이 {last} — 그 뒤 {len(gap)}평일 동안 영상 기록이 없다"
+                 f"({', '.join(f'{x.month}/{x.day}' for x in sorted(gap))}). 루틴 판정과 무관하게 산출물이 비었다")
 
 def check_watch_calls(latest=None):
     """[9/14 신설] 워치 콜 원장이 최신 보고서를 담고 있는지 — 채점 표본이 조용히 새는 것을 막는다.

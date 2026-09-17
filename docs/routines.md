@@ -25,16 +25,32 @@
 
 ### R1. 영상 리서치 프리페치 (평일 10:00) ⭐신규 — 영상 전용, 메인에서 분리
 목적 = 무거운 3채널 영상 자막 분석을 메인 보고서보다 **6시간 앞선 별도 리셋 창**에서 끝내 캐시에 저장. 메인은 이 캐시만 읽는다.
-**볼륨(실측)**: 경제사냥꾼 일 7~8편(저녁 19~23시 ~4-5편 몰림) / 수페 주 2~3편 / 지식인 필터후 ~1편. R1(10:00)이 **전날 저녁 배치 + 오늘 아침**을 잡고(오늘/어제 필터), 그날 오후분은 R2 델타, **그날 저녁 배치는 다음날 R1**이 커버.
-→ 산출: `hunter_log.md`·`feeds_log.md`(맨 위 오늘자 블록 prepend) + `hunter.json`·`feeds.json`(latest_videos·track_record·setups) + build_app_data → 커밋·main 푸시.
+**볼륨(실측)**: 경제사냥꾼 일 7~8편(저녁 19~23시 ~4-5편 몰림) / 수페 주 2~3편 / 지식인 필터후 ~1편. ★[9/17] R1은 **`--catchup`으로 최근 7일 중 아직 수집 안 한 영상 전량**을 잡는다 — 전날 저녁·주말·R1이 실패하거나 건너뛴 날까지 다음 실행이 메운다(舊 `--max 10`·오늘/어제 필터는 "저녁분은 다음날 R1이 커버"를 약속만 하고 못 지켰다: 9/1~9/16 커버리지 45.9%, 누락의 55%가 17시 이후).
+→ 산출: `hunter_log.md`·`feeds_log.md`(맨 위 오늘자 블록 prepend) + `hunter.json`·`feeds.json`(latest_videos·track_record·setups) + build_app_data → **커밋까지**. main 푸시는 런처(`routine_push.py`)가 한다.
+
+> **★[9/17] R1 9/9~9/17 공백의 실체 — 원인이 날마다 달랐다(정본 = `docs/lessons.md` 9/17)**
+> | 날짜 | 실제 | 런처 판정 | 무엇이 고쳤나 |
+> |---|---|---|---|
+> | 9/9 | 커밋 후 **push 승인 대기로 막힘**(허용목록 `HEAD:*`가 `HEAD:main`과 불일치 — 무인 세션 7/7회) → detached HEAD·곁가지 | **OK**(거짓) | 런처가 푸시(`routine_push.py`) + `UNPUSHED` 판정 |
+> | 9/10 | 9/9 23:33 PC 종료 → 13:21 기동, **도구 0회**로 "대기 중입니다" | **OK**(거짓) | 런처 머리말(지시문 선언) + 3분 내 무작업 1회 재시도 |
+> | 9/11 | 정시 기동, 도구 0회 "무엇을 도와드릴까요?" | NO_OUTPUT(재시도 없음) | 〃 |
+> | 9/14·9/15 | 종료→101·133분 지각, research-feed **백그라운드 위임 후 600초 강제종료** | UNCOMMITTED(힌트는 '권한 누락' — 틀림) | 9/16 `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` + 머리말 `run_in_background:false` + `BG_KILLED` 판정 |
+> | 9/16 | 종료→334분 지각 → 한도 초과 건너뜀 | **기록 없음**(last_status 안 덮음) | 건너뜀 알림 + 일별 로그 연속 판정(`check_routine_health`) |
+> | 9/17 | 01:41 종료→12:14 복귀, 12:17 지각 기동 | (진행) | — |
+> **지각의 원인 확정**: 4회 전부 Kernel-Power 42 `TargetState=6(종료)→EffectiveState=5(하이버네이트)`·복귀 `WakeSourceType=0`(사람) = **빠른 시작 켜진 '종료'**. wake timer는 종료 상태를 못 깨운다(9/1 "WakeToRun인데 안 깼다 — 미확정"의 답). 밤엔 **절전**으로 둬야 10:00에 돈다.
 
 ```
 영상 리서치 프리페치 (무인 루틴 — research-feed 전용, 보고서 작성 아님, 선택지 띄우고 멈추지 말 것).
 - `python3 .claude/skills/portfolio-desk/scripts/kst_now.py` 로 오늘 날짜 확인 → 오늘자 블록을 쌓는다.
-- research-feed 스킬/에이전트로 3채널(경제사냥꾼·수페TV·지식인사이드) 신규 영상 탐색·자막 추출 (경제사냥꾼 일 7~8편·저녁 몰림 → --max 10):
-    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 10
-    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 3
-    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel jisik --fetch --max 3
+- 3채널(경제사냥꾼·수페TV·지식인사이드) **미수집분 전량** 탐색·자막 추출 — `--max`를 붙이지 말 것(붙이면 잘린다):
+    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --catchup --fetch
+    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --catchup --fetch
+    python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel jisik --catchup --fetch
+  → 각 출력 **마지막 줄 `ANALYZE_IDS=`**가 이번에 분석할 목록이다(신규 + 자막만 있고 미분석으로 남은 것).
+    이미 로그·아카이브·앱 캐시에 등재된 영상은 스크립트가 걸러낸다 — **다시 뽑지도, 다시 분석하지도 않는다.**
+    stderr의 `[CATCHUP] 열거 N · 등재됨 A · 자막만 T · 신규 K` 줄을 블록 머리에 그대로 옮겨 적는다(누락 추적용).
+  ⚠️ research-feed 에이전트를 쓰면 **run_in_background: false** — 결과를 받은 뒤 이 세션에서 기록·커밋까지 끝낸다
+    (9/14·9/15는 백그라운드로 넘기고 턴을 끝내 강제 종료 → 반영 0건).
 - ★[8/30] **자막 원문 소급 회수 — 1회성 완료(432/432)**. 아래는 결손 발생 시에만:
     python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --archive-backfill 50
   배경 = 舊 기본 저장경로가 `/tmp`(세션 종료 시 소멸) + `.gitignore`가 `**/hunter_yt/`를 막아
@@ -45,9 +61,11 @@
   내가 429 페이싱을 근거 없이 보수적으로 추정한 것이 원인. **추정으로 배치 크기를 정하지 말고
   먼저 실측할 것.**
   ⚠️ 진척은 `validate_report.check_transcript_persistence()`가 WARN으로 상시 보고한다.
-  → 오늘/어제 필터 = 전날 저녁 배치(~5) + 밤 + 오늘 아침(~3) ≈ 8편. 이미 캐시(hunter.json latest_videos)에 있는 ID는 건너뛴다(디둡, 재분석 X).
-- ★[9/9 신설·토큰 절감] **자막 전문을 그대로 읽지 말고 다이제스트를 읽는다**:
-      python3 .claude/skills/portfolio-desk/scripts/hunter_digest.py --since <오늘-1> --out data/tmp/digest_r1.md
+  → 평일 보통 8편 안팎, 월요일·공백 뒤엔 더 많다(창은 최대 21일). 디둡은 `--catchup`이 한다.
+- ★[9/9 신설·토큰 절감] **자막 전문을 그대로 읽지 말고 다이제스트를 읽는다**(채널마다 위 `ANALYZE_IDS`를 넘긴다):
+      python3 .claude/skills/portfolio-desk/scripts/hunter_digest.py --ids <ANALYZE_IDS> --out data/tmp/digest_r1.md
+      python3 .claude/skills/portfolio-desk/scripts/hunter_digest.py --channel supe --ids <ANALYZE_IDS> --out data/tmp/digest_r1_supe.md
+  (舊 `--since <오늘-1>`은 catchup이 메운 과거분을 빠뜨리고, 이미 분석한 소급분은 다시 싣는다)
   → `data/tmp/digest_r1.md` **하나만 Read**하고 그걸로 태깅·교차검증을 한다.
   **실측(9/9, 19편): 원문 60,203자 → 17,194자 = 3.5x 절감.** 이게 R1이 매일 TOKEN_LIMIT으로 죽던
   원인의 정면 해법이다 — R1의 토큰은 네트워크가 아니라 **자막 전문을 컨텍스트에 올리는 데** 들어간다.
@@ -84,8 +102,11 @@
 - 정본 기록(메인 보고서가 읽을 캐시):
     · docs/research/hunter_log.md (경제사냥꾼) / docs/research/feeds_log.md (수페TV·지식인사이드) 맨 위 오늘자 날짜스탬프 블록 prepend.
     · data/app/hunter.json (latest_videos·track_record 최신 prepend·headline·themes·setups) / data/app/feeds.json (수페·지식인 — hunter와 안 섞음).
-    · 요약 필드명 = summary(필수). 신규 영상 0편이면 "신규 없음"만 기록하고 파일 손 안 대도 됨.
-- python3 .claude/skills/portfolio-desk/scripts/build_app_data.py → 커밋 → git push origin HEAD:main (ff, 연속성 규약).
+    · 요약 필드명 = summary(필수).
+    · ★[9/17] **분석할 영상이 0편이어도 hunter_log.md에 한 줄 블록을 남긴다**(`## <오늘> — R1 신규 0편 · [CATCHUP] 줄`).
+      `validate_report`가 **블록 날짜로 R1 생존을 판정**한다 — 블록이 없는 날은 실패한 날과 구별되지 않는다.
+- python3 .claude/skills/portfolio-desk/scripts/build_app_data.py → `git add <고친 파일 경로>` → `git commit`. **푸시는 하지 않는다** —
+  무인 세션의 push는 권한 게이트에 막히고(9/9 실측), 런처가 종료 후 `routine_push.py`로 origin/main에 올린다.
 - 보고서 파일(report_v*)은 만들지 않는다. 이건 데이터 프리페치 전용.
 ```
 

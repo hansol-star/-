@@ -32,10 +32,13 @@ You are the **research analyst** of 정훈's portfolio desk. You discover and su
 
 1. **Auto-discover + extract captions** (from project root — **yt-dlp 불필요**, stdlib만). 3채널 순차 실행(채널 사이 ~30초 간격 — 같은 IP 버스트 방지):
    ```bash
-   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --fetch --max 10
-   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --fetch --max 3
-   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel jisik --fetch --max 3
+   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --catchup --fetch
+   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel supe --catchup --fetch
+   python3 .claude/skills/portfolio-desk/scripts/hunter_latest.py --channel jisik --catchup --fetch
    ```
+   ★[9/17] **`--catchup` = 최근 7일(공백이면 최대 21일) 중 아직 수집 안 한 영상 전량**, 이미 로그·아카이브에 등재된 건 걸러낸다.
+   **`--max`를 붙이지 말 것** — 舊 `--max 10`·오늘/어제 필터가 저녁 업로드(누락의 55%)와 R1 실패일을 통째로 버렸다(9/1~9/16 커버리지 45.9%).
+   출력 마지막 줄 **`ANALYZE_IDS=`가 분석 대상**이고, stderr `[CATCHUP] …` 줄은 로그 블록 머리에 옮겨 적는다.
    → RSS(feeds/videos.xml)로 최신 15편 탐색(봇차단 무관) + innertube(ANDROID→IOS) 자막 추출.
    영상 간 8~15초 페이싱 + LOGIN_REQUIRED 시 지수백오프(60→120→240초) 내장 — **기다리면 된다**.
    prints the video/shorts list + caption md file paths. Read the generated md files
@@ -43,8 +46,8 @@ You are the **research analyst** of 정훈's portfolio desk. You discover and su
    특정 영상만 다시: `--ids "id1,id2"` (--channel과 함께) / 날짜 필터 없이: `--all-dates`.
    수페TV는 주 2~3회·지식인사이드는 필터 후 0~2편/일이 정상 — 신규 없으면 그 채널만 "신규 없음".
 
-2. **Today/yesterday filter**: RSS의 `published_kst` 기준 **오늘/어제 업로드만** 기본 대상
-   (스크립트가 자동 필터). If nothing new, return "신규 입력 없음".
+2. **대상 = `ANALYZE_IDS`** (★[9/17] 舊 오늘/어제 필터 대체 — 날짜 필터는 catchup 창이 이미 한다).
+   `--catchup` 없이 부를 때만 舊 오늘/어제 필터가 적용된다(보고서 세션의 싼 델타 확인용). If nothing new, return "신규 입력 없음".
 
 3. **⚠️ [7/2 영구 교정] "웹 환경 봇차단이라 실패 → 로컬 이전 후 재탐색" 서사 금지.**
    봇차단의 실체 = 버스트 레이트리밋(일시적)이며 페이싱·백오프로 해소됨(7/2 실측 9/9편 확보).

@@ -35,6 +35,8 @@
 
 > `hunter_audit.py` 9/1~9/16 **커버리지 45.9%**(누락 72편) — 9/9 오전~9/14가 통째로 비어 있었다. 9/3 이후 54편 자막 회수(원문 `data/transcripts/hunter/`).
 > ⚠️ 1차 회수는 `hunter_latest.py --ids`가 기본 `--max 4`에 잘려 4편만 나왔다 → 도구 수정 후 전량(docs/lessons.md 9/17).
+> 회수 ID: -4lGmk8iTQw,0NrUuQQ2HUY,1Qc04ffFph0,4uguzSstLWc,61dqF1uvxwA,6RqT1MiMnZs,6UOkHmShEgg,6eax5nwEdTk,8VGX4vLD_YQ,8WDBBmDA5Lo,9VeY3CopkKE,9omvvcm_H0k,AxXZhqmm7bQ,BXap0pxz02M,DIahc9Pm7QI,FsRhEHG-SzY,G-ZhktRr83Q,J1ELIhtwQ7A,J5ec8E1ZKpw,J9mZpa_iHfo,JjDqYFKa9IU,K4LpCzePwyw,KD93Go00DyY,M6dxWQUMb-A,NLQ9kZ212A0,Q5_7897NTXU,RcMuCofbr_U,TIqvFB8V2_g,Tj4eZyMERXY,Yhr-Lc2pAxs,Yo6w33WX0aI,YxZripdPNYY,_Mfr9Kad-JU,d1JgcQZ0Iic,eBKnx-7PwEk,fZMFh6PR1Vg,fsw-pfsXXlk,giwMIQQu4nI,lZVyOLCxxhk,m4yi_ESGvHE,o0ppqM3l9No,pE87I6NVjEM,qJRW0kfhWrs,qt_3DEDqkjM,sa-gIVwv7UI,tWzMkLx7oO0,tmpkHiva8D0,ypYd42RhzI8,ysLkK17FZ0k,zkXRnxPQKcQ
+> (★9/17 사후 기입 = 커밋 946a267에 들어간 자막 50편. 이 블록은 편별이 아니라 묶음으로 분석했으므로 ID를 여기 남겨야 `hunter_latest.py --catchup`이 '등재됨'으로 보고 **다시 분석하지 않는다**.)
 > 검증 = research-feed 데스크 + PM 재대조. 종목 종합 = `docs/research/gev_anet_deepdive_2026-09-17.md` §5.
 
 **채널 논조**: 2주 내내 "반도체 슈퍼사이클, 그중 삼성보다 하이닉스". 2주 108편 가중 언급 SK하이닉스 267·삼성전자 177·엔비디아 45·애플 39·광통신 29·한전 29.

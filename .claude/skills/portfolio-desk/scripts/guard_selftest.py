@@ -114,6 +114,37 @@ def _LINES(*rows: str) -> str:
     return "\n".join(rows) + "\n"
 
 
+# ★[9/17] R1 일별 판정 픽스처 — 오늘 기준 직전 평일 5개(최근 먼저). 날짜를 박으면 자기부패한다(위 _DAYS_AGO와 같은 이유).
+def _PREV_WEEKDAYS(n: int) -> list[str]:
+    d, out = datetime.date.today(), []
+    while len(out) < n:
+        d -= datetime.timedelta(days=1)
+        if d.weekday() < 5:
+            out.append(d.isoformat())
+    return out
+
+
+_R1_DAYS = _PREV_WEEKDAYS(5)
+_R1_TODAY = (datetime.date.today(),)
+
+
+def _R1_LOGS(verdicts: list[str]) -> dict:
+    """verdicts는 최근 평일부터. 'SKIP'은 지각 한도 건너뜀 로그."""
+    files = {}
+    for day, v in zip(_R1_DAYS, verdicts):
+        body = (f"[{day} 12:00:00] 지각 한도 초과 — 334분 > 330분 (예정 10:00). 건너뜀\n" if v == "SKIP"
+                else f"[{day} 10:12:00] === 종료 verdict={v} exit=0 소요=12분 ===\n")
+        files[f"data/logs/routines/r1_{day}.log"] = body
+    files["data/logs/routines/last_status.json"] = (
+        '{"kind":"r1","verdict":"OK","exit_code":0,"kst":"' + _R1_DAYS[0] + ' 10:12:00",'
+        '"minutes":12,"log":"x","uncommitted":0,"scheduled":"10:00","late_min":0}')
+    return files
+
+
+def _HUNTER_LOG(day: str) -> dict:
+    return {"docs/research/hunter_log.md": f"# 경제사냥꾼\n\n## {day} (x) 10:xx — R1 프리페치 6편\n"}
+
+
 def _CSV(day: str) -> str:
     return _LINES("date,open,high,low,close", day + ",1,1,1,1")
 
@@ -354,6 +385,31 @@ INJECTION_TESTS = [
                     '"kst":"' + _TODAY_KST + ' 16:45:00","minutes":41,"log":"x",'
                     '"uncommitted":0,"scheduled":"16:00","late_min":0}'},
         "args": (),
+    },
+
+    {
+        "name": "check_routine_health",
+        "desc": "R1이 날마다 다른 이유로 연속 실패하면 잡는가(마지막 한 장만 보지 않는가)",
+        "why": "9/9~9/16 R1은 날마다 원인이 달랐다(푸시 차단→도구 0회→백그라운드 강제종료 2일→지각 건너뜀). "
+               "last_status.json 한 장만 읽던 검사는 매번 그날 증상 하나만 말했고, "
+               "'5평일 동안 영상 블록 0'은 9/17 감사(커버리지 45.9%)에서야 드러났다. "
+               "픽스처 = 실제 순서 그대로, 마지막 실행 자체는 OK로 둔다(한 장만 보면 초록불이 되는 형태)",
+        "pattern": r"R1 영상 프리페치가",
+        "violate": {**_R1_LOGS(["SKIP", "UNCOMMITTED", "UNCOMMITTED", "NO_OUTPUT", "OK"]),
+                    **_HUNTER_LOG(_R1_DAYS[0])},
+        "clean":   {**_R1_LOGS(["OK", "OK", "OK", "OK", "OK"]), **_HUNTER_LOG(_R1_DAYS[0])},
+        "args": _R1_TODAY,
+    },
+
+    {
+        "name": "check_routine_health",
+        "desc": "런처가 매일 OK를 찍어도 hunter_log.md에 블록이 안 쌓이면 잡는가(메타 성공 ≠ 생존)",
+        "why": "9/9 R1은 로컬 곁가지에만 커밋하고 푸시에 막혔는데 verdict=OK, 9/10 R1은 도구 0회로 끝났는데 verdict=OK였다. "
+               "런처 판정을 믿는 검사는 둘 다 통과시킨다 — 산출물(main의 hunter_log 블록 날짜)을 직접 본다",
+        "pattern": r"hunter_log\.md 최신 블록",
+        "violate": {**_R1_LOGS(["OK", "OK", "OK", "OK", "OK"]), **_HUNTER_LOG(_R1_DAYS[4])},
+        "clean":   {**_R1_LOGS(["OK", "OK", "OK", "OK", "OK"]), **_HUNTER_LOG(_R1_DAYS[0])},
+        "args": _R1_TODAY,
     },
 
     {

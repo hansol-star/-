@@ -300,14 +300,25 @@ def msg_routine(kind: str, verdict: str, status_path: str) -> str:
         st = json.load(open(status_path, encoding="utf-8"))
     except Exception:                                             # noqa: BLE001
         pass
-    icon = {"OK": "✅", "UNCOMMITTED": "🟠", "TOKEN_LIMIT": "🟡",
-            "NOT_LOGGED_IN": "🔴", "PERMISSION_BLOCKED": "🟠"}.get(verdict, "🔴")
+    # ★[9/17] 9/11 NO_OUTPUT이 사전에 없어 🔴로는 갔지만 **무엇이 실패인지 문구가 없었다** — 판정마다 한 줄 뜻을 붙인다.
+    icon = {"OK": "✅", "UNCOMMITTED": "🟠", "TOKEN_LIMIT": "🟡", "NOT_LOGGED_IN": "🔴",
+            "PERMISSION_BLOCKED": "🟠", "NO_OUTPUT": "🔴", "BG_KILLED": "🔴", "UNPUSHED": "🟠",
+            "SKIPPED_LATE": "⏭️"}.get(verdict, "🔴")
+    meaning = {
+        "NO_OUTPUT": "아무것도 안 남겼다(도구 0회 응답 의심) — 오늘 영상이 빈다",
+        "BG_KILLED": "백그라운드 에이전트가 강제 종료돼 반영 0건",
+        "UNPUSHED": "커밋은 했지만 origin/main에 못 올렸다 — 대화형 세션에서 push 필요",
+        "SKIPPED_LATE": "머신이 늦게 깨어 지각 한도 초과로 건너뜀 — 다음 실행의 --catchup이 메운다",
+    }.get(verdict)
     lines = [f"{icon} 루틴 {kind} — {verdict}",
+             meaning or "",
              f"{st.get('kst', '')} · {st.get('minutes', '?')}분"]
     if st.get("late_min"):
         lines.append(f"⏰ 예정 {st.get('scheduled')}보다 {st['late_min']}분 지각")
     if st.get("uncommitted"):
         lines.append(f"⚠️ 미커밋 {st['uncommitted']}건 — 다음 세션이 못 본다")
+    if st.get("pushed") and st["pushed"] not in ("NOTHING", "OK", "OK_REBASED"):
+        lines.append(f"⚠️ 푸시 {st['pushed']}")
     if verdict == "OK":
         lines.append(_orders_digest(limit=5))
     return "\n".join(x for x in lines if x)

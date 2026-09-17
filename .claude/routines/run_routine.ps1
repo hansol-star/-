@@ -136,6 +136,18 @@ $MaxLateMap = @{ r1=330; r2=420; r3=660; r4a=75; r4b=105; r4c=90 }
 $MaxLate = $MaxLateMap[$Kind]
 if ($MaxLate -and $LateMin -gt $MaxLate -and -not $Force) {
   Write-Log "지각 한도 초과 — ${LateMin}분 > ${MaxLate}분 (예정 $Scheduled). 건너뜀 (강제 = -Force)"
+  # ★[2026-09-17] 건너뜀도 알린다 — 9/16 R1이 334분 지각으로 건너뛰었는데 last_status.json을 안 덮는 설계라
+  #   health 검사는 9/15 판정만 보고, 폰에도 아무것도 안 갔다. 건너뛴 날은 '실패한 날'과 똑같이 영상이 빈다.
+  #   직전 실제 실행의 판정은 지우지 않도록 **별도 파일**에 쓴다(check_routine_health는 일별 로그의 이 줄을 읽는다).
+  try {
+    $skipFile = Join-Path $LogDir "skip_status_$Kind.json"
+    $skip = [ordered]@{ kind=$Kind; verdict='SKIPPED_LATE'; exit_code=0
+                        kst=(Get-Kst).ToString('yyyy-MM-dd HH:mm:ss'); minutes=0; log=$LogFile
+                        scheduled=$Scheduled; late_min=$LateMin }
+    [IO.File]::WriteAllText($skipFile, ($skip | ConvertTo-Json -Depth 3), (New-Object System.Text.UTF8Encoding($false)))
+    $nOut = & python3 (Join-Path $Scripts 'notify.py') --routine $Kind --verdict SKIPPED_LATE --status $skipFile 2>&1
+    Write-Log "폰 알림: exit=$LASTEXITCODE $(($nOut | Out-String).Trim() -replace '\s+', ' ')"
+  } catch { Write-Log "건너뜀 알림 실패(무시): $($_.Exception.Message)" }
   exit 0
 }
 
@@ -151,6 +163,26 @@ if ($LASTEXITCODE -ne 0 -or -not (Test-Path $PromptFile)) {
 $prompt = (Get-Content -Path $PromptFile -Raw -Encoding UTF8).TrimStart([char]0xFEFF)
 if ([string]::IsNullOrWhiteSpace($prompt)) { Write-Log "프롬프트가 비었다"; exit 2 }
 Write-Log "프롬프트 $($prompt.Length)자 추출 (정본 = docs/routines.md)"
+
+# ── 무인 실행 머리말 [2026-09-17 신설] — 문서가 아니라 런처가 매번 말한다 ────────
+#   세 가지 실패가 문서 프롬프트를 지나갔다(세션 기록 실측):
+#   ① 9/10·9/11 R1: 프롬프트를 정상 수신하고도 **도구 0회**로 "대기 중입니다"/"무엇을 도와드릴까요?"만 답했다.
+#      성공한 날과 전달 경로·순서가 똑같았다 — 모델이 절차 문서를 '지시'가 아니라 '맥락'으로 읽은 것.
+#   ② 9/14·9/15·9/17 R1: 일을 research-feed 에이전트에 **백그라운드로** 넘기고 자기 턴을 끝냈다
+#      (Agent 기본값 = 백그라운드). print 모드가 600초 뒤 강제 종료 → 9/14·9/15 반영 0건.
+#   ③ 무인 세션의 `git push`는 허용목록 `Bash(git push origin HEAD:*)`가 `HEAD:main`과 매칭되지 않아
+#      **7/7회 승인 대기로 막혔다**. 9/9 R1은 그걸 뚫으려다 detached HEAD + 곁가지 브랜치를 만들었다.
+#   ⇒ 푸시는 아래 §푸시에서 런처가 직접 한다(routine_push.py). 모델에겐 커밋까지만 시킨다.
+$Preamble = @"
+[무인 루틴 $Kind — 지금 실행할 작업 지시다. 사람이 보고 있지 않다]
+아래는 참고 문서가 아니라 지금 수행할 절차다. 인사·대기·"무엇을 도와드릴까요"로 끝내지 말고 첫 응답을 도구 호출로 시작하라.
+- 서브에이전트(Agent)는 반드시 run_in_background: false로 부르고, 결과를 받은 뒤 이 세션에서 마무리(기록·커밋)까지 한다. 백그라운드로 넘기고 턴을 끝내면 작업이 버려진다.
+- git은 add·commit까지만 한다. push·rebase·checkout·switch·branch·symbolic-ref는 이 세션에 권한이 없다 — 시도하지 말 것. 푸시는 런처가 종료 후 수행한다(아래 문서의 push 지시는 이 규칙으로 대체된다).
+- git add는 이번 작업에서 만들거나 고친 파일만 경로로 지정한다(-A·. 금지 — 다른 세션의 미완 작업이 섞인다).
+---
+
+"@
+$prompt = $Preamble + $prompt
 
 if ($DryRun) {
   Write-Log "DryRun — claude 호출 생략. 프롬프트 첫 200자:"
@@ -183,9 +215,29 @@ Write-Log "claude = $($claudeCmd.Source) · model=$Model"
 $prevEAP = $ErrorActionPreference
 $ErrorActionPreference = 'Continue'
 $headBefore = (& git -C $Repo rev-parse HEAD 2>$null | Out-String).Trim()
+# ★[2026-09-17] 실행 전 워킹트리를 찍어둔다 — 대화형 세션의 미완 작업이 루틴의 '미커밋'으로 잡히지 않게.
+#   9/14 R1의 '미커밋' 목록(financials·disclosures 등)은 R1이 아니라 그 전 대화형 세션의 것이었다.
+$dirtyBefore = @(& git -C $Repo status --porcelain 2>$null | Where-Object { $_ -ne '' })
 $sw = [Diagnostics.Stopwatch]::StartNew()
 $out = $prompt | & claude -p --permission-mode $PermissionMode --model $Model --output-format text 2>&1
 $code = $LASTEXITCODE
+$attempts = 1
+
+# ★[2026-09-17] 무작업 즉시 종료 → 1회 재시도. 9/10·9/11 R1은 도구 0회로 21초·9초 만에 끝났다.
+#   그대로 두면 그날 영상은 다음날까지 빈다. 3분 안에 끝났고 HEAD·워킹트리가 그대로면 같은 날 한 번 더 민다.
+if (($Kind -in 'r1','r2') -and $code -eq 0 -and $sw.Elapsed.TotalMinutes -lt 3) {
+  $headMid = (& git -C $Repo rev-parse HEAD 2>$null | Out-String).Trim()
+  $dirtyMid = @(& git -C $Repo status --porcelain 2>$null | Where-Object { $_ -ne '' })
+  if ($headMid -eq $headBefore -and -not (Compare-Object $dirtyBefore $dirtyMid)) {
+    $first = (($out | Out-String).Trim() -replace '\s+', ' ')
+    Write-Log "무작업 종료 의심($([int]$sw.Elapsed.TotalSeconds)초·HEAD·워킹트리 불변) — 1회 재시도. 첫 응답: $($first.Substring(0, [Math]::Min(120, $first.Length)))"
+    $retry = "[재시도] 직전 실행이 도구를 한 번도 호출하지 않고 끝났다. 이건 대화가 아니라 무인 작업이다 — 지금 첫 행동으로 도구를 호출해 아래 절차를 시작하라.`n`n" + $prompt
+    $out2 = $retry | & claude -p --permission-mode $PermissionMode --model $Model --output-format text 2>&1
+    $code = $LASTEXITCODE
+    $out = @($out) + @('--- 재시도 ---') + @($out2)
+    $attempts = 2
+  }
+}
 $sw.Stop()
 $ErrorActionPreference = $prevEAP
 
@@ -193,6 +245,9 @@ $outText = ($out | Out-String)
 Add-Content -Path $LogFile -Value $outText -Encoding utf8
 
 # ── 판정 — "돌았다"가 아니라 "쓸 것을 냈나"로 본다(8/22 교훈) ───────────
+# ★[2026-09-17] 백그라운드 강제 종료 — 9/14·9/15 R1의 진짜 사인. 舊 판정은 이걸 UNCOMMITTED로 뭉갰고
+#   validate 힌트는 '권한 누락'을 원인으로 적었다(실제로는 권한이 아니었다).
+$bgKilled = $outText -match 'Background tasks still running'
 $hitLimit = $outText -match 'session limit|usage limit|rate limit'
 $permBlock = $outText -match 'permission denied|requires approval|not allowed'
 $notLogged = $outText -match 'Not logged in|/login'
@@ -210,11 +265,21 @@ try {
   $dirty = @(& git -C $Repo status --porcelain 2>$null | Where-Object { $_ -ne '' })
   $ErrorActionPreference = $prevEAP2
 } catch { Write-Log "git status 확인 실패(무시): $($_.Exception.Message)" }
-$uncommitted = $dirty.Count
+# 루틴 전부터 있던 변경은 빼고 센다. ⚠️ 이미 수정돼 있던 파일을 루틴이 더 고치면 같은 줄이라 못 가른다(과소 계상 쪽).
+$newDirty = @($dirty | Where-Object { $dirtyBefore -notcontains $_ })
+$preDirty = $dirty.Count - $newDirty.Count
+# data/tmp/ = 스크래치(R1 다이제스트가 여기 쓰인다). 이걸 세면 **정상 실행이 매번 UNCOMMITTED**가 된다 — 9/15 목록의 절반이 이것.
+$scratch = @($newDirty | Where-Object { $_ -match '^.. "?data/tmp/' })
+$newDirty = @($newDirty | Where-Object { $_ -notmatch '^.. "?data/tmp/' })
+if ($scratch.Count -gt 0) { Write-Log "스크래치 data/tmp/ 변경 $($scratch.Count)건은 미커밋에서 제외" }
+$uncommitted = $newDirty.Count
 if ($uncommitted -gt 0) {
-  Write-Log "미커밋 $uncommitted건 — 연속성 규약 미이행(다음 세션이 이 작업을 못 본다):"
-  foreach ($d in ($dirty | Select-Object -First 12)) { Write-Log "    $d" }
+  # ⚠️ "${uncommitted}건" — 중괄호 필수. "$uncommitted건"은 PowerShell이 '건'까지 변수명으로 읽어
+  #    빈 문자열이 된다(9/14·9/15 로그의 "미커밋  —"이 그 흔적).
+  Write-Log "미커밋 ${uncommitted}건 — 연속성 규약 미이행(다음 세션이 이 작업을 못 본다):"
+  foreach ($d in ($newDirty | Select-Object -First 12)) { Write-Log "    $d" }
 }
+if ($preDirty -gt 0) { Write-Log "실행 전부터 있던 변경 ${preDirty}건은 제외(다른 세션의 작업)" }
 
 # ★[2026-09-10 신설] 무산출 검사 — '깨끗한 워킹트리'는 '다 커밋했다'와 '아무것도 안 했다'를 못 가른다.
 #   9/10 실측: R1(sonnet)이 프롬프트를 정상 수신하고도 **도구 호출 0회**로 "대기 중입니다"만
@@ -227,15 +292,34 @@ try { $headAfter = (& git -C $Repo rev-parse HEAD 2>$null | Out-String).Trim() }
 $noOutput = ($Kind -in 'r1','r2') -and $headBefore -and ($headBefore -eq $headAfter) -and ($uncommitted -eq 0)
 if ($noOutput) { Write-Log "무산출 — HEAD 불변($($headBefore.Substring(0,7)))·워킹트리 깨끗 = 이 루틴은 아무것도 남기지 않았다" }
 
+# ── §푸시 [2026-09-17 신설] — 모델이 아니라 런처가 올린다 ─────────────────
+#   무인 세션의 push는 권한 게이트에 7/7 막혔다(머리말 ③). 여기는 게이트 밖이다.
+#   origin이 앞서 있거나 워킹트리가 다른 세션 작업으로 더러워도 임시 worktree에서 쌓아 올린다 — 사용자 트리는 안 건드린다.
+#   ⚠️ '커밋했다'와 'main에 있다'는 다르다. 9/9 R1은 로컬 곁가지에만 커밋하고 verdict=OK였다 → 다음 세션·클라우드 C2가 못 봤다.
+$pushed = 'NOTHING'
+if ($headBefore -and $headAfter -and $headBefore -ne $headAfter) {
+  try {
+    $prevEAP3 = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+    $pOut = & python3 (Join-Path $Scripts 'routine_push.py') --since $headBefore 2>&1
+    $ErrorActionPreference = $prevEAP3
+    $pText = ($pOut | Out-String)
+    if ($pText -match 'PUSH_RESULT=(\w+)') { $pushed = $Matches[1] } else { $pushed = 'FAILED' }
+    Write-Log "푸시(런처): $pushed — $(($pText.Trim()) -replace '\s+', ' ')"
+  } catch { $pushed = 'FAILED'; Write-Log "푸시 호출 실패: $($_.Exception.Message)" }
+}
+$unpushed = $pushed -notin 'NOTHING','OK','OK_REBASED'
+
 $verdict = if ($notLogged) { 'NOT_LOGGED_IN' }
            elseif ($hitLimit) { 'TOKEN_LIMIT' }
+           elseif ($bgKilled) { 'BG_KILLED' }
            elseif ($code -ne 0) { 'FAILED' }
            elseif ($permBlock) { 'PERMISSION_BLOCKED' }
            elseif ($uncommitted -gt 0) { 'UNCOMMITTED' }
+           elseif ($unpushed) { 'UNPUSHED' }
            elseif ($noOutput) { 'NO_OUTPUT' }
            else { 'OK' }
 
-Write-Log "=== 종료 verdict=$verdict exit=$code 소요=$([int]$sw.Elapsed.TotalMinutes)분 ==="
+Write-Log "=== 종료 verdict=$verdict exit=$code 소요=$([int]$sw.Elapsed.TotalMinutes)분 시도=$attempts 푸시=$pushed ==="
 
 $status = [ordered]@{
   kind = $Kind; verdict = $verdict; exit_code = $code
@@ -244,6 +328,9 @@ $status = [ordered]@{
   log = $LogFile
   toss_scrubbed = $scrubbed
   uncommitted = $uncommitted
+  pre_dirty = $preDirty
+  pushed = $pushed
+  attempts = $attempts
   scheduled = $Scheduled
   late_min = $LateMin
 }

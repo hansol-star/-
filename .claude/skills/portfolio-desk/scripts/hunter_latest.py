@@ -26,6 +26,7 @@
   - "제목만 로깅" 폴백은 폐지. 자막 미확보 영상은 FAILED로 표기하고 재시도가 원칙.
 
 사용:
+  python3 hunter_latest.py --catchup --fetch  # ★R1 기본(9/17) — 최근 7일 중 미수집분 전량 + ANALYZE_IDS= 출력
   python3 hunter_latest.py                  # 최신 목록만 (RSS, 날짜 포함)
   python3 hunter_latest.py --fetch --max 9  # 자막까지 추출 → 임시폴더/*.md
   python3 hunter_latest.py --channel supe --fetch --max 2   # 수페TV
@@ -146,30 +147,103 @@ def discover_catchup(per_tab=50):
        API가 있어야 가능하다(RSS·스크레이프는 최신 N편만 보여준다).
 
     키가 없으면 빈 리스트 → 기존 폴백 흐름 유지.
+
+    ★[9/17 개정] 舊 기준점 = **아카이브 최신 날짜(고수위선)**. 이건 **고수위선 뒤의 구멍을 원리적으로 못 본다** —
+      9/10~9/14가 비어 있어도 9/15 블록이 하나 들어오면 기준점이 9/15로 뛰어 구멍은 영구히 창 밖이 된다.
+      ⇒ 매 실행 **최근 CATCHUP_LOOKBACK_DAYS일을 다시 훑고**, 이미 수집한 것은 `_seen_ids`로 거른다.
+         고수위선이 그보다 오래됐으면(장기 공백) 그 날짜까지 넓히되 CATCHUP_MAX_DAYS에서 멈춘다.
     """
     key = os.environ.get("YOUTUBE_API_KEY", "").strip()
     if not key:
         return []
-    # 아카이브 최신 날짜 = 우리가 마지막으로 본 지점
-    try:
-        import json as _j
-        arc = _j.load(open(os.path.join(REPO_ROOT, "data", "app", "hunter_archive.json"), encoding="utf-8"))
-        dates = [v.get("date") for v in arc.get("videos", []) if v.get("date")]
-        last = max(dates) if dates else None
-    except Exception:
-        last = None
-    if not last:
-        return discover_api(per_tab)
-    # 마지막 날 당일도 다시 훑는다(그날 저녁분이 빠졌을 수 있으므로)
-    after = f"{last}T00:00:00+09:00"
-    after = datetime.fromisoformat(after).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    items = discover_api(per_tab, after, None)
-    if items:
-        print(f"[INFO] catchup: 아카이브 최신({last}) 이후 {len(items)}건 열거", file=sys.stderr)
+    today = datetime.now(KST).date()
+    last = _last_seen_date()
+    start = today - timedelta(days=CATCHUP_LOOKBACK_DAYS)
+    if last:
+        try:
+            start = min(start, datetime.strptime(last, "%Y-%m-%d").date())
+        except ValueError:
+            pass
+    start = max(start, today - timedelta(days=CATCHUP_MAX_DAYS))
+    after = datetime(start.year, start.month, start.day, tzinfo=KST).astimezone(timezone.utc)
+    items = discover_api(per_tab, after.strftime("%Y-%m-%dT%H:%M:%SZ"), None, pages=CATCHUP_PAGES)
+    print(f"[INFO] catchup: {start} 이후 {len(items)}건 열거 (고수위선 {last or '없음'} · "
+          f"재훑기 {CATCHUP_LOOKBACK_DAYS}일)", file=sys.stderr)
     return items
 
 
-def discover_api(per_tab=15, published_after=None, published_before=None):
+# ★[9/17] catchup 창 — 7일 재훑기는 '고수위선 뒤 구멍'을 보려는 것이고 21일은 장기 공백 시 토큰 상한이다.
+CATCHUP_LOOKBACK_DAYS = 7
+CATCHUP_MAX_DAYS = 21
+CATCHUP_PAGES = 5          # search.list 1쪽 50건·100 units — 21일×8편도 4쪽이면 덮는다
+_YT_ID = re.compile(r"^[A-Za-z0-9_-]{11}$")
+
+
+def _app_json(name):
+    try:
+        with open(os.path.join(REPO_ROOT, "data", "app", name), encoding="utf-8") as f:
+            return json.load(f) or {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _channel_slug():
+    return next((k for k, v in CHANNELS.items() if v["id"] == CHANNEL), "hunter")
+
+
+def _last_seen_date():
+    """이 채널에서 마지막으로 등재된 업로드 날짜(고수위선). 없으면 None."""
+    if _channel_slug() == "hunter":
+        dates = [v.get("date") for v in _app_json("hunter_archive.json").get("videos", [])]
+    else:
+        ch = (_app_json("feeds.json").get("channels") or {}).get(_channel_slug()) or {}
+        dates = [v.get("date") for v in ch.get("latest_videos", [])]
+    dates = [d for d in dates if isinstance(d, str) and len(d) >= 10]
+    return max(dates)[:10] if dates else None
+
+
+def _seen_ids():
+    """(등재된 ID, 자막 파일이 있는 ID) — catchup이 **다시 뽑지도 다시 분석하지도 않게** 거르는 기준.
+
+    등재 = 아카이브·앱 캐시·**로그 본문**. 로그를 포함하는 이유: 소급 회수(9/17 54편)는 로그 블록과
+    자막만 남기고 아카이브엔 안 들어갔다 — 아카이브만 보면 같은 영상을 매일 '신규'로 다시 뽑는다.
+    자막만 있고 어디에도 등재 안 된 ID = **수집은 됐는데 분석 전에 세션이 죽은 것**(9/15 R1) → 분석 대상.
+    """
+    slug = _channel_slug()
+    listed = set()
+    if slug == "hunter":
+        listed |= {v.get("id") for v in _app_json("hunter_archive.json").get("videos", [])}
+        listed |= {v.get("id") for v in _app_json("hunter.json").get("latest_videos", [])}
+        log = os.path.join(REPO_ROOT, "docs", "research", "hunter_log.md")
+    else:
+        ch = (_app_json("feeds.json").get("channels") or {}).get(slug) or {}
+        for key in ("latest_videos", "track_record"):
+            listed |= {v.get("id") for v in ch.get(key, []) if isinstance(v, dict)}
+        log = os.path.join(REPO_ROOT, "docs", "research", "feeds_log.md")
+    try:
+        with open(log, encoding="utf-8") as f:
+            text = f.read()
+        listed |= _ids_in_text_filter(text)
+    except OSError:
+        pass
+    listed = {i for i in listed if i and _YT_ID.match(i)}
+    have = set()
+    if os.path.isdir(OUTDIR):
+        have = {fn[:-3] for fn in os.listdir(OUTDIR) if fn.endswith(".md")}
+    return listed, have
+
+
+def _ids_in_text_filter(text):
+    """로그에서 영상 ID로 볼 토큰만 — 백틱·watch?v=·'회수 ID:' 줄에 나온 것.
+    아무 11자 단어나 ID로 치면 'market_data' 같은 낱말이 섞인다(해는 없지만 판정을 흐린다)."""
+    ids = set(re.findall(r"`([A-Za-z0-9_-]{11})`", text))
+    ids |= set(re.findall(r"watch\?v=([A-Za-z0-9_-]{11})", text))
+    for line in re.findall(r"회수 ID:([^\n]+)", text):
+        ids |= set(re.findall(r"[A-Za-z0-9_-]{11}", line))
+    return ids
+
+
+def discover_api(per_tab=15, published_after=None, published_before=None, pages=1):
     """탐색 0차: **YouTube Data API v3** (환경변수 `YOUTUBE_API_KEY` 있을 때만).
 
     ★[2026-08-12 신설] 이 경로가 필요한 이유는 두 가지다.
@@ -193,14 +267,25 @@ def discover_api(per_tab=15, published_after=None, published_before=None):
         params["publishedAfter"] = published_after
     if published_before:
         params["publishedBefore"] = published_before
-    url = "https://www.googleapis.com/youtube/v3/search?" + urllib.parse.urlencode(params)
-    try:
-        data = json.loads(http(url))
-    except Exception as ex:
-        print(f"[WARN] YouTube Data API 실패({ex}) — 키/할당량 확인 후 폴백 진행", file=sys.stderr)
-        return []
+    # ★[9/17] 1쪽(최대 50건)에서 멈추면 catchup 창이 넓을 때 **가장 오래된 쪽이 조용히 잘린다.**
+    raw = []
+    for _ in range(max(pages, 1)):
+        url = "https://www.googleapis.com/youtube/v3/search?" + urllib.parse.urlencode(params)
+        try:
+            data = json.loads(http(url))
+        except Exception as ex:
+            print(f"[WARN] YouTube Data API 실패({ex}) — 키/할당량 확인 후 폴백 진행", file=sys.stderr)
+            break
+        raw.extend(data.get("items", []))
+        token = data.get("nextPageToken")
+        if not token:
+            break
+        params["pageToken"] = token
+    else:
+        if pages > 1:
+            print(f"[WARN] API {pages}쪽 상한 도달 — 더 오래된 업로드가 창 안에 남았을 수 있다", file=sys.stderr)
     items = []
-    for it in data.get("items", []):
+    for it in raw:
         vid = (it.get("id") or {}).get("videoId")
         sn = it.get("snippet") or {}
         if not vid:
@@ -498,13 +583,15 @@ def main():
     global CHANNEL, CHANNEL_NAME, TITLE_FILTER, OUTDIR
     ap = argparse.ArgumentParser()
     ap.add_argument("--catchup", action="store_true",
-                    help="아카이브 최신 날짜 이후 전량 수집(고정 N편 상한 대신) — 주말·저녁 누락 해소용. API 키 필요")
+                    help="최근 7일(장기 공백이면 최대 21일)을 재훑어 아직 수집 안 한 영상 전량 — 고정 N편 상한·당일 필터 없음. "
+                         "주말·저녁 업로드 누락 해소용(R1 기본). API 키 필요")
     ap.add_argument("--after", help="RFC3339 시각 이후 업로드분만 (YouTube Data API 경로 전용, 예 2026-07-01T00:00:00Z)")
     ap.add_argument("--before", help="RFC3339 시각 이전 업로드분만 (과거 구간 소급 탐색용)")
     ap.add_argument("--channel", default="hunter", choices=sorted(CHANNELS),
                     help="채널 slug (기본 hunter=경제사냥꾼)")
     ap.add_argument("--fetch", action="store_true", help="자막까지 추출")
-    ap.add_argument("--max", type=int, default=4, help="자막 추출 최대 개수")
+    ap.add_argument("--max", type=int, default=None,
+                    help="자막 추출 최대 개수 (기본 4 · --ids·--catchup은 명시하지 않으면 자르지 않는다)")
     ap.add_argument("--per-tab", type=int, default=6, help="(yt-dlp 폴백용) 탭당 목록 개수")
     ap.add_argument("--ids", help="쉼표구분 영상 ID 직접 지정(목록 탐색 생략)")
     ap.add_argument("--all-dates", action="store_true",
@@ -598,7 +685,26 @@ def main():
                 it["filtered"] = True
                 it["filter_reason"] = "비투자 시리즈"
 
+    catchup = bool(getattr(args, "catchup", False)) and not args.ids
+    if catchup:
+        # ★[9/17] 각 영상에 수집 상태를 붙인다 — listed(등재) · orphan(자막만 있고 미등재) · new(미수집).
+        listed, have = _seen_ids()
+        for it in items:
+            it["status"] = ("listed" if it["id"] in listed
+                            else "orphan" if it["id"] in have else "new")
+
     print(json.dumps(items, ensure_ascii=False, indent=1))
+
+    if catchup:
+        live = [it for it in items if not it.get("filtered")]
+        new = [it for it in live if it["status"] == "new"]
+        orphan = [it for it in live if it["status"] == "orphan"]
+        n_listed = sum(1 for it in live if it["status"] == "listed")
+        n_filt = len(items) - len(live)
+        print(f"\n[CATCHUP] {CHANNEL_NAME}: 열거 {len(items)} · 등재됨 {n_listed} · 자막만(미분석) {len(orphan)} · "
+              f"신규 {len(new)} · 필터 {n_filt}", file=sys.stderr)
+        if not args.fetch:
+            print("ANALYZE_IDS=" + ",".join(it["id"] for it in orphan + new))
 
     if args.fetch:
         today = datetime.now(KST).date()
@@ -611,7 +717,12 @@ def main():
         for it in items:
             if it.get("filtered"):
                 continue
-            if args.ids or args.all_dates or it["published_kst"] == "?":
+            if catchup:
+                # ★[9/17] catchup은 창이 이미 날짜로 묶여 있다 — 당일 필터를 또 걸면 저녁 업로드가 다시 빠진다.
+                #   자막이 이미 있는 영상(listed·orphan)은 다시 뽑지 않는다.
+                if it["status"] == "new":
+                    targets.append(it)
+            elif args.ids or args.all_dates or it["published_kst"] == "?":
                 targets.append(it)
             else:
                 d = datetime.strptime(it["published_kst"][:10], "%Y-%m-%d").date()
@@ -619,8 +730,14 @@ def main():
                     targets.append(it)
         # ★[9/17] --ids로 명시한 목록은 --max(기본 4)로 자르지 않는다. 舊 = 54편을 넘겨도 조용히 4편만
         # 추출하고 나머지 50편은 로그에 이름만 남았다(누락 회수 경로가 누락을 만들던 버그).
-        if not args.ids:
+        # catchup도 같다 — `--catchup --fetch`가 기본 4편·당일 필터에 잘리면 이름만 catchup이다.
+        if args.max is not None:
+            if len(targets) > args.max:
+                print(f"[WARN] --max {args.max}로 {len(targets) - args.max}편을 잘랐다: "
+                      f"{','.join(it['id'] for it in targets[args.max:])}", file=sys.stderr)
             targets = targets[: args.max]
+        elif not (args.ids or catchup):
+            targets = targets[:4]
         _pace = "페이싱 없음(yt-dlp 자막 0차)" if have_ytdlp() else f"영상 간 {PACE_MIN}~{PACE_MAX}초 페이싱"
         print(f"\n--- 자막 추출 ({len(targets)}편, {_pace}) ---")
         failed = []
@@ -636,6 +753,11 @@ def main():
             print(f"\n[RETRY] 미확보 {len(failed)}편: {','.join(failed)}\n"
                   f"→ 같은 세션에서 몇 분 뒤 --ids {','.join(failed)} 로 재시도할 것. "
                   f"제목만 보고 분석 금지.")
+        if catchup:
+            # 분석 대상 = 자막만 있던 미분석분 + 이번에 뽑은 신규. hunter_digest.py --ids 에 그대로 넘긴다.
+            got = [it["id"] for it in items if not it.get("filtered") and it["status"] == "orphan"]
+            got += [it["id"] for it in targets if it["id"] not in failed]
+            print("ANALYZE_IDS=" + ",".join(got))
         print("\n→ 생성된 md를 읽고 업로드 날짜 기준 당일/전일 영상만 보고서에 반영. "
               "자동자막 수치는 교차검증 필수.")
 

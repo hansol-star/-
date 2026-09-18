@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-17",
+ "updated": "2026-09-18",
  "days": 7,
  "universe": [
   "005930",
@@ -11,18 +11,26 @@
  "counts": {
   "critical": 0,
   "notable": 0,
-  "routine": 8
+  "routine": 11
  },
  "items": [],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 2,
-   "net": 174,
-   "n_buy": 1,
+   "n": 4,
+   "net": 622,
+   "n_buy": 3,
    "n_sell": 1,
    "top": [
+    {
+     "who": "조혜경",
+     "ofcps": "독립이사",
+     "regist": "등기임원",
+     "delta": 300,
+     "held": 800,
+     "date": "2026-09-18"
+    },
     {
      "who": "신제윤",
      "ofcps": "이사회의장, 독립이사",
@@ -30,6 +38,14 @@
      "delta": 210,
      "held": 210,
      "date": "2026-09-17"
+    },
+    {
+     "who": "이혁재",
+     "ofcps": "독립이사",
+     "regist": "등기임원",
+     "delta": 148,
+     "held": 348,
+     "date": "2026-09-18"
     },
     {
      "who": "아포테커마띠유",

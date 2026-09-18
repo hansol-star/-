@@ -1,13 +1,13 @@
 {
- "updated": "2026-09-17",
+ "updated": "2026-09-18",
  "symbols": {
   "^KS11": {
    "label": "코스피",
    "first": "1996-12-11",
-   "last": "2026-09-17",
-   "days": 7328,
+   "last": "2026-09-18",
+   "days": 7329,
    "years": 29.8
   }
  },
- "total_daily_bars": 7328
+ "total_daily_bars": 7329
 }

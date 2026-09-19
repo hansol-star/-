@@ -440,6 +440,32 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_hunter_tickers",
+        "desc": "영상 아카이브 tickers가 멈추면 잡는가",
+        "why": "9/19 R3 신설. 9월 아카이브 67편이 전부 `tickers: []`였고 마지막 기입이 8/26이었다. "
+               "그 사이 hunter_replay는 매주 돌면서 **615건·62종목·'~08-26'이라는 같은 숫자를 "
+               "3주간 반복 출력**했다 — 숫자가 나오니 돌아가는 것처럼 보였다. 파생 복구 후 "
+               "899건·9/17까지로 늘자 8/30의 '스파이크 뒤 되돌림 -2.91%p'가 +0.85%p로 약해졌다 "
+               "= 멈춘 입력이 **결론을 만들고 있었다**. 8/30 자막·9/4 뉴스·9/4 아카이브와 같은 클래스",
+        "pattern": r"영상 아카이브 `tickers`",
+        # ⚠️ '파일 없음'이 아니라 **통과당할 형태**로 시험한다: 아카이브는 살아 있고 최신 영상도
+        #    계속 들어오는데 tickers만 옛 날짜에서 멈춘 상태 = 도구가 성공한 척하는 그 모양.
+        "violate": {
+            "data/app/hunter_archive.json": json.dumps({"videos": [
+                {"date": "2026-08-26", "title": "구 영상", "tickers": ["NVDA"]},
+                {"date": "2026-09-17", "title": "신 영상", "tickers": []},
+            ]}, ensure_ascii=False),
+        },
+        "clean": {
+            "data/app/hunter_archive.json": json.dumps({"videos": [
+                {"date": "2026-08-26", "title": "구 영상", "tickers": ["NVDA"]},
+                {"date": "2026-09-17", "title": "신 영상", "tickers": ["MU"]},
+            ]}, ensure_ascii=False),
+        },
+        "args": (),
+    },
+
+    {
         "name": "check_memory_index",
         "desc": "의미검색 인덱스가 원장보다 낡으면 잡는가",
         "why": "9/1 신설. memory_embed 인덱스는 파생물이라 원장이 늘어도 안 따라오는데 "

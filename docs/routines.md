@@ -158,6 +158,14 @@
 1. 복원: python3 .claude/skills/portfolio-desk/scripts/r2_brief.py 1회 + decisions.py. 파일 통째 Read·재독 금지.
 2. 수집(실패는 기록하고 계속 — 멈추지 말 것): market_data.py · macro_data.py · vol_gauge.py · tranche_rules.py · rule_tracker.py --snapshot · triggers.py · fx_exposure.py · portfolio_risk.py · event_calendar.py --within 45 · dart_disclosure.py · edgar_search.py --events --days 30 · naver_flows.py · flow_trend.py · financials.py --all --save → peer_compare.py · eps_revisions.py · market_log.py
    (전부 .claude/skills/portfolio-desk/scripts/ 아래. 토스·yt-dlp·notify·memory_embed 호출 금지. 폭풍 %ile 정본 = vol_gauge, garch 인용 금지.)
+2b. **누적(받아온 걸 남기는 축) — ★[9/19 R3 배선]**: `news_archive.py --collect --quiet` · `dart_disclosure.py --days 7 --save` ·
+   `consensus.py --save` · `edgar_search.py --events --days 30 --save` · 그리고 **마지막에** `archive_daily.py --quiet`.
+   ⚠️ **왜 C2로 옮겼나**: 이 단계들은 9/4에 신설되며 **R1·R2(로컬)에만** 배선됐는데, 9/10 분업으로 평일 실행이
+   클라우드(C2)로 옮겨가면서 **아무도 안 부르는 상태가 됐다.** 9/19 R3 실측 — `data/news/2026-09/`에 파일이
+   **9/4·9/12 둘뿐**(그 둘도 R3가 직접 수집한 날)이고 9/5~9/11·9/13~9/18이 통째로 비었으며,
+   `archive_daily` 11축 전부 9/12에서 멈춰 있었다. **평일에 도는 루틴에 붙어 있어야 매일 쌓인다** —
+   "R2 마지막 단계 필수"라는 9/4 규약은 R2가 매일 돈다는 전제였고 그 전제가 9/10에 깨졌다.
+   (로컬 R2가 다시 완주하면 양쪽에서 불리지만 `archive_daily`는 **내용 동일 시 건너뛰므로** 중복 비용이 없다.)
 3. 영상: 오늘자 docs/research/hunter_log.md 맨 위 블록이 있으면(로컬 R1) 핵심만 옮긴다. 없으면 hunter_latest.py(--fetch 없이 목록만)로 제목만 적고 "로컬 R1 미실행" 표기.
 4. 데스크: kr-market·us-market·macro·risk 항상 + 섹터 3종은 desk_gate.py 게이트 통과분만. 백그라운드 병렬 → 완료 알림 대기(ListAgents 반복 확인 금지).
 5. 산출: docs/prep/prep_{YYYY-MM-DD}.md 한 파일, Write 1회로 완성.

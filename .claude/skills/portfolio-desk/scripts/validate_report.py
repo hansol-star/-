@@ -1815,6 +1815,50 @@ def check_watch_calls(latest=None):
         warn(f"워치 콜 원장에 최신 보고서 날짜({rday})가 없다 — 그날 워치 별점이 채점에서 빠진다. `{rel}`")
 
 
+def check_hunter_tickers():
+    """[9/19 R3 신설] 영상 아카이브의 `tickers` 필드가 채워지고 있는지 — 채널 검정의 굶주림 감시.
+
+    ★ 실사고(9/19 R3에서 적발): `hunter_archive.json` 9월분 **67편 전부** `tickers: []`였다.
+      마지막으로 채워진 날이 **8/26**. 그 사이 `hunter_replay.py`(채널 언급 → forward 알파)는
+      매주 R3에서 돌면서 **615건·62종목·'~2026-08-26'이라는 같은 숫자를 3주간 반복 출력**했고,
+      아무도 그게 멈춘 줄 몰랐다 — 숫자가 나오니까 돌아가는 것처럼 보였다.
+      상류는 `latest_videos`(보고서 파이프라인이 기입) → `build_app_data`가
+      `lv.get("tickers") or []`로 그대로 복사하는 경로라, **상류가 빈 값을 쓰면 하류는 조용히 굶는다.**
+      8/30 자막(/tmp)·9/4 뉴스(경로 없음)·9/4 아카이브(덮어쓰기)와 **같은 클래스의 다섯 번째**다.
+
+    ⚠️ WARN이다 — 채널 검정은 **측정 전용 축**이고 어떤 룰도 바꾸지 않으므로 커밋을 막지 않는다.
+       단 조용히 멈추면 안 된다: 멈춘 채로 hunter_replay를 읽으면 **옛 표본을 새 결과로 오인**한다
+       (실제로 8/30 '스파이크 뒤 되돌림 -2.91%p'가 9/19 파생 복구 후 +0.85%p로 약해졌다).
+    """
+    p = os.path.join(ROOT, "data", "app", "hunter_archive.json")
+    rel = "보고서 파이프라인이 latest_videos에 tickers 기입 → build_app_data.py"
+    if not os.path.exists(p):
+        return
+    try:
+        vids = (json.load(open(p, encoding="utf-8")) or {}).get("videos") or []
+    except (OSError, json.JSONDecodeError) as e:
+        warn(f"영상 아카이브를 못 읽음 ({e}) — {p}")
+        return
+    dated = [v for v in vids if v.get("date")]
+    if not dated:
+        return
+    last_any = max(v["date"] for v in dated)
+    filled = [v["date"] for v in dated if v.get("tickers")]
+    if not filled:
+        warn("영상 아카이브에 `tickers`가 **한 건도** 없다 — 채널 언급 검정(hunter_replay)이 "
+             f"통째로 굶는다. {rel}")
+        return
+    last_filled = max(filled)
+    try:
+        gap = (dt.date.fromisoformat(last_any) - dt.date.fromisoformat(last_filled)).days
+    except ValueError:
+        return
+    if gap >= 7:
+        n_empty = sum(1 for v in dated if v["date"] > last_filled and not v.get("tickers"))
+        warn(f"영상 아카이브 `tickers`가 {gap}일째 비어 있다 (마지막 기입 {last_filled} · "
+             f"이후 {n_empty}편 전부 공백) — hunter_replay가 옛 표본을 새 결과처럼 출력한다. {rel}")
+
+
 def check_memory_index():
     """[9/1 신설] 의미검색 인덱스가 원장보다 낡았는지 — 조용히 낡는 회수를 막는다.
 
@@ -2408,6 +2452,7 @@ def main():
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_routine_health(); check_memory_index(); check_watch_calls(latest)
     check_transcript_persistence(); check_data_archive()
+    check_hunter_tickers()
     check_split_scale()
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)

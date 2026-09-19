@@ -48,9 +48,49 @@ OURS = {"NVDA": (20, 26), "META": (19, 24), "MSFT": (23, 28), "AAPL": (28, 34),
         "ANET": (40, 47)}
 # 8/8 채택 목표가 절대값 — 이걸 최신 TTM EPS로 나눠 **후행 축으로 환산**해야
 # 역사 밴드와 사과 대 사과 비교가 된다(아래 §축 정합 참조).
-OUR_TARGET = {"NVDA": (260, 335), "META": (650, 815), "MSFT": (540, 655),
-              "AAPL": (270, 325), "GOOGL": (385, 455), "MU": (1090, 1555),
-              "AVGO": (430, 525), "ORCL": (150, 190), "ANET": (205, 240)}
+# ⚠️ **폴백 전용이다.** ★[9/19 R3] 舊엔 이게 유일한 소스라, 이 도구가 매주 돌면서도
+#    **6주 전(8/8)에 얼어붙은 목표가**를 채점하고 있었다 — ANET은 8/11에 전량 매도해
+#    보유도 워치도 아닌데 여전히 '🔴 상단초과'로 찍혔다. 하드코딩 상수는 조용히 거짓말한다
+#    (CLAUDE.md 교훈: '인덱스로 라벨을 만들지 말 것'과 같은 클래스 — 모양·상수에 기댄 라벨).
+#    ⇒ 1차 소스 = `calls_log.jsonl`의 **종목별 최신 목표가**(아래 latest_targets).
+OUR_TARGET_FALLBACK = {"NVDA": (260, 335), "META": (650, 815), "MSFT": (540, 655),
+                       "AAPL": (270, 325), "GOOGL": (385, 455), "MU": (1090, 1555),
+                       "AVGO": (430, 525), "ORCL": (150, 190), "ANET": (205, 240)}
+LEDGER = os.path.join(ROOT, "data/app/calls_log.jsonl")
+LIVE_TARGETS: dict = {}    # main()에서 원장으로 채운다 (ticker → (lo, hi, as_of))
+
+
+def latest_targets():
+    """원장에서 종목별 **최신** 목표가 (ticker → (lo, hi, as_of)).
+
+    파서는 `score_calls.rng`를 그대로 쓴다(단위·괄호주석·퍼센트 방어가 거기 있다).
+    원장이 없거나 파싱이 안 되면 그 종목만 8/8 폴백으로 내려간다 — 도구가 죽지 않게.
+    """
+    out = {}
+    if not os.path.exists(LEDGER):
+        return out
+    try:
+        from score_calls import rng
+    except Exception:
+        return out
+    for ln in open(LEDGER, encoding="utf-8"):
+        ln = ln.strip()
+        if not ln:
+            continue
+        try:
+            r = json.loads(ln)
+        except ValueError:
+            continue
+        tk, d, tgt = r.get("ticker"), r.get("date"), r.get("target")
+        if not tk or not d:
+            continue
+        prev = out.get(tk)
+        if prev and prev[2] >= d:
+            continue
+        tr = rng(tgt)
+        if tr:
+            out[tk] = (tr[0], tr[1], d)
+    return out
 
 
 _SPLIT_CACHE = {}
@@ -262,6 +302,8 @@ def main():
     print("  " + "-" * 82)
 
     rows = []
+    asofs = []
+    LIVE_TARGETS.update(latest_targets())
     for tk in [x.strip() for x in a.tickers.split(",") if x.strip()]:
         try:
             r = backtest(tk, cache, horizon=a.horizon)
@@ -274,7 +316,11 @@ def main():
         band = r["band"]
         # ★축 정합: 우리 목표가는 **선행 EPS** 기준이라 배수를 그대로 비교하면 안 된다.
         #   목표가 절대값 ÷ **최신 TTM EPS** = 후행 축 내재배수 → 역사 밴드와 직접 비교.
-        tgt = OUR_TARGET.get(tk)
+        cur = LIVE_TARGETS.get(tk)
+        if cur:
+            tgt, tgt_asof = (cur[0], cur[1]), cur[2]
+        else:
+            tgt, tgt_asof = OUR_TARGET_FALLBACK.get(tk), "8/8 폴백"
         ttm_now = cache[tk][-1][1] if cache.get(tk) else None
         imp = (tgt[0] / ttm_now, tgt[1] / ttm_now) if (tgt and ttm_now) else None
         verdict = "—"
@@ -292,6 +338,7 @@ def main():
               f"{r['realized_med']:>10.1f}"
               f"{f'{imp[0]:.0f}~{imp[1]:.0f}x' if imp else '—':>13}{verdict:>11}")
         rows.append((tk, r, imp, verdict))
+        asofs.append((tk, tgt_asof))
 
     os.makedirs(os.path.dirname(CACHE), exist_ok=True)
     json.dump(cache, open(CACHE, "w", encoding="utf-8"))
@@ -314,7 +361,12 @@ def main():
     n_over = sum(1 for *_, v in rows if v == "🔴 상단초과")
     n_in = sum(1 for *_, v in rows if v == "🟢 구간내")
     print(f"\n  구간내 {n_in} · 상단초과 {n_over} · 기타 {len(rows)-n_in-n_over} (총 {len(rows)})")
-    print("\n  ※ **우리목표→TTM** = 8/8 채택 목표가 ÷ 최신 TTM EPS.")
+    stale = [t for t, d in asofs if d == "8/8 폴백"]
+    live = sorted({d for _, d in asofs if d != "8/8 폴백"})
+    src = (f"원장 최신 목표가(as_of {live[0]}~{live[-1]})" if live else "8/8 하드코딩 폴백")
+    print(f"\n  ※ **우리목표→TTM** = {src} ÷ 최신 TTM EPS.")
+    if stale:
+        print("  ※   ⚠️ 원장에 최신 목표가가 없어 **8/8 폴백**을 쓴 종목: " + ", ".join(stale))
     print("  ※   우리 배수는 선행(컨센) EPS 기준이라 그대로 비교하면 안 되고,")
     print("  ※   이렇게 후행 축으로 환산해야 역사 밴드와 사과 대 사과가 된다.")
     print("  ※   ⚠️ 환산 없이 배수만 비교하면 '보수적'으로 잘못 읽힌다(8/8 1차 실행에서 실제로 그랬다).")

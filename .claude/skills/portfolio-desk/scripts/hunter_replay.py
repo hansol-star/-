@@ -86,19 +86,50 @@ def bench_of(t: str):
     return BENCH_KR if t.endswith((".KS", ".KQ")) else BENCH_US
 
 
+def derive_tickers(v):
+    """`tickers` 필드가 비었을 때 제목+takeaway에서 종목을 파생한다.
+
+    ★[9/19 R3 신설] **이 도구의 입력이 3주 넘게 얼어 있었다.** 9월 아카이브 67편은
+    전부 `tickers: []`였고(8/26이 마지막 채워진 날), 그래서 이 도구는 매주 돌면서도
+    615건·62종목·'~2026-08-26'이라는 **같은 숫자를 반복 출력**했다. 상류
+    (`latest_videos` → `build_app_data`)가 필드를 안 채우면 하류는 조용히 굶는다 —
+    8/12 자막·9/4 뉴스·9/4 아카이브와 **같은 클래스의 다섯 번째 사례**다.
+    ⇒ 필드를 1차로 쓰되, 비면 `hunter_stance`의 종목명 맵으로 파생한다
+      (hunter_stance는 자막에서 같은 방식으로 매칭해 9/17까지 정상 동작 중이었다 —
+       즉 이미 검증된 경로이고, 두 도구가 **같은 축**을 보게 된다).
+    ⚠️ 파생은 제목·요약 텍스트 기반이라 필드보다 거칠다. 원인 수리(상류가 필드를
+      채우게 하는 것)를 대체하지 않는다 — `check_hunter_tickers` 가드가 그걸 감시한다.
+    """
+    try:
+        from hunter_stance import NAMES
+    except Exception:
+        return []
+    text = ((v.get("title") or "") + " " + (v.get("takeaway") or "")
+            + " " + (v.get("summary") or "")).lower()
+    if not text.strip():
+        return []
+    return [tk for tk, keys in NAMES.items() if any(k.lower() in text for k in keys)]
+
+
 def load_rows():
     with open(ARCHIVE, encoding="utf-8") as f:
         vids = (json.load(f) or {}).get("videos") or []
     out = []
+    derived = 0
     for v in vids:
         d, tk = v.get("date"), v.get("tickers")
-        if not d or not tk:
+        if not d:
             continue
         if isinstance(tk, str):
             tk = [x.strip() for x in tk.split(",") if x.strip()]
-        for t in tk:
+        if not tk:
+            tk = derive_tickers(v)
+            if tk:
+                derived += 1
+        for t in (tk or []):
             if t and not t.startswith("^"):
                 out.append((d, t, v.get("verdict"), v.get("theme"), v.get("title")))
+    load_rows.derived = derived
     return out
 
 
@@ -145,6 +176,10 @@ def main() -> int:
     print(f"\n티커 부착 언급 {len(rows)}건 · 고유 종목 {len({t for _, t, *_ in rows})}개 · "
           f"기간 {dates[0]} ~ {dates[-1]}")
     print("⚠️ 언급은 **방향이 아니다**(아카이브에 강세/약세 필드 없음) — '다뤘다'까지만 읽을 것.")
+    _der = getattr(load_rows, "derived", 0)
+    if _der:
+        print(f"ℹ️ 그중 {_der}편은 `tickers` 필드가 비어 **제목·요약에서 파생**했다 "
+              f"(상류 미기입 — `check_hunter_tickers` 가드가 감시).")
 
     # 언급 밀도(스파이크 판정용) — 종목별 날짜 리스트
     by_t = defaultdict(list)

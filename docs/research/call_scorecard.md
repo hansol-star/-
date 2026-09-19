@@ -129,7 +129,7 @@
 | `selfcheck.py --quiet` | — | **GATE PASS**(스크립트 112개·실패 0) | 이번 세션 코드 변경분 포함 |
 
 - **stale 해소**: `refresh_stale.py`로 `sentiment.json`(7일→0)·`eps_revisions.json`(5일→0). `stocks/tasks/flows`는 보고서 파이프라인 산출물이라 여기서 못 고친다. **`feeds.json`은 10일 경과**(수페TV·지식인사이드 — 9/9 이후 정지, R1 로컬 전용).
-- **📊 데이터 자산 주간 갱신**: `ohlcv_backfill` **34/34 성공·실패 0**(9/17~9/18까지 연장) · `history_backfill` **509,950 일봉**. ⚠️ **일봉 캐시가 3일 낡아 있었다** — 오미션 창 계산이 US 9/15 / KR 9/16에서 끊겨 처음엔 틀린 창으로 계산됐다. ⇒ **오미션·알파 계산 전에 캐시 갱신이 선행 단계**임을 회고 §방법론에 명시.
+- **📊 데이터 자산 주간 갱신**: `financials.py --with-peers --save` **24종목·errors 0**(SEC EDGAR 페이싱). **서브스코어 변동 1.0p 이상 0건** — 9/12엔 ORCL이 +12.3p 움직여 미러 stale FAIL이 났는데 이번엔 분기 경계가 아니라 조용하다(`validate_report` FAIL 0). `peer_compare` 3그룹 전부 피어 결손 없이 동작. ⚠️ 백분위는 표본 5 안팎이라 **'우리 커버리지 안 순위'**이지 동질 피어 비교가 아니다. 갱신분은 `archive_daily`가 `data/archive/financials/2026-09/2026-09-19.json`(372KB)로 시점 저장. `ohlcv_backfill` **34/34 성공·실패 0**(9/17~9/18까지 연장) · `history_backfill` **509,950 일봉**. ⚠️ **일봉 캐시가 3일 낡아 있었다** — 오미션 창 계산이 US 9/15 / KR 9/16에서 끊겨 처음엔 틀린 창으로 계산됐다. ⇒ **오미션·알파 계산 전에 캐시 갱신이 선행 단계**임을 회고 §방법론에 명시.
 
 **🔧 고친 것 — 누적 아카이브 축 전체가 배선 공백에 빠져 있었다(이번 회차 최대 발견).**
 9/4에 신설한 누적 단계(`news_archive.py --collect` · `archive_daily.py` · `consensus.py --save` · `transcripts.py --save` · `dart_disclosure.py --save`)는 **R1·R2(로컬)에만** 배선됐는데, **9/10 분업으로 평일 실행이 C2(클라우드)로 옮겨가면서 아무도 안 부르게 됐다.** 실측:

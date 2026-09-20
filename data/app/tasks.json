@@ -161,6 +161,21 @@
         "id": "w0920-10",
         "text": "`setup_schema.py --check`로 **전 셋업 stale 일괄 점검** — 엔캐리가 11일 방치된 채 조건 2개가 이미 켜져 있었다. 같은 게 몇 개 더 있는지 확인",
         "done": false
+      },
+      {
+        "id": "w0921-1",
+        "text": "☁️ C3 첫 실행 검토(룰5) — 9/21 17:00 클라우드 보고서 v97 생성·푸시 확인. 안 나왔으면 RemoteTrigger list_runs→get_run_log(trig_013LnSqMqKMjJ7PDyDpruZrP)",
+        "done": false
+      },
+      {
+        "id": "w0921-2",
+        "text": "☁️ 17:40 로컬 배달부 검토 — REPORT_EXISTS 판정 + 할 일 카톡 도착 확인. 중복 보고서(v98)가 나왔으면 origin 판정 버그",
+        "done": false
+      },
+      {
+        "id": "w0921-3",
+        "text": "C2(16:00)→C3(17:00) 60분 간격 실측 — prep 커밋 시각이 16:45 넘어가는 날이 연속되면 C3를 17:30으로 뮸다",
+        "done": false
       }
     ],
     "month": [

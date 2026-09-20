@@ -348,13 +348,35 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
     #    진짜 병목은 D1 문턱(-25%)이고 그건 8/5 룰 검정 절차를 거쳐야 바꿀 수 있다.
     base = cash + total_spent      # 총 재원 = 남은 현금 + 이미 사다리로 쓴 돈(잠긴 단계 포함)
     cap = base * available * mult
-    allowed = 0.0 if halted else max(0.0, cap - spent_krw)
+
+    # ★[2026-09-21 정훈 승인 d197 — "버킷 해석" 폐기, 누적 해석 확정]
+    # 舊: allowed = cap - spent_krw  (spent_krw = **해금된 단계**의 기집행만)
+    #   → 잠긴 단계의 집행이 cap에서도 spent에서도 같이 빠져 "닫힌 버킷"처럼 동작했다.
+    #   내부모순은 없었지만 **회복 구간에서 사다리가 매수를 자금지원**했다:
+    #   9/20 실측 = 낙폭 -26.3%→-24.36%로 D1이 잠긴 날, D1에 쓴 243,437원이 통째로 면제돼
+    #   **잔여 60,565원이 새로 생겼다** — 코스피 +2.66% 반등 당일에.
+    # 新: allowed = cap - total_spent  (전체 기집행 차감 = 누적 상한)
+    #   근거 = 정본 두 곳이 이미 답을 적어두고 있었다:
+    #     · CLAUDE.md 룰1 RESET — *"누적 상한이지 목표 아님"*
+    #     · crash_tf.md §2b   — ***"회복 구간의 매수는 사다리 소관이 아니다"***
+    #       (예비 해금과 §5 해제 3중 게이트가 다룬다)
+    #   버킷 해석은 D1의 예산만 회수하고 **지출은 사면**하므로 **부분 래칫**이고,
+    #   래칫은 7/31 `ratchet_test.py`(11지수 24,592일)에서 3개 구간 전부 기각됐다.
+    # ⚠️ 두 해석은 **회복 국면에서만** 갈린다. 하강 국면(집행 단계가 전부 해금)에선
+    #    spent_krw == total_spent라 값이 **완전히 같다** — 완화도 긴축도 아니고
+    #    "되돌리면 다시 잠긴다"를 지출 쪽까지 일관되게 적용하는 것이다.
+    #    실측 대조(9/21): D0 버킷 60,565 vs 누적 0 / D1·D2는 둘 다 38,446·333,538로 동일.
+    # ⚠️ D0 신설(9/9) 취지와 충돌하지 않는다 — 그건 *문이 닫혀 상한이 0*이던 문제였고,
+    #    지금은 문이 열려 있는데 **이미 예산을 2.55배 초과 집행**(300,909 vs 118,037)한 상태다.
+    allowed = 0.0 if halted else max(0.0, cap - total_spent)
 
     return {
         "dd_pct": dd_pct, "cash": cash,
         "unlocked_ratio": unlocked, "steps": steps,
         "spent_ratio": spent_ratio, "available_ratio": available,
-        "spent_krw": round(spent_krw), "cap_krw": round(cap), "base_krw": round(base),
+        "spent_krw": round(total_spent), "cap_krw": round(cap), "base_krw": round(base),
+        "spent_unlocked_krw": round(spent_krw),                       # 舊 버킷 해석 대조용
+        "allowed_bucket_krw": round(max(0.0, cap - spent_krw)),       # 둘이 갈리면 = 회복 국면
         "executed_steps": sorted(done),
         "storm_splits": splits, "storm_why": swhy,
         "storm_mult": 1.0,   # 하위호환(원장 스키마) — 금액 감산 폐지로 항상 1.0

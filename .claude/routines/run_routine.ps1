@@ -180,9 +180,22 @@ $PrepState = ''
 if ($Kind -eq 'r2') {
   $prevEAPp = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
   # 오늘 보고서가 이미 있으면(대화형으로 먼저 썼으면) 다시 쓰지 않는다 — 할 일 카톡만 보낸다.
+  # ★[2026-09-21] origin/main도 본다 — 舊엔 로컬 워킹트리만 봐서 **클라우드가 낸 보고서를 못 봤다.**
+  #   9/21부터 보고서 본체는 클라우드 C3(17:00)가 내고 로컬 R2(17:40)는 배달부다. 로컬만 보면
+  #   배달부가 같은 날 보고서를 **한 편 더** 쓴다(번호 중복 + 토스 미대조본이 대화형 보강본을 덮을 위험).
+  #   ⇒ fetch → ff → 로컬·origin 양쪽 확인. ff가 막혀도(미완 파일과 겹침) origin 쪽 확인은 살아 있다.
+  & git -C $Repo fetch origin main --quiet 2>$null | Out-Null
+  $branch0 = (& git -C $Repo symbolic-ref --short HEAD 2>$null | Out-String).Trim()
+  if (-not $DryRun -and $branch0 -eq 'main') {
+    & git -C $Repo merge --ff-only --quiet origin/main 2>$null | Out-Null
+    Write-Log "로컬 main ← origin/main fast-forward(보고서 확인 전): $(if ($LASTEXITCODE -eq 0) { '완료' } else { "불가(exit $LASTEXITCODE)" })"
+  }
   $todayRep = @(Get-ChildItem (Join-Path $Repo 'docs\reports') -Filter "report_v*_$stamp.md" -ErrorAction SilentlyContinue)
-  if ($todayRep.Count -gt 0 -and -not $DryRun) {
-    Write-Log "오늘 보고서 이미 있음($($todayRep[-1].Name)) — 무인 작성 생략, 할 일 알림만"
+  $originRep = @(& git -C $Repo ls-tree --name-only origin/main docs/reports/ 2>$null |
+                 Where-Object { $_ -match ('report_v\d+_' + $stamp + '\.md$') })
+  if (($todayRep.Count -gt 0 -or $originRep.Count -gt 0) -and -not $DryRun) {
+    $repName = if ($todayRep.Count -gt 0) { $todayRep[-1].Name } else { "$($originRep[-1]) (origin/main)" }
+    Write-Log "오늘 보고서 이미 있음($repName) — 무인 작성 생략, 할 일 알림만"
     $exStatus = [ordered]@{ kind=$Kind; verdict='REPORT_EXISTS'; exit_code=0
                             kst=(Get-Kst).ToString('yyyy-MM-dd HH:mm:ss'); minutes=0; log=$LogFile
                             scheduled=$Scheduled; late_min=$LateMin }

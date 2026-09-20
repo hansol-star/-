@@ -110,9 +110,13 @@
 - 보고서 파일(report_v*)은 만들지 않는다. 이건 데이터 프리페치 전용.
 ```
 
-### R2. 메인 보고서 — 무인 (평일 16:30 · C2 prep 소비형) ★[2026-09-17 재가동]
-정훈 9/17 *"보고서 16시 루틴 끝나면 자동으로 보고서 작성 후 할 일 나한테 카톡으로 보내"*.
-흐름 = 작업 스케줄러 16:30 → 런처가 origin/main에 오늘자 `docs/prep/prep_{날짜}.md`가 올라올 때까지 **최대 60분 대기**
+### R2. 할 일 카톡 배달부 (평일 17:40) ★[2026-09-21 개정 — 보고서 본체는 클라우드 C3로]
+정훈 9/17 *"보고서 16시 루틴 끝나면 자동으로 보고서 작성 후 할 일 나한테 카톡으로 보내"* — **카톡 쪽만 로컬에 남았다.**
+★[9/21] 보고서 **작성**은 클라우드 C3(17:00)가 한다. 로컬 R2(17:40)는 origin/main을 당겨와
+오늘자 보고서가 있으면 `REPORT_EXISTS`로 **작성을 건너뛰고 할 일 카톡만** 보낸다(정훈 요구의 후반부).
+클라우드가 실패해 보고서가 없는 날에만 **아래 블록으로 직접 작성**한다 = 폴백.
+⚠️ 카톡은 PC가 켜져 있어야 간다. **보고서는 이제 PC와 무관**하고(C3), 카톡만 물리 한계를 남긴다 — 후퇴가 아니라 분리다.
+舊 흐름 = 작업 스케줄러 16:30 → 런처가 origin/main에 오늘자 `docs/prep/prep_{날짜}.md`가 올라올 때까지 **최대 60분 대기**
 (C2 커밋 실측 16:28~16:37) → 로컬 main fast-forward(미완 파일과 겹치면 `data/tmp/` 사본) → 아래 블록 실행 →
 `routine_push.py`로 푸시 → `notify.py --routine r2`가 **tasks.json 오늘 할 일을 맨 위에** 카톡 발송(보고서가 안 나온 날도 '반영 전 목록' 경고를 달고 보낸다).
 → 산출: `report_v{N}` (보유·워치 풀표 + 지정가 오더북 + PM 사견 + STATE SNAPSHOT) · tasks.json today(= 카톡 본문).
@@ -175,6 +179,51 @@
    숫자는 스크립트 출력 그대로. 미확인은 미확인. 추측 금지.
 6. 쓰지 않는 파일: docs/reports/report_v*.md · data/app/stocks.json · tasks.json · portfolio.json · docs/master.md · CLAUDE.md (로컬 최종본 전용). build_app_data·snapshot도 안 돈다(GitHub Actions 17:25).
 7. 커밋(docs/prep/ + 스크립트가 갱신한 data 캐시) → git fetch origin main → git rebase origin/main → git push origin HEAD:main. data 캐시 충돌은 origin 쪽 채택 후 해당 스크립트 재실행.
+```
+
+### C3. 클라우드 메인 보고서 (평일 17:00 KST · 클라우드 루틴) ★[2026-09-21 신설 — R2 본체 이전]
+실행 = claude.ai 클라우드 루틴 **`R2 메인 보고서 (평일 17:00 KST)`**(PC 전원과 무관). 정본은 **이 블록**(git으로 수정).
+
+> **왜 옮겼나 — 로컬 무인 R2 자력 완주 0/13**
+> 9/1~9/10 0/8(`docs/research/local_regression_audit_2026-09-10.md`)에 이어 9/17 재가동 뒤에도 **완주 0**.
+> 9/17 재가동이 고친 건 ①권한 ②데스크 토큰 두 가지였고, 남은 ③**PC 절전·전원**은 로컬에서 원리상 못 고친다.
+> 그 대가가 이번 주 **2거래일 원장 공백**(9/18·9/19)이었다 — 보고서 한 편을 거른 게 아니라
+> 사다리 원장·스냅샷·콜 채점이 통째로 멈췄다. 클라우드는 이 축 하나만 고친다: **머신이 꺼져 있어도 돈다.**
+> ⚠️ **잃는 것 = 카톡 발송**(`notify.py` 토큰은 로컬 전용) → 로컬 R2가 **배달부로 남는다**(아래 R2 참조).
+> ⚠️ **잃지 않는 것 = 토스 대조** — 무인 R2는 애초에 런처가 키를 제거해 미대조였다(운영제약). 동일하다.
+
+**C2(16:00)와의 간격 = 60분.** C2 커밋 실측 16:28~16:37 → 17:00이면 여유 23~32분.
+prep이 없으면 기다리지 말고 경량 수집으로 진행한다(클라우드 세션에서 sleep으로 버티는 건 예산 낭비).
+
+```
+메인 보고서 (무인·클라우드 — C2 prep 소비형. 선택지 띄우고 멈추지 말 것. 데스크 서브에이전트 스폰 금지).
+사람이 보고 있지 않다. 인사·대기·"무엇을 도와드릴까요"로 끝내지 말고 첫 응답을 도구 호출로 시작하라.
+서브에이전트(Agent)를 부를 일이 있으면 run_in_background: false로 부르고 결과를 받은 뒤 이 세션에서 마무리한다.
+스크립트는 전부 `python3 .claude/skills/portfolio-desk/scripts/<이름>.py` 형태로 부른다.
+0. 실측: kst_now.py → 주말·휴장이면 보고서 없이 종료. 번호 N = docs/reports/ 최신 report_v 번호 + 1.
+   오늘자 report_v*_{날짜}.md가 이미 있으면(대화형이 먼저 썼으면) **새 번호를 내지 말고 즉시 종료**한다.
+1. 재료: docs/prep/prep_{오늘날짜}.md를 Read 1회 — 국장·미장·매크로·섹터·리스크 데스크 결과다(재독 금지, 필요 구간만 offset).
+   없으면 데스크를 부르지 말고 market_data.py · macro_data.py · vol_gauge.py · tranche_rules.py · triggers.py 5개만 돌려 쓰고,
+   보고서 머리에 "C2 prep 없음 — 데스크 분석 생략" 명시.
+2. 복원: r2_brief.py 1회 + decisions.py. 직전 보고서 전문·tasks.json·stocks.json 통째 Read 금지(수정할 구간만 Grep/offset).
+   ⭐2 이하 보유는 memory_recall.py <종목> --limit 6.
+3. 시세 보강: market_data.py 1회 — prep 작성 이후 ±3% 움직임·신규 공시만 본문에 더한다.
+4. 영상: docs/research/hunter_log.md·feeds_log.md 맨 위 오늘자 블록만 읽는다. 자막 추출(hunter_latest --fetch) 금지(클라우드 봇차단).
+5. 클라우드 금지 도구: toss_*(키·IP 로컬 전용) · yt-dlp 자막 · notify.py(토큰 로컬) · memory_embed(로컬 모델).
+   보유·현금 = portfolio.json. 본문과 STATE SNAPSHOT에 "토스 미대조(무인)" 한 줄. 폭풍 %ile 정본 = vol_gauge, garch 인용 금지.
+6. 보고서 docs/reports/report_v{N}_{YYYY-MM-DD}.md — Write 1회로 완성(섹션별 조각 Edit 금지):
+   보유 전종목 풀표 + 워치 전종목 풀표(현재가·당일·원가대비·목표·여력·매수존·매도/트림·⭐·스코어·근거) ·
+   TF 상황판(crash_tf §1·§5 게이트) · 사다리 상한(tranche_rules 원화·하드플로어) · 오늘의 이슈 4개 전부 심층 ·
+   강세 vs 신중 · 지정가 오더북(미국은 $) · PM 사견 · STATE SNAPSHOT.
+   별점·스코어는 stocks.json 기존값을 쓰고 근거가 바뀐 종목만 조정한다. CLAUDE.md의 '현재 vN' 숫자 +1.
+7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다(17:40 로컬 배달부)**: tasks.today를 '오늘 밤~내일 할 일'로 다시 쓴다.
+   항목마다 한 줄(100자 이내 — 넘으면 카톡에서 잘린다) = 시각 · 종목 · 매수/매도 · 가격(미국 $ / 국내 원) · 수량 · 조건.
+   최대 6개, 끝난 건 done=true. 오더는 orders에 등록·갱신(체결 확인 전 완료 처리 금지). 바뀐 종목은 stocks.json도.
+8. 마무리: build_app_data.py → validate_report.py(FAIL 0까지 핀포인트 Edit) → rule_tracker.py --snapshot →
+   score_calls.py --append → snapshot.py → market_log.py → git add <만들거나 고친 파일 경로>(-A·. 금지) → git commit →
+   git fetch origin main → git rebase origin/main → git push origin HEAD:main.
+   ⚠️ report_guard.py는 부르지 않는다(로컬 파수꾼 상태파일 — 클라우드가 건드리면 로컬 판정이 거짓이 된다).
+   추측 금지·미확인은 미확인.
 ```
 
 ### R3. 주말 캘리브레이션 + 리뷰 (토 09:00) — 콜 후행검증
@@ -395,7 +444,7 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
 | 루틴 | 작업 이름 | KST | 요일 |
 |---|---|---|---|
 | R1 | `JD-R1-video-prefetch` | 10:00 | 평일 |
-| R2 | `JD-R2-main-report` | **16:30** | 평일 ★[9/17 재가동 — C2 prep 대기 최대 60분 → 무인 보고서 → 할 일 카톡] |
+| R2 | `JD-R2-main-report` | **17:40** | 평일 ★[9/21 개정 — **배달부**: origin/main을 당겨 오늘자 보고서가 있으면 `REPORT_EXISTS`로 할 일 카톡만, 없으면 직접 작성(클라우드 C3 폴백)] |
 | R3 | `JD-R3-calibration` | 09:00 | 토 |
 | R4a | `JD-R4a-retry-2000` | 20:00 | 평일 |
 | R4b | `JD-R4b-retry-2115` | 21:15 | 평일 |
@@ -417,6 +466,21 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
 > **무산출 판정 `NO_OUTPUT`**(R1·R2가 HEAD 불변·워킹트리 깨끗으로 끝나면 — 9/10 R1이 도구 0회로 "대기 중"만 답하고 OK로 기록됨)을 추가했다.
 > ⚠️ **이건 증상 완화지 원인 해결이 아니다.** 원인은 여전히 d152/d173(대화형과 무인이 같은 예산을 쓴다)이고,
 > 진짜 해법은 **소비를 줄이는 쪽**이다 — 그게 같은 날 신설한 `hunter_digest.py`(R1 자막 3.5x 압축)다.
+
+### ☁️ 클라우드 루틴 (claude.ai Routines · **PC 전원과 무관** · cron은 UTC)
+| 루틴 | 이름 | cron(UTC) | KST | 모델 | id |
+|---|---|---|---|---|---|
+| C2 | C2 클라우드 준비 브리핑 | `0 7 * * 1-5` | 평일 16:00 | sonnet | `trig_01TTs9AKuG4t8Djx14AdQ5Mo` |
+| **C3** | **C3 메인 보고서** | `0 8 * * 1-5` | **평일 17:00** | sonnet | `trig_013LnSqMqKMjJ7PDyDpruZrP` ★[9/21 신설] |
+| R3 | R3 주말 캘리브레이션 | `0 0 * * 6` | 토 09:00 | opus | `trig_01DhSy6pK3JqGhvJfoWu7q8B` |
+
+- 모두 레포 `https://github.com/hansol-star/-` · environment `env_01G5evpaSjQVhBmoZbM6HNkj`(First) · 구독 사용량 차감.
+- 확인·수정 = `RemoteTrigger` 툴(`list`/`get`/`update`/`run`/`list_runs`/`get_run_log`) 또는 https://claude.ai/code/routines
+- **삭제는 도구로 못 한다** — 웹 UI에서만 가능(비활성화는 `update {"enabled": false}`).
+- ⚠️ **C3에서 `Task`(서브에이전트) 도구를 뺀 것은 의도적이다** — "데스크 스폰 금지"를 산문이 아니라
+  허용목록으로 막는다(데스크 1개 ≈ 13만 토큰 · 9/1~9/10 무인 R2 완주 0/8의 주범). 재료는 C2 prep이 준다.
+- ⚠️ **C2(16:00) → C3(17:00) 간격 60분**이 설계값이다. C2 커밋 실측 16:28~16:37 → 여유 23~32분.
+  C2가 느려져 prep이 없으면 C3는 **기다리지 않고** 경량 수집(5개 스크립트)으로 간다.
 
 확인·수동실행:
 ```

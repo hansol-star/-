@@ -226,7 +226,7 @@ def ledger_execute(step: int, amount: float, note: str = "", date: str | None = 
     return ex[key]
 
 
-def cap_delta_explain(cash, unlocked, mult):
+def cap_delta_explain(base, unlocked, mult, cap_now=None):
     """오늘 상한이 어제와 달라진 이유를 **낙폭 기여 vs 현금 기여**로 분해한다.
 
     ★[2026-08-29 신설 — 리스크 데스크 지적 채택] 사다리 상한은 `cash × 해금비율 × 승수`라
@@ -236,6 +236,13 @@ def cap_delta_explain(cash, unlocked, mult):
     사다리 비율은 *낙폭 심도에 대한 위험허용도*를 재려는 설계이므로, 매도 재원으로 커진 몫은
     **낙폭과 무관하다는 사실을 숫자로 갈라서** 표시한다.
     ⚠️ 표시 전용 — 상한 계산 자체는 바꾸지 않는다(룰 변경은 정훈 승인 사항).
+
+    ★[2026-09-20 정정] 분모가 `cash`로 남아 있었다 — 9/9에 상한 공식을 `cash → base(=현금+전체 기집행)`로
+      바꿀 때 **이 설명기에 전파되지 않았다.** 그래서 9/20 출력이 실제 상한 117,986원을
+      "오늘 93,913원"으로 적었다(= cash×8%). 설명기가 본체와 다른 공식을 쓰면
+      **분해 숫자가 맞아도 총합이 틀린다** — 8/31 '데이터 모양이 바뀌면 모양에 기댄 라벨은
+      조용히 거짓말한다'와 같은 클래스다. 이제 base로 계산하고, cap_now를 받으면 그 값을 쓴다.
+      과거 로그 행에는 base_krw·cap_krw가 없으므로 cash로 폴백한다(그 행들은 근사).
     """
     try:
         rows = [json.loads(l) for l in open(RULE_LOG, encoding="utf-8") if l.strip()]
@@ -248,18 +255,22 @@ def cap_delta_explain(cash, unlocked, mult):
                  if r.get("date") != _today and r.get("cash") is not None), None)
     if not prev:
         return None
-    c0, u0 = float(prev["cash"]), float(prev.get("unlocked_ratio") or 0)
+    # base_krw가 있으면 그것이 정본. 없으면(9/20 이전 행) cash로 근사한다.
+    c0 = float(prev.get("base_krw") or prev["cash"])
+    u0 = float(prev.get("unlocked_ratio") or 0)
     m0 = float(prev.get("final_mult") or 1.0)
-    cap0, cap1 = c0 * u0 * m0, cash * unlocked * mult
+    cap0 = float(prev["cap_krw"]) if prev.get("cap_krw") is not None else c0 * u0 * m0
+    cap1 = float(cap_now) if cap_now is not None else base * unlocked * mult
     if abs(cap1 - cap0) < 1:
         return None
     dd_part = c0 * (unlocked * mult - u0 * m0)      # 낙폭·승수가 바꾼 몫
-    cash_part = (cash - c0) * u0 * m0               # 현금이 바꾼 몫
-    cross = (cap1 - cap0) - dd_part - cash_part     # 교차항
+    cash_part = (base - c0) * u0 * m0               # 재원이 바꾼 몫
+    cross = (cap1 - cap0) - dd_part - cash_part     # 교차항(+ 폴백 행의 근사 오차)
     return {"prev_date": prev.get("date"), "cap_prev": round(cap0), "cap_now": round(cap1),
             "delta": round(cap1 - cap0), "by_drawdown": round(dd_part),
             "by_cash": round(cash_part), "cross": round(cross),
-            "cash_prev": round(c0), "cash_now": round(cash),
+            "cash_prev": round(c0), "cash_now": round(base),
+            "approx": prev.get("base_krw") is None,
             "dd_prev": prev.get("dd_pct")}
 
 
@@ -343,7 +354,7 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
         "dd_pct": dd_pct, "cash": cash,
         "unlocked_ratio": unlocked, "steps": steps,
         "spent_ratio": spent_ratio, "available_ratio": available,
-        "spent_krw": round(spent_krw), "cap_krw": round(cap),
+        "spent_krw": round(spent_krw), "cap_krw": round(cap), "base_krw": round(base),
         "executed_steps": sorted(done),
         "storm_splits": splits, "storm_why": swhy,
         "storm_mult": 1.0,   # 하위호환(원장 스키마) — 금액 감산 폐지로 항상 1.0
@@ -649,6 +660,10 @@ def main():
                     help="사다리 단계 집행 기록(1~5 = D0~D4. ⚠️D0 신설로 1=D0다). --amount 필수. 조회·기록 전용 — 주문 안 냄")
     ap.add_argument("--amount", type=float, help="--execute 와 함께 쓰는 집행 금액(원)")
     ap.add_argument("--note", default="", help="--execute 메모(종목·체결가 등)")
+    # ★[2026-09-20] 체결일 지정 — 없으면 오늘로 박힌다. 9/17 체결을 9/20 세션에서 기입하니
+    #   원장 날짜가 사흘 밀렸다(cap_delta_explain의 prev_date·감사 추적이 어긋난다).
+    #   ledger_execute()는 처음부터 date 인자를 받고 있었는데 CLI만 안 뚫려 있었다.
+    ap.add_argument("--date", help="--execute 체결일(YYYY-MM-DD). 생략 시 오늘")
     ap.add_argument("--rule2", action="store_true")
     ap.add_argument("--ticker", "--tickers", default="066570.KS")
     ap.add_argument("--json", action="store_true")
@@ -673,7 +688,7 @@ def main():
     if a.execute:
         if a.amount is None:
             sys.exit("[tranche_rules] --execute 에는 --amount 가 필요하다")
-        rec = ledger_execute(a.execute, a.amount, a.note)
+        rec = ledger_execute(a.execute, a.amount, a.note, a.date)
         # ⚠️[9/9] 같은 버그를 **세 번** 고쳤다(사다리 표시부·triggers.py·여기).
         #   `f"D{a.execute}"`처럼 인덱스로 D번호를 만들면 단계가 늘어난 순간 라벨이 거짓말한다.
         #   실제로 D0 첫 집행을 "D1 집행 기록"으로 찍었다 — 금액·원장은 정확한데 표시만 틀려서
@@ -735,17 +750,18 @@ def main():
                   f"다음 단계 낙폭에 도달해야 새 몫이 열린다.")
     else:
         print(f"\n  💰 **오늘 허용 잔여 = {r['allowed_krw']:,}원**"
-              f"  (상한 {cash:,.0f} × {r['available_ratio']*100:.0f}% × {r['final_mult']}"
+              f"  (상한 = 총재원 {r['base_krw']:,.0f} × {r['available_ratio']*100:.0f}% × {r['final_mult']}"
               f" = {r['cap_krw']:,}원"
               + (f" − 기집행 {r['spent_krw']:,}원)" if r["spent_krw"] else ")"))
         print(f"     분할 권고: **{r['storm_splits']}회** "
               f"(1회 ≈ {round(r['allowed_krw']/r['storm_splits']):,}원) — 금액이 아니라 속도로 조절")
         print("     ※ 상한이지 목표가 아니다. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")
-        _ex = cap_delta_explain(cash, r["available_ratio"], r["final_mult"])
+        _ex = cap_delta_explain(r["base_krw"], r["available_ratio"], r["final_mult"], r["cap_krw"])
         if _ex and abs(_ex["by_cash"]) > 1000:
             print(f"\n  🔍 **상한 변동 분해** ({_ex['prev_date']} {_ex['cap_prev']:,}원 → 오늘 {_ex['cap_now']:,}원 · {_ex['delta']:+,}원)")
             print(f"     · 낙폭·승수 기여 **{_ex['by_drawdown']:+,}원**  (낙폭 {_ex['dd_prev']:+.1f}% → {r['dd_pct']:+.1f}%)")
-            print(f"     · 현금 기여     **{_ex['by_cash']:+,}원**  (현금 {_ex['cash_prev']:,}원 → {_ex['cash_now']:,}원)")
+            print(f"     · 재원 기여     **{_ex['by_cash']:+,}원**  (총재원 {_ex['cash_prev']:,}원 → {_ex['cash_now']:,}원)"
+                  + ("  ※직전 행에 base 미기록 → 현금으로 근사" if _ex.get("approx") else ""))
             if abs(_ex["cross"]) >= 1:
                 print(f"     · 교차항        {_ex['cross']:+,}원")
             if _ex["by_cash"] > abs(_ex["by_drawdown"]):

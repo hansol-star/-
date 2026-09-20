@@ -100,6 +100,11 @@ def snapshot(save=True) -> dict:
         "final_mult": r1["final_mult"],
         "halted": r1["halted"],
         "allowed_krw": r1["allowed_krw"],
+        # ★[2026-09-20] cap/spent/base 기록 시작 — 舊 행엔 없어서 cap_delta_explain이
+        #   매번 cash로 상한을 재구성했고, 9/9 공식 변경(cash→base) 뒤로 틀린 값을 냈다.
+        "cap_krw": r1["cap_krw"],
+        "spent_krw": r1["spent_krw"],
+        "base_krw": r1["base_krw"],
         "cash": cash,
         "rule2": r2,
     }

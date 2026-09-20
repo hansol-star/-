@@ -263,7 +263,12 @@ def check_high_low_claims():
         if any(k in line for k in ("오류", "아님", "정정", "🔧", "재발방지")):
             continue
         for nm, tk in names.items():
-            if nm not in line:
+            # ★[2026-09-20] 부분문자열 매칭 버그 수정 — 라벨 "MU"가 **"TMUS" 안에서** 걸렸다.
+            #   v96의 TMUS 줄("52주 신저가 근접", 실제 9/17 종가 = 52주 저가 = 정확한 서술)이
+            #   MU의 신저가 주장으로 둔갑해 FAIL(현재 978 vs 저가 157 = +523%)이 났다.
+            #   티커형 라벨(MU·META·TSM…)은 서로의 부분문자열이라 `in`으로는 못 가른다.
+            #   → 영숫자 경계를 강제한다(한글 라벨은 경계 밖이라 영향 없음).
+            if not re.search(r"(?<![A-Za-z0-9])" + re.escape(nm) + r"(?![A-Za-z0-9])", line):
                 continue
             fp = os.path.join(ROOT, "data", "history", f"{tk}.csv")
             if not _glob.glob(fp):

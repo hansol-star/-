@@ -1,13 +1,15 @@
-# 포트폴리오 앱(app/)을 GitHub Pages로 배포 — 폰에서 URL로 바로 열기
+# 포트폴리오 앱(app/)을 GitHub Pages로 배포 + 실시간 시세(live.json) 주기 갱신
 #
-# ─── 1회 설정 (정훈이 직접) ───────────────────────────────────────────────
-# GitHub 레포 > Settings > Pages > Build and deployment > Source = "GitHub Actions"
-# 로 한 번만 바꾸면 끝. 이후 main에 푸시될 때마다(=매일 자동 보고서 커밋 포함)
-# 앱이 자동 재배포된다.
+# 배포 URL: https://hansol-star.github.io/-/   (폰에서 "홈 화면에 추가"로 앱처럼 사용)
 #
-# 배포 URL: https://<유저명>.github.io/<레포명>/   (Actions 로그 끝에 출력됨)
-# 폰 사파리/크롬에서 그 URL 열고 "홈 화면에 추가"하면 앱 아이콘처럼 쓸 수 있다.
-# ──────────────────────────────────────────────────────────────────────────
+# ★[9/21 리디자인] 이 워크플로가 **클라우드 실시간 층**이다.
+#   브라우저에서 Yahoo·네이버를 직접 부르면 CORS로 막힌다(9/21 github.io 오리진에서 실측) →
+#   서버(Actions)가 live_quotes.py로 받아 같은 오리진의 app/live.json으로 함께 배포한다.
+#   live.json은 커밋하지 않는다(.gitignore) — 히스토리에 5분마다 시세 커밋이 쌓이지 않게,
+#   Pages 산출물에만 들어간다. 그래서 push 배포든 스케줄 배포든 **매번** 새로 만든다.
+#   ⚠️ GitHub 스케줄은 부하 시 수 분~수십 분 밀린다 — 로컬 price_watch가 배포본이
+#      8분 이상 낡으면 workflow_dispatch로 깨운다(live_quotes.py --kick, 백업).
+#   공개 레포라 Actions 분 과금 없음. 커스텀 Actions 배포라 Pages 시간당 10회 빌드 한도 비적용.
 
 name: Deploy Portfolio App
 
@@ -16,6 +18,14 @@ on:
     branches: [main]
     paths:
       - "app/**"
+      - ".claude/skills/portfolio-desk/scripts/live_quotes.py"
+      - ".github/workflows/deploy-app.yml"
+  schedule:
+    # UTC 기준(KST = UTC+9). 평일 장 시간대만.
+    - cron: "*/5 22 * * 0-4"     # KST 07:00–07:55 국내 프리마켓(9/14~)
+    - cron: "*/5 0-6 * * 1-5"    # KST 09:00–15:55 국내 정규장
+    - cron: "*/10 7-12 * * 1-5"  # KST 16:00–21:50 국내 애프터마켓 + 미국 프리마켓
+    - cron: "*/10 13-21 * * 1-5" # KST 22:00–06:50 미국 정규장(서머타임·표준시 모두)
   workflow_dispatch: {}
 
 permissions:
@@ -23,7 +33,7 @@ permissions:
   pages: write
   id-token: write
 
-# 동시 배포 1건만
+# 동시 배포 1건만 — 새 실행이 진행 중인 옛 실행을 대체(둘 다 최신 시세를 만들므로 손실 없음)
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -34,14 +44,24 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
-      - name: Checkout
+      - name: Checkout (앱 + 시세 스크립트만)
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            app
+            .claude/skills/portfolio-desk/scripts/live_quotes.py
+          sparse-checkout-cone-mode: false
+
+      - name: 실시간 시세 → app/live.json
+        continue-on-error: true   # 시세 소스가 죽어도 앱 배포는 계속(앱은 보고서 시세로 폴백)
+        run: python3 .claude/skills/portfolio-desk/scripts/live_quotes.py --out app/live.json --src cloud
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
-          enablement: true   # Pages 미설정이어도 워크플로가 자동으로 켬(Settings 수동 불필요)
+          enablement: true
 
       - name: Upload app/ as Pages artifact
         uses: actions/upload-pages-artifact@v3

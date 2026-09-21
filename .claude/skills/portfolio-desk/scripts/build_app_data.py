@@ -510,6 +510,9 @@ def build(offline: bool) -> dict:
             "stars": meta.get("stars", 3),
             "score": meta.get("score"),
             "target": meta.get("target", "—"),
+            # [9/21] 앱 워치 화면이 매수존까지 거리를 그린다 — 舊엔 워치 매수존이 앱에 안 실려
+            #   "GEV $880~900 · ANET $180~190" 우선순위를 폰에서 볼 방법이 없었다.
+            "buy_zone": meta.get("buy_zone"),
             "forecast": meta.get("forecast"),
             "comment": meta.get("comment", ""),
             "issues": meta.get("issues", []),
@@ -540,7 +543,8 @@ def build(offline: bool) -> dict:
     try:
         import tranche_rules as _TR, drawdown_history as _D
         _dates, _closes = _D.load(_TR.KOSPI)
-        _dd = _D.current_drawdown(_dates, _closes)["dd_pct"] if _closes else None
+        _cd = _D.current_drawdown(_dates, _closes) if _closes else {}
+        _dd = _cd.get("dd_pct")
         if _dd is not None:
             _unlocked, _steps = _TR.ladder_state(_dd)
             _nxt = next((st for st in _steps if not st.get("unlocked")), None)
@@ -563,6 +567,21 @@ def build(offline: bool) -> dict:
             _r1 = _TR.rule1(_cash, _dd, None, check_contagion=False)
             safety.update({"cap_krw": _r1["cap_krw"], "spent_krw": _r1["spent_krw"],
                            "allowed_krw": 0 if _halt else _r1["allowed_krw"]})
+            # ★[9/21 앱 실시간] 앱이 **장중 코스피**를 대입해 "지금 낙폭이면 상한이 얼마인가"를
+            #   다시 그릴 수 있게 정본 재료를 싣는다(고점·단계·총재원·기집행·승수). 판정은 여전히
+            #   tranche_rules(종가 기준)이 정본이고, 앱의 장중 값은 '추정' 라벨로만 표시한다.
+            #   라벨은 STEP_LABELS에서 명시적으로 가져온다(인덱스로 라벨 만들기 금지 — 9/9 교훈).
+            safety.update({
+                "peak": round(_cd.get("peak"), 2) if _cd.get("peak") else None,
+                "peak_date": _cd.get("peak_date"),
+                "base_krw": _r1.get("base_krw"),
+                "mult": _r1.get("final_mult"),
+                "reserve_pct": round(_TR.RESERVE * 100, 1),
+                "steps": [{"label": _TR.STEP_LABELS[i] if i < len(_TR.STEP_LABELS) else None,
+                           "thr": st.get("threshold"), "alloc_pct": round(st.get("alloc", 0) * 100, 1),
+                           "why": st.get("why"), "executed_krw": st.get("executed_krw")}
+                          for i, st in enumerate(_r1.get("steps") or [])],
+            })
     except Exception:
         pass
     if kospi_price is None:
@@ -595,6 +614,8 @@ def build(offline: bool) -> dict:
             "id": a["id"],
             "ticker": a.get("ticker"),
             "cond": cond,
+            # [9/21] 앱이 실시간 가격으로 발동·거리를 다시 잰다 — 문턱값이 빠져 있으면 못 잰다
+            "level": a.get("level"), "low": a.get("low"), "high": a.get("high"),
             "when": a.get("when"),
             "action": a.get("action",""),
             "price": p,

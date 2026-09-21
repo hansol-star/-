@@ -545,6 +545,18 @@ powershell -ExecutionPolicy Bypass -File .claude/routines/run_routine.ps1 -Kind 
   즉 **지금은 감시는 돌지만 폰엔 안 간다.** 키를 넣어야 완성된다(§알림 참조).
 - 확인: `price_watch.py --status`(오늘 발동 이력) · `--once --ignore-hours --dry-run`(수동 점검)
 
+### 📱 앱 실시간 시세층 — 클라우드 1차 + 로컬 백업 [9/21 신설 · 정훈 지시 "실시간 데이터가 보이게"]
+
+앱(https://hansol-star.github.io/-/)은 두 층을 읽는다: `data.js` = 분석 정본(보고서·빌드 시점) / `live.json` = 시세만(5~10분).
+
+- **왜 서버를 거치나**: 브라우저에서 Yahoo·네이버를 직접 부르면 **CORS로 막힌다**(9/21 github.io 오리진 실측). → 서버가 받아 같은 오리진에 둔다.
+- **클라우드(1차)** = `.github/workflows/deploy-app.yml` 스케줄(KST 평일 07:00~06:50, 국내장 5분·그 외 10분) → `live_quotes.py --src cloud` → Pages 배포. `live.json`은 **커밋하지 않는다**(히스토리에 5분마다 시세 커밋이 쌓이지 않게 — Pages 산출물에만 존재).
+- **로컬(백업)** = `JD-price-watch`(10분)가 `--once` 끝에 `live_quotes.kick()` 호출 → 배포본이 **8분 이상 낡았으면** `gh workflow run deploy-app.yml` 1회(8분 쿨다운·장 시간만). GitHub 스케줄은 부하 시 수십 분 밀리기 때문. 로그 `data/logs/live_kick.log`. 새 태스크를 만들지 않았다(스케줄러 설정 불변).
+- **소스**: 국내 = 네이버 polling(프리·애프터 실시간 포함) / 미국·지수·환율·WTI = Yahoo chart(프리·애프터 포함) / 국내 정규장 종가 = Yahoo(밴드 기준가).
+- ⚠️ **보고서 근거로 인용하지 않는다** — 휘발성 파생물이다. 데스크 시세 정본은 계속 `market_data.py`·토스.
+- ⚠️ **앱의 사다리 여력·게이트·밴드는 '정본 재료 × 지금 가격'의 추정**이다. 판정은 종가(`tranche_rules.py`)·보고서가 한다 — 앱 화면이 룰을 바꾸지 않는다.
+- ⚠️ **서비스워커는 `app.js`를 캐시 우선으로 준다** — 앱 코드를 고치면 반드시 `build_app_data.py`를 돌려 `sw.js`의 CACHE 스탬프를 바꿔야 폰에 새 코드가 간다.
+
 ### 캐치업 — 놓친 루틴을 켜지자마자 따라잡는다 [9/2 신설]
 `JD-catchup-on-wake` = **로그온 +3분**에 `catchup.ps1` 1회 실행. 놓친 게 없으면 즉시 종료(가볍다).
 - **R4와 다른 문제를 푼다**: R4 = *"돌았는데 토큰에 막혀 못 끝냈다"* / 캐치업 = *"아예 안 돌았다(머신이 없었다)"*.

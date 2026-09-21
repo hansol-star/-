@@ -320,12 +320,31 @@ def main() -> int:
                 print(f"[{_kst():%H:%M}] {phase} — 건너뜀")
             time.sleep(max(1, a.loop) * 60)
 
+    if a.once and not a.dry_run:
+        _live_kick(a.quiet)
     is_open, phase = market_open_kst(_kst())
     if not is_open and not a.ignore_hours:
         if not a.quiet:
             print(f"[{_kst():%H:%M}] {phase} — 감시 대상 시간 아님 (--ignore-hours로 강제)")
         return 0
     return run_once(a.dry_run, a.quiet)
+
+
+def _live_kick(quiet: bool) -> None:
+    """★[9/21] 앱 실시간 층의 로컬 백업 — 배포된 live.json이 8분 넘게 낡았으면 배포 워크플로를 깨운다.
+
+    클라우드(deploy-app.yml 스케줄)가 1차다. GitHub 스케줄은 부하 시 수십 분 밀리므로
+    이미 10분마다 도는 이 태스크에 얹었다(태스크를 새로 만들면 스케줄러 설정이 하나 더 는다).
+    **실패해도 감시를 막지 않는다** — 알림이 본업이고 이건 곁가지다. 장 시간 판정은 kick() 자체가 한다
+    (미국장 포함이라 market_open_kst의 국내 판정과 다르다).
+    """
+    try:
+        sys.path.insert(0, HERE)
+        import live_quotes as _lq
+        _lq.kick(quiet=True)
+    except Exception as e:                                         # noqa: BLE001
+        if not quiet:
+            print(f"  (실시간 킥 건너뜀: {e})")
 
 
 if __name__ == "__main__":

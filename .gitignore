@@ -26,3 +26,6 @@ data/logs/
 
 # 의미검색 인덱스 — 파생물(원장에서 언제든 재생성). 크고 바이너리라 커밋 안 함.
 data/cache/
+
+# 실시간 시세 — 파생물. 클라우드는 Pages 산출물로만 배포(deploy-app.yml), 로컬은 미리보기용.
+app/live.json

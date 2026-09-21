@@ -156,14 +156,38 @@ import pathlib  # noqa: E402  (가격밴드 검사용)
 
 
 def _kr_tick(price: float) -> int:
-    """KRX 호가단위(2023 개편 기준, 주식)."""
+    """KRX 호가단위(2023.1.25 개편 기준, 주식).
+
+    ★[9/21 정정] 20만~50만원 구간은 **500원**이다(舊 1,000원 — 개편 전 값이 남아 있었다).
+    9/21 현대차: 종가 359,000×1.3=466,700 → 상한가 **466,500원**인데 이 함수는 466,000원을 줬다.
+    보수 방향 오차(상한을 낮게 봄)라 접수 판정이 뒤집힌 적은 없지만, 앱 실시간 밴드와 숫자가 갈렸다.
+    출처 = 한국거래소 호가가격단위 개편(대한경제 2023-01-11 등)."""
     if price >= 500_000: return 1000
-    if price >= 200_000: return 1000
+    if price >= 200_000: return 500
     if price >= 50_000:  return 100
     if price >= 20_000:  return 50
     if price >= 5_000:   return 10
     if price >= 2_000:   return 5
     return 1
+
+
+def _kr_band(base: float) -> tuple[int, int]:
+    """(상한가, 하한가) — 기준가 ±30%를 각 가격대 호가로 상한은 절사·하한은 절상."""
+    up, lo = base * 1.3, base * 0.7
+    tu, tl = _kr_tick(up), _kr_tick(lo)
+    return int(up // tu * tu), int(-(-lo // tl) * tl)
+
+
+def _kr_min_base(price: float) -> int:
+    """다음 날 상한가가 price 이상이 되는 **실제로 찍힐 수 있는**(호가단위 위의) 최소 종가.
+
+    ★[9/21] 舊 문구는 price/1.3(=361,538원)을 줬는데 그 가격대 호가가 500원이라 그런 종가는 없다 —
+    361,500원이면 상한 469,500원으로 여전히 거부, 실제 문턱은 362,000원이다."""
+    t = _kr_tick(price / 1.3)
+    b = int(-(-(price / 1.3) // t) * t)
+    while _kr_band(b)[0] < price:
+        b += _kr_tick(b)
+    return b
 
 
 def check_history_cache():
@@ -346,14 +370,14 @@ def check_kr_price_band():
             break
         if not base:
             continue
-        tick = _kr_tick(base * 1.3)
-        cap = int(base * 1.3 // tick * tick)
-        floor = int(-(-(base * 0.7) // tick) * tick)
+        # 상·하한은 **각자의 가격대 호가**로 절사/절상한다(9/21 정정 — 舊는 하한에도 상한 쪽 호가를 써서
+        # LG전자 기준 202,500원의 하한가를 141,800이 아니라 142,000으로 냈다).
+        cap, floor = _kr_band(base)
         oid = o.get("id") or o.get("label") or tk
         if price > cap:
             warn(f"오더 접수불가 우려 [{oid}]: 지정가 {price:,.0f}원 > 상한가 "
                  f"{cap:,}원(기준가 {base:,.0f}원 @{base_date}×1.3) — 밴드는 매일 재계산되니 "
-                 f"기준가가 {price/1.3:,.0f}원 이상이면 등록 가능")
+                 f"기준가(종가)가 {_kr_min_base(price):,}원 이상이면 등록 가능")
         elif price < floor:
             warn(f"오더 접수불가 우려 [{oid}]: 지정가 {price:,.0f}원 < 하한가 "
                  f"{floor:,}원(기준가 {base:,.0f}원 @{base_date}×0.7)")

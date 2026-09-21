@@ -57,7 +57,8 @@
 
 **시세·지표**: `market_data.py`(Yahoo 무키·1차) · `macro_data.py`(FRED 하드넘버) ·
 `vol_gauge.py`(폭풍 %ile **정본**) · `garch.py`(선행 대조 전용 — **룰 판정에 인용 금지**, 8/5) ·
-`drawdown_history.py`(낙폭 기저율) · `history_backfill.py`(일봉 캐시)
+`drawdown_history.py`(낙폭 기저율) · `history_backfill.py`(일봉 캐시) ·
+`live_quotes.py`(**앱 전용** 실시간 층 — 클라우드 5~10분 + 로컬 킥, `live.json`은 커밋 안 함·**보고서 근거 인용 금지**)
 
 **보유·체결**: `toss_snapshot.py`(**조회 전용 · 주문 API 절대 금지**) · `trades.py`(체결 원장 = 정본,
 수량·평단·실현손익을 재생) · `fx_exposure.py` · `portfolio_risk.py` · `portfolio_stats.py`(상관·베타)

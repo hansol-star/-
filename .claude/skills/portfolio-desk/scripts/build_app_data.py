@@ -555,12 +555,22 @@ def build(offline: bool) -> dict:
             _halt, _why = _TR.global_contagion_check()
             safety["halted"] = bool(_halt)
             safety["floor_note"] = _why
+            # ★[9/21 신설] 해금%만 보고 "집행 가능"이라 쓰던 결함 — d197(누적 해석) 이후
+            #   D0 8%가 열려 있어도 기집행 300,909원이 상한 117,320원을 이미 넘어 **잔여 0원**인데,
+            #   앱 홈은 "해금 — 사다리 집행 가능 구간"을 띄웠다(보고서·tranche_rules와 정반대).
+            #   해금 비율이 아니라 **잔여 금액**이 '살 수 있나'의 답이다 → 정본 계산(rule1)을 그대로 읽는다.
+            _cash = _TR._load_inputs(None)[0]
+            _r1 = _TR.rule1(_cash, _dd, None, check_contagion=False)
+            safety.update({"cap_krw": _r1["cap_krw"], "spent_krw": _r1["spent_krw"],
+                           "allowed_krw": 0 if _halt else _r1["allowed_krw"]})
     except Exception:
         pass
     if kospi_price is None:
         safety["status"] = "unknown"
     elif safety.get("halted"):
         safety["status"] = "freeze"   # 하드플로어 발동 = 사다리 전면 정지
+    elif (safety.get("unlocked_pct") or 0) > 0 and safety.get("allowed_krw") == 0:
+        safety["status"] = "spent"    # 해금됐지만 이미 상한까지 집행 = 오늘 여력 0원
     elif (safety.get("unlocked_pct") or 0) > 0:
         safety["status"] = "watch"    # 해금 구간 — 집행 가능
     else:

@@ -93,6 +93,7 @@ header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--
 .pin.ok{background:var(--tint-green);border-left-color:var(--green);color:var(--on-green)}
 .pin.watch{background:var(--tint-gold);border-left-color:var(--gold);color:var(--on-gold)}
 .pin.freeze{background:var(--tint-red);border-left-color:var(--up);color:var(--on-red)}
+.pin.spent{background:var(--card2);border-left-color:var(--mut);color:var(--txt2)}
 .pin .pv{font-weight:800;font-size:16px;color:var(--txt)}
 
 /* section */

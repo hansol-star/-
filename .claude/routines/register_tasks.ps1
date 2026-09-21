@@ -36,7 +36,9 @@ $Weekdays = @('Monday','Tuesday','Wednesday','Thursday','Friday')
 #   Hours = 실행시간 상한. R2는 대기 60분 + 작성 시간이라 2시간이면 한창 쓰다 잘린다 → 3시간.
 $Routines = @(
   @{ Kind='r1';  Name='JD-R1-video-prefetch'; Time='10:00'; Days=$Weekdays;     Desc='영상 리서치 프리페치 (3채널 자막)'; Hours=2 },
-  @{ Kind='r2';  Name='JD-R2-main-report';    Time='16:30'; Days=$Weekdays;     Desc='무인 보고서 (C2 prep 소비) + 할 일 카톡'; Hours=3 }
+  # ★[9/21] 16:30 → 17:40 = 배달부(C3 17:00 보고서를 당겨 할 일 카톡). 스케줄러는 17:40인데 여기만 16:30이면
+  #   이 스크립트를 다시 돌리는 순간 R2가 C3보다 먼저 떠 로컬이 보고서를 써버린다(C3는 '오늘자 있음'으로 종료).
+  @{ Kind='r2';  Name='JD-R2-main-report';    Time='17:40'; Days=$Weekdays;     Desc='할 일 카톡 배달부 (C3 보고서 없으면 폴백 작성)'; Hours=3 }
 )
 $Retired = @('JD-R3-calibration','JD-R4a-retry-2000','JD-R4b-retry-2115','JD-R4c-retry-0230')
 

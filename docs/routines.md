@@ -142,7 +142,7 @@
 6. 보고서 docs/reports/report_v{N}_{YYYY-MM-DD}.md — Write 1회로 완성(섹션별 조각 Edit 금지):
    보유 전종목 풀표 + 워치 전종목 풀표(현재가·당일·원가대비·목표·여력·매수존·매도/트림·⭐·스코어·근거) · TF 상황판(crash_tf §1·§5 게이트) · 사다리 상한(tranche_rules 원화·하드플로어) · 오늘의 이슈 4개 전부 심층 · 강세 vs 신중 · 지정가 오더북(미국은 $) · PM 사견 · STATE SNAPSHOT.
    별점·스코어는 stocks.json 기존값을 쓰고 근거가 바뀐 종목만 조정한다. CLAUDE.md의 '현재 vN' 숫자 +1.
-7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다**: tasks.today를 '오늘 밤~내일 할 일'로 다시 쓴다.
+7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다**: `tasks.json`의 `["tasks"]["today"]`를 '오늘 밤~내일 할 일'로 다시 쓴다(**최상위 `today` 키 금지** — 카톡·앱은 `tasks.today`만 읽는다. 9/21 C3가 최상위에 써 카톡에 전날 목록이 나갔다. validate FAIL로 잡힌다).
    항목마다 한 줄(100자 이내 — 넘으면 카톡에서 잘린다) = 시각 · 종목 · 매수/매도 · 가격(미국 $ / 국내 원) · 수량 · 조건. 최대 6개, 끝난 건 done=true. 오더는 orders에 등록·갱신(체결 확인 전 완료 처리 금지). 바뀐 종목은 stocks.json도.
 8. 마무리: build_app_data.py → validate_report.py(FAIL 0까지 핀포인트 Edit) → rule_tracker.py --snapshot → score_calls.py --append → snapshot.py → market_log.py → report_guard.py --done → git add <만들거나 고친 파일 경로> → git commit.
    푸시·카톡은 런처가 한다(git push·notify.py 호출 금지). 추측 금지·미확인은 미확인.
@@ -216,7 +216,7 @@ prep이 없으면 기다리지 말고 경량 수집으로 진행한다(클라우
    TF 상황판(crash_tf §1·§5 게이트) · 사다리 상한(tranche_rules 원화·하드플로어) · 오늘의 이슈 4개 전부 심층 ·
    강세 vs 신중 · 지정가 오더북(미국은 $) · PM 사견 · STATE SNAPSHOT.
    별점·스코어는 stocks.json 기존값을 쓰고 근거가 바뀐 종목만 조정한다. CLAUDE.md의 '현재 vN' 숫자 +1.
-7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다(17:40 로컬 배달부)**: tasks.today를 '오늘 밤~내일 할 일'로 다시 쓴다.
+7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다(17:40 로컬 배달부)**: `tasks.json`의 `["tasks"]["today"]`를 '오늘 밤~내일 할 일'로 다시 쓴다(**최상위 `today` 키 금지** — 카톡·앱은 `tasks.today`만 읽는다. 9/21 C3가 최상위에 써 카톡에 전날 목록이 나갔다. validate FAIL로 잡힌다).
    항목마다 한 줄(100자 이내 — 넘으면 카톡에서 잘린다) = 시각 · 종목 · 매수/매도 · 가격(미국 $ / 국내 원) · 수량 · 조건.
    최대 6개, 끝난 건 done=true. 오더는 orders에 등록·갱신(체결 확인 전 완료 처리 금지). 바뀐 종목은 stocks.json도.
 8. 마무리: build_app_data.py → validate_report.py(FAIL 0까지 핀포인트 Edit) → rule_tracker.py --snapshot →

@@ -192,6 +192,27 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_tasks",
+        "desc": "할 일을 최상위 today 키에 쓰면(= notify·앱이 못 읽는 자리) 잡는가",
+        "why": "9/21 C3 1회차 실사고 — 클라우드가 새 할 일 목록을 tasks.today가 아니라 최상위 today에 썼고, "
+               "17:40 카톡은 exit 0으로 전날 목록을 보냈다. 에러가 안 나는 오배선이라 사람 눈엔 안 보인다",
+        "pattern": "최상위",
+        "violate": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/tasks.json": json.dumps(
+                {"source_report": "docs/reports/report_v99_2026-08-25.md", "as_of": "16:05",
+                 "tasks": {"today": []}, "today": [{"id": "t1", "text": "x", "done": False}]},
+                ensure_ascii=False)},
+        "clean": {
+            "docs/reports/report_v99_2026-08-25.md": "# v99",
+            "data/app/tasks.json": json.dumps(
+                {"source_report": "docs/reports/report_v99_2026-08-25.md", "as_of": "16:05",
+                 "tasks": {"today": [{"id": "t1", "text": "x", "done": False}]}},
+                ensure_ascii=False)},
+        "args": (),
+    },
+
+    {
         "name": "check_freshness",
         "desc": "tasks.json이 최신 보고서보다 낡으면 잡는가",
         "why": "7/12 실사고 — v46 R2가 stocks·hunter·flows는 갱신하고 tasks.json은 as_of/source_report "

@@ -123,6 +123,14 @@ def check_tasks():
         fail(f"tasks.json: source_report 파일 없음 → {sr} "
              f"(기대 형식 = 'docs/reports/report_vNN_YYYY-MM-DD.md')")
     if not d.get("as_of"): warn("tasks.json: as_of 비어있음")
+    # ★[9/21 신설 — C3 1회차 실사고] 할 일 목록의 정본 위치는 `tasks.today|week|month`다.
+    #   클라우드 C3가 "tasks.today를 다시 쓴다"를 최상위 `today` 키로 읽어 새 목록을 거기에 썼고,
+    #   `notify.py`·앱은 `tasks.today`만 읽으므로 **17:40 카톡엔 전날 목록이 나갔다**(에러 0·exit 0).
+    #   아무도 안 읽는 키에 쓴 할 일은 안 쓴 것과 같다 → FAIL.
+    stray = [k for k in ("today", "week", "month") if k in d]
+    if stray:
+        fail(f"tasks.json: 최상위 {stray} 키 존재 — 할 일 정본은 tasks.{stray[0]} "
+             f"(notify.py·앱은 최상위 키를 안 읽는다 → 카톡·앱에 옛 목록이 나간다)")
 
 # ── C2. 오더 실행가능성: 토스 주문 제약과 모순되는 계획 주문 적발 ────────────────
 #   [8/1 신설 — v66 실사고] §7 오더북이 "AAPL 25% 트림을 $318 **지정가**로"라 적었는데

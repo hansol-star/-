@@ -603,6 +603,14 @@ def build(offline: bool) -> dict:
     price_by_ticker = {h["ticker"]: h["price"] for h in holdings}
     price_by_ticker.update({i["ticker"]: i["price"] for i in indices})
     price_by_ticker.update({w["ticker"]: w["price"] for w in watchlist})
+    # ★[9/22] 알림 티커가 보유·워치·지수 어디에도 없으면 시세를 못 받아 price=None이 됐다 —
+    #   TF 해제 게이트③(WTI, CL=F)이 앱에서 계속 "$—"로 떠 있었던 이유다. 빠진 티커만 직접 조회한다.
+    #   ⚠️ CL=F는 만기 전후(매월 20일 전후) 다음 월물로 넘어가 레벨·등락률이 튄다(9/21: Yahoo -7.95% vs
+    #   근월 연속 -2.73%). 게이트③은 $71.5 '레벨' 판정이라 멀리 있을 땐 영향이 없지만, 근접하면 원출처로 재확인.
+    for a in pf.get("alerts", []):
+        t = a.get("ticker")
+        if t and t not in price_by_ticker:
+            price_by_ticker[t] = quote(t, offline).get("price")
     alerts = []
     for a in pf.get("alerts", []):
         fired = None

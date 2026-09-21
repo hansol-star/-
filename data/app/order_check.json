@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-09-21 22:59",
+ "checked_at": "2026-09-22 00:45",
  "source": "toss",
  "open": [
   {
@@ -53,7 +53,7 @@
   "info": 1
  },
  "context": {
-  "kr_weight_pct": 27.5,
+  "kr_weight_pct": 27.3,
   "ladder_allowed_krw": 19800.0,
   "us_allowed_usd": 222.96
  }

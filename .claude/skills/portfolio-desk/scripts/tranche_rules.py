@@ -375,21 +375,43 @@ def _last_close(sym: str):
         return None, None
 
 
-def googl_room_usd() -> dict:
-    """GOOGL이 주식 평가액의 18%에 닿기까지 남은 달러(캐시 종가 기준 — 제안용)."""
+_LIVE: dict = {}
+
+
+def _px(sym: str, live: bool = True):
+    """(가격, 출처) — 실시간(Yahoo) 우선, 실패하면 일봉 캐시.
+    ★[9/22] 캐시만 쓰면 하루 늦다 — 9/21 밤 GOOGL이 +2% 오르자 18%까지 남은 몫이
+    캐시 기준 $88.52 vs 실시간 $78.79로 $10 갈렸다(회차의 4%). 제안 금액은 집행 시점 가격으로."""
+    if live:
+        if sym not in _LIVE:
+            try:
+                from market_data import fetch_quote
+                _LIVE[sym] = (fetch_quote(sym, timeout=6.0) or {}).get("price")
+            except Exception:
+                _LIVE[sym] = None
+        if _LIVE[sym]:
+            return float(_LIVE[sym]), "live"
+    px, d = _last_close(sym)
+    return px, (f"cache {d}" if px else None)
+
+
+def googl_room_usd(live: bool = True) -> dict:
+    """GOOGL이 주식 평가액의 18%에 닿기까지 남은 달러(실시간 우선 · 실패 시 캐시 종가 — 제안용)."""
     try:
         with open(_PF_JSON, encoding="utf-8") as f:
             pf = json.load(f) or {}
     except Exception:
         return {"error": "portfolio.json 없음"}
-    fx, _ = _last_close("KRW=X")
+    fx, fx_src = _px("KRW=X", live)
     if not fx:
-        return {"error": "환율 캐시 없음"}
+        return {"error": "환율 없음"}
     tot = g = 0.0
-    miss = []
+    miss, srcs = [], set()
     for reg, rows in (pf.get("holdings") or {}).items():
         for h in rows:
-            px, _ = _last_close(h["ticker"])
+            px, src = _px(h["ticker"], live)
+            if src:
+                srcs.add(src.split(" ")[0])
             if not px:
                 miss.append(h["ticker"])
                 continue
@@ -401,10 +423,10 @@ def googl_room_usd() -> dict:
         return {"error": "평가액 계산 불가"}
     room_krw = max(0.0, (US_GOOGL_CAP * tot - g) / (1 - US_GOOGL_CAP))
     return {"weight_pct": round(g / tot * 100, 1), "room_usd": round(room_krw / fx, 2),
-            "fx": round(fx, 2), "missing": miss}
+            "fx": round(fx, 2), "missing": miss, "price_src": "+".join(sorted(srcs)) or None}
 
 
-def _zone_hits() -> list[dict]:
+def _zone_hits(live: bool = True) -> list[dict]:
     """우선순위 ②③(GEV·ANET) 중 매수존(portfolio.json alerts, cond=below) 안에 든 종목."""
     try:
         with open(_PF_JSON, encoding="utf-8") as f:
@@ -414,13 +436,14 @@ def _zone_hits() -> list[dict]:
     out = []
     for a in alerts:
         if a.get("ticker") in US_ZONE_TICKERS and a.get("cond") == "below" and a.get("level"):
-            px, d = _last_close(a["ticker"])
+            px, d = _px(a["ticker"], live)
             if px and px <= float(a["level"]):
                 out.append({"ticker": a["ticker"], "price": round(px, 2), "level": a["level"], "asof": d})
     return out
 
 
-def us_track(usd_cash: float | None = None, today: str | None = None, check_floor: bool = True) -> dict:
+def us_track(usd_cash: float | None = None, today: str | None = None, check_floor: bool = True,
+             live: bool = True) -> dict:
     """미국 트랙 오늘 판정 — 이번 회차에 쓸 수 있는 달러와 대상 제안."""
     if usd_cash is None:
         try:
@@ -468,13 +491,13 @@ def us_track(usd_cash: float | None = None, today: str | None = None, check_floo
         return out
     # 대상 제안 — 매수존 안 우선순위 → GOOGL 18% 상한 → VOO
     split, left = [], allowed
-    zones = _zone_hits()
+    zones = _zone_hits(live)
     if zones:
         each = left / len(zones)
         split = [{"ticker": z["ticker"], "usd": round(each, 2),
                   "why": f"매수존 ${z['level']} 이하(종가 ${z['price']})"} for z in zones]
         left = 0.0
-    room = googl_room_usd()
+    room = googl_room_usd(live)
     if left > 0 and not room.get("error"):
         g = min(left, room["room_usd"])
         if g >= 1:

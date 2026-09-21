@@ -2037,6 +2037,54 @@ def check_monthly_dca(today=None):
          "(룰9는 타이밍 판단 없이 돈을 넣는 유일한 경로다)")
 
 
+_PROSE_STALE_DAYS = 14
+# 폐기된 룰·개념을 **현행 조건처럼** 적은 산문. check_repealed_rules는 docs만 보고 7,500 숫자를
+# 요구해서 stocks.json의 "②안전핀 해제" 같은 조건문은 두 겹으로 빠져나갔다.
+_PROSE_REPEALED = re.compile(r"안전핀\s*(해제|발동|하회)|봉인\s*현금|숨구멍|사다리\s*해금분")
+# 허용 표식은 좁게 — _REPEAL_MARK의 '금지'는 "추격금지"에 걸려 舊 AMD 문구를 통과시킨다(9/22 실측).
+_PROSE_REPEAL_OK = re.compile(r"舊|폐기|삭제|오독|대체됨")
+
+
+def check_watch_prose(today=None):
+    """종목 산문(코멘트·목표·매수존)이 낡았거나 폐기 룰을 현행처럼 적고 있으면 잡는다 [9/22 신설].
+
+    ★[9/22 실측] 워치 15종 중 **11종의 코멘트·목표·매수존이 8/19~21 그대로 한 달 방치**됐다.
+    보고서는 매일 v97 표에 새 숫자를 썼지만 stocks.json으로 되쓰지 않았고, 가격·as_of는
+    자동 갱신돼 **겉보기엔 신선했다**(as_of 9/20). 그 사이 앱에는 ①폐기된 룰(안전핀 해제·봉인현금)이
+    매수 조건으로 ②한화오션에 다른 종목 가격(122.4만)이 ③PLTR에 +42~53%(실제 +7.5%)가 떠 있었다.
+    ⇒ 날짜 기준은 as_of가 아니라 **산문 날짜 = max(prose_as_of, issues[].date)**.
+    """
+    import datetime as _dt
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    d = _json_opt("data/app/stocks.json") or {}
+    stale, repealed = [], []
+    for sec in ("stocks", "watchlist"):
+        for tk, v in (d.get(sec) or {}).items():
+            if not isinstance(v, dict):
+                continue
+            name = v.get("label") or tk
+            dates = [str(v.get("prose_as_of") or "")[:10]]
+            dates += [str(i.get("date") or "")[:10] for i in (v.get("issues") or []) if isinstance(i, dict)]
+            dates = [x for x in dates if re.fullmatch(r"\d{4}-\d{2}-\d{2}", x)]
+            age = (today - _dt.date.fromisoformat(max(dates))).days if dates else 999
+            if age > _PROSE_STALE_DAYS:
+                stale.append(f"{name}({age}일)" if age < 999 else f"{name}(날짜 없음)")
+            for f in ("comment", "buy_zone", "trim", "target"):
+                t = str(v.get(f) or "")
+                m = _PROSE_REPEALED.search(t)
+                if m and not _PROSE_REPEAL_OK.search(t):
+                    repealed.append(f"{name}.{f} '{m.group(0)}'")
+    if stale:
+        warn(f"종목 산문 {len(stale)}건이 {_PROSE_STALE_DAYS}일 넘게 안 바뀌었다(코멘트·목표·매수존) — "
+             + ", ".join(stale[:8]) + (" …" if len(stale) > 8 else "")
+             + " → 보고서 표의 새 숫자를 stocks.json에 되쓰고 prose_as_of 갱신")
+    if repealed:
+        warn(f"stocks.json 산문이 폐기된 룰을 현행 조건처럼 적고 있다 {len(repealed)}건 — "
+             + " / ".join(repealed[:5]) + " → 현행 룰(d205 국내·미국 트랙) 기준으로 다시 쓸 것")
+
+
 _GURU_VERB = [(r"청산|매도", "EXIT"), (r"트림|축소|감축", "TRIM"), (r"재진입|신규", "NEW"),
               (r"증액|증량|확대|순증|매수|편입", "ADD"), (r"홀드|불변", "HOLD")]
 _GURU_OK = {"NEW": {"NEW", "ADD"}, "ADD": {"ADD"}, "TRIM": {"TRIM"}, "EXIT": {"EXIT"}, "HOLD": {"HOLD"}}
@@ -2625,7 +2673,7 @@ def main():
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_monthly_dca()
-    check_routine_health(); check_memory_index(); check_watch_calls(latest)
+    check_routine_health(); check_memory_index(); check_watch_calls(latest); check_watch_prose()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
     check_split_scale()

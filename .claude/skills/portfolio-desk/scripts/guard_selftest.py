@@ -552,6 +552,40 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_watch_prose",
+        "desc": "종목 산문(코멘트·목표·매수존)이 14일 넘게 안 바뀌면 잡는가 — as_of가 신선해도",
+        "why": "9/22 실측 — 워치 11종의 산문이 8/19~21 그대로 한 달 방치됐다. 가격·as_of는 자동 갱신돼 "
+               "겉보기엔 신선했고(as_of 9/20), 앱엔 한화오션에 다른 종목 가격(122.4만)·PLTR 여력 +42~53%"
+               "(실제 +7.5%)가 떠 있었다. 픽스처 = as_of는 최신인데 산문 날짜만 낡은 그 형태",
+        "pattern": r"종목 산문 \d+건이",
+        "violate": {"data/app/stocks.json": json.dumps({"stocks": {}, "watchlist": {"PLTR": {
+            "label": "팔란티어", "as_of": "2026-09-20 18:39", "target": "$185~200 (+42~53%)",
+            "comment": "-0.59%(8/18) 특이재료 없음.", "issues": [{"date": "2026-08-20", "tag": "검증", "text": "x"}]}}},
+            ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps({"stocks": {}, "watchlist": {"PLTR": {
+            "label": "팔란티어", "as_of": "2026-09-20 18:39", "target": "컨센 $196.84(+7.5%)",
+            "comment": "[9/22 갱신]", "prose_as_of": "2026-09-22",
+            "issues": [{"date": "2026-08-20", "tag": "검증", "text": "x"}]}}}, ensure_ascii=False)},
+        "args": ("2026-09-22",),
+    },
+
+    {
+        "name": "check_watch_prose",
+        "desc": "폐기된 룰(안전핀 해제·봉인현금)을 매수 조건처럼 적은 종목 산문을 잡는가",
+        "why": "9/22 실측 — AMD 매수존 '매수 3조건 = ②안전핀 해제', 삼성바이오 '봉인현금 17만원'이 7/30·8/14 폐기 후 "
+               "한 달 넘게 앱에 떠 있었다. check_repealed_rules는 docs만 보고 7,500 숫자를 요구해 두 겹으로 빠졌다. "
+               "픽스처 = 그 AMD 문구 그대로('추격금지'의 '금지'가 넓은 허용 표식에 걸려 통과하던 형태)",
+        "pattern": r"폐기된 룰을 현행 조건처럼",
+        "violate": {"data/app/stocks.json": json.dumps({"stocks": {}, "watchlist": {"AMD": {
+            "label": "AMD", "prose_as_of": "2026-09-22",
+            "buy_zone": "추격금지. 매수 3조건 = ①8/4 실적 소화 ②안전핀 해제 ③$480~500 눌림"}}}, ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps({"stocks": {}, "watchlist": {"AMD": {
+            "label": "AMD", "prose_as_of": "2026-09-22",
+            "buy_zone": "추격 금지. 舊 '3조건(안전핀 해제 등)'은 폐기된 룰 기준이라 삭제"}}}, ensure_ascii=False)},
+        "args": ("2026-09-22",),
+    },
+
+    {
         "name": "check_guru_consistency",
         "desc": "대가 서술의 첫 판정이 13F 팩트(action)와 어긋나면 잡는가",
         "why": "9/21 실사고 — 13F 재수집(9/17) 뒤 숫자는 Q2로 바뀌었는데 애크먼 행 문장은 Q1 것이 남아 "

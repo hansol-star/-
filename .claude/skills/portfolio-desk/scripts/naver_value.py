@@ -250,7 +250,8 @@ def main() -> int:
 
     if args.code:
         uni = []
-        for tok in args.code.split(","):
+        # ★[9/22] help는 '쉼표·공백구분'인데 쉼표만 쪼개 공백 입력이 URL로 새 InvalidURL로 죽었다
+        for tok in args.code.replace(",", " ").split():
             tok = tok.strip().split(".")[0]
             name = next((n for n, c in KR if c == tok), tok)
             uni.append((name, tok))

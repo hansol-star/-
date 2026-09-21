@@ -396,7 +396,7 @@ def fmt(o: dict, verbose: bool = False) -> str:
 def build_universe(args):
     if args.code:
         uni = []
-        for tok in args.code.split(","):
+        for tok in args.code.replace(",", " ").split():  # ★[9/22] help가 공백구분을 약속하는데 쉼표만 쪼갰다
             tok = tok.strip()
             if not tok:
                 continue

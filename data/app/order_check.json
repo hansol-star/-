@@ -1,0 +1,92 @@
+{
+ "checked_at": "2026-09-21 22:20",
+ "source": "toss",
+ "open": [
+  {
+   "ticker": "454910.KS",
+   "side": "SELL",
+   "price": 78000.0,
+   "qty": "1",
+   "ordered_at": "2026-09-21T21:43:14.558+09:00",
+   "plan_id": "o-drb-trim-78k",
+   "plan_state": "active",
+   "band": [
+    48750,
+    90400
+   ]
+  },
+  {
+   "ticker": "035420.KS",
+   "side": "BUY",
+   "price": 196400.0,
+   "qty": "1",
+   "ordered_at": "2026-09-21T21:42:56.978+09:00",
+   "plan_id": "o-naver-1",
+   "plan_state": "dead",
+   "band": [
+    138600,
+    257000
+   ]
+  },
+  {
+   "ticker": "066570.KS",
+   "side": "SELL",
+   "price": 240000.0,
+   "qty": "1",
+   "ordered_at": "2026-09-21T21:42:40.203+09:00",
+   "plan_id": "o-lge-profit-0812",
+   "plan_state": "active",
+   "band": [
+    141800,
+    263000
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "level": "ok",
+   "ticker": "454910.KS",
+   "msg": "두산로보틱스 매도 78,000 × 1 — 계획(o-drb-trim-78k)과 일치"
+  },
+  {
+   "level": "red",
+   "ticker": "035420.KS",
+   "msg": "NAVER 매수 196,400 × 1 — 계획상 '⛔ 폐기(9/21) — 앱 오표시로 토스에 접수됨 → 정훈 취소 필요'인 오더(o-naver-1)와 같은 주문이 살아 있다"
+  },
+  {
+   "level": "red",
+   "ticker": "035420.KS",
+   "msg": "NAVER 매수 196,400 × 1 — ⭐2 보유 종목 추가매수(⭐2 이하 = 트림 또는 기한부 홀드)"
+  },
+  {
+   "level": "red",
+   "ticker": "035420.KS",
+   "msg": "NAVER 매수 196,400 × 1 — 룰6: 국내 27.5% > 상단 22% 동안 신규 자금은 100% 미국"
+  },
+  {
+   "level": "yellow",
+   "ticker": "035420.KS",
+   "msg": "NAVER 매수 196,400 × 1 — 사다리 잔여 0원(계획된 예외가 아니면 재원이 없다)"
+  },
+  {
+   "level": "ok",
+   "ticker": "066570.KS",
+   "msg": "LG전자 매도 240,000 × 1 — 계획(o-lge-profit-0812)과 일치"
+  },
+  {
+   "level": "info",
+   "ticker": "005380.KS",
+   "msg": "현대차 매도 470,000 미등록 — 정상(상한 466,500 < 주문가, 기준 2026-09-21 종가)"
+  }
+ ],
+ "counts": {
+  "red": 3,
+  "yellow": 1,
+  "ok": 2,
+  "info": 1
+ },
+ "context": {
+  "kr_weight_pct": 27.5,
+  "ladder_allowed_krw": 0.0
+ }
+}

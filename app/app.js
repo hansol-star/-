@@ -681,6 +681,33 @@
     return '<div class="cal" title="' + esc(e.note || "") + '"><div class="d num">' + esc(d) + '</div><div class="t">' + esc(t) + (e.confidence && e.confidence !== "확정" ? '<small>' + esc(e.confidence) + '</small>' : '') + '</div>' + r + '</div>';
   }
 
+  // ★[9/21] 토스 미체결 ↔ 계획 대조(order_check.py) — 앱이 잘못 띄운 주문이 토스에 '걸린 채' 남는 걸
+  //   앱이 스스로 보여준다. 舊엔 계획표만 보여줘서 NAVER 196,400(폐기 오더)가 접수된 걸 아무도 못 봤다.
+  //   🔴는 3일, 🟡는 1일까지만 띄운다(오래된 대조는 지금의 토스 상태가 아니다).
+  function orderCheckCards() {
+    var oc = D.order_check;
+    if (!oc || !oc.checked_at) return "";
+    var at = String(oc.checked_at), age = dayDiff(at.slice(0, 10), kstDate());
+    if (oc.source === "unavailable") return "";
+    if (age > 3) return "";
+    var bad = (oc.findings || []).filter(function (f) { return f.level === "red" || (f.level === "yellow" && age <= 1); });
+    if (!bad.length) return "";
+    var g = {}, keys = [];
+    bad.forEach(function (f) {
+      var i = f.msg.indexOf(" — "), k = i > 0 ? f.msg.slice(0, i) : f.msg;
+      if (!g[k]) { g[k] = { red: false, why: [], tk: f.ticker }; keys.push(k); }
+      if (f.level === "red") g[k].red = true;
+      if (i > 0) g[k].why.push({ t: f.msg.slice(i + 3), red: f.level === "red" });
+    });
+    return keys.map(function (k) {
+      var x = g[k];
+      return '<div class="ocard no"><div class="hd"><span class="chip ' + (x.red ? "bad" : "acc") + '">' + IC.x + (x.red ? "토스에서 취소" : "확인 필요") + '</span><span class="when">토스 대조 ' + esc(md(at)) + ' ' + esc(at.slice(11, 16)) + '</span></div>'
+        + '<div class="ttl2">' + esc(k.replace(/ ([\d,.]+) × ([\d.]+)$/, " $1원 × $2주")) + ' — 토스에 걸려 있다</div>'
+        + x.why.map(function (w) { return '<div class="ok ' + (w.red ? "no" : "warn") + '">' + IC.x + '<span>' + esc(w.t) + '</span></div>'; }).join("")
+        + '<p>주문 취소는 토스 앱에서 직접. 이 앱과 데스크는 주문을 건드리지 않는다.</p></div>';
+    }).join("");
+  }
+
   function renderToday() {
     var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive(), G = gatesLive(), s = D.safety || {};
     var r0 = (D.reports || [])[0];
@@ -704,6 +731,7 @@
     var nReg = okC.filter(function (x) { return isReg(x.o); }).length;
     h += h2s(night ? "오늘 밤 할 일" : "지금 할 일", (okC.length ? "주문 " + okC.length + "건" + (nReg ? "(" + nReg + " 등록)" : "") + " · " : "") + "할 일 " + open.length + "건");
     h += '<div class="stack">';
+    h += orderCheckCards();
     okC.forEach(function (x) { h += orderCard(x.o); });
     noC.forEach(function (x) { h += orderCard(x.o); });
     var fp = flowPair();
@@ -849,6 +877,8 @@
       h += priCard();
 
       h += h2s("분석", null, "sm");
+      var pf = D.performance;
+      if (pf && pf.status === "live") h += '<details class="fold"><summary>운용 성적 · 매매 효과 ' + pct(pf.desk_value_pct, 1).replace("%", "%p") + '</summary><div class="in">' + perfCard(pf) + '</div></details>';
       h += '<details class="fold"><summary>비중 · 테마 · 수익률</summary><div class="in">' + allocCards(hs) + '</div></details>';
       h += '<details class="fold"><summary>통화 익스포저 · 환손익</summary><div class="in">' + fxCard() + '</div></details>';
       h += '<details class="fold"><summary>동조 · 실효 분산</summary><div class="in">' + corrCard() + '</div></details>';
@@ -901,6 +931,28 @@
     }).join("") + '</div>';
     return h;
   }
+  // ★[9/21] 운용 성적표(performance.py) — "우리가 매매로 더했나"를 원장 재생으로 잰다.
+  //   舊 stats.period_return_pct는 '현재 비중을 과거에 들고 있었다면'의 백캐스트라 매매 효과를 못 본다.
+  function perfCard(p) {
+    var a = p.actual || {}, hd = p.hold || {}, b = p.benchmarks || {}, t = (p.trades || {}), bs = t.by_side_krw || {};
+    var rows = [["우리 실제", a.stocks_twr_pct, "me"], ["가만히 뒀다면", hd.stocks_twr_pct, ""]];
+    Object.keys(b).forEach(function (k) { rows.push([k.replace("혼합(시작 국내비중)", "혼합 국내" + (p.start_kr_weight_pct != null ? Math.round(p.start_kr_weight_pct) + "%" : "")), b[k].twr_pct, ""]); });
+    var mx = Math.max.apply(null, rows.map(function (r) { return Math.abs(r[1] || 0); })) || 1;
+    var h = '<div class="card"><div class="ctitle">시간가중수익률 <span class="mut xs">(' + esc(md(p.from)) + '–' + esc(md(p.to)) + ' · 입출금 영향 제거)</span></div><div class="pbars">';
+    rows.forEach(function (r) { h += '<div class="r ' + r[2] + '"><span>' + esc(r[0]) + '</span><span class="t"><i class="' + cls(r[1]) + '" style="width:' + (Math.abs(r[1] || 0) / mx * 100).toFixed(1) + '%"></i></span><b class="num ' + cls(r[1]) + '">' + pct(r[1], 1) + '</b></div>'; });
+    h += '</div><div class="fxnote">최대낙폭 실제 ' + pct(a.stocks_mdd_pct, 1) + ' · 가만히 ' + pct(hd.stocks_mdd_pct, 1) + '. 가만히 = ' + esc(md(p.from)) + ' 수량을 그대로 들고 있었다면.</div>';
+    h += '<div class="ctitle" style="margin-top:13px">매매가 더하고 뺀 돈 <span class="mut xs">(체결가 → 오늘 종가 · 사후확신)</span></div><div class="fxatt">';
+    [["매수", bs.buy], ["매도", bs.sell], ["현금 대기", p.cash ? -p.cash.vs_spx_krw : null]].forEach(function (kv) {
+      h += '<div class="fxa"><div class="mut xs">' + esc(kv[0]) + '</div><div class="v num ' + cls(kv[1]) + '">' + (kv[1] == null ? "—" : sign(kv[1]) + num(Math.round(kv[1]))) + '</div></div>';
+    });
+    h += '</div>';
+    var w = (t.worst || []).filter(function (x) { return x.krw < 0; }).slice(0, 3);
+    if (w.length) h += '<div class="decs" style="margin-top:10px">' + w.map(function (x) {
+      return '<span class="dt num">' + esc(md(x.date)) + '</span><span><b>' + esc(x.label) + ' ' + (x.side === "sell" ? "매도" : "매수") + '</b> ' + (x.side === "sell" ? "이후 " + pct(x.move_pct, 1) + " 더 올랐다" : "이후 " + pct(x.move_pct, 1)) + ' · <b class="num down">' + num(Math.round(x.krw)) + '원</b></span>';
+    }).join("") + '</div>';
+    return h + '<div class="fxnote">현금 대기 = 현금을 S&P500(원화)에 넣어뒀다면 대비(음수 = 현금이 기회비용). 매도 건수가 적어 판정이 아니라 관찰이다(d142 — 실현 20건에 재검증).</div></div>';
+  }
+
   function fxCard() {
     var x = D.fx_exposure;
     if (!x || x.status !== "live") return '<div class="empty sm">측정값 없음</div>';

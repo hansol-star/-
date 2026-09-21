@@ -78,15 +78,22 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    - **국내 정성 크로스체크**: `naver_data.py --news "<종목/이슈>"`·`--trend`(NCP 키 정훈 제공)로 폭풍의 촉매·리테일 심리를 정량 옆에 병기(정량 국면 ↔ 정성 촉매 수렴 확인).
    - **★수급 자동 수집 [7/21 신설 — 수동 WebSearch 탈출]**: `naver_flows.py`(네이버 무키 JSON) — ①시장전체 코스피·코스닥 외인/기관/개인 순매수(억원, flows.json이 손으로 적던 값 자동화) ②종목별 외인/기관/개인 순매수·외인보유율(하닉 매도중단 트리거 감시). KRX 공식 API는 데이터센터 IP서 400/LOGOUT로 막혀 네이버로 우회. `--flows-line`=flows.json series 형식 출력. 국장 데스크가 Task에서 이걸로 수급 확정(WebSearch는 KRX 확정 대사·백업).
 
-## 1. 실제 보유·현금 — 토스증권 (선택)
+## 1. 실제 보유·현금 — 토스증권 (대화형 로컬 세션)
 
-정훈이 채팅에 `client_id`/`client_secret`을 주면:
+키 = 환경변수 `TOSS_CLIENT_ID`/`TOSS_CLIENT_SECRET`(8/31 로컬 이전 개정 — CLAUDE.md 운영제약). 무인 루틴엔 노출 안 함.
 ```bash
-python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py --id <id> --secret <secret>
+python3 .claude/skills/portfolio-desk/scripts/toss_snapshot.py            # 보유·현금·환율
+python3 .claude/skills/portfolio-desk/scripts/order_check.py              # ★[9/21] 토스 미체결 ↔ tasks.json 계획 대조
 ```
 - 출력: 계좌별 보유(수량·평단·현재가·평가손익) + 매수가능금액(현금) + 환율.
-- **주문 API 절대 호출 금지. 조회 GET 전용.** 키는 저장하지 않는다.
-- 키 미제공 시 폴백: `docs/screenshots/` 계좌 스크린샷 + Yahoo 무키 시세 + 직전 스냅샷 기준선.
+- **주문 API 절대 호출 금지. 조회 GET 전용**(`_assert_readonly`가 기계 차단).
+- **★order_check = 룰5(실행 후 검토)의 기계판** — 토스에 **실제로 걸린 주문**이 계획과 맞는지 본다.
+  🔴 = 폐기·보류 오더와 같은 주문이 살아 있음 / ⭐2 추가매수 / 룰6 국내 상단 초과 중 국내 매수 / 계획에 없는 매수.
+  🟡 = '매일 등록' 오더 미등록 · 가격제한폭 밖 · 사다리 0원인데 계획 밖 매수.
+  **🔴가 있으면 보고서 맨 위 '오늘 할 일' 1번**으로 올린다(취소는 정훈이 토스 앱에서 — 우리는 주문을 건드리지 않는다).
+  산출 `data/app/order_check.json` → 앱 '오늘' 화면 경보 카드 · `validate_report.check_order_check`가 3일 내 🔴를 WARN.
+  ⚠️ 9/21 사고: 앱이 폐기된 NAVER 196,400 오더를 '접수 가능'으로 띄워 **실제로 토스에 접수됐다** — 계획표만 보고 토스를 안 봐서 몰랐다.
+- 키 없음·인증 실패 시 order_check는 `unavailable`을 남긴다 — **'주문 없음'과 다르다**. 폴백: `docs/screenshots/` 계좌 스크린샷 + Yahoo 무키 시세 + 직전 스냅샷 기준선.
 
 ## 2. 데스크 병렬 실행 (핵심)
 

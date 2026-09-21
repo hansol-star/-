@@ -1939,6 +1939,143 @@ def check_memory_index():
              "낡은 인덱스는 **최근 기억을 회수에서 통째로 누락시키면서 성공한 것처럼 보인다**")
 
 
+_ORDER_DEAD = re.compile(r"폐기|취소|체결|완료|종결|미접수 확정")
+
+
+def _json_opt(rel):
+    """있으면 읽고 없으면 None — load()와 달리 부재를 FAIL로 올리지 않는다(선택 산출물용)."""
+    p = os.path.join(ROOT, rel)
+    if not os.path.exists(p):
+        return None
+    try:
+        return json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def check_order_check(today=None):
+    """토스 미체결 ↔ 계획 대조(order_check.py)의 마지막 결과를 읽는다 [9/21 신설].
+
+    ★[9/21 실사고] 앱 결함 카드(6/26 '보류' NAVER 매수)를 보고 토스에 **NAVER 196,400원 매수**가
+    접수됐다 — ⭐2 기한부 홀드·룰6 국내 초과·사다리 0원 세 곳과 충돌. 같은 날 두산로보 '매일 등록'
+    오더는 전날분이 **미등록**이었다. 알림(notify)은 "걸어라"까지만 했고 **걸린 것이 계획과 같은가**를
+    보는 장치가 없었다(v81 '4건 접수 완료' 3일 오보도 같은 구멍).
+    토스 키는 로컬 대화형 세션에만 있으므로 여기서는 **결과 파일**을 읽는다:
+      ① 🔴(계획 밖 매수·보류/폐기 오더와 같은 주문·⭐2 추가매수·룰6 중 국내 매수) = WARN
+      ② 🟡(매일 등록 오더 미등록·밴드 밖) — 당일·전일 결과만 WARN
+      ③ '매일 등록' 오더가 있는데 대조가 3일 넘게 없다 = WARN(생존 미확인)
+    """
+    import datetime as _dt
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    tasks = _json_opt("data/app/tasks.json") or {}
+    always = [o for o in tasks.get("orders", [])
+              if o.get("register_policy") == "always" and not _ORDER_DEAD.search(str(o.get("status") or ""))]
+    r = _json_opt("data/app/order_check.json")
+    if not r:
+        if always:
+            warn(f"토스 미체결 대조 기록 없음 — '매일 등록' 오더 {len(always)}건이 실제로 걸렸는지 확인한 적이 없다 "
+                 "(order_check.py · 로컬 대화형 세션)")
+        return
+    try:
+        age = (today - _dt.date.fromisoformat(str(r.get("checked_at", ""))[:10])).days
+    except ValueError:
+        age = 99
+    when = str(r.get("checked_at", ""))[:16]
+    if r.get("source") == "unavailable" and age <= 3:
+        warn(f"토스 미체결 대조 미실행({when} · 키 없음/인증 실패) — '주문 없음'이 아니다")
+    red = [f for f in r.get("findings", []) if f.get("level") == "red"]
+    yel = [f for f in r.get("findings", []) if f.get("level") == "yellow"]
+    if red and age <= 3:
+        warn(f"토스 미체결에 계획과 충돌하는 주문 🔴{len(red)}건({when}) — "
+             + " / ".join(f["msg"][:90] for f in red[:3])
+             + " → 정훈이 토스에서 직접 취소 후 order_check.py 재실행")
+    if yel and age <= 1:
+        warn(f"토스 미체결 대조 🟡{len(yel)}건({when}) — " + " / ".join(f["msg"][:90] for f in yel[:3]))
+    if always and age > 3:
+        warn(f"토스 미체결 대조가 {age}일째 없다(마지막 {when}) — '매일 등록' 오더 {len(always)}건 생존 미확인")
+
+
+def check_monthly_dca(today=None):
+    """룰9 VOO 정액 적립(월 10만원)이 이달 집행 또는 기록됐는가 [9/21 신설].
+
+    ★[9/21 발견] 7월(7/17)·8월(8/14)은 집행됐는데 **9월분은 원장에도 오더북에도 흔적이 없었다.**
+    룰9 원문은 *"매 보고서가 당월 집행 여부 체크"*였지만 그걸 하는 코드는 0줄이었다 — 산문 절차.
+    룰9는 '타이밍 판단 없이 기계적으로 돈을 넣는' 유일한 경로다. 이게 조용히 멈추면 현금은
+    사다리(0원)와 룰6에만 걸려 계속 논다 — 9/21 현금 14.3%가 정확히 그 상태였다.
+    ⚠️ 입금이 없어 건너뛴 달도 정상일 수 있다 — 그 경우 `ord-voo-dca-YYYY-MM`에 **사유를 남기면** 통과한다.
+    판정은 월급일(7/17·8/14 실측) 여유를 두고 **20일 이후**부터 한다.
+    """
+    import datetime as _dt
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    tasks = _json_opt("data/app/tasks.json") or {}
+    orders = tasks.get("orders", [])
+    rule = [o for o in orders if o.get("id") == "ord-voo-dca-rule"
+            and not re.search(r"폐기|종결|중단", str(o.get("status") or ""))]
+    if not rule or today.day < 20:
+        return
+    ym = today.strftime("%Y-%m")
+    p = os.path.join(ROOT, "data", "app", "trades.jsonl")
+    if os.path.exists(p):
+        for ln in open(p, encoding="utf-8"):
+            ln = ln.strip()
+            if not ln or ln.startswith("//"):
+                continue
+            try:
+                t = json.loads(ln)
+            except ValueError:
+                continue
+            if t.get("ticker") == "VOO" and t.get("side") == "buy" and str(t.get("date", "")).startswith(ym):
+                return
+    if any(str(o.get("id", "")).startswith(f"ord-voo-dca-{ym}") for o in orders):
+        return
+    warn(f"룰9 VOO 정액 적립 {ym}분이 체결 원장에도 오더북에도 없다 — 집행했으면 원장 기입, "
+         f"입금이 없어 건너뛰었으면 tasks.json에 'ord-voo-dca-{ym}'로 사유를 남길 것 "
+         "(룰9는 타이밍 판단 없이 돈을 넣는 유일한 경로다)")
+
+
+_GURU_VERB = [(r"청산|매도", "EXIT"), (r"트림|축소|감축", "TRIM"), (r"재진입|신규", "NEW"),
+              (r"증액|증량|확대|순증|매수|편입", "ADD"), (r"홀드|불변", "HOLD")]
+_GURU_OK = {"NEW": {"NEW", "ADD"}, "ADD": {"ADD"}, "TRIM": {"TRIM"}, "EXIT": {"EXIT"}, "HOLD": {"HOLD"}}
+
+
+def check_guru_consistency():
+    """대가 보유교차 서술(our_takeaway)의 첫 판정이 13F 팩트(action)와 맞는가 [9/21 신설].
+
+    ★[9/21 실사고] 애크먼 행 3건이 틀려 있었다 — MSFT(ADD +9.8%)에 '신규 대규모', META(ADD +20.1%)에
+    '트림', GOOGL에 '드러켄밀러·테퍼와 함께 매도 측'(Q2엔 둘 다 매수). 9/17 도구 수정으로 13F를
+    재수집하면서 **숫자는 새로 들어왔는데 사람이 쓴 문장은 Q1 것이 그대로 남았다.**
+    검사 = 서술의 머리(태그 뒤 첫 '—' 전, 또는 '실제는 …' 구절)에서 동사/부호를 뽑아
+    action과 호환되지 않으면 WARN. ⚠️ 다른 대가에 대한 서술(GOOGL 건)까지는 못 본다 — 머리 판정만.
+    """
+    g = _json_opt("data/app/guru_flows.json") or {}
+    bad = []
+    for slug, v in (g.get("gurus") or {}).items():
+        for o in v.get("overlap_with_holdings") or []:
+            t, a = str(o.get("our_takeaway") or ""), o.get("action")
+            if not t or a not in _GURU_OK:
+                continue
+            m = re.search(r"실제는\s*([^,;()—]{1,40})", t)
+            if m:
+                seg = m.group(1)
+            else:
+                seg = re.sub(r"^\s*(\[[^\]]*\]\s*)+", "", t)
+                seg = re.sub(r"^정정\s*[—-]\s*", "", seg)
+                seg = re.split(r"\s[—-]\s|—", seg, 1)[0][:120]
+            claims = {k for pat, k in _GURU_VERB if re.search(pat, seg)}
+            if not claims:
+                s = re.search(r"([+-])\s?\d", seg)
+                claims = ({"ADD"} if s.group(1) == "+" else {"TRIM"}) if s else set()
+            if claims and not (claims & _GURU_OK[a]):
+                bad.append(f"{slug} {o.get('ticker')}: 13F={a}인데 서술은 '{seg[:24]}'")
+    if bad:
+        warn(f"대가 서술이 13F 팩트와 어긋난다 {len(bad)}건 — " + " / ".join(bad[:4])
+             + " (재수집 후 문장이 이전 분기 것으로 남았을 수 있다)")
+
+
 def check_allocation_band():
     """[8/30 신설 · 정훈 승인] 리스크룰 6 — 지역 배분 밴드(국내주 18~22%) 이탈 감지.
 
@@ -2483,10 +2620,11 @@ def main():
     check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band(); check_target_multiple(); check_high_low_claims(); check_history_cache()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules(); check_trade_ledger()
     check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
-    check_feeds(); check_guru()
+    check_feeds(); check_guru(); check_guru_consistency()
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
+    check_order_check(); check_monthly_dca()
     check_routine_health(); check_memory_index(); check_watch_calls(latest)
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()

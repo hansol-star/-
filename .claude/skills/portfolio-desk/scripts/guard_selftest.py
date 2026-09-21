@@ -515,6 +515,59 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_order_check",
+        "desc": "토스 미체결에 계획과 충돌하는 주문(🔴)이 남아 있으면 잡는가",
+        "why": "9/21 실사고 — 앱 결함 카드(6/26 '보류' NAVER 매수)를 보고 토스에 NAVER 196,400원 매수가 "
+               "접수됐다(⭐2 기한부 홀드·룰6·사다리 0원과 충돌). 알림은 '걸어라'까지만 했고 "
+               "걸린 것이 계획과 같은지 보는 장치가 없었다. 픽스처 = 그날 실제 결과 그대로",
+        "pattern": r"계획과 충돌하는 주문",
+        "violate": {"data/app/tasks.json": '{"orders": []}',
+                    "data/app/order_check.json": json.dumps({
+                        "checked_at": _TODAY_KST + " 22:14", "source": "toss", "open": [],
+                        "findings": [{"level": "red", "ticker": "035420.KS",
+                                      "msg": "035420.KS 매수 196,400 × 1 — 계획상 '폐기'인 오더(o-naver-1)와 같은 주문이 살아 있다"}],
+                        "counts": {"red": 1, "yellow": 0, "ok": 0, "info": 0}}, ensure_ascii=False)},
+        "clean": {"data/app/tasks.json": '{"orders": []}',
+                  "data/app/order_check.json": json.dumps({
+                      "checked_at": _TODAY_KST + " 22:14", "source": "toss", "open": [],
+                      "findings": [{"level": "ok", "ticker": "454910.KS",
+                                    "msg": "454910.KS 매도 78,000 × 1 — 계획(o-drb-trim-78k)과 일치"}],
+                      "counts": {"red": 0, "yellow": 0, "ok": 1, "info": 0}}, ensure_ascii=False)},
+        "args": (_TODAY_KST,),
+    },
+
+    {
+        "name": "check_monthly_dca",
+        "desc": "룰9 VOO 정액 적립이 이달 원장·오더북 어디에도 없으면 잡는가",
+        "why": "9/21 발견 — 7/17·8/14는 집행됐는데 9월분은 흔적이 없었다. 룰9 원문의 "
+               "'매 보고서가 당월 집행 여부 체크'는 산문 절차였고 코드 0줄이었다. "
+               "타이밍 판단 없이 돈을 넣는 유일한 경로가 조용히 멈추면 현금은 계속 논다",
+        "pattern": r"룰9 VOO 정액 적립",
+        "violate": {"data/app/tasks.json": '{"orders": [{"id": "ord-voo-dca-rule", "status": "상시 룰"}]}',
+                    "data/app/trades.jsonl": '// ledger\n{"date": "2026-08-14", "ticker": "VOO", "side": "buy", "shares": 0.1, "price": 715}\n'},
+        "clean": {"data/app/tasks.json": '{"orders": [{"id": "ord-voo-dca-rule", "status": "상시 룰"}]}',
+                  "data/app/trades.jsonl": '// ledger\n{"date": "2026-08-14", "ticker": "VOO", "side": "buy", "shares": 0.1, "price": 715}\n'
+                                           '{"date": "2026-09-15", "ticker": "VOO", "side": "buy", "shares": 0.1, "price": 701}\n'},
+        "args": ("2026-09-25",),
+    },
+
+    {
+        "name": "check_guru_consistency",
+        "desc": "대가 서술의 첫 판정이 13F 팩트(action)와 어긋나면 잡는가",
+        "why": "9/21 실사고 — 13F 재수집(9/17) 뒤 숫자는 Q2로 바뀌었는데 애크먼 행 문장은 Q1 것이 남아 "
+               "META(+20.1% 증액)를 '트림', MSFT(+9.8% 증액)를 '신규 대규모'로 적고 있었다. "
+               "픽스처 = 그 문장 그대로",
+        "pattern": r"대가 서술이 13F 팩트와 어긋난다",
+        "violate": {"data/app/guru_flows.json": json.dumps({"gurus": {"pershing": {"overlap_with_holdings": [
+            {"ticker": "META", "action": "ADD", "our_takeaway": "[검증] 트림 — META도 대가 갈림(로엡 매수 vs 애크먼·테퍼 트림)."}]}}},
+            ensure_ascii=False)},
+        "clean": {"data/app/guru_flows.json": json.dumps({"gurus": {"pershing": {"overlap_with_holdings": [
+            {"ticker": "META", "action": "ADD", "our_takeaway": "[검증·9/21 정정] +20.1% 증액(266.1만→319.6만주) — 테퍼도 같은 방향."}]}}},
+            ensure_ascii=False)},
+        "args": (),
+    },
+
+    {
         "name": "check_allocation_band",
         "desc": "\uad6d\ub0b4\uc8fc \ube44\uc911\uc774 \ubaa9\ud45c \ubc34\ub4dc(18~22%)\ub97c \ubc97\uc5b4\ub098\uba74 \uc7a1\ub294\uac00",
         "why": "8/30 \uc2e0\uc124 \ub8f06. \uc774 \ub8f0\uc774 \uc0dd\uae30\uae30 \uc804\uae4c\uc9c0 \uad6d\ub0b4 28.7%\ub294 \ub204\uac00 \uc815\ud55c \uac12\uc774 \uc544\ub2c8\ub77c "

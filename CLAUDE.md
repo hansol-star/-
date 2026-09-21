@@ -252,11 +252,15 @@
 | 2차 매체 받아쓰기 | `check_primary_source` |
 | 만든 도구가 안 불림 | `wiring_audit.py` |
 | 백테스트 미래참조 | `lookahead_guard.py` |
-| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 23/40 — **미등록 17개가 결핍 목록**) |
+| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 29/45 — **미등록 16개가 결핍 목록**) |
 | 루틴 실패 침묵 | `check_routine_health` |
 | 자막 유실 | `check_transcript_persistence` |
 | 의미검색 인덱스 stale | `check_memory_index` |
 | 워치 별점이 채점에서 새는 것 | `check_watch_calls`(9/14 — 3개월간 매일 22건 만들어 매일 버리고 있었다) |
+| 토스에 계획과 다른 주문이 걸림 | `order_check.py` + `check_order_check`(9/21 — 폐기 오더 NAVER 196,400이 실제 접수됐는데 아무도 몰랐다) |
+| 룰9 월 정액 적립 누락 | `check_monthly_dca`(9/21 — 매월 20일부터) |
+| 대가 서술 ↔ 13F 팩트 반대 | `check_guru_consistency`(9/21) |
+| 매매가 성과를 더했나(측정) | `performance.py` — 원장 재생 TWR · 스냅샷 정합 게이트(9/21 첫 측정 -1.8%p) |
 
 ### 🔴 가드가 없다 — 이건 사람이 기억해야 한다
 - **계약·금액은 주체·범위·형식(LOI/MOU/확정계약)을 항상 같이** 쓴다(7/26). 큰 숫자일수록 매체가 합계·단독을 섞는다 → **회사 공식 뉴스룸·공시 원문까지** 내려간다.

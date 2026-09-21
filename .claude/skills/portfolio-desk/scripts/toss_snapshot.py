@@ -116,6 +116,59 @@ def req(method, path, ctx, headers=None, data=None, form=False):
         return None
 
 
+def _page_orders(ctx, h: dict, status: str, limit: int) -> tuple[list, int]:
+    """한 계좌의 주문 목록 — 커서 페이징(GET 전용)."""
+    rows, cursor, pages = [], None, 0
+    while pages < 50:  # 안전 상한 — 커서가 안 끝나도 무한루프 금지
+        q = ("/api/v1/orders?status=" + urllib.parse.quote(status)
+             + "&limit=" + str(min(limit, 100)))
+        if cursor:
+            q += "&cursor=" + urllib.parse.quote(str(cursor))
+        r = req("GET", q, ctx, headers=h)
+        res = (r or {}).get("result") or {}
+        batch = res.get("orders") or []
+        rows += batch
+        cursor = res.get("nextCursor") or res.get("cursor")
+        pages += 1
+        if not batch or not cursor:
+            break
+    return rows, pages
+
+
+def fetch_orders(status: str = "OPEN", limit: int = 100, insecure: bool = False) -> list[dict] | None:
+    """다른 스크립트(order_check.py)가 부르는 주문 조회 — **GET만**, 키는 환경변수.
+
+    반환: 전 계좌 주문 리스트(각 행에 accountSeq 부착) · 인증 실패/키 없음이면 None.
+    None과 []를 구분한다 — '못 봤다'를 '주문 없음'으로 읽으면 v81 사고(4건 접수 완료로
+    3일 보고했는데 실제로는 비어 있었다)의 거울상이 된다."""
+    cid, sec = os.environ.get("TOSS_CLIENT_ID"), os.environ.get("TOSS_CLIENT_SECRET")
+    if not cid or not sec:
+        return None
+    ctx = make_ctx(insecure)
+    tok = req("POST", "/oauth2/token", ctx, form=True, data={
+        "grant_type": "client_credentials", "client_id": cid, "client_secret": sec})
+    if not tok or "access_token" not in tok:
+        return None
+    auth = {"Authorization": f"Bearer {tok['access_token']}"}
+    accounts = req("GET", "/api/v1/accounts", ctx, headers=auth)
+    if accounts is None:
+        return None
+    acc_list = (accounts or {}).get("result") or (accounts or {}).get("accounts") or accounts or []
+    if isinstance(acc_list, dict):
+        acc_list = acc_list.get("accounts", [acc_list])
+    out = []
+    for acc in acc_list if isinstance(acc_list, list) else []:
+        seq = acc.get("accountSeq")
+        if seq is None:
+            continue
+        h = dict(auth); h["X-Tossinvest-Account"] = str(seq)
+        rows, _ = _page_orders(ctx, h, status, limit)
+        for o in rows:
+            o["accountSeq"] = seq
+        out += rows
+    return out
+
+
 def _orders(ctx, auth, acc_list, limit: int, status: str = "CLOSED") -> int:
     """주문 이력 수집 — 커서 페이징. GET이라 주문 차단 가드를 그대로 통과한다.
 
@@ -132,20 +185,7 @@ def _orders(ctx, auth, acc_list, limit: int, status: str = "CLOSED") -> int:
         if seq is None:
             continue
         h = dict(auth); h["X-Tossinvest-Account"] = str(seq)
-        rows, cursor, pages = [], None, 0
-        while pages < 50:  # 안전 상한 — 커서가 안 끝나도 무한루프 금지
-            q = ("/api/v1/orders?status=" + urllib.parse.quote(status)
-                 + "&limit=" + str(min(limit, 100)))
-            if cursor:
-                q += "&cursor=" + urllib.parse.quote(str(cursor))
-            r = req("GET", q, ctx, headers=h)
-            res = (r or {}).get("result") or {}
-            batch = res.get("orders") or []
-            rows += batch
-            cursor = res.get("nextCursor") or res.get("cursor")
-            pages += 1
-            if not batch or not cursor:
-                break
+        rows, pages = _page_orders(ctx, h, status, limit)
         if status.upper() == "CLOSED":
             shown = [o for o in rows if o.get("status") == "FILLED"]
         else:

@@ -174,6 +174,19 @@ python3 .claude/skills/portfolio-desk/scripts/missed_moves.py --min-move 8    # 
 - 검증한 케이스만 사람이 판단해 **`data/app/missed_moves.jsonl` append** + **`docs/research/hindsight_log.md` 맨 위 회고 블록 prepend**(형식은 그 파일 골격). 필드: `{id, date, ticker, decision_type, ref_price, signal, move_pct, horizon, rationale, verdict(miss/right/noise), lesson, cluster_tag, source_report}`.
 - 반복 패턴(클러스터별 미스 카운트·기각된 대안 재검토)은 §5 자기교정과 합쳐 **`desk_playbook.md` §2/§3에 실행형 교훈으로 반영 제안**(자동변경 ❌).
 
+## 6b. 운용 성적 — 매매가 더했나 뺐나 [9/21 신설]
+§1~§6이 **콜**을 채점한다면 이건 **돈**을 채점한다. 별점이 맞아도 매매가 손해면 포트는 진다.
+```bash
+python3 .claude/skills/portfolio-desk/scripts/performance.py --emit       # 데스크 기간 전체 → data/app/performance.json(앱 성적표)
+python3 .claude/skills/portfolio-desk/scripts/performance.py --from 2026-08-01
+```
+- **실제 vs 가만히**: 체결 원장(`trades.jsonl`)을 재생한 일별 수량 × 캐시 종가로 **시간가중수익률**(Modified Dietz 일별 연결 — 입출금이 수익률을 왜곡하지 않는다). '가만히' = 시작일 수량을 그대로 들고 있었다면. 차이 = **매매 효과(`desk_value_pct`)**.
+- **벤치 3종**: 코스피 · S&P500(원화) · 혼합(시작 국내비중). 포트가 혼합에 못 미치면 종목 선택이 아니라 **배분**이 성과를 지배한 것(룰6의 근거).
+- **거래별 사후 기여**: 체결가 → 기간 말 종가. 매도는 '안 팔았다면'의 반대 부호. **사후확신이지 판정이 아니다** — 매도 표본이 작으면(d142: 실현 20건 미만) 관찰로만 적는다.
+- **현금 대기 비용**: 현금을 S&P(원화)·코스피에 넣어뒀다면 대비. 음수 = 현금이 손실을 피했다.
+- **정합성 게이트**: 재생 가치를 스냅샷과 대조해 ±1% 밖이면서 체결 ±7일 창(스냅샷 수기 반영 지연)으로 설명 안 되는 날이 있으면 **exit 1** — 원장이 틀렸다는 뜻이니 성적보다 원장부터 고친다.
+- ⚠️ `stats.period_return_pct`(portfolio_stats)는 **현재 비중을 과거에 들고 있었다면**의 백캐스트다. 매매 효과를 못 본다 — 성적으로 인용 금지.
+
 ## 7. 역량 감사 — 못 낸 답을 찾는다 (결손 점검) [7/30 신설]
 
 §1~§6은 전부 **우리가 낸 답**을 채점한다(콜이 맞았나, 안 한 행동이 옳았나). 그래서 **애초에

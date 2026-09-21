@@ -36,6 +36,7 @@ HUNTER_ARCHIVE_JSON = os.path.join(REPO, "data", "app", "hunter_archive.json")
 FEEDS_JSON = os.path.join(REPO, "data", "app", "feeds.json")  # 외부 채널(수페TV·지식인사이드) 정본
 FLOWS_JSON = os.path.join(REPO, "data", "app", "flows.json")
 GURU_JSON = os.path.join(REPO, "data", "app", "guru_flows.json")  # 대가 13F 흐름·이유분석
+ORDER_CHECK_JSON = os.path.join(REPO, "data", "app", "order_check.json")  # 토스 미체결 ↔ 계획 대조(order_check.py)
 PM_VIEW_JSON = os.path.join(REPO, "data", "app", "pm_view.json")
 DECISIONS_JSONL = os.path.join(REPO, "data", "app", "decisions.jsonl")
 REPORTS_DIR = os.path.join(REPO, "docs", "reports")
@@ -743,7 +744,28 @@ def build(offline: bool) -> dict:
     payload["fx_exposure"] = build_fx_block(payload, pf, offline)
     payload["stats"] = build_stats_block(payload)
     payload["risk"] = build_risk_block(payload)
+    # [9/21 신설] 운용 성적표(시간가중·가만히 대비·매매별 기여) + 토스 미체결 대조 결과
+    payload["performance"] = build_perf_block()
+    payload["order_check"] = load_json_opt(ORDER_CHECK_JSON) or None
     return payload
+
+
+def build_perf_block() -> dict:
+    """performance.py — 데스크 착수 이후 실수익률(시간가중)·'가만히 있었다면'·벤치마크·매매별 기여.
+
+    정훈 9/21 *"우리가 잘 자금들 운용하고 있는지"*에 숫자로 답하는 유일한 블록이다.
+    stats.period_return_pct는 **지금 비중의 역산**이라 그 사이 매매가 빠진다 — 둘을 섞지 말 것."""
+    try:
+        import performance as P
+        r = P.run(P.START_DEFAULT, dt.date.today().isoformat())
+        if r.get("error"):
+            return {"status": "unavailable", "reason": r["error"]}
+        r.pop("curve", None)
+        r["status"] = "live"
+        return r
+    except Exception as e:  # noqa: BLE001
+        print(f"⚠️ performance 블록 생성 실패: {e}", file=sys.stderr)
+        return {"status": "unavailable", "reason": str(e)}
 
 
 def build_trades_block(usdkrw: float | None) -> dict:

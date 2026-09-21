@@ -149,11 +149,21 @@ def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None, st
             f"최대 보유 {top['label']} {top_w:.1f}%. 추가 노출은 분할로만 — 룰3 추격매수 금지.")
 
     if usd_w >= 70:
-        pctl = ((fx or {}).get("percentile") or {}).get("windows", {}).get("1y", {}).get("percentile")
-        tail = f" · 원/달러 1년 {pctl}%ile" if pctl is not None else ""
+        # [9/21 r2] 룰6 ⓶ — 통화 판정은 5년 %ile 밴드. 舊 문구는 1년 창만 인용했고(룰6 '1y 단독 인용 금지' 위반)
+        #   8/30 룰6으로 이미 닫힌 'roadmap 3-1'을 열린 질문이라고 적고 있었다.
+        win = ((fx or {}).get("percentile") or {}).get("windows", {})
+        p5, p1 = (win.get("5y") or {}).get("percentile"), (win.get("1y") or {}).get("percentile")
+        if p5 is not None:
+            verdict = "저평가" if p5 < 30 else "고평가" if p5 > 70 else "중립"
+            tail = f" · 원/달러 5년 {p5}%ile {verdict}"
+            if p1 is not None and abs(p5 - p1) >= 30:
+                tail += f"(1년 창 {p1}%ile은 결론이 뒤집혀 단독 인용 금지)"
+            rule6 = "룰6 통화 판정 = 조정 근거 없음." if verdict == "중립" else f"룰6 통화 판정 = {verdict} — 조정 경로 검토."
+        else:
+            tail, rule6 = "", "룰6 통화 판정 = 5년 %ile 미측정."
         add("warning", "currency", "통화 쏠림 — 달러 편중",
             f"달러 자산 {usd_w:.1f}%{tail}. 환율 1% 변동 = 총자산 "
-            f"{(fx or {}).get('sensitivity_1pct_krw', 0):+,}원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문.")
+            f"{(fx or {}).get('sensitivity_1pct_krw', 0):+,}원. {rule6}")
 
     if fx and fx.get("attribution", {}).get("fx_krw", 0) < 0:
         a = fx["attribution"]

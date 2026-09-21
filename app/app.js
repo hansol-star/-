@@ -104,7 +104,12 @@
     compass: svg('<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'),
     ledger: svg('<rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>'),
     archive: svg('<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10h14V9M10 13h4"/>'),
-    doc: svg('<path d="M6 3.5h9l4 4v13H6z"/><path d="M15 3.5v4h4"/>')
+    doc: svg('<path d="M6 3.5h9l4 4v13H6z"/><path d="M15 3.5v4h4"/>'),
+    clock: svg('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'),
+    x: svg('<path d="M6 6l12 12M18 6L6 18"/>', 2.2),
+    eye: svg('<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/>'),
+    alert: svg('<path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.3v.2"/>'),
+    dash: svg('<path d="M6 12h12"/>', 2.2)
   };
 
   // ── 테마 (자동 → 밝게 → 어둡게) ──
@@ -215,10 +220,11 @@
   function totalsLive(hs) {
     var t = D.totals || {}, fx = fxNow();
     var stocks = 0, cost = 0, day = 0, kr = 0, usS = 0;
-    hs.forEach(function (h) { stocks += h.lvalue; cost += h.costK; day += h.lday; if (h.region === "kr") kr += h.lvalue; else usS += h.lvalue; });
+    var noFx = 0;
+    hs.forEach(function (h) { stocks += h.lvalue; cost += h.costK; day += h.lday; if (h.region === "kr") kr += h.lvalue; else usS += h.lvalue; noFx += h.region === "kr" ? h.lpnl : ((h.lp || 0) - h.cost) * h.shares * fx; });
     var cashUK = (t.cash_usd || 0) * fx, assets = stocks + (t.cash_krw || 0) + cashUK;
     return {
-      assets: assets, stocks: stocks, pnl: stocks - cost, pnlPct: cost ? (stocks / cost - 1) * 100 : null,
+      assets: assets, stocks: stocks, pnl: stocks - cost, pnlPct: cost ? (stocks / cost - 1) * 100 : null, pnlNoFx: noFx,
       day: day, dayPct: (stocks - day) ? day / (stocks - day) * 100 : null,
       cashK: t.cash_krw || 0, cashU: t.cash_usd || 0, cashUK: cashUK, fx: fx,
       krW: stocks ? kr / stocks * 100 : null, usdW: assets ? (usS + cashUK) / assets * 100 : null
@@ -277,36 +283,129 @@
     var u = base * 1.3, l = base * 0.7, tu = krTick(u), tl = krTick(l);
     return { up: Math.floor(u / tu + 1e-9) * tu, lo: Math.ceil(l / tl - 1e-9) * tl, base: base };
   }
-  // 다음(또는 오늘) 정규장 밴드의 기준가 판정
+  // ── 국내 거래일 달력 — 주말 + D.events의 '휴장'(추석 등) ──
+  var HOL = null;
+  function krHolidays() {
+    if (HOL) return HOL;
+    HOL = {};
+    (D.events || []).forEach(function (e) {
+      if (e.kind !== "휴장" || !e.date) return;
+      for (var d = e.date, i = 0; d <= (e.end || e.date) && i < 20; d = addDay(d, 1), i++) HOL[d] = 1;
+    });
+    return HOL;
+  }
+  function addDay(iso, n) { return new Date(Date.parse(iso + "T00:00:00Z") + n * 864e5).toISOString().slice(0, 10); }
+  function dayDiff(a, b) { return Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 864e5); }
+  function isKrSession(iso) { var w = new Date(iso + "T00:00:00Z").getUTCDay(); return w >= 1 && w <= 5 && !krHolidays()[iso]; }
+  function sessionAfter(iso) { var d = addDay(iso, 1); for (var i = 0; i < 20 && !isKrSession(d); i++) d = addDay(d, 1); return d; }
+  // 다음 국내 정규장 — 오늘이 거래일이고 09:00 전이면 오늘
+  function nextKrSession() { var t = kstDate(); return isKrSession(t) && kstMin() < 9 * 60 ? t : sessionAfter(t); }
+  function md(iso) { var d = new Date(String(iso).slice(0, 10) + "T00:00:00Z"); return (d.getUTCMonth() + 1) + "/" + d.getUTCDate(); }
+  function mdw(iso) { return md(iso) + "(" + "일월화수목금토".charAt(new Date(String(iso).slice(0, 10) + "T00:00:00Z").getUTCDay()) + ")"; }
+  function relDay(iso) { var n = dayDiff(kstDate(), iso); return n === 0 ? "오늘" : n === 1 ? "내일" : mdw(iso); }
+
+  // 다음(또는 오늘) 정규장 밴드의 기준가 판정 — day = 그 밴드가 적용되는 거래일
   function bandBase(tk) {
-    var q = Q(tk), st = find(tk), m = kstMin(), wk = kstDow() >= 1 && kstDow() <= 5, today = kstDate();
+    var q = Q(tk), st = find(tk), m = kstMin(), today = kstDate(), nxt = nextKrSession();
+    var inSess = isKrSession(today) && m >= 9 * 60 && m < 15 * 60 + 30;
     if (q && q.rc != null && q.rt) {
       var rcToday = kstDate(q.rt) === today;
-      if (rcToday && m >= 15 * 60 + 30) return { base: q.rc, when: "다음 거래일", basis: "오늘 정규장 종가", final: true };
-      if (rcToday && m >= 9 * 60 && q.pc != null) return { base: q.pc, when: "오늘 정규장", basis: "전일 종가", final: true, preview: q.p };
-      return { base: q.rc, when: wk && m < 15 * 60 + 30 ? "오늘 정규장" : "다음 거래일", basis: mdLabel(q.rt) + " 종가", final: true };
+      if (rcToday && m >= 15 * 60 + 30) return { base: q.rc, day: nxt, when: mdw(nxt), basis: "오늘 종가", final: true };
+      if (rcToday && inSess && q.pc != null) return { base: q.pc, day: today, when: "오늘", basis: "전일 종가", final: true, preview: q.p };
+      return { base: q.rc, day: nxt, when: nxt === today ? "오늘" : mdw(nxt), basis: mdLabel(q.rt) + " 종가", final: true };
     }
-    return st && st.price ? { base: st.price, when: "다음 거래일", basis: "보고서 시세", final: false } : null;
+    return st && st.price ? { base: st.price, day: nxt, when: mdw(nxt), basis: "보고서 시세", final: false } : null;
+  }
+  // 주문 하나의 접수 판정 — 밴드 · 주문가 · (밴드 밖이면) 접수에 필요한 최소 종가
+  function bandEval(o) {
+    var bb = bandBase(o.ticker);
+    if (!bb || !bb.base || o.price == null) return null;
+    var band = krBand(bb.base), P = +o.price, ok = P <= band.up && P >= band.lo, need = null;
+    var sell = /매도|트림|익절/.test(o.action || o.label || "");
+    if (P > band.up) {
+      // 상한 = floor(기준×1.3, 호가) ≥ 주문가 를 만족하는 가장 낮은 '실제로 찍힐 수 있는' 종가
+      var t0 = krTick(P / 1.3);
+      need = Math.ceil(P / 1.3 / t0) * t0;
+      while (krBand(need).up < P) need += krTick(need);
+    }
+    return { bb: bb, band: band, P: P, ok: ok, sell: sell, need: need };
   }
 
   // 주문 상태 분류 — tasks.json orders.status는 자유 서술이라 규칙으로 묶는다
+  //   hold = 보류(접수 대상 아님) · cond = 조건 대기(등록선·트리거 미충족 — 오늘 걸 주문이 아니다)
+  //   [9/21 r2] 舊 분류는 '보류'를 대기로 읽어 NAVER 196,400원 매수(6/26 보류)를 오늘 밤 할 일에 '접수 가능'으로 띄웠다
   function orderKind(o) {
     var s = String(o.status || "");
     if (/미체결|미접수|취소|폐기|대체|⚪|❌/.test(s)) return "cxl";
     if (/체결|✅/.test(s)) return "fill";
     if (/결정 완료|🟢/.test(s)) return "done";
+    if (/보류/.test(s)) return "hold";
+    if (/만료|트리거 대기|조건 미충족|대기 —/.test(s)) return "cond";
     if (/^계획|상시 룰/.test(s)) return "plan";
     return "wait";
   }
-  var ORDER_LBL = { plan: "계획", wait: "대기", fill: "체결", cxl: "종료", done: "결정" };
-  function activeOrders() { return (D.orders || []).filter(function (o) { var k = orderKind(o); return k === "plan" || k === "wait"; }); }
-  function activeKrOrders() {
+  var ORDER_LBL = { plan: "계획", wait: "대기", cond: "조건 대기", hold: "보류", fill: "체결", cxl: "종료", done: "결정" };
+  function activeOrders() { return (D.orders || []).filter(function (o) { return /^(plan|wait|cond|hold)$/.test(orderKind(o)); }); }
+  function regLine(tk) { var a = alertsLive().filter(function (x) { return x.ticker === tk && /등록선/.test(x.id); }); return a[0] || null; }
+  // 오늘 밤 걸 국내 지정가 = '대기(매일 등록·예약)'만. 계획·조건 대기는 같은 종목 등록선이 점등했을 때만 올라온다.
+  // all=true(종목 상세)면 계획·조건 대기까지 — '걸 수 있나'를 미리 보여주되 카드 문구가 다르다
+  function activeKrOrders(all) {
     var seen = {}, out = [];
-    activeOrders().filter(function (o) { return isKR(o.ticker) && o.price != null; })
-      .sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); })
+    (D.orders || []).filter(function (o) {
+      if (!isKR(o.ticker) || o.price == null) return false;
+      var k = orderKind(o);
+      if (k === "wait") return true;
+      if (k === "plan" || k === "cond") { var rl = regLine(o.ticker); return all || !!(rl && rl.lfired); }
+      return false;
+    }).sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); })
       .forEach(function (o) { var k = o.ticker + "@" + o.price; if (!seen[k]) { seen[k] = 1; out.push(o); } });
     return out;
   }
+  // '등록했어요' — 이 폰에만 저장(거래일별 키라 다음 거래일엔 자동으로 풀린다)
+  var LS_REG = "jh_order_reg";
+  function regKey(o) { return o.id + "@" + nextKrSession(); }
+  function regMap() { try { return JSON.parse(localStorage.getItem(LS_REG) || "{}"); } catch (e) { return {}; } }
+  function isReg(o) { return !!regMap()[regKey(o)]; }
+  function toggleReg(id) {
+    var o = (D.orders || []).filter(function (x) { return x.id === id; })[0]; if (!o) return;
+    try { var m = regMap(), k = regKey(o); if (m[k]) delete m[k]; else m[k] = 1; localStorage.setItem(LS_REG, JSON.stringify(m)); } catch (e) {}
+  }
+  function gatesLive() {
+    var g1 = alertBy(/TF 해제 조건①/), g3 = alertBy(/TF 해제 조건③/), ft = D.flow_trend || {};
+    var on1 = !!(g1 && g1.lp != null && g1.lp >= g1.level), on2 = ft.direction === "순매수" && (ft.streak || 0) >= 2, on3 = !!(g3 && g3.lp != null && g3.lp < g3.level);
+    var kq = Q("^KS11"), last = kq && kq.rt ? kstDate(kq.rt) : null;
+    return { g1: g1, g3: g3, ft: ft, on1: on1, on2: on2, on3: on3, n: (on1 ? 1 : 0) + (on2 ? 1 : 0) + (on3 ? 1 : 0),
+      ftStale: !!(last && ft.as_of && ft.as_of < last), last: last, buyStreak: ft.direction === "순매수" ? (ft.streak || 0) : 0 };
+  }
+  function flowPair() { var s = (D.flows || {}).series || []; return s.length >= 2 ? [s[s.length - 2], s[s.length - 1]] : null; }
+  function eok(v) { return (v > 0 ? "+" : "") + num(v) + "억"; }
+  // 짧은 다음 행동 문구 — 서술형 필드의 첫 마디만(마크다운·이모지 제거)
+  function shortTxt(s, n) {
+    s = String(s || "").replace(/\*\*/g, "").replace(/[\p{Extended_Pictographic}️]/gu, "").replace(/\s+/g, " ").trim();
+    if (!s || s === "—") return "";
+    var pre = "", m = s.match(/^(없음|—)\s*(?:[—-]\s*)?/);
+    if (m && s.length > m[0].length) { if (m[1] === "없음") pre = "트림 없음 · "; s = s.slice(m[0].length); }
+    s = s.replace(/^\((.*)\)$/, "$1");
+    // 괄호 밖의 첫 구분자( · — ; . )에서 자른다 — 괄호 안 ' · '에서 자르면 문장이 깨진다
+    for (var i = 0, d = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      if (ch === "(" || ch === "（") d++;
+      else if ((ch === ")" || ch === "）") && d) d--;
+      else if (!d && i > 6 && (s.substr(i, 3) === " · " || s.substr(i, 3) === " — " || ch === ";" || s.substr(i, 2) === ". ")) { s = s.slice(0, i); break; }
+    }
+    n = n || 40;
+    if (s.length > n) { var pi = s.indexOf("("); s = pi > 8 && pi < n ? s.slice(0, pi) : s.slice(0, n - 1) + "…"; }
+    s = (pre + s).trim();
+    return s.replace(/ ·$/, "");
+  }
+  function bars5(n) {
+    n = n || 0;
+    var s = '<span class="bars ' + (n >= 4 ? "hi" : n === 3 ? "mid" : "low") + '" role="img" aria-label="별점 ' + n + '/5">';
+    for (var i = 1; i <= 5; i++) s += '<i class="' + (i <= n ? "on" : "") + '"></i>';
+    return s + '</span>';
+  }
+  function tossUrl(tk) { return "https://tossinvest.com/stocks/A" + String(tk).slice(0, 6); }
+  function h2s(title, aux, cls2) { return '<div class="h2s' + (cls2 ? " " + cls2 : "") + '"><h2>' + esc(title) + '</h2>' + (aux ? '<span class="aux">' + aux + '</span>' : '') + '</div>'; }
 
   // ════════════════ 차트 ════════════════
   function sparkSVG(vals, w, h, base) {
@@ -396,9 +495,10 @@
   function topbar(o) {
     var h = '<header class="topbar"><div class="tb-row">';
     if (o.back) h += '<a class="tb-back" href="' + o.back + '">' + IC.back + esc(o.backLabel || "뒤로") + '</a>';
-    else h += '<div><div class="tb-brand">정훈 증권</div><div class="tb-title">' + esc(o.title) + '</div></div>';
-    h += '<div class="tb-actions"><button class="live-pill" id="livepill" type="button"></button>'
-      + '<button class="iconbtn" id="themebtn" type="button" aria-label="' + esc(themeLabel()) + '">' + themeIcon() + '</button></div></div></header>';
+    else if (o.brand) h += '<div class="hdr-brand">정훈 증권</div>';
+    else h += '<div class="tb-title">' + esc(o.title) + '</div>';
+    h += '<div class="tb-actions">' + (o.code ? '<span class="tb-code">' + esc(o.code) + '</span>' : '') + '<button class="live-pill" id="livepill" type="button"></button>'
+      + (o.code ? '' : '<button class="iconbtn" id="themebtn" type="button" aria-label="' + esc(themeLabel()) + '">' + themeIcon() + '</button>') + '</div></div></header>';
     if (o.back && o.title) h += '<div class="subtitle">' + esc(o.title) + '</div>';
     if (o.sub) h += '<div class="tb-sub">' + o.sub + '</div>';
     return h;
@@ -500,7 +600,7 @@
       + '<span class="box">' + IC.check + '</span><span class="tx">' + mdInline(esc(t.text)) + '</span>' + (lock ? '<span class="lk">정본</span>' : '') + '</button>';
   }
   function bindChecks() {
-    Array.prototype.forEach.call(root.querySelectorAll(".check.tog"), function (b) {
+    Array.prototype.forEach.call(root.querySelectorAll(".check.tog, .chk.tog"), function (b) {
       b.addEventListener("click", function () { var id = b.getAttribute("data-id"); lsSetTask(id, !lsTasks()[id]); rerender(); });
     });
   }
@@ -516,23 +616,123 @@
     if (i < 0) return null; var p = parsePrices(s.slice(i), tk, ref); return p.length ? p[0].v : null;
   }
 
-  // ════════════════ 화면: 오늘 ════════════════
+  // ════════════════ 화면: 오늘 (캔버스 Main) ════════════════
+  var SESS_KR = { reg: "국내 장중", pre: "국내 프리마켓", post: "국내 애프터마켓" }, SESS_US = { reg: "미국 장중", pre: "미국 프리마켓", post: "미국 애프터마켓" };
+  function marketLine() {
+    var m = (LIVE && LIVE.market) || {}, t = kstDate(), out = [];
+    out.push(SESS_KR[m.kr] || (!isKrSession(t) ? "국내 휴장" : kstMin() < 9 * 60 ? "국내 개장 전" : "국내 장 마감"));
+    out.push(SESS_US[m.us] || "미국 장 마감");
+    return out.join(" · ");
+  }
+  function todayLong() { var d = kst(); return (d.getUTCMonth() + 1) + "월 " + d.getUTCDate() + "일 " + "일월화수목금토".charAt(d.getUTCDay()) + "요일"; }
+  var LADDER_SHORT = { ok: "다음 단계 미도달", watch: "사다리 해금", spent: "사다리 상한 소진", freeze: "하드플로어 정지", unknown: "시세 미확인" };
+
+  // 걸 주문 카드(접수 가능) · 걸지 말 것 카드(밴드 밖)
+  function orderCard(o) {
+    var e = bandEval(o); if (!e) return "";
+    var st = find(o.ticker), name = st ? st.label : o.ticker, base = e.bb.base, gap = (e.P / base - 1) * 100;
+    var held = (D.holdings || []).filter(function (x) { return x.ticker === o.ticker; })[0];
+    var verb = /익절/.test(o.action || "") ? "익절" : e.sell ? "트림" : "매수", dl = relDay(e.bb.day);
+    if (!e.ok) {
+      var vals = [base, e.sell ? e.band.up : e.band.lo, e.P], lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), sp = (hi - lo) || 1;
+      lo -= sp * 0.1; hi += sp * 0.1;
+      var L = function (v) { return ((v - lo) / (hi - lo) * 100).toFixed(1) + "%"; };
+      var h = '<div class="ocard no"><div class="hd"><span class="chip bad">' + IC.x + '걸지 말 것</span><span class="when">접수 거부 예정</span></div>';
+      h += '<div class="ttl2">' + esc(name) + ' ' + num(e.P) + '원 ' + verb + ' — ' + dl + '엔 안 들어간다</div>';
+      h += '<div><div class="bband"><div class="okz" style="' + (e.sell ? 'left:0;width:' + L(e.band.up) : 'left:' + L(e.band.lo) + ';right:0;border-radius:0 5px 5px 0') + '"></div>'
+        + '<div class="base" style="left:' + L(base) + '"></div><div class="cap" style="left:' + L(e.sell ? e.band.up : e.band.lo) + '"></div><div class="odot" style="left:' + L(e.P) + '"></div></div>'
+        + '<div class="bband-l num" style="margin-top:8px"><span>종가 ' + num(base) + '</span><span>' + (e.sell ? "상한가 " + num(e.band.up) : "하한가 " + num(e.band.lo)) + '</span><b>' + verb + ' ' + num(e.P) + '</b></div></div>';
+      if (e.need) {
+        var s2 = sessionAfter(e.bb.day), last = dayDiff(s2, sessionAfter(s2)) > 3;
+        h += '<p>가격은 유지한다. ' + dl + ' 종가가 <b class="num">' + won(e.need) + '</b>(' + pct((e.need / base - 1) * 100, 1) + ') 이상이면 ' + mdw(s2) + '분을 건다' + (last ? ' — 연휴 전 마지막 기회.' : '.') + '</p>';
+      }
+      return h + '<a class="lnk" href="#stock/' + encodeURIComponent(o.ticker) + '">' + esc(name) + ' 판정 보기' + IC.chev + '</a></div>';
+    }
+    var reg = isReg(o), live = e.bb.when === "오늘" && kstMin() >= 9 * 60;
+    var subs = [(o.shares != null ? esc(o.shares) + "주" : ""), "지정가", held && +o.shares >= held.shares ? "전량" : "", st ? "★" + st.stars + (e.sell ? " " + verb : "") : ""].filter(Boolean);
+    var h2 = '<div class="ocard' + (reg ? " done" : "") + '"><div class="hd"><span class="chip acc">' + IC.clock + (live ? "지정가 주문 · 국내" : "예약 주문 · 국내") + '</span><span class="when">' + (live ? "오늘 15:30까지" : "마감 " + mdw(e.bb.day) + " 09:00") + '</span></div>';
+    h2 += '<div class="body"><div><div class="ttl">' + esc(name) + ' ' + (e.sell ? "매도" : "매수") + '</div><div class="sub">' + subs.join(" · ") + '</div></div>'
+      + '<div class="r"><div class="pr num">' + won(e.P) + '</div><div class="sub num">' + (e.bb.final ? "종가 " : "기준 ") + num(base) + ' · ' + pct(gap, 1) + (gap >= 0 ? " 위" : " 아래") + '</div></div></div>';
+    h2 += '<div class="ok">' + IC.check + '<span>접수 가능 — ' + dl + ' ' + (e.sell ? "상한가 " + won(e.band.up) + " 안" : "하한가 " + won(e.band.lo) + " 위") + (reg ? " · 이 폰에 등록 표시됨" : "") + '</span></div>';
+    if (e.bb.preview != null) {
+      var pb = krBand(e.bb.preview), okN = e.P <= pb.up && e.P >= pb.lo;
+      h2 += '<div class="ok' + (okN ? "" : " warn") + '">' + (okN ? IC.check : IC.alert) + '<span>지금 가격으로 끝나면 다음 거래일 ' + (okN ? "접수 가능" : "접수 불가") + '(상한 ' + won(pb.up) + ' · 추정)</span></div>';
+    }
+    h2 += '<div class="btnrow"><button type="button" class="btn-ink" data-reg="' + esc(o.id) + '" aria-pressed="' + reg + '" title="이 폰에만 저장 — 영구 기록은 채팅으로">' + (reg ? "등록 완료 · 되돌리기" : "등록했어요") + '</button>'
+      + '<a class="btn-line" href="' + tossUrl(o.ticker) + '" target="_blank" rel="noopener">토스 열기</a></div>';
+    return h2 + '</div>';
+  }
+  function chkRow(t) {
+    var d = taskDone(t), lock = !!t.done;
+    return '<button type="button" class="chk' + (d ? " done" : "") + (lock ? "" : " tog") + '" data-id="' + esc(t.id) + '" aria-pressed="' + d + '"' + (lock ? ' aria-disabled="true"' : '') + '>'
+      + '<span class="bx">' + IC.check + '</span><span class="t">' + mdInline(esc(t.text)) + '</span>' + (lock ? '<span class="s">정본</span>' : '') + '</button>';
+  }
+  function eventsLive() {
+    var t = kstDate();
+    return (D.events || []).filter(function (e) { return (e.end || e.date) >= t; }).map(function (e) { return Object.assign({}, e, { du: dayDiff(t, e.date) }); });
+  }
+  function calRow(e) {
+    var d = md(e.date) + " " + "일월화수목금토".charAt(new Date(e.date + "T00:00:00Z").getUTCDay());
+    if (e.end && e.end !== e.date) d = md(e.date) + "–" + (e.end.slice(5, 7) === e.date.slice(5, 7) ? +e.end.slice(8) : md(e.end));
+    else { var tm = String(e.note || "").match(/^(\d{1,2}:\d{2})\s*KST/); if (tm) d = md(e.date) + " " + tm[1]; }
+    var r = e.du <= 0 ? '<span class="r dd">' + ((e.end || e.date) > kstDate() && e.du < 0 ? "진행 중" : "오늘") + '</span>'
+      : e.du <= 2 ? '<span class="r dd">D-' + e.du + '</span>' : '<span class="r">' + esc(e.tag || "D-" + e.du) + '</span>';
+    var t = e.type === "earnings" ? e.label + " 실적" : e.label;
+    return '<div class="cal" title="' + esc(e.note || "") + '"><div class="d num">' + esc(d) + '</div><div class="t">' + esc(t) + (e.confidence && e.confidence !== "확정" ? '<small>' + esc(e.confidence) + '</small>' : '') + '</div>' + r + '</div>';
+  }
+
   function renderToday() {
-    var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive();
-    var h = topbar({ title: "오늘", sub: esc(todayLabel()) + (D.source_report ? ' · <a class="warn" href="#report/' + encodeURIComponent((D.reports[0] || {}).id || "") + '">v' + esc(String(D.source_report).replace(/.*report_v(\d+).*/, "$1")) + ' 보고서</a>' : "") });
+    var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive(), G = gatesLive(), s = D.safety || {};
+    var r0 = (D.reports || [])[0];
+    var h = topbar({ brand: true });
+    h += '<div class="hdr-date">' + esc(todayLong()) + ' · ' + esc(marketLine())
+      + (r0 ? ' · <a class="acc" href="#report/' + encodeURIComponent(r0.id) + '">v' + esc(r0.version != null ? r0.version : "") + ' 보고서</a>' : '') + '</div>';
 
-    // 자산 명세
-    h += '<section class="stmt" aria-label="자산 요약"><div class="lbl">총자산 · ' + (liveOn() ? "실시간 평가" : "보고서 시세 " + esc(D.generated_at || "")) + '</div>';
+    // 자산 카드
+    h += '<section class="asset" aria-label="자산 요약"><div class="top"><span>총자산 · ' + (liveOn() ? "실시간 평가 " + hhmm(LIVE.ts) : "보고서 시세") + '</span>'
+      + '<b class="num ' + cls(T.day) + '">' + sign(T.day) + num(Math.round(T.day)) + '원 · ' + pct(T.dayPct) + '</b></div>';
     h += '<div class="big num">' + num(Math.round(T.assets)) + '<small>원</small></div>';
-    h += '<div class="day num ' + cls(T.day) + '">오늘 ' + sign(T.day) + num(Math.round(T.day)) + '원 (' + pct(T.dayPct) + ')</div>';
-    h += '<div class="grid3"><div><div class="k">평가손익</div><div class="v num ' + cls(T.pnl) + '">' + sign(T.pnl) + num(Math.round(T.pnl)) + '</div><div class="s">' + pct(T.pnlPct, 1) + ' · 환 반영</div></div>';
-    h += '<div><div class="k">현금</div><div class="v num">' + num(Math.round(T.cashK + T.cashUK)) + '</div><div class="s num">₩' + num(T.cashK) + ' + $' + num2(T.cashU) + '</div></div>';
-    h += '<div><div class="k">사다리 여력</div><div class="v num acc">' + won(L.allowed) + '</div><div class="s">' + (L.live ? "장중 추정" : L.fresh ? "오늘 종가 기준" : "보고서 종가") + '</div></div></div>';
-    h += '<div class="est">오늘 변동 = 전일 종가 대비(국내 애프터·미국 프리 포함) · 환율 ' + num2(T.fx) + '원</div></section>';
+    h += '<div class="g3"><div><span class="k">현금</span><span class="v num">' + num(Math.round(T.cashK + T.cashUK)) + '</span><span class="s num">₩' + num(T.cashK) + ' + $' + num2(T.cashU) + '</span></div>'
+      + '<div><span class="k">평가손익 · 환 반영</span><span class="v num ' + cls(T.pnl) + '">' + sign(T.pnl) + num(Math.round(T.pnl)) + '</span><span class="s num">' + pct(T.pnlPct, 1) + ' · 환 빼면 ' + sign(T.pnlNoFx) + num(Math.round(T.pnlNoFx)) + '</span></div>'
+      + '<div><span class="k">살 수 있는 돈</span><span class="v num acc">' + won(L.allowed) + '</span><span class="s">' + esc(LADDER_SHORT[L.status] || "") + (L.live ? " · 장중 추정" : "") + '</span></div></div></section>';
 
-    // 시장 스트립
+    // 오늘 밤(지금) 할 일
+    var ko = activeKrOrders(), cards = ko.map(function (o) { return { o: o, e: bandEval(o) }; }).filter(function (x) { return x.e; });
+    var okC = cards.filter(function (x) { return x.e.ok; }), noC = cards.filter(function (x) { return !x.e.ok; });
+    var today = ((D.tasks || {}).today || []), open = today.filter(function (t) { return !taskDone(t); });
+    var night = !isKrSession(kstDate()) || kstMin() >= 15 * 60 + 30 || kstMin() < 7 * 60;
+    var nReg = okC.filter(function (x) { return isReg(x.o); }).length;
+    h += h2s(night ? "오늘 밤 할 일" : "지금 할 일", (okC.length ? "주문 " + okC.length + "건" + (nReg ? "(" + nReg + " 등록)" : "") + " · " : "") + "할 일 " + open.length + "건");
+    h += '<div class="stack">';
+    okC.forEach(function (x) { h += orderCard(x.o); });
+    noC.forEach(function (x) { h += orderCard(x.o); });
+    var fp = flowPair();
+    if (fp && !G.on2) {
+      h += '<div class="ocard"><div class="hd"><span class="chip info">' + IC.eye + '확인</span><span class="when">' + (G.ftStale ? "오늘 수급 대기" : mdw(nextKrSession()) + " 장 마감 후") + '</span></div>'
+        + '<div class="ttl2">외인 순매수, 이틀 연속 나오나</div>'
+        + '<div class="flowline num"><span class="' + cls(fp[0].foreign) + '">' + md(fp[0].date) + ' ' + eok(fp[0].foreign) + '</span><span class="mut">→</span><span class="' + cls(fp[1].foreign) + '">' + md(fp[1].date) + ' ' + eok(fp[1].foreign) + '</span><span class="mut">· 순매수 스트릭 ' + G.buyStreak + '일</span></div>'
+        + '<p>TF 해제 게이트②는 이 스트릭이 2거래일 이어져야 켜진다.' + (G.ftStale ? ' <b class="warn">' + esc(md(G.last)) + ' 수급이 아직 반영되지 않았다.</b>' : '') + '</p></div>';
+    }
+    if (open.length) h += '<div class="group">' + open.map(chkRow).join("") + '</div>';
+    h += '</div><a class="morelink" href="#plan">계획 · 주문 추적 전체' + IC.chev + '</a>';
+
+    // 룰 요약 링크
+    h += '<a class="rlink" href="#rules"><div class="lad" aria-hidden="true">' + (L.steps || []).map(function (st) { return '<span class="' + (L.dd != null && L.dd <= st.thr ? "on" : "") + '"></span>'; }).join("") + '</div>'
+      + '<div class="tx"><span class="k">룰1 사다리 · 급락 TF</span><span class="v num">코스피 ' + num2(L.k) + ' · 고점 대비 ' + pct(L.dd, 1) + '</span>'
+      + '<span class="s">잔여 ' + won(L.allowed) + ' · 해제 게이트 ' + G.n + '/3 · 하드플로어 ' + (s.halted ? "발동" : "미발동") + '</span></div>' + IC.chev + '</a>';
+
+    // 다가오는 일정
+    var ev = eventsLive();
+    if (ev.length) h += h2s("다가오는 일정", null, "sm") + '<div class="group">' + ev.slice(0, 6).map(calRow).join("") + '</div>';
+
+    // PM 사견
+    var pv = D.pm_view || {};
+    if (pv.headline) h += '<a class="pmbox" href="#pmview"><span class="lb">PM 사견 · ' + esc(String(pv.as_of || "").slice(0, 10) === kstDate() ? String(pv.as_of).slice(11, 16) : (pv.updated || "")) + '</span><p class="hl2">' + esc(pv.headline) + '</p>'
+      + (pv.summary ? '<p>' + esc(pv.summary) + '</p>' : '') + '</a>';
+
+    // 시장 — 실시간 스트립 + 코스피 장중
     var MK = [["^KS11", "코스피"], ["^KQ11", "코스닥"], ["^GSPC", "S&P 500"], ["^IXIC", "나스닥"], ["^SOX", "필라델피아 반도체"], ["KRW=X", "원/달러"], ["CL=F", "WTI"]];
-    h += '<div class="strip" role="list">';
+    h += h2s("시장", liveOn() ? "실시간 " + hhmm(LIVE.ts) : "보고서 시세", "sm") + '<div class="strip" role="list">';
     MK.forEach(function (m) {
       var q = Q(m[0]), idx = (D.indices || []).filter(function (x) { return x.ticker === m[0]; })[0];
       var p = q && q.p != null ? q.p : (idx ? idx.price : (m[0] === "KRW=X" ? D.fx && D.fx.usdkrw : null));
@@ -543,121 +743,129 @@
         + '<div class="c num ' + cls(c) + '">' + pct(c) + '</div>' + (ser ? sparkSVG(ser, 108, 24, q ? (q.x ? q.rpc : q.pc) : null) : '') + '</div>';
     });
     h += '</div>';
-
-    // 지금 할 일 — 국내 지정가(접수 가능성) + 오늘 할 일
-    var ko = activeKrOrders();
-    var today = ((D.tasks || {}).today || []);
-    var open = today.filter(function (t) { return !taskDone(t); }), done = today.length - open.length;
-    h += sec("지금 할 일", open.length + ko.length, "#plan", "계획 전체");
-    ko.forEach(function (o) { h += bandCard(o); });
-    if (open.length) {
-      h += '<div class="checklist">' + open.map(checkRow).join("") + '</div>';
+    var kq = Q("^KS11"), kser = S("^KS11");
+    if (kser && kq) {
+      var lines = [];
+      if (s.peak) (s.steps || []).forEach(function (st) { var v = s.peak * (1 + st.thr / 100); lines.push({ v: v, label: st.label + " " + num(Math.round(v)), color: "var(--accent)", gap: (v / kq.p - 1) * 100 }); });
+      if (G.g1) lines.push({ v: G.g1.level, label: "게이트① " + num(G.g1.level), color: "var(--good)", gap: (G.g1.level / kq.p - 1) * 100 });
+      h += '<div class="card"><div class="chart-h"><span><b class="num" style="font-size:18px">' + num2(kq.p) + '</b> <span class="num ' + cls(kq.c) + '">' + pct(kq.c) + '</span></span><span class="xs mut">코스피 장중 ' + sessTag(kq) + '</span></div>'
+        + areaChart(kser, kq.pc, { slots: 78, lines: lines, left: "09:00", right: "15:30", label: "코스피 장중 추이" }) + '</div>';
     }
-    if (done) h += '<div class="xs mut" style="margin:6px 2px 0">완료 ' + done + '건은 계획 화면에 있어요.</div>';
 
-    // 가격 알림 — ①보고서 이후 새로 넘어선 것 ②풀린 것 ③아직 안 닿은 것 중 가까운 순.
-    //   며칠째 발동 상태인 것(보고서에 이미 반영)은 위로 올리지 않는다 — price_watch와 같은 '전이만' 원칙
+    // 가격 알림 — ①보고서 이후 새로 넘어선 것 ②풀린 것 ③아직 안 닿은 것 중 가까운 순(이미 발동 상태는 룰 화면)
     var al = alertsLive().filter(function (a) { return !/TF|룰6|S2/.test(a.id); });
     var fresh = al.filter(function (a) { return a.lfired && !a.was; });
     var undone = al.filter(function (a) { return a.lfired === false && a.was; });
     var pend = al.filter(function (a) { return a.lfired === false && !a.was; }).sort(function (a, b) { return Math.abs(a.ldist) - Math.abs(b.ldist); });
-    var stale = al.filter(function (a) { return a.lfired && a.was; }).length;
-    h += sec("가격 알림", fresh.length ? fresh.length + " 새로" : null, "#rules", "전체 " + al.length);
-    h += alertRows(fresh.concat(undone.map(function (a) { return Object.assign({}, a, { _undone: 1 }); }), pend.slice(0, Math.max(3, 6 - fresh.length - undone.length))));
-    if (stale) h += '<div class="xs mut" style="margin:6px 2px 0">이미 발동 상태 ' + stale + '건(보고서에 반영)은 룰·리스크 화면에 있어요.</div>';
+    h += h2s("가격 알림", fresh.length ? '<b class="bad">' + fresh.length + '건 새로 발동</b>' : '<a class="aux" href="#rules">전체 ' + al.length + '</a>', "sm");
+    h += alertRows(fresh.concat(undone.map(function (a) { return Object.assign({}, a, { _undone: 1 }); }), pend.slice(0, Math.max(3, 5 - fresh.length - undone.length))));
 
-    // 코스피 장중
-    var kq = Q("^KS11"), kser = S("^KS11");
-    if (kser && kq) {
-      var s = D.safety || {}, lines = [];
-      if (s.peak) (s.steps || []).forEach(function (st) { var v = s.peak * (1 + st.thr / 100); lines.push({ v: v, label: st.label + " " + num(Math.round(v)), color: "var(--accent)", gap: (v / kq.p - 1) * 100 }); });
-      var g1 = alertBy(/TF 해제 조건①/); if (g1) lines.push({ v: g1.level, label: "게이트① " + num(g1.level), color: "var(--good)", gap: (g1.level / kq.p - 1) * 100 });
-      h += sec("코스피 장중", null);
-      h += '<div class="card"><div class="chart-h"><span><b class="num" style="font-size:18px">' + num2(kq.p) + '</b> <span class="num ' + cls(kq.c) + '">' + pct(kq.c) + '</span></span>' + sessTag(kq) + '</div>'
-        + areaChart(kser, kq.pc, { slots: 78, lines: lines, left: "09:00", right: "15:30", label: "코스피 장중 추이" }) + '</div>';
-    }
-
-    // 전망 — 오늘·내일
+    // 장 전망 — 오늘·내일
     var ol = D.outlook || [];
     if (ol.length) {
-      h += sec("장 전망", null, "#plan", "이번주·이번달");
-      h += '<div class="card" style="padding:2px 15px">';
+      h += h2s("장 전망", '<a class="aux" href="#plan">이번주·이번달</a>', "sm") + '<div class="card" style="padding:2px 15px">';
       ol.slice(0, 2).forEach(function (o) { h += '<div class="olrow"><div class="h"><b>' + esc(o.tag || o.horizon || "") + '</b>' + dirPill(o.dir) + '</div><div class="tx">' + esc(o.text) + '</div></div>'; });
       h += '</div>';
     }
-
-    // PM 한마디 + 최신 보고서
-    var pv = D.pm_view || {};
-    if (pv.headline) h += sec("PM 사견", null, "#pmview", "전체") + '<a class="card" href="#pmview" style="display:block"><div class="pmtitle" style="margin:0">' + esc(pv.headline) + '</div><div class="xs mut" style="margin-top:6px">' + esc(pv.updated || "") + '</div></a>';
-    var r0 = (D.reports || [])[0];
-    if (r0) h += sec("최신 보고서", null, "#reports", "목록") + '<a class="rep" href="#report/' + encodeURIComponent(r0.id) + '"><div class="flex1"><span class="tag">' + esc(r0.kind || "") + '</span> ' + (r0.version != null ? '<span class="tag vtag">v' + esc(r0.version) + '</span>' : '')
-      + '<div class="nm">' + esc(r0.title) + '</div>' + (r0.preview ? '<div class="rprev">' + esc(r0.preview) + '</div>' : '') + '</div><span class="chev">' + IC.chev + '</span></a>';
-
     h += foot();
     paint(h); bindChecks();
+    Array.prototype.forEach.call(root.querySelectorAll("[data-reg]"), function (b) {
+      b.addEventListener("click", function () { toggleReg(b.getAttribute("data-reg")); rerender(); });
+    });
   }
 
-  // ════════════════ 화면: 포트폴리오 ════════════════
+  // ════════════════ 화면: 포트폴리오 (캔버스 Portfolio) ════════════════
   var pfTab = "hold";
+  // 보유 종목의 '다음 행동' 칩 — 국내 지정가가 있으면 접수 판정, 없으면 트림·매수존 서술의 첫 마디
+  function holdNext(x) {
+    var o = activeKrOrders(true).filter(function (y) { return y.ticker === x.ticker; })[0];
+    if (o) {
+      var e = bandEval(o), k = orderKind(o), verb = /익절/.test(o.action || "") ? "익절" : e && e.sell ? "트림" : "매수";
+      if (e) {
+        var g = pct((e.P / (x.lp || e.bb.base) - 1) * 100, 1), rl = regLine(x.ticker);
+        if (k !== "wait") return { t: verb + " " + num(e.P) + " · " + g + (rl ? " · 등록선 " + num(rl.level) + (rl.lfired ? " 점등" : "") : " · " + ORDER_LBL[k]), c: rl && rl.lfired ? "acc" : "" };
+        if (e.ok) return { t: verb + " " + num(e.P) + " · " + g + " · " + relDay(e.bb.day) + "분 " + (isReg(o) ? "등록 표시됨" : "등록 필요"), c: "acc" };
+        return { t: verb + " " + num(e.P) + " · " + relDay(e.bb.day) + " 접수 불가(상한 " + num(e.band.up) + ")", c: "bad" };
+      }
+    }
+    var t = shortTxt(x.trim) || shortTxt(x.buy_zone);
+    return t ? { t: t, c: "" } : null;
+  }
+  function pfRow(x, isHold, nx, tint) {
+    var tk = x.ticker, code = isKR(tk) ? tk.slice(0, 6) : tk, q = Q(tk);
+    var p = isHold ? x.lp : px(x), c = isHold ? x.lc : chg(x);
+    var r = '<a class="gi' + (tint ? " tint" : "") + '" href="#stock/' + encodeURIComponent(tk) + '">';
+    r += '<div class="l1"><div class="nm"><b>' + esc(x.label) + '</b>' + (code !== x.label ? '<span class="cd">' + esc(code) + '</span>' : '') + (q && q.x ? sessTag(q) : '') + '</div><div class="px num">' + fmtP(p, tk) + IC.chev + '</div></div>';
+    r += '<div class="l2"><span class="lf">' + bars5(x.stars) + '<b class="num">' + (x.score != null ? x.score : "—") + '</b>' + (isHold && x.w != null ? '<span class="num">· 비중 ' + x.w.toFixed(1) + '%</span>' : '') + '</span>'
+      + '<span class="rt num"><span class="' + cls(c) + '">' + pct(c) + '</span>' + (isHold ? ' <span class="mut">· 원가</span> <span class="' + cls(x.lpnlpct) + '">' + pct(x.lpnlpct) + '</span>' : '') + '</span></div>';
+    if (nx && nx.t) r += '<span class="chip ' + (nx.c || "") + '">' + esc(nx.t) + '</span>';
+    return r + '</a>';
+  }
   function renderPf() {
-    var hs = holdingsLive(), T = totalsLive(hs);
-    var h = topbar({ title: "포트폴리오", sub: '주식 ' + won(T.stocks) + ' · 손익 <span class="' + cls(T.pnl) + '">' + sign(T.pnl) + num(Math.round(T.pnl)) + '원</span>' });
+    var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive();
+    var h = topbar({ title: "포트폴리오", sub: '주식 ' + won(T.stocks) + ' · ' + (liveOn() ? "실시간 " + hhmm(LIVE.ts) + "(국내 애프터·미국 프리 포함)" : "보고서 시세") });
     h += '<div class="seg" role="tablist"><button type="button" role="tab" data-t="hold" aria-selected="' + (pfTab === "hold") + '" class="' + (pfTab === "hold" ? "on" : "") + '">보유 ' + hs.length + '</button>'
       + '<button type="button" role="tab" data-t="watch" aria-selected="' + (pfTab === "watch") + '" class="' + (pfTab === "watch" ? "on" : "") + '">워치 ' + (D.watchlist || []).length + '</button></div>';
 
+    // 매수 우선순위(d191) — ① GOOGL · ②③ 워치 buy_zone 접두
+    var ws = (D.watchlist || []).map(function (w) {
+      var a = alertsLive().filter(function (x) { return x.ticker === w.ticker && /매수존|눌림|편입/.test(x.id); })[0];
+      return Object.assign({}, w, { za: a, zd: a ? a.ldist : null });
+    });
+    var pri = [], g = (D.holdings || []).filter(function (x) { return x.ticker === "GOOGL"; })[0];
+    if (g) pri.push({ n: "①", st: g, z: "비중 18% 상한" });
+    ws.forEach(function (w) { var m = String(w.buy_zone || "").match(/^([②③④])\s*(.*)/); if (m) pri.push({ n: m[1], st: w, z: w.za ? (w.za.cond === "between" ? fmtP(w.za.low, w.ticker) + "–" + fmtP(w.za.high, w.ticker) : fmtP(w.za.level, w.ticker) + " 이하") : shortTxt(m[2], 18), d: w.zd }); });
+    pri.sort(function (a, b) { return a.n.localeCompare(b.n); });
+    function priCard() {
+      if (!pri.length) return "";
+      var RK = { "①": "1순위", "②": "2순위", "③": "3순위", "④": "4순위" };
+      return h2s("사다리 해금분 매수 순서", "d191", "sm") + '<div class="wcard" style="margin-top:0"><div class="pri3">' + pri.map(function (p) {
+        return '<a href="#stock/' + encodeURIComponent(p.st.ticker) + '"><span class="n">' + p.n + ' ' + RK[p.n] + '</span><b>' + esc(isKR(p.st.ticker) ? p.st.label : p.st.ticker) + '</b><span class="z">' + esc(p.z) + (p.d != null ? ' · ' + pct(p.d, 1) : '') + '</span></a>';
+      }).join("") + '</div><p>' + (L.allowed > 0 ? '사다리 잔여 ' + won(L.allowed) + ' — 이 순서대로.' : '지금은 ' + (pri.length === 3 ? "셋 다" : "모두") + ' 못 산다 — 사다리 잔여 0원.') + '</p></div>';
+    }
+
     if (pfTab === "hold") {
-      // 배분 (룰6: 국내 주식 목표 18~22%)
-      var kw = T.krW, risk = (D.risk || {}).facts || {}, top = hs.slice().sort(function (a, b) { return b.w - a.w; })[0];
-      var SC = 40;
-      h += '<div class="card"><div class="row between"><span class="ctitle" style="margin:0">지역 배분 (룰6)</span><span class="pill ' + (kw > 22 ? "warn" : kw < 18 ? "info" : "ok") + '">국내 ' + (kw != null ? kw.toFixed(1) : "—") + '%</span></div>';
-      h += '<div class="alloc" aria-label="국내 비중 ' + (kw != null ? kw.toFixed(1) : "") + '% · 목표 18~22%"><div class="fill" style="width:' + Math.min(100, kw / SC * 100).toFixed(1) + '%"></div>'
-        + '<div class="target" style="left:' + (18 / SC * 100) + '%;width:' + (4 / SC * 100) + '%"></div><div class="lab" style="left:' + (20 / SC * 100) + '%">목표 18~22%</div></div>';
-      h += '<div class="xs mut">국내 주식 비중 · 조정은 신규 자금·반등 시만(저점 매도 금지) · 트림 착수 = 코스피 고점 대비 -15% 회복</div>';
-      h += '<div class="stat3"><div><div class="k">달러 자산</div><div class="v num">' + (T.usdW != null ? T.usdW.toFixed(1) + "%" : "—") + '</div></div>'
-        + '<div><div class="k">최대 ' + esc(top ? top.label : "") + '</div><div class="v num">' + (top ? top.w.toFixed(1) + "%" : "—") + '</div></div>'
-        + '<div><div class="k">실효 분산</div><div class="v num">' + (risk.effective_bets != null ? risk.effective_bets + "종목" : "—") + '</div></div></div></div>';
+      var kw = T.krW, r6 = alertBy(/룰6/), st5 = (((D.fx_exposure || {}).percentile || {}).windows || {})["5y"], stt = D.stats || {};
+      var byW = hs.slice().sort(function (a, b) { return b.w - a.w; }), top = byW[0], sec2 = byW[1];
+      h += '<div class="wcard"><div class="hrow"><h2>지역 배분 · 룰6</h2>' + (kw == null ? '' : kw > 22 ? '<span class="chip bad">국내 목표 상단 +' + (kw - 22).toFixed(1) + '%p 초과</span>' : kw < 18 ? '<span class="chip info">국내 목표 하단 미달</span>' : '<span class="chip good">목표 밴드 안</span>') + '</div>';
+      if (kw != null) {
+        h += '<div><div class="rbar-t"><span style="left:20%">목표 18–22%</span></div><div class="rbar" role="img" aria-label="국내 ' + kw.toFixed(1) + '% · 미국 ' + (100 - kw).toFixed(1) + '%"><div class="kr" style="width:' + Math.min(100, kw).toFixed(1) + '%"></div><div class="tg" style="left:18%;width:4%"></div></div>'
+          + '<div class="rbar-l num"><b>국내 ' + kw.toFixed(1) + '%</b><span>미국 ' + (100 - kw).toFixed(1) + '%</span></div></div>';
+      }
+      if (r6) h += '<p>조정은 신규 입금·반등 때만. 국내 트림 착수선 코스피 <b class="num">' + num(r6.level) + '</b>(현재 ' + pct((r6.lp / r6.level - 1) * 100, 1) + ') — ' + (r6.lfired ? "착수선 도달, 트림 검토." : "지금은 팔지 않는다.") + '</p>';
+      h += '<div class="stat3"><div><div class="k">달러 비중</div><div class="v num">' + (T.usdW != null ? T.usdW.toFixed(1) + "%" : "—") + '</div>' + (st5 ? '<div class="s">5년 ' + st5.percentile + '%ile ' + (st5.percentile < 30 ? "저평가" : st5.percentile > 70 ? "고평가" : "중립") + '</div>' : '') + '</div>'
+        + '<div><div class="k">최대 종목</div><div class="v num">' + (top ? esc(top.label) + ' ' + top.w.toFixed(1) + '%' : "—") + '</div>' + (sec2 ? '<div class="s num">2위 ' + esc(sec2.label) + ' ' + sec2.w.toFixed(1) + '%</div>' : '') + '</div>'
+        + '<div><div class="k">실효 분산</div><div class="v num">' + (stt.effective_bets != null ? stt.effective_bets + "종목" : "—") + '</div>' + (stt.effective_bets_weight_only != null ? '<div class="s num">상관 기준 · 비중 ' + stt.effective_bets_weight_only + '</div>' : '') + '</div></div></div>';
 
       var low = hs.filter(function (x) { return (x.stars || 0) <= 2; }).sort(function (a, b) { return b.w - a.w; });
       var core = hs.filter(function (x) { return (x.stars || 0) > 2; }).sort(function (a, b) { return b.w - a.w; });
-      low.forEach(function (x) { x._next = String(x.trim && x.trim !== "—" ? x.trim : x.buy_zone || "").replace(/\*\*/g, ""); });
-      h += sec("결정이 필요한 종목", low.length) + '<div class="xs mut" style="margin:-4px 2px 8px">⭐2 이하 — 관망은 결정이 아니다. 트림 주문 또는 기한부 홀드</div>';
-      h += '<div class="list">' + low.map(function (x) { return stockRow(x, true); }).join("") + '</div>';
-      h += sec("코어 · 홀드", core.length) + '<div class="list">' + core.map(function (x) { return stockRow(x, true); }).join("") + '</div>';
+      var lowW = low.reduce(function (a, x) { return a + x.w; }, 0);
+      if (low.length) {
+        h += h2s("결정이 필요한 종목", "★2 · 관망 금지 · 비중 " + lowW.toFixed(1) + "%");
+        h += '<div class="group">' + low.map(function (x) { return pfRow(x, true, holdNext(x), true); }).join("") + '</div>';
+      }
+      h += h2s("코어 · 홀드", "비중 순 · " + core.length + "종목");
+      h += '<div class="group">' + core.map(function (x) { return pfRow(x, true, holdNext(x)); }).join("") + '</div>';
+      h += priCard();
 
-      h += sec("분석");
+      h += h2s("분석", null, "sm");
       h += '<details class="fold"><summary>비중 · 테마 · 수익률</summary><div class="in">' + allocCards(hs) + '</div></details>';
       h += '<details class="fold"><summary>통화 익스포저 · 환손익</summary><div class="in">' + fxCard() + '</div></details>';
       h += '<details class="fold"><summary>동조 · 실효 분산</summary><div class="in">' + corrCard() + '</div></details>';
       h += '<a class="hub" href="#trades"><span class="ic">' + IC.ledger + '</span><div><div class="t">체결 원장 · 실현손익</div><div class="s">' + tradesSub() + '</div></div><span class="chev">' + IC.chev + '</span></a>';
     } else {
-      // 워치 — 매수 우선순위 + 매수존까지 거리(알림 문턱값 기준)
-      var ws = (D.watchlist || []).map(function (w) {
-        var a = alertsLive().filter(function (x) { return x.ticker === w.ticker && /매수존|눌림|편입/.test(x.id); })[0];
-        return Object.assign({}, w, { za: a, zd: a ? a.ldist : null });
-      });
-      var pri = [];
-      var g = (D.holdings || []).filter(function (x) { return x.ticker === "GOOGL"; })[0];
-      if (g) pri.push({ n: "①", st: g, z: "비중 18% 상한까지", note: String(g.buy_zone || "").replace(/\*\*/g, "") });
-      ws.forEach(function (w) { var m = String(w.buy_zone || "").match(/^([②③④])/); if (m) pri.push({ n: m[1], st: w, z: w.za ? (w.za.cond === "below" ? fmtP(w.za.level, w.ticker) + " 이하" : "") : "", d: w.zd, note: String(w.buy_zone).replace(/^[②③④]\s*/, "") }); });
-      if (pri.length) {
-        h += '<div class="card"><div class="ctitle">사다리 해금분 매수 우선순위</div>';
-        pri.forEach(function (p) {
-          var q = Q(p.st.ticker), pp = px(p.st);
-          h += '<a class="arow" href="#stock/' + encodeURIComponent(p.st.ticker) + '" style="display:grid"><div><div class="t">' + p.n + ' ' + esc(p.st.label) + ' <span class="mono mut">' + esc(p.st.ticker) + '</span></div><div class="s clamp2">' + esc(p.note) + '</div></div>'
-            + '<div class="r"><div class="num bold">' + fmtP(pp, p.st.ticker) + '</div>' + (p.d != null ? '<div class="s num">존까지 ' + pct(p.d, 1) + '</div>' : '<div class="s num ' + cls(chg(p.st)) + '">' + pct(chg(p.st)) + '</div>') + '</div></a>';
-        });
-        h += '<div class="xs mut" style="margin-top:8px">지금 사다리 여력 ' + won(ladderLive().allowed) + ' — 0원이면 순위와 무관하게 대기</div></div>';
-      }
+      h += priCard();
       ws.sort(function (a, b) {
         var da = a.zd == null ? 999 : Math.abs(a.zd), db = b.zd == null ? 999 : Math.abs(b.zd);
         return da - db || (b.stars || 0) - (a.stars || 0) || (b.score || 0) - (a.score || 0);
       });
-      h += sec("워치리스트", ws.length) + '<div class="xs mut" style="margin:-4px 2px 8px">매수존 가까운 순 · 존 미등록은 별점순</div><div class="list">';
-      ws.forEach(function (w) {
-        w._next = w.za ? ("매수존 " + (w.za.cond === "between" ? fmtP(w.za.low, w.ticker) + "~" + fmtP(w.za.high, w.ticker) : fmtP(w.za.level, w.ticker) + " 이하") + (w.za.lfired ? " · 진입" : " · " + pct(w.zd, 1))) : (w.buy_zone ? String(w.buy_zone).replace(/\*\*/g, "") : "");
-        h += stockRow(w, false);
-      });
-      h += '</div>';
+      h += h2s("매수존까지 가까운 순", ws.length + "종목");
+      h += '<div class="group">' + ws.map(function (w) {
+        var pre = (String(w.buy_zone || "").match(/^([②③④])/) || [])[1];
+        var nx = w.za ? { t: (pre ? pre + " " : "") + (w.za.cond === "between" ? fmtP(w.za.low, w.ticker) + "–" + fmtP(w.za.high, w.ticker) : fmtP(w.za.level, w.ticker) + " 이하") + (w.za.lfired ? " · 진입" : " · " + pct(w.zd, 1)), c: w.za.lfired ? "good" : "acc" }
+          : { t: shortTxt(w.buy_zone, 34) || "존 미등록", c: "" };
+        return pfRow(w, false, nx);
+      }).join("") + '</div>';
     }
     h += foot();
     paint(h);
@@ -731,30 +939,122 @@
     return h + '<div class="fxnote">' + esc(st.caveat) + '</div></div>';
   }
 
-  // ════════════════ 화면: 종목 상세 ════════════════
+  // ════════════════ 화면: 종목 상세 (캔버스 Hyundai) ════════════════
   var detailRange = "d";
+  // '이 주문은 들어가나' — 세로 가격 사다리(목표 · 내 주문 · 상한 · 필요 종가 · 기준 종가 · 하한)
+  function orderLadder(o, st, cen) {
+    var e = bandEval(o); if (!e) return "";
+    var base = e.bb.base, k = orderKind(o), verb = /익절/.test(o.action || "") ? "익절" : e.sell ? "트림" : "매수", dl = relDay(e.bb.day);
+    var rows = [];
+    if (cen && cen > e.P) rows.push({ v: cen, n: "목표 중심(12M)", c: "acc", ic: '<span class="bar acc"></span>' });
+    rows.push({ v: e.P, n: "내 " + verb + " 주문 — " + (e.ok ? "밴드 안" : "밴드 밖"), c: e.ok ? "hotok" : "hot", ic: '<span class="odot' + (e.ok ? " in" : "") + '"></span>' });
+    rows.push({ v: e.band.up, n: mdw(e.bb.day) + " 상한가", c: "b", ic: '<span class="bar"></span>' });
+    if (e.need) rows.push({ v: e.need, n: "등록 가능한 종가", c: "", ic: '<span class="dot"></span>' });
+    rows.push({ v: base, n: e.bb.basis, c: "now", ic: '<span class="now"></span>', now: 1 });
+    rows.push({ v: e.band.lo, n: mdw(e.bb.day) + " 하한가", c: "", ic: '<span class="bar"></span>' });
+    rows.sort(function (a, b) { return b.v - a.v || (a.now ? 1 : -1); });
+    var h = '<div class="wcard"><h2>' + esc(dl === "오늘" || dl === "내일" ? dl : mdw(e.bb.day)) + ' 이 주문은 들어가나</h2><div class="hsub">' + esc(mdw(e.bb.day)) + ' 정규장 · 가격제한폭 = ' + esc(e.bb.basis) + ' ±30%</div><div class="vlad">';
+    rows.forEach(function (r) { h += '<div class="vl ' + r.c + '"><div class="ic">' + r.ic + '</div><div class="n">' + esc(r.n) + '</div><div class="v num">' + num(r.v) + (r.now ? '' : ' · ' + pct((r.v / base - 1) * 100, 1)) + '</div></div>'; });
+    h += '</div>';
+    if (k !== "wait") {
+      var rl = regLine(o.ticker);
+      h += '<p>' + (rl ? '등록선 ' + won(rl.level) + ' — ' + (rl.lfired ? '<b>점등.</b> 다음 거래일분을 걸 차례다.' : '아직 미도달(' + pct(rl.ldist, 1) + '). 지금은 걸 주문이 아니다.') : '상태: ' + esc(ORDER_LBL[k]) + ' — 오늘 밤 할 일에는 올리지 않는다.') + '</p>';
+    } else if (e.ok) h += '<p>접수 가능 — ' + esc(dl) + ' 상한가 ' + won(e.band.up) + ' 안.</p>';
+    else if (e.need) {
+      var s2 = sessionAfter(e.bb.day);
+      h += '<p>' + (e.bb.basis === "오늘 종가" ? '오늘 종가가 <b class="num">' + won(e.need - base) + '</b>만 높았어도 걸렸다. ' : '')
+        + esc(dl) + ' 종가가 <b class="num">' + won(e.need) + '</b>(' + pct((e.need / base - 1) * 100, 1) + ') 이상이면 ' + mdw(s2) + '분을 걸 수 있다.</p>';
+    }
+    return h + '</div>';
+  }
+  // 다음 기회 — 밴드 밖 주문의 거래일 타임라인(거래일 달력 + D.events)
+  function nextChances(o, st) {
+    var e = bandEval(o); if (!e || e.ok || !e.need || orderKind(o) !== "wait") return "";
+    var d1 = e.bb.day, s2 = sessionAfter(d1), s3 = sessionAfter(s2), rows = [];
+    rows.push({ on: 1, t: mdw(d1) + " 15:30 · 종가 확인", s: won(e.need) + " 이상이면 " + mdw(s2) + "분 " + num(e.P) + "원 예약" });
+    if (dayDiff(s2, s3) > 3) {
+      rows.push({ t: mdw(s2) + " · 연휴 전 마지막 등록일", s: "못 걸면 연휴 전 오더 0회" });
+      var hol = eventsLive().filter(function (x) { return x.kind === "휴장" && x.date > s2 && x.date < s3; })[0];
+      rows.push({ t: (hol ? md(hol.date) + "–" + md(hol.end || hol.date) + " 휴장 · " : "휴장 · ") + mdw(s3) + " 재개", s: "재개 전날 밤 재등록" });
+    }
+    eventsLive().filter(function (x) { return x.type === "earnings" && x.ticker === o.ticker; }).forEach(function (x) { rows.push({ t: mdw(x.date) + " · 실적", s: "기한부 판단 시점 · " + (x.confidence || "") }); });
+    return '<div class="wcard"><h2>다음 기회</h2><div class="tl">' + rows.map(function (r) { return '<div class="tli' + (r.on ? " on" : "") + '"><b>' + esc(r.t) + '</b><span>' + esc(r.s) + '</span></div>'; }).join("") + '</div></div>';
+  }
+  function rule2Card(st) {
+    var r = st.rule2, m = st.margins || [];
+    if (!r && !m.length) return "";
+    var sc = r ? String(r.score || "") : "", n = parseInt(sc, 10) || 0, fin = /금융/.test(sc), den = fin ? "1" : "3";
+    var ck = fin ? (n ? "bad" : "good") : n >= 3 ? "bad" : n === 2 ? "acc" : "good";
+    var ct = (fin ? (n ? "마진 훼손 " : "정상 ") : n >= 3 ? "훼손 착수 " : n === 2 ? "감시 상향 " : "정상 ") + n + "/" + den;
+    var h = '<div class="wcard"><div class="hrow" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0;font-size:16px">룰2 · 펀더멘털 훼손</h2>' + (r ? '<span class="chip ' + ck + '">' + ct + '</span>' : '') + '</div><div class="mbars">';
+    if (m.length) {
+      var mx = Math.max.apply(null, m.map(function (x) { return Math.abs(x.m); })) || 1;
+      h += '<div class="cols">' + m.map(function (x, i) {
+        var last = i === m.length - 1, rise = last && i > 0 && x.m > m[i - 1].m;
+        return '<div class="col' + (last ? " last" + (rise ? " ok" : "") : "") + '"><b class="num">' + x.m.toFixed(1) + '%</b><span style="height:' + Math.max(6, Math.abs(x.m) / mx * 72).toFixed(0) + 'px' + (x.m < 0 ? ';opacity:.6' : '') + '"></span><small>' + esc(x.y) + '</small></div>';
+      }).join("") + '</div>';
+    } else h += '<div class="xs mut">영업마진 시계열 없음</div>';
+    h += '<ul>';
+    ((r && r.detail) || []).forEach(function (d) {
+      if (fin && !/마진/.test(d)) return;
+      var met = /^✅/.test(d), tx = d.replace(/^[✅❌]\s*/u, "").replace(/\*\*/g, "");
+      h += '<li class="' + (met ? "y" : "n") + '">' + (met ? IC.alert : IC.dash) + '<span>' + esc(tx) + '</span></li>';
+    });
+    if (fin) h += '<li class="u">' + IC.dash + '<span>FCF · 순부채 — 금융 자회사 연결이라 판정 제외</span></li>';
+    h += '</ul></div>';
+    if (r && r.verdict) h += '<p>' + esc(String(r.verdict).replace(/^[✅⚠🚨️\s]+/u, "")) + '</p>';
+    return h + '</div>';
+  }
+  function stockDecisions(st) {
+    var dc = D.decisions || {}, all = (dc.closed || []).concat(dc.open || []), code = st.ticker.replace(/\.K[SQ]$/, "");
+    var hit = all.filter(function (d) {
+      var tags = d.tags || [];
+      return String(d.topic || "").indexOf(st.label) >= 0 || tags.indexOf(st.label) >= 0 || tags.indexOf(st.ticker) >= 0 || tags.indexOf(code) >= 0;
+    }).sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); }).slice(0, 5);
+    if (!hit.length) return "";
+    return '<div class="wcard"><h2>이 종목에 대해 내린 결정</h2><div class="decs">' + hit.map(function (d) {
+      return '<span class="dt num">' + esc(md(d.date)) + '</span><span><b class="acc">' + esc(d.id) + '</b> ' + esc(shortTxt(d.topic, 70)) + (d.status === "open" ? ' <span class="chip">추적 중</span>' : '') + '</span>';
+    }).join("") + '</div><a class="lnk" href="#decisions" style="font-size:13px;font-weight:600;color:var(--accent)">결정 기록 전체</a></div>';
+  }
   function renderDetail(tk) {
     var st0 = find(tk);
     if (!st0) { paint(topbar({ back: "#pf", backLabel: "포트폴리오" }) + '<div class="empty">종목을 찾을 수 없어요.</div>'); return; }
     var isHold = st0.region != null, hs = isHold ? holdingsLive() : null;
     var st = isHold ? hs.filter(function (x) { return x.ticker === tk; })[0] : st0;
     var q = Q(tk), p = isHold ? st.lp : px(st), c = isHold ? st.lc : chg(st), cur = st.currency || (isKR(tk) ? "KRW" : "USD");
-    var h = topbar({ back: "#pf", backLabel: "포트폴리오" });
-    h += '<div class="dhero"><div class="nm">' + esc(st.label) + '</div><div class="tk"><span class="mono">' + esc(tk) + '</span>' + (st.sector ? '<span>' + esc(st.sector) + '</span>' : '') + grade(st.stars) + scoreChip(st.score) + '</div>';
-    h += '<div class="price num">' + fmtP(p, tk) + '</div><div class="chg num ' + cls(c) + '">' + (q && q.pc ? (p < q.pc ? "-" : "+") + fmtP(Math.abs(p - q.pc), tk) + ' ' : '') + pct(c) + ' ' + sessTag(q, true) + '</div>';
+    var cen = centerOf(st.target, tk, p);
+    var h = topbar({ back: "#pf", backLabel: "포트폴리오", code: tk + (isHold ? " · " + fmtShares(st.shares) + "주" : " · 워치") });
+
+    // 헤더 — 이름 · 등급 칩 · 가격 · 3칸
+    var low = (st.stars || 0) <= 2;
+    h += '<div class="dh"><div class="t"><h1>' + esc(st.label) + '</h1><span class="chip ' + (low ? "bad" : "acc") + '">★' + (st.stars || 0) + (low ? " · 결정 필요" : st.score != null ? " · " + st.score : "") + '</span></div>';
+    var dAbs = q && q.pc != null && p != null ? p - q.pc : null;
+    h += '<div class="p"><span class="v num">' + fmtP(p, tk) + '</span><span class="c num ' + cls(c) + '">' + pct(c) + (dAbs != null ? ' · ' + (dAbs < 0 ? "-" : "+") + (isKR(tk) ? num(Math.round(Math.abs(dAbs))) : "$" + num2(Math.abs(dAbs))) : '') + '</span>' + sessTag(q, true) + '</div>';
     if (q) {
       var reg = [];
       if (q.x && q.rc != null) reg.push("정규장 종가 " + fmtP(q.rc, tk) + (q.rcc != null ? " (" + pct(q.rcc) + ")" : ""));
-      else if (isKR(tk) && q.rc != null && q.s === "post") reg.push("정규장 종가 " + fmtP(q.rc, tk) + " (" + pct(q.pc ? (q.rc / q.pc - 1) * 100 : null) + ")");
+      else if (isKR(tk) && q.rc != null && q.p != null && Math.abs(q.p - q.rc) > 1e-9) reg.push("정규장 종가 " + fmtP(q.rc, tk) + " (" + pct(q.pc ? (q.rc / q.pc - 1) * 100 : null) + ")");
       if (q.xp != null) reg.push("시간외 " + fmtP(q.xp, tk) + " (" + pct(q.xc) + ")");
       reg.push((q.t ? mdLabel(q.t) + " " + hhmm(q.t) : "") + " 체결 기준");
       h += '<div class="reg">' + esc(reg.join(" · ")) + '</div>';
     } else h += '<div class="reg">보고서 시세 · ' + esc(D.generated_at || "") + '</div>';
+    if (isHold) {
+      h += '<div class="g3"><div><span class="k">평단</span><span class="v num">' + price(st.cost, cur) + '</span></div>'
+        + '<div><span class="k">평가손익</span><span class="v num ' + cls(st.lpnl) + '">' + sign(st.lpnl) + num(Math.round(st.lpnl)) + '</span><span class="s num ' + cls(st.lpnlpct) + '">' + pct(st.lpnlpct, 1) + '</span></div>'
+        + '<div><span class="k">스코어 · 비중</span><span class="v num">' + (st.score != null ? st.score : "—") + ' · ' + st.w.toFixed(1) + '%</span></div></div>';
+    } else {
+      h += '<div class="g3"><div><span class="k">스코어</span><span class="v num">' + (st.score != null ? st.score : "—") + '</span></div>'
+        + '<div><span class="k">목표 중심</span><span class="v num">' + (cen ? fmtP(cen, tk) : "—") + '</span></div>'
+        + '<div><span class="k">목표까지</span><span class="v num ' + (cen && p ? cls(cen / p - 1) : "") + '">' + (cen && p ? pct((cen / p - 1) * 100, 1) : "—") + '</span></div></div>';
+    }
     h += '</div>';
+
+    // 국내 지정가 — 세로 사다리 + 다음 기회
+    if (isKR(tk)) activeKrOrders(true).filter(function (o) { return o.ticker === tk; }).forEach(function (o) { h += orderLadder(o, st, cen) + nextChances(o, st); });
 
     // 차트 (오늘 / 1개월)
     var ser = S(tk), hasD = !!(ser && q), rng = hasD ? detailRange : "m";
-    h += '<div class="card"><div class="chart-h"><span class="ctitle" style="margin:0">' + (rng === "d" ? (q && q.x ? "마지막 정규장" : "오늘") : "1개월") + '</span>'
+    h += '<div class="card" style="margin-top:14px"><div class="chart-h"><span class="ctitle" style="margin:0">' + (rng === "d" ? (q && q.x ? "마지막 정규장" : "오늘") : "1개월") + '</span>'
       + '<div class="rtoggle" role="group" aria-label="기간">' + (hasD ? '<button type="button" data-r="d" class="' + (rng === "d" ? "on" : "") + '">오늘</button>' : '') + '<button type="button" data-r="m" class="' + (rng === "m" ? "on" : "") + '">1개월</button></div></div>';
     if (rng === "d") {
       var lines = [];
@@ -766,23 +1066,17 @@
     }
     h += '</div>';
 
-    if (isHold) {
-      h += '<div class="kv">'
-        + '<div class="b"><div class="k">평가금액</div><div class="v num">' + won(st.lvalue) + '</div></div>'
-        + '<div class="b"><div class="k">평가손익</div><div class="v num ' + cls(st.lpnl) + '">' + sign(st.lpnl) + num(Math.round(st.lpnl)) + '원 (' + pct(st.lpnlpct, 1) + ')</div></div>'
-        + '<div class="b"><div class="k">수량 · 평단</div><div class="v num">' + fmtShares(st.shares) + '주 · ' + price(st.cost, cur) + '</div></div>'
-        + '<div class="b"><div class="k">비중</div><div class="v num">' + st.w.toFixed(1) + '%</div></div></div>';
-    }
+    if (isHold) h += rule2Card(st);
+    h += stockDecisions(st);
+    var pick = ((D.pm_view || {}).picks || []).filter(function (x) { return x.ticker === tk; })[0];
+    if (pick) h += '<div class="pmdark"><span class="lb">PM 한 줄</span><p>' + esc(pick.view) + '</p><small>' + esc((D.pm_view || {}).updated || "") + ' 사견 · 룰과 별개</small></div>';
 
-    // 국내 지정가 접수 가능성
-    if (isKR(tk)) activeKrOrders().filter(function (o) { return o.ticker === tk; }).forEach(function (o) { h += sec("이 주문은 들어가나") + bandCard(o); });
-
-    // 가격 사다리 — 현재가 대비 모든 레벨
+    // 가격 레벨 — 현재가 대비 모든 레벨
     var lv = [];
     function add(v, label, sub, kind) { if (v == null || isNaN(v)) return; for (var i = 0; i < lv.length; i++) if (Math.abs(lv[i].v / v - 1) < 0.0008 && lv[i].kind !== "now") return; lv.push({ v: v, label: label, sub: sub, kind: kind }); }
     if (p != null) add(p, "현재가", q ? (SESS[q.s] || "") : "보고서 시세", "now");
     if (isHold && st.cost) add(st.cost, "평단", null, "");
-    var tgt = parsePrices(st.target, tk, p), cen = centerOf(st.target, tk, p);
+    var tgt = parsePrices(st.target, tk, p);
     if (cen) add(cen, "목표 중심", "12개월", "acc");
     if (tgt.length >= 2) { add(Math.min(tgt[0].v, tgt[1].v), "목표 하단", null, "acc"); add(Math.max(tgt[0].v, tgt[1].v), "목표 상단", null, "acc"); }
     var tr = parsePrices(st.trim, tk, p);
@@ -791,13 +1085,12 @@
       if (a.cond === "between") { add(a.low, cleanId(a.id), "구간 하단", "good"); add(a.high, cleanId(a.id), "구간 상단", "good"); }
       else add(a.level, cleanId(a.id), a.lfired ? "발동" : "알림", a.lfired ? "bad" : "good");
     });
-    if (isKR(tk)) { var bb = bandBase(tk); if (bb) { var bd = krBand(bb.base); add(bd.up, bb.when + " 상한가", "기준 " + num(bb.base), "edge"); add(bd.lo, bb.when + " 하한가", null, "edge"); } }
     if (lv.length > 1) {
       lv.sort(function (a, b) { return b.v - a.v; });
-      h += sec("가격 사다리") + '<div class="card"><div class="rail">';
+      h += h2s("가격 레벨", "현재가 대비", "sm") + '<div class="card"><div class="rail">';
       lv.forEach(function (x) {
         var g = p ? (x.v / p - 1) * 100 : null;
-        h += '<div class="rung ' + (x.kind === "now" ? "now" : x.kind === "edge" ? "band-edge" : x.kind) + '"><div class="l"><b>' + esc(x.label) + '</b>' + (x.sub ? '<span class="s">' + esc(x.sub) + '</span>' : '') + '</div>'
+        h += '<div class="rung ' + (x.kind === "now" ? "now" : x.kind) + '"><div class="l"><b>' + esc(x.label) + '</b>' + (x.sub ? '<span class="s">' + esc(x.sub) + '</span>' : '') + '</div>'
           + '<div class="p num">' + fmtP(x.v, tk) + '</div><div class="g num ' + (x.kind === "now" ? "mut" : cls(g)) + '">' + (x.kind === "now" ? "지금" : pct(g, 1)) + '</div></div>';
       });
       h += '</div></div>';
@@ -812,22 +1105,21 @@
     if (st.comment) h += '<div class="comment">' + mdInline(esc(st.comment)) + '</div>';
 
     if (st.forecast) {
-      h += sec("가격 예상 레인지");
+      h += h2s("가격 예상 레인지", "목표가·매수존과 별개", "sm");
       h += forecastRow("이번주", st.forecast.week, p, cur) + forecastRow("이번달", st.forecast.month, p, cur);
-      h += '<div class="xs mut">단기 예측치 — 목표가·매수존과 별개</div>';
     }
 
     var gcons = ((D.guru_flows || {}).consensus || {})[tk];
     if (gcons && gcons.holders && gcons.holders.length) {
       var gShort = { berkshire: "버핏", scion: "버리", duquesne: "드러켄밀러", pershing: "애크먼", appaloosa: "테퍼", thirdpoint: "로엡" };
       var aLbl = { NEW: "신규", ADD: "증량", TRIM: "축소", EXIT: "청산", HOLD: "유지" }, aCls = { NEW: "buy", ADD: "buy", TRIM: "sell", EXIT: "sell", HOLD: "hold" };
-      h += sec("대가 흐름 (13F)", null, "#gurus", "전체") + '<div class="card"><div class="row between"><span class="bold">대가 컨센</span><span class="badge ' + (gcons.net > 0 ? "buy" : gcons.net < 0 ? "sell" : "hold") + '">매수 ' + gcons.buy + ' · 매도 ' + gcons.sell + (gcons.hold ? ' · 유지 ' + gcons.hold : '') + '</span></div><div class="row wrap" style="margin-top:8px">';
+      h += h2s("대가 흐름 (13F)", '<a class="aux" href="#gurus">전체</a>', "sm") + '<div class="card"><div class="row between"><span class="bold">대가 컨센</span><span class="badge ' + (gcons.net > 0 ? "buy" : gcons.net < 0 ? "sell" : "hold") + '">매수 ' + gcons.buy + ' · 매도 ' + gcons.sell + (gcons.hold ? ' · 유지 ' + gcons.hold : '') + '</span></div><div class="row wrap" style="margin-top:8px">';
       gcons.holders.forEach(function (hd) { h += '<span class="gchip ' + (aCls[hd.action] || "hold") + '">' + esc(gShort[hd.slug] || hd.guru) + ' ' + (aLbl[hd.action] || hd.action) + '</span>'; });
       h += '</div>' + (gcons.buy > 0 && gcons.sell > 0 ? '<div class="xs mut" style="margin-top:6px">대가 분열 — 단일 컨센 없음(과신 견제)</div>' : '') + '</div>';
     }
 
     var issues = st.issues || [];
-    h += sec("최근 이슈 · 체크포인트", issues.length);
+    h += h2s("최근 이슈 · 체크포인트", issues.length ? issues.length + "건" : null, "sm");
     if (!issues.length) h += '<div class="empty sm">등록된 이슈가 없어요.</div>';
     issues.forEach(function (is) { h += '<div class="issue"><div class="top"><span class="itag ' + esc(is.tag || "") + '">' + esc(is.tag || "") + '</span><span class="dt">' + esc(is.date || "") + '</span></div><div class="tx">' + mdInline(esc(is.text)) + '</div></div>'; });
     h += foot();
@@ -844,70 +1136,67 @@
       + (cpx != null ? '<div class="fc-cap">현재 ' + price(cpx, cur) + '</div>' : '') + (f.note ? '<div class="fc-note">' + esc(f.note) + '</div>' : '') + '</div>';
   }
 
-  // ════════════════ 화면: 룰 · 리스크 ════════════════
+  // ════════════════ 화면: 룰 · 리스크 (캔버스 Rules) ════════════════
   function renderRules() {
-    var L = ladderLive(), s = L.s, hs = holdingsLive(), T = totalsLive(hs);
-    var h = topbar({ title: "룰 · 리스크", sub: "급락대응 TF 가동 중 · 정본 crash_tf.md" });
+    var L = ladderLive(), s = L.s, hs = holdingsLive(), T = totalsLive(hs), G = gatesLive();
+    var h = topbar({ title: "룰 · 리스크", sub: '<span class="chip bad" style="font-size:11px">급락 TF 가동 · 7/13~</span>' });
+    h += '<p class="tagline">룰은 계산기다 — 집행은 PM 판단, 결정은 정훈.</p>';
 
-    // 사다리 요약(먹 카드)
-    h += '<section class="stmt" aria-label="낙폭 사다리"><div class="lbl">룰1 낙폭 사다리 · 지금 살 수 있는 돈</div>';
-    h += '<div class="big num">' + num(L.allowed) + '<small>원</small></div>';
-    h += '<div class="day" style="color:var(--stmt-mut)">' + esc(PIN_TXT[L.status] || "") + '</div>';
-    h += '<div class="grid3"><div><div class="k">고점 대비</div><div class="v num">' + (L.dd != null ? L.dd.toFixed(1) + "%" : "—") + '</div><div class="s num">코스피 ' + num2(L.k) + '</div></div>'
-      + '<div><div class="k">상한</div><div class="v num">' + num(L.cap) + '</div><div class="s">해금 ' + (L.unl != null ? L.unl : 0) + '% × 총재원 ' + num(s.base_krw) + '</div></div>'
-      + '<div><div class="k">기집행</div><div class="v num acc">' + num(L.spent) + '</div><div class="s">누적(d197)</div></div></div>';
-    h += '<div class="est">' + (L.live ? "장중 코스피로 다시 계산한 추정 · 판정은 종가(tranche_rules.py)" : "종가 기준 · 정본 tranche_rules.py") + ' · 되돌리면 다시 잠김(RESET)</div></section>';
+    // 오늘 살 수 있는 돈
+    var base = s.base_krw || 0, mult = s.mult || 1;
+    var nextCap = L.next ? Math.round(base * (L.unl + L.next.alloc_pct) / 100 * mult) : null, nextLeft = nextCap != null ? Math.max(0, nextCap - L.spent) : null;
+    var why = s.halted ? "하드플로어 발동 — 사다리 전면 정지. "
+      : L.allowed > 0 ? "상한 안에서 " + won(L.allowed) + " 남았다 — 매수 순서 ① GOOGL부터. "
+      : L.unl > 0 && L.spent > L.cap ? "상한의 " + (L.spent / L.cap).toFixed(1) + "배를 이미 썼다. "
+      : L.unl > 0 ? "해금분을 모두 집행했다. " : "해금된 단계가 없다. ";
+    if (L.next && !s.halted) why += "새 몫은 코스피가 " + L.next.label + "(" + num(Math.round(L.nextLevel)) + ") 아래로 마감해야 열린다" + (nextLeft != null ? " — 그때 약 " + won(Math.round(nextLeft / 100) * 100) + "." : ".");
+    h += '<div class="money"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">오늘 사다리로 살 수 있는 돈</span><span class="chip">' + (L.live ? "장중 추정" : "종가 기준") + ' · 누적</span></div>'
+      + '<div class="big num">' + num(L.allowed) + '<small>원</small></div>'
+      + '<div class="g2"><div><span class="k">상한 ' + (L.unl || 0) + '%</span><span class="v num">' + won(L.cap) + '</span></div><div><span class="k">기집행</span><span class="v num">' + won(L.spent) + '</span></div></div>'
+      + '<p>' + esc(why) + '</p></div>';
 
-    // 사다리 레일
+    // 룰1 낙폭 사다리
     if (s.peak && L.steps.length) {
-      var rows = [{ v: s.peak, lab: "고점", sub: (s.peak_date || "") + " · 기준", kind: "" }];
+      var rows = [];
       L.steps.forEach(function (st) {
-        var unlocked = L.dd != null && L.dd <= st.thr;
-        rows.push({ v: s.peak * (1 + st.thr / 100), lab: st.label + " " + st.thr + "% · " + st.alloc_pct + "%", sub: (unlocked ? "해금" : "잠김") + (st.executed_krw ? " · 기집행 " + num(st.executed_krw) + "원" : "") + " — " + (st.why || ""), kind: unlocked ? "acc" : "off" });
+        var lvl = s.peak * (1 + st.thr / 100), on = L.dd != null && L.dd <= st.thr;
+        rows.push({ v: lvl, h: '<div class="lstep ' + (on ? "on" : "off") + '" title="' + esc(st.why || "") + '"><span class="dt"></span><div class="tx"><span class="n">' + esc(st.label) + ' ' + Math.round(st.thr) + '%</span><span class="s num">' + num(Math.round(lvl)) + ' · 배분 ' + st.alloc_pct + '%</span></div>'
+          + '<span class="r">' + (on ? "해금" : "잠김") + (st.executed_krw ? " · 집행 " + num(st.executed_krw) : "") + '</span></div>' });
       });
-      rows.push({ v: L.k, lab: "지금 " + (L.dd != null ? L.dd.toFixed(1) + "%" : ""), sub: L.live ? "장중 · " + (L.q && L.q.t ? hhmm(L.q.t) : "") : L.fresh ? "오늘 종가" : "보고서 종가", kind: "now" });
-      rows.sort(function (a, b) { return b.v - a.v; });
-      h += sec("사다리 단계") + '<div class="card"><div class="rail">';
-      rows.forEach(function (r) {
-        var g = L.k ? (r.v / L.k - 1) * 100 : null;
-        h += '<div class="rung ' + r.kind + '"><div class="l"><b>' + esc(r.lab) + '</b><span class="s">' + esc(r.sub) + '</span></div><div class="p num">' + num2(r.v) + '</div><div class="g num ' + (r.kind === "now" ? "mut" : cls(g)) + '">' + (r.kind === "now" ? "지금" : pct(g, 1)) + '</div></div>';
-      });
-      h += '<div class="rung off"><div class="l"><b>예비 ' + (s.reserve_pct || 7) + '%</b><span class="s">회복 확인(게이트 2/3+) 전까지 영구 봉인</span></div><div class="p">봉인</div><div class="g"></div></div>';
-      h += '</div>';
-      if (L.next) h += '<div class="xs mut">다음 단계 ' + esc(L.next.label) + ' = 코스피 ' + num2(L.nextLevel) + ' (' + pct((L.nextLevel / L.k - 1) * 100, 1) + ') — 거기서 마감하면 상한 ' + won(Math.round((s.base_krw || 0) * (L.unl + L.next.alloc_pct) / 100 * (s.mult || 1))) + ', 잔여 ' + won(Math.max(0, Math.round((s.base_krw || 0) * (L.unl + L.next.alloc_pct) / 100 * (s.mult || 1)) - L.spent)) + '</div>';
-      h += '</div>';
+      rows.push({ v: L.k, now: 1, h: '<div class="lstep now"><span class="dt"></span><div class="tx"><span class="n num">지금 ' + pct(L.dd, 1) + ' · ' + num2(L.k) + '</span><span class="s">' + (L.live ? "장중 · " + (L.q && L.q.t ? hhmm(L.q.t) : "") : L.fresh ? "오늘 종가" : "보고서 종가") + '</span></div>'
+        + '<span class="r num">' + (L.next ? L.next.label + "까지 " + Math.abs(L.dd - L.next.thr).toFixed(1) + "%p" : "") + '</span></div>' });
+      rows.sort(function (a, b) { return b.v - a.v || (a.now ? 1 : -1); });
+      h += h2s("룰1 · 낙폭 사다리", "고점 " + num(Math.round(s.peak)) + (s.peak_date ? " (" + md(s.peak_date) + ")" : ""));
+      h += '<div class="group">' + rows.map(function (r) { return r.h; }).join("")
+        + '<div class="lstep off"><span class="dt"></span><div class="tx"><span class="n">예비</span><span class="s">배분 ' + (s.reserve_pct || 7) + '% · 회복 확인 전</span></div><span class="r">봉인</span></div></div>';
+      h += '<div class="xs mut" style="margin:8px 4px 0">되돌리면 다시 잠긴다(RESET) · 누적 상한이지 목표가 아니다 · 판정 정본 tranche_rules.py</div>';
     }
+
+    // TF 해제 게이트
+    var fp = flowPair(), s2 = alertBy(/TF S2/);
+    h += h2s("TF 해제 게이트", '<b class="num" style="font-size:17px;color:var(--ink)">' + G.n + '</b> / 3');
+    h += '<div class="group gates">';
+    h += '<div class="gate' + (G.on1 ? " on" : "") + '"><span class="no">①</span><div><div class="t">코스피 7,500 종가 회복</div><div class="s num">' + (G.g1 ? '현재 ' + num2(G.g1.lp) + (G.g1.lq ? (G.g1.lq.s === "reg" ? ' (장중)' : ' (종가)') : '') : '—') + '</div></div><div class="num bold ' + (G.on1 ? "good" : "") + '">' + (G.g1 && G.g1.ldist != null ? (G.on1 ? "충족" : pct(-G.g1.ldist / (1 + G.g1.ldist / 100), 1)) : "—") + '</div></div>';
+    h += '<div class="gate' + (G.on2 ? " on" : "") + '"><span class="no">②</span><div><div class="t">외인 2거래일 연속 순매수</div><div class="s num">' + (fp ? md(fp[0].date) + ' ' + eok(fp[0].foreign) + ' → ' + md(fp[1].date) + ' ' + eok(fp[1].foreign) : esc((G.ft.streak || 0) + "일째 " + (G.ft.direction || ""))) + (G.ftStale ? ' <b class="warn">· ' + esc(md(G.last)) + ' 수급 미반영</b>' : '') + '</div></div><div class="num bold ' + (G.on2 ? "good" : "") + '">' + (G.on2 ? "충족" : G.buyStreak + "일") + '</div></div>';
+    h += '<div class="gate' + (G.on3 ? " on" : "") + '"><span class="no">③</span><div><div class="t">WTI $71.5 이하</div><div class="s num">' + (G.g3 ? '현재 $' + num2(G.g3.lp) : '—') + '</div></div><div class="num bold ' + (G.on3 ? "good" : "") + '">' + (G.g3 && G.g3.lp != null ? (G.on3 ? "충족" : pct((G.g3.lp / G.g3.level - 1) * 100, 1)) : "—") + '</div></div>';
+    h += '</div><div class="xs mut" style="margin:8px 4px 0">해제 = 셋 동시 충족 + 2거래일 유지. 부분 충족은 액션이 아니다(§5).' + (s2 ? ' 악화선 S2 = 코스피 ' + num(s2.level) + ' (' + pct(s2.ldist, 1) + ')' : '') + '</div>';
 
     // 하드플로어
     var sp = stormPct();
-    h += sec("하드플로어 (글로벌 확산 판정)");
-    h += '<div class="card"><div class="row between"><span class="bold">S&amp;P 500 폭풍 %ile</span><span class="pill ' + (s.halted ? "no" : "ok") + '">' + (s.halted ? "발동 · 사다리 정지" : "미발동") + '</span></div>';
-    if (sp != null) h += '<div class="gauge"><div class="fill" style="width:' + sp + '%;background:' + (sp >= 70 ? "var(--bad)" : "var(--good)") + '"></div><div class="thr" style="left:70%"><span>70</span></div></div>';
-    h += '<div class="xs mut">' + esc(s.floor_note || "") + ' · 정본 vol_gauge.py(RV20)</div></div>';
+    h += '<div class="wcard" style="margin-top:22px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0;font-size:16px">하드플로어 · 글로벌 확산</h2><span class="chip ' + (s.halted ? "bad" : "good") + '">' + (s.halted ? "발동 · 사다리 정지" : "미발동") + '</span></div>';
+    if (sp != null) h += '<div><div class="bband-l" style="margin-bottom:6px"><span>S&amp;P500 폭풍 <b class="num" style="color:var(--ink)">' + sp + '%ile</b></span><span>발동선 70</span></div><div class="gauge" style="margin:0"><div class="fill" style="width:' + sp + '%;background:' + (sp >= 70 ? "var(--bad)" : "var(--good)") + '"></div><div class="thr" style="left:70%"><span></span></div></div></div>';
+    h += '<p>사다리의 전제는 \'국내 구조 사건\'이다. 미국이 같이 흔들리면(≥70) 사다리 전면 정지. 정본 vol_gauge.py(RV20).</p></div>';
 
-    // TF 해제 3중 게이트
-    var g1 = alertBy(/TF 해제 조건①/), g3 = alertBy(/TF 해제 조건③/), s2 = alertBy(/TF S2/), ft = D.flow_trend || {};
-    var on1 = g1 && g1.lp != null && g1.lp >= g1.level, on2 = ft.direction === "순매수" && (ft.streak || 0) >= 2, on3 = g3 && g3.lp != null && g3.lp < g3.level;
-    var n = (on1 ? 1 : 0) + (on2 ? 1 : 0) + (on3 ? 1 : 0);
-    h += sec("TF 해제 3중 게이트", n + "/3");
-    h += '<div class="card" style="padding:4px 15px">';
-    h += '<div class="gate' + (on1 ? " on" : "") + '"><span class="no">①</span><div><div class="t">코스피 7,500 종가</div><div class="s num">' + (g1 ? '지금 ' + num2(g1.lp) + (g1.lq ? (g1.lq.s === "reg" ? ' (장중)' : ' (종가)') : '') : '—') + '</div></div><div class="num bold ' + (on1 ? "good" : "") + '">' + (g1 && g1.ldist != null ? (on1 ? "충족" : pct(g1.ldist, 1)) : "—") + '</div></div>';
-    var kq0 = Q("^KS11"), lastSess = kq0 && kq0.rt ? kstDate(kq0.rt) : null, ftStale = lastSess && ft.as_of && ft.as_of < lastSess;
-    h += '<div class="gate' + (on2 ? " on" : "") + '"><span class="no">②</span><div><div class="t">외인 순매수 2거래일 연속</div><div class="s">' + esc((ft.streak || 0) + "일째 " + (ft.direction || "") + " · " + (ft.stage || "") + " (" + (ft.as_of || "?") + ")") + (ftStale ? ' <b class="warn">· ' + esc(lastSess.slice(5)) + ' 수급 미반영</b>' : '') + '</div></div><div class="bold ' + (on2 ? "good" : "") + '">' + (on2 ? "충족" : "미충족") + '</div></div>';
-    h += '<div class="gate' + (on3 ? " on" : "") + '"><span class="no">③</span><div><div class="t">WTI $71.5 하회</div><div class="s num">' + (g3 ? '지금 $' + num2(g3.lp) : '—') + '</div></div><div class="num bold ' + (on3 ? "good" : "") + '">' + (g3 && g3.ldist != null ? (on3 ? "충족" : pct(-g3.ldist / (1 + g3.ldist / 100), 1).replace(/^-/, "+")) : "—") + '</div></div>';
-    h += '</div><div class="xs mut">해제 = 셋 동시 충족 + 2거래일 유지. 부분 충족은 액션이 아니다(§5).' + (s2 ? ' 악화선 S2 = 코스피 ' + num(s2.level) + ' (' + pct(s2.ldist, 1) + ')' : '') + '</div>';
-
-    // 룰6 배분
-    var r6 = alertBy(/룰6/);
-    h += sec("룰6 배분 · 국내 비중");
-    h += '<div class="card"><div class="row between"><span class="bold">국내 주식 ' + (T.krW != null ? T.krW.toFixed(1) : "—") + '% · 목표 18~22%</span><span class="pill ' + (T.krW > 22 ? "warn" : "ok") + '">' + (T.krW > 22 ? "상단 초과" : "밴드 안") + '</span></div>'
-      + '<div class="d sm" style="margin-top:6px;color:var(--txt2)">신규 입금은 100% 미국 배분 · 국내 트림은 코스피 ' + (r6 ? num(r6.level) : "7,747") + '(고점 -15%) 회복 시에만 — 지금 ' + (r6 && r6.ldist != null ? pct(r6.ldist, 1) : "—") + ' · 저점 매도 금지</div></div>';
-
-    // 리스크 게이지
+    // 포트 리스크 · 룰6 · 수급 · 알림
     h += riskBlock();
-    h += sec("코스피 투자자별 순매수") + '<div class="card">' + flowChart(D.flows) + (ft && !ft.error && ft.as_of ? '<div class="xs mut" style="margin-top:6px">외인 추세(' + esc(ft.as_of) + '): ' + esc((ft.streak || 0) + "일 연속 " + (ft.direction || "")) + ' · 전환단계 ' + esc(ft.stage || "") + '</div>' : '') + '</div>';
+    var r6 = alertBy(/룰6/);
+    h += h2s("룰6 · 국내 비중", null, "sm");
+    h += '<div class="wcard" style="margin-top:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>국내 주식 ' + (T.krW != null ? T.krW.toFixed(1) : "—") + '% · 목표 18–22%</b><span class="chip ' + (T.krW > 22 ? "bad" : "good") + '">' + (T.krW > 22 ? "상단 초과" : "밴드 안") + '</span></div>'
+      + '<p>신규 입금은 100% 미국 배분 · 국내 트림은 코스피 ' + (r6 ? num(r6.level) : "7,747") + '(고점 -15%) 회복 시에만 — 지금 ' + (r6 && r6.ldist != null ? pct(r6.ldist, 1) : "—") + ' 남음 · 저점 매도 금지</p></div>';
+    var ft = G.ft;
+    h += h2s("코스피 투자자별 순매수", null, "sm") + '<div class="card">' + flowChart(D.flows) + (ft && !ft.error && ft.as_of ? '<div class="xs mut" style="margin-top:6px">외인 추세(' + esc(ft.as_of) + '): ' + esc((ft.streak || 0) + "일 연속 " + (ft.direction || "")) + ' · 전환단계 ' + esc(ft.stage || "") + '</div>' : '') + '</div>';
     var all = alertsLive().sort(function (a, b) { return (b.lfired ? 1 : 0) - (a.lfired ? 1 : 0) || Math.abs(a.ldist || 0) - Math.abs(b.ldist || 0); });
-    h += sec("가격 알림 전체", all.length) + '<details class="fold"><summary>발동 ' + all.filter(function (a) { return a.lfired; }).length + '건 · 대기 ' + all.filter(function (a) { return a.lfired === false; }).length + '건 — 지금 가격 대입</summary><div class="in">' + alertRows(all) + '</div></details>';
+    h += h2s("가격 알림 전체", all.length + "건", "sm") + '<details class="fold"><summary>발동 ' + all.filter(function (a) { return a.lfired; }).length + '건 · 대기 ' + all.filter(function (a) { return a.lfired === false; }).length + '건 — 지금 가격 대입</summary><div class="in">' + alertRows(all) + '</div></details>';
     h += '<a class="hub" href="#decisions"><span class="ic">' + IC.compass + '</span><div><div class="t">결정 · 전략 아젠다</div><div class="s">열린 질문 ' + ((D.decisions || {}).open_count || 0) + '건 · 왜 그렇게 결정했나</div></div><span class="chev">' + IC.chev + '</span></a>';
     h += foot("룰을 바꾸지 않는다 — 이 화면은 정본 룰에 지금 가격을 대입해 보여줄 뿐이다");
     paint(h);
@@ -1290,13 +1579,14 @@
   }
 
   // ════════════════ 라우팅 · 탭 ════════════════
-  var TABS = [["", "오늘", "today"], ["pf", "포트폴리오", "pf"], ["rules", "룰·리스크", "rules"], ["plan", "계획", "plan"], ["research", "리서치", "research"]];
+  // [9/21 r2] 캔버스 = 4탭. 계획은 오늘 화면에서 들어가고 탭은 오늘에 불이 들어온다
+  var TABS = [["", "오늘", "today"], ["pf", "포트폴리오", "pf"], ["rules", "룰·리스크", "rules"], ["research", "리서치", "research"]];
   function hashNow() { return location.hash.replace(/^#/, ""); }
   function tabOf(h) {
     if (!h) return "";
     if (h === "pf" || h.indexOf("stock/") === 0 || h === "trades") return "pf";
     if (h === "rules") return "rules";
-    if (h === "plan") return "plan";
+    if (h === "plan") return "";
     return "research";
   }
   function drawTabs() {

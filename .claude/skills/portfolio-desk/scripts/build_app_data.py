@@ -495,6 +495,9 @@ def build(offline: bool) -> dict:
                 # [7/20] 보유리스트 스파클라인용 최근 종가(1mo) — 오프라인이면 빈 배열
                 "spark": fetch_history(sym, offline=offline).get("closes", []),
                 "sector": SECTOR_MAP.get(sym, "기타"),  # [7/20] 테마 집중도 시각화
+                # [9/21 r2] 종목 상세 '룰2 · 펀더멘털 훼손' 카드 — financials.json 오프라인 캐시만 읽는다
+                "margins": holding_margins(sym),
+                "rule2": holding_rule2(sym),
             })
 
     # ── 워치리스트 (분석 데이터 있는 활성만) ──
@@ -730,6 +733,7 @@ def build(offline: bool) -> dict:
         "orders": tj.get("orders", []),
         "tasks_updated": tj.get("updated", ""),
         "today_note": tj.get("today_note", ""),
+        "events": build_events(offline),
     }
 
     # ── [8/23 신설] 파생 3종 — 체결원장 · 통화 익스포저 · 리스크 게이지 ──
@@ -856,6 +860,80 @@ def split_report_bodies(data: dict) -> float:
             except OSError:
                 pass
     return moved / 1024.0
+
+
+# ── [9/21 r2] 앱 캔버스 정합용 파생 3종 — 전부 측정·표시 전용(룰을 바꾸지 않는다) ──
+_FIN_CACHE: dict = {}
+
+
+def _financials() -> dict:
+    if "d" not in _FIN_CACHE:
+        try:
+            with open(os.path.join(REPO, "data", "app", "financials.json"), encoding="utf-8") as f:
+                _FIN_CACHE["d"] = (json.load(f).get("stocks") or {})
+        except (OSError, ValueError):
+            _FIN_CACHE["d"] = {}
+    return _FIN_CACHE["d"]
+
+
+def holding_margins(sym: str) -> list:
+    """연간 영업마진 최근 3기(오래된→최신). 룰2 ①조건의 막대그래프 입력."""
+    ann = (_financials().get(sym) or {}).get("annual") or []
+    out = []
+    for a in ann[:3]:
+        m = a.get("op_margin")
+        if isinstance(m, (int, float)):
+            out.append({"y": str(a.get("end", ""))[:4], "m": round(m * 100, 1)})
+    return list(reversed(out))
+
+
+def holding_rule2(sym: str):
+    """tranche_rules.rule2 결과를 그대로 싣는다(판정 정본은 그쪽). 실패하면 None — 0/3으로 위장하지 않는다."""
+    try:
+        from tranche_rules import rule2
+        r = rule2(sym)
+    except Exception:  # noqa: BLE001 — 표시용 파생, 빌드를 막지 않는다
+        return None
+    if not isinstance(r, dict) or r.get("error"):
+        return None
+    return {k: r.get(k) for k in ("score", "verdict", "detail", "caveat")}
+
+
+def build_events(offline: bool, within: int = 45) -> list:
+    """'다가오는 일정' — macro_events.json(큐레이션) + 실적일(event_calendar, 온라인일 때만).
+
+    지난 일정·45일 밖은 버린다. 실적은 보유 종목만(워치까지 넣으면 목록이 일정이 아니라 달력이 된다).
+    """
+    try:
+        import event_calendar as ec
+    except ImportError:
+        return []
+    today = ec.today_kst()
+    rows = [r for r in ec.load_macro(today) if 0 <= r["days_until"] <= within]
+    try:
+        with open(ec.MACRO, encoding="utf-8") as f:
+            raw = {(e.get("date"), e.get("name")): e for e in json.load(f).get("events", [])}
+        for r in rows:
+            e = raw.get((r["date"], r["label"])) or {}
+            r["tag"] = e.get("tag", "")
+            r["end"] = e.get("end", "")
+    except (OSError, ValueError):
+        pass
+    if not offline:
+        try:
+            held = set()
+            with open(os.path.join(HERE, "..", "portfolio.json"), encoding="utf-8") as f:
+                cfg = json.load(f)
+            for h in cfg["holdings"]["kr"] + cfg["holdings"]["us"]:
+                held.add(h["ticker"])
+            for r in ec.load_earnings(today):
+                if r.get("ticker") in held and 0 <= r["days_until"] <= within:
+                    r["tag"] = "보유 실적"
+                    rows.append(r)
+        except Exception:  # noqa: BLE001 — Yahoo crumb 실패해도 매크로 일정은 싣는다
+            pass
+    rows.sort(key=lambda r: (r["date"], r.get("type") != "macro"))
+    return rows[:12]
 
 
 def main() -> int:

@@ -1,22 +1,22 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-09-21 19:14 KST",
+  "generated_at": "2026-09-21 21:35 KST",
   "as_of": "2026-09-21 18:16",
   "source_report": "docs/reports/report_v97_2026-09-21.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1372.42
+    "usdkrw": 1372.21
   },
   "totals": {
-    "assets_krw": 8152713,
-    "stocks_value_krw": 6987215,
+    "assets_krw": 8151798,
+    "stocks_value_krw": 6986440,
     "cash_krw": 247500,
     "cash_usd": 668.89,
-    "cash_usd_krw": 917998,
-    "day_change_krw": 70241,
+    "cash_usd_krw": 917858,
+    "day_change_krw": 70238,
     "day_change_pct": 1.02,
-    "total_pnl_krw": -198364,
-    "total_pnl_pct": -2.76
+    "total_pnl_krw": -199139,
+    "total_pnl_pct": -2.77
   },
   "safety": {
     "price": 7007.72,
@@ -28,12 +28,12 @@ window.APP_DATA = {
     "next_gap_pct": 1.9,
     "halted": false,
     "floor_note": "S&P500 폭풍 17%ile <70 = 국지 유지(개정 전제 성립)",
-    "cap_krw": 117297,
+    "cap_krw": 117299,
     "spent_krw": 300909,
     "allowed_krw": 0,
     "peak": 9114.55,
     "peak_date": "2026-06-22",
-    "base_krw": 1466213,
+    "base_krw": 1466233,
     "mult": 1.0,
     "reserve_pct": 7.0,
     "steps": [
@@ -139,14 +139,14 @@ window.APP_DATA = {
       "fired": false
     },
     {
-      "id": "⚠️ 현대차 종가 361,540원 하회 → 익일 470,000원 트림 접수 거부",
+      "id": "⚠️ 현대차 종가 362,000원 하회 → 익일 470,000원 트림 접수 거부",
       "ticker": "005380.KS",
       "cond": "below",
-      "level": 361540.0,
+      "level": 362000.0,
       "low": null,
       "high": null,
       "when": null,
-      "action": "[9/16 신설] 국내 정규장 가격제한 = 전일종가 ±30%. 종가가 361,540원 미만이면 다음 거래일 상한이 470,000원 아래라 매일 등록 중인 트림 주문이 접수 거부된다. 발동 시 그날은 등록 불가를 인지하고, 트림가 조정은 PM 재판정 → 정훈 결정(자동 변경 아님).",
+      "action": "[9/16 신설] 국내 정규장 가격제한 = 전일종가 ±30%. 종가가 362,000원 미만이면(호가단위 500원 — 9/21 정정: 361,540은 찍힐 수 없는 가격) 다음 거래일 상한이 470,000원 아래라 매일 등록 중인 트림 주문이 접수 거부된다. 발동 시 그날은 등록 불가를 인지하고, 트림가 조정은 PM 재판정 → 정훈 결정(자동 변경 아님).",
       "price": 359000.0,
       "fired": true
     },
@@ -597,7 +597,31 @@ window.APP_DATA = {
         261000.0,
         274000.0
       ],
-      "sector": "반도체·AI"
+      "sector": "반도체·AI",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 2.5
+        },
+        {
+          "y": "2024",
+          "m": 10.9
+        },
+        {
+          "y": "2025",
+          "m": 13.1
+        }
+      ],
+      "rule2": {
+        "score": "1/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 2.5→10.9→13.1%",
+          "❌ FCF 악화 아님 -163,967→192,410→331,620억",
+          "✅ 순부채 2년 연속 증가 (순현금 563,949→343,754→326,172억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "LG전자",
@@ -698,7 +722,31 @@ window.APP_DATA = {
         198400.0,
         202500.0
       ],
-      "sector": "전력·피지컬"
+      "sector": "전력·피지컬",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 4.4
+        },
+        {
+          "y": "2024",
+          "m": 3.9
+        },
+        {
+          "y": "2025",
+          "m": 2.8
+        }
+      ],
+      "rule2": {
+        "score": "1/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "✅ 영업마진 3년 연속 하락 4.4→3.9→2.8%",
+          "❌ FCF 악화 아님 17,760→1,746→3,731억",
+          "❌ 순부채 연속 증가 아님 (순현금 -60,263→-76,694→-51,905억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "두산로보틱스",
@@ -799,7 +847,31 @@ window.APP_DATA = {
         69200.0,
         69600.0
       ],
-      "sector": "전력·피지컬"
+      "sector": "전력·피지컬",
+      "margins": [
+        {
+          "y": "2023",
+          "m": -36.1
+        },
+        {
+          "y": "2024",
+          "m": -88.0
+        },
+        {
+          "y": "2025",
+          "m": -180.3
+        }
+      ],
+      "rule2": {
+        "score": "3/3",
+        "verdict": "🚨 훼손 착수 — 딥다이브 + 트림 검토",
+        "detail": [
+          "✅ 영업마진 3년 연속 하락 -36.1→-88.0→-180.3%",
+          "✅ FCF 악화 -363→-519→-327억",
+          "✅ 순부채 2년 연속 증가 (순현금 3,002→2,628→1,407억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "현대차",
@@ -818,7 +890,7 @@ window.APP_DATA = {
       "score": 50,
       "target": "407,897원~586,973원 (중심 497,435원·12M)",
       "buy_zone": "—(물타기 영구금지)",
-      "trim": "470,000원 1주(전량) — ✅매일 등록 · 🔴r2(9/21): 종가 359,000 → 9/22 상한가 466,500 = 9/22분 접수 불가(가격 유지·d190). 9/22 종가 ≥361,540이면 9/23분 등록 — 9/23분이 추석 전 마지막 · 기한부 홀드 만기 = 3Q 실적(10월 하순)",
+      "trim": "470,000원 1주(전량) — ✅매일 등록 · 🔴r2(9/21): 종가 359,000 → 9/22 상한가 466,500 = 9/22분 접수 불가(가격 유지·d190). 9/22 종가 ≥362,000이면 9/23분 등록 — 9/23분이 추석 전 마지막 · 기한부 홀드 만기 = 3Q 실적(10월 하순)",
       "forecast": {
         "week": {
           "low": 345000,
@@ -900,7 +972,31 @@ window.APP_DATA = {
         365000.0,
         359000.0
       ],
-      "sector": "전력·피지컬"
+      "sector": "전력·피지컬",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 9.3
+        },
+        {
+          "y": "2024",
+          "m": 8.1
+        },
+        {
+          "y": "2025",
+          "m": 6.2
+        }
+      ],
+      "rule2": {
+        "score": "1/1 (금융연결)",
+        "verdict": "⚠️ 마진 추세 훼손 — 제조 수익성 딥다이브 필요(FCF·순부채는 판정 제외)",
+        "detail": [
+          "✅ 영업마진 3년 연속 하락 9.3→8.1→6.2%",
+          "✅ FCF 악화 -113,699→-160,291→-170,611억",
+          "✅ 순부채 2년 연속 증가 (순현금 -1,066,397→-1,387,365→-1,581,544억)"
+        ],
+        "caveat": "⚠️ 금융 자회사 연결 기업 — 할부금융 자산 증가가 CFO에 마이너스로 잡혀 FCF·순부채 조건이 구조적으로 왜곡된다. **마진 조건만 유효로 판정**한다."
+      }
     },
     {
       "label": "NAVER",
@@ -1001,7 +1097,31 @@ window.APP_DATA = {
         197700.0,
         197900.0
       ],
-      "sector": "빅테크"
+      "sector": "빅테크",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 15.4
+        },
+        {
+          "y": "2024",
+          "m": 18.4
+        },
+        {
+          "y": "2025",
+          "m": 18.4
+        }
+      ],
+      "rule2": {
+        "score": "0/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 15.4→18.4→18.4%",
+          "❌ FCF 악화 아님 13,100→20,098→17,764억",
+          "❌ 순부채 연속 증가 아님 (순현금 -6,024→3,937→18,105억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "NVDA",
@@ -1012,9 +1132,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 222.27,
       "change_pct": 1.34,
-      "value_krw": 1567397,
+      "value_krw": 1567158,
       "pnl_pct": 11.41,
-      "pnl_krw": 69795,
+      "pnl_krw": 69556,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1123,7 +1243,31 @@ window.APP_DATA = {
         219.34,
         222.27
       ],
-      "sector": "반도체·AI"
+      "sector": "반도체·AI",
+      "margins": [
+        {
+          "y": "2024",
+          "m": 54.1
+        },
+        {
+          "y": "2025",
+          "m": 62.4
+        },
+        {
+          "y": "2026",
+          "m": 60.4
+        }
+      ],
+      "rule2": {
+        "score": "0/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 54.1→62.4→60.4%",
+          "❌ FCF 악화 아님 270→609→967억",
+          "❌ 순부채 연속 증가 아님 (순현금 -24→1→21억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "META",
@@ -1134,9 +1278,9 @@ window.APP_DATA = {
       "cost": 633.98,
       "price": 665.75,
       "change_pct": -2.43,
-      "value_krw": 117967,
+      "value_krw": 117949,
       "pnl_pct": 5.01,
-      "pnl_krw": -1613,
+      "pnl_krw": -1631,
       "outlook": "core",
       "stars": 2,
       "score": 48,
@@ -1224,7 +1368,31 @@ window.APP_DATA = {
         682.31,
         665.75
       ],
-      "sector": "빅테크"
+      "sector": "빅테크",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 34.7
+        },
+        {
+          "y": "2024",
+          "m": 42.2
+        },
+        {
+          "y": "2025",
+          "m": 41.4
+        }
+      ],
+      "rule2": {
+        "score": "1/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 34.7→42.2→41.4%",
+          "❌ FCF 악화 아님 441→541→461억",
+          "✅ 순부채 2년 연속 증가 (순현금 235→151→-229억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "VOO",
@@ -1235,9 +1403,9 @@ window.APP_DATA = {
       "cost": 654.41,
       "price": 701.78,
       "change_pct": 0.11,
-      "value_krw": 1124017,
+      "value_krw": 1123845,
       "pnl_pct": 7.24,
-      "pnl_krw": 8297,
+      "pnl_krw": 8125,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1330,7 +1498,9 @@ window.APP_DATA = {
         701.03,
         701.78
       ],
-      "sector": "지수ETF"
+      "sector": "지수ETF",
+      "margins": [],
+      "rule2": null
     },
     {
       "label": "MSFT",
@@ -1341,9 +1511,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 493.78,
       "change_pct": -0.8,
-      "value_krw": 977883,
+      "value_krw": 977733,
       "pnl_pct": 20.38,
-      "pnl_krw": 113149,
+      "pnl_krw": 112999,
       "outlook": "core",
       "stars": 4,
       "score": 76,
@@ -1421,7 +1591,31 @@ window.APP_DATA = {
         497.75,
         493.78
       ],
-      "sector": "빅테크"
+      "sector": "빅테크",
+      "margins": [
+        {
+          "y": "2024",
+          "m": 44.6
+        },
+        {
+          "y": "2025",
+          "m": 45.6
+        },
+        {
+          "y": "2026",
+          "m": 46.8
+        }
+      ],
+      "rule2": {
+        "score": "1/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 44.6→45.6→46.8%",
+          "✅ FCF 악화 741→716→670억",
+          "❌ 순부채 연속 증가 아님 (순현금 -266→-129→-194억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "AAPL",
@@ -1432,9 +1626,9 @@ window.APP_DATA = {
       "cost": 257.14,
       "price": 336.13,
       "change_pct": -0.26,
-      "value_krw": 10367,
+      "value_krw": 10365,
       "pnl_pct": 30.72,
-      "pnl_krw": 1925,
+      "pnl_krw": 1923,
       "outlook": "hold",
       "stars": 3,
       "score": 57,
@@ -1518,7 +1712,31 @@ window.APP_DATA = {
         337.0,
         336.13
       ],
-      "sector": "빅테크"
+      "sector": "빅테크",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 29.8
+        },
+        {
+          "y": "2024",
+          "m": 31.5
+        },
+        {
+          "y": "2025",
+          "m": 32.0
+        }
+      ],
+      "rule2": {
+        "score": "0/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 29.8→31.5→32.0%",
+          "❌ FCF 악화 아님 996→1,088→988억",
+          "❌ 순부채 연속 증가 아님 (순현금 -751→-667→-547억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "GOOGL",
@@ -1529,9 +1747,9 @@ window.APP_DATA = {
       "cost": 350.19779,
       "price": 349.54,
       "change_pct": 0.64,
-      "value_krw": 1158173,
+      "value_krw": 1157996,
       "pnl_pct": -0.19,
-      "pnl_krw": -76988,
+      "pnl_krw": -77165,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1617,7 +1835,31 @@ window.APP_DATA = {
         347.33,
         349.54
       ],
-      "sector": "빅테크"
+      "sector": "빅테크",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 27.4
+        },
+        {
+          "y": "2024",
+          "m": 32.1
+        },
+        {
+          "y": "2025",
+          "m": 32.0
+        }
+      ],
+      "rule2": {
+        "score": "0/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 27.4→32.1→32.0%",
+          "❌ FCF 악화 아님 695→728→733억",
+          "❌ 순부채 연속 증가 아님 (순현금 112→116→-178억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "ORCL",
@@ -1628,9 +1870,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 147.61,
       "change_pct": -1.98,
-      "value_krw": 43594,
+      "value_krw": 43587,
       "pnl_pct": -36.41,
-      "pnl_krw": -29378,
+      "pnl_krw": -29385,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1716,7 +1958,31 @@ window.APP_DATA = {
         150.59,
         147.61
       ],
-      "sector": "빅테크"
+      "sector": "빅테크",
+      "margins": [
+        {
+          "y": "2024",
+          "m": 29.0
+        },
+        {
+          "y": "2025",
+          "m": 30.8
+        },
+        {
+          "y": "2026",
+          "m": 30.6
+        }
+      ],
+      "rule2": {
+        "score": "2/3",
+        "verdict": "⚠️ 감시 등급 상향 — 매도 아님",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 29.0→30.8→30.6%",
+          "✅ FCF 악화 118→-4→-237억",
+          "✅ 순부채 2년 연속 증가 (순현금 -764→-818→-983억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "MU",
@@ -1727,9 +1993,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 1015.8,
       "change_pct": 3.92,
-      "value_krw": 27883,
+      "value_krw": 27879,
       "pnl_pct": 35.62,
-      "pnl_krw": 5998,
+      "pnl_krw": 5994,
       "outlook": "core",
       "stars": 5,
       "score": 87,
@@ -1813,7 +2079,31 @@ window.APP_DATA = {
         977.5,
         1015.8
       ],
-      "sector": "반도체·AI"
+      "sector": "반도체·AI",
+      "margins": [
+        {
+          "y": "2023",
+          "m": -37.0
+        },
+        {
+          "y": "2024",
+          "m": 5.2
+        },
+        {
+          "y": "2025",
+          "m": 26.1
+        }
+      ],
+      "rule2": {
+        "score": "0/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 -37.0→5.2→26.1%",
+          "❌ FCF 악화 아님 -61→1→17억",
+          "❌ 순부채 연속 증가 아님 (순현금 -38→-47→-25억)"
+        ],
+        "caveat": null
+      }
     },
     {
       "label": "AVGO",
@@ -1824,9 +2114,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 357.61,
       "change_pct": 2.97,
-      "value_krw": 34933,
+      "value_krw": 34928,
       "pnl_pct": -15.07,
-      "pnl_krw": -8850,
+      "pnl_krw": -8855,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -1914,7 +2204,31 @@ window.APP_DATA = {
         347.3,
         357.61
       ],
-      "sector": "반도체·AI"
+      "sector": "반도체·AI",
+      "margins": [
+        {
+          "y": "2023",
+          "m": 45.2
+        },
+        {
+          "y": "2024",
+          "m": 26.1
+        },
+        {
+          "y": "2025",
+          "m": 39.9
+        }
+      ],
+      "rule2": {
+        "score": "0/3",
+        "verdict": "✅ 정상 — 추세형 훼손 없음",
+        "detail": [
+          "❌ 영업마진 연속 하락 아님 45.2→26.1→39.9%",
+          "❌ FCF 악화 아님 176→194→269억",
+          "❌ 순부채 연속 증가 아님 (순현금 -250→-605→-509억)"
+        ],
+        "caveat": null
+      }
     }
   ],
   "watchlist": [
@@ -2973,7 +3287,7 @@ window.APP_DATA = {
       1363.57,
       1376.6,
       1379.53,
-      1372.13
+      1372.16
     ]
   },
   "kospi_history": {
@@ -23088,7 +23402,7 @@ window.APP_DATA = {
     {
       "tag": "내일(9/22 화)",
       "dir": "→",
-      "text": "관전 포인트 둘: ①외인 순매수 복귀 여부(게이트②) ②현대차 종가 361,540원 상회 여부(9/23분 트림 접수 가능선). 두산로보 78,000원은 9/22분 등록. 추격매수 금지(룰3)."
+      "text": "관전 포인트 둘: ①외인 순매수 복귀 여부(게이트②) ②현대차 종가 362,000원 상회 여부(9/23분 트림 접수 가능선). 두산로보 78,000원은 9/22분 등록. 추격매수 금지(룰3)."
     },
     {
       "tag": "이번주",
@@ -23197,7 +23511,7 @@ window.APP_DATA = {
       },
       {
         "id": "t0921-7",
-        "text": "9/22 종가 확인 → 현대차 ≥361,540원이면 9/23분 470,000원 등록 / 미만이면 연휴 전 0회 → w0920-4 결정",
+        "text": "9/22 종가 확인 → 현대차 ≥362,000원이면 9/23분 470,000원 등록 / 미만이면 연휴 전 0회 → w0920-4 결정",
         "done": false
       },
       {
@@ -23906,7 +24220,7 @@ window.APP_DATA = {
       "price": 470000,
       "shares": 1,
       "date": "2026-09-09",
-      "note": "[9/16 정훈 승인 '추천대로'] 매 거래일 전날 밤 국내 예약 1주 지정가 재등록(1거래일 소멸) · 가격 유지. 9/9~9/16 공백 원인 = notify.py 재등록 필터가 status=='예약'만 봐서 알림 누락(수정). ⚠️전일종가 361,540원 미만이면 470,000원은 +30% 상한 밖 → 접수 거부. ★[r2 9/21] 종가 359,000 → 9/22 상한가 466,500 = 9/22분 접수 불가. 9/22 종가 ≥361,540이면 9/23분 등록.",
+      "note": "[9/16 정훈 승인 '추천대로'] 매 거래일 전날 밤 국내 예약 1주 지정가 재등록(1거래일 소멸) · 가격 유지. 9/9~9/16 공백 원인 = notify.py 재등록 필터가 status=='예약'만 봐서 알림 누락(수정). ⚠️전일종가 362,000원 미만이면 470,000원은 +30% 상한 밖 → 접수 거부. ★[r2 9/21] 종가 359,000 → 9/22 상한가 466,500 = 9/22분 접수 불가. 9/22 종가 ≥362,000이면 9/23분 등록.",
       "register_policy": "always",
       "setup_id": null
     },
@@ -23990,6 +24304,140 @@ window.APP_DATA = {
   ],
   "tasks_updated": "2026-09-21",
   "today_note": "r2 토스 대조(18:16): 현금·보유 일치, 체결 0·미체결 0 — 9/21 국내 트림 2건 미등록 확인. 현대차 종가 359,000 → 9/22 상한가 466,500으로 470,000원 접수 불가(d190 경로·가격 유지). 코스피 7,007.72(+1.65%)·외인 재역전(-1,655억)으로 TF 게이트 0/3 유지.",
+  "events": [
+    {
+      "date": "2026-09-23",
+      "days_until": 2,
+      "kind": "운영",
+      "label": "국내 예약오더 추석 전 마지막 등록일",
+      "note": "두산로보·현대차 매일 등록 트림은 9/23분이 연휴 전 마지막 — 9/28 재개",
+      "confidence": "확정",
+      "type": "macro",
+      "tag": "마지막 등록",
+      "end": ""
+    },
+    {
+      "date": "2026-09-24",
+      "days_until": 3,
+      "kind": "휴장",
+      "label": "추석 휴장 · 미국은 정상",
+      "note": "KRX 9/24~25 휴장 · 9/28(월) 정상 개장",
+      "confidence": "확정",
+      "type": "macro",
+      "tag": "국내 공백",
+      "end": "2026-09-25"
+    },
+    {
+      "date": "2026-09-30",
+      "days_until": 9,
+      "kind": "PCE",
+      "label": "美 8월 PCE·근원PCE",
+      "note": "21:30 KST — 사전 조건부 룰로 베이킹",
+      "confidence": "추정",
+      "type": "macro",
+      "tag": "사전 조건부",
+      "end": ""
+    },
+    {
+      "date": "2026-09-30",
+      "days_until": 9,
+      "kind": "실적",
+      "label": "MU",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "MU",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-10-22",
+      "days_until": 31,
+      "kind": "BOK",
+      "label": "한은 금통위 금리결정",
+      "note": "오전 발표",
+      "confidence": "확정",
+      "type": "macro",
+      "tag": "",
+      "end": ""
+    },
+    {
+      "date": "2026-10-28",
+      "days_until": 37,
+      "kind": "FOMC",
+      "label": "FOMC 금리결정",
+      "note": "익일 03:00 KST — 폰창 밖",
+      "confidence": "확정",
+      "type": "macro",
+      "tag": "",
+      "end": ""
+    },
+    {
+      "date": "2026-10-28",
+      "days_until": 37,
+      "kind": "실적",
+      "label": "삼성전자",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "005930.KS",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-10-28",
+      "days_until": 37,
+      "kind": "실적",
+      "label": "META",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "META",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-10-28",
+      "days_until": 37,
+      "kind": "실적",
+      "label": "MSFT",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "MSFT",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-10-28",
+      "days_until": 37,
+      "kind": "실적",
+      "label": "GOOGL",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "GOOGL",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-10-29",
+      "days_until": 38,
+      "kind": "실적",
+      "label": "현대차",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "005380.KS",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-10-29",
+      "days_until": 38,
+      "kind": "실적",
+      "label": "AAPL",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "AAPL",
+      "tag": "보유 실적"
+    }
+  ],
   "trades": {
     "fills": 290,
     "closed_pre_desk": 0,
@@ -28227,104 +28675,104 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1372.42,
+    "fx_rate": 1372.21,
     "fx_cost_basis": 1460.9,
-    "total_krw": 8152712,
+    "total_krw": 8151798,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 5980212,
-        "weight": 73.4,
-        "stock_krw": 5062214,
-        "cash_krw": 917998
+        "value_krw": 5979298,
+        "weight": 73.3,
+        "stock_krw": 5061440,
+        "cash_krw": 917858
       },
       {
         "currency": "KRW",
         "value_krw": 2172500,
-        "weight": 26.6,
+        "weight": 26.7,
         "stock_krw": 1925000,
         "cash_krw": 247500
       }
     ],
-    "sensitivity_1pct_krw": 59802,
+    "sensitivity_1pct_krw": 59793,
     "attribution": {
       "price_krw": 408697,
-      "fx_krw": -301608,
-      "cross_krw": -24753,
-      "total_krw": 82336,
+      "fx_krw": -302324,
+      "cross_krw": -24812,
+      "total_krw": 81561,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(체결 실측·시장종가 기준)라 환 기여 절대액에 잔여 오차"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": 69795,
+        "total_krw": 69556,
         "price_krw": 170846,
-        "fx_krw": -90703,
-        "cross_krw": -10347
+        "fx_krw": -90918,
+        "cross_krw": -10372
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -76988,
+        "total_krw": -77165,
         "price_krw": -2320,
-        "fx_krw": -74808,
+        "fx_krw": -74986,
         "cross_krw": 141
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": 8297,
+        "total_krw": 8125,
         "price_krw": 80762,
-        "fx_krw": -67574,
-        "cross_krw": -4891
+        "fx_krw": -67734,
+        "cross_krw": -4903
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 113149,
+        "total_krw": 112999,
         "price_krw": 176193,
-        "fx_krw": -52373,
-        "cross_krw": -10671
+        "fx_krw": -52497,
+        "cross_krw": -10697
       },
       {
         "label": "META",
         "ticker": "META",
-        "total_krw": -1613,
+        "total_krw": -1631,
         "price_krw": 5992,
-        "fx_krw": -7242,
-        "cross_krw": -363
+        "fx_krw": -7260,
+        "cross_krw": -364
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -29378,
+        "total_krw": -29385,
         "price_krw": -26567,
-        "fx_krw": -4420,
-        "cross_krw": 1609
+        "fx_krw": -4430,
+        "cross_krw": 1613
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -8850,
+        "total_krw": -8855,
         "price_krw": -6598,
-        "fx_krw": -2652,
-        "cross_krw": 400
+        "fx_krw": -2658,
+        "cross_krw": 401
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 5998,
+        "total_krw": 5994,
         "price_krw": 7796,
-        "fx_krw": -1325,
-        "cross_krw": -472
+        "fx_krw": -1329,
+        "cross_krw": -473
       },
       {
         "label": "AAPL",
         "ticker": "AAPL",
-        "total_krw": 1925,
+        "total_krw": 1923,
         "price_krw": 2593,
-        "fx_krw": -511,
+        "fx_krw": -512,
         "cross_krw": -157
       }
     ],
@@ -28780,9 +29228,9 @@ window.APP_DATA = {
       {
         "key": "currency",
         "label": "통화 쏠림",
-        "value": 54,
+        "value": 53,
         "weight": 14,
-        "contribution": 7.5
+        "contribution": 7.4
       },
       {
         "key": "theme",
@@ -28826,7 +29274,7 @@ window.APP_DATA = {
       "hhi": 1526,
       "top_sector": "반도체·AI",
       "top_sector_weight": 39.0,
-      "usd_weight": 73.4,
+      "usd_weight": 73.3,
       "low_star_weight": 10.7,
       "losers": 5,
       "holdings": 14,
@@ -28840,7 +29288,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 73.4% · 원/달러 1년 4.8%ile. 환율 1% 변동 = 총자산 +59,802원. roadmap 3-1(목표 비중을 정할 것인가)이 아직 열린 질문."
+        "detail": "달러 자산 73.3% · 원/달러 5년 55.6%ile 중립(1년 창 4.8%ile은 결론이 뒤집혀 단독 인용 금지). 환율 1% 변동 = 총자산 +59,793원. 룰6 통화 판정 = 조정 근거 없음."
       },
       {
         "level": "warning",
@@ -28864,7 +29312,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +408,697원인데 환 기여 -301,608원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -24,753원)."
+        "detail": "미국주 종목 기여 +408,697원인데 환 기여 -302,324원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -24,812원)."
       },
       {
         "level": "info",

@@ -7,6 +7,9 @@
     {"date": "2026-08-12", "name": "美 7월 CPI", "kind": "CPI", "confidence": "확정", "kst_note": "21:30 KST — 폰창 밖(사전 조건부 룰·예약주문 베이킹)", "source": "BLS"},
     {"date": "2026-08-27", "name": "한은 금통위 금리결정", "kind": "BOK", "confidence": "확정", "kst_note": "오전 발표 — 폰창 밖이나 KRX 장중 반영, 다음 폰창 대응", "source": "BOK"},
     {"date": "2026-09-16", "name": "FOMC 금리결정 + 점도표(SEP)", "kind": "FOMC", "confidence": "확정", "kst_note": "익일 03:00 KST — 점도표 동반, 변동성 큼", "source": "Fed"},
+    {"date": "2026-09-23", "name": "국내 예약오더 추석 전 마지막 등록일", "kind": "운영", "confidence": "확정", "kst_note": "두산로보·현대차 매일 등록 트림은 9/23분이 연휴 전 마지막 — 9/28 재개", "tag": "마지막 등록", "source": "v97 이슈④"},
+    {"date": "2026-09-24", "end": "2026-09-25", "name": "추석 휴장 · 미국은 정상", "kind": "휴장", "confidence": "확정", "kst_note": "KRX 9/24~25 휴장 · 9/28(월) 정상 개장", "tag": "국내 공백", "source": "master §9 (v96 ⑥확정)"},
+    {"date": "2026-09-30", "name": "美 8월 PCE·근원PCE", "kind": "PCE", "confidence": "추정", "kst_note": "21:30 KST — 사전 조건부 룰로 베이킹", "tag": "사전 조건부", "source": "v97 macro-desk"},
     {"date": "2026-10-22", "name": "한은 금통위 금리결정", "kind": "BOK", "confidence": "확정", "kst_note": "오전 발표", "source": "BOK"},
     {"date": "2026-10-28", "name": "FOMC 금리결정", "kind": "FOMC", "confidence": "확정", "kst_note": "익일 03:00 KST — 폰창 밖", "source": "Fed"},
     {"date": "2026-12-09", "name": "FOMC 금리결정 + 점도표(SEP)", "kind": "FOMC", "confidence": "확정", "kst_note": "익일 03:00 KST — 올해 마지막, 점도표 동반", "source": "Fed"}

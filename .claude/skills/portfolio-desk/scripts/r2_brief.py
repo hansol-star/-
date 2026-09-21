@@ -75,6 +75,23 @@ def main():
     ap.add_argument("--all-orders", action="store_true", help="종결 오더까지 출력")
     a = ap.parse_args()
 
+    # ★[9/22 정훈 지시] 보고서 전 선행 작업 — 맨 위에 둔다. 아래 ①②③에 묻히면 안 읽힌다.
+    try:
+        pre = [x for x in (json.load(open(TASKS, encoding="utf-8")).get("pre_report") or [])
+               if not x.get("done")]
+    except Exception:
+        pre = []
+    if pre:
+        print("=" * 72)
+        print(f"🔔 보고서 전 선행 작업 {len(pre)}건 — 정훈에게 **'이거 먼저 해야 됩니다'**로 먼저 알리고 처리")
+        print("   (무인 루틴이면 물어볼 사람이 없다 → 처리하고 결과를 보고서에 적는다. 끝내면 tasks.json pre_report done=true)")
+        print("=" * 72)
+        for x in pre:
+            print(f"   - {x.get('id')} ({x.get('added')}): {_clip(x.get('text'), 200)}")
+            if x.get("how"):
+                print(f"       방법: {_clip(x.get('how'), 160)}")
+        print()
+
     rp = latest_report()
     print("=" * 72)
     print(f"① 직전 보고서: {os.path.relpath(rp, ROOT) if rp else '없음'}")

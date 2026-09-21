@@ -30,6 +30,7 @@ description: 정훈의 일일 투자 포트폴리오 보고서 생성 파이프�
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/r2_brief.py
    ```
+   - ★[9/22 정훈 지시] **r2_brief 맨 위 🔔 '보고서 전 선행 작업' 블록이 있으면 보고서를 시작하기 전에 정훈에게 먼저 말한다** — *"보고서 전에 이거 먼저 해야 됩니다: …"*(항목·이유·방법 한 줄씩) → 처리 → `tasks.json` `pre_report` done=true + done_note. 무인 루틴은 물어볼 사람이 없으니 처리하고 결과를 보고서에 적는다. 건너뛰고 보고서를 내면 `check_pre_report`가 WARN. 세션을 끝내며 '다음에 할 것'이 남으면 채팅 산문으로 두지 말고 이 목록에 넣는다.
    - 직전 보고서 **전문**·tasks.json·stocks.json을 통째로 Read하지 않는다(9/10 R2: 전문 2만 자 + tasks 3만 자 + stocks 5회 재독 → 메인 59→94턴). 수정할 때만 해당 구간을 offset/Grep으로 연다. **같은 파일 재독 금지.**
    - 데스크는 백그라운드로 띄우고 완료 알림을 기다린다 — `ListAgents` 반복 확인 금지(턴마다 전체 컨텍스트를 다시 읽는다).
    - 보고서 본문은 **Write 1회로 완성**하고, validate FAIL만 핀포인트 Edit한다(섹션별 조각 Edit 금지).

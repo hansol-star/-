@@ -2037,6 +2037,30 @@ def check_monthly_dca(today=None):
          "(룰9는 타이밍 판단 없이 돈을 넣는 유일한 경로다)")
 
 
+def check_pre_report(latest=None):
+    """보고서 전 선행 작업(tasks.json pre_report)이 보고서가 나온 뒤에도 미완이면 잡는다 [9/22 신설].
+
+    ★[9/22 정훈 지시] *"나머지는 내일 보고서 작성하라고 하면 너가 자동으로 이거 먼저 해야 된다고 말해줘"* —
+    세션 끝에 남긴 "다음에 할 것"은 지금까지 채팅 산문으로만 남아 다음 세션이 못 봤다.
+    r2_brief.py가 맨 위에 띄우고, 이 검사는 **그 뒤에 나온 보고서가 그걸 건너뛰었는지**를 본다
+    (추가일 < 최신 보고서 날짜인데 done=false = 알리지도 처리하지도 않고 보고서를 냈다).
+    """
+    tasks = _json_opt("data/app/tasks.json") or {}
+    pre = [x for x in (tasks.get("pre_report") or []) if isinstance(x, dict) and not x.get("done")]
+    if not pre:
+        return
+    latest = latest if latest is not None else latest_version()
+    rel = latest_report_path(latest) if latest is not None else None
+    m = re.search(r"_(\d{4}-\d{2}-\d{2})", rel or "")
+    if not m:
+        return
+    skipped = [x for x in pre if str(x.get("added") or "9999")[:10] < m.group(1)]
+    if skipped:
+        warn(f"보고서 전 선행 작업 {len(skipped)}건이 v{latest}({m.group(1)}) 이후에도 미완 — "
+             + " / ".join(f"{x.get('id')}: {str(x.get('text'))[:60]}" for x in skipped[:3])
+             + " → 처리 후 tasks.json pre_report done=true(+done_note), 못 하면 사유를 done_note에")
+
+
 _PROSE_STALE_DAYS = 14
 # 폐기된 룰·개념을 **현행 조건처럼** 적은 산문. check_repealed_rules는 docs만 보고 7,500 숫자를
 # 요구해서 stocks.json의 "②안전핀 해제" 같은 조건문은 두 겹으로 빠져나갔다.
@@ -2673,7 +2697,7 @@ def main():
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_monthly_dca()
-    check_routine_health(); check_memory_index(); check_watch_calls(latest); check_watch_prose()
+    check_routine_health(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest)
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
     check_split_scale()

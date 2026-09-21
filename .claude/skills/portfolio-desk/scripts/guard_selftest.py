@@ -586,6 +586,22 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_pre_report",
+        "desc": "보고서 전 선행 작업이 미완인 채 다음 보고서가 나오면 잡는가",
+        "why": "9/22 정훈 지시 — '다음 보고서 때 먼저 할 것'이 채팅 산문으로만 남으면 다음 세션이 못 본다. "
+               "r2_brief가 맨 위에 띄워도 건너뛰고 보고서를 낼 수 있다 — 픽스처 = 9/22 추가 항목이 9/23 보고서 뒤에도 done=false",
+        "pattern": r"보고서 전 선행 작업 \d+건",
+        "violate": {"data/app/tasks.json": json.dumps({"pre_report": [
+                        {"id": "pre-0922-1", "added": "2026-09-22", "done": False, "text": "워치 스코어 재채점"}]}, ensure_ascii=False),
+                    "docs/reports/report_v98_2026-09-23.md": "# v98\n"},
+        "clean": {"data/app/tasks.json": json.dumps({"pre_report": [
+                      {"id": "pre-0922-1", "added": "2026-09-22", "done": True, "text": "워치 스코어 재채점",
+                       "done_note": "v98에서 처리"}]}, ensure_ascii=False),
+                  "docs/reports/report_v98_2026-09-23.md": "# v98\n"},
+        "args": (98,),
+    },
+
+    {
         "name": "check_guru_consistency",
         "desc": "대가 서술의 첫 판정이 13F 팩트(action)와 어긋나면 잡는가",
         "why": "9/21 실사고 — 13F 재수집(9/17) 뒤 숫자는 Q2로 바뀌었는데 애크먼 행 문장은 Q1 것이 남아 "

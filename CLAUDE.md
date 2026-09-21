@@ -266,12 +266,13 @@
 | 2차 매체 받아쓰기 | `check_primary_source` |
 | 만든 도구가 안 불림 | `wiring_audit.py` |
 | 백테스트 미래참조 | `lookahead_guard.py` |
-| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 30/46 — **미등록 16개가 결핍 목록**) |
+| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 31/47 — **미등록 16개가 결핍 목록**) |
 | 루틴 실패 침묵 | `check_routine_health` |
 | 자막 유실 | `check_transcript_persistence` |
 | 의미검색 인덱스 stale | `check_memory_index` |
 | 워치 별점이 채점에서 새는 것 | `check_watch_calls`(9/14 — 3개월간 매일 22건 만들어 매일 버리고 있었다) |
 | 종목 산문이 낡거나 폐기 룰을 현행처럼 적음 | `check_watch_prose`(9/22 — 워치 11종이 한 달 방치, as_of만 신선했다) |
+| 이월 작업을 건너뛰고 보고서를 냄 | `check_pre_report`(9/22 — tasks.json `pre_report` → r2_brief 맨 위 🔔, 보고서 전 "이거 먼저 해야 됩니다") |
 | 토스에 계획과 다른 주문이 걸림 | `order_check.py` + `check_order_check`(9/21 — 폐기 오더 NAVER 196,400이 실제 접수됐는데 아무도 몰랐다) |
 | 룰9 월 정액 적립 누락 | `check_monthly_dca`(9/21 — 매월 20일부터) |
 | 대가 서술 ↔ 13F 팩트 반대 | `check_guru_consistency`(9/21) |

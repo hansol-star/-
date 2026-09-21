@@ -1,22 +1,22 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-09-22 00:09 KST",
+  "generated_at": "2026-09-22 00:21 KST",
   "as_of": "2026-09-21 18:16",
   "source_report": "docs/reports/report_v97_2026-09-21.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1374.38
+    "usdkrw": 1374.89
   },
   "totals": {
-    "assets_krw": 8220191,
-    "stocks_value_krw": 7053382,
+    "assets_krw": 8225009,
+    "stocks_value_krw": 7057859,
     "cash_krw": 247500,
     "cash_usd": 668.89,
-    "cash_usd_krw": 919309,
-    "day_change_krw": 109637,
-    "day_change_pct": 1.58,
-    "total_pnl_krw": -132197,
-    "total_pnl_pct": -1.84
+    "cash_usd_krw": 919650,
+    "day_change_krw": 112234,
+    "day_change_pct": 1.62,
+    "total_pnl_krw": -127720,
+    "total_pnl_pct": -1.78
   },
   "safety": {
     "price": 7007.72,
@@ -28,12 +28,12 @@ window.APP_DATA = {
     "next_gap_pct": 1.9,
     "halted": false,
     "floor_note": "S&P500 폭풍 20%ile <70 = 국지 유지(개정 전제 성립)",
-    "cap_krw": 117417,
-    "spent_krw": 300909,
-    "allowed_krw": 0,
+    "cap_krw": 19800,
+    "spent_krw": 0,
+    "allowed_krw": 19800,
     "peak": 9114.55,
     "peak_date": "2026-06-22",
-    "base_krw": 1467718,
+    "base_krw": 247500,
     "mult": 1.0,
     "reserve_pct": 7.0,
     "steps": [
@@ -42,14 +42,14 @@ window.APP_DATA = {
         "thr": -20.0,
         "alloc_pct": 8.0,
         "why": "0차 — 얕은 조정. 12M 중앙 +9.5%·승률 75%(표본 855)",
-        "executed_krw": 57472.0
+        "executed_krw": null
       },
       {
         "label": "D1",
         "thr": -25.0,
         "alloc_pct": 15.0,
         "why": "1차 — 통상 조정 하단",
-        "executed_krw": 243437.0
+        "executed_krw": null
       },
       {
         "label": "D2",
@@ -73,7 +73,7 @@ window.APP_DATA = {
         "executed_krw": null
       }
     ],
-    "status": "spent"
+    "status": "watch"
   },
   "indices": [
     {
@@ -91,26 +91,26 @@ window.APP_DATA = {
     {
       "label": "S&P500",
       "ticker": "^GSPC",
-      "price": 7725.39,
-      "change_pct": 0.98
+      "price": 7730.96,
+      "change_pct": 1.05
     },
     {
       "label": "나스닥",
       "ticker": "^IXIC",
-      "price": 26946.053,
-      "change_pct": 1.6
+      "price": 26953.428,
+      "change_pct": 1.62
     },
     {
       "label": "다우",
       "ticker": "^DJI",
-      "price": 51894.72,
-      "change_pct": 0.41
+      "price": 51935.19,
+      "change_pct": 0.49
     },
     {
       "label": "필라델피아반도체",
       "ticker": "^SOX",
-      "price": 12321.396,
-      "change_pct": 3.35
+      "price": 12323.829,
+      "change_pct": 3.37
     }
   ],
   "alerts": [
@@ -351,7 +351,7 @@ window.APP_DATA = {
       "high": null,
       "when": null,
       "action": "[7/6 체결 확인] 1주 매도·총판매액 $313.77(＄308 지정가 상단 초과 유리 체결)·수수료 $0.31·제세금 $0.01·순수령 $313.45(입금 7/8). 원가 $257.14 대비 +21.9% 익절. 잔여 1.022472주+분수는 글라스 옵셔널리티로 유지. 대금은 GOOGL $340/$330 재배치로 이동(아래 항목).",
-      "price": 337.315,
+      "price": 337.79,
       "fired": null
     },
     {
@@ -363,7 +363,7 @@ window.APP_DATA = {
       "high": null,
       "when": null,
       "action": "[8/11 체결 확인·전량 청산] 8/5 절반 $30.17 → 8/11 잔여 0.141767주 $27.29 매도. 정훈 지시 \"절반안은 잔량 소액이라 실익 없음\" → 워치 전환·재진입 조건부. ⚠️ 매도 직후 8/11 종가 $197.85(+3.31%)로 반등 — Citi PT $173→$215(8/5)·FY26 가이던스 $12.6B(+40%) 상향. 재진입은 가격조정 시 조건부(추격금지 룰3).",
-      "price": 202.745,
+      "price": 202.148,
       "fired": null
     },
     {
@@ -483,7 +483,7 @@ window.APP_DATA = {
       "high": null,
       "when": null,
       "action": "[9/17 정훈 승인 d191] 매수 우선순위 ② 눌림존 $880~900 진입. 해금 잔여에서 GOOGL 18% 상한분을 뺀 금액을 $로 산정해 소수점 시장가. 당일 +3% 이상 급등 반등이면 다음 날로(룰3). 자동 집행 아님.",
-      "price": 955.165,
+      "price": 952.61,
       "fired": false
     },
     {
@@ -495,7 +495,7 @@ window.APP_DATA = {
       "high": null,
       "when": null,
       "action": "[9/17 정훈 승인 d191] 매수 우선순위 ③ 눌림존 $180~190 진입. GEV 다음 순서. TTM PER 64배로 역사 상단 — 분할 필수. 자동 집행 아님.",
-      "price": 202.745,
+      "price": 202.148,
       "fired": false
     }
   ],
@@ -516,7 +516,7 @@ window.APP_DATA = {
       "stars": 5,
       "score": 93,
       "target": "342,801원~493,299원 (중심 418,050원·12M)",
-      "buy_zone": "🔴 사다리 잔여 0원(d197 누적 해석 — 상한 117,439 < 기집행 300,909) → 국내 신규매수 물리적 불가(룰6 국내 27.5%>22%도 중첩)",
+      "buy_zone": "🟡 국내 사다리 D0 잔여 19,800원(원화 247,500 × 8% · d205 국내 트랙) < 1주 → 적립만. 룰6 국내 27.5% > 상단 22%도 중첩",
       "trim": "—",
       "forecast": {
         "week": {
@@ -1125,11 +1125,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 5.138203,
       "cost": 199.51,
-      "price": 225.445,
-      "change_pct": 1.43,
-      "value_krw": 1592057,
-      "pnl_pct": 13.0,
-      "pnl_krw": 94455,
+      "price": 225.19,
+      "change_pct": 1.31,
+      "value_krw": 1590847,
+      "pnl_pct": 12.87,
+      "pnl_krw": 93245,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1235,7 +1235,7 @@ window.APP_DATA = {
         213.9,
         219.34,
         222.27,
-        225.45
+        225.19
       ],
       "sector": "반도체·AI",
       "margins": [
@@ -1270,11 +1270,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.129111,
       "cost": 633.98,
-      "price": 708.665,
-      "change_pct": 6.45,
-      "value_krw": 125751,
-      "pnl_pct": 11.78,
-      "pnl_krw": 6171,
+      "price": 711.88,
+      "change_pct": 6.93,
+      "value_krw": 126368,
+      "pnl_pct": 12.29,
+      "pnl_krw": 6788,
       "outlook": "core",
       "stars": 2,
       "score": 48,
@@ -1359,7 +1359,7 @@ window.APP_DATA = {
         673.31,
         682.31,
         665.75,
-        708.66
+        711.88
       ],
       "sector": "빅테크",
       "margins": [
@@ -1394,16 +1394,16 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.167038,
       "cost": 654.41,
-      "price": 709.161,
-      "change_pct": 1.05,
-      "value_krw": 1137461,
-      "pnl_pct": 8.37,
-      "pnl_krw": 21741,
+      "price": 709.65,
+      "change_pct": 1.12,
+      "value_krw": 1138668,
+      "pnl_pct": 8.44,
+      "pnl_krw": 22948,
       "outlook": "core",
       "stars": 4,
       "score": null,
       "target": "ETF",
-      "buy_zone": "룰9 적립: 7·8월 체결 · 9월분 미집행 — 9월 신규 입금 없음(원화 현금 9/4~9/18 267,500원 불변). 재원 = 신규 입금 전용이라 입금이 곧 집행 트리거",
+      "buy_zone": "🇺🇸 미국 트랙 1회차 $134.44 — GOOGL 18% 상한을 넘는 몫(9/21 d205). 룰9 정액 적립(월 10만원·신규 입금)은 별도 — 9월분 미집행(9월 신규 입금 없음)",
       "trim": "—",
       "forecast": {
         "week": {
@@ -1493,7 +1493,7 @@ window.APP_DATA = {
         693.24,
         701.03,
         701.78,
-        709.16
+        709.65
       ],
       "sector": "지수ETF",
       "margins": [],
@@ -1506,11 +1506,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 1.443,
       "cost": 410.2,
-      "price": 493.285,
-      "change_pct": -0.1,
-      "value_krw": 978298,
-      "pnl_pct": 20.25,
-      "pnl_krw": 113564,
+      "price": 492.897,
+      "change_pct": -0.18,
+      "value_krw": 977891,
+      "pnl_pct": 20.16,
+      "pnl_krw": 113157,
       "outlook": "core",
       "stars": 4,
       "score": 76,
@@ -1585,7 +1585,7 @@ window.APP_DATA = {
         490.3,
         497.75,
         493.78,
-        493.29
+        492.9
       ],
       "sector": "빅테크",
       "margins": [
@@ -1620,11 +1620,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.022472,
       "cost": 257.14,
-      "price": 337.315,
-      "change_pct": 0.35,
-      "value_krw": 10418,
-      "pnl_pct": 31.18,
-      "pnl_krw": 1976,
+      "price": 337.79,
+      "change_pct": 0.49,
+      "value_krw": 10437,
+      "pnl_pct": 31.36,
+      "pnl_krw": 1995,
       "outlook": "hold",
       "stars": 3,
       "score": 57,
@@ -1705,7 +1705,7 @@ window.APP_DATA = {
         332.41,
         337.0,
         336.13,
-        337.32
+        337.87
       ],
       "sector": "빅테크",
       "margins": [
@@ -1740,16 +1740,16 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 2.41429,
       "cost": 350.19779,
-      "price": 354.62,
-      "change_pct": 1.45,
-      "value_krw": 1176683,
-      "pnl_pct": 1.26,
-      "pnl_krw": -58477,
+      "price": 355.74,
+      "change_pct": 1.77,
+      "value_krw": 1180837,
+      "pnl_pct": 1.58,
+      "pnl_krw": -54323,
       "outlook": "core",
       "stars": 5,
       "score": 88,
       "target": "$340~$462 (중심 $401·12M)",
-      "buy_zone": "🎯 매수 1순위 유지 — 단 오늘은 닫힘. 조건부 대기 = 코스피 종가 6,836 미만(D1 재해금)인 날 밤 $29 소수점 시장가. 비중 16.7%로 18% 상한까지 여력 88,081원(≈$63.6). ⚠️split②는 자체 조건 발동으로 취소",
+      "buy_zone": "🇺🇸 미국 트랙 1회차 $88.52 — 비중 16.6% → 18% 상한까지(9/21 d205). 다음 회차 10/21·11/23 (그날 잔고 ÷ 남은 회차). 코스피 조건 없음 · 당일 +3% 급등이면 다음 거래일(룰3)",
       "trim": "—",
       "forecast": {
         "week": {
@@ -1827,7 +1827,7 @@ window.APP_DATA = {
         342.87,
         347.33,
         349.54,
-        354.62
+        355.74
       ],
       "sector": "빅테크",
       "margins": [
@@ -1862,11 +1862,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.21519,
       "cost": 232.12,
-      "price": 148.91,
-      "change_pct": 0.88,
-      "value_krw": 44041,
-      "pnl_pct": -35.85,
-      "pnl_krw": -28931,
+      "price": 149.095,
+      "change_pct": 1.01,
+      "value_krw": 44112,
+      "pnl_pct": -35.77,
+      "pnl_krw": -28860,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1949,7 +1949,7 @@ window.APP_DATA = {
         143.16,
         150.59,
         147.61,
-        148.91
+        149.1
       ],
       "sector": "빅테크",
       "margins": [
@@ -1984,11 +1984,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.020001,
       "cost": 749.0,
-      "price": 1040.26,
-      "change_pct": 2.41,
-      "value_krw": 28596,
-      "pnl_pct": 38.89,
-      "pnl_krw": 6710,
+      "price": 1039.638,
+      "change_pct": 2.35,
+      "value_krw": 28589,
+      "pnl_pct": 38.8,
+      "pnl_krw": 6704,
       "outlook": "core",
       "stars": 5,
       "score": 87,
@@ -2069,7 +2069,7 @@ window.APP_DATA = {
         926.55,
         977.5,
         1015.8,
-        1039.9
+        1039.59
       ],
       "sector": "반도체·AI",
       "margins": [
@@ -2104,11 +2104,11 @@ window.APP_DATA = {
       "currency": "USD",
       "shares": 0.071177,
       "cost": 421.06,
-      "price": 358.571,
-      "change_pct": 0.27,
-      "value_krw": 35077,
-      "pnl_pct": -14.84,
-      "pnl_krw": -8706,
+      "price": 358.78,
+      "change_pct": 0.33,
+      "value_krw": 35110,
+      "pnl_pct": -14.79,
+      "pnl_krw": -8672,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -2193,7 +2193,7 @@ window.APP_DATA = {
         339.51,
         347.3,
         357.61,
-        358.57
+        358.78
       ],
       "sector": "반도체·AI",
       "margins": [
@@ -2474,8 +2474,8 @@ window.APP_DATA = {
       "label": "GE Vernova",
       "ticker": "GEV",
       "currency": "USD",
-      "price": 955.165,
-      "change_pct": 1.58,
+      "price": 952.61,
+      "change_pct": 1.31,
       "stars": 4,
       "score": 79,
       "target": "컨센 $1,237(33명·+34%) · Jefferies $1,185(9/11) · Morgan Stanley $1,350(7월) · GLJ Sell $470",
@@ -2869,8 +2869,8 @@ window.APP_DATA = {
       "label": "T-Mobile",
       "ticker": "TMUS",
       "currency": "USD",
-      "price": 166.281,
-      "change_pct": 0.0,
+      "price": 166.34,
+      "change_pct": -1.09,
       "stars": 3,
       "score": 62,
       "target": "—",
@@ -2939,8 +2939,8 @@ window.APP_DATA = {
       "label": "팔란티어",
       "ticker": "PLTR",
       "currency": "USD",
-      "price": 181.945,
-      "change_pct": 2.42,
+      "price": 181.73,
+      "change_pct": 2.3,
       "stars": 3,
       "score": 61,
       "target": "$185~200 (+42~53%)",
@@ -3004,8 +3004,8 @@ window.APP_DATA = {
       "label": "AMD",
       "ticker": "AMD",
       "currency": "USD",
-      "price": 612.904,
-      "change_pct": 9.48,
+      "price": 611.02,
+      "change_pct": 9.15,
       "stars": 4,
       "score": 78,
       "target": "$541.66 컨센 (고$725/저$320, Strong Buy 47명) — 현재가 상회(괴리-1.5%)",
@@ -3144,8 +3144,8 @@ window.APP_DATA = {
       "label": "Arista Networks",
       "ticker": "ANET",
       "currency": "USD",
-      "price": 202.745,
-      "change_pct": 1.68,
+      "price": 202.148,
+      "change_pct": 1.38,
       "stars": 4,
       "score": 84,
       "target": "컨센 $241(28명·+21%)",
@@ -3174,8 +3174,8 @@ window.APP_DATA = {
       "label": "TSMC",
       "ticker": "TSM",
       "currency": "USD",
-      "price": 441.115,
-      "change_pct": 1.48,
+      "price": 441.0,
+      "change_pct": 1.46,
       "stars": 4,
       "score": 82,
       "target": "컨센 $551(20명·+31.7%)",
@@ -3194,8 +3194,8 @@ window.APP_DATA = {
       "label": "Applied Materials",
       "ticker": "AMAT",
       "currency": "USD",
-      "price": 460.35,
-      "change_pct": 3.55,
+      "price": 461.25,
+      "change_pct": 3.75,
       "stars": 3,
       "score": 62,
       "target": "컨센 $641(35명·+51.4%)",
@@ -3278,7 +3278,7 @@ window.APP_DATA = {
       1363.57,
       1376.6,
       1379.53,
-      1374.38
+      1374.91
     ]
   },
   "kospi_history": {
@@ -21782,13 +21782,48 @@ window.APP_DATA = {
         "refs": "docs/routines.md §C3,.claude/routines/run_routine.ps1,docs/research/local_regression_audit_2026-09-10.md"
       },
       {
+        "id": "d207",
+        "date": "2026-09-22",
+        "topic": "국내 사다리 재검토 — 룰6 우선 명시 + 놀고 있는 원화를 미국 트랙으로 (정훈 승인 대기)",
+        "decision": "[제안·미적용] ①순서 = 룰6(어디에) → 국내 사다리(얼마나 빨리): 국내 비중 > 22%인 동안 국내 사다리는 판정·적립만, 22% 이하(현 구성 코스피 약 -42.5%)가 되면 상한만큼 집행 ②원화 247,500원을 룰6 ⓐ 신규 입금과 같이 취급 — 국내 상단 초과 동안 달러로 환전해 미국 트랙 남은 회차에 합류(재원 $669 → 약 $849)",
+        "rationale": "ladder_variants_test.py (B): 코스피 -25~-20%에서 '-35% 오면 전액 코스피, 12M 안 오면 S&P P3'(R12) vs 지금 S&P P3 — 24M 중앙 -15.35%p·승률 16.6%·에피소드 0/6·횡단면 2/18. 12M 안 -35% 도달 29.3%. 쓰인 경우만 보면 +49.45%p(보험료 > 보험금). 원화 247,500원은 D4 누적 93%로도 23만원 < 삼성 1주 = 사실상 -35~-45% 대기 실탄. 룰6 국내 27.4%는 코스피 -42.5%까지 국내 추가를 막는 방향. 환율 5y 55.6%ile 중립.",
+        "rejected": "국내 사다리 폐지(7/20 재발 위험) · 사다리 우선(룰6 위험 논거와 충돌, 1주 불가) · 달러 실탄 유보(검정 기각) · 현행 유지(두 룰이 같은 돈에 다른 말)",
+        "status": "open",
+        "tags": [
+          "룰1",
+          "룰6",
+          "국내사다리",
+          "정훈승인대기",
+          "d205후속"
+        ],
+        "refs": "docs/research/ladder_variants_2026-09-22.md"
+      }
+    ],
+    "closed": [
+      {
+        "id": "d208",
+        "date": "2026-09-22",
+        "topic": "미국 트랙에 S&P 낙폭 사다리를 만들지 않는다",
+        "decision": "P3(3회 균등 분할) 유지. 순수 낙폭 사다리(SL)·분할 중 -10% 가속(PA) 둘 다 채택 안 함",
+        "rationale": "ladder_variants_test.py (C), S&P 1970~ 14,047 시작점: SL−P3 12M 중앙 -1.58·하위5% -24.53·에피소드 24/81·횡단면 7/20 = 탈락. PA는 발동분(42.1%) 중앙 +0.80·10/11·19/20로 사전등록 통과했으나 대조군(낙폭 없이 일시 매수) +0.92·하위5% -2.59가 더 크고 20개 중 10개 시장에서 대조군 ≥ PA = 이득의 정체는 낙폭 정보가 아니라 드리프트. S&P 자기 낙폭 구간별 12M 중앙 +9.6~13.4% 평평. 교훈: ①②③ 통과는 필요조건 — 통과한 변형엔 '신호 없이 같은 행동' 대조군을 붙인다.",
+        "rejected": "SL(현금 대기 비용) · PA(드리프트) · 분할 단축(금액 약 $6, 꼬리 보험 상실)",
+        "status": "closed",
+        "tags": [
+          "룰1",
+          "미국트랙",
+          "d205후속",
+          "검정"
+        ],
+        "refs": "docs/research/ladder_variants_2026-09-22.md"
+      },
+      {
         "id": "d205",
         "date": "2026-09-21",
         "topic": "룰1 트랙 분리 — 미국주 매수를 코스피 사다리에서 떼어낼지 (정훈 승인 대기)",
         "decision": "[제안·미적용] 국내 트랙 = 현행 코스피 사다리(원화 재원) 유지 / 미국 트랙 = 달러 재원을 코스피 낙폭과 무관하게 3개월 균등 분할(월 1회) · S&P 폭풍 ≥70 하드플로어 유지 · 회차 대상 = 매수존 안 우선순위 종목 → 없으면 GOOGL(18% 상한 내) → 상한이면 VOO. 정훈 승인 전까지 현행 룰 그대로.",
         "rationale": "us_track_test.py(9/21): 사다리 집행 300,909원이 전부 GOOGL(미국주)인데 사다리 근거는 코스피 자신의 forward 수익률이다. ① 12M P3-G 중앙 +2.29%p(현금 3%에도 +1.86)·승률 73.5%·하위5% -6.03 / 24M +3.06 ② 선례 정의(d0_test, 신고가 구간) 6/6 ✅ · 사전등록 정의(TF 구간 2/3) 24/38 ❌ — 비승리 14개 중 14개가 무차이(±0.5, 시작일 4.9%), 실질 손실 4개 중 큰 것은 2000-02 닷컴 약세장 1개(-3.85, 489일) ③ 게이팅 지수 19개 중 19개 P 우위. 보조: 코스피 낙폭 구간별 S&P 12M 중앙 10.0~18.4% 전부 양수(깊을수록 승률 57~59%로 분산만 커짐) = 코스피 낙폭은 미국 매수 타이밍 정보가 아니다. 원래 설계(crash_tf §6.5)도 '미장은 안전핀 무관 별도 트랙'이었고 7/30 개정 뒤 조용히 흡수됐다.",
         "rejected": "①현행 유지 — 룰6(신규 입금 100% 미국)과 모순: 입금이 들어와도 쓸 문이 없다 ②일시 매수 — 12M 중앙 +4.99로 더 높지만 하위5% -9.14로 꼬리가 커서 기각 ③6개월 분할 — 중앙 +0.99로 이득 대부분 소실 ④미국 자체 낙폭 사다리 — 검정 안 한 새 파라미터(과적합 위험)",
-        "status": "open",
+        "status": "closed",
         "tags": [
           "룰1",
           "사다리",
@@ -21797,9 +21832,7 @@ window.APP_DATA = {
           "us_track_test"
         ],
         "refs": "docs/research/us_track_test_2026-09-21.md,docs/crash_tf.md#2b"
-      }
-    ],
-    "closed": [
+      },
       {
         "id": "d203",
         "date": "2026-09-21",
@@ -21816,6 +21849,22 @@ window.APP_DATA = {
           "해석확정"
         ],
         "refs": "docs/crash_tf.md#2b,docs/reports/report_v96_2026-09-20.md"
+      },
+      {
+        "id": "d206",
+        "date": "2026-09-21",
+        "topic": "룰1 트랙 분리 적용(d205 승인)",
+        "decision": "코스피 사다리=국내 트랙(원화만) · 미국 트랙=달러 3회 균등 분할(월1회·코스피 무관·같은 하드플로어 연기) 적용. 1회차 $222.96=GOOGL $88.52+VOO $134.44 · 다음 10/21·11/23",
+        "rationale": "정훈 '승인, 적용해줘'. 舊 기집행 300,909원(전부 GOOGL)은 legacy 이관 — 국내 트랙이 영구 0원이 되는 걸 막음. tranche_rules us_track·order_check·rule_tracker·앱 분리",
+        "rejected": "舊 기집행 국내 트랙 유지(영구 0원) · 현행 유지(룰6 모순)",
+        "status": "closed",
+        "tags": [
+          "룰1",
+          "사다리",
+          "미국트랙",
+          "d205"
+        ],
+        "refs": "docs/crash_tf.md §2b; docs/research/us_track_test_2026-09-21.md"
       },
       {
         "id": "d202",
@@ -22021,59 +22070,10 @@ window.APP_DATA = {
           "측정전용"
         ],
         "refs": ""
-      },
-      {
-        "id": "d187",
-        "date": "2026-09-14",
-        "topic": "별점 채점에 베타조정(젠센) 알파 축 신설",
-        "decision": "star_validate --beta-adj 신설. 알파 = fr - beta*br. 베타는 2025-09-01 이후 일간수익 OLS, 표본 60일 미만은 미적용.",
-        "rationale": "舊 알파가 단순 차분(fr-br)이라 베타 미조정이었다. 실측 ⭐5 평균 베타 1.98(NVDA 1.91·MU 3.32) vs ⭐2 1.09, 별점↔베타 r=+0.35 — 벤치가 빠지는 구간에서 고베타는 품질과 무관하게 음알파가 찍힌다. 레짐이 부호를 뒤집은 것(폭락기 -7.06%p vs 반등기 +2.39%p)이 베타 미조정의 교과서적 징후였다. 젠센 알파로 재면 역전 폭이 절반으로 준다(20일 -4.26→-2.15%p). 다만 부호는 안 바뀌어 '절반은 허상, 절반은 남았다'가 정확한 서술이다.",
-        "rejected": "단순차분 축 폐기 — 두 축을 나란히 두고 갈리는지 보는 쪽을 택했다. 단일 베타를 전 기간에 적용하는 한계(시변 베타 아님)와 베타 추정 자체가 폭락장을 포함하는 상향 편의가 있다.",
-        "status": "closed",
-        "tags": [
-          "채점",
-          "캘리브레이션",
-          "측정전용"
-        ],
-        "refs": ""
-      },
-      {
-        "id": "d183",
-        "date": "2026-09-12",
-        "topic": "정훈 결정 대기 재촉 — d150·d151 16일 방치로 게이트 FAIL(R3 12회차)",
-        "decision": "둘 다 PM 디폴트 종결하지 않는다 — 정훈 승인 대기 유지 · 대신 d151의 기각 근거가 소멸한 사실을 새 증거로 올린다",
-        "rationale": "check_pending_decisions가 d150·d151을 16일 방치로 FAIL로 올렸고, 가드 문구는 '정훈에게 다시 올리거나 PM 디폴트로 종결할 것'이다. 둘 다 룰 인접 사안(d150=룰2 3번째 조건 설계 / d151=오더 등록선 산식)이라 CLAUDE.md상 PM이 단독 종결할 수 없다 ⇒ 재촉 경로를 택한다. ★새 증거 = d151의 기각 사유('ⓑ선 폐지=매일 등록'은 폰창 하루 3시간20분·오더 1거래일 소멸이라 실행 불가)는 **9/3 정훈 폰 상시 보유 전환으로 전제가 소멸했다**(CLAUDE.md 운영제약이 d151ⓑ를 재검토 대상으로 명시). 즉 기각된 대안이 이제 물리적으로 가능해졌으므로 d151은 '산식 재설계'가 아니라 '매일 등록으로 전환할지'부터 다시 물어야 한다. d150은 전제 변화 없음 — 다른 종목에서 M&A 한 건이 2/3를 3/3으로 밀어 등급을 뒤집을 위험이 그대로 남아 있다(두산로보 자체는 마진·FCF 독립 2건이라 방향 불변).",
-        "rejected": "①PM 디폴트 종결 — 기각(룰 변경을 무인 세션이 확정하는 것이라 CLAUDE.md 위반) ②date를 오늘로 갱신해 FAIL을 끄기 — 기각(방치 일수를 조작해 SLA 가드를 무력화하는 것. 8/22~8/24 '초록불 ≠ 위반 없음' 교훈의 정반대 행위다) ③게이트 FAIL을 이유로 R3 산출물을 커밋하지 않기 — 기각(연속성 규약상 미머지分은 다음 세션에서 소실되고, 이 FAIL은 내 변경과 무관한 선행 상태다)",
-        "status": "closed",
-        "tags": [
-          "결정대기",
-          "재촉",
-          "d150",
-          "d151",
-          "게이트FAIL",
-          "R3"
-        ],
-        "refs": "validate_report.check_pending_decisions · docs/research/call_scorecard.md 2026-09-12 · CLAUDE.md 운영제약(9/3 폰 상시)"
-      },
-      {
-        "id": "d177",
-        "date": "2026-09-09",
-        "topic": "d155 종결 — '무인 루틴은 웹 유지 권고'는 정훈 9/1 지시로 이미 뒤집혔다",
-        "decision": "d155(로컬 이전 1단계·무인은 웹 유지 권고)를 closed 처리. 실제로는 9/1 정훈 지시 '무인 다 로컬로 빼자'로 경로 B(윈도우 작업 스케줄러)가 확정·가동 중이고, 오늘 9/9 기준 R1~R4c 6개 태스크가 전부 Ready다. 열린 아젠다로 11일간 남아 validate가 매 세션 '재촉 필요'를 띄우고 있었다.",
-        "rationale": "결정이 현실에 의해 이미 뒤집혔는데 원장에 open으로 남으면, 가드가 '정훈 응답 대기'라고 잘못 보고한다 — 8/23 check_repealed_rules와 같은 클래스(폐기된 것이 정본에 살아 있는 상태). 상태를 현실에 맞춘다.",
-        "rejected": "①그대로 두고 다음 세션에 판단 — 기각(11일째 같은 WARN이 떴다. '재검토 없는 방치는 결정이 아니다') ②웹 병행 유지를 다시 검토 — 기각(웹 루틴은 9/1에 비활성화됐고 로컬이 yt-dlp·자막 등 실제 이득을 낸다)",
-        "status": "closed",
-        "tags": [
-          "루틴",
-          "로컬이전",
-          "d155",
-          "종결"
-        ],
-        "refs": ""
       }
     ],
     "open_count": 49,
-    "total": 222
+    "total": 225
   },
   "reports": [
     {
@@ -23571,9 +23571,14 @@ window.APP_DATA = {
   "tasks": {
     "today": [
       {
-        "id": "t0921-9",
-        "text": "🔴 9/22 07:00 전 · 토스에서 **NAVER 196,400 매수 1주 취소** — 계획 밖 주문(⭐2 기한부 홀드·룰6·사다리 0원). 앱 결함 카드에서 온 것",
+        "id": "t0921-11",
+        "text": "🇺🇸 [d205 미국 트랙 1/3회차] 미장에서 GOOGL $88.52 + VOO $134.44 소수점 시장가 — 당일 +3% 급등이면 다음 날(룰3). 체결되면 채팅으로 알려주면 원장 기록",
         "done": false
+      },
+      {
+        "id": "t0921-9",
+        "text": "✅[9/21 22:36 토스 취소 확인] NAVER 196,400 매수 1주 취소 — 계획 밖 주문(⭐2 기한부 홀드·룰6)",
+        "done": true
       },
       {
         "id": "t0920-1",
@@ -23763,8 +23768,8 @@ window.APP_DATA = {
   },
   "task_counts": {
     "today": {
-      "done": 8,
-      "total": 14
+      "done": 9,
+      "total": 15
     },
     "week": {
       "done": 3,
@@ -23776,6 +23781,19 @@ window.APP_DATA = {
     }
   },
   "orders": [
+    {
+      "id": "o-us-track-2609-t1",
+      "label": "[d205 미국 트랙 1/3회차] 달러 $222.96 — GOOGL $88.52(18% 상한까지) + VOO $134.44",
+      "ticker": "GOOGL",
+      "action": "매수(소수점·시장가)",
+      "status": "계획 — 9/21 밤 또는 9/22 밤 미장(22:30~) · 당일 +3% 급등이면 다음 거래일(룰3)",
+      "price": null,
+      "shares": null,
+      "amount_usd": 222.96,
+      "date": "2026-09-21",
+      "note": "[9/21 정훈 승인 d205 — 룰1 트랙 분리] 미국주는 코스피 사다리가 아니라 **달러 3회 균등 분할(월 1회)**. 사이클 2026-09-21 · 회차 9/21 · 10/21 · 11/23. 회차 금액 = 그날 달러 잔고 ÷ 남은 회차 수(새 달러는 자동으로 퍼지고 덜 쓴 몫은 넘어간다). 대상 순서 = 매수존 안 우선순위(GEV $900↓·ANET $190↓ — 지금 둘 다 밖) → GOOGL(주식 비중 16.6% → 18%까지 $88.52) → 나머지 VOO. 하드플로어(S&P 폭풍 ≥70)면 연기. 분수주라 시장가. 체결 시 `tranche_rules.py --us-execute --usd <$> --ticker <T> --tranche 1` 기록 + portfolio.json 반영(룰5). 근거 = docs/research/us_track_test_2026-09-21.md",
+      "setup_id": null
+    },
     {
       "id": "o-nvda-cap-cond-0920",
       "label": "[조건부·위임결정] NVDA 단일종목 상한 25% 초과분 트림",
@@ -23794,12 +23812,12 @@ window.APP_DATA = {
       "label": "GOOGL 조건부(D1 재해금 시)",
       "ticker": "GOOGL",
       "action": "매수",
-      "status": "계획",
+      "status": "⚪ 대체됨(9/21 d205) — 미국 트랙 o-us-track-2609-t1로 이관",
       "price": null,
       "shares": null,
       "amount_krw": null,
       "date": "2026-09-20",
-      "note": "⚠️**[9/21 d197로 발동조건 변경]** D0 잔여는 **0원으로 확정**(누적 해석) → 이 오더의 舊 발동조건 ②('정훈이 D0 버킷 60,514원을 쓴다고 판단')는 **소멸**. 남은 유일한 발동조건 = **코스피 종가 6,836 미만으로 D1 재해금**. 그때 잔여 = 상한 339,355(총재원 1,475,457×23%) − 전체 기집행 300,909 = **38,446원**(2분할 ≈19,223원씩). 비중 상한 18%까지 여력 88,081원이라 위반 없음. 기대수익 = 컨센 $428(+22.5%), 1차 익절 후보 $400 도달 시 일부 익절 검토(룰4).",
+      "note": "⚪[9/21 d205 트랙 분리] 코스피 발동조건(6,836 미만 D1 재해금)이 **소멸**했다 — 미국주는 이제 코스피 사다리가 아니라 미국 트랙(달러 3회 균등 분할)이 다룬다. GOOGL 매수 = o-us-track-2609-t1(1회차 $88.52, 18%까지). ── 舊 note: ⚠️**[9/21 d197로 발동조건 변경]** D0 잔여는 **0원으로 확정**(누적 해석) → 이 오더의 舊 발동조건 ②('정훈이 D0 버킷 60,514원을 쓴다고 판단')는 **소멸**. 남은 유일한 발동조건 = **코스피 종가 6,836 미만으로 D1 재해금**. 그때 잔여 = 상한 339,355(총재원 1,475,457×23%) − 전체 기집행 300,909 = **38,446원**(2분할 ≈19,223원씩). 비중 상한 18%까지 여력 88,081원이라 위반 없음. 기대수익 = 컨센 $428(+22.5%), 1차 익절 후보 $400 도달 시 일부 익절 검토(룰4).",
       "setup_id": null
     },
     {
@@ -24162,7 +24180,7 @@ window.APP_DATA = {
       "label": "NAVER",
       "ticker": "035420.KS",
       "action": "매수",
-      "status": "⛔ 폐기(9/21) — 앱 오표시로 토스에 접수됨 → 정훈 취소 필요",
+      "status": "⛔ 폐기 · ✅ 토스 취소 확인(9/21 22:36:51 — order_check·토스 CLOSED 조회)",
       "price": 196400,
       "shares": 1,
       "amount_krw": 196400,
@@ -24285,12 +24303,12 @@ window.APP_DATA = {
       "label": "[사전설계·조건부] GOOGL 소수점 매수 — 이중 잠금 해제 시 1순위",
       "ticker": "GOOGL",
       "action": "매수",
-      "status": "⛔ 조건 미충족 대기(3조건)",
+      "status": "⚪ 대체됨(9/21 d205) — 미국 트랙으로 이관",
       "price": null,
       "shares": "해금액 전액(소수점 시장가)",
       "amount_krw": null,
       "date": "2026-08-13",
-      "note": "발동 3조건 = ①룰1 D1 해금(코스피 낙폭 -25% 이하 재진입) AND ②하드플로어 해제(S&P500 폭풍 <70%ile) AND ③해제 확인된 \"다음 세션 이후\"의 눌림(룰3 추격금지 — 해제 당일 갭업 진입 금지). 사전 설계 근거: 해금액이 D1 15%=27,604원(LG전자 익절 체결 시 63,604원)이라 국내 정수 1주는 물리적으로 불가 → 미국 소수점이 유일 경로. GOOGL 선정 = 캐펙스 3사 중 유일하게 backlog +45.8%가 레버리지 상쇄. ⚠️이벤트 당일 즉흥 판단 방지용 사전 설계이며 자동 집행 아님 — 최종 결정 정훈.",
+      "note": "⚪[9/21 d205] 발동 3조건 중 ①(코스피 D1 해금)이 미국주에 더는 적용되지 않는다 → 미국 트랙(o-us-track-2609-t1)으로 이관. ── 舊 note: 발동 3조건 = ①룰1 D1 해금(코스피 낙폭 -25% 이하 재진입) AND ②하드플로어 해제(S&P500 폭풍 <70%ile) AND ③해제 확인된 \"다음 세션 이후\"의 눌림(룰3 추격금지 — 해제 당일 갭업 진입 금지). 사전 설계 근거: 해금액이 D1 15%=27,604원(LG전자 익절 체결 시 63,604원)이라 국내 정수 1주는 물리적으로 불가 → 미국 소수점이 유일 경로. GOOGL 선정 = 캐펙스 3사 중 유일하게 backlog +45.8%가 레버리지 상쇄. ⚠️이벤트 당일 즉흥 판단 방지용 사전 설계이며 자동 집행 아님 — 최종 결정 정훈.",
       "setup_id": null
     },
     {
@@ -24403,10 +24421,10 @@ window.APP_DATA = {
       "action": "매수",
       "status": "계획",
       "price": null,
-      "shares": "해금분 발생 시 $ 산정 · 소수점 시장가",
+      "shares": "미국 트랙 회차 금액 · 소수점 시장가",
       "amount_krw": null,
       "date": "2026-09-17",
-      "note": "[9/17 정훈 승인 d191] 조건 = ①GOOGL 비중 18% 도달 후 남는 해금분 ②GEV $880~900 ③당일 +3% 이상 급등일 아님(룰3). 기대수익률 컨센 $1,237 대비 +37~41%. 3Q 실적 10/28 전후 2분할 검토. 달러 잔고 안 = 환전 없음.",
+      "note": "[9/21 d205] 재원 = **미국 트랙 회차**(달러 3회 균등 분할). 회차일에 매수존 안이면 그 회차가 이 종목에 먼저 배분된다(`tranche_rules.us_track()`이 자동 제안) — 코스피 해금과 무관. ── [9/17 정훈 승인 d191] 조건 = ①GOOGL 비중 18% 도달 후 남는 해금분 ②GEV $880~900 ③당일 +3% 이상 급등일 아님(룰3). 기대수익률 컨센 $1,237 대비 +37~41%. 3Q 실적 10/28 전후 2분할 검토. 달러 잔고 안 = 환전 없음.",
       "setup_id": null
     },
     {
@@ -24416,10 +24434,10 @@ window.APP_DATA = {
       "action": "매수",
       "status": "계획",
       "price": null,
-      "shares": "해금분 발생 시 $ 산정 · 소수점 시장가",
+      "shares": "미국 트랙 회차 금액 · 소수점 시장가",
       "amount_krw": null,
       "date": "2026-09-17",
-      "note": "[9/17 정훈 승인 d191] 조건 = GEV 다음 순서 · ANET $180~190 · 추격 금지. 기대수익률 컨센 $241 대비 +27~34%. 3Q 실적 11/3.",
+      "note": "[9/21 d205] 재원 = **미국 트랙 회차**(달러 3회 균등 분할). 회차일에 매수존 안이면 그 회차가 이 종목에 먼저 배분된다(`tranche_rules.us_track()`이 자동 제안) — 코스피 해금과 무관. ── [9/17 정훈 승인 d191] 조건 = GEV 다음 순서 · ANET $180~190 · 추격 금지. 기대수익률 컨센 $241 대비 +27~34%. 3Q 실적 11/3.",
       "setup_id": null
     }
   ],
@@ -28796,16 +28814,16 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1374.38,
+    "fx_rate": 1374.89,
     "fx_cost_basis": 1460.9,
-    "total_krw": 8220191,
+    "total_krw": 8225009,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 6047691,
+        "value_krw": 6052509,
         "weight": 73.6,
-        "stock_krw": 5128382,
-        "cash_krw": 919309
+        "stock_krw": 5132859,
+        "cash_krw": 919650
       },
       {
         "currency": "KRW",
@@ -28815,85 +28833,85 @@ window.APP_DATA = {
         "cash_krw": 247500
       }
     ],
-    "sensitivity_1pct_krw": 60477,
+    "sensitivity_1pct_krw": 60525,
     "attribution": {
-      "price_krw": 471345,
-      "fx_krw": -294927,
-      "cross_krw": -27915,
-      "total_krw": 148503,
+      "price_krw": 474080,
+      "fx_krw": -293189,
+      "cross_krw": -27911,
+      "total_krw": 152980,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(체결 실측·시장종가 기준)라 환 기여 절대액에 잔여 오차"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": 94455,
-        "price_krw": 194679,
-        "fx_krw": -88694,
-        "cross_krw": -11530
+        "total_krw": 93245,
+        "price_krw": 192764,
+        "fx_krw": -88171,
+        "cross_krw": -11349
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -58477,
-        "price_krw": 15597,
-        "fx_krw": -73151,
-        "cross_krw": -924
+        "total_krw": -54323,
+        "price_krw": 19548,
+        "fx_krw": -72720,
+        "cross_krw": -1151
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": 21741,
-        "price_krw": 93346,
-        "fx_krw": -66077,
-        "cross_krw": -5528
+        "total_krw": 22948,
+        "price_krw": 94180,
+        "fx_krw": -65688,
+        "cross_krw": -5545
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 113564,
-        "price_krw": 175150,
-        "fx_krw": -51213,
-        "cross_krw": -10373
+        "total_krw": 113157,
+        "price_krw": 174332,
+        "fx_krw": -50911,
+        "cross_krw": -10264
       },
       {
         "label": "META",
         "ticker": "META",
-        "total_krw": 6171,
-        "price_krw": 14087,
-        "fx_krw": -7082,
-        "cross_krw": -834
+        "total_krw": 6788,
+        "price_krw": 14693,
+        "fx_krw": -7040,
+        "cross_krw": -865
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -28931,
-        "price_krw": -26159,
-        "fx_krw": -4322,
-        "cross_krw": 1549
+        "total_krw": -28860,
+        "price_krw": -26101,
+        "fx_krw": -4296,
+        "cross_krw": 1537
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -8706,
-        "price_krw": -6498,
-        "fx_krw": -2593,
-        "cross_krw": 385
+        "total_krw": -8672,
+        "price_krw": -6476,
+        "fx_krw": -2578,
+        "cross_krw": 381
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 6710,
-        "price_krw": 8510,
-        "fx_krw": -1296,
-        "cross_krw": -504
+        "total_krw": 6704,
+        "price_krw": 8492,
+        "fx_krw": -1288,
+        "cross_krw": -500
       },
       {
         "label": "AAPL",
         "ticker": "AAPL",
-        "total_krw": 1976,
-        "price_krw": 2632,
-        "fx_krw": -500,
+        "total_krw": 1995,
+        "price_krw": 2648,
+        "fx_krw": -497,
         "cross_krw": -156
       }
     ],
@@ -28933,7 +28951,7 @@ window.APP_DATA = {
     "holdings": 14,
     "missing": [],
     "portfolio_vol": 31.0,
-    "weighted_vol": 46.7,
+    "weighted_vol": 46.6,
     "diversification_ratio": 1.503,
     "effective_bets": 2.26,
     "effective_bets_weight_only": 6.54,
@@ -28958,7 +28976,7 @@ window.APP_DATA = {
         "vol": 51.7
       },
       "원/달러": {
-        "beta": 0.515,
+        "beta": 0.514,
         "corr": 0.131,
         "vol": 8.7
       }
@@ -29028,7 +29046,7 @@ window.APP_DATA = {
         "label": "NVDA",
         "ticker": "NVDA",
         "vol": 40.0,
-        "weight": 22.6
+        "weight": 22.5
       },
       {
         "label": "GOOGL",
@@ -29096,7 +29114,7 @@ window.APP_DATA = {
         "a": "NVDA",
         "b": "AVGO",
         "corr": 0.597,
-        "w_sum": 23.1
+        "w_sum": 23.0
       }
     ],
     "matrix": {
@@ -29391,8 +29409,8 @@ window.APP_DATA = {
     ],
     "facts": {
       "top": "NVDA",
-      "top_weight": 22.6,
-      "hhi": 1529,
+      "top_weight": 22.5,
+      "hhi": 1528,
       "top_sector": "반도체·AI",
       "top_sector_weight": 39.0,
       "usd_weight": 73.6,
@@ -29409,7 +29427,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 73.6% · 원/달러 5년 55.6%ile 중립(1년 창 4.8%ile은 결론이 뒤집혀 단독 인용 금지). 환율 1% 변동 = 총자산 +60,477원. 룰6 통화 판정 = 조정 근거 없음."
+        "detail": "달러 자산 73.6% · 원/달러 5년 55.6%ile 중립(1년 창 4.8%ile은 결론이 뒤집혀 단독 인용 금지). 환율 1% 변동 = 총자산 +60,525원. 룰6 통화 판정 = 조정 근거 없음."
       },
       {
         "level": "warning",
@@ -29421,7 +29439,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "codependence",
         "title": "분산 착시 — 상관이 지운 종목 수",
-        "detail": "14종목 보유가 비중상 6.54종목어치인데 **상관까지 보면 2.26종목어치**(분산의 65%가 동조로 사라짐). 포트 변동성 31.0% (상관 무시하면 46.7%). 섹터 라벨이 아니라 실제 움직임 기준이다."
+        "detail": "14종목 보유가 비중상 6.54종목어치인데 **상관까지 보면 2.26종목어치**(분산의 65%가 동조로 사라짐). 포트 변동성 31.0% (상관 무시하면 46.6%). 섹터 라벨이 아니라 실제 움직임 기준이다."
       },
       {
         "level": "warning",
@@ -29433,7 +29451,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +471,345원인데 환 기여 -294,927원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -27,915원)."
+        "detail": "미국주 종목 기여 +474,080원인데 환 기여 -293,189원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -27,911원)."
       },
       {
         "level": "info",
@@ -29453,7 +29471,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "performance": {
-    "generated_at": "2026-09-21 15:09",
+    "generated_at": "2026-09-22 00:21",
     "from": "2026-06-15",
     "to": "2026-09-21",
     "days": 70,
@@ -29630,7 +29648,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "order_check": {
-    "checked_at": "2026-09-21 22:20",
+    "checked_at": "2026-09-21 22:59",
     "source": "toss",
     "open": [
       {
@@ -29644,19 +29662,6 @@ window.APP_DATA = {
         "band": [
           48750,
           90400
-        ]
-      },
-      {
-        "ticker": "035420.KS",
-        "side": "BUY",
-        "price": 196400.0,
-        "qty": "1",
-        "ordered_at": "2026-09-21T21:42:56.978+09:00",
-        "plan_id": "o-naver-1",
-        "plan_state": "dead",
-        "band": [
-          138600,
-          257000
         ]
       },
       {
@@ -29680,26 +29685,6 @@ window.APP_DATA = {
         "msg": "두산로보틱스 매도 78,000 × 1 — 계획(o-drb-trim-78k)과 일치"
       },
       {
-        "level": "red",
-        "ticker": "035420.KS",
-        "msg": "NAVER 매수 196,400 × 1 — 계획상 '⛔ 폐기(9/21) — 앱 오표시로 토스에 접수됨 → 정훈 취소 필요'인 오더(o-naver-1)와 같은 주문이 살아 있다"
-      },
-      {
-        "level": "red",
-        "ticker": "035420.KS",
-        "msg": "NAVER 매수 196,400 × 1 — ⭐2 보유 종목 추가매수(⭐2 이하 = 트림 또는 기한부 홀드)"
-      },
-      {
-        "level": "red",
-        "ticker": "035420.KS",
-        "msg": "NAVER 매수 196,400 × 1 — 룰6: 국내 27.5% > 상단 22% 동안 신규 자금은 100% 미국"
-      },
-      {
-        "level": "yellow",
-        "ticker": "035420.KS",
-        "msg": "NAVER 매수 196,400 × 1 — 사다리 잔여 0원(계획된 예외가 아니면 재원이 없다)"
-      },
-      {
         "level": "ok",
         "ticker": "066570.KS",
         "msg": "LG전자 매도 240,000 × 1 — 계획(o-lge-profit-0812)과 일치"
@@ -29711,14 +29696,61 @@ window.APP_DATA = {
       }
     ],
     "counts": {
-      "red": 3,
-      "yellow": 1,
+      "red": 0,
+      "yellow": 0,
       "ok": 2,
       "info": 1
     },
     "context": {
       "kr_weight_pct": 27.5,
-      "ladder_allowed_krw": 0.0
+      "ladder_allowed_krw": 19800.0,
+      "us_allowed_usd": 222.96
     }
+  },
+  "us_track": {
+    "usd_cash": 668.89,
+    "today": "2026-09-22",
+    "rule": "d205",
+    "cycle_start": "2026-09-21",
+    "schedule": [
+      "2026-09-21",
+      "2026-10-21",
+      "2026-11-23"
+    ],
+    "n": 3,
+    "done": [],
+    "due": [
+      1
+    ],
+    "pending": [
+      1
+    ],
+    "per_tranche_usd": 222.96,
+    "next_date": "2026-10-21",
+    "halted": false,
+    "halt_why": "S&P500 폭풍 20%ile <70 = 국지 유지(개정 전제 성립)",
+    "spent_usd": 0,
+    "fills": [],
+    "status": "due",
+    "allowed_usd": 222.96,
+    "split": [
+      {
+        "ticker": "GOOGL",
+        "usd": 88.52,
+        "why": "비중 16.6% → 18%까지 $88.52"
+      },
+      {
+        "ticker": "VOO",
+        "usd": 134.44,
+        "why": "매수존 종목 없음 · GOOGL 18% 상한 → 지수로"
+      }
+    ],
+    "googl": {
+      "weight_pct": 16.6,
+      "room_usd": 88.52,
+      "fx": 1372.07,
+      "missing": []
+    },
+    "why": "회차 [1] 도래 — $222.96 (잔고 $668.89 ÷ 남은 3회 × 1)"
   }
 };

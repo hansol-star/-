@@ -165,6 +165,7 @@ def ladder_state(dd_pct: float):
 #   낙폭이 오르내릴 때마다 같은 단계를 반복 집행하는 물타기가 되는 것이다.
 #   ⇒ 집행분을 원장에 남기고, 판정에서 **이미 쓴 단계는 제외**한다.
 LEDGER = os.path.join(ROOT, "data", "app", "tranche_ledger.json")
+KR_TRACK_KRW_ONLY = True   # d205 — False로 돌리면 舊 통합 재원(원화+달러 환산)
 RULE_LOG = os.path.join(ROOT, "data", "app", "rule_log.jsonl")
 
 
@@ -272,6 +273,221 @@ def cap_delta_explain(base, unlocked, mult, cap_now=None):
             "cash_prev": round(c0), "cash_now": round(base),
             "approx": prev.get("base_krw") is None,
             "dd_prev": prev.get("dd_pct")}
+
+
+# ─────────────────────────────────────────── 🇺🇸 미국 트랙 (d205 · 2026-09-21)
+#
+# ★[정훈 승인 "승인, 적용해줘"] 미국주 매수를 코스피 사다리에서 떼어낸다.
+#   왜: 사다리의 근거는 **코스피 자신의** forward 수익률(-38.6% → 12M 중앙 +43%)인데
+#   집행 5건 300,909원이 **전부 GOOGL**이었다. 코스피 반등 프리미엄을 받지 않는 자산이다.
+#   원래 설계(crash_tf §6.5, 7/13)도 "미장은 안전핀 무관 별도 트랙"이었다.
+#   검정(us_track_test.py, 1997~2025): 3개월 분할(P3)이 코스피 게이팅(G)보다
+#   12M 중앙 +2.29%p(현금 3%에도 +1.86)·승률 73.5%·하위5% -6.03 / 선례 에피소드 6/6 /
+#   비미국 게이팅 지수 19/19. ⚠️ 사전등록 에피소드 정의로는 24/38(무차이 14) — 실질 손실은
+#   **2000-02 닷컴 약세장**(-3.85%p) 하나다: **미국 자체가 느리게 빠지는 약세장이 이 룰의 약점**이다.
+#
+# 규칙: 달러 잔고를 **3회 균등 분할**(월 1회) · 회차 금액 = 그날 달러 잔고 ÷ 남은 회차 수
+#   (새로 들어온 달러는 남은 회차에 자동으로 퍼지고, 덜 쓴 몫은 다음 회차로 넘어간다)
+#   · S&P 폭풍 ≥70(하드플로어)이면 그 회차 **연기** · 룰3(추격금지)은 그대로 · 자동 집행 아님.
+#   대상 순서: 매수존 안의 우선순위(GEV·ANET) → 없으면 GOOGL(주식 비중 18% 상한까지) → 나머지 VOO.
+US_TRACK = os.path.join(ROOT, "data", "app", "us_track.json")
+US_TRANCHES = 3
+US_MIN_CYCLE_USD = 50.0      # 이보다 적은 달러로는 새 사이클을 열지 않는다(소수점 체결 실익)
+US_GOOGL_CAP = 0.18          # d191 — 주식 평가액 기준
+US_ZONE_TICKERS = ("GEV", "ANET")   # d191 ②③ — 매수존은 portfolio.json alerts(below)가 정본
+_PF_JSON = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "portfolio.json")
+
+
+def _kst_today() -> str:
+    return (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=9)).date().isoformat()
+
+
+def _us_read() -> dict:
+    try:
+        with open(US_TRACK, encoding="utf-8") as f:
+            return json.load(f) or {}
+    except Exception:
+        return {}
+
+
+def _us_write(d: dict):
+    d["updated"] = _kst_today()
+    os.makedirs(os.path.dirname(US_TRACK), exist_ok=True)
+    with open(US_TRACK, "w", encoding="utf-8") as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+
+
+def _add_months(d: dt.date, k: int) -> dt.date:
+    y, m = divmod(d.month - 1 + k, 12)
+    y, m = d.year + y, m + 1
+    feb = 29 if (y % 4 == 0 and (y % 100 != 0 or y % 400 == 0)) else 28
+    last = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1]
+    out = dt.date(y, m, min(d.day, last))
+    while out.weekday() >= 5:                 # 주말이면 월요일로
+        out += dt.timedelta(days=1)
+    return out
+
+
+def us_schedule(start: str, n: int = US_TRANCHES) -> list[str]:
+    s0 = dt.date.fromisoformat(start)
+    return [_add_months(s0, k).isoformat() for k in range(n)]
+
+
+def us_start(start: str | None = None, pool_usd: float | None = None, note: str = "") -> dict:
+    """새 사이클을 연다. 진행 중 사이클이 있으면 거부한다(끝나기 전 재시작 = 회차 건너뛰기)."""
+    d = _us_read()
+    cur = d.get("cycle")
+    if cur and len({f.get("tranche") for f in cur.get("fills", [])}) < cur.get("n", US_TRANCHES):
+        raise ValueError(f"진행 중 사이클({cur.get('start')})이 끝나지 않았다 — 회차를 건너뛰는 재시작 금지")
+    if cur:
+        d.setdefault("history", []).append(cur)
+    start = start or _kst_today()
+    d["cycle"] = {"start": start, "n": US_TRANCHES, "schedule": us_schedule(start),
+                  "pool_usd_at_start": pool_usd, "fills": [], "note": note}
+    d["rule"] = "d205 — 달러 잔고 3회 균등 분할(월 1회) · 회차=그날 잔고÷남은 회차 · S&P 폭풍≥70이면 연기"
+    _us_write(d)
+    return d["cycle"]
+
+
+def us_execute(usd: float, ticker: str, tranche: int | None = None, note: str = "",
+               date: str | None = None) -> dict:
+    """회차 집행 기록. **조회·기록 전용 — 주문을 내지 않는다.** 한 회차를 여러 종목으로 나눠 기록할 수 있다."""
+    d = _us_read()
+    cur = d.get("cycle")
+    if not cur:
+        raise ValueError("열린 사이클이 없다 — --us-start 먼저")
+    done = sorted({f.get("tranche") for f in cur.get("fills", [])})
+    if tranche is None:
+        tranche = next((i for i in range(1, cur["n"] + 1) if i not in done), cur["n"])
+    rec = {"date": date or _kst_today(), "tranche": int(tranche), "usd": round(float(usd), 2),
+           "ticker": ticker, "note": note}
+    cur.setdefault("fills", []).append(rec)
+    _us_write(d)
+    return rec
+
+
+def _last_close(sym: str):
+    try:
+        import drawdown_history as D
+        ds, cs = D.load(sym)
+        return (cs[-1], ds[-1]) if cs else (None, None)
+    except Exception:
+        return None, None
+
+
+def googl_room_usd() -> dict:
+    """GOOGL이 주식 평가액의 18%에 닿기까지 남은 달러(캐시 종가 기준 — 제안용)."""
+    try:
+        with open(_PF_JSON, encoding="utf-8") as f:
+            pf = json.load(f) or {}
+    except Exception:
+        return {"error": "portfolio.json 없음"}
+    fx, _ = _last_close("KRW=X")
+    if not fx:
+        return {"error": "환율 캐시 없음"}
+    tot = g = 0.0
+    miss = []
+    for reg, rows in (pf.get("holdings") or {}).items():
+        for h in rows:
+            px, _ = _last_close(h["ticker"])
+            if not px:
+                miss.append(h["ticker"])
+                continue
+            v = float(h.get("shares") or 0) * px * (1 if reg == "kr" else fx)
+            tot += v
+            if h["ticker"] == "GOOGL":
+                g = v
+    if not tot:
+        return {"error": "평가액 계산 불가"}
+    room_krw = max(0.0, (US_GOOGL_CAP * tot - g) / (1 - US_GOOGL_CAP))
+    return {"weight_pct": round(g / tot * 100, 1), "room_usd": round(room_krw / fx, 2),
+            "fx": round(fx, 2), "missing": miss}
+
+
+def _zone_hits() -> list[dict]:
+    """우선순위 ②③(GEV·ANET) 중 매수존(portfolio.json alerts, cond=below) 안에 든 종목."""
+    try:
+        with open(_PF_JSON, encoding="utf-8") as f:
+            alerts = (json.load(f) or {}).get("alerts") or []
+    except Exception:
+        return []
+    out = []
+    for a in alerts:
+        if a.get("ticker") in US_ZONE_TICKERS and a.get("cond") == "below" and a.get("level"):
+            px, d = _last_close(a["ticker"])
+            if px and px <= float(a["level"]):
+                out.append({"ticker": a["ticker"], "price": round(px, 2), "level": a["level"], "asof": d})
+    return out
+
+
+def us_track(usd_cash: float | None = None, today: str | None = None, check_floor: bool = True) -> dict:
+    """미국 트랙 오늘 판정 — 이번 회차에 쓸 수 있는 달러와 대상 제안."""
+    if usd_cash is None:
+        try:
+            with open(_PF_JSON, encoding="utf-8") as f:
+                usd_cash = float((json.load(f) or {}).get("cash_usd") or 0)
+        except Exception:
+            usd_cash = 0.0
+    today = today or _kst_today()
+    cur = _us_read().get("cycle")
+    out = {"usd_cash": round(usd_cash, 2), "today": today, "rule": "d205"}
+    if not cur:
+        out.update({"status": "no_cycle", "allowed_usd": 0.0,
+                    "why": (f"열린 사이클 없음 — 달러 ${usd_cash:,.2f} ≥ ${US_MIN_CYCLE_USD:.0f}이면 "
+                            "`tranche_rules.py --us-start`로 연다") if usd_cash >= US_MIN_CYCLE_USD
+                    else f"열린 사이클 없음 · 달러 ${usd_cash:,.2f} < ${US_MIN_CYCLE_USD:.0f}"})
+        return out
+    n, sched = cur.get("n", US_TRANCHES), cur.get("schedule") or []
+    fills = cur.get("fills") or []
+    done = sorted({f.get("tranche") for f in fills})
+    due = [i for i, d in enumerate(sched, 1) if d <= today]
+    pending = [i for i in due if i not in done]
+    remaining = [i for i in range(1, n + 1) if i not in done]
+    per = usd_cash / len(remaining) if remaining else 0.0
+    allowed = per * len(pending)
+    halted, hwhy = (global_contagion_check() if check_floor else (False, "하드플로어 판정 생략"))
+    nxt = next((sched[i - 1] for i in remaining if sched[i - 1] > today), None)
+    out.update({"cycle_start": cur.get("start"), "schedule": sched, "n": n,
+                "done": done, "due": due, "pending": pending,
+                "per_tranche_usd": round(per, 2), "next_date": nxt,
+                "halted": bool(halted), "halt_why": hwhy,
+                "spent_usd": round(sum(float(f.get("usd") or 0) for f in fills), 2),
+                "fills": fills})
+    if not remaining:
+        out.update({"status": "complete", "allowed_usd": 0.0,
+                    "why": "사이클 3회 완료" + (f" — 달러 ${usd_cash:,.2f} ≥ ${US_MIN_CYCLE_USD:.0f}: 새 사이클 가능"
+                                                if usd_cash >= US_MIN_CYCLE_USD else "")})
+        return out
+    if halted and pending:
+        out.update({"status": "deferred", "allowed_usd": 0.0,
+                    "why": f"회차 {pending} 도래했으나 하드플로어로 **연기** — {hwhy}"})
+        return out
+    if not pending:
+        out.update({"status": "waiting", "allowed_usd": 0.0,
+                    "why": f"다음 회차 {nxt} (회차당 약 ${per:,.2f} — 그날 잔고로 다시 계산)"})
+        return out
+    # 대상 제안 — 매수존 안 우선순위 → GOOGL 18% 상한 → VOO
+    split, left = [], allowed
+    zones = _zone_hits()
+    if zones:
+        each = left / len(zones)
+        split = [{"ticker": z["ticker"], "usd": round(each, 2),
+                  "why": f"매수존 ${z['level']} 이하(종가 ${z['price']})"} for z in zones]
+        left = 0.0
+    room = googl_room_usd()
+    if left > 0 and not room.get("error"):
+        g = min(left, room["room_usd"])
+        if g >= 1:
+            split.append({"ticker": "GOOGL", "usd": round(g, 2),
+                          "why": f"비중 {room['weight_pct']}% → 18%까지 ${room['room_usd']:,.2f}"})
+            left -= g
+    if left >= 1:
+        split.append({"ticker": "VOO", "usd": round(left, 2),
+                      "why": ("매수존 종목 없음 · GOOGL 18% 상한 → 지수로" if not room.get("error")
+                              else "GOOGL 상한 계산 불가 → 확인 후 배분")})
+    out.update({"status": "due", "allowed_usd": round(allowed, 2), "split": split, "googl": room,
+                "why": f"회차 {pending} 도래 — ${allowed:,.2f} (잔고 ${usd_cash:,.2f} ÷ 남은 {len(remaining)}회 × {len(pending)})"})
+    return out
 
 
 def global_contagion_check():
@@ -625,7 +841,12 @@ def _load_inputs(cash_arg):
             # (원화 현금만 쓰던 시절의 가정이 두 군데에 남아 있었다).
             # 미국 소수점 매수는 이 달러로 바로 집행하므로 재원이 맞다.
             cash = float(pf.get("cash_krw") or 0)
-            usd = float(pf.get("cash_usd") or 0)
+            # ★[2026-09-21 d205 트랙 분리 · 정훈 승인 "승인, 적용해줘"] 사다리 = **국내 트랙** → 재원은 **원화만**.
+            #   舊(8/20~9/21)는 달러를 원화로 환산해 합쳤다. 그 결과 코스피 통계로 만든 사다리가
+            #   달러로 사는 미국주(GOOGL 5건 300,909원 전부)의 속도를 정하고 있었다.
+            #   달러는 이제 미국 트랙(us_track)이 다룬다 — 코스피 낙폭과 무관한 3개월 분할.
+            #   검정 = us_track_test.py · 정본 = docs/research/us_track_test_2026-09-21.md
+            usd = 0.0 if KR_TRACK_KRW_ONLY else float(pf.get("cash_usd") or 0)
             if usd:
                 fx = float(pf.get("us_avg_fx_cost") or 0) or 1400.0
                 try:
@@ -686,6 +907,12 @@ def main():
     #   원장 날짜가 사흘 밀렸다(cap_delta_explain의 prev_date·감사 추적이 어긋난다).
     #   ledger_execute()는 처음부터 date 인자를 받고 있었는데 CLI만 안 뚫려 있었다.
     ap.add_argument("--date", help="--execute 체결일(YYYY-MM-DD). 생략 시 오늘")
+    # ★[9/21 d205] 미국 트랙
+    ap.add_argument("--us-start", nargs="?", const="", metavar="YYYY-MM-DD",
+                    help="미국 트랙 새 사이클 시작(날짜 생략 = 오늘). 진행 중 사이클이 있으면 거부")
+    ap.add_argument("--us-execute", action="store_true", help="미국 트랙 회차 집행 기록(--usd·--ticker 필수). 주문 안 냄")
+    ap.add_argument("--usd", type=float, help="--us-execute 금액($)")
+    ap.add_argument("--tranche", type=int, help="--us-execute 회차 번호(생략 = 다음 미집행 회차)")
     ap.add_argument("--rule2", action="store_true")
     ap.add_argument("--ticker", "--tickers", default="066570.KS")
     ap.add_argument("--json", action="store_true")
@@ -705,6 +932,18 @@ def main():
                     print(f"\n   {r['caveat']}")
                 print(f"\n   판정 {r['score']} → {r['verdict']}")
                 print("   ※ 이벤트형 훼손(인증 취소 등)은 이 판정과 독립이며 그쪽이 우선한다.\n")
+        return
+
+    if a.us_start is not None:
+        c = us_start(a.us_start or None, us_track(check_floor=False).get("usd_cash"), a.note)
+        print(f"\n🇺🇸 미국 트랙 사이클 시작 — {c['start']} · 회차 {', '.join(c['schedule'])} · 시작 잔고 ${c['pool_usd_at_start']:,.2f}\n")
+        return
+    if a.us_execute:
+        if a.usd is None or not a.ticker or a.ticker == "066570.KS":
+            sys.exit("[tranche_rules] --us-execute 에는 --usd 와 --ticker(미국 종목)가 필요하다")
+        rec = us_execute(a.usd, a.ticker, a.tranche, a.note, a.date)
+        print(f"\n📒 미국 트랙 {rec['tranche']}회차 기록 — {rec['date']} · {rec['ticker']} ${rec['usd']:,.2f} "
+              f"{('· ' + rec['note']) if rec['note'] else ''}\n")
         return
 
     if a.execute:
@@ -733,13 +972,13 @@ def main():
 
     r = rule1(cash, dd, storm, fear, capit)
     if a.json:
-        print(json.dumps({"rule1": r, "rule2": rule2(a.ticker)}, ensure_ascii=False, indent=1))
+        print(json.dumps({"rule1": r, "us_track": us_track(), "rule2": rule2(a.ticker)}, ensure_ascii=False, indent=1))
         return
 
-    print("\n═══ 룰1 개정 — 낙폭 사다리 (舊 7,500 이진 안전핀 대체) ═══")
+    print("\n═══ 룰1 🇰🇷 국내 트랙 — 코스피 낙폭 사다리 (재원 = 원화 · d205 트랙 분리) ═══")
     if stale and a.dd is None:
         print(f"  {stale}\n")
-    print(f"  코스피 고점대비 **{dd:+.1f}%** · 가용 현금 {cash:,.0f}원\n")
+    print(f"  코스피 고점대비 **{dd:+.1f}%** · 원화 현금 {cash:,.0f}원 (달러는 아래 미국 트랙)\n")
     print(f"  {'단계':<6}{'낙폭':>8}{'배분':>7}  상태   근거")
     for i, s in enumerate(r["steps"], 1):
         mark = ("✅집행" if s.get("executed") else "🟢해금") if s["unlocked"] else "🔒잠김"
@@ -791,6 +1030,23 @@ def main():
                 print("        '사다리가 더 열렸다'는 뜻이 아니다. 사다리 비율은 낙폭 심도에 대한 위험허용도다.")
 
     print(_kr_accrual_note(r["allowed_krw"], cash))
+
+    u = us_track()
+    print("\n═══ 룰1 🇺🇸 미국 트랙 — 달러 3회 균등 분할 (d205 · 코스피 낙폭과 무관) ═══")
+    print(f"  달러 잔고 ${u['usd_cash']:,.2f}")
+    if u.get("schedule"):
+        marks = []
+        for i, d in enumerate(u["schedule"], 1):
+            m = "✅" if i in u["done"] else ("🟢" if i in u["pending"] else "⏳")
+            marks.append(f"{i}회 {d} {m}")
+        print(f"  사이클 {u['cycle_start']} · " + " · ".join(marks) + f" · 기집행 ${u['spent_usd']:,.2f}")
+    if u.get("halt_why"):
+        print(f"  {u['halt_why']}")
+    print(f"  → **{u['why']}**")
+    for x in u.get("split") or []:
+        print(f"     · {x['ticker']:<6} ${x['usd']:>8,.2f}  {x['why']}")
+    if u.get("status") == "due":
+        print("     ※ 룰3(추격금지) — 대상이 당일 +3% 이상 급등이면 다음 거래일로. 분수주 = 시장가. 자동 집행 아님.")
 
     r2 = rule2(a.ticker)
     print(f"\n═══ 룰2 개정 — 추세형 훼손 ({r2.get('name') or a.ticker}) ═══")

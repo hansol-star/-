@@ -747,6 +747,12 @@ def build(offline: bool) -> dict:
     # [9/21 신설] 운용 성적표(시간가중·가만히 대비·매매별 기여) + 토스 미체결 대조 결과
     payload["performance"] = build_perf_block()
     payload["order_check"] = load_json_opt(ORDER_CHECK_JSON) or None
+    # ★[9/21 d205] 미국 트랙 — 달러는 코스피 사다리가 아니라 3회 분할 규칙이 다룬다
+    try:
+        import tranche_rules as _TR2
+        payload["us_track"] = _TR2.us_track()
+    except Exception as e:  # noqa: BLE001
+        payload["us_track"] = {"status": "error", "error": type(e).__name__}
     return payload
 
 

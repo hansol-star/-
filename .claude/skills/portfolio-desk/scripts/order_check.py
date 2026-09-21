@@ -147,8 +147,17 @@ def _same_price(tk: str, a: float, b: float) -> bool:
     return abs(a - b) <= max(0.01, 0.005 * max(a, b))
 
 
+def us_track_state() -> dict | None:
+    """★[9/21 d205] 미국 트랙 — 달러로 사는 미국주는 코스피 사다리가 아니라 3회 분할 규칙이 다룬다."""
+    try:
+        import tranche_rules as TR
+        return TR.us_track(check_floor=False)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def check(open_orders: list[dict], tasks: dict, stocks: dict,
-          kr_w: float | None, allowed: float | None) -> dict:
+          kr_w: float | None, allowed: float | None, us: dict | None = None) -> dict:
     from validate_report import _kr_band
     known = known_tickers(tasks, stocks)
     plans = [o for o in tasks.get("orders", []) if _side(o.get("action", ""))]
@@ -194,8 +203,11 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
                 add("red", tk, f"{what} — ⭐{st} 보유 종목 추가매수(⭐2 이하 = 트림 또는 기한부 홀드)")
             if is_kr(tk) and kr_w is not None and kr_w > KR_CAP_PCT:
                 add("red", tk, f"{what} — 룰6: 국내 {kr_w:.1f}% > 상단 {KR_CAP_PCT:.0f}% 동안 신규 자금은 100% 미국")
-            if allowed is not None and allowed <= 0 and state != "active":
-                add("yellow", tk, f"{what} — 사다리 잔여 0원(계획된 예외가 아니면 재원이 없다)")
+            # d205: 사다리(국내 트랙)는 국내 매수만 본다. 미국 매수는 미국 트랙 회차가 본다.
+            if is_kr(tk) and allowed is not None and allowed <= 0 and state != "active":
+                add("yellow", tk, f"{what} — 국내 사다리 잔여 0원(계획된 예외가 아니면 재원이 없다)")
+            if (not is_kr(tk)) and us and state != "active" and (us.get("allowed_usd") or 0) <= 0:
+                add("yellow", tk, f"{what} — 미국 트랙 이번 회차 없음({us.get('why', '')[:60]})")
         if is_kr(tk) and price:
             base, bd = last_close(tk)
             if base:
@@ -229,10 +241,15 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
             "source": "toss", "open": rows, "findings": findings,
             "counts": {k: lv.count(k) for k in ("red", "yellow", "ok", "info")},
             "context": {"kr_weight_pct": round(kr_w, 1) if kr_w is not None else None,
-                        "ladder_allowed_krw": allowed}}
+                        "ladder_allowed_krw": allowed,
+                        "us_allowed_usd": (us or {}).get("allowed_usd")}}
 
 
 ICON = {"red": "🔴", "yellow": "🟡", "ok": "✅", "info": "ℹ️"}
+
+
+def _usd(v) -> str:
+    return "미확인" if v is None else f"${float(v):,.2f}"
 
 
 def _won(v) -> str:
@@ -248,7 +265,7 @@ def render(r: dict) -> str:
             if f["level"] == lvl:
                 L.append(f"{ICON[lvl]} {f['msg']}")
     c = r["counts"]
-    L.append(f"\n🔴 {c['red']} · 🟡 {c['yellow']} · ✅ {c['ok']}  (국내 비중 {r['context']['kr_weight_pct']}% · 사다리 잔여 {_won(r['context']['ladder_allowed_krw'])})")
+    L.append(f"\n🔴 {c['red']} · 🟡 {c['yellow']} · ✅ {c['ok']}  (국내 비중 {r['context']['kr_weight_pct']}% · 국내 사다리 잔여 {_won(r['context']['ladder_allowed_krw'])} · 미국 회차 {_usd(r['context'].get('us_allowed_usd'))})")
     if c["red"]:
         L.append("→ 🔴 주문은 정훈이 토스에서 직접 취소·정정(주문 API 호출 금지).")
     return "\n".join(L)
@@ -274,7 +291,8 @@ def main() -> int:
              "open": [], "findings": [], "counts": {"red": 0, "yellow": 0, "ok": 0, "info": 0}}
     else:
         r = check([o for o in opens if str(o.get("status", "PENDING")).upper() != "CANCELED"],
-                  _load(TASKS, {}) or {}, _load(STOCKS, {}) or {}, kr_weight(), ladder_allowed())
+                  _load(TASKS, {}) or {}, _load(STOCKS, {}) or {}, kr_weight(), ladder_allowed(),
+                  us_track_state())
         r["source"] = src
     if not a.no_save and src != "file":
         with open(OUT, "w", encoding="utf-8", newline="\n") as f:

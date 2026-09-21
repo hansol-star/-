@@ -239,6 +239,11 @@
     freeze: "정지 — 하드플로어 발동(S&P500 폭풍 ≥70%ile), 사다리 전면 정지",
     unknown: "코스피 시세 미확인"
   };
+  // ★[9/21 d205] 미국 트랙 — 달러는 코스피 사다리가 아니라 3회 균등 분할(월 1회)이 다룬다
+  function usTrack() { var u = D.us_track || {}; return { u: u, ok: !!u.status && u.status !== "error", allowed: u.allowed_usd || 0 }; }
+  var US_SHORT = { due: "미국 회차 도래", waiting: "다음 회차 대기", deferred: "하드플로어 연기", complete: "사이클 완료", no_cycle: "사이클 없음" };
+  function usd(v) { return v == null || isNaN(v) ? "—" : "$" + Number(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
   function ladderLive() {
     var s = D.safety || {}, q = Q("^KS11");
     var k = q && q.p != null ? q.p : s.price;
@@ -709,7 +714,7 @@
   }
 
   function renderToday() {
-    var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive(), G = gatesLive(), s = D.safety || {};
+    var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive(), G = gatesLive(), s = D.safety || {}, UT = usTrack();
     var r0 = (D.reports || [])[0];
     var h = topbar({ brand: true });
     h += '<div class="hdr-date">' + esc(todayLong()) + ' · ' + esc(marketLine())
@@ -721,7 +726,7 @@
     h += '<div class="big num">' + num(Math.round(T.assets)) + '<small>원</small></div>';
     h += '<div class="g3"><div><span class="k">현금</span><span class="v num">' + num(Math.round(T.cashK + T.cashUK)) + '</span><span class="s num">₩' + num(T.cashK) + ' + $' + num2(T.cashU) + '</span></div>'
       + '<div><span class="k">평가손익 · 환 반영</span><span class="v num ' + cls(T.pnl) + '">' + sign(T.pnl) + num(Math.round(T.pnl)) + '</span><span class="s num">' + pct(T.pnlPct, 1) + ' · 환 빼면 ' + sign(T.pnlNoFx) + num(Math.round(T.pnlNoFx)) + '</span></div>'
-      + '<div><span class="k">살 수 있는 돈</span><span class="v num acc">' + won(L.allowed) + '</span><span class="s">' + esc(LADDER_SHORT[L.status] || "") + (L.live ? " · 장중 추정" : "") + '</span></div></div></section>';
+      + '<div><span class="k">살 수 있는 돈</span><span class="v num acc">' + (UT.ok ? usd(UT.allowed) : won(L.allowed)) + '</span><span class="s">' + (UT.ok ? esc(US_SHORT[UT.u.status] || "") + ' · 국내 ' + won(L.allowed) : esc(LADDER_SHORT[L.status] || "")) + (L.live ? " · 장중 추정" : "") + '</span></div></div></section>';
 
     // 오늘 밤(지금) 할 일
     var ko = activeKrOrders(), cards = ko.map(function (o) { return { o: o, e: bandEval(o) }; }).filter(function (x) { return x.e; });
@@ -747,7 +752,7 @@
     // 룰 요약 링크
     h += '<a class="rlink" href="#rules"><div class="lad" aria-hidden="true">' + (L.steps || []).map(function (st) { return '<span class="' + (L.dd != null && L.dd <= st.thr ? "on" : "") + '"></span>'; }).join("") + '</div>'
       + '<div class="tx"><span class="k">룰1 사다리 · 급락 TF</span><span class="v num">코스피 ' + num2(L.k) + ' · 고점 대비 ' + pct(L.dd, 1) + '</span>'
-      + '<span class="s">잔여 ' + won(L.allowed) + ' · 해제 게이트 ' + G.n + '/3 · 하드플로어 ' + (s.halted ? "발동" : "미발동") + '</span></div>' + IC.chev + '</a>';
+      + '<span class="s">국내 ' + won(L.allowed) + (UT.ok ? ' · 미국 ' + usd(UT.allowed) : '') + ' · 해제 게이트 ' + G.n + '/3 · 하드플로어 ' + (s.halted ? "발동" : "미발동") + '</span></div>' + IC.chev + '</a>';
 
     // 다가오는 일정
     var ev = eventsLive();
@@ -830,7 +835,7 @@
     return r + '</a>';
   }
   function renderPf() {
-    var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive();
+    var hs = holdingsLive(), T = totalsLive(hs), L = ladderLive(), UT = usTrack();
     var h = topbar({ title: "포트폴리오", sub: '주식 ' + won(T.stocks) + ' · ' + (liveOn() ? "실시간 " + hhmm(LIVE.ts) + "(국내 애프터·미국 프리 포함)" : "보고서 시세") });
     h += '<div class="seg" role="tablist"><button type="button" role="tab" data-t="hold" aria-selected="' + (pfTab === "hold") + '" class="' + (pfTab === "hold" ? "on" : "") + '">보유 ' + hs.length + '</button>'
       + '<button type="button" role="tab" data-t="watch" aria-selected="' + (pfTab === "watch") + '" class="' + (pfTab === "watch" ? "on" : "") + '">워치 ' + (D.watchlist || []).length + '</button></div>';
@@ -847,9 +852,9 @@
     function priCard() {
       if (!pri.length) return "";
       var RK = { "①": "1순위", "②": "2순위", "③": "3순위", "④": "4순위" };
-      return h2s("사다리 해금분 매수 순서", "d191", "sm") + '<div class="wcard" style="margin-top:0"><div class="pri3">' + pri.map(function (p) {
+      return h2s("미국 매수 순서", "d191 · d205", "sm") + '<div class="wcard" style="margin-top:0"><div class="pri3">' + pri.map(function (p) {
         return '<a href="#stock/' + encodeURIComponent(p.st.ticker) + '"><span class="n">' + p.n + ' ' + RK[p.n] + '</span><b>' + esc(isKR(p.st.ticker) ? p.st.label : p.st.ticker) + '</b><span class="z">' + esc(p.z) + (p.d != null ? ' · ' + pct(p.d, 1) : '') + '</span></a>';
-      }).join("") + '</div><p>' + (L.allowed > 0 ? '사다리 잔여 ' + won(L.allowed) + ' — 이 순서대로.' : '지금은 ' + (pri.length === 3 ? "셋 다" : "모두") + ' 못 산다 — 사다리 잔여 0원.') + '</p></div>';
+      }).join("") + '</div><p>' + (UT.ok ? (UT.allowed > 0 ? '미국 트랙 이번 회차 ' + usd(UT.allowed) + ' — 매수존 안 종목 → GOOGL 18%까지 → 나머지 VOO.' : '미국 트랙 ' + esc(US_SHORT[UT.u.status] || "") + (UT.u.next_date ? ' — 다음 회차 ' + esc(mdw(UT.u.next_date)) : '') + '.') : (L.allowed > 0 ? '잔여 ' + won(L.allowed) + ' — 이 순서대로.' : '지금은 못 산다.')) + '</p></div>';
     }
 
     if (pfTab === "hold") {
@@ -1188,6 +1193,23 @@
       + (cpx != null ? '<div class="fc-cap">현재 ' + price(cpx, cur) + '</div>' : '') + (f.note ? '<div class="fc-note">' + esc(f.note) + '</div>' : '') + '</div>';
   }
 
+  // ★[9/21 d205] 미국 트랙 카드 — 코스피 낙폭과 무관한 달러 3회 균등 분할
+  function usTrackCard() {
+    var U = usTrack(), u = U.u;
+    if (!U.ok) return "";
+    var sched = (u.schedule || []).map(function (d, i) {
+      var n = i + 1, st = (u.done || []).indexOf(n) >= 0 ? "집행" : (u.pending || []).indexOf(n) >= 0 ? "도래" : "대기";
+      return '<span class="chip ' + (st === "집행" ? "good" : st === "도래" ? "acc" : "") + '">' + n + '회 ' + esc(md(d)) + ' · ' + st + '</span>';
+    }).join(" ");
+    var sp = (u.split || []).map(function (x) { return '<div class="ussplit"><b class="num">' + esc(x.ticker) + ' ' + usd(x.usd) + '</b><span>' + esc(x.why) + '</span></div>'; }).join("");
+    return '<div class="money" style="margin-top:12px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">🇺🇸 미국 트랙 · 이번 회차(달러)</span><span class="chip">3회 분할 · d205</span></div>'
+      + '<div class="big num">' + usd(U.allowed) + '</div>'
+      + '<div class="g2"><div><span class="k">달러 잔고</span><span class="v num">' + usd(u.usd_cash) + '</span></div><div><span class="k">회차당</span><span class="v num">' + usd(u.per_tranche_usd) + '</span></div></div>'
+      + (sched ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">' + sched + '</div>' : '')
+      + (sp ? '<div style="margin-top:10px;display:flex;flex-direction:column;gap:4px">' + sp + '</div>' : '')
+      + '<p>' + esc(u.why || "") + ' 코스피 낙폭과 무관 · S&amp;P 폭풍 70 이상이면 그 회차 연기 · 급등일(+3%)엔 다음 날(룰3).</p></div>';
+  }
+
   // ════════════════ 화면: 룰 · 리스크 (캔버스 Rules) ════════════════
   function renderRules() {
     var L = ladderLive(), s = L.s, hs = holdingsLive(), T = totalsLive(hs), G = gatesLive();
@@ -1198,14 +1220,15 @@
     var base = s.base_krw || 0, mult = s.mult || 1;
     var nextCap = L.next ? Math.round(base * (L.unl + L.next.alloc_pct) / 100 * mult) : null, nextLeft = nextCap != null ? Math.max(0, nextCap - L.spent) : null;
     var why = s.halted ? "하드플로어 발동 — 사다리 전면 정지. "
-      : L.allowed > 0 ? "상한 안에서 " + won(L.allowed) + " 남았다 — 매수 순서 ① GOOGL부터. "
+      : L.allowed > 0 ? "상한 안에서 " + won(L.allowed) + " 남았다 — 국내 1주 가격에 닿을 때까지 적립. 룰6 국내 비중이 상단(22%) 위라 둘의 우선순위는 d207 판단 대기. "
       : L.unl > 0 && L.spent > L.cap ? "상한의 " + (L.spent / L.cap).toFixed(1) + "배를 이미 썼다. "
       : L.unl > 0 ? "해금분을 모두 집행했다. " : "해금된 단계가 없다. ";
     if (L.next && !s.halted) why += "새 몫은 코스피가 " + L.next.label + "(" + num(Math.round(L.nextLevel)) + ") 아래로 마감해야 열린다" + (nextLeft != null ? " — 그때 약 " + won(Math.round(nextLeft / 100) * 100) + "." : ".");
-    h += '<div class="money"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">오늘 사다리로 살 수 있는 돈</span><span class="chip">' + (L.live ? "장중 추정" : "종가 기준") + ' · 누적</span></div>'
+    h += '<div class="money"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">🇰🇷 국내 트랙 · 사다리로 살 수 있는 돈(원화)</span><span class="chip">' + (L.live ? "장중 추정" : "종가 기준") + ' · 누적</span></div>'
       + '<div class="big num">' + num(L.allowed) + '<small>원</small></div>'
       + '<div class="g2"><div><span class="k">상한 ' + (L.unl || 0) + '%</span><span class="v num">' + won(L.cap) + '</span></div><div><span class="k">기집행</span><span class="v num">' + won(L.spent) + '</span></div></div>'
       + '<p>' + esc(why) + '</p></div>';
+    h += usTrackCard();
 
     // 룰1 낙폭 사다리
     if (s.peak && L.steps.length) {

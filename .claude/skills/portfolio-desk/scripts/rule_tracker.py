@@ -108,6 +108,14 @@ def snapshot(save=True) -> dict:
         "cash": cash,
         "rule2": r2,
     }
+    # ★[9/21 d205] 미국 트랙 — 사다리(국내 트랙)와 별개로 매일 남긴다.
+    #   cash는 이제 **원화만**이다(舊 행은 원화+달러 환산). 날짜로 구분할 것.
+    try:
+        u = TR.us_track()
+        rec["us_track"] = {k: u.get(k) for k in ("status", "usd_cash", "allowed_usd", "pending",
+                                                  "done", "next_date", "halted", "per_tranche_usd")}
+    except Exception as e:  # noqa: BLE001
+        rec["us_track"] = {"status": "error", "error": type(e).__name__}
     if save:
         os.makedirs(os.path.dirname(LOG), exist_ok=True)
         # 같은 날 재실행이면 덮어쓴다(중복 표본 방지 — 기저율 표본중복 교훈)

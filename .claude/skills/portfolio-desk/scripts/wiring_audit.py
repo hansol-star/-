@@ -48,6 +48,7 @@ EXPECTED_UNWIRED = {
                                   "호출 경로 = 클라우드 .github/workflows/deploy-app.yml(평일 5~10분 스케줄) + 로컬 price_watch.py "
                                   "--once 끝의 --kick(배포본 8분+ 낡으면 워크플로 깨움). 데스크 시세 정본은 계속 market_data.py다 — "
                                   "live.json은 커밋하지 않는 휘발성 파생물이라 보고서 근거로 인용하지 않는다",
+    "ladder_variants_test.py":    "일회성 룰 검정 — d205 후속 두 질문(국내 실탄 유보 · 미국 낙폭 사다리)을 8/5 3단 절차 + 대조군으로 판정(9/22). 결론은 docs/research/ladder_variants_2026-09-22.md와 crash_tf §2b에 박히고 스크립트는 재현용으로 남는다",
     "us_track_test.py":           "일회성 룰 검정 — 룰1 사다리(코스피 낙폭)가 미국주 매수까지 게이팅하는 게 맞는지 8/5 3단 절차로 판정(9/21). d0_test·ratchet_test와 같은 성격 — 결론은 docs/research/us_track_test_2026-09-21.md와 crash_tf §2b에 박히고 스크립트는 재현용으로 남는다. 룰 가설이 새로 생길 때만 다시 돌린다",
     "d0_test.py":                 "일회성 룰 검정 — 룰1 사다리에 D0(-20%) 단계를 신설할지 8/5 3단 절차(집계→에피소드→횡단면)로 판정(9/9). ratchet_test·storm_pct 검정과 같은 성격이며, 결론이 crash_tf §2b 정본에 박히고 스크립트는 재현용으로 남는다. 매 세션 부를 이유가 없다 — 룰 변경 가설이 새로 생길 때만 다시 돌린다",
     "ytdlp_bin.py":             "순수 라이브러리 — yt-dlp 실행 경로 해석기(8/31). 자체 산출물이 없고 hunter_latest·api_health·fetch_youtube가 import해서 쓴다. 데스크가 읽을 결과물이 없는 것이 정상이며, 생존 판정은 api_health의 'yt-dlp 스트림' 항목이 한다",

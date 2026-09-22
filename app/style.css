@@ -83,7 +83,6 @@ button{font:inherit;color:inherit}
   border-bottom:1px solid transparent}
 .topbar.scrolled{border-bottom-color:var(--line)}
 .tb-row{display:flex;align-items:center;gap:10px;min-height:44px}
-.tb-brand{font-family:var(--f-display);font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
 .tb-title{font-family:var(--f-display);font-size:25px;font-weight:700;letter-spacing:-.4px;line-height:1.2}
 .tb-sub{font-size:12px;color:var(--mut);margin-top:1px}
 .tb-actions{margin-left:auto;display:flex;align-items:center;gap:4px;flex:none}
@@ -126,15 +125,12 @@ button{font:inherit;color:inherit}
 .sec .note{font-size:11.5px;color:var(--mut)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
 .ctitle{font-size:13.5px;font-weight:700;margin-bottom:9px;color:var(--ink)}
-.divider{height:1px;background:var(--line);margin:12px 0}
 
 /* ── 자산 명세 카드(먹) ── */
 .stmt{background:var(--stmt-bg);color:var(--stmt-fg);border-radius:var(--r-lg);padding:20px 20px 16px;margin:4px 0 12px}
 .stmt .lbl{font-size:12.5px;color:var(--stmt-mut);display:flex;align-items:center;gap:8px}
 .stmt .big{font-family:var(--f-display);font-size:36px;font-weight:700;letter-spacing:-.8px;margin:4px 0 2px;line-height:1.15}
 .stmt .big small{font-size:18px;margin-left:2px;font-weight:600}
-.stmt .day{font-size:14px;font-weight:600}
-.stmt .day.up{color:var(--stmt-up)}.stmt .day.down{color:var(--stmt-down)}
 .stmt .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:16px;border-top:1px solid var(--stmt-line);padding-top:12px}
 .stmt .grid3>div{padding-right:8px;min-width:0}
 .stmt .grid3>div+div{padding-left:12px;border-left:1px solid var(--stmt-line)}
@@ -143,7 +139,6 @@ button{font:inherit;color:inherit}
 .stmt .v.up{color:var(--stmt-up)}.stmt .v.down{color:var(--stmt-down)}
 .stmt .v.acc{color:var(--stmt-accent)}
 .stmt .s{font-size:10.5px;color:var(--stmt-mut);margin-top:1px;line-height:1.35;overflow-wrap:anywhere}
-.stmt .est{font-size:10.5px;color:var(--stmt-mut);margin-top:10px}
 
 /* ── 시장 스트립 ── */
 .strip{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:2px 16px 4px;scroll-padding-inline:16px;scroll-snap-type:x proximity;scrollbar-width:none}
@@ -200,36 +195,12 @@ button{font:inherit;color:inherit}
 .check .lk{flex:none;margin-left:auto;font-size:10px;font-weight:700;color:var(--mut2);align-self:center}
 .checklist{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:2px 14px}
 
-/* ── 종목 행 ── */
-.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
-.srow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:12px 14px;
-  border-bottom:1px solid var(--line);cursor:pointer}
-.srow:last-child{border-bottom:0}
-.srow:active{background:var(--surface2)}
-.srow .nm{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.srow .meta{display:flex;align-items:center;gap:7px;margin-top:3px;font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden}
-.srow .px{font-weight:700;font-size:14.5px;text-align:right;white-space:nowrap}
-.srow .ch{font-size:12px;text-align:right;white-space:nowrap}
-.srow .nx{grid-column:1/-1;font-size:12px;color:var(--txt2);margin-top:-2px;padding:7px 10px;background:var(--surface2);border-radius:8px;line-height:1.45}
-.srow svg.spark{display:block}
-.grade{display:inline-flex;gap:2px;vertical-align:middle}
-.grade i{width:9px;height:4px;border-radius:1px;background:var(--surface3)}
-.grade i.on{background:var(--accent)}
-.grade.low i.on{background:var(--bad)}
-.score{font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:5px;background:var(--surface2);color:var(--mut);line-height:1.5;white-space:nowrap}
-.score.hi{background:var(--accent-soft);color:var(--accent)}
-.score.lo{background:var(--bad-soft);color:var(--bad)}
-
 /* 세그먼트 */
 .seg{display:flex;background:var(--surface2);border-radius:12px;padding:3px;margin:6px 0 12px}
 .seg button{flex:1;min-height:40px;border:0;border-radius:9px;background:transparent;font-weight:600;font-size:13.5px;color:var(--mut);cursor:pointer}
 .seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 
-/* 배분 막대 */
-.alloc{position:relative;height:12px;border-radius:6px;background:var(--surface2);margin:28px 0 8px}
-.alloc .fill{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--ink)}
-.alloc .target{position:absolute;top:-4px;bottom:-4px;border:1.5px dashed var(--good);border-radius:5px;background:var(--good-soft);opacity:.9}
-.alloc .lab{position:absolute;bottom:18px;font-size:10.5px;font-weight:600;white-space:nowrap;transform:translateX(-50%);color:var(--good)}
+/* 3칸 통계 */
 .stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
 .stat3>div{background:var(--surface2);border-radius:10px;padding:9px 10px;min-width:0}
 .stat3 .k{font-size:11px;color:var(--mut)}.stat3 .v{font-size:14px;font-weight:700;margin-top:1px}
@@ -263,7 +234,7 @@ button{font:inherit;color:inherit}
 .gate:last-child{border-bottom:0}
 .gate .no{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;
   background:var(--surface2);color:var(--mut)}
-.gate.on .no{background:var(--good);color:#fff}
+.gate.on .no{background:var(--good);color:var(--surface)}
 .gate .t{font-weight:700;font-size:13.5px}.gate .s{font-size:12px;color:var(--mut);margin-top:1px}
 
 /* 링크 카드(리서치 허브) */
@@ -281,13 +252,7 @@ button{font:inherit;color:inherit}
 .rtoggle button{border:0;background:transparent;font-size:12px;font-weight:600;color:var(--mut);padding:0 12px;min-height:32px;border-radius:7px;cursor:pointer}
 .rtoggle button.on{background:var(--surface);color:var(--ink)}
 
-/* 상세 히어로 */
-.dhero{padding:6px 0 4px}
-.dhero .nm{font-family:var(--f-display);font-size:26px;font-weight:700;letter-spacing:-.4px;line-height:1.25}
-.dhero .tk{font-size:12px;color:var(--mut);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.dhero .price{font-family:var(--f-display);font-size:34px;font-weight:700;letter-spacing:-.7px;margin-top:10px;line-height:1.15}
-.dhero .chg{font-size:15px;font-weight:700;margin-top:2px}
-.dhero .reg{font-size:12px;color:var(--mut);margin-top:4px}
+/* 키-값 격자 */
 .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
 .kv .b{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:11px 12px;min-width:0}
 .kv .b .k{color:var(--mut);font-size:11.5px}
@@ -510,8 +475,6 @@ a.tchip{color:var(--info)}
 .tab.on::before{display:none}
 .hdr-brand{font-family:var(--f-display);font-weight:700;font-size:21px;letter-spacing:-.02em;color:var(--ink)}
 .hdr-date{font-size:13px;color:var(--mut);margin:0 4px 12px}
-.ptitle{font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:-.02em;margin:4px 4px 0}
-.psub{font-size:13px;color:var(--mut);margin:2px 4px 12px}
 .h2s{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:26px 4px 10px}
 .h2s h2{margin:0;font-family:var(--f-display);font-size:19px;font-weight:700;letter-spacing:-.01em}
 .h2s.sm h2{font-size:17px}
@@ -590,7 +553,7 @@ a.gi:active{background:var(--surface2)}
 .bars.low i.on{background:var(--accent)}
 .chk{display:flex;align-items:center;gap:10px;padding:14px 16px;border:0;border-bottom:1px solid var(--line-soft);width:100%;background:transparent;text-align:left;cursor:pointer;min-height:48px;color:var(--ink);font-family:var(--f-body)}
 .chk:last-child{border-bottom:0}
-.chk .bx{width:18px;height:18px;border-radius:5px;border:1.5px solid #B9B5AB;flex:none;display:flex;align-items:center;justify-content:center;color:var(--bg)}
+.chk .bx{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line2);flex:none;display:flex;align-items:center;justify-content:center;color:var(--bg)}
 .chk .bx svg{width:12px;height:12px;opacity:0}
 .chk.done .bx{background:var(--ink);border-color:var(--ink)}
 .chk.done .bx svg{opacity:1}
@@ -625,10 +588,6 @@ a.gi:active{background:var(--surface2)}
 .wcard>h2{margin:0;font-size:16px;font-weight:700}
 .wcard .hsub{font-size:12px;color:var(--mut);margin-top:-8px}
 .wcard p{margin:0;font-size:13px;line-height:1.6;color:var(--txt2)}
-.dtop{display:flex;justify-content:space-between;align-items:center;margin:8px 0 4px}
-.dtop .back{display:inline-flex;align-items:center;gap:2px;font-size:14px;font-weight:600;min-height:40px}
-.dtop .back svg{width:18px;height:18px}
-.dtop .cd{font-family:var(--f-mono);font-size:12px;color:var(--mut)}
 .dh{display:flex;flex-direction:column;gap:8px;padding:4px 4px 0}
 .dh .t{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .dh h1{margin:0;font-family:var(--f-display);font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.2}

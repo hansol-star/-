@@ -495,8 +495,6 @@
   }
 
   // ════════════════ 공용 컴포넌트 ════════════════
-  function grade(n) { n = n || 0; var s = '<span class="grade' + (n <= 2 ? " low" : "") + '" role="img" aria-label="별점 ' + n + '/5">'; for (var i = 1; i <= 5; i++) s += '<i class="' + (i <= n ? "on" : "") + '"></i>'; return s + '</span>'; }
-  function scoreChip(v) { if (v == null) return ""; return '<span class="score ' + (v >= 85 ? "hi" : v < 55 ? "lo" : "") + '" title="정량 스코어">' + v + '</span>'; }
   function topbar(o) {
     var h = '<header class="topbar"><div class="tb-row">';
     if (o.back) h += '<a class="tb-back" href="' + o.back + '">' + IC.back + esc(o.backLabel || "뒤로") + '</a>';
@@ -518,23 +516,6 @@
     h += '분석 ' + esc(D.as_of || "") + ' · 빌드 ' + esc(D.generated_at || "");
     if (LIVE) h += '<br>실시간 ' + esc(LIVE.generated_at || "") + ' (' + (LIVE.src === "cloud" ? "클라우드" : "로컬") + ')';
     return h + '<br>투자 자문 아님 · 최종 결정은 정훈</div>';
-  }
-
-  function stockRow(h, isHold) {
-    var q = Q(h.ticker), p = isHold ? h.lp : px(h), c = isHold ? h.lc : chg(h);
-    var ser = S(h.ticker), base = null, sp;
-    if (ser && q) { base = q.x ? q.rpc : q.pc; sp = sparkSVG(ser, 54, 26, base); }
-    else sp = sparkSVG(h.spark, 54, 26, isHold ? h.cost : null);
-    var tkShort = isKR(h.ticker) ? h.ticker.slice(0, 6) : h.ticker;
-    var r = '<a class="srow" href="#stock/' + encodeURIComponent(h.ticker) + '">';
-    r += '<div class="flex1"><div class="nm">' + esc(h.label) + '</div><div class="meta">' + grade(h.stars) + scoreChip(h.score)
-      + '<span class="mono">' + esc(tkShort) + '</span>' + (q && q.x ? sessTag(q) : '') + '</div></div>';
-    r += sp;
-    r += '<div><div class="px num">' + fmtP(p, h.ticker) + '</div><div class="ch num ' + cls(c) + '">' + pct(c) + '</div>';
-    if (isHold) r += '<div class="ch num mut">손익 <span class="' + cls(h.lpnlpct) + '">' + pct(h.lpnlpct, 1) + '</span> · ' + (h.w != null ? h.w.toFixed(1) + '%' : '') + '</div>';
-    r += '</div>';
-    if (h._next) r += '<div class="nx clamp2">' + esc(h._next) + '</div>';
-    return r + '</a>';
   }
 
   // 국내 지정가 접수 가능성 카드(밴드)
@@ -1425,7 +1406,7 @@
     var sc = hu.scorecard;
     if (sc && sc.total) {
       var bk = sc.buckets || {}, scored = sc.scored != null ? sc.scored : sc.total;
-      var segs = [["정확", "var(--good)", bk["정확"]], ["근사", "#5FA88A", bk["근사"]], ["시점", "var(--info)", bk["시점"]], ["미확인", "var(--warn)", bk["미확인"]], ["정정", "var(--bad)", bk["정정"]], ["과장", "#C9772E", bk["과장"]], ["일반", "var(--mut2)", bk["일반"]], ["미채점", "var(--surface3)", bk["미채점"]]];
+      var segs = [["정확", "var(--good)", bk["정확"]], ["근사", "color-mix(in srgb, var(--good) 55%, var(--surface))", bk["근사"]], ["시점", "var(--info)", bk["시점"]], ["미확인", "var(--warn)", bk["미확인"]], ["정정", "var(--bad)", bk["정정"]], ["과장", "color-mix(in srgb, var(--bad) 50%, var(--warn))", bk["과장"]], ["일반", "var(--mut2)", bk["일반"]], ["미채점", "var(--surface3)", bk["미채점"]]];
       h += '<div class="scard"><div class="row between"><span class="sck">채널 정확도 <span class="mut xs">(채점 ' + scored + '건)</span></span><span class="scacc num">' + sc.accuracy_pct + '%</span></div><div class="scbar">';
       segs.forEach(function (s) { if (s[2]) h += '<span class="scseg" style="flex:' + s[2] + ';background:' + s[1] + '"></span>'; });
       h += '</div><div class="row wrap sclegend">';

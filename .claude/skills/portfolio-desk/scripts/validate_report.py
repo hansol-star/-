@@ -17,7 +17,8 @@ import argparse, ast, datetime as dt, json, os, re, subprocess, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
-# 보유 15종목 정본 (티커 → 보고서 본문에서 찾을 별칭들). 변동 시 여기 + master.md 동시 갱신. [7/7 TSLA 전량 매도 → 제외]
+# 보유 12종목 정본 (티커 → 보고서 본문에서 찾을 별칭들). 변동 시 여기 + master.md 동시 갱신. [7/7 TSLA 전량 매도 → 제외]
+# [9/23] AAPL(d210)·META(d211) 잔량 전량 매도 체결(토스 API 01:40·01:43) → 보유 14 → 12종목. watch_retired로 사후 추적.
 HOLDINGS = {
     "005930.KS": ["삼성전자", "삼성"],
     "066570.KS": ["LG전자"],
@@ -25,10 +26,8 @@ HOLDINGS = {
     "005380.KS": ["현대차"],
     "035420.KS": ["NAVER", "네이버"],
     "NVDA": ["NVDA", "엔비디아"],
-    "META": ["META", "메타"],
     "VOO": ["VOO"],
     "MSFT": ["MSFT", "마이크로소프트"],
-    "AAPL": ["AAPL", "애플"],
     "GOOGL": ["GOOGL", "구글", "알파벳"],
     "ORCL": ["ORCL", "오라클"],
     # [8/11] ANET 전량 매도 체결(8/10 잔여 0.141767주 $27.29 · 8/5 절반 $30.17)로 보유에서 제외.

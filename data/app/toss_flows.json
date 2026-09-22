@@ -1,5 +1,5 @@
 {
- "as_of": "2026-09-09 02:05 KST",
+ "as_of": "2026-09-22 15:44 KST",
  "source": "토스 Open API (조회 전용)",
  "caveat": "측정 전용 · T+1 반영 · 룰 변경 금지",
  "rows": [
@@ -7,49 +7,49 @@
    "code": "005930",
    "label": "삼성전자",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:14:12.000+09:00",
-    "volume": 419585.0,
-    "rate": 0.01847,
-    "avg_rate": 0.06582,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:35:52.000+09:00",
+    "volume": 221298.0,
+    "rate": 0.01314,
+    "avg_rate": 0.0566,
     "pctile": 10.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 89159479.0,
-    "chg_vs_prev": -2487642.0,
-    "pctile": 70.0,
-    "execution": 262746.0,
-    "repayment": 2750388.0,
+    "date": "2026-09-21",
+    "balance": 87885086.0,
+    "chg_vs_prev": -3945144.0,
+    "pctile": 30.0,
+    "execution": 2299043.0,
+    "repayment": 6244187.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 24645038.0,
-    "stock_loan_balance": 9219.0
+    "date": "2026-09-21",
+    "margin_balance": 22918808.0,
+    "stock_loan_balance": 8086.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:27.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:13.000+09:00",
     "today": {
-     "individual": -8150560.0,
-     "foreigner": 3593457.0,
-     "institution": 2655249.0
+     "individual": -2839606.0,
+     "foreigner": 767194.0,
+     "institution": 267601.0
     },
     "net5": {
-     "individual": -23823470.0,
-     "foreigner": 6639972.0,
-     "institution": 7573263.0
+     "individual": -21824973.0,
+     "foreigner": 1341671.0,
+     "institution": 10847274.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": 2668576.0,
-     "insurance": -67484.0,
-     "trust": 251636.0,
-     "privateEquityFund": 339769.0,
-     "bank": 8444.0,
-     "otherFinancialInstitution": 9554.0,
-     "pensionFund": -555246.0
+     "financialInvestment": 404737.0,
+     "insurance": 7057.0,
+     "trust": -167183.0,
+     "privateEquityFund": 33825.0,
+     "bank": 53.0,
+     "otherFinancialInstitution": 8531.0,
+     "pensionFund": -19419.0
     },
     "n": 20
    }
@@ -58,49 +58,49 @@
    "code": "066570",
    "label": "LG전자",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:14:44.000+09:00",
-    "volume": 87763.0,
-    "rate": 0.14708,
-    "avg_rate": 0.11053,
-    "pctile": 85.0,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:24.000+09:00",
+    "volume": 65254.0,
+    "rate": 0.04172,
+    "avg_rate": 0.11737,
+    "pctile": 10.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 4965200.0,
-    "chg_vs_prev": -23491.0,
-    "pctile": 25.0,
-    "execution": 3467.0,
-    "repayment": 26958.0,
+    "date": "2026-09-21",
+    "balance": 4740638.0,
+    "chg_vs_prev": 961.0,
+    "pctile": 10.0,
+    "execution": 138081.0,
+    "repayment": 137120.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 1423336.0,
-    "stock_loan_balance": 1210.0
+    "date": "2026-09-21",
+    "margin_balance": 1442946.0,
+    "stock_loan_balance": 1380.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:57.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:56.000+09:00",
     "today": {
-     "individual": 166922.0,
-     "foreigner": -130171.0,
-     "institution": -44447.0
+     "individual": -620838.0,
+     "foreigner": 368038.0,
+     "institution": 233716.0
     },
     "net5": {
-     "individual": -694827.0,
-     "foreigner": 155218.0,
-     "institution": 235977.0
+     "individual": -735727.0,
+     "foreigner": 374961.0,
+     "institution": 354040.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": 3104.0,
-     "insurance": 747.0,
-     "trust": -8786.0,
-     "privateEquityFund": -19692.0,
-     "bank": 11.0,
-     "otherFinancialInstitution": -2.0,
-     "pensionFund": -19829.0
+     "financialInvestment": 31682.0,
+     "insurance": 2442.0,
+     "trust": 38091.0,
+     "privateEquityFund": 70863.0,
+     "bank": 0.0,
+     "otherFinancialInstitution": -859.0,
+     "pensionFund": 91497.0
     },
     "n": 20
    }
@@ -109,49 +109,49 @@
    "code": "454910",
    "label": "두산로보틱스",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:15:10.000+09:00",
-    "volume": 45583.0,
-    "rate": 0.1368,
-    "avg_rate": 0.12617,
-    "pctile": 70.0,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:49.000+09:00",
+    "volume": 19805.0,
+    "rate": 0.066,
+    "avg_rate": 0.10098,
+    "pctile": 25.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 4046622.0,
-    "chg_vs_prev": 47860.0,
-    "pctile": 15.0,
-    "execution": 85418.0,
-    "repayment": 37558.0,
+    "date": "2026-09-21",
+    "balance": 3972625.0,
+    "chg_vs_prev": -37842.0,
+    "pctile": 10.0,
+    "execution": 116537.0,
+    "repayment": 154379.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 671892.0,
-    "stock_loan_balance": 2.0
+    "date": "2026-09-21",
+    "margin_balance": 671004.0,
+    "stock_loan_balance": 0.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:22:55.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:37:30.000+09:00",
     "today": {
-     "individual": -20352.0,
-     "foreigner": 11741.0,
-     "institution": 6634.0
+     "individual": 11586.0,
+     "foreigner": -18375.0,
+     "institution": 6976.0
     },
     "net5": {
-     "individual": -19233.0,
-     "foreigner": 90756.0,
-     "institution": -66956.0
+     "individual": 13605.0,
+     "foreigner": -24197.0,
+     "institution": 13853.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": 22527.0,
-     "insurance": -71.0,
-     "trust": -13082.0,
-     "privateEquityFund": -135.0,
+     "financialInvestment": 6015.0,
+     "insurance": 60.0,
+     "trust": -25.0,
+     "privateEquityFund": -3464.0,
      "bank": 0.0,
      "otherFinancialInstitution": 0.0,
-     "pensionFund": -2605.0
+     "pensionFund": 4390.0
     },
     "n": 20
    }
@@ -160,49 +160,49 @@
    "code": "005380",
    "label": "현대차",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:14:10.000+09:00",
-    "volume": 74612.0,
-    "rate": 0.15468,
-    "avg_rate": 0.15975,
-    "pctile": 55.0,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:35:50.000+09:00",
+    "volume": 114412.0,
+    "rate": 0.259,
+    "avg_rate": 0.17524,
+    "pctile": 95.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 8460091.0,
-    "chg_vs_prev": -49253.0,
-    "pctile": 90.0,
-    "execution": 54400.0,
-    "repayment": 103653.0,
+    "date": "2026-09-21",
+    "balance": 7980027.0,
+    "chg_vs_prev": -118219.0,
+    "pctile": 40.0,
+    "execution": 303123.0,
+    "repayment": 421342.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 1673608.0,
-    "stock_loan_balance": 475.0
+    "date": "2026-09-21",
+    "margin_balance": 1718539.0,
+    "stock_loan_balance": 673.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:29.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:11.000+09:00",
     "today": {
-     "individual": 241780.0,
-     "foreigner": -145268.0,
-     "institution": -91313.0
+     "individual": 60252.0,
+     "foreigner": -79485.0,
+     "institution": 18220.0
     },
     "net5": {
-     "individual": 682693.0,
-     "foreigner": -261022.0,
-     "institution": -418045.0
+     "individual": 388761.0,
+     "foreigner": -346476.0,
+     "institution": -50681.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": 23336.0,
-     "insurance": -5410.0,
-     "trust": -41303.0,
-     "privateEquityFund": -12113.0,
-     "bank": -45.0,
-     "otherFinancialInstitution": -1411.0,
-     "pensionFund": -54367.0
+     "financialInvestment": 38934.0,
+     "insurance": -1627.0,
+     "trust": -7224.0,
+     "privateEquityFund": -25655.0,
+     "bank": -214.0,
+     "otherFinancialInstitution": 795.0,
+     "pensionFund": 13211.0
     },
     "n": 20
    }
@@ -211,49 +211,49 @@
    "code": "035420",
    "label": "NAVER",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:14:40.000+09:00",
-    "volume": 29027.0,
-    "rate": 0.05033,
-    "avg_rate": 0.06268,
-    "pctile": 40.0,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:19.000+09:00",
+    "volume": 33641.0,
+    "rate": 0.06962,
+    "avg_rate": 0.09028,
+    "pctile": 50.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 5313011.0,
-    "chg_vs_prev": -229219.0,
-    "pctile": 5.0,
-    "execution": 26779.0,
-    "repayment": 255998.0,
+    "date": "2026-09-21",
+    "balance": 5590632.0,
+    "chg_vs_prev": 80115.0,
+    "pctile": 95.0,
+    "execution": 308236.0,
+    "repayment": 228121.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 2973028.0,
-    "stock_loan_balance": 2506.0
+    "date": "2026-09-21",
+    "margin_balance": 2999550.0,
+    "stock_loan_balance": 382.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:48.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:50.000+09:00",
     "today": {
-     "individual": -84.0,
-     "foreigner": 38623.0,
-     "institution": -46746.0
+     "individual": -142077.0,
+     "foreigner": 104178.0,
+     "institution": 39694.0
     },
     "net5": {
-     "individual": -254403.0,
-     "foreigner": 372270.0,
-     "institution": -120200.0
+     "individual": 1052072.0,
+     "foreigner": -419035.0,
+     "institution": -645630.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": 20215.0,
-     "insurance": -7366.0,
-     "trust": -53414.0,
-     "privateEquityFund": -12631.0,
-     "bank": -4.0,
-     "otherFinancialInstitution": -28.0,
-     "pensionFund": 6482.0
+     "financialInvestment": 29445.0,
+     "insurance": -3399.0,
+     "trust": -16706.0,
+     "privateEquityFund": 19765.0,
+     "bank": 0.0,
+     "otherFinancialInstitution": -10.0,
+     "pensionFund": 10599.0
     },
     "n": 20
    }
@@ -262,151 +262,49 @@
    "code": "000660",
    "label": "SK하이닉스",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:13:52.000+09:00",
-    "volume": 113173.0,
-    "rate": 0.02717,
-    "avg_rate": 0.05833,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:35:31.000+09:00",
+    "volume": 65645.0,
+    "rate": 0.022,
+    "avg_rate": 0.06707,
     "pctile": 10.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 12479615.0,
-    "chg_vs_prev": -184676.0,
-    "pctile": 55.0,
-    "execution": 162301.0,
-    "repayment": 346977.0,
+    "date": "2026-09-21",
+    "balance": 11188429.0,
+    "chg_vs_prev": -668097.0,
+    "pctile": 5.0,
+    "execution": 397623.0,
+    "repayment": 1065720.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 3203407.0,
-    "stock_loan_balance": 2574.0
+    "date": "2026-09-21",
+    "margin_balance": 2988044.0,
+    "stock_loan_balance": 3540.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:48.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:35:43.000+09:00",
     "today": {
-     "individual": -737275.0,
-     "foreigner": 109946.0,
-     "institution": -6991.0
+     "individual": -221675.0,
+     "foreigner": -215887.0,
+     "institution": -155200.0
     },
     "net5": {
-     "individual": -3808048.0,
-     "foreigner": 634896.0,
-     "institution": 10539.0
+     "individual": -2956772.0,
+     "foreigner": -596570.0,
+     "institution": 450284.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": -24095.0,
-     "insurance": -12085.0,
-     "trust": -1587.0,
-     "privateEquityFund": 46170.0,
-     "bank": 6572.0,
-     "otherFinancialInstitution": 915.0,
-     "pensionFund": -22881.0
-    },
-    "n": 20
-   }
-  },
-  {
-   "code": "240810",
-   "label": "원익IPS",
-   "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:16:32.000+09:00",
-    "volume": 74155.0,
-    "rate": 0.08711,
-    "avg_rate": 0.18763,
-    "pctile": 15.0,
-    "n": 20
-   },
-   "lending": {
-    "date": "2026-09-08",
-    "balance": 7986401.0,
-    "chg_vs_prev": -12345.0,
-    "pctile": 80.0,
-    "execution": 143333.0,
-    "repayment": 155678.0,
-    "n": 20
-   },
-   "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 610444.0,
-    "stock_loan_balance": 130.0
-   },
-   "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:22:15.000+09:00",
-    "today": {
-     "individual": -55528.0,
-     "foreigner": 83357.0,
-     "institution": -23440.0
-    },
-    "net5": {
-     "individual": -323072.0,
-     "foreigner": 476967.0,
-     "institution": -134490.0
-    },
-    "inst_breakdown_today": {
-     "financialInvestment": -35411.0,
-     "insurance": 1304.0,
-     "trust": -13279.0,
-     "privateEquityFund": -10542.0,
-     "bank": 120.0,
-     "otherFinancialInstitution": -1.0,
-     "pensionFund": 34369.0
-    },
-    "n": 20
-   }
-  },
-  {
-   "code": "095610",
-   "label": "테스",
-   "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:15:55.000+09:00",
-    "volume": 37981.0,
-    "rate": 0.07438,
-    "avg_rate": 0.07568,
-    "pctile": 65.0,
-    "n": 20
-   },
-   "lending": {
-    "date": "2026-09-08",
-    "balance": 2195865.0,
-    "chg_vs_prev": -18507.0,
-    "pctile": 25.0,
-    "execution": 50798.0,
-    "repayment": 69305.0,
-    "n": 20
-   },
-   "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 490271.0,
-    "stock_loan_balance": 20.0
-   },
-   "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:23:56.000+09:00",
-    "today": {
-     "individual": 9577.0,
-     "foreigner": 38072.0,
-     "institution": -43568.0
-    },
-    "net5": {
-     "individual": -300851.0,
-     "foreigner": 288296.0,
-     "institution": 16853.0
-    },
-    "inst_breakdown_today": {
-     "financialInvestment": -18758.0,
-     "insurance": -8160.0,
-     "trust": 4262.0,
-     "privateEquityFund": -35317.0,
-     "bank": 0.0,
-     "otherFinancialInstitution": -80.0,
-     "pensionFund": 14485.0
+     "financialInvestment": -78649.0,
+     "insurance": -1288.0,
+     "trust": -51578.0,
+     "privateEquityFund": 54178.0,
+     "bank": 552.0,
+     "otherFinancialInstitution": -1741.0,
+     "pensionFund": -76674.0
     },
     "n": 20
    }
@@ -415,49 +313,49 @@
    "code": "034020",
    "label": "두산에너빌리티",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:14:39.000+09:00",
-    "volume": 596658.0,
-    "rate": 0.10369,
-    "avg_rate": 0.12608,
-    "pctile": 45.0,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:18.000+09:00",
+    "volume": 678429.0,
+    "rate": 0.23969,
+    "avg_rate": 0.16316,
+    "pctile": 90.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 21753790.0,
-    "chg_vs_prev": -402698.0,
-    "pctile": 70.0,
-    "execution": 5858.0,
-    "repayment": 408556.0,
+    "date": "2026-09-21",
+    "balance": 22950817.0,
+    "chg_vs_prev": 361450.0,
+    "pctile": 100.0,
+    "execution": 1273497.0,
+    "repayment": 912047.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 8487593.0,
-    "stock_loan_balance": 15100.0
+    "date": "2026-09-21",
+    "margin_balance": 8739336.0,
+    "stock_loan_balance": 7757.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:51.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:49.000+09:00",
     "today": {
-     "individual": -897656.0,
-     "foreigner": -364809.0,
-     "institution": 1344853.0
+     "individual": 549831.0,
+     "foreigner": -439490.0,
+     "institution": -123030.0
     },
     "net5": {
-     "individual": -1509465.0,
-     "foreigner": -1156398.0,
-     "institution": 2646448.0
+     "individual": 3092229.0,
+     "foreigner": -2451473.0,
+     "institution": -656333.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": 125745.0,
-     "insurance": 40856.0,
-     "trust": 329669.0,
-     "privateEquityFund": 210669.0,
-     "bank": 9642.0,
-     "otherFinancialInstitution": 268.0,
-     "pensionFund": 628004.0
+     "financialInvestment": -140966.0,
+     "insurance": -2062.0,
+     "trust": -11822.0,
+     "privateEquityFund": -68620.0,
+     "bank": 940.0,
+     "otherFinancialInstitution": 734.0,
+     "pensionFund": 98766.0
     },
     "n": 20
    }
@@ -466,49 +364,49 @@
    "code": "009150",
    "label": "삼성전기",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:14:19.000+09:00",
-    "volume": 36295.0,
-    "rate": 0.05326,
-    "avg_rate": 0.05353,
-    "pctile": 60.0,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:35:58.000+09:00",
+    "volume": 7259.0,
+    "rate": 0.00833,
+    "avg_rate": 0.04056,
+    "pctile": 5.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 2628393.0,
-    "chg_vs_prev": -40794.0,
-    "pctile": 5.0,
-    "execution": 4473.0,
-    "repayment": 45267.0,
+    "date": "2026-09-21",
+    "balance": 2461771.0,
+    "chg_vs_prev": -992.0,
+    "pctile": 25.0,
+    "execution": 77333.0,
+    "repayment": 78325.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 753129.0,
-    "stock_loan_balance": 4338.0
+    "date": "2026-09-21",
+    "margin_balance": 748233.0,
+    "stock_loan_balance": 4023.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:50.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:23.000+09:00",
     "today": {
-     "individual": 394323.0,
-     "foreigner": -296648.0,
-     "institution": -93233.0
+     "individual": -209922.0,
+     "foreigner": 129304.0,
+     "institution": 81780.0
     },
     "net5": {
-     "individual": 153628.0,
-     "foreigner": -113971.0,
-     "institution": -44061.0
+     "individual": -638421.0,
+     "foreigner": 256362.0,
+     "institution": 382428.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": -56353.0,
-     "insurance": -2319.0,
-     "trust": -13125.0,
-     "privateEquityFund": -12433.0,
-     "bank": 0.0,
-     "otherFinancialInstitution": 74.0,
-     "pensionFund": -9077.0
+     "financialInvestment": 15052.0,
+     "insurance": 8324.0,
+     "trust": 30871.0,
+     "privateEquityFund": 35676.0,
+     "bank": 630.0,
+     "otherFinancialInstitution": 164.0,
+     "pensionFund": -8937.0
     },
     "n": 20
    }
@@ -517,49 +415,49 @@
    "code": "096770",
    "label": "SK이노베이션",
    "short": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T18:14:52.000+09:00",
-    "volume": 18290.0,
-    "rate": 0.02201,
-    "avg_rate": 0.03883,
-    "pctile": 25.0,
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:36:31.000+09:00",
+    "volume": 54050.0,
+    "rate": 0.07922,
+    "avg_rate": 0.05215,
+    "pctile": 90.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-09-08",
-    "balance": 2386614.0,
-    "chg_vs_prev": -170137.0,
-    "pctile": 5.0,
-    "execution": 2839.0,
-    "repayment": 172976.0,
+    "date": "2026-09-21",
+    "balance": 2265946.0,
+    "chg_vs_prev": 37742.0,
+    "pctile": 25.0,
+    "execution": 148145.0,
+    "repayment": 110403.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-09-07",
-    "margin_balance": 746401.0,
-    "stock_loan_balance": 4908.0
+    "date": "2026-09-21",
+    "margin_balance": 838229.0,
+    "stock_loan_balance": 4077.0
    },
    "investors": {
-    "date": "2026-09-08",
-    "updated_at": "2026-09-08T20:21:24.000+09:00",
+    "date": "2026-09-22",
+    "updated_at": "2026-09-22T15:37:06.000+09:00",
     "today": {
-     "individual": -29837.0,
-     "foreigner": 38654.0,
-     "institution": -15687.0
+     "individual": -108729.0,
+     "foreigner": 174725.0,
+     "institution": -62938.0
     },
     "net5": {
-     "individual": -796336.0,
-     "foreigner": 49482.0,
-     "institution": 742579.0
+     "individual": -43266.0,
+     "foreigner": 106138.0,
+     "institution": -89782.0
     },
     "inst_breakdown_today": {
-     "financialInvestment": -30166.0,
-     "insurance": -2955.0,
-     "trust": 5268.0,
-     "privateEquityFund": 7186.0,
-     "bank": -47.0,
-     "otherFinancialInstitution": -14.0,
-     "pensionFund": 5041.0
+     "financialInvestment": 6379.0,
+     "insurance": 905.0,
+     "trust": -15034.0,
+     "privateEquityFund": -18691.0,
+     "bank": 144.0,
+     "otherFinancialInstitution": 1412.0,
+     "pensionFund": -38053.0
     },
     "n": 20
    }

@@ -237,6 +237,7 @@
     watch: "해금 — 사다리 집행 가능 구간",
     spent: "해금됐지만 상한까지 집행 완료 — 잔여 0원, 다음 단계 도달 시 새 몫",
     freeze: "정지 — 하드플로어 발동(S&P500 폭풍 ≥70%ile), 사다리 전면 정지",
+    rule6: "룰6 우선(d207) — 국내주 22% 초과라 사다리는 기록만, 집행 0원",
     unknown: "코스피 시세 미확인"
   };
   // ★[9/21 d205] 미국 트랙 — 달러는 코스피 사다리가 아니라 3회 균등 분할(월 1회)이 다룬다
@@ -254,11 +255,11 @@
     var dd = (k / s.peak - 1) * 100, unl = 0;
     s.steps.forEach(function (st) { if (dd <= st.thr) unl += st.alloc_pct; });
     var cap = Math.round((s.base_krw || 0) * unl / 100 * (s.mult || 1));
-    var allowed = s.halted ? 0 : Math.max(0, cap - (s.spent_krw || 0));
+    var allowed = (s.halted || s.rule6_block) ? 0 : Math.max(0, cap - (s.spent_krw || 0));
     var nxt = null; for (var i = 0; i < s.steps.length; i++) if (dd > s.steps[i].thr) { nxt = s.steps[i]; break; }
     out.dd = dd; out.unl = unl; out.cap = cap; out.allowed = allowed; out.next = nxt;
     out.nextLevel = nxt ? s.peak * (1 + nxt.thr / 100) : null;
-    out.status = s.halted ? "freeze" : (unl > 0 && allowed === 0 ? "spent" : unl > 0 ? "watch" : "ok");
+    out.status = s.halted ? "freeze" : s.rule6_block ? "rule6" : (unl > 0 && allowed === 0 ? "spent" : unl > 0 ? "watch" : "ok");
     return out;
   }
   function stormPct() { var m = String((D.safety || {}).floor_note || "").match(/([\d.]+)\s*%ile/); return m ? +m[1] : null; }
@@ -611,7 +612,7 @@
     return out.join(" · ");
   }
   function todayLong() { var d = kst(); return (d.getUTCMonth() + 1) + "월 " + d.getUTCDate() + "일 " + "일월화수목금토".charAt(d.getUTCDay()) + "요일"; }
-  var LADDER_SHORT = { ok: "다음 단계 미도달", watch: "사다리 해금", spent: "사다리 상한 소진", freeze: "하드플로어 정지", unknown: "시세 미확인" };
+  var LADDER_SHORT = { ok: "다음 단계 미도달", watch: "사다리 해금", spent: "사다리 상한 소진", freeze: "하드플로어 정지", rule6: "룰6 우선 — 기록만", unknown: "시세 미확인" };
 
   // 걸 주문 카드(접수 가능) · 걸지 말 것 카드(밴드 밖)
   function orderCard(o) {

@@ -63,7 +63,7 @@ def snapshot(save=True) -> dict:
     if dd is None:
         return {"error": "코스피 낙폭 산출 실패 — history_backfill.py 필요"}
 
-    r1 = TR.rule1(cash, dd, storm, fear, capit)
+    r1 = TR.rule1(cash, dd, storm, fear, capit, kr_weight=TR.kr_weight_pct())   # d207 룰6 우선
 
     # 룰2는 보유 전종목 판정을 요약 저장
     r2 = {}
@@ -100,6 +100,11 @@ def snapshot(save=True) -> dict:
         "final_mult": r1["final_mult"],
         "halted": r1["halted"],
         "allowed_krw": r1["allowed_krw"],
+        # ★[2026-09-23 d207] 룰6 우선 게이트 — allowed_krw는 게이트 후(집행 가능액),
+        #   ladder_allowed_krw는 게이트 전(사다리 자체 판정 = 적립 기록).
+        "ladder_allowed_krw": r1.get("ladder_allowed_krw"),
+        "rule6_block": r1.get("rule6_block"),
+        "kr_weight_pct": r1.get("kr_weight_pct"),
         # ★[2026-09-20] cap/spent/base 기록 시작 — 舊 행엔 없어서 cap_delta_explain이
         #   매번 cash로 상한을 재구성했고, 9/9 공식 변경(cash→base) 뒤로 틀린 값을 냈다.
         "cap_krw": r1["cap_krw"],

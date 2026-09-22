@@ -568,9 +568,12 @@ def build(offline: bool) -> dict:
             #   앱 홈은 "해금 — 사다리 집행 가능 구간"을 띄웠다(보고서·tranche_rules와 정반대).
             #   해금 비율이 아니라 **잔여 금액**이 '살 수 있나'의 답이다 → 정본 계산(rule1)을 그대로 읽는다.
             _cash = _TR._load_inputs(None)[0]
-            _r1 = _TR.rule1(_cash, _dd, None, check_contagion=False)
+            _r1 = _TR.rule1(_cash, _dd, None, check_contagion=False, kr_weight=_TR.kr_weight_pct())   # d207
             safety.update({"cap_krw": _r1["cap_krw"], "spent_krw": _r1["spent_krw"],
-                           "allowed_krw": 0 if _halt else _r1["allowed_krw"]})
+                           "allowed_krw": 0 if _halt else _r1["allowed_krw"],
+                           # d207 룰6 우선 — 앱이 장중 재계산할 때도 이 게이트를 지켜야 한다
+                           "rule6_block": _r1.get("rule6_block"), "kr_weight_pct": _r1.get("kr_weight_pct"),
+                           "ladder_allowed_krw": _r1.get("ladder_allowed_krw")})
             # ★[9/21 앱 실시간] 앱이 **장중 코스피**를 대입해 "지금 낙폭이면 상한이 얼마인가"를
             #   다시 그릴 수 있게 정본 재료를 싣는다(고점·단계·총재원·기집행·승수). 판정은 여전히
             #   tranche_rules(종가 기준)이 정본이고, 앱의 장중 값은 '추정' 라벨로만 표시한다.
@@ -592,6 +595,8 @@ def build(offline: bool) -> dict:
         safety["status"] = "unknown"
     elif safety.get("halted"):
         safety["status"] = "freeze"   # 하드플로어 발동 = 사다리 전면 정지
+    elif safety.get("rule6_block"):
+        safety["status"] = "rule6"    # d207 — 국내주 22% 초과: 사다리는 판정·적립만, 집행 0원
     elif (safety.get("unlocked_pct") or 0) > 0 and safety.get("allowed_krw") == 0:
         safety["status"] = "spent"    # 해금됐지만 이미 상한까지 집행 = 오늘 여력 0원
     elif (safety.get("unlocked_pct") or 0) > 0:

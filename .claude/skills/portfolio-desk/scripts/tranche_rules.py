@@ -168,6 +168,26 @@ LEDGER = os.path.join(ROOT, "data", "app", "tranche_ledger.json")
 KR_TRACK_KRW_ONLY = True   # d205 — False로 돌리면 舊 통합 재원(원화+달러 환산)
 RULE_LOG = os.path.join(ROOT, "data", "app", "rule_log.jsonl")
 
+# ★[2026-09-23 d207 승인 · 정훈 "승인"] 순서 = 룰6(어디에) → 국내 사다리(얼마나 빨리).
+#   국내주 비중(주식 기준)이 룰6 상단 22%를 넘는 동안 국내 사다리는 **판정·적립만** 하고 집행 허용액은 0원.
+#   22% 이하가 되면 사다리 상한만큼 집행한다. 舊엔 두 룰이 같은 원화에 다른 말을 했다
+#   (사다리 = "사도 된다" / 룰6 = "국내 신규 매수 금지") — 누가 이기는지 코드에 없었다.
+#   정본 = docs/research/ladder_variants_2026-09-22.md · decisions d207/d209.
+RULE6_KR_HI = 22.0
+SNAPS = os.path.join(ROOT, "data", "snapshots")
+
+
+def kr_weight_pct() -> float | None:
+    """최신 일일 스냅샷의 국내주 비중(주식 기준 %). order_check.kr_weight()와 같은 소스·같은 식."""
+    try:
+        snaps = sorted(f for f in os.listdir(SNAPS) if f.endswith(".json"))
+        with open(os.path.join(SNAPS, snaps[-1]), encoding="utf-8") as f:
+            s = json.load(f) or {}
+        kr = float(s["kr_value"]); us = float(s["us_value_usd"]) * float(s["fx_usdkrw"])
+        return kr / (kr + us) * 100 if kr + us else None
+    except (OSError, IndexError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+
 
 def _ledger_read() -> dict:
     try:
@@ -537,7 +557,9 @@ def global_contagion_check():
 
 
 def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
-          check_contagion: bool = True, use_ledger: bool = True):
+          check_contagion: bool = True, use_ledger: bool = True, kr_weight=None):
+    """kr_weight = 국내주 비중 %(주식 기준). 주면 d207 룰6 우선 게이트를 적용한다 —
+    None이면 게이트 없음(백테스트·rule_tracker --backfill 하위호환)."""
     unlocked, steps = ladder_state(dd_pct)
     splits, swhy = _storm_splits(storm_pct)
 
@@ -608,6 +630,10 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
     # ⚠️ D0 신설(9/9) 취지와 충돌하지 않는다 — 그건 *문이 닫혀 상한이 0*이던 문제였고,
     #    지금은 문이 열려 있는데 **이미 예산을 2.55배 초과 집행**(300,909 vs 118,037)한 상태다.
     allowed = 0.0 if halted else max(0.0, cap - total_spent)
+    ladder_allowed = allowed                  # 룰6 게이트 전 = 사다리 자체 판정(적립 기록용)
+    rule6_block = kr_weight is not None and kr_weight > RULE6_KR_HI
+    if rule6_block:
+        allowed = 0.0
 
     return {
         "dd_pct": dd_pct, "cash": cash,
@@ -625,6 +651,13 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
         "final_mult": round(mult, 3),
         "halted": bool(halted), "halt_why": hwhy,
         "allowed_krw": round(allowed),
+        "ladder_allowed_krw": round(ladder_allowed),
+        "kr_weight_pct": round(kr_weight, 1) if kr_weight is not None else None,
+        "rule6_block": bool(rule6_block),
+        "rule6_why": (f"룰6 우선(d207) — 국내주 {kr_weight:.1f}% > {RULE6_KR_HI:.0f}% → 판정·적립만, 집행 0원"
+                      if rule6_block else
+                      (f"룰6 게이트 통과 — 국내주 {kr_weight:.1f}% ≤ {RULE6_KR_HI:.0f}%" if kr_weight is not None
+                       else "룰6 게이트 미적용(비중 미입력)")),
         "reserve_ratio": RESERVE,
     }
 
@@ -813,7 +846,8 @@ def _kr_accrual_note(allowed_krw, cash):
     if nearest is not None:
         name = next(k for k, v in prices.items() if v == nearest)
         lines.append(f"  ⏳ 최근접 미달: {name} {nearest:,}원 — **{nearest - allowed_krw:,.0f}원 부족**")
-    lines.append(f"  참고 가용현금 {cash:,.0f}원 · 적립분은 미국 매수에 쓰지 않는다(§2b 규칙3)")
+    lines.append(f"  참고 가용현금 {cash:,.0f}원 · 국내주 22% 초과 동안 원화는 미국 트랙 합류(d207 ②) — "
+                 f"22% 이하일 때만 §2b 규칙3(적립분 미국 매수 금지)")
     lines.append("  ⚠️ 표시 전용 — 도달해도 §5 3중 게이트·하드플로어가 위에 그대로 있다.")
     return "\n".join(lines)
 
@@ -936,6 +970,7 @@ def main():
     ap.add_argument("--us-execute", action="store_true", help="미국 트랙 회차 집행 기록(--usd·--ticker 필수). 주문 안 냄")
     ap.add_argument("--usd", type=float, help="--us-execute 금액($)")
     ap.add_argument("--tranche", type=int, help="--us-execute 회차 번호(생략 = 다음 미집행 회차)")
+    ap.add_argument("--kr-weight", type=float, help="국내주 비중%% 수동 지정(d207 룰6 게이트 확인용). 생략 = 최신 스냅샷")
     ap.add_argument("--rule2", action="store_true")
     ap.add_argument("--ticker", "--tickers", default="066570.KS")
     ap.add_argument("--json", action="store_true")
@@ -993,7 +1028,8 @@ def main():
     if dd is None:
         sys.exit("[tranche_rules] 코스피 낙폭 산출 실패 — history_backfill.py 필요 또는 --dd 지정")
 
-    r = rule1(cash, dd, storm, fear, capit)
+    kw = a.kr_weight if a.kr_weight is not None else kr_weight_pct()
+    r = rule1(cash, dd, storm, fear, capit, kr_weight=kw)
     if a.json:
         print(json.dumps({"rule1": r, "us_track": us_track(), "rule2": rule2(a.ticker)}, ensure_ascii=False, indent=1))
         return
@@ -1020,8 +1056,12 @@ def main():
     print(f"  {r['capitulation_why']}")
     print(f"  → 최종 승수 **×{r['final_mult']}**  (하한 {MULT_FLOOR}·상한 {MULT_CAP} — 금액 감산 폐지)")
     print(f"\n  {r['halt_why']}")
+    print(f"  {r['rule6_why']}")
     if r["halted"]:
         print("\n  🔴 **허용 트랜치 0원** — 글로벌 확산으로 개정 전제가 깨졌다.")
+    elif r["rule6_block"]:
+        print(f"\n  ⛔ **집행 0원 — 룰6 우선(d207)**. 사다리 자체 판정은 {r['ladder_allowed_krw']:,}원(적립 기록). "
+              f"국내주가 {RULE6_KR_HI:.0f}% 이하로 내려오면 그 상한만큼 집행한다. 그동안 원화는 미국 트랙으로(d207 ②).")
     elif r["allowed_krw"] <= 0:
         # ★[8/28] 舊 문구는 원인을 항상 '이미 집행했다'로 단정했다 — 해금 자체가 0일 때도
         # 그렇게 나와 8/27에 오독을 만들었다(실제 원인은 낙폭이 -25%를 안 넘긴 것).

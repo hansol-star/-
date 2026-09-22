@@ -160,7 +160,7 @@ def recommend_tranche(cfg, kospi):
         return {"amount": None,
                 "reason": "코스피 낙폭 산출 실패 — history_backfill.py 필요(수동 판단)"}
 
-    r = TR.rule1(cash, dd, storm, fear, capit)
+    r = TR.rule1(cash, dd, storm, fear, capit, kr_weight=TR.kr_weight_pct())   # d207 룰6 우선
     if r["halted"]:
         return {"amount": 0, "dd_pct": dd, "reason": r["halt_why"], "ladder": r, "cash_total": cash}
     # ⚠️[2026-09-09] `f"D{i+1}"`은 **인덱스로 D번호를 만든다** — D0 신설로 i와 D번호가

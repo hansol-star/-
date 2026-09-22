@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-09-23 01:30",
+ "checked_at": "2026-09-23 01:40",
  "source": "toss",
  "open": [],
  "findings": [
@@ -7,16 +7,11 @@
    "level": "yellow",
    "ticker": "454910.KS",
    "msg": "두산로보틱스 매도 78,000 '매일 등록' 오더가 토스에 없다(o-drb-trim-78k) — 재등록 필요"
-  },
-  {
-   "level": "yellow",
-   "ticker": "005380.KS",
-   "msg": "현대차 매도 408,000 '매일 등록' 오더가 토스에 없다(o-hmc-trim-408k) — 재등록 필요"
   }
  ],
  "counts": {
   "red": 0,
-  "yellow": 2,
+  "yellow": 1,
   "ok": 0,
   "info": 0
  },

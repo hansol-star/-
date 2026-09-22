@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-09-22 15:38",
+ "checked_at": "2026-09-22 23:33",
  "source": "toss",
  "open": [],
  "findings": [
@@ -11,7 +11,7 @@
   {
    "level": "info",
    "ticker": "005380.KS",
-   "msg": "현대차 매도 470,000 미등록 — 정상(상한 466,500 < 주문가, 기준 2026-09-21 종가)"
+   "msg": "현대차 매도 470,000 미등록 — 정상(상한 468,500 < 주문가, 기준 2026-09-22 종가 → 9/23 세션)"
   }
  ],
  "counts": {
@@ -21,7 +21,7 @@
   "info": 1
  },
  "context": {
-  "kr_weight_pct": 26.0,
+  "kr_weight_pct": 26.5,
   "ladder_allowed_krw": 19800.0,
   "us_allowed_usd": 0.0
  }

@@ -190,6 +190,130 @@ def _kr_min_base(price: float) -> int:
     return b
 
 
+_KST = dt.timezone(dt.timedelta(hours=9))
+_KR_CLOSE_MIN = 15 * 60 + 30   # 정규장 마감 — 애프터마켓(16:00~20:00) 체결은 종가를 바꾸지 않는다
+
+
+def _kr_holidays() -> set:
+    """KRX 휴장일(주말 외) — macro_events.json의 kind '휴장'(app.js krHolidays와 같은 출처). 없으면 빈 집합."""
+    try:
+        evs = json.load(open(os.path.join(ROOT, "data", "app", "macro_events.json"), encoding="utf-8"))
+    except Exception:                                              # noqa: BLE001
+        return set()
+    out = set()
+    for e in evs.get("events", []) if isinstance(evs, dict) else []:
+        if e.get("kind") != "휴장" or not e.get("date"):
+            continue
+        try:
+            d = dt.date.fromisoformat(str(e["date"])[:10])
+            end = dt.date.fromisoformat(str(e.get("end") or e["date"])[:10])
+        except ValueError:
+            continue
+        for _ in range(20):
+            if d > end:
+                break
+            out.add(d.isoformat())
+            d += dt.timedelta(days=1)
+    return out
+
+
+def kr_band_base(tk: str, now: dt.datetime | None = None) -> dict | None:
+    """다음(또는 진행 중인) 국내 세션의 가격제한폭 기준가 = 그 세션 직전 거래일의 **정규장 종가**.
+
+    ★[9/22 실사고] order_check가 22:01(마감 후)에 현대차 470,000원 미등록을 '상한 466,500 < 주문가,
+    기준 2026-09-21 종가'로 판정했다. 9/22 종가 360,500원이 이미 quotes.jsonl에 있었는데
+    기준가를 data/history 캐시(9/21에서 멈춤)와 live.json(로컬 전용·9/21 21:29 이후 미갱신)에서만
+    찾았다 — 오늘 밤 거는 오더는 9/23 세션용이니 상한은 468,500원이었다. 결론은 같았지만
+    하루 낡은 기준가는 접수 가능한 주문을 막거나 거부될 주문을 통과시킨다.
+    반대 방향 결함도 같이 있었다: 장중엔 live.json rc(오늘 장중가)를 기준가로 집었다.
+
+    판정(app.js bandBase와 같은 규칙):
+      · 거래일 15:30 전(프리마켓·정규장 포함) → 오늘 세션. 기준 = 직전 거래일 종가(오늘 장중가 제외)
+      · 15:30 이후·휴장일 → 다음 거래일 세션. 기준 = 오늘(마지막 거래일) 정규장 종가
+        ⚠️ 16:00~20:00 애프터마켓에 **지금 체결되는** 주문은 오늘 밴드(전일 종가 기준)를 쓴다 —
+        이 함수는 다음 세션 등록을 보는 쪽이다(app.js와 같다).
+    출처(같은 날짜면 앞쪽 우선) — 전부 '확정 종가'만 받는다:
+      ① app/live.json rc — rt(거래소 체결시각)가 15:30 이후일 때만 (로컬 실시간층)
+      ② data/timeseries/quotes.jsonl — ts가 그날 15:30 이후인 행만 (장중 적재분 제외, 커밋됨)
+      ③ data/history/<tk>.csv — 시각이 없어 오늘 날짜 행은 15:30 이후에만 인정(8/13 장중 오염)
+    못 구하면 가장 최근 확정 종가로 폴백하고 stale=True — 호출부가 기준일을 반드시 병기한다.
+    반환 {base, date, src, session, want, stale} 또는 None(종가 전무).
+    """
+    now = now or dt.datetime.now(_KST)
+    now = now.replace(tzinfo=_KST) if now.tzinfo is None else now.astimezone(_KST)
+    today, m = now.date(), now.hour * 60 + now.minute
+    hol = _kr_holidays()
+
+    def is_sess(d):
+        return d.weekday() < 5 and d.isoformat() not in hol
+
+    def step(d, k):
+        d += dt.timedelta(days=k)
+        for _ in range(30):
+            if is_sess(d):
+                break
+            d += dt.timedelta(days=k)
+        return d
+
+    session = today if (is_sess(today) and m < _KR_CLOSE_MIN) else step(today, 1)
+    want = step(session, -1)
+    cands = {}                                     # date → (rank, close, src)
+
+    def put(d, close, rank, src):
+        try:
+            close = float(close)
+        except (TypeError, ValueError):
+            return
+        if close <= 0 or d >= session or not is_sess(d):
+            return
+        if d not in cands or rank > cands[d][0]:
+            cands[d] = (rank, close, src)
+
+    def final_ts(t):                               # 그 날짜의 정규장 마감 후 시각인가 (now 이후 적재분은 안 보인다 — --now 재현)
+        return t.hour * 60 + t.minute >= _KR_CLOSE_MIN and t <= now
+
+    try:
+        rows = [r for r in pathlib.Path(ROOT, "data", "history", f"{tk}.csv")
+                .read_text(encoding="utf-8").splitlines()[1:] if r.strip()]
+        for r in rows[-5:]:                        # 오늘 행은 put()이 세션 경계로 거른다(15:30 전 = 제외)
+            d0, c0 = r.split(",")[:2]
+            put(dt.date.fromisoformat(d0[:10]), c0, 1, "history")
+    except (OSError, ValueError, IndexError):
+        pass
+    try:
+        with open(os.path.join(ROOT, "data", "timeseries", "quotes.jsonl"), encoding="utf-8") as f:
+            for line in f:
+                if f'"{tk}"' not in line:
+                    continue
+                try:
+                    q = json.loads(line)
+                    t = dt.datetime.fromisoformat(q["ts"])
+                except (ValueError, KeyError, TypeError):
+                    continue
+                if q.get("symbol") != tk or len(str(q["ts"])) < 16:
+                    continue
+                t = t.replace(tzinfo=_KST) if t.tzinfo is None else t.astimezone(_KST)
+                if final_ts(t):
+                    put(t.date(), q.get("price"), 2, "quotes")
+    except OSError:
+        pass
+    try:
+        q = ((json.load(open(os.path.join(ROOT, "app", "live.json"), encoding="utf-8"))
+              .get("quotes") or {}).get(tk) or {})
+        if q.get("rc") and q.get("rt"):
+            t = dt.datetime.fromtimestamp(q["rt"], _KST)
+            if final_ts(t):
+                put(t.date(), q["rc"], 3, "live")
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass
+    if not cands:
+        return None
+    d = max(cands)
+    _, close, src = cands[d]
+    return {"base": close, "date": d.isoformat(), "src": src, "session": session.isoformat(),
+            "want": want.isoformat(), "stale": d < want}
+
+
 def check_history_cache():
     """data/history 일봉 캐시의 정지 여부 검사 [8/12 신설].
 
@@ -326,7 +450,7 @@ def check_high_low_claims():
                      f"{lo[1]:,.0f}(@{lo[0]}) = {cur/lo[1]-1:+.1%} — 신저가 아님")
 
 
-def check_kr_price_band():
+def check_kr_price_band(now: dt.datetime | None = None):
     """국내 지정가 오더가 당일 가격제한폭(±30%) 안인지 검사.
 
     ★[2026-08-12 실사고] LG전자 익절 지정가 **240,000원**이 당일 상한가 **236,000원**
@@ -340,11 +464,13 @@ def check_kr_price_band():
     내고, "며칠 뒤면 들어간다"는 판단은 사람이 한다. 기준가는 캐시된 일봉(data/history)의
     직전 종가를 쓰며, 캐시가 없으면 조용히 건너뛴다(네트워크 호출 안 함).
     ⚠️[8/24] 캐시 경로를 **상대경로 → ROOT 기준**으로 고쳤다 — cwd가 레포 밖이면 조용히 건너뛰어 *검사한 척*이 된다(주입 테스트를 짜다 발견). 같은 결함이 `check_history_cache`·`check_high_low_claims`에도 있어 함께 수정.
+    ★[9/22] 기준가 선택을 `kr_band_base()`로 일원화(order_check와 같은 함수) — 마감 후엔 오늘 종가,
+    장중엔 전일 종가. 舊는 history 캐시 마지막 행만 봐서 캐시가 하루 늦으면 밴드도 하루 늦었다.
+    `now`는 주입 테스트용(시각 고정).
     """
     d = load("data/app/tasks.json")
     if not d:
         return
-    import glob as _glob
     for o in d.get("orders", []) or []:
         st = str(o.get("status", ""))
         if any(k in st for k in _BLOCKED_STATUS) or "체결" in st or "취소" in st:
@@ -356,31 +482,24 @@ def check_kr_price_band():
         act = str(o.get("action", "")) + " " + str(o.get("label", ""))
         if "시장가" in act:
             continue
-        # 기준가 = 캐시된 일봉(data/history/<ticker>.csv "date,close")의 마지막 종가.
-        # ⚠️ 캐시가 오늘까지 안 왔으면 기준가가 낡아 밴드도 낡는다 → 경고에 기준일을 병기한다.
-        base, base_date = None, None
-        for fp in _glob.glob(os.path.join(ROOT, "data", "history", f"{tk}.csv")):
-            try:
-                rows = [r for r in pathlib.Path(fp).read_text(encoding="utf-8").splitlines() if r.strip()]
-                if len(rows) > 1:
-                    last = rows[-1].split(",")
-                    base_date, base = last[0], float(last[1])
-            except Exception:
-                pass
-            break
-        if not base:
+        # 기준가 = 적용 세션 직전 거래일의 정규장 종가(kr_band_base). 못 구하면 조용히 건너뛴다.
+        # ⚠️ 최신 종가를 못 구해 폴백했으면(stale) 밴드도 낡는다 → 경고에 기준일과 미확보 사실을 병기한다.
+        bb = kr_band_base(tk, now)
+        if not bb:
             continue
+        base, base_date = bb["base"], bb["date"]
+        stale = f" ⚠️{bb['want']} 종가 미확보" if bb["stale"] else ""
         # 상·하한은 **각자의 가격대 호가**로 절사/절상한다(9/21 정정 — 舊는 하한에도 상한 쪽 호가를 써서
         # LG전자 기준 202,500원의 하한가를 141,800이 아니라 142,000으로 냈다).
         cap, floor = _kr_band(base)
         oid = o.get("id") or o.get("label") or tk
         if price > cap:
             warn(f"오더 접수불가 우려 [{oid}]: 지정가 {price:,.0f}원 > 상한가 "
-                 f"{cap:,}원(기준가 {base:,.0f}원 @{base_date}×1.3) — 밴드는 매일 재계산되니 "
+                 f"{cap:,}원({bb['session']} 세션 · 기준가 {base:,.0f}원 @{base_date}×1.3{stale}) — 밴드는 매일 재계산되니 "
                  f"기준가(종가)가 {_kr_min_base(price):,}원 이상이면 등록 가능")
         elif price < floor:
             warn(f"오더 접수불가 우려 [{oid}]: 지정가 {price:,.0f}원 < 하한가 "
-                 f"{floor:,}원(기준가 {base:,.0f}원 @{base_date}×0.7)")
+                 f"{floor:,}원({bb['session']} 세션 · 기준가 {base:,.0f}원 @{base_date}×0.7{stale})")
 
         # ★[8/13 신설] 시간외단일가(16:00~18:00)는 **당일 종가 ±10%**라는 별도의 더 좁은
         # 밴드를 쓴다(당일 상·하한가 이내라는 조건이 추가로 붙는다).

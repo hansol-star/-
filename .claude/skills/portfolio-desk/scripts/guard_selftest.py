@@ -57,6 +57,7 @@ SUBPROCESS_TESTS = [
     ("split_guard.py", ["--selftest"], "분할 스케일 혼재 — 10배 왜곡 적발 + 오프라인 경로"),
     ("wiring_audit.py", ["--selftest"], "기능 단위 배선 — 걷어낸 기능 적발 + 동명 플래그 오인 방지"),
     ("toss_snapshot.py", ["--selftest"], "토스 주문 차단 — 매매 가능 자격증명의 조회 전용 불변식(우회 4종 포함)"),
+    ("order_check.py", ["--selftest"], "국내 가격제한폭 기준가 — 마감 후 오늘 종가·장중 전일 종가·휴장·폴백 기준일 표기(9/22)"),
 ]
 
 
@@ -749,6 +750,36 @@ INJECTION_TESTS = [
                              "action": "트림 지정가", "status": "대기"}]}, ensure_ascii=False),
         },
         "args": (),
+    },
+    {
+        "name": "check_kr_price_band",
+        "desc": "마감 후엔 오늘 종가로 다음 세션 밴드를 잡는가 (일봉 캐시가 하루 늦어도)",
+        "why": "9/22 실사고 — 22:01 order_check가 현대차 470,000 미등록을 '상한 466,500, 기준 9/21 종가'로 "
+               "판정했다. 9/22 종가 360,500이 quotes.jsonl에 있었는데 기준가를 history 캐시(9/21에서 멈춤)에서만 "
+               "찾았다. 하루 낡은 기준가는 거부될 주문을 통과시킨다 — 픽스처 = 캐시가 9/18에 멈춘 상태에서 "
+               "9/21 종가(359,000)가 내려 상한이 474,500→466,500으로 좁아진 날",
+        # 시각을 고정한다(args) — 기준가 선택이 시각 의존이라 '지금'으로 돌리면 자기부패 픽스처가 된다
+        "pattern": r"상한가 466,500원\(2026-09-22 세션 · 기준가 359,000원 @2026-09-21",
+        "violate": {
+            "data/history/005380.KS.csv": "date,close\n2026-09-18,365000.0\n",
+            "data/timeseries/quotes.jsonl": json.dumps(
+                {"date": "2026-09-21", "ts": "2026-09-21T16:25:27+09:00", "symbol": "005380.KS",
+                 "price": 359000.0}) + "\n",
+            "data/app/tasks.json": json.dumps(
+                {"orders": [{"ticker": "005380.KS", "price": 470000,
+                             "action": "트림 매도 지정가", "status": "매일 등록"}]}, ensure_ascii=False),
+        },
+        "clean": {
+            "data/history/005380.KS.csv": "date,close\n2026-09-18,365000.0\n",
+            "data/timeseries/quotes.jsonl": json.dumps(
+                {"date": "2026-09-21", "ts": "2026-09-21T16:25:27+09:00", "symbol": "005380.KS",
+                 "price": 359000.0}) + "\n",
+            "data/app/tasks.json": json.dumps(
+                {"orders": [{"ticker": "005380.KS", "price": 466500,
+                             "action": "트림 매도 지정가", "status": "매일 등록"}]}, ensure_ascii=False),
+        },
+        "args": (datetime.datetime(2026, 9, 21, 22, 0,
+                                   tzinfo=datetime.timezone(datetime.timedelta(hours=9))),),
     },
     {
         "name": "check_order_feasibility",

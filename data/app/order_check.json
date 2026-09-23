@@ -1,44 +1,23 @@
 {
- "checked_at": "2026-09-23 01:48",
+ "checked_at": "2026-09-23 17:46",
  "source": "toss",
- "open": [
-  {
-   "ticker": "454910.KS",
-   "side": "SELL",
-   "price": 78000.0,
-   "qty": "1",
-   "ordered_at": "2026-09-23T01:44:24.905+09:00",
-   "plan_id": "o-drb-trim-78k",
-   "plan_state": "active",
-   "band": [
-    49700,
-    92300
-   ],
-   "band_base": {
-    "date": "2026-09-22",
-    "base": 71000.0,
-    "src": "quotes",
-    "session": "2026-09-23",
-    "stale": false
-   }
-  }
- ],
+ "open": [],
  "findings": [
   {
-   "level": "ok",
+   "level": "yellow",
    "ticker": "454910.KS",
-   "msg": "두산로보틱스 매도 78,000 × 1 — 계획(o-drb-trim-78k)과 일치"
+   "msg": "두산로보틱스 매도 78,000 '매일 등록' 오더가 토스에 없다(o-drb-trim-78k) — 재등록 필요"
   }
  ],
  "counts": {
   "red": 0,
-  "yellow": 0,
-  "ok": 1,
+  "yellow": 1,
+  "ok": 0,
   "info": 0
  },
  "context": {
-  "kr_weight_pct": 26.5,
-  "ladder_allowed_krw": 19800.0,
+  "kr_weight_pct": 27.1,
+  "ladder_allowed_krw": 0.0,
   "us_allowed_usd": 0.0
  }
 }

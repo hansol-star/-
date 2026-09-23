@@ -391,7 +391,8 @@ def main() -> int:
                   _load(TASKS, {}) or {}, _load(STOCKS, {}) or {}, kr_weight(), ladder_allowed(),
                   us_track_state(), now=a.now)
         r["source"] = src
-    if not a.no_save and src != "file":
+    # unavailable(토스 미접근)은 저장하지 않는다 — 안 그러면 마지막 실제 대조 결과를 빈 값으로 덮어쓴다(9/23 클라우드 실사고).
+    if not a.no_save and src != "file" and r["source"] != "unavailable":
         with open(OUT, "w", encoding="utf-8", newline="\n") as f:
             json.dump(r, f, ensure_ascii=False, indent=1)
             f.write("\n")

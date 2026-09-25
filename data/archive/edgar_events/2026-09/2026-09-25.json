@@ -1,0 +1,183 @@
+{
+ "updated": "2026-09-25 16:25",
+ "days": 30,
+ "note": "SEC 8-K item 코드 스트림. item 코드는 '사건이 있었다'는 사실이지 내용이 아니다 — 논지를 바꿀 건이면 원문 URL로 내려갈 것.",
+ "as_of": "2026-09-25 07:25",
+ "source": "SEC EDGAR",
+ "events": [
+  {
+   "ticker": "NVDA",
+   "error": null,
+   "events": [
+    {
+     "date": "2026-09-03",
+     "severity": "notable",
+     "items": [
+      {
+       "code": "8.01",
+       "label": "기타 중요사항",
+       "severity": "notable"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm"
+    },
+    {
+     "date": "2026-08-26",
+     "severity": "critical",
+     "items": [
+      {
+       "code": "2.02",
+       "label": "실적 발표",
+       "severity": "critical"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/nvda-20260826.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "MU",
+   "error": null,
+   "events": [
+    {
+     "date": "2026-08-26",
+     "severity": "notable",
+     "items": [
+      {
+       "code": "5.02",
+       "label": "임원 선임·사임",
+       "severity": "notable"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926101067/tm2624017d1_8k.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "AAPL",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "MSFT",
+   "error": null,
+   "events": [
+    {
+     "date": "2026-09-02",
+     "severity": "notable",
+     "items": [
+      {
+       "code": "7.01",
+       "label": "Reg FD 공개",
+       "severity": "notable"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "ANET",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "AVGO",
+   "error": null,
+   "events": [
+    {
+     "date": "2026-09-02",
+     "severity": "critical",
+     "items": [
+      {
+       "code": "2.02",
+       "label": "실적 발표",
+       "severity": "critical"
+      },
+      {
+       "code": "8.01",
+       "label": "기타 중요사항",
+       "severity": "notable"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016826000076/avgo-20260902.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "GOOGL",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "META",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "ORCL",
+   "error": null,
+   "events": [
+    {
+     "date": "2026-09-14",
+     "severity": "notable",
+     "items": [
+      {
+       "code": "8.01",
+       "label": "기타 중요사항",
+       "severity": "notable"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389753/d20034d8k.htm"
+    },
+    {
+     "date": "2026-09-10",
+     "severity": "critical",
+     "items": [
+      {
+       "code": "2.02",
+       "label": "실적 발표",
+       "severity": "critical"
+      },
+      {
+       "code": "8.01",
+       "label": "기타 중요사항",
+       "severity": "notable"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-20260910.htm"
+    }
+   ]
+  }
+ ]
+}

@@ -4,7 +4,7 @@
      · data.js    = 분석 정본   → 네트워크 우선, 실패 시 캐시
      · 웹폰트     = Google Fonts → 별도 캐시, 캐시 우선(한 번 받으면 오프라인에서도 같은 글꼴)
      · 그 외 셸   = 캐시 우선 */
-var CACHE = "jh-portfolio-202609241723";
+var CACHE = "jh-portfolio-202609251727";
 var FONTS = "jh-fonts-v1";
 var SHELL = [
   "./index.html",

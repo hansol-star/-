@@ -45,13 +45,35 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 HIST = os.path.join(ROOT, "data", "history")
 OUT = os.path.join(ROOT, "data", "app", "drawdowns.json")
 
-# 보유 15 + 지수·매크로 참조
-HOLDINGS = [
-    ("005930.KS", "삼성전자"), ("066570.KS", "LG전자"), ("454910.KS", "두산로보틱스"),
-    ("005380.KS", "현대차"), ("035420.KS", "NAVER"),
-    ("NVDA", "NVDA"), ("MU", "MU"), ("AAPL", "AAPL"), ("VOO", "VOO"), ("MSFT", "MSFT"),
-    ("ANET", "ANET"), ("AVGO", "AVGO"), ("GOOGL", "GOOGL"), ("META", "META"), ("ORCL", "ORCL"),
-]
+# 한글 라벨 정본(과거 보유분 포함 — `--symbol` 단건 조회용). **티커 목록은 여기가 아니다.**
+_LABELS = {
+    "005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KS": "두산로보틱스",
+    "005380.KS": "현대차", "035420.KS": "NAVER",
+    "NVDA": "NVDA", "MU": "MU", "VOO": "VOO", "MSFT": "MSFT",
+    "AVGO": "AVGO", "GOOGL": "GOOGL", "ORCL": "ORCL",
+    # 과거 보유(전량매도) — 라벨만 남긴다. 보유 목록에는 들어가지 않는다.
+    "AAPL": "AAPL", "ANET": "ANET", "META": "META", "TSLA": "TSLA",
+}
+
+# 보유 종목 목록은 **정본(validate_report.HOLDINGS)에서 받는다.**
+# ★[9/26 R3] 舊엔 이 자리에 `보유 15` 하드코딩 리스트가 있었고, 8/11 ANET·9/23 AAPL·META
+#   전량매도가 반영되지 않아 **이미 판 3종목을 "■ 보유 전종목 낙폭 요약"으로 계속 출력**하고
+#   있었다(ANET은 6주). 이 표는 crash_tf §5c '역사 좌표' 블록의 소스이고 그 블록은 주간 R3가
+#   갱신하므로, TF 상황판이 조용히 틀린 보유를 들고 있었던 셈이다.
+#   CLAUDE.md 교훈의 정확한 재발 — *"데이터 모양이 바뀌면 모양에 기댄 라벨은 조용히 거짓말한다"*.
+#   ⇒ 목록은 정본에서 읽고, 여기엔 라벨만 둔다. 정본 import가 실패하면 그 사실을 말한다.
+def _canon_holdings():
+    try:
+        import validate_report as _V
+        tks = list(_V.HOLDINGS)
+    except Exception as e:          # 정본을 못 읽으면 조용히 옛 목록으로 돌아가지 않는다
+        print(f"⚠️ 보유 정본(validate_report.HOLDINGS) 로드 실패 — 라벨 맵으로 대체: {e}",
+              file=sys.stderr)
+        tks = [t for t in _LABELS if t not in ("AAPL", "ANET", "META", "TSLA")]
+    return [(t, _LABELS.get(t, t)) for t in tks]
+
+
+HOLDINGS = _canon_holdings()
 INDEXES = [("^KS11", "코스피"), ("^KQ11", "코스닥"), ("^IXIC", "나스닥"), ("^GSPC", "S&P500")]
 MACRO = [("^VIX", "VIX"), ("CL=F", "WTI"), ("KRW=X", "원달러"), ("^TNX", "美10Y"), ("DX-Y.NYB", "달러지수")]
 
@@ -303,7 +325,7 @@ def main():
     macro_cache = {sym: load(sym) for sym, _ in MACRO}
 
     if a.symbol:
-        lbl = dict(HOLDINGS + INDEXES).get(a.symbol, a.symbol)
+        lbl = dict(HOLDINGS + INDEXES).get(a.symbol) or _LABELS.get(a.symbol, a.symbol)
         rows = [report_symbol(a.symbol, lbl, a.min_depth, a.top, macro_cache)]
     else:
         uni = list(HOLDINGS)

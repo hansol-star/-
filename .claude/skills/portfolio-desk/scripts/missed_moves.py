@@ -319,19 +319,47 @@ def report(rows, net_err, min_move):
         print(f"  {c:<18} 놓친매수 {d['놓친매수']} · 놓친매도 {d['놓친매도']}")
 
     # 기각된 대안 병기(반사실 힌트)
-    rej_shown = set()
-    lines = []
+    # ★[9/26 R3] 舊 구조는 종목별로 모은 줄을 **평평하게 이어붙인 뒤 [:12]로 잘라서**,
+    #   매칭이 많은 한 종목이 12줄을 전부 먹고 나머지 종목의 반사실을 통째로 가렸다.
+    #   9/26 실측: 놓친매수 10종목(PLTR +70%·096770 +64%·MSFT +38% …)이 잡혔는데
+    #   출력 12줄이 **전부 META**였다 — 가장 크게 놓친 종목들의 '그때 기각한 대안'을
+    #   한 줄도 못 봤다. 반사실 재검토가 이 블록의 존재 이유인데 그게 안 보이면 블록이 헛돈다.
+    #   ⇒ 종목별로 최신 기각부터 담고 **라운드로빈**으로 섞어 모든 종목이 최소 1줄을 받게 한다.
+    REJ_MAX = 12
+    per_tk = {}
     for r in miss:
-        for rj in match_rejected(r["ticker"]):
-            key = (r["ticker"], rj["date"])
-            if key in rej_shown:
+        tk = r["ticker"]
+        if tk in per_tk:
+            continue
+        seen, bucket = set(), []
+        for rj in match_rejected(tk):
+            if rj["date"] in seen:
                 continue
-            rej_shown.add(key)
-            lines.append(f"  {r['ticker']} · {rj['date']} 기각: {rj['rejected'][:60]}")
+            seen.add(rj["date"])
+            bucket.append(rj)
+        bucket.sort(key=lambda x: str(x.get("date") or ""), reverse=True)  # 최신 기각 먼저
+        if bucket:
+            per_tk[tk] = bucket
+    lines = []
+    depth = 0
+    while per_tk and len(lines) < REJ_MAX:
+        progressed = False
+        for tk in list(per_tk):
+            if depth < len(per_tk[tk]) and len(lines) < REJ_MAX:
+                rj = per_tk[tk][depth]
+                lines.append(f"  {tk} · {rj['date']} 기각: {rj['rejected'][:60]}")
+                progressed = True
+        if not progressed:
+            break
+        depth += 1
     if lines:
+        total = sum(len(v) for v in per_tk.values())
         print("\n— 그때 기각한 대안(decisions.jsonl) — 반사실로 재검토 —")
-        for l in lines[:12]:
+        for l in lines:
             print(l)
+        if total > len(lines):
+            print(f"  … 종목 {len(per_tk)}개 · 기각 {total}건 중 {len(lines)}건 표시"
+                  f"(종목별 최신부터 라운드로빈)")
 
     if net_err:
         print(f"\n  시세 조회 실패(회고 제외): {net_err}")

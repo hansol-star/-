@@ -214,6 +214,24 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_coverage",
+        "desc": "레이어의 날짜 필드 두 개가 갈렸을 때(한쪽 writer가 죽음) 잡는가",
+        "why": "9/26 R3 실사고 — 舊 신선도 계산이 `updated or as_of or date` **우선순위**였고, "
+               "필드마다 writer가 달라 한쪽만 갱신됐다. stocks.json은 as_of 9/25(보고서마다 갱신)인데 "
+               "updated 9/23에 멈춰 **신선한 층에 3일째 거짓 FAIL**이 났고, feeds.json은 반대로 "
+               "updated 9/20이 **32일 묵은 as_of 8/25를 6일로 가렸다**. 우선순위로는 어느 방향도 "
+               "못 잡는다(한쪽은 거짓 경보, 한쪽은 은폐) — 실제 결함은 나이가 아니라 **불일치 자체**다. "
+               "check_coverage는 이 사고 시점까지 미등록 16개 중 하나였고, 즉 '초록불/빨간불이 "
+               "진짜인지 한 번도 확인받은 적이 없는' 가드였다",
+        "pattern": r"레이어 필드불일치",
+        "violate": {"data/app/stocks.json": json.dumps(
+            {"as_of": "2026-01-05 17:00", "updated": "2026-01-01"}, ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps(
+            {"as_of": "2026-01-05 17:00", "updated": "2026-01-05"}, ensure_ascii=False)},
+        "args": (),
+    },
+
+    {
         "name": "check_freshness",
         "desc": "tasks.json이 최신 보고서보다 낡으면 잡는가",
         "why": "7/12 실사고 — v46 R2가 stocks·hunter·flows는 갱신하고 tasks.json은 as_of/source_report "

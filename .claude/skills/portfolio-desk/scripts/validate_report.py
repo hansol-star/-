@@ -2541,13 +2541,34 @@ def check_coverage():
             fail(f"[레이어 손상] {fn} 파싱 실패: {str(e)[:60]}")
             print(f"  ❌ {fn:<18} 파싱실패")
             continue
-        raw = str((d.get("updated") or d.get("as_of") or d.get("date") or ""))[:10]
-        m = re.match(r"\d{4}-\d{2}-\d{2}", raw)
-        if not m:
+        # ★[9/26 R3] 舊 `updated or as_of or date` 우선순위는 **아무도 책임지지 않는 필드를
+        #   먼저 읽고 있었다.** 필드마다 writer가 달라 한쪽만 갱신되기 때문이다 — 9/26 실측:
+        #     · stocks.json  as_of 2026-09-25(보고서마다 갱신) / updated 2026-09-23(정지)
+        #       → 신선한 층에 **3일째 거짓 FAIL**
+        #     · feeds.json   updated 2026-09-20 / as_of 2026-08-25
+        #       → **32일 묵은 as_of가 6일로 가려졌다**
+        #   우선순위로는 둘 중 어느 방향도 못 잡는다(한쪽은 거짓 경보, 한쪽은 은폐).
+        #   ⇒ 나이는 **가장 최근 필드**(= 마지막 쓰기의 증거)로 재고,
+        #     **필드 간 불일치는 그 자체를 별도 WARN**으로 올린다 —
+        #     불일치 = 두 writer 중 하나가 죽었다는 신호이고, 그게 실제 결함이다.
+        dates = {}
+        for k in ("updated", "as_of", "date"):
+            mm = re.match(r"\d{4}-\d{2}-\d{2}", str(d.get(k, "") or "")[:10])
+            if mm:
+                dates[k] = dt.date.fromisoformat(mm.group(0))
+        if not dates:
             warn(f"[레이어 신선도] {fn}에 날짜 필드 없음 — stale 감지 불가")
             print(f"  ⚠️  {fn:<18} 날짜필드 없음")
             continue
-        age = (today - dt.date.fromisoformat(m.group(0))).days
+        newest_k = max(dates, key=lambda k: dates[k])
+        newest = dates[newest_k]
+        oldest_k = min(dates, key=lambda k: dates[k])
+        gap = (newest - dates[oldest_k]).days
+        if gap > max_age:
+            warn(f"[레이어 필드불일치] {fn} {newest_k}={newest} vs {oldest_k}={dates[oldest_k]} "
+                 f"({gap}일 차 · 허용 {max_age}일) — 한쪽 writer가 갱신을 멈췄다(나이는 {newest_k} 기준)")
+        m = re.match(r"\d{4}-\d{2}-\d{2}", newest.isoformat())
+        age = (today - newest).days
         if age > max_age:
             fail(f"[레이어 stale] {fn} {age}일 경과(허용 {max_age}일) — `{how}` 재실행 ({why})")
             mark = "❌"
@@ -2556,7 +2577,8 @@ def check_coverage():
             mark = "⚠️ "
         else:
             mark = "✅"
-        print(f"  {mark} {fn:<18} {m.group(0)}  {age:>3}일 경과 (허용 {max_age})")
+        tag = f"  ({newest_k}" + (f" · {oldest_k}={dates[oldest_k]} 불일치)" if gap > max_age else ")")
+        print(f"  {mark} {fn:<18} {m.group(0)}  {age:>3}일 경과 (허용 {max_age}){tag}")
 
     # 재무제표 커버리지(종목 단위)는 기존 검사 재사용
     check_financials(None)

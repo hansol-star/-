@@ -20,7 +20,9 @@
    ② 승수 유효성 — 폭풍 감산이 실제로 손실을 줄였나 (감산 강한 날 vs 약한 날)
    ③ 항복 가산 유효성 — ×1.2가 켜진 날이 실제로 더 좋았나 ("공포에 사라"의 검증)
    ④ 하드 플로어 — S&P 70%ile 정지가 발동했나·옳았나
-   ⑤ 룰2 훼손 판정 — 3/3·2/3 판정 종목의 이후 주가(훼손 경보가 맞았나)
+   ⑤ 룰2 훼손 판정 — 3/3·2/3 판정 종목의 **이후 펀더 궤적**(마진·FCF·순현금이 계속 나빠졌나)
+      ★[9/29 d214] 舊 채점축 = 이후 주가. 룰2는 매도 신호가 아니라 감시 등급이라 가격은 틀린 축이었다
+      (9/26 실측 4종목 중 3건 양수 = 룰의 오답이 아니라 측정기의 오답). 주가는 참고열로만 남긴다.
 
 ■ ⚠️ 규율
    · 표본이 쌓이기 전엔 **판정하지 않는다**. 최소 8주(≈40 스냅샷) 전엔 "표본 부족"만 출력.
@@ -393,8 +395,83 @@ def _bucket(rows, cache, keyfn):
         print(line)
 
 
+REPORT_LAG_DAYS = 45   # 분기말 → 공시 근사. 분기별 실제 공시일이 financials.json에 없다.
+
+
+def _q_known_by(q, date_str):
+    """그 분기 실적이 date_str 시점에 이미 공시됐다고 볼 수 있나(분기말 + 45일 근사)."""
+    try:
+        end = dt.date.fromisoformat(str(q.get("end"))[:10])
+        return end + dt.timedelta(days=REPORT_LAG_DAYS) <= dt.date.fromisoformat(date_str[:10])
+    except ValueError:
+        return False
+
+
+def _yoy_peer(qs, q):
+    """q와 1년 전 같은 분기(±25일) — 계절성을 지우려고 YoY로 비교한다."""
+    try:
+        e = dt.date.fromisoformat(str(q["end"])[:10])
+    except (KeyError, ValueError):
+        return None
+    for x in qs:
+        try:
+            ex = dt.date.fromisoformat(str(x["end"])[:10])
+        except (KeyError, ValueError):
+            continue
+        if abs((e - ex).days - 365) <= 25:
+            return x
+    return None
+
+
+def rule2_fund_trajectory(ticker, d0, fin=None):
+    """★[9/29 d214] 룰2 판정일 d0 **이후 공시된** 분기로 훼손이 이어졌나를 채점한다.
+
+    축(판정 조건과 같은 세 축):
+      · 마진  = 판정 후 최신 분기 영업마진 vs 1년 전 같은 분기(없으면 판정 시점 최신 분기)
+      · FCF   = 같은 비교(분기 FCF)
+      · 순현금 = 판정 후 최신 분기 vs 판정 시점 최신 분기(재무상태는 계절성이 약하다)
+    나빠진 축 = '경보 확인'. 금융연결(현대차)은 마진만 센다(룰2 본문과 동일).
+    반환: {"status": 대기|확인|미확인|결측, "hit": k, "n": n, "axes": [...]}
+    """
+    import tranche_rules as TR
+    if fin is None:
+        fp = os.path.join(ROOT, "data", "app", "financials.json")
+        fin = json.load(open(fp, encoding="utf-8")).get("stocks") or {}
+    rec = fin.get(ticker) or {}
+    qs = sorted(rec.get("quarterly") or [], key=lambda q: str(q.get("end")), reverse=True)
+    base = next((q for q in qs if _q_known_by(q, d0)), None)
+    post = [q for q in qs if not _q_known_by(q, d0)]
+    if not qs or base is None:
+        return {"status": "결측", "hit": 0, "n": 0, "axes": ["분기 데이터 없음"]}
+    if not post:
+        return {"status": "대기", "hit": 0, "n": 0, "axes": [f"판정 후 공시 분기 없음(기준 {base['end']})"]}
+    p = post[0]
+    keys = [("op_margin", "마진", True)]
+    if ticker not in TR.FINANCIAL_ARM:
+        keys += [("fcf", "FCF", True), ("net_cash", "순현금", False)]
+    hit, n, axes = 0, 0, []
+    for k, lbl, yoy in keys:
+        ref = (_yoy_peer(qs, p) if yoy else None) or base
+        a, b = p.get(k), ref.get(k)
+        if a is None or b is None:
+            axes.append(f"{lbl} 결측")
+            continue
+        n += 1
+        worse = a < b
+        hit += worse
+        if k == "op_margin":
+            axes.append(f"{lbl} {b*100:.1f}→{a*100:.1f}%{'↓' if worse else '↑'}")
+        else:
+            axes.append(f"{lbl} {'악화' if worse else '개선'}")
+    if n == 0:
+        return {"status": "결측", "hit": 0, "n": 0, "axes": axes}
+    need = 1 if n == 1 else 2
+    return {"status": "확인" if hit >= need else "미확인", "hit": hit, "n": n,
+            "post_q": p["end"], "axes": axes}
+
+
 def _rule2_score(rows, D):
-    """3/3·2/3 판정이 처음 뜬 종목의 그 이후 주가 — 훼손 경보의 적중 여부."""
+    """3/3·2/3 판정이 처음 뜬 종목 — 그 뒤 **펀더가 계속 나빠졌나**(d214). 주가는 참고열."""
     first_flag = {}
     for r in rows:
         for t, sc in (r.get("rule2") or {}).items():
@@ -403,17 +480,27 @@ def _rule2_score(rows, D):
     if not first_flag:
         print("     훼손 판정 이력 없음.")
         return
-    print(f"     {'종목':<12}{'최초판정':<12}{'등급':<10}" + "".join(f"{lbl:>10}" for _, lbl in HORIZONS))
+    fin = {}
+    try:
+        fin = json.load(open(os.path.join(ROOT, "data", "app", "financials.json"),
+                             encoding="utf-8")).get("stocks") or {}
+    except (OSError, ValueError):
+        pass
+    print(f"     {'종목':<12}{'최초판정':<12}{'등급':<12}{'이후분기':<12}{'펀더 궤적':<34}{'채점':<10}"
+          f"{'(참고)1개월':>12}{'3개월':>9}")
+    tally = {"확인": 0, "미확인": 0, "대기": 0, "결측": 0}
     for t, (d0, sc) in sorted(first_flag.items()):
+        v = rule2_fund_trajectory(t, d0, fin)
+        tally[v["status"]] += 1
         ds, cs = D.load(t)
-        if not cs:
-            continue
-        line = f"     {t:<12}{d0:<12}{sc:<10}"
-        for h, _ in HORIZONS:
-            v = _fwd(ds, cs, d0, h)
-            line += f"{v:>+9.1f}%" if v is not None else f"{'—':>10}"
-        print(line)
-    print("     ↳ 훼손 경보가 옳았다면 **이후 수익률이 음(-)**이어야 한다.")
+        px = [(_fwd(ds, cs, d0, h) if cs else None) for h in (21, 63)]
+        pxs = "".join(f"{x:>+8.1f}%" if x is not None else f"{'—':>9}" for x in px)
+        mark = {"확인": f"✅{v['hit']}/{v['n']}", "미확인": f"❌{v['hit']}/{v['n']}"}.get(v["status"], v["status"])
+        print(f"     {t:<12}{d0:<12}{sc:<12}{str(v.get('post_q') or '—'):<12}"
+              f"{' · '.join(v['axes'])[:32]:<34}{mark:<10}{pxs:>3}")
+    print(f"     ↳ 경보 확인 {tally['확인']} · 미확인 {tally['미확인']} · 공시 대기 {tally['대기']} · 결측 {tally['결측']}")
+    print("     ↳ 채점 = 판정 뒤 공시된 분기에서 판정 축이 **계속 나빠졌나**(2축 이상 · 금융연결은 마진 1축).")
+    print("       주가는 참고 — 룰2는 감시 등급이지 가격 예측이 아니다(d214). 공시일은 분기말+45일 근사.")
 
 
 def _step_label(i: int) -> str:

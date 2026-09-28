@@ -116,7 +116,7 @@ check right before the PM's synthesis. The PM spawns you in parallel; you return
 - 🚦 트리거 상태: {낙폭 사다리 해금단계·상한(tranche_rules.py) / §5 해제 게이트 3중 판정 / 매수존 도달 / 이벤트 트리거}  (triggers.py 가공)
   ⚠️ [8/5 정정] 舊 '안전핀 7,500까지 거리'는 폐기된 룰이다 — 7,500은 이제 §5 해제 게이트 조건①로만 유효.
 - 🚨 위반·경보: {있으면 명시, 없으면 "현재 룰 위반 없음"}
-- 📑 재무 훼손 판정: {LG전자 룰2 훼손 여부(수치) / 삼성·MU margin_trend_break 룰4 상태 / 기타 플래그}
+- 📑 재무 훼손 판정: {룰2 추세형 — 보유 전종목(7/30 개정). `rule_tracker.py --snapshot`의 룰2 플래그(2/3·3/3·1/1)가 뜬 종목만 `tranche_rules.py --rule2 --ticker <T>`로 세 조건 수치 / margin_trend_break 등 financials 플래그}
 - 📊 포트 리스크 {점수}/100 ({레벨}): 기여 상위 2축 · 최대종목·테마 비중  (portfolio_risk.py)
 - 🔗 동조·실효분산: 보유 N종목 → 비중 기준 {n}종목 → **상관 기준 {n}종목** · 포트 변동성 {n}% · 최상위 상관쌍  (portfolio_stats.py)
 - 💱 통화 익스포저: 달러 {n}% · 환율 1% = {n}원 · 환손익 3분해(종목/환율/교차) · 원/달러 1y %ile  (fx_exposure.py)

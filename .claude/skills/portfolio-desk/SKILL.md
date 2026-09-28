@@ -174,7 +174,7 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 ```
 - **📋 국내 수시공시 (보유 KR 5종목 · [7/30 신설])** — 리스크룰 2 '펀더 훼손' 판정의 유일한 장치:
   ```bash
-  python3 .claude/skills/portfolio-desk/scripts/dart_disclosure.py --days 7 --save
+  python3 .claude/skills/portfolio-desk/scripts/dart_disclosure.py --days 7 --save --watch   # [9/29] 워치 종목 공시까지(워치 산문 방치 9/22 교훈)
   python3 .claude/skills/portfolio-desk/scripts/dart_disclosure.py --insider   # 임원 보유증감 합산
   python3 .claude/skills/portfolio-desk/scripts/dart_disclosure.py --major     # 5% 대량보유(국민연금)
   ```
@@ -183,6 +183,7 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 - **👤 미국 내부자 (Form 4 · 무키 · [7/30 신설])**:
   ```bash
   python3 .claude/skills/portfolio-desk/scripts/insider_us.py --days 90 --save
+  python3 .claude/skills/portfolio-desk/scripts/insider_us.py --major     # 5% 대량보유 13D/13G(국내 --major와 짝)
   ```
   **재량적 매수(P)만 신호**로 읽는다 — 매도(S)는 대부분 10b5-1 사전약정이라 비관 신호가 아니다.
 - **📋 미국 수시공시 8-K (보유 US 9종목 · [8/5 신설·배선]) — `dart_disclosure`의 미국 짝**:

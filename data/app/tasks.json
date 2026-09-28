@@ -109,7 +109,9 @@
    {
     "id": "w0929-1",
     "text": "다음 dev 세션: d216 wiring --features 기준 문서화 → d214 rule_tracker 룰2 채점축 펀더 궤적으로 교체",
-    "done": false
+    "done": true,
+    "done_at": "2026-09-29",
+    "done_note": "d214·d216 구현 완료(9/29 새벽 대화형)"
    },
    {
     "id": "w0928-1",

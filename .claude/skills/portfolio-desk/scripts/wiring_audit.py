@@ -98,6 +98,26 @@ UTIL_FLAGS = {
     "--negative", "--no-network", "--coverage", "--features", "--full", "--pooled",
 }
 
+# ★[9/29 d216] 판정 기준 — 정본 = docs/dev_workflow.md §1d「기능 미배선 판정 기준」.
+#   25→44건(4주 연속 증가)의 절반이 **형태만 보고도 결손이 아닌 플래그**였다. 이 셋은 이름 규칙으로
+#   기계 분류하고, **건수는 숨기지 않고 따로 출력**한다(일괄 등록으로 숫자만 낮추는 것 = 기각안).
+#     ① 반전  `--no-*`   — 기본 경로를 끄는 스위치. 기본 실행이 정본이므로 '안 쓰임'이 정상.
+#     ② 부분  `--*-only` — 기본 산출의 부분집합. 기본 실행이 이미 그 산출을 포함한다.
+#     ③ 진단  `--status`·`--stats`·`--list` — 운영자 점검용. 데스크가 읽을 산출물이 아니다.
+#   그 밖의 플래그는 EXPECTED_UNUSED_FEATURES에 **개별 이유**로 등록하거나 지시층에 배선한다.
+DIAG_FLAGS = {"--status", "--stats", "--list"}
+
+
+def _auto_class(flag: str) -> str | None:
+    if flag.startswith("--no-"):
+        return "반전"
+    if flag.endswith("-only"):
+        return "부분"
+    if flag in DIAG_FLAGS:
+        return "진단"
+    return None
+
+
 # "이 기능은 상시로 안 불려도 정상" — 이유를 반드시 적는다(EXPECTED_UNWIRED와 같은 문법)
 EXPECTED_UNUSED_FEATURES = {
     ("trades.py", "--add"):          "체결 기입 — 정훈이 체결을 알릴 때만 사람이 실행",
@@ -112,6 +132,26 @@ EXPECTED_UNUSED_FEATURES = {
     ("capitulation_validate.py", "--naver"): "검증 경로 선택 — 일회성 검정(7/30) 내부 옵션",
     ("capitulation_validate.py", "--vix"):   "검증 경로 선택 — 일회성 검정(7/30) 내부 옵션",
     ("edgar_search.py", "--routine"): "루틴 프리셋 — 데스크가 --q/--events를 직접 쓴다",
+    # ── [9/29 d216 재분류] 개별 사유 ─────────────────────────────────
+    ("tranche_rules.py", "--us-execute"): "미국 트랙 회차 체결 기입 — 정훈이 체결을 알릴 때만(trades --add와 같은 성격)",
+    ("target_reset.py", "--calibrated"):  "d188 기각(9/29) — 기본 OFF 유지, 비교표로만. 재상정 조건은 decisions d188",
+    ("r2_brief.py", "--all-orders"):      "종결 오더까지 보는 사람용 조회 — 브리핑 정본은 미결 오더만",
+    ("rule_tracker.py", "--history"):     "원장 요약 사람용 — R3 정본은 --score",
+    ("rule_tracker.py", "--multi"):       "11지수 풀링 백테스트(7/30 일회성 검정 · crash_tf 인용) — 룰 가설이 새로 생길 때만",
+    ("price_watch.py", "--baseline"):     "도입 시 1회 기준선 기록(발송 없음)",
+    ("refresh_stale.py", "--check"):      "dry-run — 무엇을 갱신할지만 본다",
+    ("hunter_latest.py", "--all-dates"):  "RSS 전체 수동 백필 — RSS는 8/12부터 404, 복구는 --catchup이 정본",
+    ("hunter_audit.py", "--emit-ids"):    "누락 ID 파이프 출력 — 수동 복구용",
+    ("watch_calls.py", "--unmapped"):     "종목명 매핑 실패 진단",
+    ("yt_frames.py", "--thumbs"):         "썸네일만 받는 경량 모드 — 화면 판독이 필요할 때 사람이 고른다",
+    ("toss_snapshot.py", "--orders"):     "코드층 호출(toss_import.py) — 체결 원장 채우기. 지시층에서 직접 부를 이유 없음",
+    ("market_log.py", "--backfill-snapshots"): "일회성 소급 축적",
+    ("live_quotes.py", "--print"):        "표 출력 디버그 — 앱 전용 층이라 보고서 인용 금지(CLAUDE.md)",
+    ("notify.py", "--brief"):             "JD-brief 스케줄러가 $Notify 변수로 호출(register_tasks.ps1) — 감사 정규식이 변수 간접호출을 못 본다",
+    ("drawdown_history.py", "--base-rates"): "기저율 요약만 — 기본 실행이 포함",
+    ("portfolio_stats.py", "--corr"):     "상관행렬 전체 덤프 — 리스크 데스크는 기본 요약(최상위 상관쌍)을 쓴다",
+    ("ma_board.py", "--indexes"):         "지수 추세는 chart_read(지수 포함 기본)가 담당",
+    ("naver_sentiment.py", "--discourse"): "측정 전용 축 — 보고서 템플릿에 자리가 없다. 쓰려면 템플릿부터(룰 승격 금지)",
 }
 
 CALLER_GLOBS = [
@@ -123,6 +163,8 @@ CALLER_GLOBS = [
     #   반대로 여길 안 보면 런처에서만 부르던 도구가 배선 감사의 사각에 남는다.
     ".claude/routines/*.ps1",
     "docs/desk_playbook.md",   # 전 데스크가 Task 0에서 읽는 공통 지침 = 지시층
+    # ★[9/29 d216] 클라우드 실행 주체 — live_quotes --kick 등이 여기서만 불린다
+    ".github/workflows/*.yml",
 ]
 
 
@@ -138,6 +180,8 @@ def _features_of(path: str) -> list[str]:
         return []
     feats = []
     # add_argument("--foo", action="store_true", ...) / sub.add_argument('--foo', ..., action='store_true')
+    # ★[9/29 d216] 주석 줄은 지운 뒤 찾는다 — 이 도구 자신의 예시 주석(`--foo`)이 기능으로 새어 나왔다
+    src = re.sub(r"(?m)^\s*#.*$", "", src)
     for m in re.finditer(r"""add_argument\(\s*["'](--[a-z0-9][a-z0-9\-]*)["'][^)]*?action\s*=\s*["']store_true["']""",
                          src, re.S):
         f = m.group(1)
@@ -157,7 +201,7 @@ def _feature_used(flag: str, basename: str, instr_pool) -> list[str]:
         for i, ln in enumerate(lines):
             if basename in ln:
                 window = "\n".join(lines[i:i + 4])
-                if re.search(rf"{re.escape(flag)}(?:\s|$|[|`'\"])", window):
+                if re.search(rf"{re.escape(flag)}(?:\s|$|[|`'\"\],)])", window):
                     hits.append(os.path.relpath(f, ROOT))
                     break
     return hits
@@ -216,17 +260,22 @@ def scan() -> list[dict]:
         ih, ch = count(instr), count(code)
         # 기능 단위 — 지시층에 배선된 스크립트에 한해 본다
         # (미배선 스크립트는 이미 UNWIRED로 잡히므로 기능을 따질 단계가 아니다)
-        feats, unused = _features_of(path), []
+        feats, unused, auto = _features_of(path), [], []
         if ih:
             for fl in feats:
                 if (b, fl) in EXPECTED_UNUSED_FEATURES:
                     continue
                 if not _feature_used(fl, b, instr):
-                    unused.append(fl)
+                    c = _auto_class(fl)
+                    if c:
+                        auto.append((c, fl))
+                    else:
+                        unused.append(fl)
         out.append({"script": b, "instr": len(ih), "code": len(ch),
                     "by": ih[:4], "expected": b in EXPECTED_UNWIRED,
                     "note": EXPECTED_UNWIRED.get(b, ""),
-                    "features": feats, "unused_features": unused})
+                    "features": feats, "unused_features": unused,
+                    "auto_classified": auto})
     return out
 
 
@@ -338,9 +387,21 @@ def main() -> int:
         print("   ⚠️ 8/24 실사고: trades.py는 6곳에서 불려 '배선됨'이었는데 --realized(손익비)는")
         print("      아무도 안 읽고 있었다. 스크립트 단위 감사로는 구조적으로 못 잡는 형태다.")
 
+    # ★[9/29 d216] 기계 분류분은 숨기지 않고 건수를 따로 낸다 — 규칙이 결손을 삼키면 여기서 보인다
+    auto = {}
+    for r in rows:
+        for c, fl in r.get("auto_classified") or []:
+            auto.setdefault(c, []).append(f"{r['script']} {fl}")
+    n_auto = sum(len(v) for v in auto.values())
+    if a.features and auto:
+        print(f"\n⚪ 형태 분류(결손 아님) {n_auto}건 — 기준 = docs/dev_workflow.md §1d")
+        for c in ("반전", "부분", "진단"):
+            if auto.get(c):
+                print(f"   {c} {len(auto[c])}: {' · '.join(auto[c])}")
+
     print(f"\n요약: 배선됨 {len(rows)-len(unwired)-len(parked)} · "
           f"미배선(예상밖) {len(unwired)} · 의도적 미배선 {len(parked)} · "
-          f"**기능 미배선 {n_feat}**" + ("" if a.features else " (--features로 상세)"))
+          f"**기능 미배선 {n_feat}** · 형태 분류 {n_auto}" + ("" if a.features else " (--features로 상세)"))
     return 1 if (a.strict and unwired) else 0
 
 

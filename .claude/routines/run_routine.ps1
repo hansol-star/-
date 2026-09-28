@@ -332,7 +332,7 @@ Add-Content -Path $LogFile -Value $outText -Encoding utf8
 $bgKilled = $outText -match 'Background tasks still running'
 $hitLimit = $outText -match 'session limit|usage limit|rate limit'
 $permBlock = $outText -match 'permission denied|requires approval|not allowed'
-$notLogged = $outText -match 'Not logged in|/login'
+$notLogged = $outText -match 'Not logged in|/login|Failed to authenticate|OAuth session expired|could not be refreshed'
 
 # ★[9/1 신설] 산출물 검사 — 문자열 매칭이 아니라 **워킹트리**로 판정한다.
 #   왜: 9/1 R1이 영상 6편을 분석해놓고 git add/commit/push가 allow에 없어 커밋을 못 했는데

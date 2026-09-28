@@ -313,6 +313,7 @@ def msg_routine(kind: str, verdict: str, status_path: str) -> str:
         "SKIPPED_LATE": "머신이 늦게 깨어 지각 한도 초과로 건너뜀 — 다음 실행의 --catchup이 메운다",
         "REPORT_EXISTS": "오늘 보고서가 이미 있어 무인 작성은 건너뜀",
         "TOKEN_LIMIT": "토큰 한도에 막혀 중단",
+        "NOT_LOGGED_IN": "PC의 claude CLI 로그인이 만료 — 터미널에서 claude 실행 후 /login 1회 필요",
     }.get(verdict)
     lines = [f"{icon} 루틴 {kind} — {verdict}",
              meaning or "",

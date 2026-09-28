@@ -230,7 +230,9 @@ def main() -> int:
         except Exception as e:  # noqa: BLE001
             print(f"[WARN] {label}({code}) 실패: {type(e).__name__} {e}", file=sys.stderr)
 
-    payload = {"as_of": time.strftime("%Y-%m-%d %H:%M KST"), "source": "토스 Open API (조회 전용)",
+    # ★[9/29 d215] 레이어 신선도 정본 = updated(26/28 레이어 공통). as_of는 호환용.
+    _stamp = time.strftime("%Y-%m-%d %H:%M KST")
+    payload = {"updated": _stamp, "as_of": _stamp, "source": "토스 Open API (조회 전용)",
                "caveat": "측정 전용 · T+1 반영 · 룰 변경 금지", "rows": rows}
     if args.json:
         print(json.dumps(payload, ensure_ascii=False, indent=1))

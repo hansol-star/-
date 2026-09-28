@@ -85,3 +85,5 @@
 {"date": "2026-09-22", "index": "KOSPI", "foreign": 756, "inst": -1191, "indiv": -16089, "src": "naver"}
 {"date": "2026-09-23", "index": "KOSDAQ", "foreign": -462, "inst": 76, "indiv": 275, "src": "naver"}
 {"date": "2026-09-23", "index": "KOSPI", "foreign": -4942, "inst": 3189, "indiv": -14649, "src": "naver"}
+{"date": "2026-09-28", "index": "KOSDAQ", "foreign": 467, "inst": -747, "indiv": 220, "src": "naver"}
+{"date": "2026-09-28", "index": "KOSPI", "foreign": -32545, "inst": -10171, "indiv": 26333, "src": "naver"}

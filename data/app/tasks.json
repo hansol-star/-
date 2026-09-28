@@ -78,7 +78,9 @@
    {
     "id": "t0928l-2",
     "text": "오늘 밤 · 로컬 claude 재로그인(터미널 claude → /login) — 무인 R1·R2 인증 만료로 실패 중",
-    "done": false
+    "done": true,
+    "done_at": "2026-09-29 03:2x",
+    "done_note": "claude.cmd로 /login 완료 — auth status loggedIn:true 확인(ps1은 실행정책 차단이라 .cmd 사용)"
    },
    {
     "id": "t0928l-3",

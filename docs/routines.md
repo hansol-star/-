@@ -160,10 +160,13 @@
 목적: 로컬 최종 보고서의 '재료'를 미리 만든다. 결론·별점·스코어·오더북·할일은 로컬이 쓴다(정훈 "보고서 작성" 시).
 0. python3 .claude/skills/portfolio-desk/scripts/kst_now.py → 주말·휴장이면 prep 파일에 "휴장" 한 줄만 쓰고 7번으로.
 1. 복원: python3 .claude/skills/portfolio-desk/scripts/r2_brief.py 1회 + decisions.py. 파일 통째 Read·재독 금지.
-2. 수집(실패는 기록하고 계속 — 멈추지 말 것): market_data.py · macro_data.py · vol_gauge.py · tranche_rules.py · rule_tracker.py --snapshot · triggers.py · fx_exposure.py · portfolio_risk.py · event_calendar.py --within 45 · dart_disclosure.py · edgar_search.py --events --days 30 · naver_flows.py · flow_trend.py · financials.py --all --save → peer_compare.py · eps_revisions.py · market_log.py
+2. 수집(실패는 기록하고 계속 — 멈추지 말 것): market_data.py · macro_data.py · vol_gauge.py · tranche_rules.py · rule_tracker.py --snapshot · triggers.py · fx_exposure.py · portfolio_risk.py · event_calendar.py --within 45 · dart_disclosure.py · edgar_search.py --events --days 30 · naver_flows.py · flow_trend.py · financials.py --all --save → peer_compare.py · eps_revisions.py --save · market_log.py
    (전부 .claude/skills/portfolio-desk/scripts/ 아래. 토스·yt-dlp·notify·memory_embed 호출 금지. 폭풍 %ile 정본 = vol_gauge, garch 인용 금지.)
 2b. **누적(받아온 걸 남기는 축) — ★[9/19 R3 배선]**: `news_archive.py --collect --quiet` · `dart_disclosure.py --days 7 --save` ·
-   `consensus.py --save` · `edgar_search.py --events --days 30 --save` · 그리고 **마지막에** `archive_daily.py --quiet`.
+   `consensus.py --save` · `edgar_search.py --events --days 30 --save` · `refresh_stale.py` · 그리고 **마지막에** `archive_daily.py --quiet`.
+   ★[9/28 배선] `refresh_stale.py`(stale 레이어만 `--save` 재실행 — 신선하면 네트워크 0회)는 **9/21 보고서 본체가 C3로 간 뒤
+   아무 루틴도 부르지 않았다**. 그리고 위 2단계의 `eps_revisions.py`는 `--save` 없이 돌아 **출력만 하고 저장을 안 했다** —
+   9/28 대화형 세션 실측: `eps_revisions.json`·`sentiment.json` 둘 다 9/19에서 9일 정지(prep ⓪엔 'OK'로 찍힘 = 메타 성공≠생존).
    ⚠️ **왜 C2로 옮겼나**: 이 단계들은 9/4에 신설되며 **R1·R2(로컬)에만** 배선됐는데, 9/10 분업으로 평일 실행이
    클라우드(C2)로 옮겨가면서 **아무도 안 부르는 상태가 됐다.** 9/19 R3 실측 — `data/news/2026-09/`에 파일이
    **9/4·9/12 둘뿐**(그 둘도 R3가 직접 수집한 날)이고 9/5~9/11·9/13~9/18이 통째로 비었으며,
@@ -219,6 +222,10 @@ prep이 없으면 기다리지 말고 경량 수집으로 진행한다(클라우
 7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다(17:40 로컬 배달부)**: `tasks.json`의 `["tasks"]["today"]`를 '오늘 밤~내일 할 일'로 다시 쓴다(**최상위 `today` 키 금지** — 카톡·앱은 `tasks.today`만 읽는다. 9/21 C3가 최상위에 써 카톡에 전날 목록이 나갔다. validate FAIL로 잡힌다).
    항목마다 한 줄(100자 이내 — 넘으면 카톡에서 잘린다) = 시각 · 종목 · 매수/매도 · 가격(미국 $ / 국내 원) · 수량 · 조건.
    최대 6개, 끝난 건 done=true. 오더는 orders에 등록·갱신(체결 확인 전 완료 처리 금지). 바뀐 종목은 stocks.json도.
+7b. ★[9/28 배선] **정본 2개도 오늘 상태로**: ① `data/app/flows.json` series에 오늘 행 append — `naver_flows.py --flows-line` 값 +
+   note에 "[잠정 — naver 자동, KRX 확정 대사 필요]"(매체 마감치와 ±10% 넘게 갈리면 둘 다 적는다) ② `docs/crash_tf.md` §1 맨 위에
+   오늘 as_of 블록(낙폭·사다리·하드플로어·게이트 3개·원/달러) prepend. **왜**: 9/21 보고서 본체가 C3로 온 뒤 둘 다 **아무도 안 썼다** —
+   flows.json 9/22·crash_tf §1 9/22에서 정지 → 9/28 외인 -3.2조 날에도 triggers가 '외국인 순매수 전환 🔴발동'을 띄웠다(9/28 대화형 발견).
 8. 마무리: build_app_data.py → validate_report.py(FAIL 0까지 핀포인트 Edit) → rule_tracker.py --snapshot →
    score_calls.py --append → snapshot.py → market_log.py → git add <만들거나 고친 파일 경로>(-A·. 금지) → git commit →
    git fetch origin main → git rebase origin/main → git push origin HEAD:main.

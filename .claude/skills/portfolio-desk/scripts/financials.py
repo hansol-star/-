@@ -52,12 +52,30 @@ import edgar_facts as E
 import yahoo_facts as Y
 import cli_common
 
-# 보유 15종목 (VOO=ETF는 재무제표 대상 아님 → 14종목이 커버 대상)
-US = ["NVDA", "MU", "AAPL", "MSFT", "ANET", "AVGO", "GOOGL", "META", "ORCL"]
-KR = ["005930.KS", "066570.KS", "454910.KS", "005380.KS", "035420.KS"]
+# 보유 종목은 **정본(validate_report.HOLDINGS)에서 받는다** (VOO=ETF는 재무제표 대상 아님).
+# ★[9/28] 舊엔 `보유 15종목` 하드코딩이었고 ANET(8/11)·AAPL·META(9/23) 전량매도가 반영되지 않아
+#   `--all`이 이미 판 3종목을 '보유'로 매일 수집했다(커버리지 14/14로 초록불). 9/26 R3가
+#   drawdown_history에서 고친 것과 같은 결함 — 모양에 기댄 목록은 조용히 거짓말한다.
+#   덤으로 클라우드 C2의 180초 타임아웃(9/24~9/28 3일 연속)에 3종목만큼 여유가 생긴다.
 # ⚠️ 티커 접미사는 시장을 바꾼다: 454910.KS=두산로보틱스(KSE) / 454910.KQ=코스닥의 다른 종목.
 #    원익IPS·테스 .KQ 사고(6/14)의 반대방향 재발 — 접미사는 market_data.py와 항상 일치시킬 것.
 ETF = ["VOO"]
+
+
+def _canon_holdings() -> tuple[list[str], list[str]]:
+    try:
+        import validate_report as _V
+        tks = [t for t in _V.HOLDINGS if t not in ETF]
+    except Exception as e:          # 정본을 못 읽으면 조용히 옛 목록으로 돌아가지 않는다
+        print(f"⚠️ 보유 정본(validate_report.HOLDINGS) 로드 실패 — 내장 목록으로 대체: {e}",
+              file=sys.stderr)
+        tks = ["NVDA", "MU", "MSFT", "AVGO", "GOOGL", "ORCL",
+               "005930.KS", "066570.KS", "454910.KS", "005380.KS", "035420.KS"]
+    return ([t for t in tks if not t.endswith((".KS", ".KQ"))],
+            [t for t in tks if t.endswith((".KS", ".KQ"))])
+
+
+US, KR = _canon_holdings()
 ALL = US + KR
 
 # [8/6] 피어 비교용 워치 종목 — `peer_compare.py`가 소비한다.
@@ -71,6 +89,7 @@ PEERS = [
     # 반도체·AI인프라
     # [9/17 워치 개편 d193] 원익IPS·테스·STM·삼성중공업·HD현대중 제외 / TSM·AMAT 편입
     "000660.KS", "009150.KS", "TSM", "AMAT",
+    "ANET",   # [9/28] 보유 목록이 정본화되며 빠진 워치 — 피어 비교(반도체 그룹)엔 계속 필요
     # 전력·인프라·피지컬AI (방산·조선 포함 = power-physical-desk 담당 범위)
     "034020.KS", "012450.KS", "042660.KS", "096770.KS", "GEV",
     # 빅테크·플랫폼

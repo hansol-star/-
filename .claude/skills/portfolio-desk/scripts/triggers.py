@@ -81,6 +81,24 @@ def evaluate(alert: dict) -> dict:
                   f"{t.get('streak')}일 연속 · 단계={t.get('stage')}")
         if t.get("intensity"):
             detail += f" · 5일강도 {t['intensity']['chg_pct']:+.1f}%"
+        # ★[9/28] 신선도 가드 — flows.json이 9/22에 멈춘 채 9/28(외인 -3.2조 순매도)에도
+        #   '외국인 순매수 전환 🔴발동'을 띄웠다. 묵은 수급으로 발동하면 게이트②를 거꾸로 읽는다.
+        #   as_of 이후 지나간 평일(오늘은 16시 이후만)이 2일 이상이면 발동 대신 stale로 낸다.
+        #   ⚠️ 공휴일을 모르는 평일 계산이라 연휴 뒤엔 과하게 stale이 뜰 수 있다 — 안전한 쪽 오류.
+        try:
+            import datetime as _dt
+            asof = _dt.date.fromisoformat(str(t.get("as_of"))[:10])
+            now = _dt.datetime.utcnow() + _dt.timedelta(hours=9)
+            d, missed = asof + _dt.timedelta(days=1), 0
+            while d <= now.date():
+                if d.weekday() < 5 and (d < now.date() or now.hour >= 16):
+                    missed += 1
+                d += _dt.timedelta(days=1)
+            if missed >= 2:
+                return {**alert, "state": "stale", "price": None,
+                        "detail": detail + f" · ⚠️수급 {missed}거래일 미기입 — 발동 판정 보류(flows.json 갱신 필요)"}
+        except (TypeError, ValueError):
+            pass
         return {**alert, "state": "fired" if fired else "armed", "price": None, "detail": detail}
 
     q = fetch_quote(alert["ticker"])
@@ -271,7 +289,7 @@ def main() -> int:
         return 0
 
     icon = {"fired": "🔴 발동", "armed": "🟢 대기", "event": "📅 이벤트", "signal": "📡 신호",
-            "done": "✅ 완료", "error": "⚠️ 오류"}
+            "done": "✅ 완료", "error": "⚠️ 오류", "stale": "⏸️ 데이터 묵음"}
     fired = [r for r in results if r["state"] == "fired"]
     imminent = sorted(
         (r for r in results if r["state"] == "event" and r.get("dday") is not None and 0 <= r["dday"] <= 7),

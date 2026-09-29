@@ -51,8 +51,8 @@ HOLDINGS_US = [
 WATCHLIST = [  # 폴백 (portfolio.json 없을 때만). 정본은 portfolio.json.
     ("두산에너빌리티", "034020.KS"), ("SK이노베이션", "096770.KS"),
     ("GEV", "GEV"), ("ANET", "ANET"), ("TSM", "TSM"), ("AMAT", "AMAT"),
-    ("TMUS", "TMUS"), ("AMD", "AMD"), ("삼성바이오로직스", "207940.KS"),
-]  # [9/17 워치 개편 d193] 원익IPS·테스·SPCX 제외, TSM·AMAT 편입
+    ("TMUS", "TMUS"), ("AMD", "AMD"), ("CDNS", "CDNS"), ("ISRG", "ISRG"),
+]  # [9/17 d193] 원익IPS·테스·SPCX 제외, TSM·AMAT 편입 · [9/29 d218] 삼성바이오·PLTR 제외, CDNS·ISRG 편입
 INDEX = [
     ("코스피", "^KS11"), ("코스닥", "^KQ11"), ("S&P500", "^GSPC"),
     ("나스닥", "^IXIC"), ("다우", "^DJI"), ("필라델피아반도체", "^SOX"),

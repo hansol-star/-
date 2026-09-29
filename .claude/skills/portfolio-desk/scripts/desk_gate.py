@@ -36,12 +36,12 @@ ROOT = os.path.abspath(os.path.join(_HERE, *([os.pardir] * 5)))
 SECTOR = {
     # [9/17 워치 개편 d193] 원익IPS·테스·STM·TSLA·삼성중공업·HD현대중·SPCX 제외 / TSM·AMAT 편입
     "semi-ai-desk": ["005930.KS", "NVDA", "MU", "AVGO", "ANET",
-                     "009150.KS", "000660.KS", "TSM", "AMAT", "AMD"],
+                     "009150.KS", "000660.KS", "TSM", "AMAT", "AMD", "CDNS"],   # [9/29 d218] CDNS 편입
     "power-physical-desk": ["066570.KS", "454910.KS", "005380.KS",
                             "034020.KS", "GEV", "096770.KS", "012450.KS",
-                            "042660.KS"],
+                            "042660.KS", "ISRG"],   # [9/29 d218] ISRG(수술로봇=피지컬AI) 편입
     "bigtech-platform-desk": ["META", "MSFT", "AAPL", "GOOGL", "ORCL",
-                              "035420.KS", "TMUS", "PLTR"],
+                              "035420.KS", "TMUS"],   # [9/29 d218] PLTR 제외
 }
 MOVE_PCT = 5.0
 EARN_DAYS = 7

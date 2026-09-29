@@ -15,7 +15,7 @@ your output is the desk section handed to the PM.
 
 - Indices: 코스피(^KS11), 코스닥(^KQ11)
 - KR holdings: 삼성전자(005930.KS), LG전자(066570.KS), 두산로보틱스(454910.KS), 현대차(005380.KS), NAVER(035420.KS)
-- KR watch [9/17 개편 d193]: SK하이닉스(000660.KS), 삼성전기(009150.KS), 두산에너빌리티(034020.KS), SK이노베이션(096770.KS), 한화에어로(012450.KS), 한화오션(042660.KS), 삼성바이오로직스(207940.KS), KT&G(033780.KS)  ※룰6: 국내 22% 초과 동안 신규 매수 대상 아님(추적용)
+- KR watch [9/29 개편 d218 — 삼성바이오 제외]: SK하이닉스(000660.KS), 삼성전기(009150.KS), 두산에너빌리티(034020.KS), SK이노베이션(096770.KS), 한화에어로(012450.KS), 한화오션(042660.KS), KT&G(033780.KS)  ※룰6: 국내 22% 초과 동안 신규 매수 대상 아님(추적용)
 - **US market belongs to us-market-desk** — don't touch it.
 
 ## Tasks

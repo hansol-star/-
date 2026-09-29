@@ -15,7 +15,7 @@ output is the desk section handed to the PM.
 
 - Indices: S&P500(^GSPC), 나스닥(^IXIC), 다우(^DJI), 필라델피아반도체(^SOX)
 - US holdings: NVDA, META, VOO, MSFT, AAPL, GOOGL, ORCL, MU, AVGO  (정본 = portfolio.json)
-- US watch [9/17 개편 d193]: GE Vernova(GEV), Arista(ANET), TSMC(TSM), Applied Materials(AMAT), AMD, Palantir(PLTR), T-Mobile(TMUS)
+- US watch [9/29 개편 d218]: GE Vernova(GEV), Arista(ANET), TSMC(TSM), Applied Materials(AMAT), AMD, Cadence(CDNS), Intuitive Surgical(ISRG), T-Mobile(TMUS)  ※PLTR 제외
 - **Korea (코스피·코스닥) belongs to kr-market-desk** — don't touch it.
 
 ## Tasks

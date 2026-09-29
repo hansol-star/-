@@ -1080,9 +1080,11 @@
   {
    "id": "pre-0929-1",
    "added": "2026-09-29",
-   "done": false,
+   "done": true,
    "text": "hunter 셋업 16건이 20일+ 미갱신(9/9) — 각 셋업 조건 재판정 후 done·dropped·갱신(validate WARN 16건)",
-   "how": "setup_schema.py --check → hunter.json setups 각각 조건 met 여부 재판정 → updated 갱신 또는 status dropped"
+   "how": "setup_schema.py --check → hunter.json setups 각각 조건 met 여부 재판정 → updated 갱신 또는 status dropped",
+   "done_at": "2026-09-29 23:40",
+   "done_note": "✅ 16건 재판정 — done 6(현대차CID·반도체마진·메모리코어·전력인프라·M7capex·하닉ADR) · dropped 6(레버리지ETF·KimiK3·반전트리거·현대차리레이팅·조선클러스터→미해군함정 병합·KT&G) · 유지 4(하닉 합작법인 12/9·DRAM소송 12/31·두산E 이익률 10/31·루빈울트라 11/20 재판정 기한). 활성 22→6. 트리거 32→20(13건 alerts_archive 이관·오탐 2건 제거·CDNS/ISRG 알림 신설)"
   }
  ],
  "memo": "v102(대화형 로컬·토스 대조 17:3x): 코스피 -2.70% = 美10Y+오라클 지연이 삼성·하닉 두 종목으로 청산(외인 매도 96%). 체결 없음·원장 일치. 두산로보 9/28분 미등록 → 9/29분 등록. 시스템 결함 6건(5 수정·claude 재로그인 1건 정훈)."

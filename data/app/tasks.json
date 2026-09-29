@@ -1,9 +1,9 @@
 {
  "_comment": "할일·매수추적·시간축 전망 정본(기계값). 정훈이 채팅으로 '오늘 1번 했어' / 'NAVER 1주 샀어' / 'META 예약 걸었어' 하면 PM이 이 파일을 갱신→커밋(git=연속성). 사람용 정본은 docs/reports 최신 보고서.",
- "updated": "2026-09-29 (대화형 로컬 — 이월 작업 마무리: financials·DART·toss_flows 로컬 재수집, d196·d217 구현)",
- "as_of": "2026-09-28 17:29",
- "today_note": "v102(클라우드 C3): 추석 후 첫 개장, 코스피 -2.70%(낙폭 -24.4%, D1 경계 1.6%p 앞). 게이트② 재역전 확정(9/28 대량 순매도, 스트릭 0일). 오라클 Project Jupiter 불가항력·SK하이닉스 솔리다임 IPO 팩트체크 신규. financials·DART 3일 연속 타임아웃.",
- "source_report": "docs/reports/report_v102_2026-09-28.md",
+ "updated": "2026-09-29 17:16 (클라우드 C3 — v103 무인 보고서)",
+ "as_of": "2026-09-29 17:16",
+ "today_note": "v103(클라우드 C3): 코스피 -0.27%(6,871·낙폭 -24.6%, D1까지 0.4%p) 표면 조용, 외인 2거래일 연속 대량 순매도(9/28 -3.2조·9/29 -2.9조, 누적 -6.2조). SK이노 -7.77%(desk_gate, 원인 미상)·ORCL -3.28%(Project Jupiter+인력감축, 룰2 2/3). VIX 14.21로 하락 — 호르무즈 유가+금리 복합 눌림. financials·DART 클라우드 재타임아웃.",
+ "source_report": "docs/reports/report_v103_2026-09-29.md",
  "outlook": [
   {
    "tag": "오늘(9/28 월)",
@@ -71,40 +71,34 @@
  "tasks": {
   "today": [
    {
-    "id": "t0928l-1",
-    "text": "오늘 밤~9/29 07:00 · 두산로보 매도 78,000원 1주 지정가 예약(9/29분) — 9/28분 미등록이었음 → [9/29 정훈] 아침에 등록 예정 → ⚠️[9/29 11:50 order_check] 토스 미체결 0건 = 아직 미등록",
-    "done": true,
-    "done_at": "2026-09-29 12:15",
-    "done_note": "✅ 토스 API 확인(order_check 12:15) — 두산로보틱스 매도 78,000 × 1 미체결 접수, 계획 o-drb-trim-78k와 일치"
-   },
-   {
-    "id": "t0928l-2",
-    "text": "오늘 밤 · 로컬 claude 재로그인(터미널 claude → /login) — 무인 R1·R2 인증 만료로 실패 중",
-    "done": true,
-    "done_at": "2026-09-29 03:2x",
-    "done_note": "claude.cmd로 /login 완료 — auth status loggedIn:true 확인(ps1은 실행정책 차단이라 .cmd 사용)"
-   },
-   {
-    "id": "t0928l-3",
-    "text": "9/29 · 삼성전자 배당락 — 4주 보유 유지(권리 확보 완료, 갭은 배당 몫)",
+    "id": "t0929c-1",
+    "text": "SK이노 -7.77% 1차 소스(공시·리포트) 확인 — desk_gate 트리거, 원인 미상",
     "done": false
    },
    {
-    "id": "t0928l-4",
-    "text": "9/30·10/2 밤 · 美 PCE·고용 — 매매 없음, 다음 보고서에 FOMC 확률 변화만 기록",
+    "id": "t0929c-2",
+    "text": "financials.py --all --save 재시도 — ORCL 룰2 3/3 전환 여부 확인(클라우드 타임아웃)",
     "done": false
    },
    {
-    "id": "t0928l-5",
-    "text": "10/1 저녁 · MU FQ4 — 분기 영업마진 추세만 판정(가속=홀딩), 반응 매매 금지",
+    "id": "t0929c-3",
+    "text": "DART 공시 로컬 재시도 — 클라우드 2회 연속 타임아웃",
     "done": false
    },
    {
-    "id": "t0928l-6",
-    "text": "결정 대기 · d214(룰2 채점축)·d215(날짜 정본)·d216(wiring 기준) 승인 여부",
-    "done": true,
-    "done_at": "2026-09-29",
-    "done_note": "d188 기각(OFF 유지·재상정 조건)·d214 승인·d215 승인(적용 완료)·d216 승인 — decisions.jsonl 종결"
+    "id": "t0929c-4",
+    "text": "9/30(수) 21:30 美 PCE — 매매 없음, FOMC 확률만 기록",
+    "done": false
+   },
+   {
+    "id": "t0929c-5",
+    "text": "10/1(목) 새벽 MU FQ4 — 마진 추세만 판정, 반응 매매 금지",
+    "done": false
+   },
+   {
+    "id": "t0929c-6",
+    "text": "오늘 밤 미장 마감 후 S&P 폭풍%ile 재측정 — 유가·금리 전이 확인",
+    "done": false
    }
   ],
   "week": [

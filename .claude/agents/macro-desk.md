@@ -49,6 +49,8 @@ report; you gather and return the macro section. **Do not write report files you
 ## 매크로 데스크
 - 환율: USD/KRW {값}({방향}) → {수급·환산단가 함의}  (1~2줄)
 - 금리: {FOMC/한은 동향, 컨센서스 확률}  (2~3줄)
+- 📏 금리 계기판(고정 3항목 · d217 측정 전용): 美 10Y {값}({bp 변동}) · 실질금리(TIPS 10Y) {값} · 다음 FOMC 인상/인하 확률 {값}(CME FedWatch 기준, 소스 분산 시 범위)
+  → 룰·사이징 판단에 쓰지 않는다. 누락 시 `validate_report.check_rate_gauge` WARN.
 - 지표·유가: {CPI/PPI/고용/유가 + 다음 발표}  (1~2줄)
 - 이벤트 캘린더(2주): {날짜 — 이벤트 — KST시각 — 폰가용 여부}
 

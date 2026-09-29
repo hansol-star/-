@@ -2456,6 +2456,42 @@ def check_desk_output_items(rel=None):
                "**배선했다고 산출되지 않는다**)")
 
 
+RATE_GAUGE_SINCE = "2026-09-29"   # d217 승인(9/28) 다음 보고서부터
+RATE_GAUGE_ITEMS = (
+    ("실질금리(TIPS 10Y)", r"실질\s*금리|TIPS"),
+    ("미 10Y", r"10Y|10년물"),
+    ("FOMC 인상/인하 확률", r"FOMC[^\n]{0,40}확률|확률[^\n]{0,20}FOMC|FedWatch"),
+)
+
+
+def check_rate_gauge(rel=None):
+    """금리 축 계기판 고정 항목이 보고서에 있는지 [9/29 신설 · d217].
+
+    9/28 코스피 -2.70%의 1차 원인이 美 10Y 5.2%대였는데 우리 게이트(코스피 낙폭·외인·유가)와
+    하드플로어(S&P 폭풍)는 금리를 안 본다. d217 = 매 보고서 매크로 표에 실질금리·10Y·FOMC
+    확률을 **고정 항목**으로 둔다(측정 전용 — 룰·사이징 불변). 산문 약속은 지켜지지 않으므로
+    (8/27 오류감사) 항목 누락을 WARN으로 올린다. WARN — 측정 축이라 커밋을 막지 않는다.
+    """
+    import re as _re
+    if rel is None:
+        return
+    m = _re.search(r"(\d{4}-\d{2}-\d{2})", os.path.basename(rel))
+    if not m or m.group(1) < RATE_GAUGE_SINCE:
+        return
+    rp = os.path.join(ROOT, rel)
+    if not os.path.exists(rp):
+        return
+    try:
+        body = open(rp, encoding="utf-8").read()
+    except OSError:
+        return
+    missing = [name for name, pat in RATE_GAUGE_ITEMS if not _re.search(pat, body)]
+    if missing:
+        warn(f"금리 계기판 항목 누락 {len(missing)}건 — {' · '.join(missing)} "
+             f"({os.path.basename(rel)}). d217: 매크로 표 고정 항목(측정 전용) — "
+             "`macro_data.py`의 DFII10·DGS10 + CME FedWatch")
+
+
 def check_repealed_rules():
     """정본 문서에 **폐기된 룰**이 살아 있는지 감지 [8/5 신설].
 
@@ -2844,7 +2880,7 @@ def main():
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
         if rel:
-            check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel)
+            check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel); check_rate_gauge(rel)
             check_verdict_grounding(rel); check_magnitude_sanity(rel); check_primary_source(rel)
 
     print("\n" + "=" * 56)

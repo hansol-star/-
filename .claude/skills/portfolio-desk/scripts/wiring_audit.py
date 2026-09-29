@@ -167,6 +167,63 @@ CALLER_GLOBS = [
     ".github/workflows/*.yml",
 ]
 
+# ★[9/29 d196] 실행 주체 축 — '지시층에 있다'와 '그 지시층이 실제로 돈다'는 다르다.
+#   9/19 R3 실사고: 9/10 분업으로 평일 실행이 C2로 옮겨갔는데 9/4에 R1·R2 섹션에 붙인 누적 단계가
+#   따라 움직이지 않아 2주간 아무도 안 불렀다. 이 감사는 routines.md에 **텍스트가 있으니 배선됨**으로 셌다.
+#   ⇒ routines.md를 `### <ID>.` 루틴 섹션으로 쪼개 따로 세고, 상태표(`<!-- routine-status -->`)에서
+#     정지(dormant)로 선언된 섹션**에서만** 불리는 스크립트·기능을 DORMANT로 올린다.
+#   ⇒ 상태표 자체가 낡는 것은 `--live`가 작업 스케줄러 실측과 대조해 잡는다(로컬 루틴 한정).
+ROUTINES_MD = os.path.join(ROOT, "docs", "routines.md")
+_SEC_RE = re.compile(r"(?m)^### (R\d|C\d)\b")
+_STATUS_RE = re.compile(r"<!--\s*routine-status\s*(.*?)-->", re.S)
+
+
+def routine_status(text: str) -> dict:
+    """routines.md 상태표 → {"R1": "active", "R4": "dormant", ...}. 없으면 빈 dict(=전부 active 취급)."""
+    m = _STATUS_RE.search(text)
+    if not m:
+        return {}
+    out = {}
+    for rid, st in re.findall(r"\b([RC]\d)\s*=\s*([a-z]+)", m.group(1)):
+        out[rid] = st
+    return out
+
+
+def split_routines(path: str, text: str) -> list[tuple[str, str]]:
+    """routines.md를 루틴 섹션별 가짜 파일로 쪼갠다: `docs/routines.md#R4` 등.
+
+    섹션 경계 = 다음 `### R|C` 또는 `## ` 제목. 섹션 밖 본문은 `#common`(활성 취급)."""
+    heads = [(m.start(), m.group(1)) for m in _SEC_RE.finditer(text)]
+    if not heads:
+        return [(path, text)]
+    parts, cursor, common = [], 0, []
+    for i, (pos, rid) in enumerate(heads):
+        common.append(text[cursor:pos])
+        nxt = heads[i + 1][0] if i + 1 < len(heads) else len(text)
+        body = text[pos:nxt]
+        m2 = re.search(r"(?m)^## ", body[4:])
+        if m2:
+            cut = 4 + m2.start()
+            common.append(body[cut:])
+            body = body[:cut]
+        parts.append((f"{path}#{rid}", body))
+        cursor = nxt
+    common.append(text[cursor:])
+    parts.append((f"{path}#common", "".join(common)))
+    return parts
+
+
+def dormant_ids() -> set[str]:
+    try:
+        return {k for k, v in routine_status(open(ROUTINES_MD, encoding="utf-8").read()).items()
+                if v != "active"}
+    except OSError:
+        return set()
+
+
+def is_dormant_hit(rel: str, dormant: set[str]) -> bool:
+    return "#" in rel and rel.rsplit("#", 1)[1] in dormant
+
 
 def _features_of(path: str) -> list[str]:
     """스크립트가 제공하는 **산출 모드** 플래그(store_true)를 정적 추출한다.
@@ -232,7 +289,13 @@ def scan() -> list[dict]:
     instr_files = []
     for g in CALLER_GLOBS:
         instr_files += glob.glob(os.path.join(ROOT, g))
-    instr = load(instr_files)
+    instr = []
+    for f, t in load(instr_files):
+        if os.path.normcase(f) == os.path.normcase(os.path.abspath(ROUTINES_MD)):
+            instr += split_routines(f, t)
+        else:
+            instr.append((f, t))
+    dormant = dormant_ids()
     # selfcheck는 전 스크립트를 기계적으로 도니 코드층에서 뺀다(안 빼면 전부 '배선됨'이 된다)
     code = load([p for p in scripts if os.path.basename(p) != "selfcheck.py"])
 
@@ -254,18 +317,25 @@ def scan() -> list[dict]:
                 if f == os.path.abspath(path):
                     continue
                 if any(p.search(t) for p in pats):
-                    hits.append(os.path.relpath(f, ROOT))
+                    base, _, sec = f.partition("#")
+                    hits.append(os.path.relpath(base, ROOT) + (f"#{sec}" if sec else ""))
             return hits
 
         ih, ch = count(instr), count(code)
         # 기능 단위 — 지시층에 배선된 스크립트에 한해 본다
         # (미배선 스크립트는 이미 UNWIRED로 잡히므로 기능을 따질 단계가 아니다)
-        feats, unused, auto = _features_of(path), [], []
-        if ih:
+        feats, unused, auto, dormant_feats = _features_of(path), [], [], []
+        # 스크립트 단위 DORMANT = 지시층 호출처가 **전부** 정지 루틴 섹션
+        dormant_script = bool(ih) and all(is_dormant_hit(h, dormant) for h in ih)
+        live_pool = [(f, t) for f, t in instr if not is_dormant_hit(f, dormant)]
+        if ih and not dormant_script:
             for fl in feats:
                 if (b, fl) in EXPECTED_UNUSED_FEATURES:
                     continue
-                if not _feature_used(fl, b, instr):
+                if not _feature_used(fl, b, live_pool):
+                    if _feature_used(fl, b, instr):      # 정지 루틴에서만 불린다
+                        dormant_feats.append(fl)
+                        continue
                     c = _auto_class(fl)
                     if c:
                         auto.append((c, fl))
@@ -275,7 +345,8 @@ def scan() -> list[dict]:
                     "by": ih[:4], "expected": b in EXPECTED_UNWIRED,
                     "note": EXPECTED_UNWIRED.get(b, ""),
                     "features": feats, "unused_features": unused,
-                    "auto_classified": auto})
+                    "auto_classified": auto,
+                    "dormant": dormant_script, "dormant_features": dormant_feats})
     return out
 
 
@@ -318,9 +389,80 @@ def selftest() -> int:
           f" (스크립트 {len(rows)}개 · 미배선 {len(real_unwired)})")
     ok = ok and bool(rows)
 
+    # ★[9/29 d196] 실행 주체 축 — 정지 루틴 섹션에서만 불리는 것을 DORMANT로 잡는가
+    fake = ("# x\n<!-- routine-status R1=active R4=dormant -->\n"
+            "### R1. a\npython3 trades.py --reconcile\n"
+            "### R4. b\npython3 trades.py --realized\npython3 archive_daily.py\n"
+            "## 다른 절\n본문\n")
+    parts = split_routines("/fake/routines.md", fake)
+    dmt = {k for k, v in routine_status(fake).items() if v != "active"}
+    live = [(f, t) for f, t in parts if not is_dormant_hit(f, dmt)]
+    ok_sec = ("/fake/routines.md#R4" in dict(parts)
+              and "archive_daily.py" not in "".join(t for _, t in live)
+              and "다른 절" in dict(parts).get("/fake/routines.md#common", ""))
+    print(f"  {'✅' if ok_sec else '❌'} routines.md 루틴 섹션 분리 + 정지 섹션 제외")
+    ok = ok and ok_sec
+    d_feat = (not _feature_used("--realized", "trades.py", live)
+              and bool(_feature_used("--realized", "trades.py", parts)))
+    print(f"  {'✅' if d_feat else '❌'} 정지 루틴에서만 불리는 기능을 DORMANT로 적발")
+    ok = ok and d_feat
+
     print("-" * 74)
     print("✅ 통과 — 기능 단위 감사가 실제로 작동한다" if ok else "❌ 실패 — wiring_audit를 고칠 것")
     return 0 if ok else 1
+
+
+def live_check() -> int:
+    """상태표(routines.md) ↔ 작업 스케줄러 실측 대조 [9/29 d196].
+
+    상태표가 낡으면 DORMANT 판정 전체가 거짓말을 한다 — 그래서 표 자체를 실측으로 검증한다.
+    로컬 `JD-<ID>*` 작업만 본다(클라우드 C2·C3·R3는 RemoteTrigger로만 보이므로 대상 밖).
+    한 루틴에 로컬 작업이 여럿이면(R4a/b/c) 하나라도 Ready면 로컬 active로 본다."""
+    import subprocess
+    try:
+        st = routine_status(open(ROUTINES_MD, encoding="utf-8").read())
+    except OSError:
+        print("routines.md 없음"); return 1
+    if not st:
+        print("🔴 routines.md에 `<!-- routine-status ... -->` 상태표가 없다"); return 1
+    ps = ("Get-ScheduledTask -TaskPath '\\JeonghunDesk\\' | "
+          "ForEach-Object { $_.TaskName + '|' + $_.State }")
+    try:
+        out = subprocess.run(["powershell", "-NoProfile", "-Command", ps],
+                             capture_output=True, timeout=60).stdout
+        out = out.decode("cp949", errors="replace")   # 한국어 윈도우 PowerShell 기본 출력
+    except (OSError, subprocess.TimeoutExpired) as e:
+        print(f"⚪ 작업 스케줄러 조회 불가({type(e).__name__}) — 윈도우 로컬에서만 동작"); return 0
+    local = {}
+    for ln in out.splitlines():
+        if "|" not in ln:
+            continue
+        name, state = ln.strip().split("|", 1)
+        m = re.match(r"JD-([RC]\d)", name)
+        if m:
+            local.setdefault(m.group(1), []).append((name, state))
+    if not local:
+        # 조회가 0건이면 '전부 클라우드'로 읽히며 조용히 통과한다(9/29 첫 실행에서 실제로 그랬다) → 실패로 낸다
+        print("🔴 작업 스케줄러에서 JD-* 작업을 하나도 못 읽었다 — 조회 실패를 통과로 삼키지 않는다")
+        return 1
+    bad = 0
+    print("루틴 상태표 ↔ 작업 스케줄러 대조")
+    for rid, decl in sorted(st.items()):
+        tasks = local.get(rid)
+        if not tasks:
+            print(f"   ⚪ {rid}: 선언 {decl} · 로컬 작업 없음(클라우드 — RemoteTrigger로 확인)")
+            continue
+        ready = any(s.strip() != "Disabled" for _, s in tasks)
+        desc = ", ".join(f"{n}={s.strip()}" for n, s in tasks)
+        if decl == "active" and not ready:
+            # 로컬이 전부 꺼졌어도 클라우드가 대신 도는 루틴(R3)이 있다 — 표의 실행 주체 칸이 근거
+            print(f"   🟡 {rid}: 선언 active인데 로컬은 전부 Disabled ({desc}) — 클라우드 실행이 맞는지 표 확인")
+        elif decl != "active" and ready:
+            print(f"   🔴 {rid}: 선언 {decl}인데 로컬이 켜져 있다 ({desc}) — 표를 고치거나 작업을 끈다")
+            bad += 1
+        else:
+            print(f"   ✅ {rid}: 선언 {decl} · {desc}")
+    return 1 if bad else 0
 
 
 def main() -> int:
@@ -331,6 +473,8 @@ def main() -> int:
                     help="기능 단위 미배선 상세 (스크립트는 불리는데 그 기능은 안 불리는 것)")
     ap.add_argument("--strict", action="store_true",
                     help="예상 밖 UNWIRED가 있으면 exit 1 (selfcheck 게이트용)")
+    ap.add_argument("--live", action="store_true",
+                    help="routines.md 상태표를 작업 스케줄러 실측과 대조(로컬 루틴만 · 윈도우)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("-q", "--quiet", action="store_true",
                     help="의도적 미배선 목록(이유 전문)을 접고 문제·합계만 (규약: docs/dev_workflow.md §1c)")
@@ -338,6 +482,8 @@ def main() -> int:
 
     if a.selftest:
         return selftest()
+    if a.live:
+        return live_check()
 
     rows = scan()
     unwired = [r for r in rows if r["instr"] == 0 and not r["expected"]]
@@ -399,10 +545,21 @@ def main() -> int:
             if auto.get(c):
                 print(f"   {c} {len(auto[c])}: {' · '.join(auto[c])}")
 
+    # ★[9/29 d196] 실행 주체 축 — 호출처가 전부 정지 루틴 섹션이면 텍스트만 있고 아무도 안 부른다
+    dorm = [r for r in rows if r.get("dormant") and not r["expected"]]
+    dorm_f = [(r["script"], fl) for r in rows for fl in (r.get("dormant_features") or [])]
+    if dorm or dorm_f:
+        print(f"\n⏸️  DORMANT {len(dorm)}+{len(dorm_f)}건 — 지시층엔 있으나 **정지된 루틴 섹션에서만** 불린다")
+        for r in dorm:
+            print(f"   {r['script']:<26} ← {', '.join(r['by'])}")
+        for b, fl in dorm_f:
+            print(f"   {b:<26} {fl} (기능)")
+        print("   → 도는 루틴(routines.md 🚦 실행 상태 active)으로 옮기거나, 필요 없으면 단계를 지운다.")
     print(f"\n요약: 배선됨 {len(rows)-len(unwired)-len(parked)} · "
           f"미배선(예상밖) {len(unwired)} · 의도적 미배선 {len(parked)} · "
-          f"**기능 미배선 {n_feat}** · 형태 분류 {n_auto}" + ("" if a.features else " (--features로 상세)"))
-    return 1 if (a.strict and unwired) else 0
+          f"**기능 미배선 {n_feat}** · 형태 분류 {n_auto} · DORMANT {len(dorm)}+{len(dorm_f)}"
+          + ("" if a.features else " (--features로 상세)"))
+    return 1 if (a.strict and (unwired or dorm)) else 0
 
 
 if __name__ == "__main__":

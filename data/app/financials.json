@@ -1,16 +1,13 @@
 {
- "updated": "2026-09-28",
+ "updated": "2026-09-29",
  "covered": [
   "005380.KS",
   "005930.KS",
   "035420.KS",
   "066570.KS",
   "454910.KS",
-  "AAPL",
-  "ANET",
   "AVGO",
   "GOOGL",
-  "META",
   "MSFT",
   "MU",
   "NVDA",
@@ -26,7 +23,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2026-01-25",
@@ -628,7 +625,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-08-28",
@@ -1810,7 +1807,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2026-06-30",
@@ -3013,7 +3010,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-11-02",
@@ -3616,7 +3613,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4845,7 +4842,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2026-05-31",
@@ -5498,7 +5495,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-12-31",
@@ -5888,7 +5885,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6263,7 +6260,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6646,7 +6643,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-12-31",
@@ -7021,7 +7018,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-09-28",
+   "as_of": "2026-09-29",
    "annual": [
     {
      "end": "2025-12-31",

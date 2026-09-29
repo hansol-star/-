@@ -841,6 +841,22 @@ INJECTION_TESTS = [
         },
         "args": ("docs/reports/report_v99_2026-08-25.md",),
     },
+    {
+        "name": "check_rate_gauge",
+        "desc": "d217 금리 계기판(실질금리·10Y·FOMC 확률)이 보고서에서 빠지면 잡는가",
+        "why": "9/28 코스피 -2.70%의 1차 원인이 美 10Y였는데 게이트·하드플로어 어느 것도 금리를 안 본다. "
+               "d217로 매크로 표 고정 항목을 정했지만 산문 약속은 지켜지지 않는다(8/27 오류감사)",
+        "pattern": r"금리 계기판 항목 누락",
+        "violate": {
+            "docs/reports/report_v103_2026-09-29.md": "# v103\n\n## 매크로\n| 10Y | 5.18% |\n",
+        },
+        "clean": {
+            "docs/reports/report_v103_2026-09-29.md":
+                "# v103\n\n## 매크로\n| 10Y | 5.18% |\n| 실질금리(TIPS 10Y) | 2.85% |\n"
+                "| 10/28 FOMC 인상 확률 | 73% |\n",
+        },
+        "args": ("docs/reports/report_v103_2026-09-29.md",),
+    },
 ]
 
 

@@ -21,6 +21,23 @@
 
 ---
 
+## 🚦 실행 상태 — 이 섹션이 실제로 도는가 ★[2026-09-29 d196 · `wiring_audit.py`가 읽는다]
+| 루틴 | 상태 | 실행 주체 |
+|---|---|---|
+| R1 | 🟢 active | 로컬 `JD-R1-video-prefetch` |
+| R2 | 🟢 active | 로컬 `JD-R2-main-report`(17:40 배달부) |
+| C2 | 🟢 active | 클라우드 `trig_01TTs9AKuG4t8Djx14AdQ5Mo` |
+| C3 | 🟢 active | 클라우드 `trig_013LnSqMqKMjJ7PDyDpruZrP` |
+| R3 | 🟢 active | 클라우드 `trig_01DhSy6pK3JqGhvJfoWu7q8B` (로컬 `JD-R3-calibration`은 Disabled) |
+| R4 | ⏸ dormant | 로컬 `JD-R4a/b/c`(9/10 분업 이후 Disabled) |
+
+<!-- routine-status R1=active R2=active C2=active C3=active R3=active R4=dormant -->
+> ⚠️ **루틴을 끄거나 옮기면 위 표와 주석 한 줄을 같이 고친다.** dormant 섹션에서만 불리는 스크립트·기능은
+> `wiring_audit.py`가 ⏸DORMANT로 올린다(9/19 사고 = R1·R2에 붙인 누적 단계가 C2 이전 뒤 2주간 안 불림).
+> 로컬 루틴은 `wiring_audit.py --live`가 작업 스케줄러 실측과 이 표를 대조한다.
+
+---
+
 ## 현행 루틴 (3) — [2026-07-11 재설계: 영상 프리페치 + 신선창 보고서 + 주말 캘리브레이션]
 
 ### R1. 영상 리서치 프리페치 (평일 10:00) ⭐신규 — 영상 전용, 메인에서 분리

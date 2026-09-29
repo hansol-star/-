@@ -267,9 +267,9 @@
 | [정정]을 전망에 붙임 | `check_verdict_grounding` |
 | 자릿수·단위 과장 | `check_magnitude_sanity` |
 | 2차 매체 받아쓰기 | `check_primary_source` |
-| 만든 도구가 안 불림 | `wiring_audit.py` |
+| 만든 도구가 안 불림 · 정지 루틴에서만 불림 | `wiring_audit.py`(9/29 d196 DORMANT 축 · `--live` = routines.md 상태표 ↔ 작업 스케줄러) |
 | 백테스트 미래참조 | `lookahead_guard.py` |
-| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 31/47 — **미등록 16개가 결핍 목록**) |
+| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 33/48 — **미등록 15개가 결핍 목록**) |
 | 루틴 실패 침묵 | `check_routine_health` |
 | 자막 유실 | `check_transcript_persistence` |
 | 의미검색 인덱스 stale | `check_memory_index` |
@@ -279,6 +279,7 @@
 | 토스에 계획과 다른 주문이 걸림 | `order_check.py` + `check_order_check`(9/21 — 폐기 오더 NAVER 196,400이 실제 접수됐는데 아무도 몰랐다) |
 | 룰9 월 정액 적립 누락 | `check_monthly_dca`(9/21 — 매월 20일부터) |
 | 대가 서술 ↔ 13F 팩트 반대 | `check_guru_consistency`(9/21) |
+| 금리 계기판(실질금리·10Y·FOMC 확률) 누락 | `check_rate_gauge`(9/29 d217 — 측정 전용) |
 | 매매가 성과를 더했나(측정) | `performance.py` — 원장 재생 TWR · 스냅샷 정합 게이트(9/21 첫 측정 -1.8%p) |
 
 ### 🔴 가드가 없다 — 이건 사람이 기억해야 한다

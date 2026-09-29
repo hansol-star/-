@@ -605,6 +605,22 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_dead_alerts",
+        "desc": "활성 알림 목록에 무효·폐기·체결완료 항목이 남아 있으면 잡는가",
+        "why": "9/29 실측 — alerts 32건 중 13건이 죽은 항목이었고 2건은 매일 🔴발동 오탐으로 트리거 목록을 오염시켰다. "
+               "픽스처 = 그 舊 8,000 트랜치 문구(⚪[폐기]) + cond=done 체결 기록",
+        "pattern": r"활성 알림에 무효·폐기·체결완료 항목",
+        "violate": {".claude/skills/portfolio-desk/portfolio.json": json.dumps({"alerts": [
+            {"id": "⚪[폐기] 舊 2차 트랜치 8,000 (7/30 사다리로 대체)", "ticker": "^KS11", "cond": "below", "level": 8000},
+            {"id": "삼성전자 1차 매수존", "ticker": "005930.KS", "cond": "done"}]}, ensure_ascii=False)},
+        "clean": {".claude/skills/portfolio-desk/portfolio.json": json.dumps({"alerts": [
+            {"id": "🚨TF 해제 조건① — 코스피 7,500 종가 회복", "ticker": "^KS11", "cond": "above", "level": 7500}],
+            "alerts_archive": [{"id": "⚪[폐기] 舊 2차 트랜치 8,000", "cond": "below", "archived": "2026-09-29"}]},
+            ensure_ascii=False)},
+        "args": (),
+    },
+
+    {
         "name": "check_pre_report",
         "desc": "보고서 전 선행 작업이 미완인 채 다음 보고서가 나오면 잡는가",
         "why": "9/22 정훈 지시 — '다음 보고서 때 먼저 할 것'이 채팅 산문으로만 남으면 다음 세션이 못 본다. "

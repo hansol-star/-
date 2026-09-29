@@ -2227,6 +2227,30 @@ def check_watch_prose(today=None):
              + " / ".join(repealed[:5]) + " → 현행 룰(d205 국내·미국 트랙) 기준으로 다시 쓸 것")
 
 
+_DEAD_ALERT = re.compile(r"^\s*(⚪|✅)|\[(무효|폐기)\]|체결\s*완료|체결완료")
+
+
+def check_dead_alerts():
+    """활성 알림 목록에 무효·폐기·체결완료 항목이 남아 있으면 잡는다 [9/29 신설].
+
+    ★[9/29 실측] alerts 32건 중 13건이 무효·체결완료·종결 이벤트였고, 그중 2건(🚩7,500 below 중복·
+    舊 8,000 트랜치)은 **매일 🔴발동으로 떠** 트리거 목록을 오염시키고 있었다. 전부 사람이 치워야만
+    사라지는 구조였다 — 표식(⚪·[무효]·[폐기]·✅·cond=done)을 붙이는 순간 archive로 옮기게 만든다.
+    """
+    pf = _json_opt(".claude/skills/portfolio-desk/portfolio.json") or {}
+    dead = []
+    for a in pf.get("alerts") or []:
+        if not isinstance(a, dict):
+            continue
+        aid = str(a.get("id") or "")
+        if a.get("cond") == "done" or _DEAD_ALERT.search(aid):
+            dead.append(aid[:40])
+    if dead:
+        warn(f"활성 알림에 무효·폐기·체결완료 항목 {len(dead)}건이 남아 있다 — "
+             + " / ".join(dead[:4]) + (" …" if len(dead) > 4 else "")
+             + " → portfolio.json alerts_archive로 이관(사유·날짜 기록). 남겨두면 오탐 발동·목록 오염")
+
+
 _GURU_VERB = [(r"청산|매도", "EXIT"), (r"트림|축소|감축", "TRIM"), (r"재진입|신규", "NEW"),
               (r"증액|증량|확대|순증|매수|편입", "ADD"), (r"홀드|불변", "HOLD")]
 _GURU_OK = {"NEW": {"NEW", "ADD"}, "ADD": {"ADD"}, "TRIM": {"TRIM"}, "EXIT": {"EXIT"}, "HOLD": {"HOLD"}}
@@ -2873,7 +2897,7 @@ def main():
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_monthly_dca()
-    check_routine_health(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest)
+    check_routine_health(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
     check_split_scale()

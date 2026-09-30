@@ -69,6 +69,37 @@ MONTHLY = os.path.join(REPO, "data", "app", "desk_value_log.json")
 GATE_DATE = "2027-03-31"
 
 
+SUB_KRW_MONTH = 30_000   # 정훈 9/30 "한달에 3만원 넘게 내고 굴리는 거야" — 시스템 구독비(하한값)
+
+
+def _aum_krw() -> float | None:
+    """현재 계좌 총액(원) — portfolio.json 수량·현금 × data/history 최신 종가."""
+    try:
+        p = json.load(open(os.path.join(REPO, ".claude", "skills", "portfolio-desk", "portfolio.json"), encoding="utf-8"))
+        fx = _series(FX)[1][-1]
+        tot = float(p.get("cash_krw") or 0) + float(p.get("cash_usd") or 0) * fx
+        for grp, mult in (("kr", 1.0), ("us", fx)):
+            for h in (p.get("holdings") or {}).get(grp, []):
+                cs = _series(h["ticker"])[1]
+                if cs:
+                    tot += float(h["shares"]) * cs[-1] * mult
+        return tot or None
+    except (OSError, ValueError, KeyError, IndexError, TypeError):
+        return None
+
+
+def system_cost_pct(d0, d1) -> float | None:
+    """[9/30 정훈 — '그 만한 성과가 나올 시스템'] 측정 기간의 구독비를 현재 계좌 대비 %로.
+    데스크 가치가 이 값을 넘어야 시스템이 제 값을 한 것이다(연 36만원 ÷ 약 810만원 ≈ 4.4%/년).
+    측정 전용 — 룰7 게이트 판정값(desk_value_pct)은 바꾸지 않는다(순가치로 바꾸는 건 룰 변경 = 승인 사항)."""
+    try:
+        days = (dt.date.fromisoformat(str(d1)[:10]) - dt.date.fromisoformat(str(d0)[:10])).days
+    except (TypeError, ValueError):
+        return None
+    aum = _aum_krw()
+    return round(SUB_KRW_MONTH * days / 30.44 / aum * 100, 2) if aum and days > 0 else None
+
+
 def log_monthly(r: dict) -> None:
     """월별 마지막 측정값을 남긴다 — 게이트는 한 번의 숫자가 아니라 추세로 읽기 위해서다."""
     try:
@@ -77,10 +108,13 @@ def log_monthly(r: dict) -> None:
     except (OSError, ValueError):
         log = {"_comment": "d222 — 데스크 매매 가치(실제 주식 − 가만히) 월별 누적값. performance.py --emit이 기록",
                "gate_date": GATE_DATE, "months": {}}
+    cost = system_cost_pct(r.get("from"), r.get("to"))
+    dv = r.get("desk_value_pct")
     log.setdefault("months", {})[str(r.get("to", ""))[:7]] = {
-        "to": r.get("to"), "days": r.get("days"), "desk_value_pct": r.get("desk_value_pct"),
+        "to": r.get("to"), "days": r.get("days"), "desk_value_pct": dv,
         "actual_pct": (r.get("actual") or {}).get("stocks_twr_pct"), "hold_pct": (r.get("hold") or {}).get("stocks_twr_pct"),
-        "trade_days": r.get("trade_days")}
+        "trade_days": r.get("trade_days"),
+        "system_cost_pct": cost, "desk_value_net_pct": round(dv - cost, 2) if dv is not None and cost is not None else None}
     with open(MONTHLY, "w", encoding="utf-8", newline="\n") as f:
         json.dump(log, f, ensure_ascii=False, indent=1)
         f.write("\n")

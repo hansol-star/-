@@ -1,0 +1,274 @@
+{
+ "updated": "2026-09-29",
+ "days": 7,
+ "universe": [
+  "005930",
+  "066570",
+  "454910",
+  "005380",
+  "035420",
+  "000660",
+  "009150",
+  "034020",
+  "096770",
+  "012450",
+  "042660",
+  "207940",
+  "033780"
+ ],
+ "counts": {
+  "critical": 0,
+  "notable": 8,
+  "routine": 11
+ },
+ "items": [
+  {
+   "code": "009150",
+   "name": "삼성전기",
+   "date": "20260929",
+   "title": "단일판매ㆍ공급계약체결",
+   "level": "notable",
+   "category": "대형계약",
+   "why": "성장 논지 검증",
+   "rcept_no": "20260929800281",
+   "filer": "삼성전기",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260929800281"
+  },
+  {
+   "code": "009150",
+   "name": "삼성전기",
+   "date": "20260928",
+   "title": "유형자산취득결정(종속회사의주요경영사항)",
+   "level": "notable",
+   "category": "투자",
+   "why": "capex 방향",
+   "rcept_no": "20260928800821",
+   "filer": "삼성전기",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800821"
+  },
+  {
+   "code": "009150",
+   "name": "삼성전기",
+   "date": "20260928",
+   "title": "신규시설투자등",
+   "level": "notable",
+   "category": "투자",
+   "why": "capex 방향",
+   "rcept_no": "20260928800810",
+   "filer": "삼성전기",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800810"
+  },
+  {
+   "code": "096770",
+   "name": "SK이노베이션",
+   "date": "20260928",
+   "title": "단일판매ㆍ공급계약체결(자회사의 주요경영사항)",
+   "level": "notable",
+   "category": "대형계약",
+   "why": "성장 논지 검증",
+   "rcept_no": "20260928800380",
+   "filer": "SK이노베이션",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800380"
+  },
+  {
+   "code": "042660",
+   "name": "한화오션",
+   "date": "20260928",
+   "title": "단일판매ㆍ공급계약체결",
+   "level": "notable",
+   "category": "대형계약",
+   "why": "성장 논지 검증",
+   "rcept_no": "20260928800496",
+   "filer": "한화오션",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800496"
+  },
+  {
+   "code": "042660",
+   "name": "한화오션",
+   "date": "20260928",
+   "title": "주요사항보고서(자기주식취득결정)",
+   "level": "notable",
+   "category": "자사주",
+   "why": "수급·주주환원",
+   "rcept_no": "20260928000252",
+   "filer": "한화오션",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928000252"
+  },
+  {
+   "code": "012450",
+   "name": "한화에어로스페이스",
+   "date": "20260923",
+   "title": "주식등의대량보유상황보고서(일반)",
+   "level": "notable",
+   "category": "5%보고",
+   "why": "대주주 매매",
+   "rcept_no": "20260923000545",
+   "filer": "한화",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260923000545"
+  },
+  {
+   "code": "033780",
+   "name": "KT&G",
+   "date": "20260922",
+   "title": "주요사항보고서(자기주식취득결정)",
+   "level": "notable",
+   "category": "자사주",
+   "why": "수급·주주환원",
+   "rcept_no": "20260922000256",
+   "filer": "케이티앤지",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000256"
+  }
+ ],
+ "insider": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "n": 1,
+   "net": 200,
+   "n_buy": 1,
+   "n_sell": 0,
+   "top": [
+    {
+     "who": "허은녕",
+     "ofcps": "독립이사",
+     "regist": "등기임원",
+     "delta": 200,
+     "held": 200,
+     "date": "2026-09-22"
+    }
+   ]
+  },
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "000660",
+   "name": "SK하이닉스",
+   "n": 1,
+   "net": 142,
+   "n_buy": 1,
+   "n_sell": 0,
+   "top": [
+    {
+     "who": "정인철",
+     "ofcps": "담당",
+     "regist": "비등기임원",
+     "delta": 142,
+     "held": 600,
+     "date": "2026-09-22"
+    }
+   ]
+  },
+  {
+   "code": "009150",
+   "name": "삼성전기",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "034020",
+   "name": "두산에너빌리티",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "096770",
+   "name": "SK이노베이션",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "012450",
+   "name": "한화에어로스페이스",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "042660",
+   "name": "한화오션",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "207940",
+   "name": "삼성바이오로직스",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "033780",
+   "name": "KT&G",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  }
+ ],
+ "major": [
+  {
+   "code": "012450",
+   "name": "한화에어로스페이스",
+   "date": "2026-09-23",
+   "who": "한화",
+   "qty": 18413055,
+   "d_qty": -17440,
+   "rate": "35.71",
+   "d_rate": "-0.03",
+   "reason": "양도제한조건부주식 부여 계약 체결 및\n특별관계자 변동에 따른 보고",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260923000545"
+  }
+ ],
+ "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
+}

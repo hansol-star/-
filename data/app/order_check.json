@@ -1,22 +1,16 @@
 {
- "checked_at": "2026-09-29 22:22",
+ "checked_at": "2026-09-30 20:31",
  "source": "toss",
  "open": [],
- "findings": [
-  {
-   "level": "yellow",
-   "ticker": "454910.KS",
-   "msg": "두산로보틱스 매도 78,000 '매일 등록' 오더가 토스에 없다(o-drb-trim-78k) — 재등록 필요"
-  }
- ],
+ "findings": [],
  "counts": {
   "red": 0,
-  "yellow": 1,
+  "yellow": 0,
   "ok": 0,
   "info": 0
  },
  "context": {
-  "kr_weight_pct": 26.8,
+  "kr_weight_pct": 26.7,
   "ladder_allowed_krw": 0.0,
   "us_allowed_usd": 0.0
  }

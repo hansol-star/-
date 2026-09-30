@@ -62,6 +62,28 @@ import trades  # noqa: E402  체결 원장 로더(정본)
 HIST = os.path.join(REPO, "data", "history")
 SNAPS = os.path.join(REPO, "data", "snapshots")
 OUT = os.path.join(REPO, "data", "app", "performance.json")
+# ★[9/30 d222 정훈 승인 — 시스템 평가 제안 A] 데스크 매매 가치 월간 원장 + 2027-03-31 게이트.
+#   누적 기여가 게이트일에 0 미만이면 '코어-위성 전환' 안건을 상정한다(자동 전환 아님 — 안건일 뿐).
+#   판정은 validate_report.check_desk_value_gate가 한다. 원장은 월별 마지막 --emit 값으로 덮어쓴다.
+MONTHLY = os.path.join(REPO, "data", "app", "desk_value_log.json")
+GATE_DATE = "2027-03-31"
+
+
+def log_monthly(r: dict) -> None:
+    """월별 마지막 측정값을 남긴다 — 게이트는 한 번의 숫자가 아니라 추세로 읽기 위해서다."""
+    try:
+        with open(MONTHLY, encoding="utf-8") as f:
+            log = json.load(f)
+    except (OSError, ValueError):
+        log = {"_comment": "d222 — 데스크 매매 가치(실제 주식 − 가만히) 월별 누적값. performance.py --emit이 기록",
+               "gate_date": GATE_DATE, "months": {}}
+    log.setdefault("months", {})[str(r.get("to", ""))[:7]] = {
+        "to": r.get("to"), "days": r.get("days"), "desk_value_pct": r.get("desk_value_pct"),
+        "actual_pct": (r.get("actual") or {}).get("stocks_twr_pct"), "hold_pct": (r.get("hold") or {}).get("stocks_twr_pct"),
+        "trade_days": r.get("trade_days")}
+    with open(MONTHLY, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(log, f, ensure_ascii=False, indent=1)
+        f.write("\n")
 START_DEFAULT = trades.DESK_START
 KOSPI, SPX, FX = "^KS11", "^GSPC", "KRW=X"
 
@@ -386,6 +408,7 @@ def main() -> int:
         with open(OUT, "w", encoding="utf-8", newline="\n") as f:
             json.dump(r, f, ensure_ascii=False, indent=1)
             f.write("\n")
+        log_monthly(r)
     if a.json:
         print(json.dumps({k: v for k, v in r.items() if k != "curve"}, ensure_ascii=False, indent=1))
     else:

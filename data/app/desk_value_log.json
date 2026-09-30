@@ -1,0 +1,14 @@
+{
+ "_comment": "d222 — 데스크 매매 가치(실제 주식 − 가만히) 월별 누적값. performance.py --emit이 기록",
+ "gate_date": "2027-03-31",
+ "months": {
+  "2026-09": {
+   "to": "2026-09-29",
+   "days": 76,
+   "desk_value_pct": -2.83,
+   "actual_pct": -9.9,
+   "hold_pct": -7.08,
+   "trade_days": 17
+  }
+ }
+}

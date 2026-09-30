@@ -48,6 +48,7 @@ EXPECTED_UNWIRED = {
                                   "호출 경로 = 클라우드 .github/workflows/deploy-app.yml(평일 5~10분 스케줄) + 로컬 price_watch.py "
                                   "--once 끝의 --kick(배포본 8분+ 낡으면 워크플로 깨움). 데스크 시세 정본은 계속 market_data.py다 — "
                                   "live.json은 커밋하지 않는 휘발성 파생물이라 보고서 근거로 인용하지 않는다",
+    "risk_cap_test.py":           "일회성 룰 검정 — 단일종목 위험 기여 상한 vs 비중 상한 vs 대조군(9/30 시스템 평가 B). 결과 기각(③ KR·US 부호 갈림, Sharpe≈0). 결론은 docs/research/risk_cap_test_2026-09-30.md에 박히고 스크립트는 재현용으로 남는다",
     "trim_limit_test.py":         "일회성 실측 — 트림 지정가(+k%) vs 시장가 vs 홀드를 같은 차트 국면에서 비교(9/23 d210). 결론은 docs/research/trim_limit_test_2026-09-23.md에 박히고 스크립트는 재현용으로 남는다. 트림가를 새로 정할 때만 다시 돌린다",
     "ladder_variants_test.py":    "일회성 룰 검정 — d205 후속 두 질문(국내 실탄 유보 · 미국 낙폭 사다리)을 8/5 3단 절차 + 대조군으로 판정(9/22). 결론은 docs/research/ladder_variants_2026-09-22.md와 crash_tf §2b에 박히고 스크립트는 재현용으로 남는다",
     "us_track_test.py":           "일회성 룰 검정 — 룰1 사다리(코스피 낙폭)가 미국주 매수까지 게이팅하는 게 맞는지 8/5 3단 절차로 판정(9/21). d0_test·ratchet_test와 같은 성격 — 결론은 docs/research/us_track_test_2026-09-21.md와 crash_tf §2b에 박히고 스크립트는 재현용으로 남는다. 룰 가설이 새로 생길 때만 다시 돌린다",

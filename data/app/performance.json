@@ -1,48 +1,48 @@
 {
- "generated_at": "2026-09-26 00:18",
+ "generated_at": "2026-09-30 12:46",
  "from": "2026-06-15",
- "to": "2026-09-23",
- "days": 72,
+ "to": "2026-09-29",
+ "days": 76,
  "method": "주식=일별 Modified Dietz 기하연결(원장 재생 수량) · 계좌=주식손익+달러현금 환평가 / (주식+스냅샷 현금)",
  "actual": {
-  "stocks_twr_pct": -10.25,
-  "account_twr_pct": -10.55,
+  "stocks_twr_pct": -9.9,
+  "account_twr_pct": -10.2,
   "stocks_mdd_pct": -16.5,
   "account_mdd_pct": -15.83
  },
  "hold": {
-  "stocks_twr_pct": -7.04,
+  "stocks_twr_pct": -7.08,
   "stocks_mdd_pct": -15.47,
   "note": "2026-06-15 수량을 그대로 들고 아무 매매도 안 했다면"
  },
- "desk_value_pct": -3.21,
+ "desk_value_pct": -2.83,
  "benchmarks": {
   "코스피": {
-   "twr_pct": -17.14,
+   "twr_pct": -19.6,
    "mdd_pct": -38.63
   },
   "S&P500(원화)": {
-   "twr_pct": -8.98,
+   "twr_pct": -8.83,
    "mdd_pct": -11.94
   },
   "혼합(시작 국내비중)": {
-   "twr_pct": -10.06,
+   "twr_pct": -10.6,
    "mdd_pct": -16.06
   }
  },
  "start_kr_weight_pct": 24.1,
  "trade_days": 17,
- "net_into_stocks_krw": -44837,
+ "net_into_stocks_krw": -46092,
  "cash": {
-  "avg_weight_pct": 5.3,
-  "vs_spx_krw": 16153,
-  "vs_kospi": 43942,
+  "avg_weight_pct": 5.7,
+  "vs_spx_krw": 13824,
+  "vs_kospi": 14268,
   "note": "현금을 S&P500(원화)·코스피에 넣어뒀다면의 손익. 음수 = 현금이 손실을 피했다"
  },
  "trades": {
   "by_side_krw": {
-   "buy": 12079,
-   "sell": -283285
+   "buy": -3280,
+   "sell": -235631
   },
   "n": 22,
   "worst": [
@@ -53,9 +53,9 @@
     "side": "sell",
     "shares": 1.0,
     "price": 580.0,
-    "end_price": 744.1,
-    "krw": -221594,
-    "move_pct": 28.3
+    "end_price": 723.01,
+    "krw": -193890,
+    "move_pct": 24.7
    },
    {
     "date": "2026-08-19",
@@ -64,9 +64,9 @@
     "side": "sell",
     "shares": 1.0,
     "price": 309.25,
-    "end_price": 337.02,
-    "krw": -37499,
-    "move_pct": 9.0
+    "end_price": 333.02,
+    "krw": -32227,
+    "move_pct": 7.7
    },
    {
     "date": "2026-07-07",
@@ -75,9 +75,9 @@
     "side": "sell",
     "shares": 1.0,
     "price": 313.77,
-    "end_price": 337.02,
-    "krw": -31396,
-    "move_pct": 7.4
+    "end_price": 333.02,
+    "krw": -26099,
+    "move_pct": 6.1
    },
    {
     "date": "2026-07-07",
@@ -86,20 +86,20 @@
     "side": "buy",
     "shares": 1.0,
     "price": 295500.0,
-    "end_price": 285500.0,
-    "krw": -10000,
-    "move_pct": -3.4
+    "end_price": 272500.0,
+    "krw": -23000,
+    "move_pct": -7.8
    },
    {
-    "date": "2026-07-17",
+    "date": "2026-09-22",
     "ticker": "GOOGL",
     "label": "GOOGL",
     "side": "buy",
-    "shares": 1.0,
-    "price": 345.0,
-    "end_price": 337.83,
-    "krw": -9682,
-    "move_pct": -2.1
+    "shares": 0.218685,
+    "price": 356.311498,
+    "end_price": 342.145,
+    "krw": -4200,
+    "move_pct": -4.0
    }
   ],
   "best": [
@@ -110,9 +110,9 @@
     "side": "buy",
     "shares": 1.0,
     "price": 248500.0,
-    "end_price": 285500.0,
-    "krw": 37000,
-    "move_pct": 14.9
+    "end_price": 272500.0,
+    "krw": 24000,
+    "move_pct": 9.7
    },
    {
     "date": "2026-07-07",
@@ -121,31 +121,9 @@
     "side": "sell",
     "shares": 0.157708,
     "price": 415.942501,
-    "end_price": 380.12,
-    "krw": 7629,
-    "move_pct": -8.6
-   },
-   {
-    "date": "2026-07-17",
-    "ticker": "VOO",
-    "label": "VOO",
-    "side": "buy",
-    "shares": 0.097846,
-    "price": 682.190002,
-    "end_price": 707.6,
-    "krw": 3357,
-    "move_pct": 3.7
-   },
-   {
-    "date": "2026-08-05",
-    "ticker": "ANET",
-    "label": "ANET",
-    "side": "sell",
-    "shares": 0.141734,
-    "price": 212.91,
-    "end_price": 203.47,
-    "krw": 1807,
-    "move_pct": -4.4
+    "end_price": 353.45,
+    "krw": 13362,
+    "move_pct": -15.0
    },
    {
     "date": "2026-07-29",
@@ -154,20 +132,42 @@
     "side": "buy",
     "shares": 0.328638,
     "price": 334.379998,
-    "end_price": 337.83,
-    "krw": 1531,
-    "move_pct": 1.0
+    "end_price": 342.145,
+    "krw": 3460,
+    "move_pct": 2.3
+   },
+   {
+    "date": "2026-09-23",
+    "ticker": "META",
+    "label": "메타",
+    "side": "sell",
+    "shares": 0.129111,
+    "price": 741.742299,
+    "end_price": 723.01,
+    "krw": 3279,
+    "move_pct": -2.5
+   },
+   {
+    "date": "2026-07-17",
+    "ticker": "VOO",
+    "label": "VOO",
+    "side": "buy",
+    "shares": 0.097846,
+    "price": 682.190002,
+    "end_price": 703.65,
+    "krw": 2847,
+    "move_pct": 3.1
    }
   ],
   "note": "체결가→기간 말 종가 · 매도는 '팔지 않았다면'의 반대 부호 · 사후확신이지 판정이 아니다"
  },
  "reconcile": {
-  "n": 73,
+  "n": 75,
   "worst": [
    "2026-08-28",
    -10.41
   ],
-  "within_1pct": 59,
+  "within_1pct": 61,
   "snapshot_lag": 14,
   "unexplained": [],
   "ok": true
@@ -745,18 +745,50 @@
   {
    "d": "2026-09-22",
    "act": 0.90523,
-   "hold": 0.93411,
+   "hold": 0.9341,
    "acct": 0.90134,
    "ks": 0.82119,
-   "spx": 0.91718
+   "spx": 0.91717
   },
   {
    "d": "2026-09-23",
-   "act": 0.89746,
-   "hold": 0.92959,
-   "acct": 0.89452,
+   "act": 0.90339,
+   "hold": 0.93637,
+   "acct": 0.9007,
    "ks": 0.82857,
-   "spx": 0.91025
+   "spx": 0.91843
+  },
+  {
+   "d": "2026-09-24",
+   "act": 0.90594,
+   "hold": 0.94382,
+   "acct": 0.90332,
+   "ks": 0.82857,
+   "spx": 0.92148
+  },
+  {
+   "d": "2026-09-25",
+   "act": 0.91246,
+   "hold": 0.94611,
+   "acct": 0.90903,
+   "ks": 0.82857,
+   "spx": 0.92618
+  },
+  {
+   "d": "2026-09-28",
+   "act": 0.90041,
+   "hold": 0.92979,
+   "acct": 0.89775,
+   "ks": 0.8062,
+   "spx": 0.91299
+  },
+  {
+   "d": "2026-09-29",
+   "act": 0.90098,
+   "hold": 0.92924,
+   "acct": 0.89804,
+   "ks": 0.80398,
+   "spx": 0.91173
   }
  ]
 }

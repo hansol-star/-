@@ -556,6 +556,19 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_desk_value_gate",
+        "desc": "게이트일 이후 데스크 매매 누적 기여가 음수면 코어-위성 전환 안건을 띄우는가",
+        "why": "9/30 d222 — 76일 데스크 매매 -2.83%p. 게이트가 조용히 안 뜨면 '시스템이 쓸모를 증명한다'는 "
+               "약속이 산문으로 돌아간다. 픽스처 = 게이트일 다음 날, 음수 기여 원장",
+        "pattern": r"d222 게이트 도달",
+        "violate": {"data/app/desk_value_log.json": json.dumps({"gate_date": "2027-03-31", "months": {
+            "2027-03": {"to": "2027-03-31", "desk_value_pct": -1.2}}})},
+        "clean": {"data/app/desk_value_log.json": json.dumps({"gate_date": "2027-03-31", "months": {
+            "2027-03": {"to": "2027-03-31", "desk_value_pct": 0.8}}})},
+        "args": ("2027-04-01",),
+    },
+
+    {
         "name": "check_monthly_dca",
         "desc": "룰9 VOO 정액 적립이 이달 원장·오더북 어디에도 없으면 잡는가",
         "why": "9/21 발견 — 7/17·8/14는 집행됐는데 9월분은 흔적이 없었다. 룰9 원문의 "
@@ -678,6 +691,20 @@ INJECTION_TESTS = [
         "clean": {".claude/skills/portfolio-desk/scripts/score_calls.py":
             "STAR_PROB = {5: 0.65, 4: 0.60, 3: 0.45, 2: 0.38, 1: 0.17}\n"},
         "args": (),
+    },
+
+    {
+        "name": "check_report_provenance",
+        "desc": "v104 이상 보고서 머리에 '생성 조건' 줄(6필드)이 없거나 필드가 빠지면 잡는가",
+        "why": "9/30 시스템 평가 F — 판단의 출처(대화형/무인·토스 대조·데스크 수·시세 시각)가 산문 '> 작성:'에 "
+               "형식 없이 섞여 사후 채점에서 기계로 못 가른다. 픽스처 = v103까지의 '> 작성:' 산문 형태",
+        "pattern": r"생성 조건",
+        "violate": {"docs/reports/report_v104_2026-10-01.md":
+            "# 정훈 PORTFOLIO DESK · v104 · 2026-10-01\n> 작성: 대화형 · 토스 대조 09:10\n\nSTATE SNAPSHOT\n"},
+        "clean": {"docs/reports/report_v104_2026-10-01.md":
+            "# 정훈 PORTFOLIO DESK · v104 · 2026-10-01\n> 생성 조건: 모드 대화형 · 모델 Opus 5.5 · 시세 09:05 KST 기준 · "
+            "토스 대조 09:10 · 데스크 8/9 · prep 없음\n\nSTATE SNAPSHOT\n"},
+        "args": ("docs/reports/report_v104_2026-10-01.md",),
     },
 
     {

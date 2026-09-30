@@ -2155,6 +2155,38 @@ def check_monthly_dca(today=None):
          "(룰9는 타이밍 판단 없이 돈을 넣는 유일한 경로다)")
 
 
+def check_desk_value_gate(today=None):
+    """데스크 매매 가치 게이트 [9/30 d222 정훈 승인 — 시스템 평가 제안 A].
+
+    9/30 실측: 76일간 데스크 매매가 '가만히 있었다면' 대비 **-2.83%p**(매도 -235,631원, META 한 건 -193,890원).
+    외부 문헌(LLM 트레이딩 에이전트·개인투자자)도 같은 결론이다. → 시스템이 스스로 쓸모를 증명하게 한다.
+    ① 월간 원장(desk_value_log.json)이 35일 넘게 안 쌓이면 WARN(측정이 멈추면 게이트도 멈춘다)
+    ② 게이트일(2027-03-31) 이후 누적 기여 < 0 이면 WARN — **코어-위성 전환 안건 상정**(자동 전환 아님)
+    """
+    import datetime as _dt
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    log = _json_opt("data/app/desk_value_log.json")
+    if not log or not log.get("months"):
+        warn("데스크 매매 가치 월간 원장이 비었다 — `performance.py --emit`으로 기록할 것 (d222 게이트의 입력)")
+        return
+    last_m = max(log["months"])
+    last = log["months"][last_m]
+    try:
+        age = (today - _dt.date.fromisoformat(str(last.get("to")))).days
+    except ValueError:
+        age = 999
+    if age > 35:
+        warn(f"데스크 매매 가치 월간 원장이 {age}일째 멈췄다(마지막 {last.get('to')}) — "
+             "`performance.py --emit` 실행 (d222 게이트는 월간 측정이 쌓여야 판정할 수 있다)")
+    gate = _dt.date.fromisoformat(log.get("gate_date") or "2027-03-31")
+    v = last.get("desk_value_pct")
+    if today >= gate and isinstance(v, (int, float)) and v < 0:
+        warn(f"d222 게이트 도달 — 데스크 매매 누적 기여 {v:+.2f}%p < 0 → **코어-위성 전환 안건 상정** "
+             "(지수 코어 + 확신 종목 위성). 자동 전환 아님 — PM이 월별 추이와 함께 정훈에게 올린다")
+
+
 def check_pre_report(latest=None):
     """보고서 전 선행 작업(tasks.json pre_report)이 보고서가 나온 뒤에도 미완이면 잡는다 [9/22 신설].
 
@@ -2702,6 +2734,36 @@ _OUTCOME_MK = ("확정됐", "확정된", "확정 —", "확정.", "발표했", "
                "마감", "집계됐", "의결", "확인됐", "확인된", "체결됐", "체결 확인", "공시했",
                "나왔다", "결정됐", "결과 ")
 
+PROVENANCE_FROM = 104
+PROVENANCE_FIELDS = ("모드", "모델", "시세", "토스", "데스크", "prep")
+
+
+def check_report_provenance(rel):
+    """보고서 머리의 '생성 조건' 1줄 [9/30 시스템 평가 F].
+
+    보고서를 사후 채점할 때(별점·목표가·콜) 그 판단이 **대화형이었나 무인이었나, 토스 대조를 했나,
+    데스크를 몇 개 띄웠나, 시세가 몇 시 기준이었나**를 알아야 원인을 가를 수 있다. 지금까지는
+    '> 작성:' 산문에 일부만 섞여 있었고 형식이 매번 달라 기계로 못 읽었다.
+    외부 참조 = TradingAgents v0.5.2 "Reports record what produced them".
+    판정: v104 이상에서 '생성 조건:' 줄이 없거나 6개 필드 중 빠진 게 있으면 WARN.
+    """
+    m = re.search(r"report_v(\d+)_", rel or "")
+    if not m or int(m.group(1)) < PROVENANCE_FROM:
+        return
+    p = os.path.join(ROOT, rel)
+    if not os.path.exists(p):
+        return
+    head = open(p, encoding="utf-8").read()[:3000]
+    line = next((ln for ln in head.splitlines() if "생성 조건:" in ln), None)
+    if not line:
+        warn(f"{rel}: 보고서 머리에 '생성 조건:' 줄이 없다 — 모드·모델·시세 시각·토스 대조·데스크 수·prep "
+             "(사후 채점 때 판단의 출처를 가르는 입력, SKILL §3 템플릿)")
+        return
+    miss = [f for f in PROVENANCE_FIELDS if f not in line]
+    if miss:
+        warn(f"{rel}: '생성 조건' 필드 누락 — {', '.join(miss)} (모르면 '미확인'이라고 적는다)")
+
+
 def check_verdict_grounding(rel):
     """[정정] 태그가 '확정된 사실'이 아니라 '경쟁 전망'에 기대고 있는지 검사 (오류 클래스 A).
 
@@ -2896,7 +2958,7 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
-    check_order_check(); check_monthly_dca()
+    check_order_check(); check_monthly_dca(); check_desk_value_gate()
     check_routine_health(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
@@ -2906,6 +2968,7 @@ def main():
         if rel:
             check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel); check_rate_gauge(rel)
             check_verdict_grounding(rel); check_magnitude_sanity(rel); check_primary_source(rel)
+            check_report_provenance(rel)
 
     print("\n" + "=" * 56)
     print("  보고서 완료-검증 (validate_report.py)")

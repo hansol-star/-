@@ -281,6 +281,10 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 
 ```
 # 정훈 PORTFOLIO DESK · v{N} · {YYYY-MM-DD}
+> 생성 조건: 모드 {대화형|무인 R2|클라우드 C3} · 모델 {모델명} · 시세 {HH:MM KST 기준} · 토스 {대조 HH:MM|미대조} · 데스크 {스폰한 데스크 수}/9 · prep {파일명|없음}
+                              ← ★[9/30 시스템 평가 F] 맨 위 1줄 고정. 사후 채점 때 "무엇이 이 판단을 만들었나"를 추적한다
+                                (TradingAgents v0.5.2 'reports record what produced them'과 같은 목적). 6개 필드 전부 채운다 —
+                                모르면 '미확인'. `validate_report.check_report_provenance`가 v104부터 WARN.
 ## 변경점 (직전 대비)        ← 맨 위. 없으면 생략
 ## 1. 시장 — 국장 / 미장      ← kr-market-desk + us-market-desk
 ## 2. 섹터 — 반도체AI / 전력·피지컬 / 빅테크   ← 호출한 섹터 데스크만

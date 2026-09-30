@@ -309,12 +309,12 @@ def cap_delta_explain(base, unlocked, mult, cap_now=None):
 # 규칙: 달러 잔고를 **3회 균등 분할**(월 1회) · 회차 금액 = 그날 달러 잔고 ÷ 남은 회차 수
 #   (새로 들어온 달러는 남은 회차에 자동으로 퍼지고, 덜 쓴 몫은 다음 회차로 넘어간다)
 #   · S&P 폭풍 ≥70(하드플로어)이면 그 회차 **연기** · 룰3(추격금지)은 그대로 · 자동 집행 아님.
-#   대상 순서: 매수존 안의 우선순위(GEV·ANET) → 없으면 GOOGL(주식 비중 18% 상한까지) → 나머지 VOO.
+#   대상 순서: 매수존 안의 우선순위(GEV·ANET·CDNS — d220 9/30 CDNS ④ 편입) → 없으면 GOOGL(주식 비중 18% 상한까지) → 나머지 VOO.
 US_TRACK = os.path.join(ROOT, "data", "app", "us_track.json")
 US_TRANCHES = 3
 US_MIN_CYCLE_USD = 50.0      # 이보다 적은 달러로는 새 사이클을 열지 않는다(소수점 체결 실익)
 US_GOOGL_CAP = 0.18          # d191 — 주식 평가액 기준
-US_ZONE_TICKERS = ("GEV", "ANET")   # d191 ②③ — 매수존은 portfolio.json alerts(below)가 정본
+US_ZONE_TICKERS = ("GEV", "ANET", "CDNS")   # d191 ②③ + d220 ④ — 매수존은 portfolio.json alerts(below)가 정본
 _PF_JSON = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "portfolio.json")
 
 
@@ -447,7 +447,7 @@ def googl_room_usd(live: bool = True) -> dict:
 
 
 def _zone_hits(live: bool = True) -> list[dict]:
-    """우선순위 ②③(GEV·ANET) 중 매수존(portfolio.json alerts, cond=below) 안에 든 종목."""
+    """우선순위 ②③④(GEV·ANET·CDNS) 중 매수존(portfolio.json alerts, cond=below) 안에 든 종목."""
     try:
         with open(_PF_JSON, encoding="utf-8") as f:
             alerts = (json.load(f) or {}).get("alerts") or []

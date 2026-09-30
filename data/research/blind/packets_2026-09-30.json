@@ -1,0 +1,2545 @@
+{
+ "date": "2026-09-30",
+ "n": 22,
+ "rubric": "data/research/blind/rubric.md",
+ "instructions": "비율·추세만 담긴 익명 패킷. 이름·티커·지역·통화·절대규모·섹터·회계연도 날짜는 제거했다. rubric.md의 규칙대로 패킷 숫자만으로 0~100 채점하고 JSON 배열로 답한다. 회사를 맞히려 하지 말 것 — 떠올랐다면 recognized=true로 정직하게 적는다.",
+ "units": {
+  "*_pct": "%",
+  "*_pp": "%p",
+  "lag_m": "최신 분기로부터 개월",
+  "FY-0": "최근 회계연도",
+  "debt_to_equity": "배",
+  "current_ratio": "배",
+  "pe_*": "배"
+ },
+ "packets": [
+  {
+   "id": "P01",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 46.8,
+     "gross_margin_pct": 67.9,
+     "fcf_margin_pct": 20.2,
+     "roe_pct": 30.2,
+     "revenue_yoy_pct": 17.8,
+     "eps_yoy_pct": 31.6,
+     "inventory_yoy_pct": 48.9,
+     "shares_yoy_pct": -0.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 31.1,
+     "debt_to_equity": 0.09,
+     "current_ratio": 1.23,
+     "net_cash_to_assets_pct": -2.6,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 45.6,
+     "gross_margin_pct": 68.8,
+     "fcf_margin_pct": 25.4,
+     "roe_pct": 29.6,
+     "revenue_yoy_pct": 14.9,
+     "eps_yoy_pct": 15.6,
+     "inventory_yoy_pct": -24.7,
+     "shares_yoy_pct": -0.1,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -39.7,
+     "debt_to_equity": 0.13,
+     "current_ratio": 1.35,
+     "net_cash_to_assets_pct": -2.1,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 44.6,
+     "gross_margin_pct": 69.8,
+     "fcf_margin_pct": 30.2,
+     "roe_pct": 32.8,
+     "revenue_yoy_pct": 15.7,
+     "eps_yoy_pct": 21.9,
+     "inventory_yoy_pct": -50.2,
+     "shares_yoy_pct": -0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -65.8,
+     "debt_to_equity": 0.17,
+     "current_ratio": 1.27,
+     "net_cash_to_assets_pct": -5.2,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 67.6,
+     "op_margin_pct": 46.3,
+     "fcf_margin_pct": 19.1,
+     "revenue_yoy_pct": 18.3,
+     "eps_yoy_pct": 23.4,
+     "inventory_yoy_pct": 43.8,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 68.0,
+     "op_margin_pct": 47.1,
+     "fcf_margin_pct": 7.2,
+     "revenue_yoy_pct": 16.7,
+     "eps_yoy_pct": 59.8,
+     "inventory_yoy_pct": 16.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 69.0,
+     "op_margin_pct": 48.9,
+     "fcf_margin_pct": 33.0,
+     "revenue_yoy_pct": 18.4,
+     "eps_yoy_pct": 12.7,
+     "inventory_yoy_pct": -30.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "gross_margin_pct": 68.7,
+     "op_margin_pct": 45.7,
+     "fcf_margin_pct": 29.0,
+     "revenue_yoy_pct": 13.3,
+     "eps_yoy_pct": 17.7,
+     "inventory_yoy_pct": -35.0,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 0.7
+   },
+   "forward": {
+    "eps_revision": {
+     "score": 35.4,
+     "band": "상향",
+     "chg_30d_pct": 0.4,
+     "chg_90d_pct": 4.6,
+     "breadth": 0.73
+    },
+    "consensus_upside_pct": 13.4
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 21.4,
+    "pe_ttm": 28.2,
+    "pe_runrate_q0x4": 29.6,
+    "pe_trailing_basis": "TTM(FY-0 직후)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 5.4,
+    "price_vs_ma200_pct": 17.1,
+    "ma50_vs_ma200_pct": 11.1,
+    "ma200_slope_1m_pct": 0.26,
+    "pct_from_52w_high": -6.6,
+    "pct_above_52w_low": 43.4,
+    "ret_3m_pct": 35.7,
+    "ret_12m_pct": -1.1
+   },
+   "flags": [
+    "debt_buildup",
+    "margin_trend_break"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P02",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 4.5,
+     "gross_margin_pct": 16.1,
+     "fcf_margin_pct": 0.3,
+     "roe_pct": 1.1,
+     "revenue_yoy_pct": 5.1,
+     "eps_yoy_pct": -24.1,
+     "inventory_yoy_pct": -6.9,
+     "shares_yoy_pct": 0.3,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -12.0,
+     "debt_to_equity": 0.8,
+     "current_ratio": 1.07,
+     "net_cash_to_assets_pct": -11.5,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 6.3,
+     "gross_margin_pct": 16.8,
+     "fcf_margin_pct": -2.5,
+     "roe_pct": 1.5,
+     "revenue_yoy_pct": -7.7,
+     "eps_yoy_pct": 100.0,
+     "inventory_yoy_pct": 7.7,
+     "shares_yoy_pct": 0.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 15.4,
+     "debt_to_equity": 0.85,
+     "current_ratio": 1.12,
+     "net_cash_to_assets_pct": -13.2,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 8.3,
+     "gross_margin_pct": 17.2,
+     "fcf_margin_pct": 8.3,
+     "roe_pct": 0.8,
+     "revenue_yoy_pct": 14.1,
+     "eps_yoy_pct": 107.0,
+     "inventory_yoy_pct": 3.3,
+     "shares_yoy_pct": 3.3,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -10.8,
+     "debt_to_equity": 0.73,
+     "current_ratio": 1.0,
+     "net_cash_to_assets_pct": -10.6,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 18.8,
+     "op_margin_pct": 6.7,
+     "fcf_margin_pct": -9.0,
+     "revenue_yoy_pct": 3.4,
+     "eps_yoy_pct": 21.1,
+     "inventory_yoy_pct": 15.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 17.5,
+     "op_margin_pct": 5.5,
+     "fcf_margin_pct": -17.3,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 16.4,
+     "op_margin_pct": 4.4,
+     "fcf_margin_pct": 24.8
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 15.6,
+     "op_margin_pct": 3.5,
+     "fcf_margin_pct": -7.6,
+     "eps_positive": false
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 0.7
+   },
+   "forward": {},
+   "valuation": {
+    "pe_fy0": ">400",
+    "pe_runrate_q0x4": 80.7,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 1.6,
+    "price_vs_ma200_pct": -13.2,
+    "ma50_vs_ma200_pct": -14.6,
+    "ma200_slope_1m_pct": 0.79,
+    "pct_from_52w_high": -41.6,
+    "pct_above_52w_low": 35.5,
+    "ret_3m_pct": -1.7,
+    "ret_12m_pct": 30.7
+   },
+   "flags": [
+    "receivable_divergence"
+   ],
+   "data_notes": [
+    "EPS 리비전·컨센 데이터 없음(중립 처리)"
+   ]
+  },
+  {
+   "id": "P03",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 6.2,
+     "gross_margin_pct": 18.4,
+     "fcf_margin_pct": -9.2,
+     "roe_pct": 8.2,
+     "revenue_yoy_pct": 6.3,
+     "eps_yoy_pct": -24.2,
+     "inventory_yoy_pct": 4.4,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -1.9,
+     "debt_to_equity": 1.53,
+     "current_ratio": 1.36,
+     "net_cash_to_assets_pct": -42.9,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 8.1,
+     "gross_margin_pct": 20.4,
+     "fcf_margin_pct": -9.2,
+     "roe_pct": 11.5,
+     "revenue_yoy_pct": 7.7,
+     "eps_yoy_pct": 4.2,
+     "inventory_yoy_pct": 13.7,
+     "shares_yoy_pct": 0.5,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 6.0,
+     "debt_to_equity": 1.45,
+     "current_ratio": 1.46,
+     "net_cash_to_assets_pct": -40.8,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 9.3,
+     "gross_margin_pct": 20.6,
+     "fcf_margin_pct": -7.0,
+     "roe_pct": 12.9,
+     "revenue_yoy_pct": 14.4,
+     "eps_yoy_pct": 60.2,
+     "inventory_yoy_pct": 21.8,
+     "shares_yoy_pct": 1.4,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 7.3,
+     "debt_to_equity": 1.36,
+     "current_ratio": 0.8,
+     "net_cash_to_assets_pct": -37.8,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 17.8,
+     "op_margin_pct": 5.8,
+     "fcf_margin_pct": -1.1,
+     "revenue_yoy_pct": 1.9,
+     "eps_yoy_pct": -16.4,
+     "inventory_yoy_pct": 5.7,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 17.4,
+     "op_margin_pct": 5.5,
+     "fcf_margin_pct": 0.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 16.8,
+     "op_margin_pct": 3.6,
+     "fcf_margin_pct": -12.7
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 17.7,
+     "op_margin_pct": 5.4,
+     "fcf_margin_pct": -15.3,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": -1.7
+   },
+   "forward": {
+    "eps_revision": {
+     "score": -17.3,
+     "band": "하향",
+     "chg_30d_pct": -2.5,
+     "chg_90d_pct": -3.7,
+     "breadth": -0.43
+    }
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 7.4,
+    "pe_fy0": 9.7,
+    "pe_runrate_q0x4": 9.1,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -10.8,
+    "price_vs_ma200_pct": -25.9,
+    "ma50_vs_ma200_pct": -16.9,
+    "ma200_slope_1m_pct": 2.5,
+    "pct_from_52w_high": -53.3,
+    "pct_above_52w_low": 63.2,
+    "ret_3m_pct": -27.2,
+    "ret_12m_pct": 57.0
+   },
+   "flags": [],
+   "data_notes": []
+  },
+  {
+   "id": "P04",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 13.1,
+     "gross_margin_pct": 39.4,
+     "fcf_margin_pct": 9.9,
+     "roe_pct": 10.4,
+     "revenue_yoy_pct": 10.9,
+     "eps_yoy_pct": 33.4,
+     "inventory_yoy_pct": 1.7,
+     "shares_yoy_pct": -1.3,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -9.2,
+     "debt_to_equity": 0.06,
+     "current_ratio": 2.33,
+     "net_cash_to_assets_pct": 5.8,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": 10.9,
+     "gross_margin_pct": 38.0,
+     "fcf_margin_pct": 6.4,
+     "roe_pct": 8.6,
+     "revenue_yoy_pct": 16.2,
+     "eps_yoy_pct": 132.3,
+     "inventory_yoy_pct": 0.2,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -15.9,
+     "debt_to_equity": 0.05,
+     "current_ratio": 2.43,
+     "net_cash_to_assets_pct": 6.7,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": 2.5,
+     "gross_margin_pct": 30.3,
+     "fcf_margin_pct": -6.3,
+     "roe_pct": 4.1,
+     "revenue_yoy_pct": -14.3,
+     "eps_yoy_pct": -73.6,
+     "inventory_yoy_pct": -1.1,
+     "shares_yoy_pct": -0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 13.2,
+     "debt_to_equity": 0.04,
+     "current_ratio": 2.59,
+     "net_cash_to_assets_pct": 12.4,
+     "net_cash_sign": "+"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 69.6,
+     "op_margin_pct": 52.2,
+     "fcf_margin_pct": 52.6,
+     "revenue_yoy_pct": 130.0,
+     "eps_yoy_pct": 1356.3,
+     "inventory_yoy_pct": 39.9,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 61.2,
+     "op_margin_pct": 42.8,
+     "fcf_margin_pct": 16.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 47.2,
+     "op_margin_pct": 21.4,
+     "fcf_margin_pct": 17.1
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 38.9,
+     "op_margin_pct": 14.1,
+     "fcf_margin_pct": 14.0,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 45.9
+   },
+   "forward": {
+    "eps_revision": {
+     "score": 7.3,
+     "band": "중립",
+     "chg_30d_pct": 2.4,
+     "chg_90d_pct": 13.6,
+     "breadth": -0.17
+    }
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 3.8,
+    "pe_fy0": 41.3,
+    "pe_runrate_q0x4": 6.3,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 6.7,
+    "price_vs_ma200_pct": 21.6,
+    "ma50_vs_ma200_pct": 13.9,
+    "ma200_slope_1m_pct": 8.23,
+    "pct_from_52w_high": -24.8,
+    "pct_above_52w_low": 261.4,
+    "ret_3m_pct": -19.7,
+    "ret_12m_pct": 271.3
+   },
+   "flags": [
+    "debt_buildup"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P05",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 26.1,
+     "gross_margin_pct": 39.8,
+     "fcf_margin_pct": 4.5,
+     "roe_pct": 15.8,
+     "revenue_yoy_pct": 48.9,
+     "eps_yoy_pct": 984.3,
+     "inventory_yoy_pct": -5.9,
+     "shares_yoy_pct": 0.6,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -54.7,
+     "debt_to_equity": 0.22,
+     "current_ratio": 2.52,
+     "net_cash_to_assets_pct": -3.0,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 5.2,
+     "gross_margin_pct": 22.4,
+     "fcf_margin_pct": 0.5,
+     "roe_pct": 1.7,
+     "revenue_yoy_pct": 61.6,
+     "eps_yoy_pct": 113.1,
+     "inventory_yoy_pct": 5.8,
+     "shares_yoy_pct": 2.3,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -55.8,
+     "debt_to_equity": 0.26,
+     "current_ratio": 2.64,
+     "net_cash_to_assets_pct": -6.8,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": -37.0,
+     "gross_margin_pct": -9.1,
+     "fcf_margin_pct": -39.4,
+     "roe_pct": -13.2,
+     "revenue_yoy_pct": -49.5,
+     "eps_yoy_pct": -168.9,
+     "inventory_yoy_pct": 25.9,
+     "shares_yoy_pct": -2.6,
+     "eps_positive": false,
+     "inv_minus_rev_yoy_pp": 75.4,
+     "debt_to_equity": 0.28,
+     "current_ratio": 4.46,
+     "net_cash_to_assets_pct": -5.8,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 84.6,
+     "op_margin_pct": 80.4,
+     "revenue_yoy_pct": 345.7,
+     "eps_yoy_pct": 1368.5,
+     "inventory_yoy_pct": -1.8,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 74.4,
+     "op_margin_pct": 67.6,
+     "revenue_yoy_pct": 196.3,
+     "eps_yoy_pct": 756.0,
+     "inventory_yoy_pct": -8.2,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 56.0,
+     "op_margin_pct": 45.0,
+     "fcf_margin_pct": 22.1,
+     "revenue_yoy_pct": 56.7,
+     "eps_yoy_pct": 175.4,
+     "inventory_yoy_pct": -5.7,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "gross_margin_pct": 37.7,
+     "op_margin_pct": 23.3,
+     "revenue_yoy_pct": 36.6,
+     "eps_yoy_pct": 460.0,
+     "inventory_yoy_pct": 2.5,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 57.0
+   },
+   "forward": {
+    "eps_revision": {
+     "score": 7.8,
+     "band": "중립",
+     "chg_30d_pct": 3.7,
+     "chg_90d_pct": 7.8,
+     "breadth": 0.0
+    },
+    "consensus_upside_pct": 42.8
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 6.6,
+    "pe_ttm": 24.2,
+    "pe_runrate_q0x4": 10.8,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 12.6,
+    "price_vs_ma200_pct": 59.6,
+    "ma50_vs_ma200_pct": 41.8,
+    "ma200_slope_1m_pct": 13.72,
+    "pct_from_52w_high": -12.0,
+    "pct_above_52w_low": 551.4,
+    "ret_3m_pct": -7.5,
+    "ret_12m_pct": 578.9
+   },
+   "flags": [
+    "receivable_divergence"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P06",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 50.8,
+     "gross_margin_pct": 59.9,
+     "fcf_margin_pct": 26.1,
+     "roe_pct": 31.7,
+     "revenue_yoy_pct": 31.6,
+     "eps_yoy_pct": 46.4,
+     "inventory_yoy_pct": 0.1,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -31.5,
+     "debt_to_equity": 0.2,
+     "current_ratio": 2.51,
+     "net_cash_to_assets_pct": 21.5,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": 45.7,
+     "gross_margin_pct": 56.1,
+     "fcf_margin_pct": 29.8,
+     "roe_pct": 27.3,
+     "revenue_yoy_pct": 33.9,
+     "eps_yoy_pct": 39.9,
+     "inventory_yoy_pct": 14.7,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -19.2,
+     "debt_to_equity": 0.25,
+     "current_ratio": 2.36,
+     "net_cash_to_assets_pct": 16.1,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": 42.6,
+     "gross_margin_pct": 54.4,
+     "fcf_margin_pct": 13.3,
+     "roe_pct": 24.8,
+     "revenue_yoy_pct": -4.5,
+     "eps_yoy_pct": -17.5,
+     "inventory_yoy_pct": 13.5,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 18.0,
+     "debt_to_equity": 0.28,
+     "current_ratio": 2.33,
+     "net_cash_to_assets_pct": 9.2,
+     "net_cash_sign": "+"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 67.7,
+     "op_margin_pct": 60.3,
+     "fcf_margin_pct": 21.6,
+     "revenue_yoy_pct": 36.0,
+     "eps_yoy_pct": 77.4,
+     "inventory_yoy_pct": 26.7,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 66.2,
+     "op_margin_pct": 58.1,
+     "fcf_margin_pct": 30.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 62.3,
+     "op_margin_pct": 54.0,
+     "fcf_margin_pct": 34.8,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 59.5,
+     "op_margin_pct": 50.6,
+     "fcf_margin_pct": 14.0,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 10.7
+   },
+   "forward": {
+    "consensus_upside_pct": 20.9
+   },
+   "valuation": {
+    "pe_trailing_basis": "TTM(연속 4분기)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 6.4,
+    "price_vs_ma200_pct": 16.8,
+    "ma50_vs_ma200_pct": 9.8,
+    "ma200_slope_1m_pct": 4.08,
+    "pct_from_52w_high": -6.0,
+    "pct_above_52w_low": 64.3,
+    "ret_3m_pct": -6.0,
+    "ret_12m_pct": 64.3
+   },
+   "flags": [
+    "receivable_divergence"
+   ],
+   "data_notes": [
+    "TTM P/E 산출 불가(데이터 정합 실패)",
+    "런레이트 P/E 산출 불가(데이터 정합 실패)"
+   ]
+  },
+  {
+   "id": "P07",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": -180.3,
+     "gross_margin_pct": 13.4,
+     "fcf_margin_pct": -99.1,
+     "roe_pct": -15.9,
+     "revenue_yoy_pct": -29.6,
+     "eps_yoy_pct": -51.8,
+     "inventory_yoy_pct": -35.1,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": false,
+     "inv_minus_rev_yoy_pp": -5.6,
+     "debt_to_equity": 0.05,
+     "current_ratio": 9.6,
+     "net_cash_to_assets_pct": 35.2,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": -88.0,
+     "gross_margin_pct": 20.3,
+     "fcf_margin_pct": -110.9,
+     "roe_pct": -9.1,
+     "revenue_yoy_pct": -11.7,
+     "eps_yoy_pct": -88.0,
+     "inventory_yoy_pct": 107.1,
+     "shares_yoy_pct": 22.5,
+     "eps_positive": false,
+     "inv_minus_rev_yoy_pp": 118.8,
+     "debt_to_equity": 0.01,
+     "current_ratio": 22.14,
+     "net_cash_to_assets_pct": 62.3,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": -36.1,
+     "gross_margin_pct": 27.6,
+     "fcf_margin_pct": -68.5,
+     "roe_pct": -3.6,
+     "revenue_yoy_pct": 18.0,
+     "eps_yoy_pct": -15.8,
+     "inventory_yoy_pct": 5.7,
+     "shares_yoy_pct": 9.2,
+     "eps_positive": false,
+     "inv_minus_rev_yoy_pp": -12.3,
+     "debt_to_equity": 0.01,
+     "current_ratio": 31.91,
+     "net_cash_to_assets_pct": 65.8,
+     "net_cash_sign": "+"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 28.0,
+     "op_margin_pct": -81.6,
+     "fcf_margin_pct": -61.2,
+     "revenue_yoy_pct": 290.0,
+     "eps_yoy_pct": 23.0,
+     "inventory_yoy_pct": -28.5,
+     "eps_positive": false
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 28.3,
+     "op_margin_pct": -78.9,
+     "fcf_margin_pct": -97.4,
+     "eps_positive": false
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 10.1,
+     "op_margin_pct": -126.5,
+     "fcf_margin_pct": -77.2
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 21.0,
+     "op_margin_pct": -150.2,
+     "fcf_margin_pct": -48.9,
+     "eps_positive": false
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 263.7
+   },
+   "forward": {
+    "eps_revision": {
+     "score": -53.7,
+     "band": "강한하향",
+     "chg_30d_pct": 0.0,
+     "chg_90d_pct": -43.7,
+     "breadth": -1.0
+    }
+   },
+   "valuation": {
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -1.0,
+    "price_vs_ma200_pct": -23.2,
+    "ma50_vs_ma200_pct": -22.4,
+    "ma200_slope_1m_pct": -0.77,
+    "pct_from_52w_high": -58.9,
+    "pct_above_52w_low": 23.6,
+    "ret_3m_pct": -19.4,
+    "ret_12m_pct": 9.1
+   },
+   "flags": [
+    "debt_buildup"
+   ],
+   "data_notes": [
+    "선행 P/E 적자",
+    "FY-0 P/E 적자",
+    "런레이트 P/E 적자"
+   ]
+  },
+  {
+   "id": "P08",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 18.4,
+     "fcf_margin_pct": 14.8,
+     "roe_pct": 7.1,
+     "revenue_yoy_pct": 12.1,
+     "eps_yoy_pct": 2.8,
+     "inventory_yoy_pct": -6.9,
+     "shares_yoy_pct": -1.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -19.0,
+     "debt_to_equity": 0.15,
+     "current_ratio": 1.36,
+     "net_cash_to_assets_pct": 4.4,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": 18.4,
+     "fcf_margin_pct": 18.7,
+     "roe_pct": 7.5,
+     "revenue_yoy_pct": 11.0,
+     "eps_yoy_pct": 90.9,
+     "inventory_yoy_pct": 46.8,
+     "shares_yoy_pct": -0.5,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 35.8,
+     "debt_to_equity": 0.15,
+     "current_ratio": 1.54,
+     "net_cash_to_assets_pct": 1.0,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": 15.4,
+     "fcf_margin_pct": 13.6,
+     "roe_pct": 4.4,
+     "revenue_yoy_pct": 17.6,
+     "eps_yoy_pct": 31.9,
+     "inventory_yoy_pct": 71.2,
+     "shares_yoy_pct": 0.9,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 53.5,
+     "debt_to_equity": 0.18,
+     "current_ratio": 1.11,
+     "net_cash_to_assets_pct": -1.7,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "op_margin_pct": 15.3,
+     "fcf_margin_pct": 8.4,
+     "revenue_yoy_pct": 16.2,
+     "eps_yoy_pct": 43.6,
+     "inventory_yoy_pct": 40.2,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "op_margin_pct": 16.7,
+     "fcf_margin_pct": 1.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "op_margin_pct": 19.1,
+     "fcf_margin_pct": 11.8
+    },
+    {
+     "lag_m": 9,
+     "op_margin_pct": 18.2,
+     "fcf_margin_pct": 20.4,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": -84.7
+   },
+   "forward": {
+    "eps_revision": {
+     "score": -5.5,
+     "band": "중립",
+     "chg_30d_pct": -0.9,
+     "chg_90d_pct": -1.3,
+     "breadth": -0.1
+    }
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 13.3,
+    "pe_fy0": 15.1,
+    "pe_runrate_q0x4": 10.5,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -7.3,
+    "price_vs_ma200_pct": -13.0,
+    "ma50_vs_ma200_pct": -6.1,
+    "ma200_slope_1m_pct": -2.34,
+    "pct_from_52w_high": -32.1,
+    "pct_above_52w_low": 6.3,
+    "ret_3m_pct": -0.8,
+    "ret_12m_pct": -16.4
+   },
+   "flags": [
+    "margin_trend_break"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P09",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 39.9,
+     "gross_margin_pct": 67.8,
+     "fcf_margin_pct": 42.1,
+     "roe_pct": 28.4,
+     "revenue_yoy_pct": 23.9,
+     "eps_yoy_pct": 287.8,
+     "inventory_yoy_pct": 29.0,
+     "shares_yoy_pct": 1.6,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 5.1,
+     "debt_to_equity": 0.83,
+     "current_ratio": 1.71,
+     "net_cash_to_assets_pct": -29.8,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 26.1,
+     "gross_margin_pct": 63.0,
+     "fcf_margin_pct": 37.6,
+     "roe_pct": 8.7,
+     "revenue_yoy_pct": 44.0,
+     "eps_yoy_pct": -62.7,
+     "inventory_yoy_pct": -7.3,
+     "shares_yoy_pct": 11.8,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -51.3,
+     "debt_to_equity": 1.03,
+     "current_ratio": 1.17,
+     "net_cash_to_assets_pct": -36.5,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 45.2,
+     "gross_margin_pct": 68.9,
+     "fcf_margin_pct": 49.2,
+     "roe_pct": 58.7,
+     "revenue_yoy_pct": 7.9,
+     "eps_yoy_pct": 24.5,
+     "inventory_yoy_pct": -1.4,
+     "shares_yoy_pct": 0.9,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -9.3,
+     "debt_to_equity": 1.63,
+     "current_ratio": 2.82,
+     "net_cash_to_assets_pct": -34.3,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 69.1,
+     "op_margin_pct": 53.9,
+     "revenue_yoy_pct": 85.5,
+     "eps_yoy_pct": 215.3,
+     "inventory_yoy_pct": 107.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 69.5,
+     "op_margin_pct": 48.6,
+     "revenue_yoy_pct": 47.9,
+     "eps_yoy_pct": 85.4,
+     "inventory_yoy_pct": 114.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 68.1,
+     "op_margin_pct": 44.3,
+     "fcf_margin_pct": 41.5,
+     "revenue_yoy_pct": 29.5,
+     "eps_yoy_pct": 31.6,
+     "inventory_yoy_pct": 55.2,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "gross_margin_pct": 67.1,
+     "op_margin_pct": 36.9,
+     "revenue_yoy_pct": 22.0,
+     "eps_yoy_pct": 312.5,
+     "inventory_yoy_pct": 15.1,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 17.0
+   },
+   "forward": {
+    "eps_revision": {
+     "score": -17.9,
+     "band": "하향",
+     "chg_30d_pct": -0.9,
+     "chg_90d_pct": -0.4,
+     "breadth": -0.39
+    },
+    "consensus_upside_pct": 49.8
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 18.5,
+    "pe_ttm": 45.8,
+    "pe_runrate_q0x4": 33.5,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -4.5,
+    "price_vs_ma200_pct": -2.4,
+    "ma50_vs_ma200_pct": 2.1,
+    "ma200_slope_1m_pct": -0.43,
+    "pct_from_52w_high": -25.5,
+    "pct_above_52w_low": 22.3,
+    "ret_3m_pct": -5.0,
+    "ret_12m_pct": 7.3
+   },
+   "flags": [
+    "inventory_surge",
+    "receivable_divergence"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P10",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 42.8,
+     "gross_margin_pct": 64.1,
+     "fcf_margin_pct": 47.2,
+     "roe_pct": 28.4,
+     "revenue_yoy_pct": 28.6,
+     "eps_yoy_pct": 23.3,
+     "inventory_yoy_pct": 22.5,
+     "shares_yoy_pct": -0.4,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -6.1,
+     "current_ratio": 3.05
+    },
+    "FY-1": {
+     "op_margin_pct": 42.0,
+     "gross_margin_pct": 64.1,
+     "fcf_margin_pct": 52.5,
+     "roe_pct": 28.5,
+     "revenue_yoy_pct": 19.5,
+     "eps_yoy_pct": 35.2,
+     "inventory_yoy_pct": -5.7,
+     "shares_yoy_pct": 1.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -25.2,
+     "current_ratio": 4.36
+    },
+    "FY-2": {
+     "op_margin_pct": 38.5,
+     "gross_margin_pct": 62.0,
+     "fcf_margin_pct": 34.1,
+     "roe_pct": 28.9,
+     "revenue_yoy_pct": 33.8,
+     "eps_yoy_pct": 54.2,
+     "inventory_yoy_pct": 50.8,
+     "shares_yoy_pct": 0.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 17.1,
+     "current_ratio": 4.38
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 62.9,
+     "op_margin_pct": 45.4,
+     "revenue_yoy_pct": 37.7,
+     "eps_yoy_pct": 35.7,
+     "inventory_yoy_pct": 23.1,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 61.9,
+     "op_margin_pct": 42.7,
+     "fcf_margin_pct": 60.5,
+     "revenue_yoy_pct": 35.1,
+     "eps_yoy_pct": 25.0,
+     "inventory_yoy_pct": 21.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 64.6,
+     "op_margin_pct": 42.4,
+     "revenue_yoy_pct": 27.5,
+     "eps_yoy_pct": 15.5,
+     "inventory_yoy_pct": 21.8,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "gross_margin_pct": 65.2,
+     "op_margin_pct": 44.7,
+     "revenue_yoy_pct": 30.4,
+     "eps_yoy_pct": 34.6,
+     "inventory_yoy_pct": 11.1,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 0.7
+   },
+   "forward": {
+    "consensus_upside_pct": 19.3
+   },
+   "valuation": {
+    "pe_ttm": 64.6,
+    "pe_runrate_q0x4": 53.7,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 6.6,
+    "price_vs_ma200_pct": 29.4,
+    "ma50_vs_ma200_pct": 21.5,
+    "ma200_slope_1m_pct": 4.87,
+    "pct_from_52w_high": -3.0,
+    "pct_above_52w_low": 75.8,
+    "ret_3m_pct": 20.2,
+    "ret_12m_pct": 43.3
+   },
+   "flags": [
+    "backlog_growth"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P11",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 29.2,
+     "gross_margin_pct": 48.7,
+     "fcf_margin_pct": 20.1,
+     "roe_pct": 34.3,
+     "revenue_yoy_pct": 4.4,
+     "eps_yoy_pct": 0.6,
+     "inventory_yoy_pct": 9.1,
+     "shares_yoy_pct": -3.1,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 4.7,
+     "debt_to_equity": 0.32,
+     "current_ratio": 2.61,
+     "net_cash_to_assets_pct": 2.2,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": 28.9,
+     "gross_margin_pct": 47.5,
+     "fcf_margin_pct": 27.6,
+     "roe_pct": 37.8,
+     "revenue_yoy_pct": 2.5,
+     "eps_yoy_pct": 6.2,
+     "inventory_yoy_pct": -5.3,
+     "shares_yoy_pct": -1.3,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -7.8,
+     "debt_to_equity": 0.32,
+     "current_ratio": 2.51,
+     "net_cash_to_assets_pct": 5.4,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": 28.9,
+     "gross_margin_pct": 46.7,
+     "fcf_margin_pct": 28.6,
+     "roe_pct": 41.9,
+     "revenue_yoy_pct": 2.8,
+     "eps_yoy_pct": 9.0,
+     "inventory_yoy_pct": -3.5,
+     "shares_yoy_pct": -3.6,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -6.3,
+     "debt_to_equity": 0.33,
+     "current_ratio": 2.6,
+     "net_cash_to_assets_pct": 2.2,
+     "net_cash_sign": "+"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 50.3,
+     "op_margin_pct": 33.7,
+     "revenue_yoy_pct": 24.8,
+     "eps_yoy_pct": 42.8,
+     "inventory_yoy_pct": 13.0,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 49.9,
+     "op_margin_pct": 31.9,
+     "revenue_yoy_pct": 11.4,
+     "eps_yoy_pct": 33.5,
+     "inventory_yoy_pct": 12.1,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 49.0,
+     "op_margin_pct": 26.1,
+     "fcf_margin_pct": 14.8,
+     "revenue_yoy_pct": -2.1,
+     "eps_yoy_pct": 75.2,
+     "inventory_yoy_pct": 9.0,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "gross_margin_pct": 48.8,
+     "op_margin_pct": 30.6,
+     "revenue_yoy_pct": 7.7,
+     "eps_yoy_pct": 8.3,
+     "inventory_yoy_pct": 4.3,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 3.2
+   },
+   "forward": {
+    "consensus_upside_pct": 24.8
+   },
+   "valuation": {
+    "pe_ttm": 44.0,
+    "pe_runrate_q0x4": 40.1,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 4.1,
+    "price_vs_ma200_pct": 20.1,
+    "ma50_vs_ma200_pct": 15.4,
+    "ma200_slope_1m_pct": 5.5,
+    "pct_from_52w_high": -29.6,
+    "pct_above_52w_low": 148.6,
+    "ret_3m_pct": -29.6,
+    "ret_12m_pct": 149.6
+   },
+   "flags": [
+    "backlog_growth",
+    "debt_buildup"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P12",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 11.6,
+     "gross_margin_pct": 20.4,
+     "fcf_margin_pct": 7.7,
+     "roe_pct": 14.5,
+     "revenue_yoy_pct": 137.6,
+     "eps_yoy_pct": -38.1,
+     "inventory_yoy_pct": 20.9,
+     "shares_yoy_pct": -1.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -116.7,
+     "debt_to_equity": 1.32,
+     "current_ratio": 1.02,
+     "net_cash_to_assets_pct": -9.5,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 15.4,
+     "gross_margin_pct": 25.5,
+     "fcf_margin_pct": 5.7,
+     "roe_pct": 46.0,
+     "revenue_yoy_pct": 42.5,
+     "eps_yoy_pct": 161.2,
+     "inventory_yoy_pct": 123.2,
+     "shares_yoy_pct": 7.7,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 80.8,
+     "debt_to_equity": 2.14,
+     "current_ratio": 0.9,
+     "net_cash_to_assets_pct": -17.7,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 7.5,
+     "gross_margin_pct": 18.1,
+     "fcf_margin_pct": 10.4,
+     "roe_pct": 23.2,
+     "revenue_yoy_pct": 11.7,
+     "eps_yoy_pct": 317.7,
+     "inventory_yoy_pct": 32.6,
+     "shares_yoy_pct": 0.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 20.9,
+     "debt_to_equity": 1.18,
+     "current_ratio": 0.76,
+     "net_cash_to_assets_pct": -12.1,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 22.0,
+     "op_margin_pct": 14.7,
+     "fcf_margin_pct": 9.3,
+     "revenue_yoy_pct": 47.2,
+     "eps_yoy_pct": 218.8,
+     "inventory_yoy_pct": 0.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 21.3,
+     "op_margin_pct": 11.1,
+     "fcf_margin_pct": -35.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 19.7,
+     "op_margin_pct": 9.7,
+     "fcf_margin_pct": 38.0
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 21.4,
+     "op_margin_pct": 13.2,
+     "fcf_margin_pct": -23.2,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 1.0
+   },
+   "forward": {},
+   "valuation": {
+    "pe_fy0": 35.5,
+    "pe_runrate_q0x4": 20.7,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -2.9,
+    "price_vs_ma200_pct": -13.3,
+    "ma50_vs_ma200_pct": -10.7,
+    "ma200_slope_1m_pct": 1.37,
+    "pct_from_52w_high": -34.2,
+    "pct_above_52w_low": 24.9,
+    "ret_3m_pct": 0.1,
+    "ret_12m_pct": 0.7
+   },
+   "flags": [],
+   "data_notes": [
+    "EPS 리비전·컨센 데이터 없음(중립 처리)"
+   ]
+  },
+  {
+   "id": "P13",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 48.6,
+     "gross_margin_pct": 60.4,
+     "fcf_margin_pct": 25.5,
+     "roe_pct": 35.6,
+     "revenue_yoy_pct": 46.8,
+     "eps_yoy_pct": 112.5,
+     "inventory_yoy_pct": 7.3,
+     "shares_yoy_pct": 2.1,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -39.4,
+     "debt_to_equity": 0.21,
+     "current_ratio": 1.86,
+     "net_cash_to_assets_pct": -5.6,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 35.4,
+     "gross_margin_pct": 48.1,
+     "fcf_margin_pct": 19.8,
+     "roe_pct": 26.8,
+     "revenue_yoy_pct": 102.0,
+     "eps_yoy_pct": 314.6,
+     "inventory_yoy_pct": -1.2,
+     "shares_yoy_pct": 1.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -103.3,
+     "debt_to_equity": 0.34,
+     "current_ratio": 1.69,
+     "net_cash_to_assets_pct": -11.9,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": -23.6,
+     "gross_margin_pct": -1.6,
+     "fcf_margin_pct": -13.7,
+     "roe_pct": -17.0,
+     "revenue_yoy_pct": -26.6,
+     "eps_yoy_pct": -508.5,
+     "inventory_yoy_pct": -13.9,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": false,
+     "inv_minus_rev_yoy_pp": 12.6,
+     "debt_to_equity": 0.61,
+     "current_ratio": 1.45,
+     "net_cash_to_assets_pct": -24.8,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 83.2,
+     "op_margin_pct": 76.3,
+     "fcf_margin_pct": 68.4,
+     "revenue_yoy_pct": 256.8,
+     "eps_yoy_pct": 1272.4,
+     "inventory_yoy_pct": 34.1,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 79.3,
+     "op_margin_pct": 71.5,
+     "fcf_margin_pct": 35.1,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 68.8,
+     "op_margin_pct": 58.4,
+     "fcf_margin_pct": 26.2
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 57.4,
+     "op_margin_pct": 46.6,
+     "fcf_margin_pct": 37.1,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 34.9
+   },
+   "forward": {},
+   "valuation": {
+    "pe_fy0": 29.2,
+    "pe_runrate_q0x4": 3.4,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 4.8,
+    "price_vs_ma200_pct": 26.1,
+    "ma50_vs_ma200_pct": 20.4,
+    "ma200_slope_1m_pct": 9.77,
+    "pct_from_52w_high": -39.5,
+    "pct_above_52w_low": 437.3,
+    "ret_3m_pct": -34.0,
+    "ret_12m_pct": 474.9
+   },
+   "flags": [
+    "dilution"
+   ],
+   "data_notes": [
+    "EPS 리비전·컨센 데이터 없음(중립 처리)"
+   ]
+  },
+  {
+   "id": "P14",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 8.1,
+     "gross_margin_pct": 20.1,
+     "fcf_margin_pct": 2.1,
+     "roe_pct": 7.4,
+     "revenue_yoy_pct": 9.9,
+     "eps_yoy_pct": 4.0,
+     "inventory_yoy_pct": 7.2,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -2.7,
+     "debt_to_equity": 0.24,
+     "current_ratio": 1.86,
+     "net_cash_to_assets_pct": 2.9,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": 7.1,
+     "gross_margin_pct": 19.0,
+     "fcf_margin_pct": 5.9,
+     "roe_pct": 7.7,
+     "revenue_yoy_pct": 15.8,
+     "eps_yoy_pct": 60.6,
+     "inventory_yoy_pct": 6.2,
+     "shares_yoy_pct": -0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -9.6,
+     "debt_to_equity": 0.19,
+     "current_ratio": 1.93,
+     "net_cash_to_assets_pct": 2.9,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": 7.4,
+     "gross_margin_pct": 19.3,
+     "fcf_margin_pct": -0.9,
+     "roe_pct": 5.4,
+     "revenue_yoy_pct": -5.6,
+     "eps_yoy_pct": -56.9,
+     "inventory_yoy_pct": 11.5,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 17.1,
+     "debt_to_equity": 0.2,
+     "current_ratio": 1.8,
+     "net_cash_to_assets_pct": 0.6,
+     "net_cash_sign": "+"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 24.4,
+     "op_margin_pct": 12.7,
+     "fcf_margin_pct": -0.6,
+     "revenue_yoy_pct": 24.2,
+     "eps_yoy_pct": 143.3,
+     "inventory_yoy_pct": 26.3,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 20.6,
+     "op_margin_pct": 8.8,
+     "fcf_margin_pct": 6.7,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 20.8,
+     "op_margin_pct": 8.2,
+     "fcf_margin_pct": -9.5
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 20.8,
+     "op_margin_pct": 9.0,
+     "fcf_margin_pct": 10.7,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 5.1
+   },
+   "forward": {},
+   "valuation": {
+    "pe_fy0": 163.5,
+    "pe_runrate_q0x4": 91.4,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 13.6,
+    "price_vs_ma200_pct": 62.8,
+    "ma50_vs_ma200_pct": 43.3,
+    "ma200_slope_1m_pct": 15.26,
+    "pct_from_52w_high": -32.7,
+    "pct_above_52w_low": 708.5,
+    "ret_3m_pct": -23.3,
+    "ret_12m_pct": 712.8
+   },
+   "flags": [
+    "debt_buildup"
+   ],
+   "data_notes": [
+    "EPS 리비전·컨센 데이터 없음(중립 처리)"
+   ]
+  },
+  {
+   "id": "P15",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 3.6,
+     "gross_margin_pct": 19.8,
+     "fcf_margin_pct": 9.8,
+     "roe_pct": 43.7,
+     "revenue_yoy_pct": 9.0,
+     "eps_yoy_pct": 217.0,
+     "inventory_yoy_pct": 21.5,
+     "shares_yoy_pct": -0.7,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 12.5,
+     "debt_to_equity": 0.03,
+     "current_ratio": 0.98,
+     "net_cash_to_assets_pct": 13.5,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": 1.4,
+     "gross_margin_pct": 17.4,
+     "fcf_margin_pct": 4.9,
+     "roe_pct": 16.3,
+     "revenue_yoy_pct": 5.1,
+     "eps_yoy_pct": 448.8,
+     "inventory_yoy_pct": 4.0,
+     "shares_yoy_pct": 1.5,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -1.1,
+     "debt_to_equity": 0.01,
+     "current_ratio": 1.08,
+     "net_cash_to_assets_pct": 15.8,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": -2.8,
+     "gross_margin_pct": 14.5,
+     "fcf_margin_pct": 1.3,
+     "roe_pct": -5.9,
+     "revenue_yoy_pct": 12.1,
+     "eps_yoy_pct": 84.0,
+     "shares_yoy_pct": 0.0,
+     "eps_positive": false,
+     "debt_to_equity": 0.02,
+     "current_ratio": 0.94,
+     "net_cash_to_assets_pct": 3.0,
+     "net_cash_sign": "+"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 21.2,
+     "op_margin_pct": 5.9,
+     "revenue_yoy_pct": 21.9,
+     "eps_yoy_pct": 32.8,
+     "inventory_yoy_pct": 29.2,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 19.1,
+     "op_margin_pct": 1.9,
+     "fcf_margin_pct": 51.3,
+     "revenue_yoy_pct": 16.3,
+     "eps_yoy_pct": 1816.5,
+     "inventory_yoy_pct": 30.2,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 19.0,
+     "op_margin_pct": 3.7,
+     "revenue_yoy_pct": 11.8,
+     "eps_yoy_pct": 568.6,
+     "inventory_yoy_pct": 7.0,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "gross_margin_pct": 20.3,
+     "op_margin_pct": 4.2,
+     "revenue_yoy_pct": 11.1,
+     "eps_yoy_pct": -60.0,
+     "inventory_yoy_pct": 5.1,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 1.7
+   },
+   "forward": {
+    "consensus_upside_pct": 28.6
+   },
+   "valuation": {
+    "pe_ttm": 27.6,
+    "pe_runrate_q0x4": 97.4,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -0.6,
+    "price_vs_ma200_pct": 5.4,
+    "ma50_vs_ma200_pct": 6.0,
+    "ma200_slope_1m_pct": 4.07,
+    "pct_from_52w_high": -18.1,
+    "pct_above_52w_low": 75.6,
+    "ret_3m_pct": -18.1,
+    "ret_12m_pct": 59.0
+   },
+   "flags": [
+    "backlog_growth",
+    "debt_buildup",
+    "receivable_divergence"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P16",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 32.0,
+     "fcf_margin_pct": 18.2,
+     "roe_pct": 31.8,
+     "revenue_yoy_pct": 15.1,
+     "eps_yoy_pct": 34.5,
+     "shares_yoy_pct": -1.7,
+     "eps_positive": true,
+     "debt_to_equity": 0.12,
+     "current_ratio": 2.01,
+     "net_cash_to_assets_pct": -3.0,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 32.1,
+     "fcf_margin_pct": 20.8,
+     "roe_pct": 30.8,
+     "revenue_yoy_pct": 13.9,
+     "eps_yoy_pct": 38.6,
+     "shares_yoy_pct": -2.2,
+     "eps_positive": true,
+     "debt_to_equity": 0.04,
+     "current_ratio": 1.84,
+     "net_cash_to_assets_pct": 2.6,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": 27.4,
+     "fcf_margin_pct": 22.6,
+     "roe_pct": 26.0,
+     "revenue_yoy_pct": 8.7,
+     "eps_yoy_pct": 27.2,
+     "shares_yoy_pct": -3.3,
+     "eps_positive": true,
+     "debt_to_equity": 0.05,
+     "current_ratio": 2.1,
+     "net_cash_to_assets_pct": 2.8,
+     "net_cash_sign": "+"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "op_margin_pct": 34.0,
+     "revenue_yoy_pct": 24.2,
+     "eps_yoy_pct": 294.4,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "op_margin_pct": 36.1,
+     "fcf_margin_pct": 9.2,
+     "revenue_yoy_pct": 21.8,
+     "eps_yoy_pct": 81.9,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 9,
+     "op_margin_pct": 30.5,
+     "revenue_yoy_pct": 15.9,
+     "eps_yoy_pct": 35.4,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "op_margin_pct": 32.4,
+     "revenue_yoy_pct": 13.8,
+     "eps_yoy_pct": 22.2,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 1.6
+   },
+   "forward": {
+    "eps_revision": {
+     "score": 29.8,
+     "band": "상향",
+     "chg_30d_pct": 0.6,
+     "chg_90d_pct": 2.9,
+     "breadth": 0.78
+    },
+    "consensus_upside_pct": 25.9
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 22.9,
+    "pe_ttm": 17.2,
+    "pe_runrate_q0x4": 9.4,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -0.6,
+    "price_vs_ma200_pct": 1.1,
+    "ma50_vs_ma200_pct": 1.7,
+    "ma200_slope_1m_pct": 1.16,
+    "pct_from_52w_high": -15.0,
+    "pct_above_52w_low": 44.6,
+    "ret_3m_pct": -4.3,
+    "ret_12m_pct": 38.8
+   },
+   "flags": [
+    "backlog_growth",
+    "debt_buildup"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P17",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 60.4,
+     "gross_margin_pct": 71.1,
+     "fcf_margin_pct": 44.8,
+     "roe_pct": 76.3,
+     "revenue_yoy_pct": 65.5,
+     "eps_yoy_pct": 66.7,
+     "inventory_yoy_pct": 112.3,
+     "shares_yoy_pct": -1.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 46.9,
+     "debt_to_equity": 0.05,
+     "current_ratio": 3.91,
+     "net_cash_to_assets_pct": 1.0,
+     "net_cash_sign": "+"
+    },
+    "FY-1": {
+     "op_margin_pct": 62.4,
+     "gross_margin_pct": 75.0,
+     "fcf_margin_pct": 46.6,
+     "roe_pct": 91.9,
+     "revenue_yoy_pct": 114.2,
+     "eps_yoy_pct": 147.1,
+     "inventory_yoy_pct": 90.8,
+     "shares_yoy_pct": -0.5,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -23.4,
+     "debt_to_equity": 0.11,
+     "current_ratio": 4.44,
+     "net_cash_to_assets_pct": 0.1,
+     "net_cash_sign": "+"
+    },
+    "FY-2": {
+     "op_margin_pct": 54.1,
+     "gross_margin_pct": 72.7,
+     "fcf_margin_pct": 44.4,
+     "roe_pct": 69.2,
+     "revenue_yoy_pct": 125.9,
+     "eps_yoy_pct": 600.0,
+     "inventory_yoy_pct": 2.4,
+     "shares_yoy_pct": -0.5,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -123.5,
+     "debt_to_equity": 0.23,
+     "current_ratio": 4.17,
+     "net_cash_to_assets_pct": -3.7,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 75.0,
+     "op_margin_pct": 66.2,
+     "revenue_yoy_pct": 105.9,
+     "eps_yoy_pct": 127.8,
+     "inventory_yoy_pct": 111.0,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 74.9,
+     "op_margin_pct": 65.6,
+     "fcf_margin_pct": 59.5,
+     "revenue_yoy_pct": 85.2,
+     "eps_yoy_pct": 214.5,
+     "inventory_yoy_pct": 127.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 73.4,
+     "op_margin_pct": 63.2,
+     "revenue_yoy_pct": 62.5,
+     "eps_yoy_pct": 66.7,
+     "inventory_yoy_pct": 158.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "gross_margin_pct": 72.4,
+     "op_margin_pct": 60.8,
+     "revenue_yoy_pct": 55.6,
+     "eps_yoy_pct": 61.2,
+     "inventory_yoy_pct": 124.1,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 5.4
+   },
+   "forward": {
+    "eps_revision": {
+     "score": 69.1,
+     "band": "강한상향",
+     "chg_30d_pct": 2.5,
+     "chg_90d_pct": 23.4,
+     "breadth": 1.0
+    },
+    "consensus_upside_pct": 44.2
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 14.8,
+    "pe_ttm": 29.3,
+    "pe_runrate_q0x4": 23.6,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 6.8,
+    "price_vs_ma200_pct": 16.0,
+    "ma50_vs_ma200_pct": 8.6,
+    "ma200_slope_1m_pct": 2.1,
+    "pct_from_52w_high": -1.7,
+    "pct_above_52w_low": 40.3,
+    "ret_3m_pct": 15.9,
+    "ret_12m_pct": 30.1
+   },
+   "flags": [
+    "backlog_growth",
+    "receivable_divergence"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P18",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 0.6,
+     "gross_margin_pct": 5.3,
+     "fcf_margin_pct": -4.2,
+     "roe_pct": -15.4,
+     "revenue_yoy_pct": 8.1,
+     "eps_yoy_pct": 0.1,
+     "inventory_yoy_pct": -7.5,
+     "shares_yoy_pct": 48.3,
+     "eps_positive": false,
+     "inv_minus_rev_yoy_pp": -15.6,
+     "debt_to_equity": 1.89,
+     "current_ratio": 1.04,
+     "net_cash_to_assets_pct": -23.8,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 0.5,
+     "gross_margin_pct": 5.4,
+     "fcf_margin_pct": -10.7,
+     "roe_pct": -9.2,
+     "revenue_yoy_pct": -3.9,
+     "eps_yoy_pct": -867.0,
+     "inventory_yoy_pct": -7.1,
+     "shares_yoy_pct": 15.0,
+     "eps_positive": false,
+     "inv_minus_rev_yoy_pp": -3.2,
+     "debt_to_equity": 1.91,
+     "current_ratio": 0.96,
+     "net_cash_to_assets_pct": -28.3,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 2.5,
+     "gross_margin_pct": 6.5,
+     "fcf_margin_pct": -7.9,
+     "roe_pct": 1.1,
+     "revenue_yoy_pct": -1.0,
+     "eps_yoy_pct": -84.1,
+     "inventory_yoy_pct": -6.2,
+     "shares_yoy_pct": 2.9,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -5.2,
+     "debt_to_equity": 1.38,
+     "current_ratio": 1.13,
+     "net_cash_to_assets_pct": -21.6,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 15.6,
+     "op_margin_pct": 12.0,
+     "fcf_margin_pct": 7.2,
+     "revenue_yoy_pct": 49.9,
+     "eps_yoy_pct": 124.0,
+     "inventory_yoy_pct": 12.9,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 13.2,
+     "op_margin_pct": 8.9,
+     "fcf_margin_pct": -6.7,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 7.4,
+     "op_margin_pct": 1.8,
+     "fcf_margin_pct": -7.3
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 7.0,
+     "op_margin_pct": 2.8,
+     "fcf_margin_pct": 2.6,
+     "eps_positive": false
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 14.0
+   },
+   "forward": {},
+   "valuation": {
+    "pe_runrate_q0x4": 29.3,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 14.0,
+    "price_vs_ma200_pct": 23.8,
+    "ma50_vs_ma200_pct": 8.7,
+    "ma200_slope_1m_pct": 1.91,
+    "pct_from_52w_high": -7.8,
+    "pct_above_52w_low": 63.0,
+    "ret_3m_pct": 63.0,
+    "ret_12m_pct": 34.5
+   },
+   "flags": [
+    "dilution"
+   ],
+   "data_notes": [
+    "FY-0 P/E 적자",
+    "EPS 리비전·컨센 데이터 없음(중립 처리)"
+   ]
+  },
+  {
+   "id": "P19",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 2.8,
+     "gross_margin_pct": 23.4,
+     "fcf_margin_pct": 0.4,
+     "roe_pct": 4.0,
+     "revenue_yoy_pct": 1.7,
+     "eps_yoy_pct": 161.8,
+     "inventory_yoy_pct": 3.3,
+     "shares_yoy_pct": -0.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 1.6,
+     "debt_to_equity": 0.58,
+     "current_ratio": 1.28,
+     "net_cash_to_assets_pct": -7.6,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 3.9,
+     "gross_margin_pct": 24.4,
+     "fcf_margin_pct": 0.2,
+     "roe_pct": 1.8,
+     "revenue_yoy_pct": 6.6,
+     "eps_yoy_pct": -48.5,
+     "inventory_yoy_pct": 17.6,
+     "shares_yoy_pct": 0.1,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 10.9,
+     "debt_to_equity": 0.73,
+     "current_ratio": 1.24,
+     "net_cash_to_assets_pct": -11.7,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 4.4,
+     "gross_margin_pct": 24.1,
+     "fcf_margin_pct": 2.2,
+     "roe_pct": 3.6,
+     "revenue_yoy_pct": -1.4,
+     "eps_yoy_pct": -40.5,
+     "inventory_yoy_pct": -2.8,
+     "shares_yoy_pct": 0.1,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -1.4,
+     "debt_to_equity": 0.74,
+     "current_ratio": 1.26,
+     "net_cash_to_assets_pct": -10.0,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 27.7,
+     "op_margin_pct": 6.6,
+     "fcf_margin_pct": 6.8,
+     "revenue_yoy_pct": 14.9,
+     "eps_yoy_pct": 10.9,
+     "inventory_yoy_pct": 24.9,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 26.0,
+     "op_margin_pct": 7.0,
+     "fcf_margin_pct": -0.3,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 20.2,
+     "op_margin_pct": -0.5,
+     "fcf_margin_pct": -2.5
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 24.0,
+     "op_margin_pct": 3.1,
+     "fcf_margin_pct": 3.4,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 3.5
+   },
+   "forward": {
+    "eps_revision": {
+     "score": 12.7,
+     "band": "중립",
+     "chg_30d_pct": 1.1,
+     "chg_90d_pct": 5.6,
+     "breadth": 0.2
+    }
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 12.7,
+    "pe_fy0": 40.1,
+    "pe_runrate_q0x4": 14.3,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": 10.9,
+    "price_vs_ma200_pct": 35.7,
+    "ma50_vs_ma200_pct": 22.3,
+    "ma200_slope_1m_pct": 8.47,
+    "pct_from_52w_high": -45.6,
+    "pct_above_52w_low": 184.3,
+    "ret_3m_pct": 9.0,
+    "ret_12m_pct": 181.3
+   },
+   "flags": [],
+   "data_notes": []
+  },
+  {
+   "id": "P20",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 9.2,
+     "gross_margin_pct": 14.4,
+     "fcf_margin_pct": 4.7,
+     "roe_pct": 20.2,
+     "revenue_yoy_pct": 18.6,
+     "eps_yoy_pct": 135.3,
+     "inventory_yoy_pct": 9.4,
+     "shares_yoy_pct": 0.3,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -9.3,
+     "debt_to_equity": 0.94,
+     "current_ratio": 1.08,
+     "net_cash_to_assets_pct": -24.8,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 2.2,
+     "gross_margin_pct": 6.3,
+     "fcf_margin_pct": -30.5,
+     "roe_pct": 10.9,
+     "revenue_yoy_pct": 45.5,
+     "eps_yoy_pct": 119.9,
+     "inventory_yoy_pct": -3.8,
+     "shares_yoy_pct": 50.2,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -49.3,
+     "debt_to_equity": 1.11,
+     "current_ratio": 1.09,
+     "net_cash_to_assets_pct": -26.9,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": -0.5,
+     "gross_margin_pct": 1.3,
+     "fcf_margin_pct": -28.0,
+     "roe_pct": 3.7,
+     "revenue_yoy_pct": 52.4,
+     "eps_yoy_pct": 104.6,
+     "inventory_yoy_pct": 31.3,
+     "shares_yoy_pct": 96.6,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -21.2,
+     "debt_to_equity": 0.53,
+     "current_ratio": 1.24,
+     "net_cash_to_assets_pct": -3.3,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "gross_margin_pct": 17.4,
+     "op_margin_pct": 13.5,
+     "fcf_margin_pct": 11.4,
+     "revenue_yoy_pct": 65.2,
+     "eps_yoy_pct": 366.5,
+     "inventory_yoy_pct": -39.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "gross_margin_pct": 19.5,
+     "op_margin_pct": 13.9,
+     "fcf_margin_pct": 3.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "gross_margin_pct": 13.1,
+     "op_margin_pct": 7.3,
+     "fcf_margin_pct": 14.7
+    },
+    {
+     "lag_m": 9,
+     "gross_margin_pct": 15.0,
+     "op_margin_pct": 9.6,
+     "fcf_margin_pct": -19.0,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 2.2
+   },
+   "forward": {},
+   "valuation": {
+    "pe_fy0": 23.1,
+    "pe_runrate_q0x4": 10.4,
+    "pe_trailing_basis": "FY-0 EPS(TTM 산출 불가)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -8.5,
+    "price_vs_ma200_pct": -30.9,
+    "ma50_vs_ma200_pct": -24.5,
+    "ma200_slope_1m_pct": -3.34,
+    "pct_from_52w_high": -47.6,
+    "pct_above_52w_low": 5.4,
+    "ret_3m_pct": -19.8,
+    "ret_12m_pct": -30.2
+   },
+   "flags": [],
+   "data_notes": [
+    "EPS 리비전·컨센 데이터 없음(중립 처리)"
+   ]
+  },
+  {
+   "id": "P21",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 20.7,
+     "fcf_margin_pct": 20.4,
+     "roe_pct": 18.6,
+     "revenue_yoy_pct": 8.5,
+     "eps_yoy_pct": 0.6,
+     "inventory_yoy_pct": 49.7,
+     "shares_yoy_pct": -3.6,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 41.2,
+     "debt_to_equity": 1.46,
+     "current_ratio": 1.0,
+     "net_cash_to_assets_pct": -36.8,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 22.1,
+     "fcf_margin_pct": 16.5,
+     "roe_pct": 18.4,
+     "revenue_yoy_pct": 3.6,
+     "eps_yoy_pct": 39.4,
+     "inventory_yoy_pct": -4.2,
+     "shares_yoy_pct": -2.3,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -7.8,
+     "debt_to_equity": 1.27,
+     "current_ratio": 0.91,
+     "net_cash_to_assets_pct": -35.0,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 18.2,
+     "fcf_margin_pct": 11.2,
+     "roe_pct": 12.8,
+     "revenue_yoy_pct": -1.3,
+     "eps_yoy_pct": 236.4,
+     "inventory_yoy_pct": -10.9,
+     "shares_yoy_pct": -4.4,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -9.7,
+     "debt_to_equity": 1.16,
+     "current_ratio": 0.91,
+     "net_cash_to_assets_pct": -33.6,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "op_margin_pct": 24.1,
+     "fcf_margin_pct": 21.1,
+     "revenue_yoy_pct": 7.9,
+     "eps_yoy_pct": 5.3,
+     "inventory_yoy_pct": 29.6,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 3,
+     "op_margin_pct": 19.5,
+     "fcf_margin_pct": 19.9,
+     "revenue_yoy_pct": 10.6,
+     "eps_yoy_pct": -12.0,
+     "inventory_yoy_pct": 20.1,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 9,
+     "op_margin_pct": 20.6,
+     "fcf_margin_pct": 21.9,
+     "revenue_yoy_pct": 8.9,
+     "eps_yoy_pct": -7.7,
+     "inventory_yoy_pct": 32.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "op_margin_pct": 24.7,
+     "fcf_margin_pct": 21.8,
+     "revenue_yoy_pct": 6.9,
+     "eps_yoy_pct": 14.1,
+     "inventory_yoy_pct": 28.1,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": -0.6
+   },
+   "forward": {
+    "consensus_upside_pct": 49.4
+   },
+   "valuation": {
+    "pe_ttm": 17.2,
+    "pe_runrate_q0x4": 13.7,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -7.6,
+    "price_vs_ma200_pct": -14.4,
+    "ma50_vs_ma200_pct": -7.3,
+    "ma200_slope_1m_pct": -1.85,
+    "pct_from_52w_high": -31.4,
+    "pct_above_52w_low": 1.0,
+    "ret_3m_pct": -2.2,
+    "ret_12m_pct": -30.9
+   },
+   "flags": [
+    "backlog_growth",
+    "inventory_surge"
+   ],
+   "data_notes": []
+  },
+  {
+   "id": "P22",
+   "annual": {
+    "FY-0": {
+     "op_margin_pct": 30.6,
+     "fcf_margin_pct": -35.2,
+     "roe_pct": 40.2,
+     "revenue_yoy_pct": 17.3,
+     "eps_yoy_pct": 34.3,
+     "shares_yoy_pct": 1.7,
+     "eps_positive": true,
+     "debt_to_equity": 3.05,
+     "current_ratio": 1.11,
+     "net_cash_to_assets_pct": -37.5,
+     "net_cash_sign": "-"
+    },
+    "FY-1": {
+     "op_margin_pct": 30.8,
+     "fcf_margin_pct": -0.7,
+     "roe_pct": 60.8,
+     "revenue_yoy_pct": 8.4,
+     "eps_yoy_pct": 17.0,
+     "inventory_yoy_pct": -9.3,
+     "shares_yoy_pct": 1.5,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": -17.7,
+     "debt_to_equity": 4.53,
+     "current_ratio": 0.75,
+     "net_cash_to_assets_pct": -48.6,
+     "net_cash_sign": "-"
+    },
+    "FY-2": {
+     "op_margin_pct": 29.0,
+     "fcf_margin_pct": 22.3,
+     "roe_pct": 120.3,
+     "revenue_yoy_pct": 6.0,
+     "eps_yoy_pct": 20.8,
+     "inventory_yoy_pct": 12.1,
+     "shares_yoy_pct": 2.1,
+     "eps_positive": true,
+     "inv_minus_rev_yoy_pp": 6.1,
+     "debt_to_equity": 9.98,
+     "current_ratio": 0.71,
+     "net_cash_to_assets_pct": -54.2,
+     "net_cash_sign": "-"
+    }
+   },
+   "quarterly": [
+    {
+     "lag_m": 0,
+     "op_margin_pct": 34.8,
+     "fcf_margin_pct": -27.9,
+     "revenue_yoy_pct": 29.6,
+     "eps_yoy_pct": 54.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 6,
+     "op_margin_pct": 31.8,
+     "revenue_yoy_pct": 21.7,
+     "eps_yoy_pct": 24.5,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 9,
+     "op_margin_pct": 29.5,
+     "revenue_yoy_pct": 14.2,
+     "eps_yoy_pct": 90.9,
+     "eps_positive": true
+    },
+    {
+     "lag_m": 12,
+     "op_margin_pct": 28.6,
+     "fcf_margin_pct": -2.4,
+     "revenue_yoy_pct": 12.2,
+     "eps_yoy_pct": -1.9,
+     "eps_positive": true
+    }
+   ],
+   "quarter_trend": {
+    "q0_op_margin_yoy_pp": 6.1
+   },
+   "forward": {
+    "eps_revision": {
+     "score": 25.7,
+     "band": "상향",
+     "chg_30d_pct": 0.7,
+     "chg_90d_pct": 0.7,
+     "breadth": 1.0
+    },
+    "consensus_upside_pct": 72.7
+   },
+   "valuation": {
+    "pe_fwd_next_fy": 12.1,
+    "pe_ttm": 20.9,
+    "pe_runrate_q0x4": 21.4,
+    "pe_trailing_basis": "TTM(FY-0 롤포워드)"
+   },
+   "price_trend": {
+    "price_vs_ma50_pct": -6.3,
+    "price_vs_ma200_pct": -18.4,
+    "ma50_vs_ma200_pct": -12.9,
+    "ma200_slope_1m_pct": -4.11,
+    "pct_from_52w_high": -57.3,
+    "pct_above_52w_low": 16.1,
+    "ret_3m_pct": -8.9,
+    "ret_12m_pct": -52.9
+   },
+   "flags": [
+    "backlog_growth",
+    "debt_buildup"
+   ],
+   "data_notes": []
+  }
+ ]
+}

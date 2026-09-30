@@ -48,6 +48,10 @@ EXPECTED_UNWIRED = {
                                   "호출 경로 = 클라우드 .github/workflows/deploy-app.yml(평일 5~10분 스케줄) + 로컬 price_watch.py "
                                   "--once 끝의 --kick(배포본 8분+ 낡으면 워크플로 깨움). 데스크 시세 정본은 계속 market_data.py다 — "
                                   "live.json은 커밋하지 않는 휘발성 파생물이라 보고서 근거로 인용하지 않는다",
+    "ladder_dca_test.py":         "일회성 룰 검정 — 룰1 국내 사다리 vs 같은 원화 DCA3/6/12·SAME 대조군(9/30 I, AQR buy-the-dip 반증). 판정 REPLACE→DCA6(제안·정훈 승인 대기). 결론은 docs/research/ladder_dca_test_2026-09-30.md에 박히고 스크립트는 재현용으로 남는다",
+    "trial_registry.py":          "수동 원장 유틸 — 룰 검정을 돌리기 전 --add로 등록, 채택 판단 때 --list로 Holm 보정 p 확인(9/30 H · 8/5 절차 ④ 제안). 룰 가설이 생길 때만 부른다. 원장 = data/research/trials.jsonl",
+    "blind_rescore.py":           "분기 수동 점검 — 이름 가린 재무 패킷으로 별점 재채점해 보유 인플레이션 측정(9/30 J). --build → 격리 채점 → --compare. 분기 1회 tasks.json 할 일로 돈다",
+    "tax_tracker.py":             "연말 수동 점검 — 해외주식 실현손익·잔여 공제·이익실현 재매수 계획·연금 공제표(9/30 K). 12월 R3·tasks.json 12/29 할 일이 부른다(매 세션 부를 이유 없음)",
     "risk_cap_test.py":           "일회성 룰 검정 — 단일종목 위험 기여 상한 vs 비중 상한 vs 대조군(9/30 시스템 평가 B). 결과 기각(③ KR·US 부호 갈림, Sharpe≈0). 결론은 docs/research/risk_cap_test_2026-09-30.md에 박히고 스크립트는 재현용으로 남는다",
     "trim_limit_test.py":         "일회성 실측 — 트림 지정가(+k%) vs 시장가 vs 홀드를 같은 차트 국면에서 비교(9/23 d210). 결론은 docs/research/trim_limit_test_2026-09-23.md에 박히고 스크립트는 재현용으로 남는다. 트림가를 새로 정할 때만 다시 돌린다",
     "ladder_variants_test.py":    "일회성 룰 검정 — d205 후속 두 질문(국내 실탄 유보 · 미국 낙폭 사다리)을 8/5 3단 절차 + 대조군으로 판정(9/22). 결론은 docs/research/ladder_variants_2026-09-22.md와 crash_tf §2b에 박히고 스크립트는 재현용으로 남는다",

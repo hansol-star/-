@@ -1821,7 +1821,9 @@ def check_routine_health(today=None):
         # 9/10 R1: 프롬프트 정상 수신 후 도구 0회로 "대기 중입니다"만 답하고 OK로 기록됐다.
         warn(f"무인 루틴이 아무것도 안 남겼다 — {kind} @ {when} (HEAD 불변·워킹트리 깨끗). "
              f"로그의 모델 응답을 볼 것 — 프롬프트를 작업이 아니라 인사로 받았을 가능성 (로그 {st.get('log')})")
-    elif verdict != "OK":
+    elif verdict not in ("OK", "REPORT_EXISTS"):
+        # ★[9/30] REPORT_EXISTS = 클라우드 C3가 먼저 보고서를 내서 R2가 작성을 생략하고 할 일 알림만 보낸 **정상 종료**(exit 0).
+        #   이걸 '실패'로 올리면 매 평일 거짓 경보가 한 줄씩 쌓인다 — 경보 피로가 진짜 실패를 묻는다.
         warn(f"무인 루틴 마지막 실행 실패 — {kind} verdict={verdict} @ {when} "
              f"(로그 {st.get('log')}). NOT_LOGGED_IN이면 `claude` 대화형 1회 로그인 필요")
     # ★[9/1] 지각 — 절전이 예약을 먹은 경우. 성공(OK)이어도 늦었으면 말한다.

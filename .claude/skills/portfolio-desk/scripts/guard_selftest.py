@@ -429,6 +429,25 @@ INJECTION_TESTS = [
 
     {
         "name": "check_routine_health",
+        "desc": "R2가 '보고서 이미 있음'으로 정상 생략한 날을 실패로 올리지 않는가(경보 피로)",
+        "why": "9/30 최종 점검: 클라우드 C3가 17:16에 보고서를 먼저 내면 로컬 R2(16:30 대기 후)는 "
+               "작성을 생략하고 할 일 알림만 보낸다(REPORT_EXISTS·exit 0 = 설계대로). 그런데 검사가 "
+               "verdict!=OK를 전부 '실행 실패'로 올려 매 평일 거짓 경보를 냈다. 거짓 경보는 진짜 실패를 묻는다. "
+               "clean = REPORT_EXISTS(조용해야 함) · violate = NOT_LOGGED_IN(여전히 잡아야 함)",
+        "pattern": r"무인 루틴 마지막 실행 실패",
+        "violate": {'data/logs/routines/last_status.json':
+                    '{"kind":"r2","verdict":"NOT_LOGGED_IN","exit_code":1,'
+                    '"kst":"' + _TODAY_KST + ' 17:40:00","minutes":0,"log":"x",'
+                    '"scheduled":"16:30","late_min":0}'},
+        "clean":   {'data/logs/routines/last_status.json':
+                    '{"kind":"r2","verdict":"REPORT_EXISTS","exit_code":0,'
+                    '"kst":"' + _TODAY_KST + ' 17:40:00","minutes":0,"log":"x",'
+                    '"scheduled":"16:30","late_min":0}'},
+        "args": (),
+    },
+
+    {
+        "name": "check_routine_health",
         "desc": "R1이 날마다 다른 이유로 연속 실패하면 잡는가(마지막 한 장만 보지 않는가)",
         "why": "9/9~9/16 R1은 날마다 원인이 달랐다(푸시 차단→도구 0회→백그라운드 강제종료 2일→지각 건너뜀). "
                "last_status.json 한 장만 읽던 검사는 매번 그날 증상 하나만 말했고, "

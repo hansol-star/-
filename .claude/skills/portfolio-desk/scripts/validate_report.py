@@ -2764,6 +2764,86 @@ def check_report_provenance(rel):
         warn(f"{rel}: '생성 조건' 필드 누락 — {', '.join(miss)} (모르면 '미확인'이라고 적는다)")
 
 
+PRICE_GROUND_TOL = 0.03       # 장중·애프터마켓·미국 전일종가 차이를 흡수하는 폭
+
+
+def _price_refs(tk, d):
+    """tk의 [d-6, d+1] 관측 가격 목록 — history 일봉 + quotes.jsonl(시각 무관)."""
+    lo, hi = d - dt.timedelta(days=6), d + dt.timedelta(days=1)
+    refs = []
+    try:
+        for r in pathlib.Path(ROOT, "data", "history", f"{tk}.csv").read_text(encoding="utf-8").splitlines()[-15:]:
+            try:
+                d0, c0 = r.split(",")[:2]
+                if lo <= dt.date.fromisoformat(d0[:10]) <= hi:
+                    refs.append(float(c0))
+            except (ValueError, IndexError):
+                continue
+    except OSError:
+        pass
+    try:
+        with open(os.path.join(ROOT, "data", "timeseries", "quotes.jsonl"), encoding="utf-8") as f:
+            for line in f:
+                if f'"{tk}"' not in line:
+                    continue
+                try:
+                    q = json.loads(line)
+                    if q.get("symbol") == tk and lo <= dt.date.fromisoformat(str(q["date"])[:10]) <= hi:
+                        refs.append(float(q["price"]))
+                except (ValueError, KeyError, TypeError):
+                    continue
+    except OSError:
+        pass
+    return [x for x in refs if x > 0]
+
+
+def check_price_grounding(rel):
+    """풀표 '현재가'가 실제 관측 시세에 붙어 있는가 [9/30 외부 리서치 G].
+
+    왜: LLM이 쓴 보고서의 숫자는 도구 출력에서 온 것인지 모델이 만든 것인지 겉으로 구분이 안 된다.
+    외부 실측 — 유튜브 실험(이영배, 조회 80만)에서 AI가 '수익 41만원'을 보고했는데 실제는 7.7만원이었다.
+    Vibe-Trading v0.1.16(★34k)은 모든 시장 수치를 도구 출력과 대조하는 grounding gate를 붙였고,
+    FinGround(arXiv 2604.23588)는 범용 환각 탐지기가 계산 오류의 43%를 놓친다고 보고했다.
+    우리 가드는 폐기 룰·단위·1차 출처·정본 수치(facts.json)는 보지만 **표의 현재가 자체**는 안 봤다.
+    판정: '현재가' 헤더 표의 각 행에서 종목 코드/티커와 첫 가격을 읽어 [보고일-6일, +1일] 관측가
+    (history 일봉 + quotes.jsonl) 어느 것과도 ±3% 안에 없으면 WARN. 관측가가 없으면 건너뛴다(판정 불가 ≠ 통과 표기 안 함).
+    """
+    p = os.path.join(ROOT, rel)
+    m = re.search(r"_(\d{4}-\d{2}-\d{2})", rel or "")
+    if not m or not os.path.exists(p):
+        return
+    d = dt.date.fromisoformat(m.group(1))
+    in_tbl, bad, checked = False, [], 0
+    for ln in open(p, encoding="utf-8").read().splitlines():
+        if not ln.startswith("|"):
+            in_tbl = False
+            continue
+        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if "현재가" in cells[0] + (cells[1] if len(cells) > 1 else ""):
+            in_tbl = True
+            continue
+        if not in_tbl or len(cells) < 2 or set(cells[0]) <= set("-: "):
+            continue
+        km = re.search(r"\b(\d{6}\.K[SQ])\b", cells[0])
+        um = re.findall(r"\b([A-Z]{2,5})\b", cells[0].replace("**", " "))
+        tk = km.group(1) if km else (um[-1] if um else None)
+        pm = re.search(r"\$?\s*([\d,]+(?:\.\d+)?)", cells[1])
+        if not tk or not pm:
+            continue
+        try:
+            px = float(pm.group(1).replace(",", ""))
+        except ValueError:
+            continue
+        refs = _price_refs(tk, d)
+        if not refs or px <= 0:
+            continue
+        checked += 1
+        if not any(abs(px / r - 1) <= PRICE_GROUND_TOL for r in refs):
+            bad.append(f"{tk} 표기 {px:,.2f} vs 관측 {min(refs):,.2f}~{max(refs):,.2f}")
+    for b in bad:
+        warn(f"{rel}: 현재가가 관측 시세와 ±{PRICE_GROUND_TOL:.0%} 밖 — {b} (숫자의 출처 확인: market_data·토스)")
+
+
 def check_verdict_grounding(rel):
     """[정정] 태그가 '확정된 사실'이 아니라 '경쟁 전망'에 기대고 있는지 검사 (오류 클래스 A).
 
@@ -2968,7 +3048,7 @@ def main():
         if rel:
             check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel); check_rate_gauge(rel)
             check_verdict_grounding(rel); check_magnitude_sanity(rel); check_primary_source(rel)
-            check_report_provenance(rel)
+            check_report_provenance(rel); check_price_grounding(rel)
 
     print("\n" + "=" * 56)
     print("  보고서 완료-검증 (validate_report.py)")

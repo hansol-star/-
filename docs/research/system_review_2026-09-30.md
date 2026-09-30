@@ -74,3 +74,29 @@
 - Vanguard (2010) *Best practices for portfolio rebalancing*
 - M5 Pro/64GB Ollama 벤치(github.com/daniel29348679/m5pro-llm-bench) · sitepoint *Local LLMs Apple Silicon Mac 2026*
 - 해외주식 양도세 250만원·22%: wikidocs 2026 정리
+
+## 7. 2차 리서치 (같은 날 · 정훈 "10회? 더 많이 해, 깃허브 상위 20개 이상")
+
+**범위**: GitHub 키워드 8개 + 토픽 6개(algorithmic-trading·quantitative-finance·portfolio-optimization·backtesting 등) 상위 20 = **약 70개 레포**, README 정독 16개 · 웹 검색 16회 · 유튜브 8개 쿼리 64편 목록 + 자막 4편 판독(yt-dlp).
+⚠️ 1차(오전)는 약 10회 검색·유튜브 0이었다 — 정훈 지적이 맞았다.
+
+### 새로 확인한 것 → 우리에게 없는 것
+| # | 외부 근거 | 우리 현황 | 조치 |
+|---|---|---|---|
+| **G** | Vibe-Trading v0.1.16(★34k) grounding gate(모든 시장 수치를 도구 출력과 대조) · FinGround(arXiv 2604.23588, 범용 탐지기가 계산오류 43% 놓침) · 유튜브 이영배(80만) 실험: **AI 보고 수익 41만원 vs 실제 7.7만원** | 표의 현재가를 시세와 대조하는 장치 **0개**(facts.json은 정적 수치만) | ✅ **적용**: `validate_report.check_price_grounding`(±3% · guard_selftest 등록) |
+| **H** | agent-backtest-lab: Deflated Sharpe·Holm·BH-FDR·**시행 횟수 보고** · Bailey-López de Prado(2014) | 룰 검정 스크립트 7개·변형 수십 개(ladder_variants 20개 등)에 **다중검정 보정 0** · 시행 원장 없음 | 🟡 **제안(승인 필요 — 검증 절차 변경)**: 8/5 절차에 ④ '시행 수 기록 + Holm 보정' 추가 |
+| **I** | AQR(1965~2025 S&P, 196개 변형): buy-the-dip이 정액적립 대비 **최종자산 -18.7%**, 60%+가 위험조정 열위 · Bonini 외(2024) 동일 | 미국 트랙 S&P 사다리 기각(d208)과 **같은 결론** ✅ · 그러나 **국내 사다리(D0~D4)는 '같은 돈 정액적립' 대조군 검정을 받은 적 없음**(대조군 원칙 9/22가 D0 9/9보다 늦다) | 🟡 **제안**: 국내 사다리 vs 월 정액 대조군 검정(도구 작업 — 결과가 룰을 건드리면 그때 승인) |
+| **J** | arXiv 2507.20957 *Your AI, Not Your View*: LLM이 대형주·역발상 선호를 갖고 **반대 증거에도 첫 판단을 고수**(확증편향) · ai-hedge-fund blind 프롬프트 | 데스크가 매번 '보유 여부·직전 별점'을 보고 채점 → 앵커링 가능 | 🟡 **제안**: 분기 1회 **블라인드 재채점**(종목명·보유여부·직전 별점 가린 채 스코어) → 괴리 큰 종목 재점검 |
+| K | 해외 양도세 손익통산 · **미국 T+1 → 12/30까지 매도해야 연내 귀속** · 연금저축+IRP 900만 세액공제 13.2~16.5% · 2026 국내투자형 ISA 신설 | E안 미착수(소득 구간 필요) | 🟡 E안 유지 + 12/30 마감일 기록. 올해 해외 실현이익은 공제 250만 한참 아래 → 올해 행동 없음 |
+| L | 증권사 목표가 12M 종료시 달성률 **38%**, 목표 내재수익이 실제보다 평균 **+15%** 과대(Bradshaw·Brown) | d210 '매도 지정가 ≥ 12M 밴드 하단'은 밴드 하단이 이미 낙관 편향을 품는다 | 참고 — 목표 '중심' 여력을 기대수익으로 읽지 말 것(하단 쪽이 현실적) |
+| M | 간접 프롬프트 인젝션(웹·뉴스 속 지시문, 2026 실사례 다수) | 데스크는 조회 전용·주문 API 차단 가드 있음 → 피해 경로 없음 | 조치 불필요 |
+
+### 이미 우리가 가진 것(외부가 최근 도입)
+결정 원장·예측 원장 git 타임스탬프(dsh-alpha-desk 'public ledger' = 우리 decisions.jsonl·score_calls) · 소스 카나리(=api_health) · 섀도 계정(Vibe 'Shadow Account' = performance.py 가만히 vs 실제 + missed_moves) · 결정론 계산/LLM 서술 분리(FinRobot = financials.py·tranche_rules) · 주문 차단(risk-gate = _assert_readonly).
+
+### 유튜브에서 본 한국 사례
+- 김도근(토스 Open API + Claude Code 반자동): 신호→텔레그램 승인→**토스 조건주문(-3% 손절/+5% 익절)**. 우리는 주문 API 금지 원칙이라 채택 안 함 — 손절선은 영구 폐기 룰과도 충돌.
+- 이영배(Claude vs ChatGPT 500만원 9일): Claude **-8.5%**, 손절 반복. 단기 자동매매의 실측 = 우리 '매매가 가치를 뺀다'(-2.83%p)와 같은 방향.
+
+### 추가 출처
+github.com/HKUDS/Vibe-Trading · github.com/bettyguo/agent-backtest-lab · github.com/JingHao-Leon/dsh-alpha-desk · github.com/HephaestLab/TraderHarness · github.com/ZhuLinsen/daily_stock_analysis · github.com/AI4Finance-Foundation/FinRobot · github.com/jjlabsio/korea-stock-mcp · arXiv 2604.23588 · arXiv 2507.20957 · AQR buy-the-dip(evidenceinvestor.com/post/buy-the-dip) · Bradshaw & Brown 목표가 연구(cxoadvisory) · wikidocs 해외주식 양도세·연금저축 2026 · youtube 9E9OrcoMCjk · 9TD9aFY2SP8

@@ -708,6 +708,21 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_price_grounding",
+        "desc": "풀표 현재가가 관측 시세(history·quotes)와 ±3% 밖이면 잡는가",
+        "why": "9/30 외부 리서치 — AI 보고 수익 41만원 vs 실제 7.7만원(유튜브 실험), Vibe-Trading grounding gate. "
+               "우리 가드는 표의 현재가 자체를 도구 출력과 대조한 적이 없었다",
+        "pattern": r"관측 시세와",
+        "violate": {"docs/reports/report_v200_2026-09-30.md":
+                        "| 종목 | 현재가(당일) | ⭐ |\n|---|---|---|\n| **NVDA** | $272.21(-0.72%) | ⭐4 |\n",
+                    "data/history/NVDA.csv": "date,close\n2026-09-28,228.0\n2026-09-29,227.21\n"},
+        "clean": {"docs/reports/report_v200_2026-09-30.md":
+                      "| 종목 | 현재가(당일) | ⭐ |\n|---|---|---|\n| **NVDA** | $227.21(-0.72%) | ⭐4 |\n",
+                  "data/history/NVDA.csv": "date,close\n2026-09-28,228.0\n2026-09-29,227.21\n"},
+        "args": ("docs/reports/report_v200_2026-09-30.md",),
+    },
+
+    {
         "name": "check_verdict_grounding",
         "desc": "[정정]이 확정 사실이 아니라 경쟁 전망(설문·컨센서스)에만 기대면 잡는가",
         "why": "8/27 실사고 — 경제사냥꾼의 금통위 인상 전망을 채권전문가 설문(80% 동결)을 "

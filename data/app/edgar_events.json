@@ -1,8 +1,8 @@
 {
- "updated": "2026-09-30 16:27",
+ "updated": "2026-10-01 16:33",
  "days": 30,
  "note": "SEC 8-K item 코드 스트림. item 코드는 '사건이 있었다'는 사실이지 내용이 아니다 — 논지를 바꿀 건이면 원문 URL로 내려갈 것.",
- "as_of": "2026-09-30 07:27",
+ "as_of": "2026-10-01 07:33",
  "source": "SEC EDGAR",
  "events": [
   {
@@ -26,7 +26,25 @@
   {
    "ticker": "MU",
    "error": null,
-   "events": []
+   "events": [
+    {
+     "date": "2026-09-30",
+     "severity": "critical",
+     "items": [
+      {
+       "code": "2.02",
+       "label": "실적 발표",
+       "severity": "critical"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/mu-20260930.htm"
+    }
+   ]
   },
   {
    "ticker": "AAPL",

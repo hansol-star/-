@@ -183,7 +183,7 @@ def main() -> int:
               f"{r['regime']:<7}{str(r['vol_target_mult']):<11}{str(r['storm_mult']):<9}"
               f"{eff}{note}")
     print("\n※ '제안트랜치' 열은 **폐기된 감산 공식의 잔존 출력**이다 — 참고용 수치일 뿐 집행 근거 아님.")
-    print("  매수 금액은 `tranche_rules.py`(낙폭 사다리 D1~D4 + 항복 가산)가 정본. 최종 결정 정훈.")
+    print("  매수 금액은 `tranche_rules.py`(룰1 분할 매수 — 국내 원화 6회·미국 달러 3회)가 정본. 최종 결정 정훈.")
     return 0
 
 

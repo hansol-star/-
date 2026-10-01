@@ -74,7 +74,7 @@ your output is the desk section handed to the PM.
      python3 .claude/skills/portfolio-desk/scripts/garch.py --tickers 005930.KS,066570.KS,454910.KS,005380.KS,035420.KS   # 내일 선행변동성·폭풍%ile
      python3 .claude/skills/portfolio-desk/scripts/vol_sizing.py   # 안전핀+폭풍%ile 트랜치 제안(TF ACTIVE 시 필수 — 동결/스케일 판정)
      ```
-     TF ACTIVE 중엔 사다리 해금단계·상한(`tranche_rules.py`가 정본)과 하드플로어(S&P500 폭풍 ≥70%ile) 판정을 상황판에 반영. ⚠️ **폭풍에 따른 금액 감산은 7/30 폐지**(폭풍은 분할 횟수만 바꾼다) — vol_sizing은 제안 전용. RSI 극단 침체(예 현대차<30)는 "싸 보임"이지 매수신호 아님을 명시(룰3·펀더 우선).
+     TF ACTIVE 중엔 룰1 국내 트랙 상태(`tranche_rules.py`가 정본 — 코스피 -20% 이하에서 원화 6회 분할·룰6 우선)와 하드플로어(S&P500 폭풍 ≥70%ile = 회차 연기) 판정을 상황판에 반영. ⚠️ **폭풍은 금액도 분할 횟수도 안 바꾼다**(10/1 d223 — 舊 사다리와 함께 폐기) — vol_sizing은 제안 전용. RSI 극단 침체(예 현대차<30)는 "싸 보임"이지 매수신호 아님을 명시(룰3·펀더 우선).
    - **📑 [8/22 배선] 국내 sell-side 원문 = `broker_reports.py`** — 한경 컨센서스에서 우리 보유·워치
      종목의 **증권사 리포트 실물**(목표가·투자의견·증권사·제목, `--fetch`면 PDF 본문까지)을 긁는다.
      ⚠️ **8/22 감사에서 발견**: 도구는 7/30부터 멀쩡히 돌고 있었는데(60일 89건 실측) **아무 데스크도
@@ -123,7 +123,7 @@ your output is the desk section handed to the PM.
      ①공포·항복 **동반 90%ile+** = 항복 정황(vol_gauge 폭풍 %ile과 **교차확인 필수**, 둘 다 높을 때만 '항복'이라 쓴다)
      ②종목 관심도 **급증** = 과열 경계 신호(GSVI 문헌 = 개인 주도 시장에선 관심 급등 뒤 되돌림 경향) — 별점 근거 아님, 서술 참고
      ③**무관심(30%ile 미만)** = 심리 신호 없음 → 가격·수급으로만 판단.
-     ⚠️ **측정 전용 — 낙폭 사다리·트랜치·별점 어떤 룰도 이 숫자로 바꾸지 않는다. 매수 트리거 아님.**
+     ⚠️ **측정 전용 — 룰1 분할 매수·별점 어떤 룰도 이 숫자로 바꾸지 않는다. 매수 트리거 아님.**
      ⚠️ 원자료(`naver_data.py --trend`)를 직접 쓸 땐 **1콜 내 상대정규화**(최댓값=100) 주의 — 심리 키워드는 자기 그룹 단독 조회, 절대 검색량 아님.
 
 3. **Verification**: cross-check single-source figures; mark "미확인" if uncertain. No guessing.

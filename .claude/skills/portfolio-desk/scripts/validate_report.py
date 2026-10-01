@@ -1350,7 +1350,17 @@ REPEALED_RULES = [
      #    통째로 면제해버렸다(8/5 실측 false negative). 게이트 맥락을 **구체적으로** 요구한다.
      re.compile(r"해제\s*게이트|게이트\s*조건|조건\s*①|해제\s*3중|L0\b|above|종가\s*회복|게이트①"),
      "warn",
-     "낙폭 사다리(tranche_rules.py) + 하드플로어 = S&P500 폭풍 ≥70%ile"),
+     "룰1 분할 매수(tranche_rules.py · 10/1 d223) + 하드플로어 = S&P500 폭풍 ≥70%ile"),
+
+    ("룰1 낙폭 사다리 D0~D4·예비 7%·RESET·항복 가산 (10/1 d223 폐기)",
+     # ★[10/1] 사다리는 '같은 원화 6개월 균등 분할'에 ①②③ 전패해 폐기됐다(ladder_dca_test.py). 정본 문서가
+     #   여전히 "사다리 해금 상한"·"D1 -25% 15%"를 현행처럼 적으면 데스크는 폐기 룰로 판정문을 쓴다 —
+     #   7/30 안전핀 폐기 때 앱·quick-check·risk-desk가 7주간 옛 룰을 들고 있던 것과 같은 사고다.
+     #   이력 서술은 <details> 아카이브 블록이나 '폐기·舊' 표식이 있는 줄로 남긴다(둘 다 이 검사에서 면제).
+     re.compile(r"낙폭\s*사다리|사다리\s*(해금|상한|잔여|집행|판정|전면\s*정지|자체\s*판정)|D[0-4]\s*\(?-\d\d%"
+                r"|D[0-4]\s*(해금|잠김|문턱)|예비\s*(7|15)\s*%|항복\s*가산|RESET\(재잠금\)"),
+     None, "warn",
+     "국내 트랙 = 코스피 낙폭 ≤-20%에서 **원화 6개월 균등 분할**(tranche_rules.kr_track · 하드플로어·룰6 우선 유지)"),
 
     ("폭풍 %ile 트랜치 '금액' 감산 스케일 (7/30 2차 개정으로 전면 폐기)",
      # 이 숫자 조합은 현재 유효한 용법이 전혀 없다 → 발견 즉시 FAIL.
@@ -1586,8 +1596,8 @@ def check_rule_ledger(latest=None):
     if last < ref:
         gap = (dt.date.fromisoformat(ref) - dt.date.fromisoformat(last)).days
         msg = (f"rule_log 최신 {last} < 보고서 {ref} ({gap}일 정지) — "
-               "룰1은 RESET 정책상 매일 재계산이 전제다. "
-               "rule_tracker.py --snapshot 미실행 = 사다리 상태가 옛날 값으로 읽힌다")
+               "룰1 회차·하드플로어 판정은 매일 다시 계산하는 게 전제다. "
+               "rule_tracker.py --snapshot 미실행 = 국내 트랙 상태가 옛날 값으로 읽힌다")
         (fail if gap >= 3 else warn)(msg)
 
 
@@ -2164,6 +2174,9 @@ def check_desk_value_gate(today=None):
     외부 문헌(LLM 트레이딩 에이전트·개인투자자)도 같은 결론이다. → 시스템이 스스로 쓸모를 증명하게 한다.
     ① 월간 원장(desk_value_log.json)이 35일 넘게 안 쌓이면 WARN(측정이 멈추면 게이트도 멈춘다)
     ② 게이트일(2027-03-31) 이후 누적 기여 < 0 이면 WARN — **코어-위성 전환 안건 상정**(자동 전환 아님)
+    ★[10/1 정훈 승인 — 판정값 = 구독비 차감 순가치] 정훈 *"한 달 3만원 넘게 내고 굴리는 거야 — 그만한 성과가
+      나올 시스템"*. 매매 기여(gross)가 0을 넘어도 구독비(연 36만원 ≈ 계좌의 4.4%)를 못 넘으면 시스템은 제 값을
+      못 한 것이다 → 원장에 `desk_value_net_pct`가 있으면 **그 값**으로 판정한다(없으면 舊 gross로 폴백).
     """
     import datetime as _dt
     today = today or _dt.date.today()
@@ -2183,9 +2196,14 @@ def check_desk_value_gate(today=None):
         warn(f"데스크 매매 가치 월간 원장이 {age}일째 멈췄다(마지막 {last.get('to')}) — "
              "`performance.py --emit` 실행 (d222 게이트는 월간 측정이 쌓여야 판정할 수 있다)")
     gate = _dt.date.fromisoformat(log.get("gate_date") or "2027-03-31")
-    v = last.get("desk_value_pct")
+    gross, net = last.get("desk_value_pct"), last.get("desk_value_net_pct")
+    v = net if isinstance(net, (int, float)) else gross
+    basis = (f"구독비 차감 순가치 {v:+.2f}%p (매매 기여 {gross:+.2f} − 구독비 {last.get('system_cost_pct')})"
+             if isinstance(net, (int, float)) and isinstance(gross, (int, float))
+             else f"매매 누적 기여 {v:+.2f}%p(구독비 미차감 — performance.py --emit으로 순가치 기록할 것)"
+             if isinstance(v, (int, float)) else "")
     if today >= gate and isinstance(v, (int, float)) and v < 0:
-        warn(f"d222 게이트 도달 — 데스크 매매 누적 기여 {v:+.2f}%p < 0 → **코어-위성 전환 안건 상정** "
+        warn(f"d222 게이트 도달 — 데스크 {basis} < 0 → **코어-위성 전환 안건 상정** "
              "(지수 코어 + 확신 종목 위성). 자동 전환 아님 — PM이 월별 추이와 함께 정훈에게 올린다")
 
 

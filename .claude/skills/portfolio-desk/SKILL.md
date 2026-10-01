@@ -90,7 +90,7 @@ python3 .claude/skills/portfolio-desk/scripts/order_check.py              # ★[
 - **주문 API 절대 호출 금지. 조회 GET 전용**(`_assert_readonly`가 기계 차단).
 - **★order_check = 룰5(실행 후 검토)의 기계판** — 토스에 **실제로 걸린 주문**이 계획과 맞는지 본다.
   🔴 = 폐기·보류 오더와 같은 주문이 살아 있음 / ⭐2 추가매수 / 룰6 국내 상단 초과 중 국내 매수 / 계획에 없는 매수.
-  🟡 = '매일 등록' 오더 미등록 · 가격제한폭 밖 · 사다리 0원인데 계획 밖 매수.
+  🟡 = '매일 등록' 오더 미등록 · 가격제한폭 밖 · 국내 트랙 회차 0원인데 계획 밖 매수.
   **🔴가 있으면 보고서 맨 위 '오늘 할 일' 1번**으로 올린다(취소는 정훈이 토스 앱에서 — 우리는 주문을 건드리지 않는다).
   산출 `data/app/order_check.json` → 앱 '오늘' 화면 경보 카드 · `validate_report.check_order_check`가 3일 내 🔴를 WARN.
   ⚠️ 9/21 사고: 앱이 폐기된 NAVER 196,400 오더를 '접수 가능'으로 띄워 **실제로 토스에 접수됐다** — 계획표만 보고 토스를 안 봐서 몰랐다.
@@ -328,7 +328,7 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 고정 제약(항상 반영 — 상세는 CLAUDE.md / master.md):
 - 정훈 폰 가용 **17:30~20:50 KST**. 야간 지표는 사전 조건부 룰로 베이킹, 당일 밤 트리거 금지.
 - 토스 시간외단일가 16:00~18:00 → 정훈 겹침 17:30~18:00. 美 분수주=시장가/정수주=지정가.
-- 한은 점도표 = **2026.2월부터 발표**(2·5·8·11월 공개, 연준과 별개 제도 — 7/7 정정, 비발표월 금통위엔 없음). LG전자 손절선 없음. **매수 = 낙폭 사다리**(D1 -25%…D4 -55%·매일 RESET 재계산·S&P500 폭풍 ≥70%ile이면 전면 정지) — 舊 "안전핀 7,500 하회 시 동결"은 7/30 폐기(8/23 잔여 문구 정리).
+- 한은 점도표 = **2026.2월부터 발표**(2·5·8·11월 공개, 연준과 별개 제도 — 7/7 정정, 비발표월 금통위엔 없음). LG전자 손절선 없음. **매수 = 룰1 분할 매수**(★10/1 d223 — 국내: 코스피 고점대비 -20% 이하에서 원화 6회 균등 분할·룰6 우선 / 미국: 달러 3회 분할 · S&P500 폭풍 ≥70%ile이면 그 회차 연기) — 舊 낙폭 사다리(7/30~9/30)·舊 "안전핀 7,500 하회 시 동결"은 폐기.
 
 ### ⭐ 정훈 선호 "최종보고" 형식 [2026-06-17 확정 — 매 보고서 이 느낌으로]
 정훈은 위 데스크 분석을 다 돌린 뒤, **마지막에 아래 한 장짜리 "최종보고"를 항상 첨부**하길 원한다.
@@ -390,7 +390,7 @@ python3 .claude/skills/portfolio-desk/scripts/portfolio_stats.py      # 상관·
 2c. **✅ 완료검증 게이트 (커밋 전 필수 — 하네스 ②: 검증을 명령어로)**:
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/validate_report.py   # FAIL 0 이어야 커밋
-   python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --snapshot  # [8/6] 룰1 사다리 원장 매일 append
+   python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --snapshot  # [8/6] 룰1 원장 매일 append
    python3 .claude/skills/portfolio-desk/scripts/setup_schema.py --check      # [8/7] 셋업 트래커 감사(발동권·stale·기한경과)
    python3 .claude/skills/portfolio-desk/scripts/score_calls.py --append   # 이번 콜을 캘리브레이션 원장에 누적
    ```

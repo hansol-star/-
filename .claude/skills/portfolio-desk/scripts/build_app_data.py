@@ -541,68 +541,48 @@ def build(offline: bool) -> dict:
     #   정본은 `tranche_rules.py`이므로 하드코딩 대신 **그 계산을 그대로 읽는다.**
     kospi = next((i for i in indices if i["ticker"] == "^KS11"), None)
     kospi_price = kospi["price"] if kospi else None
+    # ★[10/1 d223] 낙폭 사다리 폐기 → **원화 6개월 균등 분할**(tranche_rules.kr_track). 사다리 단계(steps)는
+    #   더 싣지 않는다 — 금액은 회차 규칙이 정하므로 앱이 장중 코스피로 다시 계산할 것이 없다(낙폭 표시만 실시간).
     safety = {"price": kospi_price,
               "change_pct": kospi["change_pct"] if kospi else None,
-              "rule": "낙폭 사다리"}
+              "rule": "원화 6개월 균등 분할"}
     try:
         import tranche_rules as _TR, drawdown_history as _D
         _dates, _closes = _D.load(_TR.KOSPI)
         _cd = _D.current_drawdown(_dates, _closes) if _closes else {}
         _dd = _cd.get("dd_pct")
         if _dd is not None:
-            _unlocked, _steps = _TR.ladder_state(_dd)
-            _nxt = next((st for st in _steps if not st.get("unlocked")), None)
+            # global_contagion_check()는 (halted: bool, 설명: str) 튜플을 준다
+            _cash = _TR._load_inputs(None)[0]
+            # 하드플로어는 rule1 안에서 한 번만 판정한다 — 밖에서 따로 재면 kr_track은 '도래 N원'인데
+            # 겉 금액만 0원이 되는 모순 카드가 나온다(10/1 검토).
+            _r1 = _TR.rule1(_cash, _dd, None, check_contagion=True, kr_weight=_TR.kr_weight_pct())   # d207 룰6 우선
+            _halt, _why = _r1["halted"], _r1["halt_why"]
+            _kt = dict(_r1.get("kr_track") or {})
+            _kt.pop("fills", None)
             safety.update({
                 "drawdown_pct": round(_dd, 1),
-                "unlocked_pct": round(_unlocked * 100, 1),
-                "next_thr_pct": (_nxt or {}).get("threshold"),
-                "next_gap_pct": (round(_dd - _nxt["threshold"], 1)
-                                 if _nxt and _nxt.get("threshold") is not None else None),
-            })
-            # global_contagion_check()는 (halted: bool, 설명: str) 튜플을 준다
-            _halt, _why = _TR.global_contagion_check()
-            safety["halted"] = bool(_halt)
-            safety["floor_note"] = _why
-            # ★[9/21 신설] 해금%만 보고 "집행 가능"이라 쓰던 결함 — d197(누적 해석) 이후
-            #   D0 8%가 열려 있어도 기집행 300,909원이 상한 117,320원을 이미 넘어 **잔여 0원**인데,
-            #   앱 홈은 "해금 — 사다리 집행 가능 구간"을 띄웠다(보고서·tranche_rules와 정반대).
-            #   해금 비율이 아니라 **잔여 금액**이 '살 수 있나'의 답이다 → 정본 계산(rule1)을 그대로 읽는다.
-            _cash = _TR._load_inputs(None)[0]
-            _r1 = _TR.rule1(_cash, _dd, None, check_contagion=False, kr_weight=_TR.kr_weight_pct())   # d207
-            safety.update({"cap_krw": _r1["cap_krw"], "spent_krw": _r1["spent_krw"],
-                           "allowed_krw": 0 if _halt else _r1["allowed_krw"],
-                           # d207 룰6 우선 — 앱이 장중 재계산할 때도 이 게이트를 지켜야 한다
-                           "rule6_block": _r1.get("rule6_block"), "kr_weight_pct": _r1.get("kr_weight_pct"),
-                           "ladder_allowed_krw": _r1.get("ladder_allowed_krw")})
-            # ★[9/21 앱 실시간] 앱이 **장중 코스피**를 대입해 "지금 낙폭이면 상한이 얼마인가"를
-            #   다시 그릴 수 있게 정본 재료를 싣는다(고점·단계·총재원·기집행·승수). 판정은 여전히
-            #   tranche_rules(종가 기준)이 정본이고, 앱의 장중 값은 '추정' 라벨로만 표시한다.
-            #   라벨은 STEP_LABELS에서 명시적으로 가져온다(인덱스로 라벨 만들기 금지 — 9/9 교훈).
-            safety.update({
+                "trigger_pct": _TR.KR_TRIGGER_DD,
                 "peak": round(_cd.get("peak"), 2) if _cd.get("peak") else None,
                 "peak_date": _cd.get("peak_date"),
-                "base_krw": _r1.get("base_krw"),
-                "mult": _r1.get("final_mult"),
-                "reserve_pct": round(_TR.RESERVE * 100, 1),
-                "steps": [{"label": _TR.STEP_LABELS[i] if i < len(_TR.STEP_LABELS) else None,
-                           "thr": st.get("threshold"), "alloc_pct": round(st.get("alloc", 0) * 100, 1),
-                           "why": st.get("why"), "executed_krw": st.get("executed_krw")}
-                          for i, st in enumerate(_r1.get("steps") or [])],
+                "halted": bool(_halt), "floor_note": _why,
+                "cap_krw": _r1["cap_krw"], "spent_krw": _r1["spent_krw"], "base_krw": _r1.get("base_krw"),
+                "allowed_krw": 0 if _halt else _r1["allowed_krw"],
+                "rule6_block": _r1.get("rule6_block"), "kr_weight_pct": _r1.get("kr_weight_pct"),
+                "ladder_allowed_krw": _r1.get("ladder_allowed_krw"),
+                "kr_track": _kt,
             })
     except Exception:
         pass
-    if kospi_price is None:
+    _ks = (safety.get("kr_track") or {}).get("status")
+    if kospi_price is None or _ks in (None, "unknown"):
         safety["status"] = "unknown"
-    elif safety.get("halted"):
-        safety["status"] = "freeze"   # 하드플로어 발동 = 사다리 전면 정지
-    elif safety.get("rule6_block"):
-        safety["status"] = "rule6"    # d207 — 국내주 22% 초과: 사다리는 판정·적립만, 집행 0원
-    elif (safety.get("unlocked_pct") or 0) > 0 and safety.get("allowed_krw") == 0:
-        safety["status"] = "spent"    # 해금됐지만 이미 상한까지 집행 = 오늘 여력 0원
-    elif (safety.get("unlocked_pct") or 0) > 0:
-        safety["status"] = "watch"    # 해금 구간 — 집행 가능
+    elif safety.get("halted") and _ks in ("armed", "due", "rule6_block", "deferred"):
+        safety["status"] = "freeze"   # 하드플로어 발동 = 이번 회차 연기
+    elif _ks == "rule6_block":
+        safety["status"] = "rule6"    # d207 — 국내주 22% 초과: 집행 0원, 원화는 미국 트랙으로
     else:
-        safety["status"] = "ok"       # 잠김(D1 미도달) = 평시
+        safety["status"] = {"no_funds": "nofunds"}.get(_ks, _ks)   # idle·nofunds·armed·due·waiting
 
     # ── 트리거/알림 (가격 조건 평가) ──
     price_by_ticker = {h["ticker"]: h["price"] for h in holdings}

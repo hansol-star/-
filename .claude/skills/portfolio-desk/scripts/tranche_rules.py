@@ -343,8 +343,15 @@ def _add_months(d: dt.date, k: int) -> dt.date:
     feb = 29 if (y % 4 == 0 and (y % 100 != 0 or y % 400 == 0)) else 28
     last = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1]
     out = dt.date(y, m, min(d.day, last))
-    while out.weekday() >= 5:                 # 주말이면 월요일로
-        out += dt.timedelta(days=1)
+    fwd = out
+    while fwd.weekday() >= 5:                 # 주말이면 월요일로
+        fwd += dt.timedelta(days=1)
+    if fwd.month == out.month:
+        return fwd
+    # ★[10/1] 월말이 주말이면 월요일이 **다음 달**로 넘어가 그 달 회차가 사라지고 다음 달에 두 번 잡혔다
+    #   (8/31 시작 6회 → 10월 없음·11월 2회). 달을 넘기면 금요일로 당긴다.
+    while out.weekday() >= 5:
+        out -= dt.timedelta(days=1)
     return out
 
 
@@ -556,9 +563,13 @@ def global_contagion_check():
     return False, f"S&P500 폭풍 {pct:.0f}%ile <70 = 국지 유지(개정 전제 성립)"
 
 
-def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
-          check_contagion: bool = True, use_ledger: bool = True, kr_weight=None):
-    """kr_weight = 국내주 비중 %(주식 기준). 주면 d207 룰6 우선 게이트를 적용한다 —
+def rule1_ladder(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
+                 check_contagion: bool = True, use_ledger: bool = True, kr_weight=None):
+    """★[2026-10-01 d223 폐기 · 정훈 승인] **舊 낙폭 사다리 판정 — 현행 룰이 아니다.**
+    과거 검정(rule_tracker --backfill·ratchet_test·d0_test·ladder_dca_test)의 재현용으로만 남긴다.
+    현행 룰1 = `rule1()`(원화 6개월 균등 분할 = `kr_track()`).
+
+    kr_weight = 국내주 비중 %(주식 기준). 주면 d207 룰6 우선 게이트를 적용한다 —
     None이면 게이트 없음(백테스트·rule_tracker --backfill 하위호환)."""
     unlocked, steps = ladder_state(dd_pct)
     splits, swhy = _storm_splits(storm_pct)
@@ -659,6 +670,282 @@ def rule1(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,
                       (f"룰6 게이트 통과 — 국내주 {kr_weight:.1f}% ≤ {RULE6_KR_HI:.0f}%" if kr_weight is not None
                        else "룰6 게이트 미적용(비중 미입력)")),
         "reserve_ratio": RESERVE,
+    }
+
+
+# ─────────────────────────────────────────── 룰 1 (현행): 국내 트랙 = 원화 6개월 균등 분할
+#
+# ★[2026-10-01 d223 · 정훈 승인 "나머지 승인은 다 승인할게"] 낙폭 사다리(D0~D4·예비 7%·RESET·항복 가산) 폐기 →
+#   **코스피 고점대비 -20% 이하에서 원화를 6회(월 1회) 균등 분할**. 하드플로어·룰6 우선은 그대로.
+#
+# 근거 = `ladder_dca_test.py`(9/30 · 사전등록 판정). 사다리(LF)는 "같은 원화를 6개월 균등 분할"에 ①②③ 전패:
+#   ① 12M 중앙 LF−DCA6 **-3.95%p**(현금 2.5%에도 -2.83) · 24M -9.89%p
+#   ② 에피소드 사다리 우위 **1/6**   ③ 22개 시장 중 사다리 우위 **2/22**(Holm 보정 p 4e-4)
+#   하드플로어를 유지한 DCA6F(= 이 구현)도 같다: 12M -3.28%p · ② 1/6 · ③ 3/22.
+#   시차 1일·항복 가산 상시·사다리+해제 변형 전부 같은 판정. 손익분기 현금금리 연 8.4~10.1%.
+# ⚠️ **사다리가 나았던 것 = 꼬리**(사다리는 평균 26%만 넣어서 덜 잃는다 — 12M 하위 5% 최종자산 DCA6F 0.85).
+#    이 교체는 **더 일찍·더 많이 투자하는** 결정이다. 꼬리를 줄이는 수단은 속도가 아니라 총량이다
+#    (룰6 국내 18~22% 상한이 그 역할을 한다).
+# ⚠️ 검정은 **조건부 시작점(낙폭 ≤ -20%)**만 본다. 평시(-20% 위)엔 이 룰이 말하지 않는다 —
+#    그때의 국내 매수는 매수존·룰3·룰6 판단이다(무조건 시작점에선 사다리와 DCA6가 비등했다).
+# 정본 = docs/research/ladder_dca_test_2026-09-30.md · crash_tf §2b.
+KR_TRACK = os.path.join(ROOT, "data", "app", "kr_track.json")
+KR_TRANCHES = 6
+KR_TRIGGER_DD = -20.0        # 이 낙폭 이하에서만 사이클이 열린다(검정의 조건부 시작점과 같은 문턱)
+KR_MIN_CYCLE_KRW = 50_000    # 이보다 적은 원화로는 사이클을 열지 않는다(국내는 정수 1주 이상)
+KR_RULE = ("d223 — 코스피 낙폭 ≤-20%에서 원화 6회 균등 분할(월 1회) · 회차=그날 원화÷남은 회차 · "
+           "S&P 폭풍≥70이면 연기 · 국내주>22%면 집행 0원(룰6 우선)")
+
+
+KR_EXPIRE_DAYS = 31          # 마지막 회차일에서 이만큼 지나도 미집행이면 사이클 만료(영원히 열려 있지 않게)
+
+
+class KrLedgerError(RuntimeError):
+    """국내 트랙 원장이 있는데 읽을 수 없다 — **빈 원장으로 취급하면 안 된다**(이미 집행한 회차를 잊고 또 연다)."""
+
+
+def _kr_read() -> dict:
+    if not os.path.exists(KR_TRACK):
+        return {}
+    try:
+        with open(KR_TRACK, encoding="utf-8") as f:
+            d = json.load(f)
+    except Exception as e:
+        raise KrLedgerError(f"국내 트랙 원장 손상({os.path.basename(KR_TRACK)}): {e}") from e
+    if d is None:
+        return {}
+    if not isinstance(d, dict) or not isinstance(d.get("cycle") or {}, dict):
+        raise KrLedgerError(f"국내 트랙 원장 형식 오류({os.path.basename(KR_TRACK)}) — dict가 아니다")
+    cur = d.get("cycle")
+    if cur and cur.get("start") and len(cur.get("schedule") or []) != cur.get("n", KR_TRANCHES):
+        cur["schedule"] = us_schedule(cur["start"], cur.get("n", KR_TRANCHES))   # 일정 누락 → 시작일로 복원
+    return d
+
+
+def _kr_done(cur) -> list:
+    """집행된 회차(1..n 범위의 정수만 — 범위 밖 기록이 완료 판정을 속이지 못하게)."""
+    n = (cur or {}).get("n", KR_TRANCHES)
+    return sorted({f.get("tranche") for f in (cur or {}).get("fills", [])
+                   if isinstance(f.get("tranche"), int) and 1 <= f.get("tranche") <= n})
+
+
+def _kr_current(cur, today: str):
+    """오늘 기준 **현재 회차**(도래한 회차 중 가장 최근) — 없으면 None."""
+    due = [i for i, d in enumerate(cur.get("schedule") or [], 1) if d <= today]
+    return max(due) if due else None
+
+
+def _kr_write(d: dict):
+    d["updated"] = _kst_today()
+    os.makedirs(os.path.dirname(KR_TRACK), exist_ok=True)
+    with open(KR_TRACK, "w", encoding="utf-8") as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+
+
+def _kr_cycle_open(cur, today: str | None = None) -> bool:
+    """열림 = 마지막 회차가 아직 집행 안 됐고 만료 전. (중간 회차를 건너뛰었어도 마지막 회차를 쓰면 끝난다.)"""
+    if not cur:
+        return False
+    n, sched = cur.get("n", KR_TRANCHES), cur.get("schedule") or []
+    if n in _kr_done(cur):
+        return False
+    if sched:
+        last = dt.date.fromisoformat(sched[-1]) + dt.timedelta(days=KR_EXPIRE_DAYS)
+        if (today or _kst_today()) > last.isoformat():
+            return False
+    return True
+
+
+def kr_start(start: str | None = None, pool_krw: float | None = None, dd_pct: float | None = None,
+             note: str = "", force: bool = False) -> dict:
+    """국내 트랙 새 사이클. 진행 중이면 거부(회차 건너뛰기) · 낙폭이 -20% 위면 거부(룰 대상 아님)."""
+    d = _kr_read()
+    cur = d.get("cycle")
+    start = start or _kst_today()
+    if _kr_cycle_open(cur, start):
+        raise ValueError(f"진행 중 사이클({cur.get('start')})이 끝나지 않았다 — 회차를 건너뛰는 재시작 금지")
+    if not force and (dd_pct is None or dd_pct > KR_TRIGGER_DD):
+        raise ValueError(f"코스피 낙폭 {dd_pct}% > {KR_TRIGGER_DD:.0f}% — 룰1 대상 구간이 아니다(--force로만 개시)")
+    if not force and pool_krw is not None and pool_krw < KR_MIN_CYCLE_KRW:
+        raise ValueError(f"원화 {pool_krw:,.0f}원 < {KR_MIN_CYCLE_KRW:,}원 — 사이클을 열 재원이 없다(--force로만 개시)")
+    if cur:
+        d.setdefault("history", []).append(cur)
+    d["cycle"] = {"start": start, "n": KR_TRANCHES, "schedule": us_schedule(start, KR_TRANCHES),
+                  "pool_krw_at_start": pool_krw, "dd_at_start": dd_pct, "fills": [], "note": note}
+    d["rule"] = KR_RULE
+    _kr_write(d)
+    return d["cycle"]
+
+
+def kr_execute(krw: float, ticker: str, tranche: int | None = None, note: str = "",
+               date: str | None = None, dd_pct: float | None = None, force: bool = False) -> dict:
+    """회차 집행 기록. **조회·기록 전용 — 주문을 내지 않는다.**
+    열린 사이클이 없으면 체결일로 연다(1회차 = 시작일) — 단 낙폭이 -20% 위면 거부한다(force 제외)."""
+    if not float(krw or 0) > 0:
+        raise ValueError(f"집행 금액 {krw} — 0원 이하는 회차 집행이 아니다")
+    date = date or _kst_today()
+    d = _kr_read()
+    if not _kr_cycle_open(d.get("cycle"), date):
+        kr_start(date, None, dd_pct, note="첫 집행으로 개시", force=force)
+        d = _kr_read()
+    cur = d["cycle"]
+    now_k = _kr_current(cur, date) or 1
+    # ★[10/1 검토 반영] 회차 미지정 = **현재 회차**. 舊 '다음 미집행 회차'는 같은 달에 두 번 기록하면(두 종목·분할 체결)
+    #   둘째 건이 다음 달 회차로 잡혀 그 달이 통째로 사라졌다. 한 회차에 여러 건이 붙는 건 정상이다.
+    if tranche is None:
+        tranche = now_k
+    tranche = int(tranche)
+    if not 1 <= tranche <= cur["n"]:
+        raise ValueError(f"회차 {tranche} — 1~{cur['n']} 범위 밖")
+    if tranche > now_k and not force:
+        raise ValueError(f"회차 {tranche}는 아직 도래 전(현재 {now_k}회) — 회차를 앞당기지 않는다(--force로만)")
+    rec = {"date": date, "tranche": tranche, "krw": round(float(krw)),
+           "ticker": ticker, "note": note}
+    cur.setdefault("fills", []).append(rec)
+    _kr_write(d)
+    return rec
+
+
+def kr_track(krw_cash: float, dd_pct: float | None, today: str | None = None, check_floor: bool = True,
+             kr_weight=None, use_ledger: bool = True) -> dict:
+    """국내 트랙 오늘 판정 — 이번 회차에 쓸 수 있는 원화(상한이지 목표 아님 · 자동 집행 아님)."""
+    today = today or _kst_today()
+    krw_cash = float(krw_cash or 0)
+    ledger_err = None
+    try:
+        cur = _kr_read().get("cycle") if use_ledger else None
+    except KrLedgerError as e:
+        cur, ledger_err = None, str(e)
+    rule6_block = kr_weight is not None and kr_weight > RULE6_KR_HI
+    rule6_why = (f"룰6 우선(d207) — 국내주 {kr_weight:.1f}% > {RULE6_KR_HI:.0f}% → 집행 0원 · 원화는 미국 트랙으로(d207 ②)"
+                 if rule6_block else
+                 (f"룰6 게이트 통과 — 국내주 {kr_weight:.1f}% ≤ {RULE6_KR_HI:.0f}%" if kr_weight is not None
+                  else "룰6 게이트 미적용(비중 미입력)"))
+    out = {"krw_cash": round(krw_cash), "dd_pct": dd_pct, "today": today, "rule": "d223", "n": KR_TRANCHES,
+           "rule6_block": bool(rule6_block), "rule6_why": rule6_why,
+           "kr_weight_pct": round(kr_weight, 1) if kr_weight is not None else None,
+           "pre_gate_krw": 0, "per_tranche_krw": 0,
+           "schedule": [], "done": [], "due": [], "pending": [], "skipped": [], "fills": [], "spent_krw": 0}
+    # ★[10/1 검토 반영] 하드플로어는 **회차 유무와 무관하게 매일 판정**한다 — 초안은 회차가 있을 때만 봐서
+    #   평시·대기 중엔 halted가 늘 False로 원장(rule_log)에 남았다(플로어가 켜진 날을 기록에서 잃는다).
+    halted, hwhy = (global_contagion_check() if check_floor else (False, "하드플로어 판정 생략"))
+    out.update({"halted": bool(halted), "halt_why": hwhy})
+    if ledger_err:
+        out.update({"status": "unknown", "allowed_krw": 0,
+                    "why": f"{ledger_err} — 집행 이력을 읽을 수 없어 판정 불가(빈 원장으로 보고 새로 열지 않는다)"})
+        return out
+
+    def _gate(allowed, status_ok, why_ok):
+        """하드플로어 → 룰6 순으로 막는다. pre_gate = 두 게이트 전 금액(기록용)."""
+        out.update({"pre_gate_krw": round(allowed)})
+        if halted:
+            out.update({"status": "deferred", "allowed_krw": 0,
+                        "why": f"회차 몫 {allowed:,.0f}원이 있으나 하드플로어로 **연기** — {hwhy}"})
+        elif rule6_block:
+            out.update({"status": "rule6_block", "allowed_krw": 0,
+                        "why": f"회차 몫 {allowed:,.0f}원이 있으나 {rule6_why}"})
+        else:
+            out.update({"status": status_ok, "allowed_krw": round(allowed), "why": why_ok})
+        return out
+
+    if not _kr_cycle_open(cur, today):
+        done_note = " (직전 사이클 종료)" if cur else ""
+        if dd_pct is None:
+            out.update({"status": "unknown", "allowed_krw": 0, "why": "코스피 낙폭 미확인 — 판정 불가"})
+        elif dd_pct > KR_TRIGGER_DD:
+            out.update({"status": "idle", "allowed_krw": 0,
+                        "why": f"낙폭 {dd_pct:+.1f}% > {KR_TRIGGER_DD:.0f}% — 룰1 대상 구간 아님{done_note}. "
+                               "평시 국내 매수는 매수존·룰3·룰6 판단"})
+        elif krw_cash < KR_MIN_CYCLE_KRW:
+            out.update({"status": "no_funds", "allowed_krw": 0,
+                        "why": f"낙폭 {dd_pct:+.1f}% ≤ {KR_TRIGGER_DD:.0f}%이나 원화 {krw_cash:,.0f}원 < "
+                               f"{KR_MIN_CYCLE_KRW:,}원 — 사이클을 열 재원이 없다{done_note}"})
+        else:
+            per = krw_cash / KR_TRANCHES
+            out["per_tranche_krw"] = round(per)
+            out["schedule"] = us_schedule(today, KR_TRANCHES)
+            out["pending"] = [1]
+            _gate(per, "armed",
+                  f"낙폭 {dd_pct:+.1f}% ≤ {KR_TRIGGER_DD:.0f}% · 사이클 미개시 — **1회차 {per:,.0f}원** "
+                  f"(원화 {krw_cash:,.0f} ÷ {KR_TRANCHES}) · 집행을 기록하면 사이클이 열린다(--kr-execute)")
+        return out
+
+    n, sched = cur.get("n", KR_TRANCHES), cur.get("schedule") or []
+    fills = cur.get("fills") or []
+    done = _kr_done(cur)
+    due = [i for i, d in enumerate(sched, 1) if d <= today]
+    now_k = max(due) if due else None
+    # ★[10/1 검토 반영] **밀린 회차를 몰아서 사지 않는다.** 한 달에 한 회차(현재 회차)만 열리고, 건너뛴 회차의 몫은
+    #   남은 회차에 퍼진다(그날 원화 ÷ 남은 일정 수). 초안은 per × 밀린 회차 수라 룰6·하드플로어가 몇 달 막은 뒤
+    #   풀리는 날 원화 전액이 한 번에 열렸다 — '6개월 균등 분할'의 정반대다.
+    pending = [now_k] if now_k and now_k not in done else []
+    skipped = [i for i in due if i != now_k and i not in done]
+    slots = (n - now_k + (1 if pending else 0)) if now_k else n      # 남은 일정 수(현재 회차 미집행이면 포함)
+    per = krw_cash / slots if slots > 0 else 0.0
+    nxt = next((d for d in sched if d > today), None)
+    out.update({"cycle_start": cur.get("start"), "schedule": sched, "n": n, "done": done, "due": due,
+                "pending": pending, "skipped": skipped, "per_tranche_krw": round(per), "next_date": nxt,
+                "fills": fills, "spent_krw": round(sum(float(f.get("krw") or 0) for f in fills))})
+    if not pending:
+        out.update({"status": "waiting", "allowed_krw": 0,
+                    "why": f"다음 회차 {nxt} (회차당 약 {per:,.0f}원 — 그날 원화로 다시 계산). "
+                           "낙폭이 -20% 위로 회복해도 사이클은 끝까지 간다(검정한 규칙 그대로)"})
+        return out
+    allowed = per
+    skip_note = f" · 건너뛴 회차 {skipped}의 몫은 남은 회차에 퍼졌다" if skipped else ""
+    return _gate(allowed, "due",
+                 f"{now_k}회차 도래 — {allowed:,.0f}원 (원화 {krw_cash:,.0f} ÷ 남은 {slots}회){skip_note}")
+
+
+def rule1(cash: float, dd_pct: float, storm_pct=None, fear_pct=None, capit_pct=None,
+          check_contagion: bool = True, use_ledger: bool = True, kr_weight=None, today: str | None = None):
+    """★[2026-10-01 d223] **현행 룰1 = 국내 트랙 원화 6개월 균등 분할**(`kr_track`).
+
+    舊 사다리 판정은 `rule1_ladder()`(재현 전용). 이 함수는 소비처(triggers·build_app_data·rule_tracker·order_check)가
+    읽던 키를 그대로 채워 돌려준다 — 뜻이 바뀐 키는 아래와 같다:
+      unlocked_ratio = 사이클에서 **도래한 회차 비율**(舊: 낙폭 해금 비율) · steps = **회차 목록**(舊: D0~D4)
+      cap_krw = 기집행 + 오늘 몫 · base_krw = 원화 + 기집행 · ladder_allowed_krw = 하드플로어·룰6 **게이트 전** 금액
+      storm_pct·fear_pct·capit_pct는 받기만 한다(폭풍 분할·항복 가산은 사다리와 함께 폐기 — 회차가 이미 분할이다).
+    """
+    k = kr_track(cash, dd_pct, today=today, check_floor=check_contagion, kr_weight=kr_weight, use_ledger=use_ledger)
+    n = k.get("n", KR_TRANCHES)
+    sched, done, due = k.get("schedule") or [], k.get("done") or [], k.get("due") or []
+    pending = k.get("pending") or []
+    by_tr: dict = {}
+    for f in k.get("fills") or []:
+        by_tr.setdefault(f.get("tranche"), []).append(f)
+    steps = []
+    for i in range(1, n + 1):
+        fs = by_tr.get(i) or []
+        steps.append({
+            "label": f"{i}회", "date": sched[i - 1] if i - 1 < len(sched) else None,
+            "threshold": None, "alloc": 1.0 / n,
+            "unlocked": i in due or i in pending,
+            "executed": bool(fs), "executed_on": fs[-1].get("date") if fs else None,
+            "executed_krw": sum(float(f.get("krw") or 0) for f in fs) if fs else None,
+            "executed_n": len(fs) or None,
+            "why": ", ".join(f"{f.get('ticker')} {float(f.get('krw') or 0):,.0f}원" for f in fs) if fs else "",
+        })
+    spent = float(k.get("spent_krw") or 0)
+    unlocked = len({*due, *pending}) / n
+    return {
+        "mode": "dca6", "kr_track": k, "status": k.get("status"), "why": k.get("why"),
+        "dd_pct": dd_pct, "cash": cash,
+        "unlocked_ratio": unlocked, "steps": steps,
+        "spent_ratio": (spent / (cash + spent)) if (cash + spent) else 0.0, "available_ratio": unlocked,
+        "spent_krw": round(spent), "cap_krw": round(spent + (k.get("pre_gate_krw") or 0)),
+        "base_krw": round(cash + spent),
+        "spent_unlocked_krw": round(spent), "allowed_bucket_krw": int(k.get("allowed_krw") or 0),
+        "executed_steps": done,
+        "storm_splits": 1, "storm_why": "폭풍 분할 폐지(d223) — 회차 자체가 6개월 분할이다",
+        "storm_mult": 1.0, "capitulation": False, "capitulation_why": "항복 가산 폐지(d223)",
+        "final_mult": 1.0,
+        "halted": bool(k.get("halted")), "halt_why": k.get("halt_why"),
+        "allowed_krw": int(k.get("allowed_krw") or 0),
+        "ladder_allowed_krw": int(k.get("pre_gate_krw") or 0),
+        "kr_weight_pct": k.get("kr_weight_pct"),
+        "rule6_block": bool(k.get("rule6_block")), "rule6_why": k.get("rule6_why"),
+        "reserve_ratio": 0.0,
     }
 
 
@@ -839,7 +1126,7 @@ def _kr_accrual_note(allowed_krw, cash):
     lines = [f"\n═══ 🇰🇷 국내 이월 적립 (crash_tf §2b · 8/14 신설) ═══",
              f"  1주 가격 출처: {src}"]
     if allowed_krw <= 0:
-        lines.append(f"  현재 허용 상한 **0원** — 적립 대기(사다리 잠김 또는 하드플로어).")
+        lines.append(f"  현재 허용 **0원** — 회차 미도래·재원 부족·하드플로어·룰6 중 하나(위 판정 참조).")
     if reach:
         lines.append(f"  ✅ 1주 도달: {', '.join(f'{k} {v:,}원' for k, v in sorted(reach.items(), key=lambda x: x[1]))}")
     nearest = min((v for v in prices.values() if v > allowed_krw), default=None)
@@ -848,7 +1135,7 @@ def _kr_accrual_note(allowed_krw, cash):
         lines.append(f"  ⏳ 최근접 미달: {name} {nearest:,}원 — **{nearest - allowed_krw:,.0f}원 부족**")
     lines.append(f"  참고 가용현금 {cash:,.0f}원 · 국내주 22% 초과 동안 원화는 미국 트랙 합류(d207 ②) — "
                  f"22% 이하일 때만 §2b 규칙3(적립분 미국 매수 금지)")
-    lines.append("  ⚠️ 표시 전용 — 도달해도 §5 3중 게이트·하드플로어가 위에 그대로 있다.")
+    lines.append("  ⚠️ 표시 전용 — 회차 몫이 1주에 못 미치면 남은 원화가 다음 회차로 넘어간다(회차 = 그날 원화 ÷ 남은 회차).")
     return "\n".join(lines)
 
 
@@ -957,9 +1244,16 @@ def main():
     ap.add_argument("--fear", type=float)
     ap.add_argument("--capitulation", type=float)
     ap.add_argument("--execute", type=int, metavar="STEP",
-                    help="사다리 단계 집행 기록(1~5 = D0~D4. ⚠️D0 신설로 1=D0다). --amount 필수. 조회·기록 전용 — 주문 안 냄")
-    ap.add_argument("--amount", type=float, help="--execute 와 함께 쓰는 집행 금액(원)")
-    ap.add_argument("--note", default="", help="--execute 메모(종목·체결가 등)")
+                    help="[폐기 10/1 d223] 舊 사다리 단계 집행 기록 — 이제 거부한다. --kr-execute 를 쓸 것")
+    ap.add_argument("--amount", type=float, help="[폐기] 舊 --execute 금액")
+    ap.add_argument("--note", default="", help="집행 메모(종목·체결가 등)")
+    # ★[10/1 d223] 국내 트랙 = 원화 6개월 균등 분할
+    ap.add_argument("--kr-start", nargs="?", const="", metavar="YYYY-MM-DD",
+                    help="국내 트랙 새 사이클 시작(날짜 생략 = 오늘). 낙폭 > -20%%면 거부(--force 제외)")
+    ap.add_argument("--kr-execute", action="store_true",
+                    help="국내 트랙 회차 집행 기록(--krw·--ticker 필수). 열린 사이클이 없으면 체결일로 연다. 주문 안 냄")
+    ap.add_argument("--krw", type=float, help="--kr-execute 금액(원)")
+    ap.add_argument("--force", action="store_true", help="--kr-start/--kr-execute 낙폭 문턱 무시(정훈 지시가 있을 때만)")
     # ★[2026-09-20] 체결일 지정 — 없으면 오늘로 박힌다. 9/17 체결을 9/20 세션에서 기입하니
     #   원장 날짜가 사흘 밀렸다(cap_delta_explain의 prev_date·감사 추적이 어긋난다).
     #   ledger_execute()는 처음부터 date 인자를 받고 있었는데 CLI만 안 뚫려 있었다.
@@ -1004,20 +1298,28 @@ def main():
               f"{('· ' + rec['note']) if rec['note'] else ''}\n")
         return
 
-    if a.execute:
-        if a.amount is None:
-            sys.exit("[tranche_rules] --execute 에는 --amount 가 필요하다")
-        rec = ledger_execute(a.execute, a.amount, a.note, a.date)
-        # ⚠️[9/9] 같은 버그를 **세 번** 고쳤다(사다리 표시부·triggers.py·여기).
-        #   `f"D{a.execute}"`처럼 인덱스로 D번호를 만들면 단계가 늘어난 순간 라벨이 거짓말한다.
-        #   실제로 D0 첫 집행을 "D1 집행 기록"으로 찍었다 — 금액·원장은 정확한데 표시만 틀려서
-        #   더 위험하다(원장을 안 열어보면 D1을 또 쓴 줄 안다). STEP_LABELS가 정본이다.
-        _lab = (STEP_LABELS[a.execute - 1] if 0 < a.execute <= len(STEP_LABELS)
-                else f"D{a.execute}")
-        print(f"\n📒 {_lab} 집행 기록 — {rec['date']} · {rec['amount']:,}원 "
-              f"{('· ' + rec['note']) if rec['note'] else ''}")
-        print(f"   원장: {os.path.relpath(LEDGER, ROOT)} (단계 재진입 금지가 다음 판정부터 적용된다)\n")
+    if a.kr_start is not None or a.kr_execute:
+        _cash, _dd = _load_inputs(a.cash)[:2]
+        _dd = a.dd if a.dd is not None else _dd
+        try:
+            if a.kr_execute:
+                if a.krw is None or not a.ticker or a.ticker == "066570.KS" and "--ticker" not in " ".join(sys.argv):
+                    sys.exit("[tranche_rules] --kr-execute 에는 --krw 와 --ticker(국내 종목)가 필요하다")
+                rec = kr_execute(a.krw, a.ticker, a.tranche, a.note, a.date, _dd, a.force)
+                print(f"\n📒 국내 트랙 {rec['tranche']}회차 기록 — {rec['date']} · {rec['ticker']} {rec['krw']:,}원 "
+                      f"{('· ' + rec['note']) if rec['note'] else ''}\n")
+            else:
+                c = kr_start(a.kr_start or None, _cash, _dd, a.note, a.force)
+                print(f"\n🇰🇷 국내 트랙 사이클 시작 — {c['start']} · 회차 {', '.join(c['schedule'])} · "
+                      f"시작 원화 {(_cash or 0):,.0f}원 · 낙폭 "
+                      + (f"{_dd:+.1f}%" if _dd is not None else "미확인(--force)") + "\n")
+        except (ValueError, KrLedgerError) as e:
+            sys.exit(f"[tranche_rules] {e}")
         return
+
+    if a.execute:
+        sys.exit("[tranche_rules] 낙폭 사다리는 2026-10-01 d223로 폐기됐다 — 단계 집행 기록(--execute)은 받지 않는다. "
+                 "국내 트랙 회차 기록은 `--kr-execute --krw N --ticker 종목`.")
 
     cash, dd, storm, fear, capit, stale = _load_inputs(a.cash)
     dd = a.dd if a.dd is not None else dd
@@ -1034,63 +1336,25 @@ def main():
         print(json.dumps({"rule1": r, "us_track": us_track(), "rule2": rule2(a.ticker)}, ensure_ascii=False, indent=1))
         return
 
-    print("\n═══ 룰1 🇰🇷 국내 트랙 — 코스피 낙폭 사다리 (재원 = 원화 · d205 트랙 분리) ═══")
+    k = r["kr_track"]
+    print("\n═══ 룰1 🇰🇷 국내 트랙 — 원화 6개월 균등 분할 (d223 · 낙폭 ≤-20%에서 개시 · 재원 = 원화) ═══")
     if stale and a.dd is None:
         print(f"  {stale}\n")
-    print(f"  코스피 고점대비 **{dd:+.1f}%** · 원화 현금 {cash:,.0f}원 (달러는 아래 미국 트랙)\n")
-    print(f"  {'단계':<6}{'낙폭':>8}{'배분':>7}  상태   근거")
-    for i, s in enumerate(r["steps"], 1):
-        mark = ("✅집행" if s.get("executed") else "🟢해금") if s["unlocked"] else "🔒잠김"
-        _n = s.get("executed_n") or 1
-        _nlabel = f"({_n}회)" if _n > 1 else ""
-        why = (f"{s['why']}  ← {s.get('executed_on')} 집행 {s.get('executed_krw', 0):,.0f}원{_nlabel}"
-               if s.get("executed") else s["why"])
-        _lab = STEP_LABELS[i - 1] if i - 1 < len(STEP_LABELS) else f"D{i}"
-        print(f"  {_lab:<6}{s['threshold']:>7.0f}%{s['alloc']*100:>6.0f}%  {mark}  {why}")
-    print(f"  {'예비':<6}{'—':>8}{RESERVE*100:>6.0f}%  🔒봉인  회복 확인(게이트 2/3+) 전까지 영구 봉인")
-
-    print(f"\n  누적 해금 **{r['unlocked_ratio']*100:.0f}%** = 상한 {r['cap_krw']:,}원"
-          + (f" − 기집행 **{r['spent_krw']:,}원**({','.join(STEP_LABELS[i-1] for i in r['executed_steps'])}) "
-             f"= **잔여 {r['allowed_krw']:,}원**" if r["spent_krw"] else ""))
-    print(f"  {r['storm_why']}")
-    print(f"  {r['capitulation_why']}")
-    print(f"  → 최종 승수 **×{r['final_mult']}**  (하한 {MULT_FLOOR}·상한 {MULT_CAP} — 금액 감산 폐지)")
-    print(f"\n  {r['halt_why']}")
-    print(f"  {r['rule6_why']}")
-    if r["halted"]:
-        print("\n  🔴 **허용 트랜치 0원** — 글로벌 확산으로 개정 전제가 깨졌다.")
-    elif r["rule6_block"]:
-        print(f"\n  ⛔ **집행 0원 — 룰6 우선(d207)**. 사다리 자체 판정은 {r['ladder_allowed_krw']:,}원(적립 기록). "
-              f"국내주가 {RULE6_KR_HI:.0f}% 이하로 내려오면 그 상한만큼 집행한다. 그동안 원화는 미국 트랙으로(d207 ②).")
-    elif r["allowed_krw"] <= 0:
-        # ★[8/28] 舊 문구는 원인을 항상 '이미 집행했다'로 단정했다 — 해금 자체가 0일 때도
-        # 그렇게 나와 8/27에 오독을 만들었다(실제 원인은 낙폭이 -25%를 안 넘긴 것).
-        if r["unlocked_ratio"] <= 0:
-            print(f"\n  ⛔ **가용 0원** — 낙폭 {r['dd_pct']:.1f}%로 **어느 단계도 해금되지 않았다**"
-                  f"(D0 기준 -20%). 더 빠져야 열린다.")
-        else:
-            print(f"\n  ⛔ **가용 0원** — 해금 상한 {r['cap_krw']:,}원을 "
-                  f"기집행 {r['spent_krw']:,}원으로 **모두 소진**했다. "
-                  f"다음 단계 낙폭에 도달해야 새 몫이 열린다.")
-    else:
-        print(f"\n  💰 **오늘 허용 잔여 = {r['allowed_krw']:,}원**"
-              f"  (상한 = 총재원 {r['base_krw']:,.0f} × {r['available_ratio']*100:.0f}% × {r['final_mult']}"
-              f" = {r['cap_krw']:,}원"
-              + (f" − 기집행 {r['spent_krw']:,}원)" if r["spent_krw"] else ")"))
-        print(f"     분할 권고: **{r['storm_splits']}회** "
-              f"(1회 ≈ {round(r['allowed_krw']/r['storm_splits']):,}원) — 금액이 아니라 속도로 조절")
-        print("     ※ 상한이지 목표가 아니다. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")
-        _ex = cap_delta_explain(r["base_krw"], r["available_ratio"], r["final_mult"], r["cap_krw"])
-        if _ex and abs(_ex["by_cash"]) > 1000:
-            print(f"\n  🔍 **상한 변동 분해** ({_ex['prev_date']} {_ex['cap_prev']:,}원 → 오늘 {_ex['cap_now']:,}원 · {_ex['delta']:+,}원)")
-            print(f"     · 낙폭·승수 기여 **{_ex['by_drawdown']:+,}원**  (낙폭 {_ex['dd_prev']:+.1f}% → {r['dd_pct']:+.1f}%)")
-            print(f"     · 재원 기여     **{_ex['by_cash']:+,}원**  (총재원 {_ex['cash_prev']:,}원 → {_ex['cash_now']:,}원)"
-                  + ("  ※직전 행에 base 미기록 → 현금으로 근사" if _ex.get("approx") else ""))
-            if abs(_ex["cross"]) >= 1:
-                print(f"     · 교차항        {_ex['cross']:+,}원")
-            if _ex["by_cash"] > abs(_ex["by_drawdown"]):
-                print("     ⚠️ **상한 증가의 주된 원인이 낙폭이 아니라 현금이다** — 매도·입금으로 늘어난 몫은")
-                print("        '사다리가 더 열렸다'는 뜻이 아니다. 사다리 비율은 낙폭 심도에 대한 위험허용도다.")
+    print(f"  코스피 고점대비 **{dd:+.1f}%** (개시 문턱 {KR_TRIGGER_DD:.0f}%) · 원화 현금 {cash:,.0f}원 (달러는 아래 미국 트랙)")
+    if k.get("schedule") and k.get("status") != "armed":
+        marks = []
+        for i, d_ in enumerate(k["schedule"], 1):
+            m = "✅" if i in k["done"] else ("🟢" if i in k["pending"] else "⏳")
+            marks.append(f"{i}회 {d_} {m}")
+        print(f"  사이클 {k.get('cycle_start')} · " + " · ".join(marks) + f" · 기집행 {k['spent_krw']:,}원")
+    print(f"  {k['halt_why']}")
+    print(f"  {k['rule6_why']}")
+    icon = {"due": "💰", "armed": "💰", "waiting": "⏳", "idle": "➖", "no_funds": "⛔",
+            "rule6_block": "⛔", "deferred": "🔴", "unknown": "⚠️"}.get(k.get("status"), "•")
+    print(f"\n  {icon} [{k.get('status')}] **오늘 허용 {r['allowed_krw']:,}원** — {k['why']}")
+    if r["allowed_krw"] > 0:
+        print("     ※ 상한이지 목표가 아니다. 룰3(추격 금지) 그대로. 집행은 PM 판단·정훈 결정. 자동 집행 아님.")
+    print("  ※ 舊 낙폭 사다리(D0~D4·예비·RESET·항복 가산)는 10/1 d223로 폐기 — 같은 원화의 6개월 분할에 ①②③ 전패.")
 
     print(_kr_accrual_note(r["allowed_krw"], cash))
 

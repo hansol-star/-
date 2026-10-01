@@ -183,7 +183,8 @@ def collect(query, since=None, today=None):
         items.append({
             "kind": "rule", "date": r.get("date", ""), "rel": rel, "id": None,
             "headline": f"룰 스냅샷 — 코스피 {r.get('kospi')} · 낙폭 {r.get('dd_pct')}%",
-            "body": f"해금 {r.get('unlocked_ratio')} · 상한 {r.get('allowed_krw')}원"
+            "body": (f"국내 트랙 [{r.get('kr_status')}] 도래 회차 {r.get('kr_pending')}" if r.get("mode") == "dca6"
+                     else f"해금 {r.get('unlocked_ratio')}") + f" · 상한 {r.get('allowed_krw')}원"
                     f" · 정지 {r.get('halted')}",
             "extra": {"폭풍%ile": r.get("storm_pct"), "rule2": r.get("rule2")}, "hits": hits,
         })

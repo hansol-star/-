@@ -157,7 +157,7 @@
 4. 영상: docs/research/hunter_log.md·feeds_log.md 맨 위 오늘자 블록만 읽는다. 자막 추출(hunter_latest --fetch) 금지.
 5. 토스 호출 금지(키 없음). 보유·현금 = portfolio.json. 본문과 STATE SNAPSHOT에 "토스 미대조(무인)" 한 줄.
 6. 보고서 docs/reports/report_v{N}_{YYYY-MM-DD}.md — Write 1회로 완성(섹션별 조각 Edit 금지):
-   보유 전종목 풀표 + 워치 전종목 풀표(현재가·당일·원가대비·목표·여력·매수존·매도/트림·⭐·스코어·근거) · TF 상황판(crash_tf §1·§5 게이트) · 사다리 상한(tranche_rules 원화·하드플로어) · 오늘의 이슈 4개 전부 심층 · 강세 vs 신중 · 지정가 오더북(미국은 $) · PM 사견 · STATE SNAPSHOT.
+   보유 전종목 풀표 + 워치 전종목 풀표(현재가·당일·원가대비·목표·여력·매수존·매도/트림·⭐·스코어·근거) · TF 상황판(crash_tf §1·§5 게이트) · 룰1 분할 매수 판정(tranche_rules — 국내 6회·미국 3회 회차·하드플로어) · 오늘의 이슈 4개 전부 심층 · 강세 vs 신중 · 지정가 오더북(미국은 $) · PM 사견 · STATE SNAPSHOT.
    별점·스코어는 stocks.json 기존값을 쓰고 근거가 바뀐 종목만 조정한다. CLAUDE.md의 '현재 vN' 숫자 +1.
 7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다**: `tasks.json`의 `["tasks"]["today"]`를 '오늘 밤~내일 할 일'로 다시 쓴다(**최상위 `today` 키 금지** — 카톡·앱은 `tasks.today`만 읽는다. 9/21 C3가 최상위에 써 카톡에 전날 목록이 나갔다. validate FAIL로 잡힌다).
    항목마다 한 줄(100자 이내 — 넘으면 카톡에서 잘린다) = 시각 · 종목 · 매수/매도 · 가격(미국 $ / 국내 원) · 수량 · 조건. 최대 6개, 끝난 건 done=true. 오더는 orders에 등록·갱신(체결 확인 전 완료 처리 금지). 바뀐 종목은 stocks.json도.
@@ -193,7 +193,7 @@
 3. 영상: 오늘자 docs/research/hunter_log.md 맨 위 블록이 있으면(로컬 R1) 핵심만 옮긴다. 없으면 hunter_latest.py(--fetch 없이 목록만)로 제목만 적고 "로컬 R1 미실행" 표기.
 4. 데스크: kr-market·us-market·macro·risk 항상 + 섹터 3종은 desk_gate.py 게이트 통과분만. 백그라운드 병렬 → 완료 알림 대기(ListAgents 반복 확인 금지).
 5. 산출: docs/prep/prep_{YYYY-MM-DD}.md 한 파일, Write 1회로 완성.
-   ⓪수집 현황표(스크립트별 OK/실패·사유) ①국장 ②미장 ③매크로 ④섹터 ⑤리스크(사다리 상한 원화·하드플로어·트리거 발동·배분밴드·룰2)
+   ⓪수집 현황표(스크립트별 OK/실패·사유) ①국장 ②미장 ③매크로 ④섹터 ⑤리스크(룰1 분할 매수 회차·하드플로어·트리거 발동·배분밴드·룰2)
    ⑥리서치 ⑦보유+워치 데이터표(현재가·당일%·원가대비%·매수존/트림까지 거리 — 별점·스코어는 쓰지 말 것) ⑧이벤트·공시
    ⑨강세 vs 신중 논점(결론 없이 양쪽 근거만) ⑩로컬이 결정할 것(오더·트림·재등록 후보와 그 근거 숫자).
    숫자는 스크립트 출력 그대로. 미확인은 미확인. 추측 금지.
@@ -233,7 +233,7 @@ prep이 없으면 기다리지 말고 경량 수집으로 진행한다(클라우
    보유·현금 = portfolio.json. 본문과 STATE SNAPSHOT에 "토스 미대조(무인)" 한 줄. 폭풍 %ile 정본 = vol_gauge, garch 인용 금지.
 6. 보고서 docs/reports/report_v{N}_{YYYY-MM-DD}.md — Write 1회로 완성(섹션별 조각 Edit 금지):
    보유 전종목 풀표 + 워치 전종목 풀표(현재가·당일·원가대비·목표·여력·매수존·매도/트림·⭐·스코어·근거) ·
-   TF 상황판(crash_tf §1·§5 게이트) · 사다리 상한(tranche_rules 원화·하드플로어) · 오늘의 이슈 4개 전부 심층 ·
+   TF 상황판(crash_tf §1·§5 게이트) · 룰1 분할 매수 판정(tranche_rules — 국내 6회·미국 3회 회차·하드플로어) · 오늘의 이슈 4개 전부 심층 ·
    강세 vs 신중 · 지정가 오더북(미국은 $) · PM 사견 · STATE SNAPSHOT.
    별점·스코어는 stocks.json 기존값을 쓰고 근거가 바뀐 종목만 조정한다. CLAUDE.md의 '현재 vN' 숫자 +1.
 7. tasks.json — **이 목록이 그대로 정훈 카톡으로 나간다(17:40 로컬 배달부)**: `tasks.json`의 `["tasks"]["today"]`를 '오늘 밤~내일 할 일'로 다시 쓴다(**최상위 `today` 키 금지** — 카톡·앱은 `tasks.today`만 읽는다. 9/21 C3가 최상위에 써 카톡에 전날 목록이 나갔다. validate FAIL로 잡힌다).
@@ -347,7 +347,7 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
   ① `python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --snapshot` (원장 append)
   ② `python3 .claude/skills/portfolio-desk/scripts/rule_tracker.py --score` (누적 후행검증)
   ③ 표본 <40이면 판정 보류가 정상 — 대신 `--backfill`(29년 소급)로 방향 감각을 확인한다.
-  ④ 항복 가산 검증 = `capitulation_validate.py`(네이버 2016~ 실측 + VIX 36년 프록시 2경로).
+  ④ 항복 가산 검증 = `capitulation_validate.py`(네이버 2016~ 실측 + VIX 36년 프록시 2경로) — ★10/1 d223로 항복 가산은 폐기, 이 단계는 舊 사다리 재현 연구 때만 돈다.
      ⚠️ **해금 구간(낙폭 ≤ -25%)에서만 판정**한다 — 전 구간으로 보면 결론이 뒤집힌다(7/30 실측).
   ⑤ 편향이 보이면 **개정 '제안'만** 기록(자동 변경 ❌·확정은 정훈). 제안은 master §9에 후보로 남긴다.
 - **[8/24 신설] 손익비 추이 + 가드·배선 주간 점검** (self-review §0·§7에 심어둠 — 프롬프트 수정 불요):

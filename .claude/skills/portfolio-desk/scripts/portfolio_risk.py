@@ -197,7 +197,7 @@ def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None, st
 
     if cash_w < 10:
         add("info", "cash", "현금 대응력",
-            f"현금 비중 {cash_w:.1f}%. 사다리가 해금돼도 넣을 실탄이 얇다.")
+            f"현금 비중 {cash_w:.1f}%. 분할 매수 회차가 와도 넣을 실탄이 얇다.")
 
     if trades and trades.get("sells"):
         r = trades["realized_krw"]
@@ -206,12 +206,15 @@ def compute(holdings, totals, safety=None, fx=None, trades=None, orders=None, st
             f"평가손익과 별개 — 원장(trades.jsonl) 재생 기준.")
 
     if s.get("status") == "freeze" or s.get("halted"):
-        add("danger", "regime", "하드플로어 발동 — 사다리 전면 정지",
-            f"{s.get('floor_note') or 'S&P500 폭풍 ≥70%ile'}. 신규 매수 판단 금지(리스크룰 1).")
+        add("danger", "regime", "하드플로어 발동 — 이번 회차 연기",
+            f"{s.get('floor_note') or 'S&P500 폭풍 ≥70%ile'}. 국내·미국 트랙 모두 그 회차를 미룬다(리스크룰 1).")
     elif s.get("drawdown_pct") is not None:
-        add("info", "regime", "낙폭 사다리 상태",
-            f"고점대비 {s['drawdown_pct']:.1f}% · 해금 {s.get('unlocked_pct', 0)}%. "
-            f"RESET 정책 — 회복하면 다시 잠긴다(누적 상한이지 목표 아님).")
+        # ★[10/1 d223] 낙폭 사다리 폐기 → 원화 6개월 균등 분할. 상태 문구는 kr_track이 정본이다
+        _kt = s.get("kr_track") or {}
+        add("info", "regime", "룰1 국내 트랙 상태",
+            f"고점대비 {s['drawdown_pct']:.1f}% (개시 문턱 {s.get('trigger_pct', -20):.0f}%) · "
+            f"이번 회차 {int(s.get('allowed_krw') or 0):,}원. "
+            f"{str(_kt.get('rule6_why') if s.get('rule6_block') else _kt.get('why') or '').replace('**', '')}")
 
     order = {"danger": 0, "warning": 1, "info": 2, "positive": 3}
     ins.sort(key=lambda x: order[x["level"]])

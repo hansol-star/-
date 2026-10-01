@@ -231,13 +231,15 @@
     };
   }
 
-  // 룰1 낙폭 사다리 — 정본 재료(data.js safety) × 실시간 코스피
+  // 룰1 국내 트랙 — 원화 6개월 균등 분할(10/1 d223 · 舊 낙폭 사다리 폐기). 정본 = data.js safety(tranche_rules.kr_track)
   var PIN_TXT = {
-    ok: "잠김 — 다음 단계 미도달, 신규 매수 실탄 없음",
-    watch: "해금 — 사다리 집행 가능 구간",
-    spent: "해금됐지만 상한까지 집행 완료 — 잔여 0원, 다음 단계 도달 시 새 몫",
-    freeze: "정지 — 하드플로어 발동(S&P500 폭풍 ≥70%ile), 사다리 전면 정지",
-    rule6: "룰6 우선(d207) — 국내주 22% 초과라 사다리는 기록만, 집행 0원",
+    idle: "평시 — 코스피 낙폭이 -20% 위라 룰1 대상 구간이 아니다",
+    nofunds: "낙폭 -20% 이하지만 원화가 없어 사이클을 열 수 없다",
+    armed: "개시 가능 — 1회차 몫이 열렸다(6개월 균등 분할)",
+    due: "회차 도래 — 이번 회차 몫 집행 가능",
+    waiting: "다음 회차 대기",
+    freeze: "연기 — 하드플로어 발동(S&P500 폭풍 ≥70%ile)",
+    rule6: "룰6 우선(d207) — 국내주 22% 초과라 집행 0원, 원화는 미국 트랙으로",
     unknown: "코스피 시세 미확인"
   };
   // ★[9/21 d205] 미국 트랙 — 달러는 코스피 사다리가 아니라 3회 균등 분할(월 1회)이 다룬다
@@ -246,20 +248,15 @@
   function usd(v) { return v == null || isNaN(v) ? "—" : "$" + Number(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
   function ladderLive() {
-    var s = D.safety || {}, q = Q("^KS11");
+    var s = D.safety || {}, q = Q("^KS11"), kt = s.kr_track || {};
     var k = q && q.p != null ? q.p : s.price;
-    // live = 국내 정규장 중(장중 지수로 재계산한 '추정'). 장이 끝났으면 같은 값이 오늘 종가다
-    var out = { s: s, k: k, kc: q && q.c != null ? q.c : s.change_pct, q: q, live: !!(q && q.s === "reg"), fresh: !!q, steps: s.steps || [],
-      dd: s.drawdown_pct, allowed: s.allowed_krw, cap: s.cap_krw, spent: s.spent_krw || 0, unl: s.unlocked_pct, status: s.status || "unknown" };
-    if (!s.peak || !s.steps || k == null) return out;
-    var dd = (k / s.peak - 1) * 100, unl = 0;
-    s.steps.forEach(function (st) { if (dd <= st.thr) unl += st.alloc_pct; });
-    var cap = Math.round((s.base_krw || 0) * unl / 100 * (s.mult || 1));
-    var allowed = (s.halted || s.rule6_block) ? 0 : Math.max(0, cap - (s.spent_krw || 0));
-    var nxt = null; for (var i = 0; i < s.steps.length; i++) if (dd > s.steps[i].thr) { nxt = s.steps[i]; break; }
-    out.dd = dd; out.unl = unl; out.cap = cap; out.allowed = allowed; out.next = nxt;
-    out.nextLevel = nxt ? s.peak * (1 + nxt.thr / 100) : null;
-    out.status = s.halted ? "freeze" : s.rule6_block ? "rule6" : (unl > 0 && allowed === 0 ? "spent" : unl > 0 ? "watch" : "ok");
+    // live = 국내 정규장 중(장중 지수로 다시 잰 낙폭 = '추정'). 금액은 회차 규칙이 정하므로 장중에 안 바뀐다
+    var out = { s: s, kt: kt, k: k, kc: q && q.c != null ? q.c : s.change_pct, q: q, live: !!(q && q.s === "reg"), fresh: !!q,
+      dd: s.drawdown_pct, allowed: s.allowed_krw || 0, spent: s.spent_krw || 0, status: s.status || "unknown",
+      trig: s.trigger_pct != null ? s.trigger_pct : -20,
+      steps: (kt.schedule || []).map(function (d, i) { return { date: d, on: (kt.done || []).indexOf(i + 1) >= 0 }; }) };
+    if (s.peak && k != null) out.dd = (k / s.peak - 1) * 100;
+    out.trigLevel = s.peak ? s.peak * (1 + out.trig / 100) : null;
     return out;
   }
   function stormPct() { var m = String((D.safety || {}).floor_note || "").match(/([\d.]+)\s*%ile/); return m ? +m[1] : null; }
@@ -612,7 +609,7 @@
     return out.join(" · ");
   }
   function todayLong() { var d = kst(); return (d.getUTCMonth() + 1) + "월 " + d.getUTCDate() + "일 " + "일월화수목금토".charAt(d.getUTCDay()) + "요일"; }
-  var LADDER_SHORT = { ok: "다음 단계 미도달", watch: "사다리 해금", spent: "사다리 상한 소진", freeze: "하드플로어 정지", rule6: "룰6 우선 — 기록만", unknown: "시세 미확인" };
+  var LADDER_SHORT = { idle: "국내 평시", nofunds: "원화 없음", armed: "국내 1회차 가능", due: "국내 회차 도래", waiting: "국내 회차 대기", freeze: "하드플로어 연기", rule6: "룰6 우선 — 집행 0원", unknown: "시세 미확인" };
 
   // 걸 주문 카드(접수 가능) · 걸지 말 것 카드(밴드 밖)
   function orderCard(o) {
@@ -732,8 +729,8 @@
     h += '</div><a class="morelink" href="#plan">계획 · 주문 추적 전체' + IC.chev + '</a>';
 
     // 룰 요약 링크
-    h += '<a class="rlink" href="#rules"><div class="lad" aria-hidden="true">' + (L.steps || []).map(function (st) { return '<span class="' + (L.dd != null && L.dd <= st.thr ? "on" : "") + '"></span>'; }).join("") + '</div>'
-      + '<div class="tx"><span class="k">룰1 사다리 · 급락 TF</span><span class="v num">코스피 ' + num2(L.k) + ' · 고점 대비 ' + pct(L.dd, 1) + '</span>'
+    h += '<a class="rlink" href="#rules"><div class="lad" aria-hidden="true">' + (L.steps.length ? L.steps : [0, 0, 0, 0, 0, 0]).map(function (st) { return '<span class="' + (st && st.on ? "on" : "") + '"></span>'; }).join("") + '</div>'
+      + '<div class="tx"><span class="k">룰1 분할 매수 · 급락 TF</span><span class="v num">코스피 ' + num2(L.k) + ' · 고점 대비 ' + pct(L.dd, 1) + '</span>'
       + '<span class="s">국내 ' + won(L.allowed) + (UT.ok ? ' · 미국 ' + usd(UT.allowed) : '') + ' · 해제 게이트 ' + G.n + '/3 · 하드플로어 ' + (s.halted ? "발동" : "미발동") + '</span></div>' + IC.chev + '</a>';
 
     // 다가오는 일정
@@ -761,7 +758,7 @@
     var kq = Q("^KS11"), kser = S("^KS11");
     if (kser && kq) {
       var lines = [];
-      if (s.peak) (s.steps || []).forEach(function (st) { var v = s.peak * (1 + st.thr / 100); lines.push({ v: v, label: st.label + " " + num(Math.round(v)), color: "var(--accent)", gap: (v / kq.p - 1) * 100 }); });
+      if (s.peak && s.trigger_pct != null) { var tv = s.peak * (1 + s.trigger_pct / 100); lines.push({ v: tv, label: "분할 개시선 " + num(Math.round(tv)), color: "var(--accent)", gap: (tv / kq.p - 1) * 100 }); }
       if (G.g1) lines.push({ v: G.g1.level, label: "게이트① " + num(G.g1.level), color: "var(--good)", gap: (G.g1.level / kq.p - 1) * 100 });
       h += '<div class="card"><div class="chart-h"><span><b class="num" style="font-size:18px">' + num2(kq.p) + '</b> <span class="num ' + cls(kq.c) + '">' + pct(kq.c) + '</span></span><span class="xs mut">코스피 장중 ' + sessTag(kq) + '</span></div>'
         + areaChart(kser, kq.pc, { slots: 78, lines: lines, left: "09:00", right: "15:30", label: "코스피 장중 추이" }) + '</div>';
@@ -1198,36 +1195,20 @@
     var h = topbar({ title: "룰 · 리스크", sub: '<span class="chip bad" style="font-size:11px">급락 TF 가동 · 7/13~</span>' });
     h += '<p class="tagline">룰은 계산기다 — 집행은 PM 판단, 결정은 정훈.</p>';
 
-    // 오늘 살 수 있는 돈
-    var base = s.base_krw || 0, mult = s.mult || 1;
-    var nextCap = L.next ? Math.round(base * (L.unl + L.next.alloc_pct) / 100 * mult) : null, nextLeft = nextCap != null ? Math.max(0, nextCap - L.spent) : null;
-    var why = s.halted ? "하드플로어 발동 — 사다리 전면 정지. "
-      : L.allowed > 0 ? "상한 안에서 " + won(L.allowed) + " 남았다 — 국내 1주 가격에 닿을 때까지 적립. 룰6 국내 비중이 상단(22%) 위라 둘의 우선순위는 d207 판단 대기. "
-      : L.unl > 0 && L.spent > L.cap ? "상한의 " + (L.spent / L.cap).toFixed(1) + "배를 이미 썼다. "
-      : L.unl > 0 ? "해금분을 모두 집행했다. " : "해금된 단계가 없다. ";
-    if (L.next && !s.halted) why += "새 몫은 코스피가 " + L.next.label + "(" + num(Math.round(L.nextLevel)) + ") 아래로 마감해야 열린다" + (nextLeft != null ? " — 그때 약 " + won(Math.round(nextLeft / 100) * 100) + "." : ".");
-    h += '<div class="money"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">🇰🇷 국내 트랙 · 사다리로 살 수 있는 돈(원화)</span><span class="chip">' + (L.live ? "장중 추정" : "종가 기준") + ' · 누적</span></div>'
+    // 오늘 살 수 있는 돈 — 국내 트랙(원화 6개월 균등 분할 · d223)
+    var kt = L.kt || {};
+    var ksched = (kt.schedule || []).map(function (d, i) {
+      var n = i + 1, st = (kt.done || []).indexOf(n) >= 0 ? "집행" : (kt.pending || []).indexOf(n) >= 0 ? "도래" : "대기";
+      return '<span class="chip ' + (st === "집행" ? "good" : st === "도래" ? "acc" : "") + '">' + n + '회 ' + esc(md(d)) + ' · ' + st + '</span>';
+    }).join(" ");
+    h += '<div class="money"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">🇰🇷 국내 트랙 · 이번 회차(원화)</span><span class="chip">6회 분할 · d223</span></div>'
       + '<div class="big num">' + num(L.allowed) + '<small>원</small></div>'
-      + '<div class="g2"><div><span class="k">상한 ' + (L.unl || 0) + '%</span><span class="v num">' + won(L.cap) + '</span></div><div><span class="k">기집행</span><span class="v num">' + won(L.spent) + '</span></div></div>'
-      + '<p>' + esc(why) + '</p></div>';
+      + '<div class="g2"><div><span class="k">원화 현금</span><span class="v num">' + won(kt.krw_cash) + '</span></div><div><span class="k">회차당</span><span class="v num">' + won(kt.per_tranche_krw) + '</span></div></div>'
+      + (ksched ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">' + ksched + '</div>' : '')
+      + '<p>' + esc(kt.why ? String(kt.why).replace(/\*\*/g, "") : (PIN_TXT[L.status] || "")) + (kt.rule6_block && L.status !== "rule6" ? ' · ' + esc(String(kt.rule6_why || "").replace(/\*\*/g, "")) : '') + '</p>'
+      + '<p class="xs mut">코스피 고점 대비 ' + pct(L.dd, 1) + (L.live ? " (장중 추정)" : "") + ' · 개시 문턱 ' + L.trig + '%' + (L.trigLevel ? ' = ' + num(Math.round(L.trigLevel)) : '') + (s.peak ? ' · 고점 ' + num(Math.round(s.peak)) + (s.peak_date ? ' (' + md(s.peak_date) + ')' : '') : '')
+      + ' · 한번 열린 사이클은 회복해도 끝까지 간다 · 상한이지 목표가 아니다 · 판정 정본 tranche_rules.py</p></div>';
     h += usTrackCard();
-
-    // 룰1 낙폭 사다리
-    if (s.peak && L.steps.length) {
-      var rows = [];
-      L.steps.forEach(function (st) {
-        var lvl = s.peak * (1 + st.thr / 100), on = L.dd != null && L.dd <= st.thr;
-        rows.push({ v: lvl, h: '<div class="lstep ' + (on ? "on" : "off") + '" title="' + esc(st.why || "") + '"><span class="dt"></span><div class="tx"><span class="n">' + esc(st.label) + ' ' + Math.round(st.thr) + '%</span><span class="s num">' + num(Math.round(lvl)) + ' · 배분 ' + st.alloc_pct + '%</span></div>'
-          + '<span class="r">' + (on ? "해금" : "잠김") + (st.executed_krw ? " · 집행 " + num(st.executed_krw) : "") + '</span></div>' });
-      });
-      rows.push({ v: L.k, now: 1, h: '<div class="lstep now"><span class="dt"></span><div class="tx"><span class="n num">지금 ' + pct(L.dd, 1) + ' · ' + num2(L.k) + '</span><span class="s">' + (L.live ? "장중 · " + (L.q && L.q.t ? hhmm(L.q.t) : "") : L.fresh ? "오늘 종가" : "보고서 종가") + '</span></div>'
-        + '<span class="r num">' + (L.next ? L.next.label + "까지 " + Math.abs(L.dd - L.next.thr).toFixed(1) + "%p" : "") + '</span></div>' });
-      rows.sort(function (a, b) { return b.v - a.v || (a.now ? 1 : -1); });
-      h += h2s("룰1 · 낙폭 사다리", "고점 " + num(Math.round(s.peak)) + (s.peak_date ? " (" + md(s.peak_date) + ")" : ""));
-      h += '<div class="group">' + rows.map(function (r) { return r.h; }).join("")
-        + '<div class="lstep off"><span class="dt"></span><div class="tx"><span class="n">예비</span><span class="s">배분 ' + (s.reserve_pct || 7) + '% · 회복 확인 전</span></div><span class="r">봉인</span></div></div>';
-      h += '<div class="xs mut" style="margin:8px 4px 0">되돌리면 다시 잠긴다(RESET) · 누적 상한이지 목표가 아니다 · 판정 정본 tranche_rules.py</div>';
-    }
 
     // TF 해제 게이트
     var fp = flowPair(), s2 = alertBy(/TF S2/);
@@ -1240,9 +1221,9 @@
 
     // 하드플로어
     var sp = stormPct();
-    h += '<div class="wcard" style="margin-top:22px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0;font-size:16px">하드플로어 · 글로벌 확산</h2><span class="chip ' + (s.halted ? "bad" : "good") + '">' + (s.halted ? "발동 · 사다리 정지" : "미발동") + '</span></div>';
+    h += '<div class="wcard" style="margin-top:22px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0;font-size:16px">하드플로어 · 글로벌 확산</h2><span class="chip ' + (s.halted ? "bad" : "good") + '">' + (s.halted ? "발동 · 회차 연기" : "미발동") + '</span></div>';
     if (sp != null) h += '<div><div class="bband-l" style="margin-bottom:6px"><span>S&amp;P500 폭풍 <b class="num" style="color:var(--ink)">' + sp + '%ile</b></span><span>발동선 70</span></div><div class="gauge" style="margin:0"><div class="fill" style="width:' + sp + '%;background:' + (sp >= 70 ? "var(--bad)" : "var(--good)") + '"></div><div class="thr" style="left:70%"><span></span></div></div></div>';
-    h += '<p>사다리의 전제는 \'국내 구조 사건\'이다. 미국이 같이 흔들리면(≥70) 사다리 전면 정지. 정본 vol_gauge.py(RV20).</p></div>';
+    h += '<p>분할 매수의 전제는 \'국내 구조 사건\'이다. 미국이 같이 흔들리면(≥70) 국내·미국 트랙 모두 그 회차를 미룬다. 정본 vol_gauge.py(RV20).</p></div>';
 
     // 포트 리스크 · 룰6 · 수급 · 알림
     h += riskBlock();

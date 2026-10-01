@@ -179,6 +179,15 @@ def recommend_tranche(cfg, kospi):
                 "reason": "코스피 낙폭 산출 실패 — history_backfill.py 필요(수동 판단)"}
 
     r = TR.rule1(cash, dd, storm, fear, capit, kr_weight=TR.kr_weight_pct())   # d207 룰6 우선
+    # ★[2026-10-01 d223] 낙폭 사다리 폐기 → **원화 6개월 균등 분할**. 금액·사유는 tranche_rules.kr_track이 정본이고
+    #   여기서는 그대로 옮긴다(해금 단계·승수·폭풍 분할 서술은 사다리와 함께 사라졌다 — 회차가 이미 분할이다).
+    if r.get("mode") == "dca6":
+        return {
+            "amount": r["allowed_krw"], "splits": 1, "per_split": r["allowed_krw"],
+            "dd_pct": dd, "ladder": r, "cash_total": cash,
+            "reason": (f"국내 트랙 [{r.get('status')}] {r.get('why')} · {r['halt_why']}. "
+                       "상한이지 목표 아님·자동집행 아님"),
+        }
     if r["halted"]:
         return {"amount": 0, "dd_pct": dd, "reason": r["halt_why"], "ladder": r, "cash_total": cash}
     # ⚠️[2026-09-09] `f"D{i+1}"`은 **인덱스로 D번호를 만든다** — D0 신설로 i와 D번호가
@@ -251,8 +260,8 @@ def sizing_panel(cfg):
         # 같은 실행의 reason 문자열은 "2분할 권장"이라 **한 화면에서 2와 3이 동시에 보였다**.
         # 집행 금액이 갈리는 자리라 tranche_rules가 준 값을 그대로 쓴다.
         nsp = rec.get("splits") or 3
-        print(f"- 권장 트랜치 **상한**: **{cap_amt:,.0f}원** "
-              f"({nsp}분할 1회 ≈ {round(cap_amt/nsp):,.0f}원){tail}")
+        _split_txt = "이번 회차 몫" if nsp == 1 else f"{nsp}분할 1회 ≈ {round(cap_amt/nsp):,.0f}원"
+        print(f"- 권장 트랜치 **상한**: **{cap_amt:,.0f}원** ({_split_txt}){tail}")
         print(f"    ↳ {rec['reason']}")
     if con["total_krw"]:
         print(f"- 주식 평가액 {con['total_krw']:,.0f}원 · 단일종목 상한 {CONCENTRATION_CAP*100:.0f}%")

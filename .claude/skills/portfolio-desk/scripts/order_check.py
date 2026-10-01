@@ -16,7 +16,7 @@ order_check.py — 토스 미체결 주문 ↔ 우리 계획(tasks.json) 대조
 이 스크립트가 그 고리를 닫는다 — 토스 OPEN(GET 전용)을 계획과 대조해:
 
   🔴 계획 밖 매수 / 보류·폐기된 오더와 같은 주문 / ⭐2 이하 추가매수 / 룰6 초과 중 국내 매수
-  🟡 계획 밖 매도 / 가격제한폭 밖(접수 거부·무효) / '매일 등록' 오더 미등록 / 사다리 0원 중 매수
+  🟡 계획 밖 매도 / 가격제한폭 밖(접수 거부·무효) / '매일 등록' 오더 미등록 / 국내 트랙 회차 0원 중 매수
   ✅ 계획과 일치
 
 ⚠️ 조회 전용 — 토스 가드(_assert_readonly)를 그대로 쓴다. 주문 취소·정정은 **정훈이 직접.**
@@ -199,7 +199,7 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
                 add("red", tk, f"{what} — 룰6: 국내 {kr_w:.1f}% > 상단 {KR_CAP_PCT:.0f}% 동안 신규 자금은 100% 미국")
             # d205: 사다리(국내 트랙)는 국내 매수만 본다. 미국 매수는 미국 트랙 회차가 본다.
             if is_kr(tk) and allowed is not None and allowed <= 0 and state != "active":
-                add("yellow", tk, f"{what} — 국내 사다리 잔여 0원(계획된 예외가 아니면 재원이 없다)")
+                add("yellow", tk, f"{what} — 국내 트랙 이번 회차 0원(계획된 예외가 아니면 재원이 없다)")
             if (not is_kr(tk)) and us and state != "active" and (us.get("allowed_usd") or 0) <= 0:
                 add("yellow", tk, f"{what} — 미국 트랙 이번 회차 없음({us.get('why', '')[:60]})")
         if is_kr(tk) and price:
@@ -261,7 +261,7 @@ def render(r: dict) -> str:
             if f["level"] == lvl:
                 L.append(f"{ICON[lvl]} {f['msg']}")
     c = r["counts"]
-    L.append(f"\n🔴 {c['red']} · 🟡 {c['yellow']} · ✅ {c['ok']}  (국내 비중 {r['context']['kr_weight_pct']}% · 국내 사다리 잔여 {_won(r['context']['ladder_allowed_krw'])} · 미국 회차 {_usd(r['context'].get('us_allowed_usd'))})")
+    L.append(f"\n🔴 {c['red']} · 🟡 {c['yellow']} · ✅ {c['ok']}  (국내 비중 {r['context']['kr_weight_pct']}% · 국내 트랙 회차 {_won(r['context']['ladder_allowed_krw'])} · 미국 회차 {_usd(r['context'].get('us_allowed_usd'))})")
     if c["red"]:
         L.append("→ 🔴 주문은 정훈이 토스에서 직접 취소·정정(주문 API 호출 금지).")
     return "\n".join(L)

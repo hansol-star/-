@@ -112,6 +112,12 @@ def snapshot(save=True) -> dict:
         "cap_krw": r1["cap_krw"],
         "spent_krw": r1["spent_krw"],
         "base_krw": r1["base_krw"],
+        # ★[10/1 d223] 룰1 = 원화 6개월 균등 분할. 위 키들은 하위호환(뜻이 바뀐 키는 tranche_rules.rule1 독스트링).
+        #   이 날짜 이전 행은 舊 사다리 값이다 — mode 키 유무로 구분한다.
+        "mode": r1.get("mode"),
+        "kr_status": r1.get("status"),
+        "kr_pending": (r1.get("kr_track") or {}).get("pending"),
+        "kr_per_tranche_krw": (r1.get("kr_track") or {}).get("per_tranche_krw"),
         "cash": cash,
         "rule2": r2,
     }
@@ -204,7 +210,8 @@ def backfill(years: float = 29, step: int = 5, symbol: str = KOSPI,
         if len(hist) < 100:
             continue
         storm = sum(1 for x in hist if x <= rv[i]) / len(hist) * 100
-        r1 = TR.rule1(1.0, dd_series[i], storm, None, None, check_contagion=False)
+        # ★[10/1 d223] 이 백필은 **舊 낙폭 사다리**의 과거 판정 재현(폭풍 감산 검정용) — 현행 룰1(rule1 = 6개월 분할)이 아니다
+        r1 = TR.rule1_ladder(1.0, dd_series[i], storm, None, None, check_contagion=False, use_ledger=False)
         out.append({
             "date": dates[i], "symbol": symbol, "market": label or symbol,
             "kospi": closes[i], "dd_pct": round(dd_series[i], 2),
@@ -282,6 +289,15 @@ def _fwd_row(cache, r, h):
 
 
 def score(rows: list[dict]):
+    # ★[10/1 d223] 이 채점은 **舊 낙폭 사다리**의 후행검증이다. 10/1부터 원장 행은 분할 매수(mode=dca6)라
+    #   '해금 단계'가 없다 — 섞어서 채점하면 회차 번호가 D단계로 둔갑한다. 사다리 행만 채점하고 최신 상태는 따로 보여준다.
+    latest = rows[-1]
+    all_rows = rows          # ④ 하드플로어·⑤ 룰2는 **현행 룰**이라 전 기간을 채점한다(사다리 행만 보면 10/1 이후가 통째로 빠진다)
+    n_dca = sum(1 for r in rows if r.get("mode") == "dca6")
+    rows = [r for r in rows if r.get("mode") != "dca6"]
+    if not rows:
+        _quick_state(latest)
+        return
     cache = _price_cache(rows)
     if not any(c[1] for c in cache.values()):
         print("  ⚠️ 가격 캐시 없음 — history_backfill.py 필요")
@@ -296,12 +312,14 @@ def score(rows: list[dict]):
     print(f"  표본 {len(rows)}개 · {rows[0]['date']} ~ {rows[-1]['date']}")
     print("  ※ '국면' 열 = 그룹별 독립 에피소드 수(같은 시장 내 3개월 이상 끊기면 별개). 표본 n보다 이쪽이 정직한 크기다.")
     print(f"  시장 {len(mkts)}개: {', '.join(mkts)}")
+    if n_dca:
+        print(f"  ※ 10/1 d223 이후 행 {n_dca}개(원화 6개월 분할)는 이 사다리 채점에서 뺐다 — 사다리는 폐기됐고 아래는 이력 검증이다.")
 
     if len(rows) < MIN_SNAPSHOTS:
         print(f"\n  ⏳ **판정 보류** — 표본 {len(rows)}개 < 최소 {MIN_SNAPSHOTS}개(≈8주).")
         print("     지금 채점하면 단일 국면의 노이즈를 룰의 성질로 오인한다.")
         print("     매 보고서·R3에서 --snapshot을 계속 쌓을 것.\n")
-        _quick_state(rows[-1])
+        _quick_state(latest)
         return
 
     # ① 사다리 단계별 해금 시점 성과
@@ -367,16 +385,16 @@ def score(rows: list[dict]):
     _bucket(rows, cache, lambda r: "항복 ON" if r["capitulation"] else "항복 OFF")
 
     # ④ 하드 플로어
-    n_halt = sum(1 for r in rows if r["halted"])
-    print(f"\n  ④ 하드 플로어(S&P 폭풍 ≥70%ile) — 발동 {n_halt}/{len(rows)}회")
+    n_halt = sum(1 for r in all_rows if r["halted"])
+    print(f"\n  ④ 하드 플로어(S&P 폭풍 ≥70%ile) — 발동 {n_halt}/{len(all_rows)}회")
     if n_halt:
-        _bucket(rows, cache, lambda r: "정지 ON" if r["halted"] else "정지 OFF")
+        _bucket(all_rows, _price_cache(all_rows), lambda r: "정지 ON" if r["halted"] else "정지 OFF")
     else:
         print("     미발동/미적용 — 발동 표본이 없어 유효성 판정 불가.")
 
     # ⑤ 룰2
     print("\n  ⑤ 룰2 훼손 판정 종목의 이후 성과 (경보가 맞았나)")
-    _rule2_score(rows, __import__("drawdown_history"))
+    _rule2_score(all_rows, __import__("drawdown_history"))
 
     print("\n  ⚠️ 결과론 함정 주의 — 룰의 옳고그름은 분포로 본다. 자동 변경 ❌(확정은 정훈).\n")
 
@@ -520,11 +538,17 @@ def _step_label(i: int) -> str:
 def _quick_state(r):
     print("  [최신 스냅샷]")
     steps = r.get("steps_unlocked") or []
-    lab = _step_label(max(steps)) if steps else "해금없음"
-    print(f"    코스피 {r.get('kospi') or 0:,.0f} · 낙폭 {r['dd_pct']:+.1f}% "
-          f"· 해금 {lab}({r['unlocked_ratio']*100:.0f}%)")
-    print(f"    폭풍 {r.get('storm_pct')}%ile ×{r['storm_mult']} · 항복 "
-          f"{'ON' if r['capitulation'] else 'OFF'} → 승수 ×{r['final_mult']}")
+    if r.get("mode") == "dca6":      # 10/1 d223~ : 원화 6개월 균등 분할
+        print(f"    코스피 {r.get('kospi') or 0:,.0f} · 낙폭 {r['dd_pct']:+.1f}% "
+              f"· 국내 트랙 [{r.get('kr_status')}] 도래 회차 {r.get('kr_pending') or '없음'} "
+              f"· 회차당 {r.get('kr_per_tranche_krw') or 0:,}원")
+        print(f"    폭풍 {r.get('storm_pct')}%ile(참고 — 금액·분할에 안 쓴다)")
+    else:                            # ~9/30 : 舊 낙폭 사다리 행
+        lab = _step_label(max(steps)) if steps else "해금없음"
+        print(f"    코스피 {r.get('kospi') or 0:,.0f} · 낙폭 {r['dd_pct']:+.1f}% "
+              f"· 해금 {lab}({r['unlocked_ratio']*100:.0f}%)")
+        print(f"    폭풍 {r.get('storm_pct')}%ile ×{r['storm_mult']} · 항복 "
+              f"{'ON' if r['capitulation'] else 'OFF'} → 승수 ×{r['final_mult']}")
     print(f"    허용 상한 {r['allowed_krw']:,}원 " + ("(🔴 하드 플로어 정지)" if r["halted"] else ""))
     flags = {t: s for t, s in (r.get("rule2") or {}).items() if not s.startswith("0/")}
     if flags:
@@ -577,7 +601,8 @@ def main():
 
     if a.history:
         print(f"\n원장 {len(rows)}개 — {rows[0]['date']} ~ {rows[-1]['date']}")
-        print(f"  {'날짜':<12}{'코스피':>9}{'낙폭':>8}{'해금':>7}{'승수':>7}{'허용액':>11}")
+        print(f"  {'날짜':<12}{'코스피':>9}{'낙폭':>8}{'해금/도래':>7}{'승수':>7}{'허용액':>11}"
+              "   (~9/30 = 舊 사다리 해금 비율 · 10/1~ = 분할 매수 도래 회차 비율)")
         for r in rows[-20:]:
             print(f"  {r['date']:<12}{(r.get('kospi') or 0):>9,.0f}{r['dd_pct']:>7.1f}%"
                   f"{r['unlocked_ratio']*100:>6.0f}%{r['final_mult']:>7.2f}{r['allowed_krw']:>11,}")

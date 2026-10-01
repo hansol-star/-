@@ -83,7 +83,7 @@ def run_subprocess_tests() -> list[dict]:
 SAFE_CLAUDE = (
     "# CLAUDE.md\n\n"
     "- 최신 보고서 = `docs/reports/`에서 가장 높은 `report_v*.md`(현재 **v83**·2026-08-24).\n"
-    "- 매수 안전핀: 낙폭 사다리(`tranche_rules.py`)로 판정한다. 하드플로어 = S&P500 폭풍 ≥70%ile.\n"
+    "- 매수: 룰1 분할 매수(`tranche_rules.py` — 국내 원화 6회 균등 분할)로 판정한다. 하드플로어 = S&P500 폭풍 ≥70%ile.\n"
 )
 VIOLATING_CLAUDE = (
     "# CLAUDE.md\n\n"
@@ -578,12 +578,16 @@ INJECTION_TESTS = [
         "name": "check_desk_value_gate",
         "desc": "게이트일 이후 데스크 매매 누적 기여가 음수면 코어-위성 전환 안건을 띄우는가",
         "why": "9/30 d222 — 76일 데스크 매매 -2.83%p. 게이트가 조용히 안 뜨면 '시스템이 쓸모를 증명한다'는 "
-               "약속이 산문으로 돌아간다. 픽스처 = 게이트일 다음 날, 음수 기여 원장",
+               "약속이 산문으로 돌아간다. 픽스처 = 게이트일 다음 날. ★10/1 판정값이 **구독비 차감 순가치**로 바뀌었다 — "
+               "violate = 매매 기여는 +0.8인데 구독비 3.3을 못 넘긴 원장(舊 gross 판정이면 통과하던 형태), "
+               "clean = 구독비를 넘긴 원장",
         "pattern": r"d222 게이트 도달",
         "violate": {"data/app/desk_value_log.json": json.dumps({"gate_date": "2027-03-31", "months": {
-            "2027-03": {"to": "2027-03-31", "desk_value_pct": -1.2}}})},
+            "2027-03": {"to": "2027-03-31", "desk_value_pct": 0.8, "system_cost_pct": 3.3,
+                        "desk_value_net_pct": -2.5}}})},
         "clean": {"data/app/desk_value_log.json": json.dumps({"gate_date": "2027-03-31", "months": {
-            "2027-03": {"to": "2027-03-31", "desk_value_pct": 0.8}}})},
+            "2027-03": {"to": "2027-03-31", "desk_value_pct": 4.1, "system_cost_pct": 3.3,
+                        "desk_value_net_pct": 0.8}}})},
         "args": ("2027-04-01",),
     },
 
@@ -787,6 +791,15 @@ INJECTION_TESTS = [
         "pattern": r"7[,.]?500|안전핀|폐기",
         "violate": {"CLAUDE.md": VIOLATING_CLAUDE},
         "clean": {"CLAUDE.md": SAFE_CLAUDE},
+        "args": (),
+    },
+    {
+        "name": "check_repealed_rules",
+        "desc": "폐기된 룰1 낙폭 사다리(D0~D4 해금·재잠금)가 정본에 현행처럼 남으면 잡는가",
+        "why": "10/1 d223 — 룰을 6개월 균등 분할로 바꾼 날 정본 8개 파일 44줄이 舊 사다리를 현행으로 적고 있었다",
+        "pattern": r"낙폭 사다리",
+        "violate": {"CLAUDE.md": "## 리스크 룰\n1. 매수 = 낙폭 사다리. D1 -25%: 15% 해금, 회복하면 재잠금.\n"},
+        "clean": {"CLAUDE.md": "## 리스크 룰\n1. 매수 = 원화 6개월 균등 분할. 舊 낙폭 사다리(D1 -25% 해금)는 10/1 폐기.\n"},
         "args": (),
     },
     {

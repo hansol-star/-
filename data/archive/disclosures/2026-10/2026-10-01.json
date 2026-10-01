@@ -1,0 +1,96 @@
+{
+ "updated": "2026-10-01",
+ "days": 1,
+ "universe": [
+  "005930",
+  "066570",
+  "454910",
+  "005380",
+  "035420"
+ ],
+ "counts": {
+  "critical": 0,
+  "notable": 1,
+  "routine": 3
+ },
+ "items": [
+  {
+   "code": "005380",
+   "name": "현대차",
+   "date": "20261001",
+   "title": "영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "하드넘버 갱신",
+   "rcept_no": "20261001800412",
+   "filer": "현대자동차",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261001800412"
+  }
+ ],
+ "insider": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "n": 2,
+   "net": -600,
+   "n_buy": 0,
+   "n_sell": 2,
+   "top": [
+    {
+     "who": "나현수",
+     "ofcps": "상무",
+     "regist": "비등기임원",
+     "delta": -500,
+     "held": 1351,
+     "date": "2026-10-01"
+    },
+    {
+     "who": "이석림",
+     "ofcps": "상무",
+     "regist": "비등기임원",
+     "delta": -100,
+     "held": 2344,
+     "date": "2026-10-01"
+    }
+   ]
+  },
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  }
+ ],
+ "major": [],
+ "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
+}

@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-24",
+ "updated": "2026-10-02",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -2287,6 +2287,84 @@
    "analyst": "양승수",
    "broker": "메리츠증권",
    "name": "삼성전기",
+   "held": false
+  },
+  "652670": {
+   "date": "2026-10-02",
+   "report_idx": "652670",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 비용 압박은 하반기가 정점 NAVER(035420) 비용 압박은 하반기가 정점 비용 압박은 하반기가 정점",
+   "code": "035420",
+   "target_price": 30000.0,
+   "rating": "Buy",
+   "analyst": "김소혜,김나우",
+   "broker": "한화투자증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "652647": {
+   "date": "2026-10-01",
+   "report_idx": "652647",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 3Q26 Preview: 따끔한 하반기 NAVER(035420) 3Q26 Preview: 따끔한 하반기 3Q26 Preview: 따끔한 하반기",
+   "code": "035420",
+   "target_price": 293000.0,
+   "rating": "Buy",
+   "analyst": "선유진",
+   "broker": "LS증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "652600": {
+   "date": "2026-09-29",
+   "report_idx": "652600",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) 패키지기판 증설 공시 코멘트: FC-BGA 산업 내 최대 규모 삼성전기(009150) 패키지기판 증설 공시 코멘트: FC-BGA 산업 내 최대 규모 패키지기판 증설 공시 코멘트: FC-BGA 산업 내 최대 규모",
+   "code": "009150",
+   "target_price": 2100000.0,
+   "rating": "Buy",
+   "analyst": "고의영",
+   "broker": "iM증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "652583": {
+   "date": "2026-09-29",
+   "report_idx": "652583",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) ABF 기판, 이제는 Capa의 싸움 삼성전기(009150) ABF 기판, 이제는 Capa의 싸움 ABF 기판, 이제는 Capa의 싸움",
+   "code": "009150",
+   "target_price": 0.0,
+   "rating": "투자의견없음",
+   "analyst": "양승수",
+   "broker": "메리츠증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "652576": {
+   "date": "2026-09-29",
+   "report_idx": "652576",
+   "title": "삼성전자",
+   "full_title": "삼성전자(005930) 긴 호흡으로 삼성전자(005930) 긴 호흡으로 긴 호흡으로",
+   "code": "005930",
+   "target_price": 560000.0,
+   "rating": "Strong Buy",
+   "analyst": "손인준",
+   "broker": "유진투자증권",
+   "name": "삼성전자",
+   "held": true
+  },
+  "652549": {
+   "date": "2026-09-28",
+   "report_idx": "652549",
+   "title": "SK하이닉스",
+   "full_title": "SK하이닉스(000660) 소음보다 방향성에 SK하이닉스(000660) 소음보다 방향성에 소음보다 방향성에",
+   "code": "000660",
+   "target_price": 3200000.0,
+   "rating": "Buy",
+   "analyst": "류형근",
+   "broker": "대신증권",
+   "name": "SK하이닉스",
    "held": false
   }
  }

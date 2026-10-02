@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-01",
- "days": 1,
+ "updated": "2026-10-02",
+ "days": 7,
  "universe": [
   "005930",
   "066570",
@@ -10,10 +10,22 @@
  ],
  "counts": {
   "critical": 0,
-  "notable": 1,
-  "routine": 3
+  "notable": 2,
+  "routine": 5
  },
  "items": [
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20261002",
+   "title": "주식등의대량보유상황보고서(약식)",
+   "level": "notable",
+   "category": "5%보고",
+   "why": "대주주 매매",
+   "rcept_no": "20261002000471",
+   "filer": "국민연금공단",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002000471"
+  },
   {
    "code": "005380",
    "name": "현대차",
@@ -21,7 +33,7 @@
    "title": "영업(잠정)실적(공정공시)",
    "level": "notable",
    "category": "실적",
-   "why": "하드넘버 갱신",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
    "rcept_no": "20261001800412",
    "filer": "현대자동차",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261001800412"
@@ -84,13 +96,43 @@
   {
    "code": "035420",
    "name": "NAVER",
-   "n": 0,
-   "net": 0,
+   "n": 2,
+   "net": -878,
    "n_buy": 0,
-   "n_sell": 0,
-   "top": []
+   "n_sell": 2,
+   "top": [
+    {
+     "who": "심동윤",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": -828,
+     "held": 1478,
+     "date": "2026-10-02"
+    },
+    {
+     "who": "오성권",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": -50,
+     "held": 1256,
+     "date": "2026-10-02"
+    }
+   ]
   }
  ],
- "major": [],
+ "major": [
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "2026-10-02",
+   "who": "국민연금공단",
+   "qty": 14432457,
+   "d_qty": 1541541,
+   "rate": "9.49",
+   "d_rate": "1.27",
+   "reason": "주식소각, 유상증자 및 단순추가취득/처분",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002000471"
+  }
+ ],
  "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
 }

@@ -947,6 +947,21 @@ INJECTION_TESTS = [
         },
         "args": ("docs/reports/report_v103_2026-09-29.md",),
     },
+
+    {
+        "name": "check_financials",
+        "desc": "재무 티커의 상장시장 접미사가 보유 정본과 다를 때 잡는가",
+        "why": "7/30 실사고 — financials가 454910.**KQ**(코스닥의 남의 종목)를 담고 있었는데 "
+               "6자리 코드만 대조해 통과해서 '커버리지 14/14'가 보유와 무관한 기록을 세고 있었다. "
+               "에러가 없고 숫자만 맞으니 사람 눈엔 정상으로 보이는 형태이고, CLAUDE.md 교훈"
+               "('접미사가 다르면 다른 회사다')의 기계판이다. ★[10/3 R3] 이 가드는 재무제표 "
+               "2개월 0건 사고 때문에 생긴 가드인데도 미등록 15개 중 하나였다 = 초록불의 진위를 "
+               "한 번도 확인받은 적이 없었다",
+        "pattern": r"\uc811\ubbf8\uc0ac \ubd88\uc77c\uce58",
+        "violate": {"data/app/financials.json": "{\"stocks\": {\"005380.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"005930.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"035420.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"066570.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"AVGO\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"GOOGL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MSFT\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MU\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"NVDA\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"ORCL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"454910.KQ\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}}}"},
+        "clean":   {"data/app/financials.json": "{\"stocks\": {\"005380.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"005930.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"035420.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"066570.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"454910.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"AVGO\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"GOOGL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MSFT\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MU\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"NVDA\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"ORCL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}}}"},
+        "args": (),
+    },
 ]
 
 

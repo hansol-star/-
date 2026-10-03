@@ -139,6 +139,7 @@ EXPECTED_UNUSED_FEATURES = {
     ("edgar_search.py", "--routine"): "루틴 프리셋 — 데스크가 --q/--events를 직접 쓴다",
     # ── [9/29 d216 재분류] 개별 사유 ─────────────────────────────────
     ("tranche_rules.py", "--us-execute"): "미국 트랙 회차 체결 기입 — 정훈이 체결을 알릴 때만(trades --add와 같은 성격)",
+    ("tranche_rules.py", "--kr-execute"): "국내 트랙 회차 체결 기입 — 정훈이 체결을 알릴 때만(--us-execute의 형제). ★[10/3 R3] 9/29 d216이 --us-execute만 등록하고 이 형제를 빠뜨려 2주간 유일한 '기능 미배선'으로 남아 있었다 — 8/12 교훈('그 도구만 고치고 옆에 남은 형제를 못 본다')의 재발. 룰6이 국내 집행을 0원으로 막는 동안 호출 자체가 생기지 않는다",
     ("target_reset.py", "--calibrated"):  "d188 기각(9/29) — 기본 OFF 유지, 비교표로만. 재상정 조건은 decisions d188",
     ("r2_brief.py", "--all-orders"):      "종결 오더까지 보는 사람용 조회 — 브리핑 정본은 미결 오더만",
     ("rule_tracker.py", "--history"):     "원장 요약 사람용 — R3 정본은 --score",

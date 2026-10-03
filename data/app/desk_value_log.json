@@ -11,6 +11,16 @@
    "trade_days": 17,
    "system_cost_pct": 1.29,
    "desk_value_net_pct": -4.12
+  },
+  "2026-10": {
+   "to": "2026-10-02",
+   "days": 79,
+   "desk_value_pct": -2.83,
+   "actual_pct": -9.9,
+   "hold_pct": -7.08,
+   "trade_days": 17,
+   "system_cost_pct": 1.32,
+   "desk_value_net_pct": -4.15
   }
  }
 }

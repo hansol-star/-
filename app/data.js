@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-10-03 08:57 KST",
+  "generated_at": "2026-10-03 09:36 KST",
   "as_of": "2026-10-02 17:18",
   "source_report": "docs/reports/report_v106_2026-10-02.md",
   "offline": false,
@@ -33,7 +33,7 @@ window.APP_DATA = {
     "base_krw": 2569,
     "allowed_krw": 0,
     "rule6_block": true,
-    "kr_weight_pct": 26.8,
+    "kr_weight_pct": 26.9,
     "ladder_allowed_krw": 0,
     "kr_track": {
       "krw_cash": 2569,
@@ -42,8 +42,8 @@ window.APP_DATA = {
       "rule": "d223",
       "n": 6,
       "rule6_block": true,
-      "rule6_why": "룰6 우선(d207) — 국내주 26.8% > 22% → 집행 0원 · 원화는 미국 트랙으로(d207 ②)",
-      "kr_weight_pct": 26.8,
+      "rule6_why": "룰6 우선(d207) — 국내주 26.9% > 22% → 집행 0원 · 원화는 미국 트랙으로(d207 ②)",
+      "kr_weight_pct": 26.9,
       "pre_gate_krw": 0,
       "per_tranche_krw": 0,
       "schedule": [],
@@ -1164,8 +1164,7 @@ window.APP_DATA = {
         228.86,
         227.21,
         228.38,
-        230.86,
-        233.95
+        230.86
       ],
       "sector": "반도체·AI",
       "margins": [
@@ -1298,8 +1297,7 @@ window.APP_DATA = {
         703.61,
         702.46,
         700.86,
-        702.35,
-        707.54
+        702.35
       ],
       "sector": "지수ETF",
       "margins": [],
@@ -1400,8 +1398,7 @@ window.APP_DATA = {
         509.22,
         508.96,
         512.9,
-        512.8,
-        517.53
+        512.8
       ],
       "sector": "빅테크",
       "margins": [
@@ -1524,8 +1521,7 @@ window.APP_DATA = {
         342.75,
         340.92,
         344.08,
-        338.24,
-        343.5
+        338.24
       ],
       "sector": "빅테크",
       "margins": [
@@ -1648,8 +1644,7 @@ window.APP_DATA = {
         132.6,
         137.79,
         137.3,
-        138.07,
-        142.3
+        138.07
       ],
       "sector": "빅테크",
       "margins": [
@@ -1772,8 +1767,7 @@ window.APP_DATA = {
         1053.98,
         1065.08,
         1065.11,
-        1097.39,
-        1074.89
+        1097.39
       ],
       "sector": "반도체·AI",
       "margins": [
@@ -1896,8 +1890,7 @@ window.APP_DATA = {
         349.57,
         355.1,
         351.19,
-        343.64,
-        355.14
+        343.64
       ],
       "sector": "반도체·AI",
       "margins": [
@@ -22744,6 +22737,41 @@ window.APP_DATA = {
           "앱"
         ],
         "refs": "docs/research/accounts_privacy_2026-10-01.md"
+      },
+      {
+        "id": "d231",
+        "date": "2026-10-03",
+        "topic": "매수존이 집행 가능한 높이인가 — 회차 집행이 '남은 것'을 사는 구조 (R3 15회차 제안)",
+        "decision": "제안(정훈 승인 사항·자동 변경 X): 미국 트랙 회차 집행 때 '매수존 안에 아무것도 없어서 GOOGL/VOO로 간다'가 몇 회 연속인지 카운터를 두고, 2회 연속이면 그 회차 보고서에 매수존 재산정 또는 후보 교체를 안건으로 올린다. 매수존 산출 방법론(stock-deepdive) 쪽 재검토도 같이.",
+        "rationale": "score_calls 매수존 진입 분자가 4주째 94에 고정(51->48->45->41%는 비율 하락이 아니라 9/12 이후 닿은 콜 0건). 같은 창에 d191/d220 매수 대상 전원이 벤치 상회(AMAT +26.11%p·CDNS +8.21·TSM +8.62·GEV +5.43·ANET +2.20)인데 셋 다 지정 매수존 위로 이탈. d191 순서상 1~3번이 가격 조건으로 비면 자동으로 4·5번(GOOGL/VOO)이 집행되므로 9/21 1회차는 '고른 것'이 아니라 '남은 것'을 샀다. 집행 자체는 룰대로였다(월 1회·2회차 10/21) — 결손은 집행이 아니라 가격 조건을 아무도 검증하지 않은 것.",
+        "rejected": "집행 실패로 규정(룰을 지킨 것을 벌주는 꼴·d208 교훈) · 매수존을 올려 바로 추격(룰3 추격매수 금지) · 회차 조기 집행(9/29 기각 유지, 그때도 존 밖이었다) · 놓친매수 목록으로 진입 문턱 낮추기(good_inaction 19건이 2배)",
+        "status": "open",
+        "tags": [
+          "매수존",
+          "룰1",
+          "미국트랙",
+          "오미션",
+          "R3",
+          "제안"
+        ],
+        "refs": "docs/research/call_scorecard.md (2026-10-03) · docs/research/hindsight_log.md 15회차 · missed_moves m51·m52"
+      },
+      {
+        "id": "d232",
+        "date": "2026-10-03",
+        "topic": "일봉 캐시가 워치 탈락 종목에서 얼어붙는다 — 캐시를 읽는 즉석 분석이 거짓 알파를 만든다 (R3 15회차)",
+        "decision": "조치 완료(기록) + 개선 후보: ⓐ추적 항목이 워치에서 빠지면 그 종목 가격은 market_data.py 실시세로 받는다(이번 회차 적용·회고 방법론에 명시) ⓑ후보 = ohlcv_backfill 대상에 'missed_moves.jsonl에 살아 있는 추적 종목'을 더한다(배선 변경이라 구현은 dev 상시승인 범위지만, 수집 대상 정의 변경이므로 R3에서 제안으로 올리고 다음 dev 세션에서 처리).",
+        "rationale": "ohlcv_backfill 수집 대상 = HOLDINGS + 현재 워치. 워치 탈락 시 CSV가 그날 정지(원익IPS 9/11·테스 9/11·PLTR 9/24·삼성바이오 9/23·META 9/17·IONQ·STM 9/10). 오미션 추적 항목 8개 중 4개가 그 종목들이라 캐시로 주간 알파를 재면 변동 0.00%가 되고 벤치 수익률 부호가 그대로 알파로 찍힌다 — 이번 세션이 실제로 원익IPS를 -5.90%p로 계산했다(실제 +9.85%p). missed_moves.py 본체는 Yahoo 실시세 경로라 영향 없다. 9/19 교훈('오미션 계산 전에 캐시 갱신이 선행')은 '갱신해도 탈락 종목은 안 채워진다'는 점에서 범위가 더 넓었다.",
+        "rejected": "캐시 대상에 과거 워치 전체를 넣기(수집 시간·용량이 추적 가치 없이 늘어난다) · 캐시만 믿고 그냥 쓰기(이번에 거짓 알파가 실제로 나왔다) · 캐시 정지를 가드로 FAIL 처리(탈락은 정상 동작이다 — 결함은 '정지한 캐시를 분석이 읽는 것')",
+        "status": "open",
+        "tags": [
+          "캐시",
+          "오미션",
+          "ohlcv",
+          "측정결함",
+          "R3"
+        ],
+        "refs": "docs/research/hindsight_log.md 15회차 §방법론 경고 · docs/research/call_scorecard.md (2026-10-03) 결함 ④"
       }
     ],
     "closed": [
@@ -23028,8 +23056,8 @@ window.APP_DATA = {
         "refs": "docs/research/trim_limit_test_2026-09-23.md"
       }
     ],
-    "open_count": 50,
-    "total": 247
+    "open_count": 52,
+    "total": 249
   },
   "reports": [
     {
@@ -30640,7 +30668,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "regime",
         "title": "룰1 국내 트랙 상태",
-        "detail": "고점대비 -23.2% (개시 문턱 -20%) · 이번 회차 0원. 룰6 우선(d207) — 국내주 26.8% > 22% → 집행 0원 · 원화는 미국 트랙으로(d207 ②)"
+        "detail": "고점대비 -23.2% (개시 문턱 -20%) · 이번 회차 0원. 룰6 우선(d207) — 국내주 26.9% > 22% → 집행 0원 · 원화는 미국 트랙으로(d207 ②)"
       },
       {
         "level": "positive",
@@ -30654,7 +30682,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "performance": {
-    "generated_at": "2026-10-02 23:57",
+    "generated_at": "2026-10-03 00:36",
     "from": "2026-06-15",
     "to": "2026-10-02",
     "days": 79,

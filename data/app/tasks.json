@@ -1172,6 +1172,20 @@
    "how": "docs/research/blind_rescore_2026-09-30.md 괴리표 → financials.py --tickers 066570.KS,005380.KS,454910.KS,TMUS --score · eps_revisions → stocks.json score/stars/score_rationale 갱신 또는 유지 사유 명기",
    "done_at": "2026-10-01 17:16",
    "done_note": "✅[v105] 4종 재점검 완료 — 룰2(LG전자1/3·현대차1/1·두산로보3/3)·EPS리비전 오늘 재조회 결과 9/30과 완전히 동일한 방향(기존 판정 승계). 블라인드 Δ는 '절대수준(블라인드) vs 추세(룰2)' 채점 방식 차이로 설명되는 부분이 크다고 판단해 별점·스코어 전부 유지. d225 보유프리미엄(+3.4p) 추적은 12월말 분기 블라인드 재채점으로 이월."
+  },
+  {
+   "id": "pre-1003-1",
+   "added": "2026-10-03",
+   "done": false,
+   "text": "hunter.json 스탬프 정지 — as_of 2026-09-23 · source_report v98(9/22). 마지막으로 스탬프를 찍은 세션은 v99(9/23 17:58)이고 그 뒤 v100~v106 일곱 판(+v105_r2)이 전부 소비만 했다. 기계 writer(R1 updated=9/30)만 돌고 PM 쪽 writer가 멈췄다 = 앱 채널 화면이 11일 묵은 서사를 'v98 기준'으로 표시.",
+   "how": "채널 서사(latest_videos·track_record·themes·headline)를 이번 보고서 기준으로 갱신한 뒤 as_of·source_report를 그 보고서로 스탬프 → build_app_data.py. ⚠️ 스탬프만 찍고 서사를 안 고치면 가드만 속이는 것이다(자동 스탬프를 안 넣은 이유). 정본 = data_coverage §3 #15"
+  },
+  {
+   "id": "pre-1003-2",
+   "added": "2026-10-03",
+   "done": false,
+   "text": "🔒로컬 필요 — 영상 백로그 36건 소급(아카이브 미등재). 그중 자막까지 없는 13건이 수집 공백이고, 23건은 자막·로그가 있는데 앱 아카이브 등재만 빠졌다.",
+   "how": "로컬: hunter_audit.py --emit-ids | xargs -I{} hunter_latest.py --ids {} --fetch (yt-dlp 경로). 등재만 빠진 23건은 수집이 아니라 build_app_data 롤오버 쪽을 먼저 본다(9/19 진단과 동일). 백로그 = data/app/hunter_missing_backlog.json"
   }
  ],
  "memo": "v102(대화형 로컬·토스 대조 17:3x): 코스피 -2.70% = 美10Y+오라클 지연이 삼성·하닉 두 종목으로 청산(외인 매도 96%). 체결 없음·원장 일치. 두산로보 9/28분 미등록 → 9/29분 등록. 시스템 결함 6건(5 수정·claude 재로그인 1건 정훈)."

@@ -1,7 +1,7 @@
 {
  "_comment": "종목별 분석 정본 (사람·앱이 함께 읽음). 보고서 갱신 시 여기 stars/target/buy_zone/trim/outlook/comment/issues 를 최신 보고서값으로 업데이트한 뒤 build_app_data.py 재실행. 원가·수량 정본은 portfolio.json, 사람용 서술 정본은 docs/master.md.",
  "as_of": "2026-10-06 10:23",
- "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+ "source_report": "docs/reports/report_v109_2026-10-06.md",
  "stocks": {
   "005930.KS": {
    "outlook": "core",
@@ -71,7 +71,7 @@
    "price": 276000,
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 273,500원 × (1 + 컨센여력 × (1−낙관계수 0.30)). 앵커 = 컨센 480,000원(n=9, broker_reports 2026-09-08). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(debt_buildup). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 15.0,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -149,7 +149,7 @@
    "price": 216000,
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 205,000원 × (1 + 컨센여력 × (1−낙관계수 0.33)). 앵커 = 컨센 180,000원(n=12, broker_reports 2026-09-08). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 2.9,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -228,7 +228,7 @@
    "score_basis": "펀더 서브스코어 48.2 vs 최종 15 — 이격 33은 N·L·M 가감분. 룰2 추세형 훼손 3/3(착수) + 미너비니 Stage4·외인 10일 연속 순매도(주도주 L 실격) + TF ACTIVE 국면(M 최하)으로 하향. 펀더<20 모멘텀 분류 대상이라 별점은 +1 상한 적용해 ⭐2.",
    "score_rationale": "펀더 48.2 대비 32로 **하향** 조정. 근거 = ①룰2 추세형 3중조건 3/3 훼손 착수(마진 3년연속↓·FCF 2년연속↓·순부채 2년연속↑) ②CLAUDE.md '데이터 우선 vs 모멘텀' 규정상 두산로보는 **모멘텀 종목(펀더<20 축)**이라 별점 +1 상한 적용 대상 — 서브스코어의 자산·현금 항목이 실적 없는 성장기대를 과대반영한다. ⇒ 펀더 밴드(⭐2)보다 낮은 ⭐1이 정본.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 1.0,
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 73,200원 × (1 + 컨센여력 × (1−낙관계수 0.38)). 앵커 = 컨센 103,667원(n=3, WebSearch 컨센 2026-08-15 ⚠️애널 3명뿐 — 표본 얕음). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(debt_buildup). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "target_updated": "2026-08-19",
@@ -313,7 +313,7 @@
    "score_rationale": "펀더 25.8 대비 50으로 **상향** 조정. 근거 = **금융 자회사 연결 왜곡**(CLAUDE.md 룰2 예외조항) — 할부금융 자산 증가가 CFO에 마이너스로 잡혀 FCF·순부채가 구조적으로 훼손처럼 보인다. 이 두 축을 제외하면 마진 조건만 유효하고 판정은 1/1. 서브스코어 25.8은 제조 수익성이 아니라 금융연결 회계의 산물이라 그대로 쓰면 과소평가. ⇒ 제조 마진·컨센(목표 60만)을 반영해 50. ⚠️ 8/26 인베스터데이 후 제조부문 분리 딥다이브로 재산정 필요(미완 부채).",
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 387,500원 × (1 + 컨센여력 × (1−낙관계수 0.65)). 앵커 = 컨센 701,600원(n=22, naver_value 2026-09-09 ⚠️stale 의심(크래시 미반영)). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. ⚠️컨센 stale 의심으로 낙관계수 +0.15 가산. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 4.9,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -397,7 +397,7 @@
    "score_rationale": "펀더 54.7 + 컨센 프리미엄(목표 +46.7%·의견 4.0)·재무구조 개선의 중간값으로 60. 舊 70은 7/30 ⭐4 승격 시점 score 68(⭐3 밴드) 위반을 다음날 70으로 맞춰 사후 정당화한 값.",
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 211,500원 × (1 + 컨센여력 × (1−낙관계수 0.63)). 앵커 = 컨센 330,958원(n=4, naver_value 2026-09-09 ⚠️stale 의심(크래시 미반영)). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. ⚠️컨센 stale 의심으로 낙관계수 +0.15 가산. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(margin_trend_break). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 2.7,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -501,7 +501,7 @@
    "score_rationale": "펀더 99.5 대비 90으로 **할인**(밴드 ⭐5 유지). 서브스코어는 사실상 만점 — 매출 130.5→215.9B(+65.5%)·영업마진 60.4%·FCF 96.7B·순현금 +2.1B(순부채→순현금 전환). 할인 근거 = ①🔴**재고 YoY +237.0%가 매출 +132.6%를 104.4%p 초과 = 사이클 정점 선행신호**(financials 플래그). 펀더 서브스코어는 CANSLIM 손익 5축만 채점해 **재고·채권 회전을 안 본다** — 그 결손을 PM이 반영. ②포트 비중 **20.2%로 단일 최대** = 집중 리스크. 반대편 = 🟢계약부채(선수금·백로그) YoY +127.9% 수주잔고 확대, EPS 리비전 +39.8 상향(단 표본 4로 희박). ⇒ 밴드는 ⭐5 유지하되 만점을 그대로 쓰지 않는다. 재검토 트리거 = 8/26 실적서 재고 증가율이 매출을 계속 초과.",
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 $226 × (1 + 컨센여력 × (1−낙관계수 0.38)). 앵커 = 컨센 $326(n=57, Yahoo consensus.json). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(inventory_surge·receivable_divergence). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 22.3,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -582,7 +582,7 @@
    },
    "price": 707.54,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 18.0,
    "prose_as_of": "2026-10-06"
   },
@@ -655,7 +655,7 @@
    "score_rationale": "펀더 68.8 대비 82로 **상향**(밴드 ⭐3→⭐4). 서브스코어를 누른 것 = 🔴영업마진 **2분기 연속 하락**(48.9→47.1→46.3%)·🟡순현금 -12.9B→-19.4B(1년 새 6.5B 악화). 상향 근거 = ①**연간 기준 마진은 오히려 상승**(44.6→45.6→46.8%) — 서브스코어가 잡은 건 분기 노이즈 구간 ②매출 245.1→281.7→**331.8B(+17.8%)**·FCF 67.0B 유지 ③애저 **+43% 가속**(직전 40%)로 capex 가이던스 상향 유지(m7capex 셋업 조건 충족). 분기 마진 하락은 **AI capex 투자 국면의 비용**이지 수요 훼손이 아니라는 판단. ⚠️ 다만 EPS 리비전 **-2.8 중립**(상4/하6)으로 상향 근거가 강하진 않다. **재검토 트리거 = 마진 3분기 연속 하락 또는 애저 성장률 40% 하회 — 둘 중 하나면 ⭐3으로 환원.**",
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 $494 × (1 + 컨센여력 × (1−낙관계수 0.53)). 앵커 = 컨센 $571(n=52, Yahoo consensus.json). 12M 선행 EPS 19.72 (us_value 실측) → 중심 내재배수 26.9x. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(debt_buildup·margin_trend_break). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 13.3,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -728,7 +728,7 @@
    "fund_subscore": 86.1,
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 $338 × (1 + 컨센여력 × (1−낙관계수 0.30)). 앵커 = 컨센 $428(n=54, Yahoo consensus.json). 12M 선행 EPS 20.57 (us_value 실측) → 중심 내재배수 19.5x. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(debt_buildup). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 17.2,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -802,7 +802,7 @@
    "score_rationale": "[9/12 R3 미러 동기화] 서브스코어 **54.3 → 66.6(+12.3p)**. 원인 = 9/11 발표된 FY27 Q1(분기말 2026-08-31) 10-Q가 EDGAR에 반영됨 — 직전 캐시는 2026-02-28 분기에 묶여 있었다. 올라간 축은 둘뿐: **분기EPS 16.4→25/25**(희석EPS YoY +15.5%→**+52.9%**) · **마진방향 16.3→20/20**(+3.14%p→**+5.32%p**). **FCF건전성 0/15·재무건전성 0.5/15는 그대로다**(FCF마진 -35.2% · 순현금 -98.3B · D/E 3.05) — 즉 손익은 좋아졌고 **현금·레버리지 약점은 하나도 해소되지 않았다**. ⚠️ **score 55·⭐3은 이 세션에서 건드리지 않았다**(미러는 기계 동기화, score·별점은 PM 판단 = 보고서 사안). 지금 괴리는 55 vs 66.6 = **-11.6p**이고 v94가 재산정할 항목이다. | [8/7] 기록돼 있던 펀더 68.8은 **stale이었고 실제는 54.3**(financials.json 8/7 갱신분 미반영). 동기화 후 score 55 vs 54.3 = +0.7로 괴리 해소 — 다만 **서브스코어가 14.5p 급락한 것 자체가 신호**다: FCF -394 → **-23,686M(마이너스 심화)** · 총차입 92.6→**129.5B(+39.9%)** · 순현금 **-98.3B** · 룰2 플래그 1/3→**2/3 감시 등급 상향**. score 55는 ⭐3 밴드 **바닥**이라 한 칸만 더 내려가면 ⭐2다. ⚠️ 다음 보고서 재무 3표 딥다이브 필수(원가대비 -38.2% 종목). | [8/7 딥다이브] 서브스코어 54.3 내역 = 분기EPS 16.4/25·연간EPS 21.1/25·마진방향 16.3/20·**FCF건전성 0/15·재무건전성 0.5/15**. 손익 3축은 만점 근처인데 현금·재무 2축이 0 — score 55(⭐3 밴드 바닥)는 이 대비를 반영한 값. 정본 = docs/research/orcl_deepdive_2026-08-07.md",
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 $163 × (1 + 컨센여력 × (1−낙관계수 0.38)). 앵커 = 컨센 $242(n=42, Yahoo consensus.json). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(debt_buildup). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 0.6,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -880,7 +880,7 @@
    "fund_subscore": 87.7,
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 $1,000 × (1 + 컨센여력 × (1−낙관계수 0.25)). 앵커 = 컨센 $1,513(n=45, Yahoo consensus.json). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 0.4,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -954,7 +954,7 @@
    "score_rationale": "펀더 89.5 대비 78로 **할인**(밴드 ⭐5→⭐4). 서브스코어 89.5는 매출 51.6→63.9B(+23.9%)와 영업마진 **26.1→39.9% 급반등**이 끌어올린 값이다. 할인 근거 = ①🔴**재고 YoY +126.8%가 매출 +48.7%를 78.1%p 초과 = 사이클 정점 선행신호** ②🟡매출채권 YoY +118.6%로 매출 성장을 크게 상회 — 매출의 질 점검 필요 ③순현금 -50.9B. NVDA와 같은 구조 = **서브스코어가 손익만 보고 재고·채권 회전을 안 본다.** AVGO는 그 괴리가 NVDA보다 크고(정점 신호 2개) 백로그 상쇄도 없어 **밴드를 한 단계 내렸다.** EPS 리비전 +24.5 상향이나 표본 2개로 희박. 포지션 0.0712주(4.2만원·0.5%).",
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 $369 × (1 + 컨센여력 × (1−낙관계수 0.38)). 앵커 = 컨센 $526(n=46, Yahoo consensus.json). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p) + 재무경보 가산(inventory_surge·receivable_divergence). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 0.5,
    "target_updated": "2026-08-19",
    "prose_as_of": "2026-10-06"
@@ -1119,7 +1119,7 @@
    "price": 1840000,
    "fund_subscore": 93.0,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "신규매수 없음 — 룰6 국내 26.5% > 상단 22% · 국내 트랙 잔여 19,800원 < 1주. 메모리 축은 삼성전자·MU·NVDA로 이미 3겹",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1217,7 +1217,7 @@
    "price": 1486000,
    "fund_subscore": 81.1,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "미등록 — 1주 142.9만원 > 원화 247,500원(결제통화 잔고가 막음) · 룰6 국내 상단 초과",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1299,7 +1299,7 @@
    "price": 946.22,
    "fund_subscore": 87.5,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "target_basis": "컨센 평균(consensus.py 9/17). FY27 컨센 EPS $24.84 × 약 50배 = 컨센 목표 수준 — FY26 EPS $30.79는 1Q 일회성 이익(EPS $17.44) 포함이라 배수 산정에 쓰지 않는다.",
    "buy_zone": "② 매수 우선순위 — $880~900 눌림(MA200 $898·지지 $896). 9/16 +4.6% 당일 추격 금지",
    "trim": "—",
@@ -1382,7 +1382,7 @@
    "price": 86500,
    "fund_subscore": 51.1,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "62,000~66,000원(현재 86,500 = +31% 위) · 추세복귀 82,000 발동 상태",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1494,7 +1494,7 @@
    "price": 81600,
    "fund_subscore": 84.3,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "미등록",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1570,7 +1570,7 @@
    "score_rationale": "스코어 62→64(⭐3). 펀더 서브 71.7 · 미너비니 8/8이나 Stage3·MA50 하회 · EPS 리비전 +27. 성장 제한 감점 유지(디펜시브 분산 역할)",
    "price": 177300,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "🎯 165,000원 이하 눌림(현재 +5.3% 위) — 1주 173,800원은 원화 잔고 안이지만 국내 사다리 잔여 19,800원·룰6이 막음",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1647,7 +1647,7 @@
    "price": 1057000,
    "fund_subscore": 63.8,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "900,000~950,000원 눌림(현재 +12% 위)",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1724,7 +1724,7 @@
    "price": 165.27,
    "fund_subscore": 62.9,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "미등록 — 미국 트랙 대상 아님(d205 순서: 매수존 안 GEV·ANET → GOOGL 18% → VOO). MA50 $181·MA200 $193 아래 하락 추세",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1786,7 +1786,7 @@
    "buy_zone": "추격 금지 — 9/21 +9.2%(장중 $616 신고가). 재검토 = 11/3 3Q 소화 후 MA50($496) 부근 $500~520 눌림. 미국 트랙 순서 밖(신규 편입은 정훈 승인). 舊 \"3조건(안전핀 해제 등)\"은 폐기된 룰 기준이라 삭제",
    "price": 615.52,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "trim": "—",
    "prose_as_of": "2026-10-06"
   },
@@ -1822,7 +1822,7 @@
    "price": 145900,
    "fund_subscore": 63.4,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "buy_zone": "105,000~112,000원(현재 +26% 위) · 추세복귀 125,000 발동 상태",
    "trim": "—",
    "prose_as_of": "2026-10-06"
@@ -1839,7 +1839,7 @@
    "target_basis": "컨센 평균(consensus.py 9/17). FY27 컨센 EPS $5.16 × 약 47배. ⚠️ TTM PER 64배는 16년 역사 정당구간 49~60배 상단 초과(multiple_backtest) — 컨센 EPS +25% 실현이 전제.",
    "fund_subscore": 83.2,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "price": 205.42,
    "issues": [
     {
@@ -1882,7 +1882,7 @@
    ],
    "price": 445.14,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "prose_as_of": "2026-10-06"
   },
   "AMAT": {
@@ -1906,7 +1906,7 @@
    ],
    "price": 486.76,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "prose_as_of": "2026-10-06"
   },
   "CDNS": {
@@ -1930,7 +1930,7 @@
    ],
    "price": 326.7,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "prose_as_of": "2026-10-06"
   },
   "ISRG": {
@@ -1954,7 +1954,7 @@
    ],
    "price": 414.79,
    "as_of": "2026-10-06 10:23",
-   "source_report": "docs/reports/report_v108_2026-10-06_addendum.md",
+   "source_report": "docs/reports/report_v109_2026-10-06.md",
    "prose_as_of": "2026-10-06"
   }
  },

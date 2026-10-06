@@ -92,3 +92,5 @@
 {"date": "2026-10-01", "index": "KOSPI", "foreign": -5597, "inst": 3322, "indiv": -14148, "src": "flows.json(확정)"}
 {"date": "2026-10-02", "index": "KOSDAQ", "foreign": -1737, "inst": 938, "indiv": 818, "src": "naver"}
 {"date": "2026-10-02", "index": "KOSPI", "foreign": -1421, "inst": 3793, "indiv": -17205, "src": "naver"}
+{"date": "2026-10-06", "index": "KOSDAQ", "foreign": 1085, "inst": 1048, "indiv": -2105, "src": "naver"}
+{"date": "2026-10-06", "index": "KOSPI", "foreign": -17605, "inst": -16, "indiv": 7497, "src": "naver"}

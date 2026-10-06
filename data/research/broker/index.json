@@ -2300,9 +2300,7 @@
    "analyst": "김소혜,김나우",
    "broker": "한화투자증권",
    "name": "NAVER",
-   "held": true,
-   "body_chars": 13696,
-   "cached": false
+   "held": true
   },
   "652647": {
    "date": "2026-10-01",
@@ -2315,9 +2313,7 @@
    "analyst": "선유진",
    "broker": "LS증권",
    "name": "NAVER",
-   "held": true,
-   "body_chars": 18113,
-   "cached": false
+   "held": true
   },
   "652600": {
    "date": "2026-09-29",
@@ -2330,9 +2326,7 @@
    "analyst": "고의영",
    "broker": "iM증권",
    "name": "삼성전기",
-   "held": false,
-   "body_chars": 5968,
-   "cached": false
+   "held": false
   },
   "652583": {
    "date": "2026-09-29",
@@ -2345,9 +2339,7 @@
    "analyst": "양승수",
    "broker": "메리츠증권",
    "name": "삼성전기",
-   "held": false,
-   "body_chars": 10702,
-   "cached": false
+   "held": false
   },
   "652576": {
    "date": "2026-09-29",
@@ -2360,9 +2352,7 @@
    "analyst": "손인준",
    "broker": "유진투자증권",
    "name": "삼성전자",
-   "held": true,
-   "body_chars": 16848,
-   "cached": false
+   "held": true
   },
   "652549": {
    "date": "2026-09-28",
@@ -2390,9 +2380,7 @@
    "analyst": "양승수",
    "broker": "메리츠증권",
    "name": "LG전자",
-   "held": true,
-   "body_chars": 20296,
-   "cached": true
+   "held": true
   },
   "652684": {
    "date": "2026-10-02",
@@ -2405,9 +2393,33 @@
    "analyst": "김운호, 고혁진",
    "broker": "IBK투자증권",
    "name": "삼성전자",
-   "held": true,
-   "body_chars": 20890,
-   "cached": false
+   "held": true
+  },
+  "652721": {
+   "date": "2026-10-06",
+   "report_idx": "652721",
+   "title": "SK이노베이션",
+   "full_title": "SK이노베이션(096770) 윤활기유 경쟁력 확인, 정제마진 및 기유 전망 상향 SK이노베이션(096770) 윤활기유 경쟁력 확인, 정제마진 및 기유 전망 상향 윤활기유 경쟁력 확인, 정제마진 및 기유 전망 상향",
+   "code": "096770",
+   "target_price": 187000.0,
+   "rating": "Buy",
+   "analyst": "정경희",
+   "broker": "LS증권",
+   "name": "SK이노베이션",
+   "held": false
+  },
+  "652716": {
+   "date": "2026-10-06",
+   "report_idx": "652716",
+   "title": "삼성전자",
+   "full_title": "삼성전자(005930) 현저한 저평가 삼성전자(005930) 현저한 저평가 현저한 저평가",
+   "code": "005930",
+   "target_price": 610000.0,
+   "rating": "매수",
+   "analyst": "한동희",
+   "broker": "SK증권",
+   "name": "삼성전자",
+   "held": true
   }
  }
 }

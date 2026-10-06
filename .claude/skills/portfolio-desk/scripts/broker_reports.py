@@ -227,6 +227,15 @@ def target_consensus() -> list[dict]:
     out = []
     for code, rs in by_code.items():
         rs.sort(key=lambda x: x["date"])
+        # [10/6] 원천(한경 컨센서스) 목록의 자릿수 오기 방어 — NAVER 한화 300,000이 30,000으로 실려
+        # '목표가 하향 300,000→30,000'이 그대로 출력됐다. 종목 중앙값의 0.4배 미만·2.5배 초과는
+        # 통계·이력에서 빼고(원문은 인덱스에 그대로 둔다) 의심 건수만 남긴다.
+        _med = sorted(r["target_price"] for r in rs)[len(rs) // 2]
+        suspects = [r for r in rs if not (0.4 * _med <= r["target_price"] <= 2.5 * _med)]
+        if len(rs) >= 3 and suspects:
+            rs = [r for r in rs if r not in suspects]
+        else:
+            suspects = []
         tps = [r["target_price"] for r in rs]
         latest = rs[-1]
         # 같은 증권사의 직전 목표가와 비교해 상향/하향 판정
@@ -246,6 +255,7 @@ def target_consensus() -> list[dict]:
             "latest_date": latest["date"], "latest_broker": latest["broker"],
             "latest_target": latest["target_price"], "latest_rating": latest["rating"],
             "recent_moves": moves[-4:],
+            "suspect_n": len(suspects),
         })
     return sorted(out, key=lambda x: (not x["held"], x["name"]))
 

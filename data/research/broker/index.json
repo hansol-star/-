@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02",
+ "updated": "2026-10-06",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -2300,7 +2300,9 @@
    "analyst": "김소혜,김나우",
    "broker": "한화투자증권",
    "name": "NAVER",
-   "held": true
+   "held": true,
+   "body_chars": 13696,
+   "cached": false
   },
   "652647": {
    "date": "2026-10-01",
@@ -2313,7 +2315,9 @@
    "analyst": "선유진",
    "broker": "LS증권",
    "name": "NAVER",
-   "held": true
+   "held": true,
+   "body_chars": 18113,
+   "cached": false
   },
   "652600": {
    "date": "2026-09-29",
@@ -2326,7 +2330,9 @@
    "analyst": "고의영",
    "broker": "iM증권",
    "name": "삼성전기",
-   "held": false
+   "held": false,
+   "body_chars": 5968,
+   "cached": false
   },
   "652583": {
    "date": "2026-09-29",
@@ -2339,7 +2345,9 @@
    "analyst": "양승수",
    "broker": "메리츠증권",
    "name": "삼성전기",
-   "held": false
+   "held": false,
+   "body_chars": 10702,
+   "cached": false
   },
   "652576": {
    "date": "2026-09-29",
@@ -2352,7 +2360,9 @@
    "analyst": "손인준",
    "broker": "유진투자증권",
    "name": "삼성전자",
-   "held": true
+   "held": true,
+   "body_chars": 16848,
+   "cached": false
   },
   "652549": {
    "date": "2026-09-28",
@@ -2365,7 +2375,39 @@
    "analyst": "류형근",
    "broker": "대신증권",
    "name": "SK하이닉스",
-   "held": false
+   "held": false,
+   "body_chars": 14321,
+   "cached": false
+  },
+  "652702": {
+   "date": "2026-10-06",
+   "report_idx": "652702",
+   "title": "LG전자",
+   "full_title": "LG전자(066570) 가전에서 K-Vertiv로 LG전자(066570) 가전에서 K-Vertiv로 가전에서 K-Vertiv로",
+   "code": "066570",
+   "target_price": 250000.0,
+   "rating": "Buy",
+   "analyst": "양승수",
+   "broker": "메리츠증권",
+   "name": "LG전자",
+   "held": true,
+   "body_chars": 20296,
+   "cached": true
+  },
+  "652684": {
+   "date": "2026-10-02",
+   "report_idx": "652684",
+   "title": "삼성전자",
+   "full_title": "삼성전자(005930) 분기 영업이익 100조 시대가 열렸다 삼성전자(005930) 분기 영업이익 100조 시대가 열렸다 분기 영업이익 100조 시대가 열렸다",
+   "code": "005930",
+   "target_price": 460000.0,
+   "rating": "매수",
+   "analyst": "김운호, 고혁진",
+   "broker": "IBK투자증권",
+   "name": "삼성전자",
+   "held": true,
+   "body_chars": 20890,
+   "cached": false
   }
  }
 }

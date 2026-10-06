@@ -2568,6 +2568,36 @@ def check_rate_gauge(rel=None):
              "`macro_data.py`의 DFII10·DGS10 + CME FedWatch")
 
 
+TECH_COLUMN_SINCE = "2026-10-06"   # 정훈 승인(10/6 "기술 컬럼 넣어줘") 보고서부터
+
+
+def check_tech_column(rel=None):
+    """풀표에 기술 컬럼(MA50/MA200·스테이지)이 있는지 [10/6 신설 · 정훈 승인].
+
+    chart_read.py는 7/21부터 있었고 데스크 Tasks·SKILL §0-7에 배선돼 있었는데, 보고서 풀표에
+    자리가 없어서 **한 번도 본문에 실리지 않았다**(10/6 정훈 지적 "이동평균선 만들었잖아 사용 안 하더라").
+    자리가 없는 산출물은 안 읽힌다 → 컬럼을 고정하고 누락을 WARN으로 올린다. 측정 전용(룰 불변).
+    부록(_addendum 등)은 모보고서가 싣고 있으면 통과."""
+    import re as _re
+    if rel is None:
+        return
+    m = _re.search(r"(\d{4}-\d{2}-\d{2})", os.path.basename(rel))
+    if not m or m.group(1) < TECH_COLUMN_SINCE:
+        return
+    base = _re.sub(r"_(addendum|exec|night)[^.]*", "", os.path.basename(rel))
+    bodies = ""
+    for name in {os.path.basename(rel), base}:
+        rp = os.path.join(ROOT, os.path.dirname(rel), name)
+        if os.path.exists(rp):
+            try:
+                bodies += open(rp, encoding="utf-8").read()
+            except OSError:
+                pass
+    if not _re.search(r"\|[^|\n]*기술[^|\n]*\|", bodies) or "MA50" not in bodies:
+        warn(f"풀표 기술 컬럼 누락 ({os.path.basename(rel)}) — `chart_read.py --holdings`를 PM 단계에서 "
+             "돌려 보유·워치 표에 '기술(MA50/MA200·스테이지)' 컬럼을 채울 것(측정 전용)")
+
+
 def check_repealed_rules():
     """정본 문서에 **폐기된 룰**이 살아 있는지 감지 [8/5 신설].
 
@@ -3066,7 +3096,7 @@ def main():
     if not a.no_report:
         rel = a.report or (latest_report_path(latest) if latest else None)
         if rel:
-            check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel); check_rate_gauge(rel)
+            check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel); check_rate_gauge(rel); check_tech_column(rel)
             check_verdict_grounding(rel); check_magnitude_sanity(rel); check_primary_source(rel)
             check_report_provenance(rel); check_price_grounding(rel)
 

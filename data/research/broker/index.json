@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07",
+ "updated": "2026-10-08",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -2458,6 +2458,71 @@
    "analyst": "정의훈",
    "broker": "유진투자증권",
    "name": "NAVER",
+   "held": true
+  },
+  "652842": {
+   "date": "2026-10-08",
+   "report_idx": "652842",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) 3Q26 Pre: 공시가 증명하는 성장 삼성전기(009150) 3Q26 Pre: 공시가 증명하는 성장 3Q26 Pre: 공시가 증명하는 성장",
+   "code": "009150",
+   "target_price": 2300000.0,
+   "rating": "Buy",
+   "analyst": "고선영, 임석민",
+   "broker": "유안타증권",
+   "name": "삼성전기",
+   "held": false
+  },
+  "652841": {
+   "date": "2026-10-08",
+   "report_idx": "652841",
+   "title": "LG전자",
+   "full_title": "LG전자(066570) 3Q26 잠정 Re: 숫자 뒤 체력, 그 너머의 성장 LG전자(066570) 3Q26 잠정 Re: 숫자 뒤 체력, 그 너머의 성장 3Q26 잠정 Re: 숫자 뒤 체력, 그 너머의 성장",
+   "code": "066570",
+   "target_price": 280000.0,
+   "rating": "Buy",
+   "analyst": "고선영, 임석민",
+   "broker": "유안타증권",
+   "name": "LG전자",
+   "held": true
+  },
+  "652810": {
+   "date": "2026-10-08",
+   "report_idx": "652810",
+   "title": "현대차",
+   "full_title": "현대차(005380) 실적 부진의 깊이는 실적 반등의 강도로 현대차(005380) 실적 부진의 깊이는 실적 반등의 강도로 실적 부진의 깊이는 실적 반등의 강도로",
+   "code": "005380",
+   "target_price": 670000.0,
+   "rating": "Buy",
+   "analyst": "김성래",
+   "broker": "한화투자증권",
+   "name": "현대차",
+   "held": true
+  },
+  "652804": {
+   "date": "2026-10-08",
+   "report_idx": "652804",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 불편한 샌드위치 NAVER(035420) 불편한 샌드위치 불편한 샌드위치",
+   "code": "035420",
+   "target_price": 330000.0,
+   "rating": "Buy",
+   "analyst": "이효진,김수민",
+   "broker": "메리츠증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "652802": {
+   "date": "2026-10-08",
+   "report_idx": "652802",
+   "title": "LG전자",
+   "full_title": "LG전자(066570) 3Q26P 잠정실적 리뷰: 오해와 진실 LG전자(066570) 3Q26P 잠정실적 리뷰: 오해와 진실 3Q26P 잠정실적 리뷰: 오해와 진실",
+   "code": "066570",
+   "target_price": 0.0,
+   "rating": "투자의견없음",
+   "analyst": "양승수",
+   "broker": "메리츠증권",
+   "name": "LG전자",
    "held": true
   }
  }

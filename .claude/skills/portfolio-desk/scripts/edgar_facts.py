@@ -91,10 +91,14 @@ TAGS: dict[str, list[str]] = {
 #   구조적으로 발동 불가였고 재무건전성 서브스코어가 거꾸로 매겨졌다.
 #   ⇒ combined 태그를 **최우선**으로 보고, 없을 때만 long+short를 더한다(이중계상 방지).
 DEBT_COMBINED = ["DebtLongtermAndShorttermCombinedAmount"]
+# ★[10/10 R3] CDNS 실측 — `UnsecuredLongTermDebt`($2.48B, 2026-03-31)로만 태깅해서
+#   total_debt가 **결측**으로 나왔다(validate `부채태그 의심` WARN이 잡은 ORCL 사고 유형의 두 번째 사례).
+#   ⇒ Unsecured 계열을 long/short에 추가. combined 우선 원칙은 그대로라 이중계상 없음.
 DEBT_LONG = ["LongTermDebtNoncurrent", "LongTermDebt",
-             "LongTermDebtAndCapitalLeaseObligations"]
+             "LongTermDebtAndCapitalLeaseObligations",
+             "UnsecuredLongTermDebt", "UnsecuredLongTermNotesPayable"]
 DEBT_SHORT = ["LongTermDebtCurrent", "DebtCurrent", "ShortTermBorrowings",
-              "OtherShortTermBorrowings"]
+              "OtherShortTermBorrowings", "UnsecuredDebtCurrent"]
 
 # 시점(instant) 팩트 — start가 없다
 STOCK_KEYS = {"assets", "liabilities", "equity", "cash", "inventory", "receivables",

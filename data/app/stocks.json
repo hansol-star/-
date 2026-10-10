@@ -877,13 +877,14 @@
     "note": "6/30 종가 등락률. Yahoo live prev_close가 실제 6/25 종가($1,213.56)와 달라 change_pct가 +0.79%로 오표시되는 문제 → 수동 대조치로 고정(가격이 바뀌면 자동 해제). Citi 마진정점 경고일."
    },
    "price": 1074.89,
-   "fund_subscore": 87.7,
+   "fund_subscore": 100.0,
    "target_basis": "산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 $1,000 × (1 + 컨센여력 × (1−낙관계수 0.25)). 앵커 = 컨센 $1,513(n=45, Yahoo consensus.json). ⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. 낙관계수 근거 = target_score 실측(여력이 클수록 편향이 커진다 — +50%↑ 목표 편향 +52.6%p). 밴드는 애널 low/high를 같은 보정으로 스케일 후 중심의 [0.80, 1.30] 클램프.",
    "as_of": "2026-10-06 10:23",
    "source_report": "docs/reports/report_v109_2026-10-06.md",
    "weight_pct": 0.4,
    "target_updated": "2026-08-19",
-   "prose_as_of": "2026-10-06"
+   "prose_as_of": "2026-10-06",
+   "fund_subscore_synced": "2026-10-10 R3 — financials.py --with-peers --save 주간 갱신 결과 동기화(87.7→100.0). 측정값 동기화일 뿐 score 87·⭐5는 그대로 — 재채점은 PM/정훈."
   },
   "AVGO": {
    "outlook": "hold",

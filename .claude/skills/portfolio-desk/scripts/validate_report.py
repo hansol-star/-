@@ -1232,7 +1232,13 @@ def check_financials(latest=None):
 # 무차입이 **검증된** 기업 — 결측이 정상인 곳. 근거를 남겨야 화이트리스트가 썩지 않는다.
 #   ANET: EDGAR 부채 태그 최신 신고가 2013-12-31(IPO 전 $98.8M). 2014 상장 이후 신고 없음
 #         = 실제 무차입 (2026-08-01 확인).
-DEBT_FREE_VERIFIED = {"ANET": "EDGAR 부채 태그 2013년 이후 없음 — 실제 무차입(8/1 확인)"}
+DEBT_FREE_VERIFIED = {
+    "ANET": "EDGAR 부채 태그 2013년 이후 없음 — 실제 무차입(8/1 확인)",
+    # ★[10/10 R3] 1차 출처 확인: companyfacts us-gaap에 LongTermDebt*/NotesPayable*/DebtCurrent*/
+    #   ConvertibleDebt*/LineOfCredit*/TermLoan*/SeniorNotes* 계열 태그가 **단 하나도 없다**(0건).
+    #   총부채 2.5B은 리스·이연수익·충당부채 등 비차입 항목 ⇒ 태그 미스가 아니라 실제 무차입.
+    "ISRG": "EDGAR 부채 태그 0건 — 실제 무차입(10/10 R3 companyfacts 전수 확인)",
+}
 
 # 총차입금이 총부채 대비 작은 게 **검증된** 저차입 기업 — 비율 분기(td/li < 5%)의 화이트리스트.
 # ★[8/13 신설] 결측 분기에만 화이트리스트가 있고 **비율 분기엔 없어서** 검증 끝난 3종이 매 세션

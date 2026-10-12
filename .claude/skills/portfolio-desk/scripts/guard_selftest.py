@@ -161,6 +161,47 @@ _ARCHIVE_OK.update({f"data/history/T{i}.csv": "d" for i in range(40)})
 
 _TODAY_KST = (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).strftime("%Y-%m-%d")
 
+# ★[10/12] 미등록 15개 일괄 등록용 헬퍼 ──────────────────────────────────
+def _STOCKS_DOC(drop: str | None = None, blank: tuple | None = None) -> dict:
+    """validate_report.HOLDINGS 전 종목을 채운 stocks.json. drop=빼는 티커 · blank=(티커, 비울 컬럼)."""
+    from validate_report import ETF_NO_SCORE, HOLDINGS
+    st = {}
+    for tk in HOLDINGS:
+        if tk == drop:
+            continue
+        st[tk] = {"stars": 4, "score": None if tk in ETF_NO_SCORE else 75, "target": "100~130",
+                  "buy_zone": "90 이하", "trim": "없음", "comment": "픽스처"}
+        if blank and blank[0] == tk:
+            st[tk][blank[1]] = ""
+    return {"as_of": _TODAY_KST, "source_report": RPT, "stocks": st}
+
+
+def _HIST_CSV(peak: float, last: float, n: int = 60) -> str:
+    """일봉 n개 — 중간에 peak, 마지막 종가 last."""
+    d0 = datetime.date.today() - datetime.timedelta(days=n)
+    rows = ["date,close"]
+    for i in range(n):
+        px = peak if i == n // 2 else (last if i == n - 1 else min(peak, last) * 0.9)
+        rows.append(f"{(d0 + datetime.timedelta(days=i)).isoformat()},{px}")
+    return "\n".join(rows) + "\n"
+
+
+def _SPLIT_ROWS(mult: int) -> list[dict]:
+    """split_guard 음성테스트와 같은 시계열 — mult=10이면 당기 eps_yoy만 10배 왜곡(분할 혼재)."""
+    def mk(end, eps, ni, sh, ey):
+        return {"end": end, "eps_diluted": eps, "net_income_yoy": ni, "shares_yoy": sh, "eps_yoy": ey}
+    rows = [mk("2024-10-27", 2.40, 50.0, -1.0, 51.5), mk("2023-10-29", 1.58, 20.0, 0.0, 20.0),
+            mk("2023-07-30", 1.40, 15.0, 0.0, 15.0), mk("2023-04-30", 1.30, 10.0, 0.0, 10.0),
+            mk("2022-10-30", 1.20, 5.0, 0.0, 5.0)]
+    if mult != 1:
+        rows[0]["eps_yoy"] = (1 + 51.5 / 100) * mult * 100 - 100
+    return rows
+
+
+# git이 저장소로 인식하는 최소 뼈대(HEAD·objects·refs). `.git/shallow`만 더하면 얕은 클론으로 읽힌다.
+_GIT_DIR = {".git/HEAD": "ref: refs/heads/main\n", ".git/objects/.keep": "", ".git/refs/.keep": "",
+            ".git/config": "[core]\n\trepositoryformatversion = 0\n\tbare = false\n"}
+
 INJECTION_TESTS = [
     {
         "name": "check_canonical_facts",
@@ -984,6 +1025,287 @@ INJECTION_TESTS = [
         "clean":   {"data/app/financials.json": "{\"stocks\": {\"005380.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"005930.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"035420.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"066570.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"454910.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"AVGO\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"GOOGL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MSFT\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MU\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"NVDA\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"ORCL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}}}"},
         "args": (),
     },
+
+    # ════════════════════════════════════════════════════════════════════════════
+    # ★[2026-10-12 정훈 지시 "가드 커버리지 미등록 15개도 채워줘"] 미등록 15개 일괄 등록.
+    #   등록하면서 드러난 것: 15개 중 **3개는 위반을 심을 수조차 없는 구조**였다 —
+    #   check_high_low_claims(보고서를 cwd 상대경로로 읽음) · check_split_scale(financials 경로가
+    #   split_guard 모듈 상수) · check_setups(hunter/tasks 경로가 setup_schema 모듈 상수).
+    #   8/24 check_kr_price_band와 같은 클래스(ROOT 밖을 읽으면 '검사한 척'이 된다) → 셋 다 ROOT 기준으로 교정.
+    # ════════════════════════════════════════════════════════════════════════════
+    {
+        "name": "check_stocks",
+        "desc": "보유 종목이 stocks.json에서 빠지면 잡는가",
+        "why": "6/18·6/20 정훈 2회 지적 — 보유 전종목 풀표가 축소·생략됐다. 이 체크가 풀표 완결성의 "
+               "1번 게이트인데 신설 이래 한 번도 위반을 심어 본 적이 없었다",
+        "pattern": "보유종목 누락",
+        "violate": {"data/app/stocks.json": json.dumps(_STOCKS_DOC(drop="NVDA"), ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps(_STOCKS_DOC(), ensure_ascii=False)},
+        "args": (),
+    },
+    {
+        "name": "check_stocks",
+        "desc": "별점·매수존 같은 풀표 컬럼이 비면 잡는가",
+        "why": "6/20 재지적 — '왜 내 주식 별점·매수매도 안 보여주냐'. 종목은 있는데 컬럼이 빈 경우",
+        "pattern": "컬럼 비어있음",
+        "violate": {"data/app/stocks.json": json.dumps(_STOCKS_DOC(blank=("MSFT", "buy_zone")), ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps(_STOCKS_DOC(), ensure_ascii=False)},
+        "args": (),
+    },
+    {
+        "name": "check_report",
+        "desc": "보고서에 STATE SNAPSHOT 블록이 없으면 잡는가",
+        "why": "STATE SNAPSHOT은 다음 세션이 직전 상태를 복원하는 유일한 블록이다(세션 시작 1단계). "
+               "빠지면 다음 세션이 옛 상태로 시작한다",
+        "pattern": "STATE SNAPSHOT 블록 없음",
+        "violate": {RPT: "# v99\n\n본문만 있고 스냅샷이 없다.\n"},
+        "clean": {RPT: "# v99\n\n## STATE SNAPSHOT\n- 총자산 1\n"},
+        "args": (RPT,),
+    },
+    {
+        "name": "check_consistency",
+        "desc": "portfolio.json 보유가 stocks.json에 없으면 잡는가",
+        "why": "portfolio.json은 원가·알림의 기계 정본, stocks.json은 앱 정본이다. 한쪽만 고치면 "
+               "수익률·트리거가 다른 종목 집합을 본다(9/23 AAPL·META 매도 때 두 파일을 따로 고쳤다)",
+        "pattern": "stocks 누락",
+        "violate": {
+            ".claude/skills/portfolio-desk/portfolio.json": json.dumps(
+                {"holdings": {"kr": [], "us": [{"ticker": "NVDA", "cost": 100}, {"ticker": "MSFT", "cost": 100}]},
+                 "watchlist": []}),
+            "data/app/stocks.json": json.dumps({"stocks": {"NVDA": {}}, "watchlist": {}}),
+        },
+        "clean": {
+            ".claude/skills/portfolio-desk/portfolio.json": json.dumps(
+                {"holdings": {"kr": [], "us": [{"ticker": "NVDA", "cost": 100}, {"ticker": "MSFT", "cost": 100}]},
+                 "watchlist": []}),
+            "data/app/stocks.json": json.dumps({"stocks": {"NVDA": {}, "MSFT": {}}, "watchlist": {}}),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_hunter",
+        "desc": "영상 요약(summary)이 비면 잡는가",
+        "why": "7/3~7/4 실사고 — latest_videos에 요약이 없어 앱 상세가 '—' 빈칸으로 나갔다",
+        "pattern": r"요약\(summary\) 없음",
+        "violate": {"data/app/hunter.json": json.dumps(
+            {"latest_videos": [{"title": "영상A", "date": _TODAY_KST}]}, ensure_ascii=False)},
+        "clean": {"data/app/hunter.json": json.dumps(
+            {"latest_videos": [{"title": "영상A", "date": _TODAY_KST, "summary": "요약"}]}, ensure_ascii=False)},
+        "args": (),
+    },
+    {
+        "name": "check_hunter",
+        "desc": "아카이브 tickers가 리스트가 아니면 잡는가 (앱 화면 크래시)",
+        "why": "7/4 실사고 — tickers가 문자열이라 앱 renderArchive가 forEach에서 죽어 화면 전체가 "
+               "'데이터 로딩 중'에서 멈췄다",
+        "pattern": "tickers 비리스트",
+        "violate": {
+            "data/app/hunter.json": json.dumps({"latest_videos": []}),
+            "data/app/hunter_archive.json": json.dumps(
+                {"videos": [{"title": "영상A", "date": _TODAY_KST, "tickers": "NVDA"}]}, ensure_ascii=False),
+        },
+        "clean": {
+            "data/app/hunter.json": json.dumps({"latest_videos": []}),
+            "data/app/hunter_archive.json": json.dumps(
+                {"videos": [{"title": "영상A", "date": _TODAY_KST, "tickers": ["NVDA"]}]}, ensure_ascii=False),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_feeds",
+        "desc": "외부 채널 영상 요약이 비면 잡는가",
+        "why": "7/7 신설 — 수페TV·지식인사이드 피드. check_hunter와 같은 빈칸 사고의 채널 확장분",
+        "pattern": "summary 없음 — 앱 빈칸",
+        "violate": {"data/app/feeds.json": json.dumps(
+            {"channels": {"supe": {"name": "수페TV", "latest_videos": [{"title": "영상B", "tickers": []}]}}},
+            ensure_ascii=False)},
+        "clean": {"data/app/feeds.json": json.dumps(
+            {"channels": {"supe": {"name": "수페TV",
+                                   "latest_videos": [{"title": "영상B", "tickers": [], "summary": "요약"}]}}},
+            ensure_ascii=False)},
+        "args": (),
+    },
+    {
+        "name": "check_guru",
+        "desc": "13F 액션값이 규격 밖이면 잡는가",
+        "why": "9/21 check_guru_consistency 사고(대가 서술이 13F 팩트와 반대)의 상류 — 액션값이 "
+               "NEW/ADD/TRIM/EXIT/HOLD 밖이면 그 대조 자체가 성립하지 않는다",
+        "pattern": "액션값 이상",
+        "violate": {"data/app/guru_flows.json": json.dumps(
+            {"updated": _TODAY_KST, "gurus": {"buffett": {
+                "name": "Buffett", "quarter": "2026Q2", "overlap_with_holdings": [],
+                "moves": [{"issuer": "APPLE", "action": "BUYMORE"}]}}})},
+        "clean": {"data/app/guru_flows.json": json.dumps(
+            {"updated": _TODAY_KST, "gurus": {"buffett": {
+                "name": "Buffett", "quarter": "2026Q2", "overlap_with_holdings": [],
+                "moves": [{"issuer": "APPLE", "action": "TRIM"}]}}})},
+        "args": (),
+    },
+    {
+        "name": "check_high_low_claims",
+        "desc": "52주 고가보다 한참 아래인데 '신고가'라고 쓰면 잡는가",
+        "why": "8/12 실사고 — v73이 LG전자 '52주 신고가'를 3곳에 실었는데 실제는 고가 대비 -47.8%였다. "
+               "★[10/12] 이 가드는 보고서를 **cwd 상대경로**로 읽고 있어 레포 밖에서 돌리면 조용히 "
+               "건너뛰었다(주입 불가 = 검증 불가) → ROOT 기준으로 교정하며 등록",
+        "pattern": "신고가 주장 오류",
+        "violate": {
+            RPT: "# v99\n\n- 삼성전자 52주 신고가 경신\n",
+            ".claude/skills/portfolio-desk/portfolio.json": json.dumps(
+                {"holdings": {"kr": [{"label": "삼성전자", "ticker": "005930.KS"}], "us": []}, "watchlist": []},
+                ensure_ascii=False),
+            "data/history/005930.KS.csv": _HIST_CSV(peak=400000, last=250000),
+        },
+        "clean": {
+            RPT: "# v99\n\n- 삼성전자 52주 신고가 경신\n",
+            ".claude/skills/portfolio-desk/portfolio.json": json.dumps(
+                {"holdings": {"kr": [{"label": "삼성전자", "ticker": "005930.KS"}], "us": []}, "watchlist": []},
+                ensure_ascii=False),
+            "data/history/005930.KS.csv": _HIST_CSV(peak=400000, last=400000),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_score_basis",
+        "desc": "스코어가 펀더 서브스코어와 밴드를 바꿀 만큼 벌어졌는데 근거가 없으면 잡는가",
+        "why": "7/30 실사고 — NAVER를 ⭐4로 먼저 올리고 스코어를 밴드 하한 70에 사후로 맞췄다. "
+               "8/7 실측 보유 14종 중 6종이 괴리 10p 이상",
+        "pattern": "score_rationale 필수",
+        "violate": {
+            "data/app/stocks.json": json.dumps({"stocks": {"NVDA": {"score": 80, "fund_subscore": 40.0}}}),
+            "data/app/financials.json": json.dumps({"stocks": {"NVDA": {"fund_subscore": 40.0}}}),
+        },
+        "clean": {
+            "data/app/stocks.json": json.dumps({"stocks": {"NVDA": {"score": 80, "fund_subscore": 78.0}}}),
+            "data/app/financials.json": json.dumps({"stocks": {"NVDA": {"fund_subscore": 78.0}}}),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_score_basis",
+        "desc": "stocks.json의 펀더 서브스코어 사본이 financials.json과 어긋나면 잡는가",
+        "why": "8/7 실사고 — 손으로 복사한 사본이 낡아 ORCL 68.8→54.3·ANET 72.1→86.9로 둘 다 14.5p "
+               "어긋난 채 괴리 검사를 통과했다(없는 괴리가 보이고 있는 괴리가 숨었다)",
+        "pattern": "stale\\) — financials.py 실행 후",
+        "violate": {
+            "data/app/stocks.json": json.dumps({"stocks": {"ORCL": {"score": 60, "fund_subscore": 68.8}}}),
+            "data/app/financials.json": json.dumps({"stocks": {"ORCL": {"fund_subscore": 54.3}}}),
+        },
+        "clean": {
+            "data/app/stocks.json": json.dumps({"stocks": {"ORCL": {"score": 60, "fund_subscore": 54.3}}}),
+            "data/app/financials.json": json.dumps({"stocks": {"ORCL": {"fund_subscore": 54.3}}}),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_target_basis",
+        "desc": "목표가 근거가 60일 넘게 낡으면 잡는가",
+        "why": "8/8 실사고 — ORCL 목표가 $225~268이 한 달간 'stale 의심' 딱지만 달린 채 재산정되지 "
+               "않았고 실제 컨센은 $155로 내려와 있었다. ★[10/12] 같은 일이 또 났다 — 국내 5종 밴드가 "
+               "33일 낡은 스냅샷 컨센으로 계산되고 있었다(현대차 701,600 vs 실제 624,566)",
+        "pattern": "재산정 필수",
+        "violate": {"data/app/stocks.json": json.dumps({"stocks": {"ORCL": {
+            "target": "$161~$262", "target_basis": f"산정일 {_DAYS_AGO(75)} · 컨센 앵커"}}}, ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps({"stocks": {"ORCL": {
+            "target": "$161~$262", "target_basis": f"산정일 {_DAYS_AGO(3)} · 컨센 앵커"}}}, ensure_ascii=False)},
+        "args": (),
+    },
+    {
+        "name": "check_target_basis",
+        "desc": "목표가에 'stale 의심' 딱지가 붙었는데 근거가 없으면 잡는가",
+        "why": "8/8 — 딱지는 경고이지 수정이 아니다. 딱지만 붙이고 방치한 것이 ORCL 한 달 방치의 방식이었다",
+        "pattern": "딱지는 경고이지 수정이 아니다",
+        "violate": {"data/app/stocks.json": json.dumps({"stocks": {"ORCL": {
+            "target": "$225~268 (stale 의심)"}}}, ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps({"stocks": {"ORCL": {
+            "target": "$225~268 (stale 의심)", "target_basis": f"산정일 {_DAYS_AGO(3)} · 재산정"}}},
+            ensure_ascii=False)},
+        "args": (),
+    },
+    {
+        "name": "check_target_multiple",
+        "desc": "목표가 내재배수가 역사 상단을 넘는데 선행 EPS 가정이 없으면 잡는가",
+        "why": "8/14 9회차 캘리브레이션 — 낙관 편향이 내재여력과 단조 비례했고 상단초과 5종이 지목됐다. "
+               "신설 당일 1차 구현이 토큰 매칭이라 9/9 전부 통과(발동 불가)였던 이력이 있다",
+        "pattern": "선행 EPS 가정을 target_basis에 명시",
+        "violate": {
+            "data/app/multiple_bands.json": json.dumps(
+                {"stocks": {"MU": {"band": [8.0, 20.0], "implied": [35.0, 50.0], "ttm_eps": 30.0}}}),
+            "data/app/stocks.json": json.dumps(
+                {"stocks": {"MU": {"target_basis": "산정일 2026-10-12 · 컨센 앵커"}}}, ensure_ascii=False),
+        },
+        "clean": {
+            "data/app/multiple_bands.json": json.dumps(
+                {"stocks": {"MU": {"band": [8.0, 20.0], "implied": [35.0, 50.0], "ttm_eps": 30.0}}}),
+            "data/app/stocks.json": json.dumps(
+                {"stocks": {"MU": {"target_basis": "산정일 2026-10-12 · 12M 선행 EPS $92.5 가정"}}},
+                ensure_ascii=False),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_setups",
+        "desc": "셋업에 충족률(met_pct)·갱신일이 없으면 잡는가",
+        "why": "8/6 감사 — 정훈 6/28 지시 '조건 75%+ & 가격존 진입 시 발동'의 그 75%를 아무도 계산하지 "
+               "않고 있었다(updated 0/19·met_pct 필드 없음). ★[10/12] 감사 대상 경로가 setup_schema 모듈 "
+               "상수라 위반을 심을 수 없었다 → ROOT 기준으로 교정하며 등록",
+        "pattern": "필수 필드 'met_pct' 없음",
+        "violate": {"data/app/hunter.json": json.dumps(
+            {"setups": [{"id": "s-test", "status": "watching", "conditions": []}]})},
+        "clean": {"data/app/hunter.json": json.dumps(
+            {"setups": [{"id": "s-test", "status": "watching", "updated": _TODAY_KST, "met_pct": 50,
+                         "actionable": False,
+                         "conditions": [{"text": "a", "met": True}, {"text": "b", "met": False}]}]})},
+        "args": (),
+    },
+    {
+        "name": "check_split_scale",
+        "desc": "분할 전후 EPS가 섞여 yoy가 10배 부풀면 잡는가",
+        "why": "8/24 — EDGAR는 분할 후 과거 EPS를 약 1년 늦게 소급한다. 그 사이 eps_yoy가 분할 비율만큼 "
+               "왜곡돼 별점 근거가 틀린다. ★[10/12] 감사 경로가 split_guard 모듈 상수라 실제 "
+               "financials.json만 볼 수 있었다 → ROOT 기준으로 교정하며 등록",
+        "pattern": "분할 스케일 혼재",
+        "violate": {"data/app/financials.json": json.dumps({"stocks": {"ZZZZ": {"quarterly": _SPLIT_ROWS(10)}}})},
+        "clean": {"data/app/financials.json": json.dumps({"stocks": {"ZZZZ": {"quarterly": _SPLIT_ROWS(1)}}})},
+        "args": (),
+    },
+    {
+        "name": "check_debt_integrity",
+        "desc": "총차입금이 총부채 대비 비현실적으로 작으면 태그 누락을 의심하는가",
+        "why": "8/1 실사고 — ORCL 총차입금이 $7.2B로 잡혔는데 실제는 $129.5B(1/18). 순현금 부호가 "
+               "뒤집혀 룰2 조건③이 발동 불가였다. 10/10 CDNS에서 같은 유형이 한 번 더 났다",
+        "pattern": "부채태그 의심",
+        "violate": {},
+        "clean": {},
+        "args": (),
+        "args_violate": ({"ZZZZ": {"annual": [{"total_debt": 7.2e9, "liabilities": 150e9}]}},),
+        "args_clean": ({"ZZZZ": {"annual": [{"total_debt": 100e9, "liabilities": 150e9}]}},),
+    },
+    {
+        "name": "check_git_depth",
+        "desc": "얕은 클론이면 잡는가",
+        "why": "8/6 실측 — 원격 세션이 50커밋(3일치)만 클론한 상태에서 score_calls --backfill을 돌리면 "
+               "콜 원장 135건 중 75건이 사라질 뻔했다",
+        "pattern": "얕은 클론",
+        "violate": dict(_GIT_DIR, **{".git/shallow": "0" * 40 + "\n"}),
+        "clean": dict(_GIT_DIR),
+        "args": (),
+    },
+    {
+        "name": "check_close_recon",
+        "desc": "마감 대사가 평일 여러 날 안 돌면 잡는가",
+        "why": "10/12 — 장중 보고서의 '잠정' 수급·낙폭은 '마감 후 대사' 할 일로만 남았고 사람이 시켜야 "
+               "돌았다(flows.json에 '잠정 — 대사 필요' 7거래일 누적). 자동화하면서 안 돌 때의 감시를 같이 둔다",
+        "pattern": "안 돌았다",
+        "violate": {
+            "data/app/close_recon.json": json.dumps({"date": _DAYS_AGO(10), "grade": "확정", "notes": []}),
+            "data/history/_KS11.csv": "date,close\n" + _DAYS_AGO(10) + ",6000\n",
+        },
+        "clean": {
+            "data/app/close_recon.json": json.dumps({"date": _TODAY_KST, "grade": "확정", "notes": []}),
+            "data/history/_KS11.csv": "date,close\n" + _DAYS_AGO(10) + ",6000\n",
+        },
+        "args": (),
+    },
 ]
 
 
@@ -1053,8 +1375,9 @@ def run_injection_tests() -> list[dict]:
             out.append({"guard": t["name"], "ok": None, "desc": t["desc"],
                         "why": t.get("why", ""), "msg": f"미실행: {unmet}"})
             continue
-        got_v = _run_check(t["name"], t["violate"], t["args"])
-        got_c = _run_check(t["name"], t["clean"], t["args"])
+        # ★[10/12] 인자로 데이터를 받는 가드(check_debt_integrity 등)는 위반·정상이 인자에서 갈린다.
+        got_v = _run_check(t["name"], t["violate"], t.get("args_violate", t["args"]))
+        got_c = _run_check(t["name"], t["clean"], t.get("args_clean", t["args"]))
         if got_v == ["__MISSING__"]:
             out.append({"guard": t["name"], "ok": None, "desc": t["desc"],
                         "msg": "validate_report에 해당 check 없음(이름 변경?)"})
@@ -1229,8 +1552,10 @@ def main() -> int:
     print("\n" + "-" * 78)
     print(f"  커버리지: validate_report check {len(cov['checks'])}개 중 "
           f"주입 테스트 등록 **{len(cov['covered'])}개** · 미등록 {len(cov['uncovered'])}개")
-    print("  ⚠️ 미등록이 훨씬 많다 — 이 숫자는 성취가 아니라 **결핍 목록**이다"
-          " (`--coverage`로 전체 목록).")
+    if cov["uncovered"]:
+        print("  ⚠️ 미등록분은 성취가 아니라 **결핍 목록**이다 (`--coverage`로 전체 목록).")
+    else:
+        print("  ※ 전 check 등록. 단 가드당 1~2개 형태만 심는다 — **등록 ≠ 그 가드의 모든 위반 형태를 잡는다**.")
     if fails:
         print(f"\n❌ 무력한 가드 {len(fails)}건 — 가드를 고칠 것(초록불이 거짓이 된다)")
         return 1

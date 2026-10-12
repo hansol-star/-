@@ -392,8 +392,10 @@ def check_high_low_claims():
     latest = newest_report_file()
     if not latest:
         return
+    # ★[10/12] 舊엔 cwd 상대경로("docs/reports")였다 — 레포 밖에서 돌리면 조용히 return해
+    #   '검사한 척'이 됐고(8/24 check_kr_price_band와 같은 클래스), 주입 테스트도 불가능했다.
     try:
-        body = pathlib.Path("docs/reports") .joinpath(latest).read_text(encoding="utf-8")
+        body = pathlib.Path(ROOT, "docs", "reports", latest).read_text(encoding="utf-8")
     except Exception:
         try:
             body = pathlib.Path(latest).read_text(encoding="utf-8")
@@ -1133,7 +1135,9 @@ def check_split_scale():
     except Exception:
         return
     try:
-        r = SG.audit_all(use_network=False)   # 게이트는 오프라인(빠르게·결정적)
+        # ★[10/12] 경로를 ROOT 기준으로 명시 — 舊엔 split_guard 모듈 상수(FIN)라 주입 테스트가 불가능했다.
+        r = SG.audit_all(path=os.path.join(ROOT, "data", "app", "financials.json"),
+                         use_network=False)   # 게이트는 오프라인(빠르게·결정적)
     except Exception:
         return
     # ⚠️ 오프라인이면 분할 **이벤트** 조회가 없어 `high`가 구조적으로 뜰 수 없다
@@ -1550,11 +1554,17 @@ def check_setups():
     except Exception as e:
         warn(f"setup_schema 로드 실패 — 셋업 게이트 생략 ({e})")
         return
+    # ★[10/12] 감사 대상 경로를 ROOT 기준으로 고정 — 舊엔 setup_schema 모듈 상수라 주입 테스트가 불가능했다.
+    _old = (setup_schema.HUNTER, setup_schema.TASKS)
+    setup_schema.HUNTER = os.path.join(ROOT, "data/app/hunter.json")
+    setup_schema.TASKS = os.path.join(ROOT, "data/app/tasks.json")
     try:
         fails, warns = setup_schema.check(quiet=True)
     except Exception as e:
         warn(f"셋업 감사 실패 ({e})")
         return
+    finally:
+        setup_schema.HUNTER, setup_schema.TASKS = _old
     for m in fails:
         fail(m)
     for m in warns:

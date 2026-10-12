@@ -97,5 +97,5 @@
 {"date": "2026-10-07", "index": "KOSDAQ", "foreign": -2589, "inst": -2170, "indiv": 5021, "src": "naver"}
 {"date": "2026-10-07", "index": "KOSPI", "foreign": -25989, "inst": -6746, "indiv": 25650, "src": "naver"}
 {"date": "2026-10-08", "index": "KOSPI", "foreign": -19960, "inst": -16632, "indiv": 29051, "src": "flows.json(확정)"}
-{"date": "2026-10-12", "index": "KOSDAQ", "foreign": -1028, "inst": -792, "indiv": 1863, "src": "naver"}
-{"date": "2026-10-12", "index": "KOSPI", "foreign": -7846, "inst": 96, "indiv": 4737, "src": "naver"}
+{"date": "2026-10-12", "index": "KOSDAQ", "foreign": -219, "inst": -2229, "indiv": 2440, "src": "naver"}
+{"date": "2026-10-12", "index": "KOSPI", "foreign": -19871, "inst": -1292, "indiv": 14585, "src": "naver"}

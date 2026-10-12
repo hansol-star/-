@@ -174,7 +174,7 @@ FLAG_PENALTY = {
 # k가 1에 붙어 목표가가 현재가로 붕괴한다. 우리가 실제로 모르는 건 **상대적 정직도**이고,
 # 중앙값 대비 편차는 지평 편의가 상쇄된 뒤 남는 그 부분이다.
 #
-# ⚠️ **기본값 OFF.** `--calibrated` 없이는 현행 계수를 그대로 쓴다.
+# ★[2026-10-12 정훈 승인] **기본값 ON.** 끄려면 `--uncalibrated`. (舊: 기본 OFF — d188 9/14~10/12)
 #    목표가는 매수존·트림 판단에 들어가므로 **적용 여부는 정훈 승인 사항**이다(CLAUDE.md 8/12 단서).
 #    단 계수 비교표는 **항상 출력**한다 — 안 보이면 승인 여부를 물을 수조차 없다.
 CALIB_LAMBDA = 0.5      # 편차 1.00(=100%p) 당 계수 이동폭. 0.5 = 절반만 반영(과적합 방지)
@@ -227,13 +227,17 @@ def main() -> int:
     global BIAS_MAP, BIAS_MED, USE_CALIB
     ap = argparse.ArgumentParser(description="목표가 재산정 (12M · 낙관 보정)")
     ap.add_argument("--save", action="store_true", help="stocks.json 목표가에 실제 반영")
+    # ★[2026-10-12 정훈 승인 "calibrated 보정도 적용해줘"] 실측 편향 보정이 **기본 ON**이 됐다.
+    #   舊 기본 OFF면 다음 재산정이 승인된 보정을 말없이 되돌린다. 보정 없는 값은 --uncalibrated로만.
     ap.add_argument("--calibrated", action="store_true",
-                    help="종목별 실측 편향으로 낙관계수 보정 (기본 OFF — 적용은 정훈 승인 사항)")
+                    help="(기본값이 됐다 — 10/12 정훈 승인. 호환용으로 남긴 플래그)")
+    ap.add_argument("--uncalibrated", action="store_true",
+                    help="종목별 실측 편향 보정을 끄고 고정 계수로 계산(비교용)")
     a = ap.parse_args()
 
     BIAS_MAP, BIAS_MED = measured_bias()
-    USE_CALIB = a.calibrated
-    if a.calibrated and not BIAS_MAP:
+    USE_CALIB = not a.uncalibrated
+    if USE_CALIB and not BIAS_MAP:
         print("⚠️ 실측 편향을 못 읽었다(target_score 표본 없음) — 현행 계수로 진행한다.")
         USE_CALIB = False
 
@@ -345,7 +349,7 @@ def main() -> int:
     if KTAB:
         print("\n" + "─" * 78)
         print(f"  낙관계수 — 현행(고정) vs 실측보정   "
-              f"[{'✅ 보정 적용 중' if USE_CALIB else '기본 OFF · --calibrated로 적용'}]")
+              f"[{'✅ 보정 적용 중' if USE_CALIB else '꺼짐(--uncalibrated)'}]")
         print("─" * 78)
         print(f"  중앙값 편향 {BIAS_MED:+.1f}%p 기준 · λ={CALIB_LAMBDA} · 최소 {CALIB_MIN_CALLS}콜 · 지평 {CALIB_HORIZON}일")
         print(f"  {'종목':<12}{'실측편향%p':>11}{'콜':>5}{'현행k':>8}{'보정k':>8}{'Δ':>8}   해석")

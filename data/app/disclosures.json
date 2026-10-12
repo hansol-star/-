@@ -6,33 +6,14 @@
   "066570",
   "454910",
   "005380",
-  "035420",
-  "000660",
-  "009150",
-  "034020",
-  "096770",
-  "012450",
-  "042660",
-  "033780"
+  "035420"
  ],
  "counts": {
-  "critical": 3,
-  "notable": 8,
-  "routine": 10
+  "critical": 1,
+  "notable": 4,
+  "routine": 4
  },
  "items": [
-  {
-   "code": "042660",
-   "name": "한화오션",
-   "date": "20261008",
-   "title": "[기재정정]유상증자결정(종속회사의주요경영사항)",
-   "level": "critical",
-   "category": "희석",
-   "why": "주주가치 희석",
-   "rcept_no": "20261008800617",
-   "filer": "한화오션",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800617"
-  },
   {
    "code": "035420",
    "name": "NAVER",
@@ -46,16 +27,16 @@
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800306"
   },
   {
-   "code": "042660",
-   "name": "한화오션",
-   "date": "20261007",
-   "title": "[기재정정]유상증자결정(종속회사의주요경영사항)",
-   "level": "critical",
-   "category": "희석",
-   "why": "주주가치 희석",
-   "rcept_no": "20261007800450",
-   "filer": "한화오션",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800450"
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261012",
+   "title": "자기주식취득결과보고서",
+   "level": "notable",
+   "category": "자사주",
+   "why": "수급·주주환원",
+   "rcept_no": "20261012000421",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012000421"
   },
   {
    "code": "005930",
@@ -82,30 +63,6 @@
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800004"
   },
   {
-   "code": "012450",
-   "name": "한화에어로스페이스",
-   "date": "20261008",
-   "title": "결산실적공시예고(안내공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261008800483",
-   "filer": "한화에어로스페이스",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800483"
-  },
-  {
-   "code": "042660",
-   "name": "한화오션",
-   "date": "20261008",
-   "title": "[기재정정]타법인주식및출자증권취득결정(자율공시)(종속회사의주요경영사항)",
-   "level": "notable",
-   "category": "투자",
-   "why": "capex 방향",
-   "rcept_no": "20261008800626",
-   "filer": "한화오션",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800626"
-  },
-  {
    "code": "066570",
    "name": "LG전자",
    "date": "20261007",
@@ -116,42 +73,6 @@
    "rcept_no": "20261007800145",
    "filer": "LG전자",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800145"
-  },
-  {
-   "code": "042660",
-   "name": "한화오션",
-   "date": "20261007",
-   "title": "[기재정정]타법인주식및출자증권취득결정",
-   "level": "notable",
-   "category": "투자",
-   "why": "capex 방향",
-   "rcept_no": "20261007800463",
-   "filer": "한화오션",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800463"
-  },
-  {
-   "code": "009150",
-   "name": "삼성전기",
-   "date": "20261006",
-   "title": "단일판매ㆍ공급계약체결",
-   "level": "notable",
-   "category": "대형계약",
-   "why": "성장 논지 검증",
-   "rcept_no": "20261006800130",
-   "filer": "삼성전기",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800130"
-  },
-  {
-   "code": "034020",
-   "name": "두산에너빌리티",
-   "date": "20261006",
-   "title": "[기재정정]단일판매ㆍ공급계약체결",
-   "level": "notable",
-   "category": "대형계약",
-   "why": "성장 논지 검증",
-   "rcept_no": "20261006800697",
-   "filer": "두산에너빌리티",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800697"
   }
  ],
  "insider": [
@@ -203,78 +124,6 @@
   {
    "code": "035420",
    "name": "NAVER",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
-   "n_sell": 0,
-   "top": []
-  },
-  {
-   "code": "000660",
-   "name": "SK하이닉스",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
-   "n_sell": 0,
-   "top": []
-  },
-  {
-   "code": "009150",
-   "name": "삼성전기",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
-   "n_sell": 0,
-   "top": []
-  },
-  {
-   "code": "034020",
-   "name": "두산에너빌리티",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
-   "n_sell": 0,
-   "top": []
-  },
-  {
-   "code": "096770",
-   "name": "SK이노베이션",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
-   "n_sell": 0,
-   "top": []
-  },
-  {
-   "code": "012450",
-   "name": "한화에어로스페이스",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
-   "n_sell": 0,
-   "top": []
-  },
-  {
-   "code": "042660",
-   "name": "한화오션",
-   "n": 1,
-   "net": 200,
-   "n_buy": 1,
-   "n_sell": 0,
-   "top": [
-    {
-     "who": "도규환",
-     "ofcps": "상무",
-     "regist": "비등기임원",
-     "delta": 200,
-     "held": 200,
-     "date": "2026-10-12"
-    }
-   ]
-  },
-  {
-   "code": "033780",
-   "name": "KT&G",
    "n": 0,
    "net": 0,
    "n_buy": 0,

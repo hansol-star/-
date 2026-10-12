@@ -1,10 +1,9 @@
 {
-  "date": "2026-10-06",
-  "target_version": 109,
-  "status": "done",
+  "date": "2026-10-12",
+  "target_version": null,
   "session_kind": "R2",
-  "started_at": "2026-10-06T11:17:15+09:00",
-  "completed_at": "2026-10-06T11:29:41+09:00",
-  "reset_est": "2026-10-06T16:17:15+09:00",
-  "resume_trigger_id": null
+  "started_at": null,
+  "reset_est": null,
+  "status": "done",
+  "completed_at": "2026-10-12T12:47:53+09:00"
 }

@@ -1,76 +1,76 @@
 {
- "updated": "2026-09-14",
- "days": 7,
+ "updated": "2026-10-12",
+ "days": 30,
  "note": "경보 전용 — 매도는 10b5-1 사전약정이 대부분. 재량적 매수(P)가 신호.",
  "failed": [],
  "stocks": [
   {
    "ticker": "NVDA",
-   "filings": 2,
+   "filings": 8,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 7,
-    "shares": 1022239.0,
-    "value": 235636867.41099998,
-    "n_10b5_1": 7
+    "n": 8,
+    "shares": 1431378.0,
+    "value": 314582260.4427,
+    "n_10b5_1": 8
    },
    "other_grants_exercises": {
-    "n": 1,
-    "shares": 172507.0
+    "n": 7,
+    "shares": 1098153.0
    },
    "top_buys": [],
    "top_sells": [
     {
      "code": "S",
-     "shares": 237820.0,
-     "price": 231.1677,
+     "shares": 1356000.0,
+     "price": 219.7219,
      "ad": "D",
-     "date": "2026-09-04",
-     "after": 2523770.0,
-     "value": 54976302.414,
+     "date": "2026-09-18",
+     "after": 980531.0,
+     "value": 297942896.40000004,
      "owner": "STEVENS MARK A",
      "title": "",
      "role": "이사",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/wk-form4_1788901755.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000016/wk-form4_1790110579.xml"
     },
     {
      "code": "S",
-     "shares": 200000.0,
-     "price": 229.8705,
+     "shares": 20369.0,
+     "price": 219.0172,
      "ad": "D",
-     "date": "2026-09-03",
-     "after": 2958770.0,
-     "value": 45974100.0,
-     "owner": "STEVENS MARK A",
-     "title": "",
-     "role": "이사",
+     "date": "2026-09-17",
+     "after": 774971.0,
+     "value": 4461161.3468,
+     "owner": "Kress Colette",
+     "title": "EVP &amp; Chief Financial Officer",
+     "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/wk-form4_1788901755.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000158867026000014/wk-form4_1789765959.xml"
     },
     {
      "code": "S",
-     "shares": 197180.0,
-     "price": 230.4039,
+     "shares": 13478.0,
+     "price": 223.0489,
      "ad": "D",
-     "date": "2026-09-04",
-     "after": 2761590.0,
-     "value": 45431041.002,
-     "owner": "STEVENS MARK A",
-     "title": "",
-     "role": "이사",
+     "date": "2026-09-21",
+     "after": 2692159.0,
+     "value": 3006253.0742,
+     "owner": "Teter Timothy S.",
+     "title": "EVP, General Counsel and Sec",
+     "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/wk-form4_1788901755.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000169684126000014/wk-form4_1790196985.xml"
     }
    ]
   },
   {
    "ticker": "MU",
-   "filings": 0,
+   "filings": 2,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
@@ -83,177 +83,206 @@
     "n_10b5_1": 0
    },
    "other_grants_exercises": {
-    "n": 0,
-    "shares": 0
+    "n": 2,
+    "shares": 58.0
    },
    "top_buys": [],
    "top_sells": []
   },
   {
    "ticker": "AAPL",
-   "filings": 1,
+   "filings": 8,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 1,
-    "shares": 1438.0,
-    "value": 456176.74000000005,
-    "n_10b5_1": 1
+    "n": 14,
+    "shares": 272189.0,
+    "value": 90667109.3,
+    "n_10b5_1": 14
    },
    "other_grants_exercises": {
-    "n": 0,
-    "shares": 0
+    "n": 11,
+    "shares": 1101267.0
    },
    "top_buys": [],
    "top_sells": [
     {
      "code": "S",
-     "shares": 1438.0,
-     "price": 317.23,
+     "shares": 88239.0,
+     "price": 333.26,
      "ad": "D",
-     "date": "2026-09-08",
-     "after": 34352.0,
-     "value": 456176.74000000005,
-     "owner": "Newstead Jennifer",
-     "title": "SVP, GC and Government Affairs",
+     "date": "2026-10-02",
+     "after": 3305047.0,
+     "value": 29406529.14,
+     "owner": "COOK TIMOTHY D",
+     "title": "Executive Chair",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 40879.0,
+     "price": 333.94,
+     "ad": "D",
+     "date": "2026-10-02",
+     "after": 3264168.0,
+     "value": 13651133.26,
+     "owner": "COOK TIMOTHY D",
+     "title": "Executive Chair",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 40764.0,
+     "price": 333.35,
+     "ad": "D",
+     "date": "2026-10-02",
+     "after": 142435.0,
+     "value": 13588679.4,
+     "owner": "O'BRIEN DEIRDRE",
+     "title": "Senior Vice President",
      "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126036226/form4.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038672/form4.xml"
     }
    ]
   },
   {
    "ticker": "MSFT",
-   "filings": 4,
+   "filings": 8,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 0,
-    "shares": 0,
-    "value": 0,
-    "n_10b5_1": 0
+    "n": 6,
+    "shares": 41674.0,
+    "value": 20764844.5158,
+    "n_10b5_1": 6
    },
    "other_grants_exercises": {
-    "n": 4,
-    "shares": 14375.0
-   },
-   "top_buys": [],
-   "top_sells": []
-  },
-  {
-   "ticker": "ANET",
-   "filings": 2,
-   "buy_open_market": {
-    "n": 0,
-    "shares": 0,
-    "value": 0
-   },
-   "sell_open_market": {
-    "n": 5,
-    "shares": 5000.0,
-    "value": 985787.71,
-    "n_10b5_1": 5
-   },
-   "other_grants_exercises": {
-    "n": 3,
-    "shares": 400000.0
+    "n": 7,
+    "shares": 105464.716
    },
    "top_buys": [],
    "top_sells": [
     {
      "code": "S",
-     "shares": 1700.0,
-     "price": 198.4376,
+     "shares": 10433.0,
+     "price": 496.9118,
      "ad": "D",
-     "date": "2026-09-08",
-     "after": 53710.0,
-     "value": 337343.92,
-     "owner": "TEMPLETON MARK B",
-     "title": null,
-     "role": "이사",
+     "date": "2026-09-14",
+     "after": 560526.427,
+     "value": 5184280.809400001,
+     "owner": "Hood Amy",
+     "title": "EVP, Chief Financial Officer",
+     "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000226/edgardoc.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000212/form4.xml"
     },
     {
      "code": "S",
-     "shares": 1300.0,
-     "price": 195.2692,
+     "shares": 9821.0,
+     "price": 497.7849,
      "ad": "D",
-     "date": "2026-09-08",
-     "after": 57110.0,
-     "value": 253849.96000000002,
-     "owner": "TEMPLETON MARK B",
-     "title": null,
-     "role": "이사",
+     "date": "2026-09-14",
+     "after": 550705.427,
+     "value": 4888745.5029,
+     "owner": "Hood Amy",
+     "title": "EVP, Chief Financial Officer",
+     "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000226/edgardoc.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000212/form4.xml"
     },
     {
      "code": "S",
-     "shares": 1000.0,
-     "price": 197.4598,
+     "shares": 8834.0,
+     "price": 500.1135,
      "ad": "D",
-     "date": "2026-09-08",
-     "after": 55410.0,
-     "value": 197459.8,
-     "owner": "TEMPLETON MARK B",
-     "title": null,
-     "role": "이사",
+     "date": "2026-09-14",
+     "after": 537566.427,
+     "value": 4418002.659,
+     "owner": "Hood Amy",
+     "title": "EVP, Chief Financial Officer",
+     "role": "·임원",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000226/edgardoc.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000212/form4.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "ANET",
+   "filings": 8,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 48,
+    "shares": 969545.0,
+    "value": 201731073.618,
+    "n_10b5_1": 48
+   },
+   "other_grants_exercises": {
+    "n": 4,
+    "shares": 131797.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 259045.0,
+     "price": 212.2662,
+     "ad": "D",
+     "date": "2026-10-06",
+     "after": 15618912.0,
+     "value": 54986497.779,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000240/edgardoc.xml"
+    },
+    {
+     "code": "S",
+     "shares": 69272.0,
+     "price": 217.1408,
+     "ad": "D",
+     "date": "2026-10-07",
+     "after": 15545738.0,
+     "value": 15041777.4976,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000242/edgardoc.xml"
+    },
+    {
+     "code": "S",
+     "shares": 65897.0,
+     "price": 211.3602,
+     "ad": "D",
+     "date": "2026-10-06",
+     "after": 15877957.0,
+     "value": 13928003.099399999,
+     "owner": "Ullal Jayshree",
+     "title": "CEO and Chairperson",
+     "role": "이사·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000240/edgardoc.xml"
     }
    ]
   },
   {
    "ticker": "AVGO",
-   "filings": 0,
-   "buy_open_market": {
-    "n": 0,
-    "shares": 0,
-    "value": 0
-   },
-   "sell_open_market": {
-    "n": 0,
-    "shares": 0,
-    "value": 0,
-    "n_10b5_1": 0
-   },
-   "other_grants_exercises": {
-    "n": 0,
-    "shares": 0
-   },
-   "top_buys": [],
-   "top_sells": []
-  },
-  {
-   "ticker": "GOOGL",
-   "filings": 0,
-   "buy_open_market": {
-    "n": 0,
-    "shares": 0,
-    "value": 0
-   },
-   "sell_open_market": {
-    "n": 0,
-    "shares": 0,
-    "value": 0,
-    "n_10b5_1": 0
-   },
-   "other_grants_exercises": {
-    "n": 0,
-    "shares": 0
-   },
-   "top_buys": [],
-   "top_sells": []
-  },
-  {
-   "ticker": "META",
    "filings": 3,
    "buy_open_market": {
     "n": 0,
@@ -261,81 +290,239 @@
     "value": 0
    },
    "sell_open_market": {
-    "n": 24,
-    "shares": 28594.0,
-    "value": 18309257.558199998,
-    "n_10b5_1": 24
+    "n": 16,
+    "shares": 702190.0,
+    "value": 250006183.62,
+    "n_10b5_1": 16
    },
    "other_grants_exercises": {
-    "n": 0,
-    "shares": 0
+    "n": 3,
+    "shares": 82087.0
    },
    "top_buys": [],
    "top_sells": [
     {
      "code": "S",
-     "shares": 18578.0,
-     "price": 650.2121,
+     "shares": 230031.0,
+     "price": 355.5,
      "ad": "D",
-     "date": "2026-09-09",
-     "after": 245938.0,
-     "value": 12079640.3938,
-     "owner": "Cox Christopher K",
-     "title": "Chief Product Officer",
-     "role": "·임원",
+     "date": "2026-09-23",
+     "after": 36097830.0,
+     "value": 81776020.5,
+     "owner": "SAMUELI HENRY",
+     "title": "",
+     "role": "이사",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326013860/ownership.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000110465926110983/tm2626134-1_4seq1.xml"
     },
     {
      "code": "S",
-     "shares": 3240.0,
-     "price": 618.0579,
+     "shares": 186809.0,
+     "price": 354.71,
      "ad": "D",
-     "date": "2026-09-03",
-     "after": 6271.0,
-     "value": 2002507.5960000001,
-     "owner": "Anderson Aaron",
-     "title": "Chief Accounting Officer",
-     "role": "·임원",
+     "date": "2026-09-23",
+     "after": 36327861.0,
+     "value": 66263020.38999999,
+     "owner": "SAMUELI HENRY",
+     "title": "",
+     "role": "이사",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326013672/ownership.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000110465926110983/tm2626134-1_4seq1.xml"
     },
     {
      "code": "S",
-     "shares": 1422.0,
-     "price": 651.1496,
+     "shares": 85221.0,
+     "price": 356.58,
      "ad": "D",
-     "date": "2026-09-09",
-     "after": 244516.0,
-     "value": 925934.7311999999,
-     "owner": "Cox Christopher K",
-     "title": "Chief Product Officer",
-     "role": "·임원",
+     "date": "2026-09-23",
+     "after": 36012609.0,
+     "value": 30388104.18,
+     "owner": "SAMUELI HENRY",
+     "title": "",
+     "role": "이사",
      "plan": true,
-     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326013860/ownership.xml"
+     "url": "https://www.sec.gov/Archives/edgar/data/1730168/000110465926110983/tm2626134-1_4seq1.xml"
     }
    ]
   },
   {
-   "ticker": "ORCL",
-   "filings": 0,
+   "ticker": "GOOGL",
+   "filings": 20,
    "buy_open_market": {
     "n": 0,
     "shares": 0,
     "value": 0
    },
    "sell_open_market": {
-    "n": 0,
-    "shares": 0,
-    "value": 0,
-    "n_10b5_1": 0
+    "n": 1,
+    "shares": 83.0,
+    "value": 28257.35,
+    "n_10b5_1": 1
    },
    "other_grants_exercises": {
-    "n": 0,
-    "shares": 0
+    "n": 97,
+    "shares": 148024.8
    },
    "top_buys": [],
-   "top_sells": []
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 83.0,
+     "price": 340.45,
+     "ad": "D",
+     "date": "2026-09-30",
+     "after": 19076.0,
+     "value": 28257.35,
+     "owner": "ARNOLD FRANCES",
+     "title": null,
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/ownership.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "META",
+   "filings": 7,
+   "buy_open_market": {
+    "n": 0,
+    "shares": 0,
+    "value": 0
+   },
+   "sell_open_market": {
+    "n": 33,
+    "shares": 93774.0,
+    "value": 67809312.6438,
+    "n_10b5_1": 33
+   },
+   "other_grants_exercises": {
+    "n": 1,
+    "shares": 17140.0
+   },
+   "top_buys": [],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 20000.0,
+     "price": 725.0164,
+     "ad": "D",
+     "date": "2026-09-21",
+     "after": 184516.0,
+     "value": 14500328.0,
+     "owner": "Cox Christopher K",
+     "title": "Chief Product Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326014403/ownership.xml"
+    },
+    {
+     "code": "S",
+     "shares": 20000.0,
+     "price": 700.4966,
+     "ad": "D",
+     "date": "2026-09-21",
+     "after": 204516.0,
+     "value": 14009931.999999998,
+     "owner": "Cox Christopher K",
+     "title": "Chief Product Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326014403/ownership.xml"
+    },
+    {
+     "code": "S",
+     "shares": 20000.0,
+     "price": 675.2278,
+     "ad": "D",
+     "date": "2026-09-15",
+     "after": 224516.0,
+     "value": 13504556.0,
+     "owner": "Cox Christopher K",
+     "title": "Chief Product Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326014140/ownership.xml"
+    }
+   ]
+  },
+  {
+   "ticker": "ORCL",
+   "filings": 13,
+   "buy_open_market": {
+    "n": 1,
+    "shares": 25000.0,
+    "value": 3483800.0
+   },
+   "sell_open_market": {
+    "n": 3,
+    "shares": 36075.0,
+    "value": 5342123.36,
+    "n_10b5_1": 3
+   },
+   "other_grants_exercises": {
+    "n": 34,
+    "shares": 855231.0
+   },
+   "top_buys": [
+    {
+     "code": "P",
+     "shares": 25000.0,
+     "price": 139.352,
+     "ad": "A",
+     "date": "2026-09-29",
+     "after": 25390.0,
+     "value": 3483800.0,
+     "owner": "RUSCKOWSKI STEPHEN H",
+     "title": null,
+     "role": "이사",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000099/form4.xml"
+    }
+   ],
+   "top_sells": [
+    {
+     "code": "S",
+     "shares": 22562.0,
+     "price": 151.59,
+     "ad": "D",
+     "date": "2026-09-22",
+     "after": 182929.279,
+     "value": 3420173.58,
+     "owner": "Sicilia Michael D.",
+     "title": "Chief Executive Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000094/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 10882.0,
+     "price": 139.94,
+     "ad": "D",
+     "date": "2026-09-16",
+     "after": 149084.279,
+     "value": 1522827.08,
+     "owner": "Sicilia Michael D.",
+     "title": "Chief Executive Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000083/form4.xml"
+    },
+    {
+     "code": "S",
+     "shares": 2631.0,
+     "price": 151.7,
+     "ad": "D",
+     "date": "2026-09-22",
+     "after": 64357.0,
+     "value": 399122.69999999995,
+     "owner": "Smith Maria",
+     "title": "EVP, Chief  Accounting Officer",
+     "role": "·임원",
+     "plan": true,
+     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000096/form4.xml"
+    }
+   ]
   }
  ]
 }

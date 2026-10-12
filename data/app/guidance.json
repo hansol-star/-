@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-12",
+ "updated": "2026-10-12",
  "note": "SEC 8-K Item 2.02 보도자료 가이던스. 어닝콜 Q&A 전문은 미포함.",
  "rows": [
   {
@@ -24,22 +24,22 @@
   },
   {
    "ticker": "MU",
-   "filed": "2026-06-24",
-   "accession": "0000723125-26-000013",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+   "filed": "2026-09-30",
+   "accession": "0000723125-26-000018",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/a2026q4ex991-pressrelease.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm"
+    "https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/a2026q4ex991-pressrelease.htm"
    ],
-   "chars": 17662,
-   "outlook": "Business Outlook The following table presents Micron's guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion ± $1.0 billion $50.0 billion ± $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 ± $1.00 $31.00 ± $1.00 Further information regarding Micron's business outlook is included in the prepared remarks and slides, which have been posted at investors.micron.com .",
+   "chars": 18827,
+   "outlook": "Business Outlook The following table presents Micron's guidance for the first quarter of 2027: FQ1-27 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $61.5 billion ± $1.5 billion $61.5 billion ± $1.5 billion Gross margin Approximately 85.95% Approximately 86.25% Operating expenses Approximately $2.31 billion Approximately $2.06 billion Diluted earnings per share $37.84 ± $1.00 $38.15 ± $1.00 Further information regarding Micron's business outlook is included in the prepared remarks and slides, which have been posted at investors.micron.com .",
    "metrics": {
-    "매출": "$50.0 billion ± $1.0 billion",
-    "매출총이익률": "86%",
-    "영업비용": "$1.86 billion",
-    "EPS": "$30.73 ± $1.00"
+    "매출": "$61.5 billion ± $1.5 billion",
+    "매출총이익률": "85.95%",
+    "영업비용": "$2.31 billion",
+    "EPS": "$37.84 ± $1.00"
    },
    "commentary": [
-    "Sanjay Mehrotra: “Micron's record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,”"
+    "Sanjay Mehrotra: “Micron delivered record fiscal 2026 results, and we expect an even stronger fiscal 2027,”"
    ]
   },
   {

@@ -46,8 +46,13 @@ _HERE = os.path.abspath(__file__)
 ROOT = os.path.abspath(os.path.join(_HERE, *([os.pardir] * 5)))
 APP = os.path.join(ROOT, "data", "app")
 
-# 국내 컨센 — naver_value.py·broker_reports.py 실측(무키). 파일 캐시가 없어 스냅샷으로 둔다.
-# ⚠️ 갱신 시 반드시 두 스크립트를 다시 돌리고 날짜를 같이 바꿀 것.
+# 국내 컨센 — ★[2026-10-12] **실시간 조회가 1차**, 아래 표는 조회 실패 시에만 쓰는 폴백 스냅샷이다.
+#   舊엔 이 표가 유일한 출처였고 "갱신 시 두 스크립트를 다시 돌릴 것"이라는 주석이 유일한 장치였다 →
+#   아무도 안 돌려 **33일간 9/9 값으로 계산**했다. 10/12 현대차: 표 701,600원 vs 실제 624,566원(Yahoo 32명)
+#   = 밴드 하단이 371,919 vs 341,280으로 3만원 높게 나왔고, 10월에 13개 증권사가 목표를 내린 게 안 보였다.
+#   산정일도 저장부에 '2026-09-09'로 박혀 있어 `target_basis`가 낡은 계산을 새 계산처럼 적었다.
+#   ⇒ kr_live_consensus()가 Yahoo(평균·low·high·n) → 네이버(평균·stale 플래그) 순으로 매번 받는다.
+#   ⚠️ 폴백으로 떨어지면 **stale=True를 강제**하고 출처에 '폴백 스냅샷'을 박는다(조용히 낡은 값을 쓰지 않는다).
 KR_CONSENSUS = {
     "005930.KS": (480000, 9, False, "broker_reports 2026-09-08"),
     "066570.KS": (180000, 12, False, "broker_reports 2026-09-08"),
@@ -70,6 +75,42 @@ FWD_EPS = {
 }
 NAMES = {"005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KS": "두산로보틱스",
          "005380.KS": "현대차", "035420.KS": "NAVER"}
+
+
+def kr_live_consensus(tk: str) -> dict | None:
+    """국내 종목 컨센을 실시간으로 — Yahoo(평균·low·high·n) 1차, 네이버(평균) 2차. stale 플래그는 네이버 판독.
+
+    실패하면 None → 호출부가 KR_CONSENSUS 스냅샷으로 폴백하되 stale을 강제한다.
+    """
+    sys.path.insert(0, os.path.dirname(_HERE))
+    out: dict = {}
+    try:
+        import consensus as C
+        op = C._opener()
+        r = C.fetch_consensus(op, C.get_crumb(op), tk) or {}
+        if r.get("target_mean"):
+            out = {"anchor": float(r["target_mean"]), "n": r.get("n_analysts"),
+                   "low": r.get("target_low"), "high": r.get("target_high"), "src": "Yahoo 실시간"}
+    except Exception:  # noqa: BLE001 — 한 출처 실패가 전체를 막지 않는다
+        pass
+    try:
+        import naver_value as NV
+        v = NV.value_read(tk.split(".")[0]) or {}
+        out["stale"] = bool(v.get("target_stale"))
+        if v.get("target_mean"):
+            out["naver"] = float(v["target_mean"])
+            if not out.get("anchor"):
+                out.update({"anchor": float(v["target_mean"]), "n": None, "low": None, "high": None,
+                            "src": "네이버 실시간"})
+    except Exception:  # noqa: BLE001
+        pass
+    if not out.get("anchor"):
+        return None
+    if out.get("naver") and "Yahoo" in out["src"]:
+        gap = abs(out["naver"] / out["anchor"] - 1) * 100
+        out["src"] += f" · 네이버 {out['naver']:,.0f}원({gap:.0f}% 차)"
+    out.setdefault("stale", False)
+    return out
 
 
 def load(p, d=None):
@@ -226,19 +267,39 @@ def main() -> int:
           f"{'→중심':>11}{'중심여력':>9}{'하단':>11}{'상단':>11}")
     print("─" * 94)
     updates = {}
+    FALLBACK: list[str] = []
+    import datetime as _dt
+    TODAY = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=9))).strftime("%Y-%m-%d")
+    us_age = None
+    try:
+        us_age = (_dt.datetime.strptime(TODAY, "%Y-%m-%d")
+                  - _dt.datetime.strptime(str(cons.get("updated"))[:10], "%Y-%m-%d")).days
+    except Exception:  # noqa: BLE001
+        pass
 
     for tk in st:
         name = NAMES.get(tk, tk)
         kr = tk.endswith(".KS")
-        if tk in KR_CONSENSUS:
-            anchor, n, stale, src = KR_CONSENSUS[tk]
-            lo_a = hi_a = None
+        if kr:
+            lv = kr_live_consensus(tk)
+            if lv:
+                anchor, n, stale = lv["anchor"], lv["n"], lv["stale"]
+                src = f"{lv['src']} {TODAY}" + (" ⚠️stale 의심(네이버 판독)" if stale else "")
+                lo_a, hi_a = lv.get("low"), lv.get("high")
+            elif tk in KR_CONSENSUS:
+                anchor, n, _, src = KR_CONSENSUS[tk]
+                stale, src = True, f"⚠️폴백 스냅샷({src}) — 실시간 조회 실패"
+                lo_a = hi_a = None
+                FALLBACK.append(name)
+            else:
+                print(f"{name:<12}{'—':>11}   국내 컨센 조회 실패·스냅샷 없음 — 목표 미부여")
+                continue
         else:
             r = rows.get(tk)
             if not r or not r.get("target_mean"):
                 print(f"{name:<12}{'—':>11}   컨센 없음(ETF 등) — 목표 미부여")
                 continue
-            anchor, n, stale, src = r["target_mean"], r.get("n_analysts"), False, "Yahoo consensus.json"
+            anchor, n, stale, src = r["target_mean"], r.get("n_analysts"), False, f"Yahoo consensus.json {str(cons.get('updated'))[:10]}"
             lo_a, hi_a = r.get("target_low"), r.get("target_high")
         if not anchor:
             print(f"{name:<12}{'—':>11}   목표 미부여({src})")
@@ -274,6 +335,11 @@ def main() -> int:
         updates[tk] = dict(low=lo, center=center, high=hi, anchor=anchor, n=n,
                            k=k, src=src, stale=stale, price=price, kr=kr, flags=sorted(pen))
 
+    if FALLBACK:
+        print(f"\n⚠️ 국내 컨센 실시간 조회 실패 → 폴백 스냅샷 사용: {', '.join(FALLBACK)} — 이 종목은 --save 하지 말 것")
+    if us_age is not None and us_age > 7:
+        print(f"\n⚠️ 미국 컨센 캐시(consensus.json)가 {us_age}일 됐다 — `consensus.py --save`로 갱신 후 다시 돌릴 것")
+
     # ── 낙관계수: 현행(고정) vs 실측보정 — 적용 여부와 무관하게 **항상** 보여준다.
     #    안 보이면 정훈이 승인 여부를 물을 수조차 없다(8/2 '오더북에 들어간 것만 집행된다'의 보고판).
     if KTAB:
@@ -307,7 +373,7 @@ def main() -> int:
                         "⚠️12M 선행 EPS **미확보**(FMP 402·국내 미제공) — 앵커인 애널 컨센이 "
                         "선행 EPS 기반이므로 TTM 기준 내재배수 검사는 과대 표시된다. ")
             st[tk]["target_basis"] = (
-                f"산정일 2026-09-09 · [전면 재설정] 12M 목표 = 현재가 {f(u['price'])} × "
+                f"산정일 {TODAY} · 12M 목표 = 현재가 {f(u['price'])} × "
                 f"(1 + 컨센여력 × (1−낙관계수 {u['k']:.2f})). "
                 f"앵커 = 컨센 {f(u['anchor'])}(n={u['n']}, {u['src']}). {eps_note}"
                 f"{'⚠️컨센 stale 의심으로 낙관계수 +0.15 가산. ' if u['stale'] else ''}"

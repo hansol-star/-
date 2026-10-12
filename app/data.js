@@ -1,22 +1,22 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-10-12 17:45 KST",
+  "generated_at": "2026-10-12 18:16 KST",
   "as_of": "2026-10-12 11:51",
   "source_report": "docs/reports/report_v112_2026-10-12.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1331.88
+    "usdkrw": 1332.08
   },
   "totals": {
-    "assets_krw": 7968053,
-    "stocks_value_krw": 6989682,
+    "assets_krw": 7968986,
+    "stocks_value_krw": 6990469,
     "cash_krw": 2569,
     "cash_usd": 732.65,
-    "cash_usd_krw": 975802,
-    "day_change_krw": -38392,
+    "cash_usd_krw": 975948,
+    "day_change_krw": -38386,
     "day_change_pct": -0.55,
-    "total_pnl_krw": -393325,
-    "total_pnl_pct": -5.33
+    "total_pnl_krw": -392538,
+    "total_pnl_pct": -5.32
   },
   "safety": {
     "price": 6384.24,
@@ -156,7 +156,7 @@ window.APP_DATA = {
       "high": null,
       "when": null,
       "action": "[급락 TF] 유가 쇼크 전 수준(7/11 종가 71.41) 복귀 = 조건③ 프록시 점등(crash_tf.md §5) — 이란 헤드라인 완화 여부 PM 판단 병기 후 게이트 판정",
-      "price": 91.5,
+      "price": 92.65,
       "fired": false
     },
     {
@@ -830,9 +830,9 @@ window.APP_DATA = {
       "outlook": "hold",
       "stars": 2,
       "score": 46,
-      "target": "407,897원~586,973원 (중심 497,435원·12M)",
+      "target": "341,279원~523,000원 (중심 426,598원·12M)",
       "buy_zone": "—(물타기 영구금지)",
-      "trim": "— 보유(d211). 3Q(10/22~29·회사 공지 미확인) 영업마진 ≥5.43% 보유 / 미만이면 반등 지정가 정리(밴드 하단 이상). 🟡 밴드 재설정 제안(d240): 하한 407,897 → 341,000 — 승인 전엔 현행 407,897 유지",
+      "trim": "— 보유(d211). 3Q(10/22~29·회사 공지 미확인) 영업마진 ≥5.43% 보유 / 미만이면 반등 지정가 정리 — 하한 341,279원(12M 밴드 하단 · d240 10/12 승인). 지금 가격 320,000 < 하단이라 등록 없음",
       "forecast": {
         "week": {
           "low": 305000,
@@ -847,7 +847,7 @@ window.APP_DATA = {
           "note": "3Q 영업마진 ≥5.43% 여부가 기한부 홀드 만기 판정"
         }
       },
-      "comment": "[딥다이브 10/12] 320,000(-1.4%). 외인 이탈은 1년 흐름(300일 -2,172만주·36→23.9%)이고 10월 재가속 원인 = 3Q 출하 -10.9%(파업 5~9만대·모델 노후화) + 원화 강세(2Q 1,502→3Q 1,418→현재 1,334) + 2027E 이익 추가 하향(KB 8.9조). 관세는 원인 아님(25→15%). 3Q 영업마진 추정 5.28~5.89% — 기준 5.43%가 범위 한가운데, 4개 중 3개 미달. 10월 13개사 목표 하향(유안타 41만). 지금 매도 없음·d211 판정 유지. 🟡 12M 밴드 재설정(341,000~555,000) 정훈 승인 대기(d240).",
+      "comment": "[딥다이브 10/12] 320,000(-1.4%). 외인 이탈은 1년 흐름(300일 -2,172만주·36→23.9%)이고 10월 재가속 원인 = 3Q 출하 -10.9%(파업 5~9만대·모델 노후화) + 원화 강세(2Q 1,502→3Q 1,418→현재 1,334) + 2027E 이익 추가 하향(KB 8.9조). 관세는 원인 아님(25→15%). 3Q 영업마진 추정 5.28~5.89% — 기준 5.43%가 범위 한가운데, 4개 중 3개 미달. 10월 13개사 목표 하향(유안타 41만). 지금 매도 없음·d211 판정 유지. ✅ 12M 밴드 재설정 승인(d240): 341,279~523,000(중심 426,598) — 미달 시 매도 하한 341,279원.",
       "issues": [
         {
           "date": "2026-10-12",
@@ -1099,9 +1099,9 @@ window.APP_DATA = {
       "cost": 199.51,
       "price": 229.28,
       "change_pct": -0.52,
-      "value_krw": 1569071,
+      "value_krw": 1569306,
       "pnl_pct": 14.92,
-      "pnl_krw": 71469,
+      "pnl_krw": 71704,
       "outlook": "core",
       "stars": 5,
       "score": 90,
@@ -1259,9 +1259,9 @@ window.APP_DATA = {
       "cost": 662.825877,
       "price": 715.59,
       "change_pct": 0.61,
-      "value_krw": 1306444,
+      "value_krw": 1306640,
       "pnl_pct": 7.96,
-      "pnl_krw": -20894,
+      "pnl_krw": -20697,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1377,9 +1377,9 @@ window.APP_DATA = {
       "cost": 410.2,
       "price": 535.07,
       "change_pct": 2.38,
-      "value_krw": 1028353,
+      "value_krw": 1028507,
       "pnl_pct": 30.44,
-      "pnl_krw": 163619,
+      "pnl_krw": 163773,
       "outlook": "core",
       "stars": 4,
       "score": 76,
@@ -1507,9 +1507,9 @@ window.APP_DATA = {
       "cost": 350.705571,
       "price": 351.66,
       "change_pct": 0.97,
-      "value_krw": 1233204,
+      "value_krw": 1233389,
       "pnl_pct": 0.27,
-      "pnl_krw": -115790,
+      "pnl_krw": -115605,
       "outlook": "core",
       "stars": 5,
       "score": 88,
@@ -1637,9 +1637,9 @@ window.APP_DATA = {
       "cost": 232.12,
       "price": 141.4,
       "change_pct": 4.21,
-      "value_krw": 40526,
+      "value_krw": 40532,
       "pnl_pct": -39.08,
-      "pnl_krw": -32446,
+      "pnl_krw": -32439,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1767,9 +1767,9 @@ window.APP_DATA = {
       "cost": 749.0,
       "price": 1029.0,
       "change_pct": -0.66,
-      "value_krw": 27411,
+      "value_krw": 27416,
       "pnl_pct": 37.38,
-      "pnl_krw": 5526,
+      "pnl_krw": 5530,
       "outlook": "core",
       "stars": 5,
       "score": 87,
@@ -1897,9 +1897,9 @@ window.APP_DATA = {
       "cost": 421.06,
       "price": 361.54,
       "change_pct": 0.39,
-      "value_krw": 34274,
+      "value_krw": 34279,
       "pnl_pct": -14.14,
-      "pnl_krw": -9509,
+      "pnl_krw": -9504,
       "outlook": "hold",
       "stars": 4,
       "score": 78,
@@ -2968,7 +2968,7 @@ window.APP_DATA = {
       1339.74,
       1339.08,
       1342.99,
-      1331.88
+      1331.98
     ]
   },
   "kospi_history": {
@@ -25093,15 +25093,17 @@ window.APP_DATA = {
           "룰후보"
         ],
         "refs": "docs/reports/report_v112_2026-10-12.md"
-      },
+      }
+    ],
+    "closed": [
       {
         "id": "d240",
         "date": "2026-10-12",
         "topic": "현대차 12M 목표 밴드 재설정 제안 (딥다이브)",
-        "decision": "🟡 정훈 승인 대기·미적용: 밴드 407,897~586,973(중심 497,435) → 341,000~555,000(중심 427,000). d211 판정(3Q 영업마진 5.43%)은 불변·지금 매도 없음. 승인 시 미달 매도 지정가 하한 = 341,000원",
+        "decision": "★[10/12 정훈 승인 \"d240 승인\" · 적용] 현대차 12M 밴드 407,897~586,973 → 341,279~523,000(중심 426,598 · 앵커 Yahoo 624,566·32명·낙관계수 0.65). d211 판정(3Q 영업마진 5.43%) 불변·지금 매도 없음. 미달 시 반등 매도 지정가 하한 = 341,279원. ※제안 때 상단을 555,000(중심×1.30 클램프)으로 적었으나 도구는 애널 최고가 스케일 값 523,000을 쓴다 — 하단·중심은 제안과 같다",
         "rationale": "현행 밴드 앵커 = 9/9 컨센 701,600(당시도 stale 표기). 10/12 Yahoo 컨센 624,566(32명)·10월 13개사 하향(유안타 41만). 현행 하한 407,897 = 최저 증권사 목표 수준 = 낙관 보정이 안 된 값. 3Q 추정 마진 5.28~5.89%로 기준이 범위 한가운데(4개 중 3개 미달). 미달 매도 시 국내 비중 25.2→21.7%(룰6 밴드 안)",
         "rejected": "지금 시장가 매도(RSI 23·밴드 하단 아래 = d210 위반·저점 매도) / d211 기준을 파업 일회성 이유로 완화(사전등록 기준 변경 금지·KB 2027E 8.9조로 일회성 아님) / 밴드 유지(하한 +27.5% = 사실상 안 판다)",
-        "status": "open",
+        "status": "closed",
         "tags": [
           "현대차",
           "d211",
@@ -25110,9 +25112,7 @@ window.APP_DATA = {
           "deepdive"
         ],
         "refs": "docs/research/hyundai_deepdive_2026-10-12.md"
-      }
-    ],
-    "closed": [
+      },
       {
         "id": "d237",
         "date": "2026-10-12",
@@ -25367,25 +25367,9 @@ window.APP_DATA = {
         "resolution": "승인 — 다음 dev 세션 1순위로 wiring_audit --features 판정 기준 문서화(부정/반전 플래그·도구 자기 픽스처 분류) 후 재집계. EXPECTED_UNUSED 일괄 등록 금지 유지.",
         "resolution_rationale": "4주 연속 25→44 증가인데 '기준 문서화 선행'으로 3회 미뤄졌다 — 미루는 것 자체가 결손.",
         "followup": "구현 완료 9/29: 기준 = docs/dev_workflow.md §1d. wiring_audit 44→0(형태 분류 19 별도 출력·개별 사유 22·감사기 결함 2 수정·진짜 결손 3 배선)."
-      },
-      {
-        "id": "d213",
-        "date": "2026-09-26",
-        "topic": "목표가 여력 구간별 트림룰 — §10-15 역단조 가설",
-        "decision": "제안하지 않음(종결). 여력 구간별 트림룰을 만들지 않는다.",
-        "rationale": "R3 층화 검증: 같은 원장을 20일·60일 두 지평으로 채점하니 패턴이 안 살아남았다. 20일 보정편향 ①-3.76 ②-1.33 ③-1.27 ④+4.41(단조 = 여력 작을수록 나쁘다)인데, 60일은 ①-7.99 ②-2.73 ③-12.75 ④-2.46으로 ③이 최악이고 단조성이 사라진다. 8/5 룰검증 절차 ②(분해에서 견고한가) 기각 — 지평을 바꾸면 방향이 바뀌는 패턴은 룰 근거가 못 된다.",
-        "rejected": "여력 ±10% 구간 거주 종목에 트림 우선순위를 주는 룰(8/21 target_score 413콜 관찰 기반) — 지평 민감으로 기각",
-        "status": "closed",
-        "tags": [
-          "target_price",
-          "rule_validation",
-          "R3",
-          "calibration"
-        ],
-        "refs": "docs/research/call_scorecard.md,docs/master.md#10-15"
       }
     ],
-    "open_count": 56,
+    "open_count": 55,
     "total": 257
   },
   "reports": [
@@ -27073,8 +27057,8 @@ window.APP_DATA = {
       {
         "id": "t1012-7",
         "added": "2026-10-12",
-        "done": false,
-        "text": "[결정 필요·정훈] d240 — 현대차 12M 목표 밴드 재설정(407,897~586,973 → 341,000~555,000). 3Q 마진이 5.43% 미달일 때 매도 지정가 하한이 407,897 → 341,000원이 된다. 실적(10/22~29) 전에 답 필요(PM 추천 = 재설정)"
+        "done": true,
+        "text": "✅[10/12 정훈 승인] d240 적용 — 현대차 12M 밴드 341,279~523,000(중심 426,598). 3Q 마진 미달 시 매도 하한 341,279원"
       },
       {
         "id": "t1012-6",
@@ -27157,6 +27141,12 @@ window.APP_DATA = {
       }
     ],
     "week": [
+      {
+        "id": "w1012-5",
+        "added": "2026-10-12",
+        "done": false,
+        "text": "[결정 필요·정훈] 국내 4종 목표 밴드도 33일 낡았다(target_reset 실시간 전환으로 드러남) — 삼성 328,307~533,499 · LG전자 179,936~292,397 · 두산로보 78,576~93,456 · NAVER 191,415~261,715. 두산로보 78,000원 매도 등록가는 새 하단 78,576보다 576원 낮고, NAVER 11/5 미달 매도 하한은 209,674 → 191,415로 바뀐다. 일괄 적용 여부"
+      },
       {
         "id": "w1012-4",
         "added": "2026-10-12",
@@ -27411,12 +27401,12 @@ window.APP_DATA = {
   },
   "task_counts": {
     "today": {
-      "done": 7,
+      "done": 8,
       "total": 13
     },
     "week": {
       "done": 17,
-      "total": 26
+      "total": 27
     },
     "month": {
       "done": 2,
@@ -32607,16 +32597,16 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1331.88,
+    "fx_rate": 1332.08,
     "fx_cost_basis": 1460.9,
-    "total_krw": 7968054,
+    "total_krw": 7968986,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 6215085,
+        "value_krw": 6216017,
         "weight": 78.0,
-        "stock_krw": 5239283,
-        "cash_krw": 975802
+        "stock_krw": 5240069,
+        "cash_krw": 975948
       },
       {
         "currency": "KRW",
@@ -32626,70 +32616,70 @@ window.APP_DATA = {
         "cash_krw": 2569
       }
     ],
-    "sensitivity_1pct_krw": 62151,
+    "sensitivity_1pct_krw": 62160,
     "attribution": {
       "price_krw": 569508,
-      "fx_krw": -457236,
-      "cross_krw": -50296,
-      "total_krw": 61975,
+      "fx_krw": -456527,
+      "cross_krw": -50218,
+      "total_krw": 62762,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(체결 실측·시장종가 기준)라 환 기여 절대액에 잔여 오차"
     },
     "by_stock": [
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": 71469,
+        "total_krw": 71704,
         "price_krw": 223466,
-        "fx_krw": -132261,
-        "cross_krw": -19735
+        "fx_krw": -132056,
+        "cross_krw": -19705
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -115790,
+        "total_krw": -115605,
         "price_krw": 3671,
-        "fx_krw": -119137,
+        "fx_krw": -118952,
         "cross_krw": -324
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": -20894,
+        "total_krw": -20697,
         "price_krw": 105662,
-        "fx_krw": -117224,
-        "cross_krw": -9332
+        "fx_krw": -117043,
+        "cross_krw": -9317
       },
       {
         "label": "MSFT",
         "ticker": "MSFT",
-        "total_krw": 163619,
+        "total_krw": 163773,
         "price_krw": 263236,
-        "fx_krw": -76369,
-        "cross_krw": -23248
+        "fx_krw": -76251,
+        "cross_krw": -23212
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -32446,
+        "total_krw": -32439,
         "price_krw": -28520,
-        "fx_krw": -6445,
-        "cross_krw": 2519
+        "fx_krw": -6435,
+        "cross_krw": 2515
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -9509,
+        "total_krw": -9504,
         "price_krw": -6189,
-        "fx_krw": -3867,
-        "cross_krw": 547
+        "fx_krw": -3861,
+        "cross_krw": 546
       },
       {
         "label": "MU",
         "ticker": "MU",
-        "total_krw": 5526,
+        "total_krw": 5530,
         "price_krw": 8181,
-        "fx_krw": -1933,
-        "cross_krw": -723
+        "fx_krw": -1930,
+        "cross_krw": -721
       }
     ],
     "percentile": {
@@ -33136,7 +33126,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 78.0% · 원/달러 5년 38.7%ile 중립(1년 창 0.4%ile은 결론이 뒤집혀 단독 인용 금지). 환율 1% 변동 = 총자산 +62,151원. 룰6 통화 판정 = 조정 근거 없음."
+        "detail": "달러 자산 78.0% · 원/달러 5년 38.7%ile 중립(1년 창 0.4%ile은 결론이 뒤집혀 단독 인용 금지). 환율 1% 변동 = 총자산 +62,160원. 룰6 통화 판정 = 조정 근거 없음."
       },
       {
         "level": "warning",
@@ -33160,7 +33150,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 +569,508원인데 환 기여 -457,236원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -50,296원)."
+        "detail": "미국주 종목 기여 +569,508원인데 환 기여 -456,527원 — 주가로 번 걸 환율이 되돌리고 있다(교차 -50,218원)."
       },
       {
         "level": "info",
@@ -33180,7 +33170,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "performance": {
-    "generated_at": "2026-10-12 17:45",
+    "generated_at": "2026-10-12 18:16",
     "from": "2026-06-15",
     "to": "2026-10-12",
     "days": 85,

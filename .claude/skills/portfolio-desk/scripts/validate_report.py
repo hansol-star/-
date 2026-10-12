@@ -1787,6 +1787,42 @@ def check_canonical_facts():
 
 
 
+def check_close_recon(today=None):
+    """마감 대사(close_reconcile)가 실제로 돌고 있나 — 스케줄러 JD-close-reconcile의 감시자.
+
+    ★[10/12 신설] 장중 보고서의 '잠정' 수급·낙폭을 확정치로 바꾸는 일은 "마감 후 대사" 할 일로만 남았고
+    사람이 시켜야 돌았다(flows.json에 '잠정 — 대사 필요'가 7거래일 누적). 자동화했으니 **안 돌면 알린다.**
+    잡는 것: ① 기록 없음 ② 마지막 대사일이 직전 거래일보다 오래됨(PC 꺼짐·작업 삭제)
+             ③ 그날 2차 대사(20:10)가 안 돌아 등급이 '확정'이 아님 ④ 수기 확정값과 네이버 값 불일치 메모
+    ⚠️ WARN — 운영 상태이지 보고서 결함이 아니다.
+    """
+    import csv as _csv
+    import datetime as _dt
+    path = os.path.join(ROOT, "data", "app", "close_recon.json")
+    if not os.path.exists(path):
+        warn("마감 대사 기록 없음(data/app/close_recon.json) — close_reconcile.py 미실행 · 스케줄러 JD-close-reconcile 확인")
+        return
+    try:
+        o = json.load(open(path, encoding="utf-8"))
+        with open(os.path.join(ROOT, "data", "history", "_KS11.csv"), encoding="utf-8") as f:
+            days = [r["date"] for r in _csv.DictReader(f)]
+    except Exception as e:
+        warn(f"마감 대사 기록을 못 읽음 ({e})")
+        return
+    now = today or _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=9)))
+    tstr = now.strftime("%Y-%m-%d")
+    done = [d for d in days if d < tstr or (d == tstr and now.hour >= 17)]
+    last_due = done[-1] if done else None
+    if last_due and (o.get("date") or "") < last_due:
+        warn(f"마감 대사가 밀렸다 — 마지막 {o.get('date')} < 직전 마감 {last_due}. "
+             "`close_reconcile.py --commit` 실행 · 스케줄러 JD-close-reconcile(16:10·20:10)·PC 전원 확인")
+        return
+    if o.get("date", "") < tstr and o.get("grade") != "확정":
+        warn(f"마감 대사 {o.get('date')}가 '{o.get('grade')}'에서 멈췄다 — 20:10 2차가 안 돌았다(수급 값은 1차 조회치)")
+    for n in o.get("notes") or []:
+        warn(f"마감 대사 {o.get('date')} 메모: {n}")
+
+
 def check_routine_health(today=None):
     """무인 루틴이 실제로 돌고 있나 — 경로 B(로컬 스케줄러)의 유일한 감시자.
 
@@ -3095,7 +3131,7 @@ def main():
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_monthly_dca(); check_desk_value_gate()
-    check_routine_health(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_dead_alerts()
+    check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
     check_split_scale()

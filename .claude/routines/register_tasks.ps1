@@ -132,6 +132,34 @@ if (Test-Path $Watcher) {
   Write-Output ("registered  {0,-22} {1}" -f $WatchName, '08:00(12h)·22:30(6.5h) +10분')
 }
 
+# ── 마감 대사 [10/12 신설] — 외인 수급·코스피 낙폭 확정을 요청 없이 매일 ────────
+#   정훈 10/12: "이런 걸 계속 자동으로 요청하게 말고 너가 완성시켜봐".
+#   장중 보고서가 '잠정'으로 적은 수급·낙폭은 "마감 후 대사" 할 일로만 남았고, 사람이 시켜야 돌았다
+#   (flows.json에 '잠정 — 대사 필요'가 7거래일째 누적). 토큰 0 · 네이버·Yahoo 무키.
+#   16:10 = 정규장 마감 1차(잠정) / 20:10 = 애프터마켓 종료 뒤 2차(1차와 일치하면 확정).
+$CloseName = 'JD-close-reconcile'
+$Closer = Join-Path $Repo '.claude\skills\portfolio-desk\scripts\close_reconcile.py'
+if (Test-Path $Closer) {
+  $cAction = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument (
+    "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -Command " +
+    "`"& { `$env:Path='$env:LOCALAPPDATA\Programs\Python\Python312;' + `$env:Path; `$env:PYTHONIOENCODING='utf-8'; " +
+    "python '$Closer' --commit *>> '$Repo\data\logsoutines\close_reconcile.log' }`"") -WorkingDirectory $Repo
+  $cTriggers = @(
+    (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At '16:10'),
+    (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At '20:10')
+  )
+  $cSettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries `
+      -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 10) `
+      -MultipleInstances IgnoreNew
+  if (Get-ScheduledTask -TaskName $CloseName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
+    Unregister-ScheduledTask -TaskName $CloseName -TaskPath "$Folder\" -Confirm:$false
+  }
+  Register-ScheduledTask -TaskName $CloseName -TaskPath $Folder -Action $cAction `
+      -Trigger $cTriggers -Principal $principal -Settings $cSettings `
+      -Description "마감 대사(외인 수급·코스피 낙폭 확정) 16:10·20:10 - 정본 docs/routines.md" | Out-Null
+  Write-Output ("registered  {0,-22} {1}" -f $CloseName, '16:10·20:10')
+}
+
 # ── 정기 브리핑 [9/4 신설] — 할 일 중심 카톡 요약 하루 3회 ────────────────
 #   정훈 9/4: "내가 할 일, 그리고 했는지도 체크해서 확인 느낌으로".
 #   ⚠️ **10분마다 보내지 않는다.** 감시는 10분마다 돌지만(토큰 0) 카톡은

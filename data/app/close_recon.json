@@ -1,0 +1,39 @@
+{
+ "date": "2026-10-12",
+ "run_at": "2026-10-12 19:00",
+ "status": "ok",
+ "notes": [],
+ "kospi": {
+  "close": 6384.24,
+  "pct": -3.65,
+  "peak": 9114.55,
+  "peak_date": "2026-06-22",
+  "dd_pct": -29.96
+ },
+ "kosdaq": {
+  "close": 849.19,
+  "pct": -4.83
+ },
+ "first": {
+  "foreign": -19943,
+  "inst": -1291,
+  "indiv": 14662,
+  "at": "19:00"
+ },
+ "flows": {
+  "foreign": -19943,
+  "inst": -1291,
+  "indiv": 14662,
+  "at": "19:00"
+ },
+ "grade": "잠정(1차)",
+ "flows_action": "added",
+ "streak": {
+  "days": 10,
+  "side": "매도",
+  "cum_eok": -177473
+ },
+ "pending_nulls": [
+  "2026-09-14"
+ ]
+}

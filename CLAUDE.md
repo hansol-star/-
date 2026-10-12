@@ -261,8 +261,9 @@
 | 2차 매체 받아쓰기 | `check_primary_source` |
 | 만든 도구가 안 불림 · 정지 루틴에서만 불림 | `wiring_audit.py`(9/29 d196 DORMANT 축 · `--live` = routines.md 상태표 ↔ 작업 스케줄러) |
 | 백테스트 미래참조 | `lookahead_guard.py` |
-| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 **39/53** — **미등록 14개가 결핍 목록** · 10/10 check_tech_column 등록) |
+| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 **39/54** — **미등록 15개가 결핍 목록** · 10/10 check_tech_column 등록) |
 | 루틴 실패 침묵 | `check_routine_health` |
+| 마감 후 수급·낙폭 대사를 사람이 시켜야 돎 | `close_reconcile.py`(스케줄러 16:10·20:10 자동) + `check_close_recon`(10/12 — '잠정'이 7거래일 누적됐다. **"마감 후 대사" 할 일을 만들지 말 것**) |
 | 자막 유실 | `check_transcript_persistence` |
 | 의미검색 인덱스 stale | `check_memory_index` |
 | 워치 별점이 채점에서 새는 것 | `check_watch_calls`(9/14 — 3개월간 매일 22건 만들어 매일 버리고 있었다) |

@@ -92,6 +92,16 @@ def main():
                 print(f"       방법: {_clip(x.get('how'), 160)}")
         print()
 
+    # ★[10/12] 마감 대사(close_reconcile — 스케줄러 16:10·20:10 자동)의 확정치. 보고서는 이 값을 쓴다 —
+    #   "마감 후 대사" 할 일을 새로 만들지 않는다(요청해야 도는 대사는 대사가 아니다).
+    try:
+        import close_reconcile as _CR
+        _o = _CR._load(_CR.RECON)
+        if _o:
+            print("⓪ " + _CR.line(_o) + "\n")
+    except Exception as _e:  # noqa: BLE001
+        print(f"⓪ 마감 대사 기록 읽기 실패: {_e}\n")
+
     rp = latest_report()
     print("=" * 72)
     print(f"① 직전 보고서: {os.path.relpath(rp, ROOT) if rp else '없음'}")

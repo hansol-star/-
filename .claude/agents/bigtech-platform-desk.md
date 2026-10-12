@@ -15,9 +15,9 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 ## Coverage (theme = big tech·platforms·SW·telecom·space)
 
 - **Holdings**: META, MSFT, AAPL, GOOGL, ORCL, NAVER(035420.KS)
-- **Watch** [9/29 개편 d218]: T-Mobile(TMUS, 스타링크 D2C)  ※PLTR 제외(컨센 여력 +4% 소진·매수 경로 없음 — watch_retired로 11/13까지 채점 추적)  ※SpaceX 제외(⭐2/32) — MANGOS 비상장 우회는 master §10-3 아젠다로만 추적
+- **Watch** [10/12 d239]: 없음 — T-Mobile(TMUS) 제외(편입 논지였던 스타링크 D2C 파트너 관계가 SpaceX의 Grain 800MHz 인수로 경쟁 관계로 뒤집힘 · watch_retired로 11/26까지 채점 추적)  ※PLTR 제외(컨센 여력 +4% 소진·매수 경로 없음 — watch_retired로 11/13까지 채점 추적)  ※SpaceX 제외(⭐2/32) — MANGOS 비상장 우회는 master §10-3 아젠다로만 추적
 - **VOO (S&P500 ETF)**: an index, no sector attribution — the PM handles it directly. Exclude here.
-- Key themes: ① hyperscaler AI capex (MSFT Azure·GOOGL Cloud·META·ORCL OCI) ② digital advertising (META·GOOGL·NAVER) ③ on-device AI·hardware (AAPL) ④ telecom·satellite (TMUS·SpaceX Starlink).
+- Key themes: ① hyperscaler AI capex (MSFT Azure·GOOGL Cloud·META·ORCL OCI) ② digital advertising (META·GOOGL·NAVER) ③ on-device AI·hardware (AAPL) ④ telecom·satellite (SpaceX Starlink — MANGOS agenda only; TMUS removed 10/12 d239).
 
 ## Tasks
 
@@ -35,7 +35,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
    - AI capex guidance·cloud growth (Azure/GCP/OCI), AI monetization signals, ORCL RPO·datacenter backlog.
    - Advertising conditions (META·GOOGL·NAVER), Apple new products·on-device AI·China risk.
    - Regulation·antitrust (GOOGL·META·AAPL), NAVER domestic platform·AI trends.
-   - TMUS Starlink D2C. (PLTR removed 9/29 d218 — mention only if it moves the AI-software narrative.) SpaceX only as MANGOS-agenda news (not watched).
+   - (TMUS removed 10/12 d239 — mention only if the SpaceX spectrum/FCC ruling changes the D2C picture.) (PLTR removed 9/29 d218 — mention only if it moves the AI-software narrative.) SpaceX only as MANGOS-agenda news (not watched).
 2. **재무제표 하드넘버 (필수 · 산문보다 먼저)** — WebSearch 서술로 대체하지 말 것:
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/financials.py --tickers META,MSFT,AAPL,GOOGL,ORCL,035420.KS
@@ -56,7 +56,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 ## 빅테크·플랫폼 섹터
 - 테마 한 줄: {AI capex/광고/온디바이스 등 오늘의 핵심}
 - 보유: {META·MSFT·AAPL·GOOGL·ORCL·NAVER 각 1줄 — 모멘텀·뉴스·실적일정}
-- 워치: {TMUS 움직임}
+- 워치: 없음(10/12 d239 TMUS 제외) — 재편입 조건 뉴스만 한 줄
 - 재무 하드넘버: {AAPL 분기 매출총이익률 추세(메모리 원가) + ORCL 순부채·FCF + META capex — fcf_negative_turn·debt_buildup 플래그}
 - 컨센서스/괴리 플래그 + FOMC 트리거 연계(META 3차 재매수)
 - PM 시사점: {플랫폼 비중·환율(미국주 환산) 한 줄}

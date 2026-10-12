@@ -41,7 +41,7 @@ SECTOR = {
                             "034020.KS", "GEV", "096770.KS", "012450.KS",
                             "042660.KS", "ISRG"],   # [9/29 d218] ISRG(수술로봇=피지컬AI) 편입
     "bigtech-platform-desk": ["META", "MSFT", "AAPL", "GOOGL", "ORCL",
-                              "035420.KS", "TMUS"],   # [9/29 d218] PLTR 제외
+                              "035420.KS"],   # [9/29 d218] PLTR 제외 · [10/12 d239] TMUS 제외
 }
 MOVE_PCT = 5.0
 EARN_DAYS = 7

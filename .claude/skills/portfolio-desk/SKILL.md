@@ -108,7 +108,7 @@ python3 .claude/skills/portfolio-desk/scripts/order_check.py              # ★[
 **섹터축 데스크 (테마·펀더멘털·컨센서스, 지역 교차)**
 - **semi-ai-desk** (반도체·AI인프라): 삼성전자·NVDA·MU·AVGO / ANET·TSM·AMAT·AMD·CDNS·삼성전기·SK하이닉스
 - **power-physical-desk** (전력·인프라·피지컬AI): LG전자·두산로보·현대차 / 두산E·GEV·SK이노·한화에어로·한화오션·ISRG
-- **bigtech-platform-desk** (빅테크·플랫폼): META·MSFT·AAPL·GOOGL·ORCL·NAVER / TMUS  *(워치 9/29 개편 d218)*
+- **bigtech-platform-desk** (빅테크·플랫폼): META·MSFT·AAPL·GOOGL·ORCL·NAVER / 워치 없음  *(워치 9/29 개편 d218 · 10/12 d239 TMUS 제외)*
 
 **매크로·리서치·리스크 데스크**
 - **macro-desk**: 환율·금리·지표·유가·이벤트 캘린더

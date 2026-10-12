@@ -469,6 +469,46 @@ def _zone_hits(live: bool = True) -> list[dict]:
     return out
 
 
+def us_standing(per: float, halted: bool, live: bool = True) -> list[dict]:
+    """★[10/12 d235 정훈 승인] 미국 트랙 후보의 매수존을 **회차일 하루**가 아니라 **상시** 본다.
+
+    바꾸는 것은 '언제 가격을 보는가'뿐 — 회차 금액(잔고 ÷ 남은 회차)·월 1회차·하드플로어는 그대로다.
+    그래서 **회차 금액 안에서 실제로 낼 수 있는 주문**만 상시 예약으로 내놓는다:
+      · 정수 1주 ≤ 회차 금액 → 지정가 예약 가능. 단 **한 번에 한 종목만**(우선순위 최상위) —
+        둘 다 걸어 두면 같은 밤에 둘 다 체결돼 회차 금액을 넘는다.
+      · 정수 1주 > 회차 금액 → 분수주 = 시장가 전용이라 **예약 불가** → 가격 알림 후 수동 집행.
+    하드플로어(halted)면 예약 자체를 걸지 않는다(걸려 있으면 취소).
+    """
+    try:
+        with open(_PF_JSON, encoding="utf-8") as f:
+            alerts = (json.load(f) or {}).get("alerts") or []
+    except Exception:
+        return []
+    lv = {a["ticker"]: float(a["level"]) for a in alerts
+          if a.get("ticker") in US_ZONE_TICKERS and a.get("cond") == "below" and a.get("level")}
+    out, slot_used = [], False
+    for t in US_ZONE_TICKERS:                      # 튜플 순서 = 우선순위 ②③④
+        if t not in lv:
+            continue
+        px, d = _px(t, live)
+        row = {"ticker": t, "level": lv[t], "price": round(px, 2) if px else None, "asof": d,
+               "gap_pct": round((px / lv[t] - 1) * 100, 1) if px else None}
+        if halted:
+            row.update({"mode": "off", "why": "하드플로어 — 예약 금지(걸려 있으면 취소)"})
+        elif lv[t] > per:
+            row.update({"mode": "alert", "usd": round(per, 2),
+                        "why": f"1주 ${lv[t]:,.0f} > 회차 ${per:,.2f} → 지정가 불가(분수주=시장가). 알림 뜨면 소수점 시장가"})
+        elif slot_used:
+            row.update({"mode": "alert", "usd": round(lv[t], 2),
+                        "why": "상위 순위 예약이 이미 회차를 쓴다 → 알림만(동시 체결 = 회차 금액 초과)"})
+        else:
+            slot_used = True
+            row.update({"mode": "limit", "shares": 1, "usd": round(lv[t], 2),
+                        "why": f"정수 1주 지정가 ${lv[t]:,.0f} ≤ 회차 ${per:,.2f} — 상시 예약"})
+        out.append(row)
+    return out
+
+
 def us_track(usd_cash: float | None = None, today: str | None = None, check_floor: bool = True,
              live: bool = True) -> dict:
     """미국 트랙 오늘 판정 — 이번 회차에 쓸 수 있는 달러와 대상 제안."""
@@ -503,6 +543,10 @@ def us_track(usd_cash: float | None = None, today: str | None = None, check_floo
                 "halted": bool(halted), "halt_why": hwhy,
                 "spent_usd": round(sum(float(f.get("usd") or 0) for f in fills), 2),
                 "fills": fills})
+    if remaining:
+        # ★[10/12 d235] 다음 미집행 회차 금액 한도 안의 상시 예약(회차일 전에도 존이 닿으면 그 회차가 집행된다)
+        out["standing"] = us_standing(per, bool(halted), live)
+        out["standing_tranche"] = remaining[0]
     if not remaining:
         out.update({"status": "complete", "allowed_usd": 0.0,
                     "why": "사이클 3회 완료" + (f" — 달러 ${usd_cash:,.2f} ≥ ${US_MIN_CYCLE_USD:.0f}: 새 사이클 가능"
@@ -513,6 +557,20 @@ def us_track(usd_cash: float | None = None, today: str | None = None, check_floo
                     "why": f"회차 {pending} 도래했으나 하드플로어로 **연기** — {hwhy}"})
         return out
     if not pending:
+        # ★[10/12 d235] 회차일 전이라도 후보가 매수존 안이면 다음 회차를 그 종목으로 집행한다(회차당 1회 · 금액 불변).
+        zh = [] if halted else _zone_hits(live)
+        if zh:
+            z = zh[0]                               # alerts 순서가 아니라 우선순위로
+            for t in US_ZONE_TICKERS:
+                m = [x for x in zh if x["ticker"] == t]
+                if m:
+                    z = m[0]
+                    break
+            out.update({"status": "zone_open", "allowed_usd": round(per, 2),
+                        "split": [{"ticker": z["ticker"], "usd": round(per, 2),
+                                   "why": f"매수존 ${z['level']} 이하(${z['price']}) — {remaining[0]}회차를 회차일({nxt}) 전에 집행(d235)"}],
+                        "why": f"{z['ticker']} 매수존 진입 — {remaining[0]}회차 ${per:,.2f} 집행 가능(d235 · 회차일 {nxt}엔 재집행 없음)"})
+            return out
         out.update({"status": "waiting", "allowed_usd": 0.0,
                     "why": f"다음 회차 {nxt} (회차당 약 ${per:,.2f} — 그날 잔고로 다시 계산)"})
         return out
@@ -1359,7 +1417,7 @@ def main():
     print(_kr_accrual_note(r["allowed_krw"], cash))
 
     u = us_track()
-    print("\n═══ 룰1 🇺🇸 미국 트랙 — 달러 3회 균등 분할 (d205 · 코스피 낙폭과 무관) ═══")
+    print("\n═══ 룰1 🇺🇸 미국 트랙 — 달러 3회 균등 분할 (d205 · 코스피 낙폭과 무관 · d235 매수존 상시 감시) ═══")
     print(f"  달러 잔고 ${u['usd_cash']:,.2f}")
     if u.get("schedule"):
         marks = []
@@ -1372,7 +1430,14 @@ def main():
     print(f"  → **{u['why']}**")
     for x in u.get("split") or []:
         print(f"     · {x['ticker']:<6} ${x['usd']:>8,.2f}  {x['why']}")
-    if u.get("status") == "due":
+    if u.get("standing"):
+        print(f"  ── 상시 매수존 감시(d235) · {u['standing_tranche']}회차 한도 ${u['per_tranche_usd']:,.2f} ──")
+        icon = {"limit": "📌예약", "alert": "🔔알림", "off": "⛔중지"}
+        for x in u["standing"]:
+            gap = f"{x['gap_pct']:+.1f}%" if x.get("gap_pct") is not None else "?"
+            print(f"     · {icon.get(x['mode'], x['mode'])} {x['ticker']:<5} 존 ${x['level']:,.0f} · 현재 ${x.get('price')} (존까지 {gap})  {x['why']}")
+        print("     ※ 예약은 한 번에 한 종목 · 체결되면 그 회차 끝(회차일 재집행 없음) · 회차 금액에서 남는 달러는 같은 날 GOOGL 18% → VOO 소수점으로 채운다 · 장전 -5% 이상 갭이면 취소(룰3) · 주문은 정훈이 토스 앱에서.")
+    if u.get("status") in ("due", "zone_open"):
         print("     ※ 룰3(추격금지) — 대상이 당일 +3% 이상 급등이면 다음 거래일로. 분수주 = 시장가. 자동 집행 아님.")
 
     r2 = rule2(a.ticker)

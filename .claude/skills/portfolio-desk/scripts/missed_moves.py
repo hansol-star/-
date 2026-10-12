@@ -68,7 +68,7 @@ CLUSTER = {
                           "042660.KS", "096770.KS", "012450.KS", "010140.KS", "329180.KS",
                           "ISRG"},
     "빅테크·플랫폼":     {"META", "MSFT", "AAPL", "GOOGL", "ORCL", "NAVER",
-                          "035420.KS", "TMUS", "033780.KS"},
+                          "035420.KS", "TMUS", "033780.KS"}  # TMUS = 10/12 d239 워치 제외(사후 추적용 매핑 유지),
 }
 def clusters_of(ticker):
     tags = [name for name, mem in CLUSTER.items() if ticker in mem]

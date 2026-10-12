@@ -1817,6 +1817,19 @@ def check_close_recon(today=None):
         warn(f"마감 대사가 밀렸다 — 마지막 {o.get('date')} < 직전 마감 {last_due}. "
              "`close_reconcile.py --commit` 실행 · 스케줄러 JD-close-reconcile(16:10·20:10)·PC 전원 확인")
         return
+    # 일봉 캐시도 같은 PC에서 갱신되므로 PC가 꺼지면 위 검사도 같이 눈이 먼다 → 달력으로 한 번 더 본다.
+    #   평일 2일 이상 비면 경고(공휴일 하루는 오탐이라 1일은 봐준다).
+    try:
+        d0 = _dt.date.fromisoformat(o.get("date"))
+        end = now.date() if now.hour >= 17 else now.date() - _dt.timedelta(days=1)
+        gap = sum(1 for i in range(1, (end - d0).days + 1)
+                  if (d0 + _dt.timedelta(days=i)).weekday() < 5)
+        if gap >= 2:
+            warn(f"마감 대사가 평일 {gap}일째 안 돌았다(마지막 {o.get('date')}) — PC 전원·스케줄러 JD-close-reconcile 확인. "
+                 "네이버는 당일 수급만 주므로 빠진 날은 매체 마감시황으로 수기 보충해야 한다")
+            return
+    except Exception:
+        pass
     if o.get("date", "") < tstr and o.get("grade") != "확정":
         warn(f"마감 대사 {o.get('date')}가 '{o.get('grade')}'에서 멈췄다 — 20:10 2차가 안 돌았다(수급 값은 1차 조회치)")
     for n in o.get("notes") or []:

@@ -1,20 +1,20 @@
 {
- "updated": "2026-10-12",
+ "updated": "2026-10-13",
  "symbols": {
   "^KS11": {
    "label": "코스피",
    "first": "1996-12-11",
-   "last": "2026-10-12",
-   "days": 7341,
+   "last": "2026-10-13",
+   "days": 7342,
    "years": 29.8
   },
   "^KQ11": {
    "label": "코스닥",
    "first": "2000-10-16",
-   "last": "2026-10-12",
-   "days": 6401,
+   "last": "2026-10-13",
+   "days": 6402,
    "years": 26.0
   }
  },
- "total_daily_bars": 13742
+ "total_daily_bars": 13744
 }

@@ -128,8 +128,8 @@ def _prev_close(data: dict, meta: dict, price):
     fallback = meta.get("chartPreviousClose") or meta.get("previousClose")
     try:
         res = data["chart"]["result"][0]
-        closes = res["indicators"]["quote"][0]["close"]
-        closes = [c for c in closes if c]
+        raw = res["indicators"]["quote"][0]["close"]
+        closes = [c for c in raw if c]
     except (KeyError, IndexError, TypeError):
         return fallback, "meta(폴백)"
     if len(closes) < 2:
@@ -137,8 +137,38 @@ def _prev_close(data: dict, meta: dict, price):
     # 마지막 봉이 오늘치면 그 앞을, 아니면 마지막을 직전 종가로 본다.
     last = closes[-1]
     if price is not None and abs(last - price) < max(abs(price) * 1e-6, 1e-9):
+        # ★[2026-10-13] 오늘 봉 바로 앞 봉이 결측(None)이면 closes[-2]는 **전전거래일**이다.
+        #   10/13에 Yahoo가 .KS 개별종목의 10/12 봉을 통째로 비워 보냈고(지수 ^KS11은 정상),
+        #   위의 `if c` 필터가 그 봉을 조용히 버려 등락률이 **이틀치 합산**으로 찍혔다
+        #   (삼성 -7.39% → -11.07%, LG전자 -3.6% → -12.9%). 지수만 1일치라
+        #   "종목이 지수의 2배 빠진다"는 거짓 인상이 장중 대응 답변에 그대로 들어갔다.
+        #   ⇒ 결측을 출처 라벨에 남긴다 — 호출부가 다른 소스로 메우거나 경고를 띄운다.
+        idx = max(i for i, c in enumerate(raw) if c)
+        if idx >= 1 and not raw[idx - 1]:
+            return closes[-2], PREV_GAP
         return closes[-2], "series"
     return last, "series"
+
+
+PREV_GAP = "series(직전봉 결측)"
+
+
+def _naver_prev_close(symbol: str, timeout: float = 6.0):
+    """국내 종목(.KS/.KQ)의 직전 거래일 종가를 네이버 실시간 API에서 받는다. 실패 시 None.
+
+    Yahoo 일봉에 구멍이 났을 때만 쓰는 보정 경로다(평소엔 호출하지 않는다).
+    """
+    code = symbol.split(".")[0]
+    url = f"https://polling.finance.naver.com/api/realtime/domestic/stock/{code}"
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            d = json.load(resp)["datas"][0]
+        close = float(str(d["closePrice"]).replace(",", ""))
+        diff = float(str(d["compareToPreviousClosePrice"]).replace(",", ""))
+        return close - diff
+    except Exception:
+        return None
 
 
 def fetch_quote(symbol: str, timeout: float = 10.0) -> dict | None:
@@ -161,6 +191,10 @@ def fetch_quote(symbol: str, timeout: float = 10.0) -> dict | None:
         return {"symbol": symbol, "error": "no data (delisted/invalid ticker?)"}
     price = meta.get("regularMarketPrice")
     prev, prev_src = _prev_close(data, meta, price)
+    if prev_src == PREV_GAP and symbol.upper().endswith((".KS", ".KQ")):
+        nv = _naver_prev_close(symbol)
+        if nv:
+            prev, prev_src = nv, "naver(결측 보정)"
     chg_pct = None
     if price is not None and prev:
         chg_pct = round((price - prev) / prev * 100, 2)
@@ -210,6 +244,7 @@ def print_table(rows: list[dict]) -> None:
             f"| {r['label']:<14} | {fmt_price(r['price'], r['currency']):>12} "
             f"| {fmt_pct(r['change_pct']):>8} | {str(r['currency'] or '—'):<4} "
             f"| {r.get('market_state','—')} |"
+            + (" ⚠️직전봉 결측 — 등락률이 2거래일 누적일 수 있음" if r.get("prev_src") == PREV_GAP else "")
         )
 
 

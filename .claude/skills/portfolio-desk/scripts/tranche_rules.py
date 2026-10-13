@@ -453,19 +453,42 @@ def googl_room_usd(live: bool = True) -> dict:
             "fx": round(fx, 2), "missing": miss, "price_src": "+".join(sorted(srcs)) or None}
 
 
-def _zone_hits(live: bool = True) -> list[dict]:
-    """우선순위 ②③④(GEV·ANET·CDNS) 중 매수존(portfolio.json alerts, cond=below) 안에 든 종목."""
+APPROACH_MARK = "접근"          # '👀 … 매수존 접근 $200 이하' = 예약 점검 알림이지 매수존이 아니다
+
+
+def _us_zone_levels() -> dict:
+    """우선순위 ②③④의 **매수존 상단**(portfolio.json alerts, cond=below)을 종목별로 하나씩.
+
+    ★[2026-10-13 수정] 10/12 d235에서 '매수존 접근' 알림(ANET $200·GEV $945·CDNS $330)을 같은
+    ticker·cond=below로 추가했는데, 여기가 종목당 알림을 하나로 가정하고 있어 **뒤에 온 접근선이
+    승인된 존($190·$900·$315)을 덮어썼다**. 그 결과 us_standing이 "ANET 1주 지정가 $200"을 내놓았고
+    `_zone_hits`는 $199에서 존 진입으로 판정할 뻔했다(= 승인가보다 5% 비싸게 회차를 쓴다).
+    ⇒ 접근 알림은 id로 제외하고, 그래도 여럿이면 **가장 낮은 값**(= 더 보수적인 쪽)을 쓴다.
+    """
     try:
         with open(_PF_JSON, encoding="utf-8") as f:
             alerts = (json.load(f) or {}).get("alerts") or []
     except Exception:
-        return []
-    out = []
+        return {}
+    lv: dict = {}
     for a in alerts:
-        if a.get("ticker") in US_ZONE_TICKERS and a.get("cond") == "below" and a.get("level"):
-            px, d = _px(a["ticker"], live)
-            if px and px <= float(a["level"]):
-                out.append({"ticker": a["ticker"], "price": round(px, 2), "level": a["level"], "asof": d})
+        t = a.get("ticker")
+        if t not in US_ZONE_TICKERS or a.get("cond") != "below" or not a.get("level"):
+            continue
+        if APPROACH_MARK in str(a.get("id") or ""):
+            continue
+        v = float(a["level"])
+        lv[t] = min(lv[t], v) if t in lv else v
+    return lv
+
+
+def _zone_hits(live: bool = True) -> list[dict]:
+    """우선순위 ②③④(GEV·ANET·CDNS) 중 매수존(portfolio.json alerts, cond=below) 안에 든 종목."""
+    out = []
+    for t, level in _us_zone_levels().items():
+        px, d = _px(t, live)
+        if px and px <= level:
+            out.append({"ticker": t, "price": round(px, 2), "level": level, "asof": d})
     return out
 
 
@@ -479,13 +502,7 @@ def us_standing(per: float, halted: bool, live: bool = True) -> list[dict]:
       · 정수 1주 > 회차 금액 → 분수주 = 시장가 전용이라 **예약 불가** → 가격 알림 후 수동 집행.
     하드플로어(halted)면 예약 자체를 걸지 않는다(걸려 있으면 취소).
     """
-    try:
-        with open(_PF_JSON, encoding="utf-8") as f:
-            alerts = (json.load(f) or {}).get("alerts") or []
-    except Exception:
-        return []
-    lv = {a["ticker"]: float(a["level"]) for a in alerts
-          if a.get("ticker") in US_ZONE_TICKERS and a.get("cond") == "below" and a.get("level")}
+    lv = _us_zone_levels()
     out, slot_used = [], False
     for t in US_ZONE_TICKERS:                      # 튜플 순서 = 우선순위 ②③④
         if t not in lv:

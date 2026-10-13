@@ -135,7 +135,7 @@ if (Test-Path $Watcher) {
 # ── 마감 대사 [10/12 신설] — 외인 수급·코스피 낙폭 확정을 요청 없이 매일 ────────
 #   정훈 10/12: "이런 걸 계속 자동으로 요청하게 말고 너가 완성시켜봐".
 #   장중 보고서가 '잠정'으로 적은 수급·낙폭은 "마감 후 대사" 할 일로만 남았고, 사람이 시켜야 돌았다
-#   (flows.json에 '잠정 — 대사 필요'가 7거래일째 누적). 토큰 0 · 네이버·Yahoo 무키.
+#   (flows.json에 '잠정 — 대사 필요'가 7거래일째 누적). 토큰 0 · 네이버·Yahoo 무키 + 종목 일봉 재수집·토스 1분봉 감사(조회 전용 · 토스 키 사용 · 키 없으면 감사 생략하고 메모).
 #   16:10 = 정규장 마감 1차(잠정) / 20:10 = 애프터마켓 종료 뒤 2차(1차와 일치하면 확정).
 $CloseName = 'JD-close-reconcile'
 $Closer = Join-Path $Repo '.claude\skills\portfolio-desk\scripts\close_reconcile.py'
@@ -143,7 +143,7 @@ if (Test-Path $Closer) {
   $cAction = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument (
     "-ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -Command " +
     "`"& { `$env:Path='$env:LOCALAPPDATA\Programs\Python\Python312;' + `$env:Path; `$env:PYTHONIOENCODING='utf-8'; " +
-    "python '$Closer' --commit *>> '$Repo\data\logsoutines\close_reconcile.log' }`"") -WorkingDirectory $Repo
+    "python '$Closer' --commit *>> '$Repo\data\logs\routines\close_reconcile.log' }`"") -WorkingDirectory $Repo
   $cTriggers = @(
     (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At '16:10'),
     (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At '20:10')

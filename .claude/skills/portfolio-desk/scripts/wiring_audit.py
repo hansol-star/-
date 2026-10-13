@@ -128,6 +128,7 @@ EXPECTED_UNUSED_FEATURES = {
     ("trades.py", "--add"):          "체결 기입 — 정훈이 체결을 알릴 때만 사람이 실행",
     ("decisions.py", "--add"):       "결정 등재 — 세션 중 PM이 판단해 실행",
     ("wiring_audit.py", "--strict"): "게이트용 종료코드 모드 — selfcheck가 내부적으로 판단",
+    ("history_backfill.py", "--fix"): "감사 불일치 수동 교정 — 사람이 값을 확인한 뒤에만. 무인 경로(스케줄러·루틴)에 배선 금지",
     ("toss_snapshot.py", "--raw"):   "디버그 출력",
     ("toss_snapshot.py", "--insecure"): "TLS 우회 — 평시 금지",
     ("api_health.py", "--quick"):    "빠른 모드 — 기본 실행이 정본",

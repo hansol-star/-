@@ -188,10 +188,13 @@ KST = dt.timezone(dt.timedelta(hours=9))
 NAVER_DAY = ("https://api.finance.naver.com/siseJson.naver?symbol={code}&requestType=1"
              "&startTime={start}&endTime={end}&timeframe=day")
 NAVER_POLL = "https://polling.finance.naver.com/api/realtime/domestic/stock/{code}"
+SRC_TOSS = "toss-1분봉 15:40(KRX 정규장 종가)"
+TOSS_PACE = 0.25                       # 토스 차트 조회 간 페이싱(초)
 SRC_POLL_TODAY = "naver-polling 당일종가(KRX)"
 SRC_POLL_PREV = "naver-polling 전일종가(KRX)"
 SRC_DAILY = "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"
-APPROX_SRCS = (SRC_DAILY,)             # 근사 출처 — 캐시에 이미 값이 있으면 덮지 못한다(merge_rows)
+SRC_TOSS_ADJ = "toss-1분봉(수정주가 — 호가단위 격자 밖 · 근사)"
+APPROX_SRCS = (SRC_DAILY, SRC_TOSS_ADJ)  # 근사 출처 — 캐시에 이미 값이 있으면 덮지 못한다(merge_rows)
 KR_CLOSE_PRINT = ("15:30:00", "16:00:00")   # polling closePrice가 KRX 종가인 시간창(체결시각 기준)
 POLL_TOLERANCE = 0.03                  # 일봉 저가·고가를 모를 때만 쓰는 종가 대비 허용오차
 GAPFILL_LOG = os.path.join(HIST_DIR, "_gapfill.jsonl")
@@ -200,6 +203,104 @@ NOTES: list[dict] = []                 # 이번 실행의 보정·미검증 기�
 
 def _num(x) -> float:
     return float(str(x).replace(",", ""))
+
+
+# ── 토스 1분봉 = KRX 정규장 종가의 1차 출처 ───────────────────────────────────
+# ★[2026-10-13 정훈 "토스로 보면 되는 거 아닌가? 왜 네이버로 봐?"] 맞는 지적이었다 — 토스에 캔들 API가
+#   있는지 확인도 안 하고 네이버를 붙였다(데이터 우선순위 정본은 토스 > Yahoo > …).
+#   실측해 보니 기준이 셋으로 갈린다:
+#     · 토스 **일봉** = 통합시세(KRX+NXT)라 네이버 일봉과 같은 문제를 가진다
+#       (10/13 삼성 237,000 ↔ KRX 종가 232,000 · 10/8 262,500 ↔ 262,000).
+#     · 토스 **1분봉**은 종가 단일가가 그대로 보인다 — 15:22~15:40 사이에 **거래량이 찍힌 봉이 딱 하나**
+#       (종가 단일가)이고 그 앞(단일가 호가접수 15:20~)과 뒤(애프터마켓 전)는 전부 거래량 0이다.
+#       그 봉의 가격이 KRX 정규장 종가다(10/13 삼성 232,000 · 하이닉스 1,443,000 · 10/12 삼성 250,500
+#       = Yahoo·네이버 기준가와 일치). 단일가 봉의 시각은 고정이 아니다 — NXT 상장 종목은 15:31,
+#       KRX 단독 종목(두산로보·원익IPS)은 15:30, 단일가가 연장된 날(10/8)은 15:33이었다.
+#     · 네이버 기준가는 **전일 하루**만 주고 권리락·배당락일엔 조정된 값이다. 1분봉은 1년 전 날짜도 준다.
+#   ⇒ 순서: 토스 1분봉 → 네이버 기준가(전일) → 네이버 일봉(근사·빈 날짜만).
+#   ⚠️ 키가 없는 곳(클라우드·무인 claude 세션)에선 토스를 못 쓴다 → 네이버로 물러난다. 그래서 네이버 경로를 지우지 않는다.
+#   ⚠️ 조회 전용 — toss_snapshot.req()만 쓴다(_assert_readonly가 GET·토큰 발급 외 전부 막는다).
+TOSS_BARS = 19                         # 15:40 → 15:22 (최신순)
+AUCTION_MIN = (30, 35)                 # 종가 단일가 봉이 올 수 있는 분(15:30~15:35) — 뒤에 무거래 봉이 5개 이상 남는다
+
+
+def krx_close_from_bars(bars, date: str):
+    """토스 1분봉 19개(15:40→15:22 · 최신순)에서 KRX 정규장 종가를 읽는다. 서명이 안 맞으면 None.
+
+    서명 = 그 구간에 **거래량이 있는 봉이 정확히 하나**(종가 단일가)이고, 그 봉이 15:30~15:35에 있으며,
+           그 뒤 15:40까지의 무거래 봉들이 전부 같은 가격이다.
+    안 맞는 경우(= None, 다음 출처로 물러난다): 휴장일 · 장 마감 전 · 마감이 늦는 날(수능일 — 15:22~15:40에
+    연속 거래가 찍힌다) · 단일가 체결이 없는 종목 · 장 시간이 바뀐 뒤.
+    ⚠️ 마감이 늦는 날 + 그 19분간 딱 한 번만 거래된 비유동 종목이면 장중값을 종가로 읽을 수 있다
+       (연 1일 × 초저유동 — 우리 유니버스엔 없다. 넓히려면 장 운영시간 API로 마감 시각을 먼저 확인할 것).
+    """
+    if not bars or len(bars) != TOSS_BARS:
+        return None
+    want = [f"{date}T15:{m:02d}" for m in range(40, 40 - TOSS_BARS, -1)]
+    try:
+        if [str(b["timestamp"])[:16] for b in bars] != want:
+            return None
+        vol = [_num(b["volume"]) for b in bars]
+        px = [_num(b["closePrice"]) for b in bars]
+    except (KeyError, TypeError, ValueError):
+        return None
+    hit = [i for i, v in enumerate(vol) if v > 0]
+    if len(hit) != 1:
+        return None
+    i = hit[0]
+    if not AUCTION_MIN[0] <= 40 - i <= AUCTION_MIN[1]:
+        return None
+    if any(c != px[i] for c in px[:i]):
+        return None
+    return px[i]
+
+
+TOSS_NO_KEY = "토스 키 없음(TOSS_CLIENT_ID/SECRET)"
+TOSS_WHY = [""]                        # 토스를 못 쓰는 이유 — '키 없음'(설정)과 '토큰 발급 실패'(장애)는 다른 일이다
+
+
+def toss_source():
+    """(종목코드, 날짜) → KRX 정규장 종가 | None 을 주는 함수. 키가 없거나 토큰 발급이 안 되면 None.
+
+    못 쓰는 이유는 TOSS_WHY[0]에 남긴다 — 둘을 뭉치면 IP 허용목록이 풀려 감사가 죽은 것(장애)이
+    '키 없는 환경'(정상)처럼 읽힌다. 예외 메시지는 넣지 않는다(요청 본문에 시크릿이 있다) — 종류만.
+    """
+    if not (os.environ.get("TOSS_CLIENT_ID") and os.environ.get("TOSS_CLIENT_SECRET")):
+        TOSS_WHY[0] = TOSS_NO_KEY
+        return None
+    try:
+        import sys as _sys
+        if _HERE not in _sys.path:
+            _sys.path.insert(0, _HERE)
+        import toss_snapshot as T
+        ctx = T.make_ctx(False)
+        tok = T.req("POST", "/oauth2/token", ctx, form=True, data={
+            "grant_type": "client_credentials", "client_id": os.environ["TOSS_CLIENT_ID"],
+            "client_secret": os.environ["TOSS_CLIENT_SECRET"]})
+        if not tok or not tok.get("access_token"):
+            TOSS_WHY[0] = "토스 토큰 발급 실패 — 키는 있다(IP 허용목록·키 만료·토스 장애 확인)"
+            return None
+        auth = {"Authorization": "Bearer " + tok["access_token"]}
+    except Exception as e:  # noqa: BLE001 — 토스가 안 되면 네이버로 물러난다
+        TOSS_WHY[0] = f"토스 토큰 발급 실패({type(e).__name__}) — 키는 있다"
+        return None
+    TOSS_WHY[0] = ""
+
+    def fetch(code: str, date: str):
+        time.sleep(TOSS_PACE)
+        r = T.req("GET", f"/api/v1/candles?symbol={code}&interval=1m&count={TOSS_BARS}"
+                         f"&before={date}T15:40:00%2B09:00", ctx, headers=auth)
+        return krx_close_from_bars(((r or {}).get("result") or {}).get("candles") or [], date)
+    return fetch
+
+
+_TOSS = [False]                        # False = 아직 안 만듦 · None = 못 씀(키 없음·토큰 실패)
+
+
+def _toss():
+    if _TOSS[0] is False:
+        _TOSS[0] = toss_source()
+    return _TOSS[0]
 
 
 def _naver_daily(code: str, start: str, end: str, timeout: float = 10.0):
@@ -237,31 +338,55 @@ def _naver_poll(code: str, timeout: float = 8.0):
         return None
 
 
-def kr_gap_fill(symbol: str, dates, now=None, daily=None, poll=None) -> dict:
+def kr_gap_fill(symbol: str, dates, now=None, daily=None, poll=None, toss=None) -> dict:
     """Yahoo가 비워 보낸 국내 종목 봉을 메운다 → {date: (close, 출처)}.
 
-    daily·poll·now는 주입 가능(자가검증용). 메울 수 없는 날짜는 결과에서 빠진다:
-      · 네이버 일봉에 없는 날 = 거래일이 아니다
-      · 오늘인데 polling 체결시각이 15:30~16:00 밖 = 장중값·애프터마켓 가격을 종가로 적지 않는다
+    출처 순서: ① 토스 1분봉(toss = (코드, 날짜) → 종가 함수 · 없으면 건너뜀) ② 네이버 기준가 ③ 네이버 일봉(근사)
+              ④ 토스 1분봉이 줬지만 호가단위 격자 밖인 값(수정주가 · 근사 — 앞의 셋이 다 못 준 날만).
+    daily·poll·now·toss는 주입 가능(자가검증용). 메울 수 없는 날짜는 결과에서 빠진다:
+      · 토스 서명이 안 맞고 네이버 일봉에도 없는 날 = 거래일이 아니다
+      · 오늘인데 토스가 못 주고 polling 체결시각이 15:30~16:00 밖 = 장중값·애프터마켓 가격을 종가로 적지 않는다
     """
     dates = sorted(set(dates))
     if not dates:
         return {}
     code = symbol.split(".")[0]
     now = now or dt.datetime.now(KST)
+    today = now.date().isoformat()
+    out, adj = {}, {}
+    if toss:
+        for d in dates:
+            if d > today:
+                continue
+            px = toss(code, d)
+            if not px:
+                continue
+            # 토스 1분봉은 수정주가다 — 권리락·분할이 지나가면 과거 봉이 소급 조정돼 호가단위 격자를 벗어난다.
+            # 그 값은 Yahoo close와 기준이 달라 KRX 종가로 못 쓴다 → 네이버에 먼저 묻고, 그래도 비면 근사로만 채운다.
+            if on_tick(px):
+                out[d] = (round(float(px), 4), SRC_TOSS)
+            else:
+                adj[d] = (round(float(px), 4), SRC_TOSS_ADJ)
+
+    def done():
+        for d, v in adj.items():
+            out.setdefault(d, v)
+        return out
+
+    dates = [d for d in dates if d not in out]
+    if not dates:
+        return done()
     if daily is None:
         start = (dt.date.fromisoformat(dates[0]) - dt.timedelta(days=10)).isoformat()
         daily = _naver_daily(code, start, now.date().isoformat())
     if not daily:
-        return {}
+        return done()
     if poll is None:
         poll = _naver_poll(code)
-    today = now.date().isoformat()
     pdate = (poll or {}).get("date")
     prev_td = max((d for d in daily if pdate and d < pdate), default=None)
     ptime = (poll or {}).get("time") or ""
     regular = bool(pdate) and KR_CLOSE_PRINT[0] <= ptime < KR_CLOSE_PRINT[1]
-    out = {}
     for d in dates:
         bar = daily.get(d)
         if not bar:
@@ -284,7 +409,7 @@ def kr_gap_fill(symbol: str, dates, now=None, daily=None, poll=None) -> dict:
             out[d] = (round(float(cand[0]), 4), cand[1])
         else:
             out[d] = (round(float(ref), 4), SRC_DAILY)
-    return out
+    return done()
 
 
 def merge_rows(cached, fresh, fills, cutoff: str):
@@ -373,9 +498,26 @@ def update_symbol(symbol: str, refresh: bool = False):
         return cached, 0
     fresh, gaps = got
     cutoff = (dt.date.today() - dt.timedelta(days=REVISE_WINDOW_DAYS)).isoformat()
-    gaps_w = [d for d in gaps if d >= cutoff]
-    fills = kr_gap_fill(symbol, gaps_w) if gaps_w and symbol.upper().endswith(KR_SUFFIX) else {}
+    pin_rows = _pin_rows(symbol) if symbol.upper().endswith(KR_SUFFIX) else {}
+    pins = {d: new for d, (new, _old) in pin_rows.items()}
+    if pins:                             # 감사가 고친 날짜는 Yahoo 값 대신 고친 값을 쓴다(안 그러면 다음 갱신이 되돌린다)
+        yahoo = dict(fresh)
+        for d in sorted(d for d in pins if d in yahoo and not _pin_holds(pins[d], pin_rows[d][1], yahoo[d])):
+            _skip_pin(symbol, d, pins.pop(d), yahoo[d])     # 분할·권리락 뒤의 옛 단위 핀 — 박으면 하루짜리 급등락이 된다
+        fresh = [(d, pins.get(d, c)) for d, c in fresh]
+    gaps_w = [d for d in gaps if d >= cutoff and d not in pins]      # 핀이 있는 날짜는 다시 메우지 않는다
+    fills = (kr_gap_fill(symbol, gaps_w, toss=_toss())
+             if gaps_w and symbol.upper().endswith(KR_SUFFIX) else {})
     merged, added, revised, patched = merge_rows(cached, fresh, fills, cutoff)
+    lost = [d for d in gaps if d in pins and d not in dict(merged)]  # 재풀 + Yahoo 결측 = 핀 날짜가 통째로 빠진 경우
+    for d in list(lost):                 # 같은 날 Yahoo 값이 없으니 가장 가까운 날과 견준다 — 단위가 다르면 넣지 않는다
+        near = _nearest(merged, d)
+        if near is not None and not _pin_fits(pins[d], near, PIN_NEAR_BAND, tick=False):
+            lost.remove(d)
+            _skip_pin(symbol, d, pins.pop(d), near)
+    if lost:
+        merged = sorted({**dict(merged), **{d: pins[d] for d in lost}}.items(), key=lambda x: x[0])
+        added += len(lost)
     for d, old, new, src in patched:
         NOTES.append({"symbol": symbol, "date": d, "kind": "patched", "old": old, "new": new, "src": src})
     have = dict(merged)
@@ -387,12 +529,201 @@ def update_symbol(symbol: str, refresh: bool = False):
         f = fills.get(d)
         if f and f[1] not in APPROX_SRCS:
             continue
-        ref = f" · 네이버 일봉 {f[0]:,.0f}({(have[d] / f[0] - 1) * 100:+.1f}%)" if f else ""
+        ref = (f" · {'토스 수정주가' if f[1] == SRC_TOSS_ADJ else '네이버 일봉'} {f[0]:,.0f}"
+               f"({(have[d] / f[0] - 1) * 100:+.1f}%)") if f else ""
         NOTES.append({"symbol": symbol, "date": d, "kind": "unverified", "old": have[d], "new": None,
                       "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)" + ref})
     if not cached or added or revised:
         save_cached(symbol, merged)
     return merged, (len(merged) if not cached else added + revised)
+
+
+KRX_TICKS = ((2000, 1), (5000, 5), (20000, 10), (50000, 50), (200000, 100), (500000, 500))
+
+
+def on_tick(px: float) -> bool:
+    """KRX **주식** 호가단위 격자 위의 값인가. 주식의 실제 체결가는 격자 위다 — 격자 밖이면 수정주가(분할·권리락 소급 조정)다.
+
+    ⚠️ 주식 전용이다. ETF·ETN은 격자가 다르다(2,000원 이상 5원 단위) — 주식 격자로 재면 실제 체결가가 '격자 밖'으로
+       읽혀 감사에서 통째로 '비교 제외'가 된다(틀린 값을 쓰지는 않지만 눈이 먼다). 지금 국내 유니버스 18종목은 전부
+       주식이다. ETF를 넣게 되면 5원 격자를 **그 종목에만** 적용할 것 — 전 종목에 5원 격자를 허용하면 수정주가의
+       5분의 1이 격자 위로 읽혀 가짜 불일치가 된다.
+    ⚠️ 격자 위 = 실제 체결가라는 보증은 아니다(수정주가가 우연히 격자에 올 수 있다) — 걸러내는 쪽으로만 믿는다.
+    """
+    tick = next((t for lim, t in KRX_TICKS if px < lim), 1000)
+    return abs(px - round(px / tick) * tick) < 1e-6
+
+
+SRC_AUDIT = SRC_TOSS + " · 감사"
+LOG_BAD = [0]           # 마지막 _log_rows()가 못 읽은 줄 수(깨진 JSON · dict 아님 · 깨진 글자) — 감사 결과(ledger_bad)에 실려 메모가 된다
+PIN_BAND = 1.15         # 핀과 같은 날 Yahoo 값이 이 배율 넘게 벌어지면 다른 가격 단위(분할·권리 소급 조정)로 본다
+PIN_NEAR_BAND = 1.45    # 같은 날 값이 없어 가장 가까운 날과 견줄 때의 폭(상·하한가 ±30% + 여유)
+
+
+def _log_rows() -> list:
+    """원장(_gapfill.jsonl)의 dict 행만 읽는다. 깨진 줄 · dict가 아닌 줄([]·null) · 깨진 인코딩은 건너뛴다.
+
+    원장은 사람이 손으로 고치는 파일이다(핀을 풀려면 줄을 지운다). 한 줄이 깨졌다고 예외가 나면 국내 종목 갱신이
+    전부 죽고, 마감 대사는 그 종료코드를 안 봐서 조용히 멈춘다(10/14 검토에서 재현 — cp949로 재저장된 원장).
+    ★[10/14 3차 검토] 건너뛰기만 하면 그것도 침묵이다 — 못 읽은 줄 수를 LOG_BAD에 남기고 감사가 ledger_bad로 올린다
+      (윈도우 PowerShell 5.1의 Get-Content | Set-Content는 cp949로, Out-File은 UTF-16으로 다시 쓴다). BOM은 받아 준다.
+    """
+    rows, bad = [], 0
+    try:
+        with open(GAPFILL_LOG, encoding="utf-8-sig", errors="replace") as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                try:
+                    r = json.loads(line)
+                except ValueError:
+                    bad += 1
+                    continue
+                if not isinstance(r, dict):
+                    bad += 1
+                    continue
+                if chr(0xFFFD) in line:
+                    bad += 1                 # 줄은 읽히지만 글자가 깨졌다(cp949 재저장) — 한글 출처 비교가 어긋난다
+                rows.append(r)
+    except OSError:
+        pass
+    LOG_BAD[0] = bad
+    return rows
+
+
+def audit_pins(symbol: str) -> dict:
+    """감사 --fix가 토스 값으로 고친 {날짜: 값} — 원장(_gapfill.jsonl)의 감사 기록(SRC_AUDIT)에서 읽는다.
+
+    ★[2026-10-13 검토] --fix로 고친 날짜가 개정창(7일) 안이면 Yahoo가 같은 값을 계속 주는 한 **다음 갱신이 되돌렸다**
+      (merge_rows는 Yahoo 우선 · 마감 대사가 하루 두 번 갱신한다). 반나절도 못 가는 수리였다 → 감사가 고친 날짜는
+      Yahoo가 못 덮는다.
+    ★[10/14 검토] 날짜 제한을 두지 않는다 — 첫 판은 개정창 안 날짜만 핀으로 돌려줘서, 창 밖 날짜를 고친 뒤
+      전체 재풀(--refresh · 캐시 파일 유실)을 하면 Yahoo 값으로 되돌아갔다(감사 7거래일은 달력 9~12일이라
+      고친 날짜의 일부는 늘 창 밖이다). 증분 갱신은 창 밖 날짜를 원래 안 건드리므로 제한을 풀어도 무해하다.
+    ★[10/14 3차 검토] 핀 표지는 ASCII(`"pin": true`)다 — 한글 출처(SRC_AUDIT) 일치로만 가리면 원장이 cp949로
+      재저장되는 순간 **모든 핀이 조용히 풀렸다**(줄은 읽히는데 출처 글자가 깨져 비교가 어긋난다). 출처 비교는 옛 기록용.
+    되돌리려면 원장에서 그 줄을 지운다(사람이 확인하고 고친 값이라 자동으로 풀지 않는다 — UTF-8로 저장할 것).
+    """
+    return {d: new for d, (new, _old) in _pin_rows(symbol).items()}
+
+
+def _pin_rows(symbol: str) -> dict:
+    """{날짜: (고친 값, 고치기 전 값 또는 None)} — audit_pins의 원본. 같은 날짜가 여러 줄이면 마지막 줄."""
+    pins = {}
+    for r in _log_rows():
+        if str(r.get("symbol") or "").upper() != symbol.upper() or r.get("kind") != "patched":
+            continue
+        if r.get("pin") is not True and r.get("src") != SRC_AUDIT:
+            continue
+        try:
+            new = float(r["new"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        try:
+            old = float(r.get("old"))
+        except (TypeError, ValueError):
+            old = None
+        pins[str(r["date"])] = (new, old)
+    return pins
+
+
+def _pin_holds(pin: float, old, yahoo: float) -> bool:
+    """핀을 지금 Yahoo 값 위에 써도 되는가.
+
+    ★[10/14 4차 검토] 단위 검사(_pin_fits)만 두면 **정당한 핀도 버려졌다** — Yahoo가 그날 KRX 종가와 15% 넘게 다른 값을
+      계속 주는 경우(상·하한가 날의 굳은 장중값)다. `--fix`는 '되돌리지 못한다'고 말하는데 다음 갱신이 되돌렸다.
+      ⇒ Yahoo가 **고치기 전 값(old)을 그대로** 주고 있으면 재조정이 아니라 같은 오류다 → 핀을 쓴다.
+      Yahoo 값이 달라졌을 때만(스스로 정정했거나 분할·권리락으로 소급 조정했거나) 단위 검사로 가른다.
+    """
+    if old is not None and abs(yahoo - old) < 0.5:
+        return True
+    return _pin_fits(pin, yahoo)
+
+
+def _pin_fits(pin: float, ref: float, band: float = PIN_BAND, tick: bool = True) -> bool:
+    """핀(고친 날의 KRX 원시 종가)이 지금 시계열과 같은 가격 단위인가.
+
+    ★[10/14 3차 검토] Yahoo는 분할·권리락을 **소급 조정**한다. 그 뒤에도 옛 단위의 핀을 박으면 그날만 +400%/-80%로 튄다
+      (재현: 5대1 분할 뒤 --refresh → 50,000 · 250,500 · 49,800). 같은 날 Yahoo 값이 호가단위 격자 밖(= 수정주가)이거나
+      핀과 band 넘게 벌어지면 다른 단위로 보고 핀을 쓰지 않는다 — 조용히 버리지 않고 '미검증' 메모를 남긴다.
+    ⚠️ 격자 위에 우연히 놓인 band 이내의 작은 조정(소규모 무상증자·유상증자 권리락)은 못 잡는다.
+    """
+    try:
+        return bool(ref and ref > 0 and (on_tick(ref) or not tick) and 1 / band <= pin / ref <= band)
+    except (TypeError, ZeroDivisionError):
+        return True
+
+
+def _nearest(rows: list, d: str):
+    """rows[(날짜, 값)]에서 d와 가장 가까운 날의 값(없으면 None)."""
+    try:
+        d0 = dt.date.fromisoformat(d)
+        return min(rows, key=lambda x: abs((dt.date.fromisoformat(x[0]) - d0).days))[1] if rows else None
+    except ValueError:
+        return None
+
+
+def _skip_pin(symbol: str, d: str, pin: float, ref: float) -> None:
+    NOTES.append({"symbol": symbol, "date": d, "kind": "unverified", "old": pin, "new": None,
+                  "src": f"감사가 고친 값(핀)을 쓰지 않았다 — 지금 시계열({ref:,.4g})과 가격 단위가 다르다(분할·권리 소급 조정 추정) · "
+                         "원장(_gapfill.jsonl)의 그 줄을 지우고 `--audit`으로 다시 볼 것"})
+
+
+def audit_kr(days: int = 7, symbols=None, toss=None, now=None, fix: bool = False) -> dict:
+    """국내 종목 캐시의 최근 N거래일을 **토스 KRX 종가와 대조**한다(읽기 전용 · fix면 불일치를 고쳐 쓴다).
+
+    결측 봉 보정은 Yahoo가 봉을 비웠을 때만 돈다. Yahoo가 **값을 줬는데 그 값이 틀린** 경우
+    (개정창 7일이 지난 장중값 · Yahoo 자체 오류)는 아무도 안 본다 — 이 감사가 그 자리다.
+    ⚠️ 수정주가는 비교하지 않는다: 토스와 Yahoo는 소급 조정 계수가 달라(10/1 삼성바이오 1,417,997 ↔ 1,419,364)
+       조정된 구간은 원래 다르다. 어느 한쪽이 호가단위 격자 밖이면 'adjusted'로 세고 넘긴다 — 장중값이 굳은 것과
+       구별된다(굳은 값은 실제 체결가라 격자 위에 있다).
+    → {"checked", "unresolved", "adjusted", "mismatch": [{symbol, date, cached, toss, pct}], "fixed", "error", "no_key"}
+       error = 감사를 아예 못 돌린 이유 · no_key = 그 이유가 '키 없음'(설정)인가 — 아니면 토큰 발급 실패(장애)다.
+       ⚠️ 돌았더라도 checked가 0이거나 unresolved가 대부분이면 본 게 없는 것이다 — 호출자가 '불일치 0'으로 읽지 말 것.
+    """
+    toss = toss if toss is not None else _toss()
+    _log_rows()                          # 원장이 깨졌는지(ledger_bad)는 감사를 못 돌린 날에도 올린다
+    out = {"days": days, "checked": 0, "unresolved": 0, "unresolved_list": [], "adjusted": 0,
+           "mismatch": [], "fixed": 0, "error": None, "no_key": False, "ledger_bad": LOG_BAD[0]}
+    if not toss:
+        why = TOSS_WHY[0] or TOSS_NO_KEY
+        out["error"], out["no_key"] = why, why == TOSS_NO_KEY
+        return out
+    now = now or dt.datetime.now(KST)
+    today = now.date().isoformat()
+    after_close = now.strftime("%H:%M") >= "15:42"
+    if symbols is None:
+        symbols = [s for _, s in _universe() if s.upper().endswith(KR_SUFFIX)]
+    for symbol in symbols:
+        rows = load_cached(symbol)
+        tail = [(d, c) for d, c in rows if d < today or (d == today and after_close)][-days:]
+        book, changed = dict(rows), False
+        for d, c in tail:
+            px = toss(symbol.split(".")[0], d)
+            if px is None:
+                out["unresolved"] += 1
+                out["unresolved_list"].append([symbol, d])
+                continue
+            out["checked"] += 1
+            if abs(px - c) < 0.5:
+                continue
+            if not (on_tick(px) and on_tick(c)):
+                out["adjusted"] += 1
+                continue
+            out["mismatch"].append({"symbol": symbol, "date": d, "cached": c, "toss": px,
+                                    "pct": round((c / px - 1) * 100, 2)})
+            if fix:
+                book[d] = round(float(px), 4)
+                changed = True
+                out["fixed"] += 1
+                NOTES.append({"symbol": symbol, "date": d, "kind": "patched", "old": c, "new": book[d],
+                              "src": SRC_AUDIT, "pin": True})
+        if changed:
+            # 원장(핀)을 먼저 쓰고 캐시를 고친다 — 반대 순서면 도중에 끊긴 실행이 '고쳤는데 핀은 없는' 값을 남기고,
+            #   다시 돌려도 캐시 == 토스라 불일치로 안 잡혀 영영 핀이 안 생긴다(10/14 3차 검토 재현 — 다음 갱신이 되돌린다).
+            report_notes(quiet=True)
+            save_cached(symbol, sorted(book.items(), key=lambda x: x[0]))
+    return out
 
 
 def write_manifest(stats: dict, partial: bool = False) -> None:
@@ -416,33 +747,32 @@ def write_manifest(stats: dict, partial: bool = False) -> None:
         json.dump(stats, f, ensure_ascii=False, indent=1)
 
 
-def report_notes() -> None:
-    """이번 실행의 결측 보정·미검증을 출력하고 원장(_gapfill.jsonl)에 남긴다."""
+def _note_key(r: dict) -> tuple:
+    """원장 중복 제거 키. patched는 **출처까지** 본다 — 같은 값쌍의 결측 보정 기록이 이미 있다고 감사 기록(SRC_AUDIT)을
+    건너뛰면 핀이 안 생긴다(10/14 검토에서 재현: 고쳤다고 출력하고 원장엔 아무것도 안 남았다).
+    미검증은 출처 문구에 참고값이 섞여 있어 종전대로 값까지만 본다(매 실행 같은 줄이 쌓이지 않게)."""
+    return (r.get("symbol"), r.get("date"), r.get("kind"), r.get("old"), r.get("new"),
+            r.get("src") if r.get("kind") == "patched" else None)
+
+
+def report_notes(quiet: bool = False) -> None:
+    """이번 실행의 결측 보정·미검증을 출력하고 원장(_gapfill.jsonl)에 남긴다. quiet = 출력 없이 원장에만(--json)."""
     if not NOTES:
         return
-    print("\n결측 봉 처리:")
-    for n in NOTES:
-        if n["kind"] == "patched":
-            was = "신규" if n["old"] is None else f"{n['old']:,.0f} →"
-            print(f"  🔧 {n['symbol']} {n['date']}  {was} {n['new']:,.0f}  [{n['src']}]")
-        else:
-            print(f"  ⚠️ {n['symbol']} {n['date']}  캐시 {n['old']:,.4g} 미검증 — {n['src']}")
+    if not quiet:
+        print("\n결측 봉 처리:")
+        for n in NOTES:
+            if n["kind"] == "patched":
+                was = "신규" if n["old"] is None else f"{n['old']:,.0f} →"
+                print(f"  🔧 {n['symbol']} {n['date']}  {was} {n['new']:,.0f}  [{n['src']}]")
+            else:
+                print(f"  ⚠️ {n['symbol']} {n['date']}  캐시 {n['old']:,.4g} 미검증 — {n['src']}")
     stamp = dt.datetime.now(KST).strftime("%Y-%m-%d %H:%M")
-    seen = set()                        # 같은 (심볼·날짜·종류·값)은 한 번만 — 매 실행 같은 미검증이 쌓이지 않게
-    try:
-        with open(GAPFILL_LOG, encoding="utf-8") as f:
-            for line in f:
-                try:
-                    r = json.loads(line)
-                    seen.add((r.get("symbol"), r.get("date"), r.get("kind"), r.get("old"), r.get("new")))
-                except ValueError:
-                    continue
-    except OSError:
-        pass
+    seen = {_note_key(r) for r in _log_rows()}   # 같은 기록은 한 번만 — 매 실행 같은 미검증이 쌓이지 않게
     try:
         with open(GAPFILL_LOG, "a", encoding="utf-8", newline="\n") as f:
             for n in NOTES:
-                key = (n["symbol"], n["date"], n["kind"], n["old"], n["new"])
+                key = _note_key(n)
                 if key in seen:
                     continue
                 seen.add(key)
@@ -480,12 +810,30 @@ def main() -> int:
     ap.add_argument("--symbols", "--tickers", help="쉼표·공백구분 Yahoo 심볼(기본=유니버스 전체)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--pace", type=float, default=1.2, help="심볼 간 페이싱 초(레이트리밋)")
+    ap.add_argument("--audit", nargs="?", const=7, type=int, metavar="N",
+                    help="국내 종목 캐시의 최근 N거래일(기본 7)을 토스 KRX 종가와 대조(읽기 전용)")
+    ap.add_argument("--fix", action="store_true",
+                    help="--audit과 함께만: 불일치를 토스 값으로 고쳐 쓴다(사람이 확인한 뒤 수동으로 — 무인 경로 금지)")
     ap.add_argument("--selftest", action="store_true", help="결측 봉 보정·매니페스트 병합 자가검증(오프라인)")
     args = ap.parse_args()
     if args.selftest:
         return selftest()
+    if args.fix and args.audit is None:
+        # --fix만 주면 조용히 무시되고 평소 증분 갱신이 돌았다 — 고쳤다고 믿게 만드는 침묵이다.
+        ap.error("--fix는 --audit과 함께만 쓴다 (예: --audit 7 --fix)")
 
     only = [s.strip() for s in cli_common.split_tickers(args.symbols)] if args.symbols else None
+
+    if args.audit is not None:
+        res = audit_kr(max(1, args.audit), fix=args.fix,
+                       symbols=[s.upper() for s in only if s.upper().endswith(KR_SUFFIX)] if only else None)
+        if args.fix and res["fixed"]:
+            report_notes(quiet=args.json)
+            # 고쳤다고 말하기 전에 원장에서 되읽는다 — 핀이 안 남았으면 다음 갱신이 되돌린다
+            res["pinned"] = sum(1 for m in res["mismatch"]
+                                if audit_pins(m["symbol"]).get(m["date"]) == round(float(m["toss"]), 4))
+        print(json.dumps(res, ensure_ascii=False, indent=1) if args.json else _fmt_audit(res))
+        return 0
 
     if args.stats:
         stats = build_stats(only)
@@ -518,9 +866,39 @@ def main() -> int:
     return 0
 
 
+def _fmt_audit(res: dict) -> str:
+    bad = (f"\n  ⚠️ 보정 원장(_gapfill.jsonl)에 못 읽은 줄 {res['ledger_bad']}개 — UTF-8로 저장됐는지 확인"
+           "(감사가 고친 값의 고정이 풀렸을 수 있다)") if res.get("ledger_bad") else ""
+    if res.get("error"):
+        return f"■ 캐시 ↔ 토스 KRX 종가 감사 — 못 돌림: {res['error']}" + bad
+    lines = [f"■ 캐시 ↔ 토스 KRX 종가 감사 — 최근 {res['days']}거래일 · 대조 {res['checked']}건 · "
+             f"불일치 {len(res['mismatch'])}건 · 토스 미확인 {res['unresolved']}건"
+             + (f" · 수정주가라 비교 제외 {res['adjusted']}건" if res.get("adjusted") else "")
+             + (f" · 고침 {res['fixed']}건" if res.get("fixed") else "")]
+    for m in res["mismatch"]:
+        lines.append(f"  ⚠️ {m['symbol']:<10} {m['date']}  캐시 {m['cached']:>12,.0f} ↔ 토스 {m['toss']:>12,.0f} "
+                     f"({m['pct']:+.2f}%)")
+    if not res["mismatch"] and res["checked"]:
+        lines.append("  ✅ 대조한 날짜는 전부 일치")
+    if not res["checked"]:
+        lines.append("  ⚠️ 대조한 날짜가 0건이다 — '불일치 없음'이 아니라 본 게 없다(토스 응답·캐시 확인)")
+    if res.get("fixed"):
+        if res.get("pinned") == res["fixed"]:
+            lines.append("  (고친 날짜는 _gapfill.jsonl에 남아 이후 Yahoo 갱신·전체 재풀이 되돌리지 못한다 — 되돌리려면 그 줄을 지운다)")
+        else:
+            lines.append(f"  ⚠️ 고친 {res['fixed']}건 중 {res.get('pinned', 0)}건만 원장에 남았다 — 나머지는 다음 갱신이 되돌린다"
+                         "(_gapfill.jsonl 쓰기 권한·내용 확인)")
+    if res["unresolved"]:
+        lines.append("  (미확인 = 토스 1분봉에서 종가 단일가 서명을 못 찾은 날 — 휴장·마감 전·단일가 무체결·장 시간 변경)")
+    return "\n".join(lines) + bad
+
+
 def selftest() -> int:
     """10/13 실사고를 그대로 심어 보정이 잡는지 확인한다(네트워크 없음)."""
     global MANIFEST, HIST_DIR, GAPFILL_LOG, fetch_with_backoff, _naver_daily, _naver_poll
+    import contextlib
+    import io
+    import sys as _sys
     import tempfile
     fails = []
 
@@ -598,11 +976,13 @@ def selftest() -> int:
 
     # 배선 — fetch → gaps → kr_gap_fill → merge → CSV 저장이 실제로 이어지는가(함수만 맞고 연결이 끊기면 사고는 그대로다)
     keep_all = (HIST_DIR, GAPFILL_LOG, fetch_with_backoff, _naver_daily, _naver_poll)
+    keep_toss = _TOSS[0]
     today = dt.date.today()
     dm2, dm1 = (today - dt.timedelta(days=2)).isoformat(), (today - dt.timedelta(days=1)).isoformat()
     t0 = today.isoformat()
     with tempfile.TemporaryDirectory() as td:
         try:
+            _TOSS[0] = None                                                     # 키 없는 환경 = 네이버 경로
             HIST_DIR, GAPFILL_LOG = td, os.path.join(td, "_gapfill.jsonl")
             save_cached("TEST.KS", [(dm2, 262000.0), (dm1, 257000.0)])          # dm1 = 장중 스냅샷
             fetch_with_backoff = lambda *a, **k: ([(dm2, 262000.0), (t0, 232000.0)], [dm1])   # noqa: E731
@@ -621,11 +1001,298 @@ def selftest() -> int:
             del NOTES[:]
             update_symbol("TEST")
             flagged = dict(load_cached("TEST")).get(dm1) == 101.0 and [x["kind"] for x in NOTES] == ["unverified"]
+            # 토스 키가 있는 환경 = 토스 1분봉이 먼저 · 다 메우면 네이버를 부르지 않는다
+            naver_calls = []
+            _naver_daily = lambda *a, **k: naver_calls.append("daily")                       # noqa: E731
+            _naver_poll = lambda *a, **k: naver_calls.append("poll")                         # noqa: E731
+            _TOSS[0] = lambda code, d: 250500.0 if (code, d) == ("TEST", dm1) else None       # noqa: E731
+            save_cached("TEST.KS", [(dm2, 262000.0), (dm1, 257000.0)])
+            fetch_with_backoff = lambda *a, **k: ([(dm2, 262000.0), (t0, 232000.0)], [dm1])   # noqa: E731
+            del NOTES[:]
+            update_symbol("TEST.KS")
+            toss_wired = (dict(load_cached("TEST.KS")).get(dm1) == 250500.0 and not naver_calls
+                          and [x["src"] for x in NOTES] == [SRC_TOSS])
+            # 감사 — Yahoo가 값을 줬는데 그 값이 틀린 경우(결측 봉 보정이 못 보는 자리)
+            save_cached("AUD.KS", [(dm2, 262000.0), (dm1, 257000.0)])
+            fake = lambda code, d: {dm2: 262000.0, dm1: 250500.0}.get(d) if code == "AUD" else None   # noqa: E731
+            del NOTES[:]
+            ro = audit_kr(7, symbols=["AUD.KS"], toss=fake)
+            audit_ro = (ro["checked"] == 2 and [(m["date"], m["toss"]) for m in ro["mismatch"]] == [(dm1, 250500.0)]
+                        and dict(load_cached("AUD.KS"))[dm1] == 257000.0 and not NOTES)
+            fx = audit_kr(7, symbols=["AUD.KS"], toss=fake, fix=True)
+            audit_fix = (fx["fixed"] == 1 and dict(load_cached("AUD.KS"))[dm1] == 250500.0
+                         and dict(load_cached("AUD.KS"))[dm2] == 262000.0 and len(NOTES) == 1)
+            un = audit_kr(7, symbols=["AUD.KS"], toss=lambda code, d: None)
+            audit_un = un["unresolved"] == 2 and not un["mismatch"]
+            save_cached("ADJ.KS", [(dm1, 1419364.0)])
+            aj = audit_kr(7, symbols=["ADJ.KS"], toss=lambda code, d: 1417997.0, fix=True)
+            audit_adj = (aj["adjusted"] == 1 and not aj["mismatch"] and not aj["fixed"]
+                         and dict(load_cached("ADJ.KS"))[dm1] == 1419364.0)
+            # 당일 행은 종가 단일가가 찍힌 뒤(15:42~)에만 본다 — 그 전엔 캐시도 토스도 장중값이다
+            save_cached("TDY.KS", [(dm1, 250500.0), (t0, 233000.0)])            # 당일 행 = 장중 스냅샷
+            tfake = lambda code, d: {dm1: 250500.0, t0: 232000.0}.get(d)        # noqa: E731
+            a41 = audit_kr(7, symbols=["TDY.KS"], toss=tfake,
+                           now=dt.datetime.combine(today, dt.time(15, 41), tzinfo=KST))
+            a42 = audit_kr(7, symbols=["TDY.KS"], toss=tfake,
+                           now=dt.datetime.combine(today, dt.time(15, 42), tzinfo=KST))
+            audit_today = (a41["checked"] == 1 and not a41["mismatch"]
+                           and a42["checked"] == 2 and [m["date"] for m in a42["mismatch"]] == [t0])
+            # 감사가 고친 값을 다음 Yahoo 갱신이 되돌리지 못한다 — 원장의 감사 기록이 핀이다
+            _TOSS[0] = None
+            pinfake = lambda code, d: {dm2: 262000.0, dm1: 250500.0}.get(d)     # noqa: E731
+            fetch_with_backoff = lambda *a, **k: ([(dm2, 262000.0), (dm1, 257000.0)], [])     # noqa: E731 — Yahoo는 계속 장중값
+            save_cached("PIN.KS", [(dm2, 262000.0), (dm1, 257000.0)])
+            del NOTES[:]
+            audit_kr(7, symbols=["PIN.KS"], toss=pinfake, fix=True)
+            wrote_first = audit_pins("PIN.KS") == {dm1: 250500.0}               # 고치는 순간 원장에 남는다(main을 안 거쳐도)
+            os.remove(GAPFILL_LOG)                                              # 원장 기록이 없던 첫 판을 재현
+            update_symbol("PIN.KS")
+            unpinned = dict(load_cached("PIN.KS"))[dm1] == 257000.0             # = 되돌아간다(사고 재현)
+            # 원장에 같은 값쌍의 **다른 출처** 기록과 깨진 줄들을 미리 심는다 — 그래도 감사 기록이 남고, 읽다가 죽지 않아야 한다
+            with open(GAPFILL_LOG, "wb") as fh:
+                fh.write((json.dumps({"symbol": "PIN.KS", "date": dm1, "kind": "patched", "old": 257000.0,
+                                      "new": 250500.0, "src": SRC_POLL_PREV}, ensure_ascii=False) + "\n").encode("utf-8"))
+                fh.write((json.dumps({"symbol": "PIN.KS", "date": dm2, "kind": "patched", "old": 262000.0,
+                                      "new": 111.0, "src": SRC_POLL_PREV}, ensure_ascii=False) + "\n").encode("utf-8"))
+                fh.write(b"[]\nnull\n{broken\n" + "깨진 인코딩".encode("cp949") + b"\n")
+            not_audit = audit_pins("PIN.KS") == {}                              # 감사 기록이 아닌 patched는 핀이 아니다
+            _TOSS[0] = pinfake
+            keep_argv = _sys.argv
+            _sys.argv = ["history_backfill.py", "--audit", "7", "--fix", "--symbols", "PIN.KS"]
+            try:
+                with contextlib.redirect_stdout(io.StringIO()) as buf:
+                    main()                                                      # --fix가 실제로 타는 경로
+            finally:
+                _sys.argv = keep_argv
+            said_pinned = "되돌리지 못한다" in buf.getvalue() and "🔧" in buf.getvalue()   # 고친 내역도 화면에 나온다
+            _TOSS[0] = None
+            update_symbol("PIN.KS")
+            pinned = (dict(load_cached("PIN.KS")) == {dm2: 262000.0, dm1: 250500.0} and said_pinned
+                      and audit_pins("PIN.KS") == {dm1: 250500.0})
+            # 원장이 cp949로 재저장돼도(PowerShell 5.1 Get-Content | Set-Content) 핀은 ASCII 표지로 읽히고, 깨진 줄이 보고된다
+            bad0 = LOG_BAD[0]
+            raw_log = open(GAPFILL_LOG, "rb").read()
+            with open(GAPFILL_LOG, "wb") as fh:
+                fh.write(raw_log.decode("utf-8", errors="replace").encode("cp949", errors="replace"))
+            pin_cp949 = audit_pins("PIN.KS") == {dm1: 250500.0} and LOG_BAD[0] > bad0
+            cp_audit = audit_kr(7, symbols=["PIN.KS"], toss=pinfake)
+            ledger_bad = cp_audit["ledger_bad"] > bad0 and "못 읽은 줄" in _fmt_audit(cp_audit)
+            pin_line = [ln for ln in raw_log.split(b"\n") if b'"pin": true' in ln][0]
+            with open(GAPFILL_LOG, "wb") as fh:                                 # BOM이 붙은 원장(메모장 저장) — 첫 줄이 핀
+                fh.write(b"\xef\xbb\xbf" + pin_line + b"\n")
+            pin_bom = audit_pins("PIN.KS") == {dm1: 250500.0} and LOG_BAD[0] == 0 and audit_pins("pin.ks") == {dm1: 250500.0}
+            with open(GAPFILL_LOG, "wb") as fh:
+                fh.write(raw_log)
+            # 소문자 접미사로 불러도(--symbols low.ks) 핀은 캐시 파일과 같은 이름으로 남는다
+            save_cached("LOW.KS", [(dm2, 262000.0), (dm1, 257000.0)])
+            _TOSS[0] = pinfake
+            _sys.argv = ["history_backfill.py", "--audit", "7", "--fix", "--symbols", "low.ks", "--json"]
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    main()
+            finally:
+                _sys.argv = keep_argv
+            _TOSS[0] = None
+            pin_case = (any(r.get("symbol") == "LOW.KS" and r.get("pin") is True for r in _log_rows())
+                        and dict(load_cached("LOW.KS"))[dm1] == 250500.0)
+            # --fix가 도중에 끊겨도(Ctrl-C) 이미 고친 종목의 핀은 원장에 있다 — 캐시보다 원장을 먼저 쓴다
+            save_cached("INT1.KS", [(dm1, 257000.0)])
+            save_cached("INT2.KS", [(dm1, 257000.0)])
+
+            def cut(code, d):
+                if code == "INT2":
+                    raise KeyboardInterrupt
+                return 250500.0
+            del NOTES[:]
+            try:
+                audit_kr(7, symbols=["INT1.KS", "INT2.KS"], toss=cut, fix=True)
+            except KeyboardInterrupt:
+                pass
+            pin_atomic = dict(load_cached("INT1.KS"))[dm1] == 250500.0 and audit_pins("INT1.KS") == {dm1: 250500.0}
+            # Yahoo가 핀 날짜의 봉을 비우고 네이버 기준가가 다른 값(권리락 조정 기준가 등)을 줘도 핀을 덮지 못한다
+            fetch_with_backoff = lambda *a, **k: ([(dm2, 262000.0), (t0, 232000.0)], [dm1])   # noqa: E731
+            _naver_daily = lambda *a, **k: {dm1: (251000.0, 248000.0, 262500.0),             # noqa: E731
+                                            t0: (234000.0, 228000.0, 247500.0)}
+            _naver_poll = lambda *a, **k: {"date": t0, "time": "17:13:04",                   # noqa: E731
+                                           "close": 234000.0, "prev": 249000.0}
+            del NOTES[:]
+            update_symbol("PIN.KS")
+            pin_naver = dict(load_cached("PIN.KS")).get(dm1) == 250500.0 and not NOTES
+            # 개정창 밖 날짜를 고친 뒤 전체 재풀 — Yahoo 값으로 되돌아가면 안 된다
+            d10 = (today - dt.timedelta(days=10)).isoformat()
+            save_cached("OLD.KS", [(d10, 257000.0), (dm1, 232000.0)])
+            del NOTES[:]
+            audit_kr(30, symbols=["OLD.KS"], toss=lambda code, d: {d10: 250500.0, dm1: 232000.0}.get(d), fix=True)
+            with contextlib.redirect_stdout(io.StringIO()):
+                report_notes()
+            fetch_with_backoff = lambda *a, **k: ([(d10, 257000.0), (dm1, 232000.0)], [])    # noqa: E731
+            update_symbol("OLD.KS", refresh=True)
+            pin_refresh = dict(load_cached("OLD.KS")) == {d10: 250500.0, dm1: 232000.0}
+            # 재풀인데 Yahoo가 그 날짜 봉까지 비운 경우 — 핀 날짜가 통째로 빠지면 안 된다
+            fetch_with_backoff = lambda *a, **k: ([(dm1, 232000.0)], [d10])                   # noqa: E731
+            update_symbol("OLD.KS", refresh=True)
+            pin_gap = dict(load_cached("OLD.KS")) == {d10: 250500.0, dm1: 232000.0}
+            # 분할·권리락으로 Yahoo가 시계열을 소급 조정하면 옛 단위의 핀은 쓰지 않고 메모를 남긴다
+            fetch_with_backoff = lambda *a, **k: ([(d10, 51400.0), (dm1, 46400.0)], [])      # noqa: E731 — 5대1 분할 뒤
+            del NOTES[:]
+            update_symbol("OLD.KS", refresh=True)
+            pin_split = (dict(load_cached("OLD.KS")) == {d10: 51400.0, dm1: 46400.0}
+                         and [n["kind"] for n in NOTES] == ["unverified"] and "핀" in NOTES[0]["src"])
+            fetch_with_backoff = lambda *a, **k: ([(dm1, 46400.0)], [d10])                   # noqa: E731 — 분할 + 그날 봉 결측
+            del NOTES[:]
+            update_symbol("OLD.KS", refresh=True)
+            pin_split_gap = dict(load_cached("OLD.KS")) == {dm1: 46400.0} and len(NOTES) == 1
+            fetch_with_backoff = lambda *a, **k: ([(d10, 256871.3), (dm1, 231883.9)], [])    # noqa: E731 — 격자 밖 = 수정주가
+            del NOTES[:]
+            update_symbol("OLD.KS", refresh=True)
+            pin_adj = dict(load_cached("OLD.KS"))[d10] == 256871.3 and len(NOTES) == 1
+            # Yahoo가 KRX 종가와 15% 넘게 다른 값을 **그대로** 주는 날(하한가 날의 굳은 장중값) — 재조정이 아니므로 핀을 지킨다
+            fetch_with_backoff = lambda *a, **k: ([(dm2, 100000.0), (dm1, 100000.0)], [])    # noqa: E731
+            save_cached("BIG.KS", [(dm2, 100000.0), (dm1, 100000.0)])
+            del NOTES[:]
+            audit_kr(7, symbols=["BIG.KS"], toss=lambda code, d: {dm2: 100000.0, dm1: 85000.0}.get(d), fix=True)
+            del NOTES[:]
+            update_symbol("BIG.KS")
+            pin_far = dict(load_cached("BIG.KS")) == {dm2: 100000.0, dm1: 85000.0} and not NOTES
+            # --fix만 주면 거부 — 가드가 빠지면 실제 수집이 돌지 않게 수집 함수를 '불리면 실패'로 막고 확인한다
+            ran = []
+            keep_us, keep_uni, keep_man = update_symbol, _universe, MANIFEST
+            try:
+                MANIFEST = os.path.join(td, "_manifest.json")       # 가드가 빠져 끝까지 달려도 진짜 매니페스트는 안 건드린다
+                globals()["update_symbol"] = lambda *a, **k: ran.append(a) or ([], 0)
+                globals()["_universe"] = lambda *a, **k: [("x", "X.KS")]
+                _sys.argv = ["history_backfill.py", "--fix"]
+                try:
+                    with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                        main()
+                    fix_alone = False
+                except SystemExit as e:
+                    fix_alone = e.code == 2 and not ran
+            finally:
+                globals()["update_symbol"], globals()["_universe"] = keep_us, keep_uni
+                MANIFEST = keep_man
+                _sys.argv = keep_argv
+            audit_nokey = bool(audit_kr(7, symbols=["AUD.KS"])["error"])
         finally:
             HIST_DIR, GAPFILL_LOG, fetch_with_backoff, _naver_daily, _naver_poll = keep_all
+            _TOSS[0] = keep_toss
             del NOTES[:]
     ok("배선: update_symbol이 결측 봉을 받아 CSV의 장중값을 기준가로 바꾼다", wired)
     ok("배선: 국내 종목이 아니면 값은 두고 '미검증'만 남긴다", flagged)
+    ok("배선: 토스가 되면 토스 1분봉으로 메우고 네이버는 부르지 않는다", toss_wired)
+    ok("감사: 캐시 ↔ 토스 불일치를 찾되 기본은 읽기 전용", audit_ro)
+    ok("감사 --fix: 불일치만 고치고 기록을 남긴다", audit_fix)
+    ok("감사: 토스가 못 준 날은 불일치가 아니라 '미확인'", audit_un)
+    ok("감사: 키가 없으면 '전부 일치'가 아니라 못 돌렸다고 말한다", audit_nokey)
+    ok("감사: 당일 행은 15:41엔 빼고 15:42부터 본다(장중값끼리 대조하지 않는다)", audit_today)
+    ok("감사 --fix: 원장에 안 남기면 다음 Yahoo 갱신이 되돌린다(사고 재현)", unpinned)
+    ok("감사 --fix(main 경로): 원장에 남긴 수정값은 Yahoo 갱신이 못 되돌린다 · 같은 값쌍의 다른 출처 기록이 있어도 남는다", pinned)
+    ok("핀: 감사 기록이 아닌 patched 줄은 핀이 아니다 · 깨진 줄([]·null·잘린 JSON·cp949)에 죽지 않는다", not_audit)
+    ok("핀: Yahoo가 그 날짜를 비우고 네이버 기준가가 다른 값을 줘도 덮이지 않는다(미검증 메모도 없다)", pin_naver)
+    ok("핀: 개정창 밖 날짜도 전체 재풀(--refresh)에서 지켜진다", pin_refresh)
+    ok("핀: 재풀 + Yahoo가 그 날짜 봉을 비워도 빠지지 않는다", pin_gap)
+    ok("핀: 고치는 순간 원장에 남는다 — 도중에 끊겨도(Ctrl-C) 고친 종목의 핀은 있다", wrote_first and pin_atomic)
+    ok("핀: 원장이 cp949로 재저장돼도 읽힌다(ASCII 표지) · BOM이 붙어도 · 심볼 대소문자가 달라도", pin_cp949 and pin_bom)
+    ok("감사: 원장에 못 읽은 줄이 있으면 결과(ledger_bad)와 출력에 올린다", ledger_bad)
+    ok("핀: 소문자 접미사(--symbols low.ks)로 고쳐도 핀은 캐시 파일과 같은 이름으로 남는다", pin_case)
+    ok("핀: 분할 뒤 옛 단위의 핀은 쓰지 않고 메모를 남긴다(같은 날 비교 · 그날 봉 결측이면 가까운 날 비교 · 격자 밖)",
+       pin_split and pin_split_gap and pin_adj)
+    ok("핀: Yahoo가 고치기 전 값을 그대로 주면(15% 넘게 틀려도) 재조정이 아니다 → 핀을 지킨다", pin_far)
+    ok("--fix만 주면 조용히 증분 갱신하지 않고 거부한다(종료코드 2 · 수집 함수 미호출)", fix_alone)
+    ok("호가단위: 실제 체결가는 격자 위(232,000 · 62,000 · 18,010 · 1,443,000)",
+       all(on_tick(v) for v in (232000.0, 62000.0, 18010.0, 1443000.0)))
+    ok("호가단위: 수정주가는 격자 밖(1,419,364 · 232,100)", not on_tick(1419364.0) and not on_tick(232100.0))
+    ok("호가단위 경계: 1,999·2,000·199,900·200,000·499,500·500,000은 격자 위",
+       all(on_tick(v) for v in (1999.0, 2000.0, 199900.0, 200000.0, 499500.0, 500000.0)))
+    ok("호가단위 경계: 2,001·199,950·200,100·500,500은 격자 밖",
+       not any(on_tick(v) for v in (2001.0, 199950.0, 200100.0, 500500.0)))
+    ok("감사: 수정주가끼리 다른 것은 불일치가 아니라 '비교 제외'", audit_adj)
+
+    # 토스를 못 쓰는 이유 — '키 없음'(설정)과 '토큰 발급 실패'(장애)를 가른다. 뭉치면 장애가 정상처럼 읽힌다.
+    import toss_snapshot as _T
+    env_keys = ("TOSS_CLIENT_ID", "TOSS_CLIENT_SECRET")
+    keep_env, keep_req, keep_why = {k: os.environ.get(k) for k in env_keys}, _T.req, TOSS_WHY[0]
+    try:
+        for k in env_keys:
+            os.environ.pop(k, None)
+        nokey = toss_source() is None and TOSS_WHY[0] == TOSS_NO_KEY
+        _TOSS[0] = None
+        a_nokey = audit_kr(7, symbols=[])
+        for k in env_keys:
+            os.environ[k] = "selftest"                     # 가짜 값 — 요청은 아래에서 막는다(네트워크 없음)
+        _T.req = lambda *a, **k: None                      # noqa: E731 — 토큰 발급 실패(403·장애)
+        tokfail = toss_source() is None and "토큰 발급 실패" in TOSS_WHY[0]
+        a_tok = audit_kr(7, symbols=[])
+    finally:
+        _T.req, TOSS_WHY[0], _TOSS[0] = keep_req, keep_why, keep_toss
+        for k, v in keep_env.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+    ok("토스: 키가 없으면 이유 = '키 없음' · 감사 no_key = True", nokey and a_nokey["no_key"] and a_nokey["error"])
+    ok("토스: 키는 있는데 토큰이 안 나오면 이유 = '토큰 발급 실패' · no_key = False(장애)",
+       tokfail and a_tok["no_key"] is False and "토큰 발급 실패" in a_tok["error"])
+
+    # 토스 1분봉 서명 — 15:31 종가 단일가 뒤 15:32~15:40 무거래
+    def bars(day="2026-10-13", px=232000, pre=232500, at=31, auction=2060007, other=None, n=TOSS_BARS):
+        """15:40→15:22. at = 종가 단일가 봉의 분 · pre = 단일가 전 가격 · other = {분: 거래량}(끼어든 거래)."""
+        out = []
+        for m in range(40, 40 - TOSS_BARS, -1):
+            v = auction if m == at else (other or {}).get(m, 0)
+            out.append({"timestamp": f"{day}T15:{m:02d}:00.000+09:00",
+                        "closePrice": str(px if m >= at else pre), "volume": str(v)})
+        return out[:n]
+    ok("토스 서명 일치(단일가 15:31) → KRX 종가 232,000", krx_close_from_bars(bars(), "2026-10-13") == 232000.0)
+    ok("KRX 단독 종목(단일가 15:30)도 읽는다", krx_close_from_bars(bars(at=30), "2026-10-13") == 232000.0)
+    ok("단일가가 연장된 날(15:33)도 읽는다", krx_close_from_bars(bars(at=33), "2026-10-13") == 232000.0)
+    ok("휴장일(직전 거래일 봉이 온다) → None", krx_close_from_bars(bars("2026-10-08"), "2026-10-09") is None)
+    ok("단일가 뒤에 거래가 또 있으면(마감이 늦는 날) → None",
+       krx_close_from_bars(bars(other={36: 1200}), "2026-10-13") is None)
+    ok("단일가 전에 거래가 있으면(연속 거래 중) → None",
+       krx_close_from_bars(bars(other={25: 300}), "2026-10-13") is None)
+    ok("단일가 봉이 15:36 이후면(뒤가 너무 짧다) → None", krx_close_from_bars(bars(at=37), "2026-10-13") is None)
+    ok("단일가 창의 경계: 15:35는 읽고 15:36·15:29는 안 읽는다",
+       krx_close_from_bars(bars(at=35), "2026-10-13") == 232000.0
+       and krx_close_from_bars(bars(at=36), "2026-10-13") is None
+       and krx_close_from_bars(bars(at=29), "2026-10-13") is None)
+    shifted = [dict(b, timestamp=f"2026-10-13T15:{39 - i:02d}:00.000+09:00") for i, b in enumerate(bars())]
+    ok("봉 19개가 1분 밀려 오면(15:39→15:21 · 마감 직전 조회) → None",
+       krx_close_from_bars(shifted, "2026-10-13") is None)
+    ok("종가 단일가 체결이 없으면 → None", krx_close_from_bars(bars(auction=0), "2026-10-13") is None)
+    mixed = bars()
+    mixed[3] = dict(mixed[3], closePrice="232500")
+    ok("단일가 뒤 가격이 한 줄이 아니면 → None", krx_close_from_bars(mixed, "2026-10-13") is None)
+    ok("봉이 모자라면(마감 전) → None", krx_close_from_bars(bars(n=6), "2026-10-13") is None)
+    ok("빈 응답 → None", krx_close_from_bars([], "2026-10-13") is None and krx_close_from_bars(None, "x") is None)
+    # 출처 순서 — 토스 > 네이버 기준가 > 네이버 일봉
+    tfn = lambda code, d: {"2026-10-12": 250500.0, "2026-10-13": 232000.0}.get(d)             # noqa: E731
+    both = kr_gap_fill("005930.KS", ["2026-10-12", "2026-10-13"], now=after, daily={}, poll=None, toss=tfn)
+    ok("토스가 주면 토스 값 · 애프터마켓 중에도 당일 종가(232,000)를 메운다",
+       both == {"2026-10-12": (250500.0, SRC_TOSS), "2026-10-13": (232000.0, SRC_TOSS)})
+    ok("토스가 못 주는 날만 네이버로 물러난다",
+       kr_gap_fill("005930.KS", ["2026-10-08", "2026-10-12"], now=after, daily=daily, poll=poll,
+                   toss=lambda code, d: 262000.0 if d == "2026-10-08" else None)
+       == {"2026-10-08": (262000.0, SRC_TOSS), "2026-10-12": (250500.0, SRC_POLL_PREV)})
+    ok("토스 값은 근사가 아니다 — 캐시의 기존 값을 덮는다",
+       dict(merge_rows([("2026-10-12", 251000.0)], fresh, {"2026-10-12": (250500.0, SRC_TOSS)},
+                       "2026-10-06")[0])["2026-10-12"] == 250500.0)
+    ok("미래 날짜는 토스가 값을 줘도 메우지 않는다",
+       kr_gap_fill("005930.KS", ["2026-10-14"], now=after, daily={}, poll=None, toss=lambda code, d: 240000.0) == {})
+    # 토스가 수정주가(격자 밖)를 주면 KRX 종가로 쓰지 않는다 — 네이버에 먼저 묻고, 그래도 비면 근사로만
+    adjfn = lambda code, d: 250512.0                                                          # noqa: E731
+    ok("토스 값이 격자 밖(수정주가)이면 네이버 기준가가 먼저다",
+       kr_gap_fill("005930.KS", ["2026-10-12"], now=after, daily=daily, poll=poll, toss=adjfn)
+       == {"2026-10-12": (250500.0, SRC_POLL_PREV)})
+    only_adj = kr_gap_fill("005930.KS", ["2026-10-12"], now=after, daily={}, poll=None, toss=adjfn)
+    ok("네이버도 못 주면 토스 수정주가를 '근사'로 표기해 채운다",
+       only_adj == {"2026-10-12": (250512.0, SRC_TOSS_ADJ)})
+    ok("네이버 일봉이 다른 날짜만 줘도 토스 수정주가(근사)는 빠지지 않는다",
+       kr_gap_fill("005930.KS", ["2026-10-12"], now=after, daily={"2026-10-08": (263000.0, 262000.0, 270000.0)},
+                   poll=None, toss=adjfn) == {"2026-10-12": (250512.0, SRC_TOSS_ADJ)})
+    ok("근사로 표기된 토스 수정주가는 캐시의 기존 값을 못 덮는다(빈 날짜만)",
+       dict(merge_rows([("2026-10-12", 250500.0)], fresh, only_adj, "2026-10-06")[0])["2026-10-12"] == 250500.0
+       and dict(merge_rows([("2026-10-08", 262000.0)], fresh, only_adj, "2026-10-06")[0])["2026-10-12"] == 250512.0)
 
     keep = MANIFEST
     with tempfile.TemporaryDirectory() as td:

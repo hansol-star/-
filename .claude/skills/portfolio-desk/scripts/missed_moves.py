@@ -20,7 +20,7 @@ FAIL 안 냄 — 회고·캘리브레이션 보조. 원장 기입·교훈 확정
 ※ 결과론 함정 경계: 표본·기간(horizon) 명시, 단기 노이즈(noise)와 진짜 미스(miss) 구분,
   '올바른 무행동(good_inaction)'도 함께 집계해 무행동이 운인지 실력인지 균형있게 본다.
 """
-import argparse, json, os, re, sys
+import argparse, json, os, re, subprocess, sys
 from datetime import datetime, date
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -46,12 +46,23 @@ ETF = {"VOO"}
 #     ② **"물타기 금지"가 NO_SELL_KW에 들어 있었다** — 물타기(추가매수) 금지는 '안 판다'가
 #        아니라 **'안 산다'**다. 분류가 반대로 박혀 no_buy 집계도 같이 오염됐다.
 #   ⇒ 문자열 상수 대신 **정규식**으로 바꿔 표기 변형(영구·永久·공백 유무)을 흡수한다.
+# ★[10/14] 같은 실패가 세 번째로 났다 — 10/13에 MU 카드를 "룰4 = 홀딩"에서 "첫 둔화 = 중립(보유 유지·증액 없음)"으로
+#   바꾸자 (no_buy, no_sell)이 (None, '홀딩') → (None, None)이 됐다. '안 판다·안 늘린다'는 결정(d243)인데
+#   이 사전에 그 표현이 없어서, MU가 더 빠져도 그 결정의 반사실 채점 행이 생기지 않을 뻔했다(검토에서 발견).
+#   ⇒ "보유 유지"·"잔여 보유"·"보유(d210 …" 꼴(안 판다)을 넣고, 사전을 `--selftest`로 못박는다.
+#   카드 문구를 새로 쓸 때는 이 사전에 걸리는지 `--selftest`의 문구 목록에 같이 넣을 것.
+#   ("— 보유(d211). …" 꼴은 3차 검토에서 추가 — 현대차·ORCL이 같은 d210/d211 보유 결정인데 안 읽히고 있었다.)
+# ⚠️ **알려진 한계 — 결정일 귀속**: analyze()는 종목의 **첫 등장일**(= 3개월 창의 시작)에 **지금 카드의 신호**를 붙인다.
+#   그래서 최근에 생긴 신호가 석 달 전 결정처럼 채점된다. "증액 없음"(안 늘린다)을 NO_BUY에 넣었더니 MU에
+#   "관망 후 -25% 하락 = 안 사길 잘함"이 찍혔다 — 그 구간(7월)엔 MU를 실제로 더 사고 있었다(증액 종료 8/29).
+#   ⇒ '증액 없음' 계열은 **넣지 않는다**. 신호가 시작된 날을 결정일로 쓰도록 고친 뒤에 넣을 것(별도 과제).
+#   같은 이유로 '놓친매도'의 결정일도 그 보유 결정이 내려진 날이 아니라 창의 시작일이다 — 날짜가 아니라 '안 팔았다'는 사실로 읽는다.
 NO_BUY_RE = re.compile(
     r"관망|보류|추격\s*금지|진입\s*금지|"
     r"(물타기|추가\s*매수|추가매수|신규\s*매수|신규매수|신규\s*자금)\s*(영구)?\s*(금지|안함|제외)|"
     r"봉인|매수후보\s*아님|신규자금\s*영구제외")
 NO_SELL_RE = re.compile(
-    r"홀딩|홀드|인내|장기\s*보유|"
+    r"홀딩|홀드|인내|장기\s*보유|보유\s*유지|잔여\s*보유|보유\s*\(d\d+|"
     r"패닉셀\s*금지|손절선\s*(없음|영구\s*폐기)|정리후보|"
     r"트림\s*(실익없음|보류)|잔여\s*(절반\s*)?홀딩")
 # 하위호환(다른 스크립트가 import할 수 있음)
@@ -100,23 +111,37 @@ def _ensure_full_history():
     → 오미션 검출이 **2건**. `git fetch --unshallow` 후 658커밋·이력 133개가 되자
     **놓친 매수 7건·놓친 매도 2건**이 드러났다(PLTR +51%·ANET +21%·META +21% 등).
     즉 "오미션이 없다"는 결론 자체가 **클론 깊이의 산물**이었다.
-    ⇒ 사람 기억(validate WARN)에 맡기지 않고 도구가 직접 확인·복구한다."""
+    ⇒ 사람 기억(validate WARN)에 맡기지 않고 도구가 직접 확인·복구한다.
+
+    → 복구에 실패해 **잘린 이력으로 채점하게 됐으면** 그 이유(문자열), 아니면 None. 호출자가 결과에 싣는다.
+    ★[10/14 4차 검토] fetch의 종료코드를 안 봤다 — origin 접속 실패·인증 거부(종료코드 128)여도 '히스토리를 복구한다'만
+      찍고 잘린 이력으로 채점했다(8/22와 같은 결론이 조용히 다시 나온다). 종료코드와 복구 뒤 상태를 둘 다 본다."""
+    def is_shallow():
+        r = subprocess.run(["git", "rev-parse", "--is-shallow-repository"], capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=30, cwd=ROOT)
+        return (r.stdout or "").strip() == "true"
     try:
-        r = subprocess.run(["git", "rev-parse", "--is-shallow-repository"],
-                           capture_output=True, text=True, timeout=30, cwd=REPO)
-        if r.stdout.strip() != "true":
-            return
-    except Exception:
-        return
+        if not is_shallow():
+            return None
+    except (OSError, subprocess.SubprocessError):
+        # ★[10/14] 여기가 `except Exception`이라 NameError(subprocess 미임포트 · REPO 미정의)가 8/22부터 삼켜졌다 —
+        #   shallow clone 복구가 한 번도 돈 적이 없다. git 실행 실패만 넘긴다.
+        return None
     print("[INFO] shallow clone 감지 — 히스토리를 복구한다(git fetch --unshallow). "
           "이걸 안 하면 잘린 범위만 보고 '오미션 없음'이라는 틀린 결론이 나온다.",
           file=sys.stderr)
+    why = None
     try:
-        subprocess.run(["git", "fetch", "--unshallow", "origin"],
-                       capture_output=True, text=True, timeout=600, cwd=REPO)
-    except Exception as ex:
-        print(f"[WARN] unshallow 실패({str(ex)[:60]}) — 결과가 잘린 범위 기준임을 감안할 것.",
-              file=sys.stderr)
+        f = subprocess.run(["git", "fetch", "--unshallow", "origin"], capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=600, cwd=ROOT)
+        if f.returncode != 0 or is_shallow():
+            last = ((f.stderr or "").strip().splitlines() or ["(출력 없음)"])[-1][:100]
+            why = f"종료코드 {f.returncode} · {last}"
+    except (OSError, subprocess.SubprocessError) as ex:
+        why = f"{type(ex).__name__}: {str(ex)[:60]}"
+    if why:
+        print(f"[WARN] unshallow 실패({why}) — 결과가 잘린 범위 기준임을 감안할 것.", file=sys.stderr)
+    return why
 
 
 def build_history(since):
@@ -374,15 +399,99 @@ def main():
     ap.add_argument("--min-move", type=float, default=15.0, help="미스 임계 %% (기본 15)")
     ap.add_argument("--since", type=str, default=None, help="결정 시점 하한 YYYY-MM-DD")
     ap.add_argument("--json", action="store_true", help="기계가독 출력")
+    ap.add_argument("--selftest", action="store_true", help="결정 시그널 사전 자가검증(오프라인 · git·시세 안 봄)")
     a = ap.parse_args()
-    _ensure_full_history()
+    if a.selftest:
+        sys.exit(selftest())
+    truncated = _ensure_full_history()
     rows, net_err = analyze(a.min_move, a.since)
     if a.json:
         print(json.dumps({"min_move": a.min_move, "since": a.since,
-                          "candidates": rows, "net_err": net_err},
+                          "candidates": rows, "net_err": net_err, "history_truncated": truncated},
                          ensure_ascii=False, indent=1))
     else:
+        if truncated:
+            print(f"⚠️ 이력이 잘려 있다(shallow clone · 복구 실패: {truncated}) — 아래 결과는 잘린 범위 기준이다. "
+                  "'오미션 없음'으로 읽지 말 것.")
         report(rows, net_err, a.min_move)
+
+
+def selftest() -> int:
+    """결정 시그널 사전이 실제 카드 문구를 읽는가. 쓰는 쪽(카드)과 읽는 쪽(이 사전)이 갈리면 결정이 조용히 사라진다."""
+    fails = []
+
+    def ok(name, cond):
+        if not cond:
+            fails.append(name)
+        print(f"  {'✅' if cond else '❌'} {name}")
+
+    def sig(buy_zone="", trim="", comment=""):
+        nb, ns, _, _ = sig_from({"buy_zone": buy_zone, "trim": trim, "comment": comment}, False)
+        return nb, ns
+
+    # 실제 카드에서 가져온 문구들
+    ok("d243 MU 카드(첫 둔화 = 중립 · 보유 유지·증액 없음) = 안 판다(안 늘린다는 결정일 귀속 한계로 아직 안 읽는다)",
+       sig(buy_zone="—", trim="잔여 보유(d210 9/23: 가격 < 목표 밴드 하단 · 마진 첫 둔화 = 중립(d243 10/13))",
+           comment="룰4 = **첫 둔화 = 중립(보유 유지·증액 없음 · d243 10/13 정훈 승인)** — 하락 전환 아님") == (False, True))
+    ok("'— 보유(d211). …' · '— 보유(d210 9/23: …)' 꼴도 안 판다(현대차·ORCL 카드)",
+       sig(trim="— 보유(d211). 3Q 영업마진 ≥5.43% 보유 / 미만이면 반등 지정가 정리 … 등록 없음") == (False, True)
+       and sig(trim="— 보유(d210 9/23: 가격 < 목표 밴드 하단)") == (False, True))
+    ok("'보유'만으로는 안 걸린다(보유 12종목 · 보유 비중 · 장기보유는 별도 패턴)",
+       sig(comment="보유 12종목 · 보유 비중 16.3%") == (False, False))
+    ok("'보유 유지'만 있어도 안 판다", sig(comment="중립 — 보유 유지") == (False, True))
+    ok("'잔여 보유'도 안 판다", sig(trim="잔여 보유") == (False, True))
+    ok("'증액 없음'·'증액 종료'는 아직 '안 산다'로 읽지 않는다(결정일 귀속을 고친 뒤 넣는다 — 지금 넣으면 소급 채점된다)",
+       all(sig(comment=c) == (False, False) for c in ("증액 없음", "증액 금지", "증액  종료")))
+    ok("舊 표기는 그대로 읽는다(홀딩 · 물타기 영구금지 · 추가매수 영구금지 · 신규매수 금지 · 관망)",
+       sig(comment="룰4 = 홀딩") == (False, True) and sig(buy_zone="물타기 영구금지") == (True, False)
+       and sig(buy_zone="추가매수 영구금지") == (True, False) and sig(buy_zone="신규매수 금지") == (True, False)
+       and sig(buy_zone="관망") == (True, False))
+    ok("'물타기 금지'는 안 사는 것이지 안 파는 것이 아니다(8/22 분류 오류 재발 방지)",
+       sig(buy_zone="물타기 금지") == (True, False))
+    ok("결정 문구가 없는 카드는 시그널 없음(가격대·숫자만)",
+       sig(buy_zone="$880~900 눌림", trim="$1,400 일부 익절", comment="FQ4 매출 $54.23B") == (False, False))
+    ok("워치 = 미보유 후보는 문구와 무관하게 '안 산' 결정",
+       sig_from({"buy_zone": "$180~190"}, True)[:2] == (True, False))
+
+    calls = []
+    keep_run = subprocess.run
+
+    state = {"shallow": ["true", "false"], "fetch_rc": 0}     # rev-parse가 차례로 내는 답 · fetch 종료코드
+
+    def fake_git(cmd, **k):
+        calls.append((cmd, k.get("cwd")))
+        if "rev-parse" in cmd:
+            return subprocess.CompletedProcess(cmd, 0, stdout=state["shallow"].pop(0) + "\n", stderr="")
+        return subprocess.CompletedProcess(cmd, state["fetch_rc"], stdout="",
+                                           stderr="" if not state["fetch_rc"] else "fatal: 'origin' does not appear to be a git repository")
+    import contextlib
+    import io
+    try:
+        subprocess.run = fake_git
+        with contextlib.redirect_stderr(io.StringIO()) as e_ok:
+            r_ok = _ensure_full_history()
+        n_ok = [c[0][1] for c in calls]
+        state.update(shallow=["true", "true"], fetch_rc=128)
+        with contextlib.redirect_stderr(io.StringIO()) as e_fail:
+            r_fail = _ensure_full_history()
+        state.update(shallow=["true", "true"], fetch_rc=0)       # fetch는 0인데 여전히 shallow(부분 복구)
+        with contextlib.redirect_stderr(io.StringIO()):
+            r_still = _ensure_full_history()
+        state.update(shallow=["false"], fetch_rc=0)
+        del calls[:]
+        r_full = _ensure_full_history()
+        n_full = [c[0][1] for c in calls]
+    finally:
+        subprocess.run = keep_run
+    ok("shallow clone이면 복구(git fetch --unshallow)를 실제로 부른다 — 레포 루트에서(8/22부터 NameError로 안 돌았다)",
+       n_ok == ["rev-parse", "fetch", "rev-parse"] and r_ok is None and "WARN" not in e_ok.getvalue())
+    ok("복구 실패(fetch 종료코드 128)는 WARN + 이유를 돌려준다 — '복구한다'만 찍고 넘어가지 않는다",
+       r_fail and "128" in r_fail and "WARN" in e_fail.getvalue())
+    ok("fetch가 0이어도 여전히 shallow면 실패로 본다", bool(r_still))
+    ok("전체 이력이면 아무것도 하지 않는다(fetch 미호출)", r_full is None and n_full == ["rev-parse"])
+
+    print(f"\n{'✅ SELFTEST PASS' if not fails else '❌ SELFTEST FAIL: ' + ', '.join(fails)}")
+    return 1 if fails else 0
 
 
 if __name__ == "__main__":

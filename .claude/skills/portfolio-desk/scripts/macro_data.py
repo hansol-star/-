@@ -63,8 +63,12 @@ def http(url: str, timeout: int = 20) -> str:
 
 
 def fetch_series(sid: str):
-    """FRED CSV → [(date, float), ...] (결측 '.' 제거, 최근 ~14개월)."""
-    cosd = (datetime.now(KST) - timedelta(days=480)).strftime("%Y-%m-%d")
+    """FRED CSV → [(date, float), ...] (결측 '.' 제거, 최근 ~18개월).
+
+    월간 YoY는 '직전 관측의 12개월 전'까지 필요하다 — 발표 지연 2개월 + 13개월 = 15개월이라
+    480일(15.8개월)은 여유가 없었다. 560일로 늘린다.
+    """
+    cosd = (datetime.now(KST) - timedelta(days=560)).strftime("%Y-%m-%d")
     raw = http(FRED_CSV.format(sid=sid, cosd=cosd))
     rows = []
     for line in raw.strip().splitlines()[1:]:
@@ -76,6 +80,22 @@ def fetch_series(sid: str):
         except ValueError:
             continue
     return rows
+
+
+def yoy_by_date(rows, idx: int = -1):
+    """rows[idx]를 **날짜로 찾은 정확히 12개월 전 관측**과 비교 → (YoY %, 기준월). 없으면 (None, 기준월).
+
+    ★[2026-10-13 수정] 舊 코드는 위치(rows[-13])로 12개월 전을 집었다. FRED CPIAUCSL에 2025-10 관측이
+      없어(결측 '.') 시계열이 한 칸 짧았고, rows[-13]은 **13개월 전**을 가리켰다 — 2026-08 CPI가
+      3.71%로 찍혔는데 실제 전년비는 3.35%(공식 3.4%)다. 컨센 3.6~3.7%인 9월 CPI를 '이미 그 수준'으로
+      읽게 만드는 오차였다. 위치는 결측 하나에 조용히 틀리므로 날짜로 맞춘다 — 못 맞추면 값을 내지 않는다.
+    """
+    d, v = rows[idx]
+    want = f"{int(d[:4]) - 1:04d}-{d[5:7]}"
+    for bd, bv in rows:
+        if bd[:7] == want and bv:
+            return round((v / bv - 1) * 100, 2), want
+    return None, want
 
 
 def collect(series_ids):
@@ -93,13 +113,14 @@ def collect(series_ids):
         d, v = rows[-1]
         pd_, pv = rows[-2] if len(rows) >= 2 else (None, None)
         item = {"label": label, "unit": unit, "date": d, "value": v,
-                "prev": pv, "delta": round(v - pv, 4) if pv is not None else None}
-        # CPI 지수는 12개월 전 대비 YoY로 환산
-        if sid == "CPIAUCSL" and len(rows) >= 13:
-            yoy = (rows[-1][1] / rows[-13][1] - 1) * 100
-            item["yoy_pct"] = round(yoy, 2)
-            prev_yoy = (rows[-2][1] / rows[-14][1] - 1) * 100 if len(rows) >= 14 else None
-            item["prev_yoy_pct"] = round(prev_yoy, 2) if prev_yoy is not None else None
+                "prev": pv, "prev_date": pd_, "delta": round(v - pv, 4) if pv is not None else None}
+        # CPI 지수는 12개월 전 대비 YoY로 환산 — 날짜로 맞춘다(yoy_by_date)
+        if sid == "CPIAUCSL":
+            item["yoy_pct"], item["yoy_base"] = yoy_by_date(rows, -1)
+            if item["yoy_pct"] is None:
+                item["yoy_note"] = f"미산출 — 12개월 전({item['yoy_base']}) 관측 결측 · BLS 공식치를 쓸 것"
+            item["prev_yoy_pct"], item["prev_yoy_base"] = (
+                yoy_by_date(rows, -2) if len(rows) >= 2 else (None, None))
         out[sid] = item
     # 파생: 2s10s 스프레드 (bp)
     if "DGS10" in out and "DGS2" in out:
@@ -117,9 +138,11 @@ def fmt_table(data, errors):
         val = f"{it['value']:.2f}{it['unit']}"
         if "yoy_pct" in it:
             prev_yoy = it.get("prev_yoy_pct")
-            val = f"YoY {it['yoy_pct']:.2f}%"
+            val = f"YoY {it['yoy_pct']:.2f}%" if it["yoy_pct"] is not None else "YoY 미산출"
             it_prev = f"{prev_yoy:.2f}%" if prev_yoy is not None else "-"
             print(f"{it['label']:<22}{val:>10}  {it_prev:>10}  {it['date']:>12}")
+            if it.get("yoy_note"):
+                print(f"   ⚠️ {it['yoy_note']}")
             continue
         prev = f"{it['prev']:.2f}" if it.get("prev") is not None else "-"
         print(f"{it['label']:<22}{val:>10}  {prev:>10}  {it['date']:>12}")
@@ -156,14 +179,43 @@ def polymarket(keyword: str, top: int = 8):
     return hits[:top]
 
 
+def selftest() -> int:
+    """결측월이 낀 시계열에서 YoY가 12개월 전을 정확히 집는지(네트워크 없음)."""
+    fails = []
+
+    def ok(name, cond):
+        if not cond:
+            fails.append(name)
+        print(f"  {'✅' if cond else '❌'} {name}")
+
+    # 2025-06 ~ 2026-08, 매월 +1 — 2025-10 관측 결측(실제 FRED CPIAUCSL과 같은 모양)
+    months = [(2025, m) for m in range(6, 13)] + [(2026, m) for m in range(1, 9)]
+    rows = [(f"{y}-{m:02d}-01", 300.0 + i) for i, (y, m) in enumerate(months) if (y, m) != (2025, 10)]
+    yoy, base = yoy_by_date(rows, -1)
+    old = round((rows[-1][1] / rows[-13][1] - 1) * 100, 2)          # 舊 위치 기반
+    ok("2026-08의 기준월은 2025-08", base == "2025-08")
+    ok("YoY = 314/302 − 1 = 3.97%", yoy == round((314 / 302 - 1) * 100, 2))
+    ok("舊 위치 기반 계산은 13개월 전(2025-07)을 집어 과대(사고 재현)", old > yoy and rows[-13][0][:7] == "2025-07")
+    pyoy, pbase = yoy_by_date(rows, -2)
+    ok("직전월도 날짜로(2026-07 ↔ 2025-07)", pbase == "2025-07" and pyoy == round((313 / 301 - 1) * 100, 2))
+    rows2 = rows + [("2026-09-01", 315.0), ("2026-10-01", 316.0)]
+    ok("12개월 전이 결측이면 값을 내지 않는다(2026-10 ↔ 2025-10)", yoy_by_date(rows2, -1) == (None, "2025-10"))
+    print()
+    print("✅ SELFTEST PASS" if not fails else "❌ SELFTEST FAIL: " + ", ".join(fails))
+    return 1 if fails else 0
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--selftest", action="store_true", help="YoY 날짜 매칭 자가검증(오프라인)")
     ap.add_argument("--series", help="쉼표구분 FRED 시리즈 ID (기본 전체)")
     ap.add_argument("--polymarket", metavar="KEYWORD",
                     help="Polymarket 활성 마켓 키워드 검색 (예: fed, recession, tariff)")
     args = ap.parse_args()
 
+    if args.selftest:
+        sys.exit(selftest())
     if args.polymarket:
         hits = polymarket(args.polymarket)
         if args.json:

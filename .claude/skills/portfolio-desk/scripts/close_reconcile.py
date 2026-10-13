@@ -85,9 +85,47 @@ def index_series(sym_file: str) -> list[tuple[str, float]]:
     return out
 
 
+def kr_symbols() -> list[str]:
+    """보유·워치 + **채점 꼬리가 남은 퇴출 워치**의 국내 종목(.KS/.KQ). 유니버스 정본 = market_data.
+    퇴출 워치(RETIRED_WATCH)를 빼면 그 종목의 장중값이 굳는다 — 워치 콜 채점이 그 캐시를 읽는다(10/3 교훈)."""
+    try:
+        import market_data as md
+        seen, out = set(), []
+        pool = [md.GROUPS.get(g, []) for g in ("holdings", "watchlist")] + [getattr(md, "RETIRED_WATCH", [])]
+        for grp in pool:
+            for _, sym in grp:
+                if sym.upper().endswith((".KS", ".KQ")) and sym not in seen:
+                    seen.add(sym)
+                    out.append(sym)
+        return out
+    except Exception:  # noqa: BLE001 — 종목 목록을 못 읽어도 지수 대사는 돈다
+        return []
+
+
+def own_files() -> list[str]:
+    return OWN_FILES + [f"data/history/{s}.csv" for s in kr_symbols()] + ["data/history/_gapfill.jsonl"]
+
+
 def refresh_index() -> None:
-    subprocess.run([sys.executable, os.path.join(_HERE, "history_backfill.py"),
-                    "--symbols", "^KS11,^KQ11"], capture_output=True, text=True, timeout=180)
+    """지수 + 국내 보유·워치 일봉을 마감 뒤 다시 받는다.
+
+    ★[2026-10-13] 지수만 갱신하고 있어 **종목 행은 장중에 쓴 값이 그대로 남았다**(10/12 삼성 257,000 ↔
+      종가 250,500). 장중 보고서 세션이 쓴 당일 행을 같은 날 마감 뒤 확정 종가로 바꾸는 주체가 없었다.
+      history_backfill의 개정창 upsert + 결측 봉 보정이 여기서 매일 16:10·20:10에 돈다.
+    """
+    hb = os.path.join(_HERE, "history_backfill.py")
+    # 지수가 먼저다 — 낙폭·수급 대사는 지수만 있으면 돈다. 종목은 따로 돌리고, 늦거나 죽어도 대사를 막지 않는다
+    # (한 호출로 묶으면 종목 20여 개 중 하나가 걸려 타임아웃이 날 때 지수 대사까지 같이 죽는다).
+    subprocess.run([sys.executable, hb, "--symbols", "^KS11,^KQ11", "--pace", "0.6"],
+                   capture_output=True, text=True, timeout=120)
+    syms = kr_symbols()
+    if not syms:
+        return
+    try:
+        subprocess.run([sys.executable, hb, "--symbols", ",".join(syms), "--pace", "0.6"],
+                       capture_output=True, text=True, timeout=420)
+    except subprocess.TimeoutExpired:
+        print("  ⚠️ 종목 일봉 갱신 시간 초과 — 지수 대사는 계속한다(종목은 다음 실행에서 다시 받는다)")
 
 
 def streak(series: list[dict]) -> tuple[int, str]:
@@ -185,7 +223,7 @@ def reconcile(today: str | None = None) -> dict:
 def commit(msg: str) -> str:
     def git(*a):
         return subprocess.run(["git", "-C", ROOT, *a], capture_output=True, text=True, timeout=120)
-    ex = [f for f in OWN_FILES if os.path.exists(os.path.join(ROOT, f))]
+    ex = [f for f in own_files() if os.path.exists(os.path.join(ROOT, f))]
     git("add", "--", *ex)
     if git("diff", "--cached", "--quiet").returncode == 0:
         return "변경 없음"

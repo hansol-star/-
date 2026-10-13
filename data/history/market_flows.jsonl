@@ -99,5 +99,5 @@
 {"date": "2026-10-08", "index": "KOSPI", "foreign": -19960, "inst": -16632, "indiv": 29051, "src": "flows.json(확정)"}
 {"date": "2026-10-12", "index": "KOSDAQ", "foreign": -130, "inst": -2196, "indiv": 2316, "src": "naver"}
 {"date": "2026-10-12", "index": "KOSPI", "foreign": -20103, "inst": -1345, "indiv": 14857, "src": "naver"}
-{"date": "2026-10-13", "index": "KOSDAQ", "foreign": 1380, "inst": 437, "indiv": -1916, "src": "naver"}
-{"date": "2026-10-13", "index": "KOSPI", "foreign": -45269, "inst": 16899, "indiv": 22414, "src": "naver"}
+{"date": "2026-10-13", "index": "KOSDAQ", "foreign": 1372, "inst": 437, "indiv": -1914, "src": "naver"}
+{"date": "2026-10-13", "index": "KOSPI", "foreign": -45315, "inst": 16901, "indiv": 22447, "src": "naver"}

@@ -174,6 +174,7 @@ RULE_LOG = os.path.join(ROOT, "data", "app", "rule_log.jsonl")
 #   (사다리 = "사도 된다" / 룰6 = "국내 신규 매수 금지") — 누가 이기는지 코드에 없었다.
 #   정본 = docs/research/ladder_variants_2026-09-22.md · decisions d207/d209.
 RULE6_KR_HI = 22.0
+RULE6_KR_LO = 18.0                     # 밴드 하단 — 표시용(triggers 룰6 줄). 게이트는 상단만 쓴다
 SNAPS = os.path.join(ROOT, "data", "snapshots")
 
 

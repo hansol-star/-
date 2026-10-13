@@ -130,6 +130,14 @@ def evaluate(alert: dict) -> dict:
 # ── 포지션 사이징 (리스크매니저 정량화 — ai-hedge-fund Risk Manager 착안) ──────
 # 산문 "3분할" → 현금·안전핀 버퍼·집중도 기반 '이번 트랜치 권장 규모 + 단일종목 비중 상한'.
 CONCENTRATION_CAP = 0.25          # 단일종목 최대 비중(주식평가액 대비)
+try:                              # 룰6 국내 비중 밴드 — 정본은 tranche_rules(두 곳에 숫자를 두지 않는다)
+    from tranche_rules import RULE6_KR_HI, RULE6_KR_LO, kr_weight_pct
+except ImportError:
+    RULE6_KR_HI, RULE6_KR_LO = 22.0, 18.0
+
+    def kr_weight_pct():
+        return None
+FX_FALLBACK = 1380.0              # 환율 시세 실패 시 대체값 — 이 값으로 낸 비중은 '미산출'로 친다
 
 
 def _level(cfg, cond, ticker):
@@ -214,25 +222,74 @@ def recommend_tranche(cfg, kospi):
 def concentration(cfg):
     """보유 종목별 실시간 평가비중 + 집중도 상한 초과 플래그."""
     fxq = fetch_quote("KRW=X")
-    fx = (fxq or {}).get("price") or 1380.0
+    fx_live = None if (not fxq or fxq.get("error")) else fxq.get("price")
+    fx = fx_live or FX_FALLBACK
     vals = {}
+    kr_val = 0.0
+    missing = []
     for region, lst in (cfg.get("holdings", {}) or {}).items():
         for h in lst:
             q = fetch_quote(h["ticker"])
             p = None if (not q or q.get("error")) else q.get("price")
             if p is None:
+                missing.append(h.get("label", h["ticker"]))
                 continue
             v = h.get("shares", 0) * p * (fx if region == "us" else 1)
             vals[h.get("label", h["ticker"])] = v
+            if region != "us":
+                kr_val += v
     total = sum(vals.values())
     if total <= 0:
         return {"total_krw": 0, "weights": [], "flags": [], "fx": fx}
     weights = sorted(((k, v, v / total * 100) for k, v in vals.items()),
                      key=lambda x: -x[1])
     flags = [(k, w) for k, _, w in weights if w > CONCENTRATION_CAP * 100]
-    return {"total_krw": total, "fx": fx,
+    # ★[10/13] 룰6 국내 비중을 **실행 시점 시세로** 낸다 — 알림 문구에 박아 둔 숫자(9/3의 28.2%·410,164원)가
+    #   한 달 넘게 현행처럼 읽혔다. 22%까지 팔아야 하는 금액 x는 (KR−x)/(T−x)=0.22 의 해다.
+    kr_pct, kr_trim = rule6_weight(kr_val, total)
+    # 종목 하나라도 시세가 빠지거나 환율이 대체값이면 분모·분자가 틀린다 — 숫자를 내지 않는다
+    # (미국주 시세만 실패하면 국내 비중이 부풀고, 국내주가 빠지면 '밴드 안'으로 잘못 읽힌다).
+    why = []
+    if missing:
+        why.append("시세 실패: " + "·".join(missing))
+    if not fx_live:
+        why.append(f"환율 시세 실패(대체값 {FX_FALLBACK:,.0f})")
+    if why:
+        kr_pct = kr_trim = None
+    return {"total_krw": total, "fx": fx, "kr_pct": kr_pct, "kr_trim_krw": kr_trim,
+            "kr_note": " · ".join(why) or None, "missing": missing,
             "weights": [(k, round(v), round(w, 1)) for k, v, w in weights],
             "flags": [(k, round(w, 1)) for k, w in flags]}
+
+
+def rule6_weight(kr_val: float, total: float):
+    """(국내 비중 %, 상단까지 팔아야 하는 금액). 금액 x는 (KR−x)/(T−x) = 상단 의 해 — 판 돈이 분모에서도 빠진다."""
+    if not total or total <= 0:
+        return None, None
+    hi = RULE6_KR_HI / 100
+    return round(kr_val / total * 100, 1), round(max(0.0, (kr_val - hi * total) / (1 - hi)))
+
+
+def rule6_line(con: dict, snap_pct=None) -> str:
+    """사이징 패널의 룰6 줄. 실시세 값과 **게이트가 실제로 쓰는 값(일일 스냅샷)**을 같이 보인다 —
+    둘이 22% 양쪽으로 갈리면 이 줄과 tranche_rules 판정이 서로 다른 말을 하게 된다."""
+    hi, lo = RULE6_KR_HI, RULE6_KR_LO
+    snap = f" · 게이트 판정값(일일 스냅샷) {snap_pct:.1f}%" if snap_pct is not None else ""
+    pct = con.get("kr_pct")
+    if pct is None:
+        return f"- 룰6 국내 비중 **미산출** — {con.get('kr_note') or '시세 없음'}{snap}"
+    if pct > hi:
+        split = ""
+        if snap_pct is not None and snap_pct <= hi:
+            split = f" ⚠️ 스냅샷은 {hi:.0f}% 이하 — 게이트는 스냅샷으로 판정한다"
+        return (f"- 룰6 국내 비중 **{pct}%** > {hi:.0f}% — {hi:.0f}%까지 트림 필요액 약 {con['kr_trim_krw']:,.0f}원"
+                f"(지금 시세 기준). 착수는 코스피 고점대비 -15% 회복 후·저점 매도 금지{snap}{split}")
+    split = ""
+    if snap_pct is not None and snap_pct > hi:
+        split = f" ⚠️ 스냅샷은 {hi:.0f}% 초과 — 게이트는 스냅샷으로 판정한다"
+    if pct < lo:
+        return f"- 룰6 국내 비중 {pct}% < {lo:.0f}% — 밴드 하단 미달{snap}{split}"
+    return f"- 룰6 국내 비중 {pct}% — 밴드({lo:.0f}~{hi:.0f}%) 안{snap}{split}"
 
 
 def sizing_panel(cfg):
@@ -272,15 +329,62 @@ def sizing_panel(cfg):
                 print(f"    ⚠️ **{k} {w}%** > 상한 {CONCENTRATION_CAP*100:.0f}% — 추가매수 금지·트림 후보")
         else:
             print(f"    ✅ 상한 초과 종목 없음")
+        print(rule6_line(con, kr_weight_pct()))
     return {"recommend": rec, "concentration": con, "kospi": kospi,
             "cash_krw": cash_krw_only, "cash_total": cash}
+
+
+def selftest() -> int:
+    """룰6 국내 비중 줄 자가검증(오프라인) — 시세를 주입해 계산·미산출·밴드 문구를 확인한다."""
+    global fetch_quote
+    fails = []
+
+    def ok(name, cond):
+        print(f"  {'✅' if cond else '❌'} {name}")
+        if not cond:
+            fails.append(name)
+
+    cfg = {"holdings": {"kr": [{"ticker": "A.KS", "label": "국내A", "shares": 10}],
+                        "us": [{"ticker": "B", "label": "미국B", "shares": 2}]}}
+    px = {"KRW=X": 1000.0, "A.KS": 30000.0, "B": 350.0}      # 국내 300,000 / 미국 700,000 = 30.0%
+    keep = fetch_quote
+    try:
+        fetch_quote = lambda s: {"price": px[s]} if px.get(s) else {"error": "no data"}   # noqa: E731
+        con = concentration(cfg)
+        ok("국내 비중 30.0% · 22%까지 트림 필요액 = (300,000 − 0.22×1,000,000)/0.78 = 102,564원",
+           con["kr_pct"] == 30.0 and con["kr_trim_krw"] == 102564)
+        x = con["kr_trim_krw"]
+        ok("그만큼 팔면 정확히 22%", abs((300000 - x) / (1000000 - x) * 100 - RULE6_KR_HI) < 0.01)
+        line = rule6_line(con, 29.4)
+        ok("초과 문구에 필요액·스냅샷 값이 같이 나온다", "102,564원" in line and "29.4%" in line and "**30.0%**" in line)
+        ok("실시세는 초과인데 스냅샷이 밴드 안이면 경고", "게이트는 스냅샷으로 판정" in rule6_line(con, 21.5))
+        px["B"] = None                                        # 미국주 시세 실패 → 국내 100%로 부풀 뻔한 자리
+        bad = concentration(cfg)
+        ok("종목 시세가 하나라도 빠지면 비중을 내지 않는다",
+           bad["kr_pct"] is None and bad["kr_trim_krw"] is None and "미국B" in (bad["kr_note"] or ""))
+        ok("미산출 문구에 빠진 종목이 나온다", "미산출" in rule6_line(bad) and "미국B" in rule6_line(bad))
+        px["B"], px["KRW=X"] = 350.0, None                    # 환율 실패 → 대체값으로 낸 비중은 버린다
+        fxbad = concentration(cfg)
+        ok("환율이 대체값이면 비중을 내지 않는다", fxbad["kr_pct"] is None and "환율" in (fxbad["kr_note"] or ""))
+    finally:
+        fetch_quote = keep
+    ok("밴드 안(18~22%)", "밴드(18~22%) 안" in rule6_line({"kr_pct": 20.0, "kr_trim_krw": 0}))
+    ok("하단 미달(<18%)을 '밴드 안'이라 하지 않는다",
+       "하단 미달" in rule6_line({"kr_pct": 15.0, "kr_trim_krw": 0}))
+    ok("22.0%는 초과가 아니다(게이트와 같은 부등호)", "안" in rule6_line({"kr_pct": 22.0, "kr_trim_krw": 0}))
+    print()
+    print("✅ SELFTEST PASS" if not fails else f"❌ SELFTEST FAIL {len(fails)}건: {fails}")
+    return 1 if fails else 0
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="트리거·매수존 실시간 점검 + 포지션 사이징")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--no-size", action="store_true", help="포지션 사이징 패널 생략(시세 호출 절감)")
+    ap.add_argument("--selftest", action="store_true", help="룰6 국내 비중 줄 자가검증(오프라인)")
     args = ap.parse_args()
+    if args.selftest:
+        return selftest()
 
     with open(CFG, encoding="utf-8") as f:
         cfg = json.load(f)

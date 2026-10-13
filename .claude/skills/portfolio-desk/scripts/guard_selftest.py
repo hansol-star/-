@@ -62,6 +62,9 @@ SUBPROCESS_TESTS = [
     ("financials.py", ["--selftest"],
      "분기 연속성 — 4분기를 건너뛴 가짜 하락·놓친 하락(d243) · margin_trend_gap · 마진방향 축 · "
      "플래그 코드 ↔ 엑셀 라벨 ↔ 목표가 가산표(10/14)"),
+    ("multiple_backtest.py", ["--selftest"],
+     "TTM EPS — 4분기 역산(연도 말 TTM = 신고 연간 EPS) · 연속 4개 분기만 합산(舊 위치 합 43.02 재현) · "
+     "분할 보정 · 캐시 버전·수명(10/14)"),
     ("wiring_audit.py", ["--selftest"], "기능 단위 배선 — 걷어낸 기능 적발 + 동명 플래그 오인 방지"),
     ("toss_snapshot.py", ["--selftest"], "토스 주문 차단 — 매매 가능 자격증명의 조회 전용 불변식(우회 4종 포함)"),
     ("order_check.py", ["--selftest"], "국내 가격제한폭 기준가 — 마감 후 오늘 종가·장중 전일 종가·휴장·폴백 기준일 표기(9/22)"),

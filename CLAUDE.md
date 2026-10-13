@@ -279,7 +279,7 @@
 | 매매가 성과를 더했나(측정) | `performance.py` — 원장 재생 TWR · 스냅샷 정합 게이트(9/21 첫 측정 -1.8%p) |
 | 일봉 캐시에 장중값이 굳음(Yahoo 결측 봉) · 날짜 하루 밀림 | `history_backfill.py --selftest`(10/13 — 결측 봉 보정 순서 = **토스 1분봉(KRX 정규장 종가)** → 네이버 기준가 → 네이버 일봉(근사·빈 날짜만) · 못 메우면 `_gapfill.jsonl`에 '미검증' · 날짜 = 거래소 현지일) + `close_reconcile`이 마감 뒤 국내 종목까지 재수집하고 **`--audit 7`로 캐시 ↔ 토스 대조**(불일치 **그리고 감사를 못 돌린 것·본 게 거의 없는 것·도중에 끊긴 것·원장이 깨진 것**까지 `check_close_recon` WARN — `close_reconcile.py --selftest` · 고치는 건 `--audit N --fix` 수동뿐, 고친 값은 원장(`_gapfill.jsonl` · UTF-8 유지)에 남아 Yahoo 갱신이 못 되돌린다 · 분할 뒤 옛 단위의 고정값은 쓰지 않고 메모) |
 | 카드 문구를 바꾸자 회고 사전이 결정을 못 읽음 | `missed_moves.py --selftest`(10/14 — MU 카드 '홀딩'→'보유 유지'에서 안 판 결정의 신호가 꺼졌다 · 새 문구는 자가검증 목록에 같이 넣는다 · 결정일 = 종목 첫 등장일이 아니라 **그 신호가 시작된 날**(안 산다·안 판다 따로 · 꺼진 동안 그 칸이 그대로면 잇고 고쳐졌으면 끊는다 · 합성 이력으로 검증) · ⚠️ 결정일 = 카드 커밋일 · 지금 켜진 신호만 잰다) |
-| 분기 시계열을 위치로 읽어 회계 4분기를 건너뜀(가짜 하락·놓친 하락) | `edgar_facts.py --selftest`(10/14 — 4분기 = 연간 − 1~3분기 역산 · MU 8-K 표 대조 · `q4_derived`) + `financials.py --selftest`(분기말 간격으로 연속 확인 · 못 하면 `margin_trend_gap` · 플래그 코드 ↔ 엑셀 라벨 ↔ 목표가 가산표) · ⚠️ GAAP만 잰다(Non-GAAP은 8-K 표) · 10-Q 신고 전엔 최신 분기가 없다 |
+| 분기 시계열을 위치로 읽어 회계 4분기를 건너뜀(가짜 하락·놓친 하락) | `edgar_facts.py --selftest`(10/14 — 4분기 = 연간 − 1~3분기 역산 · MU 8-K 표 대조 · `q4_derived`) + `financials.py --selftest`(분기말 간격으로 연속 확인 · 못 하면 `margin_trend_gap` · 플래그 코드 ↔ 엑셀 라벨 ↔ 목표가 가산표) + `multiple_backtest.py --selftest`(TTM = 연속 4개 분기 · 캐시 버전·수명) · ⚠️ GAAP만 잰다(Non-GAAP은 8-K 표) · 10-Q 신고 전엔 최신 분기가 없다 |
 | 전년비가 13개월 변화율(결측 월) | `macro_data.py --selftest`(10/13 — 날짜로 12개월 전을 찾고 없으면 '미산출') |
 | 알림 문구에 박힌 낡은 비중·금액 | `triggers.py` 룰6 줄이 실시세로 계산(10/13 — 시세 빠지면 '미산출' · `--selftest`) |
 

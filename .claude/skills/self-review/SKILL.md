@@ -170,6 +170,7 @@ python3 .claude/skills/portfolio-desk/scripts/missed_moves.py --min-move 15   # 
 python3 .claude/skills/portfolio-desk/scripts/missed_moves.py --min-move 8    # 넓은 뷰(경계선 포함)
 ```
 - 스크립트는 `stocks.json` git 히스토리(결정 시점)에서 관망/홀딩/워치 신호를 뽑고 Yahoo 시세 경로로 `fwd_max`(놓친 매수)·`fwd_min`(놓친 매도)을 계산 → 후보만 제시(자동 원장기입 ❌).
+- **결정일(`decision_at`) = 지금 카드의 신호가 시작된 날**(10/14 — 舊엔 종목 첫 등장일이라 최근 신호가 석 달 전 결정처럼 채점됐다). 안 산다·안 판다는 시작일이 따로이고, 워치↔보유 전환(체결)에서 새로 센다. 전량 매도된 종목엔 놓친매도·잘홀딩을 찍지 않는다. `ref_date`가 결정일보다 뒤면 시세 창(3개월)이 결정일을 못 덮은 것 — 그 행의 수익률은 창의 첫 종가 기준이다. ⚠️ 원장(`missed_moves.jsonl`)의 10/14 이전 행은 舊 결정일 기준일 수 있다 — 같은 종목을 다시 올릴 때 결정일을 도구 값으로 맞춘다.
 - **결과론 함정 가드**: 표본·기간(horizon) 짧으면 대부분 `noise` — 진짜 `miss`만 승격. 스크립트가 **`good_inaction`(관망/룰이 손실을 회피)**도 함께 집계하니, 무행동을 단기 급등 하나로 과벌하지 말 것("무행동이 운인가 실력인가").
 - 검증한 케이스만 사람이 판단해 **`data/app/missed_moves.jsonl` append** + **`docs/research/hindsight_log.md` 맨 위 회고 블록 prepend**(형식은 그 파일 골격). 필드: `{id, date, ticker, decision_type, ref_price, signal, move_pct, horizon, rationale, verdict(miss/right/noise), lesson, cluster_tag, source_report}`.
 - 반복 패턴(클러스터별 미스 카운트·기각된 대안 재검토)은 §5 자기교정과 합쳐 **`desk_playbook.md` §2/§3에 실행형 교훈으로 반영 제안**(자동변경 ❌).

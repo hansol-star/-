@@ -144,6 +144,10 @@ def live_prices() -> dict:
 #    컨센은 이 플래그들을 모른다. 우리가 아는 걸 목표가에 반영하는 자리가 여기다.
 # ⚠️ source_conflict·backlog_growth는 제외 — 전자는 데이터 품질 표시이고
 #    후자는 오히려 긍정 신호다(경보를 뭉뚱그리면 지표가 오염된다).
+# ⚠️ [10/14] margin_trend_gap도 제외 — "분기 결측이라 판정 못 함"은 데이터 품질 표시다.
+#    마진이 꺾였다는 뜻이 아니므로 목표가를 깎지 않는다(가산표에 없는 코드 = 0).
+#    세 표(financials.FLAG_CODES · 이 표 · export_financials_xlsx.FLAG_KO)의 일치는
+#    `financials.py --selftest`가 본다.
 FLAG_PENALTY = {
     "margin_trend_break": 0.15,     # 마진이 꺾였다 = 컨센 EPS 전제가 흔들린다
     "fcf_negative_turn": 0.12,

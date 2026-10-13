@@ -14,6 +14,9 @@
 
 ■ 재무 플래그 = 정훈 룰에 직결된 것만 (측정·경보 전용, 매수·매도 자동발동 아님)
    margin_trend_break  리스크룰 4 "메모리 정점 판정 = 마진 추세"의 기계화
+                       [10/14] 최신 3개 분기가 **연속**(분기말 간격 80~100일)일 때만 판정한다
+   margin_trend_gap    위 판정을 못 내린 사유(분기 결측·비연속·최신 분기 미수집) — 데이터 품질
+                       표시이지 경보가 아니다. 조용히 '하락 없음'으로 넘기지 않으려고 낸다
    inventory_surge     재고가 매출보다 빨리 늘면 사이클 정점 선행 신호
    fcf_negative_turn   AI capex 과부하(ORCL·META·MSFT)
    debt_buildup        순부채 급증 — ORCL 레버리지 논지의 하드넘버
@@ -34,6 +37,7 @@
   python3 financials.py --flags              # 플래그만
   python3 financials.py --score              # 펀더 서브스코어
   python3 financials.py --all --save         # data/app/financials.json 갱신
+  python3 financials.py --selftest           # 오프라인 — 4분기 역산 → 연속성 판정 → 플래그·마진 축
 """
 from __future__ import annotations
 
@@ -258,7 +262,75 @@ def _conflicts(a: dict, b: dict, tol: float = 1.0) -> list[dict]:
     return out
 
 
+# ─────────────────────────────────────────── 분기 연속성
+
+# 최신 분기말이 기준일보다 이만큼 낡았으면 그 뒤 분기가 수집되지 않은 것이다.
+# 정상 범위의 최댓값 = 3분기말 + 한 분기(91일) + 연간보고서 신고(미국 60~75일 · 국내 90일) ≈ 165~182일.
+STALE_Q_DAYS = 185
+
+
+def _gap_days(newer: dict, older: dict) -> int | None:
+    try:
+        return (dt.date.fromisoformat(newer["end"]) - dt.date.fromisoformat(older["end"])).days
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def contiguous_run(q: list[dict], n: int = 3) -> list[dict]:
+    """최신부터 **연속인** 분기 행(최대 n개). 분기말 간격이 한 분기가 아니면 거기서 끊는다.
+
+    ★[10/14] `q[:3]`을 '최근 연속 3분기'로 읽으면 안 된다 — 리스트의 위치는 연속을 보장하지
+    않는다. EDGAR 분기 시계열엔 회계 4분기가 없었고(edgar_facts 함정 ④), 그래서 12월의 `q[:3]`은
+    FQ1·FQ3·FQ2였다. 9/17에 YoY(4칸 뒤 = 1년 전)에서 고친 것과 같은 가정이 여기 남아 있었다.
+    """
+    lo, hi = E.QTR_GAP
+    run = list(q[:1])
+    for newer, older in zip(q, q[1:n]):
+        g = _gap_days(newer, older)
+        if g is None or not (lo <= g <= hi):
+            break
+        run.append(older)
+    return run
+
+
+def _trend_gap_reasons(rec: dict, q: list[dict], run: list[dict]) -> list[str]:
+    """영업마진 연속 하락을 **판정할 수 없는** 사유. 비어 있으면 판정 가능."""
+    why = []
+    if len(q) < 3:
+        why.append(f"분기 {len(q)}기뿐")
+    elif len(run) < 3:
+        newer, older = q[len(run) - 1], q[len(run)]
+        why.append(f"{older.get('end')} ↔ {newer.get('end')} 간격 {_gap_days(newer, older)}일"
+                   f"(한 분기 = {E.QTR_GAP[0]}~{E.QTR_GAP[1]}일) — 그 사이 분기가 없다")
+    else:
+        miss = [r.get("end") for r in run if r.get("op_margin") is None]
+        if miss:
+            why.append(f"영업마진 결측 {'·'.join(str(m) for m in miss)}")
+    try:
+        ref = dt.date.fromisoformat(str(rec.get("as_of"))[:10])
+    except ValueError:
+        ref = dt.date.today()
+    try:
+        age = (ref - dt.date.fromisoformat(q[0]["end"])).days
+    except (KeyError, TypeError, ValueError):
+        age = None
+    if age is not None and age > STALE_Q_DAYS:
+        why.append(f"최신 분기 {q[0]['end']}가 기준일보다 {age}일 전 — 그 뒤 분기 미수집")
+    return why
+
+
 # ─────────────────────────────────────────── 재무 플래그
+
+# flags()가 낼 수 있는 코드 전부. 새 코드를 만들면 **여기에 넣고** 아래 두 표를 같이 본다
+# (자가검증이 세 곳의 일치를 검사한다 — 코드만 만들고 라벨·가산표를 잊는 것을 막는다):
+#   · export_financials_xlsx.FLAG_KO   — 엑셀 플래그 시트의 한글 라벨(없으면 빈 칸으로 나간다)
+#   · target_reset.FLAG_PENALTY        — 목표가 낙관계수 가산(없는 코드는 0 = 영향 없음)
+FLAG_CODES = ("margin_trend_break", "margin_trend_gap", "inventory_surge", "fcf_negative_turn",
+              "debt_buildup", "receivable_divergence", "backlog_growth", "dilution",
+              "source_conflict")
+# 데이터 품질 표시·강세 신호 — 목표가를 깎는 가산표에 **들어가면 안 되는** 코드
+FLAG_NO_PENALTY = ("margin_trend_gap", "source_conflict", "backlog_growth")
+
 
 def flags(rec: dict) -> list[dict]:
     q = rec.get("quarterly") or []
@@ -268,12 +340,21 @@ def flags(rec: dict) -> list[dict]:
     def add(code, sev, msg, ev):
         out.append({"code": code, "severity": sev, "message": msg, "evidence": ev})
 
-    # ① 마진 추세 꺾임 — 리스크룰 4의 기계화
-    oms = [(r["end"], r.get("op_margin")) for r in q[:3] if r.get("op_margin") is not None]
-    if len(oms) >= 3 and oms[0][1] < oms[1][1] < oms[2][1]:
+    # ① 마진 추세 꺾임 — 리스크룰 4의 기계화. **연속한 3개 분기**로만 판정한다.
+    run = contiguous_run(q, 3)
+    oms = [(r["end"], r.get("op_margin")) for r in run]
+    judged = len(run) == 3 and all(v is not None for _, v in oms)
+    if judged and oms[0][1] < oms[1][1] < oms[2][1]:
         add("margin_trend_break", "high",
             f"영업마진 2분기 연속 하락 ({oms[2][1]:.1%}→{oms[1][1]:.1%}→{oms[0][1]:.1%})",
             [{"end": e, "op_margin": v} for e, v in oms])
+    # 판정을 못 했거나 낡은 분기로 판정했으면 그 사실을 낸다(조용히 '하락 없음'이 되지 않게).
+    why = _trend_gap_reasons(rec, q, run) if q else []
+    if why:
+        add("margin_trend_gap", "low",
+            "분기 시계열 결측 — 영업마진 연속 하락 "
+            f"{'판정 불가' if not judged else '판정이 낡은 분기 기준'} ({' · '.join(why)})",
+            [{"end": r.get("end"), "op_margin": r.get("op_margin")} for r in q[:3]])
 
     # ② 재고 급증 (매출보다 빨리)
     #    ⚠️ 중요도 하한 — 재고가 매출의 2% 미만이면 증가율이 아무리 커도 의미 없다.
@@ -390,8 +471,10 @@ def subscore(rec: dict) -> dict:
     if "quarterly" in _susp:
         ax("C_분기EPS", None, 25, "⚠️ 분할 스케일 혼재 의심 — 채점 제외(split_guard)")
     else:
+        # 역산 4분기의 EPS는 근사값이다(edgar_facts `_q4_per_share`) — 근거 문장에 남긴다.
+        approx = " (4분기 역산 · EPS 근사)" if (q and q[0].get("q4_derived")) else ""
         ax("C_분기EPS", None if c is None else max(0, min(25, 12.5 + c / 4)), 25,
-           "—" if c is None else f"분기 희석EPS YoY {c:+.1f}%")
+           "—" if c is None else f"분기 희석EPS YoY {c:+.1f}%{approx}")
 
     # A — 연간 EPS YoY
     an = None if "annual" in _susp else (a[0].get("eps_yoy") if a else None)
@@ -401,13 +484,21 @@ def subscore(rec: dict) -> dict:
         ax("A_연간EPS", None if an is None else max(0, min(25, 12.5 + an / 4)), 25,
            "—" if an is None else f"연간 희석EPS YoY {an:+.1f}%")
 
-    # 마진 방향 (최근 3분기 영업마진 기울기)
-    oms = [r.get("op_margin") for r in q[:3] if r.get("op_margin") is not None]
+    # 마진 방향 (최근 **연속** 3분기 영업마진 기울기)
+    # ★[10/14] 舊 = q[:3] 위치 그대로 — 4분기가 빠진 시계열에선 '최근 3분기'가 실제로는
+    #   4개 분기에 걸친 변화였다(예: FQ1 − FQ2, 사이에 FQ3·FQ4). 연속인 구간만 쓰고,
+    #   2개 분기도 안 이어지면 채점에서 뺀다(0으로 채우지 않는다 — 결측 축은 분모에서 제외).
+    oms = []
+    for r in contiguous_run(q, 3):
+        if r.get("op_margin") is None:
+            break
+        oms.append(r["op_margin"])
     if len(oms) >= 2:
         delta = (oms[0] - oms[-1]) * 100  # %p
-        ax("마진방향", max(0, min(20, 10 + delta * 2)), 20, f"영업마진 {delta:+.2f}%p (최근 {len(oms)}분기)")
+        ax("마진방향", max(0, min(20, 10 + delta * 2)), 20,
+           f"영업마진 {delta:+.2f}%p (최근 연속 {len(oms)}분기)")
     else:
-        ax("마진방향", None, 20, "—")
+        ax("마진방향", None, 20, "분기 시계열 결측 — 연속 2분기 미만(채점 제외)" if q else "—")
 
     # FCF 건전성 (연간 FCF 마진)
     fm = a[0].get("fcf_margin") if a else None
@@ -523,6 +614,137 @@ def save(data: dict) -> str:
     return OUT
 
 
+# ─────────────────────────────────────────── 자가검증 (오프라인)
+
+def _legacy_break(q: list[dict]) -> bool:
+    """10/14 이전의 판정(리스트 위치 그대로). 자가검증이 **픽스처가 진짜 함정인지** 확인할 때만 쓴다
+    — 옛 판정이 틀리지 않는 픽스처로는 새 판정이 고쳐졌다는 것을 보일 수 없다."""
+    oms = [r.get("op_margin") for r in q[:3] if r.get("op_margin") is not None]
+    return len(oms) >= 3 and oms[0] < oms[1] < oms[2]
+
+
+def _literal_dict(path: str, name: str) -> dict:
+    """소스 파일에서 `name = {...}` 리터럴을 읽는다(임포트 없이 — openpyxl 등 의존성을 안 끌어온다)."""
+    import ast
+    with open(path, encoding="utf-8") as f:
+        tree = ast.parse(f.read())
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == name for t in node.targets):
+            return ast.literal_eval(node.value)
+    raise KeyError(f"{os.path.basename(path)}에 {name} 없음")
+
+
+def selftest() -> int:
+    """4분기 역산 → 연속성 판정 → 플래그·마진 축까지 한 줄로 본다(오프라인).
+
+    심는 위반 = 실제로 있었던 두 형태(d243):
+      ⓐ 4분기를 건너뛰어 **진짜 2분기 연속 하락을 놓친다**
+      ⓑ 연속이 아닌 분기끼리 비교해 **가짜 2분기 연속 하락이 뜬다**
+    """
+    import re
+    try:                                   # 픽스처 티커로 분할 조회(네트워크)가 나가지 않게 한다
+        import split_guard as _SG
+        _SG._SPLIT_CACHE["TEST"] = []
+    except Exception:
+        pass
+    print("financials 자가검증 — 4분기 역산 → 분기 연속성 → margin_trend_break / margin_trend_gap")
+    print("=" * 78)
+    ok = True
+
+    def check(cond: bool, label: str, detail: str = "") -> None:
+        nonlocal ok
+        ok = ok and bool(cond)
+        print(f"  {'✅' if cond else '❌'} {label}" + (f" — {detail}" if detail and not cond else ""))
+
+    def rec_of(rows: list[dict], as_of: str) -> dict:
+        rows = sorted((dict(r) for r in rows), key=lambda r: r["end"], reverse=True)
+        return {"ticker": "TEST", "as_of": as_of, "annual": [], "quarterly": derive(rows, rows)}
+
+    def codes(rec: dict) -> list[str]:
+        return [f["code"] for f in flags(rec)]
+
+    def om(rec: dict) -> str:
+        return " · ".join(f"{r['end']} {r['op_margin']:.1%}" for r in rec["quarterly"][:3]
+                          if r.get("op_margin") is not None)
+
+    full = E.normalize("TEST", E._fixture_facts())["quarterly"]      # 4분기 역산이 들어간 시계열
+    fq1_27 = {"end": "2026-12-03", "period": "quarterly", "revenue": 61500e6}
+
+    # ① 정상 — 역산 뒤의 최신 3개 분기는 연속이고(FQ4·FQ3·FQ2) 마진은 오르는 중
+    rec = rec_of(full, "2026-10-14")
+    c = codes(rec)
+    check([r["end"] for r in rec["quarterly"][:3]] == ["2026-09-03", "2026-05-28", "2026-02-26"]
+          and len(contiguous_run(rec["quarterly"], 3)) == 3,
+          "역산 뒤 최신 3개 분기 = FQ4·FQ3·FQ2(연속)", om(rec))
+    check("margin_trend_break" not in c and "margin_trend_gap" not in c,
+          "오르는 연속 시계열엔 break도 gap도 없다(오탐 없음)", f"{c} / {om(rec)}")
+
+    # ② 위반 ⓐ — FQ3 82.0% → FQ4 80.7% → FQ1 80.0%. 4분기가 있어야만 보이는 하락
+    rows = [dict(r) for r in full]
+    next(r for r in rows if r["end"] == "2026-05-28")["operating_income"] = 34000e6
+    rec = rec_of(rows + [dict(fq1_27, operating_income=49200e6)], "2027-01-05")
+    check("margin_trend_break" in codes(rec), "진짜 2분기 연속 하락을 잡는다", om(rec))
+    old = [r for r in rec["quarterly"] if not r.get("q4_derived")]
+    check(not _legacy_break(old),
+          "└ 함정 확인: 4분기 없는 舊 시계열 + 위치 판정은 이 하락을 놓쳤다",
+          "舊 판정도 잡는다면 이 픽스처는 아무것도 증명하지 못한다")
+
+    # ③ 위반 ⓑ — 4분기가 빠진 시계열(FQ1·FQ3·FQ2)이 위치로는 연속 하락처럼 보인다
+    rows = [dict(r) for r in full if not r.get("q4_derived")]
+    next(r for r in rows if r["end"] == "2026-02-26")["operating_income"] = 0.90 * 23860e6
+    rec_gap = rec_of(rows + [dict(fq1_27, operating_income=0.79 * 61500e6)], "2027-01-05")
+    c = codes(rec_gap)
+    check(_legacy_break(rec_gap["quarterly"]),
+          "함정 확인: 舊 위치 판정은 여기서 '2분기 연속 하락'을 낸다", om(rec_gap))
+    check("margin_trend_break" not in c, "└ 비연속 분기로는 break를 내지 않는다", str(c))
+    gap = next((f for f in flags(rec_gap) if f["code"] == "margin_trend_gap"), None)
+    check(gap is not None and gap["severity"] == "low" and "189일" in gap["message"]
+          and "판정 불가" in gap["message"],
+          "└ 대신 margin_trend_gap(low)을 내고 끊긴 자리(간격 189일)를 적는다",
+          str(gap and gap["message"]))
+
+    # ④ 판정은 됐지만 최신 분기가 낡았다 — 그 뒤 분기가 수집되지 않은 상태
+    rec = rec_of(full, "2027-06-01")
+    gap = next((f for f in flags(rec) if f["code"] == "margin_trend_gap"), None)
+    check(gap is not None and "낡은 분기 기준" in gap["message"] and "미수집" in gap["message"],
+          "최신 분기가 185일 넘게 낡으면 gap으로 알린다", str(gap and gap["message"]))
+
+    # ⑤ 분기 2기뿐 · 최신 3개 중 영업마진 결측
+    c2 = flags(rec_of(full[:2], "2026-10-14"))
+    check(any(f["code"] == "margin_trend_gap" and "2기뿐" in f["message"] for f in c2),
+          "분기가 3기 미만이면 gap", str([f["message"] for f in c2]))
+    rows = [dict(r) for r in full]
+    rows[1]["operating_income"] = None
+    c3 = flags(rec_of(rows, "2026-10-14"))
+    check(any(f["code"] == "margin_trend_gap" and "영업마진 결측" in f["message"] for f in c3)
+          and not any(f["code"] == "margin_trend_break" for f in c3),
+          "최신 3개 분기 중 영업마진이 비면 gap(break 없음)", str([f["message"] for f in c3]))
+
+    # ⑥ 펀더 서브스코어 '마진방향' 축 — 연속 구간만 채점, 안 이어지면 분모에서 제외
+    ax_ok = subscore(rec_of(full, "2026-10-14"))["axes"]["마진방향"]
+    ax_gap = subscore(rec_gap)["axes"]["마진방향"]
+    check(ax_ok["score"] is not None and "연속 3분기" in ax_ok["why"], "마진방향: 연속 3분기면 채점", str(ax_ok))
+    check(ax_gap["score"] is None and "결측" in ax_gap["why"],
+          "마진방향: 최신 분기가 직전과 안 이어지면 채점 제외(0점 아님)", str(ax_gap))
+
+    # ⑦ 배선 — 플래그 코드 ↔ 엑셀 라벨 ↔ 목표가 가산표
+    with open(os.path.abspath(__file__), encoding="utf-8") as f:
+        emitted = set(re.findall(r'\badd\("([a-z_]+)"', f.read()))
+    check(emitted == set(FLAG_CODES), "FLAG_CODES = flags()가 실제로 내는 코드",
+          f"소스 {sorted(emitted)} ≠ 선언 {sorted(FLAG_CODES)}")
+    ko = _literal_dict(os.path.join(HERE, "export_financials_xlsx.py"), "FLAG_KO")
+    check(set(FLAG_CODES) <= set(ko), "엑셀 라벨 표(FLAG_KO)에 모든 코드가 있다",
+          f"라벨 없음: {sorted(set(FLAG_CODES) - set(ko))}")
+    pen = _literal_dict(os.path.join(HERE, "target_reset.py"), "FLAG_PENALTY")
+    check(set(pen) <= set(FLAG_CODES) and not (set(pen) & set(FLAG_NO_PENALTY)),
+          "목표가 가산표(FLAG_PENALTY)는 아는 코드만 · 데이터 품질 코드(gap 등)는 가산 없음",
+          f"모르는 코드 {sorted(set(pen) - set(FLAG_CODES))} · 가산 금지 코드 {sorted(set(pen) & set(FLAG_NO_PENALTY))}")
+
+    print("-" * 78)
+    print("✅ 통과 — 연속 하락은 잡고, 비연속은 gap으로 알린다" if ok else "❌ 실패")
+    return 0 if ok else 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="보유 전종목 재무제표 통합")
     ap.add_argument("--tickers")
@@ -534,7 +756,12 @@ def main() -> int:
     ap.add_argument("--score", action="store_true")
     ap.add_argument("--save", action="store_true")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--selftest", action="store_true",
+                    help="오프라인 자가검증 — 4분기 역산·분기 연속성·margin_trend_break/gap(네트워크 없음)")
     a = ap.parse_args()
+
+    if a.selftest:
+        return selftest()
 
     tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else list(ALL)
     if a.with_peers and not a.tickers:

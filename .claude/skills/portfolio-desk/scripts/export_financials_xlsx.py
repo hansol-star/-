@@ -105,6 +105,7 @@ RATIO_ROWS = [
 
 FLAG_KO = {
     "margin_trend_break": "영업마진 추세 하락 전환 — 룰4 메모리 정점 판정 입력",
+    "margin_trend_gap": "분기 시계열 결측 — 영업마진 연속 하락 판정 불가(데이터 품질 표시 · 경보 아님)",
     "inventory_surge": "재고 증가율이 매출 증가율 초과",
     "fcf_negative_turn": "FCF 마이너스 전환",
     "debt_buildup": "차입 급증 / 순현금 악화",
@@ -180,7 +181,14 @@ def write_company_sheet(wb: Workbook, ticker: str, co: dict):
     n2.font = Font(name=FONT, size=9, italic=True, color="595959")
 
     hdr_row = 5
-    labels = [f"{kind}\n{p.get('end','')}" for kind, p in periods]
+    # [10/14] 역산한 회계 4분기는 열 머리에 표시한다 — 그 열의 숫자는 신고값이 아니라
+    # '연간 − 1~3분기'다(EDGAR 10-K는 4분기를 따로 태깅하지 않는다 · EPS·주식수는 근사).
+    labels = [f"{kind}{'(4Q 역산)' if p.get('q4_derived') else ''}\n{p.get('end','')}"
+              for kind, p in periods]
+    if any(p.get("q4_derived") for _, p in periods):
+        n3 = ws.cell(row=4, column=1,
+                     value="'분기(4Q 역산)' 열 = 연간 − 1~3분기 합(신고값 아님) · 그 열의 희석EPS·희석주식수는 근사")
+        n3.font = Font(name=FONT, size=9, italic=True, color="595959")
     style_header(ws, hdr_row, ncol, "계정과목", labels)
     ws.freeze_panes = ws.cell(row=hdr_row + 1, column=2)
 

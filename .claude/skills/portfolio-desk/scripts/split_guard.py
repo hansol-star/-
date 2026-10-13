@@ -134,20 +134,40 @@ def split_between(ticker: str, start: str, end: str, use_network: bool = True) -
 
 
 # ── 감사 ────────────────────────────────────────────────────────────────
+def _year_ago(rows: list[dict], row: dict, tol_days: int = 21) -> dict | None:
+    """row의 1년 전 기간 행(기말일 기준 365일 전 ±tol). 없으면 None — 다른 기간으로 대신하지 않는다."""
+    import datetime as dt
+    try:
+        target = dt.date.fromisoformat(row["end"]) - dt.timedelta(days=365)
+    except (KeyError, TypeError, ValueError):
+        return None
+    best = None
+    for x in rows:
+        try:
+            d = abs((dt.date.fromisoformat(x["end"]) - target).days)
+        except (KeyError, TypeError, ValueError):
+            continue
+        if x is not row and d <= tol_days and (best is None or d < best[0]):
+            best = (d, x)
+    return best[1] if best else None
+
+
 def audit_rows(ticker: str, rows: list[dict], period: str,
                use_network: bool = True) -> list[dict]:
     """한 종목의 기간 시계열을 검사해 플래그 목록을 낸다."""
     out = []
-    ends = [r.get("end") for r in rows if r.get("end")]
-    lag = 4 if period == "quarterly" else 1
     for i, r in enumerate(rows):
         gap = identity_gap(r)
         if gap is None:
             continue
         if abs(gap - 1.0) <= IDENT_TOL:
             continue
-        base_end = ends[i + lag] if i + lag < len(ends) else None
-        base_row = rows[i + lag] if i + lag < len(rows) else None
+        # ★[10/14] 기준기(1년 전)는 **날짜로** 찾는다. 舊 = 리스트 4칸 뒤(분기)·1칸 뒤(연간) —
+        #   분기가 하나라도 빠진 시계열에선 4칸 뒤가 5분기 전이라, 적자·반올림 판정 보류와
+        #   분할 조회 구간이 엉뚱한 분기를 기준으로 잡혔다(EDGAR 4분기 결측 · financials.derive의
+        #   9/17 수정과 같은 가정). yoy를 만든 쪽과 같은 규칙(365일 전 ±21일)을 쓴다.
+        base_row = _year_ago(rows, r)
+        base_end = (base_row or {}).get("end")
         eps = r.get("eps_diluted")
         base_eps = (base_row or {}).get("eps_diluted")
         # 반올림 지배 구간은 판정 보류. **비교 대상(4분기 전)의 EPS가 작아도** 마찬가지다 —
@@ -272,6 +292,21 @@ def selftest() -> int:
           + (f" — 이격 {surfaced[0]['gap']}배 → 분할비율 {near_split_ratio(surfaced[0]['gap'])} 근접"
              if surfaced else " ← 게이트가 조용히 아무것도 안 잡는다"))
     ok = ok and bool(surfaced)
+
+    # ★[10/14] 기준기는 위치가 아니라 날짜로 — 분기가 빠진 시계열(EDGAR 4분기 결측)에서
+    #   '4칸 뒤'는 5분기 전이다. 그 행의 EPS가 작으면 舊 코드는 "반올림 오차 지배 — 판정 보류"로
+    #   빠져 **진짜 혼재를 놓쳤다**. 1년 전 행(1.58)을 기준으로 잡아야 표면화된다.
+    holed = [dict(dirty[0]), mk("2024-07-28", 2.10, 30.0, 0.0, 30.0),
+             mk("2024-04-28", 1.90, 25.0, 0.0, 25.0),          # ← 2024-01-28(4분기) 없음
+             mk("2023-10-29", 1.58, 20.0, 0.0, 20.0), mk("2023-07-30", 0.05, 15.0, 0.0, 15.0)]
+    r5 = audit_rows("OFFLINE", holed, "quarterly", use_network=False)
+    top = [x for x in r5 if x["end"] == "2024-10-27"]
+    held = [x for x in top if x["kind"] == "rounding_noise"]
+    seen = [x for x in top if x["kind"] == "yoy_identity_gap" and near_split_ratio(x["gap"])]
+    good = bool(seen) and not held and _year_ago(holed, holed[0])["end"] == "2023-10-29"
+    print(f"  {'✅' if good else '❌'} 분기가 빠진 시계열에서도 기준기 = 1년 전 행(위치 4칸 뒤가 아니다)"
+          + ("" if good else f" — {top}"))
+    ok = ok and good
 
     print("-" * 78)
     print("✅ 통과 — 가드가 실제로 작동한다" if ok else "❌ 실패 — 가드를 고칠 것")

@@ -1999,3 +1999,36 @@
 {"date": "2026-10-12", "ts": "2026-10-12T11:57:52+09:00", "group": "watchlist", "label": "Applied Materials", "symbol": "AMAT", "price": 507.03, "change_pct": -0.5, "currency": "USD"}
 {"date": "2026-10-12", "ts": "2026-10-12T11:57:52+09:00", "group": "watchlist", "label": "Cadence Design", "symbol": "CDNS", "price": 352.84, "change_pct": 1.15, "currency": "USD"}
 {"date": "2026-10-12", "ts": "2026-10-12T11:57:52+09:00", "group": "watchlist", "label": "Intuitive Surgical", "symbol": "ISRG", "price": 423.96, "change_pct": 2.06, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "index", "label": "코스피", "symbol": "^KS11", "price": 6035.35, "change_pct": -5.46, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "index", "label": "코스닥", "symbol": "^KQ11", "price": 837.03, "change_pct": -1.43, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "index", "label": "S&P500", "symbol": "^GSPC", "price": 7807.24, "change_pct": -0.06, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "index", "label": "나스닥", "symbol": "^IXIC", "price": 27245.902, "change_pct": -0.44, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "index", "label": "다우", "symbol": "^DJI", "price": 51850.55, "change_pct": 0.38, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "index", "label": "필라델피아반도체", "symbol": "^SOX", "price": 12236.788, "change_pct": -2.67, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "fx", "label": "USD/KRW", "symbol": "KRW=X", "price": 1341.76, "change_pct": -0.09, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "삼성전자", "symbol": "005930.KS", "price": 232000.0, "change_pct": -7.39, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "LG전자", "symbol": "066570.KS", "price": 178000.0, "change_pct": -3.63, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "두산로보틱스", "symbol": "454910.KS", "price": 62000.0, "change_pct": -1.9, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "현대차", "symbol": "005380.KS", "price": 315000.0, "change_pct": -1.56, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "NAVER", "symbol": "035420.KS", "price": 178000.0, "change_pct": -1.39, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "NVDA", "symbol": "NVDA", "price": 226.32, "change_pct": -1.29, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "VOO", "symbol": "VOO", "price": 715.13, "change_pct": -0.06, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "MSFT", "symbol": "MSFT", "price": 541.15, "change_pct": 1.14, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "GOOGL", "symbol": "GOOGL", "price": 352.72, "change_pct": 0.3, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "ORCL", "symbol": "ORCL", "price": 137.39, "change_pct": -2.84, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "MU", "symbol": "MU", "price": 989.04, "change_pct": -3.88, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "holdings", "label": "AVGO", "symbol": "AVGO", "price": 354.73, "change_pct": -1.88, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "두산에너빌리티", "symbol": "034020.KS", "price": 70200.0, "change_pct": -1.82, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "GE Vernova", "symbol": "GEV", "price": 996.8, "change_pct": -0.79, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "삼성전기", "symbol": "009150.KS", "price": 1363000.0, "change_pct": -8.34, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "SK하이닉스", "symbol": "000660.KS", "price": 1443000.0, "change_pct": -10.09, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "한화에어로", "symbol": "012450.KS", "price": 839000.0, "change_pct": -2.67, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "한화오션", "symbol": "042660.KS", "price": 67100.0, "change_pct": -0.3, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "KT&G", "symbol": "033780.KS", "price": 181400.0, "change_pct": 0.67, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "AMD", "symbol": "AMD", "price": 594.24, "change_pct": -2.28, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "SK이노베이션", "symbol": "096770.KS", "price": 156800.0, "change_pct": 2.62, "currency": "KRW"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "ANET", "symbol": "ANET", "price": 210.88, "change_pct": -2.7, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "TSMC", "symbol": "TSM", "price": 444.35, "change_pct": -1.98, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "Applied Materials", "symbol": "AMAT", "price": 497.53, "change_pct": -1.87, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "Cadence Design", "symbol": "CDNS", "price": 348.42, "change_pct": -1.25, "currency": "USD"}
+{"date": "2026-10-13", "ts": "2026-10-13T16:28:15+09:00", "group": "watchlist", "label": "Intuitive Surgical", "symbol": "ISRG", "price": 427.64, "change_pct": 0.87, "currency": "USD"}

@@ -1,8 +1,18 @@
 {
  "date": "2026-10-13",
- "run_at": "2026-10-13 16:10",
+ "run_at": "2026-10-13 20:10",
  "status": "ok",
- "notes": [],
+ "notes": [
+  "외인 1차 -45,269억(16:10) → 이번 -45,789억 = 520억 차"
+ ],
+ "history_audit": {
+  "days": 7,
+  "checked": 126,
+  "unresolved": 0,
+  "adjusted": 1,
+  "error": null,
+  "mismatch": []
+ },
  "kospi": {
   "close": 6035.35,
   "pct": -5.46,
@@ -21,17 +31,17 @@
   "at": "16:10"
  },
  "flows": {
-  "foreign": -45269,
-  "inst": 16899,
-  "indiv": 22414,
-  "at": "16:10"
+  "foreign": -45789,
+  "inst": 16685,
+  "indiv": 23169,
+  "at": "20:10"
  },
- "grade": "잠정(1차)",
- "flows_action": "added",
+ "grade": "잠정(값 변동)",
+ "flows_action": "updated",
  "streak": {
   "days": 11,
   "side": "매도",
-  "cum_eok": -222902
+  "cum_eok": -223422
  },
  "pending_nulls": [
   "2026-09-14"

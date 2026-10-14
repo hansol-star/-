@@ -1,7 +1,7 @@
 {
   "_comment": "종목별 분석 정본 (사람·앱이 함께 읽음). 보고서 갱신 시 여기 stars/target/buy_zone/trim/outlook/comment/issues 를 최신 보고서값으로 업데이트한 뒤 build_app_data.py 재실행. 원가·수량 정본은 portfolio.json, 사람용 서술 정본은 docs/master.md.",
-  "as_of": "2026-10-13 17:16",
-  "source_report": "docs/reports/report_v113_2026-10-13.md",
+  "as_of": "2026-10-14 17:22",
+  "source_report": "docs/reports/report_v114_2026-10-14.md",
   "stocks": {
     "005930.KS": {
       "outlook": "core",
@@ -60,14 +60,14 @@
       ],
       "forecast": {
         "week": {
-          "low": 245000,
-          "high": 270000,
+          "low": 225000,
+          "high": 250000,
           "dir": "→",
-          "note": "10/14 CPI·10/15 TSMC 3Q. 외인 매도 지속 중 — 지지 243,500(터치4)"
+          "note": "[10/14 재산정] 전일 -7.39% 급락 후 232,000 안착. 10/15 TSMC 3Q. 외인 12일째 매도 지속 중 — 지지 227,500"
         },
         "month": {
-          "low": 235000,
-          "high": 290000,
+          "low": 220000,
+          "high": 280000,
           "dir": "→",
           "note": "10월 말 확정 실적·컨콜(HBM4 가격·배당). 외인 전환이 선행 조건"
         }

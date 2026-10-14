@@ -134,6 +134,21 @@ def _prev_close(data: dict, meta: dict, price):
         return fallback, "meta(폴백)"
     if len(closes) < 2:
         return fallback, "meta(폴백)"
+    # ★[2026-10-15] **오늘 봉이 None으로 비어 있으면** 마지막 유효 종가가 곧 직전 종가다.
+    #   10/14 .KS 전 종목·^KS11의 10/14 봉이 None으로 왔고, 삼성전자 10/14 종가가 10/13과
+    #   같은 232,000원이라 아래 '현재가 == 마지막 봉' 판정이 10/13 봉을 오늘 봉으로 오인 →
+    #   10/12 대비 **-7.39%**(실제 0.00%)가 찍혀 desk_gate가 반도체 데스크를 헛스폰시켰다.
+    #   판정 = 비어 있는 마지막 봉의 날짜 == regularMarketTime의 거래소 현지 날짜.
+    try:
+        ts = res.get("timestamp") or []
+        rmt = meta.get("regularMarketTime")
+        off = meta.get("gmtoffset") or 0
+        if raw and raw[-1] is None and ts and rmt and len(ts) == len(raw):
+            day = lambda t: (t + off) // 86400
+            if day(ts[-1]) == day(rmt):
+                return closes[-1], "series(오늘봉 결측)"
+    except (TypeError, ValueError):
+        pass
     # 마지막 봉이 오늘치면 그 앞을, 아니면 마지막을 직전 종가로 본다.
     last = closes[-1]
     if price is not None and abs(last - price) < max(abs(price) * 1e-6, 1e-9):

@@ -571,6 +571,17 @@ def check_target_multiple():
     d = load("data/app/stocks.json")
     if not b or not d:
         return
+    # ★[10/14] 낡은 원장도 말한다 — 8월 이후 두 달간 갱신이 멈춘 채 조용히 소비됐다
+    #   (그동안 목표가는 9/9 재산정으로 전부 바뀌었다). 주간 갱신 + 한 번 놓침 = 14일.
+    try:
+        _age = ((dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=9)).date()
+                - dt.date.fromisoformat(str(b.get("updated"))[:10])).days
+    except ValueError:
+        _age = None
+    if _age is None or _age > 14:
+        warn(f"multiple_bands.json 갱신일 {b.get('updated')!r}"
+             + (f" — {_age}일 낡음" if _age is not None else " — 날짜 없음")
+             + " → `multiple_backtest.py --save`(주간 R3) · 낡은 밴드로 판정 중")
     # ⚠️ [8/14 음성테스트로 즉시 교정] 1차 구현은 토큰 매칭("컨센" 등)이었는데
     #    "컨센 목표 $428" 같은 문구가 거의 모든 코멘트에 있어 **9/9 전부 통과 = 절대 발동 불가**였다.
     #    오늘 정리한 (B)계열('죽은 배선')을 새로 만드는 짓이므로 그 자리에서 조인다.

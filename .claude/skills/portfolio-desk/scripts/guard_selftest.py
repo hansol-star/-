@@ -65,6 +65,9 @@ SUBPROCESS_TESTS = [
     ("multiple_backtest.py", ["--selftest"],
      "TTM EPS — 4분기 역산(연도 말 TTM = 신고 연간 EPS) · 연속 4개 분기만 합산(舊 위치 합 43.02 재현) · "
      "분할 보정 · 캐시 버전·수명(10/14)"),
+    ("score_calls.py", ["--selftest"],
+     "목표가·매수존 표기 파서 — $lo~$hi·N원~N원 범위(9/9 이후 284행이 하단 하나로 읽혔다) · 퍼센트 범위·식별자·"
+     "수량·현금 금액은 가격이 아니다 · 자릿수 방어(10/14)"),
     ("wiring_audit.py", ["--selftest"], "기능 단위 배선 — 걷어낸 기능 적발 + 동명 플래그 오인 방지"),
     ("toss_snapshot.py", ["--selftest"], "토스 주문 차단 — 매매 가능 자격증명의 조회 전용 불변식(우회 4종 포함)"),
     ("order_check.py", ["--selftest"], "국내 가격제한폭 기준가 — 마감 후 오늘 종가·장중 전일 종가·휴장·폴백 기준일 표기(9/22)"),
@@ -1259,6 +1262,24 @@ INJECTION_TESTS = [
             "data/app/stocks.json": json.dumps(
                 {"stocks": {"MU": {"target_basis": "산정일 2026-10-12 · 12M 선행 EPS $92.5 가정"}}},
                 ensure_ascii=False),
+        },
+        "args": (),
+    },
+    {
+        "name": "check_target_multiple",
+        "desc": "배수 밴드 원장이 14일 넘게 낡으면 잡는가",
+        "why": "10/14 — multiple_bands.json이 8월 이후 두 달간 갱신이 멈춘 채 조용히 소비됐다"
+               "(그 사이 9/9 목표가 재산정 + 회계 4분기 누락 TTM). '낡아도 조용히 건너뛴다'가 설계였다",
+        "pattern": "multiple_bands.json 갱신일 .*낡음",
+        "violate": {
+            "data/app/multiple_bands.json": json.dumps(
+                {"updated": _DAYS_AGO(30), "stocks": {"MU": {"band": [8.0, 20.0], "implied": [10.0, 15.0]}}}),
+            "data/app/stocks.json": json.dumps({"stocks": {"MU": {}}}),
+        },
+        "clean": {
+            "data/app/multiple_bands.json": json.dumps(
+                {"updated": _DAYS_AGO(3), "stocks": {"MU": {"band": [8.0, 20.0], "implied": [10.0, 15.0]}}}),
+            "data/app/stocks.json": json.dumps({"stocks": {"MU": {}}}),
         },
         "args": (),
     },

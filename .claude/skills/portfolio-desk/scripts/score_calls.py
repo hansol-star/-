@@ -121,13 +121,32 @@ def rng(s):
       "$1,507.38 ⚠️stale(6월 …)" → (6.0, 1507.38)   ← '6월'을 가격으로
     이 상태로 목표가를 채점하면 내재여력이 -76.9%처럼 나온다(실측).
     ⇒ ①괄호 주석 제거 ②퍼센트·집계 단위 토큰 제거 ③**맨 앞의 가격 토큰(범위면 범위)**만 취한다.
+
+    ★[10/14] **범위 양끝에 통화 표기가 붙으면 범위를 놓쳤다.** 9/9 `target_reset` 도입 뒤 목표가 표기가
+    `"$1,111~$1,806 (중심 …)"`·`"407,897원~586,973원 (중심 …)"`로 바뀌었는데, 범위 정규식이 `~` 뒤의 `$`와
+    숫자 뒤의 `원`을 허용하지 않아 **하단 하나(lo = hi)** 로 읽혔다 — 9/9 이후 목표가 284행 전부.
+    하단만 쓰는 지표(내재여력·낙관 편향·하단 도달 → `target_reset` 낙관계수 보정)는 영향이 없었고,
+    **상단을 쓰는 지표**(`target_score` 밴드 적중 · `multiple_backtest` 내재배수 상단 · 매수존 상단 터치)가 틀어졌다.
+    같이 막은 형태: 퍼센트 범위 `"-5~6%"`(앞 숫자 5가 가격으로 읽혔다) · 식별자 `"룰3"`·`"FQ4"`·`"S&P500"`.
+    자가검증 = `python3 score_calls.py --selftest`(guard_selftest 등록).
     """
     if not isinstance(s, str):
         return None
     t = s.replace("–", "-")
+    t = re.sub(r"[∼〜～]", "~", t)                          # 물결표 변형
     t = re.sub(r"\([^)]*\)", " ", t)                       # ① 괄호 주석
+    t = re.sub(r"[+-]?\d[\d,]*\.?\d*\s*%?\s*~\s*[+-]?\d[\d,]*\.?\d*\s*%", " ", t)   # ② 퍼센트 범위(-5~6%)
     t = re.sub(r"[+-]?\d[\d,]*\.?\d*\s*%", " ", t)          # ② 퍼센트
-    t = re.sub(r"\d[\d,]*\.?\d*\s*(명|사|개|월|일|년|분기|위)", " ", t)   # ② 집계·날짜 단위
+    t = re.sub(r"\d[\d,]*\.?\d*\s*(명|사|개|월|일|년|분기|위|차|배)", " ", t)   # ② 집계·날짜·차수·배수
+    t = re.sub(r"(?<=[A-Za-z가-힣&])\d[\d,.]*", " ", t)     # ② 식별자(룰3·R2·v113·FQ4·S&P500) — 가격이 아니다
+    # ② 수량과 그 값("1주 262,500원 > 상한" · "1주가 253,500원") — 1주 가격 언급이지 매수존이 아니다.
+    #    수량만 있으면("정수 1주 지정가 $345") 수량만 지운다 → 뒤의 지정가가 본 레벨이 된다.
+    t = re.sub(r"\d+\s*주가?\s*[:=]?\s*[$₩]?\s*\d[\d,]*\.?\d*\s*원?", " ", t)
+    t = re.sub(r"\d+\s*주", " ", t)
+    # ② 현금 금액(잔여·상한·재원 …) — 사다리 시절 매수존 칸에 섞여 들어간 집행 금액이다
+    t = re.sub(r"(잔여|상한|재원|기집행|예산|현금|잔고)[^\d$₩]{0,8}[$₩]?\s*\d[\d,]*\.?\d*\s*원?", " ", t)
+    t = re.sub(r"(?<=\d)\s*원", "", t)                     # ④ [10/14] 범위 양끝의 통화 표기
+    t = re.sub(r"US\$|USD|[$₩]", "", t)
 
     # ③ **맨 앞의** 가격 토큰 하나. 범위(~)는 선택적으로 뒤에 붙는다.
     #    범위를 따로 먼저 찾으면 안 된다 — "$321.66 … 개별 하우스 $245~400 분산"처럼
@@ -143,6 +162,74 @@ def rng(s):
     if len(lv) >= 2:
         return (min(lv[:2]), max(lv[:2]))
     return (lv[0], lv[0])
+
+
+# ★[10/14] 자릿수 방어 — 파서가 숫자를 뽑아도 그게 가격이란 보장은 없다.
+#   사다리 시절(8~9월) 매수존 칸엔 "사다리 D1 대상 — 1주 262,500원 > 상한 121,045원" 같은 **상태 문장**이
+#   들어갔고, 舊 파서는 거기서 1.0·2.0·9.0을 '매수존'으로 뽑아 `buy_touched = 안 닿음`으로 셌다.
+#   target_score는 같은 이유로 0.2~8배 방어를 이미 갖고 있었다(목표가) — 여기도 같은 장치를 둔다.
+BZ_RATIO = (0.5, 2.0)    # 매수존은 콜 시점 가격 근처다(절반 아래·두 배 위면 가격이 아니다)
+TG_RATIO = (0.2, 8.0)    # target_score와 같은 값
+
+
+def plausible(r, p0, lo=0.2, hi=8.0):
+    """(low, high) 중 하나라도 콜 시점 가격의 [lo, hi]배 밖이면 None — 가격이 아닌 숫자다."""
+    if not r or not p0:
+        return None
+    return r if all(lo <= v / p0 <= hi for v in r) else None
+
+
+def selftest():
+    """rng()가 실제 원장 표기를 맞게 읽는가(오프라인). 위반 = 실제로 원장에 있던 문자열."""
+    ok = True
+
+    def check(s, want, note=""):
+        nonlocal ok
+        got = rng(s)
+        good = got == want
+        ok = ok and good
+        print(f"  {'✅' if good else '❌'} {s[:58]!r} → {got}" + ("" if good else f"  (기대 {want})")
+              + (f"  — {note}" if note and not good else ""))
+
+    print("score_calls.rng 자가검증 — 원장 표기 그대로")
+    print("=" * 78)
+    # [10/14] target_reset 표기 — 舊 파서는 둘 다 하단 하나(lo = hi)로 읽었다(284행)
+    check("$1,111~$1,806 (중심 $1,389·12M)", (1111.0, 1806.0), "~ 뒤 $")
+    check("407,897원~586,973원 (중심 497,435원·12M)", (407897.0, 586973.0), "숫자 뒤 원")
+    check("$1,111 - $1,806", (1111.0, 1806.0), "하이픈 범위")
+    check("$1,111∼$1,806", (1111.0, 1806.0), "물결표 변형")
+    # 기존 표기 — 바뀌면 안 된다
+    check("$205~240", (205.0, 240.0))
+    check("180,837~271,255원 (중심 226,046·12M)", (180837.0, 271255.0))
+    check("24.6만~46만", (246000.0, 460000.0), "한글 단위(8/8)")
+    check("295~305k", (295000.0, 305000.0), "단위 뒤에만(8/8)")
+    check("13~15만 (눌림)", (130000.0, 150000.0))
+    check("295,000원 (눌림)", (295000.0, 295000.0))
+    # 8/8 독스트링의 오인 사례 — 맨 앞 가격 토큰만
+    check("$302.83(+42.9%)", (302.83, 302.83))
+    check("$321.66 (컨센 41명) ⚠️개별 하우스 $245~400 분산", (321.66, 321.66), "뒤쪽 참고 레인지")
+    check("$1,507.38 ⚠️stale(6월 …)", (1507.38, 1507.38))
+    check("중앙 $1,200(MS)·레인지 $1,200~1,500 (하우스 분산 $400~2,000)", (1200.0, 1200.0), "앞선 것이 본 목표")
+    # [10/14] 매수존 칸의 상태 문장 — 가격이 아닌 숫자를 뽑지 않는다
+    check("실적 후 **시간외 -5~6%**($347 부근 잠정) — 정규장 확정가 확인 후 판단. "
+          "⚠️갭 당일 진입은 룰3(추격금지) 위반이라 오늘 매수 안 함", None, "퍼센트 범위·식별자")
+    check("사다리 D1 대상 — 단 정수 1주 262,500원 > 상한 121,045원이라 집행 불가", None, "1주 가격·현금 상한")
+    check("🔴 사다리 D1 재잠김 → 해금 D0 8%만 · 잔여 60,514원 < 1주가 261,000원 → 국내 신규매수 물리적 불가",
+          None, "잔여 현금·1주가")
+    check("1차 실행분 — 체결확인 필요(룰8)", None, "차수")
+    check("🎯 정수 1주 지정가 $345 GTC 예약(7/7 정훈 $330→$345 상향·주문 걸어둠). 현재가 $366 대비 −5.9%",
+          (345.0, 345.0), "수량만 지우고 지정가를 읽는다")
+    check("S&P500 하락 시 $480", (480.0, 480.0), "지수 이름의 숫자")
+    # 자릿수 방어
+    pl = [plausible((1.0, 1.0), 250000, *BZ_RATIO) is None,
+          plausible((240000.0, 250000.0), 250000, *BZ_RATIO) == (240000.0, 250000.0),
+          plausible((1111.0, 1806.0), 989.0, *TG_RATIO) == (1111.0, 1806.0),
+          plausible((59341.0, 59341.0), 250000, *BZ_RATIO) is None]
+    print(f"  {'✅' if all(pl) else '❌'} 자릿수 방어 — 가격의 0.5~2배 밖 매수존·0.2~8배 밖 목표는 버린다 {pl}")
+    ok = ok and all(pl)
+    print("=" * 78)
+    print("✅ PASS" if ok else "❌ FAIL")
+    return 0 if ok else 1
 
 # ── Yahoo 일봉 종가 시계열 ───────────────────────────────────────────────
 _SERIES = {}
@@ -334,9 +421,12 @@ def score(min_age=1):
             continue
         pnow = path[-1]
         fwd = (pnow - p0) / p0 * 100
-        bz = rng(c.get("buy_zone")); tg = rng(c.get("target"))
+        bz = plausible(rng(c.get("buy_zone")), p0, *BZ_RATIO)
+        tg = plausible(rng(c.get("target")), p0, *TG_RATIO)
         buy_touched = (min(path) <= bz[1]) if bz else None
+        bz_started_in = (p0 <= bz[1]) if bz else None    # 콜 시점에 이미 존 상단 이하 = 도달이 자명
         target_hit = (max(path) >= tg[0]) if tg else None
+        tg_started_in = (p0 >= tg[0]) if tg else None    # 콜 시점에 이미 목표 하단 이상
         st = c.get("stars")
         # 별점 방향 적중: ⭐4-5=상승 기대, ⭐1-2=하락/약세 기대, ⭐3=중립(제외)
         dir_ok = None
@@ -351,7 +441,8 @@ def score(min_age=1):
             if st >= 4:   alpha_ok = alpha > 0
             elif st <= 2: alpha_ok = alpha < 0
         graded.append({**c, "age": age, "fwd": fwd, "alpha": alpha, "alpha_ok": alpha_ok,
-                       "buy_touched": buy_touched, "target_hit": target_hit, "dir_ok": dir_ok})
+                       "buy_touched": buy_touched, "bz_started_in": bz_started_in,
+                       "target_hit": target_hit, "tg_started_in": tg_started_in, "dir_ok": dir_ok})
 
     print("\n" + "=" * 60)
     print("  콜 캘리브레이션 — score_calls.py (reflection 정량화)")
@@ -379,14 +470,23 @@ def score(min_age=1):
         ahit = f"{sum(ahits)}/{len(ahits)}" if ahits else "—(중립)"
         print(f"⭐{st:<5}{len(rows):>5}{avg:>10.2f}%{avg_a}{hit:>12}{ahit:>12}")
 
+    # ★[10/14] 콜 시점 가격이 이미 존 상단 이하인 행은 '도달'이 첫날 자명하게 참이다
+    #   (예: NAVER 225~235k 존을 종가 202.5k에 적은 행) — 눌림 도달률의 분모에서 뺀다.
+    #   목표도 같다: 이미 하단 위에서 적힌 목표(AAPL 55행 등 = 트림 신호)는 도달률에서 뺀다.
     bz = [g for g in graded if g["buy_touched"] is not None]
     if bz:
-        touched = sum(1 for g in bz if g["buy_touched"])
-        print(f"\n매수존 진입(눌림 도달): {touched}/{len(bz)}  ({touched/len(bz)*100:.0f}%)")
+        wait = [g for g in bz if not g["bz_started_in"]]
+        touched = sum(1 for g in wait if g["buy_touched"])
+        rate = f"({touched/len(wait)*100:.0f}%)" if wait else "(—)"
+        print(f"\n매수존 진입(눌림 도달): {touched}/{len(wait)}  {rate}"
+              f"  · 콜 시점 이미 존 안/아래 {len(bz) - len(wait)}행은 제외(도달이 자명)")
     tg = [g for g in graded if g["target_hit"] is not None]
     if tg:
-        hit = sum(1 for g in tg if g["target_hit"])
-        print(f"목표가 하단 터치:        {hit}/{len(tg)}  ({hit/len(tg)*100:.0f}%)")
+        below = [g for g in tg if not g["tg_started_in"]]
+        hit = sum(1 for g in below if g["target_hit"])
+        rate = f"({hit/len(below)*100:.0f}%)" if below else "(—)"
+        print(f"목표가 하단 터치:        {hit}/{len(below)}  {rate}"
+              f"  · 콜 시점 이미 하단 이상 {len(tg) - len(below)}행은 제외(도달이 자명)")
 
     # ── 유효표본 경고 (★8/29 신설 — 이 블록 없이는 아래 숫자가 반드시 오독된다) ──
     # 이 원장은 stocks.json 스냅샷 백필이라 **매 보고서마다 전 종목이 1행씩 복제**된다.
@@ -476,7 +576,11 @@ def main():
     ap.add_argument("--force", action="store_true", help="얕은 클론이어도 백필 강행(원장 잘림 위험)")
     ap.add_argument("--append", action="store_true", help="현재 stocks.json 콜을 원장에 추가")
     ap.add_argument("--min-age", type=int, default=1, help="채점 최소 보유일(기본 1)")
+    ap.add_argument("--selftest", action="store_true",
+                    help="오프라인 자가검증 — 목표가·매수존 표기 파서(rng)와 자릿수 방어")
     a = ap.parse_args()
+    if a.selftest:
+        raise SystemExit(selftest())
     if a.backfill:
         # [8/6] 얕은 클론이면 백필만 건너뛰고 **채점은 계속한다.**
         # R2/R3 루틴 프롬프트는 http_api 소유라 에이전트가 못 고친다 → 이 코드가

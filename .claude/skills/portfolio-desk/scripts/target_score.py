@@ -103,9 +103,14 @@ def build(horizon):
             "implied": implied, "realized": realized,
             "bias": implied - realized,
             "band_hit": lo <= path[-1] <= hi,
-            "reached": max(path) >= lo,
+            # ★[10/14] 콜 시점에 이미 하단 이상이면 도달은 자명하다(트림 신호로 적힌 목표) → 도달률에서 뺀다
+            "reached": (max(path) >= lo) if lo > p0 else None,
         })
     return rows
+
+
+def _mean_or_none(xs):
+    return st.fmean(xs) if xs else None
 
 
 def by_cluster(rows, key):
@@ -120,7 +125,7 @@ def by_cluster(rows, key):
             "realized": st.fmean(x["realized"] for x in v),
             "bias": st.fmean(x["bias"] for x in v),
             "band": st.fmean(1.0 if x["band_hit"] else 0.0 for x in v),
-            "reach": st.fmean(1.0 if x["reached"] else 0.0 for x in v),
+            "reach": _mean_or_none([1.0 if x["reached"] else 0.0 for x in v if x["reached"] is not None]),
         } for t, v in tks.items()}
         out[k] = {
             "n_calls": sum(len(v) for v in tks.values()),
@@ -129,7 +134,7 @@ def by_cluster(rows, key):
             "realized": st.fmean(p["realized"] for p in per.values()),
             "bias": st.fmean(p["bias"] for p in per.values()),
             "band": st.fmean(p["band"] for p in per.values()),
-            "reach": st.fmean(p["reach"] for p in per.values()),
+            "reach": _mean_or_none([p["reach"] for p in per.values() if p["reach"] is not None]),
             "per": per,
         }
     return out
@@ -169,7 +174,8 @@ def show(rows, horizon, by_ticker=False):
                    "제 속도의 절반 이상" if pace >= 0.5 else
                    "정체" if pace >= 0 else "**역주행**")
         print(f"  진도율 **{pace:+.2f}배** (기대 {pace_den:+.1f}% vs 실제 {ov['realized']:+.1f}%) → {verdict}")
-    print(f"  밴드 적중 {ov['band']*100:.0f}%  ·  하단 도달 {ov['reach']*100:.0f}%"
+    reach = f"{ov['reach']*100:.0f}%" if ov["reach"] is not None else "—"
+    print(f"  밴드 적중 {ov['band']*100:.0f}%  ·  하단 도달 {reach}(콜 시점 이미 하단 위인 목표 제외)"
           f"   (종목 {ov['n_tickers']}개 클러스터 보정 · 밴드 적중은 단기 지평에선 낮은 게 정상)")
 
     # ★[8/14 신설] 지평 보정 편향 — 원편향의 단조성은 **지평 불일치의 산물**일 수 있다.

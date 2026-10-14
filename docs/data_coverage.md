@@ -73,7 +73,7 @@ MU·ANET·AVGO·ORCL 4종목은 무료플랜 402로 **하드넘버가 아예 없
 
 | 레이어 | 스크립트 | 소스·키 | 상태 |
 |---|---|---|---|
-| **재무제표 3표 (미국)** | `edgar_facts.py` | SEC EDGAR XBRL 무키 | ✅ **7/29 신설** — 상장 이래 전 시계열(MU 63분기·ORCL 19년) |
+| **재무제표 3표 (미국)** | `edgar_facts.py` | SEC EDGAR XBRL 무키 | ✅ **7/29 신설** — 상장 이래 전 시계열(MU 63분기·ORCL 19년). ★10/14 **companyfacts가 신고를 늦게 담는다**(CDNS 7/29 10-Q가 2.5개월째 없었다) → submissions와 접수번호를 대조해 빠진 10-Q/10-K는 **그 신고의 XBRL 인스턴스**로 메운다(`edgar_supplement` · 행 `_derived`에 표기). 못 메우면 `edgar_missing` → `margin_trend_gap` |
 | **재무제표 3표 (국내)** | `dart_facts.py` | DART `DART_API_KEY` | ✅ **7/29 신설** — 1차 출처 · **8/2 보유 밖 상장사 전체로 확대** |
 | **재무제표 백본·교차검증** | `yahoo_facts.py` | Yahoo 무키 | ✅ **7/29 신설** — 국내 23/23 계정·미국 402종목 커버 |
 | **통합·플래그·서브스코어** | `financials.py` | 3단 폴백 | ✅ **7/29 신설** — 커버리지 14/14 |

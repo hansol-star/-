@@ -13923,7 +13923,7 @@
    "name": "CADENCE DESIGN SYSTEMS, INC.",
    "region": "US",
    "currency": "USD",
-   "source": "SEC EDGAR XBRL companyfacts",
+   "source": "SEC EDGAR XBRL companyfacts + 신고 원본 XBRL 1건(companyfacts 미반영)",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
    "as_of": "2026-10-14",
@@ -14145,6 +14145,51 @@
     }
    ],
    "quarterly": [
+    {
+     "end": "2026-06-30",
+     "period": "quarterly",
+     "revenue": 1584451000,
+     "gross_profit": null,
+     "operating_income": 450315000,
+     "net_income": 367076000,
+     "eps_diluted": 1.33,
+     "shares_diluted": 276163000,
+     "rnd": 531273000,
+     "assets": 12080325000,
+     "liabilities": 5222362000,
+     "equity": 6857963000,
+     "cash": 1440443000,
+     "inventory": 390378000,
+     "receivables": 1065023000,
+     "assets_current": 3221893000,
+     "liabilities_current": 1848842000,
+     "deferred_revenue": 1025118000,
+     "cfo": 634929000,
+     "capex": 52628000,
+     "buyback": 200006000,
+     "total_debt": 2482200000,
+     "fcf": 582301000,
+     "_derived": [
+      "ytd_diff: cfo,capex,buyback",
+      "신고 원본 XBRL 보충(companyfacts 미반영 10-Q 0000813672-26-000092 · 2026-07-29 신고)",
+      "liabilities=assets-equity"
+     ],
+     "gross_margin": null,
+     "op_margin": 0.2842,
+     "net_margin": 0.2317,
+     "fcf_margin": 0.3675,
+     "roe": 0.0535,
+     "debt_to_equity": 0.3619,
+     "current_ratio": 1.7427,
+     "net_cash": -1041757000,
+     "revenue_yoy": 24.2277,
+     "eps_yoy": 125.4237,
+     "net_income_yoy": 129.3494,
+     "inventory_yoy": 72.6099,
+     "receivables_yoy": 58.9193,
+     "shares_yoy": 1.196,
+     "deferred_yoy": 40.4408
+    },
     {
      "end": "2026-03-31",
      "period": "quarterly",
@@ -14456,58 +14501,18 @@
      "receivables_yoy": 31.5279,
      "shares_yoy": 0.562,
      "deferred_yoy": 4.795
-    },
-    {
-     "end": "2024-06-30",
-     "period": "quarterly",
-     "revenue": 1060681000,
-     "gross_profit": null,
-     "operating_income": 293876000,
-     "net_income": 229520000,
-     "eps_diluted": 0.84,
-     "shares_diluted": 273520000,
-     "rnd": 370740000,
-     "assets": 7225741000,
-     "liabilities": 2964849000,
-     "equity": 4260892000,
-     "cash": 1058955000,
-     "inventory": 171508000,
-     "receivables": 564851000,
-     "assets_current": 2196388000,
-     "liabilities_current": 1533722000,
-     "deferred_revenue": 678598000,
-     "cfo": 155965000,
-     "capex": 29199000,
-     "buyback": 125004000,
-     "total_debt": 1348667000,
-     "fcf": 126766000,
-     "_derived": [
-      "ytd_diff: cfo,capex,buyback",
-      "liabilities=assets-equity"
-     ],
-     "gross_margin": null,
-     "op_margin": 0.2771,
-     "net_margin": 0.2164,
-     "fcf_margin": 0.1195,
-     "roe": 0.0539,
-     "debt_to_equity": 0.3165,
-     "current_ratio": 1.4321,
-     "net_cash": -289712000,
-     "revenue_yoy": 8.6119,
-     "eps_yoy": 3.7037,
-     "net_income_yoy": 3.7988,
-     "inventory_yoy": 22.8779,
-     "receivables_yoy": 28.1088,
-     "shares_yoy": 0.1919,
-     "deferred_yoy": -1.1212
     }
    ],
    "flags": [
     {
-     "code": "margin_trend_gap",
-     "severity": "low",
-     "message": "분기 시계열 결측 — 영업마진 연속 하락 판정이 낡은 분기 기준 (최신 분기 2026-03-31가 기준일보다 197일 전 — 그 뒤 분기 미수집)",
+     "code": "margin_trend_break",
+     "severity": "high",
+     "message": "영업마진 2분기 연속 하락 (32.2%→29.3%→28.4%)",
      "evidence": [
+      {
+       "end": "2026-06-30",
+       "op_margin": 0.2842
+      },
       {
        "end": "2026-03-31",
        "op_margin": 0.2926
@@ -14515,45 +14520,41 @@
       {
        "end": "2025-12-31",
        "op_margin": 0.3217
-      },
-      {
-       "end": "2025-09-30",
-       "op_margin": 0.3177
       }
      ]
     },
     {
      "code": "inventory_surge",
      "severity": "high",
-     "message": "재고 YoY +40.9% 가 매출 YoY +18.7% 를 22.3%p 초과 — 사이클 정점 선행신호",
+     "message": "재고 YoY +72.6% 가 매출 YoY +24.2% 를 48.4%p 초과 — 사이클 정점 선행신호",
      "evidence": [
       {
-       "end": "2026-03-31",
-       "inventory_yoy": 40.9226,
-       "revenue_yoy": 18.6623
+       "end": "2026-06-30",
+       "inventory_yoy": 72.6099,
+       "revenue_yoy": 24.2277
       }
      ]
     },
     {
      "code": "receivable_divergence",
      "severity": "med",
-     "message": "매출채권 YoY +78.0% 가 매출 YoY +18.7% 를 크게 상회 — 매출의 질 점검",
+     "message": "매출채권 YoY +58.9% 가 매출 YoY +24.2% 를 크게 상회 — 매출의 질 점검",
      "evidence": [
       {
-       "end": "2026-03-31",
-       "receivables_yoy": 77.9716,
-       "revenue_yoy": 18.6623
+       "end": "2026-06-30",
+       "receivables_yoy": 58.9193,
+       "revenue_yoy": 24.2277
       }
      ]
     },
     {
      "code": "backlog_growth",
      "severity": "bull",
-     "message": "계약부채(선수금·백로그) YoY +19.6% — 수주 잔고 확대",
+     "message": "계약부채(선수금·백로그) YoY +40.4% — 수주 잔고 확대",
      "evidence": [
       {
-       "end": "2026-03-31",
-       "deferred_yoy": 19.5776
+       "end": "2026-06-30",
+       "deferred_yoy": 40.4408
       }
      ]
     },
@@ -14572,13 +14573,13 @@
      ]
     }
    ],
-   "fund_subscore": 67.1,
+   "fund_subscore": 71.4,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
-     "score": 18.2,
+     "score": 25,
      "max": 25,
-     "why": "분기 희석EPS YoY +23.0%"
+     "why": "분기 희석EPS YoY +125.4%"
     },
     "A_연간EPS": {
      "score": 13.9,
@@ -14586,9 +14587,9 @@
      "why": "연간 희석EPS YoY +5.5%"
     },
     "마진방향": {
-     "score": 5.0,
+     "score": 2.5,
      "max": 20,
-     "why": "영업마진 -2.51%p (최근 연속 3분기)"
+     "why": "영업마진 -3.75%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 15,
@@ -14608,6 +14609,15 @@
      "primary": 1492042000,
      "cross": 1649781000.0,
      "gap_pct": 10.57
+    }
+   ],
+   "edgar_supplement": [
+    {
+     "accn": "0000813672-26-000092",
+     "form": "10-Q",
+     "filed": "2026-07-29",
+     "period_end": "2026-06-30",
+     "facts": 376
     }
    ]
   },

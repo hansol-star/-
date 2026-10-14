@@ -160,6 +160,174 @@ def company_facts(cik: str) -> dict:
     return json.loads(_get(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json").decode())
 
 
+# ─────────────────────────────────────────── companyfacts 미반영 신고 보충
+#
+# ★[10/14] CDNS 실측 — 2026-07-29 신고 10-Q(기말 2026-06-30)가 companyfacts에 **2.5개월째 없었다**
+#   (그 안의 가장 늦은 filed = 2026-05-01). submissions·frames API·신고 원본엔 다 있다 = 집계 API만 늦다.
+#   financials의 폴백(EDGAR → Yahoo)은 EDGAR가 **응답은 했으니** 내려가지 않았고, 펀더 서브스코어는
+#   한 분기 낡은 시계열로 계산됐다(최신 분기 2026-03-31).
+#   ⇒ submissions의 최근 10-Q/10-K 중 companyfacts에 접수번호(accn)가 없는 신고를 찾아 **그 신고의 XBRL
+#     인스턴스**를 companyfacts 행 모양으로 바꿔 끼운다. 같은 회사·같은 us-gaap 태그·같은 1차 출처라
+#     4분기 역산·누적 차분·연속성 판정이 그대로 돈다. Yahoo로 메우지 않는 이유 = 정의가 다른 값
+#     (영업이익·FCF 산식)이 한 시계열에 섞이면 그 분기의 '마진 변화'가 회계가 아니라 출처 차이가 된다.
+#   못 메우면 `edgar_missing`에 남고 financials `margin_trend_gap`이 사유로 낸다(조용히 낡지 않게).
+PERIODIC_FORMS = ("10-Q", "10-K")      # `_raw`가 읽는 form과 같다(정정 신고 /A는 둘 다 안 본다)
+SUPPLEMENT_LOOKBACK = 400              # 이보다 오래된 미반영 신고는 보지 않는다(옛 비-XBRL 신고 등)
+SUPPLEMENT_MAX = 6                     # 한 종목에서 받을 인스턴스 상한(companyfacts가 통째로 멈춘 경우)
+_XI = "{http://www.xbrl.org/2003/instance}"
+_XSI_NIL = "{http://www.w3.org/2001/XMLSchema-instance}nil"
+
+
+def submissions(cik: str) -> dict:
+    return json.loads(_get(f"https://data.sec.gov/submissions/CIK{cik}.json").decode())
+
+
+def _accns(facts: dict) -> set[str]:
+    out: set[str] = set()
+    for ns in (facts.get("facts") or {}).values():
+        for node in ns.values():
+            for rows in (node.get("units") or {}).values():
+                out.update(r["accn"] for r in rows if r.get("accn"))
+    return out
+
+
+def missing_filings(facts: dict, sub: dict, today: dt.date | None = None) -> list[dict]:
+    """submissions엔 있는데 companyfacts엔 접수번호가 없는 최근 10-Q/10-K(XBRL 신고만). 최신 순."""
+    have = _accns(facts)
+    rec = (sub.get("filings") or {}).get("recent") or {}
+    cutoff = ((today or dt.date.today()) - dt.timedelta(days=SUPPLEMENT_LOOKBACK)).isoformat()
+    xbrl = rec.get("isXBRL") or []
+    out = []
+    for i, form in enumerate(rec.get("form") or []):
+        if form not in PERIODIC_FORMS:
+            continue
+        accn, filed = rec["accessionNumber"][i], rec["filingDate"][i]
+        if filed < cutoff or accn in have or (i < len(xbrl) and not xbrl[i]):
+            continue
+        out.append({"accn": accn, "form": form, "filed": filed, "period_end": rec["reportDate"][i]})
+    return sorted(out, key=lambda m: m["filed"], reverse=True)
+
+
+def instance_xml(cik: str, accn: str) -> bytes:
+    """신고 폴더에서 XBRL 인스턴스를 받는다. 인라인 XBRL은 SEC가 `*_htm.xml`로 추출해 둔다."""
+    import re
+    base = f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{accn.replace('-', '')}/"
+    names = [it["name"] for it in json.loads(_get(base + "index.json").decode())["directory"]["item"]]
+    pick = next((n for n in names if n.endswith("_htm.xml")), None) or next(
+        (n for n in names if n.endswith(".xml")
+         and not re.search(r"(_cal|_def|_lab|_pre)\.xml$|^FilingSummary", n)), None)
+    if not pick:
+        raise LookupError("인스턴스 파일 없음")
+    time.sleep(SEC_PACE)
+    return _get(base + pick, timeout=60)
+
+
+def parse_instance(xml: bytes, meta: dict) -> dict[str, dict[str, list[dict]]]:
+    """XBRL 인스턴스 → {us-gaap 태그: {단위: [companyfacts 모양 행]}}.
+
+    companyfacts와 같게 **차원 없는 컨텍스트만** 담는다(세그먼트·제품별 매출이 합계 자리에 들어가면
+    안 된다 — CDNS 2분기 매출 컨텍스트 288개 중 차원 없는 것은 10개). 같은 (태그·단위·기간)은
+    본문·주석에 반복 태깅되므로 한 번만 담는다.
+    """
+    import xml.etree.ElementTree as ET
+    root = ET.fromstring(xml)
+    ctx: dict[str, tuple[str | None, str]] = {}
+    for c in root.iter(_XI + "context"):
+        if c.find(f"{_XI}entity/{_XI}segment") is not None or c.find(_XI + "scenario") is not None:
+            continue
+        per = c.find(_XI + "period")
+        if per is None:
+            continue
+        s, e, i = (per.findtext(_XI + k) for k in ("startDate", "endDate", "instant"))
+        if s and e:
+            ctx[c.get("id")] = (s.strip(), e.strip())
+        elif i:
+            ctx[c.get("id")] = (None, i.strip())
+
+    def local(m) -> str:
+        return (m.text or "").strip().split(":")[-1]
+
+    units: dict[str, str] = {}
+    for u in root.iter(_XI + "unit"):
+        div = u.find(_XI + "divide")
+        if div is not None:
+            num = "*".join(local(m) for m in div.find(_XI + "unitNumerator").iter(_XI + "measure"))
+            den = "*".join(local(m) for m in div.find(_XI + "unitDenominator").iter(_XI + "measure"))
+            units[u.get("id")] = f"{num}/{den}"
+        else:
+            units[u.get("id")] = "*".join(local(m) for m in u.iter(_XI + "measure"))
+
+    out: dict[str, dict[str, list[dict]]] = {}
+    seen: set[tuple] = set()
+    for el in root:
+        if not el.tag.startswith("{http://fasb.org/us-gaap/"):
+            continue
+        cref, uref = el.get("contextRef"), el.get("unitRef")
+        if cref not in ctx or uref not in units or el.get(_XSI_NIL) == "true":
+            continue
+        try:
+            v = float((el.text or "").strip())
+        except ValueError:
+            continue
+        s, e = ctx[cref]
+        tag = el.tag.split("}", 1)[1]
+        key = (tag, units[uref], s, e)
+        if key in seen:
+            continue
+        seen.add(key)
+        row = {"end": e, "val": int(v) if v.is_integer() else v, "accn": meta["accn"],
+               "form": meta["form"], "filed": meta["filed"], "_from": "xbrl_instance"}
+        if s:
+            row["start"] = s
+        out.setdefault(tag, {}).setdefault(units[uref], []).append(row)
+    return out
+
+
+def supplement(facts: dict, sub: dict, fetch_xml, today: dt.date | None = None) -> dict:
+    """미반영 신고의 팩트를 facts(us-gaap)에 **제자리로** 끼운다. 반환 = {added, missing}.
+
+    `fetch_xml(meta) -> bytes` — 실전은 `instance_xml`, 자가검증은 픽스처를 준다.
+    끼운 행은 companyfacts 행과 같은 규칙(`_pick_facts` = 같은 기간이면 filed 최신)으로 경쟁한다
+    — companyfacts가 그 신고를 담았다면 생겼을 상태와 같다(전년 비교 기간의 재분류 포함).
+    """
+    gaap = facts.setdefault("facts", {}).setdefault("us-gaap", {})
+    added, missing = [], []
+    for meta in missing_filings(facts, sub, today)[:SUPPLEMENT_MAX]:
+        try:
+            parsed = parse_instance(fetch_xml(meta), meta)
+        except Exception as e:      # 네트워크·파싱 — 못 메운 사실을 남긴다
+            missing.append({**meta, "why": f"{type(e).__name__}: {str(e)[:80]}"})
+            continue
+        n = 0
+        for tag, by_unit in parsed.items():
+            node = gaap.setdefault(tag, {"units": {}}).setdefault("units", {})
+            for unit, rows in by_unit.items():
+                node.setdefault(unit, []).extend(rows)
+                n += len(rows)
+        if n:
+            added.append({**meta, "facts": n})
+        else:
+            missing.append({**meta, "why": "인스턴스에 차원 없는 us-gaap 팩트 0개"})
+    facts["_supplement"] = {"added": added, "missing": missing}     # normalize가 여기서 읽는다
+    return facts["_supplement"]
+
+
+def facts_full(cik: str) -> dict:
+    """companyfacts + 미반영 신고 보충. 보충 결과는 `facts["_supplement"]`에 남는다.
+
+    submissions 조회가 실패하면 보충 없이 companyfacts만 돌려준다(그 사실도 남긴다 —
+    '확인 못 함'과 '미반영 없음'을 구별해야 한다).
+    """
+    facts = company_facts(cik)
+    try:
+        time.sleep(SEC_PACE)
+        supplement(facts, submissions(cik), lambda m: instance_xml(cik, m["accn"]))
+    except Exception as e:
+        facts["_supplement"] = {"added": [], "missing": [],
+                                "error": f"submissions 조회 실패 — {type(e).__name__}: {str(e)[:80]}"}
+    return facts
+
+
 # ─────────────────────────────────────────── XBRL 정규화
 
 def _days(f: dict) -> int | None:
@@ -431,6 +599,8 @@ def normalize(ticker: str, facts: dict, n_annual: int | None = None,
         cols[name] = _series(facts, tags, name in STOCK_KEYS, additive=name in ADDITIVE_FLOW)
     cols["total_debt"] = _debt_series(facts)
     per_share = _q4_per_share(cols)
+    sup = facts.get("_supplement") or {}
+    sup_end = {m["period_end"]: m for m in sup.get("added") or []}
 
     def build(bucket: str, limit: int | None) -> list[dict]:
         # 기준 축 = 매출(없으면 순이익) 신고 기간
@@ -462,6 +632,10 @@ def normalize(ticker: str, facts: dict, n_annual: int | None = None,
                     derived += ps["notes"]
                 if anchor_name in q4:
                     row["q4_derived"] = True     # 이 분기 행 자체가 역산으로 생겼다(회계 4분기)
+            if e in sup_end:
+                # companyfacts가 아니라 신고 원본 인스턴스에서 읽은 기간 — 같은 1차 출처지만 경로가 다르다
+                m = sup_end[e]
+                derived.append(f"신고 원본 XBRL 보충(companyfacts 미반영 {m['form']} {m['accn']} · {m['filed']} 신고)")
             # ORCL처럼 `Liabilities`를 아예 신고 안 하는 회사가 있다 → 자산 - 자본으로 유도.
             if row.get("liabilities") is None and row.get("assets") is not None \
                     and row.get("equity") is not None:
@@ -475,17 +649,24 @@ def normalize(ticker: str, facts: dict, n_annual: int | None = None,
             rows.append(row)
         return rows
 
-    return {
+    out = {
         "ticker": ticker,
         "name": facts.get("entityName"),
         "region": "US",
         "currency": "USD",
-        "source": "SEC EDGAR XBRL companyfacts",
+        "source": "SEC EDGAR XBRL companyfacts"
+                  + (f" + 신고 원본 XBRL {len(sup_end)}건(companyfacts 미반영)" if sup_end else ""),
         "depth": "full",
         "as_of": dt.date.today().isoformat(),
         "annual": build("annual", n_annual),
         "quarterly": build("quarterly", n_quarter),
     }
+    # 보충 결과는 있을 때만 남긴다(대부분의 종목은 미반영 신고가 없다)
+    for k, v in (("edgar_supplement", sup.get("added")), ("edgar_missing", sup.get("missing")),
+                 ("edgar_supplement_error", sup.get("error"))):
+        if v:
+            out[k] = v
+    return out
 
 
 def fetch(ticker: str, cmap: dict[str, str] | None = None) -> dict:
@@ -495,7 +676,7 @@ def fetch(ticker: str, cmap: dict[str, str] | None = None) -> dict:
     if not cik:
         return {"ticker": t, "_error": f"CIK 없음 (SEC 미신고 종목이거나 티커 오류)"}
     try:
-        return normalize(t, company_facts(cik))
+        return normalize(t, facts_full(cik))
     except urllib.error.HTTPError as e:
         return {"ticker": t, "_error": f"HTTP {e.code}"}
     except Exception as e:  # pragma: no cover
@@ -615,6 +796,68 @@ def _fixture_facts(drop_quarters: tuple[str, ...] = (), annual_eps_scale: float 
     return {"entityName": "SELFTEST MEMORY CO (MU 신고값 픽스처)", "facts": {"us-gaap": gaap}}
 
 
+# 미반영 신고 픽스처 — FQ3-26(기말 2026-05-28) 10-Q가 companyfacts에 안 들어온 상태(10/14 CDNS 형태).
+_FX_LAG_END, _FX_LAG_FILED, _FX_LAG_ACCN = "2026-05-28", "2026-06-25", "FX-2026-06-25"
+
+
+def _fixture_lagged() -> dict:
+    """companyfacts 픽스처에서 FQ3-26 신고를 뺀 것 + 행마다 접수번호(accn = 'FX-' + 신고일)."""
+    f = _fixture_facts(drop_quarters=(_FX_LAG_END,))
+    for node in f["facts"]["us-gaap"].values():
+        for unit, rows in node["units"].items():
+            # 그 신고의 팩트는 전부 빠진다(재무상태표 시점 팩트 포함)
+            node["units"][unit] = [dict(r, accn="FX-" + r["filed"]) for r in rows
+                                   if r["filed"] != _FX_LAG_FILED]
+    return f
+
+
+def _fixture_sub(extra: list[tuple] = ()) -> dict:
+    """submissions 픽스처 — 최근 신고 목록(최신 순). extra = (form, filed, report, accn, isXBRL)."""
+    rows = [("8-K", "2026-06-26", "2026-06-25", "FX-8K", 1),
+            ("10-Q", _FX_LAG_FILED, _FX_LAG_END, _FX_LAG_ACCN, 1),
+            ("10-Q", "2026-03-26", "2026-02-26", "FX-2026-03-26", 1),
+            ("10-Q", "2025-12-25", "2025-11-27", "FX-2025-12-25", 1)] + list(extra)
+    rows.sort(key=lambda r: r[1], reverse=True)
+    keys = ("form", "filingDate", "reportDate", "accessionNumber", "isXBRL")
+    return {"filings": {"recent": {k: [r[i] for r in rows] for i, k in enumerate(keys)}}}
+
+
+def _fixture_instance() -> bytes:
+    """그 10-Q의 XBRL 인스턴스(인라인 추출본 모양). MU FQ3-26 신고값 + 버려야 할 것 셋:
+    차원(세그먼트) 매출 · 같은 팩트 중복 태깅 · nil 팩트."""
+    q = '<period><startDate>2026-02-27</startDate><endDate>2026-05-28</endDate></period>'
+    y = '<period><startDate>2025-08-29</startDate><endDate>2026-05-28</endDate></period>'
+    i = '<period><instant>2026-05-28</instant></period>'
+    ent = '<entity><identifier scheme="http://www.sec.gov/CIK">0000000000</identifier>{}</entity>'
+    seg = ('<segment><xbrldi:explicitMember dimension="srt:ProductOrServiceAxis">'
+           'x:HbmMember</xbrldi:explicitMember></segment>')
+    ctx = "".join(f'<context id="{cid}">{ent.format(s)}{p}</context>'
+                  for cid, s, p in (("cq", "", q), ("cy", "", y), ("ci", "", i), ("cd", seg, q)))
+    units = ('<unit id="usd"><measure>iso4217:USD</measure></unit>'
+             '<unit id="shares"><measure>shares</measure></unit>'
+             '<unit id="usdPerShare"><divide><unitNumerator><measure>iso4217:USD</measure></unitNumerator>'
+             '<unitDenominator><measure>shares</measure></unitDenominator></divide></unit>')
+    # 차원 팩트를 **맨 앞에** 둔다 — 뒤에 두면 중복 제거가 차원 필터의 결함을 가린다(같은 기간·태그)
+    facts = [("Revenues", "cd", "usd", "99999000000"),
+             ("Revenues", "cq", "usd", "41456000000"), ("Revenues", "cq", "usd", "41456000000"),
+             ("Revenues", "cy", "usd", "78959000000"),
+             ("GrossProfit", "cq", "usd", "35056000000"), ("OperatingIncomeLoss", "cq", "usd", "33318000000"),
+             ("NetIncomeLoss", "cq", "usd", "28243000000"),
+             ("NetCashProvidedByUsedInOperatingActivities", "cy", "usd", "45702000000"),
+             ("PaymentsToAcquirePropertyPlantAndEquipment", "cy", "usd", "19602000000"),
+             ("EarningsPerShareDiluted", "cq", "usdPerShare", "24.67"),
+             ("WeightedAverageNumberOfDilutedSharesOutstanding", "cq", "shares", "1145000000"),
+             ("Assets", "ci", "usd", "121340000000")]
+    body = "".join(f'<us-gaap:{t} contextRef="{c}" unitRef="{u}" decimals="-6">{v}</us-gaap:{t}>'
+                   for t, c, u, v in facts)
+    body += '<us-gaap:InventoryNet contextRef="ci" unitRef="usd" xsi:nil="true"/>'
+    return ('<?xml version="1.0" encoding="utf-8"?>'
+            '<xbrl xmlns="http://www.xbrl.org/2003/instance" xmlns:us-gaap="http://fasb.org/us-gaap/2025" '
+            'xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" '
+            'xmlns:srt="http://fasb.org/srt/2025" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            f'{ctx}{units}{body}</xbrl>').encode()
+
+
 def selftest() -> int:
     """4분기 역산이 **맞는 값을 만들고, 만들면 안 될 때 안 만드는지** 본다(오프라인).
 
@@ -692,6 +935,55 @@ def selftest() -> int:
     r_dir = rows(direct_q4={"2025-08-28": 11000}).get("2025-08-28") or {}
     check(m(r_dir, "revenue") == 11000 and not r_dir.get("q4_derived"),
           "4분기 단독 신고값이 있으면 그 값을 쓴다(역산 표시 없음)", str(m(r_dir, "revenue")))
+
+    # ⑧ companyfacts 미반영 신고(10/14 CDNS) — 신고 원본 XBRL로 메우면 역산·누적 차분까지 복원된다
+    today = dt.date(2026, 10, 14)
+    lag = _fixture_lagged()
+    q_lag = {r["end"]: r for r in normalize("TEST", lag)["quarterly"]}
+    check(_FX_LAG_END not in q_lag and "2026-09-03" not in q_lag,
+          "함정 확인: 미반영 상태 = FQ3-26이 없고, 그 때문에 FQ4-26 역산도 못 한다",
+          "미반영 픽스처가 이미 그 분기를 갖고 있으면 아래 검사는 아무것도 증명하지 못한다")
+    miss = missing_filings(lag, _fixture_sub(), today)
+    check([x["accn"] for x in miss] == [_FX_LAG_ACCN],
+          "미반영 신고만 찾는다(8-K·이미 반영된 10-Q 제외)", str(miss))
+    old = _fixture_sub([("10-Q", "2025-03-01", "2025-01-30", "FX-OLD", 1),
+                        ("10-Q", "2026-06-20", "2026-05-01", "FX-NOXBRL", 0)])
+    check([x["accn"] for x in missing_filings(lag, old, today)] == [_FX_LAG_ACCN],
+          f"{SUPPLEMENT_LOOKBACK}일보다 오래된 신고·XBRL 없는 신고는 보충 대상이 아니다")
+    sup = supplement(lag, _fixture_sub(), lambda meta: _fixture_instance(), today)
+    rec = normalize("TEST", lag)
+    q_sup = {r["end"]: r for r in rec["quarterly"]}
+    r3, r4 = q_sup.get(_FX_LAG_END) or {}, q_sup.get("2026-09-03") or {}
+    check([a["accn"] for a in sup["added"]] == [_FX_LAG_ACCN] and not sup["missing"]
+          and "신고 원본 XBRL 1건" in rec["source"] and rec.get("edgar_supplement"),
+          "보충 결과가 레코드에 남는다(source · edgar_supplement)", f"{sup} / {rec['source']}")
+    check((m(r3, "revenue"), m(r3, "operating_income"), m(r3, "assets")) == (41456, 33318, 121340)
+          and r3.get("eps_diluted") == 24.67 and sup["added"][0]["facts"] == 10
+          # EPS 단위가 companyfacts와 같은 'USD/shares'여야 기존 분기 EPS와 한 시계열이 된다
+          and q_sup["2026-02-26"].get("eps_diluted") == 12.07,
+          "보충 분기 = 신고값(차원 매출 99,999·중복 태깅·nil은 버린다)",
+          f"{m(r3, 'revenue')}, {m(r3, 'operating_income')}, {m(r3, 'assets')}, {r3.get('eps_diluted')}")
+    check(m(r3, "cfo") == 25388 and m(r3, "capex") == 7826,
+          "보충 분기 CFO·capex = 누적(9개월) − 6개월(companyfacts 쪽 값과 차분)",
+          f"{m(r3, 'cfo')}, {m(r3, 'capex')}")
+    check(m(r4, "revenue") == 54229 and r4.get("q4_derived") is True,
+          "보충으로 세 분기가 갖춰져 FQ4-26 역산이 되살아난다(8-K 표 54,229)", str(m(r4, "revenue")))
+    check(any(d.startswith("신고 원본 XBRL 보충") for d in r3.get("_derived", []))
+          and not any("신고 원본" in d for d in (q_sup["2026-02-26"].get("_derived") or [])),
+          "보충한 기간의 행에만 출처 표기", str(r3.get("_derived")))
+    # 못 메우면 사유가 남는다(조용히 낡지 않게) — 그 사유를 financials가 margin_trend_gap으로 낸다
+    lag2 = _fixture_lagged()
+
+    def boom(meta):
+        raise urllib.error.URLError("503")
+    sup2 = supplement(lag2, _fixture_sub(), boom, today)
+    rec2 = normalize("TEST", lag2)
+    check(not sup2["added"] and [x["accn"] for x in rec2.get("edgar_missing") or []] == [_FX_LAG_ACCN]
+          and "URLError" in rec2["edgar_missing"][0]["why"] and _FX_LAG_END not in
+          {r["end"] for r in rec2["quarterly"]},
+          "보충 실패 → edgar_missing에 신고·사유가 남고 분기는 비어 있다", str(rec2.get("edgar_missing")))
+    check("edgar_supplement" not in normalize("TEST", _fixture_facts()),
+          "미반영 신고가 없는 종목엔 보충 키가 생기지 않는다")
 
     print("-" * 78)
     print("✅ 통과 — 역산이 맞고, 만들면 안 될 때 안 만든다" if ok else "❌ 실패")

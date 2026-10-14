@@ -64,6 +64,8 @@ import cli_common
 # ⚠️ 티커 접미사는 시장을 바꾼다: 454910.KS=두산로보틱스(KSE) / 454910.KQ=코스닥의 다른 종목.
 #    원익IPS·테스 .KQ 사고(6/14)의 반대방향 재발 — 접미사는 market_data.py와 항상 일치시킬 것.
 ETF = ["VOO"]
+# edgar_facts가 companyfacts 미반영 신고를 원본 XBRL로 메운 기록(10/14) — 저장본에 그대로 싣는다
+EDGAR_SUPPLEMENT_KEYS = ("edgar_supplement", "edgar_missing", "edgar_supplement_error")
 
 
 def _canon_holdings() -> tuple[list[str], list[str]]:
@@ -316,6 +318,12 @@ def _trend_gap_reasons(rec: dict, q: list[dict], run: list[dict]) -> list[str]:
         age = None
     if age is not None and age > STALE_Q_DAYS:
         why.append(f"최신 분기 {q[0]['end']}가 기준일보다 {age}일 전 — 그 뒤 분기 미수집")
+    # ★[10/14] 신고는 됐는데 못 받은 분기 — 낡은 정도(185일)와 무관하게 알린다(CDNS: 신고 직후부터
+    #   한 분기 낡아 있었지만 185일을 넘기 전까지는 아무 표시가 없었다)
+    for m in rec.get("edgar_missing") or []:
+        if str(m.get("period_end") or "") > str(q[0].get("end") or ""):
+            why.append(f"{m.get('form')}(기말 {m.get('period_end')} · {m.get('filed')} 신고)가 companyfacts에 "
+                       f"없고 원본 XBRL 보충도 실패 — {m.get('why')}")
     return why
 
 
@@ -580,6 +588,9 @@ def save(data: dict) -> str:
             "axes": r.get("axes"),
             "source_conflict": r.get("source_conflict", []),
         }
+        for k in EDGAR_SUPPLEMENT_KEYS:      # companyfacts 미반영 신고 보충 기록(있을 때만)
+            if r.get(k):
+                slim["stocks"][t][k] = r[k]
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(slim, f, ensure_ascii=False, indent=1)
 
@@ -603,6 +614,7 @@ def save(data: dict) -> str:
                            "currency": r.get("currency"), "source": r.get("source"),
                            "depth": r.get("depth"), "as_of": r.get("as_of"),
                            "saved_at": data["updated"],
+                           **{k: r[k] for k in EDGAR_SUPPLEMENT_KEYS if r.get(k)},
                            "annual": r.get("annual", []),        # ← 자르지 않는다
                            "quarterly": r.get("quarterly", [])},
                           f, ensure_ascii=False, indent=1)
@@ -726,6 +738,34 @@ def selftest() -> int:
     check(ax_ok["score"] is not None and "연속 3분기" in ax_ok["why"], "마진방향: 연속 3분기면 채점", str(ax_ok))
     check(ax_gap["score"] is None and "결측" in ax_gap["why"],
           "마진방향: 최신 분기가 직전과 안 이어지면 채점 제외(0점 아님)", str(ax_gap))
+
+    # ⑦' companyfacts 미반영 신고(10/14 CDNS) — 보충하면 그 분기로 판정하고, 못 하면 **낡기 전부터** gap
+    #     (기준일 7/1 = 최신 분기 2/26에서 125일 — 185일 규칙으로는 아무 표시가 안 나는 시점)
+    today = dt.date(2026, 10, 14)
+
+    def down(meta):
+        raise OSError("503 Service Unavailable")
+    lag = E._fixture_lagged()
+    E.supplement(lag, E._fixture_sub(), down, today)
+    nr = E.normalize("TEST", lag)
+    rec_miss = dict(rec_of(nr["quarterly"], "2026-07-01"), edgar_missing=nr.get("edgar_missing"))
+    gap = next((f for f in flags(rec_miss) if f["code"] == "margin_trend_gap"), None)
+    check(gap is not None and "2026-05-28" in gap["message"] and "보충도 실패" in gap["message"]
+          and "미수집" not in gap["message"],
+          "보충 실패 → 185일 전이라도 gap(신고된 분기를 못 받았다고 적는다)", str(gap and gap["message"]))
+    stale = dict(rec_of(nr["quarterly"], "2026-07-01"),
+                 edgar_missing=[dict(nr["edgar_missing"][0], period_end="2025-11-27")])
+    check(not any("보충도 실패" in f["message"] for f in flags(stale)),
+          "└ 이미 가진 분기보다 오래된 미반영 신고는 사유가 아니다")
+    ok_facts = E._fixture_lagged()
+    E.supplement(ok_facts, E._fixture_sub(), lambda meta: E._fixture_instance(), today)
+    nr2 = E.normalize("TEST", ok_facts)
+    rec_ok = dict(rec_of(nr2["quarterly"], "2026-07-01"), edgar_missing=nr2.get("edgar_missing"))
+    check(rec_ok["quarterly"][0]["end"] == "2026-09-03" and "2026-05-28" in
+          [r["end"] for r in rec_ok["quarterly"][:3]]
+          and not any(f["code"] == "margin_trend_gap" for f in flags(rec_ok)),
+          "보충 성공 → 그 분기가 시계열에 들어가고(4분기 역산까지) gap 없음",
+          str([r["end"] for r in rec_ok["quarterly"][:3]]))
 
     # ⑦ 배선 — 플래그 코드 ↔ 엑셀 라벨 ↔ 목표가 가산표
     with open(os.path.abspath(__file__), encoding="utf-8") as f:

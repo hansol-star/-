@@ -3,10 +3,19 @@
  "name": "CADENCE DESIGN SYSTEMS, INC.",
  "region": "US",
  "currency": "USD",
- "source": "SEC EDGAR XBRL companyfacts",
+ "source": "SEC EDGAR XBRL companyfacts + 신고 원본 XBRL 1건(companyfacts 미반영)",
  "depth": "full",
  "as_of": "2026-10-14",
  "saved_at": "2026-10-14",
+ "edgar_supplement": [
+  {
+   "accn": "0000813672-26-000092",
+   "form": "10-Q",
+   "filed": "2026-07-29",
+   "period_end": "2026-06-30",
+   "facts": 376
+  }
+ ],
  "annual": [
   {
    "end": "2025-12-31",
@@ -775,6 +784,51 @@
   }
  ],
  "quarterly": [
+  {
+   "end": "2026-06-30",
+   "period": "quarterly",
+   "revenue": 1584451000,
+   "gross_profit": null,
+   "operating_income": 450315000,
+   "net_income": 367076000,
+   "eps_diluted": 1.33,
+   "shares_diluted": 276163000,
+   "rnd": 531273000,
+   "assets": 12080325000,
+   "liabilities": 5222362000,
+   "equity": 6857963000,
+   "cash": 1440443000,
+   "inventory": 390378000,
+   "receivables": 1065023000,
+   "assets_current": 3221893000,
+   "liabilities_current": 1848842000,
+   "deferred_revenue": 1025118000,
+   "cfo": 634929000,
+   "capex": 52628000,
+   "buyback": 200006000,
+   "total_debt": 2482200000,
+   "fcf": 582301000,
+   "_derived": [
+    "ytd_diff: cfo,capex,buyback",
+    "신고 원본 XBRL 보충(companyfacts 미반영 10-Q 0000813672-26-000092 · 2026-07-29 신고)",
+    "liabilities=assets-equity"
+   ],
+   "gross_margin": null,
+   "op_margin": 0.2842,
+   "net_margin": 0.2317,
+   "fcf_margin": 0.3675,
+   "roe": 0.0535,
+   "debt_to_equity": 0.3619,
+   "current_ratio": 1.7427,
+   "net_cash": -1041757000,
+   "revenue_yoy": 24.2277,
+   "eps_yoy": 125.4237,
+   "net_income_yoy": 129.3494,
+   "inventory_yoy": 72.6099,
+   "receivables_yoy": 58.9193,
+   "shares_yoy": 1.196,
+   "deferred_yoy": 40.4408
+  },
   {
    "end": "2026-03-31",
    "period": "quarterly",

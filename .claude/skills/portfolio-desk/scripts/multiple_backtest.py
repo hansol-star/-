@@ -209,7 +209,7 @@ def _eps_rows(tk):
     if not cik:
         return [], []
     try:
-        cf = EF.company_facts(cik)
+        cf = EF.facts_full(cik)            # companyfacts + 미반영 신고 원본 XBRL(10/14 CDNS)
     except Exception:
         return [], []
     units = ((((cf.get("facts") or {}).get("us-gaap") or {})

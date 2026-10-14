@@ -1,0 +1,149 @@
+{
+ "updated": "2026-10-13",
+ "days": 7,
+ "universe": [
+  "005930",
+  "066570",
+  "454910",
+  "005380",
+  "035420"
+ ],
+ "counts": {
+  "critical": 1,
+  "notable": 4,
+  "routine": 4
+ },
+ "items": [
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20261007",
+   "title": "[기재정정]주식교환ㆍ이전결정(종속회사의주요경영사항)",
+   "level": "critical",
+   "category": "지배구조",
+   "why": "구조 변경",
+   "rcept_no": "20261007800306",
+   "filer": "NAVER",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800306"
+  },
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261012",
+   "title": "자기주식취득결과보고서",
+   "level": "notable",
+   "category": "자사주",
+   "why": "수급·주주환원",
+   "rcept_no": "20261012000421",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012000421"
+  },
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261008",
+   "title": "주식등의대량보유상황보고서(일반)",
+   "level": "notable",
+   "category": "5%보고",
+   "why": "대주주 매매",
+   "rcept_no": "20261008000706",
+   "filer": "삼성물산",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000706"
+  },
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261008",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261008800004",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800004"
+  },
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "date": "20261007",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261007800145",
+   "filer": "LG전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800145"
+  }
+ ],
+ "insider": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "n": 1,
+   "net": -100,
+   "n_buy": 0,
+   "n_sell": 1,
+   "top": [
+    {
+     "who": "김은용",
+     "ofcps": "상무",
+     "regist": "비등기임원",
+     "delta": -100,
+     "held": 179,
+     "date": "2026-10-12"
+    }
+   ]
+  },
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  }
+ ],
+ "major": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "2026-10-08",
+   "who": "삼성물산",
+   "qty": 1151055549,
+   "d_qty": -68241,
+   "rate": "19.69",
+   "d_rate": "-0.00",
+   "reason": "- 특별관계자 및 보유주식수 변동\n- 보유주식등에 관한 계약의 변경",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000706"
+  }
+ ],
+ "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
+}

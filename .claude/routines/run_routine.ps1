@@ -211,6 +211,30 @@ if ($Kind -eq 'r2') {
   $todayRep = @(Get-ChildItem (Join-Path $Repo 'docs\reports') -Filter "report_v*_$stamp.md" -ErrorAction SilentlyContinue)
   $originRep = @(& git -C $Repo ls-tree --name-only origin/main docs/reports/ 2>$null |
                  Where-Object { $_ -match ('report_v\d+_' + $stamp + '\.md$') })
+  # ★[2026-10-16] 파일명 날짜 = 오늘이어도 **KRX 마감(15:30 KST) 전에 만든 보고서는 오늘 장을 못 담는다.**
+  #   10/15 00:08에 쓴 v115(내용 = 10/14 장 + 美 10/14 밤)를 '오늘 보고서'로 읽어 무인 작성을 건너뛰었고,
+  #   그날이 코스피 -7.57%·고점대비 -39.1% 사이클 신저점이었다 — 그 날짜의 보고서가 끝내 안 나왔다.
+  #   ⇒ 처음 커밋된 시각(origin → 로컬 순, 미커밋이면 파일 생성 시각)이 오늘 15:30 이후인 것만 센다.
+  $krxCloseKst = $kst.Date.AddHours(15).AddMinutes(30)
+  function Get-RepBornKst([string]$rel) {
+    foreach ($ref in @('origin/main', 'HEAD')) {
+      $iso = (& git -C $Repo log $ref --diff-filter=A --format=%cI -1 -- $rel 2>$null | Out-String).Trim()
+      if ($iso) { return [DateTimeOffset]::Parse($iso).ToUniversalTime().DateTime.AddHours(9) }
+    }
+    $p = Join-Path $Repo $rel
+    if (Test-Path $p) { return (Get-Item $p).CreationTimeUtc.AddHours(9) }
+    return $null
+  }
+  $preClose = @()
+  $todayRep = @($todayRep | Where-Object {
+      $b = Get-RepBornKst "docs/reports/$($_.Name)"
+      if ($b -and $b -lt $krxCloseKst) { $script:preClose += "$($_.Name)@$($b.ToString('HH:mm'))"; $false } else { $true } })
+  $originRep = @($originRep | Where-Object {
+      $b = Get-RepBornKst $_
+      if ($b -and $b -lt $krxCloseKst) { $script:preClose += "$(Split-Path $_ -Leaf)@$($b.ToString('HH:mm'))(origin)"; $false } else { $true } })
+  if ($preClose.Count -gt 0) {
+    Write-Log "오늘 날짜 보고서가 있지만 KRX 마감 전 작성 = 오늘 장 미포함 → 무인 작성 진행: $(($preClose | Select-Object -Unique) -join ', ')"
+  }
   if (($todayRep.Count -gt 0 -or $originRep.Count -gt 0) -and -not $DryRun) {
     $repName = if ($todayRep.Count -gt 0) { $todayRep[-1].Name } else { "$($originRep[-1]) (origin/main)" }
     Write-Log "오늘 보고서 이미 있음($repName) — 무인 작성 생략, 할 일 알림만"

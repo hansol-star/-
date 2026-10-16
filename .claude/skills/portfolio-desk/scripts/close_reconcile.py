@@ -339,18 +339,16 @@ def reconcile(today: str | None = None) -> dict:
 
 
 def commit(msg: str) -> str:
-    def git(*a):
-        return subprocess.run(["git", "-C", ROOT, *a], capture_output=True, text=True, timeout=120)
+    """자기 파일만 **origin/main 위에** 커밋해 올린다(git_sync).
+
+    ★[2026-10-16] 舊 = 로컬에 커밋 → origin/main이 앞서 있으면 *"푸시 보류(다음 세션이 합친다)"*.
+      클라우드 keyless 시세 갱신이 하루 두 번 origin에 커밋하므로 이 분기가 사실상 매번 탔고,
+      10/15~10/16 대사 4커밋(코스피 -7.57% 신저점 · 외인 -3.7조 · 13일 연속 끝)이 로컬에만 쌓였다.
+      다음 세션은 합치지 않았다 — 로컬 main이 갈라져 R2 런처 ff도 매일 exit 128로 실패했다.
+    """
+    import git_sync
     ex = [f for f in own_files() if os.path.exists(os.path.join(ROOT, f))]
-    git("add", "--", *ex)
-    if git("diff", "--cached", "--quiet").returncode == 0:
-        return "변경 없음"
-    if git("commit", "-q", "-m", msg, "--", *ex).returncode != 0:
-        return "커밋 실패"
-    git("fetch", "-q", "origin", "main")
-    if git("merge-base", "--is-ancestor", "origin/main", "HEAD").returncode != 0:
-        return "커밋만 함 — origin/main이 앞서 있어 푸시 보류(다음 세션이 합친다)"
-    return "푸시 완료" if git("push", "-q", "origin", "HEAD:main").returncode == 0 else "커밋만 함 — 푸시 실패"
+    return git_sync.describe(git_sync.publish(ROOT, ex, msg))
 
 
 def line(o: dict) -> str:

@@ -265,6 +265,8 @@
 | 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 **54/54** · 10/12 미등록 15개 일괄 등록 — ⚠️ 가드당 1~2개 형태만 심는다 = **등록 ≠ 모든 위반 형태 적발** · 새 check는 주입 테스트와 같이 만든다) |
 | 루틴 실패 침묵 | `check_routine_health` |
 | 마감 후 수급·낙폭 대사를 사람이 시켜야 돎 | `close_reconcile.py`(스케줄러 16:10·20:10 자동) + `check_close_recon`(10/12 — '잠정'이 7거래일 누적됐다. **"마감 후 대사" 할 일을 만들지 말 것**) |
+| 자동 커밋이 origin을 못 따라가 로컬에만 쌓임(로컬 main 갈라짐) | `git_sync.py`(10/16 — origin/main 위 임시 인덱스 커밋 · dirty 보존 · `--selftest` · close_reconcile 사용) |
+| 자정 넘어 쓴 보고서를 '오늘 장 보고서'로 읽고 R2가 건너뜀 | `run_routine.ps1`(10/16 — 첫 커밋 시각 ≥ 15:30 KST만 오늘 보고서) |
 | 자막 유실 | `check_transcript_persistence` |
 | 의미검색 인덱스 stale | `check_memory_index` |
 | 워치 별점이 채점에서 새는 것 | `check_watch_calls`(9/14 — 3개월간 매일 22건 만들어 매일 버리고 있었다) |

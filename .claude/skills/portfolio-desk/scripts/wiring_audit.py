@@ -44,6 +44,8 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
+    "git_sync.py":                "git 라이브러리(10/16) — close_reconcile.commit()이 import해 자기 파일을 origin/main 위 임시 인덱스 커밋으로 올린다(로컬 main 갈라짐 방지). "
+                                  "산출물 파일이 없으니 데스크가 읽을 것도 없다. 수동 CLI = 대화형 세션이 공유 워킹트리에서 자기 경로만 올릴 때(-m · --ff-only)",
     "live_quotes.py":             "앱 전용 실시간 시세층(9/21) — 소비자는 데스크가 아니라 **폰 앱**(app/live.json)이다. "
                                   "호출 경로 = 클라우드 .github/workflows/deploy-app.yml(평일 5~10분 스케줄) + 로컬 price_watch.py "
                                   "--once 끝의 --kick(배포본 8분+ 낡으면 워크플로 깨움). 데스크 시세 정본은 계속 market_data.py다 — "

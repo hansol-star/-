@@ -129,24 +129,51 @@ def fetch_daily_with_gaps(symbol: str, period1: int = 0, timeout: float = 30.0):
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             data = json.loads(r.read().decode())
-        res = data["chart"]["result"][0]
-        ts = res["timestamp"]
-        closes = res["indicators"]["quote"][0]["close"]
-        off = (res.get("meta") or {}).get("gmtoffset") or 0
-        book, nulls = {}, []
-        for t, c in zip(ts, closes):
-            d = bar_date(t, off)
-            if c is None:
-                nulls.append(d)
-                continue
-            book[d] = round(float(c), 4)      # 같은 날짜가 둘이면(미형성 봉 + 라이브 행) 뒤의 값
-        out = sorted(book.items())
-        # 오늘 세션의 미형성 봉(null)과 라이브 행은 같은 날짜다 — 값이 있으면 결측이 아니다.
-        gaps = sorted({d for d in nulls if d not in book})
-        return out, gaps
+        return parse_chart(data["chart"]["result"][0], now)
     except (urllib.error.HTTPError, urllib.error.URLError, KeyError,
             IndexError, TypeError, ValueError):
         return None
+
+
+def live_session_day(meta: dict, now: int):
+    """정규장이 **지금 진행 중인** 세션의 현지일(아니면 None) — Yahoo meta.currentTradingPeriod.regular 기준.
+
+    ★[2026-10-16] 美 정규장 도중(23:4x KST)에 이 스크립트를 돌렸더니 ^GSPC·ANET 등 미국·유럽 33종목에
+      **10/16 장중값**이 그날 종가 행으로 들어갔다(^GSPC 7,732.59 · ANET 181.86 — 장은 아직 5시간 남았다).
+      국내는 close_reconcile가 마감 뒤에 돌아서 안 보였을 뿐, 해외 시장은 이 스크립트를 언제 돌려도 어딘가는 열려 있다.
+      개정창(REVISE_WINDOW_DAYS)이 다음 실행에서 덮긴 하지만, 그 전까지 캐시를 정본으로 읽는 vol_gauge·
+      가격 대조가 장중값을 종가로 쓴다 → **진행 중인 세션의 봉은 처음부터 쓰지 않는다.**
+    """
+    reg = ((meta or {}).get("currentTradingPeriod") or {}).get("regular") or {}
+    try:
+        start, end = int(reg.get("start") or 0), int(reg.get("end") or 0)
+    except (TypeError, ValueError):
+        return None
+    if start and end and start <= now < end:
+        return bar_date(start, (meta or {}).get("gmtoffset") or 0)
+    return None
+
+
+def parse_chart(res: dict, now: int):
+    """Yahoo chart result → ([(date, close), ...], [결측 날짜, ...]). 진행 중인 세션의 봉은 뺀다."""
+    ts = res["timestamp"]
+    closes = res["indicators"]["quote"][0]["close"]
+    meta = res.get("meta") or {}
+    off = meta.get("gmtoffset") or 0
+    live = live_session_day(meta, now)
+    book, nulls = {}, []
+    for t, c in zip(ts, closes):
+        d = bar_date(t, off)
+        if d == live:
+            continue                          # 아직 종가가 아니다(결측도 아니다)
+        if c is None:
+            nulls.append(d)
+            continue
+        book[d] = round(float(c), 4)      # 같은 날짜가 둘이면(미형성 봉 + 라이브 행) 뒤의 값
+    out = sorted(book.items())
+    # 오늘 세션의 미형성 봉(null)과 라이브 행은 같은 날짜다 — 값이 있으면 결측이 아니다.
+    gaps = sorted({d for d in nulls if d not in book})
+    return out, gaps
 
 
 def fetch_full_daily(symbol: str, period1: int = 0, timeout: float = 30.0):
@@ -1321,6 +1348,23 @@ def selftest() -> int:
 
     ok("부분 갱신이 다른 심볼을 지우지 않는다",
        set(m["symbols"]) == {"A", "B"} and m["symbols"]["A"]["days"] == 11 and m["total_daily_bars"] == 16)
+
+    # ★[10/16] 정규장 진행 중인 세션의 봉은 쓰지 않는다(美 장중 23:4x KST 실행 → 10/16 장중값 고착)
+    o15, o16 = calendar.timegm((2026, 10, 15, 13, 30, 0)), calendar.timegm((2026, 10, 16, 13, 30, 0))
+    res = {"timestamp": [o15, o16], "indicators": {"quote": [{"close": [7744.06, 7732.59]}]},
+           "meta": {"gmtoffset": -14400,
+                    "currentTradingPeriod": {"regular": {"start": o16, "end": o16 + 23400}}}}
+    rows, gaps = parse_chart(res, o16 + 4500)                        # 개장 75분 뒤
+    ok("美 장중: 진행 중 세션(10/16) 봉 제외 · 결측으로도 안 셈",
+       rows == [("2026-10-15", 7744.06)] and gaps == [])
+    rows, _ = parse_chart(res, o16 + 23400 + 60)                    # 마감 1분 뒤
+    ok("美 마감 뒤: 10/16 봉 기록", rows[-1] == ("2026-10-16", 7732.59))
+    res["indicators"]["quote"][0]["close"] = [7744.06, None]
+    rows, gaps = parse_chart(res, o16 + 4500)
+    ok("美 장중 미형성 봉(null)은 결측이 아니다", gaps == [] and rows == [("2026-10-15", 7744.06)])
+    res["meta"].pop("currentTradingPeriod")
+    rows, _ = parse_chart({**res, "indicators": {"quote": [{"close": [7744.06, 7732.59]}]}}, o16 + 4500)
+    ok("meta에 거래시간이 없으면 舊 동작 그대로(개정창이 보정)", len(rows) == 2)
 
     print(f"\n{'✅ SELFTEST PASS' if not fails else '❌ SELFTEST FAIL: ' + ', '.join(fails)}")
     return 1 if fails else 0

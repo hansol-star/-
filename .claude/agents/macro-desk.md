@@ -29,7 +29,13 @@ report; you gather and return the macro section. **Do not write report files you
    `python3 .claude/skills/portfolio-desk/scripts/macro_data.py --json`
    → 미국채 10Y/2Y·2s10s 스프레드·실질금리(TIPS)·기대인플레(BEI)·EFFR·VIX·WTI·달러지수·CPI YoY·실업률.
    **이 수치가 금리·물가 서술의 하드넘버 정본** (1영업일 지연은 정상 — 당일 장중값만 WebSearch 보완).
-   (선택) `--polymarket fed` 등으로 이벤트 내재확률 참고 가능 — 참고용, CME FedWatch가 정본.
+   ★**[10/17 R3 — 선택 → 필수 교차축]** `--polymarket fed` (무키·거래량 병기).
+   CME FedWatch는 **원화면이 기계판독 불가**라 우리가 인용하는 수치는 거의 항상 **2차 매체 재인용**이다
+   (v115 = CNBC 인용 '10/28 인상확률 52%', 같은 보고서가 스스로 *FedWatch 원화면 미확인*이라 적었다).
+   10/17 실측에서 Polymarket **'2026년 10월 FOMC 변경 없음' Yes 86.5%**(거래량 $13.3M·만기 ~10/29)
+   = 변경 확률 **13.5%**로, 같은 이벤트인데 **38.5%p** 갈렸다.
+   ⇒ **FOMC 확률을 쓸 때는 두 값을 나란히 쓴다.** 갈리면 [대립·미결]이고 한쪽을 정본으로 단정하지 않는다
+   (정본 선언이 가능한 건 FedWatch 원화면을 직접 본 때뿐). 측정·서술 전용 — 룰·사이징 불변.
 
 3. **Rates & data (WebSearch — 해석·이벤트 보완)**:
    - 연준/FOMC trajectory (next-meeting consensus, dot plot), CME FedWatch probabilities.

@@ -51,7 +51,9 @@ OUT = os.path.join(REPO, "data", "app", "order_check.json")
 KST = dt.timezone(dt.timedelta(hours=9))
 KR_CAP_PCT = 22.0   # 룰6 국내 목표 상단
 
-DEAD = re.compile(r"폐기|취소|체결|완료|종결|미접수 확정")
+# ★[10/19] '체결' 앞에 '미'가 붙으면 살아 있는 오더다 — 舊 정규식은 "미체결이면 매일 재등록" 같은
+#   상태 문구를 '체결 = 종결'로 읽어 '매일 등록' 역방향 검사에서 조용히 뺐다(ANET $182 실측).
+DEAD = re.compile(r"폐기|취소|(?<!미)체결|완료|종결|미접수 확정")
 HOLD = re.compile(r"보류")
 
 
@@ -339,6 +341,14 @@ def selftest() -> int:
         row, f0 = r["open"][0], r["findings"][0]
         expect("OPEN 주문 밴드", (row["band"][1], f0["level"], "기준 2026-09-22 종가" in f0["msg"]),
                (468500, "yellow", True))
+
+        # 10/19 — '미체결'은 살아 있는 오더다('체결'로 읽으면 역방향 검사에서 빠진다) · 미국 '매일 등록'도 본다
+        expect("plan_state 미체결 = active", plan_state({"status": "등록 — 미체결이면 매 거래일 재등록"}), "active")
+        expect("plan_state 체결 = dead", plan_state({"status": "체결 10/19"}), "dead")
+        us_tasks = {"orders": [{"id": "o-anet", "ticker": "ANET", "action": "매수", "price": 182,
+                                "status": "등록 — 미체결이면 매 거래일 재등록", "register_policy": "always"}]}
+        r = check([], us_tasks, {}, None, None, None, now=h("2026-10-19", "22:40"))
+        expect("미국 매일 등록 미등록 → yellow", [f["level"] for f in r["findings"] if f["ticker"] == "ANET"], ["yellow"])
 
         # 캐시 오염(8/13) — history에 장중값이 오늘 종가로 박혀 있어도 시각 있는 확정 종가가 이긴다
         with open(os.path.join(tmp, hist), "a", encoding="utf-8") as f:

@@ -295,6 +295,7 @@ $Preamble = @"
 [무인 루틴 $Kind — 지금 실행할 작업 지시다. 사람이 보고 있지 않다]
 아래는 참고 문서가 아니라 지금 수행할 절차다. 인사·대기·"무엇을 도와드릴까요"로 끝내지 말고 첫 응답을 도구 호출로 시작하라.
 - 서브에이전트(Agent)는 반드시 run_in_background: false로 부르고, 결과를 받은 뒤 이 세션에서 마무리(기록·커밋)까지 한다. 백그라운드로 넘기고 턴을 끝내면 작업이 버려진다.
+- Bash도 같다 — run_in_background를 쓰지 말고, 오래 걸리는 명령(자막 수집 등)은 timeout 600000으로 포그라운드 실행한다. ScheduleWakeup·Monitor·"완료 알림을 기다린다"로 턴을 끝내지 말 것 — 이 세션엔 다음 턴이 없다(10/19 R1: 수집을 백그라운드로 걸고 1분 만에 끝나 자막 28편이 분석·커밋 0건).
 - git은 add·commit까지만 한다. push·rebase·checkout·switch·branch·symbolic-ref는 이 세션에 권한이 없다 — 시도하지 말 것. 푸시는 런처가 종료 후 수행한다(아래 문서의 push 지시는 이 규칙으로 대체된다).
 - git add는 이번 작업에서 만들거나 고친 파일만 경로로 지정한다(-A·. 금지 — 다른 세션의 미완 작업이 섞인다).
 $PrepNote---
@@ -365,7 +366,7 @@ Add-Content -Path $LogFile -Value $outText -Encoding utf8
 # ── 판정 — "돌았다"가 아니라 "쓸 것을 냈나"로 본다(8/22 교훈) ───────────
 # ★[2026-09-17] 백그라운드 강제 종료 — 9/14·9/15 R1의 진짜 사인. 舊 판정은 이걸 UNCOMMITTED로 뭉갰고
 #   validate 힌트는 '권한 누락'을 원인으로 적었다(실제로는 권한이 아니었다).
-$bgKilled = $outText -match 'Background tasks still running'
+$bgKilled = $outText -match 'Background tasks still running|background (fetch|task|job)[^.\n]{0,80}still running|wait for (its|the) completion notification|ScheduleWakeup'
 $hitLimit = $outText -match 'session limit|usage limit|rate limit'
 $permBlock = $outText -match 'permission denied|requires approval|not allowed'
 $notLogged = $outText -match 'Not logged in|/login|Failed to authenticate|OAuth session expired|could not be refreshed'

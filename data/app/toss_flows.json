@@ -1,47 +1,47 @@
 {
- "updated": "2026-10-12 11:46 KST",
- "as_of": "2026-10-12 11:46 KST",
+ "updated": "2026-10-13 10:57 KST",
+ "as_of": "2026-10-13 10:57 KST",
  "source": "토스 Open API (조회 전용)",
  "caveat": "측정 전용 · T+1 반영 · 룰 변경 금지",
  "rows": [
   {
    "code": "005930",
-   "label": "삼성전자",
+   "label": "005930",
    "short": {
-    "date": "2026-10-08",
-    "updated_at": "2026-10-08T20:14:04.000+09:00",
-    "volume": 1372956.0,
-    "rate": 0.06458,
-    "avg_rate": 0.05003,
-    "pctile": 73.7,
+    "date": "2026-10-12",
+    "updated_at": "2026-10-12T20:14:00.000+09:00",
+    "volume": 741672.0,
+    "rate": 0.03751,
+    "avg_rate": 0.0502,
+    "pctile": 36.8,
     "n": 20
    },
    "lending": {
-    "date": "2026-10-08",
-    "balance": 82287891.0,
-    "chg_vs_prev": 855234.0,
-    "pctile": 40.0,
-    "execution": 1000402.0,
-    "repayment": 145168.0,
+    "date": "2026-10-12",
+    "balance": 80903428.0,
+    "chg_vs_prev": -1384463.0,
+    "pctile": 25.0,
+    "execution": 2587470.0,
+    "repayment": 3971933.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-10-08",
-    "margin_balance": 21652085.0,
-    "stock_loan_balance": 10065.0
+    "date": "2026-10-12",
+    "margin_balance": 21598254.0,
+    "stock_loan_balance": 9683.0
    },
    "investors": {
-    "date": "2026-10-12",
-    "updated_at": "2026-10-12T11:46:14.000+09:00",
+    "date": "2026-10-13",
+    "updated_at": "2026-10-13T10:57:22.000+09:00",
     "today": {
      "individual": null,
-     "foreigner": -446393.0,
-     "institution": -81000.0
+     "foreigner": -1838089.0,
+     "institution": 217000.0
     },
     "net5": {
-     "individual": 6849678.0,
-     "foreigner": -4834715.0,
-     "institution": -5554254.0
+     "individual": 14294359.0,
+     "foreigner": -8768552.0,
+     "institution": -8256407.0
     },
     "inst_breakdown_today": {},
     "n": 20
@@ -49,42 +49,42 @@
   },
   {
    "code": "066570",
-   "label": "LG전자",
+   "label": "066570",
    "short": {
-    "date": "2026-10-08",
-    "updated_at": "2026-10-08T20:14:36.000+09:00",
-    "volume": 191901.0,
-    "rate": 0.18505,
-    "avg_rate": 0.1127,
-    "pctile": 94.7,
+    "date": "2026-10-12",
+    "updated_at": "2026-10-12T20:14:31.000+09:00",
+    "volume": 179194.0,
+    "rate": 0.13948,
+    "avg_rate": 0.11207,
+    "pctile": 63.2,
     "n": 20
    },
    "lending": {
-    "date": "2026-10-08",
-    "balance": 4570052.0,
-    "chg_vs_prev": 177941.0,
-    "pctile": 30.0,
-    "execution": 186149.0,
-    "repayment": 8208.0,
+    "date": "2026-10-12",
+    "balance": 4587807.0,
+    "chg_vs_prev": 17755.0,
+    "pctile": 40.0,
+    "execution": 412266.0,
+    "repayment": 394511.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-10-08",
-    "margin_balance": 1374609.0,
-    "stock_loan_balance": 2034.0
+    "date": "2026-10-12",
+    "margin_balance": 1499073.0,
+    "stock_loan_balance": 1171.0
    },
    "investors": {
-    "date": "2026-10-12",
-    "updated_at": "2026-10-12T11:46:08.000+09:00",
+    "date": "2026-10-13",
+    "updated_at": "2026-10-13T10:57:23.000+09:00",
     "today": {
      "individual": null,
-     "foreigner": -106706.0,
-     "institution": -8000.0
+     "foreigner": -53578.0,
+     "institution": -14000.0
     },
     "net5": {
-     "individual": 640292.0,
-     "foreigner": -984603.0,
-     "institution": 179272.0
+     "individual": 1253153.0,
+     "foreigner": -1246910.0,
+     "institution": -135576.0
     },
     "inst_breakdown_today": {},
     "n": 20
@@ -92,42 +92,42 @@
   },
   {
    "code": "454910",
-   "label": "두산로보틱스",
+   "label": "454910",
    "short": {
-    "date": "2026-10-08",
-    "updated_at": "2026-10-08T20:15:01.000+09:00",
-    "volume": 48706.0,
-    "rate": 0.12969,
-    "avg_rate": 0.0808,
+    "date": "2026-10-12",
+    "updated_at": "2026-10-12T20:14:55.000+09:00",
+    "volume": 69026.0,
+    "rate": 0.14463,
+    "avg_rate": 0.08602,
     "pctile": 100.0,
     "n": 20
    },
    "lending": {
-    "date": "2026-10-08",
-    "balance": 4246353.0,
-    "chg_vs_prev": 46523.0,
+    "date": "2026-10-12",
+    "balance": 4359616.0,
+    "chg_vs_prev": 113263.0,
     "pctile": 95.0,
-    "execution": 103647.0,
-    "repayment": 57124.0,
+    "execution": 273976.0,
+    "repayment": 160713.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-10-08",
-    "margin_balance": 668404.0,
+    "date": "2026-10-12",
+    "margin_balance": 670874.0,
     "stock_loan_balance": 0.0
    },
    "investors": {
-    "date": "2026-10-12",
-    "updated_at": "2026-10-12T11:45:30.000+09:00",
+    "date": "2026-10-13",
+    "updated_at": "2026-10-13T10:57:01.000+09:00",
     "today": {
      "individual": null,
-     "foreigner": -94665.0,
-     "institution": -2000.0
+     "foreigner": -11170.0,
+     "institution": -1000.0
     },
     "net5": {
-     "individual": 22186.0,
-     "foreigner": -105738.0,
-     "institution": -12294.0
+     "individual": 325970.0,
+     "foreigner": -307094.0,
+     "institution": -22515.0
     },
     "inst_breakdown_today": {},
     "n": 20
@@ -135,42 +135,42 @@
   },
   {
    "code": "005380",
-   "label": "현대차",
+   "label": "005380",
    "short": {
-    "date": "2026-10-08",
-    "updated_at": "2026-10-08T20:14:02.000+09:00",
-    "volume": 73362.0,
-    "rate": 0.10698,
-    "avg_rate": 0.18624,
-    "pctile": 15.8,
+    "date": "2026-10-12",
+    "updated_at": "2026-10-12T20:13:58.000+09:00",
+    "volume": 50534.0,
+    "rate": 0.07473,
+    "avg_rate": 0.18261,
+    "pctile": 5.3,
     "n": 20
    },
    "lending": {
-    "date": "2026-10-08",
-    "balance": 8604908.0,
-    "chg_vs_prev": 104324.0,
+    "date": "2026-10-12",
+    "balance": 8661654.0,
+    "chg_vs_prev": 56746.0,
     "pctile": 100.0,
-    "execution": 150164.0,
-    "repayment": 45840.0,
+    "execution": 254115.0,
+    "repayment": 197369.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-10-08",
-    "margin_balance": 1825472.0,
-    "stock_loan_balance": 732.0
+    "date": "2026-10-12",
+    "margin_balance": 1856862.0,
+    "stock_loan_balance": 680.0
    },
    "investors": {
-    "date": "2026-10-12",
-    "updated_at": "2026-10-12T11:46:14.000+09:00",
+    "date": "2026-10-13",
+    "updated_at": "2026-10-13T10:57:20.000+09:00",
     "today": {
      "individual": null,
-     "foreigner": 48896.0,
-     "institution": 20000.0
+     "foreigner": -15677.0,
+     "institution": 12000.0
     },
     "net5": {
-     "individual": 782661.0,
-     "foreigner": -392052.0,
-     "institution": -331615.0
+     "individual": 494364.0,
+     "foreigner": -340592.0,
+     "institution": -164174.0
     },
     "inst_breakdown_today": {},
     "n": 20
@@ -178,42 +178,85 @@
   },
   {
    "code": "035420",
-   "label": "NAVER",
+   "label": "035420",
    "short": {
-    "date": "2026-10-08",
-    "updated_at": "2026-10-08T20:14:31.000+09:00",
-    "volume": 222165.0,
-    "rate": 0.23972,
-    "avg_rate": 0.14131,
-    "pctile": 89.5,
+    "date": "2026-10-12",
+    "updated_at": "2026-10-12T20:14:27.000+09:00",
+    "volume": 58454.0,
+    "rate": 0.09762,
+    "avg_rate": 0.13531,
+    "pctile": 42.1,
     "n": 20
    },
    "lending": {
-    "date": "2026-10-08",
-    "balance": 5915440.0,
-    "chg_vs_prev": 119424.0,
+    "date": "2026-10-12",
+    "balance": 5965765.0,
+    "chg_vs_prev": 50325.0,
     "pctile": 100.0,
-    "execution": 702732.0,
-    "repayment": 583308.0,
+    "execution": 150259.0,
+    "repayment": 99934.0,
     "n": 20
    },
    "credit": {
-    "date": "2026-10-08",
-    "margin_balance": 3168952.0,
-    "stock_loan_balance": 273.0
+    "date": "2026-10-12",
+    "margin_balance": 3140447.0,
+    "stock_loan_balance": 270.0
    },
    "investors": {
-    "date": "2026-10-12",
-    "updated_at": "2026-10-12T11:46:18.000+09:00",
+    "date": "2026-10-13",
+    "updated_at": "2026-10-13T10:57:19.000+09:00",
     "today": {
      "individual": null,
-     "foreigner": -38934.0,
-     "institution": 11000.0
+     "foreigner": -25401.0,
+     "institution": -2000.0
     },
     "net5": {
-     "individual": 893822.0,
-     "foreigner": -668468.0,
-     "institution": -252081.0
+     "individual": 758348.0,
+     "foreigner": -648358.0,
+     "institution": -139728.0
+    },
+    "inst_breakdown_today": {},
+    "n": 20
+   }
+  },
+  {
+   "code": "000660",
+   "label": "000660",
+   "short": {
+    "date": "2026-10-12",
+    "updated_at": "2026-10-12T20:13:40.000+09:00",
+    "volume": 237077.0,
+    "rate": 0.07614,
+    "avg_rate": 0.06521,
+    "pctile": 73.7,
+    "n": 20
+   },
+   "lending": {
+    "date": "2026-10-12",
+    "balance": 11624379.0,
+    "chg_vs_prev": -29685.0,
+    "pctile": 35.0,
+    "execution": 189369.0,
+    "repayment": 219054.0,
+    "n": 20
+   },
+   "credit": {
+    "date": "2026-10-12",
+    "margin_balance": 2997386.0,
+    "stock_loan_balance": 2668.0
+   },
+   "investors": {
+    "date": "2026-10-13",
+    "updated_at": "2026-10-13T10:57:07.000+09:00",
+    "today": {
+     "individual": null,
+     "foreigner": -665254.0,
+     "institution": 46000.0
+    },
+    "net5": {
+     "individual": 1925146.0,
+     "foreigner": -3680706.0,
+     "institution": -444479.0
     },
     "inst_breakdown_today": {},
     "n": 20

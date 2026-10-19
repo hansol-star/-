@@ -260,8 +260,11 @@ def _reregister() -> str:
     rows = []
     for o in d.get("orders") or []:
         tk = str(o.get("ticker") or "")
-        if not (tk.endswith(".KS") or tk.endswith(".KQ")):
-            continue                                   # 미국은 소멸 안 함(예약 유지)
+        kr = tk.endswith(".KS") or tk.endswith(".KQ")
+        # ★[10/19 수정 — d128] 舊 `미국은 소멸 안 함(예약 유지)`은 틀렸다. 토스 미국 지정가도
+        #   1거래일 뒤 소멸한다(d128). 이 한 줄 때문에 ANET $190 '상시 예약'(d235)이 재등록 알림에
+        #   한 번도 안 떴고, 10/15~16 ANET이 존 안에 사흘 있는 동안 체결 0건이었다.
+        #   ⇒ 미국도 register_policy="always"면 매일 다시 건다.
         # ★[9/16 수정] 舊 필터 `status != "예약"`이 7일 공백의 원인이었다 — 9/9 상시 등록 오더의 status가
         #   '재등록필요'로 바뀌는 순간 이 블록에서 빠져 **재등록하라는 알림이 한 번도 안 떴다**(9/9~9/16).
         #   상시 등록 오더는 '예약'이든 '계획'이든 매일 다시 걸어야 한다 → 종결 상태만 제외한다.
@@ -276,11 +279,14 @@ def _reregister() -> str:
         if o.get("register_policy") != "always":
             continue
         px = o.get("price")
-        rows.append(f"↻ {o.get('label') or tk} — {o.get('action','')} "
-                    + (f"{px:,.0f}원" if isinstance(px, (int, float)) else "지정가 미정"))
+        if isinstance(px, (int, float)):
+            pxs = f"{px:,.0f}원" if kr else f"${px:,.2f}"
+        else:
+            pxs = "지정가 미정"
+        rows.append(f"↻ {o.get('label') or tk} — {o.get('action','')} " + pxs)
     if not rows:
         return ""
-    return ("🔁 오늘 **재등록** 필요 (국내 예약은 1거래일 소멸)\n" + "\n".join(rows[:6]))
+    return ("🔁 오늘 **재등록** 필요 (예약은 국내·미국 모두 1거래일 소멸 — d128)\n" + "\n".join(rows[:6]))
 
 
 def compose(trigger_block: str = "") -> str:

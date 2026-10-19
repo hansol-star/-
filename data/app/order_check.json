@@ -1,17 +1,23 @@
 {
- "checked_at": "2026-10-15 00:01",
+ "checked_at": "2026-10-19 22:41",
  "source": "toss",
  "open": [],
- "findings": [],
+ "findings": [
+  {
+   "level": "yellow",
+   "ticker": "ANET",
+   "msg": "ANET 매수 182 '매일 등록' 오더가 토스에 없다(o-anet-p3-0917) — 재등록 필요"
+  }
+ ],
  "counts": {
   "red": 0,
-  "yellow": 0,
+  "yellow": 1,
   "ok": 0,
   "info": 0
  },
  "context": {
-  "kr_weight_pct": 24.0,
+  "kr_weight_pct": 23.8,
   "ladder_allowed_krw": 0.0,
-  "us_allowed_usd": 0.0
+  "us_allowed_usd": 366.87
  }
 }

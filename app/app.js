@@ -375,9 +375,9 @@
   }
   function gatesLive() {
     var g1 = alertBy(/TF 해제 조건①/), g3 = alertBy(/TF 해제 조건③/), ft = D.flow_trend || {};
-    var on1 = !!(g1 && g1.lp != null && g1.lp >= g1.level), on2 = ft.direction === "순매수" && (ft.streak || 0) >= 2, on3 = !!(g3 && g3.lp != null && g3.lp < g3.level);
+    var on1 = !!(g1 && g1.lp != null && g1.lp >= g1.level), on2 = ft.gate2 ? ft.gate2.met === true : (ft.direction === "순매수" && (ft.streak || 0) >= 2), hold2 = !!(ft.gate2 && ft.gate2.met === null), on3 = !!(g3 && g3.lp != null && g3.lp < g3.level);
     var kq = Q("^KS11"), last = kq && kq.rt ? kstDate(kq.rt) : null;
-    return { g1: g1, g3: g3, ft: ft, on1: on1, on2: on2, on3: on3, n: (on1 ? 1 : 0) + (on2 ? 1 : 0) + (on3 ? 1 : 0),
+    return { g1: g1, g3: g3, ft: ft, on1: on1, on2: on2, hold2: hold2, on3: on3, n: (on1 ? 1 : 0) + (on2 ? 1 : 0) + (on3 ? 1 : 0),
       ftStale: !!(last && ft.as_of && ft.as_of < last), last: last, buyStreak: ft.direction === "순매수" ? (ft.streak || 0) : 0 };
   }
   function flowPair() { var s = (D.flows || {}).series || []; return s.length >= 2 ? [s[s.length - 2], s[s.length - 1]] : null; }
@@ -1215,7 +1215,7 @@
     h += h2s("TF 해제 게이트", '<b class="num" style="font-size:17px;color:var(--ink)">' + G.n + '</b> / 3');
     h += '<div class="group gates">';
     h += '<div class="gate' + (G.on1 ? " on" : "") + '"><span class="no">①</span><div><div class="t">코스피 7,500 종가 회복</div><div class="s num">' + (G.g1 ? '현재 ' + num2(G.g1.lp) + (G.g1.lq ? (G.g1.lq.s === "reg" ? ' (장중)' : ' (종가)') : '') : '—') + '</div></div><div class="num bold ' + (G.on1 ? "good" : "") + '">' + (G.g1 && G.g1.ldist != null ? (G.on1 ? "충족" : pct(-G.g1.ldist / (1 + G.g1.ldist / 100), 1)) : "—") + '</div></div>';
-    h += '<div class="gate' + (G.on2 ? " on" : "") + '"><span class="no">②</span><div><div class="t">외인 2거래일 연속 순매수</div><div class="s num">' + (fp ? md(fp[0].date) + ' ' + eok(fp[0].foreign) + ' → ' + md(fp[1].date) + ' ' + eok(fp[1].foreign) : esc((G.ft.streak || 0) + "일째 " + (G.ft.direction || ""))) + (G.ftStale ? ' <b class="warn">· ' + esc(md(G.last)) + ' 수급 미반영</b>' : '') + '</div></div><div class="num bold ' + (G.on2 ? "good" : "") + '">' + (G.on2 ? "충족" : G.buyStreak + "일") + '</div></div>';
+    h += '<div class="gate' + (G.on2 ? " on" : "") + '"><span class="no">②</span><div><div class="t">외인 2거래일 연속 순매수</div><div class="s num">' + (fp ? md(fp[0].date) + ' ' + eok(fp[0].foreign) + ' → ' + md(fp[1].date) + ' ' + eok(fp[1].foreign) : esc((G.ft.streak || 0) + "일째 " + (G.ft.direction || ""))) + (G.ftStale ? ' <b class="warn">· ' + esc(md(G.last)) + ' 수급 미반영</b>' : '') + (G.hold2 && G.ft.gate2.reason ? ' <b class="warn">· ' + esc(G.ft.gate2.reason) + '</b>' : '') + '</div></div><div class="num bold ' + (G.on2 ? "good" : "") + '">' + (G.on2 ? "충족" : (G.hold2 ? "보류" : G.buyStreak + "일")) + '</div></div>';
     h += '<div class="gate' + (G.on3 ? " on" : "") + '"><span class="no">③</span><div><div class="t">WTI $71.5 이하</div><div class="s num">' + (G.g3 ? '현재 $' + num2(G.g3.lp) : '—') + '</div></div><div class="num bold ' + (G.on3 ? "good" : "") + '">' + (G.g3 && G.g3.lp != null ? (G.on3 ? "충족" : pct((G.g3.lp / G.g3.level - 1) * 100, 1)) : "—") + '</div></div>';
     h += '</div><div class="xs mut" style="margin:8px 4px 0">해제 = 셋 동시 충족 + 2거래일 유지. 부분 충족은 액션이 아니다(§5).' + (s2 ? ' 악화선 S2 = 코스피 ' + num(s2.level) + ' (' + pct(s2.ldist, 1) + ')' : '') + '</div>';
 
@@ -1232,7 +1232,7 @@
     h += '<div class="wcard" style="margin-top:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>국내 주식 ' + (T.krW != null ? T.krW.toFixed(1) : "—") + '% · 목표 18–22%</b><span class="chip ' + (T.krW > 22 ? "bad" : "good") + '">' + (T.krW > 22 ? "상단 초과" : "밴드 안") + '</span></div>'
       + '<p>신규 입금은 100% 미국 배분 · 국내 트림은 코스피 ' + (r6 ? num(r6.level) : "7,747") + '(고점 -15%) 회복 시에만 — 지금 ' + (r6 && r6.ldist != null ? pct(r6.ldist, 1) : "—") + ' 남음 · 저점 매도 금지</p></div>';
     var ft = G.ft;
-    h += h2s("코스피 투자자별 순매수", null, "sm") + '<div class="card">' + flowChart(D.flows) + (ft && !ft.error && ft.as_of ? '<div class="xs mut" style="margin-top:6px">외인 추세(' + esc(ft.as_of) + '): ' + esc((ft.streak || 0) + "일 연속 " + (ft.direction || "")) + ' · 전환단계 ' + esc(ft.stage || "") + '</div>' : '') + '</div>';
+    h += h2s("코스피 투자자별 순매수", null, "sm") + '<div class="card">' + flowChart(D.flows) + (ft && !ft.error && ft.as_of ? '<div class="xs mut" style="margin-top:6px">외인 추세(' + esc(ft.as_of) + '): ' + esc(ft.direction === "판정 보류" ? "판정 보류(정규장 기준 값 없음)" : (ft.streak || 0) + "일 연속 " + (ft.direction || "")) + ' · 전환단계 ' + esc(ft.stage || "") + '</div>' : '') + '</div>';
     var all = alertsLive().sort(function (a, b) { return (b.lfired ? 1 : 0) - (a.lfired ? 1 : 0) || Math.abs(a.ldist || 0) - Math.abs(b.ldist || 0); });
     h += h2s("가격 알림 전체", all.length + "건", "sm") + '<details class="fold"><summary>발동 ' + all.filter(function (a) { return a.lfired; }).length + '건 · 대기 ' + all.filter(function (a) { return a.lfired === false; }).length + '건 — 지금 가격 대입</summary><div class="in">' + alertRows(all) + '</div></details>';
     h += '<a class="hub" href="#decisions"><span class="ic">' + IC.compass + '</span><div><div class="t">결정 · 전략 아젠다</div><div class="s">열린 질문 ' + ((D.decisions || {}).open_count || 0) + '건 · 왜 그렇게 결정했나</div></div><span class="chev">' + IC.chev + '</span></a>';

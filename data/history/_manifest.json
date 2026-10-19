@@ -411,14 +411,14 @@
    "label": "금",
    "first": "2000-08-30",
    "last": "2026-10-16",
-   "days": 6557,
+   "days": 6558,
    "years": 26.1
   },
   "BTC-USD": {
    "label": "비트코인",
    "first": "2014-09-17",
    "last": "2026-10-18",
-   "days": 4413,
+   "days": 4415,
    "years": 12.1
   },
   "^TWII": {
@@ -513,5 +513,5 @@
    "years": 30.0
   }
  },
- "total_daily_bars": 527870
+ "total_daily_bars": 527873
 }

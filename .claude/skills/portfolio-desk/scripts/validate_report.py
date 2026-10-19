@@ -107,6 +107,47 @@ def check_flows():
                 fail(f"flows.json {e.get('date')}: {k}={x!r} (숫자/ null 만 — 추측 문자열 금지)")
     if not d.get("updated"): warn("flows.json: updated 비어있음")
 
+
+def check_flow_basis():
+    """외인 수급 행의 기준(정규장/통합) — 게이트②가 **KRX 정규장 기준 값**으로 판정되고 있는가.
+
+    ★[10/19 신설] 9/14 애프터마켓(16:00~20:00) 뒤 네이버 시장 수급은 마감 뒤에도 바뀐다 — 10/19 16:10 -323억 →
+      20:10 +947억(부호 반전). 마감 대사가 20:10 값으로 대표값을 덮었고, flow_trend·앱은 그 값으로 게이트② '충족'을
+      띄웠다(정규장 기준으론 순매도). 캐시·통계 정본(KRX 정규장 · 10/13)과 게이트의 기준이 갈려 있었다.
+    잡는 것(9/14 이후 값 있는 행):
+      ① basis 없음·허용 밖 값(regular · integrated · unverified)
+      ② 정규장 캡처(regular 필드)가 있는데 대표값의 기준이 regular가 아님 / 자동 행인데 대표값 ≠ 정규장 캡처
+      ③ 최신 행이 게이트② '판정 보류'(정규장 기준 값이 없고 |외인| < 3,000억) — 운영 정보
+    ⚠️ WARN — 측정 기준의 정합이지 보고서 결함이 아니다. 룰(게이트 정의)은 안 바꾼다.
+    """
+    d = load("data/app/flows.json")
+    if not d:
+        return
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import flow_trend as FT
+    ser = [e for e in (d.get("series") or []) if isinstance(e, dict)]
+    for e in ser[-60:]:
+        dt_, v = str(e.get("date", "")), e.get("foreign")
+        if dt_ < FT.REFORM or v is None:
+            continue
+        b = e.get("basis")
+        if b not in FT.BASES:
+            warn(f"flows.json {dt_}: 외인 {v:+,}억의 기준 표기 없음(basis={b!r}) — regular(정규장·매체 마감시황) · "
+                 "integrated(16:40 뒤 네이버) · unverified(시각 미상) 중 하나. 없으면 게이트②가 이 날을 '판정 보류'로 읽는다")
+            continue
+        reg = e.get("regular") if isinstance(e.get("regular"), dict) else {}
+        if reg.get("foreign") is None:
+            continue
+        if b != "regular":
+            warn(f"flows.json {dt_}: 정규장 캡처({reg.get('at')} {reg['foreign']:+,}억)가 있는데 대표값 기준이 {b} "
+                 f"({v:+,}억) — 대표값은 정규장 값이어야 한다(게이트②·앱이 대표값을 읽는다)")
+        elif str(e.get("note", "")).startswith("[자동 대사") and v != reg["foreign"]:
+            warn(f"flows.json {dt_}: 자동 대사 행의 대표값 {v:+,}억 ≠ 정규장 캡처 {reg['foreign']:+,}억({reg.get('at')}) — "
+                 "통합값이 대표값을 덮었다")
+    t = FT.compute_trend(ser)
+    if not t.get("error") and t.get("direction") == "판정 보류":
+        warn(f"게이트② 판정 보류 — {t['gate2']['reason']} · 매체 마감시황(정규장)으로 보충하면 basis=\"regular\"로 적는다")
+
 # ── C. tasks.json: source_report 실존 ────────────────────────────────────
 def check_tasks():
     d = load("data/app/tasks.json")
@@ -1814,7 +1855,9 @@ def check_close_recon(today=None):
     ★[10/12 신설] 장중 보고서의 '잠정' 수급·낙폭을 확정치로 바꾸는 일은 "마감 후 대사" 할 일로만 남았고
     사람이 시켜야 돌았다(flows.json에 '잠정 — 대사 필요'가 7거래일 누적). 자동화했으니 **안 돌면 알린다.**
     잡는 것: ① 기록 없음 ② 마지막 대사일이 직전 거래일보다 오래됨(PC 꺼짐·작업 삭제)
-             ③ 그날 2차 대사(20:10)가 안 돌아 등급이 '확정'이 아님 ④ 수기 확정값과 네이버 값 불일치 메모
+             ③ 그날 2차 대사(20:10)가 안 돌아 등급이 '잠정'에 멈춤 ④ 대사 메모 전부(수기값 불일치 · 감사 결과 ·
+               ★[10/19] 정규장 캡처 없음 · 애프터마켓 부호 반전 · Yahoo 감사 결과)
+             ※ [10/19] '확정' = 정규장 캡처 + 애프터 종료 뒤 통합 캡처. '통합만(정규장 캡처 없음)'은 ③이 아니라 메모로 뜬다
     ⚠️ WARN — 운영 상태이지 보고서 결함이 아니다.
     """
     import csv as _csv
@@ -1851,7 +1894,7 @@ def check_close_recon(today=None):
             return
     except Exception:
         pass
-    if o.get("date", "") < tstr and o.get("grade") != "확정":
+    if o.get("date", "") < tstr and str(o.get("grade") or "").startswith("잠정"):
         warn(f"마감 대사 {o.get('date')}가 '{o.get('grade')}'에서 멈췄다 — 20:10 2차가 안 돌았다(수급 값은 1차 조회치)")
     for n in o.get("notes") or []:
         warn(f"마감 대사 {o.get('date')} 메모: {n}")
@@ -3157,7 +3200,7 @@ def main():
         print()
         sys.exit(1 if FAILS else 0)
 
-    check_stocks(); check_flows(); check_tasks(); check_order_feasibility(); check_kr_price_band(); check_target_multiple(); check_high_low_claims(); check_history_cache()
+    check_stocks(); check_flows(); check_flow_basis(); check_tasks(); check_order_feasibility(); check_kr_price_band(); check_target_multiple(); check_high_low_claims(); check_history_cache()
     check_low_star_action(); check_pending_decisions(); check_repealed_rules(); check_trade_ledger()
     check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
     check_feeds(); check_guru(); check_guru_consistency()

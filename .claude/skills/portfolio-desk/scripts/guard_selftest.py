@@ -73,9 +73,13 @@ SUBPROCESS_TESTS = [
     ("order_check.py", ["--selftest"], "국내 가격제한폭 기준가 — 마감 후 오늘 종가·장중 전일 종가·휴장·폴백 기준일 표기(9/22)"),
     ("history_backfill.py", ["--selftest"],
      "일봉 캐시 결측 봉 — 장중값 고착 교정·애프터마켓 가격 배제·매니페스트 부분 갱신 · 토스 1분봉 종가 단일가 서명·"
-     "수정주가 배제·감사 수정값 고정(10/13)"),
+     "수정주가 배제·감사 수정값 고정(10/13) · 정규장 끝+40분 유예(KRX 15:00↔15:30)·프리마켓 봉 배제·"
+     "Yahoo 감사(굳은 장중값 적발·--fix·재조정은 --refresh로 분리)(10/19)"),
     ("close_reconcile.py", ["--selftest"],
-     "캐시 ↔ 토스 감사의 침묵 — 못 돌림(키 없음·토큰 실패·시간 초과·파싱 실패)·0건 대조·미확인 다수가 메모로 올라간다(10/13)"),
+     "캐시 ↔ 토스 감사의 침묵 — 못 돌림(키 없음·토큰 실패·시간 초과·파싱 실패)·0건 대조·미확인 다수가 메모로 올라간다(10/13) · "
+     "캐시 ↔ Yahoo 감사(개정창 밖 = 굳은 값)·외인 정규장/통합 캡처 분리(16:10 정규장이 대표값 · 20:10 통합은 옆에)(10/19)"),
+    ("flow_trend.py", ["--selftest"],
+     "게이트② 정규장 기준 — regular 캡처를 읽고 통합값에 속지 않는다 · 기준 미상·작은 값 = 판정 보류 · 연속 하한(10/19)"),
     ("missed_moves.py", ["--selftest"],
      "오미션 회고의 결정 시그널 사전 — 카드 문구(보유 유지·보유(dNNN·홀딩·영구금지)를 읽는가 · 안 사는 것/안 파는 것 분류 · unshallow 복구 호출(10/14)"),
     ("triggers.py", ["--selftest"],
@@ -1345,6 +1349,27 @@ INJECTION_TESTS = [
             "data/app/close_recon.json": json.dumps({"date": _TODAY_KST, "grade": "확정", "notes": []}),
             "data/history/_KS11.csv": "date,close\n" + _DAYS_AGO(10) + ",6000\n",
         },
+        "args": (),
+    },
+    {
+        "name": "check_flow_basis",
+        "desc": "외인 수급 대표값이 통합(애프터 포함) 기준으로 덮이면 잡는가",
+        "why": "10/19 — 마감 대사가 20:10 통합값(+947억)으로 대표값을 덮어 flow_trend·앱이 게이트② '충족'을 띄웠다. "
+               "16:10 정규장 캡처는 -323억(순매도)이었다. 9/14 애프터마켓 뒤 네이버 값은 마감 뒤에도 바뀐다",
+        "pattern": "기준 표기 없음|대표값 기준이|통합값이 대표값을 덮었다",
+        "violate": {"data/app/flows.json": json.dumps({"updated": "2026-10-19", "series": [
+            {"date": "2026-10-16", "foreign": 3637, "inst": 0, "indiv": 0,
+             "note": "[자동 대사 10/16 20:10 · 잠정(값 변동) · 네이버 시장수급 — KRX 원본 미대조] 舊 형식"},
+            {"date": "2026-10-19", "foreign": 947, "inst": 0, "indiv": 0, "basis": "regular",
+             "regular": {"foreign": -323, "at": "16:10"}, "integrated": {"foreign": 947, "at": "20:10"},
+             "note": "[자동 대사 10/19 20:10 · 확정 · 정규장 기준(16:10 캡처)] 대표값만 통합으로 덮임"}]})},
+        "clean": {"data/app/flows.json": json.dumps({"updated": "2026-10-19", "series": [
+            {"date": "2026-09-01", "foreign": 800, "inst": 0, "indiv": 0, "note": "9/14 이전 — 기준 표기 불필요"},
+            {"date": "2026-10-16", "foreign": 3446, "inst": 0, "indiv": 0, "basis": "regular",
+             "regular": {"foreign": 3446, "at": "16:10"}, "note": "[자동 대사 10/16 20:10 · 확정 · 정규장 기준(16:10 캡처)]"},
+            {"date": "2026-10-19", "foreign": -323, "inst": 0, "indiv": 0, "basis": "regular",
+             "regular": {"foreign": -323, "at": "16:10"}, "integrated": {"foreign": 947, "at": "20:10"},
+             "note": "[자동 대사 10/19 20:10 · 확정 · 정규장 기준(16:10 캡처)]"}]})},
         "args": (),
     },
 ]

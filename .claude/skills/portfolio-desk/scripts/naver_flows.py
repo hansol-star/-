@@ -187,8 +187,14 @@ def _seed_market_from_flows_json() -> dict:
     return out
 
 
-def append_market() -> str:
-    """오늘 코스피·코스닥 시장 순매수(억원)를 market_flows.jsonl에 누적(dedup date+index)."""
+def append_market(basis: str | None = None) -> str:
+    """오늘 코스피·코스닥 시장 순매수(억원)를 market_flows.jsonl에 누적(dedup date+index).
+
+    ★[10/19] basis = 캡처 기준(close_reconcile이 넘긴다): "regular"(16:40 전 = 정규장 근사) | "integrated"(그 뒤 =
+      정규장+애프터마켓 통합). 9/14 애프터마켓 뒤 네이버 값은 마감 뒤에도 바뀐다(10/19 -323억 → +947억).
+      정규장 값이 있는 날은 통합 캡처가 그것을 덮지 않는다 — `integrated` 하위 필드로 옆에 둔다.
+      정규장 재캡처는 가장 이른 것을 지킨다(늦을수록 애프터가 섞인다). basis 없이 부르면 정규장 값이 없는 날만 덮는다(舊 동작).
+    """
     existing = {}
     if os.path.exists(MARKET_JSONL):
         with open(MARKET_JSONL, encoding="utf-8") as f:
@@ -206,8 +212,17 @@ def append_market() -> str:
             key = (m["date"], idx)
             if key not in existing:
                 added += 1
-            existing[key] = {"date": m["date"], "index": idx, "foreign": m["foreign"],
-                             "inst": m["inst"], "indiv": m["indiv"], "src": "naver"}
+            new = {"date": m["date"], "index": idx, "foreign": m["foreign"],
+                   "inst": m["inst"], "indiv": m["indiv"], "src": "naver"}
+            old = existing.get(key) or {}
+            if basis:
+                new["basis"] = basis
+            if old.get("basis") == "regular":
+                if basis == "integrated":
+                    old["integrated"] = {k: m[k] for k in ("foreign", "inst", "indiv")}
+                # 정규장 재캡처(가장 이른 것 유지)·기준 없는 호출(시각 미상 — 보고서 세션 등)은 정규장 값을 덮지 않는다
+            else:
+                existing[key] = new
         time.sleep(0.5)
     os.makedirs(os.path.dirname(MARKET_JSONL), exist_ok=True)
     rows = [existing[k] for k in sorted(existing, key=lambda x: (x[0], x[1]))]
@@ -290,8 +305,15 @@ def main() -> int:
     if args.flows_line:
         m = market("KOSPI")
         if m:
+            # ★[10/19] 캡처 시각으로 기준을 붙인다 — 애프터마켓(16:00~20:00) 뒤 값은 정규장과 갈린다(게이트②는 정규장 기준)
+            import datetime as _dt
+            from close_reconcile import REGULAR_UNTIL
+            at = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=9))).strftime("%H:%M")
+            basis = "unverified" if at < "15:40" else ("regular" if at < REGULAR_UNTIL else "integrated")
             print(json.dumps({"date": m["date"], "foreign": m["foreign"], "inst": m["inst"],
-                              "indiv": m["indiv"], "note": "네이버 자동수집(KRX 확정 대사 권장)"},
+                              "indiv": m["indiv"], "basis": basis,
+                              "note": f"[잠정 — 네이버 자동수집 {at} · 기준 {basis}"
+                                      f"{' (장중 — 마감 값 아님)' if basis == 'unverified' else ''}] KRX 확정 대사 권장"},
                              ensure_ascii=False))
         return 0
 

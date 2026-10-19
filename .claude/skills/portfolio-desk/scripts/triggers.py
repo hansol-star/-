@@ -71,6 +71,12 @@ def evaluate(alert: dict) -> dict:
         except Exception as ex:
             return {**alert, "state": "error", "price": None, "detail": f"flows.json 평가 실패: {ex}"}
         sig = alert.get("signal", "foreign_reversal")
+        if t.get("reversal") is None and not t.get("error"):
+            # ★[10/19] 게이트②는 KRX 정규장 기준 값으로 판정한다(flow_trend.gate_value). 최신 행의 정규장 값이 없으면
+            #   통합(애프터마켓 포함)값으로 '전환'을 띄우지 않는다 — 10/19 16:10 -323억 ↔ 20:10 +947억이 갈랐다.
+            g = t.get("gate2") or {}
+            return {**alert, "state": "stale", "price": None,
+                    "detail": f"[{t.get('as_of')}] 판정 보류 — {g.get('reason') or '정규장 기준 값 없음'}"}
         if sig == "foreign_reversal":
             fired = bool(t.get("reversal"))
         else:  # selling_easing — 매도강도 20%+ 축소 또는 순매수 전환
@@ -372,6 +378,24 @@ def selftest() -> int:
     ok("하단 미달(<18%)을 '밴드 안'이라 하지 않는다",
        "하단 미달" in rule6_line({"kr_pct": 15.0, "kr_trim_krw": 0}))
     ok("22.0%는 초과가 아니다(게이트와 같은 부등호)", "안" in rule6_line({"kr_pct": 22.0, "kr_trim_krw": 0}))
+
+    # ★[10/19] 외인 전환 알림은 정규장 기준으로 판정한다 — 통합값(애프터 포함)만 있는 날은 '보류'
+    import flow_trend as _FT
+    keep_ls = _FT.load_series
+    try:
+        al = {"cond": "flow", "signal": "foreign_reversal", "label": "외인 전환"}
+        _FT.load_series = lambda *a, **k: [{"date": "2026-10-16", "foreign": 3446, "basis": "regular"},   # noqa: E731
+                                           {"date": "2026-10-19", "foreign": 947, "basis": "integrated"}]
+        r_hold = evaluate(al)
+        _FT.load_series = lambda *a, **k: [{"date": "2026-10-16", "foreign": 3446, "basis": "regular"},   # noqa: E731
+                                           {"date": "2026-10-19", "foreign": -323, "basis": "regular",
+                                            "integrated": {"foreign": 947}}]
+        r_reg = evaluate(al)
+    finally:
+        _FT.load_series = keep_ls
+    ok("외인 전환: 정규장 값이 없는 날(통합 +947억만)은 발동 대신 '판정 보류'",
+       r_hold["state"] == "stale" and "판정 보류" in r_hold["detail"])
+    ok("외인 전환: 정규장 -323억이면 통합 +947억이 있어도 발동하지 않는다", r_reg["state"] != "fired")
     print()
     print("✅ SELFTEST PASS" if not fails else f"❌ SELFTEST FAIL {len(fails)}건: {fails}")
     return 1 if fails else 0

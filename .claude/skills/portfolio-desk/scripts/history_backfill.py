@@ -135,21 +135,33 @@ def fetch_daily_with_gaps(symbol: str, period1: int = 0, timeout: float = 30.0):
         return None
 
 
+SETTLE_GRACE_SEC = 40 * 60   # Yahoo가 적는 정규장 끝 + 이 시간까지는 그 세션 봉을 종가로 보지 않는다
+
+
 def live_session_day(meta: dict, now: int):
-    """정규장이 **지금 진행 중인** 세션의 현지일(아니면 None) — Yahoo meta.currentTradingPeriod.regular 기준.
+    """아직 **끝나지 않은** 세션의 현지일(아니면 None) — Yahoo meta.currentTradingPeriod.regular 기준.
 
     ★[2026-10-16] 美 정규장 도중(23:4x KST)에 이 스크립트를 돌렸더니 ^GSPC·ANET 등 미국·유럽 33종목에
       **10/16 장중값**이 그날 종가 행으로 들어갔다(^GSPC 7,732.59 · ANET 181.86 — 장은 아직 5시간 남았다).
       국내는 close_reconcile가 마감 뒤에 돌아서 안 보였을 뿐, 해외 시장은 이 스크립트를 언제 돌려도 어딘가는 열려 있다.
       개정창(REVISE_WINDOW_DAYS)이 다음 실행에서 덮긴 하지만, 그 전까지 캐시를 정본으로 읽는 vol_gauge·
       가격 대조가 장중값을 종가로 쓴다 → **진행 중인 세션의 봉은 처음부터 쓰지 않는다.**
+    ★[2026-10-19] '진행 중'(start ≤ now < end)만 막으면 두 구멍이 남는다(실측):
+      ① **Yahoo가 적는 정규장 끝이 실제 마감보다 이르다** — ^KS11·국내 종목은 regular.end = 15:00 KST인데
+         KRX 종가 단일가는 15:20~15:30이다. 15:00~15:30에 돌리면 장중값이 그날 종가 행으로 들어간다.
+         종가 경매·지수 확정값도 마감 직후 몇 분 늦게 붙는다(런던 16:30~16:35 · 도쿄 15:30 뒤 15:45 갱신).
+      ② **장 시작 전**(now < start)에 그날 봉이 이미 와 있으면(장전 거래가 있는 종목) 막지 않았다.
+      ⇒ 세션이 **끝나고 SETTLE_GRACE_SEC가 지나기 전**까지는 그 세션 날짜의 봉을 쓰지 않는다.
+         24시간 상품(선물·환율·코인: regular = 현지 00:00~23:59)은 원래대로 그날 내내 막힌다.
+      ⚠️ 2026-08-13 개정창 upsert 이전에 쓰인 장중값은 이 가드로 안 고쳐진다 — `--audit-yahoo`가 그 자리다
+         (10/19 ^VIX 7/21·7/22·7/30·8/3 4건 = 정본 '저점 VIX 19.4'의 출처).
     """
     reg = ((meta or {}).get("currentTradingPeriod") or {}).get("regular") or {}
     try:
         start, end = int(reg.get("start") or 0), int(reg.get("end") or 0)
     except (TypeError, ValueError):
         return None
-    if start and end and start <= now < end:
+    if start and end and now < end + SETTLE_GRACE_SEC:
         return bar_date(start, (meta or {}).get("gmtoffset") or 0)
     return None
 
@@ -753,6 +765,141 @@ def audit_kr(days: int = 7, symbols=None, toss=None, now=None, fix: bool = False
     return out
 
 
+SRC_YAHOO_AUDIT = "Yahoo 일봉 종가 · 감사"
+YAHOO_TOL = 0.001        # 캐시 ↔ Yahoo 종가 허용 상대오차(0.1%) — 장중값이 굳은 것은 보통 이보다 훨씬 크다
+RESCALE_SHARE = 0.8      # 창 안 대조의 이 비율 이상이 **같은 배율**로 어긋나면 개별 오류가 아니라 소급 재조정(분할)이다
+REBASE_RUN = 10          # 대조한 거래일이 이만큼 **연속으로** 어긋나면 개별 오류가 아니라 Yahoo의 과거 재기준이다
+
+
+def _longest_run(dates: list, bad: set) -> int:
+    """dates(대조한 거래일 순서) 안에서 bad에 속한 날이 끊김 없이 이어진 최장 길이."""
+    best = cur = 0
+    for d in dates:
+        cur = cur + 1 if d in bad else 0
+        best = max(best, cur)
+    return best
+
+
+def audit_yahoo(days: int = 400, symbols=None, fix: bool = False, fetch=None, pace: float = 0.6,
+                now: int | None = None, deadline: float | None = None) -> dict:
+    """국내 개별종목(.KS/.KQ)을 뺀 캐시(美 종목·지수·매크로·검증용 해외지수 · ^KS11/^KQ11 포함)의 최근 N일을
+    **Yahoo 일봉 종가와 대조**한다(읽기 전용 · fix면 Yahoo 값으로 고쳐 쓴다).
+
+    ★[2026-10-19 신설] ^VIX 캐시에 **종가가 아니라 장중값**이 4건 굳어 있었다(7/21·7/22·7/30·8/3 — 7/30 19.38 ↔
+      종가 17.09가 정본 '저점 VIX 19.4'의 출처). 개정창 upsert(8/13)·진행 세션 제외(10/16)보다 먼저 쓰인 값이라
+      어느 장치도 다시 보지 않았다. 국내 종목은 audit_kr(토스)이 같은 자리를 보지만 나머지는 아무도 안 봤다.
+    해외·지수의 정본은 Yahoo다 → 고친 값은 다음 Yahoo 갱신이 되돌리지 않는다(국내처럼 핀이 필요 없다).
+    · mismatch  = 같은 날짜인데 |캐시/Yahoo − 1| > 0.1%
+    · rescaled  = 창 안 대조의 80%+가 같은 배율로 어긋남 = Yahoo가 소급 재조정(분할) → 개별 수정 대신 `--refresh`
+    · extra     = 캐시엔 있는데 Yahoo엔 없는 날짜(옛 날짜 라벨 버그의 흔적일 수 있다) — 지우지 않고 보고만
+    · missing   = Yahoo엔 있는데 캐시엔 없는 날짜(개정창보다 오래된 구멍) — fix면 채운다
+    · pending   = 캐시엔 있는데 Yahoo는 아직 '끝나지 않은 세션'이라 안 준 날짜(장중에 쓰인 값 — 다음 갱신이 덮는다)
+    · errors    = Yahoo를 못 받은 심볼 · skipped = 시간 예산(deadline)이 끝나 못 본 심볼 — **둘 다 '불일치 없음'이 아니다**
+    """
+    fetch = fetch or (lambda s, p1: fetch_with_backoff(s, period1=p1, with_gaps=True))
+    now_ts = int(now if now is not None else time.time())
+    start = (dt.datetime.fromtimestamp(now_ts, dt.timezone.utc).date() - dt.timedelta(days=days)).isoformat()
+    p1 = max(0, now_ts - (days + 3) * 86400)
+    if symbols is None:
+        symbols = [s for _, s in _universe() if not s.upper().endswith(KR_SUFFIX)]
+    out = {"days": days, "symbols": 0, "checked": 0, "mismatch": [], "rescaled": [], "extra": [],
+           "missing": [], "pending": 0, "unverifiable": 0, "fixed": 0, "filled": 0, "errors": [], "skipped": []}
+    for i, sym in enumerate(symbols):
+        if deadline is not None and time.monotonic() > deadline:
+            out["skipped"] = list(symbols[i:])
+            break
+        if i and pace:
+            time.sleep(pace)
+        rows = load_cached(sym)
+        if not rows:
+            continue
+        got = fetch(sym, p1)
+        if not got or not got[0]:
+            out["errors"].append(sym)
+            continue
+        fresh, gaps = got
+        yh, gapset, book = dict(fresh), set(gaps or []), dict(rows)
+        last_y = fresh[-1][0]
+        out["symbols"] += 1
+        mm, checked = [], 0
+        for d, c in rows:
+            if d < start:
+                continue
+            y = yh.get(d)
+            if y is None:
+                if d in gapset:
+                    out["unverifiable"] += 1
+                elif d > last_y:
+                    out["pending"] += 1
+                else:
+                    out["extra"].append({"symbol": sym, "date": d, "cached": c})
+                continue
+            checked += 1
+            if abs(c - y) > max(1e-4, abs(y) * YAHOO_TOL):
+                mm.append({"symbol": sym, "date": d, "cached": c, "yahoo": round(float(y), 4),
+                           "pct": round((c / y - 1) * 100, 3) if y else None})
+        out["checked"] += checked
+        # 캐시 마지막 날짜 뒤의 Yahoo 봉은 '아직 안 받은 것'(증분 갱신 몫)이지 구멍이 아니다 — 매일 저녁 아시아 지수가 걸린다
+        miss = [d for d in sorted(yh) if start <= d < rows[-1][0] and d not in book]
+        ratios = [m["cached"] / m["yahoo"] for m in mm if m["yahoo"]]
+        run = _longest_run([d for d, _ in rows if d >= start and d in yh], {m["date"] for m in mm})
+        if ratios and ((len(mm) >= 5 and len(mm) >= RESCALE_SHARE * checked and max(ratios) / min(ratios) < 1.01)
+                       or run >= REBASE_RUN):
+            # 굳은 장중값은 **띄엄띄엄** 난다(그날 장중에 돌린 날만). 연속 구간 전체가 어긋나면 Yahoo가 과거를 다시 쓴 것이다
+            #   — 분할 소급(같은 배율) 또는 연속선물 롤오버 재기준(배율이 천천히 변한다 · 10/19 GC=F 216일 -1.0~-1.8%).
+            out["rescaled"].append({"symbol": sym, "ratio": round(sorted(ratios)[len(ratios) // 2], 4), "n": len(mm),
+                                    "run": run, "from": mm[0]["date"], "to": mm[-1]["date"]})
+            mm = []                     # 개별 날짜로 고치면 창 밖과 단위가 갈린다 — 전체 재풀로만
+        out["mismatch"] += mm
+        out["missing"] += [{"symbol": sym, "date": d, "yahoo": round(float(yh[d]), 4)} for d in miss]
+        if fix and (mm or miss):
+            for m in mm:
+                book[m["date"]] = m["yahoo"]
+                NOTES.append({"symbol": sym, "date": m["date"], "kind": "patched", "old": m["cached"],
+                              "new": m["yahoo"], "src": SRC_YAHOO_AUDIT})
+            for d in miss:
+                book[d] = round(float(yh[d]), 4)
+                NOTES.append({"symbol": sym, "date": d, "kind": "patched", "old": None,
+                              "new": book[d], "src": SRC_YAHOO_AUDIT})
+            save_cached(sym, sorted(book.items(), key=lambda x: x[0]))
+            out["fixed"] += len(mm)
+            out["filled"] += len(miss)
+    return out
+
+
+def _fmt_audit_yahoo(res: dict) -> str:
+    lines = [f"■ 캐시 ↔ Yahoo 일봉 종가 감사(국내 개별종목 제외) — 최근 {res['days']}일 · 심볼 {res['symbols']} · "
+             f"대조 {res['checked']}건 · 불일치 {len(res['mismatch'])}건"
+             + (f" · 재조정 의심 {len(res['rescaled'])}종목" if res["rescaled"] else "")
+             + (f" · 빈 날짜 {len(res['missing'])}건" if res["missing"] else "")
+             + (f" · Yahoo에 없는 날짜 {len(res['extra'])}건" if res["extra"] else "")
+             + (f" · 고침 {res['fixed']}건·채움 {res['filled']}건" if res.get("fixed") or res.get("filled") else "")]
+    for m in res["mismatch"][:40]:
+        lines.append(f"  ⚠️ {m['symbol']:<10} {m['date']}  캐시 {m['cached']:>12,.4f} ↔ Yahoo {m['yahoo']:>12,.4f} "
+                     f"({m['pct']:+.2f}%)")
+    if len(res["mismatch"]) > 40:
+        lines.append(f"  … 외 {len(res['mismatch']) - 40}건")
+    for r in res["rescaled"]:
+        lines.append(f"  ⚠️ {r['symbol']} — {r['n']}건({r.get('from')}~{r.get('to')} · 최장 연속 {r.get('run')}일 · 중앙 배율 "
+                     f"{r['ratio']})이 한 덩어리로 어긋남 = Yahoo가 과거를 재기준(분할·연속선물 롤오버) · 개별 수정 안 함 → "
+                     f"`--refresh --symbols {r['symbol']}`")
+    for m in res["missing"][:10]:
+        lines.append(f"  · 빈 날짜 {m['symbol']} {m['date']} (Yahoo {m['yahoo']:,.4f})")
+    for m in res["extra"][:10]:
+        lines.append(f"  · Yahoo에 없는 날짜 {m['symbol']} {m['date']} (캐시 {m['cached']:,.4f}) — 지우지 않음, `--refresh`로 확인")
+    if res["errors"]:
+        lines.append(f"  ⚠️ Yahoo를 못 받음 {len(res['errors'])}종목: {', '.join(res['errors'][:12])} — 이 심볼들은 본 게 없다")
+    if res["skipped"]:
+        lines.append(f"  ⚠️ 시간 예산 끝 — 못 본 {len(res['skipped'])}종목: {', '.join(res['skipped'][:12])}")
+    if not res["checked"]:
+        lines.append("  ⚠️ 대조한 날짜가 0건이다 — '불일치 없음'이 아니라 본 게 없다")
+    elif not (res["mismatch"] or res["rescaled"]):
+        lines.append("  ✅ 대조한 날짜는 전부 일치")
+    if res["mismatch"] and not res.get("fixed"):
+        lines.append(f"  → 값을 확인한 뒤 `history_backfill.py --audit-yahoo {res['days']} --fix`(Yahoo 값으로 교체 · 원장 기록)")
+    return "\n".join(lines)
+
+
 def write_manifest(stats: dict, partial: bool = False) -> None:
     """매니페스트 저장. partial이면 기존 파일에 **해당 심볼만 갱신해 합친다**.
 
@@ -786,12 +933,15 @@ def report_notes(quiet: bool = False) -> None:
     """이번 실행의 결측 보정·미검증을 출력하고 원장(_gapfill.jsonl)에 남긴다. quiet = 출력 없이 원장에만(--json)."""
     if not NOTES:
         return
+    def px(v):              # 국내 종목(원)은 정수, 지수·VIX·금리·환율은 소수 — 17.09를 '17'로 찍으면 고친 게 안 보인다
+        return f"{v:,.0f}" if abs(v) >= 1000 else f"{v:,.4f}"
+
     if not quiet:
         print("\n결측 봉 처리:")
         for n in NOTES:
             if n["kind"] == "patched":
-                was = "신규" if n["old"] is None else f"{n['old']:,.0f} →"
-                print(f"  🔧 {n['symbol']} {n['date']}  {was} {n['new']:,.0f}  [{n['src']}]")
+                was = "신규" if n["old"] is None else f"{px(n['old'])} →"
+                print(f"  🔧 {n['symbol']} {n['date']}  {was} {px(n['new'])}  [{n['src']}]")
             else:
                 print(f"  ⚠️ {n['symbol']} {n['date']}  캐시 {n['old']:,.4g} 미검증 — {n['src']}")
     stamp = dt.datetime.now(KST).strftime("%Y-%m-%d %H:%M")
@@ -839,17 +989,34 @@ def main() -> int:
     ap.add_argument("--pace", type=float, default=1.2, help="심볼 간 페이싱 초(레이트리밋)")
     ap.add_argument("--audit", nargs="?", const=7, type=int, metavar="N",
                     help="국내 종목 캐시의 최근 N거래일(기본 7)을 토스 KRX 종가와 대조(읽기 전용)")
+    ap.add_argument("--audit-yahoo", nargs="?", const=400, type=int, metavar="N",
+                    help="국내 개별종목을 뺀 캐시(美·지수·매크로)의 최근 N일(기본 400)을 Yahoo 일봉 종가와 대조(읽기 전용)")
     ap.add_argument("--fix", action="store_true",
-                    help="--audit과 함께만: 불일치를 토스 값으로 고쳐 쓴다(사람이 확인한 뒤 수동으로 — 무인 경로 금지)")
+                    help="--audit/--audit-yahoo와 함께만: 불일치를 토스(국내)·Yahoo(그 외) 값으로 고쳐 쓴다"
+                         "(사람이 확인한 뒤 수동으로 — 무인 경로 금지)")
+    ap.add_argument("--max-sec", type=float, metavar="S",
+                    help="--audit-yahoo와 함께: S초가 지나면 남은 심볼은 skipped로 남기고 끝낸다(마감 대사의 시간 예산용)")
     ap.add_argument("--selftest", action="store_true", help="결측 봉 보정·매니페스트 병합 자가검증(오프라인)")
     args = ap.parse_args()
     if args.selftest:
         return selftest()
-    if args.fix and args.audit is None:
+    if args.fix and args.audit is None and args.audit_yahoo is None:
         # --fix만 주면 조용히 무시되고 평소 증분 갱신이 돌았다 — 고쳤다고 믿게 만드는 침묵이다.
-        ap.error("--fix는 --audit과 함께만 쓴다 (예: --audit 7 --fix)")
+        ap.error("--fix는 --audit 또는 --audit-yahoo와 함께만 쓴다 (예: --audit 7 --fix)")
+    if args.audit is not None and args.audit_yahoo is not None:
+        ap.error("--audit(국내·토스)과 --audit-yahoo(그 외·Yahoo)는 따로 돌린다")
 
     only = [s.strip() for s in cli_common.split_tickers(args.symbols)] if args.symbols else None
+
+    if args.audit_yahoo is not None:
+        res = audit_yahoo(max(1, args.audit_yahoo), fix=args.fix, pace=min(args.pace, 0.6),
+                          symbols=[s for s in only if not s.upper().endswith(KR_SUFFIX)] if only else None,
+                          deadline=(time.monotonic() + args.max_sec) if args.max_sec else None)
+        if args.fix and (res["fixed"] or res["filled"]):
+            report_notes(quiet=args.json)
+            write_manifest(build_stats(), partial=False)
+        print(json.dumps(res, ensure_ascii=False, indent=1) if args.json else _fmt_audit_yahoo(res))
+        return 0
 
     if args.audit is not None:
         res = audit_kr(max(1, args.audit), fix=args.fix,
@@ -1357,14 +1524,73 @@ def selftest() -> int:
     rows, gaps = parse_chart(res, o16 + 4500)                        # 개장 75분 뒤
     ok("美 장중: 진행 중 세션(10/16) 봉 제외 · 결측으로도 안 셈",
        rows == [("2026-10-15", 7744.06)] and gaps == [])
-    rows, _ = parse_chart(res, o16 + 23400 + 60)                    # 마감 1분 뒤
-    ok("美 마감 뒤: 10/16 봉 기록", rows[-1] == ("2026-10-16", 7732.59))
+    rows, _ = parse_chart(res, o16 + 23400 + 60)                    # 마감 1분 뒤 — 종가 확정 유예 안
+    ok("美 마감 1분 뒤: 아직 안 쓴다(종가 경매·지수 확정 유예 40분)", rows == [("2026-10-15", 7744.06)])
+    rows, _ = parse_chart(res, o16 + 23400 + SETTLE_GRACE_SEC + 60)  # 유예 지난 뒤
+    ok("美 마감+유예 뒤: 10/16 봉 기록", rows[-1] == ("2026-10-16", 7732.59))
+    rows, _ = parse_chart(res, o16 - 3 * 3600)                       # ★[10/19] 장 시작 3시간 전(장전 거래)
+    ok("장 시작 전에 와 있는 그날 봉은 안 쓴다(장전값)", rows == [("2026-10-15", 7744.06)])
     res["indicators"]["quote"][0]["close"] = [7744.06, None]
     rows, gaps = parse_chart(res, o16 + 4500)
     ok("美 장중 미형성 봉(null)은 결측이 아니다", gaps == [] and rows == [("2026-10-15", 7744.06)])
     res["meta"].pop("currentTradingPeriod")
     rows, _ = parse_chart({**res, "indicators": {"quote": [{"close": [7744.06, 7732.59]}]}}, o16 + 4500)
     ok("meta에 거래시간이 없으면 舊 동작 그대로(개정창이 보정)", len(rows) == 2)
+    # ★[10/19] Yahoo는 KRX 정규장 끝을 15:00으로 적는다(실제 종가 단일가 15:20~15:30) — 15:00~15:30 장중값이 굳던 자리
+    k09, k15 = calendar.timegm((2026, 10, 19, 0, 0, 0)), calendar.timegm((2026, 10, 19, 6, 0, 0))   # 09:00 · 15:00 KST
+    kr = {"timestamp": [k09 - 86400 * 3, k09], "indicators": {"quote": [{"close": [5668.05, 5751.0]}]},
+          "meta": {"gmtoffset": 32400, "currentTradingPeriod": {"regular": {"start": k09, "end": k15}}}}
+    ok("KRX 15:20(Yahoo 정규장 끝 15:00 뒤)에도 그날 봉은 안 쓴다",
+       parse_chart(kr, k15 + 20 * 60)[0] == [("2026-10-16", 5668.05)])
+    ok("KRX 15:45(유예 끝)엔 그날 종가를 쓴다", parse_chart(kr, k15 + 45 * 60)[0][-1] == ("2026-10-19", 5751.0))
+    # 24시간 상품(선물·환율: regular = 현지 00:00~23:59) — 그날 봉은 그날 안 쓴다
+    d0 = calendar.timegm((2026, 10, 19, 4, 0, 0))                    # 뉴욕 00:00(-4h)
+    fut = {"timestamp": [d0 - 86400 * 3, d0], "indicators": {"quote": [{"close": [101.41, 97.66]}]},
+           "meta": {"gmtoffset": -14400, "currentTradingPeriod": {"regular": {"start": d0, "end": d0 + 86340}}}}
+    ok("24시간 상품: 그날 봉은 그날 안 쓴다", parse_chart(fut, d0 + 10 * 3600)[0] == [("2026-10-16", 101.41)])
+
+    # ★[10/19] Yahoo 대조 감사 — 개정창 밖에 굳은 장중값(^VIX 7/30 19.38 ↔ 종가 17.09)을 잡는가
+    keep_all2 = (HIST_DIR, GAPFILL_LOG)
+    with tempfile.TemporaryDirectory() as td:
+        try:
+            HIST_DIR, GAPFILL_LOG = td, os.path.join(td, "_gapfill.jsonl")
+            days = [(dt.date(2026, 7, 1) + dt.timedelta(days=i)).isoformat() for i in range(60)]
+            truth = [(d, 15.0 + i * 0.1) for i, d in enumerate(days)]
+            stuck = [(d, 19.38 if d == "2026-07-30" else c) for d, c in truth]
+            save_cached("^VIX", [r for r in stuck if r[0] != "2026-07-12"])    # 07-12 = 오래된 구멍
+            yfetch = lambda s, p1: (list(truth), [])                         # noqa: E731
+            now7 = int(calendar.timegm((2026, 9, 1, 0, 0, 0)))
+            del NOTES[:]
+            a0 = audit_yahoo(90, symbols=["^VIX"], fetch=yfetch, pace=0, now=now7)
+            ok("감사: 개정창 밖 장중값 1건 적발(읽기 전용 = 캐시 그대로)",
+               [m["date"] for m in a0["mismatch"]] == ["2026-07-30"]
+               and dict(load_cached("^VIX"))["2026-07-30"] == 19.38 and not NOTES)
+            ok("감사: 개정창보다 오래된 빈 날짜도 잡는다", [m["date"] for m in a0["missing"]] == ["2026-07-12"])
+            a1 = audit_yahoo(90, symbols=["^VIX"], fetch=yfetch, pace=0, now=now7, fix=True)
+            fixed = dict(load_cached("^VIX"))
+            ok("감사 --fix: Yahoo 종가로 교체 + 빈 날짜 채움 + 원장 기록",
+               fixed["2026-07-30"] == truth[29][1] and "2026-07-12" in fixed and a1["fixed"] == 1
+               and a1["filled"] == 1 and any(n["src"] == SRC_YAHOO_AUDIT for n in NOTES))
+            ok("감사 --fix 뒤 다시 보면 불일치 0",
+               not audit_yahoo(90, symbols=["^VIX"], fetch=yfetch, pace=0, now=now7)["mismatch"])
+            # 연속선물 재기준(GC=F) — 천천히 변하는 배율로 연속 구간 전체가 어긋남 → 개별 수정 금지
+            save_cached("GC=F", [(d, c * (0.985 + i * 0.0002)) for i, (d, c) in enumerate(truth)])
+            a2 = audit_yahoo(90, symbols=["GC=F"], fetch=yfetch, pace=0, now=now7, fix=True)
+            ok("연속 구간 재기준은 '재조정'으로 분류 · 개별 수정 안 함",
+               [r["symbol"] for r in a2["rescaled"]] == ["GC=F"] and not a2["mismatch"] and a2["fixed"] == 0)
+            # 못 받은 심볼·시간 예산 — '불일치 0'과 구별돼야 한다
+            a3 = audit_yahoo(90, symbols=["^VIX", "GC=F"], fetch=lambda s, p1: None, pace=0, now=now7)
+            ok("Yahoo를 못 받은 심볼은 errors로 남는다", a3["errors"] == ["^VIX", "GC=F"] and a3["checked"] == 0)
+            a4 = audit_yahoo(90, symbols=["^VIX", "GC=F"], fetch=yfetch, pace=0, now=now7, deadline=0)
+            ok("시간 예산이 끝나면 못 본 심볼을 skipped로 남긴다", a4["skipped"] == ["^VIX", "GC=F"])
+            ok("포맷: 본 게 없으면 '불일치 없음'이라 말하지 않는다", "본 게 없다" in _fmt_audit_yahoo(a3))
+            # 아직 끝나지 않은 세션이라 Yahoo가 안 준 날짜(캐시엔 장중에 쓴 값) = pending
+            save_cached("^VIX", list(truth) + [("2026-08-30", 22.0)])
+            ok("Yahoo 최신 봉보다 뒤의 캐시 날짜 = pending(불일치·extra 아님)",
+               audit_yahoo(90, symbols=["^VIX"], fetch=yfetch, pace=0, now=now7)["pending"] == 1)
+        finally:
+            HIST_DIR, GAPFILL_LOG = keep_all2
+            del NOTES[:]
 
     print(f"\n{'✅ SELFTEST PASS' if not fails else '❌ SELFTEST FAIL: ' + ', '.join(fails)}")
     return 1 if fails else 0

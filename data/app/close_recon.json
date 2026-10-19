@@ -1,47 +1,45 @@
 {
- "date": "2026-10-16",
- "run_at": "2026-10-16 20:10",
+ "date": "2026-10-19",
+ "run_at": "2026-10-19 16:10",
  "status": "ok",
- "notes": [
-  "외인 1차 +3,446억(16:10) → 이번 +3,637억 = 191억 차"
- ],
+ "notes": [],
  "kospi": {
-  "close": 5668.05,
-  "pct": 2.05,
+  "close": 5768.01,
+  "pct": 1.76,
   "peak": 9114.55,
   "peak_date": "2026-06-22",
-  "dd_pct": -37.81
+  "dd_pct": -36.72
  },
  "kosdaq": {
-  "close": 794.78,
-  "pct": 4.46
+  "close": 808.89,
+  "pct": 1.78
  },
  "first": {
-  "foreign": 3446,
-  "inst": -6813,
-  "indiv": -4904,
+  "foreign": -323,
+  "inst": 5760,
+  "indiv": -10932,
   "at": "16:10"
  },
  "flows": {
-  "foreign": 3637,
-  "inst": -6815,
-  "indiv": -5126,
-  "at": "20:10"
+  "foreign": -323,
+  "inst": 5760,
+  "indiv": -10932,
+  "at": "16:10"
  },
- "grade": "잠정(값 변동)",
- "flows_action": "updated",
+ "grade": "잠정(1차)",
+ "flows_action": "added",
  "streak": {
   "days": 1,
-  "side": "매수",
-  "cum_eok": 3637
+  "side": "매도",
+  "cum_eok": -323
  },
  "pending_nulls": [
   "2026-09-14"
  ],
  "history_audit": {
   "days": 7,
-  "checked": 126,
-  "unresolved": 0,
+  "checked": 125,
+  "unresolved": 1,
   "adjusted": 0,
   "error": null,
   "no_key": false,

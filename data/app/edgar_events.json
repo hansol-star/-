@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-14 16:27",
+ "updated": "2026-10-20 16:22",
  "days": 30,
  "note": "SEC 8-K item 코드 스트림. item 코드는 '사건이 있었다'는 사실이지 내용이 아니다 — 논지를 바꿀 건이면 원문 URL로 내려갈 것.",
- "as_of": "2026-10-14 07:26",
+ "as_of": "2026-10-20 07:22",
  "source": "SEC EDGAR",
  "events": [
   {
@@ -66,25 +66,7 @@
   {
    "ticker": "ORCL",
    "error": null,
-   "events": [
-    {
-     "date": "2026-09-14",
-     "severity": "notable",
-     "items": [
-      {
-       "code": "8.01",
-       "label": "기타 중요사항",
-       "severity": "notable"
-      },
-      {
-       "code": "9.01",
-       "label": "재무제표·첨부",
-       "severity": "routine"
-      }
-     ],
-     "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389753/d20034d8k.htm"
-    }
-   ]
+   "events": []
   }
  ]
 }

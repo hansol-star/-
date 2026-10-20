@@ -634,9 +634,13 @@ def global_contagion_check():
         return None, f"S&P 폭풍 조회 실패({type(e).__name__}) — 확산 판정 불가"
     if pct is None:
         return None, "S&P 폭풍 미확인"
+    # ★[2026-10-20] 美 정규장 중(22:30~05:40 KST)엔 판독에 장중 봉이 들어간다 — 판정은 그대로 두고 **표시만** 한다
+    #   (장중 판독이 그 세션 확정 판독과 더 가깝다: 70 경계 불일치 0.99% vs 전일 확정 3.57% · vol_gauge.closes_with_meta).
+    note = vol_gauge.provisional_note(r) if hasattr(vol_gauge, "provisional_note") else ""
+    tail = f" · {note}" if note else ""
     if pct >= 70:
-        return True, f"🚨 S&P500 폭풍 {pct:.0f}%ile ≥70 = **글로벌 확산** → 사다리 전면 정지"
-    return False, f"S&P500 폭풍 {pct:.0f}%ile <70 = 국지 유지(개정 전제 성립)"
+        return True, f"🚨 S&P500 폭풍 {pct:.0f}%ile ≥70 = **글로벌 확산** → 사다리 전면 정지{tail}"
+    return False, f"S&P500 폭풍 {pct:.0f}%ile <70 = 국지 유지(개정 전제 성립){tail}"
 
 
 def rule1_ladder(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct=None,

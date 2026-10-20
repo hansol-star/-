@@ -77,7 +77,8 @@ def size_asset(symbol: str, target_vol: float) -> dict:
     if fc_vol is None and vol_gauge is not None:  # 폴백: 후행 RV
         try:
             gg = vol_gauge.gauge(symbol, 20, 252)
-            fc_vol, pct, regime = gg.get("rv"), gg.get("storm_pct"), gg.get("regime")
+            # ★[2026-10-20] 키는 rv_ann — 舊 'rv'는 gauge에 없는 키라 이 폴백이 늘 None으로 끝났다(garch 실패 시 ok=False)
+            fc_vol, pct, regime = gg.get("rv_ann"), gg.get("storm_pct"), gg.get("regime")
             src = "vol_gauge(후행)"
         except Exception:
             pass

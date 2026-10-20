@@ -123,6 +123,7 @@
     · ★[9/17] **분석할 영상이 0편이어도 hunter_log.md에 한 줄 블록을 남긴다**(`## <오늘> — R1 신규 0편 · [CATCHUP] 줄`).
       `validate_report`가 **블록 날짜로 R1 생존을 판정**한다 — 블록이 없는 날은 실패한 날과 구별되지 않는다.
 - python3 .claude/skills/portfolio-desk/scripts/build_app_data.py → `git add <고친 파일 경로>` → `git commit`. **푸시는 하지 않는다** —
+  ★[10/20] build_app_data가 다시 쓰는 **`app/data.js`·`app/sw.js`(캐시 스탬프)도 같이 add**한다 — 10/20 R1은 52편을 커밋해놓고 sw.js만 남겨 UNCOMMITTED로 찍혔다.
   무인 세션의 push는 권한 게이트에 막히고(9/9 실측), 런처가 종료 후 `routine_push.py`로 origin/main에 올린다.
 - 보고서 파일(report_v*)은 만들지 않는다. 이건 데이터 프리페치 전용.
 ```
@@ -590,6 +591,7 @@ powershell -ExecutionPolicy Bypass -File .claude/routines/run_routine.ps1 -Kind 
 
 ### 캐치업 — 놓친 루틴을 켜지자마자 따라잡는다 [9/2 신설]
 `JD-catchup-on-wake` = **로그온 +3분**에 `catchup.ps1` 1회 실행. 놓친 게 없으면 즉시 종료(가볍다).
+★[10/20] + **평일 11:20·13:20·15:20·17:20**. R1이 돌았지만 TOKEN_LIMIT·NO_OUTPUT·BG_KILLED로 끝난 날은 '이미 돌았다'로 넘기지 않고 재시도한다(하루 시작 3회 미만 · 한도면 로그의 `resets` 시각이 지난 뒤 · 주간 한도는 리셋일이 오늘일 때만). 10/15 R1은 10:00 세션 한도 → 13:10 리셋인데 재시도 0회였다. 런처 판정도 `weekly limit`을 TOKEN_LIMIT로 잡는다(10/16은 FAILED로 가려졌다).
 - **R4와 다른 문제를 푼다**: R4 = *"돌았는데 토큰에 막혀 못 끝냈다"* / 캐치업 = *"아예 안 돌았다(머신이 없었다)"*.
 - **판정**: 오늘 그 루틴의 로그가 있나(R1) · `report_guard --check`로 오늘 보고서가 있나(R2).
 - **창**: R1은 10:00~15:30, R2는 16:00~23:00. 넘으면 **포기**한다 —

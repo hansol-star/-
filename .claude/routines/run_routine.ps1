@@ -367,7 +367,8 @@ Add-Content -Path $LogFile -Value $outText -Encoding utf8
 # ★[2026-09-17] 백그라운드 강제 종료 — 9/14·9/15 R1의 진짜 사인. 舊 판정은 이걸 UNCOMMITTED로 뭉갰고
 #   validate 힌트는 '권한 누락'을 원인으로 적었다(실제로는 권한이 아니었다).
 $bgKilled = $outText -match 'Background tasks still running|background (fetch|task|job)[^.\n]{0,80}still running|wait for (its|the) completion notification|ScheduleWakeup'
-$hitLimit = $outText -match 'session limit|usage limit|rate limit'
+# ★[2026-10-20] 'weekly limit' 추가 — 10/16 R1("You've hit your weekly limit")이 FAILED로 찍혀 원인이 가려졌다.
+$hitLimit = $outText -match 'session limit|weekly limit|usage limit|rate limit|hit your [a-z ]{0,20}limit'
 $permBlock = $outText -match 'permission denied|requires approval|not allowed'
 $notLogged = $outText -match 'Not logged in|/login|Failed to authenticate|OAuth session expired|could not be refreshed'
 
@@ -391,6 +392,17 @@ $preDirty = $dirty.Count - $newDirty.Count
 $scratch = @($newDirty | Where-Object { $_ -match '^.. "?data/tmp/' })
 $newDirty = @($newDirty | Where-Object { $_ -notmatch '^.. "?data/tmp/' })
 if ($scratch.Count -gt 0) { Write-Log "스크래치 data/tmp/ 변경 $($scratch.Count)건은 미커밋에서 제외" }
+# ★[2026-10-20] R1 범위 밖 변경 = 같은 트리를 쓰는 다른 세션의 작업이다. 10/20 R1은 52편을 커밋·푸시했는데
+#   실행 중 대화형 세션이 고친 vol_gauge.py가 '미커밋'으로 잡혀 UNCOMMITTED로 찍혔다(실패 4일 중 1일이 이 오판).
+#   R1이 쓰는 경로는 data/·docs/research/·app/뿐이다 — 그 밖(.claude/ 코드·docs/reports 등)은 세지 않고 기록만 한다.
+if ($Kind -eq 'r1') {
+  $r1Scope = '^.. "?(data/|docs/research/|app/)'
+  $foreign = @($newDirty | Where-Object { $_ -notmatch $r1Scope })
+  if ($foreign.Count -gt 0) {
+    Write-Log "R1 범위 밖 변경 $($foreign.Count)건은 미커밋에서 제외(실행 중 다른 세션의 작업): $(($foreign | ForEach-Object { $_.Substring(3) }) -join ', ')"
+  }
+  $newDirty = @($newDirty | Where-Object { $_ -match $r1Scope })
+}
 $uncommitted = $newDirty.Count
 if ($uncommitted -gt 0) {
   # ⚠️ "${uncommitted}건" — 중괄호 필수. "$uncommitted건"은 PowerShell이 '건'까지 변수명으로 읽어

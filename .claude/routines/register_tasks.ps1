@@ -204,11 +204,14 @@ if (Test-Path $Catchup) {
   #    (자동 로그인 없이 잠금화면에 방치되는 경우만 사각으로 남는다.)
   $cTriggers = @( (New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME") )
   foreach ($t in $cTriggers) { $t.Delay = 'PT3M' }
+  # ★[2026-10-20] 평일 11:20·13:20·15:20·17:20 — 로그온만으로는 '돌았지만 한도에 막힌 R1'을 리셋 뒤 다시 밀 수 없다
+  #   (10/15 R1 10:00 TOKEN_LIMIT · 13:10 리셋 · 그날 재시도 0회). 판정만 하고 끝나는 가벼운 태스크다.
+  foreach ($at in '11:20','13:20','15:20','17:20') { $cTriggers += (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Weekdays -At $at) }
   if (Get-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -ErrorAction SilentlyContinue) {
     Unregister-ScheduledTask -TaskName $CatchupName -TaskPath "$Folder\" -Confirm:$false
   }
   Register-ScheduledTask -TaskName $CatchupName -TaskPath $Folder -Action $cAction -Trigger $cTriggers -Principal $principal -Settings $settings -Description "부팅·로그온 시 놓친 루틴 따라잡기 - 정본 docs/routines.md" | Out-Null
-  Write-Output ("registered  {0,-22} {1}" -f $CatchupName, '로그온 +3분')
+  Write-Output ("registered  {0,-22} {1}" -f $CatchupName, '로그온 +3분 · 평일 11:20·13:20·15:20·17:20')
 }
 
 Write-Output ""

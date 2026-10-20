@@ -77,6 +77,34 @@ else {
   #   PC가 오후에 켜지는 날(9/16·9/23·9/28) 영상이 통째로 빠지는 쪽이 더 나쁘다(9/28 누적 34편).
   #   run_routine.ps1 $MaxLateMap r1=600과 짝.
   if ($mins -ge 600 -and $mins -lt 1200 -and -not (Ran 'r1')) { $todo += 'r1' }
+  elseif ($mins -ge 600 -and $mins -lt 1200 -and (Ran 'r1')) {
+    # ★[2026-10-20] 돌았지만 아무것도 못 낸 날을 다시 민다. 舊 판정은 '로그 파일 존재 = 돌았다'라
+    #   10/15 R1(10:00 세션 한도 → TOKEN_LIMIT · 13:10 리셋)을 '이미 돌았다'로 넘겨 그날 영상이 통째로 빠졌다.
+    #   재시도 대상 = 마지막 판정이 TOKEN_LIMIT·NO_OUTPUT·BG_KILLED · 하루 시작 3회 미만 · 한도면 리셋 시각이 지났을 때.
+    #   주간 한도("resets Oct 19, 10pm")는 날짜가 오늘이 아니면 기다리지 않는다(내일 정규 R1이 --catchup으로 메운다).
+    $r1Log = Join-Path $LogDir "r1_$stamp.log"
+    $body  = Get-Content -Path $r1Log -Raw -Encoding utf8
+    $starts = ([regex]::Matches($body, '=== 루틴 r1 시작')).Count
+    $last = [regex]::Matches($body, 'verdict=(\w+)') | Select-Object -Last 1
+    $lastV = if ($last) { $last.Groups[1].Value } else { '' }
+    if ($lastV -in 'TOKEN_LIMIT','NO_OUTPUT','BG_KILLED' -and $starts -lt 3) {
+      $ready = $true
+      if ($lastV -eq 'TOKEN_LIMIT') {
+        $m = [regex]::Matches($body, 'resets (?:([A-Z][a-z]{2}) (\d{1,2}), )?(\d{1,2})(?::(\d{2}))?\s*(am|pm)') | Select-Object -Last 1
+        if ($m) {
+          $h = [int]$m.Groups[3].Value % 12; if ($m.Groups[5].Value -eq 'pm') { $h += 12 }
+          $mm = if ($m.Groups[4].Success) { [int]$m.Groups[4].Value } else { 0 }
+          if ($m.Groups[1].Success) {
+            $d = [datetime]::ParseExact("$($m.Groups[1].Value) $($m.Groups[2].Value) $($kst.Year)", 'MMM d yyyy', [Globalization.CultureInfo]::InvariantCulture)
+            if ($d.Date -ne $kst.Date) { $ready = $false }
+          }
+          if ($mins -lt ($h * 60 + $mm + 5)) { $ready = $false }
+          Say "R1 직전 판정 TOKEN_LIMIT — 리셋 $($m.Value) · $(if ($ready) { '지났다 → 재시도' } else { '아직 → 대기' })"
+        }
+      }
+      if ($ready) { $todo += 'r1'; Say "R1 재시도 대상 — 직전 verdict=$lastV · 오늘 시작 ${starts}회" }
+    }
+  }
 }
 
 if ($todo.Count -eq 0) { Say "따라잡을 것 없음"; Say "=== 종료 ==="; exit 0 }

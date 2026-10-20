@@ -78,8 +78,10 @@ def fetch(symbol: str, timeout: float = 40.0):
         res = data["chart"]["result"][0]
         ts = res["timestamp"]
         q = res["indicators"]["quote"][0]
-        # [10/13] 날짜 = 거래소 현지일(UTC로 붙이면 KRW=X 서머타임 봉이 하루 앞 날짜가 된다 — history_backfill.bar_date)
-        shift = int((res.get("meta") or {}).get("gmtoffset") or 0) + 3600
+        # [10/13] 날짜 = 거래소 현지일(UTC로 붙이면 KRW=X 서머타임 봉이 하루 앞 날짜가 된다)
+        # ★[10/20] 식을 옮겨 적지 않고 history_backfill.bar_date를 부른다 — 복사본은 다음 정정 때 갈라진다(vol_gauge 사고)
+        import history_backfill as _hb
+        off = (res.get("meta") or {}).get("gmtoffset") or 0
         rows = []
         for i, t in enumerate(ts):
             c = q["close"][i]
@@ -88,7 +90,7 @@ def fetch(symbol: str, timeout: float = 40.0):
             def g(k):
                 v = q.get(k, [None] * len(ts))[i]
                 return "" if v is None else round(float(v), 4)
-            rows.append([time.strftime("%Y-%m-%d", time.gmtime(t + shift)),
+            rows.append([_hb.bar_date(t, off),
                          g("open"), g("high"), g("low"), round(float(c), 4),
                          int(q["volume"][i]) if q.get("volume", [None])[i] is not None else ""])
         return rows

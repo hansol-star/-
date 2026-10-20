@@ -29,6 +29,7 @@ import csv
 import datetime as dt
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -112,7 +113,29 @@ def bar_date(t: int, gmtoffset: int = 0) -> str:
       일요일 날짜 행이 생겼다(KRW=X 3,476봉·^AXJO 3,909봉이 하루씩 밀려 있었다).
       +1h = 서머타임이 끝난 뒤 다시 받을 때 과거 서머타임 봉(현지 자정 = UTC 23시)이 밀리지 않게 하는 여유
       (세션이 현지 23시 이후에 여는 시장은 없다 — 전 유니버스 73심볼에서 다른 봉의 라벨은 안 바뀐다)."""
-    return time.strftime("%Y-%m-%d", time.gmtime(t + int(gmtoffset or 0) + 3600))
+    return time.strftime("%Y-%m-%d", time.gmtime(t + int(gmtoffset or 0) + 3600))  # label-ok: 정본
+
+
+# ★[2026-10-20] 라벨러는 한 벌이다 — Yahoo 봉 타임스탬프 → 날짜는 **bar_date만** 한다.
+#   10/13 이 함수로 캐시 날짜를 바로잡았는데 vol_gauge는 자기 UTC 라벨을 그대로 써서 두 벌이 갈라졌고,
+#   KRW=X 병합에 가짜 주말 행 152개가 들어가 원/달러 5y %ile이 26.7(정답 35.2)로 나왔다(v116 '저평가' 오판독).
+#   복사본(같은 식을 옮겨 적은 것)도 다음 정정 때 같은 식으로 갈라진다 → 다른 스크립트는 이 함수를 부른다.
+#   labeler_lint = 그 규약의 기계 검사(selftest가 전 스크립트에 돌린다 · 정당한 예외 줄은 '# label-ok: 사유').
+_LABEL_CONV = re.compile(r"utcfromtimestamp\(|\bgmtime\(\s*[^)\s]|fromtimestamp\([^)]*utc")
+_YAHOO_BARS = re.compile(r"""\[\s*["']timestamp["']\s*\]|get\(\s*["']timestamp["']|finance/chart|YAHOO_CHART|["']splits["']""")
+
+
+def labeler_lint(sources: dict) -> list:
+    """{파일명: 소스} → [(파일, 줄번호, 줄)] — Yahoo 봉·이벤트를 읽는 파일에서 타임스탬프를 직접 날짜로 바꾸는 줄."""
+    hits = []
+    for name, src in sorted(sources.items()):
+        if not _YAHOO_BARS.search(src):
+            continue
+        for i, line in enumerate(src.splitlines(), 1):
+            code = line.split("#", 1)[0]
+            if _LABEL_CONV.search(code) and "label-ok" not in line:
+                hits.append((name, i, line.strip()))
+    return hits
 
 
 def fetch_daily_with_gaps(symbol: str, period1: int = 0, timeout: float = 30.0):
@@ -798,7 +821,7 @@ def audit_yahoo(days: int = 400, symbols=None, fix: bool = False, fetch=None, pa
     """
     fetch = fetch or (lambda s, p1: fetch_with_backoff(s, period1=p1, with_gaps=True))
     now_ts = int(now if now is not None else time.time())
-    start = (dt.datetime.fromtimestamp(now_ts, dt.timezone.utc).date() - dt.timedelta(days=days)).isoformat()
+    start = (dt.datetime.fromtimestamp(now_ts, dt.timezone.utc).date() - dt.timedelta(days=days)).isoformat()  # label-ok: 감사 창 시작일(봉 라벨 아님)
     p1 = max(0, now_ts - (days + 3) * 86400)
     if symbols is None:
         symbols = [s for _, s in _universe() if not s.upper().endswith(KR_SUFFIX)]
@@ -1591,6 +1614,32 @@ def selftest() -> int:
         finally:
             HIST_DIR, GAPFILL_LOG = keep_all2
             del NOTES[:]
+
+    # ── 라벨러 한 벌(10/20) — 위반을 심어 잡히는지 보고, 실제 스크립트 전체에 돌린다 ──
+    U, G, F = "utcfrom" + "timestamp(", "gm" + "time(", "from" + "timestamp("   # 이 파일 스캔에 안 걸리게 쪼갠다
+    planted = {
+        "a.py": f'res = d["chart"]["result"][0]\nfor t in res["timestamp"]:\n    k = datetime.{U}t).date()\n',
+        "b.py": f'ts = res.get("timestamp")\nday = time.strftime("%Y-%m-%d", time.{G}t + shift))\n',
+        "c.py": f'ev = r.get("events")["splits"]\nday = datetime.{F}v["date"], tz=timezone.utc)\n',
+        "d.py": f'res = d["chart"]["result"][0]\nfor t in res["timestamp"]:\n'
+                f'    k = datetime.{U}t)  # label-ok: 테스트 예외\n',
+        "e.py": f'now = datetime.{U}time.time())\n',                # Yahoo 봉을 안 읽는 파일
+    }
+    got = {h[0] for h in labeler_lint(planted)}
+    ok("라벨러 검사: 심은 UTC 라벨 3종(utcfromtimestamp·gmtime+shift 복사본·fromtimestamp utc)을 잡는다",
+       got == {"a.py", "b.py", "c.py"})
+    here = os.path.dirname(os.path.abspath(__file__))
+    srcs = {}
+    for fn in sorted(os.listdir(here)):
+        if fn.endswith(".py"):
+            try:
+                with open(os.path.join(here, fn), encoding="utf-8") as f:
+                    srcs[fn] = f.read()
+            except (OSError, UnicodeDecodeError):
+                pass
+    real = labeler_lint(srcs)
+    ok("라벨러 검사: Yahoo 봉을 읽는 스크립트에 bar_date 밖 라벨러가 없다"
+       + ("" if not real else " — " + "; ".join(f"{a}:{b}" for a, b, _ in real[:6])), not real)
 
     print(f"\n{'✅ SELFTEST PASS' if not fails else '❌ SELFTEST FAIL: ' + ', '.join(fails)}")
     return 1 if fails else 0

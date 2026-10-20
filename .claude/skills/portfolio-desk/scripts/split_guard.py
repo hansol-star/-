@@ -107,12 +107,15 @@ def splits(ticker: str, timeout: float = 15.0) -> list[tuple[str, float]]:
         req = urllib.request.Request(url, headers={"User-Agent": UA})
         with urllib.request.urlopen(req, timeout=timeout) as r:
             d = json.loads(r.read().decode())
-        ev = ((d["chart"]["result"][0].get("events") or {}).get("splits") or {})
+        res = d["chart"]["result"][0]
+        ev = ((res.get("events") or {}).get("splits") or {})
+        import history_backfill as _hb      # 분할일 = 거래소 현지일 한 벌(10/20) — 캐시 날짜와 같은 라벨
+        off = (res.get("meta") or {}).get("gmtoffset") or 0
         for v in ev.values():
             num, den = v.get("numerator"), v.get("denominator")
             if not num or not den:
                 continue
-            day = dt.datetime.utcfromtimestamp(v["date"]).strftime("%Y-%m-%d")
+            day = _hb.bar_date(v["date"], off)
             out.append((day, float(num) / float(den)))
         out.sort()
     except (urllib.error.HTTPError, urllib.error.URLError, KeyError, ValueError,

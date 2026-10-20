@@ -127,12 +127,15 @@ def yahoo_splits(tk):
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=20) as r:
             d = json.load(r)
-        ev = (d["chart"]["result"][0].get("events") or {}).get("splits") or {}
+        res = d["chart"]["result"][0]
+        ev = (res.get("events") or {}).get("splits") or {}
+        import history_backfill as _hb      # 분할일 = 거래소 현지일 한 벌(10/20) — prices()의 캐시 날짜와 같은 라벨
+        off = (res.get("meta") or {}).get("gmtoffset") or 0
         for v in ev.values():
             ts = v.get("date")
             num, den = v.get("numerator"), v.get("denominator")
             if ts and num and den:
-                day = datetime.fromtimestamp(ts, tz=timezone.utc).date().isoformat()
+                day = _hb.bar_date(ts, off)
                 out.append((day, num / den))
     except Exception:
         out = []

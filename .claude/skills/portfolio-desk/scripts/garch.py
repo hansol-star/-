@@ -61,12 +61,17 @@ def _yahoo_rows(symbol: str, rng: str = "2y") -> list[tuple[str, float]]:
         res = data["chart"]["result"][0]
         ts = res["timestamp"]
         closes = res["indicators"]["quote"][0]["close"]
+        off = (res.get("meta") or {}).get("gmtoffset") or 0
         out = []
         for t, c in zip(ts, closes):
             if c is None:
                 continue
-            # KRX 09:00 KST = 00:00 UTC, 미장 09:30 ET = 13:30/14:30 UTC → UTC 날짜가 거래일과 일치
-            out.append((datetime.datetime.utcfromtimestamp(t).date().isoformat(), float(c)))
+            # ★[2026-10-20] 날짜 = 거래소 현지일(history_backfill.bar_date 한 벌) — load_closes가 캐시 마지막 날짜와
+            #   **날짜로** 비교해 이어붙인다. 舊 UTC 라벨은 국내·미국은 맞았지만 현지 자정에 여는 시장(KRW=X 등)에선
+            #   하루 앞 날짜가 돼 캐시 마지막 날 다음 봉이 '같은 날'로 보이고 빠졌다.
+            d = (hb.bar_date(t, off) if hb is not None
+                 else datetime.datetime.utcfromtimestamp(t).date().isoformat())  # label-ok: hb 없으면 날짜를 안 쓴다(2y 단독)
+            out.append((d, float(c)))
         return out
     except (urllib.error.HTTPError, urllib.error.URLError, KeyError,
             IndexError, TypeError, ValueError):

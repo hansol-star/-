@@ -103,8 +103,28 @@ v116은 "조정 근거는 '달러가 싸다' 쪽이나 원화 2,569원 = 환전 
 - `vol_sizing.py`: 폴백 키 `rv` → `rv_ann`(舊 = 늘 None → garch 실패 시 ok=False로 끝났다 · 측정 전용 도구).
 - `guard_selftest`: `vol_gauge.py --selftest` 등록.
 
-## 남은 것
+## 후속 — 라벨러 한 벌로 통일 (같은 날)
 
-- 같은 UTC 라벨 + 캐시 병합이 `garch.py`(top-up)·`ma_board.py`·`score_calls.py`에 남아 있다 — 대상이 대부분
-  국내·미국 종목(UTC 날짜 = 현지 날짜)이라 영향은 작지만 KRW=X·아시아 지수를 넣으면 같은 일이 난다. 별도 작업.
-- 측정 스크립트 = 세션 스크래치(`live_bar_measure.py`) — 재현은 이 문서의 정의로 한다(1시간봉은 Yahoo 730일 한도).
+Yahoo 봉 타임스탬프를 날짜로 바꾸는 곳이 `history_backfill.bar_date` 밖에 **7곳** 더 있었다 —
+UTC 라벨 5곳(`garch._yahoo_rows` · `ma_board.fetch_closes` · `score_calls.series` · `split_guard.splits` ·
+`multiple_backtest.yahoo_splits`)과 **식을 옮겨 적은 복사본 2곳**(`build_app_data.fetch_history` · `ohlcv_backfill.fetch` —
+10/13 정정 때 bar_date 식을 그대로 복사). 복사본은 지금은 맞지만 vol_gauge와 같은 길로 갈라진다 → 전부 `bar_date` 호출로 바꿨다.
+
+같은 Yahoo 응답(메모이즈)으로 HEAD 스냅샷과 대조:
+
+| 도구 | 기본 대상(지수 6·보유 12·워치 14 + VOO) | KRW=X · ^AXJO · ^N225 |
+|---|---|---|
+| garch `load_closes`·`fit_forecast` | 동일 | 오늘은 동일 — **캐시 마지막 날이 목요일이면 舊는 금요일 봉을 빠뜨린다**(재현: KRW=X 10/16 1,340.95 · ^AXJO 8,806.7 누락 → 목→월 수익률 하나로 합침) |
+| ma_board 날짜 축(차트 150봉) | 동일 | KRW=X 146/150 · ^AXJO 21/150 봉이 하루 앞 날짜였다(기본 대상 밖 — 화면 영향 없음) |
+| score_calls `series` | 동일 | KRW=X·^AXJO 주말 키(9/27·10/4·10/11·10/18) → 금·월 키로 정정(벤치는 ^KS11·VOO라 채점 영향 없음) |
+| split_guard · multiple_backtest 분할일 | 동일(26종) | — |
+| build_app_data · ohlcv_backfill | 동일(식이 같았다) | 동일 |
+
+⇒ **룰 판독 영향 없음**(하드플로어·룰6 ⓶ 판독 경로는 vol_gauge로 이미 정정). 바뀐 건 기본 대상 밖 심볼의 날짜 축과
+garch top-up의 잠재 누락뿐이다.
+
+**재발 방지** = `history_backfill.labeler_lint` — `--selftest`가 전 스크립트를 훑어 Yahoo 봉·분할 이벤트를 읽는 파일에서
+`bar_date` 밖의 타임스탬프→날짜 변환을 찾는다(정당한 예외 줄 = `# label-ok: 사유` · 현재 3줄: bar_date 자신 ·
+감사 창 시작일 · 임포트 실패 폴백). 위반 3종(utcfromtimestamp · gmtime+shift 복사본 · fromtimestamp utc)을 심어 잡는지 확인한다.
+
+- 측정 스크립트 = 세션 스크래치(`live_bar_measure.py` · `old_labels/compare.py`) — 재현은 이 문서의 정의로 한다(1시간봉은 Yahoo 730일 한도).

@@ -245,9 +245,11 @@ def series(symbol, rng_param="3mo"):
         res = d["chart"]["result"][0]
         ts = res["timestamp"]
         cl = res["indicators"]["quote"][0]["close"]
+        import history_backfill as _hb      # 날짜 = 거래소 현지일 한 벌(10/20) — 콜 날짜(KST)와 날짜로 맞춘다
+        off = (res.get("meta") or {}).get("gmtoffset") or 0
         for t, c in zip(ts, cl):
             if c is not None:
-                out[datetime.utcfromtimestamp(t).date().isoformat()] = float(c)
+                out[_hb.bar_date(t, off)] = float(c)
     except Exception as e:
         out = {"__error__": str(e)}
     _SERIES[symbol] = out

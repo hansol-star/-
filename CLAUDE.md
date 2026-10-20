@@ -268,6 +268,7 @@
 | 외인 수급 대표값을 애프터마켓 포함 값이 덮어 게이트②가 거꾸로 읽힘 | `check_flow_basis` + `flow_trend.py --selftest`(10/19 — 9/14 애프터마켓 뒤 네이버 값은 마감 뒤에도 바뀐다: 10/19 16:10 -323억 → 20:10 +947억 · 16:10 정규장이 대표값·20:10 통합은 옆 필드 · 행마다 `basis` · 정규장 값 없으면 '판정 보류'(외인 절댓값 ≥ 3,000억이면 부호만 인정)) |
 | 개정창(8/13) 전에 굳은 장중값(美·지수·매크로 — 국내 밖) | `history_backfill.py --audit-yahoo` + `close_reconcile` ⑦(10/19 — 73행·^VIX 7/30 19.38↔17.09 · 매 대사 30일 Yahoo 대조 · 개정창 밖 불일치·재조정 WARN · 고치는 건 `--fix`·`--refresh` 수동 · 정규장 끝(Yahoo 기준)+40분 전엔 그날 봉을 안 쓴다 — KRX 15:00↔15:30) |
 | 폭풍 %ile이 장중 봉을 확정 종가처럼 읽음 · Yahoo 날짜 라벨(UTC)이 캐시(현지일)와 갈라짐 | `vol_gauge.py --selftest`(10/20 — 장중 봉은 **빼지 않고 표시**: `provisional`·`settled_storm_pct`(장중 판독이 그 세션 확정과 더 가깝다 — S&P 70 경계 불일치 0.99% vs 전일 확정 3.57% · 3년 1시간봉) · `--settled-only` = 감사용 옵트인 · 날짜 라벨·미확정 판정 = `history_backfill` 한 벌(UTC 라벨이 KRW=X 가짜 주말 행 152개 → 원/달러 5y %ile 26.7 ↔ 정답 35.2 · v116 '저평가' 오판독) · 하드플로어(^GSPC)·보유 15종목 판독 불변) |
+| Yahoo 봉 날짜 라벨러가 여러 벌(UTC 라벨·식 복사본)로 갈라짐 | `history_backfill.py --selftest` `labeler_lint`(10/20 — 전 스크립트 스캔: Yahoo 봉·분할 이벤트를 읽는 파일은 `bar_date`만 부른다 · 예외 줄 = `# label-ok: 사유` · 위반 3종 주입 검증 · garch·ma_board·score_calls·split_guard·multiple_backtest·build_app_data·ohlcv_backfill 위임 · 기본 대상 출력 불변 · 舊 garch top-up은 캐시 마지막이 목요일이면 금요일 봉을 빠뜨렸다) |
 | 자동 커밋이 origin을 못 따라가 로컬에만 쌓임(로컬 main 갈라짐) | `git_sync.py`(10/16 — origin/main 위 임시 인덱스 커밋 · dirty 보존 · `--selftest` · close_reconcile 사용) |
 | 자정 넘어 쓴 보고서를 '오늘 장 보고서'로 읽고 R2가 건너뜀 | `run_routine.ps1`(10/16 — 첫 커밋 시각 ≥ 15:30 KST만 오늘 보고서) |
 | 자막 유실 | `check_transcript_persistence` |

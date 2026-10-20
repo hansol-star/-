@@ -114,7 +114,7 @@ def _bar_date(t: int, gmtoffset: int = 0) -> str:
       ^GSPC·^KS11·보유 종목은 UTC 날짜 = 현지 날짜라 하드플로어 판독은 안 바뀐다(selftest 대조)."""
     if _hb is not None:
         return _hb.bar_date(t, gmtoffset)
-    return dt.datetime.utcfromtimestamp(t + int(gmtoffset or 0) + 3600).strftime("%Y-%m-%d")
+    return dt.datetime.utcfromtimestamp(t + int(gmtoffset or 0) + 3600).strftime("%Y-%m-%d")  # label-ok: history_backfill 임포트 실패 폴백
 
 
 def _parse_dated(res: dict, now: int, settled_only: bool = False) -> tuple[dict, str | None]:

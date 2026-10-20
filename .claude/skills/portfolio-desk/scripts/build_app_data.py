@@ -68,13 +68,15 @@ def fetch_history(symbol: str, rng: str = "1mo", interval: str = "1d", offline: 
         res = data["chart"]["result"][0]
         ts = res["timestamp"]
         closes = res["indicators"]["quote"][0]["close"]
-        # [10/13] 날짜 = 거래소 현지일(UTC로 붙이면 KRW=X 서머타임 봉이 하루 앞 날짜가 된다 — history_backfill.bar_date)
-        shift = int((res.get("meta") or {}).get("gmtoffset") or 0) + 3600
+        # [10/13] 날짜 = 거래소 현지일(UTC로 붙이면 KRW=X 서머타임 봉이 하루 앞 날짜가 된다)
+        # ★[10/20] 식을 옮겨 적지 않고 history_backfill.bar_date를 부른다 — 복사본은 다음 정정 때 갈라진다(vol_gauge 사고)
+        import history_backfill as _hb
+        off = (res.get("meta") or {}).get("gmtoffset") or 0
         out = {"dates": [], "closes": []}
         for t, c in zip(ts, closes):
             if c is None:
                 continue
-            out["dates"].append(dt.datetime.utcfromtimestamp(t + shift).strftime("%Y-%m-%d"))
+            out["dates"].append(_hb.bar_date(t, off))
             out["closes"].append(round(c, 2))
         return out
     except Exception:

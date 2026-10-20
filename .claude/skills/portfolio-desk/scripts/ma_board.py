@@ -72,13 +72,14 @@ def fetch_closes(symbol: str, rng: str = "2y", timeout: float = 15.0):
         cur = res["meta"].get("currency")
     except (KeyError, IndexError, TypeError):
         return None, None, None, "no data"
-    import datetime as dt
+    import history_backfill as _hb          # 날짜 라벨 = 거래소 현지일 한 벌(10/20 — 舊 UTC 라벨은 KRW=X 등에서 하루 앞)
+    off = (res.get("meta") or {}).get("gmtoffset") or 0
     dates, closes, gaps = [], [], 0
     for t, c in zip(ts, closes_raw):
         if c is None:
             gaps += 1
             continue
-        dates.append(dt.datetime.utcfromtimestamp(t).strftime("%Y-%m-%d"))
+        dates.append(_hb.bar_date(t, off))
         closes.append(float(c))
     return dates, closes, cur, gaps
 

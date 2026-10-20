@@ -382,7 +382,7 @@ python3 .claude/skills/portfolio-desk/scripts/portfolio_stats.py      # 상관·
      - ⚠️ **영상 요약 필드명 = `summary`(필수)**. `note`로 쓰면 앱 상세가 "—" 빈칸 됨(track_record의 `note`와 혼동 금지). build_app_data가 note→summary 폴백을 넣지만 정본은 항상 `summary`로 쓴다.
      - 🔁 **롤오버 [7/4 자동화]**: latest_videos는 최신 ~9편만 유지. 아카이브 이관은 **build_app_data.py가 자동 수행**(latest 중 archive에 없는 영상을 `hunter_archive.json` `videos` 맨 앞에 prepend, summary→takeaway 매핑, 중복 판정 = id·정규화 제목) — 수동 이관 불필요, **빌드만 돌리면 정체 없음**. validate_report.py는 로그↔archive 날짜 갭을 **FAIL**로 적발(latest에만 있는 날짜는 커버로 안 침 — 앱 '전체 영상 아카이브' 화면은 archive만 읽으므로. 6/20·7/3 정체 재발 원인 봉합).
    - `data/app/feeds.json` **[7/7 신설]**: 외부 채널(수페TV·지식인사이드) 신규 영상·트랙레코드·headline·setups — `docs/research/feeds_log.md`와 동기화. 요약 필드명 = `summary`(hunter와 동일). **경제사냥꾼(hunter.*)과 안 섞는다.** 신규 없으면 손 안 대도 됨(validate는 WARN 수준).
-   - `data/app/flows.json`: 당일 코스피 외인/기관/개인 순매수(억원)를 series에 추가. **문서화·교차검증된 값만, 미확인은 null**(추측 금지).
+   - `data/app/flows.json`: 당일 코스피 외인/기관/개인 순매수(억원)를 series에 추가. **문서화·교차검증된 값만, 미확인은 null**(추측 금지). ★[10/19] 행마다 `basis`(regular·integrated·unverified) — 게이트②는 KRX 정규장 값만 판정에 쓴다. 당일 행은 `close_reconcile`(16:10 정규장·20:10 통합)이 쓰니 있으면 덮지 않는다.
    그 뒤 시세·시계열(환율·코스피)을 합쳐 앱 데이터를 빌드한다:
    ```bash
    python3 .claude/skills/portfolio-desk/scripts/build_app_data.py   # → app/data.js 생성

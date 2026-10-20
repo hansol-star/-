@@ -68,7 +68,7 @@ your output is the desk section handed to the PM.
      ⚠️ **T+1**: 당일 행은 장 마감(15:30) 직후 갱신. `updated_at`을 확인하고, 갱신 전이면 전 영업일 기준임을 명시.
      ⚠️ 키(`TOSS_CLIENT_ID`/`TOSS_CLIENT_SECRET`)는 환경변수. `403 access_denied`면 **공인 IP가 바뀐 것** — WTS에서 IP 재등록 필요(키 문제 아님).
      ⚠️ **조회 전용** — 요청은 `toss_snapshot.req`를 거치고 `_assert_readonly()`가 주문 계열을 코드 레벨에서 차단한다.
-   - **flows.json 기입 의무**: 당일 외인/기관/개인 확정치를 `data/app/flows.json` series에 추가(미확정은 null + note에 방향 서술). 이 시계열이 flow_trend·트리거 자동평가의 원천. **naver_flows `--flows-line` 출력을 시드로 쓰되 확정은 마감 교차검증.**
+   - **flows.json 기입 의무**: 당일 외인/기관/개인 확정치를 `data/app/flows.json` series에 추가(미확정은 null + note에 방향 서술). 이 시계열이 flow_trend·트리거 자동평가의 원천. **naver_flows `--flows-line` 출력을 시드로 쓰되 확정은 마감 교차검증.** ★[10/19] 행마다 `basis`를 적는다 — `regular`(매체 마감시황·16:40 전 네이버) · `integrated`(그 뒤 네이버 = 애프터마켓 포함) · `unverified`(시각 미상). 애프터마켓(16:00~20:00) 뒤 네이버 값은 정규장과 **부호까지** 갈린다(10/19 -323억 → +947억). 게이트②는 정규장 값만 판정에 쓴다. 마감 대사(`close_reconcile`)가 쓴 행(`regular`/`integrated` 하위 필드)은 덮지 않는다.
    - **★기술·변동성 레이어 [2026-07-22 신설 — 측정 전용]**: 국내 보유 5종에 붙여 시세 옆에 병기(펀더 별점 정본, 타이밍·리스크 보조).
      ```bash
      python3 .claude/skills/portfolio-desk/scripts/garch.py --tickers 005930.KS,066570.KS,454910.KS,005380.KS,035420.KS   # 내일 선행변동성·폭풍%ile

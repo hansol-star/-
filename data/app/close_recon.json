@@ -1,6 +1,6 @@
 {
  "date": "2026-10-22",
- "run_at": "2026-10-22 16:10",
+ "run_at": "2026-10-22 20:10",
  "status": "ok",
  "notes": [],
  "kospi": {
@@ -35,10 +35,18 @@
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "integrated": null,
+ "integrated": {
+  "foreign": 505,
+  "inst": -4599,
+  "indiv": 3667,
+  "at": "20:10",
+  "final": true,
+  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
+ },
  "basis": "regular",
- "grade": "잠정(1차)",
- "flows_action": "added",
+ "grade": "확정",
+ "after_market_foreign": -105,
+ "flows_action": "updated",
  "streak": {
   "days": 2,
   "side": "매수",
@@ -64,9 +72,9 @@
  "yahoo_audit": {
   "days": 30,
   "symbols": 55,
-  "checked": 1089,
+  "checked": 1090,
   "pending": 0,
-  "unverifiable": 3,
+  "unverifiable": 2,
   "error": null,
   "stuck": [],
   "recent_mismatch": 0,

@@ -91,3 +91,5 @@
 {"run_at": "2026-10-19 23:36", "symbol": "^FTSE", "date": "2026-08-05", "kind": "patched", "old": 10916.8701, "new": 10888.2998, "src": "Yahoo 일봉 종가 · 감사"}
 {"run_at": "2026-10-19 23:36", "symbol": "^GDAXI", "date": "2026-08-05", "kind": "patched", "old": 26254.8691, "new": 26126.3008, "src": "Yahoo 일봉 종가 · 감사"}
 {"run_at": "2026-10-19 23:36", "symbol": "^TA125.TA", "date": "2026-08-05", "kind": "patched", "old": 4027.8101, "new": 4023.1399, "src": "Yahoo 일봉 종가 · 감사"}
+{"run_at": "2026-10-22 16:10", "symbol": "^KS11", "date": "2026-10-21", "kind": "unverified", "old": 5735.6602, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-22 16:10", "symbol": "^KQ11", "date": "2026-10-21", "kind": "unverified", "old": 792.76, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}

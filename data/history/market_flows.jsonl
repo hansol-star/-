@@ -113,3 +113,5 @@
 {"date": "2026-10-20", "index": "KOSPI", "foreign": -5377, "inst": -9977, "indiv": 8998, "src": "naver", "basis": "regular", "integrated": {"foreign": -4884, "inst": -9901, "indiv": 8475}}
 {"date": "2026-10-21", "index": "KOSDAQ", "foreign": -1724, "inst": 1050, "indiv": 517, "src": "naver", "basis": "regular", "integrated": {"foreign": -1752, "inst": 1051, "indiv": 553}}
 {"date": "2026-10-21", "index": "KOSPI", "foreign": 6593, "inst": -713, "indiv": -11310, "src": "naver", "basis": "regular", "integrated": {"foreign": 6462, "inst": -781, "indiv": -11159}}
+{"date": "2026-10-22", "index": "KOSDAQ", "foreign": -1200, "inst": -1006, "indiv": 2212, "src": "naver", "basis": "regular"}
+{"date": "2026-10-22", "index": "KOSPI", "foreign": 610, "inst": -4630, "indiv": 3815, "src": "naver", "basis": "regular"}

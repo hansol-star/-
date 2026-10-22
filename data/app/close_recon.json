@@ -1,60 +1,52 @@
 {
- "date": "2026-10-21",
- "run_at": "2026-10-21 20:10",
+ "date": "2026-10-22",
+ "run_at": "2026-10-22 16:10",
  "status": "ok",
  "notes": [],
  "kospi": {
-  "close": 5735.66,
-  "pct": 3.29,
+  "close": 5533.77,
+  "pct": -3.52,
   "peak": 9114.55,
   "peak_date": "2026-06-22",
-  "dd_pct": -37.07
+  "dd_pct": -39.29
  },
  "kosdaq": {
-  "close": 792.76,
-  "pct": 1.38
+  "close": 764.1,
+  "pct": -3.62
  },
  "first": {
-  "foreign": 6593,
-  "inst": -713,
-  "indiv": -11310,
+  "foreign": 610,
+  "inst": -4630,
+  "indiv": 3815,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "flows": {
-  "foreign": 6593,
-  "inst": -713,
-  "indiv": -11310,
+  "foreign": 610,
+  "inst": -4630,
+  "indiv": 3815,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "regular": {
-  "foreign": 6593,
-  "inst": -713,
-  "indiv": -11310,
+  "foreign": 610,
+  "inst": -4630,
+  "indiv": 3815,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "integrated": {
-  "foreign": 6462,
-  "inst": -781,
-  "indiv": -11159,
-  "at": "20:10",
-  "final": true,
-  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
- },
+ "integrated": null,
  "basis": "regular",
- "grade": "확정",
- "after_market_foreign": -131,
- "flows_action": "updated",
+ "grade": "잠정(1차)",
+ "flows_action": "added",
  "streak": {
-  "days": 1,
+  "days": 2,
   "side": "매수",
-  "cum_eok": 6593,
+  "cum_eok": 7203,
   "lower_bound": false,
-  "gate2": false,
+  "gate2": true,
   "basis": "regular",
-  "reason": "순매수 1일째(2거래일 요건 미충족)"
+  "reason": "2거래일 연속 순매수"
  },
  "pending_nulls": [
   "2026-09-14"
@@ -72,9 +64,9 @@
  "yahoo_audit": {
   "days": 30,
   "symbols": 55,
-  "checked": 1143,
+  "checked": 1089,
   "pending": 0,
-  "unverifiable": 0,
+  "unverifiable": 3,
   "error": null,
   "stuck": [],
   "recent_mismatch": 0,

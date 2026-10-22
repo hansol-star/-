@@ -93,3 +93,34 @@
 {"run_at": "2026-10-19 23:36", "symbol": "^TA125.TA", "date": "2026-08-05", "kind": "patched", "old": 4027.8101, "new": 4023.1399, "src": "Yahoo 일봉 종가 · 감사"}
 {"run_at": "2026-10-22 16:10", "symbol": "^KS11", "date": "2026-10-21", "kind": "unverified", "old": 5735.6602, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
 {"run_at": "2026-10-22 16:10", "symbol": "^KQ11", "date": "2026-10-21", "kind": "unverified", "old": 792.76, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-23 00:16", "symbol": "005930.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 214500.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "066570.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 160000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "454910.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 58200.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "005380.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 301500.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "035420.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 176400.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "034020.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 61300.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "009150.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 1146000.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "000660.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 1234000.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "012450.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 813000.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "042660.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 56700.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "033780.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 193600.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "096770.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 141000.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "240810.KQ", "date": "2026-10-22", "kind": "patched", "old": null, "new": 96400.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "095610.KQ", "date": "2026-10-22", "kind": "patched", "old": null, "new": 109200.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "011070.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 392500.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "010140.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 17220.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "329180.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 305500.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "207940.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 1361000.0, "src": "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"}
+{"run_at": "2026-10-23 00:16", "symbol": "034020.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 61600.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "009150.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 1145000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "000660.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 1223000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "012450.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 811000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "042660.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 57200.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "033780.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 193800.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "096770.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 141700.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "240810.KQ", "date": "2026-10-22", "kind": "patched", "old": null, "new": 96500.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "095610.KQ", "date": "2026-10-22", "kind": "patched", "old": null, "new": 108800.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "011070.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 395000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "010140.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 17320.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "329180.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 309000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-23 00:16", "symbol": "207940.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 1361000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}

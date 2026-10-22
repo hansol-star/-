@@ -44,7 +44,15 @@ SERIES = {
     "DTWEXBGS":  ("달러지수(광의)", "", "d"),
     "CPIAUCSL":  ("미 CPI(지수→YoY 계산)", "", "m"),
     "UNRATE":    ("미 실업률", "%", "m"),
+    "BAMLH0A0HYM2": ("美 하이일드 OAS", "%", "d"),
 }
+
+# ★[10/21 d252] ⑤ 조달 경로 ⓒ — HY OAS 60관측 변화 ≥ +50bp = 점등. **측정 전용**: 어떤 룰도 안 바꾸고
+#   d125 2/4에 세지 않는다. 룰 권한은 8/5 ①②③ + 무신호 대조군 + Holm p<0.05 통과 뒤에만(trials.jsonl
+#   funding_path_e5). BBB +50bp는 뺐다 — 3년 726개 창에서 0번 = 켜지지 않는 신호는 감시가 아니다.
+HY_OAS = "BAMLH0A0HYM2"
+E5C_OBS = 60
+E5C_BP = 50.0
 
 
 def http(url: str, timeout: int = 20) -> str:
@@ -69,9 +77,21 @@ def fetch_series(sid: str):
     480일(15.8개월)은 여유가 없었다. 560일로 늘린다.
     """
     cosd = (datetime.now(KST) - timedelta(days=560)).strftime("%Y-%m-%d")
-    raw = http(FRED_CSV.format(sid=sid, cosd=cosd))
+    return parse_fred_csv(http(FRED_CSV.format(sid=sid, cosd=cosd)), sid)
+
+
+def parse_fred_csv(raw: str, sid: str):
+    """FRED CSV 본문 → [(date, float), ...]. CSV가 아니면 예외 — 빈 목록으로 삼키지 않는다.
+
+    ★[10/21] FRED가 점검 중이면 200 + HTML("Site Maintenance")을 준다. 舊 코드는 그걸 줄 단위로 쪼개
+      아무 행도 못 찾고 '데이터 없음'으로 끝냈다 — 점검인지 시리즈가 빈 건지 구분이 안 됐다.
+    """
+    lines = raw.strip().splitlines()
+    if not lines or raw.lstrip().startswith("<") or sid.lower() not in lines[0].lower():
+        head = (lines[0][:60] if lines else "빈 응답")
+        raise ValueError(f"FRED 응답이 CSV가 아님(점검·차단 가능) — 첫 줄: {head!r}")
     rows = []
-    for line in raw.strip().splitlines()[1:]:
+    for line in lines[1:]:
         parts = line.split(",")
         if len(parts) != 2 or parts[1].strip() in (".", ""):
             continue
@@ -98,6 +118,19 @@ def yoy_by_date(rows, idx: int = -1):
     return None, want
 
 
+def e5c_signal(rows, n: int = E5C_OBS, thr_bp: float = E5C_BP):
+    """HY OAS(%) 일간 관측 → ⑤ⓒ 판정. 관측이 n+1개 안 되면 None(미산출).
+
+    '60관측' = 결측('.')을 뺀 유효 관측 60개 전과의 차(달력 60일 아님). bp = %p × 100.
+    """
+    if len(rows) < n + 1:
+        return None
+    (bd, bv), (d, v) = rows[-(n + 1)], rows[-1]
+    delta = round((v - bv) * 100, 1)
+    return {"date": d, "base_date": bd, "value": v, "base": bv,
+            "delta_bp": delta, "lit": delta >= thr_bp}
+
+
 def collect(series_ids):
     out, errors = {}, []
     for sid in series_ids:
@@ -121,7 +154,19 @@ def collect(series_ids):
                 item["yoy_note"] = f"미산출 — 12개월 전({item['yoy_base']}) 관측 결측 · BLS 공식치를 쓸 것"
             item["prev_yoy_pct"], item["prev_yoy_base"] = (
                 yoy_by_date(rows, -2) if len(rows) >= 2 else (None, None))
+        if sid == HY_OAS:
+            item["e5c"] = e5c_signal(rows)
         out[sid] = item
+    # 파생: ⑤ⓒ 조달 경로 — 요청했으면 못 받아도 '미확인'으로 남긴다(빠지면 안 본 걸 본 것처럼 읽힌다)
+    if HY_OAS in series_ids:
+        sig = out.get(HY_OAS, {}).get("e5c")
+        out["_e5c"] = {"label": f"⑤ⓒ HY OAS {E5C_OBS}관측 변화", "unit": "bp",
+                       "date": sig["date"] if sig else None,
+                       "value": sig["delta_bp"] if sig else None,
+                       "base_date": sig["base_date"] if sig else None,
+                       "lit": sig["lit"] if sig else None,
+                       "status": ("점등" if sig["lit"] else "미점등") if sig else "미확인",
+                       "measurement_only": True, "prev": None, "delta": None}
     # 파생: 2s10s 스프레드 (bp)
     if "DGS10" in out and "DGS2" in out:
         sp = (out["DGS10"]["value"] - out["DGS2"]["value"]) * 100
@@ -135,6 +180,13 @@ def fmt_table(data, errors):
     print(f"매크로 하드넘버 (FRED 무키 · 조회 {datetime.now(KST).strftime('%Y-%m-%d %H:%M KST')})")
     print(f"{'지표':<22}{'값':>10}  {'전기':>10}  {'기준일':>12}")
     for sid, it in data.items():
+        if sid == "_e5c":
+            if it["value"] is None:
+                print(f"{it['label']:<22}{'미확인':>10}  {'-':>10}  {'-':>12}")
+            else:
+                print(f"{it['label']:<22}{it['value']:>+8.1f}bp  {it['status']:>10}  {it['date']:>12}")
+            print(f"   ※ 측정 전용(d252) — 기준 +{E5C_BP:.0f}bp · 룰·d125 2/4에 안 센다")
+            continue
         val = f"{it['value']:.2f}{it['unit']}"
         if "yoy_pct" in it:
             prev_yoy = it.get("prev_yoy_pct")
@@ -200,6 +252,36 @@ def selftest() -> int:
     ok("직전월도 날짜로(2026-07 ↔ 2025-07)", pbase == "2025-07" and pyoy == round((313 / 301 - 1) * 100, 2))
     rows2 = rows + [("2026-09-01", 315.0), ("2026-10-01", 316.0)]
     ok("12개월 전이 결측이면 값을 내지 않는다(2026-10 ↔ 2025-10)", yoy_by_date(rows2, -1) == (None, "2025-10"))
+
+    # ⑤ⓒ HY OAS 60관측 — 결측('.')은 관측이 아니다
+    csv = "observation_date,BAMLH0A0HYM2\n" + "\n".join(
+        f"2026-{1 + i // 28:02d}-{1 + i % 28:02d},{'.' if i == 30 else f'{3.00 + 0.01 * i:.2f}'}"
+        for i in range(62))
+    hy = parse_fred_csv(csv, HY_OAS)
+    ok("결측 1개를 빼면 유효 관측 61개", len(hy) == 61)
+    s = e5c_signal(hy)
+    ok("60관측 전(첫 행) 대비 +61bp(3.00→3.61, 결측 건너뜀) → 점등",
+       s and s["base_date"] == hy[0][0] and s["delta_bp"] == 61.0 and s["lit"])
+    flat =[(d, round(3.00 + (0.49 if k == 60 else 0.0), 2)) for k, (d, _) in enumerate(hy)]
+    ok("+49bp는 미점등(경계 50bp)", e5c_signal(flat)["lit"] is False)
+    edge = [(d, round(3.00 + (0.50 if k == 60 else 0.0), 2)) for k, (d, _) in enumerate(hy)]
+    ok("정확히 +50bp는 점등(≥)", e5c_signal(edge)["lit"] is True and e5c_signal(edge)["delta_bp"] == 50.0)
+    ok("관측 60개면 미산출(None)", e5c_signal(hy[1:]) is None)
+    try:
+        parse_fred_csv("<!DOCTYPE html><title>Site Maintenance | St. Louis Fed</title>", HY_OAS)
+        ok("점검 HTML은 예외(빈 목록으로 삼키지 않음)", False)
+    except ValueError:
+        ok("점검 HTML은 예외(빈 목록으로 삼키지 않음)", True)
+    try:
+        parse_fred_csv("observation_date,DGS10\n2026-10-01,4.1", HY_OAS)
+        ok("다른 시리즈 CSV는 예외", False)
+    except ValueError:
+        ok("다른 시리즈 CSV는 예외", True)
+    import unittest.mock as um
+    with um.patch(__name__ + ".fetch_series", side_effect=ValueError("FRED 응답이 CSV가 아님")):
+        d_, e_ = collect([HY_OAS])
+    ok("FRED 미수신이면 _e5c = 미확인으로 남고 오류 목록에 이유", d_.get("_e5c", {}).get("status") == "미확인"
+       and any("CSV가 아님" in x for x in e_))
     print()
     print("✅ SELFTEST PASS" if not fails else "❌ SELFTEST FAIL: " + ", ".join(fails))
     return 1 if fails else 0

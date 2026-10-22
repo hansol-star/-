@@ -53,8 +53,72 @@ KR_CAP_PCT = 22.0   # 룰6 국내 목표 상단
 
 # ★[10/19] '체결' 앞에 '미'가 붙으면 살아 있는 오더다 — 舊 정규식은 "미체결이면 매일 재등록" 같은
 #   상태 문구를 '체결 = 종결'로 읽어 '매일 등록' 역방향 검사에서 조용히 뺐다(ANET $182 실측).
-DEAD = re.compile(r"폐기|취소|(?<!미)체결|완료|종결|미접수 확정")
-HOLD = re.compile(r"보류")
+# ★[10/21] '접수완료'·'등록완료'·'예약완료'는 살아 있는 오더다 — 舊 '완료' 단독 매칭이 이를 종결로 읽었다
+#   (8/19 현대차 470,000 '접수완료'가 그 형태). 종결 의미의 '완료'(환전 완료·매도 완료 등)는 그대로 dead.
+# ★[10/22 리뷰 반영] '체결 대기·체결 예정·체결권·체결확률·체결되면'은 아직 안 끝난 오더다 — 舊 정규식은 이들을 종결로 읽어
+#   d244 역방향 검사에서 조용히 뺐고, 토스에 실제로 걸려 있으면 "계획상 종결인 오더와 같은 주문" 🔴(취소 권고)까지 냈다.
+# ★[10/22 리뷰 2차 — 실제 tasks.json 이력 143개 상태 문장] 해설이 상태를 정했다: '✅ 예약 접수 완료 — … 즉시체결도 가능'·
+#   '등록 완료 … 익일 체결확률'·'재등록 대상 — 舊 접수완료는…'이 종결로 읽혔다. ⇒ **상태 = 앞 구절**(첫 '—'·'⚠️'·'. ' 앞)과
+#   ✅·⚪·⛔·❌로 시작하는 뒤 구절만 본다(체결을 뒤에 덧붙인 '오늘 밤 등록 — ✅ 체결 10/23'도 잡는다).
+# ★[10/22 리뷰 3차] ⓐ '체결 실패'·'체결 안 됨'·'체결 못'·'체결 없음'은 살아 있는 오더다(舊 = 종결로 읽혀 다시 걸면 🔴 취소 권고)
+#   ⓑ '체결된 것 확인'·'체결을 확인'·'체결가 $X 확인'은 종결이다(위 '된·을·가' 예외가 이들을 살려 뒀다).
+# ★[10/22 리뷰 3차 C0] 조건·미래·금지형은 종결이 아니다 — '체결 후·체결되지 않으면·체결 전까지·체결이 안 되면·체결까지·
+#   체결 기대·체결 확인 예정/은 내일·체결 소식 없음'·'취소 시·취소하지 말 것·취소 금지·취소 안 함'(舊 = 전부 dead → 살아 있는
+#   매일 등록 오더를 d244 역방향 검사에서 빼고, 토스에 걸려 있으면 🔴 취소 권고).
+_CHK_NOT_DONE = r"(?!\s*(?:대기|요망|필요|전|못|안|불가|후|예정|은|는|되면|하면|할|해야))"
+_COND_END = r"(?!\s*(?:시(?![가-힣])|하면|하지|할|금지|안\s*함|안\s*한다|않|예정|검토|여부|가능|될|되면|되지|후보))"
+DEAD = re.compile(r"(?:폐기|취소)" + _COND_END + r"|대체됨|건너뜀|종결|미접수 확정"
+                  r"|체결(?:된\s*(?:것|거)|을|이)?\s*(?:을\s*)?확인" + _CHK_NOT_DONE +
+                  r"|체결가\s*\$?\s*[\d,.]+\s*(?:원\s*)?(?:에\s*)?확인" + _CHK_NOT_DONE +
+                  r"|(?<!미)(?<!즉시)체결(?!\s*(?:대기|예정|권|확률|여부|유력|가능|되면|하면|이면|될|된|되지|도|을|가(?![가-힣])"
+                  r"|검토|미확인|확인\s*(?:대기|요망|필요|전|예정|은|는|되면|하면|할|해야)|전까지|전(?![가-힣])|시(?![가-힣])"
+                  r"|후(?![가-힣])|까지|기대|소식|이\s*(?:안|못|없|되면)|실패|안|못|없|불가))"
+                  r"|완료")
+# 종결이 아닌 '완료'(등록 완료·재등록 완료·예약주문 완료·등록 확인 완료·접수완료·재설계 완료·기한 갱신 완료·입금 확인 완료)는
+# DEAD를 보기 전에 지운다. 종결 의미('체결 완료'·'매도 완료'·'환전 완료'·'결정 완료'·'확인 완료')는 남는다.
+PLACED_DONE = re.compile(r"(?:등록|접수|예약|재설계|설계|갱신|입금\s*확인|준비|검토|계산|세팅|설정|산정|정정|조정)"
+                         r"\s*(?:주문\s*|확인\s*)?완료")
+# ★[10/22 리뷰 3차 C1] 조건형('…면 중지')·해제형('보류 해제')은 보류가 아니다 — 舊 = 문장 어디든 '중지'가 있으면 hold로 읽어
+#   살아 있는 오더를 역방향 검사에서 뺐다.
+HOLD = re.compile(r"(?<!면 )(?<!면)(?:보류|중지|중단|동결)(?!\s*(?:해제|재개|없이|시(?![가-힣])|하면|되면|예정|검토))"
+                  r"|^\W*⏸(?!.*(?:재시도|해제))")
+_HEAD_CUT = re.compile(r"\s*(?:—|⚠️|\.\s)")
+# ★[10/22 리뷰 3차] ⓐ 맨 앞 ⚠️는 자르기 전에 뗀다 — 舊 = '⚠️ 폐기(9/21) — …'의 앞 구절이 빈 문자열이 돼 폐기 오더가 active로 읽혔다
+#   (토스에 남아 있으면 🔴 대신 ✅ '계획과 일치', 없으면 d244가 '재등록'을 권했다 · 이력 152개 중 9개가 ⚠️로 시작)
+#   ⓑ 뒤 구절이 **종결어로 시작**하면(— 체결 10/23 · → 취소 · — 폐기) 이모지가 없어도 종결로 본다.
+_LEAD_WARN = re.compile(r"^\s*\**\s*(?:⚠️|⚠)\s*\**\s*")
+_TERMINAL_CLAUSE = re.compile(
+    r"(?:—|·|\||→)\s*\**\s*((?:[✅⚪⛔❌]|\(?\d{1,2}/\d{1,2}\)?\s*(?=폐기|취소|대체됨|건너뜀|종결|체결|미접수)"
+    r"|(?=폐기|취소|대체됨|건너뜀|종결|체결|미접수))[^—·|→]*)")
+_QUOTED = re.compile(r"'[^']*'|\"[^\"]*\"|‘[^’]*’|“[^”]*”")
+# ★[10/21 d244 정훈 승인 "다 승인"] 역방향 검사를 '매일 등록' 밖으로 넓힌다 — 계획 상태가 "걸었다"고 말하는데
+#   토스 OPEN에 없으면 미접수이거나 1거래일 소멸(d128)이다. '재등록 권고'·'미등록'·'등록선'은 걸었다는 말이 아니다.
+# ★[10/22 리뷰 반영] ⓐ '재등록 완료'·'접수됐다'·'등록돼 있음'·상태 '예약'(계획→예약→체결)·'8/13 재접수'·'생존(… 만료)'·
+#   '커버됨'도 걸었다는 말이다 ⓑ '안 걸었음'·'못 걸었다'·'걸 예정'·'등록 확인 필요'·'예약 중지'·'미체결이면 매 거래일 재등록'·
+#   인용된 舊 표기('✅접수완료'는 …)는 걸었다는 말이 **아니다**(뒤집어 읽으면 일부러 안 건 오더를 걸라고 한다).
+# ★[10/22 리뷰 3차] 부정·과거·의문형은 '걸려 있다'가 아니다 — '등록돼 있지 않음'·'등록했던 오더 만료'·'등록 중이던 주문'·
+#   '등록됐는지 미확인'·'등록 확인 못 함'·'재등록 — 안 함' (뒤집어 읽으면 일부러 안 건 방식ⓑ 오더를 매일 걸라고 한다 = d151).
+# ★[10/22 리뷰 3차 C3·C4] ⓐ '접수됐으나 만료'·'등록됐다가 소멸'·'점등 시 등록함'·'등록 확인 예정'·'예약 접수 대기'·
+#   '예약(정훈 결정 대기)'·'재등록 — 정훈 결정 대기'는 걸려 있다는 말이 아니다 ⓑ '걸려 있음'·'걸어 둔'·'토스 OPEN 확인'·
+#   '주문 들어가 있음'은 걸려 있다는 말이다(舊 = 못 읽어 d244가 보지 않았다).
+_NOT_NOW = r"(?!\s*있지\s*않|\s*있진\s*않|\s*않|\s*아님|\s*아니|는지|던|었던|이던|\s*으나|\s*다가|\s*지만)"
+REG_CLAIM = re.compile(
+    r"(?<!미)(?<!시 )(?:등록|접수|예약)\s*(?:주문\s*)?(?:완료|확인(?!\s*(?:필요|대기|요망|전|불가|안|못|후|되면|할|해야|예정))"
+    r"|(?:됨|함|했|됐|돼|중(?![지단])|걸어|걸었|걸림)" + _NOT_NOW + r")"
+    r"|(?<!안 )(?<!못 )(?<!안)(?<!못)걸어\s*(?:둠|뒀|놨|둔|논|놓은)|(?<!안 )(?<!못 )(?<!안)(?<!못)걸었" + _NOT_NOW +
+    r"|(?<!안 )(?<!못 )걸림"
+    r"|(?<!안 )(?<!못 )(?<!안)(?<!못)걸려\s*있(?!지\s*않|진\s*않|는지|던|었던)"
+    r"|OPEN\s*(?:에\s*)?확인(?!\s*(?:필요|대기|예정|안|못|요망|전))"
+    r"|주문\s*들어가\s*있(?!지\s*않|진\s*않|는지)"
+    r"|^[^0-9A-Za-z가-힣]*예약(?=\s*(?:$|접수(?!\s*(?:대기|예정|전))|\((?![^)]*(?:대기|(?:접수|등록|예약)\s*예정))|—|·|-|,))"
+    r"|(?:^|—\s*)[^0-9A-Za-z가-힣]*(?:\d{1,2}/\d{1,2}\s*)?재(?:등록|접수)(?=\s*(?:$|\(|—|·|,))"
+    r"(?!\s*—\s*(?:안|못|미|보류|중지|[^—·]*(?:대기|예정)))"
+    r"|생존\(|커버됨")
+
+
+def reg_claim(st: str) -> bool:
+    """상태 문장이 '토스에 걸려 있다'고 말하나 — 인용부호 안(舊 표기·정훈 말 인용)은 뺀다."""
+    return bool(REG_CLAIM.search(_QUOTED.sub("", st or "")))
 
 
 def _load(path, default=None):
@@ -74,8 +138,10 @@ def _side(action: str) -> str | None:
 
 
 def plan_state(o: dict) -> str:
-    st = str(o.get("status") or "")
-    if DEAD.search(st):
+    st = _QUOTED.sub("", str(o.get("status") or ""))     # ★[10/22 리뷰 3차] 인용(舊 표기·정훈 말)은 먼저 뺀다 — 뒤 구절도
+    head = _HEAD_CUT.split(_LEAD_WARN.sub("", st), maxsplit=1)[0]
+    clauses = [head] + _TERMINAL_CLAUSE.findall(st)
+    if any(DEAD.search(PLACED_DONE.sub("", c)) for c in clauses):
         return "dead"
     if HOLD.search(st):
         return "hold"
@@ -139,13 +205,32 @@ def _same_price(tk: str, a: float, b: float) -> bool:
     return abs(a - b) <= max(0.01, 0.005 * max(a, b))
 
 
-def us_track_state() -> dict | None:
-    """★[9/21 d205] 미국 트랙 — 달러로 사는 미국주는 코스피 사다리가 아니라 3회 분할 규칙이 다룬다."""
+def us_track_state(now: dt.datetime | None = None) -> dict | None:
+    """★[9/21 d205] 미국 트랙 — 달러로 사는 미국주는 코스피 사다리가 아니라 3회 분할 규칙이 다룬다.
+    ★[10/22 리뷰 반영] ⓐ 하드플로어도 본다(舊 check_floor=False → 플로어 중에도 '재등록 필요'를 냈다 · d235 = 걸려 있으면 취소)
+      ⓑ --now(재현)면 그 시각의 KST 날짜·美 세션일로 판정한다(舊 = 벽시계 — 재현이 다른 답을 냈다)."""
     try:
         import tranche_rules as TR
-        return TR.us_track(check_floor=False)
-    except Exception:  # noqa: BLE001
+        if now is None:
+            return TR.us_track(check_floor=True)
+        return TR.us_track(today=now.astimezone(KST).date().isoformat(), check_floor=True,
+                           session_day=TR.us_session_of(now.isoformat())[0])
+    except Exception as e:  # noqa: BLE001
+        # ★[10/22 리뷰 2차] 판정 실패 = 'error'로 낸다(舊 None → 미국 매수 게이트가 전부 꺼져 fail-open이었다)
+        return {"status": "error", "allowed_usd": 0.0, "why": f"미국 트랙 판정 실패({type(e).__name__}: {str(e)[:60]})"}
+
+
+def us_block(us: dict | None, ticker: str | None = None, price=None) -> str | None:
+    """★[10/22 리뷰 반영 — d251] 미국 매수가 지금 막혀 있으면 그 이유(tranche_rules.us_buy_block과 같은 판정).
+    ticker·price를 주면 진행 중 회차에서 그 종목을 다시 걸어도 되는지까지 본다(이미 산 종목·다른 존 종목·잔액보다 비싼 1주).
+    us가 없으면(트랙을 안 본 호출) None — 막혔다고 지어내지 않는다. 판정 실패는 us_track_state가 'error'로 준다."""
+    if not us:
         return None
+    try:
+        import tranche_rules as TR
+        return TR.us_buy_block(us, ticker, price)
+    except Exception as e:  # noqa: BLE001
+        return f"미국 트랙 판정 실패({type(e).__name__}) — 매수 판단 보류"
 
 
 def check(open_orders: list[dict], tasks: dict, stocks: dict,
@@ -204,6 +289,9 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
                 add("yellow", tk, f"{what} — 국내 트랙 이번 회차 0원(계획된 예외가 아니면 재원이 없다)")
             if (not is_kr(tk)) and us and state != "active" and (us.get("allowed_usd") or 0) <= 0:
                 add("yellow", tk, f"{what} — 미국 트랙 이번 회차 없음({us.get('why', '')[:60]})")
+            elif (not is_kr(tk)) and state == "active" and (ub := us_block(us, tk, price)):
+                # 계획엔 살아 있어도 d251 대기·하드플로어·이 회차에 이미 산 종목이면 지금 걸린 매수는 규칙을 넘는다
+                add("yellow", tk, f"{what} — {ub}인데 매수 주문이 걸려 있다(체결되면 위반 — 취소 검토)")
         if is_kr(tk) and price:
             bb = kr_band_base(tk, now)
             if bb:
@@ -224,6 +312,9 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
             continue
         verb = "매수" if side == "BUY" else "매도"
         lb = nm.get(tk, tk)
+        if side == "BUY" and not is_kr(tk) and (ub := us_block(us, tk, price)):
+            add("info", tk, f"{lb} {verb} ${float(price):,.2f} 미등록 — 정상({ub} · 지금 걸면 위반)")
+            continue
         if is_kr(tk) and price:
             bb = kr_band_base(tk, now)
             if bb:
@@ -234,13 +325,50 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
                     continue
         add("yellow", tk, f"{lb} {verb} {float(price):,.0f} '매일 등록' 오더가 토스에 없다({p['id']}) — 재등록 필요")
 
+    # ★[10/21 d244] '매일 등록' 밖 계획 오더 — 걸려 있어야 하는 오더가 OPEN에 없으면 🟡
+    #   ⓐ 상태가 접수·등록을 주장(REG_CLAIM) ⓑ 방식ⓑ(b_line) 오더의 등록선이 점등(기준 종가가 register_line 통과)
+    #   제외: 등록선 대기(점등 전) · 조건부·판정 대기 · 알림 방식 · 가격 없음 · 지수(^) · 보류·종결
+    excluded = 0
+    for p in plans:
+        if p.get("register_policy") == "always" or plan_state(p) != "active":
+            continue
+        tk, side, price = str(p.get("ticker") or ""), _side(p.get("action", "")), p.get("price")
+        if not isinstance(price, (int, float)) or tk.startswith("^"):
+            continue
+        if any(r["ticker"] == tk and r["side"] == side and _same_price(tk, r["price"], price) for r in rows):
+            continue
+        verb = "매수" if side == "BUY" else "매도"
+        lb = nm.get(tk, tk)
+        st = str(p.get("status") or "")
+        why = None
+        if side == "BUY" and not is_kr(tk) and us_block(us, tk, price):
+            excluded += 1                       # d251 대기·하드플로어·이 회차 체결 종목 — 안 걸려 있는 게 맞다
+            continue
+        if reg_claim(st):
+            why = f"상태 '{st[:30]}'는 걸려 있다는 뜻인데 토스에 없다 — 미접수 또는 1거래일 소멸(d128) → 재등록하거나 상태 갱신"
+        elif p.get("register_policy") == "b_line":
+            ln = p.get("register_line") or {}
+            bb = kr_band_base(tk, now) if is_kr(tk) else None
+            lvl, cond = ln.get("level"), ln.get("cond", "above")
+            if bb and isinstance(lvl, (int, float)):
+                hit = bb["base"] >= lvl if cond == "above" else bb["base"] <= lvl
+                if hit:
+                    why = (f"등록선 {lvl:,.0f} 점등(기준 {bb['date']} 종가 {bb['base']:,.0f}) — 방식ⓑ면 오늘 등록해야 하는데 토스에 없다")
+            elif not isinstance(lvl, (int, float)):
+                add("info", tk, f"{lb} {verb} {float(price):,.0f} 방식ⓑ인데 register_line이 없어 점등을 못 본다({p['id']})")
+        if why:
+            add("yellow", tk, f"{lb} {verb} {float(price):,.0f} — {why} ({p['id']})")
+        else:
+            excluded += 1
+
     lv = [f["level"] for f in findings]
     return {"checked_at": now.astimezone(KST).strftime("%Y-%m-%d %H:%M"),
             "source": "toss", "open": rows, "findings": findings,
             "counts": {k: lv.count(k) for k in ("red", "yellow", "ok", "info")},
             "context": {"kr_weight_pct": round(kr_w, 1) if kr_w is not None else None,
                         "ladder_allowed_krw": allowed,
-                        "us_allowed_usd": (us or {}).get("allowed_usd")}}
+                        "us_allowed_usd": (us or {}).get("allowed_usd"),
+                        "waiting_plans": excluded}}
 
 
 ICON = {"red": "🔴", "yellow": "🟡", "ok": "✅", "info": "ℹ️"}
@@ -350,6 +478,134 @@ def selftest() -> int:
         r = check([], us_tasks, {}, None, None, None, now=h("2026-10-19", "22:40"))
         expect("미국 매일 등록 미등록 → yellow", [f["level"] for f in r["findings"] if f["ticker"] == "ANET"], ["yellow"])
 
+        # 10/21 d244 — '매일 등록' 밖 계획 오더: 상태가 걸었다고 주장하거나 등록선이 점등했는데 OPEN에 없으면 🟡
+        expect("plan_state 접수완료 = active(살아 있는 오더)", plan_state({"status": "접수완료(8/19 18:49)"}), "active")
+        expect("plan_state 환전 완료 = dead", plan_state({"status": "✅ 완료 확인 — 환전"}), "dead")
+        now0 = h("2026-09-22", "22:01")
+
+        def lv_of(o):
+            r_ = check([], {"orders": [dict(o, id="o-x", ticker=tk, action="매도", price=470000)]}, {}, None, None, None, now=now0)
+            return [f["level"] for f in r_["findings"] if f["ticker"] == tk]
+        expect("상태 '9/22분 등록 확인' + OPEN 없음 → yellow", lv_of({"status": "9/22분 등록 확인"}), ["yellow"])
+        expect("상태 '접수완료' + OPEN 없음 → yellow", lv_of({"status": "접수완료"}), ["yellow"])
+        expect("'재등록 권고'는 걸었다는 말이 아니다 → 무발견", lv_of({"status": "미체결 만료 → 오늘 밤 재등록 권고"}), [])
+        expect("조건부·판정 대기 → 무발견", lv_of({"status": "조건부 — 10/29 판정 대기"}), [])
+        expect("방식ⓑ 등록선 점등(기준 360,500 ≥ 350,000) → yellow",
+               lv_of({"status": "계획", "register_policy": "b_line", "register_line": {"level": 350000, "cond": "above"}}), ["yellow"])
+        expect("방식ⓑ 등록선 대기(기준 360,500 < 400,000) → 무발견(제외)",
+               lv_of({"status": "계획", "register_policy": "b_line", "register_line": {"level": 400000, "cond": "above"}}), [])
+        expect("방식ⓑ인데 register_line 없음 → info",
+               lv_of({"status": "계획", "register_policy": "b_line"}), ["info"])
+        r = check([{"symbol": "005380", "side": "SELL", "price": "470000", "quantity": "1"}],
+                  {"orders": [{"id": "o-x", "ticker": tk, "action": "매도", "price": 470000, "status": "9/22분 등록 확인"}]},
+                  {}, None, None, None, now=now0)
+        expect("OPEN에 있으면 역방향 무발견", [f["level"] for f in r["findings"] if f["ticker"] == tk], ["yellow"])  # 밴드 밖 정방향 🟡 하나뿐
+
+        # 10/22 리뷰 — 실제 tasks.json 이력 문구. '체결 대기'는 종결이 아니고, '안 걸었음'은 걸었다는 말이 아니다
+        for st_, want in [("예약 접수 완료 — 체결 대기", "active"), ("등록 완료 · 익일 체결확률 15.7%", "active"),
+                          ("✅ 등록 확인 완료(토스 10/22)", "active"), ("체결되면 VOO", "active"),
+                          ("예약주문 완료", "active"), ("체결 완료", "dead"), ("매도 완료", "dead"),
+                          ("예약 중지", "hold")]:
+            expect(f"plan_state '{st_}'", plan_state({"status": st_}), want)
+        for st_, want in [("10/22 재등록 완료", ["yellow"]), ("접수됐다", ["yellow"]), ("예약", ["yellow"]),
+                          ("🎯 $312로 하향 — 8/13 재접수", ["yellow"]), ("아직 안 걸었음", []), ("못 걸었다", []),
+                          ("오늘 밤 예약 걸 예정", []), ("등록 확인 필요", [])]:
+            expect(f"역방향 '{st_}'", lv_of({"status": st_}), want)
+
+        # 10/22 리뷰 2차 — tasks.json 이력의 **실제 전체 문장**(줄인 형태가 아니라) — 해설이 상태를 바꾸면 안 된다
+        real = [
+            ("✅ **예약 접수 완료**(정훈 2026-08-23 15:10 직접 접수) — 470,000원·정수 1주. ⚠️생존 재확인 주기 = 매 보고서. 즉시체결도 가능.", "active", True),
+            ("✅ **등록 완료(정훈 8/27 19:5x 폰창 확인 '오케이 걸었음')** — 78,000원 1주 판매 지정가 = **전량청산**. 기저율상 익일 체결확률 **15.7%**", "active", True),
+            ("🟡 **예약 접수(정훈 8/24 20:0x 폰창)** — 22:30 미장 개장 시장가 집행 예정. ⚠️룰5: 체결가·주수·수수료 확인 전 '완료' 처리 금지 → 8/25 첫 세션 첫 단계에서 체결 검토.", "active", True),
+            ("🔴 **재설계 완료 — 오늘 폰창(17:30~20:50) 예약등록 대상**. 舊 90,000원은 도달 불가", "active", False),
+            ("예약 대기(입금 확인 완료·정훈 폰창 집행)", "active", False),
+            ("체결확인대기", "active", False),
+            ("🚨 [9/2 v88 갱신] **5거래일째 체결 미확인 — 룰5 위반 소지.**", "active", False),
+            ("⚠️ 재등록 필요 — 8/21 정훈 실측으로 대기주문 부재/불명 확인. 舊 '✅접수완료'는 **8/19 18:49 스냅샷**이었다", "active", False),
+            ("오늘 밤(10/19) 등록 — 지정가 $182 1주 · 미체결이면 매 거래일 재등록(d128)", "active", False),
+            ("🟢 **생존(8/25 08:50 만료)** — 오늘 밤 미장(22:30~) 커버됨.", "active", True),
+            ("⚪ 대체됨(9/21 d205) — 미국 트랙으로 이관", "dead", False),
+            ("건너뜀", "dead", False),
+            ("동결(안전핀)", "hold", False),
+            ("⏸ d151 결정 대기", "hold", False),
+            ("⚪ 미체결 확정(취소) — 정훈 8/3 원화 327,970원 개인 인출로 재원 소진", "dead", False),
+            ("✅ 확인 완료 — 둘 다 미체결(취소), 8/3 원화 인출이 원인", "dead", False),
+            ("⛔ 폐기 · ✅ 토스 취소 확인(9/21 22:36:51 — order_check·토스 CLOSED 조회)", "dead", False),
+            ("오늘 밤 등록 — ✅ 체결 10/23 01:10", "dead", False),
+        ]
+        for st_, want, claim in real:
+            expect(f"실제 문장 '{st_[:28]}…'", (plan_state({"status": st_}), reg_claim(st_)), (want, claim))
+
+        # 10/22 리뷰 — d251 대기 중이면 미국 매수는 '안 걸려 있는 게 정상'이고, 걸려 있으면 그게 🟡다
+        wait = {"status": "spacing_wait", "allowed_usd": 0.0, "wait_until": "2026-11-21", "why": "월 1회차(d251)"}
+        due = {"status": "due", "allowed_usd": 74.0, "wait_until": None, "why": "회차 2 도래"}
+        nowu = h("2026-10-22", "22:40")
+        r = check([], us_tasks, {}, None, None, wait, now=nowu)
+        expect("d251 대기 + '매일 등록' 미등록 → info(재등록 권고 안 함)",
+               [(f["level"], "d251" in f["msg"]) for f in r["findings"] if f["ticker"] == "ANET"], [("info", True)])
+        r = check([], us_tasks, {}, None, None, due, now=nowu)
+        expect("회차 도래 + 미등록 → yellow(그대로)", [f["level"] for f in r["findings"] if f["ticker"] == "ANET"], ["yellow"])
+        r = check([{"symbol": "ANET", "side": "BUY", "price": "182", "quantity": "1"}], us_tasks, {}, None, None, wait, now=nowu)
+        expect("d251 대기인데 매수 OPEN → yellow",
+               [(f["level"], "d251" in f["msg"]) for f in r["findings"] if f["ticker"] == "ANET"], [("yellow", True)])
+        r = check([{"symbol": "ANET", "side": "BUY", "price": "182", "quantity": "1"}], us_tasks, {}, None, None, due, now=nowu)
+        expect("회차 도래 + 매수 OPEN → ok", [f["level"] for f in r["findings"] if f["ticker"] == "ANET"], ["ok"])
+        r = check([], {"orders": [dict(us_tasks["orders"][0], register_policy=None, status="예약 접수 완료")]},
+                  {}, None, None, wait, now=nowu)
+        expect("d251 대기 + 비'매일 등록' 접수 주장 → 무발견(대기 집계)",
+               ([f["level"] for f in r["findings"] if f["ticker"] == "ANET"], r["context"]["waiting_plans"]), ([], 1))
+        # ★[10/22 리뷰 2차] 진행 중 회차 — ANET 1주가 이미 체결됐으면 'ANET 매일 등록'을 다시 걸라고 하지 않는다
+        part = {"status": "partial", "allowed_usd": 181.69, "partial_tranche": 2, "partial_left": 181.69,
+                "partial_tickers": ["ANET"], "why": "2회차 진행 중"}
+        r = check([], us_tasks, {}, None, None, part, now=nowu)
+        expect("partial(ANET 체결) + ANET 매일 등록 미등록 → info(재등록 권고 안 함)",
+               [(f["level"], "이미 체결" in f["msg"]) for f in r["findings"] if f["ticker"] == "ANET"], [("info", True)])
+        r = check([{"symbol": "ANET", "side": "BUY", "price": "182", "quantity": "1"}], us_tasks, {}, None, None, part, now=nowu)
+        expect("partial(ANET 체결) + ANET 매수 OPEN → yellow(같은 회차 2주째)",
+               [f["level"] for f in r["findings"] if f["ticker"] == "ANET"], ["yellow"])
+        part_v = dict(part, partial_tickers=["VOO"], partial_left=60.0)
+        r = check([], us_tasks, {}, None, None, part_v, now=nowu)
+        expect("partial(잔액 $60) + ANET 1주 $182 미등록 → info(1주 > 잔액)",
+               [(f["level"], "잔액" in f["msg"]) for f in r["findings"] if f["ticker"] == "ANET"], [("info", True)])
+        err = {"status": "error", "allowed_usd": 0.0, "why": "미국 트랙 판정 실패(IndexError: x)"}
+        r = check([], us_tasks, {}, None, None, err, now=nowu)
+        expect("판정 실패(error) → 재등록 권고 안 함(fail-closed)",
+               [(f["level"], "보류" in f["msg"]) for f in r["findings"] if f["ticker"] == "ANET"], [("info", True)])
+        # 분류기 — 부정·실패·확인 문형(10/22 리뷰 3차)
+        for st_, want, claim in [("⚠️ 폐기(9/21) — 앱 오표시로 토스에 접수됨 → 정훈 취소 필요", "dead", True),
+                                 ("오늘 밤 등록 — 체결 10/23 01:10", "dead", False),
+                                 ("✅ 체결된 것 확인(토스 API 10/23 01:10)", "dead", False),
+                                 ("체결가 $182.18 확인", "dead", False),
+                                 ("❌ 체결 실패(10/22 고가 $181 < $182) → 오늘 밤 재등록", "active", False),
+                                 ("체결 안 됨 — 오늘 밤 재등록", "active", False),
+                                 ("oo에 등록돼 있지 않음(10/22 조회) — 방식ⓑ 등록선 228,000 미점등 대기", "active", False),
+                                 ("재등록 — 안 함(등록선 미점등)", "active", False),
+                                 ("등록했던 오더 만료", "active", False),
+                                 ("등록됐는지 미확인", "active", False),
+                                 ("등록 확인 못 함", "active", False)]:
+            expect(f"문형 '{st_[:24]}…'", (plan_state({"status": st_}), reg_claim(st_)), (want, claim))
+        # 분류기 — 조건·미래·금지형 체결/취소(C0) · 조건형 중지·해제(C1) · 걸려 있지 않은 말(C3) · 걸려 있는 말(C4)
+        for st_, want, claim in [("오늘 밤 등록 — 체결 후 잔액 VOO", "active", False), ("체결되지 않으면 VOO", "active", False),
+                                 ("체결 전까지 매일 재등록", "active", False), ("체결이 안 되면 내일 재등록", "active", False),
+                                 ("체결까지 매일 등록", "active", False), ("체결 기대 — 지정가 $182", "active", False),
+                                 ("체결 확인 예정(내일 아침 토스)", "active", False), ("체결 확인은 내일 아침", "active", False),
+                                 ("체결 소식 없음 — 토스 확인 필요", "active", False), ("취소 시 VOO로", "active", False),
+                                 ("취소하지 말 것 — 매일 등록 유지", "active", False), ("취소 금지(d235)", "active", False),
+                                 ("취소 안 함 — 내일 재등록", "active", False), ("등록 — 하드플로어면 중지", "active", False),
+                                 ("보류 해제 — 오늘 밤 등록", "active", False), ("예약 접수 대기", "active", False),
+                                 ("예약(정훈 결정 대기)", "active", False), ("재등록 — 정훈 결정 대기", "active", False),
+                                 ("등록 확인 예정", "active", False), ("접수됐으나 만료(d128)", "active", False),
+                                 ("등록됐다가 소멸", "active", False), ("점등 시 등록함", "active", False),
+                                 ("걸려 있지 않음 — 재등록 필요", "active", False), ("안 걸려 있음", "active", False),
+                                 ("OPEN 확인 필요", "active", False), ("주문 들어가 있지 않음", "active", False),
+                                 ("토스에 걸려 있음(10/22)", "active", True), ("걸어 둔 지정가 $182", "active", True),
+                                 ("토스 OPEN 확인(10/22 21:00)", "active", True), ("주문 들어가 있음", "active", True),
+                                 ("🟡 예약(정훈 폰창 접수, 22:30 미장 개장 시 체결 예정)", "active", True),
+                                 ("체결 확인(토스 10/23)", "dead", False), ("취소됨", "dead", False),
+                                 ("취소 권고 — 토스에 걸려 있음", "dead", True), ("⏸ 보류 — 정훈 결정", "hold", False),
+                                 ("매수 보류(d192)", "hold", False)]:
+            expect(f"문형 '{st_[:24]}…'", (plan_state({"status": st_}), reg_claim(st_)), (want, claim))
+
         # 캐시 오염(8/13) — history에 장중값이 오늘 종가로 박혀 있어도 시각 있는 확정 종가가 이긴다
         with open(os.path.join(tmp, hist), "a", encoding="utf-8") as f:
             f.write("2026-09-22,358000.0\n")
@@ -399,7 +655,7 @@ def main() -> int:
     else:
         r = check([o for o in opens if str(o.get("status", "PENDING")).upper() != "CANCELED"],
                   _load(TASKS, {}) or {}, _load(STOCKS, {}) or {}, kr_weight(), ladder_allowed(),
-                  us_track_state(), now=a.now)
+                  us_track_state(a.now), now=a.now)
         r["source"] = src
     # unavailable(토스 미접근)은 저장하지 않는다 — 안 그러면 마지막 실제 대조 결과를 빈 값으로 덮어쓴다(9/23 클라우드 실사고).
     if not a.no_save and src != "file" and r["source"] != "unavailable":

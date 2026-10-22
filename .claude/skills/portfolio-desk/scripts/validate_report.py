@@ -2188,7 +2188,17 @@ def check_memory_index():
              "낡은 인덱스는 **최근 기억을 회수에서 통째로 누락시키면서 성공한 것처럼 보인다**")
 
 
-_ORDER_DEAD = re.compile(r"폐기|취소|체결|완료|종결|미접수 확정")
+_ORDER_DEAD = re.compile(r"폐기|취소|체결|완료|종결|미접수 확정")   # 폴백 전용 — 정본 = order_check.plan_state
+
+
+def _order_live(o: dict) -> bool:
+    """계획 오더가 살아 있나 — ★[10/22 리뷰 반영] order_check.plan_state와 **같은 판정**을 쓴다.
+    舊 _ORDER_DEAD는 '등록 완료 — 체결 대기'를 종결로 읽어 '매일 등록' 오더를 생존 감시에서 뺐다(두 정규식이 따로 놀았다)."""
+    try:
+        import order_check as _OC
+        return _OC.plan_state(o) == "active"
+    except Exception:
+        return not _ORDER_DEAD.search(str(o.get("status") or ""))
 
 
 def _json_opt(rel):
@@ -2200,6 +2210,40 @@ def _json_opt(rel):
         return json.load(open(p, encoding="utf-8"))
     except Exception:
         return None
+
+
+def check_us_ledger():
+    """미국 트랙 원장(us_track.json)이 깨졌으면 WARN [10/22 신설 · d251 리뷰 반영].
+
+    舊 tranche_rules._us_read는 모든 예외를 {}로 삼켜 깨진 원장(머지 충돌 표식·잘린 쓰기·형식 틀린 행)이
+    **'사이클 없음'**으로 읽혔다 — 미국 매수 알림이 조용히 꺼지고 --us-start가 그 위에 새 사이클을 쓸 수 있었다.
+    지금은 tranche_rules가 status=error로 매수 판단을 보류한다(fail-closed). 보류도 조용하므로 게이트에서 올린다.
+    판정은 tranche_rules._check_cycle과 **같은 검사**를 쓴다(따로 놀면 한쪽만 통과한다)."""
+    p = os.path.join(ROOT, "data", "app", "us_track.json")
+    if not os.path.exists(p):
+        return
+    tail = " — 고치기 전까지 미국 매수 판단 보류(us_track = error · 재등록 알림·오더 점검은 막히고 매수존 알림엔 보류 사유가 붙는다)"
+    try:
+        d = json.load(open(p, encoding="utf-8"))
+    except Exception as e:  # noqa: BLE001
+        warn(f"미국 트랙 원장 깨짐: us_track.json 읽기 실패({type(e).__name__}){tail}")
+        return
+    if d is None:
+        return
+    if not isinstance(d, dict):
+        warn(f"미국 트랙 원장 깨짐: 최상위가 객체가 아니다{tail}")
+        return
+    cur = d.get("cycle")
+    if not cur:
+        return
+    try:
+        import tranche_rules as _TR
+    except Exception:  # noqa: BLE001
+        return
+    try:
+        _TR._check_cycle(cur)
+    except ValueError as e:
+        warn(f"미국 트랙 원장 깨짐: {e}{tail}")
 
 
 def check_order_check(today=None):
@@ -2220,7 +2264,7 @@ def check_order_check(today=None):
         today = _dt.date.fromisoformat(today)
     tasks = _json_opt("data/app/tasks.json") or {}
     always = [o for o in tasks.get("orders", [])
-              if o.get("register_policy") == "always" and not _ORDER_DEAD.search(str(o.get("status") or ""))]
+              if o.get("register_policy") == "always" and _order_live(o)]
     r = _json_opt("data/app/order_check.json")
     if not r:
         if always:
@@ -3207,7 +3251,7 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
-    check_order_check(); check_monthly_dca(); check_desk_value_gate()
+    check_order_check(); check_us_ledger(); check_monthly_dca(); check_desk_value_gate()
     check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()

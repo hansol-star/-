@@ -209,6 +209,42 @@ def _evaluate_all_inner() -> list[dict]:
     return out
 
 
+def _us_hold(r: dict) -> str | None:
+    """미국 트랙 후보(GEV·ANET·CDNS) 매수존 알림이 지금 막혀 있으면 그 이유 — notify·order_check와 같은 판정(us_buy_block).
+    ★[10/22 리뷰 2차] 舊 = 같은 알림 안에서 '⏸ ANET 재등록 안 함(d251 대기·원장 오류)'과 '🎯 GEV 매수존 → 소수점 시장가'가
+      나란히 떴다(이 경로만 원장을 안 봤다). 알림은 그대로 보내고(존 정보는 쓸모 있다) 막힌 사유를 한 줄 붙인다.
+    판정 실패면 None(알림을 막지 않는다 — 형식 때문에 신호를 잃지 않는다)."""
+    tk = str(r.get("ticker") or "")
+    if "매수" not in str(r.get("action") or "") or tk.endswith((".KS", ".KQ")):
+        return None
+    try:
+        sys.path.insert(0, HERE)
+        import tranche_rules as TR
+        if tk not in TR.US_ZONE_TICKERS:
+            return None
+        px = r.get("price")
+        return TR.us_buy_block(None, tk, px if isinstance(px, (int, float)) else None)
+    except Exception:                                              # noqa: BLE001
+        return None
+
+
+def _us_floor_unknown(r: dict) -> str | None:
+    """★[10/22 리뷰 3차 C9] 미국 트랙 후보 매수존 알림인데 하드플로어(S&P 폭풍)를 **판정 못 했으면** 그 사유.
+    현행 룰상 판정 불가는 연기 사유가 아니다(바꾸려면 룰 변경 승인) — 막지 않고, 확인한 것처럼 보이지 않게 경고만 붙인다."""
+    tk = str(r.get("ticker") or "")
+    if "매수" not in str(r.get("action") or "") or tk.endswith((".KS", ".KQ")):
+        return None
+    try:
+        sys.path.insert(0, HERE)
+        import tranche_rules as TR
+        if tk not in TR.US_ZONE_TICKERS:
+            return None
+        halted, why = TR.global_contagion_check()
+        return why if halted is None else None
+    except Exception as e:                                         # noqa: BLE001
+        return f"판정 실패({type(e).__name__})"
+
+
 def send(text: str, dry: bool) -> tuple[int, str]:
     if dry:
         return 0, "(dry-run)"
@@ -255,6 +291,11 @@ def run_once(dry: bool = False, quiet: bool = False) -> int:
             act = str(r.get("action") or "")[:110]
             if act:
                 lines.append(f"   → {act}")
+            hold = _us_hold(r)
+            if hold:
+                lines.append(f"   ⏸ 미국 트랙: {hold} — 지금은 이 매수를 하지 않는다")
+            elif (fu := _us_floor_unknown(r)):
+                lines.append(f"   ⚠️ 하드플로어 판정 불가({fu}) — 걸기 전 S&P 폭풍 확인")
         lines.append("⚠️ 알림일 뿐 자동 집행 아님 — 룰 확인 후 정훈 결정.")
         # 정훈 9/4: "내가 할 일을 위로, 자세한 내용은 아래로".
         #   notify.compose()가 [할 일 → 트리거 → 상세] 순서로 조립한다.

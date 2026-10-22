@@ -244,7 +244,7 @@
   };
   // ★[9/21 d205] 미국 트랙 — 달러는 코스피 사다리가 아니라 3회 균등 분할(월 1회)이 다룬다
   function usTrack() { var u = D.us_track || {}; return { u: u, ok: !!u.status && u.status !== "error", allowed: u.allowed_usd || 0 }; }
-  var US_SHORT = { due: "미국 회차 도래", waiting: "다음 회차 대기", deferred: "하드플로어 연기", complete: "사이클 완료", no_cycle: "사이클 없음" };
+  var US_SHORT = { due: "미국 회차 도래", zone_open: "매수존 — 회차 앞당김", spacing_wait: "월 1회차 대기(d251)", partial: "회차 잔액 집행", waiting: "다음 회차 대기", error: "원장 오류 — 확인 필요", deferred: "하드플로어 연기", complete: "사이클 완료", no_cycle: "사이클 없음" };
   function usd(v) { return v == null || isNaN(v) ? "—" : "$" + Number(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
   function ladderLive() {
@@ -705,7 +705,7 @@
     h += '<div class="big num">' + num(Math.round(T.assets)) + '<small>원</small></div>';
     h += '<div class="g3"><div><span class="k">현금</span><span class="v num">' + num(Math.round(T.cashK + T.cashUK)) + '</span><span class="s num">₩' + num(T.cashK) + ' + $' + num2(T.cashU) + '</span></div>'
       + '<div><span class="k">평가손익 · 환 반영</span><span class="v num ' + cls(T.pnl) + '">' + sign(T.pnl) + num(Math.round(T.pnl)) + '</span><span class="s num">' + pct(T.pnlPct, 1) + ' · 환 빼면 ' + sign(T.pnlNoFx) + num(Math.round(T.pnlNoFx)) + '</span></div>'
-      + '<div><span class="k">살 수 있는 돈</span><span class="v num acc">' + (UT.ok ? usd(UT.allowed) : won(L.allowed)) + '</span><span class="s">' + (UT.ok ? esc(US_SHORT[UT.u.status] || "") + ' · 국내 ' + won(L.allowed) : esc(LADDER_SHORT[L.status] || "")) + (L.live ? " · 장중 추정" : "") + '</span></div></div></section>';
+      + '<div><span class="k">살 수 있는 돈</span><span class="v num acc">' + (UT.ok ? usd(UT.allowed) : won(L.allowed)) + '</span><span class="s">' + (UT.ok ? esc(US_SHORT[UT.u.status] || "") + ' · 국내 ' + won(L.allowed) : esc(LADDER_SHORT[L.status] || "") + (UT.u.status === "error" ? ' · 미국 ' + esc(US_SHORT.error) : '')) + (L.live ? " · 장중 추정" : "") + '</span></div></div></section>';
 
     // 오늘 밤(지금) 할 일
     var ko = activeKrOrders(), cards = ko.map(function (o) { return { o: o, e: bandEval(o) }; }).filter(function (x) { return x.e; });
@@ -731,7 +731,7 @@
     // 룰 요약 링크
     h += '<a class="rlink" href="#rules"><div class="lad" aria-hidden="true">' + (L.steps.length ? L.steps : [0, 0, 0, 0, 0, 0]).map(function (st) { return '<span class="' + (st && st.on ? "on" : "") + '"></span>'; }).join("") + '</div>'
       + '<div class="tx"><span class="k">룰1 분할 매수 · 급락 TF</span><span class="v num">코스피 ' + num2(L.k) + ' · 고점 대비 ' + pct(L.dd, 1) + '</span>'
-      + '<span class="s">국내 ' + won(L.allowed) + (UT.ok ? ' · 미국 ' + usd(UT.allowed) : '') + ' · 해제 게이트 ' + G.n + '/3 · 하드플로어 ' + (s.halted ? "발동" : "미발동") + '</span></div>' + IC.chev + '</a>';
+      + '<span class="s">국내 ' + won(L.allowed) + (UT.ok ? ' · 미국 ' + usd(UT.allowed) : UT.u.status === "error" ? ' · 미국 ' + esc(US_SHORT.error) : '') + ' · 해제 게이트 ' + G.n + '/3 · 하드플로어 ' + (s.halted ? "발동" : "미발동") + '</span></div>' + IC.chev + '</a>';
 
     // 다가오는 일정
     var ev = eventsLive();
@@ -833,7 +833,7 @@
       var RK = { "①": "1순위", "②": "2순위", "③": "3순위", "④": "4순위" };
       return h2s("미국 매수 순서", "d191 · d205", "sm") + '<div class="wcard" style="margin-top:0"><div class="pri3">' + pri.map(function (p) {
         return '<a href="#stock/' + encodeURIComponent(p.st.ticker) + '"><span class="n">' + p.n + ' ' + RK[p.n] + '</span><b>' + esc(isKR(p.st.ticker) ? p.st.label : p.st.ticker) + '</b><span class="z">' + esc(p.z) + (p.d != null ? ' · ' + pct(p.d, 1) : '') + '</span></a>';
-      }).join("") + '</div><p>' + (UT.ok ? (UT.allowed > 0 ? '미국 트랙 이번 회차 ' + usd(UT.allowed) + ' — 매수존 안 종목 → GOOGL 18%까지 → 나머지 VOO.' : '미국 트랙 ' + esc(US_SHORT[UT.u.status] || "") + (UT.u.next_date ? ' — 다음 회차 ' + esc(mdw(UT.u.next_date)) : '') + '.') : (L.allowed > 0 ? '잔여 ' + won(L.allowed) + ' — 이 순서대로.' : '지금은 못 산다.')) + '</p></div>';
+      }).join("") + '</div><p>' + (UT.ok ? (UT.allowed > 0 ? (UT.u.status === "partial" ? '미국 트랙 ' + UT.u.partial_tranche + '회차 잔액 ' + usd(UT.allowed) + ' — GOOGL 18%까지 → 나머지 VOO(존 종목은 다음 회차).' : '미국 트랙 이번 회차 ' + usd(UT.allowed) + ' — 매수존 안 종목 → GOOGL 18%까지 → 나머지 VOO.') : '미국 트랙 ' + esc(US_SHORT[UT.u.status] || "") + (UT.u.next_date ? ' — 다음 회차 ' + esc(mdw(UT.u.next_date)) : '') + '.') : UT.u.status === "error" ? '미국 트랙 ' + esc(US_SHORT.error) + ' — 고치기 전까지 이 순서로 사지 않는다(매수 판단 보류).' : (L.allowed > 0 ? '잔여 ' + won(L.allowed) + ' — 이 순서대로.' : '지금은 못 산다.')) + '</p></div>';
     }
 
     if (pfTab === "hold") {
@@ -1175,18 +1175,30 @@
   // ★[9/21 d205] 미국 트랙 카드 — 코스피 낙폭과 무관한 달러 3회 균등 분할
   function usTrackCard() {
     var U = usTrack(), u = U.u;
+    // ★[10/22 리뷰 2차] 깨진 원장 = 카드를 숨기지 않는다(舊 = '사이클 없음' 카드 → 이번 diff로 아예 사라졌다) — 보류 사실을 보인다
+    if (u.status === "error") return '<div class="money" style="margin-top:12px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">🇺🇸 미국 트랙 · 이번 회차(달러)</span><span class="chip bad">' + esc(US_SHORT.error) + '</span></div>'
+      + '<p>' + esc(String(u.why || (u.error ? '판정 실패(' + u.error + ')' : '원인 미상')).replace(/\*\*/g, "")) + ' — 고치기 전까지 미국 매수 판단 보류(재등록 알림·오더 점검·매수존 알림에 보류 사유가 붙는다).</p></div>';
     if (!U.ok) return "";
     var sched = (u.schedule || []).map(function (d, i) {
-      var n = i + 1, st = (u.done || []).indexOf(n) >= 0 ? "집행" : (u.pending || []).indexOf(n) >= 0 ? "도래" : "대기";
-      return '<span class="chip ' + (st === "집행" ? "good" : st === "도래" ? "acc" : "") + '">' + n + '회 ' + esc(md(d)) + ' · ' + st + '</span>';
+      var n = i + 1, st = (u.done || []).indexOf(n) >= 0 ? "집행" : n === u.partial_tranche ? "진행 중" : (u.pending || []).indexOf(n) >= 0 ? "도래" : "대기";
+      // ★[10/22 d251] 다음 회차가 간격 대기 중이면 회차일이 아니라 '열리는 날'을 같이 보인다
+      var w = (st !== "집행" && u.wait_until && n === u.standing_tranche) ? ' · ' + esc(md(u.wait_until)) + '부터' : '';
+      // ★[10/22] 진행 중 회차 = 잔액 · 매수존 앞당김(zone_open)이면 그 회차가 지금 집행 가능하다
+      if (st === "진행 중") w = ' · 잔액 ' + usd(u.partial_left);
+      if (u.status === "zone_open" && n === u.standing_tranche) st = "존 진입";
+      var hot = st === "진행 중" || st === "존 진입" || (st === "도래" && !w);
+      return '<span class="chip ' + (st === "집행" ? "good" : hot ? "acc" : "") + '">' + n + '회 ' + esc(md(d)) + ' · ' + st + w + '</span>';
     }).join(" ");
-    var sp = (u.split || []).map(function (x) { return '<div class="ussplit"><b class="num">' + esc(x.ticker) + ' ' + usd(x.usd) + '</b><span>' + esc(x.why) + '</span></div>'; }).join("");
+    var sp = (u.split || []).map(function (x) {
+      return '<div class="ussplit"><b class="num">' + esc(x.ticker) + ' ' + usd(x.usd) + '</b><span>' + esc(String(x.why || "").replace(/\*\*/g, ""))
+        + (x.note ? ' <span class="mut">' + esc(String(x.note).replace(/\*\*/g, "")) + '</span>' : '') + '</span></div>';
+    }).join("");
     return '<div class="money" style="margin-top:12px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="k0">🇺🇸 미국 트랙 · 이번 회차(달러)</span><span class="chip">3회 분할 · d205</span></div>'
       + '<div class="big num">' + usd(U.allowed) + '</div>'
-      + '<div class="g2"><div><span class="k">달러 잔고</span><span class="v num">' + usd(u.usd_cash) + '</span></div><div><span class="k">회차당</span><span class="v num">' + usd(u.per_tranche_usd) + '</span></div></div>'
+      + '<div class="g2"><div><span class="k">달러 잔고</span><span class="v num">' + usd(u.usd_cash) + '</span></div><div><span class="k">' + (u.partial_tranche ? '다음 회차' : '회차당') + '</span><span class="v num">' + (u.partial_tranche && u.partial_tranche >= (u.n || 3) ? '없음(마지막)' : usd(u.per_tranche_usd)) + '</span></div></div>'
       + (sched ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">' + sched + '</div>' : '')
       + (sp ? '<div style="margin-top:10px;display:flex;flex-direction:column;gap:4px">' + sp + '</div>' : '')
-      + '<p>' + esc(u.why || "") + ' 코스피 낙폭과 무관 · S&amp;P 폭풍 70 이상이면 그 회차 연기 · 급등일(+3%)엔 다음 날(룰3).</p></div>';
+      + '<p>' + esc(String(u.why || "").replace(/\*\*/g, "")) + ' 코스피 낙폭과 무관 · S&amp;P 폭풍 70 이상이면 그 회차 연기 · 다음 회차는 직전 회차 체결 세션 +1개월 이후(d251) · 추격 상한 = min(존 상단, 전일 종가×1.03) — 걸 가격 아님(d254).</p></div>';
   }
 
   // ════════════════ 화면: 룰 · 리스크 (캔버스 Rules) ════════════════

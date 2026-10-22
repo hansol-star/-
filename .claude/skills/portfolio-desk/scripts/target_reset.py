@@ -237,7 +237,10 @@ def main() -> int:
                     help="(기본값이 됐다 — 10/12 정훈 승인. 호환용으로 남긴 플래그)")
     ap.add_argument("--uncalibrated", action="store_true",
                     help="종목별 실측 편향 보정을 끄고 고정 계수로 계산(비교용)")
+    ap.add_argument("--selftest", action="store_true", help="d253 E·B(밴드 저장 동결·지정가 하한 추종) 회귀 테스트")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
 
     BIAS_MAP, BIAS_MED = measured_bias()
     USE_CALIB = not a.uncalibrated
@@ -371,7 +374,23 @@ def main() -> int:
     print("※ 지평은 **12개월**이다 — 20거래일 채점으로 '틀렸다'고 읽지 말 것.")
     print("※ 제안 전용 — --save 없이는 stocks.json을 안 바꾼다. 최종 결정은 정훈.")
 
+    # ★[10/21 d253 E·B 정훈 승인] 사전등록 판정 직전엔 그 종목 밴드를 다시 저장하지 않는다(freeze_band_save 오더) ·
+    #   판정 뒤 지정가가 밴드 하단에 묶인 오더(band_floor)는 저장된 하단이 오르면 따라 올리고, 내려가면 그대로 둔다(d210 ②).
+    tasks_p = os.path.join(APP, "tasks.json")
+    tasks = load(tasks_p, {}) or {}
+    try:
+        from order_check import plan_state
+    except Exception:  # noqa: BLE001
+        plan_state = lambda o: "active"  # noqa: E731
+    live_orders = [o for o in tasks.get("orders", []) if plan_state(o) == "active"]
+    frozen = band_save_frozen(live_orders, TODAY)
+    if frozen:
+        print("\n🧊 밴드 저장 동결(d253 E — 사전등록 판정 전): "
+              + ", ".join(f"{NAMES.get(t, t)}({oid})" for t, oid in frozen.items()) + " — --save해도 이 종목은 건너뛴다")
+
     if a.save:
+        for tk in [t for t in updates if t in frozen]:
+            updates.pop(tk)
         for tk, u in updates.items():
             f = (lambda v: f"{v:,.0f}원") if u["kr"] else (lambda v: f"${v:,.0f}")
             st[tk]["target"] = f"{f(u['low'])}~{f(u['high'])} (중심 {f(u['center'])}·12M)"
@@ -391,7 +410,74 @@ def main() -> int:
         with open(os.path.join(APP, "stocks.json"), "w", encoding="utf-8", newline="\n") as f2:
             json.dump(stocks, f2, ensure_ascii=False, indent=1)
         print(f"\n💾 stocks.json 목표가 {len(updates)}종목 반영")
+        raised = raise_band_floor(live_orders, updates, TODAY)
+        if raised:
+            with open(tasks_p, "w", encoding="utf-8", newline="\n") as f3:
+                f3.write(json.dumps(tasks, ensure_ascii=False, indent=2))
+            for oid, old, new in raised:
+                print(f"📈 {oid} 지정가 {old:,} → {new:,}원 (밴드 하단 호가 올림 · d253 B · 내리지는 않는다)")
     return 0
+
+
+def band_save_frozen(orders: list, today: str | None = None) -> dict:
+    """{티커: 오더 id} — 살아 있는 오더 중 freeze_band_save가 켜진 종목(d253 E).
+
+    값이 True면 끌 때까지, 'YYYY-MM-DD'면 그날까지(포함) 동결 — 판정일이 지나면 손으로 안 꺼도 풀린다.
+    """
+    def on(v):
+        if isinstance(v, str):
+            return today is None or today <= v
+        return bool(v)
+    return {o["ticker"]: o["id"] for o in orders if on(o.get("freeze_band_save")) and o.get("ticker")}
+
+
+def selftest() -> int:
+    """d253 E(판정 전 밴드 저장 동결)·B(밴드 하단 따라 올리기 — 내리지 않기) 회귀 테스트(네트워크·파일 없음)."""
+    ok = True
+
+    def expect(label, got, want):
+        nonlocal ok
+        good = got == want
+        ok &= good
+        print(f"  {'✅' if good else '❌'} {label}: {got}" + ("" if good else f"  (기대 {want})"))
+
+    print("target_reset d253 selftest")
+    o = {"id": "o-hmc", "ticker": "005380.KS", "price": 341500, "band_floor": True, "freeze_band_save": True}
+    expect("freeze_band_save 오더 → 그 종목 동결", band_save_frozen([o]), {"005380.KS": "o-hmc"})
+    expect("동결 없음", band_save_frozen([dict(o, freeze_band_save=False)]), {})
+    d = dict(o, freeze_band_save="2026-10-29")
+    expect("날짜 동결 — 판정일 당일까지는 동결", band_save_frozen([d], "2026-10-29"), {"005380.KS": "o-hmc"})
+    expect("날짜 동결 — 다음 날 풀린다", band_save_frozen([d], "2026-10-30"), {})
+    a = dict(o)
+    expect("밴드 하단 344,200 → 지정가 344,500으로 올림", (raise_band_floor([a], {"005380.KS": {"kr": True, "low": 344200}}, "t"),
+                                                    a["price"]), ([("o-hmc", 341500, 344500)], 344500))
+    b = dict(o, price=344500)
+    expect("밴드 하단 330,000 → 내리지 않는다", (raise_band_floor([b], {"005380.KS": {"kr": True, "low": 330000}}, "t"),
+                                             b["price"]), ([], 344500))
+    c = dict(o, band_floor=False)
+    expect("band_floor 아닌 오더는 안 건드린다", raise_band_floor([c], {"005380.KS": {"kr": True, "low": 400000}}, "t"), [])
+    print("PASS" if ok else "FAIL — d253 밴드 동결·하한 추종이 회귀했다")
+    return 0 if ok else 1
+
+
+def raise_band_floor(orders: list, updates: dict, today: str) -> list:
+    """band_floor 오더의 지정가 = max(현 지정가, 새 밴드 하단의 호가 올림). 내리지 않는다. 바꾼 [(id, 옛값, 새값)]."""
+    from tranche_rules import kr_tick_up
+    out = []
+    for o in orders:
+        tk = o.get("ticker")
+        if not o.get("band_floor") or tk not in updates or not isinstance(o.get("price"), (int, float)):
+            continue
+        if not (updates[tk].get("kr")):
+            continue                                   # 지금은 국내(호가 단위)만 — 미국 오더가 생기면 센트 올림을 붙인다
+        new = kr_tick_up(updates[tk]["low"])
+        if new > o["price"]:
+            old = int(o["price"])
+            o["price"] = new
+            o["note"] = (f"[{today} target_reset] 밴드 하단 {updates[tk]['low']:,.0f} → 지정가 {old:,} → {new:,}원 "
+                         f"(d253 B · 하단이 내려가면 그대로) ── " + str(o.get("note") or ""))
+            out.append((o["id"], old, new))
+    return out
 
 
 if __name__ == "__main__":

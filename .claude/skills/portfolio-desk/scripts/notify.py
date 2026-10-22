@@ -257,7 +257,8 @@ def _reregister() -> str:
         d = json.load(open(os.path.join(ROOT, "data", "app", "tasks.json"), encoding="utf-8"))
     except Exception:                                             # noqa: BLE001
         return ""
-    rows = []
+    rows, paused = [], []
+    floor = "?"                                                    # 하드플로어 판정 불가 표시 — 미국 매수 줄이 있을 때 한 번만 본다
     for o in d.get("orders") or []:
         tk = str(o.get("ticker") or "")
         kr = tk.endswith(".KS") or tk.endswith(".KQ")
@@ -283,10 +284,34 @@ def _reregister() -> str:
             pxs = f"{px:,.0f}원" if kr else f"${px:,.2f}"
         else:
             pxs = "지정가 미정"
-        rows.append(f"↻ {o.get('label') or tk} — {o.get('action','')} " + pxs)
+        act = str(o.get("action") or "")
+        # ★[10/22 리뷰 반영 — d251] 미국 매수는 월 1회차 대기 중이면 다시 걸지 않는다 — 걸면 한 달 먼저 다음 회차를 산다.
+        #   판정 = tranche_rules.us_buy_block()(원장만 읽는다 · 시세 조회 없음). 판정 실패면 舊 동작(재등록 목록)을 유지한다.
+        #   ★[10/22 리뷰 2차] 종목·가격도 넘긴다 — 진행 중 회차에 ANET 1주가 이미 체결됐으면 ANET을 다시 걸라고 하지 않는다.
+        if not kr and "매수" in act and "매도" not in act:
+            try:
+                import tranche_rules as TR
+                ublock = TR.us_buy_block(None, tk, px if isinstance(px, (int, float)) else None)
+            except Exception:                                     # noqa: BLE001
+                ublock = None
+            if ublock:
+                paused.append(f"⏸ {o.get('label') or tk} — {act} {pxs} 재등록 안 함({ublock})")
+                continue
+            # ★[10/22 리뷰 3차] vol_gauge 실패(판정 불가)는 현행 룰상 막지 않는다 — 대신 조용히 넘기지 않는다
+            if floor == "?":
+                try:
+                    import tranche_rules as TR
+                    h, why = TR.global_contagion_check()
+                    floor = None if h is not None else why
+                except Exception:                                 # noqa: BLE001
+                    floor = None
+            if floor:
+                pxs += " ⚠️ 하드플로어 판정 불가 — 걸기 전 S&P 폭풍 확인"
+        rows.append(f"↻ {o.get('label') or tk} — {act} " + pxs)
     if not rows:
-        return ""
-    return ("🔁 오늘 **재등록** 필요 (예약은 국내·미국 모두 1거래일 소멸 — d128)\n" + "\n".join(rows[:6]))
+        return "\n".join(paused[:3])
+    return ("🔁 오늘 **재등록** 필요 (예약은 국내·미국 모두 1거래일 소멸 — d128)\n" + "\n".join(rows[:6])
+            + ("\n" + "\n".join(paused[:3]) if paused else ""))
 
 
 def compose(trigger_block: str = "") -> str:

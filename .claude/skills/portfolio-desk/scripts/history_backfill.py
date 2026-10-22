@@ -145,6 +145,15 @@ def fetch_daily_with_gaps(symbol: str, period1: int = 0, timeout: float = 30.0):
     자체가 없으므로 여기 잡히는 날은 거래가 있었는데 값만 빠진 날이다(10/13 실측 — .KS 개별종목
     10/12 봉이 통째로 null, 같은 날 ^KS11은 정상).
     ⚠️ range=max는 장기서 월봉 다운샘플 → 반드시 period1/period2(일봉 보장)."""
+    got = fetch_chart_result(symbol, period1, timeout)
+    try:
+        return parse_chart(*got) if got else None
+    except (KeyError, IndexError, TypeError, ValueError):
+        return None
+
+
+def fetch_chart_result(symbol: str, period1: int = 0, timeout: float = 30.0):
+    """Yahoo 일봉 chart result 원본 + 받은 시각 → (result, now). 실패 None. (meta가 필요한 호출용 — settled_meta_close)"""
     now = int(time.time())
     url = (YAHOO_CHART.format(symbol=urllib.parse.quote(symbol))
            + f"?interval=1d&period1={period1}&period2={now}")
@@ -152,7 +161,7 @@ def fetch_daily_with_gaps(symbol: str, period1: int = 0, timeout: float = 30.0):
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             data = json.loads(r.read().decode())
-        return parse_chart(data["chart"]["result"][0], now)
+        return data["chart"]["result"][0], now
     except (urllib.error.HTTPError, urllib.error.URLError, KeyError,
             IndexError, TypeError, ValueError):
         return None
@@ -209,6 +218,66 @@ def parse_chart(res: dict, now: int):
     # 오늘 세션의 미형성 봉(null)과 라이브 행은 같은 날짜다 — 값이 있으면 결측이 아니다.
     gaps = sorted({d for d in nulls if d not in book})
     return out, gaps
+
+
+def settled_meta_close(res: dict, now: int):
+    """끝난 세션의 일봉이 **종가 null**로 올 때 그 세션의 정규장 종가 → (date, close). 아니면 None.
+
+    ★[2026-10-22 실측] 美 마감 5시간 뒤(KST 10:30) ANET 10/21 일봉 close = null인데 meta.regularMarketPrice = 184.33
+      (regularMarketTime = 정규장 끝 +3초 · 5분봉 마지막 값과 같다). parse_chart는 그 봉을 결측으로 빼므로 마지막 봉이
+      **한 세션 전**(10/20 181.19)이 되고, 그걸 '전일 종가'로 읽은 지정가 추격 상한(d254)이 $186.62로 나왔다(정답 $189.85).
+    ★[10/22 리뷰 반영] Yahoo는 몇 시간 뒤 currentTradingPeriod를 **다음 세션으로 넘긴다**(KST 15:30 실측 — regular.start =
+      10/22 09:30 ET). 舊 조건(meta 정규장 = 그 세션)은 그때부터 None이라 주문을 거는 저녁에 다시 $186.62가 나왔다.
+    읽는 경우 두 가지 — 마지막 봉(가장 늦은 날짜)이 null이고 regularMarketTime이 그 날짜일 때만:
+      ⓐ meta 정규장이 아직 그 세션: 끝 + SETTLE_GRACE_SEC가 지났고 regularMarketTime ≥ 끝 − 60초
+      ⓑ meta 정규장이 다음 세션으로 넘어감: 다음 세션이 아직 안 열렸고(now < start) regularMarketTime + 유예가 지났다
+    다음 세션이 열리면(regularMarketPrice = 장중 값) None — 그땐 intraday_session_close.
+    ⚠️ **실시간 판단 전용 — 캐시에 쓰지 않는다**(캐시는 개정창이 진짜 봉으로 덮는다 · 출처가 다른 값을 섞지 않는다).
+    ⚠️ 국내(Asia/Seoul)는 안 읽는다 — Yahoo 국내는 20분 지연이고 정규장 끝을 15:00으로 적어 유예 안에 종가 경매 전 값이 온다
+       (국내 결측 봉은 토스 1분봉 경로가 따로 있다)."""
+    meta = res.get("meta") or {}
+    if (meta.get("exchangeTimezoneName") or "") == "Asia/Seoul":
+        return None
+    reg = (meta.get("currentTradingPeriod") or {}).get("regular") or {}
+    start, end = reg.get("start"), reg.get("end")
+    rmt, rmp = meta.get("regularMarketTime"), meta.get("regularMarketPrice")
+    if not (start and end and rmt and rmp):
+        return None
+    off = meta.get("gmtoffset") or 0
+    bars = list(zip(res.get("timestamp") or [],
+                    ((res.get("indicators") or {}).get("quote") or [{}])[0].get("close") or []))
+    if not bars:
+        return None
+    last_t, last_c = max(bars, key=lambda b: b[0])
+    d = bar_date(last_t, off)
+    if last_c is not None or bar_date(rmt, off) != d:
+        return None
+    if bar_date(start, off) == d:                                       # ⓐ
+        ok = now >= end + SETTLE_GRACE_SEC and rmt >= end - 60
+    else:                                                               # ⓑ
+        ok = rmt < start and now < start and now >= rmt + SETTLE_GRACE_SEC
+    return (d, round(float(rmp), 4)) if ok else None
+
+
+def intraday_session_close(symbol: str, day: str, timeout: float = 10.0):
+    """그 날짜(거래소 현지일) **정규장 5분봉의 마지막 종가** — 일봉이 null인 끝난 세션의 보조 판독. 실패·진행 중 세션이면 None.
+    ★[10/22] 다음 세션이 열리면 meta로는 전 세션 종가를 못 읽는다(settled_meta_close ⓑ 끝) — 그때 쓰는 경로.
+    ⚠️ 마지막 5분봉 종가 = 공식 종가(16:00 경매)와 몇 센트 다를 수 있다(10/21 ANET은 같았다) · 실시간 판단 전용."""
+    now = int(time.time())
+    url = YAHOO_CHART.format(symbol=urllib.parse.quote(symbol)) + "?interval=5m&range=5d"
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            res = json.loads(r.read().decode())["chart"]["result"][0]
+        meta = res.get("meta") or {}
+        if day == live_session_day(meta, now):
+            return None
+        off = meta.get("gmtoffset") or 0
+        vals = [c for t, c in zip(res["timestamp"], res["indicators"]["quote"][0]["close"])
+                if c is not None and bar_date(t, off) == day]
+        return round(float(vals[-1]), 4) if vals else None
+    except (urllib.error.HTTPError, urllib.error.URLError, KeyError, IndexError, TypeError, ValueError, OSError):
+        return None
 
 
 def fetch_full_daily(symbol: str, period1: int = 0, timeout: float = 30.0):
@@ -1559,6 +1628,28 @@ def selftest() -> int:
     res["meta"].pop("currentTradingPeriod")
     rows, _ = parse_chart({**res, "indicators": {"quote": [{"close": [7744.06, 7732.59]}]}}, o16 + 4500)
     ok("meta에 거래시간이 없으면 舊 동작 그대로(개정창이 보정)", len(rows) == 2)
+    # ★[10/22] 끝난 세션의 봉이 null로 오면 meta 정규장 종가로 읽는다(실시간 판단 전용 — ANET 10/21 null ↔ meta 184.33)
+    o21 = calendar.timegm((2026, 10, 21, 13, 30, 0))
+    nb = {"timestamp": [o21 - 86400, o21], "indicators": {"quote": [{"close": [181.19, None]}]},
+          "meta": {"gmtoffset": -14400, "regularMarketPrice": 184.33, "regularMarketTime": o21 + 23400 + 3,
+                   "currentTradingPeriod": {"regular": {"start": o21, "end": o21 + 23400}}}}
+    ok("끝난 세션 null 봉 → meta 종가 (10/21, 184.33)", settled_meta_close(nb, o21 + 23400 + 5 * 3600) == ("2026-10-21", 184.33))
+    ok("유예(40분) 전엔 안 읽는다", settled_meta_close(nb, o21 + 23400 + 600) is None)
+    ok("봉에 값이 있으면 안 읽는다(봉이 정본)",
+       settled_meta_close({**nb, "indicators": {"quote": [{"close": [181.19, 184.0]}]}}, o21 + 23400 + 5 * 3600) is None)
+    ok("regularMarketTime이 장중이면 안 읽는다(종가 아님)",
+       settled_meta_close({**nb, "meta": {**nb["meta"], "regularMarketTime": o21 + 3600}}, o21 + 23400 + 5 * 3600) is None)
+    ok("parse_chart는 그대로 결측으로 센다(캐시 경로 불변)", parse_chart(nb, o21 + 23400 + 5 * 3600) == ([("2026-10-20", 181.19)], ["2026-10-21"]))
+    # ★[10/22 리뷰] Yahoo가 currentTradingPeriod를 다음 세션으로 넘긴 뒤(KST 15:30 실측)에도 읽는다 — 다음 세션이 열리기 전까지
+    o22 = o21 + 86400
+    rolled = {**nb, "meta": {**nb["meta"], "currentTradingPeriod": {"regular": {"start": o22, "end": o22 + 23400}}}}
+    ok("넘어간 meta(다음 세션 전) → (10/21, 184.33)", settled_meta_close(rolled, o22 - 7 * 3600) == ("2026-10-21", 184.33))
+    ok("다음 세션이 열린 뒤엔 안 읽는다(장중 값)", settled_meta_close(rolled, o22 + 600) is None)
+    ok("마지막 봉이 null이 아니면(다음 날 봉이 있다) 안 읽는다",
+       settled_meta_close({**rolled, "timestamp": [o21 - 86400, o21, o22],
+                           "indicators": {"quote": [{"close": [181.19, None, 186.0]}]}}, o22 - 7 * 3600) is None)
+    ok("국내(Asia/Seoul)는 안 읽는다",
+       settled_meta_close({**nb, "meta": {**nb["meta"], "exchangeTimezoneName": "Asia/Seoul"}}, o21 + 23400 + 5 * 3600) is None)
     # ★[10/19] Yahoo는 KRX 정규장 끝을 15:00으로 적는다(실제 종가 단일가 15:20~15:30) — 15:00~15:30 장중값이 굳던 자리
     k09, k15 = calendar.timegm((2026, 10, 19, 0, 0, 0)), calendar.timegm((2026, 10, 19, 6, 0, 0))   # 09:00 · 15:00 KST
     kr = {"timestamp": [k09 - 86400 * 3, k09], "indicators": {"quote": [{"close": [5668.05, 5751.0]}]},

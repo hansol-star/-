@@ -749,7 +749,9 @@ def build(offline: bool) -> dict:
         import tranche_rules as _TR2
         payload["us_track"] = _TR2.us_track()
     except Exception as e:  # noqa: BLE001
-        payload["us_track"] = {"status": "error", "error": type(e).__name__}
+        # ★[10/22] why를 같이 남긴다 — 앱 오류 카드가 이유를 보인다(舊 = 빈 이유 + 원장 탓)
+        payload["us_track"] = {"status": "error", "error": type(e).__name__,
+                               "why": f"미국 트랙 판정 실패({type(e).__name__}: {str(e)[:80]}) — 원장 또는 판정 코드 확인"}
     return payload
 
 

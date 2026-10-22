@@ -29,6 +29,7 @@ report; you gather and return the macro section. **Do not write report files you
    `python3 .claude/skills/portfolio-desk/scripts/macro_data.py --json`
    → 미국채 10Y/2Y·2s10s 스프레드·실질금리(TIPS)·기대인플레(BEI)·EFFR·VIX·WTI·달러지수·CPI YoY·실업률.
    **이 수치가 금리·물가 서술의 하드넘버 정본** (1영업일 지연은 정상 — 당일 장중값만 WebSearch 보완).
+   ★**[10/21 d252] `_e5c` = ⑤ⓒ HY OAS 60관측 변화(측정 전용)** — `status`(점등·미점등·미확인)와 bp를 그대로 한 줄 보고. **행동을 붙이지 말고 d125 2/4에 세지 말 것.** FRED가 점검 HTML을 주면 `미확인`이 나온다 — 추정치로 메우지 않는다.
    ★**[10/17 R3 — 선택 → 필수 교차축]** `--polymarket fed` (무키·거래량 병기).
    CME FedWatch는 **원화면이 기계판독 불가**라 우리가 인용하는 수치는 거의 항상 **2차 매체 재인용**이다
    (v115 = CNBC 인용 '10/28 인상확률 52%', 같은 보고서가 스스로 *FedWatch 원화면 미확인*이라 적었다).

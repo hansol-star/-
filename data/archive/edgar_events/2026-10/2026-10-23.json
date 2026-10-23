@@ -1,0 +1,100 @@
+{
+ "updated": "2026-10-23 16:28",
+ "days": 30,
+ "note": "SEC 8-K item 코드 스트림. item 코드는 '사건이 있었다'는 사실이지 내용이 아니다 — 논지를 바꿀 건이면 원문 URL로 내려갈 것.",
+ "as_of": "2026-10-23 07:28",
+ "source": "SEC EDGAR",
+ "events": [
+  {
+   "ticker": "NVDA",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "MU",
+   "error": null,
+   "events": [
+    {
+     "date": "2026-09-30",
+     "severity": "critical",
+     "items": [
+      {
+       "code": "2.02",
+       "label": "실적 발표",
+       "severity": "critical"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/mu-20260930.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "AAPL",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "MSFT",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "ANET",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "AVGO",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "GOOGL",
+   "error": null,
+   "events": []
+  },
+  {
+   "ticker": "META",
+   "error": null,
+   "events": [
+    {
+     "date": "2026-10-21",
+     "severity": "critical",
+     "items": [
+      {
+       "code": "1.01",
+       "label": "중대계약 체결",
+       "severity": "critical"
+      },
+      {
+       "code": "2.02",
+       "label": "실적 발표",
+       "severity": "critical"
+      },
+      {
+       "code": "8.01",
+       "label": "기타 중요사항",
+       "severity": "notable"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta-20261019.htm"
+    }
+   ]
+  },
+  {
+   "ticker": "ORCL",
+   "error": null,
+   "events": []
+  }
+ ]
+}

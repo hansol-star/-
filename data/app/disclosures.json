@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23",
+ "updated": "2026-10-27",
  "days": 7,
  "universe": [
   "005930",
@@ -11,9 +11,21 @@
  "counts": {
   "critical": 0,
   "notable": 2,
-  "routine": 14
+  "routine": 15
  },
  "items": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261023",
+   "title": "주식등의대량보유상황보고서(일반)",
+   "level": "notable",
+   "category": "5%보고",
+   "why": "대주주 매매",
+   "rcept_no": "20261023000484",
+   "filer": "삼성물산",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261023000484"
+  },
   {
    "code": "454910",
    "name": "두산로보틱스",
@@ -25,18 +37,6 @@
    "rcept_no": "20261020800462",
    "filer": "두산로보틱스",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800462"
-  },
-  {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "20261016",
-   "title": "주식등의대량보유상황보고서(일반)",
-   "level": "notable",
-   "category": "5%보고",
-   "why": "대주주 매매",
-   "rcept_no": "20261016000505",
-   "filer": "삼성물산",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261016000505"
   }
  ],
  "insider": [
@@ -44,25 +44,25 @@
    "code": "005930",
    "name": "삼성전자",
    "n": 2,
-   "net": 7667180,
-   "n_buy": 2,
-   "n_sell": 0,
+   "net": 1437,
+   "n_buy": 1,
+   "n_sell": 1,
    "top": [
     {
-     "who": "이재용",
-     "ofcps": "회장",
-     "regist": "비등기임원",
-     "delta": 7667100,
-     "held": 105219053,
-     "date": "2026-10-16"
-    },
-    {
-     "who": "최고은",
+     "who": "서경헌",
      "ofcps": "상무",
      "regist": "비등기임원",
-     "delta": 80,
-     "held": 1115,
-     "date": "2026-10-19"
+     "delta": 1597,
+     "held": 3983,
+     "date": "2026-10-23"
+    },
+    {
+     "who": "이헌",
+     "ofcps": "부사장",
+     "regist": "비등기임원",
+     "delta": -160,
+     "held": 5745,
+     "date": "2026-10-26"
     }
    ]
   },
@@ -96,10 +96,10 @@
   {
    "code": "035420",
    "name": "NAVER",
-   "n": 7,
-   "net": 6293,
+   "n": 6,
+   "net": 7293,
    "n_buy": 5,
-   "n_sell": 2,
+   "n_sell": 1,
    "top": [
     {
      "who": "정유한",
@@ -118,19 +118,19 @@
      "date": "2026-10-21"
     },
     {
-     "who": "김성호",
-     "ofcps": "리더",
-     "regist": "비등기임원",
-     "delta": -1000,
-     "held": 1000,
-     "date": "2026-10-16"
-    },
-    {
      "who": "이동철",
      "ofcps": "리더",
      "regist": "비등기임원",
      "delta": 1000,
      "held": 1431,
+     "date": "2026-10-21"
+    },
+    {
+     "who": "강유훈",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": 1000,
+     "held": 1000,
      "date": "2026-10-21"
     }
    ]
@@ -140,14 +140,14 @@
   {
    "code": "005930",
    "name": "삼성전자",
-   "date": "2026-10-16",
+   "date": "2026-10-23",
    "who": "삼성물산",
-   "qty": 1151072935,
-   "d_qty": 17386,
+   "qty": 1151143019,
+   "d_qty": 70084,
    "rate": "19.69",
    "d_rate": "0.00",
    "reason": "- 보유주식수 변동\n- 보유주식등에 관한 계약의 변경",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261016000505"
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261023000484"
   }
  ],
  "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."

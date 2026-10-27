@@ -1,6 +1,6 @@
 {
  "_comment": "코스피 투자자별 순매수(억원). 보고서에 문서화된 확정값만 시드. 보고서마다 kr-market-desk가 당일 외인/기관/개인 확정 시 series에 추가(최신은 뒤). 추측 금지 — 미확인 일자는 null. [7/2 확장] 선택 필드 foreign_hynix(SK하이닉스 종목 외인 순매수, 억원 — 반전트리거 '하닉 매도중단' 게이트 판정용, 확정된 날만). flow_trend.py·triggers.py(cond=flow)가 이 시계열을 기계 평가.",
- "updated": "2026-10-22",
+ "updated": "2026-10-27",
  "unit": "억원",
  "market": "코스피",
  "series": [
@@ -861,6 +861,50 @@
     "final": true,
     "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
    }
+  },
+  {
+   "date": "2026-10-23",
+   "foreign": -9678,
+   "inst": null,
+   "indiv": null,
+   "basis": "regular",
+   "regular": {
+    "foreign": -9678,
+    "at": "unknown(매체 교차 소급)",
+    "src": "kr-market-desk 10/27 prep 가격표 — 10/23 외인 -9,678억(전환 깨짐), 매체 교차 — 로컬 close_reconcile 미실행으로 당일 미기입됐던 걸 10/27 세션에서 소급 보완. inst/indiv 미상"
+   },
+   "note": "[10/27 소급 보완 — prep 가격표 인용, KRX 확정 대사 아직 필요] 코스피 5,550.30(+0.30%) · 10/21~22 외인 전환(2일) 재역전 — 게이트② 스트릭 끊김"
+  },
+  {
+   "date": "2026-10-26",
+   "foreign": null,
+   "inst": null,
+   "indiv": null,
+   "basis": null,
+   "note": "[미확인 — 로컬 close_reconcile 미실행, 수치 공백] 코스피 5,469.47(-1.46%) 이번 사이클 신저점(-40.0%). flow_trend는 null로 건너뜀(연속 안 끊음·확정 아님 표시)"
+  },
+  {
+   "date": "2026-10-27",
+   "foreign": 5939,
+   "inst": 2813,
+   "indiv": -9506,
+   "basis": "regular",
+   "regular": {
+    "foreign": 5939,
+    "inst": 2813,
+    "indiv": -9506,
+    "at": "~16:10(매체 교차)",
+    "src": "kr-market-desk 10/27 prep — 매체(연합인포맥스 등) 마감시황 교차, 범위 외인 +5,910~5,968억·기관+2,804~2,821억·개인-9,478~9,533억의 중앙값. KRX 원본 미대조"
+   },
+   "integrated": {
+    "foreign": 6017,
+    "inst": 2839,
+    "indiv": -9586,
+    "at": "17:17",
+    "src": "네이버 시장수급 17:17(클라우드 직접조회, naver_flows.py --flows-line) — 정규장+애프터마켓 일부 통합(20:10 최종 아님, final 아님)",
+    "final": false
+   },
+   "note": "[무인 클라우드 C3 10/27 17:xx · 잠정 — regular는 매체교차(16:10 캡처 아님, close_reconcile 로컬 미실행으로 공백) · KRX 확정 대사 필요] 코스피 5,638.34(+3.09%) · 고점대비 -38.1% · 반도체 쌍끌이(삼성전자+4.23%·SK하이닉스+5.18%) 매수 사이드카 · 10/23·10/26 flows.json 공백 지속(로컬 close_reconcile 미실행 — w1019-3/이월 과제)"
   }
  ],
  "as_of": "2026-10-07",

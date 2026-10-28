@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-10-28",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -2628,6 +2628,58 @@
    "broker": "LS증권",
    "name": "현대차",
    "held": true
+  },
+  "653356": {
+   "date": "2026-10-28",
+   "report_idx": "653356",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) 3Q26 Review: 첫 고비는 넘겼다 한화오션(042660) 3Q26 Review: 첫 고비는 넘겼다 3Q26 Review: 첫 고비는 넘겼다",
+   "code": "042660",
+   "target_price": 90000.0,
+   "rating": "매수",
+   "analyst": "장성호",
+   "broker": "IBK투자증권",
+   "name": "한화오션",
+   "held": false
+  },
+  "653352": {
+   "date": "2026-10-28",
+   "report_idx": "653352",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 가시화되는 신성장 동력 NAVER(035420) 가시화되는 신성장 동력 가시화되는 신성장 동력",
+   "code": "035420",
+   "target_price": 293000.0,
+   "rating": "Buy",
+   "analyst": "선유진",
+   "broker": "LS증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "653349": {
+   "date": "2026-10-28",
+   "report_idx": "653349",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) 3Q26 Review: 이 모든 고난에도 상선 OPM 17% 한화오션(042660) 3Q26 Review: 이 모든 고난에도 상선 OPM 17% 3Q26 Review: 이 모든 고난에도 상선 OPM 17%",
+   "code": "042660",
+   "target_price": 90000.0,
+   "rating": "Buy",
+   "analyst": "이재혁",
+   "broker": "LS증권",
+   "name": "한화오션",
+   "held": false
+  },
+  "653338": {
+   "date": "2026-10-28",
+   "report_idx": "653338",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) 상선 방어 성공, 해양과 특수선 반전 필요 한화오션(042660) 상선 방어 성공, 해양과 특수선 반전 필요 상선 방어 성공, 해양과 특수선 반전 필요",
+   "code": "042660",
+   "target_price": 90000.0,
+   "rating": "Buy",
+   "analyst": "양승윤",
+   "broker": "유진투자증권",
+   "name": "한화오션",
+   "held": false
   }
  }
 }

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-10-28",
  "days": 7,
  "universe": [
   "005930",
@@ -10,10 +10,34 @@
  ],
  "counts": {
   "critical": 0,
-  "notable": 2,
-  "routine": 15
+  "notable": 3,
+  "routine": 14
  },
  "items": [
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "date": "20261028",
+   "title": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261028800266",
+   "filer": "LG전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800266"
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "date": "20261027",
+   "title": "타법인주식및출자증권취득결정",
+   "level": "notable",
+   "category": "투자",
+   "why": "capex 방향",
+   "rcept_no": "20261027800562",
+   "filer": "두산로보틱스",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800562"
+  },
   {
    "code": "005930",
    "name": "삼성전자",
@@ -25,18 +49,6 @@
    "rcept_no": "20261023000484",
    "filer": "삼성물산",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261023000484"
-  },
-  {
-   "code": "454910",
-   "name": "두산로보틱스",
-   "date": "20261020",
-   "title": "결산실적공시예고(안내공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261020800462",
-   "filer": "두산로보틱스",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800462"
   }
  ],
  "insider": [

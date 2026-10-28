@@ -115,5 +115,8 @@
 {"date": "2026-10-21", "index": "KOSPI", "foreign": 6593, "inst": -713, "indiv": -11310, "src": "naver", "basis": "regular", "integrated": {"foreign": 6462, "inst": -781, "indiv": -11159}}
 {"date": "2026-10-22", "index": "KOSDAQ", "foreign": -1200, "inst": -1006, "indiv": 2212, "src": "naver", "basis": "regular", "integrated": {"foreign": -1124, "inst": -957, "indiv": 2081}}
 {"date": "2026-10-22", "index": "KOSPI", "foreign": 610, "inst": -4630, "indiv": 3815, "src": "naver", "basis": "regular", "integrated": {"foreign": 505, "inst": -4599, "indiv": 3667}}
+{"date": "2026-10-23", "index": "KOSPI", "foreign": -9678, "inst": null, "indiv": null, "src": "flows.json(확정)"}
 {"date": "2026-10-27", "index": "KOSDAQ", "foreign": 197, "inst": 1505, "indiv": -1664, "src": "naver"}
 {"date": "2026-10-27", "index": "KOSPI", "foreign": 5968, "inst": 2821, "indiv": -9533, "src": "naver"}
+{"date": "2026-10-28", "index": "KOSDAQ", "foreign": -1855, "inst": 2260, "indiv": -323, "src": "naver"}
+{"date": "2026-10-28", "index": "KOSPI", "foreign": 8199, "inst": 9633, "indiv": -18054, "src": "naver"}

@@ -1,0 +1,153 @@
+{
+ "updated": "2026-10-28 16:23",
+ "note": "Yahoo financialData 컨센서스 스냅샷. 과거 시계열은 API가 주지 않으므로 오늘부터 archive_daily로 누적해야 '언제 바뀌었나'가 답이 된다.",
+ "rows": [
+  {
+   "symbol": "NVDA",
+   "price": 217.94,
+   "target_mean": 328.95346,
+   "target_high": 515.0,
+   "target_low": 180.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 58,
+   "gap_pct": 50.9,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "VOO",
+   "error": "HTTP Error 404: Not Found"
+  },
+  {
+   "symbol": "MSFT",
+   "price": 531.33,
+   "target_mean": 605.1243,
+   "target_high": 870.0,
+   "target_low": 440.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 53,
+   "gap_pct": 13.9,
+   "flag": ""
+  },
+  {
+   "symbol": "GOOGL",
+   "price": 320.58,
+   "target_mean": 429.67776,
+   "target_high": 500.0,
+   "target_low": 340.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 54,
+   "gap_pct": 34.0,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "ORCL",
+   "price": 130.53,
+   "target_mean": 235.8034,
+   "target_high": 400.0,
+   "target_low": 110.0,
+   "rec_key": "buy",
+   "n_analysts": 41,
+   "gap_pct": 80.7,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "MU",
+   "price": 928.76,
+   "target_mean": 1561.9111,
+   "target_high": 3000.0,
+   "target_low": 361.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 45,
+   "gap_pct": 68.2,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "AVGO",
+   "price": 342.33,
+   "target_mean": 530.14166,
+   "target_high": 660.0,
+   "target_low": 215.88,
+   "rec_key": "strong_buy",
+   "n_analysts": 48,
+   "gap_pct": 54.9,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "GEV",
+   "price": 895.08,
+   "target_mean": 1223.9697,
+   "target_high": 1450.0,
+   "target_low": 940.0,
+   "rec_key": "buy",
+   "n_analysts": 33,
+   "gap_pct": 36.7,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "AMD",
+   "price": 560.26,
+   "target_mean": 637.608,
+   "target_high": 1250.0,
+   "target_low": 365.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 50,
+   "gap_pct": 13.8,
+   "flag": ""
+  },
+  {
+   "symbol": "ANET",
+   "price": 187.0,
+   "target_mean": 243.58655,
+   "target_high": 290.0,
+   "target_low": 190.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 29,
+   "gap_pct": 30.3,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "TSM",
+   "price": 436.87,
+   "target_mean": 584.39294,
+   "target_high": 1000.0,
+   "target_low": 440.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 20,
+   "gap_pct": 33.8,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "AMAT",
+   "price": 395.93,
+   "target_mean": 627.8333,
+   "target_high": 900.0,
+   "target_low": 358.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 36,
+   "gap_pct": 58.6,
+   "flag": "🟢 추가매수 검토(상방 큼)"
+  },
+  {
+   "symbol": "CDNS",
+   "price": 343.08,
+   "target_mean": 410.29,
+   "target_high": 470.0,
+   "target_low": 300.0,
+   "rec_key": "strong_buy",
+   "n_analysts": 25,
+   "gap_pct": 19.6,
+   "flag": ""
+  },
+  {
+   "symbol": "ISRG",
+   "price": 445.88,
+   "target_mean": 482.63333,
+   "target_high": 685.0,
+   "target_low": 324.0,
+   "rec_key": "buy",
+   "n_analysts": 30,
+   "gap_pct": 8.2,
+   "flag": ""
+  }
+ ]
+}

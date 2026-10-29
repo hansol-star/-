@@ -1,0 +1,3407 @@
+{
+ "date": "2026-10-29",
+ "updated": "2026-10-29 16:22",
+ "queries": [
+  "코스피 외국인 수급",
+  "삼성전자",
+  "SK하이닉스 HBM",
+  "현대차",
+  "LG전자",
+  "NAVER 네이버",
+  "두산로보틱스",
+  "반도체 수출",
+  "원달러 환율",
+  "한국은행 금리",
+  "국제유가"
+ ],
+ "articles": [
+  {
+   "title": "Review & Preview: Earnings Divergence",
+   "link": "https://finance.yahoo.com/m/217fd825-fe07-33fa-9446-41cabdec72c2/review-%26-preview%3A-earnings.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 23:55:00 +0000",
+   "description": "Earnings sent Alphabet and Microsoft in different directions after indexes eked out modest gains.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "2 Millionaire-Maker Custom Silicon Stocks Powering the AI Infrastructure Supercycle",
+   "link": "https://www.fool.com/investing/2026/10/28/2-millionaire-maker-custom-silicon-stocks-powering/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 23:20:00 +0000",
+   "description": "If you had invested $25,000 in each of these semiconductor stocks 15 years ago, each position would now be worth well over $1 million.",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Bessent Says AI Financing Stress Not \"Problematic,\" Neoclouds a Small Component",
+   "link": "https://finance.yahoo.com/technology/ai/articles/bessent-says-ai-financing-stress-230959162.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 23:09:59 +0000",
+   "description": "Treasury Secretary Scott Bessent said the government is monitoring financing for the AI build-out bu",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Meta says its expanded processing capacity is driving ad results",
+   "link": "https://www.socialmediatoday.com/news/meta-says-its-expanded-processing-capacity-is-driving-ad-results/873133/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:44:02 +0000",
+   "description": "The company offered new insights into how its artificial intelligence enhancements are powering clicks and conversions.",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Berkshire Likely Has a Loss on Its Big Alphabet Stake After Earnings Miss",
+   "link": "https://finance.yahoo.com/m/e674c520-4d31-34c2-aa62-b979d0d1dea7/berkshire-likely-has-a-loss.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:40:00 +0000",
+   "description": "Retired Chair Warren Buffett said it was his decision to buy the Alphabet shares.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "30 Stocks That Could Rally 50% or More",
+   "link": "https://www.kiplinger.com/investing/stocks/stocks-that-could-rally?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:29:48 +0000",
+   "description": "Analysts say these S&P 500 stocks have at least 50% price upside over the next year or so.",
+   "query": [
+    "META",
+    "AVGO",
+    "MU",
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Google shares slump amid fears of AI overspending",
+   "link": "https://uk.finance.yahoo.com/news/google-slumps-amid-fears-ai-222458519.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:24:58 +0000",
+   "description": "Google shares have plunged after a $50bn (£38bn) AI splurge raised fears of overspending by the tech giant.",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Intel to report Q3 earnings as chip stocks continue to rebound",
+   "link": "https://finance.yahoo.com/technology/article/intel-to-report-q3-earnings-as-chip-stocks-continue-to-rebound-221713961.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:17:13 +0000",
+   "description": "Intel will report its Q3 earnings after the bell Thursday.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Can Morgan Stanley (MS) Justify Its Price After AI Deal Wins?",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/morgan-stanley-ms-justify-price-221303760.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:13:03 +0000",
+   "description": "Morgan Stanley has ridden a powerful three year run that has pulled the share price far ahead of the broader diversified financials group. This puts fresh focus on whether the returns it earns on its capital are strong enough to support where the stock trades today. With the bank now embedded in several high profile AI related deals, investors are increasingly asking if that capital is being deplo",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Apple Stock And Other Quality Growth Names For Higher Rates",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/apple-stock-other-quality-growth-220952696.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:09:52 +0000",
+   "description": "The Fed just kept rates at 3.75% to 4% and still sounds ready to tighten further, which puts quality growth stocks back under a very sharp spotlight. In a market where inflation worries, data surprises and policy twists can quickly punish weaker balance sheets, missing the more resilient stories can hurt. This article walks through three large-cap U.S. quality growth stocks exposed to this news ba",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Apple stock flashes rare signal before crucial earnings",
+   "link": "https://www.thestreet.com/investing/stocks/apple-nasdaq-correlation-earnings?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:07:00 +0000",
+   "description": "The market’s familiar leader is taking another path.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stock Market Today, Oct. 28: Markets Edge Higher as Fed Holds Rates Steady",
+   "link": "https://www.fool.com/coverage/stock-market-today/2026/10/28/stock-market-today-oct-28-markets-edge-higher-as-fed-holds-rates-steady/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 22:03:17 +0000",
+   "description": "Cloud and AI infrastructure demand remains robust despite tech spending concerns, today, Oct. 28, 2026.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Rising Estimates and Broad Growth Underpin Strong Earnings Outlook",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/rising-estimates-broad-growth-underpin-215400083.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:54:00 +0000",
+   "description": "The Q3 earnings season reconfirms the broad-based strength we've seen in the last few reporting cycles. The broader revisions trend also remains positive, with estimates for 2026 Q4 and full-year 2027 continuing to rise.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stock Market Today, Oct. 28: SK Hynix Surges on Record Q3 Results and AI-Memory Demand",
+   "link": "https://www.fool.com/coverage/stock-market-today/2026/10/28/stock-market-today-oct-28-sk-hynix-surges-on-record-q3-results-and-ai-memory-demand/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:48:59 +0000",
+   "description": "Today, Oct. 28, 2026, the memory chipmaker posted a seven-fold operating profit jump, signaling tight supply in AI-driven markets.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stocks Are Calm, but There Is Real Volatility Hiding in Big Tech",
+   "link": "https://finance.yahoo.com/m/0e522231-6b9f-3989-97b5-7a275c29b8cc/stocks-are-calm%2C-but-there-is.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:48:00 +0000",
+   "description": "The VIX shows complacency. Other gauges don’t. No matter what happens this week, markets are likely to see big swings.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "AI Spending Is Nearing $1 Trillion Annually. These 2 Stocks Are Most at Risk If It Slows.",
+   "link": "https://www.fool.com/investing/2026/10/28/ai-spending-is-nearing-1-trillion-2-stocks-most-at/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:40:00 +0000",
+   "description": "Nvidia and Micron are riding record AI demand, but both depend on tech giants keeping up their spending. Here's what could go wrong if that cools.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stock Market Today, Oct. 28: CoreWeave Surges on Denmark AI Capacity Going Live",
+   "link": "https://www.fool.com/coverage/stock-market-today/2026/10/28/stock-market-today-oct-28-coreweave-surges-on-denmark-ai-capacity-going-live/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:35:02 +0000",
+   "description": "Today, Oct. 28, 2026, the GPU infrastructure provider brought most of its planned 22.5 MW capacity online, extending gains in a volatile AI infrastructure rally.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Oracle Stock Rallies As Upbeat Revenue, Cash Flow Forecasts Ease AI Jitters",
+   "link": "https://finance.yahoo.com/m/65b308f4-d423-337b-98d7-db4698345fd9/oracle-stock-rallies-as.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:33:47 +0000",
+   "description": "Oracle jumped after the tech giant reported a strong forecast through 2030.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Micron, SK Hynix, Google, Microsoft, Vertiv, Wendy’s, Enphase, and More Stocks That Explain Today’s Market",
+   "link": "https://finance.yahoo.com/m/c5c23db3-d508-3c1f-bab0-6408a09c4739/micron%2C-sk-hynix%2C-google%2C.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:28:00 +0000",
+   "description": "Vertiv is the best-performing stock in the S&P 500 Wednesday after the company raises its full-year guidance.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Bessent Plays Down Concerns Over AI Financing, Fed Rate Policy",
+   "link": "https://finance.yahoo.com/technology/ai/articles/bessent-plays-down-concerns-over-212625395.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:26:25 +0000",
+   "description": "Treasury Secretary Scott Bessent said he and his team are keeping tabs on the state of financing for the artificial intelligence build-out, and played down recent signs of concern.",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Oracle Forecasts $30B Cash Flow By FY29, Helping Calm AI Capex Concerns, Pushing ORCL Stock To Its Best Day In Five Months",
+   "link": "https://stocktwits.com/news-articles/markets/equity/oracle-forecasts-30-b-cash-flow-by-fy-29-helping-calm-ai-capex-concerns-pushing-orcl-stock-to-its-best-day-in-five-months/cZU9sPFR9GF?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:19:40 +0000",
+   "description": "Oracle Corp. shares rallied significantly after the company projected $30 billion in free cash flow by fiscal 2029 and reaffirmed a staggering 35% average annual revenue growth rate through 2030.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Apple Wraps Up Fall Product Launches With Touch-Screen Notebook",
+   "link": "https://finance.yahoo.com/m/78b257c1-5627-3af7-8412-8d63d99da1b9/apple-wraps-up-fall-product.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:11:06 +0000",
+   "description": "Apple on Wednesday introduced its first touch-screen notebook computer, completing a busy fall of new product launches.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stock Market Today, Oct. 28: Oracle Surges on Fiscal 2030 Revenue Guidance of $225 Billion",
+   "link": "https://www.fool.com/coverage/stock-market-today/2026/10/28/stock-market-today-oct-28-oracle-surges-on-fiscal-2030-revenue-guidance-of-usd225-billion/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:10:11 +0000",
+   "description": "On Oct. 28, 2026, Investor Day projections included at least $30 billion in free cash flow by fiscal 2029, easing AI spending concerns.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Notes on FOMC Decision and Earnings After the Close",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/notes-fomc-decision-earnings-close-210600578.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:06:00 +0000",
+   "description": "While the Fed kept rates steady, as expected, Microsoft and Ford beat, while Alphabet and ServiceNow missed on earnings.",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Oracle Stock Jumps 11% on Rosy Long-Term Targets",
+   "link": "https://www.investopedia.com/oracle-stock-jumps-11-percent-on-rosy-long-term-targets-orcl-ai-12199219?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:04:30 +0000",
+   "description": "Oracle shares got a big boost after the tech giant gave an update on its long-term forecasts.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Red-Hot Nvidia Just Received A 100% Buy Rating… But Is That A Bad Thing?",
+   "link": "https://247wallst.com/videos/red-hot-nvidia-just-received-a-100-buy-rating-but-is-that-a-bad-thing/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:04:03 +0000",
+   "description": "What happens to the stock market when every single analyst points in the exact same direction and there isn't a single contrarian left? 24/7 Wall St. Analysts Doug McIntyre and Lee Jackson are here to discuss the hidden dangers of unanimous Wall Street consensus. The hosts specifically analyzed the high-flying tech giant Nvidia, who Wall Street analysts continue to maintain 100% buy ratings on, an",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Memory-Chip Maker SK Hynix Smashes Q3 Targets; Stock Jumps",
+   "link": "https://finance.yahoo.com/m/391dd0db-d6a7-3692-9869-1f71d05f7e7f/memory-chip-maker-sk-hynix.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 21:02:27 +0000",
+   "description": "South Korea-based memory-chip maker SK Hynix smashed expectations for the third quarter. SK Hynix stock jumped on the news.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stock Market Today: Dow, Nasdaq Rise After No Fed Rate Hike; Labcorp Blasts Off",
+   "link": "https://finance.yahoo.com/m/8aa305ef-cc61-37d7-bc76-82a4a4324c5b/stock-market-today%3A-dow%2C.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:59:51 +0000",
+   "description": "The Dow Jones index trimmed its gain Wednesday after the Fed held its key interest rate steady. Robinhood slid on earnings.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Global Product Take-Back Program Market Report 2026 | Capitalize on 10.7% CAGR to $63.73 Billion by 2030 as Apple, Amazon, Samsung, Dell, and Sony Scale Circular Returns",
+   "link": "https://finance.yahoo.com/markets/articles/global-product-back-program-market-205800283.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:58:00 +0000",
+   "description": "Boost ROI via digital tracking, optimized collection networks, local sourcing, refurbishment, remanufacturing and incentive-based returns.Dublin, Oct. 28, 2026 (GLOBE NEWSWIRE) -- \"Product Take-Back Program Market Report 2026\" has been added to ResearchAndMarkets.com's offering. The global product take-back program market is experiencing rapid expansion, driven by stricter environmental regulation",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Meta Just Priced a Stock Sale at $625 a Share. I'd Consider Buying at the Same Price.",
+   "link": "https://www.fool.com/investing/2026/10/28/meta-just-priced-a-stock-sale-at-usd625-a-share-i-d-consider-buying-at-the-same-price/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:57:02 +0000",
+   "description": "Existing holders give up a little over 2% of the company. What do they get for it?",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Snap Sinks 2% as Teen Addiction Trial Opens",
+   "link": "https://www.tikr.com/blog/snap-sinks-2-as-teen-addiction-trial-opens?ref=yahoofinance&.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:46:29 +0000",
+   "description": "Key TakeawaysSnap shares fell 2% today as jury selection began in its first trial over youth social media addiction. Meta is a co-defendant, but the case carries far more weight for Snap, a company worth about $10 billion.",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Broadcom Inc. (AVGO) Laps the Stock Market: Here's Why",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/broadcom-inc-avgo-laps-stock-204503001.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:45:03 +0000",
+   "description": "The latest trading day saw Broadcom Inc. (AVGO) settling at $351.81, representing a +2.77% change from its previous close.",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "SK Hynix Just Delivered Great News for Micron Investors",
+   "link": "https://www.fool.com/investing/2026/10/28/sk-hynix-just-delivered-great-news-for-micron-investors/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:35:02 +0000",
+   "description": "SK Hynix, a top memory chipmaker, expects a shortage to continue through 2030.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Meta’s Raising $97.5 Billion. Nvidia and AMD Are Buying In.",
+   "link": "https://app.moby.co/home/news/news-meta-readies-first-equity-sale-of-new-stock-since-2013?utm_source=yahoo_finance&utm_medium=rss&.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:20:52 +0000",
+   "description": "Meta is looking to raise up to $97.5 billion as its AI spending and future commitments balloon. Nvidia and AMD are buying in, raising fresh questions about Big Tech’s circular financing loop.",
+   "query": [
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Alphabet’s Google Cloud Biz Did Its Job. Why the Stock Is Falling.",
+   "link": "https://finance.yahoo.com/m/33538015-23e0-34c9-98c2-e740e847afa1/alphabet%E2%80%99s-google-cloud-biz.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:20:00 +0000",
+   "description": "The Google parent reports weaker-than-expected earnings and revenue amid its reinvention as an artificial-intelligence cloud provider.",
+   "query": [
+    "AVGO",
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Oracle stock soars as it promises the AI spending will start paying for itself",
+   "link": "https://finance.yahoo.com/markets/article/oracle-stock-soars-as-it-promises-the-ai-spending-will-start-paying-for-itself-201056802.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:10:56 +0000",
+   "description": "Oracle laid out how its AI build-out turns into cash, and the stock had its best day since April.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "NVIDIA (NVDA) Deepens AI Infrastructure Push With New Digital Twin And Agent Deals",
+   "link": "https://finance.yahoo.com/technology/ai/articles/nvidia-nvda-deepens-ai-infrastructure-200533074.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:05:33 +0000",
+   "description": "NVIDIA (NasdaqGS:NVDA) announced expanded collaborations to accelerate global AI infrastructure and agentic applications across industrial, cloud, and consumer settings. The company and Oracle plan to scale multi-gigawatt AI cloud superclusters using NVIDIA Vera Rubin GPUs and Vera CPUs for training, inference, and agent workloads. Schneider Electric and AVEVA reported successful piloting of a dig",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stocks Close Higher Ahead of Alphabet and Microsoft Earnings",
+   "link": "https://finance.yahoo.com/m/dcae184c-ef43-3c80-96a3-48c579f1b590/stocks-close-higher-ahead-of.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 20:00:58 +0000",
+   "description": "As if there was any doubt, Wall Street cared much more about AI than Wednesday's Fed meeting.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Why Robinhood thinks we're at the beginning of a prediction market supercycle",
+   "link": "https://finance.yahoo.com/video/why-robinhood-thinks-were-at-the-beginning-of-a-prediction-market-supercycle-194645061.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 19:46:45 +0000",
+   "description": "Robinhood (HOOD) CFO Shiv Verma joins Yahoo Finance Executive Editor Brian Sozzi to discuss the explosive growth of prediction markets and why the company believes the industry is entering a new supercycle. Verma breaks down how Robinhood is expanding its prediction market offerings and why the company sees significant growth opportunities ahead.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "'Wall Street Cares About Free Cash Flow Now': Bloomberg's Ed Ludlow on Buyouts and AI Spending",
+   "link": "https://www.benzinga.com/markets/prediction-markets/26/10/62671525/big-tech-free-cash-flow?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 19:30:47 +0000",
+   "description": "Wall Street’s growing demand for free cash flow is pushing Big Tech to cut costs as AI spending soars, Bloomberg Tech host Ed Ludlow said Wednesday, days after Microsoft Corp. (NASDAQ:MSFT) reportedly offered voluntary buyouts to about 60,000 employees. “Wall...",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Micron Stock Advances as Rival SK Hynix Fuels AI Frenzy With Two Bombshells",
+   "link": "https://finance.yahoo.com/m/5116bf4a-8597-32af-92c7-157ac51f5e89/micron-stock-advances-as.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 19:26:00 +0000",
+   "description": "Micron stock advances as SK Hynix earnings fuel enthusiasm for memory-chip companies.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "3 AI Cloud Stocks Retail Investors Are Watching Before Big Tech Earnings",
+   "link": "https://finance.yahoo.com/technology/ai/articles/3-ai-cloud-stocks-retail-190903581.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 19:09:03 +0000",
+   "description": "Markets are on edge as the Fed weighs its next move, hyperscalers like Microsoft and Alphabet prepare to update investors on AI and cloud spending, and chip stocks react to fresh profit headlines from SK Hynix and Micron. Together, these forces could influence how money flows across large-cap AI and cloud leaders. This article walks through three stocks from our screener that appear especially exp",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "S&P 500 to 9,000? 5 stocks to buy now",
+   "link": "https://www.thestreet.com/video/sp-500-to-9000-5-stock-to-buy-now?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 19:05:19 +0000",
+   "description": "The S&P 500 could surge to 9,000 by early 2027, and Key Advisors Wealth Management CEO Eddie Ghabour warns this is not the time to take chips off the table. As tech sets up for a November “coiled spring,” he breaks down his immediate playbook for deploying cash and the exact 5 stocks on his buy list today including names like Micron and CrowdStrike.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Sandisk Is Still Down 23% in the Past Month. Did Today Just Mark the Bottom for SNDK Stock?",
+   "link": "https://247wallst.com/investing/2026/10/28/sandisk-is-still-down-23-in-the-past-month-did-today-just-mark-the-bottom-for-sndk-stock/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 18:57:52 +0000",
+   "description": "Sandisk has shed nearly a quarter of its value in just one month, but a surprise catalyst from a storage rival sent shares surging today. Whether that single session signals a real turning point or a brief pause before more pain is the question every holder now faces.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Baby oil and sound waves: How Apple Music created its new brand mark",
+   "link": "https://www.marketingbrew.com/stories/apple-music-brand-mark-behind-the-scenes?utm_source=&utm_medium=syndication&utm_campaign=feed&.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 18:28:33 +0000",
+   "description": "“Could a beautiful piece of music make something beautiful visually?” James Taylor, global head of design at TBWA\\Media Arts Lab, told Marketing Brew.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Chip Earnings Power Averages Higher as Nasdaq Volatility Cools Midweek",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/chip-earnings-power-averages-higher-182400870.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 18:24:00 +0000",
+   "description": "Stock Preachers News Commentary - Major U.S. indices pushed higher midweek, with the S&P 500 up 1.51% and the Nasdaq Composite up 1.98% over the week's three sessions, as semiconductor and tech earnings drove gains while mega-cap names digested mixed results. The Dow gained 0.62% for the week to 52,536.29. Nasdaq volatility, measured by the VXN, fell 3.51 points for the week to 24.79, while WTI cr",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "MacBook Pro: Apple launches its first ever touchscreen Mac  – and brings back iconic feature",
+   "link": "https://www.independent.co.uk/tech/macbook-pro-apple-touchscreen-new-release-b3075086.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 18:02:58 +0000",
+   "description": "New touch sensitive laptop brings back glowing Apple logo on the back, alongside lighter design",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Why retail investors are flocking to prediction markets",
+   "link": "https://finance.yahoo.com/video/why-retail-investors-are-flocking-to-prediction-markets-175604924.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 17:56:04 +0000",
+   "description": "Laffer Tengler Investments CEO and CIO Nancy Tengler and her panel examine the growing popularity of prediction markets among retail investors. From pop-culture wagers to the appeal of instant gratification, the panel explores what's fueling the trend, how it's blurring the lines between investing Today's panel includes TMX Wall Street Horizon head of corporate event research Christine Short, Sieb",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Apple announces $2,899 MacBook Pro — its first touchscreen laptop",
+   "link": "https://finance.yahoo.com/technology/article/apple-announces-2899-macbook-pro--its-first-touchscreen-laptop-174736760.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 17:47:36 +0000",
+   "description": "Apple has unveiled its first touchscreen MacBook.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Nvidia Stock Faces a Test From Its Biggest AI Chip Rival",
+   "link": "https://finance.yahoo.com/m/8dff2c5b-7eda-3b09-b065-b74ad7ea87a8/nvidia-stock-faces-a-test.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 17:46:00 +0000",
+   "description": "Nvidia stock has fallen back into range-bound trading and a major AI chip competitor could be to blame.",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "The ETF Industry Is About to Get Weird",
+   "link": "http://www.etf.com/sections/podcasts/etf-industry-about-get-weird?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 17:34:35 +0000",
+   "description": "<p>Is bitcoin a hobby or a real investment? Eric Balchunas and Todd Sohn join us for this episode of <em>ETF ZOO</em> to talk crypto, Trump kid accounts, small-caps, and the weird ETFs coming next. </p>",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "New Touch Screen MacBooks Point to Fresh Device Strategy for Apple",
+   "link": "https://finance.yahoo.com/m/449b322e-1f2e-39de-a1c2-dc00a99c54dc/new-touch-screen-macbooks.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 17:32:00 +0000",
+   "description": "The company is releasing more products, more often, under the guidance of CEO John Ternus.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Apple unveils groundbreaking MacBook Pro with PROLED XDR Display and Touch for the first time on Mac",
+   "link": "https://finance.yahoo.com/technology/articles/apple-unveils-groundbreaking-macbook-pro-171100457.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 17:11:00 +0000",
+   "description": "CUPERTINO, Calif., October 28, 2026--Apple® today introduced the all-new MacBook Pro with PROLED XDR® Display, featuring breakthrough tandem OLED technology that delivers game-changing front-of-screen performance. Available in 14- and 16-inch models, MacBook Pro with PROLED XDR Display offers a visual experience unlike any other, transforming pro workflows with up to 2000 nits peak HDR and SDR bri",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Lumentum Shares Jump 135% YTD: Can AI Momentum Sustain the Rally?",
+   "link": "https://finance.yahoo.com/technology/ai/articles/lumentum-shares-jump-135-ytd-165400965.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 16:54:00 +0000",
+   "description": "LITE shares have surged 135% YTD on AI-driven optical demand, but premium valuation, customer concentration and capacity constraints raise concerns.",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Wall Street May Be Underestimating This Magnificent Seven Stock",
+   "link": "https://247wallst.com/investing/2026/10/28/wall-street-may-be-underestimating-this-magnificent-seven-stock/?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 16:33:15 +0000",
+   "description": "Alphabet's cloud business is accelerating faster than any hyperscaler rival while the stock sits 21% below its 52-week high, and that disconnect between fundamentals and price is exactly where the bull case gets interesting.",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Prediction: This Dividend Growth ETF Will Outperform the Vanguard S&P 500 ETF Over the Next 20 Years. Here's Why.",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/prediction-dividend-growth-etf-outperform-162500811.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 16:25:00 +0000",
+   "description": "A heavily concentrated S&P 500 could deliver lower returns over the next 20 years.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Rosenblatt’s $600 Target Says Broadcom’s Selloff Went Too Far",
+   "link": "https://www.tikr.com/blog/rosenblatts-600-target-says-broadcoms-selloff-went-too-far?ref=yahoofinance&.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 15:52:56 +0000",
+   "description": "Key TakeawaysRosenblatt Securities reiterated its Buy rating and $600 price target on Broadcom on Oct. 27, 75% above the stock’s price, after a $63 billion financing deal for Anthropic’s Broadcom chips.",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "ASIC - Global Strategic Business Report: Capture a $6.2 Billion Revenue Shift Through 2032 as AMD, Broadcom, Intel, Infineon, and Analog Devices Accelerate AI, 5G, and Automotive Chips",
+   "link": "https://finance.yahoo.com/technology/ai/articles/asic-global-strategic-business-report-143600094.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 14:36:00 +0000",
+   "description": "Target high-ROI ASIC opportunities in AI, 5G, autonomous vehicles and energy-efficient devices with actionable segment, regional and competitive insightsDublin, Oct. 28, 2026 (GLOBE NEWSWIRE) -- \"ASIC - Global Strategic Business Report\" has been added to ResearchAndMarkets.com's offering. The global Application-Specific Integrated Circuit (ASIC) market was valued at US$19.1 billion in 2025 and is ",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "If I Were Brand New to Investing, This Is the 1 Surefire ETF I'd Buy and Hold for the Next 30 Years",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/were-brand-investing-1-surefire-140500846.html?.tsrc=rss",
+   "pubDate": "Wed, 28 Oct 2026 14:05:00 +0000",
+   "description": "Investing in the S&P 500 index is like investing in most of the American economy.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "마이프차, 토스플레이스·당근·배민·카카오와 프랜차이즈 마케팅 전략...",
+   "pubDate": "Wed, 28 Oct 2026",
+   "description": "컴퍼니케이파트너스, 네이버 D2SF, 라구나인베스트먼트 등으로부터 95억원 규모의... Partners, Naver D2SF, Laguna Investment, and others. マイフティ、..",
+   "link": "https://www.venturesquare.net/1123849/",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "영동군, 고향사랑기부 참여 유도 위한 '지정기부사업 특별 모금 이벤트...",
+   "pubDate": "Wed, 28 Oct 2026",
+   "description": "더해 네이버페이 포인트 1만 원을 추가로 지급받을 수 있다. 이벤트 적용 대상... in Naver Pay points, in addition to the existing tax deduction",
+   "link": "http://www.breaknews.com/1246603",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "남해탈공연박물관 11월 공연 '박인선과 장군님들'",
+   "pubDate": "Wed, 28 Oct 2026",
+   "description": "예매는 10월 28일부터 네이버 예약(https://booking.naver.com/booking/12/bizes/780687)을 통해 신청할 수 있다. 세부사항은 유선(남해군 문화체육과, 055-",
+   "link": "http://www.gndomin.com/news/articleView.html?idxno=494562",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Goldman Sachs Sees Investors De-Risking From AI Stocks. At 63, She Finds the Same Crowded Trade Inside Her $900,000 401(k)",
+   "link": "https://247wallst.com/personal-finance/2026/10/27/goldman-sachs-says-investors-are-fleeing-ai-stocks-at-63-she-discovers-her-900000-401k-is-riding-the-same-trade/?.tsrc=rss",
+   "pubDate": "Tue, 27 Oct 2026 20:33:26 +0000",
+   "description": "Goldman Sachs just flagged the largest tech sell-off ever recorded in its prime brokerage book, and a 63-year-old with three 401(k) funds may be carrying far more of that risk than she realizes.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Just 10 Stocks Make Up Nearly 40% of the S&P 500. Here's an ETF That Can Help You Diversify.",
+   "link": "https://www.fool.com/investing/2026/10/27/just-10-stocks-make-up-nearly-40-of-the-s-and-p-500-here-s-an-etf-that-can-help-you-diversify/?.tsrc=rss",
+   "pubDate": "Tue, 27 Oct 2026 09:35:01 +0000",
+   "description": "This international dividend ETF is an ideal complement to an S&P 500 index fund.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Is a Stock Market Crash Coming? What History Says a $10,000 Investment in an S&P 500 ETF Could Be Worth at the End of 2027.",
+   "link": "https://www.fool.com/investing/2026/10/27/is-a-stock-market-crash-coming-what-history-says-a/?.tsrc=rss",
+   "pubDate": "Tue, 27 Oct 2026 05:20:00 +0000",
+   "description": "The bursting of an AI bubble would sink the S&P 500, but don't count on it happening just yet.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Bitcoin weakens to $80k as hawkish Fed, mixed tech earnings weigh",
+   "link": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-weakens-80k-hawkish-fed-070745462.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 07:07:45 +0000",
+   "description": "Investing.com-- Bitcoin fell on Thursday, cutting short a brief rebound from the prior session as the Federal Reserve’s October meeting reinforced bets on more interest rate hikes by the central bank.",
+   "query": [
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "INTC, AMD, AVGO, MU Decline On Samsung’s Profit Miss, Lighter Capex From Microsoft, Alphabet",
+   "link": "https://stocktwits.com/news-articles/markets/equity/intc-amd-avgo-mu-decline-on-samsung-s-profit-miss-lighter-capex-from-microsoft-alphabet/cZUQgW3R9ba?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 07:02:37 +0000",
+   "description": "Investors would now turn to quarterly reports from Amazon and Intel, due after markets close on Thursday, for cues.",
+   "query": [
+    "MSFT",
+    "GOOGL",
+    "AVGO",
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Shares mixed after Google parent Alphabet's earnings disappoint",
+   "link": "https://www.euronews.com/2026/10/29/shares-and-us-futures-mixed-after-google-parent-alphabets-earnings-disappoint?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 07:02:16 +0000",
+   "description": "Ahead of European markets opening, Asian shares and US futures were mixed on Thursday morning, weighed down by some big technology stocks after Google parent Alphabet’s earnings were lower than expected.View on euronews",
+   "query": [
+    "MSFT",
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "This Is SpaceX's Biggest Risk, and It's Not What You Think",
+   "link": "https://www.fool.com/investing/2026/10/29/this-is-spacexs-biggest-risk-and-its-not-what-you/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 06:50:00 +0000",
+   "description": "SpaceX's biggest risk isn't its valuation or impending stock lock-ups.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Not Nvidia. Not AMD. This Is the Best Artificial Intelligence (AI) Stock to Buy in November",
+   "link": "https://www.fool.com/investing/2026/10/29/not-nvidia-not-amd-this-is-the-best-artificial-intelligence-ai-stock-to-buy-in-november/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 06:35:02 +0000",
+   "description": "Lumentum Holdings is likely to outperform expectations amid incredible demand for optical networking components.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Is Berkshire Hathaway (BRK.B) Cheap After Fresh AI Deal Interest?",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/berkshire-hathaway-brk-b-cheap-062834683.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 06:28:34 +0000",
+   "description": "Berkshire Hathaway has put up a strong share price run in recent years, which raises a simple but important question for you as an investor. Is today's valuation supported by the returns the conglomerate earns on the large pool of capital it controls? Berkshire Hathaway has returned 87.2% over the past 5 years, which puts a lot of weight on whether the business is using its capital productively en",
+   "query": [
+    "GOOGL",
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Nuclear Power Is Back, But Only a Few Stocks Have Customers Signed",
+   "link": "https://www.fool.com/investing/2026/10/29/nuclear-power-is-back-but-only-a-few-stocks-have-c/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 06:20:00 +0000",
+   "description": "Eight nuclear stocks are in the spotlight, but contracts, licenses, and valuations separate established suppliers from early-stage developers.",
+   "query": [
+    "NVDA",
+    "MSFT",
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "2 Reasons I'd Buy Marvell Stock More Than 20% Below Its Record, and 1 Reason I'd Wait",
+   "link": "https://www.fool.com/investing/2026/10/29/2-reasons-i-d-buy-marvell-stock-more-than-20-below-its-record-and-1-reason-i-d-wait/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 06:16:02 +0000",
+   "description": "Earlier this month, the chip designer brought its data center target forward a full year. Why hold anything back?",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Tesla Is Flying in Europe, and We Aren't Talking About the Roadster -- 1 Big Concern Remains",
+   "link": "https://www.fool.com/investing/2026/10/29/tesla-is-flying-in-europe-and-we-arent-talking-abo/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 05:50:00 +0000",
+   "description": "With China's market spiraling in a price war, Tesla's move to export vehicles to Europe seems to be paying off.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Alphabet (GOOGL) Q3 2026 Earnings Call Transcript",
+   "link": "https://www.fool.com/earnings/call-transcripts/2026/10/29/alphabet-googl-q3-2026-earnings-call-transcript/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 05:44:03 +0000",
+   "description": "Cloud revenue surged 103% on AI demand; Gemini hit 1 billion users.",
+   "query": [
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Microsoft (MSFT) Q1 2027 Earnings Call Transcript",
+   "link": "https://www.fool.com/earnings/call-transcripts/2026/10/29/microsoft-msft-q1-2027-earnings-call-transcript/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 05:29:21 +0000",
+   "description": "Cloud revenue surged 30% as AI adoption accelerated across enterprise customers.",
+   "query": [
+    "MSFT"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Is Google Losing Search Momentum To AI? Analysts Weigh In As Management Blames Currency Headwinds, FIFA World Cup",
+   "link": "https://stocktwits.com/news-articles/markets/equity/is-google-losing-search-momentum-to-ai-analysts-weigh-in-as-management-blames-fx-fifa-world-cup/cZUQawrR9bE?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 05:29:15 +0000",
+   "description": "The performance revived concerns that Google Search might be losing its dominance in the era of AI chatbots.",
+   "query": [
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Alphabet Q3 Earnings Call Highlights",
+   "link": "https://www.marketbeat.com/instant-alerts/transcript-alphabet-q3-earnings-call-highlights-2026-10-29/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 05:04:16 +0000",
+   "description": "Alphabet (NASDAQ:GOOG) reported third-quarter 2026 revenue of $127.6 billion, up 25% from a year earlier, as growth in Search, Google Cloud and subscriptions helped drive its 13th consecutive quarter of double-digit revenue growth. CEO Sundar Pichai said the company had reached a half-trillion-dolla",
+   "query": [
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Asian shares and U.S. futures are mixed after Google parent Alphabet's earnings disappoint",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/asian-shares-u-futures-mixed-050355681.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 05:03:55 +0000",
+   "description": "HONG KONG (AP) — Asian shares and U. futures were mixed Thursday, weighed down by some big technology stocks after Google parent Alphabet’s earnings were lower than expected.",
+   "query": [
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Gene Munster 'More Concerned' About Amazon and Alphabet — Says AI Bots Mean Shopping Edge 'Will Increasingly Be Under Attack'",
+   "link": "https://finance.yahoo.com/technology/ai/articles/gene-munster-more-concerned-amazon-045110770.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 04:51:10 +0000",
+   "description": "Personalized AI bots could threaten Amazon.com, Inc.‘s (NASDAQ:AMZN) hold on online shopping and Alphabet Inc.‘s (NASDAQ:GOOG) (NASDAQ:GOOGL) grip on search, investor Gene Munster warned on Wednesday. Bots Could Reshape Where Shoppers Start Munster said in a post on X that bots will make it easy to find what you’re looking for, making them “a logical starting point for anything we buy.” Amazon’s e",
+   "query": [
+    "GOOGL",
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Broadcom And 2 More Quality Value Stocks To Watch",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/broadcom-2-more-quality-value-043350945.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 04:33:50 +0000",
+   "description": "Cash is suddenly the main character again. Recent market action has rewarded companies that can fund big AI and growth ambitions out of their own cash flow instead of leaning on fresh capital. That shift puts steady generators of cash with strong balance sheets in a sweet spot, provided they are still priced as if investors are looking the other way. This article highlights three such undervalued ",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Asia stocks fall as Alphabet, Samsung results disappoint; more tech earnings loom",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/asia-stocks-fall-alphabet-samsung-043113035.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 04:31:13 +0000",
+   "description": "Investing.com-- Asian stocks fell on Thursday, surrendering early gains as disappointing results from Alphabet and a sell-off in Samsung Electronics weighed on technology shares, while investors awaited earnings from Amazon and Intel for further clues on the outlook for artificial intelligence investment.",
+   "query": [
+    "MSFT",
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Nvidia Shareholders Have a Major Reason to Be Bullish After Jensen Huang's Latest Announcement",
+   "link": "https://www.fool.com/investing/2026/10/29/nvidia-shareholders-have-a-major-reason-to-be-bull/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 04:20:00 +0000",
+   "description": "Nvidia's evolution into a full-stack AI hardware provider comes with big opportunities.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "What Microsoft (MSFT) Said on Its Q1 Earnings Call",
+   "link": "https://www.marketbeat.com/instant-alerts/transcript-what-microsoft-msft-said-on-its-q1-earnings-call-2026-10-28/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 04:04:15 +0000",
+   "description": "Microsoft (NASDAQ:MSFT) reported a fast start to fiscal 2027, with first-quarter revenue of $92.3 billion, up 19% from a year earlier, as demand for cloud infrastructure and artificial intelligence services lifted results above the company’s expectations. Chief Financial Officer Amy Hood said opera",
+   "query": [
+    "MSFT"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "CRWV, NBIS, IREN, APLD Stocks Drop After Microsoft Capex Falls Short On Delayed Third-Party Capacity",
+   "link": "https://stocktwits.com/news-articles/markets/equity/crwv-nbis-iren-apld-stocks-drop-after-microsoft-capex-falls-short-on-delayed-third-party-capacity/cZUQeHWR9bT?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 03:35:48 +0000",
+   "description": "In a Stocktwits poll, half of traders believe neocloud stocks have already hit bottom.",
+   "query": [
+    "MSFT",
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "MITTI LABS & SALESFORCE PARTNER TO SCALE WATER-SAVING RICE FARMING PRACTICES THAT REDUCE METHANE EMISSIONS",
+   "link": "https://finance.yahoo.com/energy/articles/mitti-labs-salesforce-partner-scale-033000347.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 03:30:00 +0000",
+   "description": "Deep-tech company Mitti Labs today announced a five-year carbon credit offtake agreement with Salesforce to scale Climate-smart rice farming across tens of thousands of smallholder farms in India. Coming just weeks after Mitti Labs' offtake agreement with Google, this new partnership shows the growing corporate demand for satellite-verified rice methane credits as a scalable offset solution with n",
+   "query": [
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Broadcom Stock Is 29% Below Its Record. After Its New Anthropic Deal, I'd Consider Buying It a Little at a Time.",
+   "link": "https://www.fool.com/investing/2026/10/28/broadcom-stock-is-29-below-its-record-after-its-new-anthropic-deal-i-d-consider-buying-it-a-little-at-a-time/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 03:12:02 +0000",
+   "description": "The chip designer is backstopping up to $43 billion of the deal. Is the stock's discount big enough?",
+   "query": [
+    "NVDA",
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Dow Jones Futures: Microsoft Rises, But Google, ServiceNow, Fortinet Dive On Earnings",
+   "link": "https://finance.yahoo.com/m/6c0b166b-19af-3d40-b6ff-7c6d65d3c4da/dow-jones-futures%3A-microsoft.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 03:06:19 +0000",
+   "description": "After the stock market rose for a third day, Microsoft rose late on strong earnings. But Google, ServiceNow and Fortinet dived.",
+   "query": [
+    "MSFT",
+    "GOOGL",
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Dow, S&P 500, Nasdaq Futures Mixed After Fed Holds Rates Steady: GOOG, GOOGL, IOVA, MSFT, NOW In Focus",
+   "link": "https://stocktwits.com/news-articles/markets/equity/dow-s-and-p-500-nasdaq-futures-mixed-after-fed-holds-rates-steady-goog-googl-iova-msft-now-in-focus/cZUQ4vlR9Gz?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:59:32 +0000",
+   "description": "The Federal Reserve held rates steady at 3.75%-4.00% with a 10-2 vote, largely in line with market expectations.",
+   "query": [
+    "MSFT",
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Stealth Bear Market Hits Crypto Stocks as Coinbase, Circle, Robinhood Fall 40-56%",
+   "link": "https://beincrypto.com/stealth-bear-market-crypto-stocks-coinbase/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:54:21 +0000",
+   "description": "A stealth bear market hits Coinbase, Circle, and Robinhood as Bitcoin keeps dipping below $80,000 and the S&P 500 holds.",
+   "query": [
+    "NVDA",
+    "GOOGL",
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "A Simple Rule for the Semiconductor ETF: Buy After a 15% Drop. Here's How It Has Done Since 2012.",
+   "link": "https://www.fool.com/investing/2026/10/28/a-simple-rule-for-the-semiconductor-etf-buy-after-a-15-drop-here-s-how-it-has-done-since-2012/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:43:02 +0000",
+   "description": "The rule fired again in July. How much should investors trust a 7-for-8 record?",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Small-Cap Stocks Just Did Something They Haven't Done Since 2018. Is It Finally Time to Buy?",
+   "link": "https://www.fool.com/investing/2026/10/28/small-cap-stocks-did-something-finally-time-to-buy/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:35:00 +0000",
+   "description": "The rate-driven sell-off in the Russell 2000 creates a potential buying opportunity.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Why Vertiv Stock Soared Today",
+   "link": "https://www.fool.com/investing/2026/10/28/why-vertiv-stock-soared-today/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:27:51 +0000",
+   "description": "The AI infrastructure boom is far from over.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "What Does Seagate Technology Holdings (STX) Mozaic Milestone Mean For AI Storage?",
+   "link": "https://finance.yahoo.com/technology/ai/articles/does-seagate-technology-holdings-stx-020828956.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:08:28 +0000",
+   "description": "Seagate Technology Holdings (NasdaqGS:STX) reported a new interoperability milestone for its Mozaic drives with Broadcom and Microsoft Azure Storage. The company confirmed successful integration of its HAMR and SMR-based Mozaic drives with Broadcom host bus adapters for cloud data center use. Microsoft Azure Storage has now qualified Seagate's Mozaic drives, providing validation from a major hyper",
+   "query": [
+    "AVGO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Nvidia's $3 billion Meta bet reveals a 30-fold shift",
+   "link": "https://www.thestreet.com/investing/nvidia-3-billion-meta-investment-ai-strategy?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:03:00 +0000",
+   "description": "The AI chip leader is increasingly becoming financier as well as supplier.",
+   "query": [
+    "NVDA",
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Nvidia Stock Has Dropped Nearly 6% in a Month; Now Jim Cramer Is Asking Why ‘Anything Negative in Tech’ Immediately Crushes NVDA",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/nvidia-stock-dropped-nearly-6-020035809.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 02:00:35 +0000",
+   "description": "Nvidia Corp. (NASDAQ:NVDA) has had a bumpy month, with shares down nearly 6%, and CNBC host Jim Cramer is questioning why bad news anywhere in tech seems to hit one of his favorite stocks first. Nvidia Takes The First Hit In a post on X, Cramer asked whether others had noticed that “anything negative in tech immediately crushes Nvidia.” Speaking on his show ‘Mad Money’ on Wednesday, Cramer said a ",
+   "query": [
+    "NVDA",
+    "META"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "ServiceNow, Fortinet Results Dent SaaS Sentiment: CRM, PANW, INTU, ADBE Slide In Sympathy",
+   "link": "https://stocktwits.com/news-articles/markets/equity/service-now-fortinet-results-dent-saa-s-sentiment-crm-panw-intu-adbe-slide-in-sympathy/cZUQ3BVR9Gw?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:59:54 +0000",
+   "description": "The pullback casts doubt on a rebound in software stocks in recent months.",
+   "query": [
+    "GOOGL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Why Netflix reportedly walked away from Xbox licensing deal",
+   "link": "https://www.thestreet.com/investing/stocks/why-netflix-reportedly-walked-away-from-xbox-licensing-deal?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:37:00 +0000",
+   "description": "Netflix made an offer, and Xbox countered. Then the deal died.",
+   "query": [
+    "MSFT"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "The Fed Holds Interest Rates in a 10–2 Vote. Here's What This Means for Artificial Intelligence (AI) Stocks.",
+   "link": "https://www.fool.com/investing/2026/10/28/the-fed-holds-interest-rates-in-a-102-vote-heres-what-this-means-for-artificial-intelligence-ai-stocks/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:36:42 +0000",
+   "description": "Ai investors like the Fed's rate pause, but it may not last long.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Oracle vs. Palo Alto Networks: Which Tech Stock Is the Better Buy in 2026?",
+   "link": "https://www.fool.com/coverage/better-buy/2026/10/28/oracle-vs-palo-alto-networks-which-tech-stock-is-the-better-buy-in-2026/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:27:01 +0000",
+   "description": "Both companies are benefiting from AI-related demand trends, but the valuation gap suggests greater upside for one stock.",
+   "query": [
+    "MSFT",
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "If I Were Building an Investment Portfolio From Scratch Today, I'd Start With These 2 ETFs",
+   "link": "https://www.fool.com/investing/2026/10/28/building-investment-portfolio-scratch-2-etfs/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:20:00 +0000",
+   "description": "I'd stick to what has worked so well in the past decade while adding international exposure.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "2 Warren Buffett Artificial Intelligence (AI) Stocks That Could Soar Even if the Stock Market Crashes in 2027",
+   "link": "https://www.fool.com/investing/2026/10/28/2-warren-buffett-artificial-intelligence-ai-stocks/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:20:00 +0000",
+   "description": "The Shiller CAPE ratio and Buffett indicator both suggest stock prices are overextended.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Oracle Targets $225B Revenue by 2030 as AI Cloud Build-Out Accelerates",
+   "link": "https://www.marketbeat.com/instant-alerts/event-oracle-targets-225b-revenue-by-2030-as-ai-cloud-build-out-accelerates-2026-10-28/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:04:08 +0000",
+   "description": "Oracle (NYSE:ORCL) outlined a strategy to expand its AI infrastructure, cloud applications and data businesses at its investor day, while providing financial targets through fiscal 2030 and detailing plans to limit additional external funding needs for its current investment cycle. Chief Financial",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "What NiSource (NI) Said on Its Q3 Earnings Call",
+   "link": "https://www.marketbeat.com/instant-alerts/transcript-what-nisource-ni-said-on-its-q3-earnings-call-2026-10-28/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:04:07 +0000",
+   "description": "NiSource (NYSE:NI) reported third-quarter 2026 consolidated adjusted earnings per share of $0.27, up from $0.19 a year earlier, and said it was narrowing its full-year outlook to the upper half of its prior $2.02-to-$2.07 adjusted EPS range. Year-to-date adjusted EPS totaled $1.49. Chief Financial",
+   "query": [
+    "MSFT"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "BofA sees 80% upside for Seagate stock, but Micron shares look cheaper",
+   "link": "https://www.thestreet.com/investing/stocks/bofa-seagate-micron-stock-valuation?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:03:00 +0000",
+   "description": "Here’s what could happen to Seagate and Micron shares next.",
+   "query": [
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "U.S. stock futures drop as Alphabet slides on soft earnings, Microsoft firms",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/u-stock-futures-drop-alphabet-010136494.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 01:01:36 +0000",
+   "description": "Investing.com-- U.S. stock index futures fell early-Thursday, pressured chiefly by a sharp drop in Google owner Alphabet after its third-quarter earnings missed expectations.",
+   "query": [
+    "MSFT"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "OpenAI Reportedly Plans to Buy Google's AI Chips. Should You Sell Nvidia Stock?",
+   "link": "https://www.fool.com/investing/2026/10/28/openai-reportedly-plans-to-buy-google-s-ai-chips-should-you-sell-nvidia-stock/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:57:01 +0000",
+   "description": "Is the ChatGPT maker shopping elsewhere, or just shopping for more?",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Raoul Pal Says AI Spending Has No Ceiling. Are Tech Stocks in Danger?",
+   "link": "https://beincrypto.com/raoul-pal-ai-capex-debt-stock-market-fears/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:56:43 +0000",
+   "description": "Raoul Pal says AI capex by hyperscalers has no ceiling and calls Big Tech debt fears overblown, even as bond sales jump sharply in 2026.",
+   "query": [
+    "MSFT"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Alphabet, Microsoft earnings reveal surging AI demand as spending soars",
+   "link": "https://www.foxbusiness.com/technology/alphabet-microsoft-earnings-reveal-surging-ai-demand-spending-soars?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:45:28 +0000",
+   "description": "Alphabet and Microsoft reported strong earnings fueled by growing AI demand, even as the tech giants continue investing billions in data centers and cloud infrastructure.",
+   "query": [
+    "MSFT"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Here's Why Micron Is a Top AI Stock to Buy Right Now",
+   "link": "https://www.fool.com/investing/2026/10/28/heres-why-micron-is-a-top-ai-stock-to-buy-right-no/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:38:00 +0000",
+   "description": "The memory-chip maker is a screaming bargain.",
+   "query": [
+    "NVDA",
+    "MU"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Microsoft and Alphabet Just Reported Earnings, Putting the AI Boom to the Test",
+   "link": "https://www.fool.com/investing/2026/10/28/microsoft-and-alphabet-just-reported-earnings-putting-the-ai-boom-to-the-test/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:19:01 +0000",
+   "description": "Cloud growth is booming at Microsoft and Alphabet. But paying for that growth is becoming a very different story.",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "CrowdStrike (CRWD) Stock Looks Overvalued On Its 5x Three Year Run",
+   "link": "https://finance.yahoo.com/markets/stocks/articles/crowdstrike-crwd-stock-looks-overvalued-001653356.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:16:53 +0000",
+   "description": "CrowdStrike Holdings has been one of the headline cyber security stocks in recent years. Its sharp share price gains now put a spotlight on a more old fashioned question for investors: how much book value actually supports that market valuation. Over the past 3 years the stock has delivered a very large total return of roughly 5x, which puts a lot of weight on whether the balance sheet and account",
+   "query": [
+    "NVDA"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "November Is Already Dated: HomeView Ships Nov 13, Wells Fargo’s Agent Contract Goes Live Nov 24, Black Friday Is Nov 27",
+   "link": "https://finance.yahoo.com/technology/ai/articles/november-already-dated-homeview-ships-001307571.html?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:13:07 +0000",
+   "description": "As of October 28, the November dates are set. We are 16 days from the November 13 availability of Apple HomeView, 27 days from the November 24 effective date of the updated Wells Fargo Online Access Agreement, and 30 days from the start of Black Friday. Both primary documents were pulled again on Wednesday, and […]",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "S&P 500, Nasdaq Futures Dip As Weaker-Than-Expected Alphabet Earnings Reignite AI Spending Worries —  GOOGL, MSFT, ORCL, NVDA, MRVL In Focus",
+   "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-futures-dip-as-weaker-than-expected-alphabet-earnings-reignite-ai-spending-worries-googl-msft-orcl-nvda-mrvl-in-focus/cZUQ2gwR9Gq?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:10:28 +0000",
+   "description": "The Federal Reserve left interest rates unchanged in its October policy meeting.",
+   "query": [
+    "ORCL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "33 Wall Street Giants Block Tokenized Stocks, But Apple and Tesla Stay Silent",
+   "link": "https://beincrypto.com/wall-street-giants-block-tokenized-stock/?.tsrc=rss",
+   "pubDate": "Thu, 29 Oct 2026 00:08:14 +0000",
+   "description": "JPMorgan, Coca-Cola, and 31 other companies used a new SEC veto to block tokenized stocks on OKX and ICE’s venue.",
+   "query": [
+    "AAPL"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "UBS, 코스피 목표치 7500으로 하향…\"내년 느려도 회복\"",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "글로벌 IB(투자은행) UBS가 코스피 지수 목표치를 7500으로 기존 대비 6% 낮춰잡았다. 현재 코스피 수준에... 흡수했다\"며 \"외국인 수급이 이번주 순매수로 전환됐고 SK하이닉스가 자사주 매",
+   "link": "https://www.mt.co.kr/stock/2026/10/29/2026102915564163023",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 삼성전자 호실적에도 하락…6000선 아래로 후퇴",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "코스피가 삼성전자의 역대급 실적에 불구하고 상승폭을 반납하고 하락 마감했다. 장중 외국인과... 이 날 수급은 개인과 외국인이 각각 343억원, 721억원 순매수에 그쳤다. 반면 기관은 4447억원",
+   "link": "https://www.g-enews.com/view.php?ud=202610291553189899923c501012_1",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[증시-마감] 코스피, 삼성전자 실망에 1.24% 하락…6천선 하루 만에 반납",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "부담 코스피가 삼성전자의 실적 발표 이후 쏟아진 실망 매물에 1% 넘게 하락하며 6,000선을 하루 만에... 수급에서는 기관의 매도가 두드러졌다. 유가증권시장에서 기관은 4천473억원을 순매도했다",
+   "link": "https://news.einfomax.co.kr/news/articleView.html?idxno=4441974",
+   "query": [
+    "코스피 외국인 수급",
+    "SK하이닉스 HBM",
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼전·하닉 역대급 주주환원…부족한 국장 수급 채울까",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "그럼에도 국내 증시 주도주들의 역대급 주주환원이 외국인 이탈로 약화된 수급을 되돌리는 계기가 될지... 코스피 시가총액 1·2위인 두 회사의 주주환원 규모를 합하면 최대 210조원에 달한다. 증권가",
+   "link": "https://www.mt.co.kr/stock/2026/10/29/2026102914464921810",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "'주주환원 실망' 삼전 4% 급락…코스피 다시 6000선 아래로[시황종합]",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "외국인은 선현물 시장에서 모두 매수 우위를 보였다. 코스피 현물 시장에선 721억 원을 사들이며... 반면 전날 총 20조 원 규모의 자사주 매입계획을 밝힌 SK하이닉스는 이날부터 매입을 재개하며",
+   "link": "https://www.news1.kr/finance/market-exr/6336706",
+   "query": [
+    "코스피 외국인 수급",
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[환율마감] 원·달러 전날 급등 되돌림, 비둘기 연준+외인 선물 매도+네...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "선물시장에서도 어제 15만계약 정도 샀던 외국인이 오늘은 10만계약 가까이 팔았다. 수급적으로도... 66에 거래를 마쳤다. 반면 외국인은 코스피시장에서 655억100만원어치를 순매수해 사흘째 매수",
+   "link": "https://www.etoday.co.kr/news/view/2641882",
+   "query": [
+    "코스피 외국인 수급",
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피 5900선 턱걸이·코스닥 2%대 하락 마감 [시황]",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "코스피가 삼성전자 급락과 기관투자자의 매도세에 밀려 5900선에서 장을 마쳤다. 삼성전자가 4% 넘게... 수급별로는 외국인과 기관이 각각 1302억원, 759억원을 순매도했다. 반면 개인은 217",
+   "link": "https://www.dailian.co.kr/news/view/1708265/?sc=Naver",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 ‘역대급 실적’에도 코스피 6000선 또 반납…환원책 실망에 ...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "겹치면서 코스피가 반등 하루 만에 6000선 아래로 미끄러졌다. 여기에 글로벌 빅테크 실적 부진에 따른... 보이지만 수급 여력이 확실히 약해졌고, 개인의 자금은 빠지고 있는 추세”라며 “외국인이",
+   "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202610291527261450806",
+   "query": [
+    "코스피 외국인 수급",
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "'사상 최대' 실적에도 삼성전자 4%↓…코스피, 6100 찍고 5900선 후퇴",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자 영업익 107.4조 '사상 최대'에도 차익실현 코스피 1.24% 내린 5937.66…SK하이닉스는 2.62% 상승... 수급에서는 기관 매도가 두드러졌다. 기관은 유가증권시장에서 4447억",
+   "link": "https://news.tf.co.kr/read/economy/2382571.htm",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 삼성전자 호실적에도 하락…종목별 희비",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "수급별로는 개인과 외국인이 각각 334억원, 756억원 순매수한 반면 기관이 4473억원 순매도하며 지수 상승을 제한했다. 코스닥은 코스피보다 낙폭이 컸다. 이날 코스닥은 전 거래일 대비 18.05",
+   "link": "https://www.ziksir.com/news/articleView.html?idxno=151280",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[마감시황] 삼성전자 하락에 코스피 '6000선' 반납…외국인·기관 매도 ...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "[사진 = 뉴스핌DB] 수급에서는 기관의 매도세가 두드러졌다. 한국거래소 기준 개인은 6357억원을 순매수했다. 반면 외국인은 3077억원, 기관은 5776억원을 각각 순매도했다. 시가총액 상위 종",
+   "link": "https://www.newspim.com/news/view/20261029000947",
+   "query": [
+    "코스피 외국인 수급",
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 주주환원 실망에 코스피 1.24%↓... 6000선 재이탈 [마감시황]",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "전날 외국인과 기관의 동반 순매수에 힘입어 6.63% 급등했던 코스피는 기관의 매도세가 재개되면서 하루... 최근 삼성전자와 SK하이닉스의 기존 자사주 매입 종료로 국내 증시의 수급 완충력이 약화됐",
+   "link": "https://www.m-i.kr/news/articleView.html?idxno=2012059",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[마감 시황] 코스피, 하락 마감…\"국내 증시 당분간 방향성 탐색\"",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "수급에서는 코스피에서 기관이 4447억원을 순매도했다. 외국인은 721억원, 개인은 343억원을 순매수했다. 코스닥에서는 외국인이 1304억원, 기관이 759억원을 순매도했고, 개인이 2173억원을",
+   "link": "http://www.fieldnews.kr/news/articleView.html?idxno=32655",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[마감시황] 코스피 1.24%↓ 6000선 하루 만에 반납⋯삼성전자 4%대 급락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "29일 한국거래소에 따르면 코스피는 전 거래일보다 74.78포인트(1.24%) 내린 5937.66에 거래를 마쳤다. 수급별로는 기관이 4447억원을 순매도했다. 반면 외국인과 개인은 각각 721억원",
+   "link": "https://www.viva100.com/article/20261029501049",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피 6천선 아래로…사흘 만에 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "코스피가 사흘 만에 하락 전환하면서 6천선을 다시 내줬습니다. 삼성전자가 3분기 사상 최대 실적을... 수급을 보면 개인과 외국인은 각각 920억원, 360억원 매수했지만 기관은 매수 행진을 끊고",
+   "link": "https://biz.sbs.co.kr/article_hub/20000343031?division=NAVER",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 '100조 영업익' 최대 기록에도 주가는 '한때 6% 하락' 왜?",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "시작하면서 코스피도 하락 전환, 한때 3.24% 내린 5,817.92까지 떨어지기도 했다. 코스닥 지수는 전장보다 18.05포인트(2.34%) 내린 753.23으로 장을 마감했다. 수급에서는 외국인",
+   "link": "http://www.newsfc.co.kr/news/articleView.html?idxno=82082",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "\"이익은 사상 최대라는데 왜 주가는 떨어지나.\"...올해 반도체주가 걸어...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "추격·외국인 수급'이 변수 삼성전자는 지난 8일 3분기 잠정 영업이익 107조4000억원을 발표했다. 세계 테크... 1월 5000에서 6월 9000으로…두 종목이 시장의 절반 올해 코스피는 반도체",
+   "link": "https://www.eroun.net/news/articleView.html?idxno=93501",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "주주환원책 조기 발표 기대했는데…삼전 역대 최고 실적에도 6%대 급락...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "그간 주가 짓눌려온 코스피 외국인 수급도 실적발표에 앞서 개선세로 돌아섰다. 전날 넥스트레이드 거래를 포함한 외국인 순매수는 1조원을 돌파했다. 외국인은 삼성전자도 28~29일 이틀간 약 6002억",
+   "link": "https://biz.heraldcorp.com/article/10919239?ref=naver",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "iM증권 \"알파벳 실적 실망에 코스피 차익실현 압력\"",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "수급도 개선됐다. 코스피에서 외국인은 7690억원, 기관은 9140억원을 순매수했다. 외국인은 2거래일, 기관은 4거래일 연속 순매수를 이어갔다. 반면 개인은 순매도했다. 기술적으로는 코스피가 10",
+   "link": "https://www.asiatime.co.kr/article/20261029500327",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "사상최대 실적에도 조정받은 10월 코스피…내달 반등 재료는?",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "증시에서의 외국인 매도 등이 영향을 미쳤다고 본다\"며 “얇아진 수급 상황에서 과도한 낙폭을 보였던 코스피가 자사주 매입, 다음 달 예정된 일련의 이벤트 등을 거치며 반등할거란 기대감이 있다\"고 말했",
+   "link": "https://www.ekn.kr/web/view.php?key=20261029020152795",
+   "query": [
+    "코스피 외국인 수급"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "“내년 실물경제 개선 뚜렷…증시 상승세는 완만할 것”",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "김학균 신영증권 리서치센터장은 내년 주식시장에서 삼성전자·SK하이닉스 쏠림 현상이 완화될 가능성이 높다고 내다봤다. 그는 “삼성전자와 SK하이닉스가 상승하더라도 2025~2026년과 같은 폭발적인",
+   "link": "https://www.sedaily.com/article/20107867?ref=naver",
+   "query": [
+    "삼성전자",
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼전 주주환원 실망, 코스피 '뚝'..하나금융·SK하이닉스는 '껑충'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자가 이날 호실적을 발표했지만 주주환원책이 기대치에 미치지 못했다는 평가 속에 주가가 4% 넘게 급락하면서 코스피를 끌어내렸다. 앞서 28일(현지시간) 뉴욕증시는 연방준비제도(Fed·연준)의",
+   "link": "http://www.choicenews.co.kr/news/articleView.html?idxno=172732",
+   "query": [
+    "삼성전자",
+    "원달러 환율",
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 1.2% 내려 하루만에 '육천피' 반납",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자가 3분기 세부 실적 발표 이후 급락하기 시작하면서 코스피도 하락 전환, 한때 3.24% 내린 5817.92까지 떨어지기도 했다. 삼성전자는 이날 3분기 영업이익 107조4405억원과 약 3",
+   "link": "https://www.pointdaily.co.kr/news/articleView.html?idxno=324190",
+   "query": [
+    "삼성전자",
+    "현대차",
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 1.24% 하락…다시 6000선 밑으로",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "하지만 삼성전자가 3분기 세부 실적을 발표한 이후부터 급락하기 시작하면서 하락 전환해 장중 한때 3.24% 내린 5817.92까지 떨어지기도 했다. 국내 유가증권시장에서 외국인은 655억원어치를 순",
+   "link": "https://www.mediapen.com/news/view/1133605",
+   "query": [
+    "삼성전자",
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 1.2% 하락 마감…삼성전자 4.1% 급락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "지수는 전장 대비 4.78포인트, 0.08% 오른 6,017.22로 출발했지만, 삼성전자의 3분기 실적 발표 후 하락 전환했습니다. 삼성전자는 4.13% 떨어진 23만 2천 원으로 거래를 마감했습니",
+   "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8698784&ref=A",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "'감동' 여부가 갈랐나...실적발표 후 삼전닉스 엇갈린 주가",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자와 SK하이닉스가 나란히 사상 최대 실적을 냈지만 시장의 반응은 엇갈렸다. SK하이닉스는 시장 전망치를 넘어선 실적과 함께 100조원 규모의 주주환원 계획을 내놓으며 급등한 반면 삼성전자는",
+   "link": "https://www.fnnews.com/news/202610291451569371",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "퀄컴 최신 AP '성능 부진' 평가 잇달아, 삼성전자 갤럭시S27 울트라에도...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "퀄컴의 최신 모바일 애플리케이션 프로세서(AP) '스냅드래곤8 엘리트 익스트림 6세대'가 전작보다 성능이 떨어진다는 분석이 나오면서, 이 칩을 갤럭시S27 최상위 모델인 울트라에 탑재할 예정이었던",
+   "link": "https://www.businesspost.co.kr/BP?command=article_view&num=450649",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[더벨][News Briefing] “기밀유출 회사 배신” 삼성전자 안승호 전 부사...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "“기밀유출 회사 배신” 삼성전자 안승호 전 부사장 징역 3년[한경비즈니스] 삼성전자 내부 기밀자료를 빼돌려 미국 특허 침해 소송에 활용한 혐의로 기소된 안승호 전 삼성전자 부사장이 항소심에서도 징역",
+   "link": "https://www.thebell.co.kr/free/content/ArticleView.asp?key=202610271543114920102819",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, '삼전 실망'에 1.2% ↓... '6천피' 하루 만에 반납",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이날 발표된 삼성전자의 3분기 실적과 특히 주주 환원정책에 대한 세부계획이 없자 투자자들의 실망감 때문으로 분석됐다. 이날 코스피 지수는 전장보다 74.78포인트(1.24%) 내린 5,937.66으",
+   "link": "https://www.getnews.co.kr/news/articleView.html?idxno=885315",
+   "query": [
+    "삼성전자",
+    "현대차",
+    "두산로보틱스",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 주주환원 실망…코스피, 6000선 붕괴 [MTN 마감시황]",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "코스피가 삼성전자의 급락 여파로 6000선을 반납했다. 삼성전자가 역대 최대 분기 실적을 발표했지만, 추가 주주환원 방안이 시장 기대에 미치지 못하면서 투자심리가 위축된 것으로 풀이된다. 29일..",
+   "link": "https://news.mtn.co.kr/article/2026102916163063051",
+   "query": [
+    "삼성전자",
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[퇴근길 7분 뉴스] 삼성전자·현대차·롯데센텀시티·퓨리오사AI",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "◇삼성전자, 반도체로 106조 벌었다…주가 4% 급락 삼성전자는 29일 올해 3분기 연결 영업이익이 전년동기 대비 783.1% 증가한 107조4405억원을 기록했다고 발표했다. 반도체를 담당하는 D",
+   "link": "https://news.dealsitetv.com/articles/177746",
+   "query": [
+    "삼성전자",
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "영업익 100조에도 주주환원 '맹탕'…삼성전자 주가 4% '뚝'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "SK하이닉스의 역대급 주주환원 바통을 이어받을 것으로 예상됐던 삼성전자가 시장 기대치를 밑도는 반도체 부문 영업이익과 주주환원으로 투심이 이탈했다. 29일 한국거래소에 따르면 이 날 삼성전자 종가는",
+   "link": "https://www.g-enews.com/view.php?ud=202610291603514297923c501012_1",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[숏폼] 삼성전자 VS SK하이닉스 내년엔 누가 더 오를까",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "",
+   "link": "https://biz.sbs.co.kr/article_hub/20000343067?division=NAVER",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피 1.24% 내린 5937.66 마감…삼성전자 4.13% 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "코스피가 29일 삼성전자의 급락 여파로 1% 넘게 하락하며 하루 만에 6000선 아래로 내려갔다. 삼성전자가 역대 최대 실적을 발표하고도 4% 넘게 떨어진 반면 SK하이닉스는 상승하면서 반도체 대형",
+   "link": "https://www.kado.net/news/articleView.html?idxno=2081393",
+   "query": [
+    "삼성전자",
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피 하루 만에 6000선 반납…삼성전자 주주환원 실망 속 1.24%↓",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "코스피가 삼성전자의 주주환원 계획에 대한 실망감에 하락하며 6000선 복귀 하루 만에 다시 아래로 내려왔다. 메모리 수요에 대한 긍정적인 설명에도 배당과 자사주 매입 규모가 공개되지 않자 4% 가량",
+   "link": "https://www.etnews.com/20261029000409",
+   "query": [
+    "삼성전자",
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 하루 만에 6000선 반납…건설업종 큰 폭 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "SK하이닉스와 삼성전자도 같은 시간에 각각 158만7000원, 24만9000원으로 최고점을 찍은 뒤 하락세로 반전됐다. 이후 오전 10시51분 5817.92로 바닥을 찍고 횡보하던 주가는 소폭 상승",
+   "link": "https://www.jasm.co.kr/news/view/323469/?sc=Naver",
+   "query": [
+    "삼성전자",
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 \"HBM 2027년 솔드아웃… 장기계약 청신호\"",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자가 메모리 반도체와 파운드리 사업 전반에서 강력한 장기 공급 성과를 거두며 미래 수요 확보에 속도를 내고 있다. 삼성전자는 29일 진행된 3분기 실적발표 콘퍼런스콜에서 대형 고객사들과의 다년",
+   "link": "https://www.dailysportshankook.co.kr/news/articleView.html?idxno=434982",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "서울시의회 예결위, ‘민생·미래산업 현장’ 방문…“시민 위해 성공적...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이어 28일 오전에는 대한민국 경제와 첨단 산업 중심지인 경기도 평택시 ‘삼성전자 평택캠퍼스 사무1동’을 찾았다. 국가 핵심기술을 다루는 보안 시설인 만큼, 전 구역의 개인 촬영이 엄격히 제한되는",
+   "link": "https://www.munhwa.com/article/11627372?ref=naver",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피 6000선 하루 천하… 코스닥 2%대 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자는 4.13% 하락한 23만2000원에 거래를 마쳤다. SK하이닉스는 2.62% 오른 152만6000원을 기록했다. SK스퀘어도 3.47% 상승했다. 코스닥 지수는 18.05포인트(2.34%",
+   "link": "https://www.newsclaim.co.kr/news/articleView.html?idxno=3080670",
+   "query": [
+    "삼성전자",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[용인 24시] 용인시, 반도체 미래 그린다… ASML·첨단산업 도시와 협력...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이 시장은 간담회에서 삼성전자와 SK하이닉스가 용인에서 추진 중인 대규모 반도체 투자사업을 소개하고, 반도체 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비가 적기에 공급되는 것이 중요하다고",
+   "link": "https://www.sisajournal.com/news/articleView.html?idxno=392146",
+   "query": [
+    "삼성전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 삼전 주주환원 실망감·기관 매도에 '6000선 붕괴'…코스닥 2.34...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "후퇴했다\"며 \"다만 SK하이닉스의 자사주 매입 재개와 기관 순매도세 진정으로 낙폭을 만회했다\"고 분석했다. 이어 \"삼성전자는 HBM 장기공급계약 확대와 내년 공급 물량 판매 완료를 발표하며 견조한",
+   "link": "http://www.newsprime.co.kr/news/article.html?no=752973",
+   "query": [
+    "SK하이닉스 HBM",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "산업부, 원로 공학인 초청 간담회…미래 산업 발전 방향 논의",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이날 행사에는 세계 최초 64M·256M·1G D램 개발을 주도한 진대제 전 삼성전자 사장과 HBM 개발 및 반도체 기술혁신을 이끈 박성욱 전 SK하이닉스 부회장, AMOLED 디스플레이 핵심기술",
+   "link": "https://www.newscammp.co.kr/news/articleView.html?idxno=7152",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[속보] \"'107조' 역대 실적도 무색\" 찬물…대장주 '-4%↓' 하루만에 도로...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자와 달리 전날 대규모 주주환원책을 내놓은 SK하이닉스는 이날도 3만9000원(2.62%) 오른... 이경민 대신증권 연구원은 \"삼성전자는 실적 발표에서 2027년 HBM 공급 물량이 목표 가",
+   "link": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202610290153&t=NN",
+   "query": [
+    "SK하이닉스 HBM",
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[반도체 따라잡기] 삼전닉스 비슷한 주주환원 규모에도 삼전만 하락 \"10...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "SK하이닉스가 3분기 사상 최대 실적을 발표하면서 AI 반도체 슈퍼사이클에 대한 기대감을 다시 높였습니다. 특히 D램과 HBM 물량이 2029년까지 사실상 완판 됐다고 밝히면서 피크아웃 우려를 정면",
+   "link": "https://biz.sbs.co.kr/article_hub/20000342993?division=NAVER",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자·SK하이닉스 \"LTA 포함 2028년 메모리 '완판'...주주환원 확대...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "김기태 SK하이닉스 HBM세일즈&마케팅담당은 \"주요 고객 1등 공급사로서 점증한 제품 경쟁력과 안정적 양산 능력을 바탕으로 HBM 사업의 성장을 이어가겠다\"라며 \"적층 단수 하향 움직임은 수요가 공",
+   "link": "https://www.techm.kr/news/articleView.html?idxno=156667",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 '107조 잭팟'에도 주가는 뚝…코스피 6000선 내줬다",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "삼성전자는 내년 고대역폭메모리(HBM) 공급 물량의 판매 협상을 마쳤으며, 3분기 HBM4 매출은 전... SK하이닉스는 상승했다. SK하이닉스는 어제보다 3만9000원(2.62%) 오른 152만6",
+   "link": "https://news.bizwatch.co.kr/article/market/2026/10/29/0035",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "“AI 투자, 양보다 효율성”⋯ 구글·MS 실적 희비 속 K-반도체 수혜 향...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "메모리 탑재량 증가에 직결될 것”이라며 “향후 삼성전자와 SK하이닉스가 주도권을 잡기 위해서는 차세대 HBM 등 차별화된 기술 경쟁력 확보와 수익성 위주의 라인 운용이 핵심 관건이 될 것”이라고 말",
+   "link": "https://www.viva100.com/article/20261029500773",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[거래소 외국인] SK하이닉스 집중 매수…삼성전자·삼성전자우는 팔았다",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "SK하이닉스에 외국인 매수세가 집중된 것은 인공지능(AI) 산업 확산에 따른 고대역폭메모리(HBM) 등 고성능 메모리 수요 확대 기대와 관련해 해석할 수 있다. 다만 같은 반도체 업종에서도 삼성전자",
+   "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=499782",
+   "query": [
+    "SK하이닉스 HBM",
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "반도체만 100조원 넘게 벌었다…삼성전자 실적 ‘DS 독주’ [삼성, 슈퍼...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "그쳤다”며 HBM 마진이 범용 제품보다 낮은 점을 배경으로 짚었다. 이어 “낸드 마진은 D램 마진을 빠르게 따라잡고 있다”고 설명했다. 메모리 매출 규모는 경쟁사인 SK하이닉스의 전사 매출도 웃돌았",
+   "link": "https://www.etoday.co.kr/news/view/2641859",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼전 주주환원 실망감에 발목 잡힌 코스피…5930선 ‘후퇴’",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "“다만 SK하이닉스의 자사주 매입 재개와 기관 순매도세 진정으로 낙폭을 만회했다”고 분석했다. 이어 “삼성전자는 HBM 장기공급계약 확대와 2027년 공급 물량 판매 완료를 발표하며 견조한 메모리",
+   "link": "https://www.dt.co.kr/article/12092124?ref=naver",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "107조 벌고도 웃지 못한 삼성전자 … '환원 숙제'에 코스피 다시 6000선 ...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "전날 100조원 규모의 주주환원 계획을 발표한 SK하이닉스는 2%대 강세로 마감하며 반도체 투톱의 희비가... HBM4 판매가 대폭 확대되고 서버 SSD 수요 증가에 적극 대응한 결과다. 반면 모바",
+   "link": "https://biz.newdaily.co.kr/site/data/html/2026/10/29/2026102900310.html",
+   "query": [
+    "SK하이닉스 HBM",
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "HBM부터 후공정까지… 반도체와반도체장비 관련주 옥석 가리기 본격화",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "메모리 반도체 분야에서는 SK하이닉스가 2.62% 오른 152만6000원에 장을 마쳤다. AI 서버에 탑재되는 HBM은 대규모 데이터를 빠르게 처리하는 데 필요한 핵심 메모리다. AI 데이터센터 투",
+   "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=499768",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[단독] SK ‘전략통’ 윤풍영 수펙스 사장, 하이닉스로… 곽노정과 글로...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "최 회장은 SK하이닉스가 단순히 HBM(고대역폭 메모리)과 고용량 서버용 D램 등 칩을 생산해 판매하는 회사에서 그치지 않고, AI 시장을 주도하는 핵심 기업으로 성장해야 한다는 뜻을 밝힌 바 있다",
+   "link": "https://biz.chosun.com/industry/company/2026/10/29/AFW7FTJ4FNAJFGKHSB6KPKX7P4/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한화비전, 3Q 영업익 1026억…전년 대비 183% 급증",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "HBM용 TC본더 'SFM5 익스퍼트'와 차세대 HBM용 하이브리드 본더 'SHB2 나노'도 함께 선보였다. 올해 초 SK하이닉스로부터 수주한 TC본더 6대도 2분기에 납품해냈다. 이에 대해 한국투",
+   "link": "https://www.econovill.com/news/articleView.html?idxno=755338",
+   "query": [
+    "SK하이닉스 HBM",
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼전닉스 210조원 ‘역대급’ 주주환원…주가도 띄울까",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "류영호 NH투자증권 애널리스트는 지난달 30일 보고서에서 “주요 고객사와 맺은 LTA가 HBM4E부터 SK하이닉스 공급 지위를 더욱 공고히 할 전망”이라며 장기계약을 통한 수익성 확보에 주목했다.",
+   "link": "https://www.mk.co.kr/article/12189932",
+   "query": [
+    "SK하이닉스 HBM"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "작은 메모리, 삼성전자 '거대 매출원'으로…3Q 영업이익 DS 비중 99%",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "고대역폭메모리(HBM)와 D램, 낸드플래시 수요가 모두 견조했다. 파운드리는 HBM4 베이스 다이를 포함한 AI... 전날 SK하이닉스가 평균판매가격(ASP) 급등으로 큰 이익을 낸 것처럼 삼성전자",
+   "link": "https://www.econovill.com/news/articleView.html?idxno=755324",
+   "query": [
+    "SK하이닉스 HBM",
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 中 전기차 공세에 맞불…‘가격 인하’ 대신 금융·서비스 승부...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차 양재 사옥. (사진=현대차) 29일 현대차는 3분기 실적 컨퍼런스콜에서 중국산 전기차 공세에 대응해 차별화된 금융 상품과 사후관리 서비스로 대응하겠다고 했다. 가격 인하를 반복하는 방식은 기",
+   "link": "https://www.asiatime.co.kr/article/20261029500392",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "테슬라식 고무줄 가격 선 그은 현대차..3분기 영업익 2.67조로 5.5%↑",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "테슬라와 중국 전기차의 저가 공세에 대응하는 전략이다.현대차는 29일 올해 3분기 경영실적 컨퍼런스콜을 열었다. 수입 전기차 대응 전략과 원가 절감 성과 및 연간 수정 전망치를 발표했다. 현대차의",
+   "link": "https://kpenews.com/View.aspx?No=4289039",
+   "query": [
+    "현대차",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 3분기 영업익 2.7조 원 전년比 5.5%↑…주주환원 계획 재검토",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차는 29일 경영실적 콘퍼런스콜을 통해 올해 3분기 연결 기준 매출 45조1102억 원, 영업이익 2조6772억 원... 현대차의 3분기 글로벌 판매량은 92만710대로 전년 동기 대비 11.3",
+   "link": "http://www.iminju.net/news/articleView.html?idxno=171641",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차 \"中 전기차 확장에 할부경쟁력 제고로 방어\"",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차 관계자는 29일 3분기 실적발표 컨퍼런스콜에서 \"중국 전기차 업체들과 테슬라 등이 국내에서... 현대차 관계자는 \"테슬라나 타 OEM처럼 국내에서 수시로 가격을 조정하는 건 고객 가치를 저해",
+   "link": "https://news.einfomax.co.kr/news/articleView.html?idxno=4441977",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[컨콜] 현대차, 판매·투자·수익성 눈높이 낮췄다…\"핵심 R&D는 유지\"",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "포쓰저널 박소연 기자 현대차 분기 실적 추이 현대자동차가 올해 글로벌 판매목표와 자동차 부문... 29일 현대자동차 컨퍼런스콜에서 이승조 현대차 재경본부장(부사장)은 주요 시장의 수출 물량 축소와",
+   "link": "http://www.4th.kr/news/articleView.html?idxno=2120721",
+   "query": [
+    "현대차",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 3분기 영업이익 2조6772억원…연간 수익성 목표 하향",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차는 3분기 연결 기준 매출 45조1102억원, 영업이익 2조6772억원, 당기순이익 1조9317억원을 기록했다고... 현대차는 환율 효과와 원가 최적화, 고부가가치 차종 판매 확대가 수익성 개",
+   "link": "https://www.cnbizm.com/news/articleView.html?idxno=319748",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차 3Q 매출액 전년比 3.4% 감소…신차 효과만으로 4분기 반등하나",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차그룹 양재 사옥. 연합뉴스 현대자동차가 국내 공장 파업과 글로벌 수요 둔화 여파로 3분기... 현대차는 29일 컨퍼런스콜을 통해 3분기 매출액 45조1102억원, 도매 판매 92만710대를 기",
+   "link": "https://www.greened.kr/news/articleView.html?idxno=353436",
+   "query": [
+    "현대차",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 덜 팔고 더 벌었다…영업이익 5.5% 증가, 연간 목표는 하향",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차는 29일 경영실적 콘퍼런스콜을 열고 올해 3분기 연결 기준 매출액 45조1102억 원, 영업이익 2조6772억... 현대차그룹 양재 사옥./사진=현대차그룹 제 ◆ 판매 줄고 원가 부담 늘어…",
+   "link": "https://www.mediapen.com/news/view/1133581",
+   "query": [
+    "현대차",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "與 “새만금을 세계 피지컬AI 중심지로”...현대차 9조 투자에 입법·예...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "김 대표는 국무총리 재임 시절 정부와 현대차그룹, 전북 관계자들이 참여한 새만금·전북 대혁신 태스크포스... 현대차그룹에서는 장재훈 부회장과 이한우 현대건설 대표이사가 참석해 투자계획의 추진 상황과",
+   "link": "https://www.m-economynews.com/news/article.html?no=72292",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 연초 경영목표 줄줄이 하향⋯판매 400만대·투자 16조원으로 축...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차는 29일 2026년 3분기 경영실적 발표에 맞춰 올해 연간 경영 가이던스를 수정했다고 공시했다. 회사... 수정된 가이던스에 따르면 현대차의 올해 글로벌 판매목표는 400만대로 기존 416만",
+   "link": "https://www.autodaily.co.kr/news/articleView.html?idxno=601616",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "오토인사이드, 3분기 판매 분석…기아 4세대 카니발 1위",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이어 제네시스 더 올 뉴 G80(5.4%), 현대차 더 뉴 그랜저(5.0%), 제네시스 GV80(3.8%), 기아 K8(3.5%) 순으로 집계됐다. 오토인사이드는 휴가철과 추석 연휴가 포함된 3분기",
+   "link": "http://www.hansbiz.co.kr/news/articleView.html?idxno=877549",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 3분기 판매 줄었지만 영업익 5.5% 증가…연간 수익성 목표는 하...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차는 29일 경영실적 콘퍼런스콜을 열고 올해 3분기 연결 기준 매출액 45조1102억원, 영업이익... 현대차는 우호적인 환율과 원가 최적화 등 비상 대응계획 가동, 하이브리드차 중심의 판매 구",
+   "link": "https://www.todayeconomic.com/news/article.html?no=32651",
+   "query": [
+    "현대차",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 덜 팔고 더 벌었지만…목표 낮추고 주주환원 재검토[컨콜 종합...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차는 29일 경영실적 컨퍼런스콜에서 3분기 연결 기준 매출액 45조1102억원, 영업이익 2조6772억원을... 연간 판매 400만대로 조정…신차·생산 정상화로 만회 현대차는 올해 글로벌 도매",
+   "link": "http://www.inews24.com/view/2020528",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "김민석 “새만금, 피지컬AI 1위 희망 생겨...입법·예산 총력 지원”",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "앞당겨졌다”며 “현대차를 중심으로 한 투자가 잘 진행되면 세계 피지컬 인공지능(AI) 1위가 될 수 있다는... 2026.10.29./사진=연합뉴스 또한 “총리 때 ‘새만금 전북 대도약’이라는 제목",
+   "link": "https://www.mediapen.com/news/view/1133602",
+   "query": [
+    "현대차"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[산업 뉴스브리핑] LG전자, 베트남 다낭서 '2026 글로벌장애청소년IT챌린...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "LG전자는 세계 각국의 장애 청소년들이 모여 인공지능(AI) 역량을 키우며 미래 인재로 성장할 수 있는 교류의 장을 마련했다. 샤오미코리아는 '샤오미 스마트밴드 11'의 국내 출시를 기념해 29일부",
+   "link": "https://www.asiatime.co.kr/article/20261029500390",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[포토] '공감지능시대, 기술은 어떻게 모두의 일상을 연결하는가'…2026...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "아주경제=유대길 기자 dbeorlf123@ajunews.com 이향은 LG전자 HS사업본부 CX담당 상무가 29일 서울 종로구 JCC아트센터 콘서트홀에서 열린 '2026 공공디자인 포럼'에서 '공감",
+   "link": "https://www.ajunews.com/view/20261029161343288",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[포토] '2026 공공디자인 포럼' 주제발표 하는 이향은 LG전자 HS사업본부...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "아주경제=유대길 기자 dbeorlf123@ajunews.com 이향은 LG전자 HS사업본부 CX담당 상무가 29일 서울 종로구 JCC아트센터 콘서트홀에서 열린 '2026 공공디자인 포럼'에서 '공감",
+   "link": "https://www.ajunews.com/view/20261029161507292",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[포토] 디지털 시대 공공디자인의 미래 논의 .. '2026 공공디자인 포럼'...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "아주경제=유대길 기자 dbeorlf123@ajunews.com 이향은 LG전자 HS사업본부 CX담당 상무가 29일 서울 종로구 JCC아트센터 콘서트홀에서 열린 '2026 공공디자인 포럼'에서 '공감",
+   "link": "https://www.ajunews.com/view/20261029161301286",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "LG전자, 베트남서 '2026 글로벌장애청소년IT챌린지' 개최…\"15년간 41개국...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "LG전자가 세계 각국의 장애 청소년들이 모여 AI 활용 능력을 겨루고 미래 인재로 성장할 수 있도록 지원하는 글로벌 교류의 장을 마련했다. LG전자는 베트남 다낭에서 27일부터 사흘간 '2026..",
+   "link": "https://www.thepublic.kr/news/articleView.html?idxno=324318",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "LG전자, 글로벌 장애 청소년 AI·IT 역량 키운다…9개국 81명 참가",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "윤대식 LG전자 대외협력담당 전무(오른쪽에서 다섯 번째)와 나운환 한국장애인재활협회장(왼쪽에서 다섯 번째)이 2026 글로벌장애청소년IT챌린지(GITC) 개회식에서 대회 참가자 및 관계자들과 함께",
+   "link": "https://www.pointdaily.co.kr/news/articleView.html?idxno=324186",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피 6100선 돌파 후 급전직하…6000선 붕괴에 증시 '패닉'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "78%), LG전자(-4.02%), NAVER(-1.74%) 등이 하락했다. 반면 SK하이닉스(+2.62%), 삼성SDI(+0.75%), SK스퀘어(+3.47%), 한화비전(+22.14%) 등은 상",
+   "link": "http://www.newskr.kr/news/articleView.html?idxno=107560",
+   "query": [
+    "LG전자",
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "김성환 기후부 장관 \"내년은 산업용 히트펌프 원년\"…삼성반도체 공장도...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "LG전자는 3.5메가와트(㎿)급 1000RT(냉동톤) 대온도차 히트펌프를 개발해 아진P&P 제지 건조 공정에 설치해 적용하고 있다. 김진두 아진P&P 대표는 \"히트펌프의 성능계수는 3.6 이상 나오",
+   "link": "https://view.asiae.co.kr/article/2026102915491491362",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "‘2026 공공디자인 포럼’서 발표하는 이향은 LG전자 상무",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이향은 LG전자 HS사업본부 CX담당 상무가 29일 오후 서울 종로구 JCC아트센터 콘서트홀에서 열린 2026 공공디자인포럼에서 '공감지능시대, 기술은 어떻게 모두의 일상을 연결하는가?'를 주제로",
+   "link": "https://www.news1.kr/photos/8186588",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "‘2026 공공디자인 포럼’서 발표하는 이향은 LG전자 상무",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이향은 LG전자 HS사업본부 CX담당 상무가 29일 오후 서울 종로구 JCC아트센터 콘서트홀에서 열린 2026 공공디자인포럼에서 '공감지능시대, 기술은 어떻게 모두의 일상을 연결하는가?'를 주제로",
+   "link": "https://www.news1.kr/photos/8186592",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "2026 공공디자인포럼에 등장한 LG 가정용 로봇 클로이드",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이향은 LG전자 HS사업본부 CX담당 상무가 29일 오후 서울 종로구 JCC아트센터 콘서트홀에서 열린 2026 공공디자인포럼에서 '공감지능시대, 기술은 어떻게 모두의 일상을 연결하는가?'를 주제로",
+   "link": "https://www.news1.kr/photos/8186599",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "LG전자 GITC 15주년…첫 대회 우승자 참석",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "LG전자는 베트남 다낭에서 지난 27일부터 사흘 일정으로 열리는 2026 글로벌장애청소년IT챌린지(GITC) 본선에 9개국에서 선발된 장애 청소년 81명이 출전했다고 29일 밝혔다. 올해 참가자들이",
+   "link": "https://www.m-i.kr/news/articleView.html?idxno=2012060",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[TOP's Pick] [전자·IT] LG전자, '2026 글로벌장애청소년 IT챌린지' 개최...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "◆LG전자, '2026 글로벌장애청소년 IT챌린지' 개최 LG전자가 세계 각국의 장애 청소년들이 모여 AI 역량을 키우며 미래 인재로 성장할 수 있는 교류의 장을 마련. 회사는 27일부터 사흘간 베",
+   "link": "https://www.topdaily.kr/articles/112579",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "LG는 '뇌' 삼성은 '손'…같은 듯 다른 로봇 패권 전략",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "LG전자 \"연내 50만 시간 로봇 학습 데이터 확보\"…엔비디아도 합류 취임 4주년 기념식 대신 로봇 챙긴 이재용…CES 2027서 기술 공개? 글로벌 가전 시장을 주도하는 LG전자와 삼성전자가 미래",
+   "link": "https://www.sisajournal.com/news/articleView.html?idxno=392218",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "산업공정 폐열·미활용 열원 활용한 히트펌프 실증 확대",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "LG전자, 센추리, 한화파워, 아진피앤피, 신성엔지니어링 등 관련 업계가 참여한 가운데 열린 이번 토론화에서는 산업용 대형 히트펌프 기술개발 현황 및 추진방향, 산업 공정열 전환기술 및 전환 방향,",
+   "link": "http://www.e-platform.net/news/articleView.html?idxno=106519",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[김동헌의 AI패러다임(58)] 허락 없는 학습, 보상 없는 '다움' – AI 시대...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "누구의 허락으로, 어떤 대가를 치르고 배울 것인가이다. 김동헌 프로필 ▶ 現 국민대학교 겸임교수 / 現 리네아디자인 이사 / 前 LG전자 CTO 특허센터 선임 / 저서로 '생성형 AI 기반 미래 공",
+   "link": "https://www.news2day.co.kr/article/20261029500051",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "LG전자 베스트샵 서수원점 새단장 GRAND OPEN 맞아 '수원혼수맛집' 혜택...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "▲사진 제공: LG전자 베스트샵 서수원점 LG전자 베스트샵 서수원점이 새단장 GRAND OPEN을 맞아 혼수구매 고객을 위한 다양한 혜택을 마련했다. 행사는 11월 1일부터 30일까지 진행되며 필수",
+   "link": "https://www.gosiweek.com/article/1065594480912501",
+   "query": [
+    "LG전자"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "자단기, 소방설비기사 전기분야 필기 교재 '압권' 출간",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이벤트 페이지에서 교재 구매를 인증하면 매일 선착순 15명에게 네이버페이... break9874@naver.com *아래는 위 기사를 '구글 번역'으로 번역한 영문 기사의 [전문]입니다....",
+   "link": "http://www.breaknews.com/1246816",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "롯데뮤지엄, 한불 수교 140주년 ‘미셸 들라크루아’ 회고전 12월 4일 개...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "티켓은 롯데뮤지엄 공식 홈페이지와 놀티켓, 카카오톡 예약하기·선물하기, 네이버 예약에서 예매할 수 있다. break9874@naver.com *아래는 위 기사를 '구글 번역'으로 번역한...",
+   "link": "http://www.breaknews.com/1246815",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "불가리, ‘빛, 형상 그리고 비전’ 전시 개막…11월 14일까지",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "관람은 무료이며 네이버 사전 예약이 필요하다. break9874@naver.com *아래는 위 기사를 '구글 번역'으로 번역한 영문 기사의 [전문]입니다. '구글번역'은 이해도 높이기를...",
+   "link": "http://www.breaknews.com/1246819",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "퓨리오사AI, 8200억원 투자 유치",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버는 초기 NAVER D2SF에 이어 실리콘밸리 기반 투자 플랫폼 네이버벤처스를 통해 투자했다. 기존 주주 중 넥스트랜스는 가장 큰 규모인 480억원을 후속 투자했고 카카오인베스트먼트도 동참했다",
+   "link": "http://www.hansbiz.co.kr/news/articleView.html?idxno=877552",
+   "query": [
+    "NAVER 네이버",
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "퓨리오사AI, 8200억원 규모 시리즈D 투자유치 완료",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버는 초기 투자 조직인 NAVER D2SF를 통해 시드 투자에 참여한 데 이어, 이번에 실리콘밸리 기반 투자 플랫폼인 네이버벤처스를 통해 후속 투자를 진행했다. 기존 주주 중에서는 넥스트랜스가",
+   "link": "https://byline.network/?p=9004111222625303",
+   "query": [
+    "NAVER 네이버",
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "입주기업 협업지원 첫 사업 웹툰으로 탄생...- 31일 네이버·카카오 등 ...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한종근 기자 hjk2749@naver.com 경북문화재단 콘텐츠진흥원(이하 진흥원)은 경북콘텐츠기업지원센터(이하... 연재는 네이버 시리즈, 카카오페이지, 리디북스, 교보문고, 알라딘, 예스24 등",
+   "link": "https://www.mhns.co.kr/news/articleView.html?idxno=766553",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "‘재혼 황후’ 외전 29일 연재 시작…디즈니+ 실사 시리즈 11월 4일 공개",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버웹툰은 글로벌 누적 조회수 29억7000만회를 기록한 로맨스 판타지 웹툰... break9874@naver.com *아래는 위 기사를 '구글 번역'으로 번역한 영문 기사의 [전문]입니다....",
+   "link": "http://www.breaknews.com/1246727",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "네이버페이, 가맹점주용 ‘Npay biz 우리 가게 리포트’ 베타 오픈",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버페이는 가맹점주에게 매장과 동네의 장사 현황, 상권 흐름을 제공하는... break9874@naver.com *아래는 위 기사를 '구글 번역'으로 번역한 영문 기사의 [전문]입니다....",
+   "link": "http://www.breaknews.com/1246732",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "파주시 한빛도서관, 영어책 낭독 재능기부 모집",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "모집 대상은 영어 그림책 낭독이 가능한 청소년 이상 시민으로, 네이버 신청... Applications can be submitted via the Naver application page. Tho",
+   "link": "http://www.breaknews.com/1246712",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "퓨리오사AI, 8,200억원 규모 시리즈D 투자유치 완료",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버는 초기 투자 조직인 네이버D2SF를 통해 시드 투자에 참여한 데 이어, 이번에 실리콘밸리 기반 투자 플랫폼인 네이버벤처스(NAVER Ventures)를 통해 후속 투자를 진행했다. 퓨리오사A",
+   "link": "https://www.itbiznews.com/news/articleView.html?idxno=229559",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "모바일콘텐츠주 줄줄이 하락… SK스퀘어·삼성출판사는 웃었다",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버 증권. 모바일콘텐츠(스마트폰 태블릿PC) 관련주가 29일 국내 증시에서 전반적인 약세를 보이는 가운데... 카카오와 NAVER를 비롯해 인포뱅크, 플랜티넷, 다산디엠씨, 자이언트스텝 등이 내",
+   "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=499599",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "레벨 4 자율주행 시대 성큼… \"개발 기대보다 공급 실적 따져야\"",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버 증권. 자율주행차 관련주가 29일 글로벌 완성차 업체와 빅테크 기업들의 기술 개발 경쟁에도... 오비고, 포니링크, 인포뱅크, 라닉스, 팅크웨어, NAVER, 쏘카, SK텔레콤, 현대오토에버",
+   "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=499592",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "국민성장펀드가 찜한 퓨리오사AI, 8200억 투자유치…몸값 3.8조",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버는 초기에 NAVER D2SF로 시드 투자를 했고, 이번에는 실리콘밸리 기반 네이버벤처스를 통해 후속 투자에 나섰다. 넥스트랜스는 480억원으로 후속 투자 가운데 가장 큰 금액을 냈고, 카카오",
+   "link": "https://www.mt.co.kr/future/2026/10/29/2026102908523397390",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "NAVER 주가, 10월 29일 장중 175,200원 1.57% 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "29일 오전 9시 51분 기준, 네이버페이 증권에 따르면 NAVER의 주가가 장중 175,200원을 기록하며 지난 종가 대비 2,800원 하락한 -1.57%의 등락률을 보이고 있다. NAVER는 시",
+   "link": "https://www.topstarnews.net/news/articleView.html?idxno=16261610",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "퓨리오사AI, 투자 목표 넘었다…8200억원 조달·기업가치 3.8조원",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버는 초기 투자 조직인 NAVER D2SF를 통한 시드 투자에 이어 실리콘밸리 기반 투자 플랫폼 네이버벤처스(NAVER Ventures)를 통해 후속 투자를 진행했다. 기존 주주 가운데 넥스트랜",
+   "link": "https://www.epnc.co.kr/news/articleView.html?idxno=408931",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "퓨리오사AI, 8200억원 투자유치 완료…기업가치 3.8조원",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버는 초기 투자 조직인 NAVER D2SF를 통해 시드 투자에 참여한 데 이어, 이번에 실리콘밸리 기반 투자 플랫폼인 네이버벤처스(NAVER Ventures)를 통해 후속 투자를 진행했다. 기존",
+   "link": "https://www.ajunews.com/view/20261029090556363",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[증시키워드] SK하이닉스 11% 급등·삼성전자 24만원 돌파…네이버 ‘12...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "네이버는 12조원 규모의 AI 컴퓨팅 인프라 확보 계약으로 투자자들의 관심을 끌고 있다. 29일 금융투자업계에 따르면 이날 장 시작 전 인기 종목은 삼성전자, SK하이닉스, 삼성전기, NAVER,",
+   "link": "https://www.etoday.co.kr/news/view/2641455",
+   "query": [
+    "NAVER 네이버"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼전 4.1% 급락…코스피, 하루 만에 6000선 반납",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "대우건설은 18.57%, 두산에너빌리티는 7.65% 떨어졌다. 반면 KB금융은 1.82%, 삼성SDI는 0.75%, 기아는 0.37... 레인보우로보틱스가 6.55%, 주성엔지니어링이 4.58%,",
+   "link": "https://www.kbmaeil.com/article/20261029500634",
+   "query": [
+    "두산로보틱스",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "'6000피' 하루 천하…삼성전자 주주환원 실망에 투심 이탈",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "구체적인 주주환원책을 공개하지 않은 삼성전자와 LG화학의 LG에너지솔루션 지분 매각, 두산에너빌리티... 레인보우로보틱스는 6%대 하락했다. 서울 외환시장에서 원/달러 환율은 전 거래일 대비 0.9",
+   "link": "https://www.mt.co.kr/stock/2026/10/29/2026102916021016096",
+   "query": [
+    "두산로보틱스",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피 하루 만에 6000선 붕괴…최대 실적 삼성전자 4% 급락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "57%), 두산에너빌리티(-7.65%) 등 원전 관련주가 크게 하락했다. 업종별로 보면 건설(-5.75%), 기계·장비(-5.... 주성엔지니어링(-4.58%), 레인보우로보틱스(-6.55%), 로",
+   "link": "https://www.jnilbo.com/news/articleView.html?idxno=90000077938",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 6000선 하루 만에 반납…삼성전자 4%대 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국수력원자력과 대우건설·두산에너빌리티 컨소시엄의 체코 두코바니 원전 시공계약 협상 결렬... 알테오젠(-1.35%), 에코프로(-4.43%), 에코프로비엠(-5.64%), 주성엔지니어링(-4.58",
+   "link": "https://www.etoday.co.kr/news/view/2641883",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 1.2% 내려 '6천피' 반납…최대실적 삼전 4.1% 급락(종합)",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "57%), 두산에너빌리티(-7.65%) 등 원전 관련주가 크게 하락했다. 업종별로 보면 건설(-5.75%), 기계·장비(-5.... 주성엔지니어링(-4.58%), 레인보우로보틱스(-6.55%), 로",
+   "link": "https://www.yna.co.kr/view/AKR20261029152851008?input=1195m",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[마켓뷰] 삼성전자 주주환원 실망… 코스피 6000포인트 반납",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "또 체코 원전 시공 협상이 결렬됐다는 소식에 대우건설과 두산에너빌리티가 큰 폭 떨어졌다. 코스닥... 레인보우로보틱스가 7% 급락했고, 에코프로, 에코프로비엠, 심텍, HLB 역시 약세였다.",
+   "link": "https://biz.chosun.com/stock/stock_general/2026/10/29/OO2EG27E3JAOZBH5GSKJ2KGIL4/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[속보] 두산로보틱스, 3분기 영업손실 134억400만원…전년 대비 적자 폭...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "두산로보틱스 자료사진. 본 기사와 무관. 두산로보틱스가 올해 3분기 연결기준 매출액 161억7500만원, 영업손실 134억400만원을 기록한 것으로 잠정 집계됐다고 29일 공시했다. 매출액은 전분기",
+   "link": "https://www.cbci.co.kr/news/articleView.html?idxno=620872",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 하루 만에 6000선 반납…삼성전자 4.31% 급락[마감시황]",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "시가총액 상위 종목에서는 LG에너지솔루션(-8.60%), 두산에너빌리티(-7.65%), 한화에어로스페이스(-3.43... 레인보우로보틱스(-6.55%), 주성엔지니어링(-4.58%), 원익IPS(-",
+   "link": "https://www.newsway.co.kr/news/view?ud=2026102915431922885",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[코스닥 기관] 로보티즈·에스피지 폭풍매수...주성엔지니어링·리노공...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "실제 기관은 피에스케이홀딩스 등을 사들이면서도 피에스케이와 주성엔지니어링, 두산테스나, 리노공업... 이와 함께 빅웨이브로보틱스와 JYP Ent., 안랩, 비에이치아이, 비나텍, 엘리스도 기관 순매",
+   "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=499777",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 삼성전자 주주환원책 실망에 하락 마감…코스닥도 2%대↓",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국수력원자력과의 체코 원전 시공계약 협상이 결렬되면서 대우건설이 18.57% 하락했고, 두산에너빌... 로봇주인 레인보우로보틱스는 6.55% 하락했다. 반도체 소부장주도 약세였다. 강진혁 신한투자",
+   "link": "https://www.hankyung.com/article/2026102939116",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "부품 자립률 44%에 발목 잡힌 韓 제조로봇… 글로벌 주도권 '빨간불'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "국내에서도 삼성전자의 레인보우로보틱스 지분 확대, 두산로보틱스의 미국 자동화 솔루션 기업 원엑시아(ONExia) 인수 등 대기업을 중심으로 한 사업 확장 투자가 잇따르고 있다. 그럼에도 불구하고 국",
+   "link": "https://www.mtnews.net/news/articleView.html?idxno=26382",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "두산로보틱스 5만7500원으로 4.96% 하락…협동로봇 수요와 손익 개선 점...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "두산로보틱스 주가는 29일 오후 3시14분 기준 유가증권시장에서 57,500원에 거래됐다. 전 거래일보다 3,000원 내린 가격으로 등락률은 -4.96%다. 누적 거래량은 259,046주, 거래대금",
+   "link": "https://www.job-post.co.kr/news/articleView.html?idxno=235372",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 약세에 코스피 5900선 하회…코스닥도 3% 가까이 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국수력원자력과 두산에너빌리티·대우건설의 체코 두코바니 원전 시공계약 협상 결렬 소식이 원전... 알테오젠(-2.47%), 에코프로(-4.17%), 에코프로비엠(-5.95%), 주성엔지니어링(-3.",
+   "link": "https://www.etoday.co.kr/news/view/2641710",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "두산로보틱스 주가, 10월 29일 장중 57,100원 5.62% 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "|중앙이코노미뉴스 조용우 기자|출처=네이버페이 증권 29일 오전 11시 3분 기준, 네이버페이 증권에 따르면 두산로보틱스는 현재 57,100원에 거래되며, 지난 종가 대비 3,400원(-5.62%)",
+   "link": "https://www.joongangenews.com/news/articleView.html?idxno=559488",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "피지컬 AI 접목 ‘지능형 로봇 솔루션’ 제공",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이어 협동로봇이 계산된 궤적을 따라 일정한 힘으로 작업을 수행해 균일한 표면 품질을 구현한다.’ 두산로보틱스가 지난 6월 미국 시카고에서 열린 북미 최대 로봇전시회 ‘오토메이트 2026’에서 선보인",
+   "link": "https://www.hankookilbo.com/news/article/A2026102910030000224?did=NA",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[특징주] 외국인, 대우건설·서산 매수 상위…기관은 지씨지놈 집중, 삼...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "오전 11시 10분 기준 외국인 순매수 상위는 대우건설, 서산, JYP Ent., 벡트로보틱스, 하이드로리튬 순으로 재편됐다. 순매도 상위에는 삼성전자, JW신약, 두산에너빌리티, 대한광통신, 루닛",
+   "link": "https://www.newstnt.com/news/articleView.html?idxno=725702",
+   "query": [
+    "두산로보틱스"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "체코 원전發 악재까지…반등 요원한 '조방원', 반년째 내리막",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "반도체주와 함께 상반기 국내 증시 상승세를 이끌어 온 조선·방산·원전주의 반등이 요원하다. 기대치를... 원전 수출 확대 등의 조건의 훼손을 부정하기 어렵다\"며 \"해외 원전 모멘텀에 의구심이 발생했",
+   "link": "https://www.mt.co.kr/stock/2026/10/29/2026102915590395968",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "원·달러 환율, FOMC 소화하며 하락 전환…1330원대 중반 마감 [김혜란의...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "반도체 수출 호조와 연말 수출업체의 네고(달러 매도) 물량이 환율 하락 요인으로 작용할 수 있지만 환율이 내리면 수입업체의 결제 수요가 유입돼 하단을 지지할 수 있다는 분석이다. 반도체 기업의 법인",
+   "link": "https://www.sedaily.com/article/20107865?ref=naver",
+   "query": [
+    "반도체 수출",
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Sh수협은행, 제 11회 금융의 날 혁신금융부문 기업금융부 이필호 부장 금...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이 부장은 생산적금융 활성화 추진계획을 수립하고, 반도체, AI 등 신성장 분야 수출기업에 대한 금융지원 확대를 주도하는 한편, 지방교육시설 인프라펀드에 자금을 투입하는 등 지역경제 성장에도 기여했",
+   "link": "http://www.sisacast.kr/news/articleView.html?idxno=101382",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "원·달러 환율, 0.9원 내린 1336.8원",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "여기에 반도체 등 주요 수출업체들의 달러 매도네고 물량이 유입된 점도 환율 하락을 뒷받침했다. 앞서 연준은 28일(현지 시간) 열린 연방공개시장위원회(FOMC) 정례회의에서 기준금리를 연 3.75∼",
+   "link": "http://www.segyebiz.com/newsView/20261029516490?OutUrl=naver",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[2026 국감] 靑 \"올해 수출 1조달러 기대…AI 3대 메가프로젝트 본격 추...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "청와대가 올해 수출 1조달러 달성을 기대하며 반도체와 인공지능(AI) 데이터센터, 피지컬 AI를 중심으로 한 3대 메가프로젝트를 본격 추진하겠다고 밝혔다. 임광현 청와대 비서실장은 29일 국회 운영",
+   "link": "http://www.newsprime.co.kr/news/article.html?no=752971",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "가온전선, 미국 클라우드 기업에 1200억원 규모 배전케이블 공급",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "가온전선 / 가온전선앞서 지난달 초에는 캐나다 서부 지역 주요 공공 전력회사와 중전압 케이블 공급 계약을 맺으며 설립 이후 첫 캐나다 수출 실적을 올렸다. 데이터센터·반도체 공장·발전소 등 민간 산",
+   "link": "https://www.wikitree.co.kr/articles/1170081",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "중기부, 비수도권에 '기후테크 팁스타운' 조성…“정부가 첫 고객되겠다...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "또 반도체 장비 관련 기업에는 현장 실증 이후 개발기술사업화 자금 3억원과 수출바우처 6500만원을 연계 지원해 납품 성과로 이어지도록 했다. 이소영 중기부 장관은 이날 인사말에서 기후테크 산업에",
+   "link": "https://www.etnews.com/20261029000400",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "원·달러 환율, 달러 강세에도 1336.8원 마감···0.9원↓",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "[연합뉴스]  원·달러 환율이 반도체 수출업체의 달러 매도 물량에 힘입어 소폭 하락했다. 미국 연방준비제도(Fed·연준)의 기준금리 동결에도 달러인덱스가 상승한 가운데 수입업체 결제 수요와 거주자의",
+   "link": "https://www.ziksir.com/news/articleView.html?idxno=151283",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "청와대 \"AI·반도체 생태계 조성…대통령 중심 중동전쟁 대응 체계 가동...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "문 수석은 \"(이재명) 대통령 중심 비상경제 대응 체계를 가동해 가용 수단을 총동원한 결과, AI발 반도체 호황으로 수출이 역대 최대 실적을 이어가는 가운데 내수도 견조한 모습을 보이며 강한 성장",
+   "link": "https://www.newspim.com/news/view/20261029001123",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "문신학 \"거주용 1주택 최대한 보호…초고가·비거주·다주택 세부담 정...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이어 \"위기 속에서도 AI발 반도체 호황으로 수출이 역대 최대 실적을 이어가는 가운데 내수도 견조한 모습을 보이며 강한 성장 모멘텀을 지속하고 있다\"고 역설했다. 금융정책의 중심축을 부동산에서 생산",
+   "link": "https://news.einfomax.co.kr/news/articleView.html?idxno=4441973",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[김장현의 테크와 사람] 〈112〉수출호황 시대, 환호 대신 초격차 영역...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "AI 데이터센터 수요 급증에 힘입은 반도체 수출이 폭발적으로 늘었고, 삼성전자는 3분기 영업이익 107조4000억 원이라는 큰 성취를 이뤄냈다. 국가 경상수지 흑자도 사상 최대 수준에 이르렀다. 2",
+   "link": "https://www.etnews.com/20261029000017",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[거래소 기관] 삼성SDI 매수하고 LG에너지솔루션 매도…선택 갈린 이차...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "반도체와 이차전지, 에너지, 방산 등 주요 업종에서 매수와 매도가 엇갈리면서 기관의 종목별 선별 대응이... 건설업은 국내외 수주와 원가 부담, 방산은 수출 계약과 국방비 지출, 조선은 선박 수주와",
+   "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=499784",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "AIDC를 한국 기술로 만들 수 있을까",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "AI 반도체: 추론 인프라 국가전략 토론회'에서는 국산 NPU와 전용 컴파일러, 소프트웨어 스택, AI 모델을 함께 검증하는 풀스택 접근이 필요하다는 의견이 제기됐다. 9월 열린 '국산 NPU 수출",
+   "link": "https://www.itdaily.kr/news/articleView.html?idxno=242529",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "퓨리오사AI, 8200억 시리즈D 투자 유치…기업가치 3.8조",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국수출입은행은 설립 이후 처음으로 벤처기업에 직접 투자했고, 한화자산운용도 합류했다. 퓨리오사AI는 투자금을 2세대 AI 반도체 'RNGD(레니게이드)'의 생산·공급 역량 확충과 해외 고객 확대,",
+   "link": "https://www.newsis.com/view/NISX20261029_0003846950",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "'과수요·고물가' 속 한은, 11월에 '호미' 꺼내나",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "반도체 수출 호조와 설비투자 증대로 올해 우리나라 명목 국내총생산(GDP) 증가율은 당초 전망치(전년 대비 12.3%)를 훌쩍 넘는 20%대에 이를 전망이다. 최근 발표된 3·4분기 실질 GDP도",
+   "link": "https://www.fnnews.com/news/202610291541378023",
+   "query": [
+    "반도체 수출"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "KB금융 3분기 누적 순익 5조7921억···3분기 누적 최대 실적",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "80%로 전분기보다 0.05%p 높아졌다. 원·달러 환율 하락으로 위험가중자산이 줄어든 영향이 컸다. 3분기 주당 현금배당은 1167원으로 1년 전(930원)보다 25.5% 많다.",
+   "link": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=716705",
+   "query": [
+    "원달러 환율",
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 판매 11% 급감에도 영업익 5.5% 증가…연간 목표는 낮췄다(종합...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "3·4분기 평균 원·달러 환율은 1423원으로 전년 동기 대비 2.8% 상승했다. 전사적인 비용 절감과 원가 최적화 등 비상 대응계획(컨틴전시 플랜)도 실적 방어에 기여했다. 원자재 가격 상승으로",
+   "link": "https://www.fnnews.com/news/202610291611190711",
+   "query": [
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "코스피, 6000선 하회...삼성전자 4% 하락",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "알테오젠(-1.35%), 에코프로(-4.43%), 에코프로비엠(-5.64%), 주성엔지니어링(-4.58%), 레인보우로보틱스(-6.55%) 등이 하락 마감했다. 서울외환시장에서 원·달러 환율은 전",
+   "link": "https://www.cstimes.com/news/articleView.html?idxno=725855",
+   "query": [
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "대한전선, 3분기 실적기록 경신…환율 하락에 단기 수익성은 ‘복병’",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "다만 원화 강세에 따른 원·달러 환율 하락 여파로 수익성 개선 효과는 다소 제한된 모양새다. 대한전선은 올 3분기 연결기준 잠정실적으로 매출 1조1764억원과 영업이익 309억원을 기록했다고 29일",
+   "link": "https://www.ekn.kr/web/view.php?key=20261029020592897",
+   "query": [
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "‘환율·HEV’로 방어…현대차, 3Q 영업익 2조6772억 5.5%↑",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "현대차는 컨퍼런스콜에서 “3분기 원·달러 평균 환율은 전년 동기 대비 2.8% 상승한 1423원을 기록하며 수익성 방어의 버팀목이 됐다”며 “아울러 원가 최적화 등 컨틴전시 플랜을 적극 가동하고,",
+   "link": "https://www.fntimes.com/html/view.php?ud=2026102915504514507492587736_18",
+   "query": [
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "“삼성전자 영업익 107조에도 실망?”…코스피 6000선 하루 만에 붕괴",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "58%), 에코프로(-4.43%), 원익IPS(-3.62%) 등이 하락했다. 코스닥 하락 종목은 1325개로 상승 종목 335개의 약 4배에 달했다. 한편 이날 서울 외환시장에서 원·달러 환율은 전",
+   "link": "https://www.ddaily.co.kr/page/view/2026102915582507539",
+   "query": [
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "현대차, 3분기 영업익 2조6772억원…판매 감소에도 수익성 방어",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "3분기 원·달러 평균 환율은 1423원으로 전년 동기 대비 2.8% 상승했다. 다만 원자재 가격 상승으로 매출원가율은 1.5%포인트 높아진 83.8%를 기록했다. 반면 비용 절감에 힘입어 매출액 대",
+   "link": "https://www.industrynews.co.kr/news/articleView.html?idxno=88513",
+   "query": [
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "김형철 예비역 중장이 말하는 메이크델타 “당신만의 주식 코치, 당주”",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "과거 증권사 시스템을 사용할 때는 원·달러 환율 추이 하나를 확인하기 위해서도 수십 개의 하위 메뉴를 헤매야 했지만, 이곳에서는 아침 신문의 헤드라인을 읽듯 자연스럽게 시장의 맥을 살펴볼 수 있다.",
+   "link": "https://it.donga.com/109786/",
+   "query": [
+    "원달러 환율"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "美 금리동결에 韓 F4회의…이형일 “영향 살피고 필요시 신속 대응”",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "회의에는 이 부총리와 신현송 한국은행 총재, 이억원 금융위원장, 이찬진 금융감독원장 등이 참석했다. 회의를 주재한 이 부총리는 “물가안정 기조를 유지하는 가운데 지난 9월 금리 인상의 영향과 경제지",
+   "link": "https://www.mk.co.kr/article/12189989",
+   "query": [
+    "한국은행 금리",
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "주식계좌 넣은 1억원 이자··· NH 40만원 vs 삼성 105만원 '극과 극'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "기준금리 3%에도 예탁금 이자 차이…고객 지급 수준 확인 필요 한국은행 기준금리가 연 3.00%인 가운데 증권사별 예탁금 이용료율은 차이를 보이고 있다. 기준금리가 올랐다고 해서 예탁금 이용료율이",
+   "link": "https://www.greenpostkorea.co.kr/news/articleView.html?idxno=307869",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "美 금리 동결에도 고금리 그늘…은행·카드·보험 부담 지속",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "은행권에서는 시장금리 상승이 이미 대출금리에 반영되고 있다. 한국은행이 이날 발표한 ‘2026년 9월 금융기관 가중평균금리’에 따르면 지난달 예금은행의 신규취급액 기준 주택담보대출 금리는 연 4.8",
+   "link": "https://www.edaily.co.kr/News/Read?newsId=05264406645617840&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "금융지주 최대 실적에도 카드사는 한숨…소비 둔화·조달비용 부담",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국은행이 11월 기준금리를 인상하면 시장금리가 추가로 오를 수 있어 카드사들의 자금 조달 부담이 더욱 커질 수 있다. 회원 기반 확대도 더딘 모습이다. 신한·삼성·현대·KB국민 등 4개 카드사의",
+   "link": "https://www.ajunews.com/view/20261029152847060",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "美 FOMC 금리 동결에 단기·장기 금리 다르게 움직였다",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "씨티는 한국은행이 11월과 내년 2월에 각각 0.25%p 올려 최종금리가 3.50%에 이를 것으로 예상했다. 노무라증권도 같은 시기 인상을 전망했으나 소비 부진이 4분기 이후까지 이어지면 인상 사이",
+   "link": "https://www.junggi.co.kr/news/articleView.html?idxno=38290",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "9월 주담대금리 4.88%…14년5개월 만 '최고'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "29일 한국은행이 발표한 '9월 금융기관 가중평균금리'에 따르면 지난달 예금은행의 신규 취급액 기준 주택담보대출 금리는 연 4.88%로 전월 대비 0.22%포인트(p) 상승했다. 주담대 금리는 지난",
+   "link": "http://www.newsprime.co.kr/news/article.html?no=752972",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "“영끌족, 이러다 길거리 나앉을 판”…주담대 금리 14년 5개월 만에 ‘...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "고정형 주담대 금리가 연 5% 선을 넘어선 것은 한국은행이 관련 통계를 집계하기 시작한 2013년 1월 이후 처음이다. 변동형 주택담보대출 금리도 0.23%포인트 오른 연 4.76%로 집계됐다. 고",
+   "link": "https://www.mk.co.kr/article/12189982",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "KB국민·신한·하나·우리·NH농협 등 은행권, 고정형 주담대 평균금리 ...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "29일 한국은행이 발표한 '2026년 9월 금융기관 가중평균금리'에 따르면 예금은행의 신규 취급액 기준 고정형 주택담보대출 금리는 연 5.11%로 전월보다 0.23%포인트 상승했다. 고정형 주담대",
+   "link": "https://sateconomy.co.kr/news/view/1065596588461263",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "9월 주담대 금리 4.88%… 14년 5개월 만에 최고",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "29일 한국은행이 발표한 '금융기관 가중평균금리'에 따르면 9월 예금은행의 신규취급액 기준 고정형 주택담보대출 금리는 연 5.11%를 기록했다. 지난달 보다 0.23%포인트 높은 수준으로, 2013",
+   "link": "https://www.econovill.com/news/articleView.html?idxno=755330",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "“잠이 안 와요”…고정형 주담대 금리 5% 돌파에 영끌족 ‘아우성’",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국은행이 29일 발표한 ‘금융기관 가중평균금리’ 통계에 따르면 9월 예금은행 가계대출 가중평균금리(신규 취급액 기준)는 전월보다 0.2%포인트 오른 연 4.96%였다. 2023년 11월(5.04%",
+   "link": "https://www.mk.co.kr/article/12189978",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "美 '매파적 동결'에 힘받는 12월 인상론···한은, 선제 추가인상 나서...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "앞서 한국은행은 7월과 8월 기준금리를 두차례 연속 인상함으로써 기대인플레이션과 금융불균형을 조기에 차단했고, 이를 바탕으로 이달 회의에서 금리를 동결했다. \"가래로 막을 것을 호미로 막았다\"는 신",
+   "link": "https://www.seoulfn.com/news/articleView.html?idxno=641355",
+   "query": [
+    "한국은행 금리",
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[셀럽의 한 수] FOMC는 금리 유지, 한은은 인상 예측? \"한국 GDP 상승 중...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "미 연준의 금리 유지에도 한국은행은 3분기 성장률 호조와 고유가·고환율에 따른 물가 부담으로 추가 금리 인상 가능성이 거론되고 있습니다. 10월 소비자물가가 다시 3% 안팎으로 오를 경우 한은의 긴",
+   "link": "https://biz.sbs.co.kr/article_hub/20000342994?division=NAVER",
+   "query": [
+    "한국은행 금리",
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "은행 '고정형' 주담대 금리 사상 첫 5% 넘어...2013년이후 처음",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국은행이 29일 발표한 '금융기관 가중평균금리' 자료에 따르면 지난달 예금은행의 가계대출 가중평균금리(신규 취급액 기준)는 연 4.96%였다. 전월보다 0.2%포인트 올랐다. 2023년 11월(5",
+   "link": "https://www.delighti.co.kr/news/articleView.html?idxno=124114",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "美 연준, '매파적 동결'… 12월 인상 재개할까",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국은행은 지난 7월과 8월 기준금리를 각각 0.25%p씩 인상한 뒤 이달인 동결을 결정했다. 시장에선 한국은행이 다음 달엔 인상 재개에 나설 가능성이 크다고 보고 있다. 연준이 이번에 인플레이션",
+   "link": "https://www.sisaweek.com/news/articleView.html?idxno=238684",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[머니톡스] 수도권 아파트 변곡점…긴축과 '5km 내' 공급 신호",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "중앙은행인 한국은행의 기준금리 추가 인상과 통화 긴축의 가능성은 어느 때보다 커졌다. 긴축의 시대에 부동산 오름세가 한 없이 지속되기는 어렵다. 전 세계를 덮친 고금리의 파고 속에 우리 부동산, 주",
+   "link": "https://www.yna.co.kr/view/AKR20261029159800546?input=1195m",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "올 9월 은행 주담대 금리 4.88%…14년 5개월 만에 최고 수준",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "29일 한국은행이 발표한 ‘9월 금융기관 가중평균금리’에 따르면 예금은행의 신규 취급액 기준 가계 주담대 금리는 8월보다 0.22%포인트 오른 연 4.88%다. 2012년 4월(4.94%) 이후 1",
+   "link": "https://www.donga.com/news/Economy/article/all/20261029/134933252/1",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한국은행 내년 첫 기준금리 결정은 1월 14일",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "한국은행은 내년 1월 14일 첫 금융통화위원회 통화정책방향 결정회의를 열고 기준금리를 결정한다. 29일 한은은 내년에 개최하는 총 12차례 금통위 회의 일정을 공개했다. 기준금리를 결정하는...",
+   "link": "https://www.fnnews.com/news/202610291549411227",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[오후장 체크포인트] 컨퍼런스콜 이후 엇갈리는 삼전닉스 주가 \"펀더멘...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "이 부분을 어떻게 봐야할 지, 미 연준은 인상하지 않았지만 한국은행은 11월, 금리 인상 가능성이 크긴 하잖습니까? Q. 내일(30일) 아마존과 인텔 실적 그리고 물가지표가 나오지만 그래도 슈퍼위크",
+   "link": "https://biz.sbs.co.kr/article_hub/20000342992?division=NAVER",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한은, 내년 첫 기준금리 결정 1월 14일…금통위 연 8차례 개최",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "2027년 금통위 총 24차례 개최…통화정책방향 결정회의 8회 한국은행이 내년 첫 기준금리 결정 회의를 1월 14일 개최한다. 기준금리를 결정하는 통화정책방향 결정 회의는 올해와 동일하게 연간 8차",
+   "link": "https://news.tf.co.kr/read/economy/2382558.htm",
+   "query": [
+    "한국은행 금리"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한화솔루션 3Q 실적서 김동관이 불쑥 생각 난 이유는…10여년 '때 빼고 ...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "지정학적 리스크 프리미엄 축소와 국제유가 하락으로 제품 가격 약세가 이어진 가운데, 고가 원재료 투입에 따른 역래깅 효과로 수익성이 약화됐다는 분석이다. 첨단소재 부문은 매출 2919억원, 영업이익",
+   "link": "https://www.getnews.co.kr/news/articleView.html?idxno=885298",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한화솔루션, 3분기 영업익 905억원…美 태양광 판매 확대에 흑자 지속",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "지정학적 위험에 따른 가격 프리미엄이 축소되고 국제유가가 하락하면서 제품 가격 약세가 이어졌다. 여기에 과거 높은 가격에 확보한 원재료가 생산에 투입되는 ‘역래깅 효과’가 겹쳤다. 원재료 가격이..",
+   "link": "https://www.todayeconomic.com/news/article.html?no=32652",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "전쟁 특수 장기화? SK이노베이션, 3분기 3.7조 흑자 '역대 최고'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "4분기에도 국제유가가 급락하지 않는 한 견조한 실적을 유지할 전망이다. SK이노베이션은 3분기에 매출 28조7,738억 원, 영업이익 3조7,043억 원을 기록했다고 29일 밝혔다. 전 분기 대비",
+   "link": "https://www.hankookilbo.com/news/article/A2026102914130004711?did=NA",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[진단] 정부 '최고 가격제' 손실보전 '예산 범위 내 지원' 방침 고수",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "국제유가 변동을 반영해 재산정한다. 당초 2주마다 최고 가격을 조정하던 방식을 4주 단위로 변경해 운영 중이다. 나프타(Naphtha) = 원유를 증류할 때 휘발유와 등유 사이에서 추출되는 혼합물로",
+   "link": "https://www.todayenergy.kr/news/articleView.html?idxno=304847",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "삼성전자 실망 매물에 코스피 5930대로 기대 못미친 주주환원…삼성전자...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "미 연방준비제도(Fed·연준)가 시장 예상대로 기준금리(연 3.75~4.00%)를 동결하고 케빈 워시 의장의 발언이 비교적 완화적으로 해석됐으나 중동 불안에 국제유가가 오르면서 커진 경계감이 상단을",
+   "link": "http://www.smedaily.co.kr/news/articleView.html?idxno=365426",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "기름값 묶었더니 보상액 최대 9배 차이…정부·정유업계 손실 계산 놓고...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "정부가 국제유가 급등에 따른 국민 부담을 줄이기 위해 시행한 석유 최고가격제를 놓고 정유업계와 갈등을 빚고 있다. 정부는 기름값에 상한선을 두는 대신 정유사들이 입은 손실을 보상하기로 했지만, 손실",
+   "link": "https://www.thepublic.kr/news/articleView.html?idxno=324302",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[해외주식 원포인트 레슨] 이스라엘 총선·美중간선거 '유가 방정식'",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "국제유가가 배럴당 100달러 안팎에서 높은 수준을 유지하고 있습니다. 중동 지역의 군사적 긴장이 이어지는 가운데 이스라엘 총선과 미국 중간선거까지 다가오면서 원유시장의 불확실성이 커지고 있습니다.",
+   "link": "https://www.mk.co.kr/article/12189966",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한화솔루션, 3Q 매출액 3.9조...전년동기比 0.1%↓",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "지정학적 리스크 완화에 따른 국제유가 하락으로 제품 판매가가 약세를 보인 데다, 과거 고가에 매입한 원재료가 투입되는 역래깅(원재료 투입 시차) 효과가 중첩되며 이익이 깎였다.",
+   "link": "http://www.thevaluenews.co.kr/news/view.php?idx=202800",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "[종합] 美, 이란 공습 압박 속 물밑 접촉…트럼프 \"의료용품 지원 목적...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "미국과 이란의 협상 재개 기대감에 국제유가는 하락세를 보였다. 로이터에 따르면 한국시간 29일 오후 12시 51분 기준 브렌트유 선물 가격은 전 거래일 대비 1.1% 하락한 배럴당 114.10달러,",
+   "link": "https://www.ajunews.com/view/20261029151343987",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한화솔루션, 3Q 영업익 905억…신재생 흑자 지속",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "지정학적 리스크 프리미엄 축소와 국제유가 하락으로 제품 가격 약세가 이어졌다. 여기에 고가 원재료 투입에 따른 역래깅 효과가 겹치면서 수익성이 악화됐다. 첨단소재 부문은 영업이익 389억원, 매출",
+   "link": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5077559",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "SK이노, 3분기 영업익 3조 7043억원…분기 역대 최대 실적",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "다만 국제유가와 정제 마진의 급락 가능성 등 시장 불확실성을 고려해 수익성 확보에 주력한다는 계획이다. SK이노베이션 관계자는 \"글로벌 지정학적 불안으로 에너지 시장의 불확실성과 가격 변동성이 지속",
+   "link": "https://weekly.hankooki.com/news/articleView.html?idxno=7191314",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "한화솔루션, 3분기 영업익 905억원…미국 태양광 호조에 3분기 연속 흑자",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "국제유가 하락과 지정학적 위험 프리미엄 축소로 석유화학 제품 가격이 약세를 보인 가운데, 과거 높은 가격에 매입한 원재료가 뒤늦게 생산 원가에 반영되는 역래깅 효과가 발생한 영향이다. 원재료 가격이",
+   "link": "http://www.newsroad.co.kr/news/articleView.html?idxno=66729",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "SK이노베이션, 3분기 정유·윤활유 호조에 역대 최대 실적…배터리는 적...",
+   "pubDate": "Thu, 29 Oct 2026",
+   "description": "3분기 SK어스온 영업이익은 314억원으로 판매량 회복과 국제유가·가스 가격 강세에 힘입어 안정적인 흐름을 이어갔다. 4분기 정유 사업은 주요 설비 정기보수와 주요국 수출 제한에 따른 공급 감소,",
+   "link": "https://www.fntimes.com/html/view.php?ud=2026102915354564737de3572ddd_18",
+   "query": [
+    "국제유가"
+   ],
+   "source": "naver",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Forget VOO: This Growth ETF Returned 460.49% Over Ten Years to VOO’s 326.29%",
+   "link": "https://247wallst.com/investing/etf/2026/10/22/forget-voo-this-growth-etf-returned-460-49-over-ten-years-to-voos-326-29/?.tsrc=rss",
+   "pubDate": "Thu, 22 Oct 2026 21:03:16 +0000",
+   "description": "VOO built its reputation on simplicity and breadth, but a narrower growth ETF has quietly turned the same starting money into a very different ending balance over the past decade. Whether that edge survives the next ten years depends on a few factors most investors skip past.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "UBS portfolio manager: S&P 500 could hit 9,500 by June 2027 on AI, longevity, energy boom",
+   "link": "https://247wallst.com/investing/2026/10/22/ubs-portfolio-manager-sp-500-could-hit-9500-by-june-2027-on-ai-longevity-energy-boom/?.tsrc=rss",
+   "pubDate": "Thu, 22 Oct 2026 19:15:31 +0000",
+   "description": "A UBS portfolio manager sees three technology waves pushing stocks far beyond Wall Street's consensus, but his bullish case runs straight through two more Fed rate hikes that most investors are not pricing in.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "1 Magnificent Dividend ETF That History Says Has Never Disappointed Patient Long-Term Investors",
+   "link": "https://www.fool.com/investing/2026/10/22/1-magnificent-dividend-etf-history-says-never-schd/?.tsrc=rss",
+   "pubDate": "Thu, 22 Oct 2026 14:20:00 +0000",
+   "description": "This fund has delivered strong returns, an above-average yield, and 14 consecutive years of dividend growth.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Nvidia, Apple, Alphabet, Microsoft, and Amazon Now Make Up 30.8% of VOO and 49.2% of VUG. Here's a Better Low-Cost Vanguard ETF to Buy Now.",
+   "link": "https://www.fool.com/investing/2026/10/22/nvidia-apple-alphabet-microsoft-and-amazon-now-mak/?.tsrc=rss",
+   "pubDate": "Thu, 22 Oct 2026 14:05:00 +0000",
+   "description": "The Vanguard Morningstar Total Stock Market ETF invests in the entire U.S. stock market rather than just the S&P 500.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Vanguard S&P 500 ETF Long-Term Outlook: What Historical Trends Suggest for Patient Investors",
+   "link": "https://www.fool.com/investing/2026/10/25/vanguard-sp-500-etf-long-term-outlook-history-says/?.tsrc=rss",
+   "pubDate": "Sun, 25 Oct 2026 23:50:00 +0000",
+   "description": "Long-term earnings growth is going to be key for S&P 500 performance.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Before You Buy the Vanguard S&P 500 ETF, There's 1 Sneaky Risk Investors Should Know",
+   "link": "https://www.fool.com/investing/2026/10/24/before-you-buy-vanguard-sp-500-etf-1-risk/?.tsrc=rss",
+   "pubDate": "Sat, 24 Oct 2026 21:43:00 +0000",
+   "description": "Owning the S&P 500 index isn't as diversified of a strategy as you might initially assume.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "SPHD Holders Left $105,300 on the Table on a $300,000 Position While Chasing Dividends",
+   "link": "https://247wallst.com/investing/etf/2026/10/23/sphd-holders-left-105300-on-the-table-on-a-300000-position-while-chasing-dividends/?.tsrc=rss",
+   "pubDate": "Sat, 24 Oct 2026 00:03:10 +0000",
+   "description": "Chasing high dividends and calmer days sounds like a sensible retirement strategy, but the numbers on a $300,000 SPHD position tell a different story about what that stability actually costs you.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "BUFR Holders Left $62,250 on the Table on a $300,000 Position While Chasing Calm",
+   "link": "https://247wallst.com/investing/etf/2026/10/26/bufr-holders-left-62250-on-the-table-on-a-300000-position-while-chasing-calm/?.tsrc=rss",
+   "pubDate": "Mon, 26 Oct 2026 20:33:18 +0000",
+   "description": "Retirees who picked a buffer ETF to sleep soundly through market chaos got exactly the protection they paid for, and that calm carried a hidden price tag almost no one ever calculates.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Why Investing in S&P 500 Index Funds Is a Whole Lot Riskier These Days",
+   "link": "https://www.fool.com/investing/2026/10/26/why-investing-in-s-and-p-500-index-funds-is-a-whole-lot-riskier-these-days/?.tsrc=rss",
+   "pubDate": "Mon, 26 Oct 2026 19:05:01 +0000",
+   "description": "The S&P 500 is at around record levels, with a lot of exposure to tech.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "VOO vs. QQQ: Here's the ETF I'd Personally Buy and Hold for Decades",
+   "link": "https://www.fool.com/investing/2026/10/26/voo-vs-qqq-heres-the-etf-id-personally-buy-and-hol/?.tsrc=rss",
+   "pubDate": "Mon, 26 Oct 2026 15:40:00 +0000",
+   "description": "Which of these diversified ETFs has more upside potential?",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Should You Forget the Vanguard S&P 500 ETF (VOO) and Buy the Invesco S&P 500 Equal Weight ETF (RSP) Instead?",
+   "link": "https://www.fool.com/investing/2026/10/23/should-you-forget-the-vanguard-sp-500-etf-voo-and/?.tsrc=rss",
+   "pubDate": "Fri, 23 Oct 2026 15:50:00 +0000",
+   "description": "The most common investing strategy is typically to buy the S&P 500.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  },
+  {
+   "title": "Super Micro Has Lost 60.86% Since It Was Tapped for the S&P 500. Index Funds Like VOO Had to Buy It Anyway",
+   "link": "https://247wallst.com/investing/etf/2026/10/22/super-micro-has-lost-60-86-since-it-was-tapped-for-the-sp-500-index-funds-like-voo-had-to-buy-it-anyway/?.tsrc=rss",
+   "pubDate": "Fri, 23 Oct 2026 00:03:19 +0000",
+   "description": "When Super Micro Computer joined the S&P 500, index funds had no choice but to buy in at the peak of the hype. What happened next reveals a hidden cost that never appears on any fee disclosure.",
+   "query": [
+    "VOO"
+   ],
+   "source": "yahoo",
+   "collected_at": "2026-10-29 16:22"
+  }
+ ]
+}

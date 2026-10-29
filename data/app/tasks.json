@@ -97,8 +97,9 @@
    {
     "id": "t1029-7",
     "added": "2026-10-29",
-    "done": false,
-    "text": "🇺🇸 오늘 밤 22:30~ VOO $98.91 소수점 시장가(미국 트랙 2회차 잔액 일부 · d256) — 체결되면 PM에 알려주기(tranche_rules --us-execute 기록)"
+    "done": true,
+    "text": "🇺🇸 오늘 밤 22:30~ VOO $98.91 소수점 시장가(미국 트랙 2회차 잔액 일부 · d256) — 체결되면 PM에 알려주기(tranche_rules --us-execute 기록)",
+    "done_note": "10/29 22:30:12 체결 0.139834주 @$706.62 · $98.81+$0.09 · us_track·trades·portfolio 기록"
    },
    {
     "id": "t1029-8",
@@ -1197,12 +1198,12 @@
    "label": "VOO 미국 트랙 2회차 잔액 일부 (d256)",
    "ticker": "VOO",
    "action": "매수",
-   "status": "계획",
-   "price": null,
-   "shares": "소수점 시장가 $98.91",
+   "status": "체결",
+   "price": 706.62,
+   "shares": "0.139834주",
    "amount_krw": null,
    "date": "2026-10-29",
-   "note": "정훈 10/29 21:3x 결정. 오늘 밤 美 정규장. 체결 후 tranche_rules.py --us-execute --tranche 2 --usd <체결액> --ticker VOO --filled-at <ISO> (회차는 GOOGL 몫 때문에 닫지 않는다).",
+   "note": "정훈 10/29 21:3x 결정. 오늘 밤 美 정규장. 체결 후 tranche_rules.py --us-execute --tranche 2 --usd <체결액> --ticker VOO --filled-at <ISO> (회차는 GOOGL 몫 때문에 닫지 않는다). ✅ 10/29 22:30:12 KST 체결 $98.81+수수료 $0.09 · 토스 API 확인 · 회차 잔액 $90.80",
    "setup_id": null
   },
   {

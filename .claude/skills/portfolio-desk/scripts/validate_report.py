@@ -34,6 +34,8 @@ HOLDINGS = {
     #        보유 15 → 14종목. 워치리스트로 이관(재진입 조건부).
     "MU": ["MU", "마이크론"],
     "AVGO": ["AVGO", "브로드컴"],
+    # [10/29] ANET 재편입 — 10/22 미국 트랙 2회차 1주 $177 체결(토스 대조로 장부 누락 보강) → 보유 13종목.
+    "ANET": ["ANET", "아리스타"],
 }
 ETF_NO_SCORE = {"VOO"}                 # ETF = 0~100 스코어 제외(null 허용)
 REQUIRED_COLS = ["stars", "target", "buy_zone", "trim", "comment"]  # +score(ETF 외)
@@ -354,6 +356,20 @@ def kr_band_base(tk: str, now: dt.datetime | None = None) -> dict | None:
             "want": want.isoformat(), "stale": d < want}
 
 
+def _verify_market_files() -> set:
+    """history_backfill.VERIFY_MARKETS의 캐시 파일명 집합(`^`·`=` → `_`). import 대신 AST로 읽는다."""
+    try:
+        src = pathlib.Path(ROOT, ".claude", "skills", "portfolio-desk", "scripts",
+                           "history_backfill.py").read_text(encoding="utf-8")
+        for node in ast.parse(src).body:
+            if (isinstance(node, ast.Assign) and any(getattr(t, "id", "") == "VERIFY_MARKETS"
+                                                     for t in node.targets)):
+                return {re.sub(r"[\^=]", "_", s) for _, s in ast.literal_eval(node.value)}
+    except Exception:
+        pass
+    return set()
+
+
 def check_history_cache():
     """data/history 일봉 캐시의 정지 여부 검사 [8/12 신설].
 
@@ -406,6 +422,18 @@ def check_history_cache():
         warn(f"history 캐시에 추적목록 밖 잔존 파일 {len(orphan)}개 — {info}"
              f"{' 외' if len(orphan) > 6 else ''} (워치 편입이면 portfolio.json에 등록, "
              f"아니면 정리 대상 — 8/12 ANET '워치 전환' 미배선이 이렇게 발각됐다)")
+    if not stale:
+        return
+    # [10/29] 룰 검증 표본(VERIFY_MARKETS)은 판정 경로에 안 들어간다 — vol_gauge·하드플로어·
+    #   가격밴드 어느 것도 안 읽는다. ^MERV는 Yahoo가 10/16 뒤 종가를 null로 주는데(원천 중단)
+    #   이게 FAIL이면 고칠 수 없는 걸로 게이트가 막힌다 → 그 몫만 WARN으로 따로 낸다.
+    verify = _verify_market_files()
+    vstale = [x for x in stale if x[0] in verify]
+    stale = [x for x in stale if x[0] not in verify]
+    if vstale:
+        warn("history 캐시 정지(룰 검증 표본 전용 — 판정 경로 밖) "
+             + ", ".join(f"{n}({a}d)" for n, _, a in vstale)
+             + " — Yahoo 원천 결측이면 고칠 수 없다. 횡단면 검정에 쓸 땐 끝 날짜를 확인할 것")
     if not stale:
         return
     stale.sort(key=lambda x: -x[2])

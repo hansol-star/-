@@ -1,14 +1,14 @@
 {
   "date": "2026-10-29",
-  "fx_usdkrw": 1336.49,
+  "fx_usdkrw": 1338.08,
   "kr_value": 1608100,
   "kr_pnl": -597600,
-  "us_value_usd": 3777.25,
-  "us_pnl_usd": 233.34,
+  "us_value_usd": 3963.97,
+  "us_pnl_usd": 243.06,
   "cash_krw": 2569,
-  "cash_usd": 733.74,
-  "total_assets_krw": 7639566,
-  "stock_pnl_krw": -285747,
+  "cash_usd": 556.66,
+  "total_assets_krw": 7659638,
+  "stock_pnl_krw": -272370,
   "positions": {
     "삼성전자": {
       "price": 232000.0,
@@ -57,6 +57,10 @@
     "AVGO": {
       "price": 351.81,
       "ret_pct": -16.45
+    },
+    "ANET": {
+      "price": 186.72,
+      "ret_pct": 5.49
     }
   },
   "index_state": {
@@ -215,6 +219,17 @@
       "struct": "up",
       "macd_h": 0.5,
       "pct_from_hi": -28.9
+    },
+    "ANET": {
+      "garch_fc": 48.4,
+      "storm_pct": 64.0,
+      "regime": "보통",
+      "bias": "혼조",
+      "rsi": 46.3,
+      "cross": "골든크로스(가격이탈·래깅)",
+      "struct": "up",
+      "macd_h": -1.4,
+      "pct_from_hi": -14.1
     }
   }
 }

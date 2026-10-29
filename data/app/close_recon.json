@@ -1,63 +1,61 @@
 {
- "date": "2026-10-22",
- "run_at": "2026-10-22 20:10",
+ "date": "2026-10-29",
+ "run_at": "2026-10-29 21:04",
  "status": "ok",
- "notes": [],
+ "notes": [
+  "정규장 캡처 없음(16:10 실행 누락) — 게이트②는 이날 |외인| ≥ 3,000억일 때만 부호를 인정하고 아니면 '판정 보류' · 매체 마감시황(정규장)으로 수기 보충하면 basis=regular로 적는다"
+ ],
  "kospi": {
-  "close": 5533.77,
-  "pct": -3.52,
+  "close": 5937.66,
+  "pct": -1.24,
   "peak": 9114.55,
   "peak_date": "2026-06-22",
-  "dd_pct": -39.29
+  "dd_pct": -34.86
  },
  "kosdaq": {
-  "close": 764.1,
-  "pct": -3.62
+  "close": 753.23,
+  "pct": -2.34
  },
  "first": {
-  "foreign": 610,
-  "inst": -4630,
-  "indiv": 3815,
-  "at": "16:10",
-  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
+  "foreign": 1221,
+  "inst": -4132,
+  "indiv": -429,
+  "at": "21:04",
+  "final": true,
+  "src": "네이버 시장수급 21:04 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
  },
  "flows": {
-  "foreign": 610,
-  "inst": -4630,
-  "indiv": 3815,
-  "at": "16:10",
-  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
- },
- "regular": {
-  "foreign": 610,
-  "inst": -4630,
-  "indiv": 3815,
-  "at": "16:10",
-  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
- },
- "integrated": {
-  "foreign": 505,
-  "inst": -4599,
-  "indiv": 3667,
-  "at": "20:10",
+  "foreign": 1221,
+  "inst": -4132,
+  "indiv": -429,
+  "at": "21:04",
   "final": true,
-  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
+  "src": "네이버 시장수급 21:04 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
  },
- "basis": "regular",
- "grade": "확정",
- "after_market_foreign": -105,
- "flows_action": "updated",
+ "regular": null,
+ "integrated": {
+  "foreign": 1221,
+  "inst": -4132,
+  "indiv": -429,
+  "at": "21:04",
+  "final": true,
+  "src": "네이버 시장수급 21:04 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
+ },
+ "basis": "integrated",
+ "grade": "통합만(정규장 캡처 없음)",
+ "flows_action": "kept_manual",
  "streak": {
-  "days": 2,
-  "side": "매수",
-  "cum_eok": 7203,
-  "lower_bound": false,
-  "gate2": true,
-  "basis": "regular",
-  "reason": "2거래일 연속 순매수"
+  "days": 0,
+  "side": "보류",
+  "cum_eok": 0,
+  "lower_bound": true,
+  "gate2": null,
+  "basis": "hold",
+  "reason": "2026-10-29 외인 +820억은 정규장 기준인지 모른다(정규장 캡처 없음 · |값| < 3,000억이라 애프터마켓이 부호를 바꿨을 수 있다)"
  },
  "pending_nulls": [
-  "2026-09-14"
+  "2026-09-14",
+  "2026-10-26"
  ],
  "history_audit": {
   "days": 7,
@@ -72,9 +70,9 @@
  "yahoo_audit": {
   "days": 30,
   "symbols": 55,
-  "checked": 1090,
+  "checked": 1091,
   "pending": 0,
-  "unverifiable": 2,
+  "unverifiable": 0,
   "error": null,
   "stuck": [],
   "recent_mismatch": 0,

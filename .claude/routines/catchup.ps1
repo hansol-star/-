@@ -76,7 +76,17 @@ else {
   # ★[2026-09-28] 15:30 → 20:00. C2가 못 봐도 C3(17:00)·대화형 보고서·다음날 C2는 본다.
   #   PC가 오후에 켜지는 날(9/16·9/23·9/28) 영상이 통째로 빠지는 쪽이 더 나쁘다(9/28 누적 34편).
   #   run_routine.ps1 $MaxLateMap r1=600과 짝.
+  # ★[2026-10-29] 연속 결손이면 20:00 뒤에도 민다. 10/23~10/29 PC가 꺼져 있다가(빠른 시작 종료 — 깨우기 타이머 무력)
+  #   10/29 20:38에 켜졌는데 20:00 컷오프로 넘겨 5평일·62편이 쌓였다. 직전 평일 R1 로그도 없으면 23:30까지 -Force로 돌린다.
+  $prevWd = $kst.Date.AddDays(-1)
+  while ($prevWd.DayOfWeek -eq 'Saturday' -or $prevWd.DayOfWeek -eq 'Sunday') { $prevWd = $prevWd.AddDays(-1) }
+  $prevRan = Test-Path (Join-Path $LogDir ("r1_{0}.log" -f $prevWd.ToString('yyyy-MM-dd')))
+  $forceR1 = $false
   if ($mins -ge 600 -and $mins -lt 1200 -and -not (Ran 'r1')) { $todo += 'r1' }
+  elseif ($mins -ge 1200 -and $mins -lt 1410 -and -not (Ran 'r1') -and -not $prevRan) {
+    $todo += 'r1'; $forceR1 = $true
+    Say "R1 연속 결손 — 오늘·직전 평일($($prevWd.ToString('MM-dd'))) 모두 미실행 → 20:00 컷오프 무시(-Force)"
+  }
   elseif ($mins -ge 600 -and $mins -lt 1200 -and (Ran 'r1')) {
     # ★[2026-10-20] 돌았지만 아무것도 못 낸 날을 다시 민다. 舊 판정은 '로그 파일 존재 = 돌았다'라
     #   10/15 R1(10:00 세션 한도 → TOKEN_LIMIT · 13:10 리셋)을 '이미 돌았다'로 넘겨 그날 영상이 통째로 빠졌다.
@@ -114,7 +124,11 @@ if ($WhatIf) { Say "WhatIf — 실행 생략"; Say "=== 종료 ==="; exit 0 }
 
 foreach ($k in $todo) {
   Say "실행 → $k"
-  & powershell -ExecutionPolicy Bypass -File (Join-Path $Here 'run_routine.ps1') -Kind $k
+  if ($k -eq 'r1' -and $forceR1) {
+    & powershell -ExecutionPolicy Bypass -File (Join-Path $Here 'run_routine.ps1') -Kind $k -Force
+  } else {
+    & powershell -ExecutionPolicy Bypass -File (Join-Path $Here 'run_routine.ps1') -Kind $k
+  }
   Say "$k 종료 exit=$LASTEXITCODE"
 }
 Say "=== 종료 ==="

@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-29 16:23",
+ "updated": "2026-10-30 16:27",
  "days": 30,
  "note": "SEC 8-K item 코드 스트림. item 코드는 '사건이 있었다'는 사실이지 내용이 아니다 — 논지를 바꿀 건이면 원문 URL로 내려갈 것.",
- "as_of": "2026-10-29 07:23",
+ "as_of": "2026-10-30 07:27",
  "source": "SEC EDGAR",
  "events": [
   {
@@ -128,6 +128,33 @@
    "ticker": "META",
    "error": null,
    "events": [
+    {
+     "date": "2026-10-29",
+     "severity": "critical",
+     "items": [
+      {
+       "code": "1.01",
+       "label": "중대계약 체결",
+       "severity": "critical"
+      },
+      {
+       "code": "3.03",
+       "label": "주주권리 변경",
+       "severity": "notable"
+      },
+      {
+       "code": "5.03",
+       "label": "정관·회계연도 변경",
+       "severity": "routine"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526438017/d183592d8k.htm"
+    },
     {
      "date": "2026-10-21",
      "severity": "critical",

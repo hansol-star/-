@@ -1,0 +1,199 @@
+{
+ "updated": "2026-10-29",
+ "days": 2,
+ "universe": [
+  "005930",
+  "066570",
+  "454910",
+  "005380",
+  "035420"
+ ],
+ "counts": {
+  "critical": 0,
+  "notable": 11,
+  "routine": 21
+ },
+ "items": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261029",
+   "title": "주요사항보고서(자기주식처분결정)",
+   "level": "notable",
+   "category": "자사주",
+   "why": "수급·주주환원",
+   "rcept_no": "20261029000539",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029000539"
+  },
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261029",
+   "title": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261029800099",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800099"
+  },
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261029",
+   "title": "현금ㆍ현물배당결정",
+   "level": "notable",
+   "category": "배당",
+   "why": "주주환원",
+   "rcept_no": "20261029800101",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800101"
+  },
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261029",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261029800087",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800087"
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "date": "20261029",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261029800388",
+   "filer": "두산로보틱스",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800388"
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "date": "20261029",
+   "title": "현금ㆍ현물배당결정",
+   "level": "notable",
+   "category": "배당",
+   "why": "주주환원",
+   "rcept_no": "20261029800269",
+   "filer": "현대자동차",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800269"
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "date": "20261029",
+   "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정",
+   "level": "notable",
+   "category": "배당",
+   "why": "주주환원",
+   "rcept_no": "20261029800264",
+   "filer": "현대자동차",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800264"
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "date": "20261029",
+   "title": "주요사항보고서(자기주식처분결정)",
+   "level": "notable",
+   "category": "자사주",
+   "why": "수급·주주환원",
+   "rcept_no": "20261029000247",
+   "filer": "현대자동차",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029000247"
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "date": "20261029",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261029800228",
+   "filer": "현대자동차",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800228"
+  },
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "date": "20261028",
+   "title": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261028800266",
+   "filer": "LG전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800266"
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "date": "20261027",
+   "title": "타법인주식및출자증권취득결정",
+   "level": "notable",
+   "category": "투자",
+   "why": "capex 방향",
+   "rcept_no": "20261027800562",
+   "filer": "두산로보틱스",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800562"
+  }
+ ],
+ "insider": [
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "066570",
+   "name": "LG전자",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "454910",
+   "name": "두산로보틱스",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
+  }
+ ],
+ "major": [],
+ "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
+}

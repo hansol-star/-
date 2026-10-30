@@ -1,12 +1,12 @@
 {
- "checked_at": "2026-10-29 20:57",
+ "checked_at": "2026-10-30 22:11",
  "source": "toss",
  "open": [],
  "findings": [
   {
    "level": "info",
    "ticker": "ANET",
-   "msg": "ANET 매수 $182.00 미등록 — 정상(2회차에 ANET 이미 체결 — 다시 걸지 않는다(잔액 $189.70 → GOOGL 18% → VOO) · 지금 걸면 위반)"
+   "msg": "ANET 매수 $182.00 미등록 — 정상(2회차에 ANET 이미 체결 — 다시 걸지 않는다(잔액 $90.80 → GOOGL 18% → VOO) · 지금 걸면 위반)"
   }
  ],
  "counts": {
@@ -16,9 +16,9 @@
   "info": 1
  },
  "context": {
-  "kr_weight_pct": 24.2,
+  "kr_weight_pct": 23.3,
   "ladder_allowed_krw": 0.0,
-  "us_allowed_usd": 189.7,
-  "waiting_plans": 5
+  "us_allowed_usd": 90.8,
+  "waiting_plans": 4
  }
 }

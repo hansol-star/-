@@ -1,8 +1,68 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-10-30 자동 롤오버 +9편 (build_app_data)",
+  "updated": "2026-10-30 자동 롤오버 +6편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-10-29",
+      "title": "12월 금리 인상 확률 85%, 미국 증시가 오르는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "12월 인상 확률 85% — CME 원자료 미조회. FOMC 10-2 인상 소수의견은 [검증].",
+      "views": null,
+      "id": "9JAv6eHUUG8"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "10월 30일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "구글 -12%는 AI 수익화 의문 — 가격·배경 [검증]. 외인이 삼성·하닉 중 어디를 더 파는지 보라: 10/30 삼성 -107만주·하닉 -30만주.",
+      "views": null,
+      "id": "vwjSmbqnG4I"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "10월 30일 오늘 코스피 어떻게 흘러갈까?",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "야간선물 -2%대·외인 매수 지속 여부가 관건 — 외인 -1.6조 순매도로 결론.",
+      "views": null,
+      "id": "oR_A603kZgM"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "투자자들이 '젠슨황 중국 스파이' 사건을 꼭 알아야 하는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "메가스피드 조사 자체는 2025년 보도로 [검증], '스파이' 프레임과 2026년 신규 전개는 [미확인].",
+      "views": null,
+      "id": "hqUbRKYT_Oc"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "엔비디아 젠슨황을 둘러싼 스파이 의혹 실체",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "같은 사건 정리 — 최소 구매 $48억 vs 분기 매출 $962억 단순 비교 약 5%. 신규 1차 문서 미확인.",
+      "views": null,
+      "id": "lE2zaItUmoQ"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "중간선거까지 D-5, 어떤 주식들이 오르고 내릴까??",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "1950년 이후 중간선거 뒤 1년 매번 상승·평균 15% — 소표본 기저율, 미검증.",
+      "views": null,
+      "id": "qvslmy_PuX4"
+    },
     {
       "date": "2026-10-29",
       "title": "이번 실적발표로 확인된, 반도체 전망 진짜 역대급입니다",

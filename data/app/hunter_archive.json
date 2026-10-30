@@ -1,8 +1,121 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-10-22 자동 롤오버 +10편 (build_app_data)",
+  "updated": "2026-10-30 자동 롤오버 +9편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-10-29",
+      "title": "이번 실적발표로 확인된, 반도체 전망 진짜 역대급입니다",
+      "theme": null,
+      "tickers": [
+        "GOOGL",
+        "MU",
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": "대립·미결",
+      "takeaway": "알파벳 3Q capex $51.4B·가이던스 $195~205B 유지·FCF -$9.1B·시간외 약 -10%·클라우드 백로그 $561B(채널 인용) [미확인(불가: 사후 기사 미색인)], 2Q 기준선은 [검증]. 하이닉스 장기계약 14고객·2030년 공급부족, 하강 재현 3신호(CXMT 공급·빅테크 FCF·계약가) 병기 → 셋업 관찰. 삼성 107.4조[검증].",
+      "views": null,
+      "id": "fKb-mxpwg9M"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "GPT로 월가 전설 '워렌 버핏'의 종목 발굴법 똑같이 따라 하는 방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "버핏 원칙 소개 + 채널 GPT 프롬프트 광고. 구글/알파벳·13F·종목 콜 없음 — 버핏 GOOGL 매도 주장 아님.",
+      "views": null,
+      "id": "q5-d8mBoImI"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "삼성전자 투자자들이 앞으로 봐야할 '호재'와 '악재'",
+      "theme": null,
+      "tickers": [
+        "005930.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "3Q 영업이익 107조[검증], 반도체 106조·MX/가전 적자, 환율 -10조 영향, 투자 84조 대비 주문 가시성이 관건. 확정 발표일 10:45 -5%대[미확인(라이브)].",
+      "views": null,
+      "id": "PF3sSyC89R8"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "삼성전자는 왜 주주환원을 '30조' 밖에 못한 걸까?",
+      "theme": null,
+      "tickers": [
+        "005930.KS"
+      ],
+      "verdict": "검증",
+      "takeaway": "30조 배당은 8월 예고분[검증], 잔여 55~75조 배분은 연내 확정, 720조 잉여현금 추정은 [미확인(불가)].",
+      "views": null,
+      "id": "7-oQQbt7m74"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "SK하이닉스가 '60조 추가 주주환원'을 결정한 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "000660.KS"
+      ],
+      "verdict": "미확인",
+      "takeaway": "3Q 영업이익 83조·현금 98.7조·환원 100조·키옥시아 차익 특별배당 [미확인(불가: 사후 기사 미색인)], 컨센 77조는 사전 보도 일치.",
+      "views": null,
+      "id": "KFuMrDfE1AA"
+    },
+    {
+      "date": "2026-10-26",
+      "title": "골드만삭스가 코스피 전망을 '긴급하향'한 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "005930.KS",
+        "000660.KS"
+      ],
+      "verdict": "미확인",
+      "takeaway": "GS 코스피 12M 목표 12,000→9,000(현재 +60%), 반도체 이익 -65% 선반영, 블룸버그 선행이익 +22% [미확인(미시도)] — 방향은 기존 코어 논지와 일치.",
+      "views": null,
+      "id": "c7PXJ4x52Tg"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "미국 중간선거 전 로봇주 투자자들이 꼭 알아야 하는 5가지",
+      "theme": null,
+      "tickers": [
+        "454910.KS",
+        "005380.KS"
+      ],
+      "verdict": "방향검증",
+      "takeaway": "두산로보틱스 고점 -66%·현대차 고점 -62%(10/26 올해 최저), 현대차 3Q 컨센 3.1→2.4조, 두산로보 3Q 설명회 10/29 16:00 [미확인(결과대기)] — 룰2 판정과 정합.",
+      "views": null,
+      "id": "w6m8Spw6Pd8"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "현시점, AI 종목들 앞으로 어떻게 흘러갈까?",
+      "theme": null,
+      "tickers": [
+        "AVGO",
+        "GOOGL",
+        "NVDA"
+      ],
+      "verdict": "방향검증",
+      "takeaway": "구글 TPU→HBM 수요, 브로드컴 AI 매출 73%가 맞춤형 칩, 6사 FCF 압박(S&P, 회복 2029), 클라우드 3사 백로그 2,200조원 [미확인(미시도)] — 수페TV AVGO 데이터와 방향 정합.",
+      "views": null,
+      "id": "S-UGAzw1eqQ"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "월가에서 중간선거 끝나면 가장 많이 오를수 있다는 AI 종목",
+      "theme": null,
+      "tickers": [
+        "MTZ"
+      ],
+      "verdict": "미확인",
+      "takeaway": "MasTec(MTZ) 허가개혁 11/10 절차표결 수혜 논지, $181·GS PT $274 [미확인(불가: 단일 인용)] — 비보유 관찰 셋업.",
+      "views": null,
+      "id": "baVwu1kNRPE"
+    },
     {
       "date": "2026-10-22",
       "title": "한국정부가, 하이닉스 중복상장을 진짜 막을 수 있다는 이유",

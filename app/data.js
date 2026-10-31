@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-10-31 18:19 KST",
+  "generated_at": "2026-10-31 18:22 KST",
   "as_of": "2026-10-31 18:04",
   "source_report": "docs/reports/report_v126_2026-10-31.md",
   "offline": false,
@@ -28700,6 +28700,22 @@ window.APP_DATA = {
           "d205"
         ],
         "refs": "docs/reports/report_v123_2026-10-29.md"
+      },
+      {
+        "id": "d259",
+        "date": "2026-10-31",
+        "topic": "코어-위성 전환 검토 앞당김 — 룰7 게이트 안건 11월 상정",
+        "decision": "★정훈 결정 \"11월에 검토\". 룰7 안건 시점 2027-03-31을 기다리지 않고 11/14(토)까지 코어-위성 전환 검토안을 낸다. 전환 자체는 미결정 · 룰7 게이트 원문은 유지 · 지금 포지션 변경 없음. 검토안 범위 = 지수 코어 비중, 위성 종목 수, 전환 경로(신규 자금 우선·룰6 저점 매도 금지 정합), 세금, 대조군 포함 ①②③ 검정과 trial_registry 사전 등록.",
+        "rationale": "데스크 매매 기여 -4.43%p · 순가치 -6.32%p · 별점 CI 0/3 · 성과를 지배한 국내·달러 비중은 8/30까지 미설정.",
+        "rejected": "2027-03까지 유지",
+        "status": "open",
+        "tags": [
+          "룰7",
+          "코어위성",
+          "게이트",
+          "시스템평가"
+        ],
+        "refs": "docs/reports/report_v126_2026-10-31.md"
       }
     ],
     "closed": [
@@ -28976,8 +28992,8 @@ window.APP_DATA = {
         "refs": ""
       }
     ],
-    "open_count": 59,
-    "total": 275
+    "open_count": 60,
+    "total": 276
   },
   "reports": [
     {
@@ -31082,6 +31098,12 @@ window.APP_DATA = {
     ],
     "month": [
       {
+        "id": "m1114-core",
+        "added": "2026-10-31",
+        "done": false,
+        "text": "[PM] 11/14(토)까지 코어-위성 전환 검토안 제출(d259) — 코어 비중·위성 수·전환 경로·세금·검정. 전환은 정훈 승인 전까지 없음"
+      },
+      {
         "id": "m0920-1",
         "text": "9/30(수) 21:30 美 8월 PCE — 폰창 밖, 사전 조건부 룰만",
         "done": true,
@@ -31207,7 +31229,7 @@ window.APP_DATA = {
     },
     "month": {
       "done": 8,
-      "total": 19
+      "total": 20
     }
   },
   "orders": [
@@ -37067,7 +37089,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "performance": {
-    "generated_at": "2026-10-31 18:19",
+    "generated_at": "2026-10-31 18:22",
     "from": "2026-06-15",
     "to": "2026-10-30",
     "days": 99,

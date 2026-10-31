@@ -124,3 +124,12 @@
 {"run_at": "2026-10-23 00:16", "symbol": "010140.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 17320.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
 {"run_at": "2026-10-23 00:16", "symbol": "329180.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 309000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
 {"run_at": "2026-10-23 00:16", "symbol": "207940.KS", "date": "2026-10-22", "kind": "patched", "old": null, "new": 1361000.0, "src": "toss-1분봉 15:40(KRX 정규장 종가)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^KS11", "date": "2026-10-30", "kind": "unverified", "old": 5730.7402, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^KQ11", "date": "2026-10-30", "kind": "unverified", "old": 724.38, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^N225", "date": "2026-10-30", "kind": "unverified", "old": 63290.1094, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^HSI", "date": "2026-10-30", "kind": "unverified", "old": 23294.4199, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "000001.SS", "date": "2026-10-30", "kind": "unverified", "old": 3599.0166, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^TWII", "date": "2026-10-30", "kind": "unverified", "old": 45211.8281, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^BSESN", "date": "2026-10-30", "kind": "unverified", "old": 74459.5312, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^JKSE", "date": "2026-10-30", "kind": "unverified", "old": 5057.0498, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-10-31 09:26", "symbol": "^KLSE", "date": "2026-10-30", "kind": "unverified", "old": 1615.6, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}

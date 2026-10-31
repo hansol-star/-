@@ -5,8 +5,8 @@
  "currency": "KRW",
  "source": "Yahoo fundamentals-timeseries",
  "depth": "full",
- "as_of": "2026-10-14",
- "saved_at": "2026-10-14",
+ "as_of": "2026-10-31",
+ "saved_at": "2026-10-31",
  "annual": [
   {
    "end": "2025-12-31",
@@ -163,7 +163,7 @@
    "operating_income": 60542608000000.0,
    "net_income": 93820236000000.0,
    "eps_diluted": 131478.0,
-   "shares_diluted": 713581253.0,
+   "shares_diluted": 711647617.0,
    "assets": 348862214000000.0,
    "liabilities": 86168986000000.0,
    "equity": 262380610000000.0,
@@ -190,7 +190,7 @@
    "net_income_yoy": 1240.8201,
    "inventory_yoy": 34.1383,
    "receivables_yoy": 264.3477,
-   "shares_yoy": -2.3026,
+   "shares_yoy": -2.5674,
    "deferred_yoy": null
   },
   {

@@ -1,18 +1,30 @@
 {
- "updated": "2026-10-30",
+ "updated": "2026-10-31",
  "covered": [
+  "000660.KS",
   "005380.KS",
   "005930.KS",
+  "009150.KS",
+  "012450.KS",
+  "034020.KS",
   "035420.KS",
+  "042660.KS",
   "066570.KS",
+  "096770.KS",
   "454910.KS",
+  "AMAT",
   "ANET",
   "AVGO",
+  "CDNS",
+  "GEV",
   "GOOGL",
+  "ISRG",
   "MSFT",
   "MU",
   "NVDA",
-  "ORCL"
+  "ORCL",
+  "TMUS",
+  "TSM"
  ],
  "errors": {},
  "stocks": {
@@ -24,7 +36,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2026-01-25",
@@ -644,7 +656,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2026-09-03",
@@ -1831,7 +1843,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2026-06-30",
@@ -2435,7 +2447,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -3043,7 +3055,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-11-02",
@@ -3664,7 +3676,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -4930,7 +4942,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2026-05-31",
@@ -5595,7 +5607,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -5985,7 +5997,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6360,7 +6372,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6743,7 +6755,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -7118,7 +7130,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-30",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -7895,7 +7907,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -8056,6 +8068,49 @@
     }
    ],
    "quarterly": [
+    {
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "revenue": 12642000000,
+     "gross_profit": 3107000000,
+     "operating_income": 1394000000,
+     "net_income": 1291000000,
+     "eps_diluted": 4.81,
+     "shares_diluted": 268000000,
+     "rnd": 358000000,
+     "assets": 86220000000,
+     "liabilities": 73682000000,
+     "equity": 11382000000,
+     "cash": 16764000000,
+     "inventory": 13045000000,
+     "receivables": 11587000000,
+     "assets_current": 51681000000,
+     "liabilities_current": 62467000000,
+     "deferred_revenue": 45669000000,
+     "cfo": 6057000000,
+     "capex": 647000000,
+     "buyback": 1625000000,
+     "total_debt": 2795000000,
+     "fcf": 5410000000,
+     "_derived": [
+      "ytd_diff: cfo,capex,buyback"
+     ],
+     "gross_margin": 0.2458,
+     "op_margin": 0.1103,
+     "net_margin": 0.1021,
+     "fcf_margin": 0.4279,
+     "roe": 0.1134,
+     "debt_to_equity": 0.2456,
+     "current_ratio": 0.8273,
+     "net_cash": 13969000000,
+     "revenue_yoy": 26.8131,
+     "eps_yoy": 193.2927,
+     "net_income_yoy": 185.6195,
+     "inventory_yoy": 30.0339,
+     "receivables_yoy": 57.1332,
+     "shares_yoy": -2.5455,
+     "deferred_yoy": 126.6339
+    },
     {
      "end": "2026-06-30",
      "period": "quarterly",
@@ -8358,49 +8413,6 @@
      "receivables_yoy": null,
      "shares_yoy": null,
      "deferred_yoy": 16.6711
-    },
-    {
-     "end": "2024-09-30",
-     "period": "quarterly",
-     "revenue": 8913000000,
-     "gross_profit": 1109000000,
-     "operating_income": -359000000,
-     "net_income": -96000000,
-     "eps_diluted": -0.35,
-     "shares_diluted": 275000000,
-     "rnd": 243000000,
-     "assets": 50853000000,
-     "liabilities": 40336000000,
-     "equity": 9504000000,
-     "cash": 7395000000,
-     "inventory": 9377000000,
-     "receivables": null,
-     "assets_current": 33141000000,
-     "liabilities_current": 31233000000,
-     "deferred_revenue": 16908000000,
-     "cfo": 1127000000,
-     "capex": 159000000,
-     "buyback": 40000000.0,
-     "total_debt": null,
-     "fcf": 968000000,
-     "_derived": [
-      "ytd_diff: cfo,capex,buyback"
-     ],
-     "gross_margin": 0.1244,
-     "op_margin": -0.0403,
-     "net_margin": -0.0108,
-     "fcf_margin": 0.1086,
-     "roe": -0.0101,
-     "debt_to_equity": null,
-     "current_ratio": 1.0611,
-     "net_cash": null,
-     "revenue_yoy": 7.9971,
-     "eps_yoy": 43.5484,
-     "net_income_yoy": 43.5294,
-     "inventory_yoy": null,
-     "receivables_yoy": null,
-     "shares_yoy": 0.365,
-     "deferred_yoy": null
     }
    ],
    "flags": [
@@ -8422,23 +8434,23 @@
     {
      "code": "receivable_divergence",
      "severity": "med",
-     "message": "매출채권 YoY +59.7% 가 매출 YoY +21.9% 를 크게 상회 — 매출의 질 점검",
+     "message": "매출채권 YoY +57.1% 가 매출 YoY +26.8% 를 크게 상회 — 매출의 질 점검",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "receivables_yoy": 59.7438,
-       "revenue_yoy": 21.8747
+       "end": "2026-09-30",
+       "receivables_yoy": 57.1332,
+       "revenue_yoy": 26.8131
       }
      ]
     },
     {
      "code": "backlog_growth",
      "severity": "bull",
-     "message": "계약부채(선수금·백로그) YoY +103.8% — 수주 잔고 확대",
+     "message": "계약부채(선수금·백로그) YoY +126.6% — 수주 잔고 확대",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "deferred_yoy": 103.7647
+       "end": "2026-09-30",
+       "deferred_yoy": 126.6339
       }
      ]
     },
@@ -8457,13 +8469,13 @@
      ]
     }
    ],
-   "fund_subscore": 83.9,
+   "fund_subscore": 97.4,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
-     "score": 20.7,
+     "score": 25,
      "max": 25,
-     "why": "분기 희석EPS YoY +32.8%"
+     "why": "분기 희석EPS YoY +193.3%"
     },
     "A_연간EPS": {
      "score": 25,
@@ -8471,9 +8483,9 @@
      "why": "연간 희석EPS YoY +217.0%"
     },
     "마진방향": {
-     "score": 10.8,
+     "score": 20,
      "max": 20,
-     "why": "영업마진 +0.39%p (최근 연속 3분기)"
+     "why": "영업마진 +9.11%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 12.4,
@@ -8504,7 +8516,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -8723,6 +8735,49 @@
     }
    ],
    "quarterly": [
+    {
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "revenue": 23584000000,
+     "gross_profit": null,
+     "operating_income": 5661000000,
+     "net_income": 3455000000,
+     "eps_diluted": 3.22,
+     "shares_diluted": 1071630434,
+     "rnd": null,
+     "assets": 213104000000,
+     "liabilities": 156797000000,
+     "equity": 56307000000,
+     "cash": 5620000000,
+     "inventory": 3085000000,
+     "receivables": 5012000000,
+     "assets_current": 21842000000,
+     "liabilities_current": 23991000000,
+     "deferred_revenue": 1407000000,
+     "cfo": 7341000000,
+     "capex": 2270000000,
+     "buyback": 2418000000,
+     "total_debt": 6343000000,
+     "fcf": 5071000000,
+     "_derived": [
+      "liabilities=assets-equity"
+     ],
+     "gross_margin": null,
+     "op_margin": 0.24,
+     "net_margin": 0.1465,
+     "fcf_margin": 0.215,
+     "roe": 0.0614,
+     "debt_to_equity": 0.1127,
+     "current_ratio": 0.9104,
+     "net_cash": -723000000,
+     "revenue_yoy": 7.4099,
+     "eps_yoy": 33.61,
+     "net_income_yoy": 27.3029,
+     "inventory_yoy": 30.1688,
+     "receivables_yoy": -1.4162,
+     "shares_yoy": -4.8816,
+     "deferred_yoy": -5.38
+    },
     {
      "end": "2026-06-30",
      "period": "quarterly",
@@ -9031,72 +9086,18 @@
      "receivables_yoy": -8.8662,
      "shares_yoy": -3.8326,
      "deferred_yoy": 48.1212
-    },
-    {
-     "end": "2024-09-30",
-     "period": "quarterly",
-     "revenue": 20162000000,
-     "gross_profit": null,
-     "operating_income": 4796000000,
-     "net_income": 3059000000,
-     "eps_diluted": 2.61,
-     "shares_diluted": 1170649561,
-     "rnd": null,
-     "assets": 210742000000,
-     "liabilities": 146492000000,
-     "equity": 64250000000,
-     "cash": 9754000000,
-     "inventory": 1789000000,
-     "receivables": 4286000000,
-     "assets_current": 22531000000,
-     "liabilities_current": 20955000000,
-     "deferred_revenue": 1125000000,
-     "cfo": 6139000000,
-     "capex": 1961000000,
-     "buyback": 560000000,
-     "total_debt": 5851000000,
-     "fcf": 4178000000,
-     "_derived": [
-      "liabilities=assets-equity"
-     ],
-     "gross_margin": null,
-     "op_margin": 0.2379,
-     "net_margin": 0.1517,
-     "fcf_margin": 0.2072,
-     "roe": 0.0476,
-     "debt_to_equity": 0.0911,
-     "current_ratio": 1.0752,
-     "net_cash": 3903000000,
-     "revenue_yoy": 4.7268,
-     "eps_yoy": 43.4066,
-     "net_income_yoy": 42.8105,
-     "inventory_yoy": 6.1721,
-     "receivables_yoy": -4.7556,
-     "shares_yoy": -0.3185,
-     "deferred_yoy": 35.5422
     }
    ],
    "flags": [
     {
      "code": "inventory_surge",
      "severity": "high",
-     "message": "재고 YoY +29.6% 가 매출 YoY +7.9% 를 21.8%p 초과 — 사이클 정점 선행신호",
+     "message": "재고 YoY +30.2% 가 매출 YoY +7.4% 를 22.8%p 초과 — 사이클 정점 선행신호",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "inventory_yoy": 29.645,
-       "revenue_yoy": 7.8507
-      }
-     ]
-    },
-    {
-     "code": "backlog_growth",
-     "severity": "bull",
-     "message": "계약부채(선수금·백로그) YoY +18.2% — 수주 잔고 확대",
-     "evidence": [
-      {
-       "end": "2026-06-30",
-       "deferred_yoy": 18.2416
+       "end": "2026-09-30",
+       "inventory_yoy": 30.1688,
+       "revenue_yoy": 7.4099
       }
      ]
     },
@@ -9115,13 +9116,13 @@
      ]
     }
    ],
-   "fund_subscore": 66.0,
+   "fund_subscore": 72.2,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
-     "score": 13.8,
+     "score": 20.9,
      "max": 25,
-     "why": "분기 희석EPS YoY +5.3%"
+     "why": "분기 희석EPS YoY +33.6%"
     },
     "A_연간EPS": {
      "score": 12.7,
@@ -9129,9 +9130,9 @@
      "why": "연간 희석EPS YoY +0.6%"
     },
     "마진방향": {
-     "score": 20,
+     "score": 19.1,
      "max": 20,
-     "why": "영업마진 +8.74%p (최근 연속 3분기)"
+     "why": "영업마진 +4.54%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 15,
@@ -9162,7 +9163,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -9319,7 +9320,7 @@
      "operating_income": 60542608000000.0,
      "net_income": 93820236000000.0,
      "eps_diluted": 131478.0,
-     "shares_diluted": 713581253.0,
+     "shares_diluted": 711647617.0,
      "assets": 348862214000000.0,
      "liabilities": 86168986000000.0,
      "equity": 262380610000000.0,
@@ -9346,7 +9347,7 @@
      "net_income_yoy": 1240.8201,
      "inventory_yoy": 34.1383,
      "receivables_yoy": 264.3477,
-     "shares_yoy": -2.3026,
+     "shares_yoy": -2.5674,
      "deferred_yoy": null
     },
     {
@@ -9526,7 +9527,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -9916,7 +9917,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -10303,7 +10304,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -10678,7 +10679,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -11780,7 +11781,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -12926,7 +12927,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": null,
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -12935,8 +12936,8 @@
      "gross_profit": 2281294000000.0,
      "operating_income": 1936095600000.0,
      "net_income": 1697604000000.0,
-     "eps_diluted": 331.25,
-     "shares_diluted": 5186111400.0,
+     "eps_diluted": 327.35,
+     "shares_diluted": 5186120000.0,
      "assets": 7932842500000.0,
      "liabilities": 2536623300000.0,
      "equity": 5355038700000.0,
@@ -12959,11 +12960,11 @@
      "current_ratio": 2.5073,
      "net_cash": 1703273700000.0,
      "revenue_yoy": 31.605,
-     "eps_yoy": 46.4088,
+     "eps_yoy": 44.6851,
      "net_income_yoy": 46.5498,
      "inventory_yoy": 0.0836,
      "receivables_yoy": 3.0916,
-     "shares_yoy": 0.0035,
+     "shares_yoy": 0.0037,
      "deferred_yoy": null
     },
     {
@@ -13076,6 +13077,44 @@
    ],
    "quarterly": [
     {
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "revenue": 1494243000000.0,
+     "gross_profit": 992379000000.0,
+     "operating_income": 876445000000.0,
+     "net_income": 763064000000.0,
+     "eps_diluted": 147.125773,
+     "shares_diluted": 5186474013.0,
+     "assets": 10052888000000.0,
+     "liabilities": 3009660000000.0,
+     "equity": 6997902000000.0,
+     "cash": 3621894000000.0,
+     "inventory": 427753000000.0,
+     "receivables": 483557000000.0,
+     "assets_current": 5084926000000.0,
+     "liabilities_current": 1967745000000.0,
+     "total_debt": 983513000000.0,
+     "cfo": 919776000000.0,
+     "capex": 443206000000.0,
+     "fcf": 476570000000.0,
+     "_derived": [],
+     "gross_margin": 0.6641,
+     "op_margin": 0.5865,
+     "net_margin": 0.5107,
+     "fcf_margin": 0.3189,
+     "roe": 0.109,
+     "debt_to_equity": 0.1405,
+     "current_ratio": 2.5841,
+     "net_cash": 2638381000000.0,
+     "revenue_yoy": 50.9461,
+     "eps_yoy": 68.7222,
+     "net_income_yoy": 68.7067,
+     "inventory_yoy": 48.1708,
+     "receivables_yoy": 58.2955,
+     "shares_yoy": -0.0009,
+     "deferred_yoy": null
+    },
+    {
      "end": "2026-06-30",
      "period": "quarterly",
      "revenue": 1270380250000.0,
@@ -13104,14 +13143,7 @@
      "roe": 0.1098,
      "debt_to_equity": 0.1656,
      "current_ratio": 2.4576,
-     "net_cash": 2069268618000.0,
-     "revenue_yoy": 36.0453,
-     "eps_yoy": 77.4089,
-     "net_income_yoy": 77.4064,
-     "inventory_yoy": 26.7365,
-     "receivables_yoy": 86.6963,
-     "shares_yoy": 0.0112,
-     "deferred_yoy": null
+     "net_cash": 2069268618000.0
     },
     {
      "end": "2026-03-31",
@@ -13178,12 +13210,12 @@
     {
      "end": "2025-09-30",
      "period": "quarterly",
-     "revenue": 989918318000.0,
-     "gross_profit": 588542829000.0,
-     "operating_income": 500685080000.0,
-     "net_income": 452301407000.0,
+     "revenue": 989918000000.0,
+     "gross_profit": 588543000000.0,
+     "operating_income": 500685000000.0,
+     "net_income": 452302000000.0,
      "eps_diluted": 87.2,
-     "shares_diluted": 5186008600.0,
+     "shares_diluted": 5186523104.0,
      "assets": 7354107076000.0,
      "liabilities": 2318529274000.0,
      "equity": 4998306972000.0,
@@ -13193,82 +13225,38 @@
      "assets_current": 3436015312000.0,
      "liabilities_current": 1275906624000.0,
      "total_debt": 1025432865000.0,
-     "cfo": 426829081000.0,
-     "capex": 288443339000.0,
-     "fcf": 138385742000.0,
+     "cfo": 426829000000.0,
+     "capex": 287452000000.0,
+     "fcf": 139377000000.0,
      "_derived": [],
      "gross_margin": 0.5945,
      "op_margin": 0.5058,
      "net_margin": 0.4569,
-     "fcf_margin": 0.1398,
+     "fcf_margin": 0.1408,
      "roe": 0.0905,
      "debt_to_equity": 0.2052,
      "current_ratio": 2.693,
      "net_cash": 1445326519000.0
-    },
-    {
-     "end": "2025-06-30",
-     "period": "quarterly",
-     "revenue": 933791869000.0,
-     "gross_profit": 547369238000.0,
-     "operating_income": 463440498000.0,
-     "net_income": 398273102000.0,
-     "eps_diluted": 76.8,
-     "shares_diluted": 5185775400.0,
-     "assets": 7006349549000.0,
-     "liabilities": 2389717699000.0,
-     "equity": 4581073975000.0,
-     "cash": 2364524340000.0,
-     "inventory": 304193716000.0,
-     "receivables": 233407179000.0,
-     "assets_current": 3264917475000.0,
-     "liabilities_current": 1377314334000.0,
-     "total_debt": 1009248740000.0,
-     "cfo": 497064000000.0,
-     "capex": 297226000000.0,
-     "fcf": 199838000000.0,
-     "_derived": [],
-     "gross_margin": 0.5862,
-     "op_margin": 0.4963,
-     "net_margin": 0.4265,
-     "fcf_margin": 0.214,
-     "roe": 0.0869,
-     "debt_to_equity": 0.2203,
-     "current_ratio": 2.3705,
-     "net_cash": 1355275600000.0
     }
    ],
-   "flags": [
-    {
-     "code": "receivable_divergence",
-     "severity": "med",
-     "message": "매출채권 YoY +86.7% 가 매출 YoY +36.0% 를 크게 상회 — 매출의 질 점검",
-     "evidence": [
-      {
-       "end": "2026-06-30",
-       "receivables_yoy": 86.6963,
-       "revenue_yoy": 36.0453
-      }
-     ]
-    }
-   ],
-   "fund_subscore": 99.1,
+   "flags": [],
+   "fund_subscore": 89.8,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
      "score": 25,
      "max": 25,
-     "why": "분기 희석EPS YoY +77.4%"
+     "why": "분기 희석EPS YoY +68.7%"
     },
     "A_연간EPS": {
-     "score": 24.1,
+     "score": 23.7,
      "max": 25,
-     "why": "연간 희석EPS YoY +46.4%"
+     "why": "연간 희석EPS YoY +44.7%"
     },
     "마진방향": {
-     "score": 20,
+     "score": 11.1,
      "max": 20,
-     "why": "영업마진 +6.34%p (최근 연속 3분기)"
+     "why": "영업마진 +0.55%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 15,
@@ -13291,7 +13279,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-10-26",
@@ -13908,13 +13896,13 @@
   },
   "CDNS": {
    "ticker": "CDNS",
-   "name": "CADENCE DESIGN SYSTEMS, INC.",
+   "name": "Cadence Design Systems, Inc.",
    "region": "US",
    "currency": "USD",
-   "source": "SEC EDGAR XBRL companyfacts + 신고 원본 XBRL 1건(companyfacts 미반영)",
+   "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -14134,6 +14122,50 @@
    ],
    "quarterly": [
     {
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "revenue": 1633311000,
+     "gross_profit": null,
+     "operating_income": 428716000,
+     "net_income": 289747000,
+     "eps_diluted": 1.05,
+     "shares_diluted": 275278000,
+     "rnd": 537541000,
+     "assets": 12224774000,
+     "liabilities": 5349523000,
+     "equity": 6875251000,
+     "cash": 1452020000,
+     "inventory": 448824000,
+     "receivables": 1110591000,
+     "assets_current": 3353887000,
+     "liabilities_current": 2466479000,
+     "deferred_revenue": 1012305000,
+     "cfo": 423725000,
+     "capex": 61806000,
+     "buyback": 400019000,
+     "total_debt": 2483242000,
+     "fcf": 361919000,
+     "_derived": [
+      "ytd_diff: cfo,capex,buyback",
+      "liabilities=assets-equity"
+     ],
+     "gross_margin": null,
+     "op_margin": 0.2625,
+     "net_margin": 0.1774,
+     "fcf_margin": 0.2216,
+     "roe": 0.0421,
+     "debt_to_equity": 0.3612,
+     "current_ratio": 1.3598,
+     "net_cash": -1031222000,
+     "revenue_yoy": 21.9947,
+     "eps_yoy": 0.0,
+     "net_income_yoy": 0.9142,
+     "inventory_yoy": 56.8256,
+     "receivables_yoy": 47.0465,
+     "shares_yoy": 0.5405,
+     "deferred_yoy": 30.5722
+    },
+    {
      "end": "2026-06-30",
      "period": "quarterly",
      "revenue": 1584451000,
@@ -14159,7 +14191,6 @@
      "fcf": 582301000,
      "_derived": [
       "ytd_diff: cfo,capex,buyback",
-      "신고 원본 XBRL 보충(companyfacts 미반영 10-Q 0000813672-26-000092 · 2026-07-29 신고)",
       "liabilities=assets-equity"
      ],
      "gross_margin": null,
@@ -14445,58 +14476,18 @@
      "receivables_yoy": 39.0897,
      "shares_yoy": 0.6908,
      "deferred_yoy": 10.8852
-    },
-    {
-     "end": "2024-09-30",
-     "period": "quarterly",
-     "revenue": 1215499000,
-     "gross_profit": null,
-     "operating_income": 350056000,
-     "net_income": 238111000,
-     "eps_diluted": 0.87,
-     "shares_diluted": 273958000,
-     "rnd": 407369000,
-     "assets": 9167031000,
-     "liabilities": 4603693000,
-     "equity": 4563338000,
-     "cash": 2786040000,
-     "inventory": 293350000,
-     "receivables": 560973000,
-     "assets_current": 4099923000,
-     "liabilities_current": 1674994000,
-     "deferred_revenue": 697836000,
-     "cfo": 409995000,
-     "capex": 26540000,
-     "buyback": 150008000,
-     "total_debt": 2825190000,
-     "fcf": 383455000,
-     "_derived": [
-      "ytd_diff: cfo,capex,buyback",
-      "liabilities=assets-equity"
-     ],
-     "gross_margin": null,
-     "op_margin": 0.288,
-     "net_margin": 0.1959,
-     "fcf_margin": 0.3155,
-     "roe": 0.0522,
-     "debt_to_equity": 0.6191,
-     "current_ratio": 2.4477,
-     "net_cash": -39150000,
-     "revenue_yoy": 18.8062,
-     "eps_yoy": -6.4516,
-     "net_income_yoy": -6.3738,
-     "inventory_yoy": 79.2074,
-     "receivables_yoy": 31.5279,
-     "shares_yoy": 0.562,
-     "deferred_yoy": 4.795
     }
    ],
    "flags": [
     {
      "code": "margin_trend_break",
      "severity": "high",
-     "message": "영업마진 2분기 연속 하락 (32.2%→29.3%→28.4%)",
+     "message": "영업마진 2분기 연속 하락 (29.3%→28.4%→26.2%)",
      "evidence": [
+      {
+       "end": "2026-09-30",
+       "op_margin": 0.2625
+      },
       {
        "end": "2026-06-30",
        "op_margin": 0.2842
@@ -14504,45 +14495,41 @@
       {
        "end": "2026-03-31",
        "op_margin": 0.2926
-      },
-      {
-       "end": "2025-12-31",
-       "op_margin": 0.3217
       }
      ]
     },
     {
      "code": "inventory_surge",
      "severity": "high",
-     "message": "재고 YoY +72.6% 가 매출 YoY +24.2% 를 48.4%p 초과 — 사이클 정점 선행신호",
+     "message": "재고 YoY +56.8% 가 매출 YoY +22.0% 를 34.8%p 초과 — 사이클 정점 선행신호",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "inventory_yoy": 72.6099,
-       "revenue_yoy": 24.2277
+       "end": "2026-09-30",
+       "inventory_yoy": 56.8256,
+       "revenue_yoy": 21.9947
       }
      ]
     },
     {
      "code": "receivable_divergence",
      "severity": "med",
-     "message": "매출채권 YoY +58.9% 가 매출 YoY +24.2% 를 크게 상회 — 매출의 질 점검",
+     "message": "매출채권 YoY +47.0% 가 매출 YoY +22.0% 를 크게 상회 — 매출의 질 점검",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "receivables_yoy": 58.9193,
-       "revenue_yoy": 24.2277
+       "end": "2026-09-30",
+       "receivables_yoy": 47.0465,
+       "revenue_yoy": 21.9947
       }
      ]
     },
     {
      "code": "backlog_growth",
      "severity": "bull",
-     "message": "계약부채(선수금·백로그) YoY +40.4% — 수주 잔고 확대",
+     "message": "계약부채(선수금·백로그) YoY +30.6% — 수주 잔고 확대",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "deferred_yoy": 40.4408
+       "end": "2026-09-30",
+       "deferred_yoy": 30.5722
       }
      ]
     },
@@ -14561,13 +14548,13 @@
      ]
     }
    ],
-   "fund_subscore": 71.4,
+   "fund_subscore": 60.4,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
-     "score": 25,
+     "score": 12.5,
      "max": 25,
-     "why": "분기 희석EPS YoY +125.4%"
+     "why": "분기 희석EPS YoY +0.0%"
     },
     "A_연간EPS": {
      "score": 13.9,
@@ -14575,9 +14562,9 @@
      "why": "연간 희석EPS YoY +5.5%"
     },
     "마진방향": {
-     "score": 2.5,
+     "score": 4.0,
      "max": 20,
-     "why": "영업마진 -3.75%p (최근 연속 3분기)"
+     "why": "영업마진 -3.01%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 15,
@@ -14598,15 +14585,6 @@
      "cross": 1649781000.0,
      "gap_pct": 10.57
     }
-   ],
-   "edgar_supplement": [
-    {
-     "accn": "0000813672-26-000092",
-     "form": "10-Q",
-     "filed": "2026-07-29",
-     "period_end": "2026-06-30",
-     "facts": 376
-    }
    ]
   },
   "ISRG": {
@@ -14617,7 +14595,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-14",
+   "as_of": "2026-10-31",
    "annual": [
     {
      "end": "2025-12-31",
@@ -14826,6 +14804,49 @@
     }
    ],
    "quarterly": [
+    {
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "revenue": 3048700000,
+     "gross_profit": 2084300000,
+     "operating_income": 592600000,
+     "net_income": 522800000,
+     "eps_diluted": 1.49,
+     "shares_diluted": 351600000,
+     "rnd": 408300000,
+     "assets": 19349100000,
+     "liabilities": 3231300000,
+     "equity": 15986200000,
+     "cash": 2978100000,
+     "inventory": 2128200000,
+     "receivables": 1721300000,
+     "assets_current": 8428300000,
+     "liabilities_current": 2533000000,
+     "deferred_revenue": 541200000,
+     "cfo": 1224100000,
+     "capex": 113100000,
+     "buyback": 2975700000,
+     "total_debt": null,
+     "fcf": 1111000000,
+     "_derived": [
+      "ytd_diff: cfo,capex,buyback"
+     ],
+     "gross_margin": 0.6837,
+     "op_margin": 0.1944,
+     "net_margin": 0.1715,
+     "fcf_margin": 0.3644,
+     "roe": 0.0327,
+     "debt_to_equity": null,
+     "current_ratio": 3.3274,
+     "net_cash": null,
+     "revenue_yoy": 21.6997,
+     "eps_yoy": -23.5897,
+     "net_income_yoy": -25.7808,
+     "inventory_yoy": 19.4343,
+     "receivables_yoy": 36.6436,
+     "shares_yoy": -2.8192,
+     "deferred_yoy": 10.2016
+    },
     {
      "end": "2026-06-30",
      "period": "quarterly",
@@ -15128,59 +15149,16 @@
      "receivables_yoy": 8.4233,
      "shares_yoy": 1.5931,
      "deferred_yoy": 5.0885
-    },
-    {
-     "end": "2024-09-30",
-     "period": "quarterly",
-     "revenue": 2038100000,
-     "gross_profit": 1373900000,
-     "operating_income": 577300000,
-     "net_income": 565100000,
-     "eps_diluted": 1.56,
-     "shares_diluted": 362700000,
-     "rnd": 286000000,
-     "assets": 17743400000,
-     "liabilities": 2065900000,
-     "equity": 15583300000,
-     "cash": 2413300000,
-     "inventory": 1481700000,
-     "receivables": 1153000000,
-     "assets_current": 7215600000,
-     "liabilities_current": 1676800000,
-     "deferred_revenue": 426000000,
-     "cfo": 706500000,
-     "capex": 247900000,
-     "buyback": 0.0,
-     "total_debt": null,
-     "fcf": 458600000,
-     "_derived": [
-      "ytd_diff: cfo,capex,buyback"
-     ],
-     "gross_margin": 0.6741,
-     "op_margin": 0.2833,
-     "net_margin": 0.2773,
-     "fcf_margin": 0.225,
-     "roe": 0.0363,
-     "debt_to_equity": null,
-     "current_ratio": 4.3032,
-     "net_cash": null,
-     "revenue_yoy": 16.8836,
-     "eps_yoy": 34.4828,
-     "net_income_yoy": 35.9394,
-     "inventory_yoy": 29.1242,
-     "receivables_yoy": 19.7673,
-     "shares_yoy": 1.2563,
-     "deferred_yoy": 7.9027
     }
    ],
    "flags": [],
-   "fund_subscore": 81.3,
+   "fund_subscore": 46.7,
    "graded_weight": 85,
    "axes": {
     "C_분기EPS": {
-     "score": 19.1,
+     "score": 6.6,
      "max": 25,
-     "why": "분기 희석EPS YoY +26.5%"
+     "why": "분기 희석EPS YoY -23.6%"
     },
     "A_연간EPS": {
      "score": 18.1,
@@ -15188,9 +15166,9 @@
      "why": "연간 희석EPS YoY +22.6%"
     },
     "마진방향": {
-     "score": 16.9,
+     "score": 0,
      "max": 20,
-     "why": "영업마진 +3.45%p (최근 연속 3분기)"
+     "why": "영업마진 -11.43%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 15,

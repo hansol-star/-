@@ -677,6 +677,49 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_calibration_debt",
+        "desc": "주말 캘리브레이션(R3)이 8일 넘게 밀리면 잡는가",
+        "why": "10/31 실사고 — 10/24 R3(18회차)가 통째로 안 돌았고(같은 주 보고서도 3거래일 공백), "
+               "알게 된 경로는 가드가 아니라 call_scorecard.md 최신 날짜를 사람이 눈으로 본 것이다. "
+               "check_routine_health의 입력은 로컬 상태파일이라 클라우드에서는 항상 '없음'만 낸다"
+               "(§3 #11). 루틴의 로그가 아니라 **산출물**로 판정한다. 픽스처 = 14일 묵은 스코어카드",
+        "pattern": r"캘리브레이션\(R3\) 부채",
+        "violate": {"docs/research/call_scorecard.md":
+                    "# 콜 스코어카드\n\n## 콜 검증 2026-10-17 (R3 · 17회차)\n\n내용\n"},
+        "clean": {"docs/research/call_scorecard.md":
+                  "# 콜 스코어카드\n\n## 콜 검증 2026-10-31 (R3 · 18회차)\n\n내용\n"},
+        "args": ("2026-10-31",),
+    },
+
+    {
+        "name": "check_tranche_fill_ledger",
+        "desc": "트랜치 원장에만 있는 체결(trades.jsonl에 행이 없는 매수)을 잡는가",
+        "why": "10/31 R3 실사고 — 10/22 ANET 1주 $177 체결을 10/23 세션이 --us-execute로 정식 기록했는데 "
+               "그 도구는 us_track.json에만 쓴다. trades.jsonl·portfolio.json에는 7일간 한 줄도 없었고 "
+               "(10/29 토스 대조로 발견) 그동안 performance·shadow_bench·trades --realized가 없는 주식으로 "
+               "돌았다. check_trade_ledger는 원장 '안의' 불일치를 보므로 행이 없으면 어긋날 것도 없다. "
+               "픽스처 = 체결 원장이 그 티커를 모르는 트랜치 원장",
+        "pattern": r"트랜치 원장에만 있는 체결",
+        "violate": {"data/app/us_track.json": json.dumps({"cycle": {
+                        "start": "2026-09-21", "n": 3,
+                        "schedule": ["2026-09-21", "2026-10-21", "2026-11-23"],
+                        "fills": [{"date": "2026-10-22", "session": "2026-10-22", "tranche": 2,
+                                   "usd": 177.17, "ticker": "ANET", "budget": 366.87}]}}),
+                    "data/app/trades.jsonl": json.dumps(
+                        {"date": "2026-09-22", "ticker": "GOOGL", "side": "buy", "shares": 0.218685,
+                         "price": 356.3115, "currency": "USD"}, ensure_ascii=False) + "\n"},
+        "clean": {"data/app/us_track.json": json.dumps({"cycle": {
+                      "start": "2026-09-21", "n": 3,
+                      "schedule": ["2026-09-21", "2026-10-21", "2026-11-23"],
+                      "fills": [{"date": "2026-10-22", "session": "2026-10-22", "tranche": 2,
+                                 "usd": 177.17, "ticker": "ANET", "budget": 366.87}]}}),
+                  "data/app/trades.jsonl": json.dumps(
+                      {"date": "2026-10-22", "ticker": "ANET", "side": "buy", "shares": 1.0,
+                       "price": 177.0, "currency": "USD"}, ensure_ascii=False) + "\n"},
+        "args": ("2026-10-31",),
+    },
+
+    {
         "name": "check_desk_value_gate",
         "desc": "게이트일 이후 데스크 매매 누적 기여가 음수면 코어-위성 전환 안건을 띄우는가",
         "why": "9/30 d222 — 76일 데스크 매매 -2.83%p. 게이트가 조용히 안 뜨면 '시스템이 쓸모를 증명한다'는 "

@@ -2274,6 +2274,102 @@ def check_us_ledger():
         warn(f"미국 트랙 원장 깨짐: {e}{tail}")
 
 
+def check_tranche_fill_ledger(today=None):
+    """트랜치 원장(us_track·kr_track)의 체결이 **체결 원장(trades.jsonl)에도 있나** [10/31 신설].
+
+    ★[10/31 R3 실사고] 10/22 22:33 ANET 1주 $177이 체결됐고, 10/23 00:20 세션이
+    `tranche_rules.py --us-execute`로 **정식 기록**했다. 그런데 그 도구는 `us_track.json`에만 쓴다 —
+    `trades.jsonl`·`portfolio.json`에는 **한 줄도 안 들어갔다**. 7일 뒤 10/29 대화형 토스 대조가
+    *"us_track에만 있던 체결"*로 발견해 보강했다(v123). 그동안 체결 원장은 보유 12종목이었고,
+    `performance`·`shadow_bench`·`trades --realized`·별점 풀표가 **없는 주식으로 돌았다.**
+
+    기존 가드가 왜 못 봤나 — `check_trade_ledger`(trades --reconcile)는 **원장 안의 불일치**를 보고,
+    토스 대조는 **로컬 전용**이다. 행이 아예 없으면 어긋날 것도 없다 ⇒ *"없는 것"을 묻는 축이 없었다.*
+    (8/22 '메타 성공 ≠ 생존'과 같은 형태 — 트랜치 원장은 성공적으로 기록됐다.)
+
+    판정: 체결일 **+1일**이 지난 트랜치 체결마다 trades.jsonl에 같은 티커 매수가 ±4일 안에 있어야 한다.
+    ⚠️ 금액은 비교하지 않는다(나눠 산 회차·수수료·분수주 때문에 오탐이 난다) — **행의 존재**만 본다.
+    """
+    import datetime as _dt
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    rows, seen = [], set()
+    tpath = os.path.join(ROOT, "data", "app", "trades.jsonl")
+    if not os.path.exists(tpath):
+        return
+    for ln in open(tpath, encoding="utf-8"):
+        ln = ln.strip()
+        if not ln:
+            continue
+        try:
+            r = json.loads(ln)
+        except Exception:  # noqa: BLE001
+            continue
+        if r.get("side") == "buy" and r.get("ticker") and r.get("date"):
+            rows.append((str(r["date"])[:10], str(r["ticker"])))
+    for fn, track in (("us_track.json", "미국"), ("kr_track.json", "국내")):
+        d = _json_opt(os.path.join("data", "app", fn))
+        if not isinstance(d, dict):
+            continue
+        for f in (d.get("cycle") or {}).get("fills") or []:
+            tk, fd = f.get("ticker"), str(f.get("date") or "")[:10]
+            if not tk or len(fd) != 10:
+                continue
+            try:
+                fdate = _dt.date.fromisoformat(fd)
+            except ValueError:
+                continue
+            if (today - fdate).days < 1:        # 당일 기록분은 유예
+                continue
+            hit = any(t == tk and abs((_dt.date.fromisoformat(rd) - fdate).days) <= 4
+                      for rd, t in rows)
+            key = (fn, fd, tk)
+            if not hit and key not in seen:
+                seen.add(key)
+                warn(f"트랜치 원장에만 있는 체결 — {track} 트랙 {fd} {tk} "
+                     f"{f.get('usd') or f.get('krw') or ''}: trades.jsonl에 매수 행이 없다 "
+                     "(--us-execute/--execute는 트랜치 원장만 쓴다 → `trades.py --add`로 체결 원장·"
+                     "portfolio.json까지 같이 기록할 것 · 10/22 ANET 7일 누락과 같은 형태)")
+
+
+def check_calibration_debt(today=None):
+    """주말 캘리브레이션(R3)이 밀렸으면 WARN [10/31 신설].
+
+    ★[10/31 실사고] **10/24 R3(18회차)가 통째로 안 돌았다.** 알게 된 경로는 가드가 아니라
+    `call_scorecard.md`의 최신 블록 날짜를 사람이 눈으로 본 것이다(10/17 다음이 10/31).
+    같은 주에 보고서도 10/22·10/23·10/26 **3거래일 공백**이었다 — 머신이 꺼져 있던 주다.
+    `check_routine_health`가 이 역할을 해야 하지만 그 입력(`data/logs/routines/last_status.json`)은
+    **로컬 머신에만 있고 .gitignore에 걸려** 클라우드에서는 항상 '상태파일 없음'만 낸다
+    (data_coverage §3 #11 — 2주 연속 판정 불능으로 적어 둔 그 구멍이 5주 더 돌았다).
+
+    ⇒ 루틴의 **산출물**로 판정한다(8/22 '메타 성공 ≠ 생존' — 실행 로그가 아니라 결과물을 본다).
+    R3는 주 1회이므로 최신 스코어카드 블록이 **8일**을 넘기면 캘리브레이션 부채가 생긴 것이다.
+    ⚠️ WARN이다 — R3를 못 돈 것 자체가 보고서를 막을 이유는 아니다. 다만 조용히 밀리지는 않게 한다.
+    """
+    import datetime as _dt
+    import re as _re
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    p = os.path.join(ROOT, "docs", "research", "call_scorecard.md")
+    if not os.path.exists(p):
+        return
+    m = _re.search(r"^## 콜 검증 (\d{4}-\d{2}-\d{2})", open(p, encoding="utf-8").read(), _re.M)
+    if not m:
+        warn("콜 스코어카드에서 최신 회차 날짜를 못 읽었다 — 헤딩 형식('## 콜 검증 YYYY-MM-DD') 확인")
+        return
+    try:
+        last = _dt.date.fromisoformat(m.group(1))
+    except ValueError:
+        return
+    age = (today - last).days
+    if age > 8:
+        warn(f"주말 캘리브레이션(R3) 부채 {age}일 — 최신 스코어카드가 {last.isoformat()}이다 "
+             "(주 1회 기준 8일 초과). self-review 스킬로 돌릴 것 · R3가 안 돌면 별점·목표가·"
+             "오미션 채점이 통째로 멈추고 그 사실을 아무도 안 본다(10/24 18회차 실제 누락)")
+
+
 def check_order_check(today=None):
     """토스 미체결 ↔ 계획 대조(order_check.py)의 마지막 결과를 읽는다 [9/21 신설].
 
@@ -3279,7 +3375,8 @@ def main():
     latest = latest_version(); check_versions(latest); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
-    check_order_check(); check_us_ledger(); check_monthly_dca(); check_desk_value_gate()
+    check_order_check(); check_us_ledger(); check_tranche_fill_ledger(); check_calibration_debt()
+    check_monthly_dca(); check_desk_value_gate()
     check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()

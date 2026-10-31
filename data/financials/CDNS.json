@@ -1,21 +1,12 @@
 {
  "ticker": "CDNS",
- "name": "CADENCE DESIGN SYSTEMS, INC.",
+ "name": "Cadence Design Systems, Inc.",
  "region": "US",
  "currency": "USD",
- "source": "SEC EDGAR XBRL companyfacts + 신고 원본 XBRL 1건(companyfacts 미반영)",
+ "source": "SEC EDGAR XBRL companyfacts",
  "depth": "full",
- "as_of": "2026-10-14",
- "saved_at": "2026-10-14",
- "edgar_supplement": [
-  {
-   "accn": "0000813672-26-000092",
-   "form": "10-Q",
-   "filed": "2026-07-29",
-   "period_end": "2026-06-30",
-   "facts": 376
-  }
- ],
+ "as_of": "2026-10-31",
+ "saved_at": "2026-10-31",
  "annual": [
   {
    "end": "2025-12-31",
@@ -785,6 +776,50 @@
  ],
  "quarterly": [
   {
+   "end": "2026-09-30",
+   "period": "quarterly",
+   "revenue": 1633311000,
+   "gross_profit": null,
+   "operating_income": 428716000,
+   "net_income": 289747000,
+   "eps_diluted": 1.05,
+   "shares_diluted": 275278000,
+   "rnd": 537541000,
+   "assets": 12224774000,
+   "liabilities": 5349523000,
+   "equity": 6875251000,
+   "cash": 1452020000,
+   "inventory": 448824000,
+   "receivables": 1110591000,
+   "assets_current": 3353887000,
+   "liabilities_current": 2466479000,
+   "deferred_revenue": 1012305000,
+   "cfo": 423725000,
+   "capex": 61806000,
+   "buyback": 400019000,
+   "total_debt": 2483242000,
+   "fcf": 361919000,
+   "_derived": [
+    "ytd_diff: cfo,capex,buyback",
+    "liabilities=assets-equity"
+   ],
+   "gross_margin": null,
+   "op_margin": 0.2625,
+   "net_margin": 0.1774,
+   "fcf_margin": 0.2216,
+   "roe": 0.0421,
+   "debt_to_equity": 0.3612,
+   "current_ratio": 1.3598,
+   "net_cash": -1031222000,
+   "revenue_yoy": 21.9947,
+   "eps_yoy": 0.0,
+   "net_income_yoy": 0.9142,
+   "inventory_yoy": 56.8256,
+   "receivables_yoy": 47.0465,
+   "shares_yoy": 0.5405,
+   "deferred_yoy": 30.5722
+  },
+  {
    "end": "2026-06-30",
    "period": "quarterly",
    "revenue": 1584451000,
@@ -810,7 +845,6 @@
    "fcf": 582301000,
    "_derived": [
     "ytd_diff: cfo,capex,buyback",
-    "신고 원본 XBRL 보충(companyfacts 미반영 10-Q 0000813672-26-000092 · 2026-07-29 신고)",
     "liabilities=assets-equity"
    ],
    "gross_margin": null,

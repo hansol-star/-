@@ -367,6 +367,18 @@ def run(start: str, end: str) -> dict:
     contrib.sort(key=lambda x: x["krw"])
     by_side = {s: round(sum(c["krw"] for c in contrib if c["side"] == s)) for s in ("buy", "sell")}
 
+    # 캐시 마지막 종가일이 기간 말보다 이르면 그 종목은 **옛 종가로 평가된다**(10/31 R3 적발:
+    # Yahoo 일봉이 지수(^GSPC)는 당일 주고 개별주·ETF(VOO·ANET)는 하루 늦게 준다 → 국내 10/30 ×
+    # 미국 10/29가 섞여 10/30 美 급락이 수익률에 안 들어갔다). 레그별 as-of를 반드시 표면화한다.
+    end_d = days[-1]
+    stale_legs = []
+    for tk in sorted(pos[end_d]):
+        if not pos[end_d].get(tk):
+            continue
+        ds_tk, _ = _series(tk)
+        if ds_tk and ds_tk[-1] < end_d:
+            stale_legs.append({"ticker": tk, "label": label.get(tk, tk), "last": ds_tk[-1]})
+
     pct = lambda x: round((x - 1) * 100, 2)  # noqa: E731
     out = {
         "generated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
@@ -392,6 +404,7 @@ def run(start: str, end: str) -> dict:
                       "unexplained": unexplained,
                       "ok": not unexplained},
         "missing_prices": sorted(missing),
+        "stale_legs": stale_legs,
         "curve": [{"d": d, "act": round(a, 5), "hold": round(h, 5), "acct": round(t, 5),
                    "ks": round(k, 5), "spx": round(s, 5)}
                   for d, a, h, t, k, s in zip(days, act, hold, tot, bench["코스피"], bench["S&P500(원화)"])],
@@ -427,6 +440,12 @@ def render(r: dict) -> str:
              + (f" · ⚠️ 체결 무관 괴리 {len(rc['unexplained'])}일 {rc['unexplained'][:3]} — 원장 누락·분할 의심" if rc["unexplained"] else " · 원장 정상"))
     if r["missing_prices"]:
         L.append("⚠️ 시세 없는 종목(가치 0 처리): " + ", ".join(r["missing_prices"]))
+    sl = r.get("stale_legs") or []
+    if sl:
+        L.append(f"⚠️ 기간 말 {r['to']}보다 **캐시가 이른** 종목 {len(sl)}건 = 그만큼 옛 종가로 평가됐다: "
+                 + ", ".join(f"{x['label']}({x['last']})" for x in sl[:8])
+                 + ("…" if len(sl) > 8 else ""))
+        L.append("   ↳ 레그가 섞이면(국내 당일 × 미국 전일) 그 하루의 등락이 수익률에서 빠진다 — history_backfill.py 로 먼저 top-up할 것.")
     return "\n".join(L)
 
 

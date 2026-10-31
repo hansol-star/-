@@ -537,22 +537,60 @@ def subscore(rec: dict) -> dict:
 
 # ─────────────────────────────────────────── 실행
 
-def build_all(tickers: list[str]) -> dict:
+def build_all(tickers: list[str], ticker_timeout: float = 0.0,
+              budget_sec: float = 0.0, progress: bool = False) -> dict:
+    """★[10/31 R3] 종목별 타임아웃 + 진행 로그.
+
+    data_coverage §3 #22: 클라우드에서 `--with-peers`가 **출력 0바이트로 20분 넘게 멈추는**
+    증상이 9/26·10/3·10/10·10/17·10/31 **다섯 회차 연속** 났는데, 매번 '오래 걸린다'로만 적고
+    넘어갔다 — stdout이 버퍼링돼 **'멈춤'과 '느림'을 구분할 수조차 없었기** 때문이다.
+    ⇒ 진행 로그는 **stderr로 즉시 flush**하고, 한 종목이 예산을 넘으면 **그 종목만 포기**한다.
+    ⚠️ 포기한 종목은 `errors`에 남아 커버리지에 **결손으로 보인다**(조용히 성공처럼 보이지 않게).
+    """
     cmap = E.cik_map()
     op = Y._opener()
     crumb = Y._crumb(op)
     recs, errors = {}, {}
-    import time
+    import time, threading
+    t0 = time.monotonic()
     for i, t in enumerate(tickers):
         if i:
             time.sleep(0.6)
-        r = collect(t, cmap, op, crumb)
+        if budget_sec and time.monotonic() - t0 > budget_sec:
+            for rest in tickers[i:]:
+                errors[rest] = f"전체 예산 {budget_sec:.0f}초 초과 — 미수집"
+            if progress:
+                print(f"  ⏱️ 전체 예산 {budget_sec:.0f}초 초과 — 남은 {len(tickers) - i}종목 미수집",
+                      file=sys.stderr, flush=True)
+            break
+        s0 = time.monotonic()
+        if progress:
+            print(f"  [{i + 1}/{len(tickers)}] {t} …", file=sys.stderr, flush=True)
+        if ticker_timeout:
+            box: dict = {}
+            th = threading.Thread(target=lambda: box.update(r=collect(t, cmap, op, crumb)),
+                                  daemon=True)
+            th.start()
+            th.join(ticker_timeout)
+            if th.is_alive():
+                errors[t] = f"종목 타임아웃 {ticker_timeout:.0f}초 — 포기(네트워크 대기)"
+                if progress:
+                    print(f"      ⏱️ 타임아웃 {ticker_timeout:.0f}초 — 포기",
+                          file=sys.stderr, flush=True)
+                continue
+            r = box.get("r") or {"_error": "수집 실패(결과 없음)"}
+        else:
+            r = collect(t, cmap, op, crumb)
         if r.get("_error"):
             errors[t] = r["_error"]
+            if progress:
+                print(f"      ❌ {r['_error']}", file=sys.stderr, flush=True)
             continue
         r["flags"] = flags(r)
         r.update(subscore(r))
         recs[t] = r
+        if progress:
+            print(f"      ✅ {time.monotonic() - s0:.1f}초", file=sys.stderr, flush=True)
     return {"updated": dt.date.today().isoformat(), "covered": sorted(recs),
             "errors": errors, "stocks": recs}
 
@@ -789,6 +827,13 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="보유 전종목 재무제표 통합")
     ap.add_argument("--tickers")
     ap.add_argument("--all", action="store_true")
+    ap.add_argument("--ticker-timeout", type=float, default=180.0, metavar="S",
+                    help="한 종목 수집 상한 초(기본 180). 넘으면 그 종목만 포기하고 errors에 남긴다 "
+                         "— #22 클라우드 정지 대응. 0 = 무제한(舊 동작)")
+    ap.add_argument("--budget-sec", type=float, default=0.0, metavar="S",
+                    help="전체 수집 예산 초(0 = 무제한). 초과 시 남은 종목은 미수집으로 남긴다")
+    ap.add_argument("--quiet", action="store_true",
+                    help="종목별 진행 로그(stderr)를 끈다 — 기본은 켜짐('멈춤'과 '느림'을 구분하려면 필요)")
     ap.add_argument("--with-peers", action="store_true",
                     help="피어 비교용 워치 종목(PEERS)도 함께 수집 — 주간 R3용. "
                          "국내 1종목당 1~2분이라 매일 돌리지 말 것")
@@ -806,7 +851,8 @@ def main() -> int:
     tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else list(ALL)
     if a.with_peers and not a.tickers:
         tickers += [t for t in PEERS if t not in tickers]
-    data = build_all(tickers)
+    data = build_all(tickers, ticker_timeout=a.ticker_timeout,
+                     budget_sec=a.budget_sec, progress=not a.quiet)
 
     if a.save:
         print(f"💾 {save(data)}")

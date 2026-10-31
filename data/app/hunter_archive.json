@@ -1,8 +1,28 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-10-30 자동 롤오버 +6편 (build_app_data)",
+  "updated": "2026-10-31 자동 롤오버 +2편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-10-31",
+      "title": "다음주 미국 투자자들이 꼭 알고 있어야 할 미국 투자포인트(11.2~6)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "서머타임 종료(23:30 개장·지표 22:30)·AAPL 11/3 06:30·AMD 11/4 07:00 일정 [검증]. 선거 베팅 확률 [미확인]. 매수 콜 없음.",
+      "views": null,
+      "id": "2uZN3S41GL8"
+    },
+    {
+      "date": "2026-10-31",
+      "title": "투자자들이 꼭 알고 있어야 할 다음주 '한국' 투자 포인트(11.02~11.06)",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "11/2 KRX 저PBR 명단·2018/2022 개표일 코스피 1% 미만 [미확인]. 일정 정리 중심, 매수 콜 없음.",
+      "views": null,
+      "id": "uOJVtQunlZA"
+    },
     {
       "date": "2026-10-29",
       "title": "12월 금리 인상 확률 85%, 미국 증시가 오르는 이유",

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30",
+ "updated": "2026-10-31",
  "days": 3,
  "universe": [
   "005930",
@@ -17,8 +17,8 @@
  ],
  "counts": {
   "critical": 3,
-  "notable": 23,
-  "routine": 34
+  "notable": 21,
+  "routine": 29
  },
  "items": [
   {
@@ -308,30 +308,6 @@
    "rcept_no": "20261028800169",
    "filer": "삼성전기",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800169"
-  },
-  {
-   "code": "454910",
-   "name": "두산로보틱스",
-   "date": "20261027",
-   "title": "타법인주식및출자증권취득결정",
-   "level": "notable",
-   "category": "투자",
-   "why": "capex 방향",
-   "rcept_no": "20261027800562",
-   "filer": "두산로보틱스",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800562"
-  },
-  {
-   "code": "042660",
-   "name": "한화오션",
-   "date": "20261027",
-   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261027800240",
-   "filer": "한화오션",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800240"
   }
  ],
  "insider": [

@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-10-31 18:22 KST",
+  "generated_at": "2026-10-31 20:35 KST",
   "as_of": "2026-10-31 18:04",
   "source_report": "docs/reports/report_v126_2026-10-31.md",
   "offline": false,
@@ -30871,8 +30871,9 @@ window.APP_DATA = {
       {
         "id": "t1030-8",
         "added": "2026-10-30",
-        "done": false,
-        "text": "터미널에서 claude 재로그인 — 무인 R1 OAuth 만료(10/30 22:13 NOT_LOGGED_IN · 5평일 연속 실패)"
+        "done": true,
+        "text": "터미널에서 claude 재로그인 — 무인 R1 OAuth 만료(10/30 22:13 NOT_LOGGED_IN · 5평일 연속 실패)",
+        "done_note": "10/31 재로그인 확인: claude auth loggedIn · 세션 인증 제거한 실호출 OK. 첫 실전 R1 = 11/2 10:00"
       }
     ],
     "week": [
@@ -31220,7 +31221,7 @@ window.APP_DATA = {
   },
   "task_counts": {
     "today": {
-      "done": 7,
+      "done": 8,
       "total": 8
     },
     "week": {
@@ -37089,7 +37090,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "performance": {
-    "generated_at": "2026-10-31 18:22",
+    "generated_at": "2026-10-31 20:35",
     "from": "2026-06-15",
     "to": "2026-10-30",
     "days": 99,

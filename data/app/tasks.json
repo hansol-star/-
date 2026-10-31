@@ -110,8 +110,9 @@
    {
     "id": "t1030-8",
     "added": "2026-10-30",
-    "done": false,
-    "text": "터미널에서 claude 재로그인 — 무인 R1 OAuth 만료(10/30 22:13 NOT_LOGGED_IN · 5평일 연속 실패)"
+    "done": true,
+    "text": "터미널에서 claude 재로그인 — 무인 R1 OAuth 만료(10/30 22:13 NOT_LOGGED_IN · 5평일 연속 실패)",
+    "done_note": "10/31 재로그인 확인: claude auth loggedIn · 세션 인증 제거한 실호출 OK. 첫 실전 R1 = 11/2 10:00"
    }
   ],
   "week": [

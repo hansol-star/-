@@ -1,0 +1,62 @@
+[
+ {
+  "name": "주간(전체)",
+  "n": 114,
+  "tickers": 16,
+  "inside": 56.1,
+  "above": 11.4,
+  "below": 32.5,
+  "width": 12.5,
+  "dir_n": 48,
+  "dir_hit": 25.0,
+  "always_up": 39.6
+ },
+ {
+  "name": "월간(전체)",
+  "n": 68,
+  "tickers": 16,
+  "inside": 63.2,
+  "above": 4.4,
+  "below": 32.4,
+  "width": 26.8,
+  "dir_n": 28,
+  "dir_hit": 35.7,
+  "always_up": 32.1
+ },
+ {
+  "name": "주간(사람판단)",
+  "n": 114,
+  "tickers": 16,
+  "inside": 56.1,
+  "above": 11.4,
+  "below": 32.5,
+  "width": 12.5,
+  "dir_n": 48,
+  "dir_hit": 25.0,
+  "always_up": 39.6
+ },
+ {
+  "name": "주간(ATR기계)",
+  "n": 0
+ },
+ {
+  "name": "월간(사람판단)",
+  "n": 68,
+  "tickers": 16,
+  "inside": 63.2,
+  "above": 4.4,
+  "below": 32.4,
+  "width": 26.8,
+  "dir_n": 28,
+  "dir_hit": 35.7,
+  "always_up": 32.1
+ },
+ {
+  "name": "월간(ATR기계)",
+  "n": 0
+ },
+ {
+  "name": "지수 5일",
+  "n": 0
+ }
+]

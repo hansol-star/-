@@ -93,11 +93,16 @@ def fetch_consensus(code: str) -> dict:
     d = _get(BASE_M.format(code=code, path="integration")) or {}
     ci = d.get("consensusInfo") or {}
     ti = {x.get("code"): x.get("value") for x in (d.get("totalInfos") or [])}
+    # ★[11/1] integration의 totalInfos엔 closePrice가 없어 폴백 lastClosePrice(= 전일 종가)가 늘 쓰였다
+    #   → PER·여력이 한 세션 낡은 값이었다(10/30 판독에 10/29 종가). 현재가는 basic에서 받는다.
+    #   ⚠️ basic.closePrice = 통합시세(애프터마켓 포함) — KRX 정규장 종가와 다를 수 있다(10/30 삼성 220,500 ↔ 225,000).
+    #   판독용 '최신가'이지 캐시·통계용 값이 아니다(CLAUDE.md 국내 종가 3기준).
+    basic = _get(BASE_M.format(code=code, path="basic")) or {}
     return {
         "name": d.get("stockName"),
         "recomm_mean": _pf(ci.get("recommMean")),        # 네이버 5=적극매수 … 1=적극매도(대형주 통상 4점대)
         "target_mean": _pf(ci.get("priceTargetMean")),
-        "price": _pf(ti.get("closePrice")) or _pf(ti.get("lastClosePrice")),
+        "price": _pf(basic.get("closePrice")) or _pf(ti.get("closePrice")) or _pf(ti.get("lastClosePrice")),
         "per": _pf(ti.get("per")), "pbr": _pf(ti.get("pbr")),
         "eps": _pf(ti.get("eps")), "bps": _pf(ti.get("bps")),
         "cns_per": _pf(ti.get("cnsPer")), "cns_eps": _pf(ti.get("cnsEps")),

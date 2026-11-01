@@ -80,6 +80,16 @@ TAGS: dict[str, list[str]] = {
                "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"],
     "cash": ["CashAndCashEquivalentsAtCarryingValue",
              "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents"],
+    # ★[11/1] 현금성만 보면 시장성증권을 쥔 회사가 순부채로 찍힌다 — GOOGL 3Q26 현금 $56.3B vs
+    #   현금+시장성증권 $265.1B(10-Q) → net_cash -$69.8B(도구) ↔ +$139.0B(실제).
+    #   유동 시장성증권만 더한다(비유동·비시장성은 빼서 보수적으로).
+    #   ★NVDA는 FY27부터 재무상태표 줄을 '시장성 채권'·'시장성 주식'으로 갈라 `DebtSecuritiesCurrent`로
+    #   옮겼다(2026-07-26 $34.1B ↔ 舊 태그 2025-10-26에서 끊김 → 거짓 '순부채 $10.9B').
+    #   ⚠️ `AvailableForSaleSecuritiesDebtSecurities`는 넣지 않는다 — 현금성자산 안의 채권까지 합친
+    #   주석 값이라($46.9B ↔ 재무상태표 $34.1B) 현금에 더하면 이중계상된다. 시장성 주식($42.8B)도 뺀다.
+    "marketable_securities": ["MarketableSecuritiesCurrent", "ShortTermInvestments",
+                              "AvailableForSaleSecuritiesDebtSecuritiesCurrent",
+                              "AvailableForSaleSecuritiesCurrent", "DebtSecuritiesCurrent"],
     "inventory": ["InventoryNet"],
     "receivables": ["AccountsReceivableNetCurrent", "ReceivablesNetCurrent"],
     "assets_current": ["AssetsCurrent"],
@@ -104,14 +114,17 @@ DEBT_COMBINED = ["DebtLongtermAndShorttermCombinedAmount"]
 # ★[10/10 R3] CDNS 실측 — `UnsecuredLongTermDebt`($2.48B, 2026-03-31)로만 태깅해서
 #   total_debt가 **결측**으로 나왔다(validate `부채태그 의심` WARN이 잡은 ORCL 사고 유형의 두 번째 사례).
 #   ⇒ Unsecured 계열을 long/short에 추가. combined 우선 원칙은 그대로라 이중계상 없음.
+# ★[11/1] ORCL 실측 — 분기 신고엔 combined가 없고 `LongTermNotesAndLoans`(2026-08-31 $117.7B)와
+#   `NotesPayableCurrent`($7.6B)로만 태깅해서 분기 total_debt가 결측이었다. 체인 끝에 둔다.
 DEBT_LONG = ["LongTermDebtNoncurrent", "LongTermDebt",
              "LongTermDebtAndCapitalLeaseObligations",
-             "UnsecuredLongTermDebt", "UnsecuredLongTermNotesPayable"]
+             "UnsecuredLongTermDebt", "UnsecuredLongTermNotesPayable",
+             "LongTermNotesAndLoans", "LongTermNotesPayable"]
 DEBT_SHORT = ["LongTermDebtCurrent", "DebtCurrent", "ShortTermBorrowings",
-              "OtherShortTermBorrowings", "UnsecuredDebtCurrent"]
+              "OtherShortTermBorrowings", "UnsecuredDebtCurrent", "NotesPayableCurrent"]
 
 # 시점(instant) 팩트 — start가 없다
-STOCK_KEYS = {"assets", "liabilities", "equity", "cash", "inventory", "receivables",
+STOCK_KEYS = {"assets", "liabilities", "equity", "cash", "marketable_securities", "inventory", "receivables",
               "assets_current", "liabilities_current", "deferred_revenue"}
 
 # 가산되는 유량 계정 — 누적(YTD) 차분·4분기 역산 대상.
@@ -984,6 +997,23 @@ def selftest() -> int:
           "보충 실패 → edgar_missing에 신고·사유가 남고 분기는 비어 있다", str(rec2.get("edgar_missing")))
     check("edgar_supplement" not in normalize("TEST", _fixture_facts()),
           "미반영 신고가 없는 종목엔 보충 키가 생기지 않는다")
+
+    # ⑩ 태그 갈아타기 — 시장성증권·차입금 체인이 끊긴 회사(NVDA·ORCL 실측 값)
+    def _inst(tag_vals: dict) -> dict:
+        return {"facts": {"us-gaap": {t: {"units": {"USD": [
+            {"end": e, "val": v, "form": "10-Q", "fp": "Q2", "fy": 2026, "filed": e}
+            for e, v in vals.items()]}} for t, vals in tag_vals.items()}}}
+    ms = _series(_inst({"MarketableSecuritiesCurrent": {"2025-10-26": 49.12e9},
+                        "DebtSecuritiesCurrent": {"2026-07-26": 34.143e9}}),
+                 TAGS["marketable_securities"], True).get("quarterly") or {}
+    check(ms == {"2025-10-26": 49.12e9, "2026-07-26": 34.143e9},
+          "NVDA형 — 舊 태그가 끊겨도 `DebtSecuritiesCurrent`가 최근 분기를 잇는다", str(ms))
+    check("AvailableForSaleSecuritiesDebtSecurities" not in TAGS["marketable_securities"],
+          "현금성 포함 주석 태그는 체인에 없다(이중계상 방지)")
+    dq = _debt_series(_inst({"LongTermNotesAndLoans": {"2026-08-31": 117.71e9},
+                             "NotesPayableCurrent": {"2026-08-31": 7.62e9}})).get("quarterly") or {}
+    check(abs(dq.get("2026-08-31", 0) - 125.33e9) < 1e6,
+          "ORCL형 — 분기 차입금 = 장기 노트 + 단기 노트", str(dq))
 
     print("-" * 78)
     print("✅ 통과 — 역산이 맞고, 만들면 안 될 때 안 만든다" if ok else "❌ 실패")

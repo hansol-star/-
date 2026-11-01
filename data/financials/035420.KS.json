@@ -307,7 +307,7 @@
    "period": "quarterly",
    "revenue": 2915085056210.0,
    "gross_profit": null,
-   "operating_income": 2915085056000.0,
+   "operating_income": null,
    "net_income": 488780973230.0,
    "eps_diluted": 3227.0,
    "shares_diluted": 151466059.0,
@@ -324,10 +324,11 @@
    "capex": 162212268380.0,
    "fcf": 356015317320.0,
    "_derived": [
-    "gross_profit 무효화(매출과 동일 — Yahoo 매핑 이상)"
+    "gross_profit 무효화(매출과 동일 — Yahoo 매핑 이상)",
+    "operating_income 무효화(매출과 동일 — Yahoo 매핑 이상)"
    ],
    "gross_margin": null,
-   "op_margin": 1.0,
+   "op_margin": null,
    "net_margin": 0.1677,
    "fcf_margin": 0.1221,
    "roe": 0.0185,

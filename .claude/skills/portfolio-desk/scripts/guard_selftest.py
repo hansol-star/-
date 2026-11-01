@@ -802,6 +802,22 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_lapsed_holds",
+        "desc": "기한부 홀드의 만기가 지났는데 판정 기록이 없으면 잡는가",
+        "why": "11/1 실측 — 두산로보 8/4 '3Q 매출 200억 미달이면 조건 없이 트림'이 10/29 충족됐는데 "
+               "보고서 3회가 79,000 대기로 넘겼다. 조건이 note 산문에만 있었다 — 픽스처 = 만기 지난 양방향 트리거 홀드",
+        "pattern": r"기한부 홀드 만기 \d+일 경과",
+        "violate": {"data/app/tasks.json": json.dumps({"orders": [
+            {"id": "o-x-hold-1031", "label": "[홀드 확정·양방향 트리거] 테스트", "action": "홀드(조건부 트리거)",
+             "status": "🟢 결정 완료", "expires": "2026-10-31"}]}, ensure_ascii=False)},
+        "clean": {"data/app/tasks.json": json.dumps({"orders": [
+            {"id": "o-x-hold-1031", "label": "[홀드 확정·양방향 트리거] 테스트", "action": "홀드(조건부 트리거)",
+             "status": "🟢 결정 완료", "expires": "2026-10-31", "resolved_note": "10/29 매출 200억 이상 — 홀드 유지"}]},
+            ensure_ascii=False)},
+        "args": (datetime.date(2026, 11, 2),),
+    },
+
+    {
         "name": "check_pre_report",
         "desc": "보고서 전 선행 작업이 미완인 채 다음 보고서가 나오면 잡는가",
         "why": "9/22 정훈 지시 — '다음 보고서 때 먼저 할 것'이 채팅 산문으로만 남으면 다음 세션이 못 본다. "

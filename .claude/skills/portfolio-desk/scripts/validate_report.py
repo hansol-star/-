@@ -2524,6 +2524,43 @@ def check_pre_report(latest=None):
              + " → 처리 후 tasks.json pre_report done=true(+done_note), 못 하면 사유를 done_note에")
 
 
+# 라벨·action 어느 쪽이든 이 표현이면 기한이 달린 홀드다.
+_HOLD_DATED = re.compile(r"기한부|조건부\s*트리거|양방향\s*트리거")
+_ORDER_CLOSED = re.compile(r"^\s*⚪|종결|폐기|체결|취소")
+
+
+def check_lapsed_holds(today=None):
+    """기한부·조건부 홀드의 만기가 지났는데 판정 기록이 없으면 잡는다 [11/1 신설].
+
+    ★두산로보 8/4 확정 — *"3Q 매출 200억 미달이면 조건 없이 트림"*. 10/29 매출이 161.75억이었는데
+    v125~v127이 '79,000 대기 유지'로 넘겼다(79,000 = 현재가 +45%, 20거래일 도달 6~20%).
+    조건은 `note` 산문 안에만 있었고 만기가 왔는지 보는 장치가 없었다. 8/2의 재현이다 —
+    *오더북에 들어간 것만 집행된다.* ⇒ 살아 있는 기한부 홀드엔 `expires`를 두고, 지나면
+    `resolved_note`(판정 결과)가 있어야 한다.
+    """
+    tasks = _json_opt("data/app/tasks.json") or {}
+    today = today or dt.date.today()
+    for o in tasks.get("orders") or []:
+        if not isinstance(o, dict):
+            continue
+        if not _HOLD_DATED.search(f"{o.get('label', '')} {o.get('action', '')}"):
+            continue
+        if _ORDER_CLOSED.search(str(o.get("status", ""))):
+            continue
+        exp = o.get("expires")
+        if not exp:
+            warn(f"기한부 홀드에 만기 없음 [{o.get('id')}] — orders `expires`(YYYY-MM-DD)를 적을 것")
+            continue
+        try:
+            d0 = dt.date.fromisoformat(str(exp)[:10])
+        except ValueError:
+            warn(f"기한부 홀드 만기 형식 오류 [{o.get('id')}] {exp}")
+            continue
+        if d0 < today and not o.get("resolved_note"):
+            warn(f"기한부 홀드 만기 {(today - d0).days}일 경과 [{o.get('id')}] "
+                 f"{str(o.get('label'))[:50]} — 조건 판정을 `resolved_note`에 남길 것(미충족도 판정이다)")
+
+
 _PROSE_STALE_DAYS = 14
 # 폐기된 룰·개념을 **현행 조건처럼** 적은 산문. check_repealed_rules는 docs만 보고 7,500 숫자를
 # 요구해서 stocks.json의 "②안전핀 해제" 같은 조건문은 두 겹으로 빠져나갔다.
@@ -3383,7 +3420,7 @@ def main():
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_us_ledger(); check_tranche_fill_ledger(); check_calibration_debt()
     check_monthly_dca(); check_desk_value_gate()
-    check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_dead_alerts()
+    check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_lapsed_holds(); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
     check_split_scale()

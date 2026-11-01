@@ -135,7 +135,10 @@ def derive(rows: list[dict], prior: list[dict]) -> list[dict]:
         d["debt_to_equity"] = _m(_ratio(r.get("total_debt"), r.get("equity")))
         d["current_ratio"] = _m(_ratio(r.get("assets_current"), r.get("liabilities_current")))
         cash, debt = r.get("cash"), r.get("total_debt")
-        d["net_cash"] = (cash - debt) if (cash is not None and debt is not None) else None
+        # ★[11/1] 유동 시장성증권 포함 — 현금성만 빼면 GOOGL이 순현금 +$139.0B인데 -$69.8B로 찍혔다
+        #   (edgar_facts TAGS 참조). 국내(Yahoo·DART)는 이 계정이 없어 현금성 기준 그대로다.
+        d["net_cash"] = (cash + (r.get("marketable_securities") or 0) - debt) \
+            if (cash is not None and debt is not None) else None
         # YoY = 기말일 기준 약 1년 전 기간(±21일 — 52/53주 회계연도 흡수).
         # ★[9/17 버그 수정] 舊 = 인덱스 4칸 뒤(분기)/1칸 뒤(연간). EDGAR 분기 시계열엔 **4분기가 없다**
         # (10-K는 연간 보고라 분기 행이 안 생긴다) → 4칸 뒤가 **5분기 전**이 돼 YoY가 부풀었다.
@@ -393,7 +396,18 @@ def flags(rec: dict) -> list[dict]:
     #   **이중으로** 침묵했다. 총차입금 증가율 조건을 추가한다.
     #   ⚠️ `liabilities`(=총부채, 이연수익·매입채무 포함)로 하면 안 된다 —
     #      구독·SaaS 기업은 **이연수익 증가가 성장의 증거**라 오탐이 된다. 반드시 total_debt.
-    ns = [(r["end"], r.get("net_cash")) for r in a[:2] if r.get("net_cash") is not None]
+    #   ★[11/1] 연간만 보면 분기 중 차입이 다음 10-K까지 안 보인다(GOOGL FY25 $48.5B ↔ 3Q26 $126.1B).
+    #   최신 분기 ↔ 1년 전 분기가 있으면 그 둘로, 없으면 연간으로 비교한다.
+    def _yoy_pair(key: str) -> list[dict]:
+        if q and q[0].get(key) is not None:
+            end0 = dt.date.fromisoformat(q[0]["end"])
+            for r in q[1:]:
+                gap = (end0 - dt.date.fromisoformat(r["end"])).days
+                if 344 <= gap <= 386 and r.get(key) is not None:
+                    return [q[0], r]
+        return [r for r in a[:2] if r.get(key) is not None]
+
+    ns = [(r["end"], r.get("net_cash")) for r in _yoy_pair("net_cash")]
     if len(ns) == 2 and ns[0][1] < ns[1][1] and ns[1][1] != 0:
         drop = ns[1][1] - ns[0][1]
         if drop > abs(ns[1][1]) * 0.3:
@@ -401,7 +415,8 @@ def flags(rec: dict) -> list[dict]:
                 f"순현금 {ns[1][1]/1e9:,.1f}B → {ns[0][1]/1e9:,.1f}B (1년 새 {drop/1e9:,.1f}B 악화)",
                 [{"end": e, "net_cash": v} for e, v in ns])
 
-    ds = [(r["end"], r.get("total_debt")) for r in a[:2] if r.get("total_debt")]
+    debt_rows = _yoy_pair("total_debt")
+    ds = [(r["end"], r.get("total_debt")) for r in debt_rows if r.get("total_debt")]
     if len(ds) == 2 and ds[1][1] > 0:
         growth = (ds[0][1] - ds[1][1]) / ds[1][1] * 100
         if growth >= 30.0:
@@ -409,7 +424,7 @@ def flags(rec: dict) -> list[dict]:
             #    (삼성전자 8/1: 차입 +30.6%인데 순현금 여전히 +32.6조 = 메모리 증설 조달).
             #    반대로 순현금이 이미 마이너스면 레버리지 누적이다(ORCL: 순부채 -98.3B).
             #    같은 플래그라도 읽는 법이 갈리므로 **순현금을 메시지에 함께 박는다**(경보 피로 방지).
-            nc_now = a[0].get("net_cash")
+            nc_now = debt_rows[0].get("net_cash")
             ctx = ""
             if isinstance(nc_now, (int, float)):
                 ctx = (f" · 순현금 {nc_now/1e9:,.1f}B "
@@ -716,6 +731,20 @@ def selftest() -> int:
     def om(rec: dict) -> str:
         return " · ".join(f"{r['end']} {r['op_margin']:.1%}" for r in rec["quarterly"][:3]
                           if r.get("op_margin") is not None)
+
+    # ★[11/1] 시장성증권을 쥔 회사가 순부채로 찍히면 안 된다 · 분기 차입이 연간 비교에 가려지면 안 된다
+    _rows = [{"end": "2026-09-30", "period": "quarterly", "revenue": 100e9, "cash": 56e9,
+              "marketable_securities": 209e9, "total_debt": 126e9},
+             {"end": "2025-09-30", "period": "quarterly", "revenue": 90e9, "cash": 23e9,
+              "marketable_securities": 72e9, "total_debt": 24e9}]
+    _q = derive(_rows, _rows)
+    check(_q[0]["net_cash"] == 139e9, "순현금 = 현금 + 유동 시장성증권 − 차입", str(_q[0]["net_cash"]))
+    _ann = [{"end": "2025-12-31", "cash": 31e9, "total_debt": 48e9, "net_cash": -17e9},
+            {"end": "2024-12-31", "cash": 24e9, "total_debt": 12e9, "net_cash": 12e9}]
+    _f = [f for f in flags({"ticker": "TEST", "as_of": "2026-11-01", "annual": _ann, "quarterly": _q})
+          if f["code"] == "debt_buildup" and "총차입금" in f["message"]]
+    check(bool(_f) and "126.0B" in _f[0]["message"] and "여유" in _f[0]["message"],
+          "차입 급증 = 최신 분기 ↔ 1년 전 분기 · 순현금 맥락도 같은 분기", str(_f))
 
     full = E.normalize("TEST", E._fixture_facts())["quarterly"]      # 4분기 역산이 들어간 시계열
     fq1_27 = {"end": "2026-12-03", "period": "quarterly", "revenue": 61500e6}

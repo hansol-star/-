@@ -135,7 +135,9 @@ def fetch(ticker: str, op=None, crumb: str | None = None) -> dict:
             # 어느 쪽이든 추정으로 메우지 않고 None + 플래그(CLAUDE.md "추측 금지·미확인 명시").
             for fld in ("gross_profit", "operating_income"):
                 v = row.get(fld)
-                if v is not None and row.get("revenue") and abs(v - row["revenue"]) < 1:
+                # ★[11/1] 절대 오차 1 → 상대 오차 — Yahoo가 한쪽만 천 단위로 반올림해 차이 210원으로
+                #   빠져나갔다(NAVER 2025-06 영업이익 = 매출, 영업마진 100%).
+                if v is not None and row.get("revenue") and abs(v - row["revenue"]) < max(1, abs(row["revenue"]) * 1e-6):
                     row[fld] = None
                     derived.append(f"{fld} 무효화(매출과 동일 — Yahoo 매핑 이상)")
             # Yahoo capex는 유출을 음수로 신고 → EDGAR(양수) 부호규약에 맞춰 뒤집는다

@@ -818,6 +818,43 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_order_cards",
+        "desc": "논지 카드 없는 신규 매수·사유 없는 매도를 잡는가",
+        "why": "11/2 정훈 승인 — 조건이 산문에만 있으면 지나가도 아무도 안 본다(8/2·11/1 두산로보). 픽스처 = 카드 없는 신규 매수",
+        "pattern": r"논지 카드 누락",
+        "violate": {"data/app/tasks.json": json.dumps({"orders": [
+            {"id": "o-x", "ticker": "NVDA", "action": "매수", "status": "계획", "date": "2026-11-02"}]}, ensure_ascii=False)},
+        "clean": {"data/app/tasks.json": json.dumps({"orders": [
+            {"id": "o-x", "ticker": "NVDA", "action": "매수", "status": "계획", "date": "2026-11-02", "thesis": "t",
+             "target": "1", "invalidation": "i", "expires": "2027-01-01"}]}, ensure_ascii=False)},
+        "args": (),
+    },
+
+    {
+        "name": "check_forecast_mech",
+        "desc": "사람 판단의 단기 방향이 다시 들어오면 잡는가",
+        "why": "11/2 첫 채점 — 주간 방향 25.0% vs 항상 상승 39.6%. 픽스처 = 화살표를 손으로 적은 범위",
+        "pattern": r"사람 판단 단기 전망",
+        "violate": {"data/app/stocks.json": json.dumps({"stocks": {"NVDA": {"forecast": {"week": {
+            "low": 1, "high": 2, "dir": "↑", "note": "반등 예상"}}}}}, ensure_ascii=False)},
+        "clean": {"data/app/stocks.json": json.dumps({"stocks": {"NVDA": {"forecast": {"week": {
+            "low": 1, "high": 2, "dir": "→", "note": "ATR 기계 범위"}}}}}, ensure_ascii=False)},
+        "args": (),
+    },
+
+    {
+        "name": "check_forecast_ledger",
+        "desc": "만기 지난 예측이 해소 없이 남으면 잡는가",
+        "why": "11/2 — 채점되지 않는 예측은 교정되지 않는다. 픽스처 = 만기 10일 지난 미해소",
+        "pattern": r"예측 만기 지나 미해소",
+        "violate": {"data/research/forecast_ledger.jsonl": json.dumps({"id": "a", "date": "2026-11-02", "by": "2026-11-05",
+            "category": "국장1M", "outcome": None}, ensure_ascii=False) + "\n"},
+        "clean": {"data/research/forecast_ledger.jsonl": json.dumps({"id": "a", "date": "2026-11-02", "by": "2026-11-05",
+            "category": "국장1M", "outcome": 1}, ensure_ascii=False) + "\n"},
+        "args": (datetime.date(2026, 11, 15),),
+    },
+
+    {
         "name": "check_pre_report",
         "desc": "보고서 전 선행 작업이 미완인 채 다음 보고서가 나오면 잡는가",
         "why": "9/22 정훈 지시 — '다음 보고서 때 먼저 할 것'이 채팅 산문으로만 남으면 다음 세션이 못 본다. "

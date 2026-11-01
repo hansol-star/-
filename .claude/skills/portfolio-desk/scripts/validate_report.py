@@ -2561,6 +2561,75 @@ def check_lapsed_holds(today=None):
                  f"{str(o.get('label'))[:50]} — 조건 판정을 `resolved_note`에 남길 것(미충족도 판정이다)")
 
 
+_ORDER_CARD_FROM = dt.date(2026, 11, 2)
+_ORDER_DONE = re.compile(r"^\s*⚪|^\s*⛔|^\s*❌|종결|폐기|체결|취소|대체됨|미접수|건너뜀")
+_ORDER_BUY = re.compile(r"매수|적립")
+_ORDER_SELL = re.compile(r"매도|트림|익절")
+_EXIT_REASONS = {"룰2훼손", "논지무효", "목표초과_이익전망하향", "룰6", "세금", "집중도상한"}
+_CARD_EXEMPT = {"VOO"}  # 지수 적립은 종목 논지가 없다
+
+
+def check_order_cards():
+    """매수는 논지 카드, 매도는 정해진 사유 없이는 오더가 못 들어온다 [11/2 정훈 승인].
+
+    8/2·11/1이 같은 구멍이다 — 조건이 산문에만 있으면 지나가도 아무도 안 본다.
+    11/2 이후 오더 = FAIL · 그 전에 등록돼 아직 살아 있는 오더 = WARN.
+    """
+    tasks = _json_opt("data/app/tasks.json") or {}
+    for o in tasks.get("orders") or []:
+        if not isinstance(o, dict) or _ORDER_DONE.search(str(o.get("status", ""))):
+            continue
+        act = str(o.get("action", ""))
+        try:
+            new = dt.date.fromisoformat(str(o.get("date"))[:10]) >= _ORDER_CARD_FROM
+        except ValueError:
+            new = True
+        say = fail if new else warn
+        if _ORDER_BUY.search(act) and o.get("ticker") not in _CARD_EXEMPT:
+            miss = [k for k in ("thesis", "target", "invalidation", "expires") if not o.get(k)]
+            if miss:
+                say(f"논지 카드 누락 [{o.get('id')}] 매수 — {'·'.join(miss)}")
+        elif _ORDER_SELL.search(act) and o.get("exit_reason") not in _EXIT_REASONS:
+            say(f"매도 사유 누락 [{o.get('id')}] — exit_reason은 {'·'.join(sorted(_EXIT_REASONS))} 중 하나")
+
+
+def check_forecast_mech():
+    """단기 범위는 ATR 기계값만 — 사람 판단의 방향이 다시 들어오면 잡는다 [11/2 정훈 승인].
+
+    첫 채점(forecast_score) 주간 방향 25.0% vs 항상 상승 39.6%. 고칠 땐 forecast_band.py --write.
+    """
+    st = _json_opt("data/app/stocks.json") or {}
+    for t, v in (st.get("stocks") or {}).items():
+        for hz, f in ((v or {}).get("forecast") or {}).items():
+            if isinstance(f, dict) and (f.get("dir") != "→" or "ATR" not in str(f.get("note"))):
+                fail(f"사람 판단 단기 전망 [{t}.{hz}] dir={f.get('dir')} — forecast_band.py --write")
+    tk = _json_opt("data/app/tasks.json") or {}
+    for f in tk.get("index_forecast") or []:
+        if f.get("confidence") != "기계" or f.get("dir", "→") != "→":
+            fail(f"사람 판단 지수 범위 [{f.get('id')}] — forecast_band.py --write")
+
+
+def check_forecast_ledger(today=None):
+    """예측 원장 — 만기 지난 미해소 · 원장 방치 · 시장 미분류를 잡는다 [11/2 정훈 승인]."""
+    p = os.path.join(ROOT, "data", "research", "forecast_ledger.jsonl")
+    today = today or dt.date.today()
+    if not os.path.exists(p):
+        warn("예측 원장 없음 — data/research/forecast_ledger.jsonl")
+        return
+    with open(p, encoding="utf-8") as f:
+        rows = [json.loads(x) for x in f if x.strip()]
+    last = None
+    for r in rows:
+        d0 = dt.date.fromisoformat(str(r.get("date"))[:10])
+        last = max(last, d0) if last else d0
+        if not str(r.get("category", "")).startswith(("국장", "미장", "매크로")):
+            warn(f"예측 시장 미분류 [{r.get('id')}] — category는 국장·미장·매크로로 시작")
+        if r.get("outcome") is None and (today - dt.date.fromisoformat(str(r.get("by"))[:10])).days > 3:
+            warn(f"예측 만기 지나 미해소 [{r.get('id')}] — forecast_ledger.py --auto 또는 --resolve")
+    if not last or (today - last).days > 14:
+        warn("예측 원장 14일 방치 — 판단을 확률로 남기지 않고 있다")
+
+
 _PROSE_STALE_DAYS = 14
 # 폐기된 룰·개념을 **현행 조건처럼** 적은 산문. check_repealed_rules는 docs만 보고 7,500 숫자를
 # 요구해서 stocks.json의 "②안전핀 해제" 같은 조건문은 두 겹으로 빠져나갔다.
@@ -3420,7 +3489,7 @@ def main():
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_us_ledger(); check_tranche_fill_ledger(); check_calibration_debt()
     check_monthly_dca(); check_desk_value_gate()
-    check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_lapsed_holds(); check_dead_alerts()
+    check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_lapsed_holds(); check_order_cards(); check_forecast_mech(); check_forecast_ledger(); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
     check_split_scale()

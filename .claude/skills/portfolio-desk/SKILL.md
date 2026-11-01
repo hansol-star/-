@@ -321,7 +321,9 @@ python3 .claude/skills/portfolio-desk/scripts/build_dashboard.py   # [7/20] data
 정훈이 폰에서 **장 전망(시간축)·할일 체크·매수추적**을 보는 화면. 매 보고서에 동기화한다.
 - **outlook**: 오늘/내일(월요일)/이번주/이번달 장 전망 한 줄씩(`tag`·`dir`(↑→↓)·`text`). 시세는 휴장이면 프로즌 명시.
 - **index_forecast**: 코스피·나스닥·S&P·필반 예상 레인지(`ref`현재·`low`·`base`·`high`·`dir`·`note`·**`confidence`**). **`confidence` = `확정`(마감 종가·발표된 수치) / `추정`(선물·전망·미발표) [2026-06-22 신설]**: 추정값을 단정적으로 박지 말 것(실제 사례: 아침 미국 선물 "−1.2%" 추정을 단정 → 저녁 약보합으로 정정). 추정은 `note`에 "(추정)"·근거를 남기고, 정정되면 STATE SNAPSHOT 영구교정에 1줄.
-- **종목 가격 예상**: `stocks.json` 각 종목 `forecast.week`/`forecast.month`(`low`·`high`·`dir`·`note`) — 목표가/매수존과 **별개의 단기 예측**.
+- **종목·지수 단기 범위 ★[11/2 정훈 승인]**: `forecast_band.py --write`만 쓴다 — ATR 기계 범위(약 50~60% 구간)이고 `dir`은 항상 `→`. **사람 판단의 주간·월간 방향 금지**(`check_forecast_mech` FAIL · 첫 채점 25.0% vs 항상 상승 39.6%).
+- **★[11/2] 예측 원장**: 시야는 여기에 남긴다 — 매 보고서 국장·미장 판단 **1~3건**을 `forecast_ledger.py`에 확률·만기·해소 조건으로 등록(범주 = `국장…`·`미장…`·`매크로…` · 지평 1개월 이상 권장). 근거 없이 기준선과 같은 확률이면 등록하지 않는다.
+- **★[11/2] 논지 카드**: 신규 매수 오더 = `thesis`·`target`·`invalidation`·`expires` 필수, 매도 = `exit_reason`(룰2훼손·논지무효·목표초과_이익전망하향·룰6·세금·집중도상한) 필수(`check_order_cards` FAIL · VOO 제외).
 - **tasks**: `today`/`week`/`month` 각 `{id, text, done}`. **체크 = 채팅 기반 정본**: 정훈이 "오늘 1번 했어" 하면 해당 `done=true`로 바꾸고 커밋. 앱에서도 할일을 탭으로 직접 체크 가능하나 이건 그 폰 localStorage 임시(다른 기기·다음 빌드엔 안 남음) — 영구·전기기 반영은 반드시 채팅→tasks.json `done=true`. 정본 `done=true`는 앱에서 잠금(✅고정).
 - **orders(매수추적)**: `{id,label,ticker,action,status,price,shares,amount_krw,date,note}`. status = `계획`→`예약`→`체결`(또는 `취소`). 정훈이 "NAVER 1주 샀어"/"META 예약 걸었어" 하면 추가·상태변경하고, 체결이면 `portfolio.json` 보유수량·`master.md`도 함께 갱신.
 - **루틴(무인) 시**: outlook/index_forecast/forecast/할일을 당일 상태로 새로 채워 넣는다(전망은 매일 바뀜). 완료된 할일은 다음날 자동 정리(done 지나간 today는 비우거나 week→완료처리).

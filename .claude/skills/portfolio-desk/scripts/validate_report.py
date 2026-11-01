@@ -552,6 +552,12 @@ def check_kr_price_band(now: dt.datetime | None = None):
         act = str(o.get("action", "")) + " " + str(o.get("label", ""))
         if "시장가" in act:
             continue
+        # ★[11/1] ⓑ 등록선 오더는 선 점등 전엔 접수하지 않는다 — 미점등 상태의 밴드 초과는 '접수불가'가 아니다.
+        line = o.get("register_line") or {}
+        if o.get("register_policy") == "b_line" and line.get("cond") == "above" and isinstance(line.get("level"), (int, float)):
+            bb0 = kr_band_base(tk, now)
+            if bb0 and bb0["base"] < line["level"]:
+                continue
         # 기준가 = 적용 세션 직전 거래일의 정규장 종가(kr_band_base). 못 구하면 조용히 건너뛴다.
         # ⚠️ 최신 종가를 못 구해 폴백했으면(stale) 밴드도 낡는다 → 경고에 기준일과 미확보 사실을 병기한다.
         bb = kr_band_base(tk, now)

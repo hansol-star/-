@@ -1,8 +1,208 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-11-01 자동 롤오버 +3편 (build_app_data)",
+  "updated": "2026-11-01 자동 롤오버 +20편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-11-01",
+      "title": "미국 주식 할때, 수수료 가장 적은 증권사 고르는 방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "증권사별 수수료·환전 우대 비교. 소액·월 1회 매매라 계좌 이전 실익 작음 [미확인 · 시장 무관].",
+      "views": null,
+      "id": "tm8gNJnNaW4"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "2027년 나에게 맞는 지원금, AI로 찾는 방법",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "GPT 프롬프트 소개 · 시장 무관.",
+      "views": null,
+      "id": "9I_0I0pdVqc"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "12월 31일까지, 148만원 챙기는 정책 지원금 4가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "연금 세액공제 148.5만원은 결정세액 있는 사람 기준 — 정훈은 d228대로 0원 [미확인 · 시장 무관].",
+      "views": null,
+      "id": "Udvcxkhd9J8"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "은행부터 증권사까지, 유독 한국만 보안 뚫리는 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "정정",
+      "takeaway": "대신증권 유출 \"38만8천\"은 자막 오류 — 같은 채널 10/29 영상은 38,490명 [정정]. 보유 무관.",
+      "views": null,
+      "id": "6RRCqZ7R-sU"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "한국정부가 연금 수령 나이를 68세로 미룰려는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "국회 제안 단계 · 미확정 [미확인 · 시장 무관].",
+      "views": null,
+      "id": "nZcdEvLFvQU"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "증권사 고객정보 3만 8천 건 유출, 내 돈 지키는 3가지 설정",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "대신증권 38,490명 · 토스 아님 [미확인 · 시장 무관].",
+      "views": null,
+      "id": "5IRbXRR73Q0"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "국민연금 수령 65세 말고 '이때' 해야 되는 진짜 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "연금 연기·조기 수령 산식 · 시장 무관 [미확인].",
+      "views": null,
+      "id": "OTUsM-_Mrdc"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "은행+증권주 주가, 앞으로 어떻게 흘러갈까?",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "美 10년물 10월 초 5% 돌파 [검증 — 고점 5.311% 10/5] · 은행·증권 보유 무관. 매수 콜 없음.",
+      "views": null,
+      "id": "gUSn1eiLMuU"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "투자자들이 꼭 알아야 하는, 2차전지와 자동차 섹터의 미래",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "현대차 3Q 컨센 하향 방향 [검증 — FnGuide 3개월 3.14조 → 10/12 2.82조] · 채널의 2.4조대는 미대조. 매수 콜 없음.",
+      "views": null,
+      "id": "rPLGJnY_o2k"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "주가 폭등한 K화장품 종목들, 앞으로 어떻게 될까?",
+      "theme": null,
+      "tickers": [],
+      "verdict": "정정",
+      "takeaway": "환율 1,320원대 [검증 — 10/27 1,324.77] · 7월 초 1,600원 근접 [정정 — 실제 1,548~1,552 · 고점 1,554]. 보유 무관.",
+      "views": null,
+      "id": "J1sYj8GcFC8"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "앤트로픽 상장 이후, 벌어질 '주가 흐름' 전부 분석해왔습니다",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "S-1 10/26·나스닥 ANT·몸값 1.5~2조달러는 보도 추정 [검증]. 상장 목표 11/16 주 보도. 손익 수치는 매체 상충 [미확인]. 알파벳 지분 약 14%는 2025 법원 자료 기준.",
+      "views": null,
+      "id": "6szgC9CddS0"
+    },
+    {
+      "date": "2026-10-27",
+      "title": "10월 28일 오늘 코스피 어떻게 흘러갈까?!",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "코스피 5,638 [검증]. 야간선물 37번 중 34번 동행은 자체 데이터 없음 [미확인].",
+      "views": null,
+      "id": "P9V3MmvIzy4"
+    },
+    {
+      "date": "2026-10-27",
+      "title": "10월 28일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "번스타인 3Q HBM 삼성 $8.7B > 하이닉스 $7.6B [검증 — 수출 기반 추정치 · 실적 아님 · 앞선 추정 $11.4B/$5.9B와 차이 큼].",
+      "views": null,
+      "id": "oPdUbw6HJF4"
+    },
+    {
+      "date": "2026-10-27",
+      "title": "유튜브가 한국에만 비싸게 파는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "요금제 이슈 · GOOGL 실적 영향 미미 [미확인].",
+      "views": null,
+      "id": "d1rskvuR8aM"
+    },
+    {
+      "date": "2026-10-26",
+      "title": "10월 27일 오늘 코스피 어디까지 상승할까!?",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "당일 프리뷰 · 지난 일정. 매수 콜 없음 [미확인].",
+      "views": null,
+      "id": "E3UwBBtDJlM"
+    },
+    {
+      "date": "2026-10-26",
+      "title": "10월 27일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "정정",
+      "takeaway": "앤트로픽 상반기 매출 162억달러 → $16.29B로 근소 정정 [정정]. 환율 부담 논지는 위 환율 표와 정합.",
+      "views": null,
+      "id": "hObPD9p6cBQ"
+    },
+    {
+      "date": "2026-10-26",
+      "title": "AI 투자 줄인다더니, 한국 반도체로 53조 돈 몰리는 이유",
+      "theme": null,
+      "tickers": [],
+      "verdict": "정정",
+      "takeaway": "메타 -6.1% → 캐시 종가 697.52→648.85 = -6.98% [정정]. capex +1,250억달러는 미대조 [미확인].",
+      "views": null,
+      "id": "WUTouUSy4LU"
+    },
+    {
+      "date": "2026-10-26",
+      "title": "오늘자 새롭게 '정의'된 코스피 7,000 반등 조건 3가지",
+      "theme": null,
+      "tickers": [],
+      "verdict": "검증",
+      "takeaway": "지난 금요일 5,500선 [검증 — 5,550]. 조건 = 수급·실적·금리 서술 · 수치 판정 없음.",
+      "views": null,
+      "id": "MMvFsMXigfE"
+    },
+    {
+      "date": "2026-10-26",
+      "title": "10월 26일 우리가 꼭 알고 있어야 할, 저평가 'AI 로보택시' 소형주",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "위라이드 콜 · 목표 $10 [미확인]. 미국 트랙 순서 밖 · 채널 단독 근거 금지 → setup 없음.",
+      "views": null,
+      "id": "JE4Y0MUTeKU"
+    },
+    {
+      "date": "2026-10-25",
+      "title": "10월 26일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [],
+      "verdict": "미확인",
+      "takeaway": "저PBR 개선계획 \"62곳\"은 찾지 못함 [미확인] · 공표 규모 120~220곳은 [검증].",
+      "views": null,
+      "id": "OrJ9e0pzTlE"
+    },
     {
       "date": "2026-11-01",
       "title": "AI 투자자들이 앞으로 봐야 할 '호재'와 '악재'",

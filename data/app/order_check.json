@@ -1,8 +1,13 @@
 {
- "checked_at": "2026-11-01 20:41",
+ "checked_at": "2026-11-02 00:14",
  "source": "toss",
  "open": [],
  "findings": [
+  {
+   "level": "yellow",
+   "ticker": "454910.KS",
+   "msg": "두산로보틱스 매도 60,000 '매일 등록' 오더가 토스에 없다(o-drb-trim-78k) — 재등록 필요"
+  },
   {
    "level": "info",
    "ticker": "ANET",
@@ -11,7 +16,7 @@
  ],
  "counts": {
   "red": 0,
-  "yellow": 0,
+  "yellow": 1,
   "ok": 0,
   "info": 1
  },
@@ -19,6 +24,6 @@
   "kr_weight_pct": 23.4,
   "ladder_allowed_krw": 0.0,
   "us_allowed_usd": 90.8,
-  "waiting_plans": 4
+  "waiting_plans": 3
  }
 }

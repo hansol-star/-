@@ -76,6 +76,7 @@ EXPECTED_UNWIRED = {
                                   "validate_report가 WARN으로 표면화(8/24). 데스크가 읽을 산출물이 아니다",
     "lookahead_guard.py":         "dev 게이트 도구 — selfcheck가 5단계로 직접 호출(8/24). "
                                   "데스크가 아니라 커밋 전 게이트가 부르는 층위라 지시층 배선이 없는 게 정상",
+    "trend_rules_test.py":        "일회성 검정 — 200일선·시계열 모멘텀·52주 고점 근접도 vs 같은 노출·위약·PBO(11/1 공부, 측정 전용)",
     "ma_test.py":                 "일회성 검정 — 이평 배열의 조건부 기저율(8/4)",
     "sizing_backtest.py":         "일회성 백테스트 — vol_sizing 감산 검증(7/21, 결과: 감산 폐기)",
     "snapshot_state_backfill.py": "일회성 백필 — 과거 스냅샷 소급 태깅(7/21)",

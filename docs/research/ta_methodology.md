@@ -89,6 +89,10 @@ python3 chart_read.py --json                # 파이프라인(스냅샷 태깅·
 - **★수급 엣지 백테스트**(`flow_edge.py`): Δ외국인지분율 따라매수 = forward 음엣지(−0.75%p/20d), **역발상만
   양엣지**(외인 60일 대량이탈 뒤 +1.36%p·승률57%). → 수급도 가격처럼 '상태 서술', forward 트리거 금지.
 
+## 4d. 추세 규칙 18개 시장 재검정 (11/1)
+
+200일선·12개월 모멘텀·52주 고점 근접도 = 샤프 개선 11·5·9/18, 2008 후 6·0·5/18, PBO 0.683. **낙폭 감소는 대부분 노출 감소**(같은 노출 대조군을 이긴 시장 9·9·12/18). ⇒ 스테이지·이평은 계속 **위험 상태 설명**으로만 쓴다. 측정 전용 · 정본 = `study_log.md` 11/1.
+
 ## 5. 외부 근거 (구현 시 교차검증)
 
 - Minervini SEPA·VCP·트렌드템플릿: [FinancialTechWiz](https://www.financialtechwiz.com/post/mark-minervini-trading-strategy/) · [TraderLion VCP](https://traderlion.com/technical-analysis/volatility-contraction-pattern/) · [TrendSpider VCP](https://trendspider.com/learning-center/volatility-contraction-pattern-vcp/)

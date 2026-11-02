@@ -1,62 +1,59 @@
 {
- "date": "2026-10-30",
- "run_at": "2026-10-30 22:13",
+ "date": "2026-11-02",
+ "run_at": "2026-11-02 16:10",
  "status": "ok",
  "notes": [],
  "kospi": {
-  "close": 5730.74,
-  "pct": -3.48,
+  "close": 5859.08,
+  "pct": 2.24,
   "peak": 9114.55,
   "peak_date": "2026-06-22",
-  "dd_pct": -37.13
+  "dd_pct": -35.72
  },
  "kosdaq": {
-  "close": 724.38,
-  "pct": -3.83
+  "close": 734.36,
+  "pct": 1.38
  },
  "first": {
-  "foreign": -16149,
-  "inst": 7540,
-  "indiv": 6028,
-  "at": "22:13",
-  "final": true,
-  "src": "네이버 시장수급 22:13 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
+  "foreign": -3748,
+  "inst": 12327,
+  "indiv": -13457,
+  "at": "16:10",
+  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "flows": {
-  "foreign": -16149,
-  "inst": 7540,
-  "indiv": 6028,
-  "at": "22:13",
-  "final": true,
-  "src": "네이버 시장수급 22:13 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
+  "foreign": -3748,
+  "inst": 12327,
+  "indiv": -13457,
+  "at": "16:10",
+  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "regular": null,
- "integrated": {
-  "foreign": -16149,
-  "inst": 7540,
-  "indiv": 6028,
-  "at": "22:13",
-  "final": true,
-  "src": "네이버 시장수급 22:13 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
+ "regular": {
+  "foreign": -3748,
+  "inst": 12327,
+  "indiv": -13457,
+  "at": "16:10",
+  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "basis": "integrated",
- "grade": "통합만(정규장 캡처 없음)",
- "flows_action": "kept_manual",
+ "integrated": null,
+ "basis": "regular",
+ "grade": "잠정(1차)",
+ "flows_action": "added",
  "streak": {
-  "days": 1,
+  "days": 2,
   "side": "매도",
-  "cum_eok": -16269,
+  "cum_eok": -19918,
   "lower_bound": true,
   "gate2": false,
-  "basis": "sign_safe",
-  "reason": "2026-10-30 정규장 기준 순매도"
+  "basis": "regular",
+  "reason": "2026-11-02 정규장 기준 순매도"
  },
  "pending_nulls": [
   "2026-10-26"
  ],
  "history_audit": {
   "days": 7,
-  "checked": 126,
+  "checked": 91,
   "unresolved": 0,
   "adjusted": 0,
   "error": null,
@@ -66,9 +63,9 @@
  },
  "yahoo_audit": {
   "days": 30,
-  "symbols": 55,
-  "checked": 1196,
-  "pending": 0,
+  "symbols": 51,
+  "checked": 1002,
+  "pending": 1,
   "unverifiable": 0,
   "error": null,
   "stuck": [],
@@ -78,6 +75,5 @@
   "extra_old": 0,
   "errors": [],
   "skipped": 0
- },
- "manual_note": "11/1 확인: 10/30 정규장 값은 flows.json에 basis=regular로 매체 교차 보충 완료(외인 -16,170억 · KRX 원본 미대조)"
+ }
 }

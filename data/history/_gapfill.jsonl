@@ -133,3 +133,5 @@
 {"run_at": "2026-10-31 09:26", "symbol": "^BSESN", "date": "2026-10-30", "kind": "unverified", "old": 74459.5312, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
 {"run_at": "2026-10-31 09:26", "symbol": "^JKSE", "date": "2026-10-30", "kind": "unverified", "old": 5057.0498, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
 {"run_at": "2026-10-31 09:26", "symbol": "^KLSE", "date": "2026-10-30", "kind": "unverified", "old": 1615.6, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-11-03 00:34", "symbol": "^KS11", "date": "2026-11-02", "kind": "unverified", "old": 5859.0801, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-11-03 00:34", "symbol": "^KQ11", "date": "2026-11-02", "kind": "unverified", "old": 734.36, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30",
+ "updated": "2026-11-03",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -3069,6 +3069,45 @@
    "analyst": "박준영,김나우",
    "broker": "한화투자증권",
    "name": "SK하이닉스",
+   "held": false
+  },
+  "653679": {
+   "date": "2026-11-03",
+   "report_idx": "653679",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) 3Q26 NDR Key Takeaways : 다가올 기회에 집중 한화오션(042660) 3Q26 NDR Key Takeaways : 다가올 기회에 집중 3Q26 NDR Key Takeaways : 다가올 기회에 집중",
+   "code": "042660",
+   "target_price": 90000.0,
+   "rating": "Buy",
+   "analyst": "이재혁",
+   "broker": "LS증권",
+   "name": "한화오션",
+   "held": false
+  },
+  "653610": {
+   "date": "2026-11-02",
+   "report_idx": "653610",
+   "title": "한화에어로스페이스",
+   "full_title": "한화에어로스페이스(012450) 방산 납품 계획에 따른 일시적 실적 급감 한화에어로스페이스(012450) 방산 납품 계획에 따른 일시적 실적 급감 방산 납품 계획에 따른 일시적 실적 급감",
+   "code": "012450",
+   "target_price": 1000000.0,
+   "rating": "Buy",
+   "analyst": "이재광",
+   "broker": "LS증권",
+   "name": "한화에어로스페이스",
+   "held": false
+  },
+  "653588": {
+   "date": "2026-11-02",
+   "report_idx": "653588",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) Murata & Ibiden 실적발표 및 수주공시 시사점 삼성전기(009150) Murata & Ibiden 실적발표 및 수주공시 시사점 Murata & Ibiden 실적발표 및 수주공시 시사점",
+   "code": "009150",
+   "target_price": 0.0,
+   "rating": "투자의견없음",
+   "analyst": "양승수",
+   "broker": "메리츠증권",
+   "name": "삼성전기",
    "held": false
   }
  }

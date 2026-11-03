@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02",
+ "updated": "2026-11-03",
  "note": "어닝콜 트랜스크립트 요약(earningscalls.dev·무키). 수치는 1차 출처 교차 필요. ticker+quarter 키로 누적 병합(9/4~).",
  "rows": [
   {
@@ -38,7 +38,7 @@
    "ticker": "ANET",
    "date": "2026-09-10",
    "url": "https://earningscalls.dev/transcripts/arista-networks-inc_anet_earnings_call_transcript_2026-09-10",
-   "chars": 44858,
+   "chars": 44796,
    "quotes": [
     {
      "key": "supply",
@@ -242,7 +242,7 @@
    "ticker": "MSFT",
    "date": "2026-10-28",
    "url": "https://earningscalls.dev/transcripts/microsoft-corporation_msft_earnings_call_transcript_2026-10-28",
-   "chars": 56556,
+   "chars": 56494,
    "quotes": [
     {
      "key": "supply",

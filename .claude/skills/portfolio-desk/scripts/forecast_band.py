@@ -49,6 +49,11 @@ def band(sym: str) -> dict | None:
     if len(c) < 20:
         return None
     a, p = atr(h, l, c, len(c) - 1), c[-1]
+    # 기준가 = 매일 갱신되는 종가 캐시(data/history)의 마지막 값. OHLCV 캐시는 주간(R3)에만 갱신돼
+    # 그걸 기준가로 쓰면 범위가 며칠 전 가격에 고정된다(11/3: AVGO 범위 하단 > 현재가). ATR은 OHLCV 그대로.
+    last = [float(x["close"]) for x in rows(os.path.join(ROOT, "data", "history", sym.replace("^", "_") + ".csv")) if x.get("close")]
+    if last:
+        p = last[-1]
     return dict(ref=p, week=(p - WEEK * a, p + WEEK * a), month=(p - MONTH * a, p + MONTH * a))
 
 

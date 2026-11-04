@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03",
+ "updated": "2026-11-04",
  "reports": {
   "651264": {
    "date": "2026-07-30",
@@ -3109,6 +3109,32 @@
    "broker": "메리츠증권",
    "name": "삼성전기",
    "held": false
+  },
+  "653750": {
+   "date": "2026-11-04",
+   "report_idx": "653750",
+   "title": "SK하이닉스",
+   "full_title": "SK하이닉스(000660) HBM 하나로 시가총액 설명 SK하이닉스(000660) HBM 하나로 시가총액 설명 HBM 하나로 시가총액 설명",
+   "code": "000660",
+   "target_price": 2300000.0,
+   "rating": "Buy",
+   "analyst": "고의영",
+   "broker": "iM증권",
+   "name": "SK하이닉스",
+   "held": false
+  },
+  "653749": {
+   "date": "2026-11-04",
+   "report_idx": "653749",
+   "title": "삼성전자",
+   "full_title": "삼성전자(005930) STRESS TEST 삼성전자(005930) STRESS TEST STRESS TEST",
+   "code": "005930",
+   "target_price": 370000.0,
+   "rating": "Buy",
+   "analyst": "고의영",
+   "broker": "iM증권",
+   "name": "삼성전자",
+   "held": true
   }
  }
 }

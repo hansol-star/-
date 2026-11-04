@@ -194,6 +194,17 @@ def _ret(c, n):
     return c[-1] / c[-1 - n] - 1 if len(c) > n and c[-1 - n] > 0 else None
 
 
+def bottom_flags(b: dict, bench_ret3) -> list:
+    """낙폭 종목의 바닥 신호(bottom_study.py와 같은 정의) → 적중한 신호 이름들.
+    ⚠️ 11/5 10년 검정에서 어느 것도 Holm 보정을 통과하지 못했다(최선 = 국내 투매→고갈 p_holm 0.098) — 표시만."""
+    import bottom_study as bs
+    c, l, v = b["c"], b["l"], b["v"]
+    if len(c) < 260:
+        return []
+    sig = bs.signals_at(len(c) - 1, c, l, v, bs._cum(c), bs._cum(v), bs._rsi(c), bench_ret3)
+    return [bs.NAMES[k] for k in bs.SIGNALS if sig[k]]
+
+
 def metrics(b: dict) -> dict:
     """스크린 입력값(순수 함수 — 시세 dict만 받는다)."""
     c, h, l, o, v = b["c"], b["h"], b["l"], b["o"], b["v"]
@@ -262,6 +273,7 @@ def run(markets=("US", "KR"), limit: int | None = None, workers: int = 8, log=pr
             uni = sorted(uni, key=lambda x: -x["mcap"])[:limit]
         bb = bars(BENCH[mk])
         idx_dd = (bb["c"][-1] / max(bb["h"][-252:]) - 1) if bb else 0.0
+        bench_r3 = (bb["c"][-1] / bb["c"][-64] - 1) if bb and len(bb["c"]) > 64 else None
         rows, fail = [], []
         with cf.ThreadPoolExecutor(workers) as ex:
             futs = {ex.submit(bars, u["ticker"]): u for u in uni}
@@ -273,6 +285,7 @@ def run(markets=("US", "KR"), limit: int | None = None, workers: int = 8, log=pr
                 if m["adv20"] < (US_ADV_MIN if mk == "US" else KR_ADV_MIN):
                     continue
                 m["px_flag"] = px_mismatch(m["price"], u.get("ref_px"), b["c"][-2])
+                m["bottom"] = bottom_flags(b, bench_r3) if m["from_high"] <= -0.35 else []
                 rows.append({**u, "m": m})
         bad = [r["ticker"] for r in rows if r["m"]["px_flag"]]
         rows = [r for r in rows if not r["m"]["px_flag"]]     # 가격이 출처와 15%+ 다르면 스크린에서 뺀다(분할·심볼 결함)
@@ -313,7 +326,8 @@ def _slim(r: dict) -> dict:
             "industry": r["industry"], "mcap": r["mcap"], "price": m["price"], "date": m["date"],
             "rs_pct": r["rs_pct"], "tmpl": m["tmpl"], "ret_3m": f(m["ret_3m"]), "ret_12m": f(m["ret_12m"]),
             "from_high": f(m["from_high"]), "chg_1d": f(m["chg_1d"], 2), "gap": m["gap"],
-            "screens": r["screens"], "hits": r["hits"], "own": r["own"], "in_inbox": r["in_inbox"]}
+            "screens": r["screens"], "hits": r["hits"], "own": r["own"], "in_inbox": r["in_inbox"],
+            "bottom": m.get("bottom") or []}
 
 
 def scan_age_days(path: str = OUT, now: dt.datetime | None = None) -> float | None:
@@ -336,6 +350,7 @@ def append_log(res: dict) -> int:
                 seen.add(r["ticker"])
                 f.write(json.dumps({"scan": res["run_at"][:10], "ticker": r["ticker"], "market": mk,
                                     "date": r["date"], "price": r["price"], "screens": r["screens"],
+                                    "bottom": r.get("bottom") or [], "from_high": r.get("from_high"),
                                     "own": r["own"]}, ensure_ascii=False) + "\n")
                 n += 1
     return n
@@ -397,8 +412,12 @@ def report_md(res: dict, top: int = 10) -> str:
         if blk["contra"]:
             L.append("")
             L.append(f"역발상(고점 대비 {blk['contra_cut']}% 이하 대형주 · 펀더 미검토): " + " · ".join(
-                f"{r['name'][:16]}({r['ticker']}) {r['from_high']}%" + (" [보유·워치]" if r["own"] else "")
+                f"{r['name'][:16]}({r['ticker']}) {r['from_high']}%"
+                + (f" 〔{'·'.join(r['bottom'])}〕" if r.get("bottom") else "")
+                + (" [보유·워치]" if r["own"] else "")
                 for r in sorted(blk["contra"], key=lambda r: -(r.get("mcap") or 0))[:8]))
+            L.append("〔 〕= 바닥 신호(bottom_study 정의) — ⚠️ 10년 검정에서 보정 후 유의한 신호 없음(11/5 · 최선 = 국내 "
+                     "투매→고갈 p_holm 0.098) · 오를 종목을 고른다는 증거 아님, 표시만")
         L.append("")
     return "\n".join(L)
 

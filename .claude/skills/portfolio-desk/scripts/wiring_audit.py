@@ -44,6 +44,8 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
+    "bottom_study.py":            "일회성 검정(11/5 · 낙폭주 바닥 신호 10년) — 결과 정본 = docs/research/bottom_study_2026-11-05.md·trials.jsonl. "
+                                  "신호 정의는 market_scan.bottom_flags()가 import해 매 스캔 역발상 목록에 표시한다(데스크는 market_scan 산출물을 읽는다).",
     "git_sync.py":                "git 라이브러리(10/16) — close_reconcile.commit()이 import해 자기 파일을 origin/main 위 임시 인덱스 커밋으로 올린다(로컬 main 갈라짐 방지). "
                                   "산출물 파일이 없으니 데스크가 읽을 것도 없다. 수동 CLI = 대화형 세션이 공유 워킹트리에서 자기 경로만 올릴 때(-m · --ff-only)",
     "live_quotes.py":             "앱 전용 실시간 시세층(9/21) — 소비자는 데스크가 아니라 **폰 앱**(app/live.json)이다. "

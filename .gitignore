@@ -29,3 +29,7 @@ data/cache/
 
 # 실시간 시세 — 파생물. 클라우드는 Pages 산출물로만 배포(deploy-app.yml), 로컬은 미리보기용.
 app/live.json
+
+# bottom_study 10년 일봉 캐시(159MB) — 재생성 가능: bottom_study.py --fetch
+data/tmp/bottom_study_bars.json
+data/tmp/bs.json

@@ -1,13 +1,13 @@
 {
- "run_at": "2026-11-05T00:26+09:00",
+ "run_at": "2026-11-05T01:00+09:00",
  "markets": {
   "US": {
    "index": "^GSPC",
-   "index_from_high": -2.1,
+   "index_from_high": -2.0,
    "contra_cut": -35.0,
    "universe": 968,
    "fetched": 965,
-   "liquid": 859,
+   "liquid": 860,
    "fail_sample": [
     "METAM",
     "SATS",
@@ -16,18 +16,18 @@
    "fail_n": 3,
    "px_mismatch": [],
    "asof": "2026-11-04",
-   "secs": 59,
+   "secs": 61,
    "counts": {
-    "LEADER": 95,
+    "LEADER": 94,
     "GAP": 29,
-    "HIGH": 80,
+    "HIGH": 97,
     "HOLDUP": 0,
-    "CONTRA": 56
+    "CONTRA": 57
    },
    "leader_sectors": {
     "Health Care": 33,
     "Consumer Discretionary": 17,
-    "Technology": 14,
+    "Technology": 13,
     "Industrials": 9,
     "Energy": 8,
     "Finance": 7,
@@ -38,20 +38,50 @@
    },
    "momentum": [
     {
+     "ticker": "GKOS",
+     "name": "Glaukos",
+     "market": "US",
+     "sector": "Health Care",
+     "industry": "Medical/Dental Instruments",
+     "mcap": 13795238585.0,
+     "price": 242.8699951171875,
+     "date": "2026-11-04",
+     "rs_pct": 99.8,
+     "tmpl": 8,
+     "ret_3m": 42.0,
+     "ret_12m": 177.9,
+     "from_high": -2.4,
+     "chg_1d": 4.22,
+     "gap": {
+      "date": "2026-10-29",
+      "gap_pct": 16.3,
+      "vol_x": 6.1
+     },
+     "screens": [
+      "LEADER",
+      "GAP",
+      "HIGH"
+     ],
+     "hits": 3,
+     "own": false,
+     "in_inbox": true,
+     "bottom": []
+    },
+    {
      "ticker": "MANH",
      "name": "Manhattan Associates",
      "market": "US",
      "sector": "Technology",
      "industry": "Computer Software: Prepackaged Software",
      "mcap": 14813911380.0,
-     "price": 261.82000732421875,
+     "price": 262.2749938964844,
      "date": "2026-11-04",
-     "rs_pct": 97.7,
+     "rs_pct": 97.9,
      "tmpl": 8,
-     "ret_3m": 37.3,
-     "ret_12m": 44.2,
-     "from_high": -0.0,
-     "chg_1d": 2.62,
+     "ret_3m": 37.6,
+     "ret_12m": 44.5,
+     "from_high": -0.5,
+     "chg_1d": 2.8,
      "gap": {
       "date": "2026-10-28",
       "gap_pct": 7.1,
@@ -64,7 +94,8 @@
      ],
      "hits": 3,
      "own": false,
-     "in_inbox": true
+     "in_inbox": true,
+     "bottom": []
     },
     {
      "ticker": "EG",
@@ -73,14 +104,14 @@
      "sector": "Finance",
      "industry": "Property-Casualty Insurers",
      "mcap": 15208742868.0,
-     "price": 415.9849853515625,
+     "price": 419.20001220703125,
      "date": "2026-11-04",
-     "rs_pct": 80.8,
+     "rs_pct": 81.3,
      "tmpl": 8,
-     "ret_3m": 12.3,
-     "ret_12m": 32.7,
-     "from_high": -1.3,
-     "chg_1d": 1.32,
+     "ret_3m": 13.2,
+     "ret_12m": 33.7,
+     "from_high": -0.6,
+     "chg_1d": 2.1,
      "gap": {
       "date": "2026-10-29",
       "gap_pct": 5.5,
@@ -93,35 +124,33 @@
      ],
      "hits": 3,
      "own": false,
-     "in_inbox": true
+     "in_inbox": true,
+     "bottom": []
     },
     {
-     "ticker": "GKOS",
-     "name": "Glaukos",
+     "ticker": "MRNA",
+     "name": "Moderna",
      "market": "US",
      "sector": "Health Care",
-     "industry": "Medical/Dental Instruments",
-     "mcap": 13795238585.0,
-     "price": 239.34500122070312,
+     "industry": "Biotechnology: Biological Products (No Diagnostic Substances)",
+     "mcap": 91201446483.0,
+     "price": 248.5,
      "date": "2026-11-04",
-     "rs_pct": 99.5,
+     "rs_pct": 100.0,
      "tmpl": 8,
-     "ret_3m": 40.0,
-     "ret_12m": 173.9,
-     "from_high": -3.8,
-     "chg_1d": 2.71,
-     "gap": {
-      "date": "2026-10-29",
-      "gap_pct": 16.3,
-      "vol_x": 6.1
-     },
+     "ret_3m": 361.4,
+     "ret_12m": 897.6,
+     "from_high": -2.3,
+     "chg_1d": 8.78,
+     "gap": null,
      "screens": [
       "LEADER",
-      "GAP"
+      "HIGH"
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": true
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "SN",
@@ -130,14 +159,14 @@
      "sector": "Consumer Discretionary",
      "industry": "Consumer Electronics/Appliances",
      "mcap": 29666140136.0,
-     "price": 217.02499389648438,
+     "price": 219.3699951171875,
      "date": "2026-11-04",
-     "rs_pct": 98.8,
+     "rs_pct": 99.2,
      "tmpl": 8,
-     "ret_3m": 20.6,
-     "ret_12m": 154.4,
-     "from_high": -2.2,
-     "chg_1d": 3.06,
+     "ret_3m": 21.9,
+     "ret_12m": 157.2,
+     "from_high": -1.1,
+     "chg_1d": 4.17,
      "gap": null,
      "screens": [
       "LEADER",
@@ -145,7 +174,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": true
+     "in_inbox": true,
+     "bottom": []
     },
     {
      "ticker": "PAYC",
@@ -154,14 +184,14 @@
      "sector": "Technology",
      "industry": "Computer Software: Prepackaged Software",
      "mcap": 11853385081.0,
-     "price": 271.1099853515625,
+     "price": 270.7200012207031,
      "date": "2026-11-04",
      "rs_pct": 98.0,
      "tmpl": 8,
-     "ret_3m": 25.5,
-     "ret_12m": 46.7,
-     "from_high": -1.5,
-     "chg_1d": 3.09,
+     "ret_3m": 25.4,
+     "ret_12m": 46.5,
+     "from_high": -1.6,
+     "chg_1d": 2.94,
      "gap": null,
      "screens": [
       "LEADER",
@@ -169,7 +199,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "EXEL",
@@ -178,14 +209,14 @@
      "sector": "Health Care",
      "industry": "Biotechnology: Biological Products (No Diagnostic Substances)",
      "mcap": 17644427817.0,
-     "price": 71.54000091552734,
+     "price": 72.32499694824219,
      "date": "2026-11-04",
-     "rs_pct": 97.3,
+     "rs_pct": 97.6,
      "tmpl": 8,
-     "ret_3m": 37.0,
-     "ret_12m": 88.0,
-     "from_high": -2.6,
-     "chg_1d": -1.06,
+     "ret_3m": 38.6,
+     "ret_12m": 90.0,
+     "from_high": -1.5,
+     "chg_1d": 0.02,
      "gap": null,
      "screens": [
       "LEADER",
@@ -193,7 +224,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "BTSG",
@@ -202,14 +234,14 @@
      "sector": "Health Care",
      "industry": "Medical/Nursing Services",
      "mcap": 13897085302.0,
-     "price": 67.97000122070312,
+     "price": 68.80999755859375,
      "date": "2026-11-04",
-     "rs_pct": 96.0,
+     "rs_pct": 96.3,
      "tmpl": 8,
-     "ret_3m": 12.2,
-     "ret_12m": 103.0,
-     "from_high": -7.8,
-     "chg_1d": -2.68,
+     "ret_3m": 13.5,
+     "ret_12m": 105.5,
+     "from_high": -6.7,
+     "chg_1d": -1.47,
      "gap": {
       "date": "2026-10-30",
       "gap_pct": 8.4,
@@ -221,7 +253,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "CNC",
@@ -230,14 +263,14 @@
      "sector": "Health Care",
      "industry": "Medical Specialities",
      "mcap": 33407188640.0,
-     "price": 71.7605972290039,
+     "price": 72.3550033569336,
      "date": "2026-11-04",
-     "rs_pct": 95.8,
+     "rs_pct": 96.2,
      "tmpl": 8,
-     "ret_3m": 11.8,
-     "ret_12m": 108.0,
-     "from_high": -1.9,
-     "chg_1d": 6.34,
+     "ret_3m": 12.7,
+     "ret_12m": 109.7,
+     "from_high": -1.1,
+     "chg_1d": 7.22,
      "gap": null,
      "screens": [
       "LEADER",
@@ -245,7 +278,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "SWK",
@@ -254,14 +288,14 @@
      "sector": "Consumer Discretionary",
      "industry": "Industrial Machinery/Components",
      "mcap": 15799360981.0,
-     "price": 117.63999938964844,
+     "price": 120.05000305175781,
      "date": "2026-11-04",
-     "rs_pct": 94.9,
+     "rs_pct": 95.2,
      "tmpl": 8,
-     "ret_3m": 16.4,
-     "ret_12m": 77.3,
-     "from_high": -2.4,
-     "chg_1d": 12.45,
+     "ret_3m": 18.8,
+     "ret_12m": 80.9,
+     "from_high": -0.4,
+     "chg_1d": 14.75,
      "gap": null,
      "screens": [
       "LEADER",
@@ -269,7 +303,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "FDS",
@@ -278,14 +313,14 @@
      "sector": "Technology",
      "industry": "Computer Software: Programming Data Processing",
      "mcap": 11730406063.0,
-     "price": 341.3999938964844,
+     "price": 344.2200012207031,
      "date": "2026-11-04",
-     "rs_pct": 94.6,
+     "rs_pct": 95.0,
      "tmpl": 8,
-     "ret_3m": 24.3,
-     "ret_12m": 29.0,
-     "from_high": -1.2,
-     "chg_1d": 2.65,
+     "ret_3m": 25.4,
+     "ret_12m": 30.1,
+     "from_high": -0.4,
+     "chg_1d": 3.5,
      "gap": null,
      "screens": [
       "LEADER",
@@ -293,7 +328,58 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "LTH",
+     "name": "Life Time Group Holdings",
+     "market": "US",
+     "sector": "Consumer Discretionary",
+     "industry": "Hotels/Resorts",
+     "mcap": 10010578040.0,
+     "price": 46.11000061035156,
+     "date": "2026-11-04",
+     "rs_pct": 94.6,
+     "tmpl": 8,
+     "ret_3m": 6.0,
+     "ret_12m": 85.4,
+     "from_high": -2.6,
+     "chg_1d": 3.46,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "BBY",
+     "name": "Best Buy Co.",
+     "market": "US",
+     "sector": "Consumer Discretionary",
+     "industry": "Consumer Electronics/Video Chains",
+     "mcap": 19687139011.0,
+     "price": 99.13999938964844,
+     "date": "2026-11-04",
+     "rs_pct": 94.3,
+     "tmpl": 8,
+     "ret_3m": 23.9,
+     "ret_12m": 21.6,
+     "from_high": -1.4,
+     "chg_1d": 5.61,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "RRC",
@@ -302,14 +388,14 @@
      "sector": "Energy",
      "industry": "Oil & Gas Production",
      "mcap": 12621640594.0,
-     "price": 52.65999984741211,
+     "price": 52.154998779296875,
      "date": "2026-11-04",
-     "rs_pct": 94.5,
+     "rs_pct": 93.9,
      "tmpl": 8,
-     "ret_3m": 36.5,
-     "ret_12m": 42.6,
-     "from_high": -7.5,
-     "chg_1d": -2.5,
+     "ret_3m": 35.2,
+     "ret_12m": 41.3,
+     "from_high": -8.3,
+     "chg_1d": -3.43,
      "gap": {
       "date": "2026-10-26",
       "gap_pct": 11.6,
@@ -321,55 +407,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "BBY",
-     "name": "Best Buy Co.",
-     "market": "US",
-     "sector": "Consumer Discretionary",
-     "industry": "Consumer Electronics/Video Chains",
-     "mcap": 19687139011.0,
-     "price": 98.3550033569336,
-     "date": "2026-11-04",
-     "rs_pct": 93.8,
-     "tmpl": 8,
-     "ret_3m": 22.9,
-     "ret_12m": 20.7,
-     "from_high": -2.2,
-     "chg_1d": 4.78,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "ROKU",
-     "name": "Roku",
-     "market": "US",
-     "sector": "Telecommunications",
-     "industry": "Cable & Other Pay Television Services",
-     "mcap": 23909887996.0,
-     "price": 162.1300048828125,
-     "date": "2026-11-04",
-     "rs_pct": 92.9,
-     "tmpl": 8,
-     "ret_3m": 8.0,
-     "ret_12m": 49.2,
-     "from_high": -0.1,
-     "chg_1d": 1.1,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "LLY",
@@ -378,14 +417,14 @@
      "sector": "Health Care",
      "industry": "Biotechnology: Pharmaceutical Preparations",
      "mcap": 1325867231791.0,
-     "price": 1411.1400146484375,
+     "price": 1421.530029296875,
      "date": "2026-11-04",
-     "rs_pct": 92.4,
+     "rs_pct": 93.1,
      "tmpl": 8,
-     "ret_3m": 18.4,
-     "ret_12m": 57.4,
-     "from_high": -2.7,
-     "chg_1d": 0.12,
+     "ret_3m": 19.3,
+     "ret_12m": 58.6,
+     "from_high": -1.9,
+     "chg_1d": 0.86,
      "gap": null,
      "screens": [
       "LEADER",
@@ -393,23 +432,24 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
-     "ticker": "THC",
-     "name": "Tenet Healthcare",
+     "ticker": "ROKU",
+     "name": "Roku",
      "market": "US",
-     "sector": "Health Care",
-     "industry": "Hospital/Nursing Management",
-     "mcap": 21225323720.0,
-     "price": 286.1099853515625,
+     "sector": "Telecommunications",
+     "industry": "Cable & Other Pay Television Services",
+     "mcap": 23909887996.0,
+     "price": 162.36000061035156,
      "date": "2026-11-04",
-     "rs_pct": 92.2,
+     "rs_pct": 93.0,
      "tmpl": 8,
-     "ret_3m": 11.5,
-     "ret_12m": 42.1,
-     "from_high": -0.6,
-     "chg_1d": 7.28,
+     "ret_3m": 8.2,
+     "ret_12m": 49.5,
+     "from_high": -0.0,
+     "chg_1d": 1.25,
      "gap": null,
      "screens": [
       "LEADER",
@@ -417,31 +457,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "EXPD",
-     "name": "Expeditors International of Washington",
-     "market": "US",
-     "sector": "Industrials",
-     "industry": "Integrated Freight & Logistics",
-     "mcap": 26558383981.0,
-     "price": 205.8699951171875,
-     "date": "2026-11-04",
-     "rs_pct": 92.0,
-     "tmpl": 8,
-     "ret_3m": 15.3,
-     "ret_12m": 68.1,
-     "from_high": -1.0,
-     "chg_1d": 0.76,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "AMGN",
@@ -450,14 +467,14 @@
      "sector": "Health Care",
      "industry": "Biotechnology: Biological Products (No Diagnostic Substances)",
      "mcap": 249371918626.0,
-     "price": 467.8500061035156,
+     "price": 474.0400085449219,
      "date": "2026-11-04",
-     "rs_pct": 91.7,
+     "rs_pct": 92.7,
      "tmpl": 8,
-     "ret_3m": 15.6,
-     "ret_12m": 57.9,
-     "from_high": -2.9,
-     "chg_1d": 1.43,
+     "ret_3m": 17.1,
+     "ret_12m": 60.0,
+     "from_high": -1.7,
+     "chg_1d": 2.77,
      "gap": null,
      "screens": [
       "LEADER",
@@ -465,23 +482,24 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
-     "ticker": "CPAY",
-     "name": "Corpay",
+     "ticker": "VTRS",
+     "name": "Viatris",
      "market": "US",
-     "sector": "Consumer Discretionary",
-     "industry": "Business Services",
-     "mcap": 26695879761.0,
-     "price": 418.42999267578125,
+     "sector": "Health Care",
+     "industry": "Biotechnology: Pharmaceutical Preparations",
+     "mcap": 21731339147.0,
+     "price": 19.0049991607666,
      "date": "2026-11-04",
-     "rs_pct": 90.3,
+     "rs_pct": 92.4,
      "tmpl": 8,
-     "ret_3m": 5.1,
-     "ret_12m": 58.9,
-     "from_high": -2.1,
-     "chg_1d": 2.91,
+     "ret_3m": 16.7,
+     "ret_12m": 80.5,
+     "from_high": -2.6,
+     "chg_1d": 0.45,
      "gap": null,
      "screens": [
       "LEADER",
@@ -489,7 +507,58 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "THC",
+     "name": "Tenet Healthcare",
+     "market": "US",
+     "sector": "Health Care",
+     "industry": "Hospital/Nursing Management",
+     "mcap": 21225323720.0,
+     "price": 286.57000732421875,
+     "date": "2026-11-04",
+     "rs_pct": 92.2,
+     "tmpl": 8,
+     "ret_3m": 11.7,
+     "ret_12m": 42.3,
+     "from_high": -0.4,
+     "chg_1d": 7.45,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "EXPD",
+     "name": "Expeditors International of Washington",
+     "market": "US",
+     "sector": "Industrials",
+     "industry": "Integrated Freight & Logistics",
+     "mcap": 26558383981.0,
+     "price": 206.24000549316406,
+     "date": "2026-11-04",
+     "rs_pct": 92.1,
+     "tmpl": 8,
+     "ret_3m": 15.5,
+     "ret_12m": 68.4,
+     "from_high": -0.8,
+     "chg_1d": 0.94,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "BDX",
@@ -498,14 +567,14 @@
      "sector": "Health Care",
      "industry": "Medical/Dental Instruments",
      "mcap": 53978892156.0,
-     "price": 204.3000030517578,
+     "price": 207.3000030517578,
      "date": "2026-11-04",
-     "rs_pct": 90.2,
+     "rs_pct": 91.3,
      "tmpl": 8,
-     "ret_3m": 15.4,
-     "ret_12m": 46.6,
-     "from_high": -0.8,
-     "chg_1d": 3.09,
+     "ret_3m": 17.1,
+     "ret_12m": 48.7,
+     "from_high": -0.1,
+     "chg_1d": 4.61,
      "gap": null,
      "screens": [
       "LEADER",
@@ -513,23 +582,24 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
-     "ticker": "EBAY",
-     "name": "eBay",
+     "ticker": "CPAY",
+     "name": "Corpay",
      "market": "US",
      "sector": "Consumer Discretionary",
      "industry": "Business Services",
-     "mcap": 52074180000.0,
-     "price": 124.92500305175781,
+     "mcap": 26695879761.0,
+     "price": 420.9800109863281,
      "date": "2026-11-04",
-     "rs_pct": 89.7,
+     "rs_pct": 90.8,
      "tmpl": 8,
-     "ret_3m": 13.4,
-     "ret_12m": 50.9,
-     "from_high": -0.4,
-     "chg_1d": 5.32,
+     "ret_3m": 5.7,
+     "ret_12m": 59.8,
+     "from_high": -1.5,
+     "chg_1d": 3.54,
      "gap": null,
      "screens": [
       "LEADER",
@@ -537,7 +607,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "GWW",
@@ -546,14 +617,14 @@
      "sector": "Industrials",
      "industry": "Office Equipment/Supplies/Services",
      "mcap": 65846174897.0,
-     "price": 1487.1500244140625,
+     "price": 1514.06005859375,
      "date": "2026-11-04",
-     "rs_pct": 89.3,
+     "rs_pct": 90.7,
      "tmpl": 8,
-     "ret_3m": 15.9,
-     "ret_12m": 53.9,
-     "from_high": -2.2,
-     "chg_1d": 6.38,
+     "ret_3m": 18.0,
+     "ret_12m": 56.7,
+     "from_high": -0.4,
+     "chg_1d": 8.3,
      "gap": null,
      "screens": [
       "LEADER",
@@ -561,7 +632,58 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "EBAY",
+     "name": "eBay",
+     "market": "US",
+     "sector": "Consumer Discretionary",
+     "industry": "Business Services",
+     "mcap": 52074180000.0,
+     "price": 126.25499725341797,
+     "date": "2026-11-04",
+     "rs_pct": 90.3,
+     "tmpl": 8,
+     "ret_3m": 14.6,
+     "ret_12m": 52.5,
+     "from_high": -0.2,
+     "chg_1d": 6.44,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "LH",
+     "name": "Labcorp Holdings",
+     "market": "US",
+     "sector": "Health Care",
+     "industry": "Medical Specialities",
+     "mcap": 28738304000.0,
+     "price": 363.2950134277344,
+     "date": "2026-11-04",
+     "rs_pct": 90.1,
+     "tmpl": 8,
+     "ret_3m": 14.8,
+     "ret_12m": 40.9,
+     "from_high": -2.1,
+     "chg_1d": 2.65,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "HST",
@@ -570,14 +692,14 @@
      "sector": "Real Estate",
      "industry": "Real Estate Investment Trusts",
      "mcap": 17662507006.0,
-     "price": 25.850000381469727,
+     "price": 25.96500015258789,
      "date": "2026-11-04",
-     "rs_pct": 88.6,
+     "rs_pct": 89.1,
      "tmpl": 8,
-     "ret_3m": 10.6,
-     "ret_12m": 60.3,
-     "from_high": -0.8,
-     "chg_1d": 0.27,
+     "ret_3m": 11.1,
+     "ret_12m": 61.0,
+     "from_high": -0.3,
+     "chg_1d": 0.72,
      "gap": null,
      "screens": [
       "LEADER",
@@ -585,31 +707,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "TMO",
-     "name": "Thermo Fisher Scientific",
-     "market": "US",
-     "sector": "Industrials",
-     "industry": "Industrial Machinery/Components",
-     "mcap": 258746051259.0,
-     "price": 695.489990234375,
-     "date": "2026-11-04",
-     "rs_pct": 88.3,
-     "tmpl": 8,
-     "ret_3m": 19.9,
-     "ret_12m": 23.1,
-     "from_high": -2.3,
-     "chg_1d": -0.41,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "TRV",
@@ -618,14 +717,64 @@
      "sector": "Finance",
      "industry": "Property-Casualty Insurers",
      "mcap": 81037835067.0,
-     "price": 402.43499755859375,
+     "price": 405.7699890136719,
+     "date": "2026-11-04",
+     "rs_pct": 88.7,
+     "tmpl": 8,
+     "ret_3m": 5.1,
+     "ret_12m": 51.6,
+     "from_high": -0.5,
+     "chg_1d": 2.62,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "TMO",
+     "name": "Thermo Fisher Scientific",
+     "market": "US",
+     "sector": "Industrials",
+     "industry": "Industrial Machinery/Components",
+     "mcap": 258746051259.0,
+     "price": 696.3599853515625,
+     "date": "2026-11-04",
+     "rs_pct": 88.6,
+     "tmpl": 8,
+     "ret_3m": 20.1,
+     "ret_12m": 23.3,
+     "from_high": -2.2,
+     "chg_1d": -0.28,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "KDP",
+     "name": "Keurig Dr Pepper",
+     "market": "US",
+     "sector": "Consumer Staples",
+     "industry": "Beverages (Production/Distribution)",
+     "mcap": 47275096560.0,
+     "price": 36.2599983215332,
      "date": "2026-11-04",
      "rs_pct": 87.9,
      "tmpl": 8,
-     "ret_3m": 4.3,
-     "ret_12m": 50.4,
-     "from_high": -1.3,
-     "chg_1d": 1.78,
+     "ret_3m": 19.4,
+     "ret_12m": 36.1,
+     "from_high": -1.9,
+     "chg_1d": 4.38,
      "gap": null,
      "screens": [
       "LEADER",
@@ -633,31 +782,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "GSAT",
-     "name": "Globalstar",
-     "market": "US",
-     "sector": "Consumer Discretionary",
-     "industry": "Telecommunications Equipment",
-     "mcap": 10853525180.0,
-     "price": 84.87999725341797,
-     "date": "2026-11-04",
-     "rs_pct": 86.4,
-     "tmpl": 8,
-     "ret_3m": 2.0,
-     "ret_12m": 68.5,
-     "from_high": -0.3,
-     "chg_1d": 1.33,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "V",
@@ -666,14 +792,14 @@
      "sector": "Consumer Discretionary",
      "industry": "Business Services",
      "mcap": 751187631695.0,
-     "price": 427.3999938964844,
+     "price": 431.6499938964844,
      "date": "2026-11-04",
-     "rs_pct": 86.2,
+     "rs_pct": 87.3,
      "tmpl": 8,
-     "ret_3m": 15.4,
-     "ret_12m": 26.9,
-     "from_high": -0.5,
-     "chg_1d": 1.66,
+     "ret_3m": 16.5,
+     "ret_12m": 28.1,
+     "from_high": -0.1,
+     "chg_1d": 2.67,
      "gap": null,
      "screens": [
       "LEADER",
@@ -681,55 +807,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "MTD",
-     "name": "Mettler-Toledo International",
-     "market": "US",
-     "sector": "Industrials",
-     "industry": "Biotechnology: Laboratory Analytical Instruments",
-     "mcap": 34022878644.0,
-     "price": 1718.300048828125,
-     "date": "2026-11-04",
-     "rs_pct": 85.4,
-     "tmpl": 8,
-     "ret_3m": 20.9,
-     "ret_12m": 22.1,
-     "from_high": -0.7,
-     "chg_1d": 1.19,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "XYZ",
-     "name": "Block",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Computer Software: Prepackaged Software",
-     "mcap": 45660420000.0,
-     "price": 87.30999755859375,
-     "date": "2026-11-04",
-     "rs_pct": 84.6,
-     "tmpl": 8,
-     "ret_3m": 10.5,
-     "ret_12m": 17.5,
-     "from_high": -1.1,
-     "chg_1d": 14.88,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "DGX",
@@ -738,14 +817,14 @@
      "sector": "Health Care",
      "industry": "Medical Specialities",
      "mcap": 27181312175.0,
-     "price": 249.97500610351562,
+     "price": 253.1300048828125,
      "date": "2026-11-04",
-     "rs_pct": 84.5,
+     "rs_pct": 86.6,
      "tmpl": 8,
-     "ret_3m": 4.8,
-     "ret_12m": 39.8,
-     "from_high": -2.7,
-     "chg_1d": 1.18,
+     "ret_3m": 6.1,
+     "ret_12m": 41.5,
+     "from_high": -1.5,
+     "chg_1d": 2.46,
      "gap": null,
      "screens": [
       "LEADER",
@@ -753,23 +832,24 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
-     "ticker": "WSM",
-     "name": "Williams-Sonoma",
+     "ticker": "GSAT",
+     "name": "Globalstar",
      "market": "US",
      "sector": "Consumer Discretionary",
-     "industry": "Home Furnishings",
-     "mcap": 29880576190.0,
-     "price": 263.5,
+     "industry": "Telecommunications Equipment",
+     "mcap": 10853525180.0,
+     "price": 84.83000183105469,
      "date": "2026-11-04",
-     "rs_pct": 84.4,
+     "rs_pct": 86.5,
      "tmpl": 8,
-     "ret_3m": 6.7,
-     "ret_12m": 36.8,
-     "from_high": -2.7,
-     "chg_1d": 3.86,
+     "ret_3m": 1.9,
+     "ret_12m": 68.4,
+     "from_high": -0.3,
+     "chg_1d": 1.27,
      "gap": null,
      "screens": [
       "LEADER",
@@ -777,7 +857,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "TD",
@@ -786,14 +867,14 @@
      "sector": "Finance",
      "industry": "Commercial Banks",
      "mcap": 203716726761.0,
-     "price": 126.73999786376953,
+     "price": 127.62000274658203,
      "date": "2026-11-04",
-     "rs_pct": 84.1,
+     "rs_pct": 85.7,
      "tmpl": 8,
-     "ret_3m": 4.6,
-     "ret_12m": 54.7,
-     "from_high": -1.0,
-     "chg_1d": 1.6,
+     "ret_3m": 5.3,
+     "ret_12m": 55.8,
+     "from_high": -0.3,
+     "chg_1d": 2.31,
      "gap": null,
      "screens": [
       "LEADER",
@@ -801,127 +882,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "ADP",
-     "name": "Automatic Data Processing",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "EDP Services",
-     "mcap": 116852739466.0,
-     "price": 300.75,
-     "date": "2026-11-04",
-     "rs_pct": 83.4,
-     "tmpl": 8,
-     "ret_3m": 10.0,
-     "ret_12m": 16.9,
-     "from_high": -2.8,
-     "chg_1d": 1.6,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "BNS",
-     "name": "Bank Nova Scotia Halifax Pfd 3",
-     "market": "US",
-     "sector": "Finance",
-     "industry": "Major Banks",
-     "mcap": 114900904138.0,
-     "price": 95.07499694824219,
-     "date": "2026-11-04",
-     "rs_pct": 83.2,
-     "tmpl": 8,
-     "ret_3m": 7.6,
-     "ret_12m": 44.7,
-     "from_high": -1.1,
-     "chg_1d": 1.51,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "PM",
-     "name": "Philip Morris International",
-     "market": "US",
-     "sector": "Health Care",
-     "industry": " Medicinal Chemicals and Botanical Products ",
-     "mcap": 324247130501.0,
-     "price": 209.8350067138672,
-     "date": "2026-11-04",
-     "rs_pct": 83.0,
-     "tmpl": 8,
-     "ret_3m": 11.6,
-     "ret_12m": 45.1,
-     "from_high": -2.1,
-     "chg_1d": 0.87,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "AAPL",
-     "name": "Apple",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Computer Manufacturing",
-     "mcap": 4843808342000.0,
-     "price": 352.8900146484375,
-     "date": "2026-11-04",
-     "rs_pct": 82.9,
-     "tmpl": 8,
-     "ret_3m": 13.0,
-     "ret_12m": 31.2,
-     "from_high": -0.2,
-     "chg_1d": 6.32,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "MA",
-     "name": "Mastercard Incorporated",
-     "market": "US",
-     "sector": "Consumer Discretionary",
-     "industry": "Business Services",
-     "mcap": 563807757459.0,
-     "price": 661.85498046875,
-     "date": "2026-11-04",
-     "rs_pct": 82.4,
-     "tmpl": 8,
-     "ret_3m": 14.9,
-     "ret_12m": 21.6,
-     "from_high": -0.5,
-     "chg_1d": 2.27,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "EHC",
@@ -930,14 +892,14 @@
      "sector": "Health Care",
      "industry": "Hospital/Nursing Management",
      "mcap": 13297489629.0,
-     "price": 135.42999267578125,
+     "price": 138.27999877929688,
      "date": "2026-11-04",
-     "rs_pct": 82.1,
+     "rs_pct": 85.3,
      "tmpl": 8,
-     "ret_3m": 8.5,
-     "ret_12m": 16.7,
-     "from_high": -2.7,
-     "chg_1d": 0.47,
+     "ret_3m": 10.8,
+     "ret_12m": 19.1,
+     "from_high": -0.6,
+     "chg_1d": 2.59,
      "gap": null,
      "screens": [
       "LEADER",
@@ -945,47 +907,24 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
-     "ticker": "AIZ",
-     "name": "Assurant",
-     "market": "US",
-     "sector": "Finance",
-     "industry": "Property-Casualty Insurers",
-     "mcap": 14606247122.0,
-     "price": 304.3949890136719,
-     "date": "2026-11-04",
-     "rs_pct": 81.8,
-     "tmpl": 8,
-     "ret_3m": 2.7,
-     "ret_12m": 43.5,
-     "from_high": -1.6,
-     "chg_1d": 2.79,
-     "gap": null,
-     "screens": [
-      "LEADER",
-      "HIGH"
-     ],
-     "hits": 2,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "CDW",
-     "name": "CDW",
+     "ticker": "WSM",
+     "name": "Williams-Sonoma",
      "market": "US",
      "sector": "Consumer Discretionary",
-     "industry": "Catalog/Specialty Distribution",
-     "mcap": 18723859892.0,
-     "price": 162.9199981689453,
+     "industry": "Home Furnishings",
+     "mcap": 29880576190.0,
+     "price": 264.8800048828125,
      "date": "2026-11-04",
-     "rs_pct": 81.4,
+     "rs_pct": 85.2,
      "tmpl": 8,
-     "ret_3m": 14.8,
-     "ret_12m": 5.2,
-     "from_high": -1.9,
-     "chg_1d": 8.78,
+     "ret_3m": 7.3,
+     "ret_12m": 37.5,
+     "from_high": -2.2,
+     "chg_1d": 4.41,
      "gap": null,
      "screens": [
       "LEADER",
@@ -993,23 +932,24 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
-     "ticker": "VRSN",
-     "name": "VeriSign",
+     "ticker": "ADP",
+     "name": "Automatic Data Processing",
      "market": "US",
      "sector": "Technology",
      "industry": "EDP Services",
-     "mcap": 28155036000.0,
-     "price": 321.69000244140625,
+     "mcap": 116852739466.0,
+     "price": 303.875,
      "date": "2026-11-04",
-     "rs_pct": 81.1,
+     "rs_pct": 84.9,
      "tmpl": 8,
-     "ret_3m": 10.0,
-     "ret_12m": 31.5,
-     "from_high": -0.1,
-     "chg_1d": 2.49,
+     "ret_3m": 11.1,
+     "ret_12m": 18.2,
+     "from_high": -1.8,
+     "chg_1d": 2.66,
      "gap": null,
      "screens": [
       "LEADER",
@@ -1017,7 +957,108 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "MTD",
+     "name": "Mettler-Toledo International",
+     "market": "US",
+     "sector": "Industrials",
+     "industry": "Biotechnology: Laboratory Analytical Instruments",
+     "mcap": 34022878644.0,
+     "price": 1713.385009765625,
+     "date": "2026-11-04",
+     "rs_pct": 84.4,
+     "tmpl": 8,
+     "ret_3m": 20.6,
+     "ret_12m": 21.8,
+     "from_high": -1.0,
+     "chg_1d": 0.9,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "SJM",
+     "name": "The J.M. Smucker Company",
+     "market": "US",
+     "sector": "Consumer Staples",
+     "industry": "Packaged Foods",
+     "mcap": 13671230960.0,
+     "price": 133.39500427246094,
+     "date": "2026-11-04",
+     "rs_pct": 84.1,
+     "tmpl": 8,
+     "ret_3m": 12.3,
+     "ret_12m": 28.7,
+     "from_high": -1.8,
+     "chg_1d": 4.23,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "BNS",
+     "name": "Bank Nova Scotia Halifax Pfd 3",
+     "market": "US",
+     "sector": "Finance",
+     "industry": "Major Banks",
+     "mcap": 114900904138.0,
+     "price": 95.7750015258789,
+     "date": "2026-11-04",
+     "rs_pct": 83.9,
+     "tmpl": 8,
+     "ret_3m": 8.4,
+     "ret_12m": 45.8,
+     "from_high": -0.4,
+     "chg_1d": 2.26,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "PM",
+     "name": "Philip Morris International",
+     "market": "US",
+     "sector": "Health Care",
+     "industry": " Medicinal Chemicals and Botanical Products ",
+     "mcap": 324247130501.0,
+     "price": 211.51499938964844,
+     "date": "2026-11-04",
+     "rs_pct": 83.7,
+     "tmpl": 8,
+     "ret_3m": 12.5,
+     "ret_12m": 46.3,
+     "from_high": -1.3,
+     "chg_1d": 1.68,
+     "gap": null,
+     "screens": [
+      "LEADER",
+      "HIGH"
+     ],
+     "hits": 2,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
     }
    ],
    "contra": [
@@ -1028,21 +1069,22 @@
      "sector": "Industrials",
      "industry": "Military/Government/Technical",
      "mcap": 34168962594.0,
-     "price": 53.01499938964844,
+     "price": 51.43000030517578,
      "date": "2026-11-04",
-     "rs_pct": 3.1,
+     "rs_pct": 2.7,
      "tmpl": 2,
-     "ret_3m": -29.9,
-     "ret_12m": -13.6,
-     "from_high": -64.9,
-     "chg_1d": -2.6,
+     "ret_3m": -32.0,
+     "ret_12m": -16.2,
+     "from_high": -65.9,
+     "chg_1d": -5.51,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "APP",
@@ -1051,44 +1093,22 @@
      "sector": "Technology",
      "industry": "Computer Software: Programming Data Processing",
      "mcap": 82160167010.0,
-     "price": 267.2734069824219,
+     "price": 269.3949890136719,
      "date": "2026-11-04",
-     "rs_pct": 1.4,
+     "rs_pct": 1.5,
      "tmpl": 0,
-     "ret_3m": -20.4,
-     "ret_12m": -57.7,
-     "from_high": -63.8,
-     "chg_1d": 8.86,
+     "ret_3m": -19.7,
+     "ret_12m": -57.4,
+     "from_high": -63.5,
+     "chg_1d": 9.73,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "INFY",
-     "name": "Infosys Limited",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "EDP Services",
-     "mcap": 48392375886.0,
-     "price": 12.255000114440918,
-     "date": "2026-11-04",
-     "rs_pct": 14.7,
-     "tmpl": 2,
-     "ret_3m": -0.8,
-     "ret_12m": -25.3,
-     "from_high": -59.1,
-     "chg_1d": 2.72,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "INTC",
@@ -1097,21 +1117,22 @@
      "sector": "Technology",
      "industry": "Semiconductors",
      "mcap": 321823250000.0,
-     "price": 58.7400016784668,
+     "price": 57.43000030517578,
      "date": "2026-11-04",
-     "rs_pct": 12.9,
+     "rs_pct": 11.1,
      "tmpl": 3,
-     "ret_3m": -41.1,
-     "ret_12m": 48.7,
-     "from_high": -58.7,
-     "chg_1d": -2.99,
+     "ret_3m": -42.5,
+     "ret_12m": 45.4,
+     "from_high": -59.7,
+     "chg_1d": -5.15,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": true,
+     "bottom": []
     },
     {
      "ticker": "WDC",
@@ -1120,44 +1141,49 @@
      "sector": "Technology",
      "industry": "Electronic Components",
      "mcap": 130021187487.0,
-     "price": 336.0758056640625,
+     "price": 327.8500061035156,
      "date": "2026-11-04",
-     "rs_pct": 64.0,
+     "rs_pct": 55.3,
      "tmpl": 3,
-     "ret_3m": -25.6,
-     "ret_12m": 112.7,
-     "from_high": -58.0,
-     "chg_1d": -3.25,
+     "ret_3m": -27.4,
+     "ret_12m": 107.5,
+     "from_high": -59.0,
+     "chg_1d": -5.61,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": true
+     "in_inbox": true,
+     "bottom": []
     },
     {
-     "ticker": "BSX",
-     "name": "Boston Scientific",
+     "ticker": "INFY",
+     "name": "Infosys Limited",
      "market": "US",
-     "sector": "Health Care",
-     "industry": "Medical/Dental Instruments",
-     "mcap": 63052085157.0,
-     "price": 45.47999954223633,
+     "sector": "Technology",
+     "industry": "EDP Services",
+     "mcap": 48392375886.0,
+     "price": 12.369999885559082,
      "date": "2026-11-04",
-     "rs_pct": 3.7,
-     "tmpl": 1,
-     "ret_3m": -7.7,
-     "ret_12m": -53.9,
-     "from_high": -57.0,
-     "chg_1d": 4.55,
+     "rs_pct": 15.3,
+     "tmpl": 2,
+     "ret_3m": 0.1,
+     "ret_12m": -24.6,
+     "from_high": -58.8,
+     "chg_1d": 3.69,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "50일선 탈환",
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "ALAB",
@@ -1166,67 +1192,22 @@
      "sector": "Technology",
      "industry": "Semiconductors",
      "mcap": 40529589996.0,
-     "price": 219.82000732421875,
+     "price": 212.83450317382812,
      "date": "2026-11-04",
-     "rs_pct": 37.2,
+     "rs_pct": 28.8,
      "tmpl": 4,
-     "ret_3m": -33.7,
-     "ret_12m": 14.8,
-     "from_high": -56.0,
-     "chg_1d": -5.91,
+     "ret_3m": -35.8,
+     "ret_12m": 11.1,
+     "from_high": -57.4,
+     "chg_1d": -8.9,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "GLW",
-     "name": "Corning Incorporated",
-     "market": "US",
-     "sector": "Industrials",
-     "industry": "Telecommunications Equipment",
-     "mcap": 108657135511.0,
-     "price": 119.80000305175781,
-     "date": "2026-11-04",
-     "rs_pct": 21.6,
-     "tmpl": 3,
-     "ret_3m": -23.8,
-     "ret_12m": 36.9,
-     "from_high": -55.9,
-     "chg_1d": -5.03,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "RBLX",
-     "name": "Roblox",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Computer Software: Prepackaged Software",
-     "mcap": 32529171667.0,
-     "price": 47.90999984741211,
-     "date": "2026-11-04",
-     "rs_pct": 33.9,
-     "tmpl": 3,
-     "ret_3m": 32.9,
-     "ret_12m": -55.5,
-     "from_high": -55.8,
-     "chg_1d": 5.41,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "ARM",
@@ -1235,21 +1216,46 @@
      "sector": "Technology",
      "industry": "Semiconductors",
      "mcap": 215460547977.0,
-     "price": 200.3300018310547,
+     "price": 194.39999389648438,
      "date": "2026-11-04",
-     "rs_pct": 52.9,
+     "rs_pct": 45.5,
      "tmpl": 3,
-     "ret_3m": -30.1,
-     "ret_12m": 18.8,
-     "from_high": -55.7,
-     "chg_1d": -1.07,
+     "ret_3m": -32.2,
+     "ret_12m": 15.2,
+     "from_high": -57.1,
+     "chg_1d": -4.0,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "GLW",
+     "name": "Corning Incorporated",
+     "market": "US",
+     "sector": "Industrials",
+     "industry": "Telecommunications Equipment",
+     "mcap": 108657135511.0,
+     "price": 117.27999877929688,
+     "date": "2026-11-04",
+     "rs_pct": 18.0,
+     "tmpl": 3,
+     "ret_3m": -25.4,
+     "ret_12m": 34.0,
+     "from_high": -56.8,
+     "chg_1d": -7.02,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "COHR",
@@ -1258,21 +1264,22 @@
      "sector": "Technology",
      "industry": "Electronic Components",
      "mcap": 40861972396.0,
-     "price": 195.8468017578125,
+     "price": 190.2550048828125,
      "date": "2026-11-04",
-     "rs_pct": 8.2,
+     "rs_pct": 6.4,
      "tmpl": 3,
-     "ret_3m": -41.4,
-     "ret_12m": 48.4,
-     "from_high": -55.5,
-     "chg_1d": -5.61,
+     "ret_3m": -43.1,
+     "ret_12m": 44.1,
+     "from_high": -56.8,
+     "chg_1d": -8.31,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "CIEN",
@@ -1281,21 +1288,49 @@
      "sector": "Utilities",
      "industry": "Telecommunications Equipment",
      "mcap": 42553902182.0,
-     "price": 287.18011474609375,
+     "price": 278.29998779296875,
      "date": "2026-11-04",
-     "rs_pct": 18.9,
+     "rs_pct": 13.6,
      "tmpl": 3,
-     "ret_3m": -28.9,
-     "ret_12m": 51.5,
-     "from_high": -55.0,
-     "chg_1d": -4.3,
+     "ret_3m": -31.1,
+     "ret_12m": 46.8,
+     "from_high": -56.3,
+     "chg_1d": -7.26,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "BSX",
+     "name": "Boston Scientific",
+     "market": "US",
+     "sector": "Health Care",
+     "industry": "Medical/Dental Instruments",
+     "mcap": 63052085157.0,
+     "price": 46.21500015258789,
+     "date": "2026-11-04",
+     "rs_pct": 4.1,
+     "tmpl": 1,
+     "ret_3m": -6.3,
+     "ret_12m": -53.1,
+     "from_high": -56.3,
+     "chg_1d": 6.24,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": false,
+     "in_inbox": false,
+     "bottom": [
+      "50일선 탈환",
+      "투매→고갈"
+     ]
     },
     {
      "ticker": "SNDK",
@@ -1304,21 +1339,49 @@
      "sector": "Technology",
      "industry": "Electronic Components",
      "mcap": 160291815460.0,
-     "price": 1068.9599609375,
+     "price": 1035.6700439453125,
      "date": "2026-11-04",
-     "rs_pct": 99.7,
+     "rs_pct": 99.5,
      "tmpl": 4,
-     "ret_3m": -15.1,
-     "ret_12m": 416.4,
-     "from_high": -54.6,
-     "chg_1d": -5.11,
+     "ret_3m": -17.7,
+     "ret_12m": 400.3,
+     "from_high": -56.0,
+     "chg_1d": -8.06,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "RBLX",
+     "name": "Roblox",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Computer Software: Prepackaged Software",
+     "mcap": 32529171667.0,
+     "price": 47.7599983215332,
+     "date": "2026-11-04",
+     "rs_pct": 32.2,
+     "tmpl": 3,
+     "ret_3m": 32.5,
+     "ret_12m": -55.6,
+     "from_high": -55.9,
+     "chg_1d": 5.08,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": false,
+     "in_inbox": false,
+     "bottom": [
+      "저점 안정",
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "COIN",
@@ -1327,21 +1390,24 @@
      "sector": "Finance",
      "industry": "Finance: Consumer Services",
      "mcap": 38509839148.0,
-     "price": 152.3300018310547,
+     "price": 149.97000122070312,
      "date": "2026-11-04",
-     "rs_pct": 9.1,
+     "rs_pct": 8.5,
      "tmpl": 1,
-     "ret_3m": 4.8,
-     "ret_12m": -53.9,
-     "from_high": -53.2,
-     "chg_1d": 4.73,
+     "ret_3m": 3.1,
+     "ret_12m": -54.6,
+     "from_high": -53.9,
+     "chg_1d": 3.11,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "FLEX",
@@ -1350,44 +1416,22 @@
      "sector": "Technology",
      "industry": "Electrical Products",
      "mcap": 32549496832.0,
-     "price": 80.37999725341797,
+     "price": 77.80999755859375,
      "date": "2026-11-04",
-     "rs_pct": 17.4,
+     "rs_pct": 12.7,
      "tmpl": 3,
-     "ret_3m": -34.5,
-     "ret_12m": 25.8,
-     "from_high": -51.8,
-     "chg_1d": -8.76,
+     "ret_3m": -36.6,
+     "ret_12m": 21.8,
+     "from_high": -53.4,
+     "chg_1d": -11.68,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "NBIS",
-     "name": "Nebius Group",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Computer Software: Programming Data Processing",
-     "mcap": 41224125258.0,
-     "price": 145.30499267578125,
-     "date": "2026-11-04",
-     "rs_pct": 48.6,
-     "tmpl": 4,
-     "ret_3m": -23.5,
-     "ret_12m": 20.6,
-     "from_high": -51.5,
-     "chg_1d": -4.18,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": true
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "NOK",
@@ -1396,44 +1440,22 @@
      "sector": "Technology",
      "industry": "Radio And Television Broadcasting And Communications Equipment",
      "mcap": 48694192622.0,
-     "price": 8.46500015258789,
+     "price": 8.274999618530273,
      "date": "2026-11-04",
-     "rs_pct": 29.5,
+     "rs_pct": 24.4,
      "tmpl": 3,
-     "ret_3m": -10.2,
-     "ret_12m": 18.4,
-     "from_high": -51.5,
-     "chg_1d": -0.18,
+     "ret_3m": -12.2,
+     "ret_12m": 15.7,
+     "from_high": -52.6,
+     "chg_1d": -2.42,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "SKYD",
-     "name": "Skydance",
-     "market": "US",
-     "sector": "Industrials",
-     "industry": "Broadcasting",
-     "mcap": 40740798943.0,
-     "price": 8.345000267028809,
-     "date": "2026-11-04",
-     "rs_pct": 5.2,
-     "tmpl": 1,
-     "ret_3m": -7.9,
-     "ret_12m": -45.9,
-     "from_high": -51.4,
-     "chg_1d": 3.28,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "MRVL",
@@ -1442,44 +1464,70 @@
      "sector": "Technology",
      "industry": "Semiconductors",
      "mcap": 150800493000.0,
-     "price": 161.74000549316406,
+     "price": 157.0,
      "date": "2026-11-04",
-     "rs_pct": 90.4,
+     "rs_pct": 87.2,
      "tmpl": 4,
-     "ret_3m": -23.2,
-     "ret_12m": 79.0,
-     "from_high": -51.0,
-     "chg_1d": -5.95,
+     "ret_3m": -25.4,
+     "ret_12m": 73.7,
+     "from_high": -52.4,
+     "chg_1d": -8.71,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
-     "ticker": "ORCL",
-     "name": "Oracle",
+     "ticker": "NBIS",
+     "name": "Nebius Group",
      "market": "US",
      "sector": "Technology",
-     "industry": "Computer Software: Prepackaged Software",
-     "mcap": 381565245840.0,
-     "price": 126.41500091552734,
+     "industry": "Computer Software: Programming Data Processing",
+     "mcap": 41224125258.0,
+     "price": 143.70359802246094,
      "date": "2026-11-04",
-     "rs_pct": 4.1,
-     "tmpl": 1,
-     "ret_3m": -11.9,
-     "ret_12m": -51.0,
-     "from_high": -50.5,
-     "chg_1d": 0.18,
+     "rs_pct": 46.0,
+     "tmpl": 4,
+     "ret_3m": -24.3,
+     "ret_12m": 19.3,
+     "from_high": -52.1,
+     "chg_1d": -5.23,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
-     "own": true,
-     "in_inbox": false
+     "own": false,
+     "in_inbox": true,
+     "bottom": []
+    },
+    {
+     "ticker": "SKYD",
+     "name": "Skydance",
+     "market": "US",
+     "sector": "Industrials",
+     "industry": "Broadcasting",
+     "mcap": 40740798943.0,
+     "price": 8.295000076293945,
+     "date": "2026-11-04",
+     "rs_pct": 4.9,
+     "tmpl": 1,
+     "ret_3m": -8.4,
+     "ret_12m": -46.2,
+     "from_high": -51.7,
+     "chg_1d": 2.66,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "KLAC",
@@ -1488,350 +1536,22 @@
      "sector": "Technology",
      "industry": "Electronic Components",
      "mcap": 203522732347.0,
-     "price": 154.24000549316406,
+     "price": 150.88999938964844,
      "date": "2026-11-04",
-     "rs_pct": 30.2,
+     "rs_pct": 25.6,
      "tmpl": 3,
-     "ret_3m": -20.2,
-     "ret_12m": 26.5,
-     "from_high": -49.8,
-     "chg_1d": -1.25,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "STX",
-     "name": "Seagate Technology Holdings",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Electronic Components",
-     "mcap": 139201265275.0,
-     "price": 577.8699951171875,
-     "date": "2026-11-04",
-     "rs_pct": 68.5,
-     "tmpl": 3,
-     "ret_3m": -32.3,
-     "ret_12m": 117.6,
-     "from_high": -49.5,
-     "chg_1d": -4.7,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "CLS",
-     "name": "Celestica",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Electrical Products",
-     "mcap": 32781503372.0,
-     "price": 241.50999450683594,
-     "date": "2026-11-04",
-     "rs_pct": 3.4,
-     "tmpl": 1,
-     "ret_3m": -23.2,
-     "ret_12m": -30.8,
-     "from_high": -49.1,
-     "chg_1d": -7.09,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
-    },
-    {
-     "ticker": "AMAT",
-     "name": "Applied Materials",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "mcap": 303090735431.0,
-     "price": 377.2749938964844,
-     "date": "2026-11-04",
-     "rs_pct": 45.1,
-     "tmpl": 3,
-     "ret_3m": -28.5,
-     "ret_12m": 58.7,
-     "from_high": -49.0,
-     "chg_1d": -1.22,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "SE",
-     "name": "Sea Limited",
-     "market": "US",
-     "sector": "Consumer Discretionary",
-     "industry": "Other Consumer Services",
-     "mcap": 47020436754.0,
-     "price": 81.51000213623047,
-     "date": "2026-11-04",
-     "rs_pct": 3.3,
-     "tmpl": 0,
-     "ret_3m": -26.6,
-     "ret_12m": -48.2,
-     "from_high": -49.0,
-     "chg_1d": 6.17,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": false,
-     "in_inbox": false
-    }
-   ],
-   "own_view": [
-    {
-     "ticker": "AMD",
-     "name": "Advanced Micro Devices",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "mcap": 789954672824.0,
-     "price": 490.1099853515625,
-     "date": "2026-11-04",
-     "rs_pct": 96.3,
-     "tmpl": 6,
-     "ret_3m": 0.2,
-     "ret_12m": 88.8,
-     "from_high": -25.6,
-     "chg_1d": 1.28,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "AMAT",
-     "name": "Applied Materials",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "mcap": 303090735431.0,
-     "price": 377.2749938964844,
-     "date": "2026-11-04",
-     "rs_pct": 45.1,
-     "tmpl": 3,
-     "ret_3m": -28.5,
-     "ret_12m": 58.7,
-     "from_high": -49.0,
-     "chg_1d": -1.22,
-     "gap": null,
-     "screens": [
-      "CONTRA"
-     ],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "ANET",
-     "name": "Arista Networks",
-     "market": "US",
-     "sector": "Telecommunications",
-     "industry": "Computer Communications Equipment",
-     "mcap": 214294679942.0,
-     "price": 186.17999267578125,
-     "date": "2026-11-04",
-     "rs_pct": 75.5,
-     "tmpl": 7,
-     "ret_3m": -3.2,
-     "ret_12m": 18.1,
-     "from_high": -14.4,
-     "chg_1d": 9.58,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "AVGO",
-     "name": "Broadcom",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "mcap": 1585465687062.0,
-     "price": 328.4200134277344,
-     "date": "2026-11-04",
-     "rs_pct": 10.8,
-     "tmpl": 1,
      "ret_3m": -21.9,
-     "ret_12m": -9.4,
-     "from_high": -33.7,
-     "chg_1d": -1.12,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "CDNS",
-     "name": "Cadence Design Systems",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Computer Software: Prepackaged Software",
-     "mcap": 88830201250.0,
-     "price": 324.8299865722656,
-     "date": "2026-11-04",
-     "rs_pct": 36.1,
-     "tmpl": 4,
-     "ret_3m": -4.0,
-     "ret_12m": -3.2,
-     "from_high": -22.0,
-     "chg_1d": 0.33,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "GEV",
-     "name": "GE Vernova",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Consumer Electronics/Appliances",
-     "mcap": 243026482001.0,
-     "price": 822.739990234375,
-     "date": "2026-11-04",
-     "rs_pct": 30.7,
-     "tmpl": 3,
-     "ret_3m": -17.8,
-     "ret_12m": 41.5,
-     "from_high": -31.2,
-     "chg_1d": -10.4,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "GOOGL",
-     "name": "Alphabet",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Computer Software: Programming Data Processing",
-     "mcap": 3442688820000.0,
-     "price": 294.5150146484375,
-     "date": "2026-11-04",
-     "rs_pct": 11.0,
-     "tmpl": 2,
-     "ret_3m": -17.7,
-     "ret_12m": 3.8,
-     "from_high": -27.9,
-     "chg_1d": 5.17,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "ISRG",
-     "name": "Intuitive Surgical",
-     "market": "US",
-     "sector": "Health Care",
-     "industry": "Industrial Specialties",
-     "mcap": 152783218709.0,
-     "price": 473.614990234375,
-     "date": "2026-11-04",
-     "rs_pct": 56.9,
-     "tmpl": 5,
-     "ret_3m": 26.7,
-     "ret_12m": -13.0,
-     "from_high": -21.6,
-     "chg_1d": 7.46,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "MSFT",
-     "name": "Microsoft",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Computer Software: Prepackaged Software",
-     "mcap": 3868973099646.0,
-     "price": 552.8300170898438,
-     "date": "2026-11-04",
-     "rs_pct": 79.7,
-     "tmpl": 8,
-     "ret_3m": 10.6,
-     "ret_12m": 6.9,
-     "from_high": -0.8,
-     "chg_1d": 6.11,
+     "ret_12m": 23.8,
+     "from_high": -50.9,
+     "chg_1d": -3.4,
      "gap": null,
      "screens": [
-      "HIGH"
+      "CONTRA"
      ],
-     "hits": 1,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "MU",
-     "name": "Micron Technology",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "mcap": 967479988581.0,
-     "price": 821.739990234375,
-     "date": "2026-11-04",
-     "rs_pct": 99.0,
-     "tmpl": 5,
-     "ret_3m": -6.8,
-     "ret_12m": 250.1,
-     "from_high": -34.5,
-     "chg_1d": -3.9,
-     "gap": null,
-     "screens": [],
      "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
-    {
-     "ticker": "NVDA",
-     "name": "NVIDIA",
-     "market": "US",
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "mcap": 4981229000000.0,
-     "price": 204.22059631347656,
-     "date": "2026-11-04",
-     "rs_pct": 36.6,
-     "tmpl": 4,
-     "ret_3m": -6.7,
-     "ret_12m": -1.3,
-     "from_high": -16.1,
-     "chg_1d": -1.19,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "ORCL",
@@ -1840,21 +1560,394 @@
      "sector": "Technology",
      "industry": "Computer Software: Prepackaged Software",
      "mcap": 381565245840.0,
-     "price": 126.41500091552734,
+     "price": 125.87999725341797,
      "date": "2026-11-04",
-     "rs_pct": 4.1,
+     "rs_pct": 3.8,
      "tmpl": 1,
-     "ret_3m": -11.9,
-     "ret_12m": -51.0,
-     "from_high": -50.5,
-     "chg_1d": 0.18,
+     "ret_3m": -12.3,
+     "ret_12m": -51.2,
+     "from_high": -50.7,
+     "chg_1d": -0.25,
      "gap": null,
      "screens": [
       "CONTRA"
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "CLS",
+     "name": "Celestica",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Electrical Products",
+     "mcap": 32781503372.0,
+     "price": 234.75,
+     "date": "2026-11-04",
+     "rs_pct": 3.0,
+     "tmpl": 1,
+     "ret_3m": -25.4,
+     "ret_12m": -32.7,
+     "from_high": -50.5,
+     "chg_1d": -9.69,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "STX",
+     "name": "Seagate Technology Holdings",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Electronic Components",
+     "mcap": 139201265275.0,
+     "price": 568.4249877929688,
+     "date": "2026-11-04",
+     "rs_pct": 61.6,
+     "tmpl": 3,
+     "ret_3m": -33.4,
+     "ret_12m": 114.1,
+     "from_high": -50.4,
+     "chg_1d": -6.26,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": false,
+     "in_inbox": false,
+     "bottom": [
+      "강세 다이버전스"
+     ]
+    },
+    {
+     "ticker": "AMAT",
+     "name": "Applied Materials",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "mcap": 303090735431.0,
+     "price": 370.0799865722656,
+     "date": "2026-11-04",
+     "rs_pct": 39.1,
+     "tmpl": 3,
+     "ret_3m": -29.8,
+     "ret_12m": 55.7,
+     "from_high": -50.0,
+     "chg_1d": -3.1,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "SE",
+     "name": "Sea Limited",
+     "market": "US",
+     "sector": "Consumer Discretionary",
+     "industry": "Other Consumer Services",
+     "mcap": 47020436754.0,
+     "price": 81.44000244140625,
+     "date": "2026-11-04",
+     "rs_pct": 3.5,
+     "tmpl": 0,
+     "ret_3m": -26.6,
+     "ret_12m": -48.3,
+     "from_high": -49.0,
+     "chg_1d": 6.08,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": false,
+     "in_inbox": false,
+     "bottom": []
+    }
+   ],
+   "own_view": [
+    {
+     "ticker": "AMAT",
+     "name": "Applied Materials",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "mcap": 303090735431.0,
+     "price": 370.0799865722656,
+     "date": "2026-11-04",
+     "rs_pct": 39.1,
+     "tmpl": 3,
+     "ret_3m": -29.8,
+     "ret_12m": 55.7,
+     "from_high": -50.0,
+     "chg_1d": -3.1,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "AMD",
+     "name": "Advanced Micro Devices",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "mcap": 789954672824.0,
+     "price": 484.07989501953125,
+     "date": "2026-11-04",
+     "rs_pct": 96.0,
+     "tmpl": 6,
+     "ret_3m": -1.1,
+     "ret_12m": 86.4,
+     "from_high": -26.5,
+     "chg_1d": 0.04,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "ANET",
+     "name": "Arista Networks",
+     "market": "US",
+     "sector": "Telecommunications",
+     "industry": "Computer Communications Equipment",
+     "mcap": 214294679942.0,
+     "price": 179.5500030517578,
+     "date": "2026-11-04",
+     "rs_pct": 65.2,
+     "tmpl": 7,
+     "ret_3m": -6.6,
+     "ret_12m": 13.9,
+     "from_high": -17.4,
+     "chg_1d": 5.67,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "AVGO",
+     "name": "Broadcom",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "mcap": 1585465687062.0,
+     "price": 325.3999938964844,
+     "date": "2026-11-04",
+     "rs_pct": 10.6,
+     "tmpl": 1,
+     "ret_3m": -22.6,
+     "ret_12m": -10.2,
+     "from_high": -34.3,
+     "chg_1d": -2.03,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "CDNS",
+     "name": "Cadence Design Systems",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Computer Software: Prepackaged Software",
+     "mcap": 88830201250.0,
+     "price": 322.2149963378906,
+     "date": "2026-11-04",
+     "rs_pct": 33.6,
+     "tmpl": 4,
+     "ret_3m": -4.8,
+     "ret_12m": -3.9,
+     "from_high": -22.7,
+     "chg_1d": -0.47,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "GEV",
+     "name": "GE Vernova",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Consumer Electronics/Appliances",
+     "mcap": 243026482001.0,
+     "price": 815.0900268554688,
+     "date": "2026-11-04",
+     "rs_pct": 28.3,
+     "tmpl": 3,
+     "ret_3m": -18.5,
+     "ret_12m": 40.2,
+     "from_high": -31.8,
+     "chg_1d": -11.23,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "GOOGL",
+     "name": "Alphabet",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Computer Software: Programming Data Processing",
+     "mcap": 3442688820000.0,
+     "price": 294.33349609375,
+     "date": "2026-11-04",
+     "rs_pct": 11.2,
+     "tmpl": 2,
+     "ret_3m": -17.7,
+     "ret_12m": 3.7,
+     "from_high": -28.0,
+     "chg_1d": 5.11,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "ISRG",
+     "name": "Intuitive Surgical",
+     "market": "US",
+     "sector": "Health Care",
+     "industry": "Industrial Specialties",
+     "mcap": 152783218709.0,
+     "price": 482.0,
+     "date": "2026-11-04",
+     "rs_pct": 60.7,
+     "tmpl": 5,
+     "ret_3m": 29.0,
+     "ret_12m": -11.4,
+     "from_high": -20.2,
+     "chg_1d": 9.36,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "MSFT",
+     "name": "Microsoft",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Computer Software: Prepackaged Software",
+     "mcap": 3868973099646.0,
+     "price": 552.64501953125,
+     "date": "2026-11-04",
+     "rs_pct": 78.3,
+     "tmpl": 8,
+     "ret_3m": 10.6,
+     "ret_12m": 6.9,
+     "from_high": -0.9,
+     "chg_1d": 6.08,
+     "gap": null,
+     "screens": [
+      "HIGH"
+     ],
+     "hits": 1,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron Technology",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "mcap": 967479988581.0,
+     "price": 802.5,
+     "date": "2026-11-04",
+     "rs_pct": 98.8,
+     "tmpl": 5,
+     "ret_3m": -9.0,
+     "ret_12m": 241.9,
+     "from_high": -36.1,
+     "chg_1d": -6.15,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "NVDA",
+     "name": "NVIDIA",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "mcap": 4981229000000.0,
+     "price": 202.7449951171875,
+     "date": "2026-11-04",
+     "rs_pct": 34.2,
+     "tmpl": 4,
+     "ret_3m": -7.4,
+     "ret_12m": -2.0,
+     "from_high": -16.7,
+     "chg_1d": -1.91,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
+    },
+    {
+     "ticker": "ORCL",
+     "name": "Oracle",
+     "market": "US",
+     "sector": "Technology",
+     "industry": "Computer Software: Prepackaged Software",
+     "mcap": 381565245840.0,
+     "price": 125.87999725341797,
+     "date": "2026-11-04",
+     "rs_pct": 3.8,
+     "tmpl": 1,
+     "ret_3m": -12.3,
+     "ret_12m": -51.2,
+     "from_high": -50.7,
+     "chg_1d": -0.25,
+     "gap": null,
+     "screens": [
+      "CONTRA"
+     ],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "TSM",
@@ -1863,19 +1956,20 @@
      "sector": "Technology",
      "industry": "Semiconductors",
      "mcap": 2099497185139.0,
-     "price": 403.0400085449219,
+     "price": 395.2699890136719,
      "date": "2026-11-04",
-     "rs_pct": 57.1,
-     "tmpl": 6,
-     "ret_3m": -3.6,
-     "ret_12m": 32.2,
-     "from_high": -17.3,
-     "chg_1d": -0.43,
+     "rs_pct": 51.7,
+     "tmpl": 5,
+     "ret_3m": -5.5,
+     "ret_12m": 29.7,
+     "from_high": -18.9,
+     "chg_1d": -2.35,
      "gap": null,
      "screens": [],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     }
    ]
   },
@@ -1935,7 +2029,8 @@
      ],
      "hits": 3,
      "own": false,
-     "in_inbox": true
+     "in_inbox": true,
+     "bottom": []
     },
     {
      "ticker": "028050.KS",
@@ -1964,7 +2059,8 @@
      ],
      "hits": 3,
      "own": false,
-     "in_inbox": true
+     "in_inbox": true,
+     "bottom": []
     },
     {
      "ticker": "180640.KS",
@@ -1993,7 +2089,8 @@
      ],
      "hits": 3,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "053800.KQ",
@@ -2017,7 +2114,8 @@
      ],
      "hits": 2,
      "own": false,
-     "in_inbox": true
+     "in_inbox": true,
+     "bottom": []
     },
     {
      "ticker": "031980.KQ",
@@ -2040,7 +2138,8 @@
      ],
      "hits": 1,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "086450.KQ",
@@ -2063,7 +2162,8 @@
      ],
      "hits": 1,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "328130.KQ",
@@ -2090,7 +2190,11 @@
      ],
      "hits": 1,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "저점 안정",
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "035900.KQ",
@@ -2117,7 +2221,8 @@
      ],
      "hits": 1,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     }
    ],
    "contra": [
@@ -2142,7 +2247,11 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "저점 안정",
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "011070.KS",
@@ -2165,7 +2274,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "001440.KS",
@@ -2188,7 +2298,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "047040.KS",
@@ -2211,7 +2322,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "064350.KS",
@@ -2234,7 +2346,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "307950.KS",
@@ -2257,7 +2370,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "006800.KS",
@@ -2280,7 +2394,10 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "강세 다이버전스"
+     ]
     },
     {
      "ticker": "267260.KS",
@@ -2303,7 +2420,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "454910.KS",
@@ -2326,7 +2444,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "066570.KS",
@@ -2349,7 +2468,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "247540.KQ",
@@ -2372,7 +2492,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "000150.KS",
@@ -2395,7 +2516,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "006260.KS",
@@ -2418,7 +2540,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "272210.KS",
@@ -2441,7 +2564,10 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "042660.KS",
@@ -2464,7 +2590,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "005380.KS",
@@ -2487,7 +2614,10 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "강세 다이버전스"
+     ]
     },
     {
      "ticker": "277810.KQ",
@@ -2510,7 +2640,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "066970.KS",
@@ -2533,7 +2664,10 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "086520.KQ",
@@ -2556,7 +2690,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "079550.KS",
@@ -2579,7 +2714,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "267270.KS",
@@ -2602,7 +2738,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "034020.KS",
@@ -2625,7 +2762,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "329180.KS",
@@ -2648,7 +2786,8 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": true,
+     "bottom": []
     },
     {
      "ticker": "011790.KS",
@@ -2671,7 +2810,10 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "352820.KS",
@@ -2694,31 +2836,11 @@
      ],
      "hits": 0,
      "own": false,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     }
    ],
    "own_view": [
-    {
-     "ticker": "000660.KS",
-     "name": "SK하이닉스",
-     "market": "KR",
-     "sector": "KOSPI",
-     "industry": "",
-     "mcap": 1037299158300000.0,
-     "price": 1398000.0,
-     "date": "2026-11-03",
-     "rs_pct": 90.9,
-     "tmpl": 3,
-     "ret_3m": 5.7,
-     "ret_12m": 190.3,
-     "from_high": -53.2,
-     "chg_1d": -5.03,
-     "gap": null,
-     "screens": [],
-     "hits": 0,
-     "own": true,
-     "in_inbox": false
-    },
     {
      "ticker": "005930.KS",
      "name": "삼성전자",
@@ -2738,7 +2860,10 @@
      "screens": [],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "009150.KS",
@@ -2759,7 +2884,34 @@
      "screens": [],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "상대강도 전환"
+     ]
+    },
+    {
+     "ticker": "000660.KS",
+     "name": "SK하이닉스",
+     "market": "KR",
+     "sector": "KOSPI",
+     "industry": "",
+     "mcap": 1037299158300000.0,
+     "price": 1398000.0,
+     "date": "2026-11-03",
+     "rs_pct": 90.9,
+     "tmpl": 3,
+     "ret_3m": 5.7,
+     "ret_12m": 190.3,
+     "from_high": -53.2,
+     "chg_1d": -5.03,
+     "gap": null,
+     "screens": [],
+     "hits": 0,
+     "own": true,
+     "in_inbox": false,
+     "bottom": [
+      "상대강도 전환"
+     ]
     },
     {
      "ticker": "005380.KS",
@@ -2782,7 +2934,10 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": [
+      "강세 다이버전스"
+     ]
     },
     {
      "ticker": "012450.KS",
@@ -2805,7 +2960,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "034020.KS",
@@ -2828,7 +2984,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "035420.KS",
@@ -2849,7 +3006,8 @@
      "screens": [],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "066570.KS",
@@ -2872,7 +3030,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "096770.KS",
@@ -2893,7 +3052,8 @@
      "screens": [],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "033780.KS",
@@ -2914,7 +3074,8 @@
      "screens": [],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "042660.KS",
@@ -2937,7 +3098,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     },
     {
      "ticker": "454910.KS",
@@ -2960,7 +3122,8 @@
      ],
      "hits": 0,
      "own": true,
-     "in_inbox": false
+     "in_inbox": false,
+     "bottom": []
     }
    ]
   }

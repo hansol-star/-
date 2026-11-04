@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03",
+ "updated": "2026-11-04",
  "days": 7,
  "universe": [
   "005930",
@@ -9,11 +9,23 @@
   "035420"
  ],
  "counts": {
-  "critical": 1,
-  "notable": 13,
-  "routine": 26
+  "critical": 2,
+  "notable": 12,
+  "routine": 24
  },
  "items": [
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20261103",
+   "title": "[기재정정]주요사항보고서(유상증자결정)",
+   "level": "critical",
+   "category": "희석",
+   "why": "주주가치 희석",
+   "rcept_no": "20261103000311",
+   "filer": "NAVER",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103000311"
+  },
   {
    "code": "035420",
    "name": "NAVER",
@@ -169,18 +181,6 @@
    "rcept_no": "20261028800266",
    "filer": "LG전자",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800266"
-  },
-  {
-   "code": "454910",
-   "name": "두산로보틱스",
-   "date": "20261027",
-   "title": "타법인주식및출자증권취득결정",
-   "level": "notable",
-   "category": "투자",
-   "why": "capex 방향",
-   "rcept_no": "20261027800562",
-   "filer": "두산로보틱스",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800562"
   }
  ],
  "insider": [

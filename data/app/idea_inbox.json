@@ -1,6 +1,6 @@
 {
  "_comment": "유니버스 밖 신규 아이디어 수신함 — 정본 도구 idea_inbox.py (손으로 고치지 말 것)",
- "updated": "2026-11-04",
+ "updated": "2026-11-05",
  "ideas": [
   {
    "ticker": "BRUN",
@@ -664,6 +664,230 @@
      "date": "2026-11-04",
      "status": "rejected",
      "note": "종목 아님 — 수급 테마(연기금 완충 · 외인 1.5조 매도엔 못 버팀)로 TF 게이트② 서술에 이관"
+    }
+   ]
+  },
+  {
+   "ticker": "MANH",
+   "name": "Manhattan Associates",
+   "market": "US",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 모멘텀(LEADER+GAP+HIGH · RS 97.7) · 3M 37.3% · 12M 44.2% · Technology Computer Software: Prepackaged Software",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 리더+갭+신고가(RS 97.7·10/28 실적 갭 +7.1%) · 공급망 SaaS = ORCL·MSFT 소프트웨어 축과 같은 'AI가 SW를 대체하나' 논쟁 한가운데 · 펀더·밸류 미검토 · 룰3(갭 뒤 소화 확인)",
+   "next_check": "2026-11-20",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "screening",
+     "note": "[스캔 1차] 리더+갭+신고가(RS 97.7·10/28 실적 갭 +7.1%) · 공급망 SaaS = ORCL·MSFT 소프트웨어 축과 같은 'AI가 SW를 대체하나' 논쟁 한가운데 · 펀더·밸류 미검토 · 룰3(갭 뒤 소화 확인)"
+    }
+   ]
+  },
+  {
+   "ticker": "EG",
+   "name": "Everest Group",
+   "market": "US",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 모멘텀(LEADER+GAP+HIGH · RS 80.3) · 3M 12.3% · 12M 32.6% · Finance Property-Casualty Insurers",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 재보험(손보) 리더+갭(10/29 +5.5% ×4.7) · AI 논지 연결 없음 → 신규 후보가 아니라 '분산 후보' 축으로만 본다(실효 분산 2.3종목) · diversify_candidates로 ENB 기여를 잰 뒤 판정",
+   "next_check": "2026-11-20",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "screening",
+     "note": "[스캔 1차] 재보험(손보) 리더+갭(10/29 +5.5% ×4.7) · AI 논지 연결 없음 → 신규 후보가 아니라 '분산 후보' 축으로만 본다(실효 분산 2.3종목) · diversify_candidates로 ENB 기여를 잰 뒤 판정"
+    }
+   ]
+  },
+  {
+   "ticker": "GKOS",
+   "name": "Glaukos",
+   "market": "US",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 모멘텀(LEADER+GAP · RS 99.5) · 3M 40.2% · 12M 174.2% · Health Care Medical/Dental Instruments",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 녹내장 의료기기 · 10/29 실적 갭 +16.3% ×6.1 · 12M +174% = 모멘텀(별점 +1 상한 대상) · 워치 ISRG와 같은 메드테크 축 · 미국 리더 95개 중 헬스케어 33개 = 순환매 신호와 같이 본다",
+   "next_check": "2026-11-20",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "screening",
+     "note": "[스캔 1차] 녹내장 의료기기 · 10/29 실적 갭 +16.3% ×6.1 · 12M +174% = 모멘텀(별점 +1 상한 대상) · 워치 ISRG와 같은 메드테크 축 · 미국 리더 95개 중 헬스케어 33개 = 순환매 신호와 같이 본다"
+    }
+   ]
+  },
+  {
+   "ticker": "SN",
+   "name": "SharkNinja",
+   "market": "US",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 모멘텀(LEADER+HIGH · RS 98.7) · 3M 20.6% · 12M 154.5% · Consumer Discretionary Consumer Electronics/Appliances",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 소비 가전 리더(12M +154%) · AI 논지·분산(경기소비재 = 포트와 같은 위험선호 축) 어느 쪽 연결도 약함",
+   "next_check": "2027-02-28",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "rejected",
+     "note": "[스캔 1차] 소비 가전 리더(12M +154%) · AI 논지·분산(경기소비재 = 포트와 같은 위험선호 축) 어느 쪽 연결도 약함"
+    }
+   ]
+  },
+  {
+   "ticker": "425420.KQ",
+   "name": "티에프이",
+   "market": "KR",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 모멘텀(LEADER+GAP+HOLDUP · RS 97.5) · 3M 212.3% · 12M 100.0% · KOSDAQ",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 코스닥 리더+갭+버팀(3M +212%) · 사업 내용 미확인 · 룰6(국내 22.9% > 22% = 국내 매수 0원)이 먼저 막는다 · 붕괴장 버팀 종목 표본으로 사후 추적",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "rejected",
+     "note": "[스캔 1차] 코스닥 리더+갭+버팀(3M +212%) · 사업 내용 미확인 · 룰6(국내 22.9% > 22% = 국내 매수 0원)이 먼저 막는다 · 붕괴장 버팀 종목 표본으로 사후 추적"
+    }
+   ]
+  },
+  {
+   "ticker": "028050.KS",
+   "name": "삼성E&A",
+   "market": "KR",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 모멘텀(LEADER+GAP+HOLDUP · RS 92.9) · 3M 50.2% · 12M 116.9% · KOSPI",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 삼성E&A 리더+갭+버팀(10/22 +6.9% ×7.7 · 코스피 -40% 속 고점 -8.5%) · 플랜트 EPC = 전력·인프라 테마 인접 · 룰6이 먼저 막는다 · 붕괴장 버팀 종목 표본으로 사후 추적",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "rejected",
+     "note": "[스캔 1차] 삼성E&A 리더+갭+버팀(10/22 +6.9% ×7.7 · 코스피 -40% 속 고점 -8.5%) · 플랜트 EPC = 전력·인프라 테마 인접 · 룰6이 먼저 막는다 · 붕괴장 버팀 종목 표본으로 사후 추적"
+    }
+   ]
+  },
+  {
+   "ticker": "INTC",
+   "name": "Intel",
+   "market": "US",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 역발상(고점 대비 -58.7%) · 3M -41.1% · 12M 48.7% · Technology Semiconductors",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 역발상 — 고점 -58.7%·3M -41%(12M은 +49%) · 미국 AI 하드웨어 동반 급락(ARM -56·KLAC -50·MRVL -51·AMAT -49)의 한 축 · TSM·AMAT 파운드리 경쟁 변수 · 떨어진 이유(18A·가이던스) 미검토 = 펀더 확인 전 후보 아님",
+   "next_check": "2026-11-20",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "screening",
+     "note": "[스캔 1차] 역발상 — 고점 -58.7%·3M -41%(12M은 +49%) · 미국 AI 하드웨어 동반 급락(ARM -56·KLAC -50·MRVL -51·AMAT -49)의 한 축 · TSM·AMAT 파운드리 경쟁 변수 · 떨어진 이유(18A·가이던스) 미검토 = 펀더 확인 전 후보 아님"
+    }
+   ]
+  },
+  {
+   "ticker": "329180.KS",
+   "name": "HD현대중공업",
+   "market": "KR",
+   "first_seen": "2026-11-05",
+   "updated": "2026-11-05",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-05",
+     "type": "scan",
+     "ref": "scan:2026-11-05",
+     "claim": "[시장 스캔] 역발상(고점 대비 -62.4%) · 3M -35.8% · 12M -50.5% · KOSPI",
+     "verdict": "미확인(스캔 = 가격 신호만 · 펀더 미검토)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "스캔 적중 — 펀더·밸류·보유 연결 미검토. 모멘텀이면 룰3, 국내면 룰6이 먼저 막는다.",
+   "note": "[스캔 1차] 역발상 — HD현대중공업 고점 -62.4%(지수 -39.8%보다 22%p 더) · 워치 한화오션(-65%)과 같은 조선 동반 급락 = 개별 종목이 아니라 업종 사건 · 룰6이 먼저 막는다",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-05",
+     "status": "rejected",
+     "note": "[스캔 1차] 역발상 — HD현대중공업 고점 -62.4%(지수 -39.8%보다 22%p 더) · 워치 한화오션(-65%)과 같은 조선 동반 급락 = 개별 종목이 아니라 업종 사건 · 룰6이 먼저 막는다"
     }
    ]
   }

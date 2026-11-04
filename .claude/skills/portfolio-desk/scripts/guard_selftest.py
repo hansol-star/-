@@ -711,6 +711,20 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_market_scan",
+        "desc": "시장 전체 스캔이 8일 넘게 안 돌았거나 보고서에서 그 표가 빠지면 잡는가",
+        "why": "11/5 정훈 — '시장 전체를 훑는 방법을 고안해서 해보자'. 11/4 수신함은 누가 말해 준 이름만 받았다. "
+               "만든 도구가 안 불리면 다시 좁아진다(9/29 DORMANT). 픽스처 = 10일 묵은 스캔 + 표 없는 11/6 보고서",
+        "pattern": r"시장 전체 스캔 \d+일 전|시장 전체 스캔」 표 누락",
+        "violate": {"data/app/market_scan.json": json.dumps({"run_at": "2026-10-27T10:00+09:00", "markets": {}}),
+                    "docs/reports/report_v135_2026-11-06.md": "# v135\n\n## 🔭 유니버스 밖\n"},
+        "clean": {"data/app/market_scan.json": json.dumps({"run_at": "2026-11-05T10:00+09:00", "markets": {}}),
+                  "docs/reports/report_v135_2026-11-06.md":
+                      "# v135\n\n## 🔭 유니버스 밖\n### 🛰️ 시장 전체 스캔\n"},
+        "args": ("docs/reports/report_v135_2026-11-06.md", "2026-11-06"),
+    },
+
+    {
         "name": "check_tranche_fill_ledger",
         "desc": "트랜치 원장에만 있는 체결(trades.jsonl에 행이 없는 매수)을 잡는가",
         "why": "10/31 R3 실사고 — 10/22 ANET 1주 $177 체결을 10/23 세션이 --us-execute로 정식 기록했는데 "

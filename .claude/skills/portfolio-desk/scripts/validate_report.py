@@ -2415,6 +2415,46 @@ def check_idea_inbox(rel=None, today=None):
              "`idea_inbox.py --report` 출력을 붙일 것(11/4 정훈 지적: 보유 밖 정보를 버리지 말 것)")
 
 
+MARKET_SCAN_SINCE = "2026-11-06"   # 11/5 신설 — 다음 거래일 보고서부터
+MARKET_SCAN_MAX_DAYS = 8           # 주간 주기 + 하루 여유
+
+
+def check_market_scan(rel=None, today=None):
+    """시장 전체 스캔(market_scan.py)이 주간 주기를 놓치거나, 보고서에서 그 표가 빠지면 WARN [11/5 신설].
+
+    ★[11/5 정훈] *"시장 전체를 훑는 방법을 고안해서 해보자"* — 11/4 수신함은 **누가 말해 준 이름**만 받았다
+    (경제사냥꾼·데스크 특징주). 스캐너가 미국 $10B+ 968·코스피200+코스닥100을 같은 규칙으로 훑는다.
+    도구가 안 불리면 다시 좁아진다(9/29 DORMANT 교훈) → ①스캔 8일 초과 ②보고서 「시장 전체 스캔」 누락을 잡는다.
+    WARN — 측정·발견 축이라 커밋을 막지 않는다.
+    """
+    import datetime as _dt
+    import re as _re
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    if today.isoformat() < MARKET_SCAN_SINCE:
+        return
+    p = os.path.join(ROOT, "data", "app", "market_scan.json")
+    try:
+        at = _dt.date.fromisoformat(json.load(open(p, encoding="utf-8"))["run_at"][:10])
+        age = (today - at).days
+    except (OSError, ValueError, KeyError):
+        at, age = None, None
+    if age is None:
+        warn("시장 전체 스캔 결과 없음(data/app/market_scan.json) — `market_scan.py --to-inbox`로 돌릴 것")
+    elif age > MARKET_SCAN_MAX_DAYS:
+        warn(f"시장 전체 스캔 {age}일 전({at}) — 주간 주기 초과 · `market_scan.py --if-stale 6 --to-inbox`")
+    if rel is None:
+        return
+    m = _re.search(r"(\d{4}-\d{2}-\d{2})", os.path.basename(rel))
+    if not m or m.group(1) < MARKET_SCAN_SINCE:
+        return
+    rp = os.path.join(ROOT, rel)
+    if os.path.exists(rp) and "시장 전체 스캔" not in open(rp, encoding="utf-8").read():
+        warn(f"보고서에 「🛰️ 시장 전체 스캔」 표 누락 ({os.path.basename(rel)}) — "
+             "`market_scan.py --report --top 8`을 🔭 섹션에 붙일 것(누가 말해 주지 않은 종목도 보이게)")
+
+
 def check_order_check(today=None):
     """토스 미체결 ↔ 계획 대조(order_check.py)의 마지막 결과를 읽는다 [9/21 신설].
 
@@ -3537,10 +3577,12 @@ def main():
         if rel:
             check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel); check_rate_gauge(rel); check_tech_column(rel)
             check_idea_inbox(rel)
+            check_market_scan(rel)
             check_verdict_grounding(rel); check_magnitude_sanity(rel); check_primary_source(rel)
             check_report_provenance(rel); check_price_grounding(rel)
     else:
         check_idea_inbox()
+        check_market_scan()
 
     print("\n" + "=" * 56)
     print("  보고서 완료-검증 (validate_report.py)")

@@ -74,7 +74,7 @@
 
 **리서치**: `hunter_latest.py`(3채널 자막·`--catchup`) · `hunter_digest.py`(자막 압축 3.5x) ·
 `transcripts.py`(어닝콜 전문) · `guidance.py`(8-K 가이던스) · `naver_data.py`·`naver_sentiment.py` ·
-`guru_flows.py`(13F 6인) · `yt_frames.py`·`web_shot.py`(화면 판독)
+`guru_flows.py`(13F 6인) · `yt_frames.py`·`web_shot.py`(화면 판독) · `idea_inbox.py`(유니버스 밖 신규 아이디어 수신함 — 11/4)
 
 **기억**: `decisions.py`(결정 원장) · `memory_recall.py`(4원장 통합 회수) · `memory_embed.py`(의미검색)
 
@@ -262,7 +262,7 @@
 | 2차 매체 받아쓰기 | `check_primary_source` |
 | 만든 도구가 안 불림 · 정지 루틴에서만 불림 | `wiring_audit.py`(9/29 d196 DORMANT 축 · `--live` = routines.md 상태표 ↔ 작업 스케줄러) |
 | 백테스트 미래참조 | `lookahead_guard.py` |
-| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 **62/62** · 11/2 기준 · 10/12 미등록 15개 일괄 등록 — ⚠️ 가드당 1~2개 형태만 심는다 = **등록 ≠ 모든 위반 형태 적발** · 새 check는 주입 테스트와 같이 만든다) |
+| 가드가 실제로 잡는가 | `guard_selftest.py` (커버리지 **63/63** · 11/4 기준 · 10/12 미등록 15개 일괄 등록 — ⚠️ 가드당 1~2개 형태만 심는다 = **등록 ≠ 모든 위반 형태 적발** · 새 check는 주입 테스트와 같이 만든다) |
 | 루틴 실패 침묵 | `check_routine_health` |
 | 마감 후 수급·낙폭 대사를 사람이 시켜야 돎 | `close_reconcile.py`(스케줄러 16:10·20:10 자동) + `check_close_recon`(10/12 — '잠정'이 7거래일 누적됐다. **"마감 후 대사" 할 일을 만들지 말 것**) |
 | 외인 수급 대표값을 애프터마켓 포함 값이 덮어 게이트②가 거꾸로 읽힘 | `check_flow_basis` + `flow_trend.py --selftest`(10/19 — 9/14 애프터마켓 뒤 네이버 값은 마감 뒤에도 바뀐다: 10/19 16:10 -323억 → 20:10 +947억 · 16:10 정규장이 대표값·20:10 통합은 옆 필드 · 행마다 `basis` · 정규장 값 없으면 '판정 보류'(외인 절댓값 ≥ 3,000억이면 부호만 인정)) |
@@ -271,6 +271,7 @@
 | Yahoo 봉 날짜 라벨러가 여러 벌(UTC 라벨·식 복사본)로 갈라짐 | `history_backfill.py --selftest` `labeler_lint`(10/20 — 전 스크립트 스캔: Yahoo 봉·분할 이벤트를 읽는 파일은 `bar_date`만 부른다 · 예외 줄 = `# label-ok: 사유` · 위반 3종 주입 검증 · garch·ma_board·score_calls·split_guard·multiple_backtest·build_app_data·ohlcv_backfill 위임 · 기본 대상 출력 불변 · 舊 garch top-up은 캐시 마지막이 목요일이면 금요일 봉을 빠뜨렸다) |
 | 자동 커밋이 origin을 못 따라가 로컬에만 쌓임(로컬 main 갈라짐) | `git_sync.py`(10/16 — origin/main 위 임시 인덱스 커밋 · dirty 보존 · `--selftest` · close_reconcile 사용) |
 | 자정 넘어 쓴 보고서를 '오늘 장 보고서'로 읽고 R2가 건너뜀 | `run_routine.ps1`(10/16 — 첫 커밋 시각 ≥ 15:30 KST만 오늘 보고서) |
+| 보유·워치 밖 이름을 제목만 보고 버림(신규 아이디어 미판정) | `idea_inbox.py` + `check_idea_inbox`(11/4 정훈 지적 — 쿠팡·앤트로픽 IPO·양자주를 '필요 없다'고 걸렀다 · hunter.json 383편 중 밖의 개별 종목 극소수 · new 7일 초과·보고서 「🔭 유니버스 밖」 섹션 누락 WARN · 측정 전용, 승격은 딥다이브+정훈 승인) |
 | 자막 유실 | `check_transcript_persistence` |
 | 의미검색 인덱스 stale | `check_memory_index` |
 | 워치 별점이 채점에서 새는 것 | `check_watch_calls`(9/14 — 3개월간 매일 22건 만들어 매일 버리고 있었다) |

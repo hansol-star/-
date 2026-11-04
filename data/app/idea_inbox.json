@@ -1,0 +1,671 @@
+{
+ "_comment": "유니버스 밖 신규 아이디어 수신함 — 정본 도구 idea_inbox.py (손으로 고치지 말 것)",
+ "updated": "2026-11-04",
+ "ideas": [
+  {
+   "ticker": "BRUN",
+   "name": "Boost Run",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-10-23",
+     "type": "hunter",
+     "ref": "fpIb2YShIKU",
+     "claim": "계약 26억 달러 대비 시총 7억 달러, 애널 매수 우위·TP 평균 37.5달러 vs 8.4달러인 AI 클라우드 소형주",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "NVDA",
+     "relation": "고객이 엔비디아 칩 임대 사업자, NVDA 수요 간접 노출"
+    },
+    {
+     "ticker": "ORCL",
+     "relation": "대형 클라우드 경쟁/비교 대상"
+    }
+   ],
+   "first_take": "티커 정정(BRN→BRUN). 6월 약 37달러에서 8달러로 -78%, 상장 석 달 소형주라 변동성·희석·자금조달 리스크가 최대 변수. 계약잔고/시총 비율은 매력적이나 인도 일정(내년 2Q) 전 현금흐름 미확인이므로 11월 중순 3Q 확인 후 판단, 룰3 추격 금지.",
+   "note": "상장 석 달 소형주 · 6월 대비 -78% · 희석·조달 리스크 · 티커 정정 BRN→BRUN",
+   "next_check": "2027-02-28",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "상장 석 달 소형주 · 6월 대비 -78% · 희석·조달 리스크 · 티커 정정 BRN→BRUN"
+    }
+   ]
+  },
+  {
+   "ticker": "NBIS",
+   "name": "Nebius Group",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-10-23",
+     "type": "hunter",
+     "ref": "RmGFspxOa1Q",
+     "claim": "RPO 375억 달러·선수금 60억으로 월가 최고 TP 410달러 대비 159달러에서 저평가",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "NVDA",
+     "relation": "엔비디아가 3월 20억 달러 투자한 GPU 클라우드"
+    },
+    {
+     "ticker": "MSFT",
+     "relation": "5년 계약 고객"
+    }
+   ],
+   "first_take": "백로그(웹검색 40~50B달러)·평균 TP 약 250~290달러로 방향은 지지되나 최고 TP 410을 기준 삼는 건 과장. 6월 286→159 -44% 조정 중이라 추격은 아니나 자본집약·자금조달 부담이 FCF 적자 불안 프레임과 같은 축. 11월 3Q(ARR·RPO)가 분기점.",
+   "note": "네오클라우드 · 6월 대비 -44% 조정(추격 아님) · 평균 TP 250~290(최고 410은 과장 기준) · 3Q 실적 확인",
+   "next_check": "2026-11-20",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "네오클라우드 · 6월 대비 -44% 조정(추격 아님) · 평균 TP 250~290(최고 410은 과장 기준) · 3Q 실적 확인"
+    }
+   ]
+  },
+  {
+   "ticker": "PANW",
+   "name": "Palo Alto Networks",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QoXur8JieSQ",
+     "claim": "보안 플랫폼 통합 대장, 분기 매출 34.1억 달러(+34%), 시총 약 2,900억 달러",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "GOOGL",
+     "relation": "구글의 위즈 인수(320억 달러)로 보안 경쟁 구도"
+    },
+    {
+     "ticker": "MSFT",
+     "relation": "MSFT 보안 사업과 경쟁"
+    }
+   ],
+   "first_take": "YTD +90%로 이미 많이 올라 추격 부담. 사이버아크 인수 효과를 뺀 유기 성장 확인 필요. 보안 지출 구조 성장은 장기 테마이며 기존 포트와 성격이 달라 분산 후보로 관찰.",
+   "note": "YTD +90% 추격 부담 · 사이버아크 인수 효과 뺀 유기 성장 확인 · 포트와 낮은 상관 후보",
+   "next_check": "2026-11-25",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "YTD +90% 추격 부담 · 사이버아크 인수 효과 뺀 유기 성장 확인 · 포트와 낮은 상관 후보"
+    }
+   ]
+  },
+  {
+   "ticker": "CRWD",
+   "name": "CrowdStrike",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QoXur8JieSQ",
+     "claim": "ARR 58억 달러(+25%)·구독 95% 성장 대장, GAAP 영업손실이 숙제",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "MSFT",
+     "relation": "엔드포인트 보안 경쟁"
+    }
+   ],
+   "first_take": "고성장 구독형이지만 GAAP 영업손실, 시총 약 2,500억 달러라 밸류 부담. 12월 초 실적에서 ARR 25% 유지 확인 후 판단.",
+   "note": "GAAP 영업손실·시총 약 2,500억 달러 밸류 부담 · 12월 초 실적 ARR 25% 유지 확인",
+   "next_check": "2026-12-05",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "GAAP 영업손실·시총 약 2,500억 달러 밸류 부담 · 12월 초 실적 ARR 25% 유지 확인"
+    }
+   ]
+  },
+  {
+   "ticker": "FTNT",
+   "name": "Fortinet",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QoXur8JieSQ",
+     "claim": "GAAP 영업이익률 34% 방화벽 칩 설계, 10/28 실적 후 -20%에도 YTD +60%",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "Trefis 등으로 -20.1% 급락은 확인(서비스 전망 하향·제품 성장 둔화, 연간 가이던스는 상향, BofA 하향). 마진은 최상급이나 방화벽 교체주기 둔화 논란. 성장 둔화가 얼마나 반영됐는지 먼저 본다.",
+   "note": "10/29 -20.1% [검증] · 서비스 전망 하향·연간 가이던스 상향 · 성장 둔화가 일시인지 확인",
+   "next_check": "2026-12-15",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "10/29 -20.1% [검증] · 서비스 전망 하향·연간 가이던스 상향 · 성장 둔화가 일시인지 확인"
+    }
+   ]
+  },
+  {
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "5uIRWVZI3YU",
+     "claim": "11/6 3Q 실적에서 매출성장 36%→31% 가이던스 상회 여부가 보안 테마 첫 확인",
+     "verdict": "미확인(결과대기)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "2Q 매출 약 7억 달러(+36%). 보안+네트워크 혼합이라 순수 보안주 아님. 11/6 새벽 실적을 보고 판단, 결과 전엔 관망.",
+   "note": "보안+네트워크 · 11/6 3Q 실적(성장 36→31% 전망) 확인 후",
+   "next_check": "2026-11-07",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "보안+네트워크 · 11/6 3Q 실적(성장 36→31% 전망) 확인 후"
+    }
+   ]
+  },
+  {
+   "ticker": "053800.KQ",
+   "name": "안랩",
+   "market": "KR",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QoXur8JieSQ",
+     "claim": "국내 PC·서버 보안 대표, 시총 약 1.3조원, 3Q 영업이익 +39%, 이익이 4Q에 쏠림",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "해킹 뉴스 반응 급등 후 되밀림 패턴(지니언스·샌즈랩 선례) 때문에 룰3상 뉴스 당일 추격 금지. 4Q 이익 쏠림 구조라 내년 초 실적 확인 후 판단.",
+   "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토"
+    }
+   ]
+  },
+  {
+   "ticker": "263860.KQ",
+   "name": "지니언스",
+   "market": "KR",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QoXur8JieSQ",
+     "claim": "NAC·EDR, 공공 조달 EDR 7년 연속 1위·나라장터 46%, 사고 때마다 단기 급등",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "SKT 사고 때 +46%→넉 달 뒤 고점 대비 -20%의 전형적 이벤트 급등주. 공공 의존·수출 미미. 사고 뉴스 추격 금지, 정부 대책 실행 속도가 관건.",
+   "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토"
+    }
+   ]
+  },
+  {
+   "ticker": "WDC",
+   "name": "Western Digital",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-10-22",
+     "type": "hunter",
+     "ref": "kWYAjRCmw_k",
+     "claim": "AI 스토리지 수요 지표로 총마진 56% 가이던스 상회 여부 확인(매출 +55%에도 주가 부진)",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "MU",
+     "relation": "AI 메모리·스토리지 사이클 동반"
+    }
+   ],
+   "first_take": "투자 논거라기보다 사이클 체크포인트로 다뤄짐. 호실적에도 하락이라 기대 과열 신호. 관찰용.",
+   "note": "사이클 체크포인트로만 다뤄짐 · 메모리 축은 MU·삼성 보유로 이미 노출",
+   "next_check": null,
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "사이클 체크포인트로만 다뤄짐 · 메모리 축은 MU·삼성 보유로 이미 노출"
+    }
+   ]
+  },
+  {
+   "ticker": "BE",
+   "name": "Bloom Energy",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-10-22",
+     "type": "hunter",
+     "ref": "kWYAjRCmw_k",
+     "claim": "AI 전력 수요의 실적 전환 증거(매출 +138%, 마진 34%)",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "GEV",
+     "relation": "AI 전력 인프라 동일 테마(워치)"
+    }
+   ],
+   "first_take": "머스크 발언 후 +7%였으나 호실적에도 실적 후 주가 부진. 워치 GEV와 같은 축이므로 비교 후보. 추격 금지.",
+   "note": "전력 축 — 워치 GEV와 비교 후보 · 호실적 후 주가 부진 · 추격 금지",
+   "next_check": "2026-11-20",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "전력 축 — 워치 GEV와 비교 후보 · 호실적 후 주가 부진 · 추격 금지"
+    }
+   ]
+  },
+  {
+   "ticker": "ANT(상장전)",
+   "name": "Anthropic",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "deepdive",
+   "sources": [
+    {
+     "date": "2026-11-04",
+     "type": "hunter",
+     "ref": "Ij53RiHr2Xk",
+     "claim": "S-1 제출·ANT 티커, 몸값 1.5~1.6조달러 보도, 상장 준비 및 수혜주 점검",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "NVDA",
+     "relation": "지분 최대 100억달러 투자·칩 수요"
+    },
+    {
+     "ticker": "MSFT",
+     "relation": "지분 50억 투자·컴퓨트 450억 약정"
+    },
+    {
+     "ticker": "GOOGL",
+     "relation": "1천억달러+ 약정·TPU"
+    },
+    {
+     "ticker": "AVGO",
+     "relation": "TPU 리스 1,600억+"
+    },
+    {
+     "ticker": "035420.KS",
+     "relation": "약 100억 간접투자 보도"
+    }
+   ],
+   "first_take": "공모가 미정이라 판단 보류. 9,650억 대비 프리미엄이 상장 직후 부담. 룰3: 상장 첫날 갭 추격 금지, 첫 분기 실적 확인 후. 보유 NVDA·MSFT·GOOGL·AVGO가 간접 노출이라 직접 매수 필요성은 낮음.",
+   "note": "보유 5종목(GOOGL 지출약정·AVGO TPU 리스·MSFT·NVDA·삼성) 직결 · 공모가·상장일 미정 · 상장 당일 룰3 · 기준=상장 후 첫 분기 실적",
+   "next_check": "2026-11-16",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "deepdive",
+     "note": "보유 5종목(GOOGL 지출약정·AVGO TPU 리스·MSFT·NVDA·삼성) 직결 · 공모가·상장일 미정 · 상장 당일 룰3 · 기준=상장 후 첫 분기 실적"
+    }
+   ]
+  },
+  {
+   "ticker": "CPNG",
+   "name": "쿠팡",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-04",
+     "type": "hunter",
+     "ref": "fxDMvZ4COrc",
+     "claim": "-52% 폭락, 3Q 대규모 적자지만 매출·고객 최대",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "035420.KS",
+     "relation": "국내 이커머스 경쟁"
+    }
+   ],
+   "first_take": "일회성(과징금·화재·과세) 제외 후 본업 마진 -45%가 관건. 3Q 확정치 미확인이라 보류, 낙폭과대는 추격 아닌 확인 후 접근(룰3).",
+   "note": "3Q 확정치 미확인(웹 2회 실패) · 본업 마진 -45%가 관건 · NAVER 커머스 경쟁 변수로도 추적",
+   "next_check": "2026-11-15",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "3Q 확정치 미확인(웹 2회 실패) · 본업 마진 -45%가 관건 · NAVER 커머스 경쟁 변수로도 추적"
+    }
+   ]
+  },
+  {
+   "ticker": "IONQ",
+   "name": "IonQ",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QVJep1EljxQ",
+     "claim": "양자주 급락, 공매도 증가, 몸값 대비 매출 부족",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "고점 -66%지만 공매도 증가·매출 대비 밸류 과열로 투기성. 코어 장기 철학과 거리 큼, 관찰만.",
+   "note": "펀더<20 모멘텀 · 매출 대비 밸류 과열 · 공매도 증가 · GOOGL(Willow)·NVDA(CUDA-Q) 옵션으로 간접 노출",
+   "next_check": "2027-02-28",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "펀더<20 모멘텀 · 매출 대비 밸류 과열 · 공매도 증가 · GOOGL(Willow)·NVDA(CUDA-Q) 옵션으로 간접 노출"
+    }
+   ]
+  },
+  {
+   "ticker": "RGTI",
+   "name": "Rigetti Computing",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QVJep1EljxQ",
+     "claim": "양자주 동반 급락",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "IonQ와 같은 테마 베타, 단독 논거 약함. 관찰만.",
+   "note": "펀더<20 모멘텀 · 매출 대비 밸류 과열 · 공매도 증가 · GOOGL(Willow)·NVDA(CUDA-Q) 옵션으로 간접 노출",
+   "next_check": "2027-02-28",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "펀더<20 모멘텀 · 매출 대비 밸류 과열 · 공매도 증가 · GOOGL(Willow)·NVDA(CUDA-Q) 옵션으로 간접 노출"
+    }
+   ]
+  },
+  {
+   "ticker": "QBTS",
+   "name": "D-Wave Quantum",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QVJep1EljxQ",
+     "claim": "2Q 매출 정체·예상 하회, 수주 3,550만달러",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "수주가 매출로 전환되는 증거 전. 우선순위 낮음.",
+   "note": "펀더<20 모멘텀 · 매출 대비 밸류 과열 · 공매도 증가 · GOOGL(Willow)·NVDA(CUDA-Q) 옵션으로 간접 노출",
+   "next_check": "2027-02-28",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "펀더<20 모멘텀 · 매출 대비 밸류 과열 · 공매도 증가 · GOOGL(Willow)·NVDA(CUDA-Q) 옵션으로 간접 노출"
+    }
+   ]
+  },
+  {
+   "ticker": "QTUM",
+   "name": "Defiance Quantum ETF",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "QVJep1EljxQ",
+     "claim": "ETF 규모 약 1.7조원, 순수 양자 비중 3% 미만",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "구성이 반도체 등 혼합이라 양자 노출 수단으로 비효율.",
+   "note": "양자 순수 비중 3% 미만 — 노출 수단으로 비효율",
+   "next_check": null,
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "양자 순수 비중 3% 미만 — 노출 수단으로 비효율"
+    }
+   ]
+  },
+  {
+   "ticker": "259960.KS",
+   "name": "크래프톤",
+   "market": "KR",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-03",
+     "type": "hunter",
+     "ref": "ZYyEPoKv3Jk",
+     "claim": "자사주 3,000억 매입·소각(시총 3.6%), 계약 최대 5,632억, 3Q 영업익 급증 전망",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "주주환원 호재와 실적 기대지만 이미 +6% 상승 출발이라 룰3 추격 구간. 3Q 실적 확인 후 눌림만.",
+   "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토"
+    }
+   ]
+  },
+  {
+   "ticker": "012750.KS",
+   "name": "에스원",
+   "market": "KR",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-04",
+     "type": "hunter",
+     "ref": "E_utIbknwQM",
+     "claim": "자사주 4,500억 매입·소각 발표 후 +14%, 삼성생명 지분 일부 매각",
+     "verdict": "미확인(미시도)"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "주주환원 사례. 이미 갭 상승이고 단독 논거 약함.",
+   "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "룰6 — 국내 22.9% > 22%라 국내 집행 0원 · 이벤트 급등 후 되밀림(룰3) · 국내 22% 이하 복귀 시 재검토"
+    }
+   ]
+  },
+  {
+   "ticker": "TSLA",
+   "name": "테슬라",
+   "market": "US",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-04",
+     "type": "hunter",
+     "ref": "j2gCv87kxb8",
+     "claim": "스페이스X 합병 검토, 한국 투자자 양도세 이슈",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "7/7 전량 매도 후 워치 이탈. 합병 구조·과세 여부는 결과대기. 세금 이슈는 d226 연말 점검과 연계.",
+   "note": "7/7 전량 매도 → watch_retired 사후 추적 중(중복 판정 불필요) · 합병 결과대기",
+   "next_check": "2027-01-31",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "7/7 전량 매도 → watch_retired 사후 추적 중(중복 판정 불필요) · 합병 결과대기"
+    }
+   ]
+  },
+  {
+   "ticker": "SpaceX(상장전)",
+   "name": "SpaceX",
+   "market": "기타",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-04",
+     "type": "hunter",
+     "ref": "j2gCv87kxb8",
+     "claim": "테슬라와 합병 검토 보도",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": "합병 공식 확인과 상장 여부 필요. 정보 수집만.",
+   "note": "합병·상장 미확정 — 정보 수집만 · TSLA 합병 과세(양도세 22%) 이슈 연계",
+   "next_check": "2027-01-31",
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "screening",
+     "note": "합병·상장 미확정 — 정보 수집만 · TSLA 합병 과세(양도세 22%) 이슈 연계"
+    }
+   ]
+  },
+  {
+   "ticker": "KR-PENSION-FLOW",
+   "name": "연기금 수급 테마(국민연금·퇴직연금)",
+   "market": "KR",
+   "first_seen": "2026-11-04",
+   "updated": "2026-11-04",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-04",
+     "type": "hunter",
+     "ref": "6kRQalDstjY",
+     "claim": "국민연금 목표 20.8%·상한 25.8% 여력과 퇴직연금 의무화 시 장기 매수 대기자금",
+     "verdict": "검증"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "005930.KS",
+     "relation": "코스피 대형주 수급 지지"
+    },
+    {
+     "ticker": "005380.KS",
+     "relation": "기관 수급 대상"
+    }
+   ],
+   "first_take": "국내 구조 사건 해소 조건 중 수급 축. 단 연기금 11/3 매수 133억 vs 외국인 1.5조 매도라 안전판이 아니라 완충. 국내 트랙 판단엔 참고 수준.",
+   "note": "종목 아님 — 수급 테마(연기금 완충 · 외인 1.5조 매도엔 못 버팀)로 TF 게이트② 서술에 이관",
+   "next_check": null,
+   "history": [
+    {
+     "date": "2026-11-04",
+     "status": "rejected",
+     "note": "종목 아님 — 수급 테마(연기금 완충 · 외인 1.5조 매도엔 못 버팀)로 TF 게이트② 서술에 이관"
+    }
+   ]
+  }
+ ]
+}

@@ -692,6 +692,25 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_idea_inbox",
+        "desc": "유니버스 밖 신규 아이디어가 7일 넘게 미판정이거나 보고서에서 그 섹션이 빠지면 잡는가",
+        "why": "11/4 정훈 지적 — 쿠팡·앤트로픽 상장·양자주를 '우리 판단에 필요 없다'고 제목만 보고 걸렀다. "
+               "실측해 보니 hunter.json 383편 중 보유·워치 밖 개별 종목이 걸린 영상이 극소수였고 데스크 정의도 "
+               "전부 보유+워치였다(밖의 이름은 적히지도 판정되지도 않았다). 픽스처 = 10일 묵은 new 아이디어 + "
+               "섹션 없는 11/5 보고서",
+        "pattern": r"신규 아이디어 미판정|유니버스 밖」 섹션 누락",
+        "violate": {"data/app/idea_inbox.json": json.dumps({"ideas": [
+                        {"ticker": "IONQ", "status": "new", "first_seen": "2026-10-26", "sources": []}]}),
+                    "docs/reports/report_v134_2026-11-05.md": "# v134\n\n## 보유 풀표\n"},
+        "clean": {"data/app/idea_inbox.json": json.dumps({"ideas": [
+                      {"ticker": "IONQ", "status": "rejected", "first_seen": "2026-10-26", "sources": [],
+                       "note": "모멘텀"}]}),
+                  "docs/reports/report_v134_2026-11-05.md":
+                      "# v134\n\n## 🔭 유니버스 밖 — 신규 아이디어 수신함\n"},
+        "args": ("docs/reports/report_v134_2026-11-05.md", "2026-11-05"),
+    },
+
+    {
         "name": "check_tranche_fill_ledger",
         "desc": "트랜치 원장에만 있는 체결(trades.jsonl에 행이 없는 매수)을 잡는가",
         "why": "10/31 R3 실사고 — 10/22 ANET 1주 $177 체결을 10/23 세션이 --us-execute로 정식 기록했는데 "

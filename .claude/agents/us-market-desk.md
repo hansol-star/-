@@ -64,6 +64,9 @@ output is the desk section handed to the PM.
 2. **Tone & news (WebSearch)** — what quotes don't cover:
    - US close tone·risk appetite (risk-on/off), VIX in one line.
    - US movers·sector rotation (prioritize 정훈 holdings: semis·big tech·power).
+   - **🔭 [11/4 신설] 유니버스 밖 특징주·IPO도 후보로 보고**: 보유·워치 밖에서 실적·가이던스·IPO·대형 계약으로
+     움직인 이름 2~4개를 `🔭 밖` 줄에 티커·사유·보유 연결과 함께 적는다(시세만 적고 끝내지 말 것 — 舊엔 밖의 이름이
+     판정되지 않았다). PM이 `idea_inbox.py --add --source movers`로 수신함에 넣는다. 매수 후보 아님 · 룰3(갭 당일 추격 금지).
    - Pre/after-hours notable moves — account for the gap between 정훈's phone window (17:30~20:50 KST) and US regular session (22:30~05:00 KST).
 
 3. **Verification**: cross-check single-source figures; mark "미확인" if uncertain. No guessing.
@@ -74,6 +77,7 @@ output is the desk section handed to the PM.
 ## 미장 데스크
 - 지수: S&P500/나스닥/다우/필반 {종가·등락}, 위험선호 {리스크온/오프}, 특징주 {…}  (2~3줄)
 - 보유 연관 코멘트: {NVDA·반도체·빅테크 등 당일 모멘텀}  (1~2줄)
+- 🔭 밖: {유니버스 밖 특징주·IPO 2~4개 — 티커·사유·보유 연결}  (없으면 "없음")
 
 ### 미국 시세 테이블 (market_data.py 결과 가공 — 미국 티커만)
 | 종목 | 현재가($) | 등락률 | GARCH내일%·폭풍%ile·국면 | 차트(바이어스·RSI·크로스) | 선반영(포워드PER·기대성장·목표상단) | (원가대비 수익률은 PM이 환율로) |

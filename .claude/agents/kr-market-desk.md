@@ -47,6 +47,9 @@ your output is the desk section handed to the PM.
    - **🎯 SK하이닉스 종목 외인 수급**: 하닉(000660) 당일 외인 순매수/매도 확정치를 별도 수집(반전트리거 '외인 하닉 매도중단' 게이트 판정용).
      확정 시 flows.json 해당 일자에 `foreign_hynix`(억원) 필드로 기입.
    - Domestic sector rotation·movers (상한가·급등주).
+   - **🔭 [11/4 신설] 유니버스 밖 특징주도 후보로 보고**: 보유·워치 밖에서 실적·수주·주주환원·대형 수급으로 움직인
+     이름 2~4개를 `🔭 밖` 줄에 티커·사유·보유 연결과 함께 적는다(급등주 나열로 끝내지 말 것). PM이
+     `idea_inbox.py --add --source movers`로 수신함에 넣는다. 매수 후보 아님 · 룰3 · 룰6(국내 22% 상한) 그대로.
    - 코스피 close tone — state whether today or prior trading day.
    - **★수급 자동 수집 = `naver_flows.py` 1차 [7/21 신설]**: KRX 공식 API가 데이터센터 IP서 막혀(400/LOGOUT) 손으로 WebSearch하던 걸 네이버 무키 JSON으로 자동화.
      ```bash
@@ -134,6 +137,7 @@ your output is the desk section handed to the PM.
 ## 국장 데스크
 - 코스피 {종가}({등락}) / 코스닥 {종가}({등락}), 수급(외인/기관/연기금 {순매수}), **외인 {N일 연속 순매수/매도, 누적 {액}} → {강세/신중}**, 섹터 {로테이션}, 특징주 {…}  (3~5줄)
 - (선택) 리테일 심리: '{공포 키워드}' 검색트렌드 {최근 추세} → {과열/공포 국면} — 역발상 참고
+- 🔭 밖: {유니버스 밖 특징주 2~4개 — 티커·사유·보유 연결}  (없으면 "없음")
 
 ### 국내 보유 3층 판독 (naver_chart.py + naver_value.py — 보유5+하닉)
 | 종목 | 현재가 | 수급(매집/분산·외인지분율Δ20) | 선반영(밸류) | 종합(구조·국면) |

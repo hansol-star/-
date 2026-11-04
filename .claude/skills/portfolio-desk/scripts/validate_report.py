@@ -2376,6 +2376,45 @@ def check_calibration_debt(today=None):
              "오미션 채점이 통째로 멈추고 그 사실을 아무도 안 본다(10/24 18회차 실제 누락)")
 
 
+IDEA_INBOX_SINCE = "2026-11-05"   # 정훈 승인(11/4 "둘 다 해") 다음 보고서부터
+
+
+def check_idea_inbox(rel=None, today=None):
+    """유니버스 밖 신규 아이디어가 판정 없이 쌓이거나, 보고서에서 그 칸이 빠지면 WARN [11/4 신설].
+
+    ★[11/4 정훈 지적] *"왜 쿠팡·앤트로픽 상장·양자주가 우리 판단에 필요 없어?"* — 분석이 보유·워치 26종목에
+    고정돼 밖에서 들어온 이름이 적히지도 판정되지도 않았다(hunter.json 383편 중 밖의 개별 종목은 극소수).
+    `idea_inbox.py`가 통로다. 산문 약속은 안 지켜지므로(8/27) ①new 7일 초과 ②보고서 섹션 누락을 잡는다.
+    WARN — 측정 축이라 커밋을 막지 않는다.
+    """
+    import datetime as _dt
+    import re as _re
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    p = os.path.join(ROOT, "data", "app", "idea_inbox.json")
+    if os.path.exists(p):
+        try:
+            ideas = json.load(open(p, encoding="utf-8")).get("ideas", [])
+        except (OSError, ValueError):
+            warn("신규 아이디어 수신함(idea_inbox.json)을 못 읽었다 — 형식 확인")
+            ideas = []
+        old = [x.get("ticker") for x in ideas if x.get("status") == "new" and x.get("first_seen")
+               and (today - _dt.date.fromisoformat(x["first_seen"])).days > 7]
+        if old:
+            warn(f"신규 아이디어 미판정 {len(old)}건 7일 초과 — {', '.join(old[:8])} · "
+                 "`idea_inbox.py --triage <티커> --status ... --note ...`로 판정할 것(기각도 판정이다)")
+    if rel is None:
+        return
+    m = _re.search(r"(\d{4}-\d{2}-\d{2})", os.path.basename(rel))
+    if not m or m.group(1) < IDEA_INBOX_SINCE:
+        return
+    rp = os.path.join(ROOT, rel)
+    if os.path.exists(rp) and "유니버스 밖" not in open(rp, encoding="utf-8").read():
+        warn(f"보고서에 「🔭 유니버스 밖」 섹션 누락 ({os.path.basename(rel)}) — "
+             "`idea_inbox.py --report` 출력을 붙일 것(11/4 정훈 지적: 보유 밖 정보를 버리지 말 것)")
+
+
 def check_order_check(today=None):
     """토스 미체결 ↔ 계획 대조(order_check.py)의 마지막 결과를 읽는다 [9/21 신설].
 
@@ -3497,8 +3536,11 @@ def main():
         rel = a.report or (latest_report_path(latest) if latest else None)
         if rel:
             check_report(rel); check_prose_order_link(rel); check_desk_output_items(rel); check_rate_gauge(rel); check_tech_column(rel)
+            check_idea_inbox(rel)
             check_verdict_grounding(rel); check_magnitude_sanity(rel); check_primary_source(rel)
             check_report_provenance(rel); check_price_grounding(rel)
+    else:
+        check_idea_inbox()
 
     print("\n" + "=" * 56)
     print("  보고서 완료-검증 (validate_report.py)")

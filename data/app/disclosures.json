@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04",
+ "updated": "2026-11-05",
  "days": 7,
  "universe": [
   "005930",
@@ -11,7 +11,7 @@
  "counts": {
   "critical": 2,
   "notable": 12,
-  "routine": 24
+  "routine": 26
  },
  "items": [
   {
@@ -37,6 +37,18 @@
    "rcept_no": "20261030000001",
    "filer": "NAVER",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000001"
+  },
+  {
+   "code": "005930",
+   "name": "삼성전자",
+   "date": "20261104",
+   "title": "자기주식처분결과보고서",
+   "level": "notable",
+   "category": "자사주",
+   "why": "수급·주주환원",
+   "rcept_no": "20261104000325",
+   "filer": "삼성전자",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104000325"
   },
   {
    "code": "005380",
@@ -169,18 +181,6 @@
    "rcept_no": "20261029800228",
    "filer": "현대자동차",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800228"
-  },
-  {
-   "code": "066570",
-   "name": "LG전자",
-   "date": "20261028",
-   "title": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261028800266",
-   "filer": "LG전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800266"
   }
  ],
  "insider": [

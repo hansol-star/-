@@ -128,3 +128,6 @@
 {"date": "2026-11-02", "index": "KOSPI", "foreign": -3748, "inst": 12327, "indiv": -13457, "src": "naver", "basis": "regular", "integrated": {"foreign": -3845, "inst": 12257, "indiv": -13303}}
 {"date": "2026-11-03", "index": "KOSDAQ", "foreign": -749, "inst": -2344, "indiv": 3197, "src": "naver", "basis": "regular", "integrated": {"foreign": -713, "inst": -2359, "indiv": 3180}}
 {"date": "2026-11-03", "index": "KOSPI", "foreign": -15167, "inst": -5098, "indiv": 16605, "src": "naver", "basis": "regular", "integrated": {"foreign": -15086, "inst": -4941, "indiv": 16388}}
+{"date": "2026-11-04", "index": "KOSPI", "foreign": -25071, "inst": 10136, "indiv": 11442, "src": "flows.json(확정)"}
+{"date": "2026-11-05", "index": "KOSDAQ", "foreign": -733, "inst": -1032, "indiv": 1726, "src": "naver"}
+{"date": "2026-11-05", "index": "KOSPI", "foreign": -34008, "inst": 8479, "indiv": 22762, "src": "naver"}

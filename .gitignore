@@ -33,3 +33,7 @@ app/live.json
 # bottom_study 10년 일봉 캐시(159MB) — 재생성 가능: bottom_study.py --fetch
 data/tmp/bottom_study_bars.json
 data/tmp/bs.json
+
+# bottom_fundamentals EDGAR 연간원장 캐시 — 재생성 가능: bottom_fundamentals.py --fetch
+data/tmp/bottom_fund_ledger.json
+data/tmp/bottom_fund_result.json

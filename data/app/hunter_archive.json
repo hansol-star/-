@@ -1,8 +1,50 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-11-04 자동 롤오버 +34편 (build_app_data)",
+  "updated": "2026-11-05 자동 롤오버 +3편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-11-04",
+      "title": "11월 5일 오늘 코스피 어떻게 흘러갈까?",
+      "theme": null,
+      "tickers": [
+        "005930",
+        "000660",
+        "MU"
+      ],
+      "verdict": "검증(방향)·수치 미확인",
+      "takeaway": "11/4 코스피 장중 -4%대→민주당 상하원 우세 확실시로 플러스 마감(종가 5,684). 개인·기관 2조+ 순매수, 외인 2조+ 순매도(하닉·삼성 최다). 야간선물 -1.7%·하닉 ADR -5%·MU -7%, AMZN·MSFT +6%. 오늘 관건=외인 3전닉스 순매도 멈춤 여부, 5,684 회복/5,500 지지.",
+      "views": null,
+      "id": "ZdVYM31jr5g"
+    },
+    {
+      "date": "2026-11-04",
+      "title": "11월 5일 투자자들이 꼭 알아야 하는 투자 포인트",
+      "theme": null,
+      "tickers": [
+        "MU",
+        "000660",
+        "005930",
+        "AMZN",
+        "MSFT"
+      ],
+      "verdict": "대립·미결",
+      "takeaway": "MU -7%·하닉 ADR -5.5% vs AMZN·MSFT +7%: 민주당 약진→데이터센터 건설 지연→메모리 주문 우려. 미 전력장비주 -9%, 한화솔루션 +18.64%·OCI홀딩스 +10.38%, 유가 -8%에 미 항공주 +6%. 오늘 2차전지 실적 발표.",
+      "views": null,
+      "id": "OC8v2rIUZPg"
+    },
+    {
+      "date": "2026-11-03",
+      "title": "SK하이닉스 투자자라면 꼭 알아야 할, '자사주 소각 타이밍'",
+      "theme": null,
+      "tickers": [
+        "000660"
+      ],
+      "verdict": "미확인(수치)",
+      "takeaway": "하이닉스 10/28 신규 자사주 매입 중 ~절반은 임직원 보상용(소각 아님 → 희석), 소각 시 주식수 약 3.24% 감소. 월가 ADR 목표가 $164~$400. 3Q 영업이익 '83조·80%'는 자막 수치.",
+      "views": null,
+      "id": "QqkGQV4Hp4A"
+    },
     {
       "date": "2026-11-04",
       "title": "주가 -52% 대폭락중인 쿠팡 진짜 망했을까?",

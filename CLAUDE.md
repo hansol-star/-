@@ -284,7 +284,7 @@
 | 사람 판단 단기 방향 · 카드 없는 오더 · 채점 안 되는 예측 | `check_forecast_mech`·`check_order_cards`·`check_forecast_ledger`(11/2 정훈 승인 — 주간 방향 25.0% vs 항상 상승 39.6% · 범위 = `forecast_band.py` · 판단 = `forecast_ledger.py` 국장·미장 분리 Brier · 정본 `docs/research/agent_trading_survey_2026-11-01.md`) |
 | 기한부 홀드의 만기가 지나도 아무도 판정 안 함 | `check_lapsed_holds`(11/1 — 두산로보 *"3Q 매출 200억 미달이면 조건 없이 트림"*이 충족됐는데 보고서 3회가 대기로 넘겼다 · orders `expires`·`resolved_note`) |
 | 주말 캘리브레이션(R3) 자신이 안 돌아감 | `check_calibration_debt`(10/31 — 10/24 R3 누락을 아무도 못 봤다. 판정 축 = 상태파일이 아니라 **산출물** `call_scorecard.md` 최상단 날짜 8일 초과 WARN · git에 있으니 클라우드·로컬 어디서든 보인다) |
-| 토스에 계획과 다른 주문이 걸림 | `order_check.py` + `check_order_check`(9/21 — 폐기 오더 NAVER 196,400이 실제 접수됐는데 아무도 몰랐다) |
+| 토스에 계획과 다른 주문이 걸림 | `order_check.py` + `check_order_check`(9/21 — 폐기 오더 NAVER 196,400이 실제 접수됐는데 아무도 몰랐다) · ★11/7 🔴·'체결되면 위반'은 **카톡 즉시 푸시**(같은 주문 1회 — 11/6 VOO가 잡히고도 채팅에만 있다가 5시간 뒤 체결) |
 | 룰9 월 정액 적립 누락 | `check_monthly_dca`(9/21 — 매월 20일부터) |
 | 대가 서술 ↔ 13F 팩트 반대 | `check_guru_consistency`(9/21) |
 | 금리 계기판(실질금리·10Y·FOMC 확률) 누락 | `check_rate_gauge`(9/29 d217 — 측정 전용) |

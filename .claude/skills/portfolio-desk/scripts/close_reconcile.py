@@ -478,6 +478,9 @@ def reconcile(today: str | None = None) -> dict:
                                 "네이버 정규장 캡처를 읽는다)")
     series.sort(key=lambda s: s.get("date", ""))
     fl["updated"] = today
+    # ⚠️ as_of·source_report는 여기서 찍지 않는다 — 보고서 세션(사람 쪽 writer)의 스탬프다.
+    #    기계가 찍으면 check_coverage 필드불일치 WARN이 영구 초록불이 된다(lessons 10/3 '자동 스탬프 = 가드 무력화').
+    #    11/7 점검에서 이 자리에 자동 스탬프를 넣었다가 그 교훈과 정면충돌해 되돌렸다.
     _dump(FLOWS, fl)
 
     out["streak"] = streak(series)

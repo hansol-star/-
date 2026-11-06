@@ -618,11 +618,62 @@ def selftest() -> int:
             f.write(files[hist])
         expect("history만 → 9/21 폴백 + stale", base(h("2026-09-22", "22:01")),
                ("2026-09-21", 359000.0, "2026-09-23", True))
+
+        # ★[11/7] 긴급 푸시 선별·중복 억제 — 11/6 VOO(하드플로어 중 걸린 매수, 노랑 '체결되면 위반')가 대상이어야 한다
+        sent = []
+        r1 = {"checked_at": "2026-11-06 18:05", "findings": [
+            {"level": "yellow", "ticker": "VOO", "msg": "VOO 매수 — 하드플로어인데 매수 주문이 걸려 있다(체결되면 위반 — 취소 검토)"},
+            {"level": "yellow", "ticker": "454910.KS", "msg": "두산로보틱스 매도 — 계획 가격과 다르다"},
+            {"level": "ok", "ticker": "ANET", "msg": "계획대로"}]}
+        expect("푸시 대상 = '체결되면 위반'만", [f["ticker"] for f in urgent_findings(r1)], ["VOO"])
+        expect("첫 발견은 보낸다", push_urgent(r1, {}, sender=lambda t: sent.append(t) or 0), 0)
+        expect("두 번째 실행(같은 주문)은 안 보낸다", push_urgent(dict(r1), r1, sender=lambda t: sent.append(t) or 0), None)
+        failed = dict(r1)
+        expect("발송 실패면 다음 실행에서 다시 시도", (push_urgent(failed, {}, sender=lambda t: 4),
+                                             push_urgent(dict(r1), failed, sender=lambda t: 0)), (4, 0))
+        expect("본문에 종목·취소 안내", ("VOO" in sent[0] and "취소" in sent[0], len(sent)), (True, 1))
     finally:
         V.ROOT = old_root
         shutil.rmtree(tmp, ignore_errors=True)
     print("PASS" if ok else "FAIL — 기준가 선택이 회귀했다")
     return 0 if ok else 1
+
+
+def urgent_findings(r: dict) -> list:
+    """폰으로 즉시 밀어야 하는 발견 — 🔴 전부 + '체결되면 위반'(하드플로어·d251 대기 중 걸린 매수) 노랑.
+
+    ★[11/7 시스템 점검] 11/6 VOO: 18:05 대화형 세션의 order_check가 '하드플로어인데 매수 주문이 걸려 있다'를
+    잡았지만 결과는 보고서·채팅에만 있었고, 정훈은 채팅을 안 보고 있었다 → 23:30:21 미국 개장과 함께 체결(d268).
+    PM은 조회 전용이라 직접 못 취소한다 — 그렇다면 **정훈 폰까지 가는 것**이 이 발견의 최종 산출물이다(8/22 '메타 성공 ≠ 생존')."""
+    return [f for f in (r.get("findings") or [])
+            if f.get("level") == "red" or "체결되면 위반" in str(f.get("msg", ""))]
+
+
+def _fp(f: dict) -> str:
+    return f"{f.get('ticker')}|{str(f.get('msg', ''))[:80]}"
+
+
+def push_urgent(r: dict, prev: dict, sender=None):
+    """긴급 발견을 카톡(→텔레그램 폴백)으로 보낸다. 같은 주문은 한 번만 — 직전 결과의 pushed_fps로 중복 억제.
+    반환: 보낼 게 없으면 None, 아니면 notify.send 코드(0=발송). 발송 실패분은 다음 실행에서 다시 시도한다."""
+    urg = urgent_findings(r)
+    cur = {_fp(f) for f in urg}
+    already = set((prev or {}).get("pushed_fps") or []) & cur      # 사라졌다 다시 걸린 주문은 다시 보낸다
+    new = [f for f in urg if _fp(f) not in already]
+    r["pushed_fps"] = sorted(already)
+    if not new:
+        return None
+    text = ("🔴 [토스 주문 점검] 지금 걸린 주문이 룰을 넘는다 — 토스 앱에서 취소 검토\n"
+            + "\n".join(f"· {f.get('ticker')}: {str(f.get('msg', ''))[:120]}" for f in new[:5])
+            + f"\n({r.get('checked_at', '')} KST · order_check)")
+    if sender is None:
+        import notify
+        sender = notify.send
+    code = sender(text)
+    if code == 0:
+        r["pushed_fps"] = sorted(already | {_fp(f) for f in new})
+    r["push"] = {"at": r.get("checked_at"), "code": code, "n": len(new)}
+    return code
 
 
 def _parse_now(s: str) -> dt.datetime:
@@ -635,6 +686,8 @@ def main() -> int:
     ap.add_argument("--file", help="OPEN 주문 JSON(리스트 또는 toss_snapshot --orders 출력)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--no-save", action="store_true", help="data/app/order_check.json을 안 쓴다(테스트용)")
+    ap.add_argument("--no-push", action="store_true",
+                    help="긴급 발견(🔴·'체결되면 위반')을 카톡으로 밀지 않는다 — 기본은 토스 실대조 때 같은 주문당 1회 발송(11/7)")
     ap.add_argument("--now", type=_parse_now, help="판정 시각 고정(KST, 예: '2026-09-22 22:01') — 재현용")
     ap.add_argument("--selftest", action="store_true", help="가격제한폭 기준가 회귀 테스트(임시 ROOT 픽스처)")
     a = ap.parse_args()
@@ -657,6 +710,12 @@ def main() -> int:
                   _load(TASKS, {}) or {}, _load(STOCKS, {}) or {}, kr_weight(), ladder_allowed(),
                   us_track_state(a.now), now=a.now)
         r["source"] = src
+    # ★[11/7] 실계좌(toss) 대조에서만 긴급 푸시 — 파일 재현·테스트(--no-save)·조회 실패는 보내지 않는다
+    if src == "toss" and r.get("source") != "unavailable" and not a.no_save and not a.no_push:
+        try:
+            push_urgent(r, _load(OUT, {}) or {})
+        except Exception as e:                       # 푸시 실패가 대조 결과 저장을 막으면 안 된다
+            r["push"] = {"at": r.get("checked_at"), "code": "error", "err": f"{type(e).__name__}: {e}"[:160]}
     # unavailable(토스 미접근)은 저장하지 않는다 — 안 그러면 마지막 실제 대조 결과를 빈 값으로 덮어쓴다(9/23 클라우드 실사고).
     if not a.no_save and src != "file" and r["source"] != "unavailable":
         with open(OUT, "w", encoding="utf-8", newline="\n") as f:

@@ -44,7 +44,9 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
-    "bottom_study.py":            "일회성 검정(11/5 · 낙폭주 바닥 신호 10년) — 결과 정본 = docs/research/bottom_study_2026-11-05.md·trials.jsonl. "
+    "bottom_fundamentals.py":     "일회성 검정(11/5 · 낙폭군 × 룰2 3중조건, 미국 한정) — 가설 기각. 결과 정본 = docs/research/bottom_fundamentals_2026-11-05.md·trials.jsonl. "
+                                  "bottom_study의 형제인데 형제만 등록되고 이건 빠져 있었다(11/7 점검 — 8/12 '옆에 남은 형제' 교훈 재발). 재현용으로 남는다",
+    "bottom_study.py":           "일회성 검정(11/5 · 낙폭주 바닥 신호 10년) — 결과 정본 = docs/research/bottom_study_2026-11-05.md·trials.jsonl. "
                                   "신호 정의는 market_scan.bottom_flags()가 import해 매 스캔 역발상 목록에 표시한다(데스크는 market_scan 산출물을 읽는다).",
     "git_sync.py":                "git 라이브러리(10/16) — close_reconcile.commit()이 import해 자기 파일을 origin/main 위 임시 인덱스 커밋으로 올린다(로컬 main 갈라짐 방지). "
                                   "산출물 파일이 없으니 데스크가 읽을 것도 없다. 수동 CLI = 대화형 세션이 공유 워킹트리에서 자기 경로만 올릴 때(-m · --ff-only)",
@@ -165,6 +167,10 @@ EXPECTED_UNUSED_FEATURES = {
     ("portfolio_stats.py", "--corr"):     "상관행렬 전체 덤프 — 리스크 데스크는 기본 요약(최상위 상관쌍)을 쓴다",
     ("ma_board.py", "--indexes"):         "지수 추세는 chart_read(지수 포함 기본)가 담당",
     ("naver_sentiment.py", "--discourse"): "측정 전용 축 — 보고서 템플릿에 자리가 없다. 쓰려면 템플릿부터(룰 승격 금지)",
+    # ── [11/7 시스템 점검] 등록 — 셋 다 '사람이 체결·판정 순간에만' 부르는 형제 플래그 ──
+    ("tranche_rules.py", "--close"):      "--us-execute의 수식어(회차를 이 체결로 닫는다) — 체결을 기입할 때만 붙인다. 필수 여부는 CLAUDE.md 가드표·check_us_ledger가 판정(새 회차 첫 체결 = --budget 또는 --close). --us-execute와 같은 성격이라 지시층 호출처가 없는 게 정상",
+    ("idea_inbox.py", "--stale"):         "사람용 조회 — 같은 판정(new 7일 초과)을 validate_report.check_idea_inbox가 원장을 직접 읽어 WARN으로 낸다. 지시층이 이 플래그를 부를 이유가 없다",
+    ("market_scan.py", "--commit"):       "수동 단독 실행 때 결과만 origin/main에 올리는 유틸(git_sync) — 스킬 경로(--if-stale --to-inbox)는 보고서 커밋에 같이 실린다",
 }
 
 CALLER_GLOBS = [
@@ -199,6 +205,18 @@ def routine_status(text: str) -> dict:
     out = {}
     for rid, st in re.findall(r"\b([RC]\d)\s*=\s*([a-z]+)", m.group(1)):
         out[rid] = st
+    return out
+
+
+def routine_executor(text: str) -> dict:
+    """routines.md 실행 상태표의 '실행 주체' 칸 → {"R3": "클라우드 `trig_…` (…)", ...}.
+
+    ★[11/7] live_check가 R3(클라우드 이전·로컬 Disabled)를 매번 🟡로 올렸다 — 표에 이미 '클라우드'라고
+    적혀 있는데 그 칸을 안 읽었기 때문. 경고가 상시 켜져 있으면 진짜 경고(클라우드도 로컬도 안 도는 루틴)가
+    그 소음에 묻힌다."""
+    out = {}
+    for rid, who in re.findall(r"^\|\s*([RC]\d)\s*\|[^|\n]*\|\s*([^|\n]+?)\s*\|\s*$", text, re.M):
+        out[rid] = who
     return out
 
 
@@ -433,7 +451,9 @@ def live_check() -> int:
     한 루틴에 로컬 작업이 여럿이면(R4a/b/c) 하나라도 Ready면 로컬 active로 본다."""
     import subprocess
     try:
-        st = routine_status(open(ROUTINES_MD, encoding="utf-8").read())
+        _rtext = open(ROUTINES_MD, encoding="utf-8").read()
+        st = routine_status(_rtext)
+        who = routine_executor(_rtext)
     except OSError:
         print("routines.md 없음"); return 1
     if not st:
@@ -467,9 +487,11 @@ def live_check() -> int:
             continue
         ready = any(s.strip() != "Disabled" for _, s in tasks)
         desc = ", ".join(f"{n}={s.strip()}" for n, s in tasks)
-        if decl == "active" and not ready:
-            # 로컬이 전부 꺼졌어도 클라우드가 대신 도는 루틴(R3)이 있다 — 표의 실행 주체 칸이 근거
-            print(f"   🟡 {rid}: 선언 active인데 로컬은 전부 Disabled ({desc}) — 클라우드 실행이 맞는지 표 확인")
+        if decl == "active" and not ready and who.get(rid, "").startswith("클라우드"):
+            # 로컬이 전부 꺼졌어도 클라우드가 대신 도는 루틴(R3) — 표의 실행 주체 칸이 근거(11/7 배선)
+            print(f"   ⚪ {rid}: 선언 active · 표 실행 주체 = 클라우드 · 로컬 {desc} = 정상(RemoteTrigger로 확인)")
+        elif decl == "active" and not ready:
+            print(f"   🟡 {rid}: 선언 active인데 로컬은 전부 Disabled ({desc}) · 표에 클라우드 주체도 없다 — 어디서도 안 돌 수 있다")
         elif decl != "active" and ready:
             print(f"   🔴 {rid}: 선언 {decl}인데 로컬이 켜져 있다 ({desc}) — 표를 고치거나 작업을 끈다")
             bad += 1

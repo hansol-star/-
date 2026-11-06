@@ -1,68 +1,60 @@
 {
- "date": "2026-11-03",
- "run_at": "2026-11-03 20:10",
+ "date": "2026-11-06",
+ "run_at": "2026-11-06 16:10",
  "status": "ok",
  "notes": [],
  "kospi": {
-  "close": 5648.79,
-  "pct": -3.59,
+  "close": 5059.69,
+  "pct": -6.02,
   "peak": 9114.55,
   "peak_date": "2026-06-22",
-  "dd_pct": -38.02
+  "dd_pct": -44.49
  },
  "kosdaq": {
-  "close": 704.39,
-  "pct": -4.08
+  "close": 644.27,
+  "pct": -5.03
  },
  "first": {
-  "foreign": -15167,
-  "inst": -5098,
-  "indiv": 16605,
+  "foreign": -27686,
+  "inst": 16986,
+  "indiv": 6049,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "flows": {
-  "foreign": -15167,
-  "inst": -5098,
-  "indiv": 16605,
+  "foreign": -27686,
+  "inst": 16986,
+  "indiv": 6049,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "regular": {
-  "foreign": -15167,
-  "inst": -5098,
-  "indiv": 16605,
+  "foreign": -27686,
+  "inst": 16986,
+  "indiv": 6049,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "integrated": {
-  "foreign": -15086,
-  "inst": -4941,
-  "indiv": 16388,
-  "at": "20:10",
-  "final": true,
-  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
- },
+ "integrated": null,
  "basis": "regular",
- "grade": "확정",
- "after_market_foreign": 81,
- "flows_action": "updated",
+ "grade": "잠정(1차)",
+ "flows_action": "added",
  "streak": {
-  "days": 3,
+  "days": 6,
   "side": "매도",
-  "cum_eok": -35085,
+  "cum_eok": -121951,
   "lower_bound": true,
   "gate2": false,
   "basis": "regular",
-  "reason": "2026-11-03 정규장 기준 순매도"
+  "reason": "2026-11-06 정규장 기준 순매도"
  },
  "pending_nulls": [
   "2026-10-26"
  ],
  "history_audit": {
   "days": 7,
-  "checked": 91,
-  "unresolved": 0,
+  "checked": 85,
+  "unresolved": 6,
   "adjusted": 0,
   "error": null,
   "no_key": false,
@@ -72,7 +64,7 @@
  "yahoo_audit": {
   "days": 30,
   "symbols": 51,
-  "checked": 1012,
+  "checked": 1013,
   "pending": 0,
   "unverifiable": 0,
   "error": null,

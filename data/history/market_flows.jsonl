@@ -131,3 +131,5 @@
 {"date": "2026-11-04", "index": "KOSPI", "foreign": -25071, "inst": 10136, "indiv": 11442, "src": "flows.json(확정)"}
 {"date": "2026-11-05", "index": "KOSDAQ", "foreign": -733, "inst": -1032, "indiv": 1726, "src": "naver"}
 {"date": "2026-11-05", "index": "KOSPI", "foreign": -34008, "inst": 8479, "indiv": 22762, "src": "naver"}
+{"date": "2026-11-06", "index": "KOSDAQ", "foreign": -996, "inst": 2046, "indiv": -1098, "src": "naver", "basis": "regular"}
+{"date": "2026-11-06", "index": "KOSPI", "foreign": -27686, "inst": 16986, "indiv": 6049, "src": "naver", "basis": "regular"}

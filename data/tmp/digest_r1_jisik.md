@@ -3,19 +3,19 @@
 > ⚠️ **압축이지 요약이 아니다** — 원문 문장을 그대로 골라 실었다. 판정([검증/정정/대립·미결/미확인])과 교차검증은 읽는 쪽 몫이다.
 > 원문 전량은 `data/transcripts/` 에 그대로 있다 — 의심되면 전문을 열 것.
 
-## `SCgzgn-BIuM` "올해 안에 담으세요" 은퇴 후 연 6% 배당 만들어주는 자산 4가지ㅣ지식인 클래스 (박곰희 작가 풀버전)
-- 업로드 2026-11-04 · https://www.youtube.com/watch?v=SCgzgn-BIuM
-- **교차검증 대상 수치 12건**
+## `K0hJd_zg-mc` 65년차 투자 거장, 래리 윌리엄스가 포착한 코스피의 숨은 기회 | 글로벌초대석 EP.12
+- 업로드 ? · https://www.youtube.com/watch?v=K0hJd_zg-mc
+- **교차검증 대상 수치 5건**
 
-- 수익률을 연평균 수익률 10% 이상 한 13% 정도 나라가 이렇게 오랫동안 10% 이상의 수익을 준 건 없습니다.
-- 연평균 수익률 10위라는 것을 생각을 할 때 단순히 일시적으로 벌어진 20% 30%의 수익률과 전혀 다른 개념인 거죠.
-- 오렌버핏 선생님이 25% 정도 되거든요.
-- 피터린지 선생님이 29%입니다.
-- 월급의 10%를 떼 가지고 거의 반강제로 401k로 투자를 한 다음에 그게 정말 많이 뿌려줍니다.
-- 3억을 만들었을 때 제가 아까 말씀드린 것처럼 한 6% 정도로 월배당으로 세팅을 한다면 1년에 1800이 나오게 되는 거잖아요.
-- 2억 가지고 6% 세팅하는 거죠.
-- 그래서 이제 60%만큼에 SP 500을 담을 건데 S&amp;P 500을 담고 만약에 600만 원 정도면 괜찮은데 나중에 몇 천원이 돼서 더 커져서 이것도 나눠야겠다라고 생각이 드신다면 그다음에 나스닥 100 같은 걸 얹으면 되겠죠.
-- 자, 세금이 다르다는 건 차익을 봤을 때 250만 원까지는 세금을 안 내고 넘치면 22%를 냅니다.
-- SP 500은 13% 정도 하고 나스닥은요.
-- 금리 수십주금인데 3% 넘을 겁니다.
-- 한도는 5, 60% 금리도 매우 낮게 증권사에서 책정을 해 줍니다.
+- I think your mark is going to start to get strong again around the end of middle of November, 1st of December.
+- December 7th, then you're going to see a nice rally [music] starting in the market.
+- You've been watching the market for 60 years, so it's safe to say that you've experienced all the crashes and the burns and the falls and the crisis, right?
+- At my age, I'm 84 years old.
+- I don't know your market as intimate as I know ours because I've been trading ours for 60s some years 65 years whatever so I know that market a little bit better but yeah clearly there are things that influence your market fundamental things and there are some tip offs what was going to happen in your market based on the price of crude oil your market is very responsible to crude oil that's just one input but yeah there are things that absolutely affect the top of the market crude oil leads your market by about a month and a half two months whatever crude oil is going be doing cops are going to follow it.
+- I look when crude oil topped out and then what happened shortly thereafter about 10 weeks after the Cosby topped out.
+- >> In terms of where we are right here, right now, I think your market is going to start to get strong again around the end of middle of November, 1 of December.
+- I know you're not as familiar, but we do want to touch upon it because it's a very interesting things are happening in the market where Samsung electronics and SKH Highex account for up to 70% of the cost gain this year.
+- Now, that seems like a prophecy that is meant to be fulfilled like a 100%.
+- >> So I'm going to give you a big hypothesis and say that tomorrow morning we wake up and the stocks drop by 20%.
+- If by the end of the week, we're still down 20%, start buying.
+- If I'm running a fund I can only have a 2% position in any stock or future have a small position and I can't get in and out.

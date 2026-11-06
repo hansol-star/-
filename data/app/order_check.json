@@ -1,8 +1,28 @@
 {
- "checked_at": "2026-11-05 20:22",
+ "checked_at": "2026-11-06 17:54",
  "source": "toss",
- "open": [],
+ "open": [
+  {
+   "ticker": "VOO",
+   "side": "BUY",
+   "price": null,
+   "qty": "0.1351",
+   "ordered_at": "2026-11-06T08:59:50.087+09:00",
+   "plan_id": null,
+   "plan_state": "none"
+  }
+ ],
  "findings": [
+  {
+   "level": "red",
+   "ticker": "VOO",
+   "msg": "VOO 매수 × 0.1351 — 계획(tasks.json)에 없는 주문"
+  },
+  {
+   "level": "yellow",
+   "ticker": "VOO",
+   "msg": "VOO 매수 × 0.1351 — 미국 트랙 이번 회차 없음(회차 2 잔액했으나 하드플로어로 **연기** — 🚨 S&P500 폭풍 99%ile ≥70 = **글로벌 확산)"
+  },
   {
    "level": "yellow",
    "ticker": "454910.KS",
@@ -11,19 +31,19 @@
   {
    "level": "info",
    "ticker": "ANET",
-   "msg": "ANET 매수 $182.00 미등록 — 정상(2회차에 ANET 이미 체결 — 다시 걸지 않는다(잔액 $90.80 → GOOGL 18% → VOO) · 지금 걸면 위반)"
+   "msg": "ANET 매수 $182.00 미등록 — 정상(하드플로어 — 예약 금지(걸려 있으면 취소) · 지금 걸면 위반)"
   }
  ],
  "counts": {
-  "red": 0,
-  "yellow": 1,
+  "red": 1,
+  "yellow": 2,
   "ok": 0,
   "info": 1
  },
  "context": {
-  "kr_weight_pct": 22.0,
+  "kr_weight_pct": 22.1,
   "ladder_allowed_krw": 0.0,
-  "us_allowed_usd": 90.8,
+  "us_allowed_usd": 0.0,
   "waiting_plans": 3
  }
 }

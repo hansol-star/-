@@ -1,18 +1,30 @@
 {
- "updated": "2026-11-04",
+ "updated": "2026-11-07",
  "covered": [
+  "000660.KS",
   "005380.KS",
   "005930.KS",
+  "009150.KS",
+  "012450.KS",
+  "034020.KS",
   "035420.KS",
+  "042660.KS",
   "066570.KS",
+  "096770.KS",
   "454910.KS",
+  "AMAT",
   "ANET",
   "AVGO",
+  "CDNS",
+  "GEV",
   "GOOGL",
+  "ISRG",
   "MSFT",
   "MU",
   "NVDA",
-  "ORCL"
+  "ORCL",
+  "TMUS",
+  "TSM"
  ],
  "errors": {},
  "stocks": {
@@ -24,7 +36,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2026-01-25",
@@ -687,7 +699,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2026-09-03",
@@ -1887,7 +1899,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2026-06-30",
@@ -2504,7 +2516,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -2718,6 +2730,50 @@
     }
    ],
    "quarterly": [
+    {
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "revenue": 3657600000,
+     "gross_profit": 2325700000,
+     "operating_income": 1642400000,
+     "net_income": 1560400000,
+     "eps_diluted": 1.22,
+     "shares_diluted": 1278200000,
+     "rnd": 486900000,
+     "assets": 25264100000,
+     "liabilities": 8817400000,
+     "equity": 16446700000,
+     "cash": 2288100000,
+     "marketable_securities": 12070900000,
+     "inventory": 3209800000,
+     "receivables": 2327800000,
+     "assets_current": 22132300000,
+     "liabilities_current": 6722000000,
+     "deferred_revenue": 5102200000,
+     "cfo": 1200900000,
+     "capex": 100700000,
+     "buyback": 0.0,
+     "total_debt": null,
+     "fcf": 1100200000,
+     "_derived": [
+      "ytd_diff: cfo,capex,buyback"
+     ],
+     "gross_margin": 0.6359,
+     "op_margin": 0.449,
+     "net_margin": 0.4266,
+     "fcf_margin": 0.3008,
+     "roe": 0.0949,
+     "debt_to_equity": null,
+     "current_ratio": 3.2925,
+     "net_cash": null,
+     "revenue_yoy": 58.4543,
+     "eps_yoy": 82.0896,
+     "net_income_yoy": 82.9308,
+     "inventory_yoy": 48.8983,
+     "receivables_yoy": 56.2911,
+     "shares_yoy": 0.1253,
+     "deferred_yoy": 44.92
+    },
     {
      "end": "2026-06-30",
      "period": "quarterly",
@@ -3027,72 +3083,28 @@
      "receivables_yoy": 10.2574,
      "shares_yoy": null,
      "deferred_yoy": 88.7339
-    },
-    {
-     "end": "2024-09-30",
-     "period": "quarterly",
-     "revenue": 1810900000,
-     "gross_profit": 1161700000,
-     "operating_income": 785300000,
-     "net_income": 748000000,
-     "eps_diluted": 0.58,
-     "shares_diluted": 1281800000,
-     "rnd": 235800000,
-     "assets": 12846723000,
-     "liabilities": 3600834000,
-     "equity": 9245900000,
-     "cash": 3175139000,
-     "marketable_securities": 4253249000,
-     "inventory": 1769962000,
-     "receivables": 1130897000,
-     "assets_current": 10877940000,
-     "liabilities_current": 2434374000,
-     "deferred_revenue": 1599590000,
-     "cfo": 1174500000,
-     "capex": 7000000,
-     "buyback": 65100000,
-     "total_debt": null,
-     "fcf": 1167500000,
-     "_derived": [
-      "ytd_diff: cfo,capex,buyback"
-     ],
-     "gross_margin": 0.6415,
-     "op_margin": 0.4337,
-     "net_margin": 0.4131,
-     "fcf_margin": 0.6447,
-     "roe": 0.0809,
-     "debt_to_equity": null,
-     "current_ratio": 4.4685,
-     "net_cash": null,
-     "revenue_yoy": 19.9704,
-     "eps_yoy": -66.2791,
-     "net_income_yoy": 37.1654,
-     "inventory_yoy": -6.5262,
-     "receivables_yoy": 35.701,
-     "shares_yoy": 303.55,
-     "deferred_yoy": 128.9462
     }
    ],
    "flags": [
     {
      "code": "backlog_growth",
      "severity": "bull",
-     "message": "계약부채(선수금·백로그) YoY +83.0% — 수주 잔고 확대",
+     "message": "계약부채(선수금·백로그) YoY +44.9% — 수주 잔고 확대",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "deferred_yoy": 82.9782
+       "end": "2026-09-30",
+       "deferred_yoy": 44.92
       }
      ]
     }
    ],
-   "fund_subscore": 85.2,
+   "fund_subscore": 85.4,
    "graded_weight": 85,
    "axes": {
     "C_분기EPS": {
-     "score": 21.4,
+     "score": 25,
      "max": 25,
-     "why": "분기 희석EPS YoY +35.7%"
+     "why": "분기 희석EPS YoY +82.1%"
     },
     "A_연간EPS": {
      "score": 18.3,
@@ -3100,9 +3112,9 @@
      "why": "연간 희석EPS YoY +23.3%"
     },
     "마진방향": {
-     "score": 17.7,
+     "score": 14.3,
      "max": 20,
-     "why": "영업마진 +3.87%p (최근 연속 3분기)"
+     "why": "영업마진 +2.16%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 15,
@@ -3125,7 +3137,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-11-02",
@@ -3759,7 +3771,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -5023,7 +5035,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2026-05-31",
@@ -5701,7 +5713,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6091,7 +6103,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6466,7 +6478,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6849,7 +6861,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -7224,7 +7236,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-04",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -8017,7 +8029,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -8033,6 +8045,7 @@
      "liabilities": 50720000000,
      "equity": 11178000000,
      "cash": 8848000000,
+     "marketable_securities": null,
      "inventory": 10429000000,
      "receivables": 9803000000,
      "assets_current": 40216000000,
@@ -8074,6 +8087,7 @@
      "liabilities": 40892000000,
      "equity": 9546000000,
      "cash": 8205000000,
+     "marketable_securities": null,
      "inventory": 8587000000,
      "receivables": 8177000000,
      "assets_current": 34153000000,
@@ -8115,6 +8129,7 @@
      "liabilities": 37741000000,
      "equity": 7416000000,
      "cash": 1551000000,
+     "marketable_securities": null,
      "inventory": 8253000000,
      "receivables": null,
      "assets_current": 27428000000,
@@ -8156,6 +8171,7 @@
      "liabilities": null,
      "equity": 11607000000,
      "cash": 2067000000,
+     "marketable_securities": null,
      "inventory": null,
      "receivables": null,
      "assets_current": null,
@@ -8192,6 +8208,7 @@
      "liabilities": 73682000000,
      "equity": 11382000000,
      "cash": 16764000000,
+     "marketable_securities": null,
      "inventory": 13045000000,
      "receivables": 11587000000,
      "assets_current": 51681000000,
@@ -8235,6 +8252,7 @@
      "liabilities": 67685000000,
      "equity": 11957000000,
      "cash": 13120000000,
+     "marketable_securities": null,
      "inventory": 12692000000,
      "receivables": 11099000000,
      "assets_current": 47433000000,
@@ -8278,6 +8296,7 @@
      "liabilities": 60547000000,
      "equity": 13922000000,
      "cash": 10172000000,
+     "marketable_securities": null,
      "inventory": 11919000000,
      "receivables": 9568000000,
      "assets_current": 42969000000,
@@ -8319,6 +8338,7 @@
      "liabilities": 50720000000,
      "equity": 11178000000,
      "cash": 8848000000,
+     "marketable_securities": null,
      "inventory": 10429000000,
      "receivables": 9803000000,
      "assets_current": 40216000000,
@@ -8365,6 +8385,7 @@
      "liabilities": 44669000000,
      "equity": 8646000000,
      "cash": 7945000000,
+     "marketable_securities": null,
      "inventory": 10032000000,
      "receivables": 7374000000,
      "assets_current": 36278000000,
@@ -8408,6 +8429,7 @@
      "liabilities": 43131000000,
      "equity": 8877000000,
      "cash": 7892000000,
+     "marketable_securities": null,
      "inventory": 9825000000,
      "receivables": 6948000000,
      "assets_current": 34709000000,
@@ -8451,6 +8473,7 @@
      "liabilities": 41887000000,
      "equity": 8607000000,
      "cash": 8107000000,
+     "marketable_securities": null,
      "inventory": 9156000000,
      "receivables": 7136000000,
      "assets_current": 33936000000,
@@ -8492,6 +8515,7 @@
      "liabilities": 40892000000,
      "equity": 9546000000,
      "cash": 8205000000,
+     "marketable_securities": null,
      "inventory": 8587000000,
      "receivables": 8177000000,
      "assets_current": 34153000000,
@@ -8626,7 +8650,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -8642,6 +8666,7 @@
      "liabilities": 160034000000,
      "equity": 59203000000,
      "cash": 5598000000,
+     "marketable_securities": null,
      "inventory": 2405000000,
      "receivables": 4874000000,
      "assets_current": 24461000000,
@@ -8685,6 +8710,7 @@
      "liabilities": 146294000000,
      "equity": 61741000000,
      "cash": 5409000000,
+     "marketable_securities": null,
      "inventory": 1607000000,
      "receivables": 4276000000,
      "assets_current": 18404000000,
@@ -8728,6 +8754,7 @@
      "liabilities": 142967000000,
      "equity": 64715000000,
      "cash": 5135000000,
+     "marketable_securities": null,
      "inventory": 1678000000,
      "receivables": 4692000000,
      "assets_current": 19015000000,
@@ -8771,6 +8798,7 @@
      "liabilities": 141682000000,
      "equity": 69656000000,
      "cash": 4507000000,
+     "marketable_securities": null,
      "inventory": 1884000000,
      "receivables": 4445000000,
      "assets_current": 19067000000,
@@ -8814,6 +8842,7 @@
      "liabilities": 137461000000,
      "equity": 69102000000,
      "cash": 6631000000,
+     "marketable_securities": null,
      "inventory": 2567000000,
      "receivables": 4194000000,
      "assets_current": 20891000000,
@@ -8859,6 +8888,7 @@
      "liabilities": 156797000000,
      "equity": 56307000000,
      "cash": 5620000000,
+     "marketable_securities": null,
      "inventory": 3085000000,
      "receivables": 5012000000,
      "assets_current": 21842000000,
@@ -8902,6 +8932,7 @@
      "liabilities": 157288000000,
      "equity": 56265000000,
      "cash": 2825000000,
+     "marketable_securities": null,
      "inventory": 2191000000,
      "receivables": 5247000000,
      "assets_current": 21769000000,
@@ -8945,6 +8976,7 @@
      "liabilities": 158788000000,
      "equity": 55879000000,
      "cash": 3520000000,
+     "marketable_securities": null,
      "inventory": 2327000000,
      "receivables": 4866000000,
      "assets_current": 22118000000,
@@ -8988,6 +9020,7 @@
      "liabilities": 160034000000,
      "equity": 59203000000,
      "cash": 5598000000,
+     "marketable_securities": null,
      "inventory": 2405000000,
      "receivables": 4874000000,
      "assets_current": 24461000000,
@@ -9035,6 +9068,7 @@
      "liabilities": 156703000000,
      "equity": 60477000000,
      "cash": 3310000000,
+     "marketable_securities": null,
      "inventory": 2370000000,
      "receivables": 5084000000,
      "assets_current": 21703000000,
@@ -9078,6 +9112,7 @@
      "liabilities": 151536000000,
      "equity": 61107000000,
      "cash": 10259000000,
+     "marketable_securities": null,
      "inventory": 1690000000,
      "receivables": 4598000000,
      "assets_current": 26772000000,
@@ -9121,6 +9156,7 @@
      "liabilities": 153528000000,
      "equity": 61105000000,
      "cash": 12003000000,
+     "marketable_securities": null,
      "inventory": 1937000000,
      "receivables": 4392000000,
      "assets_current": 27441000000,
@@ -9164,6 +9200,7 @@
      "liabilities": 146294000000,
      "equity": 61741000000,
      "cash": 5409000000,
+     "marketable_securities": null,
      "inventory": 1607000000,
      "receivables": 4276000000,
      "assets_current": 18404000000,
@@ -9273,7 +9310,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -9637,7 +9674,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -9953,15 +9990,30 @@
     {
      "code": "debt_buildup",
      "severity": "med",
-     "message": "총차입금 1,636.0B → 2,277.2B (YoY +39.2%) · 순현금 424.0B (여유 — 캐펙스 조달 성격) — 조달한 현금을 쌓아두면 순현금 지표엔 안 잡힌다",
+     "message": "순현금 453.3B → 227.1B (1년 새 226.2B 악화)",
      "evidence": [
       {
-       "end": "2025-12-31",
-       "total_debt": 2277190879280.0
+       "end": "2026-06-30",
+       "net_cash": 227092624670.0
       },
       {
-       "end": "2024-12-31",
-       "total_debt": 1636007466060.0
+       "end": "2025-06-30",
+       "net_cash": 453319413930.0
+      }
+     ]
+    },
+    {
+     "code": "debt_buildup",
+     "severity": "med",
+     "message": "총차입금 2,088.0B → 3,087.4B (YoY +47.9%) · 순현금 227.1B (여유 — 캐펙스 조달 성격) — 조달한 현금을 쌓아두면 순현금 지표엔 안 잡힌다",
+     "evidence": [
+      {
+       "end": "2026-06-30",
+       "total_debt": 3087351800970.0
+      },
+      {
+       "end": "2025-06-30",
+       "total_debt": 2087962326150.0
       }
      ]
     },
@@ -10027,7 +10079,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -10414,7 +10466,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -10728,6 +10780,21 @@
    ],
    "flags": [
     {
+     "code": "debt_buildup",
+     "severity": "med",
+     "message": "총차입금 10,653.9B → 15,901.2B (YoY +49.3%) · 순현금 -7,853.0B (순부채 — 레버리지 누적) — 조달한 현금을 쌓아두면 순현금 지표엔 안 잡힌다",
+     "evidence": [
+      {
+       "end": "2026-06-30",
+       "total_debt": 15901220959000.0
+      },
+      {
+       "end": "2025-06-30",
+       "total_debt": 10653893912000.0
+      }
+     ]
+    },
+    {
      "code": "source_conflict",
      "severity": "med",
      "message": "두 소스 간 1개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
@@ -10789,7 +10856,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -11891,7 +11958,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -13037,7 +13104,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": null,
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -13046,8 +13113,8 @@
      "gross_profit": 2281294000000.0,
      "operating_income": 1936095600000.0,
      "net_income": 1697604000000.0,
-     "eps_diluted": 327.35,
-     "shares_diluted": 5186120000.0,
+     "eps_diluted": 331.25,
+     "shares_diluted": 5186111400.0,
      "assets": 7932842500000.0,
      "liabilities": 2536623300000.0,
      "equity": 5355038700000.0,
@@ -13070,11 +13137,11 @@
      "current_ratio": 2.5073,
      "net_cash": 1703273700000.0,
      "revenue_yoy": 31.605,
-     "eps_yoy": 44.6851,
+     "eps_yoy": 46.4088,
      "net_income_yoy": 46.5498,
      "inventory_yoy": 0.0836,
      "receivables_yoy": 3.0916,
-     "shares_yoy": 0.0037,
+     "shares_yoy": 0.0035,
      "deferred_yoy": null
     },
     {
@@ -13350,7 +13417,7 @@
     }
    ],
    "flags": [],
-   "fund_subscore": 89.8,
+   "fund_subscore": 90.2,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
@@ -13359,9 +13426,9 @@
      "why": "분기 희석EPS YoY +68.7%"
     },
     "A_연간EPS": {
-     "score": 23.7,
+     "score": 24.1,
      "max": 25,
-     "why": "연간 희석EPS YoY +44.7%"
+     "why": "연간 희석EPS YoY +46.4%"
     },
     "마진방향": {
      "score": 11.1,
@@ -13389,7 +13456,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-10-26",
@@ -13405,6 +13472,7 @@
      "liabilities": 15884000000,
      "equity": 20415000000,
      "cash": 7241000000,
+     "marketable_securities": 1332000000,
      "inventory": 5915000000,
      "receivables": 5185000000,
      "assets_current": 20881000000,
@@ -13423,7 +13491,7 @@
      "roe": 0.3428,
      "debt_to_equity": 0.3162,
      "current_ratio": 2.6105,
-     "net_cash": 786000000,
+     "net_cash": 2118000000,
      "revenue_yoy": 4.3862,
      "eps_yoy": 0.5807,
      "net_income_yoy": -2.4941,
@@ -13446,6 +13514,7 @@
      "liabilities": 15408000000,
      "equity": 19001000000,
      "cash": 8022000000,
+     "marketable_securities": 1449000000,
      "inventory": 5421000000,
      "receivables": 5234000000,
      "assets_current": 21220000000,
@@ -13464,7 +13533,7 @@
      "roe": 0.3777,
      "debt_to_equity": 0.3242,
      "current_ratio": 2.5059,
-     "net_cash": 1862000000,
+     "net_cash": 3311000000,
      "revenue_yoy": 2.4852,
      "eps_yoy": 6.1652,
      "net_income_yoy": 4.682,
@@ -13487,6 +13556,7 @@
      "liabilities": 14380000000,
      "equity": 16349000000,
      "cash": 6132000000,
+     "marketable_securities": 737000000,
      "inventory": 5725000000,
      "receivables": 5165000000,
      "assets_current": 19147000000,
@@ -13505,7 +13575,7 @@
      "roe": 0.4194,
      "debt_to_equity": 0.334,
      "current_ratio": 2.5973,
-     "net_cash": 671000000,
+     "net_cash": 1408000000,
      "revenue_yoy": 2.8389,
      "eps_yoy": 9.0054,
      "net_income_yoy": 5.0728,
@@ -13528,6 +13598,7 @@
      "liabilities": 14532000000,
      "equity": 12194000000,
      "cash": 1995000000,
+     "marketable_securities": 586000000,
      "inventory": 5932000000,
      "receivables": 6068000000,
      "assets_current": 15925000000,
@@ -13546,7 +13617,7 @@
      "roe": 0.5351,
      "debt_to_equity": 0.4475,
      "current_ratio": 2.1582,
-     "net_cash": -3462000000,
+     "net_cash": -2876000000,
      "revenue_yoy": 11.8025,
      "eps_yoy": 16.25,
      "net_income_yoy": 10.8186,
@@ -13569,6 +13640,7 @@
      "liabilities": 13578000000,
      "equity": 12247000000,
      "cash": 4995000000,
+     "marketable_securities": 464000000,
      "inventory": 4309000000,
      "receivables": 4953000000,
      "assets_current": 16107000000,
@@ -13587,7 +13659,7 @@
      "roe": 0.4808,
      "debt_to_equity": 0.4452,
      "current_ratio": 2.5389,
-     "net_cash": -457000000,
+     "net_cash": 7000000,
      "revenue_yoy": 34.0716,
      "eps_yoy": 63.2653,
      "net_income_yoy": 62.6969,
@@ -13612,6 +13684,7 @@
      "liabilities": 17896000000,
      "equity": 25626000000,
      "cash": 7037000000,
+     "marketable_securities": 2196000000,
      "inventory": 6564000000,
      "receivables": 7691000000,
      "assets_current": 25095000000,
@@ -13632,7 +13705,7 @@
      "roe": 0.099,
      "debt_to_equity": 0.2515,
      "current_ratio": 2.423,
-     "net_cash": 593000000,
+     "net_cash": 2789000000,
      "revenue_yoy": 24.8288,
      "eps_yoy": 42.7928,
      "net_income_yoy": 42.6644,
@@ -13655,6 +13728,7 @@
      "liabilities": 16377000000,
      "equity": 23909000000,
      "cash": 6301000000,
+     "marketable_securities": 1940000000,
      "inventory": 6343000000,
      "receivables": 6372000000,
      "assets_current": 22571000000,
@@ -13675,7 +13749,7 @@
      "roe": 0.1174,
      "debt_to_equity": 0.27,
      "current_ratio": 2.5084,
-     "net_cash": -154000000,
+     "net_cash": 1786000000,
      "revenue_yoy": 11.4085,
      "eps_yoy": 33.4601,
      "net_income_yoy": 31.3056,
@@ -13698,6 +13772,7 @@
      "liabilities": 15927000000,
      "equity": 21717000000,
      "cash": 7218000000,
+     "marketable_securities": 1293000000,
      "inventory": 5997000000,
      "receivables": 4977000000,
      "assets_current": 21049000000,
@@ -13716,7 +13791,7 @@
      "roe": 0.0933,
      "debt_to_equity": 0.3017,
      "current_ratio": 2.7149,
-     "net_cash": 665000000,
+     "net_cash": 1958000000,
      "revenue_yoy": -2.149,
      "eps_yoy": 75.1724,
      "net_income_yoy": 70.9705,
@@ -13739,6 +13814,7 @@
      "liabilities": 15884000000,
      "equity": 20415000000,
      "cash": 7241000000,
+     "marketable_securities": 1332000000,
      "inventory": 5915000000,
      "receivables": 5185000000,
      "assets_current": 20881000000,
@@ -13762,7 +13838,7 @@
      "roe": 0.0929,
      "debt_to_equity": 0.3162,
      "current_ratio": 2.6105,
-     "net_cash": 786000000,
+     "net_cash": 2118000000,
      "revenue_yoy": -3.4776,
      "eps_yoy": 13.3971,
      "net_income_yoy": 9.5898,
@@ -13785,6 +13861,7 @@
      "liabilities": 14707000000,
      "equity": 19504000000,
      "cash": 5384000000,
+     "marketable_securities": 1630000000,
      "inventory": 5807000000,
      "receivables": 5772000000,
      "assets_current": 19718000000,
@@ -13805,7 +13882,7 @@
      "roe": 0.0912,
      "debt_to_equity": 0.316,
      "current_ratio": 2.5013,
-     "net_cash": -779000000,
+     "net_cash": 851000000,
      "revenue_yoy": 7.7309,
      "eps_yoy": 8.2927,
      "net_income_yoy": 4.3402,
@@ -13828,6 +13905,7 @@
      "liabilities": 14671000000,
      "equity": 18961000000,
      "cash": 6169000000,
+     "marketable_securities": 578000000,
      "inventory": 5656000000,
      "receivables": 6187000000,
      "assets_current": 19708000000,
@@ -13848,7 +13926,7 @@
      "roe": 0.1127,
      "debt_to_equity": 0.325,
      "current_ratio": 2.4647,
-     "net_cash": 7000000,
+     "net_cash": 585000000,
      "revenue_yoy": 6.8312,
      "eps_yoy": 27.6699,
      "net_income_yoy": 24.0999,
@@ -13871,6 +13949,7 @@
      "liabilities": 14713000000,
      "equity": 18625000000,
      "cash": 6264000000,
+     "marketable_securities": 1949000000,
      "inventory": 5501000000,
      "receivables": 5998000000,
      "assets_current": 20694000000,
@@ -13889,7 +13968,7 @@
      "roe": 0.0636,
      "debt_to_equity": 0.3308,
      "current_ratio": 2.675,
-     "net_cash": 103000000,
+     "net_cash": 2052000000,
      "revenue_yoy": 6.8436,
      "eps_yoy": -39.834,
      "net_income_yoy": -41.3076,
@@ -13912,6 +13991,7 @@
      "liabilities": 15408000000,
      "equity": 19001000000,
      "cash": 8022000000,
+     "marketable_securities": 1449000000,
      "inventory": 5421000000,
      "receivables": 5234000000,
      "assets_current": 21220000000,
@@ -13935,7 +14015,7 @@
      "roe": 0.0911,
      "debt_to_equity": 0.3242,
      "current_ratio": 2.5059,
-     "net_cash": 1862000000,
+     "net_cash": 3311000000,
      "revenue_yoy": 4.7895,
      "eps_yoy": -12.1849,
      "net_income_yoy": -13.6228,
@@ -13946,21 +14026,6 @@
     }
    ],
    "flags": [
-    {
-     "code": "debt_buildup",
-     "severity": "med",
-     "message": "순현금 1.9B → 0.8B (1년 새 1.1B 악화)",
-     "evidence": [
-      {
-       "end": "2025-10-26",
-       "net_cash": 786000000
-      },
-      {
-       "end": "2024-10-27",
-       "net_cash": 1862000000
-      }
-     ]
-    },
     {
      "code": "backlog_growth",
      "severity": "bull",
@@ -13999,7 +14064,7 @@
     "재무건전성": {
      "score": 15,
      "max": 15,
-     "why": "순현금 +0.8B · D/E 0.32"
+     "why": "순현금 +2.1B · D/E 0.32"
     }
    },
    "source_conflict": []
@@ -14012,7 +14077,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -14028,6 +14093,7 @@
      "liabilities": 4678967000,
      "equity": 5474181000,
      "cash": 3001317000,
+     "marketable_securities": 154213000,
      "inventory": 303545000,
      "receivables": 944939000,
      "assets_current": 4669673000,
@@ -14048,7 +14114,7 @@
      "roe": 0.2026,
      "debt_to_equity": 0.4531,
      "current_ratio": 2.8556,
-     "net_cash": 521167000,
+     "net_cash": 675380000,
      "revenue_yoy": 14.1232,
      "eps_yoy": 5.4545,
      "net_income_yoy": 5.0597,
@@ -14071,6 +14137,7 @@
      "liabilities": 4300904000,
      "equity": 4673578000,
      "cash": 2644030000,
+     "marketable_securities": 140625000,
      "inventory": 257711000,
      "receivables": 680460000,
      "assets_current": 4016079000,
@@ -14091,7 +14158,7 @@
      "roe": 0.2258,
      "debt_to_equity": 0.5298,
      "current_ratio": 2.9312,
-     "net_cash": 167847000,
+     "net_cash": 308472000,
      "revenue_yoy": 13.4787,
      "eps_yoy": 0.7853,
      "net_income_yoy": 1.3773,
@@ -14114,6 +14181,7 @@
      "liabilities": 2265220000,
      "equity": 3404271000,
      "cash": 1008152000,
+     "marketable_securities": 130359000,
      "inventory": 181661000,
      "receivables": 489224000,
      "assets_current": 1976217000,
@@ -14134,7 +14202,7 @@
      "roe": 0.3058,
      "debt_to_equity": 0.1907,
      "current_ratio": 1.2422,
-     "net_cash": 359096000,
+     "net_cash": 489455000,
      "revenue_yoy": 14.8318,
      "eps_yoy": 23.6246,
      "net_income_yoy": 22.6387,
@@ -14157,6 +14225,7 @@
      "liabilities": 2391958000,
      "equity": 2745113000,
      "cash": 882325000,
+     "marketable_securities": 4490000,
      "inventory": 128005000,
      "receivables": 486710000,
      "assets_current": 1706767000,
@@ -14177,7 +14246,7 @@
      "roe": 0.3093,
      "debt_to_equity": 0.2361,
      "current_ratio": 1.2664,
-     "net_cash": 234247000,
+     "net_cash": 238737000,
      "revenue_yoy": 19.191,
      "eps_yoy": 23.6,
      "net_income_yoy": 21.9837,
@@ -14200,6 +14269,7 @@
      "liabilities": 1645624000,
      "equity": 2740675000,
      "cash": 1088940000,
+     "marketable_securities": null,
      "inventory": 115721000,
      "receivables": 337596000,
      "assets_current": 1715769000,
@@ -14245,6 +14315,7 @@
      "liabilities": 5349523000,
      "equity": 6875251000,
      "cash": 1452020000,
+     "marketable_securities": null,
      "inventory": 448824000,
      "receivables": 1110591000,
      "assets_current": 3353887000,
@@ -14289,6 +14360,7 @@
      "liabilities": 5222362000,
      "equity": 6857963000,
      "cash": 1440443000,
+     "marketable_securities": null,
      "inventory": 390378000,
      "receivables": 1065023000,
      "assets_current": 3221893000,
@@ -14333,6 +14405,7 @@
      "liabilities": 5536891000,
      "equity": 6561463000,
      "cash": 1406668000,
+     "marketable_securities": null,
      "inventory": 317951000,
      "receivables": 1033814000,
      "assets_current": 3180400000,
@@ -14376,6 +14449,7 @@
      "liabilities": 4678967000,
      "equity": 5474181000,
      "cash": 3001317000,
+     "marketable_securities": 154213000,
      "inventory": 303545000,
      "receivables": 944939000,
      "assets_current": 4669673000,
@@ -14400,7 +14474,7 @@
      "roe": 0.0709,
      "debt_to_equity": 0.4531,
      "current_ratio": 2.8556,
-     "net_cash": 521167000,
+     "net_cash": 675380000,
      "revenue_yoy": 6.2046,
      "eps_yoy": 14.5161,
      "net_income_yoy": 14.0872,
@@ -14423,6 +14497,7 @@
      "liabilities": 4400269000,
      "equity": 5199002000,
      "cash": 2753246000,
+     "marketable_securities": null,
      "inventory": 286193000,
      "receivables": 755265000,
      "assets_current": 4287040000,
@@ -14467,6 +14542,7 @@
      "liabilities": 4502160000,
      "equity": 5006538000,
      "cash": 2822762000,
+     "marketable_securities": null,
      "inventory": 226162000,
      "receivables": 670166000,
      "assets_current": 4222543000,
@@ -14511,6 +14587,7 @@
      "liabilities": 4237229000,
      "equity": 4776257000,
      "cash": 2777674000,
+     "marketable_securities": null,
      "inventory": 225621000,
      "receivables": 580887000,
      "assets_current": 3998087000,
@@ -14554,6 +14631,7 @@
      "liabilities": 4300904000,
      "equity": 4673578000,
      "cash": 2644030000,
+     "marketable_securities": 140625000,
      "inventory": 257711000,
      "receivables": 680460000,
      "assets_current": 4016079000,
@@ -14578,7 +14656,7 @@
      "roe": 0.0728,
      "debt_to_equity": 0.5298,
      "current_ratio": 2.9312,
-     "net_cash": 167847000,
+     "net_cash": 308472000,
      "revenue_yoy": 26.8905,
      "eps_yoy": 4.2017,
      "net_income_yoy": 5.0358,
@@ -14617,6 +14695,21 @@
        "end": "2026-09-30",
        "inventory_yoy": 56.8256,
        "revenue_yoy": 21.9947
+      }
+     ]
+    },
+    {
+     "code": "debt_buildup",
+     "severity": "med",
+     "message": "순현금 0.3B → -1.0B (1년 새 1.3B 악화)",
+     "evidence": [
+      {
+       "end": "2026-09-30",
+       "net_cash": -1031222000
+      },
+      {
+       "end": "2025-09-30",
+       "net_cash": 274104000
       }
      ]
     },
@@ -14684,7 +14777,7 @@
     "재무건전성": {
      "score": 15,
      "max": 15,
-     "why": "순현금 +0.5B · D/E 0.45"
+     "why": "순현금 +0.7B · D/E 0.45"
     }
    },
    "source_conflict": [
@@ -14705,7 +14798,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-10-31",
+   "as_of": "2026-11-07",
    "annual": [
     {
      "end": "2025-12-31",
@@ -14721,6 +14814,7 @@
      "liabilities": 2517000000,
      "equity": 17824000000,
      "cash": 3368000000,
+     "marketable_securities": 2566900000,
      "inventory": 1840000000,
      "receivables": 1527300000,
      "assets_current": 9779500000,
@@ -14762,6 +14856,7 @@
      "liabilities": 2213600000,
      "equity": 16433700000,
      "cash": 2027400000,
+     "marketable_securities": 1985900000,
      "inventory": 1487200000,
      "receivables": 1225400000,
      "assets_current": 7111000000,
@@ -14803,6 +14898,7 @@
      "liabilities": 2044200000,
      "equity": 13307600000,
      "cash": 2750100000,
+     "marketable_securities": 2473100000,
      "inventory": 1220600000,
      "receivables": 1130200000,
      "assets_current": 7888000000,
@@ -14844,6 +14940,7 @@
      "liabilities": 1861400000,
      "equity": 11041900000,
      "cash": 1581200000,
+     "marketable_securities": 2536700000,
      "inventory": 893200000,
      "receivables": 942100000,
      "assets_current": 6253000000,
@@ -14885,6 +14982,7 @@
      "liabilities": 1603500000,
      "equity": 11901100000,
      "cash": 1290900000,
+     "marketable_securities": 2913100000,
      "inventory": 587100000,
      "receivables": 782700000,
      "assets_current": 5844900000,
@@ -14928,6 +15026,7 @@
      "liabilities": 3231300000,
      "equity": 15986200000,
      "cash": 2978100000,
+     "marketable_securities": 1064400000,
      "inventory": 2128200000,
      "receivables": 1721300000,
      "assets_current": 8428300000,
@@ -14971,6 +15070,7 @@
      "liabilities": 2578900000,
      "equity": 18168400000,
      "cash": 2760400000,
+     "marketable_securities": 2455800000,
      "inventory": 2028700000,
      "receivables": 1673200000,
      "assets_current": 9542700000,
@@ -15014,6 +15114,7 @@
      "liabilities": 2513800000,
      "equity": 17474500000,
      "cash": 2006500000,
+     "marketable_securities": 2510800000,
      "inventory": 1945100000,
      "receivables": 1595600000,
      "assets_current": 8809500000,
@@ -15055,6 +15156,7 @@
      "liabilities": 2517000000,
      "equity": 17824000000,
      "cash": 3368000000,
+     "marketable_securities": 2566900000,
      "inventory": 1840000000,
      "receivables": 1527300000,
      "assets_current": 9779500000,
@@ -15101,6 +15203,7 @@
      "liabilities": 2309700000,
      "equity": 16929700000,
      "cash": 2806600000,
+     "marketable_securities": 2102200000,
      "inventory": 1781900000,
      "receivables": 1259700000,
      "assets_current": 8525300000,
@@ -15144,6 +15247,7 @@
      "liabilities": 2210100000,
      "equity": 17845700000,
      "cash": 3403100000,
+     "marketable_securities": 1923400000,
      "inventory": 1667000000,
      "receivables": 1269200000,
      "assets_current": 8745900000,
@@ -15187,6 +15291,7 @@
      "liabilities": 2012700000,
      "equity": 17106400000,
      "cash": 2573800000,
+     "marketable_securities": 1937500000,
      "inventory": 1553600000,
      "receivables": 1221500000,
      "assets_current": 7657800000,
@@ -15228,6 +15333,7 @@
      "liabilities": 2213600000,
      "equity": 16433700000,
      "cash": 2027400000,
+     "marketable_securities": 1985900000,
      "inventory": 1487200000,
      "receivables": 1225400000,
      "assets_current": 7111000000,

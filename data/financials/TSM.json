@@ -5,8 +5,8 @@
  "currency": "USD",
  "source": "Yahoo fundamentals-timeseries",
  "depth": "full",
- "as_of": "2026-10-31",
- "saved_at": "2026-10-31",
+ "as_of": "2026-11-07",
+ "saved_at": "2026-11-07",
  "annual": [
   {
    "end": "2025-12-31",
@@ -15,8 +15,8 @@
    "gross_profit": 2281294000000.0,
    "operating_income": 1936095600000.0,
    "net_income": 1697604000000.0,
-   "eps_diluted": 327.35,
-   "shares_diluted": 5186120000.0,
+   "eps_diluted": 331.25,
+   "shares_diluted": 5186111400.0,
    "assets": 7932842500000.0,
    "liabilities": 2536623300000.0,
    "equity": 5355038700000.0,
@@ -39,11 +39,11 @@
    "current_ratio": 2.5073,
    "net_cash": 1703273700000.0,
    "revenue_yoy": 31.605,
-   "eps_yoy": 44.6851,
+   "eps_yoy": 46.4088,
    "net_income_yoy": 46.5498,
    "inventory_yoy": 0.0836,
    "receivables_yoy": 3.0916,
-   "shares_yoy": 0.0037,
+   "shares_yoy": 0.0035,
    "deferred_yoy": null
   },
   {

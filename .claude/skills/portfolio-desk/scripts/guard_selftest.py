@@ -692,6 +692,26 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_playbook_fresh",
+        "desc": "R3가 돌았는데 desk_playbook §2 갱신 단계를 뺐으면 잡는가",
+        "why": "11/7 실사고 — §2 헤딩의 '최신'이 3주(10/17) 묵어 있었다. 10/24 R3는 안 돌았고(그건 "
+               "check_calibration_debt가 잡는다) 10/31 R3는 돌았는데 §2를 안 고쳤다. self-review §4가 "
+               "'§2 수치 갱신'을 필수로 적어 뒀지만 지키는지 보는 장치가 없었다. §2는 리스크 데스크가 "
+               "과신을 반론할 때 쓰는 입력이라 멈추면 전 데스크가 묵은 Brier로 판단한다. "
+               "픽스처 = 신선한 스코어카드(11/7) + 3주 묵은 §2(10/17)",
+        "pattern": r"desk_playbook §2가 스코어카드보다",
+        "violate": {"docs/research/call_scorecard.md":
+                    "# 콜 스코어카드\n\n## 콜 검증 2026-11-07 (R3 · 20회차)\n\n내용\n",
+                    "docs/desk_playbook.md":
+                    "# 플레이북\n\n## §2 캘리브레이션 교훈 (self-review가 주간 갱신 — 최신: 2026-10-17, 표본 1,295콜)\n\n내용\n"},
+        "clean": {"docs/research/call_scorecard.md":
+                  "# 콜 스코어카드\n\n## 콜 검증 2026-11-07 (R3 · 20회차)\n\n내용\n",
+                  "docs/desk_playbook.md":
+                  "# 플레이북\n\n## §2 캘리브레이션 교훈 (self-review가 주간 갱신 — 최신: 2026-11-07, 표본 1,472콜)\n\n내용\n"},
+        "args": ("2026-11-07",),
+    },
+
+    {
         "name": "check_idea_inbox",
         "desc": "유니버스 밖 신규 아이디어가 7일 넘게 미판정이거나 보고서에서 그 섹션이 빠지면 잡는가",
         "why": "11/4 정훈 지적 — 쿠팡·앤트로픽 상장·양자주를 '우리 판단에 필요 없다'고 제목만 보고 걸렀다. "

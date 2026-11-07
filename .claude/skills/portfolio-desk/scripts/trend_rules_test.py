@@ -20,7 +20,12 @@ import math
 import os
 import sys
 
-import numpy as np
+try:
+    import numpy as np
+except ModuleNotFoundError:            # numpy 없는 환경(클라우드 컨테이너)에서도 게이트는 통과해야 한다
+    np = None                          # ↑ 11/7: 모듈 최상위 import라 selfcheck의 import·--help 단계가 FAIL이었다.
+                                       #   같은 numpy 사용 스크립트(memory_embed·risk_cap_test)는 함수 안에서
+                                       #   늦게 import해 이 문제가 없었다 — 그 관례를 맞춘다(annotations는 이미 postponed).
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), *([os.pardir] * 4)))
 HIST = os.path.join(ROOT, "data", "history")
@@ -163,11 +168,18 @@ def selftest() -> int:
     return 0
 
 
+def _require_numpy() -> None:
+    if np is None:
+        sys.exit("numpy가 필요하다 — 이 검정은 numpy 환경에서만 돈다(pip install numpy). "
+                 "게이트(compile·import·--help)는 numpy 없이도 통과한다.")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="추세 규칙 3종 검정(측정 전용)")
     ap.add_argument("--save", help="결과 JSON 경로")
     ap.add_argument("--selftest", action="store_true", help="룩어헤드 불변 검사")
     a = ap.parse_args()
+    _require_numpy()
     if a.selftest:
         return selftest()
     rng = np.random.default_rng(20261101)

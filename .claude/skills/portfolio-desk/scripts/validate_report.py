@@ -2376,6 +2376,60 @@ def check_calibration_debt(today=None):
              "오미션 채점이 통째로 멈추고 그 사실을 아무도 안 본다(10/24 18회차 실제 누락)")
 
 
+def check_playbook_fresh(today=None):
+    """R3가 돌았는데 `desk_playbook.md` §2 갱신 단계를 빼먹었으면 WARN [11/7 신설].
+
+    ★[11/7 실사고] §2 헤딩의 `최신: 2026-10-17`이 **3주 묵어 있었다.** 10/24 R3는 아예 안 돌았고
+    (`check_calibration_debt`가 그걸 잡으러 10/31에 생겼다), **10/31 R3는 돌았는데 §2를 안 고쳤다.**
+    self-review §4는 *"최신 Brier·별점 갭·매수존 진입률·사냥꾼 정확도를 §2에 반영"*을 필수로 적어 뒀지만
+    그 문장을 지키는지 보는 장치가 없었다 — CLAUDE.md의 그 교훈 그대로다(*"교훈을 산문으로 적는 것은
+    재발을 막지 못한다"*).
+
+    §2는 **전 데스크·PM이 매 작업 전에 읽는 교정값**이다. 스코어카드만 갱신되고 §2가 멈추면
+    데스크는 3주 묵은 Brier·별점 갭으로 과신을 반론한다(§2가 리스크 데스크의 공식 브레이크 입력이다).
+
+    ⇒ 판정축 = **두 산출물의 날짜 차이**(8/22 '메타 성공 ≠ 생존' — 실행 로그가 아니라 결과물을 본다).
+    스코어카드가 신선한데(= R3가 돌았는데) §2가 그보다 8일 넘게 뒤처져 있으면 그 단계를 뺀 것이다.
+    R3 자체가 밀린 경우는 `check_calibration_debt`가 따로 잡으므로 여기서 중복 경고하지 않는다.
+    """
+    import datetime as _dt
+    import re as _re
+    today = today or _dt.date.today()
+    if isinstance(today, str):
+        today = _dt.date.fromisoformat(today)
+    sc = os.path.join(ROOT, "docs", "research", "call_scorecard.md")
+    pb = os.path.join(ROOT, "docs", "desk_playbook.md")
+    if not (os.path.exists(sc) and os.path.exists(pb)):
+        return
+    m = _re.search(r"^## 콜 검증 (\d{4}-\d{2}-\d{2})", open(sc, encoding="utf-8").read(), _re.M)
+    if not m:
+        return
+    try:
+        sc_date = _dt.date.fromisoformat(m.group(1))
+    except ValueError:
+        return
+    # R3 자체가 밀린 건 check_calibration_debt의 몫
+    if (today - sc_date).days > 8:
+        return
+    mp = _re.search(r"^## §2 캘리브레이션 교훈[^\n]*?최신: (\d{4}-\d{2}-\d{2})",
+                    open(pb, encoding="utf-8").read(), _re.M)
+    if not mp:
+        warn("desk_playbook §2 헤딩에서 '최신: YYYY-MM-DD'를 못 읽었다 — 형식 확인"
+             "(이 날짜가 R3가 §2를 갱신했는지 보는 유일한 축이다)")
+        return
+    try:
+        pb_date = _dt.date.fromisoformat(mp.group(1))
+    except ValueError:
+        return
+    lag = (sc_date - pb_date).days
+    if lag > 8:
+        warn(f"desk_playbook §2가 스코어카드보다 {lag}일 뒤처졌다 "
+             f"(§2 최신 {pb_date.isoformat()} · 스코어카드 {sc_date.isoformat()}) — "
+             "R3는 돌았는데 self-review §4의 '§2 수치 갱신' 단계를 뺀 것이다. "
+             "§2는 전 데스크가 과신을 반론할 때 쓰는 교정값이라 멈추면 묵은 Brier·별점 갭으로 판단한다"
+             "(11/7 실사고 = 3주 정지)")
+
+
 IDEA_INBOX_SINCE = "2026-11-05"   # 정훈 승인(11/4 "둘 다 해") 다음 보고서부터
 
 
@@ -3567,6 +3621,7 @@ def main():
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_us_ledger(); check_tranche_fill_ledger(); check_calibration_debt()
+    check_playbook_fresh()
     check_monthly_dca(); check_desk_value_gate()
     check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_lapsed_holds(); check_order_cards(); check_forecast_mech(); check_forecast_ledger(); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()

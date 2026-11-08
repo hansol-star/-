@@ -44,7 +44,9 @@ SC = os.path.join(ROOT, ".claude", "skills", "portfolio-desk", "scripts")
 
 # 배선 없는 게 정상인 것 — 이유를 반드시 적는다(적을 이유가 없으면 배선이 필요한 것이다)
 EXPECTED_UNWIRED = {
-    "nonai_slot_test.py":        "일회성 검정(11/7 · 미국 매수 순서 비AI 칸 · Ken French 12·49산업 1926~) — 전체 Holm 0.21로 채택 요건 미달. "
+    "zone_limit_test.py":        "일회성 검정(11/9 · 낙폭군 즉시 매수 vs 아래 지정가 · GEV 존 재정의 d271) — 사전등록 가설 기각(8검정 p≥0.91). "
+                                  "결과 정본 = docs/research/gev_zone_2026-11-09.md·trials.jsonl `gev_zone_limit_result`. 데이터 = bottom_study 캐시. 재현용으로 남는다",
+    "nonai_slot_test.py":       "일회성 검정(11/7 · 미국 매수 순서 비AI 칸 · Ken French 12·49산업 1926~) — 전체 Holm 0.21로 채택 요건 미달. "
                                   "결과 정본 = docs/research/nonai_slot_test_2026-11-07.md·trials.jsonl `nonai_slot_result`. 재현용으로 남는다",
     "bottom_fundamentals.py":    "일회성 검정(11/5 · 낙폭군 × 룰2 3중조건, 미국 한정) — 가설 기각. 결과 정본 = docs/research/bottom_fundamentals_2026-11-05.md·trials.jsonl. "
                                   "bottom_study의 형제인데 형제만 등록되고 이건 빠져 있었다(11/7 점검 — 8/12 '옆에 남은 형제' 교훈 재발). 재현용으로 남는다",

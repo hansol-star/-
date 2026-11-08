@@ -69,7 +69,30 @@ MONTHLY = os.path.join(REPO, "data", "app", "desk_value_log.json")
 GATE_DATE = "2027-03-31"
 
 
-SUB_KRW_MONTH = 30_000   # 정훈 9/30 "한달에 3만원 넘게 내고 굴리는 거야" — 시스템 구독비(하한값)
+SUB_KRW_MONTH = 30_000   # 정훈 9/30 "한달에 3만원 넘게 내고 굴리는 거야" — 舊 단일값(하한). 계산은 아래 일정표를 쓴다
+# ★[11/9 정훈 확인 — "앱스토어로 하고 있어"] 실제 청구 = 애플 앱스토어 Pro 원화 정가(부가세 포함).
+#   2026-08-22부터 30,000 → 33,000원(Anthropic 6/29 글로벌 앱스토어 가격 재조정 · 디지털투데이 7/24 보도).
+#   舊 상수 30,000은 8/22 이후 구간을 10% 낮게 잡았다 = 순가치가 실제보다 덜 나쁘게 보였다.
+#   (시작일, 월 구독료) — 시작일 오름차순. 결제 경로가 바뀌면(웹 $20+VAT 등) 여기에 한 줄 추가한다.
+SUB_SCHEDULE = (("2000-01-01", 30_000), ("2026-08-22", 33_000))
+
+
+def sub_cost_krw(d0, d1) -> float | None:
+    """[d0, d1) 구간 구독비(원) — 일할(월 30.44일) × 그날 적용 요금."""
+    try:
+        a, b = dt.date.fromisoformat(str(d0)[:10]), dt.date.fromisoformat(str(d1)[:10])
+    except (TypeError, ValueError):
+        return None
+    if b <= a:
+        return None
+    sched = [(dt.date.fromisoformat(s), float(v)) for s, v in SUB_SCHEDULE]
+    tot = 0.0
+    for i, (s, v) in enumerate(sched):
+        e = sched[i + 1][0] if i + 1 < len(sched) else dt.date.max
+        lo, hi = max(a, s), min(b, e)
+        if hi > lo:
+            tot += v * (hi - lo).days / 30.44
+    return tot
 
 
 def _aum_krw() -> float | None:
@@ -90,14 +113,12 @@ def _aum_krw() -> float | None:
 
 def system_cost_pct(d0, d1) -> float | None:
     """[9/30 정훈 — '그 만한 성과가 나올 시스템'] 측정 기간의 구독비를 현재 계좌 대비 %로.
-    데스크 가치가 이 값을 넘어야 시스템이 제 값을 한 것이다(연 36만원 ÷ 약 810만원 ≈ 4.4%/년).
+    데스크 가치가 이 값을 넘어야 시스템이 제 값을 한 것이다(9/30: 연 36만원 ÷ 약 810만원 ≈ 4.4%/년 · 11/9: 33,000원×12 ÷ 약 685만원 ≈ 5.8%/년).
+    요금 = SUB_SCHEDULE(날짜별 실제 청구액)으로 일할 계산한다.
     측정 전용 — 룰7 게이트 판정값(desk_value_pct)은 바꾸지 않는다(순가치로 바꾸는 건 룰 변경 = 승인 사항)."""
-    try:
-        days = (dt.date.fromisoformat(str(d1)[:10]) - dt.date.fromisoformat(str(d0)[:10])).days
-    except (TypeError, ValueError):
-        return None
+    krw = sub_cost_krw(d0, d1)
     aum = _aum_krw()
-    return round(SUB_KRW_MONTH * days / 30.44 / aum * 100, 2) if aum and days > 0 else None
+    return round(krw / aum * 100, 2) if aum and krw else None
 
 
 def log_monthly(r: dict) -> None:

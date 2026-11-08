@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-06",
- "days": 2,
+ "updated": "2026-11-08",
+ "days": 7,
  "universe": [
   "005930",
   "066570",
@@ -16,9 +16,9 @@
   "033780"
  ],
  "counts": {
-  "critical": 1,
-  "notable": 4,
-  "routine": 16
+  "critical": 3,
+  "notable": 6,
+  "routine": 22
  },
  "items": [
   {
@@ -32,6 +32,30 @@
    "rcept_no": "20261106800553",
    "filer": "NAVER",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106800553"
+  },
+  {
+   "code": "096770",
+   "name": "SK이노베이션",
+   "date": "20261106",
+   "title": "정정신고서제출요구( 2026.10.28. 제출 증권신고서(합병) )",
+   "level": "critical",
+   "category": "지배구조",
+   "why": "구조 변경",
+   "rcept_no": "20261106100004",
+   "filer": "금융감독원",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106100004"
+  },
+  {
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20261103",
+   "title": "[기재정정]주요사항보고서(유상증자결정)",
+   "level": "critical",
+   "category": "희석",
+   "why": "주주가치 희석",
+   "rcept_no": "20261103000311",
+   "filer": "NAVER",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103000311"
   },
   {
    "code": "012450",
@@ -80,15 +104,39 @@
    "rcept_no": "20261104000325",
    "filer": "삼성전자",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104000325"
+  },
+  {
+   "code": "005380",
+   "name": "현대차",
+   "date": "20261102",
+   "title": "영업(잠정)실적(공정공시)",
+   "level": "notable",
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261102800520",
+   "filer": "현대자동차",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800520"
+  },
+  {
+   "code": "042660",
+   "name": "한화오션",
+   "date": "20261102",
+   "title": "주식등의대량보유상황보고서(약식)",
+   "level": "notable",
+   "category": "5%보고",
+   "why": "대주주 매매",
+   "rcept_no": "20261102000290",
+   "filer": "국민연금공단",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000290"
   }
  ],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 8,
-   "net": 5303,
-   "n_buy": 7,
+   "n": 9,
+   "net": 5552,
+   "n_buy": 8,
    "n_sell": 1,
    "top": [
     {
@@ -209,11 +257,20 @@
   {
    "code": "042660",
    "name": "한화오션",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
+   "n": 1,
+   "net": 15,
+   "n_buy": 1,
    "n_sell": 0,
-   "top": []
+   "top": [
+    {
+     "who": "최영환",
+     "ofcps": "담당",
+     "regist": "비등기임원",
+     "delta": 15,
+     "held": 15,
+     "date": "2026-11-02"
+    }
+   ]
   },
   {
    "code": "033780",
@@ -225,6 +282,19 @@
    "top": []
   }
  ],
- "major": [],
+ "major": [
+  {
+   "code": "042660",
+   "name": "한화오션",
+   "date": "2026-11-02",
+   "who": "국민연금공단",
+   "qty": 17271400,
+   "d_qty": -3141824,
+   "rate": "5.64",
+   "d_rate": "-1.02",
+   "reason": "단순추가취득/처분",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000290"
+  }
+ ],
  "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
 }

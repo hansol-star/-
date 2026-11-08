@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-07 00:48",
+ "checked_at": "2026-11-08 22:38",
  "source": "toss",
  "open": [],
  "findings": [
@@ -21,9 +21,10 @@
   "info": 1
  },
  "context": {
-  "kr_weight_pct": 22.1,
+  "kr_weight_pct": 21.4,
   "ladder_allowed_krw": 0.0,
   "us_allowed_usd": 0.0,
   "waiting_plans": 3
- }
+ },
+ "pushed_fps": []
 }

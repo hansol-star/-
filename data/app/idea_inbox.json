@@ -1,6 +1,6 @@
 {
  "_comment": "유니버스 밖 신규 아이디어 수신함 — 정본 도구 idea_inbox.py (손으로 고치지 말 것)",
- "updated": "2026-11-05",
+ "updated": "2026-11-08",
  "ideas": [
   {
    "ticker": "BRUN",
@@ -888,6 +888,80 @@
      "date": "2026-11-05",
      "status": "rejected",
      "note": "[스캔 1차] 역발상 — HD현대중공업 고점 -62.4%(지수 -39.8%보다 22%p 더) · 워치 한화오션(-65%)과 같은 조선 동반 급락 = 개별 종목이 아니라 업종 사건 · 룰6이 먼저 막는다"
+    }
+   ]
+  },
+  {
+   "ticker": "CRWV",
+   "name": "CoreWeave",
+   "market": "US",
+   "first_seen": "2026-11-08",
+   "updated": "2026-11-08",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-08",
+     "type": "hunter",
+     "ref": "lDPmoUvH8bE",
+     "claim": "11/11(수 KST 07:00) 3Q 실적 = AI 신용 센티먼트의 열쇠, 수주잔고 2Q $104.2B, 주가 8월 고점 절반 아래 [미확인(미시도)]",
+     "verdict": "대립·미결"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "NVDA",
+     "relation": "엔비디아 약 10% 지분 투자처"
+    },
+    {
+     "ticker": "MSFT",
+     "relation": "컴퓨팅 임대 고객"
+    },
+    {
+     "ticker": "ANET",
+     "relation": "AI 네트워크 간접 수요"
+    }
+   ],
+   "first_take": "레버리지 차입형 AI 인프라 대리변수 — 매수 후보가 아니라 조기경보 ⑤ⓐⓑ(투기등급 강등·조달 철회) 감시 대상",
+   "note": "AI 신용 조기경보 감시용 — 11/11 3Q 수주잔고·조달 구조 확인. 레버리지 구조라 신규 후보 아님(룰3·변동성)",
+   "next_check": null,
+   "history": [
+    {
+     "date": "2026-11-08",
+     "status": "screening",
+     "note": "AI 신용 조기경보 감시용 — 11/11 3Q 수주잔고·조달 구조 확인. 레버리지 구조라 신규 후보 아님(룰3·변동성)"
+    }
+   ]
+  },
+  {
+   "ticker": "IREN",
+   "name": "IREN(아이렌, 자막 추정)",
+   "market": "US",
+   "first_seen": "2026-11-08",
+   "updated": "2026-11-08",
+   "status": "screening",
+   "sources": [
+    {
+     "date": "2026-11-08",
+     "type": "feeds",
+     "ref": "yt:-f2ppE-u5QY",
+     "claim": "AI 클라우드 매출 +182%·연 반복매출 $1B·실적 후 +20% [미확인(미시도)]",
+     "verdict": "미확인"
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "NVDA",
+     "relation": "GPU 수요처"
+    }
+   ],
+   "first_take": "자막 '아이레' → IREN 추정(티커 확인 필요) · CRWV와 같은 고변동 네오클라우드 — 같은 감시 틀",
+   "note": "티커 확인(IREN Ltd) 후 CRWV·NBIS와 네오클라우드 묶음으로만 추적 — 신규 후보 자격 미검토",
+   "next_check": null,
+   "history": [
+    {
+     "date": "2026-11-08",
+     "status": "screening",
+     "note": "티커 확인(IREN Ltd) 후 CRWV·NBIS와 네오클라우드 묶음으로만 추적 — 신규 후보 자격 미검토"
     }
    ]
   }

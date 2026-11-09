@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12",
+ "updated": "2026-11-09",
  "note": "SEC 8-K Item 2.02 보도자료 가이던스. 어닝콜 Q&A 전문은 미포함.",
  "rows": [
   {
@@ -44,48 +44,48 @@
   },
   {
    "ticker": "AAPL",
-   "filed": "2026-07-30",
-   "accession": "0000320193-26-000018",
-   "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000018/a8-kex991q3202606272026.htm",
+   "filed": "2026-11-02",
+   "accession": "0000320193-26-000024",
+   "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/a8-kex991q4202609262026.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000018/a8-kex991q3202606272026.htm"
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/a8-kex991q4202609262026.htm"
    ],
-   "chars": 10457,
+   "chars": 11062,
    "outlook": "",
    "metrics": {},
    "commentary": [
-    "Tim Cook: “Today, Apple is proud to report our strongest June quarter ever, with double-digit revenue growth across iPhone, Mac and Services, and in every geographic segment,”",
-    "Kevan Parekh: “We are very pleased with our record business performance during the quarter, which set new June quarter records for both EPS and operating cash flow,”"
+    "John Ternus: “Today, Apple is proud to report a September quarter revenue record of $114.5 billion, up 12 percent from a year ago, with iPhone reaching a September quarter record and Services reaching an all-time high, capping off our best fiscal year ever,”",
+    "Kevan Parekh: “Apple delivered September quarter records for net income and EPS. Our record September quarter capped off a strong fiscal 2026, with all-time record revenue of $479 billion and double-digit EPS growth,”"
    ]
   },
   {
    "ticker": "MSFT",
-   "filed": "2026-07-29",
-   "accession": "0001193125-26-323632",
-   "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm",
+   "filed": "2026-10-28",
+   "accession": "0001193125-26-436122",
+   "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm"
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm"
    ],
-   "chars": 23160,
+   "chars": 19706,
    "outlook": "Business Outlook Microsoft will provide forward-looking guidance in connection with this quarterly earnings announcement on its earnings",
    "metrics": {},
    "commentary": [
-    "Satya Nadella: “We are advancing the frontier on the cost-to-outcome curve, ensuring every customer can turn tokens into business results,”",
-    "Amy Hood: “We delivered a strong quarter to close out the fiscal year, highlighted by Microsoft Cloud revenue of $59.3 billion, up 27% year-over-year,”"
+    "Satya Nadella: “We are delivering greater capability, choice, control, and cost efficiency for customers across our entire stack,”",
+    "Amy Hood: “We delivered a strong start to the fiscal year with Microsoft Cloud revenue of $63.9 billion, with growth accelerating to 30% (up 31% in constant currency) year-over-year,”"
    ]
   },
   {
    "ticker": "ANET",
-   "filed": "2026-08-04",
-   "accession": "0001596532-26-000174",
-   "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm",
+   "filed": "2026-11-03",
+   "accession": "0001596532-26-000252",
+   "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000252/ex991q326-earningsrelease.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+    "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000252/ex991q326-earningsrelease.htm"
    ],
-   "chars": 19153,
-   "outlook": "Financial Outlook For the third quarter of 2026, we expect: • Revenue of approximately $3.3 billion; • Non-GAAP operating margin of 48 - 49%; and • Non-GAAP diluted net income per share between $1.06 and $1.08. Guidance for",
+   "chars": 19547,
+   "outlook": "Financial Outlook For the fourth quarter of 2026, we expect: • Revenue of $3.9 - $4.0 billion; • Non-GAAP operating margin of 48 - 49%; and • Non-GAAP diluted net income per share of $1.26 - $1.30. Guidance for",
    "metrics": {
-    "매출": "$3.3 billion"
+    "매출": "$3.9 - $4.0 billion"
    },
    "commentary": []
   },
@@ -109,33 +109,34 @@
   },
   {
    "ticker": "GOOGL",
-   "filed": "2026-07-22",
-   "accession": "0001652044-26-000066",
-   "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm",
+   "filed": "2026-10-28",
+   "accession": "0001652044-26-000080",
+   "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm"
+    "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm"
    ],
-   "chars": 24820,
+   "chars": 24499,
    "outlook": "",
    "metrics": {},
    "commentary": []
   },
   {
    "ticker": "META",
-   "filed": "2026-07-29",
-   "accession": "0001628280-26-050596",
-   "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm",
+   "filed": "2026-10-21",
+   "accession": "0001628280-26-066700",
+   "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta-09302026xexhibit991.htm",
    "sources": [
-    "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm"
+    "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta-09302026xexhibit991.htm",
+    "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta10202026-ex101.htm"
    ],
-   "chars": 18575,
-   "outlook": "CFO Outlook Commentary We expect third quarter 2026 total revenue to be in the range of $61-64 billion. Our guidance assumes foreign currency is an approximately 1% headwind to year-over-year total revenue growth, based on current exchange rates. We are raising the lower-end of our expense outlook to incorporate the $2.4 billion charges related to legal proceedings recognized in the second quarter. We now expect full year 2026 total expenses to be in the range of $165-169 billion. We continue to expect to deliver operating income this year that is above 2025 operating income. We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of $130-145 billion, narrowed from our prior outlook of $125-145 billion. Absent any changes to our tax landscape, we expect our tax rate for the remaining quarters of 2026 to be between 15-17%, an increase from our prior outlook of 13-16%. Finally, we continue to monitor active legal and regulatory matters that could significantly impact our business and financial results. For example, we continue to see scrutiny on youth-related issues in several markets and have a number of youth-related trials scheduled for this year in the U.S., which may ultimately result in a material loss. 2 Webcast and",
+   "chars": 90681,
+   "outlook": "CFO Outlook Commentary We expect fourth quarter 2026 total revenue to be in the range of $73-76 billion. Our guidance assumes foreign currency is an approximately 1% headwind to year-over-year total revenue growth, based on current exchange rates. We are raising our expense outlook to incorporate the $9.9 billion charge related to legal proceedings recognized in the third quarter. We now expect full year 2026 total expenses to be in the range of $175-179 billion. Excluding the third quarter legal charge, we continue to expect 2026 operating income to be above 2025 operating income. At a segment level, we now expect Reality Labs losses to decline compared to 2025 to a range of $18-19 billion. We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of $135-145 billion, narrowed from our prior outlook of $130-145 billion. Absent any changes to our tax landscape, we expect our fourth quarter 2026 tax rate to be between 15-17%. Additionally, we continue to monitor active legal and regulatory matters that could significantly impact our business and financial results. For example, we continue to see scrutiny on youth-related issues in several markets and have a number of youth-related trials scheduled in the coming months in the U.S. Looking beyond 2026, we are still developing our budget and capacity plans for next year, but we expe",
    "metrics": {
-    "매출": "$61-64 billion",
-    "총비용": "$165-169 billion"
+    "매출": "$73-76 billion",
+    "총비용": "$175-179 billion"
    },
    "commentary": [
-    "Mark Zuckerberg: “AI is accelerating our core business today, powering our next generation of products, and opening the door to entirely new enterprise opportunities,”"
+    "Mark Zuckerberg: “We hit major milestones this quarter toward delivering personal superintelligence for everyone - including launching Muse and Muse Wonder, our first frontier model,”"
    ]
   },
   {

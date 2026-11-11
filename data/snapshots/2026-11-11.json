@@ -1,0 +1,235 @@
+{
+  "date": "2026-11-11",
+  "fx_usdkrw": 1337.98,
+  "kr_value": 1448700,
+  "kr_pnl": -757000,
+  "us_value_usd": 3776.49,
+  "us_pnl_usd": -133.94,
+  "cash_krw": 7940,
+  "cash_usd": 167.33,
+  "total_assets_krw": 6733387,
+  "stock_pnl_krw": -936207,
+  "positions": {
+    "삼성전자": {
+      "price": 197700.0,
+      "ret_pct": -26.09
+    },
+    "LG전자": {
+      "price": 138700.0,
+      "ret_pct": -10.63
+    },
+    "두산로보틱스": {
+      "price": 51700.0,
+      "ret_pct": -48.3
+    },
+    "현대차": {
+      "price": 270000.0,
+      "ret_pct": -57.14
+    },
+    "NAVER": {
+      "price": 197500.0,
+      "ret_pct": -21.16
+    },
+    "NVDA": {
+      "price": 168.89,
+      "ret_pct": -15.35
+    },
+    "VOO": {
+      "price": 689.5,
+      "ret_pct": 3.28
+    },
+    "MSFT": {
+      "price": 533.16,
+      "ret_pct": 29.98
+    },
+    "GOOGL": {
+      "price": 287.38,
+      "ret_pct": -18.06
+    },
+    "ORCL": {
+      "price": 117.98,
+      "ret_pct": -49.17
+    },
+    "MU": {
+      "price": 725.11,
+      "ret_pct": -3.19
+    },
+    "AVGO": {
+      "price": 331.98,
+      "ret_pct": -21.16
+    },
+    "ANET": {
+      "price": 185.02,
+      "ret_pct": 4.53
+    }
+  },
+  "index_state": {
+    "^KS11": {
+      "garch_fc": 54.6,
+      "storm_pct": 61.0,
+      "regime": "보통",
+      "bias": "약세",
+      "rsi": 36.3,
+      "cross": "데드크로스",
+      "struct": "down",
+      "macd_h": -32.5,
+      "pct_from_hi": -44.4
+    },
+    "^KQ11": {
+      "garch_fc": 50.8,
+      "storm_pct": 71.0,
+      "regime": "높음",
+      "bias": "약세",
+      "rsi": 38.2,
+      "cross": "데드크로스",
+      "struct": "down",
+      "macd_h": -8.5,
+      "pct_from_hi": -44.5
+    }
+  },
+  "market_state": {
+    "005930.KS": {
+      "garch_fc": 69.6,
+      "storm_pct": 42.0,
+      "regime": "보통",
+      "bias": "약세",
+      "rsi": 37.4,
+      "cross": "골든크로스(가격이탈·래깅)",
+      "struct": "down",
+      "macd_h": -1704.7,
+      "pct_from_hi": -47.2
+    },
+    "066570.KS": {
+      "garch_fc": 56.1,
+      "storm_pct": 28.0,
+      "regime": "차분",
+      "bias": "약세",
+      "rsi": 31.1,
+      "cross": "골든크로스(가격이탈·래깅)",
+      "struct": "down",
+      "macd_h": -496.6,
+      "pct_from_hi": -68.3
+    },
+    "454910.KS": {
+      "garch_fc": 57.0,
+      "storm_pct": 36.0,
+      "regime": "차분",
+      "bias": "약세",
+      "rsi": 37.6,
+      "cross": "데드크로스",
+      "struct": "down",
+      "macd_h": -213.4,
+      "pct_from_hi": -69.6
+    },
+    "005380.KS": {
+      "garch_fc": 44.9,
+      "storm_pct": 19.0,
+      "regime": "차분",
+      "bias": "약세",
+      "rsi": 33.1,
+      "cross": "데드크로스",
+      "struct": "down",
+      "macd_h": 719.2,
+      "pct_from_hi": -65.5
+    },
+    "035420.KS": {
+      "garch_fc": 45.5,
+      "storm_pct": 48.0,
+      "regime": "보통",
+      "bias": "약강세",
+      "rsi": 62.1,
+      "cross": "데드크로스(가격회복)",
+      "struct": "up",
+      "macd_h": 3475.7,
+      "pct_from_hi": -35.0
+    },
+    "NVDA": {
+      "garch_fc": 57.9,
+      "storm_pct": 100.0,
+      "regime": "폭풍",
+      "bias": "약세",
+      "rsi": 23.9,
+      "cross": "골든크로스(가격이탈·래깅)",
+      "struct": "down",
+      "macd_h": -4.3,
+      "pct_from_hi": -30.6
+    },
+    "VOO": {
+      "garch_fc": 27.4,
+      "storm_pct": 99.0,
+      "regime": "폭풍",
+      "bias": "약약세",
+      "rsi": 44.6,
+      "cross": "골든크로스(가격이탈·래깅)",
+      "struct": "down",
+      "macd_h": -1.8,
+      "pct_from_hi": -4.0
+    },
+    "MSFT": {
+      "garch_fc": 38.5,
+      "storm_pct": 83.0,
+      "regime": "높음",
+      "bias": "강세",
+      "rsi": 52.3,
+      "cross": "골든크로스",
+      "struct": "up",
+      "macd_h": -0.1,
+      "pct_from_hi": -4.6
+    },
+    "GOOGL": {
+      "garch_fc": 44.8,
+      "storm_pct": 96.0,
+      "regime": "폭풍",
+      "bias": "약세",
+      "rsi": 32.5,
+      "cross": "데드크로스",
+      "struct": "down",
+      "macd_h": -1.8,
+      "pct_from_hi": -29.7
+    },
+    "ORCL": {
+      "garch_fc": 67.1,
+      "storm_pct": 91.0,
+      "regime": "폭풍",
+      "bias": "약세",
+      "rsi": 40.7,
+      "cross": "데드크로스",
+      "struct": "down",
+      "macd_h": -1.0,
+      "pct_from_hi": -52.9
+    },
+    "MU": {
+      "garch_fc": 87.6,
+      "storm_pct": 75.0,
+      "regime": "높음",
+      "bias": "약세",
+      "rsi": 35.8,
+      "cross": "골든크로스(가격이탈·래깅)",
+      "struct": "down",
+      "macd_h": -18.2,
+      "pct_from_hi": -42.2
+    },
+    "AVGO": {
+      "garch_fc": 65.3,
+      "storm_pct": 97.0,
+      "regime": "폭풍",
+      "bias": "약세",
+      "rsi": 49.4,
+      "cross": "데드크로스",
+      "struct": "down",
+      "macd_h": -0.6,
+      "pct_from_hi": -32.9
+    },
+    "ANET": {
+      "garch_fc": 65.4,
+      "storm_pct": 98.0,
+      "regime": "폭풍",
+      "bias": "약강세",
+      "rsi": 50.9,
+      "cross": "골든크로스(가격이탈·래깅)",
+      "struct": "down",
+      "macd_h": 1.1,
+      "pct_from_hi": -14.9
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
  "date": "2026-11-11",
- "run_at": "2026-11-11 16:10",
+ "run_at": "2026-11-11 20:10",
  "status": "ok",
  "notes": [
   "일봉 캐시 날짜 불일치(개정창 밖) — 캐시 구멍 0건 · 캐시에만 있는 날짜 1건 (예: KRW=X 2026-10-31) · `history_backfill.py --audit-yahoo 30`로 확인"
@@ -37,10 +37,18 @@
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "integrated": null,
+ "integrated": {
+  "foreign": 6729,
+  "inst": -5034,
+  "indiv": -7145,
+  "at": "20:10",
+  "final": true,
+  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
+ },
  "basis": "regular",
- "grade": "잠정(1차)",
- "flows_action": "added",
+ "grade": "확정",
+ "after_market_foreign": 211,
+ "flows_action": "updated",
  "streak": {
   "days": 2,
   "side": "매수",
@@ -55,8 +63,8 @@
  ],
  "history_audit": {
   "days": 7,
-  "checked": 90,
-  "unresolved": 1,
+  "checked": 91,
+  "unresolved": 0,
   "adjusted": 0,
   "error": null,
   "no_key": false,

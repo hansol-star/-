@@ -1,70 +1,62 @@
 {
- "date": "2026-11-13",
- "run_at": "2026-11-13 20:10",
+ "date": "2026-11-17",
+ "run_at": "2026-11-17 16:10",
  "status": "ok",
  "notes": [
-  "일봉 캐시 날짜 불일치(개정창 밖) — 캐시 구멍 0건 · 캐시에만 있는 날짜 1건 (예: KRW=X 2026-10-31) · `history_backfill.py --audit-yahoo 30`로 확인"
+  "일봉 캐시 날짜 불일치(개정창 밖) — 캐시 구멍 0건 · 캐시에만 있는 날짜 2건 (예: KRW=X 2026-10-31, ^BSESN 2026-11-08) · `history_backfill.py --audit-yahoo 30`로 확인"
  ],
  "kospi": {
-  "close": 5290.53,
-  "pct": -0.98,
+  "close": 4968.48,
+  "pct": -2.59,
   "peak": 9114.55,
   "peak_date": "2026-06-22",
-  "dd_pct": -41.96
+  "dd_pct": -45.49
  },
  "kosdaq": {
-  "close": 699.66,
-  "pct": 0.45
+  "close": 650.06,
+  "pct": -2.34
  },
  "first": {
-  "foreign": -5545,
-  "inst": 20,
-  "indiv": 202,
+  "foreign": -14467,
+  "inst": 5354,
+  "indiv": 4306,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "flows": {
-  "foreign": -5545,
-  "inst": 20,
-  "indiv": 202,
+  "foreign": -14467,
+  "inst": 5354,
+  "indiv": 4306,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "regular": {
-  "foreign": -5545,
-  "inst": 20,
-  "indiv": 202,
+  "foreign": -14467,
+  "inst": 5354,
+  "indiv": 4306,
   "at": "16:10",
   "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "integrated": {
-  "foreign": -5419,
-  "inst": -59,
-  "indiv": 145,
-  "at": "20:10",
-  "final": true,
-  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
- },
+ "integrated": null,
  "basis": "regular",
- "grade": "확정",
- "after_market_foreign": 126,
- "flows_action": "updated",
+ "grade": "잠정(1차)",
+ "flows_action": "added",
  "streak": {
-  "days": 1,
+  "days": 2,
   "side": "매도",
-  "cum_eok": -5545,
+  "cum_eok": -20012,
   "lower_bound": false,
   "gate2": false,
   "basis": "regular",
-  "reason": "2026-11-13 정규장 기준 순매도"
+  "reason": "2026-11-17 정규장 기준 순매도"
  },
  "pending_nulls": [
   "2026-10-26"
  ],
  "history_audit": {
   "days": 7,
-  "checked": 90,
-  "unresolved": 1,
+  "checked": 79,
+  "unresolved": 5,
   "adjusted": 0,
   "error": null,
   "no_key": false,
@@ -73,8 +65,8 @@
  },
  "yahoo_audit": {
   "days": 30,
-  "symbols": 51,
-  "checked": 911,
+  "symbols": 50,
+  "checked": 746,
   "pending": 0,
   "unverifiable": 0,
   "error": null,
@@ -82,7 +74,7 @@
   "recent_mismatch": 0,
   "rescaled": [],
   "missing_old": 0,
-  "extra_old": 1,
+  "extra_old": 2,
   "errors": [],
   "skipped": 0
  }

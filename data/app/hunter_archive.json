@@ -1,8 +1,160 @@
 {
   "_comment": "경제사냥꾼 전체 영상 아카이브(데이터화) — docs/research/hunter_log.md를 종목·테마·판정으로 구조화한 정본. 첫 영상(6/13)부터 시계열. 앱 #archive 뷰가 이 데이터를 종목·테마 필터로 보여준다. 신규 영상 분석 시 hunter.json latest_videos와 함께 여기 videos에도 1줄 추가(date·title·theme·tickers[보유/워치 연결용]·verdict·takeaway·views). verdict는 트랙레코드와 정합. 모든 절대수치는 단일출처면 takeaway에 [미확인] 표기.",
-  "updated": "2026-11-09 자동 롤오버 +7편 (build_app_data)",
+  "updated": "2026-11-18 자동 롤오버 +12편 (build_app_data)",
   "source": "docs/reports/report_v36_2026-07-01.md + 7/1 낮 hunter 최신화(ad-hoc)",
   "videos": [
+    {
+      "date": "2026-11-18",
+      "title": "엔비디아 실적발표 전부 뜯어왔습니다",
+      "theme": null,
+      "tickers": [
+        "NVDA"
+      ],
+      "verdict": "검증(실적 수치 — 회사 보도자료·데스크 대조) · 사전 컨센 $109B 검증",
+      "takeaway": "NVDA 3Q 매출 전분기 +20%·컨센 약 $109B 대비 +6% 상회·4Q 가이드 중간값 $130B·종가 $155.46 후 시간외 상승.",
+      "views": null,
+      "id": "KmpQIVj1gTQ"
+    },
+    {
+      "date": "2026-11-18",
+      "title": "엔비디아가 직접 발표한 '삼성' 반도체 동맹 정체",
+      "theme": null,
+      "tickers": [
+        "009150",
+        "NVDA"
+      ],
+      "verdict": "미확인(미시도) — NVDA 자료의 공급망 파트너 명시는 반도체 데스크 확인",
+      "takeaway": "임시 CEO 크레스가 실적 자리에서 삼성전기 기판 신규 계약을 언급·세종 증설 자금 지원(약 2,700억) 주장.",
+      "views": null,
+      "id": "NqQib3WcpRs"
+    },
+    {
+      "date": "2026-11-17",
+      "title": "11월 18일 오늘 코스피 어떻게 흘러갈까?",
+      "theme": null,
+      "tickers": [
+        "005930",
+        "000660"
+      ],
+      "verdict": "대립·미결",
+      "takeaway": "외인 순매도 지속·최근 열흘 갭상승 4번 모두 시가 아래 마감 → 외인 삼전닉스 매도 중단·시가 사수가 체크포인트. 자막 \"3Q 매출 158억$\"는 1,158억$ 오류.",
+      "views": null,
+      "id": "9iyvoWjTFis"
+    },
+    {
+      "date": "2026-11-17",
+      "title": "4000까지 뚫린 코스피.. 12월 다시 올라갈 수 있다고?",
+      "theme": null,
+      "tickers": [
+        "^KS11"
+      ],
+      "verdict": "종가 검증(4,968.48) · 바닥 시점 대립·미결 · 대신증권 수치 미확인",
+      "takeaway": "코스피 4,968·외인 하루 1.4조+ 순매도 · 12/7 전후 바닥 예상(분석가) · 대신 내년 1Q 6,000~7,500.",
+      "views": null,
+      "id": "9tRmXwgdVRU"
+    },
+    {
+      "date": "2026-11-17",
+      "title": "모건스탠리가 '코스피 1만' 갈 수 있다고 콕 집은 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "005930",
+        "000660"
+      ],
+      "verdict": "검증(2곳 일치) · \"MS 코스피 1만\" 미확인 · 삼성 내년 영업익 688조 자막 오류 의심(인용 금지)",
+      "takeaway": "모건스탠리 11/10 하닉 목표 260만→160만·삼성 38.1만→30.9만 하향(이익 전망은 상향) vs 노무라 470만·67만 유지.",
+      "views": null,
+      "id": "tY4PGZByRtc"
+    },
+    {
+      "date": "2026-11-16",
+      "title": "외국인이 결국 삼전닉스로 돌아올 수밖에 없는 이유",
+      "theme": null,
+      "tickers": [
+        "005930",
+        "000660"
+      ],
+      "verdict": "미확인(미시도)",
+      "takeaway": "외인 삼전닉스 복귀론 — HBM 매출 점유율 하닉 50%·삼성 33%(Counterpoint 2Q, 매출 기준).",
+      "views": null,
+      "id": "cqdr9A08YaE"
+    },
+    {
+      "date": "2026-11-13",
+      "title": "엔비디아 새 CEO가, '삼성전자'를 공개 언급한 진짜 이유",
+      "theme": null,
+      "tickers": [
+        "005930",
+        "NVDA"
+      ],
+      "verdict": "미확인(미시도)",
+      "takeaway": "크레스가 삼성전자 언급 — HBM4 공급 비중 추정 하닉 55%·삼성 28%(국내 증권사).",
+      "views": null,
+      "id": "AOe3iHMrYxg"
+    },
+    {
+      "date": "2026-11-12",
+      "title": "엔비디아 젠슨 황 해임, 삼전닉스에 악재일까?",
+      "theme": null,
+      "tickers": [
+        "NVDA"
+      ],
+      "verdict": "사임 자체는 검증(미장 데스크: 11/12 사임·Kress 임시 CEO) · Baird 목표 500→200 미확인",
+      "takeaway": "젠슨황 해임·사임 이슈로 NVDA 8%+ 하락 · Baird 중립 하향.",
+      "views": null,
+      "id": "5aYvXXSedwY"
+    },
+    {
+      "date": "2026-11-11",
+      "title": "엔비디아가 흔들리는데, 삼성전자·SK하이닉스는 괜찮을까",
+      "theme": null,
+      "tickers": [
+        "NVDA",
+        "MU"
+      ],
+      "verdict": "CRWV 매출 검증(미장 데스크) · 11/9 등락 미확인",
+      "takeaway": "CoreWeave 3Q 매출 $3.66B(+168%) · 11/9 NVDA -4% 속 SOX +7%·AMD +13%·MU +6%.",
+      "views": null,
+      "id": "8rpbJXLs9OQ"
+    },
+    {
+      "date": "2026-11-18",
+      "title": "한국 투자자들이 앤트로픽(ANT)에 투자하는 가장 쉬운 방법",
+      "theme": null,
+      "tickers": [
+        "GOOGL",
+        "AVGO",
+        "NVDA"
+      ],
+      "verdict": "검증(다출처)",
+      "takeaway": "앤트로픽 나스닥 ANT 美 11/19 상장 · 825M주·밴드 $70~78 · 국내 개인 공모 불가·액티브 ETF 편입 예정.",
+      "views": null,
+      "id": "-GJLRjjTEZc"
+    },
+    {
+      "date": "2026-11-18",
+      "title": "'깡통대출 93%' 한국은행이 올해 세 번째 금리 올리면 벌어질 일",
+      "theme": null,
+      "tickers": [
+        "^KS11"
+      ],
+      "verdict": "미확인(미시도) · 11/26 금통위 대립·미결(매크로 데스크)",
+      "takeaway": "한은 3번째 인상 우려 — 기준 3.0%·10월 CPI +2.8%·9월 연체율 0.59%.",
+      "views": null,
+      "id": "cReXgsu78BY"
+    },
+    {
+      "date": "2026-11-16",
+      "title": "최태원이 하락장 속 발표한 SK '반도체 다음' 프로젝트 정체",
+      "theme": null,
+      "tickers": [
+        "000660"
+      ],
+      "verdict": "미확인(미시도) · \"3Q 매출 104조\"는 자막 오류 의심(인용 금지)",
+      "takeaway": "SK 반도체 다음 프로젝트 · 하닉 6/25 장중 298.7만→11/13 121.6만(-59%).",
+      "views": null,
+      "id": "7yQLsI5Cfa0"
+    },
     {
       "date": "2026-11-08",
       "title": "11월 9일 투자자들이 꼭 알아야 하는 투자 포인트",

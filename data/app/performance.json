@@ -1,50 +1,50 @@
 {
- "generated_at": "2026-11-09 01:16",
+ "generated_at": "2026-11-18 22:06",
  "from": "2026-06-15",
- "to": "2026-11-06",
- "days": 104,
+ "to": "2026-11-18",
+ "days": 112,
  "method": "주식=일별 Modified Dietz 기하연결(원장 재생 수량) · 계좌=주식손익+달러현금 환평가 / (주식+스냅샷 현금)",
  "actual": {
-  "stocks_twr_pct": -22.64,
-  "account_twr_pct": -21.76,
-  "stocks_mdd_pct": -23.21,
-  "account_mdd_pct": -22.35
+  "stocks_twr_pct": -26.33,
+  "account_twr_pct": -25.4,
+  "stocks_mdd_pct": -26.6,
+  "account_mdd_pct": -25.66
  },
  "hold": {
-  "stocks_twr_pct": -17.61,
-  "stocks_mdd_pct": -18.41,
+  "stocks_twr_pct": -21.67,
+  "stocks_mdd_pct": -22.01,
   "note": "2026-06-15 수량을 그대로 들고 아무 매매도 안 했다면"
  },
- "desk_value_pct": -5.03,
+ "desk_value_pct": -4.67,
  "benchmarks": {
   "코스피": {
-   "twr_pct": -40.79,
-   "mdd_pct": -44.49
+   "twr_pct": -40.7,
+   "mdd_pct": -45.49
   },
   "S&P500(원화)": {
-   "twr_pct": -12.26,
-   "mdd_pct": -15.14
+   "twr_pct": -14.02,
+   "mdd_pct": -15.57
   },
   "혼합(시작 국내비중)": {
-   "twr_pct": -18.94,
-   "mdd_pct": -20.75
+   "twr_pct": -20.1,
+   "mdd_pct": -22.27
   }
  },
  "start_kr_weight_pct": 24.2,
- "trade_days": 20,
- "net_into_stocks_krw": 439330,
+ "trade_days": 23,
+ "net_into_stocks_krw": 468764,
  "cash": {
-  "avg_weight_pct": 7.1,
-  "vs_spx_krw": 4204,
-  "vs_kospi": -182974,
+  "avg_weight_pct": 6.8,
+  "vs_spx_krw": 3172,
+  "vs_kospi": -181805,
   "note": "현금을 S&P500(원화)·코스피에 넣어뒀다면의 손익. 음수 = 현금이 손실을 피했다"
  },
  "trades": {
   "by_side_krw": {
-   "buy": -370792,
-   "sell": -75369
+   "buy": -392275,
+   "sell": -24755
   },
-  "n": 25,
+  "n": 34,
   "worst": [
    {
     "date": "2026-07-07",
@@ -53,9 +53,9 @@
     "side": "buy",
     "shares": 1.0,
     "price": 295500.0,
-    "end_price": 188700.0,
-    "krw": -106800,
-    "move_pct": -36.1
+    "end_price": 194700.0,
+    "krw": -100800,
+    "move_pct": -34.1
    },
    {
     "date": "2026-07-17",
@@ -64,20 +64,9 @@
     "side": "buy",
     "shares": 1.0,
     "price": 345.0,
-    "end_price": 284.78,
-    "krw": -81679,
-    "move_pct": -17.5
-   },
-   {
-    "date": "2026-07-20",
-    "ticker": "005930.KS",
-    "label": "삼성전자",
-    "side": "buy",
-    "shares": 1.0,
-    "price": 248500.0,
-    "end_price": 188700.0,
-    "krw": -59800,
-    "move_pct": -24.1
+    "end_price": 280.2,
+    "krw": -86551,
+    "move_pct": -18.8
    },
    {
     "date": "2026-08-19",
@@ -86,9 +75,20 @@
     "side": "sell",
     "shares": 1.0,
     "price": 309.25,
-    "end_price": 342.37,
-    "krw": -44922,
-    "move_pct": 10.7
+    "end_price": 351.91,
+    "krw": -56980,
+    "move_pct": 13.8
+   },
+   {
+    "date": "2026-07-20",
+    "ticker": "005930.KS",
+    "label": "삼성전자",
+    "side": "buy",
+    "shares": 1.0,
+    "price": 248500.0,
+    "end_price": 194700.0,
+    "krw": -53800,
+    "move_pct": -21.6
    },
    {
     "date": "2026-08-27",
@@ -97,12 +97,45 @@
     "side": "sell",
     "shares": 1.0,
     "price": 580.0,
-    "end_price": 610.15,
-    "krw": -40894,
-    "move_pct": 5.2
+    "end_price": 618.87,
+    "krw": -51917,
+    "move_pct": 6.7
    }
   ],
   "best": [
+   {
+    "date": "2026-11-10",
+    "ticker": "MSFT",
+    "label": "Microsoft",
+    "side": "sell",
+    "shares": 1.0,
+    "price": 541.77,
+    "end_price": 506.24,
+    "krw": 47456,
+    "move_pct": -6.6
+   },
+   {
+    "date": "2026-11-13",
+    "ticker": "ANET",
+    "label": "Arista",
+    "side": "sell",
+    "shares": 1.0,
+    "price": 205.51,
+    "end_price": 186.42,
+    "krw": 25498,
+    "move_pct": -9.3
+   },
+   {
+    "date": "2026-11-10",
+    "ticker": "MSFT",
+    "label": "Microsoft",
+    "side": "sell",
+    "shares": 0.443,
+    "price": 543.33,
+    "end_price": 506.24,
+    "krw": 21946,
+    "move_pct": -6.8
+   },
    {
     "date": "2026-09-23",
     "ticker": "META",
@@ -110,70 +143,73 @@
     "side": "sell",
     "shares": 0.129111,
     "price": 741.742299,
-    "end_price": 610.15,
-    "krw": 23044,
-    "move_pct": -17.7
+    "end_price": 618.87,
+    "krw": 21189,
+    "move_pct": -16.6
    },
    {
-    "date": "2026-06-24",
-    "ticker": "MU",
-    "label": "MU",
-    "side": "sell",
-    "shares": 0.019999,
-    "price": 1075.759987,
-    "end_price": 690.0,
-    "krw": 10464,
-    "move_pct": -35.9
-   },
-   {
-    "date": "2026-08-05",
+    "date": "2026-10-22",
     "ticker": "ANET",
-    "label": "ANET",
-    "side": "sell",
-    "shares": 0.141734,
-    "price": 212.91,
-    "end_price": 170.8,
-    "krw": 8095,
-    "move_pct": -19.8
-   },
-   {
-    "date": "2026-08-10",
-    "ticker": "ANET",
-    "label": "ANET",
-    "side": "sell",
-    "shares": 0.141767,
-    "price": 192.500003,
-    "end_price": 170.8,
-    "krw": 4173,
-    "move_pct": -11.3
-   },
-   {
-    "date": "2026-07-07",
-    "ticker": "TSLA",
-    "label": "테슬라",
-    "side": "sell",
-    "shares": 0.157708,
-    "price": 415.942501,
-    "end_price": 399.81,
-    "krw": 3451,
-    "move_pct": -3.9
+    "label": "Arista",
+    "side": "buy",
+    "shares": 1.0,
+    "price": 177.0,
+    "end_price": 186.42,
+    "krw": 12582,
+    "move_pct": 5.3
    }
   ],
   "note": "체결가→기간 말 종가 · 매도는 '팔지 않았다면'의 반대 부호 · 사후확신이지 판정이 아니다"
  },
  "reconcile": {
-  "n": 107,
+  "n": 116,
   "worst": [
    "2026-08-28",
    -10.41
   ],
-  "within_1pct": 88,
-  "snapshot_lag": 19,
+  "within_1pct": 90,
+  "snapshot_lag": 26,
   "unexplained": [],
   "ok": true
  },
  "missing_prices": [],
- "stale_legs": [],
+ "stale_legs": [
+  {
+   "ticker": "AVGO",
+   "label": "AVGO",
+   "last": "2026-11-17"
+  },
+  {
+   "ticker": "GOOGL",
+   "label": "GOOGL",
+   "last": "2026-11-17"
+  },
+  {
+   "ticker": "MU",
+   "label": "MU",
+   "last": "2026-11-17"
+  },
+  {
+   "ticker": "NVDA",
+   "label": "NVDA",
+   "last": "2026-11-17"
+  },
+  {
+   "ticker": "ORCL",
+   "label": "ORCL",
+   "last": "2026-11-17"
+  },
+  {
+   "ticker": "SPCX",
+   "label": "SpaceX",
+   "last": "2026-11-17"
+  },
+  {
+   "ticker": "VOO",
+   "label": "VOO",
+   "last": "2026-11-17"
+  }
+ ],
  "curve": [
   {
    "d": "2026-06-15",
@@ -1014,6 +1050,70 @@
    "acct": 0.78244,
    "ks": 0.59205,
    "spx": 0.87743
+  },
+  {
+   "d": "2026-11-09",
+   "act": 0.78053,
+   "hold": 0.83529,
+   "acct": 0.78929,
+   "ks": 0.58728,
+   "spx": 0.90223
+  },
+  {
+   "d": "2026-11-10",
+   "act": 0.76744,
+   "hold": 0.81723,
+   "acct": 0.77615,
+   "ks": 0.61305,
+   "spx": 0.88632
+  },
+  {
+   "d": "2026-11-11",
+   "act": 0.78551,
+   "hold": 0.82321,
+   "acct": 0.79371,
+   "ks": 0.62899,
+   "spx": 0.89664
+  },
+  {
+   "d": "2026-11-12",
+   "act": 0.77855,
+   "hold": 0.81105,
+   "acct": 0.78682,
+   "ks": 0.62517,
+   "spx": 0.8897
+  },
+  {
+   "d": "2026-11-13",
+   "act": 0.76867,
+   "hold": 0.80809,
+   "acct": 0.77713,
+   "ks": 0.61907,
+   "spx": 0.88445
+  },
+  {
+   "d": "2026-11-16",
+   "act": 0.74313,
+   "hold": 0.7887,
+   "acct": 0.75224,
+   "ks": 0.59683,
+   "spx": 0.86714
+  },
+  {
+   "d": "2026-11-17",
+   "act": 0.73403,
+   "hold": 0.77993,
+   "acct": 0.74343,
+   "ks": 0.58138,
+   "spx": 0.8598
+  },
+  {
+   "d": "2026-11-18",
+   "act": 0.73667,
+   "hold": 0.78335,
+   "acct": 0.746,
+   "ks": 0.59296,
+   "spx": 0.8598
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-08",
- "days": 7,
+ "updated": "2026-11-18",
+ "days": 9,
  "universe": [
   "005930",
   "066570",
@@ -16,160 +16,88 @@
   "033780"
  ],
  "counts": {
-  "critical": 3,
-  "notable": 6,
-  "routine": 22
+  "critical": 0,
+  "notable": 3,
+  "routine": 37
  },
  "items": [
   {
-   "code": "035420",
-   "name": "NAVER",
-   "date": "20261106",
-   "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
-   "level": "critical",
-   "category": "희석",
-   "why": "주주가치 희석",
-   "rcept_no": "20261106800553",
-   "filer": "NAVER",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106800553"
-  },
-  {
-   "code": "096770",
-   "name": "SK이노베이션",
-   "date": "20261106",
-   "title": "정정신고서제출요구( 2026.10.28. 제출 증권신고서(합병) )",
-   "level": "critical",
-   "category": "지배구조",
-   "why": "구조 변경",
-   "rcept_no": "20261106100004",
-   "filer": "금융감독원",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106100004"
+   "code": "034020",
+   "name": "두산에너빌리티",
+   "date": "20261116",
+   "title": "[기재정정]단일판매ㆍ공급계약체결",
+   "level": "notable",
+   "category": "대형계약",
+   "why": "성장 논지 검증",
+   "rcept_no": "20261116802608",
+   "filer": "두산에너빌리티",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116802608"
   },
   {
    "code": "035420",
    "name": "NAVER",
-   "date": "20261103",
-   "title": "[기재정정]주요사항보고서(유상증자결정)",
-   "level": "critical",
-   "category": "희석",
-   "why": "주주가치 희석",
-   "rcept_no": "20261103000311",
-   "filer": "NAVER",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103000311"
-  },
-  {
-   "code": "012450",
-   "name": "한화에어로스페이스",
-   "date": "20261106",
-   "title": "주요사항보고서(자기주식취득결정)",
-   "level": "notable",
-   "category": "자사주",
-   "why": "수급·주주환원",
-   "rcept_no": "20261106000139",
-   "filer": "한화에어로스페이스",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106000139"
-  },
-  {
-   "code": "009150",
-   "name": "삼성전기",
-   "date": "20261105",
-   "title": "[기재정정]타법인주식및출자증권취득결정",
-   "level": "notable",
-   "category": "투자",
-   "why": "capex 방향",
-   "rcept_no": "20261105800383",
-   "filer": "삼성전기",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800383"
-  },
-  {
-   "code": "033780",
-   "name": "KT&G",
-   "date": "20261105",
-   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261105800482",
-   "filer": "케이티앤지",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800482"
-  },
-  {
-   "code": "005930",
-   "name": "삼성전자",
-   "date": "20261104",
-   "title": "자기주식처분결과보고서",
-   "level": "notable",
-   "category": "자사주",
-   "why": "수급·주주환원",
-   "rcept_no": "20261104000325",
-   "filer": "삼성전자",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104000325"
-  },
-  {
-   "code": "005380",
-   "name": "현대차",
-   "date": "20261102",
+   "date": "20261112",
    "title": "영업(잠정)실적(공정공시)",
    "level": "notable",
    "category": "실적",
    "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261102800520",
-   "filer": "현대자동차",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800520"
+   "rcept_no": "20261112800028",
+   "filer": "NAVER",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112800028"
   },
   {
-   "code": "042660",
-   "name": "한화오션",
-   "date": "20261102",
-   "title": "주식등의대량보유상황보고서(약식)",
+   "code": "035420",
+   "name": "NAVER",
+   "date": "20261112",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
    "level": "notable",
-   "category": "5%보고",
-   "why": "대주주 매매",
-   "rcept_no": "20261102000290",
-   "filer": "국민연금공단",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000290"
+   "category": "실적",
+   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
+   "rcept_no": "20261112800027",
+   "filer": "NAVER",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112800027"
   }
  ],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 9,
-   "net": 5552,
-   "n_buy": 8,
-   "n_sell": 1,
+   "n": 7,
+   "net": 11152530,
+   "n_buy": 3,
+   "n_sell": 4,
    "top": [
     {
-     "who": "노태문",
-     "ofcps": "대표사장",
-     "regist": "등기임원",
-     "delta": 3000,
-     "held": 127280,
-     "date": "2026-11-06"
+     "who": "이재용",
+     "ofcps": "회장",
+     "regist": "비등기임원",
+     "delta": 11158000,
+     "held": 116377053,
+     "date": "2026-11-13"
     },
     {
-     "who": "김준성",
-     "ofcps": "독립이사",
-     "regist": "등기임원",
-     "delta": 506,
-     "held": 506,
-     "date": "2026-11-06"
-    },
-    {
-     "who": "박세근",
+     "who": "이시영",
      "ofcps": "부사장",
      "regist": "비등기임원",
-     "delta": 498,
-     "held": 5990,
-     "date": "2026-11-05"
+     "delta": -3700,
+     "held": 4852,
+     "date": "2026-11-11"
     },
     {
-     "who": "홍희일",
+     "who": "GOYAL SIDDHARTH",
+     "ofcps": "상무",
+     "regist": "비등기임원",
+     "delta": -1206,
+     "held": 0,
+     "date": "2026-11-18"
+    },
+    {
+     "who": "김평진",
      "ofcps": "부사장",
      "regist": "비등기임원",
-     "delta": 498,
-     "held": 4902,
-     "date": "2026-11-06"
+     "delta": -780,
+     "held": 4057,
+     "date": "2026-11-10"
     }
    ]
   },
@@ -194,20 +122,70 @@
   {
    "code": "005380",
    "name": "현대차",
-   "n": 0,
-   "net": 0,
-   "n_buy": 0,
+   "n": 2,
+   "net": 89,
+   "n_buy": 2,
    "n_sell": 0,
-   "top": []
+   "top": [
+    {
+     "who": "이승애",
+     "ofcps": "상무",
+     "regist": "비등기임원",
+     "delta": 81,
+     "held": 81,
+     "date": "2026-11-09"
+    },
+    {
+     "who": "박무곤",
+     "ofcps": "상무",
+     "regist": "비등기임원",
+     "delta": 8,
+     "held": 397,
+     "date": "2026-11-16"
+    }
+   ]
   },
   {
    "code": "035420",
    "name": "NAVER",
-   "n": 0,
+   "n": 4,
    "net": 0,
-   "n_buy": 0,
-   "n_sell": 0,
-   "top": []
+   "n_buy": 2,
+   "n_sell": 2,
+   "top": [
+    {
+     "who": "임동아",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": 1000,
+     "held": 1505,
+     "date": "2026-11-13"
+    },
+    {
+     "who": "나군호",
+     "ofcps": "리더/연구소장/원장",
+     "regist": "비등기임원",
+     "delta": -1000,
+     "held": 2101,
+     "date": "2026-11-13"
+    },
+    {
+     "who": "오성권",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": -50,
+     "held": 1206,
+     "date": "2026-11-13"
+    },
+    {
+     "who": "김소연",
+     "ofcps": "리더",
+     "regist": "비등기임원",
+     "delta": 50,
+     "held": 1884,
+     "date": "2026-11-13"
+    }
+   ]
   },
   {
    "code": "000660",
@@ -257,20 +235,11 @@
   {
    "code": "042660",
    "name": "한화오션",
-   "n": 1,
-   "net": 15,
-   "n_buy": 1,
+   "n": 0,
+   "net": 0,
+   "n_buy": 0,
    "n_sell": 0,
-   "top": [
-    {
-     "who": "최영환",
-     "ofcps": "담당",
-     "regist": "비등기임원",
-     "delta": 15,
-     "held": 15,
-     "date": "2026-11-02"
-    }
-   ]
+   "top": []
   },
   {
    "code": "033780",
@@ -282,19 +251,6 @@
    "top": []
   }
  ],
- "major": [
-  {
-   "code": "042660",
-   "name": "한화오션",
-   "date": "2026-11-02",
-   "who": "국민연금공단",
-   "qty": 17271400,
-   "d_qty": -3141824,
-   "rate": "5.64",
-   "d_rate": "-1.02",
-   "reason": "단순추가취득/처분",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000290"
-  }
- ],
+ "major": [],
  "note": "경보 전용 — 매수·매도 자동발동 아님. 훼손 판정은 PM·리스크 데스크."
 }

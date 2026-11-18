@@ -1,6 +1,6 @@
 {
  "_comment": "유니버스 밖 신규 아이디어 수신함 — 정본 도구 idea_inbox.py (손으로 고치지 말 것)",
- "updated": "2026-11-08",
+ "updated": "2026-11-18",
  "ideas": [
   {
    "ticker": "BRUN",
@@ -607,8 +607,8 @@
    "name": "SpaceX",
    "market": "기타",
    "first_seen": "2026-11-04",
-   "updated": "2026-11-04",
-   "status": "screening",
+   "updated": "2026-11-18",
+   "status": "promoted",
    "sources": [
     {
      "date": "2026-11-04",
@@ -620,13 +620,18 @@
    ],
    "link_to_holdings": [],
    "first_take": "합병 공식 확인과 상장 여부 필요. 정보 수집만.",
-   "note": "합병·상장 미확정 — 정보 수집만 · TSLA 합병 과세(양도세 22%) 이슈 연계",
+   "note": "11/13 정훈 직접 $100 매수(SPCX 0.712655주 @$140.18)로 보유 편입 — v138 ⭐2 45 모멘텀 · 기한부 홀드",
    "next_check": "2027-01-31",
    "history": [
     {
      "date": "2026-11-04",
      "status": "screening",
      "note": "합병·상장 미확정 — 정보 수집만 · TSLA 합병 과세(양도세 22%) 이슈 연계"
+    },
+    {
+     "date": "2026-11-18",
+     "status": "promoted",
+     "note": "11/13 정훈 직접 $100 매수(SPCX 0.712655주 @$140.18)로 보유 편입 — v138 ⭐2 45 모멘텀 · 기한부 홀드"
     }
    ]
   },
@@ -896,7 +901,7 @@
    "name": "CoreWeave",
    "market": "US",
    "first_seen": "2026-11-08",
-   "updated": "2026-11-08",
+   "updated": "2026-11-18",
    "status": "screening",
    "sources": [
     {
@@ -922,13 +927,18 @@
     }
    ],
    "first_take": "레버리지 차입형 AI 인프라 대리변수 — 매수 후보가 아니라 조기경보 ⑤ⓐⓑ(투기등급 강등·조달 철회) 감시 대상",
-   "note": "AI 신용 조기경보 감시용 — 11/11 3Q 수주잔고·조달 구조 확인. 레버리지 구조라 신규 후보 아님(룰3·변동성)",
+   "note": "[v138] 3Q 매출 $3.66B(+168%)·백로그 $132.5B·2026 가이드 상향 vs 부채 약 $47B·순손실 $709M — AI 신용 감시 유지, 후보 아님",
    "next_check": null,
    "history": [
     {
      "date": "2026-11-08",
      "status": "screening",
      "note": "AI 신용 조기경보 감시용 — 11/11 3Q 수주잔고·조달 구조 확인. 레버리지 구조라 신규 후보 아님(룰3·변동성)"
+    },
+    {
+     "date": "2026-11-18",
+     "status": "screening",
+     "note": "[v138] 3Q 매출 $3.66B(+168%)·백로그 $132.5B·2026 가이드 상향 vs 부채 약 $47B·순손실 $709M — AI 신용 감시 유지, 후보 아님"
     }
    ]
   },
@@ -962,6 +972,71 @@
      "date": "2026-11-08",
      "status": "screening",
      "note": "티커 확인(IREN Ltd) 후 CRWV·NBIS와 네오클라우드 묶음으로만 추적 — 신규 후보 자격 미검토"
+    }
+   ]
+  },
+  {
+   "ticker": "277810.KQ",
+   "name": "레인보우로보틱스",
+   "market": "KR",
+   "first_seen": "2026-11-18",
+   "updated": "2026-11-18",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-18",
+     "type": "movers",
+     "ref": null,
+     "claim": "11/18 +20.06%(407,000원) 피지컬AI·로봇 ETF 쏠림",
+     "verdict": null
+    }
+   ],
+   "link_to_holdings": [
+    {
+     "ticker": "454910.KS",
+     "relation": "같은 로봇 테마 동행"
+    },
+    {
+     "ticker": "066570.KS",
+     "relation": "휴머노이드 기대 동행"
+    }
+   ],
+   "first_take": null,
+   "note": "룰6 — 국내 22.2% > 22%라 국내 신규 0원 · 급등일 추격 금지(룰3) · 로봇 노출은 두산로보(⭐2)·LG전자로 이미 있음",
+   "next_check": "2026-12-31",
+   "history": [
+    {
+     "date": "2026-11-18",
+     "status": "rejected",
+     "note": "룰6 — 국내 22.2% > 22%라 국내 신규 0원 · 급등일 추격 금지(룰3) · 로봇 노출은 두산로보(⭐2)·LG전자로 이미 있음"
+    }
+   ]
+  },
+  {
+   "ticker": "041510.KQ",
+   "name": "에스엠",
+   "market": "KR",
+   "first_seen": "2026-11-18",
+   "updated": "2026-11-18",
+   "status": "rejected",
+   "sources": [
+    {
+     "date": "2026-11-18",
+     "type": "movers",
+     "ref": null,
+     "claim": "11/18 상한가 99,900원 — 한중 FTA 서비스 후속협상 타결·한한령 완화 기대",
+     "verdict": null
+    }
+   ],
+   "link_to_holdings": [],
+   "first_take": null,
+   "note": "AI·전력·피지컬AI 축 밖 · 룰6 국내 0원 · 상한가 당일 룰3",
+   "next_check": "2027-02-28",
+   "history": [
+    {
+     "date": "2026-11-18",
+     "status": "rejected",
+     "note": "AI·전력·피지컬AI 축 밖 · 룰6 국내 0원 · 상한가 당일 룰3"
     }
    ]
   }

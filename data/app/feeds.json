@@ -1,6 +1,6 @@
 {
  "_comment": "외부 리서치 채널 앱 정본 (경제사냥꾼=hunter.json과 분리 — 트랙레코드 통계 오염 방지). 스키마는 hunter.json 미러: 채널 slug 키 아래 latest_videos(최신순 prepend)·track_record·setups·themes. 갱신 시 docs/research/feeds_log.md와 동기화 후 build_app_data.py 재실행. 영상 필드: date·title·tag·tickers·summary(필수) + 선택 points·caveats·verdict·guest·link. 탐색·자막 = hunter_latest.py --channel <slug>. 앱 노출: 홈 '📡 외부 리서치' 독립 탭(#feeds, 경제사냥꾼과 분리 렌더) — 영상 카드 탭 시 상세(요약·핵심포인트·언급종목칩·주의), 지식인사이드 guest(게스트명)는 카드/상세에 강조 표시.",
- "updated": "2026-11-08",
+ "updated": "2026-11-18",
  "source": "2026-10-29 대화형 캐치업 — 수페TV 신규 2편, 지식인사이드 신규 0편(18편 전부 비금융). 경제사냥꾼 65편은 hunter.json.\n2026-10-22 R1 무인 캐치업 — 수페TV 신규0편(열거2 전부 등재됨)·지식인사이드 신규0편(열거13·필터12, 비금융).\n2026-10-20 저녁 캐치업 — 수페TV 신규 1편(rnyobpsjndU), 지식인사이드 0편(비금융 필터). 2026-10-20 R1 캐치업 — 수페TV 자막만(소급) 1편(qjrAdBB7h5U, 열거2·등재1·자막만1·신규0), 지식인사이드 필터9편(비금융, 열거10·등재1). 경제사냥꾼 52편은 hunter.json.\n2026-10-14 R1 캐치업 — 수페TV 신규 1편(ZYatUkqCZ8M, 열거2·등재1·신규1), 지식인사이드 신규 0편(열거6·필터5·기",
  "channels": {
   "supe": {
@@ -10,6 +10,26 @@
    "headline": "[10/29 캐치업] 신규 2편 — AVGO 고점 -33.5%·3Q 매출 $16.7B 등 [미확인(미시도)], 주간랩업 메타 -8.4%·나스닥100 -7.3%[방향검증]. 버핏/GOOGL 매도 주장 없음. | [10/20 R1] 자막만소급 1편(10/17) — 주간랩업: 다우+0.6%·S&P500-2%·나스닥-5.5%, 엔트로픽3Q매출168억달러(+45%QoQ)[방향검증-경제사냥꾼 05nQVoi86x0과 상호정합], 케빈워시 발언전후 금리인상확률45%→17%(WebSearch확인치28%→16%와 피크차)[미확인(피크치)]. | [10/14 R1] 신규 1편 — SCHD 배당성장ETF 환율영향 분석(원/달러 1,500→1,300원대 하락이 2년 수익률의 대부분을 만든 효과였다는 자체분석)[미확인 — 개인계좌 사례, 개별 종목콜 없음]. | [10/12 R1 소급] 신규 2편(10/10 주간랩업, 10/6 배당ETF). 반도체 주간 -4.6%, WTI 90, 환율 1,340. | [8/26 캐치업] 신규 1편(8/25) — AI버블 진행도 자체판단 75%(철도·닷컴버블 하이프사이클 비교). ★버핏·드러켄밀러 독립적으로 DR호튼(홈빌더, 리츠 아님) 신규매수[검증, Q2 2026 13F] — guru-flow-desk 교차확인 권고.",
    "setups": [],
    "latest_videos": [
+    {
+     "id": "QMg65Y0FpM8",
+     "published": "2026-11-17",
+     "title": "미국주식 폭락 속 큰손들의 계좌 공개! (버핏, 드러켄밀러, 피터틸, 엔비디아, 레오폴드, 국민연금)",
+     "summary": "큰손 13F — 드러켄밀러·애크먼·버핏·국민연금(미국주 36.8%).",
+     "tag": "13F",
+     "verdict": "미확인(미시도) · guru_flows 대조: 애크먼 MSFT -34.5%(축소)",
+     "tickers": [],
+     "link": "https://www.youtube.com/watch?v=QMg65Y0FpM8"
+    },
+    {
+     "id": "KwszEJgVhOE",
+     "published": "2026-11-14",
+     "title": "버크셔 3.7조원 현금화, 다음주 더 큰 변수 온다!",
+     "summary": "주간 S&P +2.6%·NDX +3.6%·NVDA 주간 -11%·AVGO +9.5%·AMAT +11%·10Y 5.109%.",
+     "tag": "시황",
+     "verdict": "대립·미결(수치 미확인)",
+     "tickers": [],
+     "link": "https://www.youtube.com/watch?v=KwszEJgVhOE"
+    },
     {
      "id": "-f2ppE-u5QY",
      "published": "2026-11-07",
@@ -620,6 +640,26 @@
    ],
    "latest_videos": [
     {
+     "id": "xXPFM_PAnFk",
+     "published": "2026-11-09",
+     "title": "미국 선거가 불러온 뜻밖의 악재, 앞으로 코스피 '이렇게' 됩니다ㅣ지식인초대석 EP.189 (김효진 박사 1부)",
+     "summary": "김효진 — 美 금리 5%대·관세 300% 가능성·유가 내년 말 하향 안정·외환위기 가능성 낮음.",
+     "tag": "매크로",
+     "verdict": "대립·미결",
+     "tickers": [],
+     "link": "https://www.youtube.com/watch?v=xXPFM_PAnFk"
+    },
+    {
+     "id": "r22JpwjVKo4",
+     "published": "2026-11-10",
+     "title": "래리 윌리엄스: 한국인들의 가장 위험한 투자 습관 '7가지' | 글로벌초대석 EP.13",
+     "summary": "래리 윌리엄스 — 자산 80~90% 장기·10~15% 투기.",
+     "tag": "일반론",
+     "verdict": "일반론(검증 불필요)",
+     "tickers": [],
+     "link": "https://www.youtube.com/watch?v=r22JpwjVKo4"
+    },
+    {
      "id": "vjHv7EyRmlA",
      "published": "2026-11-07",
      "title": "고금리 시대, 내 계좌 든든하게 지켜줄 '3가지' 자산 (지식인초대석 EP.187)",
@@ -1147,6 +1187,6 @@
  "_excluded": {
   "자산제곱": "UCpTC-SMFjA3EDRhZIKOcKuQ — 7/7 판단으로 미편입. 7/2 영상 전문 시청 결과 조정 대응 원칙론(부정편향·현금20%·이평 분할매수) 위주로 방향은 건전하나 종목 콜·검증 가능 수치 부재, 구체 내용은 '고정 댓글 참고'로 외부화, 주 1회·1.3만뷰. 편입하려면 hunter_latest.py CHANNELS + 여기 channels에 키 추가."
  },
- "source_report": "docs/reports/report_v136_2026-11-08.md",
- "as_of": "2026-11-08 22:49"
+ "source_report": "docs/reports/report_v138_2026-11-18.md",
+ "as_of": "2026-11-18 21:5x"
 }

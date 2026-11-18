@@ -27,7 +27,6 @@ HOLDINGS = {
     "035420.KS": ["NAVER", "네이버"],
     "NVDA": ["NVDA", "엔비디아"],
     "VOO": ["VOO"],
-    "MSFT": ["MSFT", "마이크로소프트"],
     "GOOGL": ["GOOGL", "구글", "알파벳"],
     "ORCL": ["ORCL", "오라클"],
     # [8/11] ANET 전량 매도 체결(8/10 잔여 0.141767주 $27.29 · 8/5 절반 $30.17)로 보유에서 제외.
@@ -35,7 +34,8 @@ HOLDINGS = {
     "MU": ["MU", "마이크론"],
     "AVGO": ["AVGO", "브로드컴"],
     # [10/29] ANET 재편입 — 10/22 미국 트랙 2회차 1주 $177 체결(토스 대조로 장부 누락 보강) → 보유 13종목.
-    "ANET": ["ANET", "아리스타"],
+    # [11/18] 정훈 직접 매매(토스 대조): MSFT 11/10 전량·ANET 11/13 전량 매도 → 제외 · SPCX 11/13 $100 재편입 → 보유 12종목.
+    "SPCX": ["SPCX", "스페이스X", "SpaceX"],
 }
 ETF_NO_SCORE = {"VOO"}                 # ETF = 0~100 스코어 제외(null 허용)
 REQUIRED_COLS = ["stars", "target", "buy_zone", "trim", "comment"]  # +score(ETF 외)
@@ -1284,6 +1284,12 @@ def check_financials(latest=None):
         hard = t in need
         say = fail if hard else warn
         if not a:
+            # ★[11/18] 상장 첫해(10-K 신고 전)는 연간이 구조적으로 없다 — SPCX(2026-06 IPO)는
+            # 분기 4개가 들어와 있는데 FAIL로 막혔다. 분기가 있으면 '결측'이 아니라 '아직 없음' → WARN.
+            if hard and r.get("quarterly"):
+                warn(f"{t} 연간 재무제표 없음 — 분기 {len(r['quarterly'])}개만(상장 첫해·10-K 신고 전으로 보임)."
+                     f" 첫 10-K 신고 후에도 비어 있으면 소스 점검")
+                continue
             say(f"{t} 연간 재무제표 비어 있음 — 소스 3단 폴백(EDGAR/Yahoo/DART) 점검")
             continue
         if a.get("assets") is None and a.get("revenue") is None:

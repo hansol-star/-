@@ -1,8 +1,47 @@
 {
- "checked_at": "2026-11-09 16:54",
+ "checked_at": "2026-11-18 21:39",
  "source": "toss",
- "open": [],
+ "open": [
+  {
+   "ticker": "NVDA",
+   "side": "BUY",
+   "price": null,
+   "qty": "0.309096",
+   "ordered_at": "2026-11-18T19:08:22.512+09:00",
+   "plan_id": null,
+   "plan_state": "none"
+  },
+  {
+   "ticker": "TSLA",
+   "side": "BUY",
+   "price": null,
+   "qty": "0.130078",
+   "ordered_at": "2026-11-18T09:10:46.117+09:00",
+   "plan_id": null,
+   "plan_state": "none"
+  }
+ ],
  "findings": [
+  {
+   "level": "red",
+   "ticker": "NVDA",
+   "msg": "NVDA 매수 × 0.309096 — 계획(tasks.json)에 없는 주문"
+  },
+  {
+   "level": "yellow",
+   "ticker": "NVDA",
+   "msg": "NVDA 매수 × 0.309096 — 미국 트랙 이번 회차 없음(월 1회차(d251) — 2회차 체결 세션 2026-11-06 + 1개월 = **2026-12-06부터** )"
+  },
+  {
+   "level": "red",
+   "ticker": "TSLA",
+   "msg": "테슬라 매수 × 0.130078 — 계획(tasks.json)에 없는 주문"
+  },
+  {
+   "level": "yellow",
+   "ticker": "TSLA",
+   "msg": "테슬라 매수 × 0.130078 — 미국 트랙 이번 회차 없음(월 1회차(d251) — 2회차 체결 세션 2026-11-06 + 1개월 = **2026-12-06부터** )"
+  },
   {
    "level": "yellow",
    "ticker": "454910.KS",
@@ -11,20 +50,28 @@
   {
    "level": "info",
    "ticker": "ANET",
-   "msg": "ANET 매수 $182.00 미등록 — 정상(하드플로어 — 예약 금지(걸려 있으면 취소) · 지금 걸면 위반)"
+   "msg": "Arista 매수 $182.00 미등록 — 정상(하드플로어 — 예약 금지(걸려 있으면 취소) · 지금 걸면 위반)"
   }
  ],
  "counts": {
-  "red": 0,
-  "yellow": 1,
+  "red": 2,
+  "yellow": 3,
   "ok": 0,
   "info": 1
  },
  "context": {
-  "kr_weight_pct": 21.4,
+  "kr_weight_pct": 22.2,
   "ladder_allowed_krw": 0.0,
   "us_allowed_usd": 0.0,
   "waiting_plans": 3
  },
- "pushed_fps": []
+ "pushed_fps": [
+  "NVDA|NVDA 매수 × 0.309096 — 계획(tasks.json)에 없는 주문",
+  "TSLA|테슬라 매수 × 0.130078 — 계획(tasks.json)에 없는 주문"
+ ],
+ "push": {
+  "at": "2026-11-18 21:39",
+  "code": 0,
+  "n": 2
+ }
 }

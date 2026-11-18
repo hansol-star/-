@@ -36,12 +36,12 @@ ROOT = os.path.abspath(os.path.join(_HERE, *([os.pardir] * 5)))
 SECTOR = {
     # [9/17 워치 개편 d193] 원익IPS·테스·STM·TSLA·삼성중공업·HD현대중·SPCX 제외 / TSM·AMAT 편입
     "semi-ai-desk": ["005930.KS", "NVDA", "MU", "AVGO", "ANET",
-                     "009150.KS", "000660.KS", "TSM", "AMAT", "AMD", "CDNS"],   # [9/29 d218] CDNS 편입
+                     "009150.KS", "000660.KS", "TSM", "LRCX", "AMD", "CDNS"],   # [9/29 d218] CDNS 편입 · [11/18 d276] AMAT→LRCX
     "power-physical-desk": ["066570.KS", "454910.KS", "005380.KS",
-                            "034020.KS", "GEV", "096770.KS", "012450.KS",
-                            "042660.KS", "ISRG"],   # [9/29 d218] ISRG(수술로봇=피지컬AI) 편입
+                            "GEV", "VRT", "LLY", "BRK-B",
+                            "068270.KS", "033780.KS"],   # [11/18 d276] 두산E·SK이노·한화에어로·한화오션·ISRG 제외 / VRT·LLY·BRK-B·셀트리온 편입(분산 후보는 이 데스크가 맡는다)   # [9/29 d218] ISRG(수술로봇=피지컬AI) 편입
     "bigtech-platform-desk": ["META", "MSFT", "AAPL", "GOOGL", "ORCL",
-                              "035420.KS"],   # [9/29 d218] PLTR 제외 · [10/12 d239] TMUS 제외
+                              "035420.KS", "MSFT"],   # [9/29 d218] PLTR 제외 · [10/12 d239] TMUS 제외
 }
 MOVE_PCT = 5.0
 EARN_DAYS = 7

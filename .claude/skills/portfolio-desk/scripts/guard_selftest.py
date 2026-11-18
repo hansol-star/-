@@ -1258,7 +1258,7 @@ INJECTION_TESTS = [
         "desc": "별점·매수존 같은 풀표 컬럼이 비면 잡는가",
         "why": "6/20 재지적 — '왜 내 주식 별점·매수매도 안 보여주냐'. 종목은 있는데 컬럼이 빈 경우",
         "pattern": "컬럼 비어있음",
-        "violate": {"data/app/stocks.json": json.dumps(_STOCKS_DOC(blank=("MSFT", "buy_zone")), ensure_ascii=False)},
+        "violate": {"data/app/stocks.json": json.dumps(_STOCKS_DOC(blank=("NVDA", "buy_zone")), ensure_ascii=False)},
         "clean": {"data/app/stocks.json": json.dumps(_STOCKS_DOC(), ensure_ascii=False)},
         "args": (),
     },

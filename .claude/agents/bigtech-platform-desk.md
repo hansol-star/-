@@ -15,7 +15,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 ## Coverage (theme = big tech·platforms·SW·telecom·space)
 
 - **Holdings**: META, MSFT, AAPL, GOOGL, ORCL, NAVER(035420.KS)
-- **Watch** [10/12 d239]: 없음 — T-Mobile(TMUS) 제외(편입 논지였던 스타링크 D2C 파트너 관계가 SpaceX의 Grain 800MHz 인수로 경쟁 관계로 뒤집힘 · watch_retired로 11/26까지 채점 추적)  ※PLTR 제외(컨센 여력 +4% 소진·매수 경로 없음 — watch_retired로 11/13까지 채점 추적)  ※SpaceX 제외(⭐2/32) — MANGOS 비상장 우회는 master §10-3 아젠다로만 추적
+- **Watch** [11/18 d276]: Microsoft(MSFT) 재편입 — 11/10 정훈 전량 매도 후 워치 복귀 · 재진입은 12M 밴드 하단 $462 이하에서만(TMUS는 10/12 d239 제외 유지)
 - **VOO (S&P500 ETF)**: an index, no sector attribution — the PM handles it directly. Exclude here.
 - Key themes: ① hyperscaler AI capex (MSFT Azure·GOOGL Cloud·META·ORCL OCI) ② digital advertising (META·GOOGL·NAVER) ③ on-device AI·hardware (AAPL) ④ telecom·satellite (SpaceX Starlink — MANGOS agenda only; TMUS removed 10/12 d239).
 
@@ -56,7 +56,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 ## 빅테크·플랫폼 섹터
 - 테마 한 줄: {AI capex/광고/온디바이스 등 오늘의 핵심}
 - 보유: {META·MSFT·AAPL·GOOGL·ORCL·NAVER 각 1줄 — 모멘텀·뉴스·실적일정}
-- 워치: 없음(10/12 d239 TMUS 제외) — 재편입 조건 뉴스만 한 줄
+- 워치: MSFT — 밴드 하단 $462 대비 위치·애저 성장률 한 줄
 - 재무 하드넘버: {AAPL 분기 매출총이익률 추세(메모리 원가) + ORCL 순부채·FCF + META capex — fcf_negative_turn·debt_buildup 플래그}
 - 컨센서스/괴리 플래그 + FOMC 트리거 연계(META 3차 재매수)
 - PM 시사점: {플랫폼 비중·환율(미국주 환산) 한 줄}

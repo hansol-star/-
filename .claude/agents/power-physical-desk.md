@@ -15,7 +15,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 ## Coverage (theme = AI power demand + physical AI + US-investment infra)
 
 - **Holdings**: LG전자(066570.KS), 두산로보틱스(454910.KS), 현대차(005380.KS)  ※TSLA는 7/7 전량 매도 → 워치 → **9/17 워치 제외**(⭐2/18, d193)
-- **Watch**: 두산에너빌리티(034020.KS), GE Vernova(GEV), SK이노베이션(096770.KS, 테라파워 SMR), 한화에어로(012450.KS), 한화오션(042660.KS), Intuitive Surgical(ISRG, 수술로봇 = 피지컬AI — 9/29 d218 편입)  ※[9/17 d193] 조선 3종 → 한화오션 1종(삼성중공업·HD현대중공업 제외)
+- **Watch** [11/18 개편 d276 — 두산에너빌리티·SK이노베이션·한화에어로·한화오션·ISRG 제외]: GE Vernova(GEV · 미국 트랙 ②), Vertiv(VRT · AI 전력·냉각), + **분산 후보**(AI 팩터와 저상관 — 이 데스크가 맡는다): Eli Lilly(LLY), Berkshire Hathaway B(BRK-B), 셀트리온(068270.KS), KT&G(033780.KS)
 - Key themes: ① AI datacenter power demand (원전·SMR·gas turbine·grid gear·cooling) ② robots/automation/humanoids (physical AI) ③ EV·autonomy ④ US-investment defense·shipbuilding (policy·orders).
 
 ## Tasks
@@ -58,7 +58,7 @@ Where regional desks cover 'index·flows·quotes', you cover **stock fundamental
 - 테마 한 줄: {AI전력/원전·SMR/로봇/방산조선 중 오늘의 핵심}
 - 보유: {LG전자·두산로보틱스·현대차 각 1줄 — 모멘텀·뉴스·실적일정}
 - 재무 하드넘버: {LG전자 영업마진·FCF·순부채 추세(리스크룰 2 훼손 판정) + 두산로보 적자폭·현금소진}
-- 워치: {두산에너빌리티·GEV(매수 우선순위 ②)·SK이노·한화에어로·한화오션 중 움직임 있는 것 + 트리거(두산E 눌림 62,000~66,000·추세복귀 82,000 / GEV $900 이하)}
+- 워치: {GEV(매수 우선순위 ② · $880 이하)·VRT·LLY·BRK-B·셀트리온·KT&G 중 움직임 있는 것} — 분산 후보는 "포트 상관(ρ)이 여전히 낮은가"를 한 줄로
 - 정책·지정학: {대미투자·이란 MOU 등 섹터 영향}
 - PM 시사점: {분산 효과·추격매수 경계 한 줄}
 

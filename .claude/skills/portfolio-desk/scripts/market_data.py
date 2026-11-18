@@ -49,10 +49,10 @@ HOLDINGS_US = [
     ("MU", "MU"), ("AVGO", "AVGO"),
 ]  # [9/17] 폴백 정합 — TSLA(7/7)·ANET(8/11) 매도분 제거
 WATCHLIST = [  # 폴백 (portfolio.json 없을 때만). 정본은 portfolio.json.
-    ("두산에너빌리티", "034020.KS"), ("SK이노베이션", "096770.KS"),
-    ("GEV", "GEV"), ("ANET", "ANET"), ("TSM", "TSM"), ("AMAT", "AMAT"),
-    ("AMD", "AMD"), ("CDNS", "CDNS"), ("ISRG", "ISRG"),
-]  # [9/17 d193] 원익IPS·테스·SPCX 제외, TSM·AMAT 편입 · [9/29 d218] 삼성바이오·PLTR 제외, CDNS·ISRG 편입
+    ("GEV", "GEV"), ("ANET", "ANET"), ("TSM", "TSM"), ("LRCX", "LRCX"),
+    ("AMD", "AMD"), ("CDNS", "CDNS"), ("MSFT", "MSFT"), ("VRT", "VRT"),
+    ("LLY", "LLY"), ("BRK-B", "BRK-B"),
+]  # [11/18 d276] 두산E·SK이노·AMAT·ISRG 제외 / LRCX·MSFT·VRT·LLY·BRK-B 편입  # [9/17 d193] 원익IPS·테스·SPCX 제외, TSM·AMAT 편입 · [9/29 d218] 삼성바이오·PLTR 제외, CDNS·ISRG 편입
 INDEX = [
     ("코스피", "^KS11"), ("코스닥", "^KQ11"), ("S&P500", "^GSPC"),
     ("나스닥", "^IXIC"), ("다우", "^DJI"), ("필라델피아반도체", "^SOX"),

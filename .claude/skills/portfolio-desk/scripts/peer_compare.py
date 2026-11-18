@@ -85,13 +85,13 @@ FIN = os.path.join(ROOT, "data", "app", "financials.json")
 GROUPS = {
     "semi": ("반도체·AI인프라",
              ["NVDA", "MU", "AVGO", "ANET", "005930.KS"],
-             ["000660.KS", "009150.KS", "TSM", "AMAT", "CDNS"]),   # [9/17 d193] 워치 개편 · [9/29 d218] CDNS
+             ["000660.KS", "009150.KS", "TSM", "LRCX", "CDNS", "AMD"]),   # [11/18 d276] AMAT→LRCX   # [9/17 d193] 워치 개편 · [9/29 d218] CDNS
     "bigtech": ("빅테크·플랫폼",
                 ["AAPL", "MSFT", "GOOGL", "META", "ORCL", "035420.KS"],
-                ["TMUS"]),
+                ["MSFT"]),   # [11/18 d276] TMUS→MSFT
     "power": ("전력·피지컬AI",
               ["066570.KS", "454910.KS", "005380.KS"],
-              ["034020.KS", "012450.KS", "042660.KS", "096770.KS", "GEV", "ISRG"]),
+              ["GEV", "VRT"]),   # [11/18 d276] 두산E·한화 2·SK이노·ISRG 제외
 }
 
 # (필드, 표시명, 높을수록 좋은가, 표시배율)
@@ -112,7 +112,8 @@ SHORT = {"005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KS": "두
          # 피어(워치)
          "000660.KS": "SK하이닉스", "009150.KS": "삼성전기", "034020.KS": "두산에너빌",
          "012450.KS": "한화에어로", "042660.KS": "한화오션", "096770.KS": "SK이노베이션",
-         "TSM": "TSMC", "AMAT": "AMAT", "CDNS": "CDNS", "ISRG": "ISRG"}
+         "TSM": "TSMC", "AMAT": "AMAT", "CDNS": "CDNS", "ISRG": "ISRG",
+         "LRCX": "LRCX", "VRT": "VRT", "AMD": "AMD", "MSFT": "MSFT"}
 
 
 def load():

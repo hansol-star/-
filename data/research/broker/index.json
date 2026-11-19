@@ -2295,7 +2295,7 @@
    "title": "NAVER",
    "full_title": "NAVER(035420) 비용 압박은 하반기가 정점 NAVER(035420) 비용 압박은 하반기가 정점 비용 압박은 하반기가 정점",
    "code": "035420",
-   "target_price": 30000.0,
+   "target_price": 300000.0,
    "rating": "Buy",
    "analyst": "김소혜,김나우",
    "broker": "한화투자증권",
@@ -2365,9 +2365,7 @@
    "analyst": "류형근",
    "broker": "대신증권",
    "name": "SK하이닉스",
-   "held": false,
-   "body_chars": 14321,
-   "cached": false
+   "held": false
   },
   "652702": {
    "date": "2026-10-06",
@@ -3212,6 +3210,58 @@
    "analyst": "김운호",
    "broker": "IBK투자증권",
    "name": "삼성전기",
+   "held": false
+  },
+  "654112": {
+   "date": "2026-11-12",
+   "report_idx": "654112",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) (FY25) 높은 산, (FY26) 깊은 골, 적막한 산하 한화오션(042660) (FY25) 높은 산, (FY26) 깊은 골, 적막한 산하 (FY25) 높은 산, (FY26) 깊은 골, 적막한 산하",
+   "code": "042660",
+   "target_price": 104000.0,
+   "rating": "Buy",
+   "analyst": "김용민",
+   "broker": "유안타증권",
+   "name": "한화오션",
+   "held": false
+  },
+  "652950": {
+   "date": "2026-10-14",
+   "report_idx": "652950",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) 해양&함정 수주 이젠 보여줘야 할 때 한화오션(042660) 해양&함정 수주 이젠 보여줘야 할 때 해양&함정 수주 이젠 보여줘야 할 때",
+   "code": "042660",
+   "target_price": 110000.0,
+   "rating": "매수",
+   "analyst": "한승한, 고서영",
+   "broker": "SK증권",
+   "name": "한화오션",
+   "held": false
+  },
+  "652936": {
+   "date": "2026-10-14",
+   "report_idx": "652936",
+   "title": "SK이노베이션",
+   "full_title": "SK이노베이션(096770) 에너지 인플레이션에 헷지 대안 SK이노베이션(096770) 에너지 인플레이션에 헷지 대안 에너지 인플레이션에 헷지 대안",
+   "code": "096770",
+   "target_price": 210000.0,
+   "rating": "Buy",
+   "analyst": "노우호, 황현식",
+   "broker": "메리츠증권",
+   "name": "SK이노베이션",
+   "held": false
+  },
+  "652926": {
+   "date": "2026-10-14",
+   "report_idx": "652926",
+   "title": "한화오션",
+   "full_title": "한화오션(042660) 단기 실적보다 장기 성장성에 집중 한화오션(042660) 단기 실적보다 장기 성장성에 집중 단기 실적보다 장기 성장성에 집중",
+   "code": "042660",
+   "target_price": 100000.0,
+   "rating": "Buy",
+   "analyst": "이서연",
+   "broker": "상상인증권",
+   "name": "한화오션",
    "held": false
   }
  }

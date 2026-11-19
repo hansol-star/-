@@ -1,12 +1,12 @@
 {
- "checked_at": "2026-11-19 22:12",
+ "checked_at": "2026-11-19 22:49",
  "source": "toss",
  "open": [],
  "findings": [
   {
    "level": "yellow",
    "ticker": "454910.KS",
-   "msg": "두산로보틱스 매도 60,000 '매일 등록' 오더가 토스에 없다(o-drb-trim-78k) — 재등록 필요"
+   "msg": "두산로보틱스 매도 50,700 '매일 등록' 오더가 토스에 없다(o-drb-trim-78k) — 재등록 필요"
   },
   {
    "level": "info",
@@ -16,7 +16,7 @@
   {
    "level": "yellow",
    "ticker": "035420.KS",
-   "msg": "NAVER 매도 191,100 '매일 등록' 오더가 토스에 없다(o-naver-exit-1118) — 재등록 필요"
+   "msg": "NAVER 매도 168,300 '매일 등록' 오더가 토스에 없다(o-naver-exit-1118) — 재등록 필요"
   }
  ],
  "counts": {
@@ -29,7 +29,7 @@
   "kr_weight_pct": 21.9,
   "ladder_allowed_krw": 0.0,
   "us_allowed_usd": 0.0,
-  "waiting_plans": 3
+  "waiting_plans": 5
  },
  "pushed_fps": []
 }

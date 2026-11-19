@@ -1,7 +1,7 @@
 {
   "_comment": "종목별 분석 정본 (사람·앱이 함께 읽음). 보고서 갱신 시 여기 stars/target/buy_zone/trim/outlook/comment/issues 를 최신 보고서값으로 업데이트한 뒤 build_app_data.py 재실행. 원가·수량 정본은 portfolio.json, 사람용 서술 정본은 docs/master.md.",
-  "as_of": "2026-11-19 14:0x",
-  "source_report": "docs/reports/report_v139_2026-11-19.md",
+  "as_of": "2026-11-19 22:2x",
+  "source_report": "docs/reports/report_v140_2026-11-19.md",
   "stocks": {
     "005930.KS": {
       "outlook": "core",
@@ -270,9 +270,9 @@
           "note": "ATR 기계 범위(±2.6배) — 변동폭 참고 · 예측 아님"
         }
       },
-      "fund_subscore": 53.3,
+      "fund_subscore": 36.9,
       "price": 48800,
-      "score_basis": "펀더 서브스코어 48.2 vs 최종 15 — 이격 33은 N·L·M 가감분. 룰2 추세형 훼손 3/3(착수) + 미너비니 Stage4·외인 10일 연속 순매도(주도주 L 실격) + TF ACTIVE 국면(M 최하)으로 하향. 펀더<20 모멘텀 분류 대상이라 별점은 +1 상한 적용해 ⭐2.",
+      "score_basis": "[11/19 v140] C2 재무 재수집으로 펀더 서브스코어 53.3 → 36.9(-16.4p) — 스코어 40은 경계값이라 다음 보고서에서 재채점(⭐1 하향 후보). 행동은 불변(이미 60,000원 정리 오더). 펀더 서브스코어 48.2 vs 최종 15 — 이격 33은 N·L·M 가감분. 룰2 추세형 훼손 3/3(착수) + 미너비니 Stage4·외인 10일 연속 순매도(주도주 L 실격) + TF ACTIVE 국면(M 최하)으로 하향. 펀더<20 모멘텀 분류 대상이라 별점은 +1 상한 적용해 ⭐2.",
       "score_rationale": "[v138 재판정 11/18] 펀더 53.3이지만 룰2 3/3 훼손·EPS 리비전 -60 강한하향·모멘텀 상한 → 40(⭐2)",
       "as_of": "2026-11-19",
       "source_report": "docs/reports/report_v139_2026-11-19.md",

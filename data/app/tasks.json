@@ -1719,9 +1719,11 @@
     {
       "id": "pr1119-order",
       "added": "2026-11-18",
-      "done": false,
+      "done": true,
       "text": "미국 트랙 매수 순서에 LLY·BRK-B 추가 여부 결정(d276 후속 · 분산 후보)",
-      "note": "[v139] PM 권고 = LLY·BRK-B를 ⑤(존 도달 시만 · LLY $1,156 · BRK-B $500)로 CDNS 다음·GOOGL 앞에 편입 — 정훈 결정 대기"
+      "note": "[v139] PM 권고 = LLY·BRK-B를 ⑤(존 도달 시만 · LLY $1,156 · BRK-B $500)로 CDNS 다음·GOOGL 앞에 편입 — 정훈 결정 대기",
+      "done_at": "2026-11-19 14:3x",
+      "done_note": "✅ 정훈 \"편입 승인\" → d278: LLY ⑤($1,156)·BRK-B ⑥($500) · tranche_rules US_ZONE_TICKERS·portfolio.json alerts·master §9·CLAUDE.md 반영"
     },
     {
       "id": "pr1119-toss",

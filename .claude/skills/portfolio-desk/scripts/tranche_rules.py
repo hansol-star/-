@@ -312,12 +312,12 @@ def cap_delta_explain(base, unlocked, mult, cap_now=None):
 # 규칙: 달러 잔고를 **3회 균등 분할**(월 1회) · 회차 금액 = 그날 달러 잔고 ÷ 남은 회차 수
 #   (새로 들어온 달러는 남은 회차에 자동으로 퍼지고, 덜 쓴 몫은 다음 회차로 넘어간다)
 #   · S&P 폭풍 ≥70(하드플로어)이면 그 회차 **연기** · 룰3(추격금지)은 그대로 · 자동 집행 아님.
-#   대상 순서: 매수존 안의 우선순위(GEV·ANET·CDNS — d220 9/30 CDNS ④ 편입) → 없으면 GOOGL(주식 비중 18% 상한까지) → 나머지 VOO.
+#   대상 순서: 매수존 안의 우선순위(GEV·ANET·CDNS·LLY·BRK-B — d220 9/30 CDNS ④ · d278 11/19 LLY ⑤·BRK-B ⑥ 편입) → 없으면 GOOGL(주식 비중 18% 상한까지) → 나머지 VOO.
 US_TRACK = os.path.join(ROOT, "data", "app", "us_track.json")
 US_TRANCHES = 3
 US_MIN_CYCLE_USD = 50.0      # 이보다 적은 달러로는 새 사이클을 열지 않는다(소수점 체결 실익)
 US_GOOGL_CAP = 0.18          # d191 — 주식 평가액 기준
-US_ZONE_TICKERS = ("GEV", "ANET", "CDNS")   # d191 ②③ + d220 ④ — 매수존은 portfolio.json alerts(below)가 정본
+US_ZONE_TICKERS = ("GEV", "ANET", "CDNS", "LLY", "BRK-B")   # d191 ②③ + d220 ④ + d278 ⑤⑥(11/19 정훈 승인 — 분산 후보 · 존 도달 시만) — 매수존은 portfolio.json alerts(below)가 정본
 # ★[10/21 d251 정훈 승인 "다 승인"] '월 1회차' = **직전 회차 체결 세션 + 1개월 이후**.
 #   舊 코드는 2회차를 기록하는 순간 3회차 zone_open을 냈다(10/19 실측 — 따르면 달러가 한 주 안에 바닥난다).
 #   ⇒ 다음 회차(존 조기 집행이든 회차일 집행이든)는 직전 회차의 마지막 체결 세션(美 현지일) + 1개월 전엔 열지 않는다.

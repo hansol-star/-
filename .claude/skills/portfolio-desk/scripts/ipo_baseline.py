@@ -43,7 +43,33 @@ IPOS = [
     ("FIG", "Figma", "2025-07-31", 33.0),
     ("SPCX", "SpaceX", "2026-06-12", 135.0),
 ]
+# --short(단기 매매) 표본 확대 — 미국 대형 IPO(직상장 제외). 공모가는 공식 확정가.
+IPOS_EXTRA = [
+    ("SNAP", "Snap", "2017-03-02", 17.0),
+    ("DBX", "Dropbox", "2018-03-23", 21.0),
+    ("LYFT", "Lyft", "2019-03-29", 72.0),
+    ("PINS", "Pinterest", "2019-04-18", 19.0),
+    ("ZM", "Zoom", "2019-04-18", 36.0),
+    ("CRWD", "CrowdStrike", "2019-06-12", 34.0),
+    ("U", "Unity", "2020-09-18", 52.0),
+    ("DASH", "DoorDash", "2020-12-09", 102.0),
+    ("BMBL", "Bumble", "2021-02-11", 43.0),
+    ("CPNG", "Coupang", "2021-03-11", 35.0),
+    ("HOOD", "Robinhood", "2021-07-29", 38.0),
+    ("CART", "Instacart", "2023-09-19", 30.0),
+    ("KVYO", "Klaviyo", "2023-09-20", 30.0),
+    ("BIRK", "Birkenstock", "2023-10-11", 46.0),
+    ("ALAB", "Astera Labs", "2024-03-20", 36.0),
+    ("CHYM", "Chime", "2025-06-12", 27.0),
+    ("KLAR", "Klarna", "2025-09-10", 40.0),
+]
 HORIZONS = (("1M", 21), ("3M", 63), ("6M", 126), ("12M", 252))
+# 사전등록(trials.jsonl `ipo_flip` · 11/20) — 진입 4 × 보유 4 + 조건부 4 = 20
+ENTRIES = (("첫날 시초", 0, "o"), ("첫날 종가", 0, "c"), ("2일 종가", 1, "c"), ("3일 종가", 2, "c"))
+HOLDS = (1, 3, 5, 10)
+COND = (("2일 종가 if 첫날 종가>시초", 1, lambda b: b[0][2] > b[0][1]),
+        ("3일 종가 if 3일 종가>첫날 시초", 2, lambda b: b[2][2] > b[0][1]))
+ERAS = (("2012-19", "2012", "2019-12-31"), ("2020-21", "2020", "2021-12-31"), ("2023-26", "2023", "2099"))
 
 
 def _bars(sym, start):
@@ -135,10 +161,114 @@ def show(rows):
     print("⚠️ 선택 편향(이름 있는 대형 IPO만) · 이벤트 1건씩 = 검정 아님")
 
 
+def _binom_p(k, n):
+    """단측: 승 k/n이 50%보다 클 확률의 p."""
+    from math import comb
+    return sum(comb(n, i) for i in range(k, n + 1)) / 2 ** n if n else 1.0
+
+
+def _holm(ps):
+    order = sorted(range(len(ps)), key=lambda i: ps[i])
+    adj, run = [0.0] * len(ps), 0.0
+    for r, i in enumerate(order):
+        run = max(run, min(1.0, (len(ps) - r) * ps[i]))
+        adj[i] = run
+    return adj
+
+
+def measure_short():
+    """상장 초반 단기 매매 — 진입·보유 변형별 S&P 대비 초과(%p) 분포."""
+    spx = {b[0]: b[2] for b in _bars("^GSPC", "2012-05-01")}
+    sdays = sorted(spx)
+    events, skipped = [], []
+    for sym, name, day, offer in IPOS + IPOS_EXTRA:
+        try:
+            b = _bars(sym, day)
+        except Exception as e:  # noqa: BLE001
+            skipped.append(f"{name}: {str(e)[:40]}")
+            continue
+        if not b or b[0][0] != day or len(b) < 14:
+            skipped.append(f"{name}: 첫 봉 {b[0][0] if b else '없음'}")
+            continue
+        k0 = b[0][3]
+        below = min(x[2] for x in b[:21]) / (offer * k0) - 1  # 20거래일 안 최저 종가 ÷ 공모가
+        events.append({"name": name, "date": day, "bars": b, "below_offer_20d": round(below * 100, 1),
+                       "open_vs_offer": round((b[0][1] / (offer * k0) - 1) * 100, 1)})
+
+    def spx_ret(d0, d1):
+        a = spx.get(d0) or spx.get(max([d for d in sdays if d <= d0] or [None]) or "")
+        z = spx.get(d1) or spx.get(max([d for d in sdays if d <= d1] or [None]) or "")
+        return (z / a - 1) if (a and z) else 0.0
+
+    variants = []
+    for lab, ei, px in ENTRIES:
+        for h in HOLDS:
+            variants.append((f"{lab} → {h}일", ei, px, h, None))
+    for lab, ei, cond in COND:
+        for h in (5, 10):
+            variants.append((f"{lab} → {h}일", ei, "c", h, cond))
+    out = []
+    for name, ei, px, h, cond in variants:
+        xs, raw, eras = [], [], {e[0]: [] for e in ERAS}
+        for ev in events:
+            b = ev["bars"]
+            if len(b) <= ei + h or (cond and not cond(b)):
+                continue
+            p0 = b[ei][1] if px == "o" else b[ei][2]
+            d0 = b[ei][0] if px == "c" else (b[ei - 1][0] if ei else None)
+            p1 = b[ei + h][2]
+            r = p1 / p0 - 1
+            # 시초 진입의 벤치 기준 = 전일 S&P 종가(같은 날 시초 S&P는 없다)
+            base_day = d0 or max(d for d in sdays if d < b[0][0])
+            x = (r - spx_ret(base_day, b[ei + h][0])) * 100
+            xs.append(x)
+            raw.append(r * 100)
+            for en, lo, hi in ERAS:
+                if lo <= ev["date"][:4] <= hi[:4] or (lo <= ev["date"] <= hi):
+                    eras[en].append(x)
+                    break
+        n = len(xs)
+        k = sum(1 for x in xs if x > 0)
+        srt = sorted(xs)
+        out.append({"variant": name, "n": n, "mean_xs": round(sum(xs) / n, 2) if n else None,
+                    "median_xs": round(_med(xs), 2) if n else None, "win": k,
+                    "p": _binom_p(k, n), "worst10": round(srt[max(0, int(n * 0.1) - 1)], 1) if n else None,
+                    "best": round(srt[-1], 1) if n else None,
+                    "era_mean": {e: (round(sum(v) / len(v), 1) if v else None) for e, v in eras.items()},
+                    "mean_raw": round(sum(raw) / n, 2) if n else None})
+    adj = _holm([o["p"] for o in out])
+    for o, a in zip(out, adj):
+        o["holm"] = round(a, 3)
+    return {"events": [{k: v for k, v in e.items() if k != "bars"} for e in events], "skipped": skipped,
+            "variants": out}
+
+
+def show_short(res):
+    ev = res["events"]
+    print(f"── 상장 초반 단기 매매 — 표본 {len(ev)}건 · 초과 = S&P500 대비 %p · 사전등록 ipo_flip(20 변형)")
+    if res["skipped"]:
+        print("   제외:", " · ".join(res["skipped"]))
+    print(f"{'변형':<30}{'n':>3}{'평균':>7}{'중앙':>7}{'승':>6}{'하위10%':>8}{'최고':>7}{'Holm':>7}  시기별 평균(12-19 / 20-21 / 23-26)")
+    for o in res["variants"]:
+        e = o["era_mean"]
+        f = lambda x: "—" if x is None else f"{x:+.1f}"
+        print(f"{o['variant']:<30}{o['n']:>3}{f(o['mean_xs']):>7}{f(o['median_xs']):>7}{o['win']:>3}/{o['n']:<2}"
+              f"{f(o['worst10']):>8}{f(o['best']):>7}{o['holm']:>7.3f}  {f(e['2012-19'])} / {f(e['2020-21'])} / {f(e['2023-26'])}")
+    bo = [e["below_offer_20d"] for e in ev]
+    print(f"20거래일 안 종가가 공모가 아래로 간 건: {sum(1 for x in bo if x < 0)}/{len(bo)} · 중앙 최저 {_med(bo):+.1f}% (공모가 대비)")
+
+
 def main():
     ap = argparse.ArgumentParser(description="대형 기술주 IPO 기저율 — 첫날 시초가 진입 (측정 전용)")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--short", action="store_true", help="상장 초반 단기 매매(사전등록 ipo_flip 20 변형) — 표본 약 29건")
     a = ap.parse_args()
+    if a.short:
+        res = measure_short()
+        print(json.dumps(res, ensure_ascii=False, indent=1) if a.json else "", end="")
+        if not a.json:
+            show_short(res)
+        return
     rows = measure()
     if a.json:
         print(json.dumps(rows, ensure_ascii=False, indent=1))

@@ -1,7 +1,9 @@
 {
  "updated": "2026-11-19",
  "covered": [
-  "TSLA"
+  "005380.KS",
+  "035420.KS",
+  "454910.KS"
  ],
  "errors": {},
  "stocks": {
@@ -6455,7 +6457,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-18",
+   "as_of": "2026-11-19",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6605,6 +6607,44 @@
    ],
    "quarterly": [
     {
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "revenue": 16175182000.0,
+     "gross_profit": 4617353000.0,
+     "operating_income": 4617353000.0,
+     "net_income": -18301196000.0,
+     "eps_diluted": -282.33881,
+     "shares_diluted": null,
+     "assets": 407992804000.0,
+     "liabilities": 103185347000.0,
+     "equity": 304807457000.0,
+     "cash": null,
+     "inventory": null,
+     "receivables": null,
+     "assets_current": 253722215000.0,
+     "liabilities_current": 19268157000.0,
+     "total_debt": null,
+     "cfo": null,
+     "capex": null,
+     "fcf": null,
+     "_derived": [],
+     "gross_margin": 0.2855,
+     "op_margin": 0.2855,
+     "net_margin": -1.1314,
+     "fcf_margin": null,
+     "roe": -0.06,
+     "debt_to_equity": null,
+     "current_ratio": 13.168,
+     "net_cash": null,
+     "revenue_yoy": 59.1273,
+     "eps_yoy": -42.5954,
+     "net_income_yoy": -42.338,
+     "inventory_yoy": null,
+     "receivables_yoy": null,
+     "shares_yoy": null,
+     "deferred_yoy": null
+    },
+    {
      "end": "2026-06-30",
      "period": "quarterly",
      "revenue": 17674019170.0,
@@ -6612,7 +6652,7 @@
      "operating_income": -14417199750.0,
      "net_income": -12792294890.0,
      "eps_diluted": -197.0,
-     "shares_diluted": 64935507.0,
+     "shares_diluted": 64819980.0,
      "assets": 441860914940.0,
      "liabilities": 112629049100.0,
      "equity": 329231865840.0,
@@ -6633,14 +6673,7 @@
      "roe": -0.0389,
      "debt_to_equity": 0.2541,
      "current_ratio": 13.8851,
-     "net_cash": 12849887990.0,
-     "revenue_yoy": 289.9594,
-     "eps_yoy": 23.0469,
-     "net_income_yoy": 22.7828,
-     "inventory_yoy": -28.4822,
-     "receivables_yoy": 44.3902,
-     "shares_yoy": 0.3432,
-     "deferred_yoy": null
+     "net_cash": 12849887990.0
     },
     {
      "end": "2026-03-31",
@@ -6734,78 +6767,47 @@
      "debt_to_equity": 0.0258,
      "current_ratio": 14.5408,
      "net_cash": 191894491840.0
-    },
-    {
-     "end": "2025-06-30",
-     "period": "quarterly",
-     "revenue": 4532272040.0,
-     "gross_profit": 360663120.0,
-     "operating_income": -15650237880.0,
-     "net_income": -16566633370.0,
-     "eps_diluted": -256.0,
-     "shares_diluted": 64713412.0,
-     "assets": 395945024640.0,
-     "liabilities": 18941047630.0,
-     "equity": 377003977000.0,
-     "cash": 123732215900.0,
-     "inventory": 27181510150.0,
-     "receivables": 14022325000.0,
-     "assets_current": 304310709580.0,
-     "liabilities_current": 10013038800.0,
-     "total_debt": 7446459180.0,
-     "cfo": -2663548470.0,
-     "capex": 4084994750.0,
-     "fcf": -6748543220.0,
-     "_derived": [],
-     "gross_margin": 0.0796,
-     "op_margin": -3.4531,
-     "net_margin": -3.6553,
-     "fcf_margin": -1.489,
-     "roe": -0.0439,
-     "debt_to_equity": 0.0198,
-     "current_ratio": 30.3914,
-     "net_cash": 116285756720.0
     }
    ],
    "flags": [
     {
      "code": "debt_buildup",
      "severity": "med",
-     "message": "순현금 116.3B → 12.8B (1년 새 103.4B 악화)",
+     "message": "순현금 262.8B → 140.7B (1년 새 122.2B 악화)",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "net_cash": 12849887990.0
+       "end": "2025-12-31",
+       "net_cash": 140693185190.0
       },
       {
-       "end": "2025-06-30",
-       "net_cash": 116285756720.0
+       "end": "2024-12-31",
+       "net_cash": 262846769520.0
       }
      ]
     },
     {
      "code": "debt_buildup",
      "severity": "med",
-     "message": "총차입금 7.4B → 83.7B (YoY +1023.6%) · 순현금 12.8B (여유 — 캐펙스 조달 성격) — 조달한 현금을 쌓아두면 순현금 지표엔 안 잡힌다",
+     "message": "총차입금 2.7B → 16.0B (YoY +496.7%) · 순현금 140.7B (여유 — 캐펙스 조달 성격) — 조달한 현금을 쌓아두면 순현금 지표엔 안 잡힌다",
      "evidence": [
       {
-       "end": "2026-06-30",
-       "total_debt": 83666903950.0
+       "end": "2025-12-31",
+       "total_debt": 16045396090.0
       },
       {
-       "end": "2025-06-30",
-       "total_debt": 7446459180.0
+       "end": "2024-12-31",
+       "total_debt": 2688845300.0
       }
      ]
     }
    ],
-   "fund_subscore": 53.3,
+   "fund_subscore": 36.9,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
-     "score": 18.3,
+     "score": 1.9,
      "max": 25,
-     "why": "분기 희석EPS YoY +23.0%"
+     "why": "분기 희석EPS YoY -42.6%"
     },
     "A_연간EPS": {
      "score": 0,
@@ -6815,7 +6817,7 @@
     "마진방향": {
      "score": 20,
      "max": 20,
-     "why": "영업마진 +44.95%p (최근 연속 3분기)"
+     "why": "영업마진 +107.46%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 0,
@@ -6838,7 +6840,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-18",
+   "as_of": "2026-11-19",
    "annual": [
     {
      "end": "2025-12-31",
@@ -7213,7 +7215,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-18",
+   "as_of": "2026-11-19",
    "annual": [
     {
      "end": "2025-12-31",

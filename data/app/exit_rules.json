@@ -1,0 +1,299 @@
+{
+ "date": "2026-11-19",
+ "rule": "룰8 d282 — A EPS90≤-10% · B 분기마진 2연속↓ · C 룰2≥2/3(금융 1/1) · 2개 이상=정리 · -20%=재점검",
+ "rows": [
+  {
+   "count": 0,
+   "verdict": "정상",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": false
+   },
+   "missing": [],
+   "review": true,
+   "ticker": "005930.KS",
+   "name": "삼성전자",
+   "price": 196900.0,
+   "cost": 267500,
+   "pnl_pct": -26.4,
+   "eps90": 15.5,
+   "qmargins": [
+    69.3,
+    52.2,
+    42.8
+   ],
+   "r2": "1/3"
+  },
+  {
+   "count": 0,
+   "verdict": "정상",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": false
+   },
+   "missing": [],
+   "review": false,
+   "ticker": "066570.KS",
+   "name": "LG전자",
+   "price": 135900.0,
+   "cost": 155200,
+   "pnl_pct": -12.4,
+   "eps90": -1.3,
+   "qmargins": [
+    24.4,
+    6.6,
+    7.0
+   ],
+   "r2": "1/3"
+  },
+  {
+   "count": 2,
+   "verdict": "정리",
+   "conds": {
+    "A": true,
+    "B": false,
+    "C": true
+   },
+   "missing": [],
+   "review": true,
+   "ticker": "454910.KS",
+   "name": "두산로보틱스",
+   "price": 50700.0,
+   "cost": 100000,
+   "pnl_pct": -49.3,
+   "eps90": -51.6,
+   "qmargins": [
+    28.5,
+    -81.6,
+    -78.9
+   ],
+   "r2": "3/3"
+  },
+  {
+   "count": 2,
+   "verdict": "정리",
+   "conds": {
+    "A": true,
+    "B": false,
+    "C": true
+   },
+   "missing": [],
+   "review": true,
+   "ticker": "005380.KS",
+   "name": "현대차",
+   "price": 267500.0,
+   "cost": 630000,
+   "pnl_pct": -57.5,
+   "eps90": -15.7,
+   "qmargins": [
+    5.8,
+    5.5,
+    3.6
+   ],
+   "r2": "1/1 (금융연결)"
+  },
+  {
+   "count": 2,
+   "verdict": "정리",
+   "conds": {
+    "A": true,
+    "B": true,
+    "C": false
+   },
+   "missing": [],
+   "review": true,
+   "ticker": "035420.KS",
+   "name": "NAVER",
+   "price": 168300.0,
+   "cost": 250500,
+   "pnl_pct": -32.8,
+   "eps90": -10.1,
+   "qmargins": [
+    13.0,
+    15.3,
+    16.7
+   ],
+   "r2": "0/3"
+  },
+  {
+   "count": 0,
+   "verdict": "정상",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": false
+   },
+   "missing": [],
+   "review": true,
+   "ticker": "NVDA",
+   "name": "NVDA",
+   "price": 155.46,
+   "cost": 197.193225,
+   "pnl_pct": -21.2,
+   "eps90": 27.7,
+   "qmargins": [
+    66.2,
+    65.6,
+    65.0
+   ],
+   "r2": "0/3"
+  },
+  {
+   "count": null,
+   "verdict": "제외",
+   "conds": {},
+   "missing": [],
+   "review": false,
+   "ticker": "VOO",
+   "name": "VOO",
+   "price": 673.19,
+   "cost": 668.448562,
+   "pnl_pct": 0.7,
+   "eps90": null,
+   "qmargins": [],
+   "r2": null
+  },
+  {
+   "count": 1,
+   "verdict": "감시",
+   "conds": {
+    "A": false,
+    "B": true,
+    "C": false
+   },
+   "missing": [],
+   "review": false,
+   "ticker": "GOOGL",
+   "name": "GOOGL",
+   "price": 280.2,
+   "cost": 331.325927,
+   "pnl_pct": -15.4,
+   "eps90": 0.5,
+   "qmargins": [
+    31.8,
+    34.0,
+    36.1
+   ],
+   "r2": "1/3"
+  },
+  {
+   "count": 1,
+   "verdict": "감시",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": true
+   },
+   "missing": [],
+   "review": false,
+   "ticker": "ORCL",
+   "name": "ORCL",
+   "price": 115.0,
+   "cost": 138.924697,
+   "pnl_pct": -17.2,
+   "eps90": 1.3,
+   "qmargins": [
+    34.8,
+    32.0,
+    31.8
+   ],
+   "r2": "2/3"
+  },
+  {
+   "count": 0,
+   "verdict": "정상",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": false
+   },
+   "missing": [],
+   "review": false,
+   "ticker": "MU",
+   "name": "MU",
+   "price": 712.42,
+   "cost": 749.239988,
+   "pnl_pct": -4.9,
+   "eps90": 22.8,
+   "qmargins": [
+    80.7,
+    80.4,
+    67.6
+   ],
+   "r2": "0/3"
+  },
+  {
+   "count": 0,
+   "verdict": "정상",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": false
+   },
+   "missing": [],
+   "review": false,
+   "ticker": "AVGO",
+   "name": "AVGO",
+   "price": 341.6,
+   "cost": 356.4675,
+   "pnl_pct": -4.2,
+   "eps90": -0.8,
+   "qmargins": [
+    53.9,
+    48.6,
+    44.3
+   ],
+   "r2": "0/3"
+  },
+  {
+   "count": 0,
+   "verdict": "정상",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": null
+   },
+   "missing": [
+    "C 룰2"
+   ],
+   "review": false,
+   "ticker": "SPCX",
+   "name": "SpaceX",
+   "price": 141.7,
+   "cost": 140.18,
+   "pnl_pct": 1.1,
+   "eps90": 133.9,
+   "qmargins": [
+    19.1,
+    -1.8,
+    -4.9
+   ],
+   "r2": null
+  },
+  {
+   "count": 0,
+   "verdict": "정상",
+   "conds": {
+    "A": false,
+    "B": false,
+    "C": false
+   },
+   "missing": [],
+   "review": false,
+   "ticker": "TSLA",
+   "name": "Tesla",
+   "price": 383.72,
+   "cost": 385.229997,
+   "pnl_pct": -0.4,
+   "eps90": -4.1,
+   "qmargins": [
+    2.6,
+    1.4,
+    4.2
+   ],
+   "r2": "1/3"
+  }
+ ]
+}

@@ -54,6 +54,8 @@ if HERE not in sys.path:
 # ── ① 서브프로세스형 (자체 음성 테스트를 가진 가드) ─────────────────────
 SUBPROCESS_TESTS = [
     ("lookahead_guard.py", ["--negative"], "룩어헤드 접두사 불변성 — 심어둔 미래참조 3종 적발"),
+    ("exit_rules.py", ["--selftest"],
+     "룰8 정리 기준(d282 11/19) — 2/3 판정·금융연결 1/1·경계 -10.0/-9.9·결측 미충족·-20% 재점검·ETF 제외"),
     ("split_guard.py", ["--selftest"],
      "분할 스케일 혼재 — 10배 왜곡 적발 + 오프라인 경로 · 기준기(1년 전)는 위치가 아니라 날짜(10/14)"),
     ("edgar_facts.py", ["--selftest"],
@@ -868,6 +870,27 @@ INJECTION_TESTS = [
              "status": "🟢 결정 완료", "expires": "2026-10-31", "resolved_note": "10/29 매출 200억 이상 — 홀드 유지"}]},
             ensure_ascii=False)},
         "args": (datetime.date(2026, 11, 2),),
+    },
+
+    {
+        "name": "check_exit_rules",
+        "desc": "정리 기준(룰8) 2/3 충족 종목에 매도 오더가 없으면 잡는가",
+        "why": "11/19 d282 — 가격 % 룰 기각 후 이익전망·분기마진·룰2 3조건으로 정리를 정했다. 판정만 나오고 "
+               "오더북에 안 올라가면 8/2·11/1 재현 — 픽스처 = NAVER형 2/3 정리 판정 + 매도 오더 없음",
+        "pattern": r"정리 기준 \d/3 충족 — 매도 오더 없음",
+        "violate": {
+            "data/app/exit_rules.json": json.dumps({"date": "2026-11-19", "rows": [
+                {"ticker": "035420.KS", "name": "NAVER", "verdict": "정리", "count": 2}]}, ensure_ascii=False),
+            "data/app/tasks.json": json.dumps({"orders": [
+                {"id": "o-x", "ticker": "035420.KS", "action": "매도", "status": "체결 — 11/5"}]}, ensure_ascii=False)},
+        "clean": {
+            "data/app/exit_rules.json": json.dumps({"date": "2026-11-19", "rows": [
+                {"ticker": "035420.KS", "name": "NAVER", "verdict": "정리", "count": 2}]}, ensure_ascii=False),
+            "data/app/tasks.json": json.dumps({"orders": [
+                {"id": "o-x", "ticker": "035420.KS", "action": "매도",
+                 "status": "계획 — 11/20 09:00 지정가 · 14:30 미체결이면 매수1호가 재주문"}]},
+                ensure_ascii=False)},
+        "args": (datetime.date(2026, 11, 20),),
     },
 
     {

@@ -2702,6 +2702,44 @@ def check_lapsed_holds(today=None):
                  f"{str(o.get('label'))[:50]} — 조건 판정을 `resolved_note`에 남길 것(미충족도 판정이다)")
 
 
+_EXIT_ORDER_CLOSED = re.compile(r"^\s*⚪|종결|폐기|(?<!미)체결|취소")
+
+
+def check_exit_rules(today=None):
+    """룰8 정리 기준(d282 · 11/19 정훈 승인) — 2/3 충족 종목에 매도 오더가 없으면 잡는다.
+
+    ★계기: 11/19 정훈 *"+몇% 하락 몇% 되면 팔고 정리하는 기준을 정해두자"* → 가격 % 룰은 검정 기각
+    (`pct_exit_test.py` 24개 전부 Holm 1.000) → 이익전망·분기마진·룰2 3조건 중 2개 = 정리로 승인.
+    정리 판정은 `exit_rules.py --save`가 data/app/exit_rules.json에 쓴다. 판정이 나왔는데 오더북에
+    매도가 없으면 8/2·11/1과 같은 실패다 — *오더북에 들어간 것만 집행된다.*
+    """
+    res = _json_opt("data/app/exit_rules.json")
+    today = today or dt.date.today()
+    if not res:
+        warn("정리 기준 판정 없음 — `exit_rules.py --save`를 돌릴 것(룰8 d282)")
+        return
+    try:
+        age = (today - dt.date.fromisoformat(str(res.get("date"))[:10])).days
+    except ValueError:
+        age = 99
+    if age > 3:
+        warn(f"정리 기준 판정 {age}일 지남 — `exit_rules.py --save` 재실행(룰8 d282)")
+    tasks = _json_opt("data/app/tasks.json") or {}
+    open_sells = set()
+    for o in tasks.get("orders") or []:
+        if not isinstance(o, dict):
+            continue
+        # ⚠️ '미체결이면 재주문'의 '체결'을 닫힌 오더로 읽으면 안 된다(11/19 첫 실행 거짓 경보 3건)
+        if _EXIT_ORDER_CLOSED.search(str(o.get("status", ""))):
+            continue
+        if re.search(r"매도|트림|정리", str(o.get("action", ""))):
+            open_sells.add(str(o.get("ticker")))
+    for r in res.get("rows") or []:
+        if r.get("verdict") == "정리" and str(r.get("ticker")) not in open_sells:
+            warn(f"정리 기준 {r.get('count')}/3 충족 — 매도 오더 없음 [{r.get('ticker')} {r.get('name')}] "
+                 f"→ tasks.json orders에 매도(사유 논지무효)를 올리거나 판정을 반박할 것(룰8)")
+
+
 _ORDER_CARD_FROM = dt.date(2026, 11, 2)
 _ORDER_DONE = re.compile(r"^\s*⚪|^\s*⛔|^\s*❌|종결|폐기|체결|취소|대체됨|미접수|건너뜀")
 _ORDER_BUY = re.compile(r"매수|적립")
@@ -3631,7 +3669,7 @@ def main():
     check_order_check(); check_us_ledger(); check_tranche_fill_ledger(); check_calibration_debt()
     check_playbook_fresh()
     check_monthly_dca(); check_desk_value_gate()
-    check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_lapsed_holds(); check_order_cards(); check_forecast_mech(); check_forecast_ledger(); check_dead_alerts()
+    check_routine_health(); check_close_recon(); check_memory_index(); check_watch_calls(latest); check_watch_prose(); check_pre_report(latest); check_lapsed_holds(); check_exit_rules(); check_order_cards(); check_forecast_mech(); check_forecast_ledger(); check_dead_alerts()
     check_transcript_persistence(); check_data_archive()
     check_hunter_tickers()
     check_split_scale()

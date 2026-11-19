@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-18",
- "days": 9,
+ "updated": "2026-11-19",
+ "days": 3,
  "universe": [
   "005930",
   "066570",
@@ -17,10 +17,22 @@
  ],
  "counts": {
   "critical": 0,
-  "notable": 3,
-  "routine": 37
+  "notable": 2,
+  "routine": 10
  },
  "items": [
+  {
+   "code": "042660",
+   "name": "한화오션",
+   "date": "20261119",
+   "title": "단일판매ㆍ공급계약체결",
+   "level": "notable",
+   "category": "대형계약",
+   "why": "성장 논지 검증",
+   "rcept_no": "20261119800082",
+   "filer": "한화오션",
+   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261119800082"
+  },
   {
    "code": "034020",
    "name": "두산에너빌리티",
@@ -32,57 +44,17 @@
    "rcept_no": "20261116802608",
    "filer": "두산에너빌리티",
    "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116802608"
-  },
-  {
-   "code": "035420",
-   "name": "NAVER",
-   "date": "20261112",
-   "title": "영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261112800028",
-   "filer": "NAVER",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112800028"
-  },
-  {
-   "code": "035420",
-   "name": "NAVER",
-   "date": "20261112",
-   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "level": "notable",
-   "category": "실적",
-   "why": "⚠️ 분기 실적인지 월간 판매실적인지 원문 실적기간 확인(현대차는 매월 1일 같은 제목으로 판매대수만 공시 — 10/1 오독)",
-   "rcept_no": "20261112800027",
-   "filer": "NAVER",
-   "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112800027"
   }
  ],
  "insider": [
   {
    "code": "005930",
    "name": "삼성전자",
-   "n": 7,
-   "net": 11152530,
-   "n_buy": 3,
-   "n_sell": 4,
+   "n": 1,
+   "net": -1206,
+   "n_buy": 0,
+   "n_sell": 1,
    "top": [
-    {
-     "who": "이재용",
-     "ofcps": "회장",
-     "regist": "비등기임원",
-     "delta": 11158000,
-     "held": 116377053,
-     "date": "2026-11-13"
-    },
-    {
-     "who": "이시영",
-     "ofcps": "부사장",
-     "regist": "비등기임원",
-     "delta": -3700,
-     "held": 4852,
-     "date": "2026-11-11"
-    },
     {
      "who": "GOYAL SIDDHARTH",
      "ofcps": "상무",
@@ -90,14 +62,6 @@
      "delta": -1206,
      "held": 0,
      "date": "2026-11-18"
-    },
-    {
-     "who": "김평진",
-     "ofcps": "부사장",
-     "regist": "비등기임원",
-     "delta": -780,
-     "held": 4057,
-     "date": "2026-11-10"
     }
    ]
   },
@@ -122,19 +86,11 @@
   {
    "code": "005380",
    "name": "현대차",
-   "n": 2,
-   "net": 89,
-   "n_buy": 2,
+   "n": 1,
+   "net": 8,
+   "n_buy": 1,
    "n_sell": 0,
    "top": [
-    {
-     "who": "이승애",
-     "ofcps": "상무",
-     "regist": "비등기임원",
-     "delta": 81,
-     "held": 81,
-     "date": "2026-11-09"
-    },
     {
      "who": "박무곤",
      "ofcps": "상무",
@@ -148,44 +104,11 @@
   {
    "code": "035420",
    "name": "NAVER",
-   "n": 4,
+   "n": 0,
    "net": 0,
-   "n_buy": 2,
-   "n_sell": 2,
-   "top": [
-    {
-     "who": "임동아",
-     "ofcps": "리더",
-     "regist": "비등기임원",
-     "delta": 1000,
-     "held": 1505,
-     "date": "2026-11-13"
-    },
-    {
-     "who": "나군호",
-     "ofcps": "리더/연구소장/원장",
-     "regist": "비등기임원",
-     "delta": -1000,
-     "held": 2101,
-     "date": "2026-11-13"
-    },
-    {
-     "who": "오성권",
-     "ofcps": "리더",
-     "regist": "비등기임원",
-     "delta": -50,
-     "held": 1206,
-     "date": "2026-11-13"
-    },
-    {
-     "who": "김소연",
-     "ofcps": "리더",
-     "regist": "비등기임원",
-     "delta": 50,
-     "held": 1884,
-     "date": "2026-11-13"
-    }
-   ]
+   "n_buy": 0,
+   "n_sell": 0,
+   "top": []
   },
   {
    "code": "000660",

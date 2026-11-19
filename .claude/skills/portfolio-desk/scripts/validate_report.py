@@ -36,6 +36,8 @@ HOLDINGS = {
     # [10/29] ANET 재편입 — 10/22 미국 트랙 2회차 1주 $177 체결(토스 대조로 장부 누락 보강) → 보유 13종목.
     # [11/18] 정훈 직접 매매(토스 대조): MSFT 11/10 전량·ANET 11/13 전량 매도 → 제외 · SPCX 11/13 $100 재편입 → 보유 12종목.
     "SPCX": ["SPCX", "스페이스X", "SpaceX"],
+    # [11/19] TSLA 재편입 — 11/18 정훈 직접 $50 시장가 0.129662주 @$385.23 체결(토스 대조) → 보유 13종목.
+    "TSLA": ["TSLA", "테슬라", "Tesla"],
 }
 ETF_NO_SCORE = {"VOO"}                 # ETF = 0~100 스코어 제외(null 허용)
 REQUIRED_COLS = ["stars", "target", "buy_zone", "trim", "comment"]  # +score(ETF 외)

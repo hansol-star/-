@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18",
+ "updated": "2026-11-19",
  "symbols": {
   "^KS11": {
    "label": "코스피",
@@ -441,7 +441,14 @@
    "last": "2026-11-17",
    "days": 110,
    "years": 0.4
+  },
+  "TSLA": {
+   "label": "Tesla",
+   "first": "2010-06-29",
+   "last": "2026-11-18",
+   "days": 4124,
+   "years": 16.4
   }
  },
- "total_daily_bars": 492186
+ "total_daily_bars": 496310
 }

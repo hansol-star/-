@@ -63,8 +63,8 @@
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "shares": 5.138203,
-        "cost": 199.510951
+        "shares": 5.4519,
+        "cost": 197.193225
       },
       {
         "label": "VOO",
@@ -101,6 +101,12 @@
         "ticker": "SPCX",
         "shares": 0.712655,
         "cost": 140.18
+      },
+      {
+        "label": "Tesla",
+        "ticker": "TSLA",
+        "shares": 0.129662,
+        "cost": 385.229997
       }
     ]
   },

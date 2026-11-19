@@ -3148,6 +3148,71 @@
    "broker": "iM증권",
    "name": "삼성전기",
    "held": false
+  },
+  "654195": {
+   "date": "2026-11-13",
+   "report_idx": "654195",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 아쉬운 본업, AI팩토리 가시화 NAVER(035420) 아쉬운 본업, AI팩토리 가시화 아쉬운 본업, AI팩토리 가시화",
+   "code": "035420",
+   "target_price": 293000.0,
+   "rating": "Buy",
+   "analyst": "선유진",
+   "broker": "LS증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "654159": {
+   "date": "2026-11-13",
+   "report_idx": "654159",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 성장 잠재력은 확인, 수익성은 숙제 NAVER(035420) 성장 잠재력은 확인, 수익성은 숙제 성장 잠재력은 확인, 수익성은 숙제",
+   "code": "035420",
+   "target_price": 260000.0,
+   "rating": "매수",
+   "analyst": "남효지",
+   "broker": "SK증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "654143": {
+   "date": "2026-11-13",
+   "report_idx": "654143",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 겨울 NAVER(035420) 겨울 겨울",
+   "code": "035420",
+   "target_price": 270000.0,
+   "rating": "Buy",
+   "analyst": "이효진,김수민",
+   "broker": "메리츠증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "654133": {
+   "date": "2026-11-13",
+   "report_idx": "654133",
+   "title": "NAVER",
+   "full_title": "NAVER(035420) 무거워진 AI팩토리의 어깨 NAVER(035420) 무거워진 AI팩토리의 어깨 무거워진 AI팩토리의 어깨",
+   "code": "035420",
+   "target_price": 320000.0,
+   "rating": "Buy",
+   "analyst": "정의훈",
+   "broker": "유진투자증권",
+   "name": "NAVER",
+   "held": true
+  },
+  "654125": {
+   "date": "2026-11-12",
+   "report_idx": "654125",
+   "title": "삼성전기",
+   "full_title": "삼성전기(009150) NDR 후기: 자신감 넘치는 수요 전망 삼성전기(009150) NDR 후기: 자신감 넘치는 수요 전망 NDR 후기: 자신감 넘치는 수요 전망",
+   "code": "009150",
+   "target_price": 1900000.0,
+   "rating": "매수",
+   "analyst": "김운호",
+   "broker": "IBK투자증권",
+   "name": "삼성전기",
+   "held": false
   }
  }
 }

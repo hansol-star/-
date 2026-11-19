@@ -1,6 +1,6 @@
 {
  "date": "2026-11-19",
- "run_at": "2026-11-19 17:43",
+ "run_at": "2026-11-19 20:10",
  "status": "ok",
  "notes": [
   "정규장 캡처 없음(16:10 실행 누락) — 게이트②는 이날 |외인| ≥ 3,000억일 때만 부호를 인정하고 아니면 '판정 보류' · 매체 마감시황(정규장)으로 수기 보충하면 basis=regular로 적는다",
@@ -18,37 +18,37 @@
   "pct": 3.32
  },
  "first": {
-  "foreign": -4060,
-  "inst": 196,
-  "indiv": -652,
-  "at": "17:43",
-  "final": false,
-  "src": "네이버 시장수급 17:43 — 정규장+애프터마켓 통합(애프터 진행 중 중간값) · KRX 원본 미대조"
+  "foreign": -4086,
+  "inst": 120,
+  "indiv": -560,
+  "at": "20:10",
+  "final": true,
+  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
  },
  "flows": {
-  "foreign": -4060,
-  "inst": 196,
-  "indiv": -652,
-  "at": "17:43",
-  "final": false,
-  "src": "네이버 시장수급 17:43 — 정규장+애프터마켓 통합(애프터 진행 중 중간값) · KRX 원본 미대조"
+  "foreign": -4086,
+  "inst": 120,
+  "indiv": -560,
+  "at": "20:10",
+  "final": true,
+  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
  },
  "regular": null,
  "integrated": {
-  "foreign": -4060,
-  "inst": 196,
-  "indiv": -652,
-  "at": "17:43",
-  "final": false,
-  "src": "네이버 시장수급 17:43 — 정규장+애프터마켓 통합(애프터 진행 중 중간값) · KRX 원본 미대조"
+  "foreign": -4086,
+  "inst": 120,
+  "indiv": -560,
+  "at": "20:10",
+  "final": true,
+  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
  },
  "basis": "integrated",
- "grade": "잠정(통합 중간값 · 정규장 캡처 없음)",
- "flows_action": "added",
+ "grade": "통합만(정규장 캡처 없음)",
+ "flows_action": "updated",
  "streak": {
   "days": 4,
   "side": "매도",
-  "cum_eok": -27477,
+  "cum_eok": -27503,
   "lower_bound": false,
   "gate2": false,
   "basis": "sign_safe",
@@ -59,8 +59,8 @@
  ],
  "history_audit": {
   "days": 7,
-  "checked": 78,
-  "unresolved": 13,
+  "checked": 74,
+  "unresolved": 17,
   "adjusted": 0,
   "error": null,
   "no_key": false,

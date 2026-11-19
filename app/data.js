@@ -1,21 +1,21 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-11-19 22:19 KST",
+  "generated_at": "2026-11-19 22:22 KST",
   "as_of": "2026-11-19 22:2x",
   "source_report": "docs/reports/report_v140_2026-11-19.md",
   "offline": false,
   "fx": {
-    "usdkrw": 1327.36
+    "usdkrw": 1327.35
   },
   "totals": {
-    "assets_krw": 6491387,
-    "stocks_value_krw": 6425906,
+    "assets_krw": 6491349,
+    "stocks_value_krw": 6425868,
     "cash_krw": 7940,
     "cash_usd": 43.35,
     "cash_usd_krw": 57541,
     "day_change_krw": -624,
     "day_change_pct": -0.01,
-    "total_pnl_krw": -1990702,
+    "total_pnl_krw": -1990739,
     "total_pnl_pct": -23.65
   },
   "safety": {
@@ -156,7 +156,7 @@ window.APP_DATA = {
       "high": null,
       "when": null,
       "action": "[급락 TF] 유가 쇼크 전 수준(7/11 종가 71.41) 복귀 = 조건③ 프록시 점등(crash_tf.md §5) — 이란 헤드라인 완화 여부 PM 판단 병기 후 게이트 판정",
-      "price": 83.19,
+      "price": 83.16,
       "fired": false
     },
     {
@@ -1206,9 +1206,9 @@ window.APP_DATA = {
       "cost": 197.193225,
       "price": 150.96,
       "change_pct": -2.89,
-      "value_krw": 1092442,
+      "value_krw": 1092434,
       "pnl_pct": -23.45,
-      "pnl_krw": -478139,
+      "pnl_krw": -478147,
       "outlook": "core",
       "stars": 4,
       "score": 84,
@@ -1377,9 +1377,9 @@ window.APP_DATA = {
       "cost": 668.448562,
       "price": 671.31,
       "change_pct": -0.28,
-      "value_krw": 1530377,
+      "value_krw": 1530366,
       "pnl_pct": 0.43,
-      "pnl_krw": -146785,
+      "pnl_krw": -146797,
       "outlook": "core",
       "stars": 4,
       "score": null,
@@ -1496,9 +1496,9 @@ window.APP_DATA = {
       "cost": 331.325927,
       "price": 282.44,
       "change_pct": 0.8,
-      "value_krw": 1485472,
+      "value_krw": 1485460,
       "pnl_pct": -14.75,
-      "pnl_krw": -432426,
+      "pnl_krw": -432437,
       "outlook": "core",
       "stars": 3,
       "score": 68,
@@ -1652,9 +1652,9 @@ window.APP_DATA = {
       "cost": 138.924697,
       "price": 113.89,
       "change_pct": -0.97,
-      "value_krw": 183704,
+      "value_krw": 183703,
       "pnl_pct": -18.02,
-      "pnl_krw": -62925,
+      "pnl_krw": -62926,
       "outlook": "hold",
       "stars": 3,
       "score": 55,
@@ -1929,9 +1929,9 @@ window.APP_DATA = {
       "cost": 356.4675,
       "price": 354.05,
       "change_pct": 3.64,
-      "value_krw": 503402,
+      "value_krw": 503398,
       "pnl_pct": -0.68,
-      "pnl_krw": -54428,
+      "pnl_krw": -54432,
       "outlook": "hold",
       "stars": 4,
       "score": 74,
@@ -2060,9 +2060,9 @@ window.APP_DATA = {
       "cost": 140.18,
       "price": 143.5,
       "change_pct": 1.27,
-      "value_krw": 135744,
+      "value_krw": 135743,
       "pnl_pct": 2.37,
-      "pnl_krw": -10200,
+      "pnl_krw": -10201,
       "outlook": "momentum",
       "stars": 2,
       "score": 50,
@@ -2131,7 +2131,7 @@ window.APP_DATA = {
       "change_pct": 0.95,
       "value_krw": 66041,
       "pnl_pct": -0.39,
-      "pnl_krw": -6930,
+      "pnl_krw": -6931,
       "outlook": "momentum",
       "stars": 2,
       "score": 42,
@@ -2933,7 +2933,7 @@ window.APP_DATA = {
       1333.25,
       1335.67,
       1333.01,
-      1327.63
+      1328.08
     ]
   },
   "kospi_history": {
@@ -34671,8 +34671,10 @@ window.APP_DATA = {
       {
         "id": "t1119-krexit",
         "added": "2026-11-19",
-        "done": false,
-        "text": "(정훈 질문) 국장 전량 정리 — PM 반대(변동성 23.2→22.3% · 손실 -795,700원 확정 · 룰6·d210 충돌). 원하면 룰6 목표 하향(코스피 7,747 회복 시 단계 축소) 개정안 검정 — 정훈 결정"
+        "done": true,
+        "text": "(정훈 질문) 국장 전량 정리 — PM 반대(변동성 23.2→22.3% · 손실 -795,700원 확정 · 룰6·d210 충돌). 원하면 룰6 목표 하향(코스피 7,747 회복 시 단계 축소) 개정안 검정 — 정훈 결정",
+        "done_at": "2026-11-19 22:3x",
+        "done_note": "정훈 \"지금 룰 유지\" — 국장 전량 정리·룰6 개정 검정 안 함. 룰6 18~22% · 저점 매도 금지 유지"
       }
     ],
     "week": [
@@ -35130,7 +35132,7 @@ window.APP_DATA = {
   },
   "task_counts": {
     "today": {
-      "done": 7,
+      "done": 8,
       "total": 14
     },
     "week": {
@@ -40595,15 +40597,15 @@ window.APP_DATA = {
     "reconcile": []
   },
   "fx_exposure": {
-    "fx_rate": 1327.36,
+    "fx_rate": 1327.35,
     "fx_cost_basis": 1460.9,
-    "total_krw": 6491387,
+    "total_krw": 6491350,
     "buckets": [
       {
         "currency": "USD",
-        "value_krw": 5073447,
+        "value_krw": 5073410,
         "weight": 78.2,
-        "stock_krw": 5015906,
+        "stock_krw": 5015869,
         "cash_krw": 57541
       },
       {
@@ -40617,66 +40619,66 @@ window.APP_DATA = {
     "sensitivity_1pct_krw": 50734,
     "attribution": {
       "price_krw": -690373,
-      "fx_krw": -567735,
-      "cross_krw": 63107,
-      "total_krw": -1195002,
+      "fx_krw": -567778,
+      "cross_krw": 63111,
+      "total_krw": -1195039,
       "note": "미국주만 분해 · F₀=us_avg_fx_cost(체결 실측·시장종가 기준)라 환 기여 절대액에 잔여 오차"
     },
     "by_stock": [
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
-        "total_krw": -432426,
+        "total_krw": -432437,
         "price_krw": -282979,
-        "fx_krw": -175314,
-        "cross_krw": 25867
+        "fx_krw": -175327,
+        "cross_krw": 25869
       },
       {
         "label": "VOO",
         "ticker": "VOO",
-        "total_krw": -146785,
+        "total_krw": -146797,
         "price_krw": 7179,
-        "fx_krw": -153308,
+        "fx_krw": -153320,
         "cross_krw": -656
       },
       {
         "label": "NVDA",
         "ticker": "NVDA",
-        "total_krw": -478139,
+        "total_krw": -478147,
         "price_krw": -368233,
-        "fx_krw": -143566,
-        "cross_krw": 33660
+        "fx_krw": -143577,
+        "cross_krw": 33662
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
-        "total_krw": -54428,
+        "total_krw": -54432,
         "price_krw": -3783,
-        "fx_krw": -50991,
+        "fx_krw": -50995,
         "cross_krw": 346
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
-        "total_krw": -62925,
+        "total_krw": -62926,
         "price_krw": -44443,
-        "fx_krw": -22544,
+        "fx_krw": -22546,
         "cross_krw": 4063
       },
       {
         "label": "SpaceX",
         "ticker": "SPCX",
-        "total_krw": -10200,
+        "total_krw": -10201,
         "price_krw": 3457,
-        "fx_krw": -13341,
+        "fx_krw": -13342,
         "cross_krw": -316
       },
       {
         "label": "Tesla",
         "ticker": "TSLA",
-        "total_krw": -6930,
+        "total_krw": -6931,
         "price_krw": -286,
-        "fx_krw": -6670,
+        "fx_krw": -6671,
         "cross_krw": 26
       },
       {
@@ -40698,21 +40700,21 @@ window.APP_DATA = {
           "n": 252
         },
         "3y": {
-          "percentile": 6.5,
+          "percentile": 7.0,
           "low": 1277.84,
           "high": 1554.48,
           "n": 756
         },
         "5y": {
-          "percentile": 33.3,
+          "percentile": 33.7,
           "low": 1188.16,
           "high": 1554.48,
           "n": 1260
         }
       },
       "status": "live",
-      "current": 1327.53,
-      "chg_3m_pct": -3.91
+      "current": 1327.73,
+      "chg_3m_pct": -3.89
     },
     "status": "live"
   },
@@ -41171,7 +41173,7 @@ window.APP_DATA = {
         "level": "warning",
         "category": "currency",
         "title": "통화 쏠림 — 달러 편중",
-        "detail": "달러 자산 78.2% · 원/달러 5년 33.3%ile 중립(1년 창 3.2%ile은 결론이 뒤집혀 단독 인용 금지). 환율 1% 변동 = 총자산 +50,734원. 룰6 통화 판정 = 조정 근거 없음."
+        "detail": "달러 자산 78.2% · 원/달러 5년 33.7%ile 중립(1년 창 3.2%ile은 결론이 뒤집혀 단독 인용 금지). 환율 1% 변동 = 총자산 +50,734원. 룰6 통화 판정 = 조정 근거 없음."
       },
       {
         "level": "warning",
@@ -41195,7 +41197,7 @@ window.APP_DATA = {
         "level": "info",
         "category": "currency",
         "title": "환손익이 종목손익을 잠식 중",
-        "detail": "미국주 종목 기여 -690,373원인데 환 기여 -567,735원 — 주가로 번 걸 환율이 되돌리고 있다(교차 +63,107원)."
+        "detail": "미국주 종목 기여 -690,373원인데 환 기여 -567,778원 — 주가로 번 걸 환율이 되돌리고 있다(교차 +63,111원)."
       },
       {
         "level": "info",
@@ -41215,7 +41217,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "performance": {
-    "generated_at": "2026-11-19 22:19",
+    "generated_at": "2026-11-19 22:22",
     "from": "2026-06-15",
     "to": "2026-11-19",
     "days": 113,

@@ -325,11 +325,11 @@
    ]
   },
   {
-   "ticker": "ANT(상장전)",
+   "ticker": "ANT",
    "name": "Anthropic",
    "market": "US",
    "first_seen": "2026-11-04",
-   "updated": "2026-11-04",
+   "updated": "2026-11-19",
    "status": "deepdive",
    "sources": [
     {
@@ -363,13 +363,18 @@
     }
    ],
    "first_take": "공모가 미정이라 판단 보류. 9,650억 대비 프리미엄이 상장 직후 부담. 룰3: 상장 첫날 갭 추격 금지, 첫 분기 실적 확인 후. 보유 NVDA·MSFT·GOOGL·AVGO가 간접 노출이라 직접 매수 필요성은 낮음.",
-   "note": "보유 5종목(GOOGL 지출약정·AVGO TPU 리스·MSFT·NVDA·삼성) 직결 · 공모가·상장일 미정 · 상장 당일 룰3 · 기준=상장 후 첫 분기 실적",
-   "next_check": "2026-11-16",
+   "note": "11/18 공모가 $83(9.8억주·$81.3B·FD 약 $1.5조) · 11/19 美 첫 거래(한국 11/20 새벽) · 매수 없음(룰3·하드플로어·순서표 밖) · 다음 주 딥다이브 → 워치 판단 · 존 = 첫 락업·첫 실적 뒤 · 기저율 = docs/research/anthropic_ipo_plan_2026-11-19.md",
+   "next_check": "2026-11-24",
    "history": [
     {
      "date": "2026-11-04",
      "status": "deepdive",
      "note": "보유 5종목(GOOGL 지출약정·AVGO TPU 리스·MSFT·NVDA·삼성) 직결 · 공모가·상장일 미정 · 상장 당일 룰3 · 기준=상장 후 첫 분기 실적"
+    },
+    {
+     "date": "2026-11-19",
+     "status": "deepdive",
+     "note": "11/18 공모가 $83(9.8억주·$81.3B·FD 약 $1.5조) · 11/19 美 첫 거래(한국 11/20 새벽) · 매수 없음(룰3·하드플로어·순서표 밖) · 다음 주 딥다이브 → 워치 판단 · 존 = 첫 락업·첫 실적 뒤 · 기저율 = docs/research/anthropic_ipo_plan_2026-11-19.md"
     }
    ]
   },

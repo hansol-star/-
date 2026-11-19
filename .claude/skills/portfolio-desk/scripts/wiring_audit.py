@@ -63,6 +63,7 @@ EXPECTED_UNWIRED = {
     "blind_rescore.py":           "분기 수동 점검 — 이름 가린 재무 패킷으로 별점 재채점해 보유 인플레이션 측정(9/30 J). --build → 격리 채점 → --compare. 분기 1회 tasks.json 할 일로 돈다",
     "tax_tracker.py":             "연말 수동 점검 — 해외주식 실현손익·잔여 공제·이익실현 재매수 계획·연금 공제표(9/30 K). 12월 R3·tasks.json 12/29 할 일이 부른다(매 세션 부를 이유 없음)",
     "risk_cap_test.py":           "일회성 룰 검정 — 단일종목 위험 기여 상한 vs 비중 상한 vs 대조군(9/30 시스템 평가 B). 결과 기각(③ KR·US 부호 갈림, Sharpe≈0). 결론은 docs/research/risk_cap_test_2026-09-30.md에 박히고 스크립트는 재현용으로 남는다",
+    "ipo_baseline.py":            "일회성 측정 — 대형 IPO 12건 첫날 시초가 진입 기저율(11/19 앤트로픽 상장 대응). 결론은 docs/research/anthropic_ipo_plan_2026-11-19.md에 박혔고, 다음 대형 IPO(오픈AI 등) 때 재현용으로 돌린다",
     "pct_exit_test.py":           "일회성 검정 — 매수가 대비 +X% 익절/-Y% 손절 24개 변형 vs 보유(11/19 d282 · 전부 기각). 결론은 docs/research/pct_exit_test_2026-11-19.md와 룰8에 박혔고, 가격 기준을 다시 논의할 때만 재현용으로 돌린다. 매 보고서 판정은 exit_rules.py가 한다",
     "trim_limit_test.py":         "일회성 실측 — 트림 지정가(+k%) vs 시장가 vs 홀드를 같은 차트 국면에서 비교(9/23 d210). 결론은 docs/research/trim_limit_test_2026-09-23.md에 박히고 스크립트는 재현용으로 남는다. 트림가를 새로 정할 때만 다시 돌린다",
     "ladder_variants_test.py":    "일회성 룰 검정 — d205 후속 두 질문(국내 실탄 유보 · 미국 낙폭 사다리)을 8/5 3단 절차 + 대조군으로 판정(9/22). 결론은 docs/research/ladder_variants_2026-09-22.md와 crash_tf §2b에 박히고 스크립트는 재현용으로 남는다",

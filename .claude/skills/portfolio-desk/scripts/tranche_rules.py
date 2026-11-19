@@ -176,7 +176,7 @@ RULE_LOG = os.path.join(ROOT, "data", "app", "rule_log.jsonl")
 #   (사다리 = "사도 된다" / 룰6 = "국내 신규 매수 금지") — 누가 이기는지 코드에 없었다.
 #   정본 = docs/research/ladder_variants_2026-09-22.md · decisions d207/d209.
 RULE6_KR_HI = 22.0
-RULE6_KR_LO = 18.0                     # 밴드 하단 — 표시용(triggers 룰6 줄). 게이트는 상단만 쓴다
+# ★[11/20 d284 안 C 정훈 승인] 국내 하한(舊 18%)은 폐지 — 룰6 ⓵은 상한 22%만 남는다(舊 RULE6_KR_LO 삭제).
 SNAPS = os.path.join(ROOT, "data", "snapshots")
 
 
@@ -312,11 +312,16 @@ def cap_delta_explain(base, unlocked, mult, cap_now=None):
 # 규칙: 달러 잔고를 **3회 균등 분할**(월 1회) · 회차 금액 = 그날 달러 잔고 ÷ 남은 회차 수
 #   (새로 들어온 달러는 남은 회차에 자동으로 퍼지고, 덜 쓴 몫은 다음 회차로 넘어간다)
 #   · S&P 폭풍 ≥70(하드플로어)이면 그 회차 **연기** · 룰3(추격금지)은 그대로 · 자동 집행 아님.
-#   대상 순서: 매수존 안의 우선순위(GEV·ANET·CDNS·LLY·BRK-B — d220 9/30 CDNS ④ · d278 11/19 LLY ⑤·BRK-B ⑥ 편입) → 없으면 GOOGL(주식 비중 18% 상한까지) → 나머지 VOO.
+#   대상(★[11/20 d284 정훈 승인 "안 C로 확정"]): VOO가 주식 평가액의 **45%가 될 때까지 회차의 절반 이상은 VOO** ·
+#   나머지 절반만 매수존 안 **최상위 1종목**(GEV→ANET→CDNS→LLY→BRK-B — d220 CDNS ④ · d278 LLY ⑤·BRK-B ⑥) ·
+#   존 안 종목이 없으면 회차 전액 VOO · 45% 도달 뒤엔 존 안 → VOO. 舊 'GOOGL 18% 채우기'(d191) 단계는 **삭제** ·
+#   한 종목 상한 18%는 VOO를 뺀 **전 종목**(d284 ④ — 넘은 종목은 추가만 안 한다 · 팔지 않는다).
 US_TRACK = os.path.join(ROOT, "data", "app", "us_track.json")
 US_TRANCHES = 3
 US_MIN_CYCLE_USD = 50.0      # 이보다 적은 달러로는 새 사이클을 열지 않는다(소수점 체결 실익)
-US_GOOGL_CAP = 0.18          # d191 — 주식 평가액 기준
+US_NAME_CAP = 0.18           # d284 ④ — VOO 뺀 한 종목 상한(주식 평가액 기준). 舊 d191 = GOOGL만
+US_VOO_CORE = 0.45           # d284 ①③ — VOO 코어 목표(주식 평가액 기준) · 그 전까진 회차의 절반 이상 VOO
+US_ZONE_SHARE = 0.5          # d284 ③ — 코어를 짓는 동안 존 종목 몫 = 회차의 절반까지(센트 내림 — VOO가 늘 절반 이상)
 US_ZONE_TICKERS = ("GEV", "ANET", "CDNS", "LLY", "BRK-B")   # d191 ②③ + d220 ④ + d278 ⑤⑥(11/19 정훈 승인 — 분산 후보 · 존 도달 시만) — 매수존은 portfolio.json alerts(below)가 정본
 # ★[10/21 d251 정훈 승인 "다 승인"] '월 1회차' = **직전 회차 체결 세션 + 1개월 이후**.
 #   舊 코드는 2회차를 기록하는 순간 3회차 zone_open을 냈다(10/19 실측 — 따르면 달러가 한 주 안에 바닥난다).
@@ -738,28 +743,38 @@ def _first_night(st: dict | None, gate_day: str) -> bool:
     return bool(days) and all(d == gate_day for d in days)
 
 
+def _zone_cap(budget: float, share: float | None = None) -> float:
+    """d284 ③ — 회차 금액 중 존 종목이 쓸 수 있는 몫(센트 내림 → VOO 몫이 늘 절반 이상). share 생략 = 코어 단계(절반)."""
+    sh = US_ZONE_SHARE if share is None else share
+    return math.floor(round(float(budget) * sh * 100, 6)) / 100
+
+
 def _partial_block(part: int, tickers: list, left: float, ticker: str | None, price,
-                   first_night: bool = False) -> str | None:
+                   first_night: bool = False, budget=None, share: float | None = None) -> str | None:
     """진행 중 회차에서 **이 종목·이 가격**을 걸면 안 되는 이유(없으면 None) — us_buy_block 두 경로 공용.
     ★[10/22 리뷰 2차] 舊 = 진행 중 회차면 종목을 안 보고 None → ANET 1주 체결 뒤에도 '매일 등록' ANET을 다시 걸라고 했다
       (us_standing은 같은 상태에서 ANET = 'done'이라고 말했다 · 그대로 걸면 같은 회차에 ANET 2주 · 잔액 GOOGL·VOO 몫을 넘는다).
     ★[10/22 리뷰 3차] 존 종목(GEV·ANET·CDNS)만 본다 — 잔액의 행선지(GOOGL·VOO)는 막지 않는다(舊 = VOO를 먼저 산 회차에서
       VOO 잔액까지 '이미 체결'로 막았다). 진행 중 회차엔 존 종목을 **다시 걸지 않는다**: 존 종목이 체결됐으면 회차당 1종목(d235 ④),
       안 됐으면 그 1주는 회차 첫 밤의 몫이었다(d235 ① '1주가 그 밤에 안 체결되면 그 몫까지 VOO').
-    price는 존 종목 1주 지정가일 때만 의미가 있다(잔액보다 비싸면 못 건다)."""
+    price는 존 종목 1주 지정가일 때만 의미가 있다(잔액보다 비싸면 못 건다).
+    ★[11/20 d284 ③] budget을 주면 **존 몫**(회차 금액 × share — 코어 단계 절반)도 본다: 1주가 존 몫보다 비싸면 못 건다."""
     if not ticker or ticker not in US_ZONE_TICKERS:
         return None
     if ticker in tickers:
-        return f"{part}회차에 {ticker} 이미 체결 — 다시 걸지 않는다(잔액 ${left:,.2f} → GOOGL 18% → VOO)"
+        return f"{part}회차에 {ticker} 이미 체결 — 다시 걸지 않는다(잔액 ${left:,.2f} → VOO)"
     zone_done = [t for t in tickers if t in US_ZONE_TICKERS]
     if zone_done:
-        return f"{part}회차는 존 종목({zone_done[0]}) 체결 — 존 종목은 회차당 1종목(d235 ④) · 잔액 ${left:,.2f}은 GOOGL 18% → VOO"
-    if isinstance(price, (int, float)) and price > left + US_TRANCHE_SLACK:
+        return f"{part}회차는 존 종목({zone_done[0]}) 체결 — 존 종목은 회차당 1종목(d235 ④) · 잔액 ${left:,.2f}은 VOO"
+    zc = min(left, _zone_cap(budget, share)) if budget else left
+    if isinstance(price, (int, float)) and price > zc + US_TRANCHE_SLACK:
+        if zc < left:
+            return f"1주 ${price:,.2f} > {part}회차 존 몫 ${zc:,.2f}(d284 — 회차의 절반까지) — 지정가 1주를 못 건다"
         return f"1주 ${price:,.2f} > {part}회차 잔액 ${left:,.2f} — 지정가 1주를 못 건다"
     if first_night:
         return None                    # 같은 밤 — 존 종목 1주 지정가는 잔액 안이면 아직 유효(d235 ①)
     return (f"{part}회차 진행 중 — 존 종목 1주는 회차 첫 밤의 몫이었다(d235 ① 안 체결되면 그 몫도 VOO) · "
-            f"잔액 ${left:,.2f}은 GOOGL 18% → VOO")
+            f"잔액 ${left:,.2f}은 VOO")
 
 
 def us_buy_block(us: dict | None = None, ticker: str | None = None, price=None) -> str | None:
@@ -793,8 +808,11 @@ def us_buy_block(us: dict | None = None, ticker: str | None = None, price=None) 
                 return "하드플로어 — 예약 금지(걸려 있으면 취소)"
             if remaining[0] in ts:            # 진행 중 회차 — 잔액 매수는 간격 대상이 아니다(종목·가격만 본다)
                 k = remaining[0]
+                zsh = (zone_share(us_weights(False))          # 캐시 종가만(시세 조회 없음) — 존 몫 판정용
+                       if ticker in US_ZONE_TICKERS and isinstance(price, (int, float)) else None)
                 return _partial_block(k, ts[k]["tickers"], ts[k]["left"], ticker, price,
-                                      first_night=_first_night(ts[k], _us_session_today()))
+                                      first_night=_first_night(ts[k], _us_session_today()),
+                                      budget=ts[k].get("budget"), share=zsh)
             w = spacing_wait_until(us_spacing(cur), remaining, _us_session_today())
             return f"d251 월 1회차 대기 — {w}부터" if w else None
         except Exception as e:  # noqa: BLE001
@@ -808,7 +826,8 @@ def us_buy_block(us: dict | None = None, ticker: str | None = None, price=None) 
     if us.get("status") == "partial":
         return _partial_block(us.get("partial_tranche"), us.get("partial_tickers") or [],
                               float(us.get("partial_left") or 0), ticker, price,
-                              first_night=bool(us.get("partial_first_night")))
+                              first_night=bool(us.get("partial_first_night")),
+                              budget=us.get("partial_budget"), share=us.get("zone_share"))
     if us.get("wait_until"):
         return f"d251 월 1회차 대기 — {us['wait_until']}부터"
     return None
@@ -881,18 +900,19 @@ def _prev_regular_close(sym: str, live: bool = True):
     return _last_close(sym)
 
 
-def googl_room_usd(live: bool = True) -> dict:
-    """GOOGL이 주식 평가액의 18%에 닿기까지 남은 달러(실시간 우선 · 실패 시 캐시 종가 — 제안용)."""
+def us_weights(live: bool = True) -> dict:
+    """★[11/20 d284] 주식 평가액 기준 **VOO 비중**(코어 45% 판정 ③)과 종목별 **18% 상한까지 남은 달러**(④) — 실시간 우선 ·
+    실패 시 캐시 종가(live=False면 캐시만 · 시세 조회 없음). 舊 googl_room_usd(GOOGL만 18%까지)를 대체한다 —
+    'GOOGL 채우기' 단계는 d284에서 삭제됐다. room_new_usd = 아직 안 가진 종목이 18%까지 살 수 있는 달러."""
     try:
         with open(_PF_JSON, encoding="utf-8") as f:
             pf = json.load(f) or {}
     except Exception:
         return {"error": "portfolio.json 없음"}
-    fx, fx_src = _px("KRW=X", live)
+    fx, _fx_src = _px("KRW=X", live)
     if not fx:
         return {"error": "환율 없음"}
-    tot = g = 0.0
-    miss, srcs = [], set()
+    tot, vals, miss, srcs = 0.0, {}, [], set()
     for reg, rows in (pf.get("holdings") or {}).items():
         for h in rows:
             px, src = _px(h["ticker"], live)
@@ -903,13 +923,37 @@ def googl_room_usd(live: bool = True) -> dict:
                 continue
             v = float(h.get("shares") or 0) * px * (1 if reg == "kr" else fx)
             tot += v
-            if h["ticker"] == "GOOGL":
-                g = v
+            vals[h["ticker"]] = vals.get(h["ticker"], 0.0) + v
     if not tot:
         return {"error": "평가액 계산 불가"}
-    room_krw = max(0.0, (US_GOOGL_CAP * tot - g) / (1 - US_GOOGL_CAP))
-    return {"weight_pct": round(g / tot * 100, 1), "room_usd": round(room_krw / fx, 2),
-            "fx": round(fx, 2), "missing": miss, "price_src": "+".join(sorted(srcs)) or None}
+
+    def room(v):
+        return round(max(0.0, (US_NAME_CAP * tot - v) / (1 - US_NAME_CAP)) / fx, 2)
+
+    return {"voo_pct": round(vals.get("VOO", 0.0) / tot * 100, 1),
+            "pct": {t: round(v / tot * 100, 1) for t, v in vals.items()},
+            "room_usd": {t: room(v) for t, v in vals.items() if t != "VOO"},
+            "room_new_usd": room(0.0), "fx": round(fx, 2), "missing": miss,
+            "price_src": "+".join(sorted(srcs)) or None}
+
+
+def zone_share(w: dict | None) -> float:
+    """d284 ③ — 존 종목이 가져갈 수 있는 회차 비율. VOO < 45%면 절반 · **비중을 못 구하면 절반**(코어를 짓는 쪽 —
+    지금 VOO는 23%대라 45%까지 18~24개월이다) · 45% 이상이면 전액(존 안 → VOO)."""
+    v = (w or {}).get("voo_pct")
+    return US_ZONE_SHARE if (v is None or v < US_VOO_CORE * 100) else 1.0
+
+
+def name_room_usd(w: dict | None, t: str):
+    """d284 ④ — t가 18% 상한까지 더 살 수 있는 달러. None = 계산 불가(막지 않는다 · 존 몫 한도는 그대로) · VOO는 상한 없음."""
+    if t == "VOO" or not w or w.get("error"):
+        return None
+    return (w.get("room_usd") or {}).get(t, w.get("room_new_usd"))
+
+
+def _voo_txt(w: dict | None) -> str:
+    v = (w or {}).get("voo_pct")
+    return f"VOO {v}% < {US_VOO_CORE * 100:.0f}%" if v is not None else "VOO 비중 계산 불가"
 
 
 APPROACH_MARK = "접근"          # '👀 … 매수존 접근 $200 이하' = 예약 점검 알림이지 매수존이 아니다
@@ -966,49 +1010,74 @@ def _zone_hits(live: bool = True) -> list[dict]:
     return out
 
 
-def _us_split(budget: float, zone: dict | None, live: bool = True) -> tuple[list[dict], dict]:
-    """★[10/21 d235 ④ · d191] 한 회차의 배분 — 존 종목은 **최상위 1종목만**:
-      · 정수 1주의 추격 상한(min(존 상단, 전일 종가×1.03)) ≤ 회차 금액 → 1주 지정가(걸 가격은 따로) + 잔액은 GOOGL 18% → VOO
-      · 1주 > 회차 금액(GEV) → 회차 금액 전부 소수점 시장가(분수주 = 지정가 불가)
-    舊 코드는 존 종목에 회차 전액을 주거나(zone_open 'ANET $366.87 전액' — d235 ④와 다름) 존 여러 개에 균등 분할했다(d191 순위 무시).
-    GOOGL 여유 = 코드 공식(GOOGL만 산다고 가정한 18%까지 남은 몫 — 9/22 1회차와 같은 식, 10/21 d255 승인)."""
+def _zone_ok(w: dict | None, t: str) -> bool:
+    """d284 ④ — 18% 상한까지 $1 이상 남았나(계산 불가면 막지 않는다)."""
+    r = name_room_usd(w, t)
+    return r is None or r >= 1
+
+
+def _us_split(budget: float, zone: dict | None, live: bool = True, w: dict | None = None,
+              skipped=()) -> tuple[list[dict], dict]:
+    """★[11/20 d284 ③④ 정훈 승인 "안 C로 확정"] 한 회차의 배분 — VOO 코어(주식 평가액 45%) 전엔 **회차의 절반 이상 VOO**:
+      · 존 몫 = 회차 × 절반(센트 내림) · 45% 이상이면 회차 전액 · 18% 상한(④)까지 남은 몫이 더 작으면 그만큼
+      · 정수 1주의 추격 상한(min(존 상단, 전일 종가×1.03)) ≤ 존 몫 → 1주 지정가(걸 가격은 따로) + 나머지 VOO
+      · 1주 > 존 몫(GEV) → 존 몫만 소수점 시장가(분수주 = 지정가 불가) + 나머지 VOO
+      · 존 종목이 없거나 18% 상한에 닿았으면 회차 전액 VOO
+    舊(d235 ④ · d191 · d255) = 존 종목이 회차 전액까지 + 잔액 GOOGL 18% → VOO. **GOOGL 단계는 d284에서 삭제.**
+    w = us_weights() 결과(호출자가 한 번 구해 넘긴다 · 없으면 여기서 구한다).
+    skipped = 매수존 안이지만 18% 상한이라 호출자가 건너뛴 종목 — VOO 사유에 이름을 남긴다('존 종목 없음'으로 읽히지 않게)."""
+    if w is None:
+        w = us_weights(live)
+    share = zone_share(w)
+    core = share < 1.0
     split, left = [], float(budget)
+    zc = _zone_cap(budget, share)
+    vtxt = _voo_txt(w)
+    capped = None
     if zone:
+        room = name_room_usd(w, zone["ticker"])
+        zb = zc if room is None else min(zc, room)
         cl = _chase_limit(zone["ticker"], zone["level"], live)
         cap = cl["limit"]
         src = (f"min(존 ${zone['level']:,.0f}, 전일 종가 ${cl['prev_close']:,.2f}({cl['prev_date']})×1.03)"
                if cl["prev_close"] else f"존 상단 ${zone['level']:,.0f}(전일 종가 없음)")
-        if cap <= left:
+        ztxt = (f"존 몫 ${zb:,.2f}(d284 ③ {vtxt} — 회차의 절반까지)" if core else f"존 몫 ${zb:,.2f}(VOO 45% 도달 — 회차 전액까지)")
+        if zb < 1:
+            capped = zone["ticker"]
+        elif cap <= zb:
             est = min(float(zone["price"]), cap)              # 예상 체결가 = 현재가(상한 밑) — 잔액은 이걸로 추정
             cost = round(est * (1 + US_FEE), 2)
             split.append({"ticker": zone["ticker"], "usd": cost, "shares": 1, "order": "limit",
                           "chase_cap": cap, "est_fill": round(est, 2),
                           "why": (f"정수 1주 지정가 — 걸 가격은 토스 현재가(${zone['price']}) 근처·PM 판단, "
-                                  f"**추격 상한 ${cap:,.2f}** 위로는 걸지 않는다({src}) · 잔액은 예상 체결가 ${est:,.2f}+수수료 기준")})
+                                  f"**추격 상한 ${cap:,.2f}** 위로는 걸지 않는다({src}) · {ztxt} · "
+                                  f"나머지는 예상 체결가 ${est:,.2f}+수수료 기준")})
             left -= cost
         else:
-            split.append({"ticker": zone["ticker"], "usd": round(left, 2), "order": "market_fraction",
+            split.append({"ticker": zone["ticker"], "usd": round(zb, 2), "order": "market_fraction",
                           "chase_cap": cap,
-                          "why": f"매수존 안(${zone['price']}) · 1주 상한 ${cap:,.2f} > 회차 ${left:,.2f} → 소수점 시장가(당일 +3% 이상이면 다음 날 · 룰3)"})
-            left = 0.0
-    room = googl_room_usd(live)
-    if left > 0 and not room.get("error"):
-        g = min(left, room["room_usd"])
-        if g >= 1:
-            split.append({"ticker": "GOOGL", "usd": round(g, 2), "order": "market_fraction",
-                          "why": f"비중 {room['weight_pct']}% → 18%까지 ${room['room_usd']:,.2f}"})
-            left -= g
+                          "why": (f"매수존 안(${zone['price']}) · 1주 상한 ${cap:,.2f} > {ztxt} → 소수점 시장가"
+                                  "(당일 +3% 이상이면 다음 날 · 룰3)")})
+            left -= zb
     if left >= 1:
-        split.append({"ticker": "VOO", "usd": round(left, 2), "order": "market_fraction",
-                      "why": (("존 종목 1주 뒤 잔액 · " if zone else "매수존 종목 없음 · ") + "GOOGL 18% 상한 → 지수로"
-                              if not room.get("error") else "GOOGL 상한 계산 불가 → 확인 후 배분")})
+        if capped or (not zone and skipped):
+            names = capped or "·".join(skipped)
+            why = f"{names} 매수존 안이지만 18% 상한(d284 ④ — 추가 없음) → 회차 전액 VOO"
+        elif not zone:
+            why = "매수존 종목 없음 → 회차 전액 VOO(d284 ③)"
+        elif core:
+            why = f"d284 ③ 코어 — {vtxt}: 회차의 절반 이상은 VOO"
+        else:
+            why = "존 종목 뒤 나머지 → VOO"
+        split.append({"ticker": "VOO", "usd": round(left, 2), "order": "market_fraction", "why": why})
     if zone and split and split[0].get("order") == "limit":
-        split[0]["note"] = "잔액(GOOGL·VOO)은 1주 체결 뒤 **실제 체결가+수수료**로 다시 계산 — 위 금액은 추정"
-    return split, room
+        split[0]["note"] = "나머지(VOO)는 1주 체결 뒤 **실제 체결가+수수료**로 다시 계산 — 위 금액은 추정"
+    return split, w
 
 
 def us_standing(per: float, halted: bool, live: bool = True, wait_until: str | None = None,
-                exclude=(), zone_done: str | None = None, in_progress: bool = False) -> list[dict]:
+                exclude=(), zone_done: str | None = None, in_progress: bool = False,
+                weights=None, zone_base: float | None = None) -> list[dict]:
     """★[10/12 d235 정훈 승인] 미국 트랙 후보의 매수존을 **회차일 하루**가 아니라 **상시** 본다.
 
     바꾸는 것은 '언제 가격을 보는가'뿐 — 회차 금액(잔고 ÷ 남은 회차)·월 1회차·하드플로어는 그대로다.
@@ -1019,9 +1088,13 @@ def us_standing(per: float, halted: bool, live: bool = True, wait_until: str | N
     하드플로어(halted)면 예약 자체를 걸지 않는다(걸려 있으면 취소).
     ★[10/21 d251] `wait_until`(다음 회차를 열 수 있는 첫날) 전이면 예약을 걸지 않는다 — 존에 닿아도 그 회차는 아직 없다.
     ★[10/21 d254] 추격 상한 = min(존 상단, 전일 종가 × 1.03) — 걸 가격은 그 밑에서 따로 정한다. 토스 미국 지정가는 1거래일 소멸(d128) → 매일 다시 건다.
+    ★[11/20 d284 ③④] 한도는 회차 금액이 아니라 **존 몫**(zone_base × 절반 — VOO 45% 전 · per를 넘지 않는다)이고,
+      18% 상한에 닿은 종목은 걸지 않는다. weights = us_weights 결과 또는 그걸 돌려주는 함수(예약을 실제로 판정할 때만 부른다 —
+      하드플로어·대기 중엔 시세를 더 조회하지 않는다).
     """
     lv = _us_zone_levels()
     out, slot_used = [], False
+    zc, w = None, None
     for t in US_ZONE_TICKERS:                      # 튜플 순서 = 우선순위 ②③④
         if t not in lv:
             continue
@@ -1034,28 +1107,38 @@ def us_standing(per: float, halted: bool, live: bool = True, wait_until: str | N
         if halted:
             row.update({"mode": "off", "why": "하드플로어 — 예약 금지(걸려 있으면 취소)"})
         elif t in exclude:
-            row.update({"mode": "done", "why": "이 회차에 이미 체결 — 다시 걸지 않는다(잔액은 GOOGL 18% → VOO)"})
+            row.update({"mode": "done", "why": "이 회차에 이미 체결 — 다시 걸지 않는다(잔액은 VOO)"})
         elif in_progress:
             # ★[10/22 리뷰 2차·3차] 진행 중 회차엔 존 종목을 다시 걸지 않는다 — 체결됐으면 회차당 1종목(d235 ④),
             #   안 됐으면 그 1주는 회차 첫 밤의 몫이었다(d235 ①). zone_done = 이 회차에 체결된 존 종목(없으면 None)
             row.update({"mode": "off", "why": (f"이 회차는 존 종목({zone_done}) 체결" if zone_done
                                                else "이 회차 진행 중(존 종목 1주는 첫 밤의 몫)") +
-                        " — 다음 회차까지 걸지 않는다(잔액은 GOOGL 18% → VOO)"})
+                        " — 다음 회차까지 걸지 않는다(잔액은 VOO)"})
         elif wait_until:
             row.update({"mode": "wait", "why": f"월 1회차(d251) — {wait_until}부터 예약 가능(그 전엔 존에 닿아도 회차가 없다)"})
-        elif lim > per:
-            row.update({"mode": "alert", "usd": round(per, 2),
-                        "why": f"1주 ${lim:,.2f} > 회차 ${per:,.2f} → 지정가 불가(분수주=시장가). 알림 뜨면 소수점 시장가"})
-        elif slot_used:
-            row.update({"mode": "alert", "usd": round(lim, 2),
-                        "why": "상위 순위 예약이 이미 회차를 쓴다 → 알림만(동시 체결 = 회차 금액 초과)"})
         else:
-            slot_used = True
-            capw = (f" = min(존 ${lv[t]:,.0f}, 전일 종가 ${cl['prev_close']:,.2f}({cl['prev_date']})×1.03)"
-                    if cl["prev_close"] else " (전일 종가 없음 → 존 상단)")
-            row.update({"mode": "limit", "shares": 1, "usd": round(lim, 2),
-                        "why": (f"정수 1주 지정가 예약 — **추격 상한 ${lim:,.2f}**{capw} ≤ 회차 ${per:,.2f} · "
-                                "걸 가격은 그날 토스 현재가·존 안 되돌림 가격(상한 위 금지) · 매 거래일 재등록(d128)")})
+            if zc is None:                         # 처음 실제 판정할 때 한 번만 비중을 구한다
+                w = weights() if callable(weights) else (weights if weights is not None else us_weights(live))
+                share = zone_share(w)
+                zc = min(float(per), _zone_cap(zone_base if zone_base is not None else per, share))
+                ztag = f"존 몫 ${zc:,.2f}" + (f"(d284 ③ {_voo_txt(w)} — 회차의 절반까지)" if share < 1 else "")
+            room = name_room_usd(w, t)
+            zb = zc if room is None else min(zc, room)
+            if zb < 1:
+                row.update({"mode": "off", "why": f"한 종목 18% 상한(d284 ④) — {t} 추가 매수 없음(팔지는 않는다)"})
+            elif lim > zb:
+                row.update({"mode": "alert", "usd": round(zb, 2),
+                            "why": f"1주 ${lim:,.2f} > {ztag} → 지정가 불가(분수주=시장가). 알림 뜨면 존 몫만 소수점 시장가"})
+            elif slot_used:
+                row.update({"mode": "alert", "usd": round(lim, 2),
+                            "why": "상위 순위 예약이 이미 존 몫을 쓴다 → 알림만(동시 체결 = 존 몫 초과)"})
+            else:
+                slot_used = True
+                capw = (f" = min(존 ${lv[t]:,.0f}, 전일 종가 ${cl['prev_close']:,.2f}({cl['prev_date']})×1.03)"
+                        if cl["prev_close"] else " (전일 종가 없음 → 존 상단)")
+                row.update({"mode": "limit", "shares": 1, "usd": round(lim, 2),
+                            "why": (f"정수 1주 지정가 예약 — **추격 상한 ${lim:,.2f}**{capw} ≤ {ztag} · "
+                                    "걸 가격은 그날 토스 현재가·존 안 되돌림 가격(상한 위 금지) · 매 거래일 재등록(d128)")})
         out.append(row)
     return out
 
@@ -1135,12 +1218,24 @@ def _us_track(usd_cash: float | None = None, today: str | None = None, check_flo
         out.update({"partial_tranche": part, "partial_left": round(left, 2),
                     "partial_budget": ts[part]["budget"], "partial_spent": ts[part]["spent"],
                     "partial_tickers": ts[part]["tickers"], "partial_first_night": first})
+    _wm: dict = {}
+
+    def W():
+        """d284 비중(VOO 코어·18% 상한) — 실제로 배분·예약을 판정할 때만 한 번 구한다(대기·하드플로어 땐 시세를 더 안 본다)."""
+        if "w" not in _wm:
+            _wm["w"] = us_weights(live)
+            out["weights"] = _wm["w"]
+            out["zone_share"] = zone_share(_wm["w"])
+        return _wm["w"]
+
     if remaining:
         # ★[10/12 d235] 다음 미집행 회차 금액 한도 안의 상시 예약(회차일 전에도 존이 닿으면 그 회차가 집행된다)
         #   진행 중 회차면 그 잔액이 한도이고, 그 회차에 이미 산 종목은 다시 걸지 않는다.
+        #   ★[11/20 d284 ③] 존 몫 = 회차 금액(진행 중이면 그 회차 budget) × 절반 — 잔액을 넘지 않는다.
         out["standing"] = us_standing(left if part else per, bool(halted), live, wait_until,
                                       exclude=ts[part]["tickers"] if part else (), zone_done=zdone,
-                                      in_progress=bool(part) and not first)
+                                      in_progress=bool(part) and not first, weights=W,
+                                      zone_base=(ts[part]["budget"] or left) if part else per)
         out["standing_tranche"] = remaining[0]
     if not remaining:
         out.update({"status": "complete", "allowed_usd": 0.0,
@@ -1154,14 +1249,14 @@ def _us_track(usd_cash: float | None = None, today: str | None = None, check_flo
         return out
     if part:
         # ★[10/22 리뷰 반영] 같은 회차의 잔액 — d251 간격 대상이 아니다(회차를 새로 여는 게 아니다).
-        #   잔액은 GOOGL 18% → VOO만 — 존 종목은 다시 보지 않는다: 체결됐으면 회차당 1종목(d235 ④),
+        #   잔액은 VOO만(★11/20 d284 — 舊 GOOGL 18% → VOO) — 존 종목은 다시 보지 않는다: 체결됐으면 회차당 1종목(d235 ④),
         #   안 됐으면 그 1주는 회차 첫 밤의 몫이었다(d235 ① 안 체결되면 그 몫까지 VOO · 회차일을 늦추지 않는다).
         #   ★[10/22 리뷰 2차·3차] 舊 = '아직 안 산 존 종목'을 다시 후보로 봐 잔액 전부를 CDNS·GEV 소수점 시장가로,
         #   VOO를 먼저 산 회차에선 다음 날 ANET을 다시 제안했다.
-        split, room = _us_split(left, None, live)
+        split, room = _us_split(left, None, live, w=W())
         for x in split:
             if x["ticker"] == "VOO":
-                x["why"] = f"{part}회차 잔액 · GOOGL 18% 상한 → 지수로"
+                x["why"] = f"{part}회차 잔액 → VOO"
         b = ts[part]["budget"]
         # ★[10/22 리뷰 2차] 뒤 회차의 회차일이 지났으면 말한다 — 잔액이 $1 넘게 남은 회차는 저절로 안 닫혀 다음 회차가 조용히 밀린다
         later = [i for i in pending if i != part]
@@ -1175,7 +1270,7 @@ def _us_track(usd_cash: float | None = None, today: str | None = None, check_flo
             lat += (f" · 잔액을 사면 다음 회차 간격(d251)이 그 체결 세션부터 다시 센다 — 소액이면 --us-close {part}")
             if sp and len(remaining) > 1 and gate_day >= sp["earliest"]:
                 lat += f"(닫으면 {remaining[1]}회차를 바로 열 수 있다)"
-        out.update({"status": "partial", "allowed_usd": round(left, 2), "split": split, "googl": room,
+        out.update({"status": "partial", "allowed_usd": round(left, 2), "split": split,
                     "why": (f"{part}회차 진행 중 — 회차 금액 ${b:,.2f} 중 ${ts[part]['spent']:,.2f} 체결"
                             f"({'·'.join(ts[part]['tickers'])}) · **잔액 ${left:,.2f}** — 같은 회차라 d251 간격 대상 아님{lat}")})
         return out
@@ -1189,22 +1284,33 @@ def _us_track(usd_cash: float | None = None, today: str | None = None, check_flo
     if not pending:
         # ★[10/12 d235] 회차일 전이라도 후보가 매수존 안이면 다음 회차를 그 종목으로 집행한다(회차당 1회 · 금액 불변).
         zh = [] if halted else _zone_hits(live)
+        skipped = []
+        if zh:                                      # ★[11/20 d284 ④] 18% 상한에 닿은 종목은 건너뛴다
+            okz = [z for z in zh if _zone_ok(W(), z["ticker"])]
+            skipped = [z["ticker"] for z in zh if z not in okz]
+            zh = okz
+        sk = f" · {'·'.join(skipped)} 매수존 안이지만 18% 상한(d284 ④) — 건너뜀" if skipped else ""
         if zh:
             z = zh[0]                               # _zone_hits가 우선순위 순서로 준다
-            split, room = _us_split(per, z, live)
-            out.update({"status": "zone_open", "allowed_usd": round(per, 2), "split": split, "googl": room,
-                        "why": f"{z['ticker']} 매수존 진입 — {remaining[0]}회차 ${per:,.2f}를 회차일({sched[remaining[0] - 1]}) 전에 집행 가능(d235 · 회차일 재집행 없음)"})
+            split, room = _us_split(per, z, live, w=W())
+            out.update({"status": "zone_open", "allowed_usd": round(per, 2), "split": split,
+                        "why": f"{z['ticker']} 매수존 진입 — {remaining[0]}회차 ${per:,.2f}를 회차일({sched[remaining[0] - 1]}) 전에 집행 가능(d235 · 회차일 재집행 없음){sk}"})
             return out
         out.update({"status": "waiting", "allowed_usd": 0.0,
-                    "why": f"다음 회차 {nxt} (회차당 약 ${per:,.2f} — 그날 잔고로 다시 계산)"})
+                    "why": f"다음 회차 {nxt} (회차당 약 ${per:,.2f} — 그날 잔고로 다시 계산){sk}"})
         return out
-    # 대상 제안 — 매수존 안 **최상위 1종목**(d191 ②>③>④) → GOOGL 18% 상한 → VOO
-    zones = _zone_hits(live)
-    split, room = _us_split(allowed, zones[0] if zones else None, live)
+    # 대상 제안 — ★[11/20 d284] VOO 45% 전엔 회차의 절반 이상 VOO + 존 몫(절반)은 매수존 안 **최상위 1종목**
+    #   (GEV>ANET>CDNS>LLY>BRK-B · 18% 상한 종목 제외) · 존 안 종목이 없으면 전액 VOO. 舊 GOOGL 18% 단계 삭제.
+    hits = _zone_hits(live)
+    zones = [z for z in hits if _zone_ok(W(), z["ticker"])]
+    skipped = [z["ticker"] for z in hits if z not in zones]
+    split, room = _us_split(allowed, zones[0] if zones else None, live, w=W(), skipped=skipped)
     extra = f" · 밀린 회차 {pending[1:]}는 몰아 사지 않는다(d251)" if len(pending) > 1 else ""
+    if skipped and zones:
+        extra += f" · {'·'.join(skipped)} 매수존 안이지만 18% 상한(d284 ④) — 건너뜀"
     if zones and split and split[0].get("order") == "limit":
         extra += f" · {zones[0]['ticker']} 1주가 이 밤에 안 체결되면 그 몫까지 VOO(회차일은 늦추지 않는다 · d235 ①)"
-    out.update({"status": "due", "allowed_usd": round(allowed, 2), "split": split, "googl": room,
+    out.update({"status": "due", "allowed_usd": round(allowed, 2), "split": split,
                 "why": f"회차 {pending[0]} 도래 — ${allowed:,.2f} (잔고 ${usd_cash:,.2f} ÷ 남은 {len(remaining)}회){extra}"})
     return out
 
@@ -1358,7 +1464,7 @@ def rule1_ladder(cash: float, dd_pct: float, storm_pct, fear_pct=None, capit_pct
 #   시차 1일·항복 가산 상시·사다리+해제 변형 전부 같은 판정. 손익분기 현금금리 연 8.4~10.1%.
 # ⚠️ **사다리가 나았던 것 = 꼬리**(사다리는 평균 26%만 넣어서 덜 잃는다 — 12M 하위 5% 최종자산 DCA6F 0.85).
 #    이 교체는 **더 일찍·더 많이 투자하는** 결정이다. 꼬리를 줄이는 수단은 속도가 아니라 총량이다
-#    (룰6 국내 18~22% 상한이 그 역할을 한다).
+#    (룰6 국내 22% 상한이 그 역할을 한다 — 하한은 11/20 d284 안 C로 폐지).
 # ⚠️ 검정은 **조건부 시작점(낙폭 ≤ -20%)**만 본다. 평시(-20% 위)엔 이 룰이 말하지 않는다 —
 #    그때의 국내 매수는 매수존·룰3·룰6 판단이다(무조건 시작점에선 사다리와 DCA6가 비등했다).
 # 정본 = docs/research/ladder_dca_test_2026-09-30.md · crash_tf §2b.
@@ -1367,7 +1473,14 @@ KR_TRANCHES = 6
 KR_TRIGGER_DD = -20.0        # 이 낙폭 이하에서만 사이클이 열린다(검정의 조건부 시작점과 같은 문턱)
 KR_MIN_CYCLE_KRW = 50_000    # 이보다 적은 원화로는 사이클을 열지 않는다(국내는 정수 1주 이상)
 KR_RULE = ("d223 — 코스피 낙폭 ≤-20%에서 원화 6회 균등 분할(월 1회) · 회차=그날 원화÷남은 회차 · "
-           "S&P 폭풍≥70이면 연기 · 국내주>22%면 집행 0원(룰6 우선)")
+           "S&P 폭풍≥70이면 연기 · 국내주>22%면 집행 0원(룰6 우선) · ★11/20 d284 안 C = 원화는 달러로(집행 0원 · 원장 유지)")
+# ★[11/20 d284 안 C 정훈 승인 "안 C로 확정"] 원화는 달러로 — 룰9(VOO 월 10만) 다음 입금은 전액 달러,
+#   11/20 국내 매도 대금은 달러 환전 → VOO(하드플로어 해제일). 국내 트랙은 **집행 0원**이고 원장·판정은 그대로 둔다
+#   (원화를 다시 국내에 쓰기로 정하면 이 값만 끈다 — 정훈 승인 필요). 하드플로어·룰6보다 **먼저** 막는다(정책이 더 오래 간다).
+#   근거 = docs/research/core_satellite_2026-11-19.md §7(안 C: 변동성 A와 같은 24.4% · 삼성 위험 26→19% · VOO +7.6%p).
+KR_KRW_TO_USD = True
+KR_POLICY_WHY = ("d284 안 C — 원화는 달러로(룰9 다음 입금 전액 달러 · 국내 매도 대금 → 달러 → VOO) · "
+                 "국내 트랙 집행 0원(원장 유지)")
 
 
 KR_EXPIRE_DAYS = 31          # 마지막 회차일에서 이만큼 지나도 미집행이면 사이클 만료(영원히 열려 있지 않게)
@@ -1508,10 +1621,17 @@ def kr_track(krw_cash: float, dd_pct: float | None, today: str | None = None, ch
                     "why": f"{ledger_err} — 집행 이력을 읽을 수 없어 판정 불가(빈 원장으로 보고 새로 열지 않는다)"})
         return out
 
+    out["policy_usd"] = bool(KR_KRW_TO_USD)
+
     def _gate(allowed, status_ok, why_ok):
-        """하드플로어 → 룰6 순으로 막는다. pre_gate = 두 게이트 전 금액(기록용)."""
+        """d284 안 C 정책 → 하드플로어 → 룰6 순으로 막는다. pre_gate = 게이트 전 금액(기록용)."""
         out.update({"pre_gate_krw": round(allowed)})
-        if halted:
+        if KR_KRW_TO_USD:
+            also = [s for s, on in (("하드플로어", halted), (f"룰6 국내 {kr_weight:.1f}% > 22%" if rule6_block else "", rule6_block)) if on]
+            out.update({"status": "policy_usd", "allowed_krw": 0,
+                        "why": f"회차 몫 {allowed:,.0f}원이 있으나 {KR_POLICY_WHY}"
+                               + (f" · {'·'.join(also)}도 발동 중" if also else "")})
+        elif halted:
             out.update({"status": "deferred", "allowed_krw": 0,
                         "why": f"회차 몫 {allowed:,.0f}원이 있으나 하드플로어로 **연기** — {hwhy}"})
         elif rule6_block:
@@ -1529,6 +1649,10 @@ def kr_track(krw_cash: float, dd_pct: float | None, today: str | None = None, ch
             out.update({"status": "idle", "allowed_krw": 0,
                         "why": f"낙폭 {dd_pct:+.1f}% > {KR_TRIGGER_DD:.0f}% — 룰1 대상 구간 아님{done_note}. "
                                "평시 국내 매수는 매수존·룰3·룰6 판단"})
+        elif krw_cash < KR_MIN_CYCLE_KRW and KR_KRW_TO_USD:
+            # ★[11/20 d284 안 C] 원화가 적어도 '재원 없음'이 아니라 정책이 막는다 — 들어와도 달러로 간다(앱이 같은 말을 하게)
+            out.update({"status": "policy_usd", "allowed_krw": 0,
+                        "why": f"원화 {krw_cash:,.0f}원 · {KR_POLICY_WHY}{done_note}"})
         elif krw_cash < KR_MIN_CYCLE_KRW:
             out.update({"status": "no_funds", "allowed_krw": 0,
                         "why": f"낙폭 {dd_pct:+.1f}% ≤ {KR_TRIGGER_DD:.0f}%이나 원화 {krw_cash:,.0f}원 < "
@@ -1869,15 +1993,19 @@ def _kr_accrual_note(allowed_krw, cash):
     lines = [f"\n═══ 🇰🇷 국내 이월 적립 (crash_tf §2b · 8/14 신설) ═══",
              f"  1주 가격 출처: {src}"]
     if allowed_krw <= 0:
-        lines.append(f"  현재 허용 **0원** — 회차 미도래·재원 부족·하드플로어·룰6 중 하나(위 판정 참조).")
+        lines.append(f"  현재 허용 **0원** — d284 안 C 정책·회차 미도래·재원 부족·하드플로어·룰6 중 하나(위 판정 참조).")
     if reach:
         lines.append(f"  ✅ 1주 도달: {', '.join(f'{k} {v:,}원' for k, v in sorted(reach.items(), key=lambda x: x[1]))}")
     nearest = min((v for v in prices.values() if v > allowed_krw), default=None)
     if nearest is not None:
         name = next(k for k, v in prices.items() if v == nearest)
         lines.append(f"  ⏳ 최근접 미달: {name} {nearest:,}원 — **{nearest - allowed_krw:,.0f}원 부족**")
-    lines.append(f"  참고 가용현금 {cash:,.0f}원 · 국내주 22% 초과 동안 원화는 미국 트랙 합류(d207 ②) — "
-                 f"22% 이하일 때만 §2b 규칙3(적립분 미국 매수 금지)")
+    if KR_KRW_TO_USD:
+        lines.append(f"  참고 가용현금 {cash:,.0f}원 · ★d284 안 C — 원화는 국내 비중과 무관하게 달러로(룰9 다음 입금 전액 달러 · "
+                     f"국내 매도 대금 → VOO) · §2b 규칙3(적립분 미국 매수 금지)은 이 정책이 꺼질 때만 적용")
+    else:
+        lines.append(f"  참고 가용현금 {cash:,.0f}원 · 국내주 22% 초과 동안 원화는 미국 트랙 합류(d207 ②) — "
+                     f"22% 이하일 때만 §2b 규칙3(적립분 미국 매수 금지)")
     lines.append("  ⚠️ 표시 전용 — 회차 몫이 1주에 못 미치면 남은 원화가 다음 회차로 넘어간다(회차 = 그날 원화 ÷ 남은 회차).")
     return "\n".join(lines)
 
@@ -1987,7 +2115,7 @@ def selftest() -> int:
     """
     import tempfile
     g = globals()
-    keep = {k: g[k] for k in ("US_TRACK", "_px", "_last_close", "_us_zone_levels", "googl_room_usd",
+    keep = {k: g[k] for k in ("US_TRACK", "_px", "_last_close", "_us_zone_levels", "us_weights",
                               "global_contagion_check", "_us_session_today", "_kst_today", "_us_cash_now")}
     tmp = tempfile.mkdtemp(prefix="tranche_selftest_")
     ok = True
@@ -2000,7 +2128,8 @@ def selftest() -> int:
 
     px = {"GEV": 950.0, "ANET": 185.0, "CDNS": 330.0, "GOOGL": 340.0, "VOO": 700.0}
     prev = {"GEV": 940.0, "ANET": 182.95, "CDNS": 325.86}
-    room = {"room_usd": 0.0, "weight_pct": 18.1}
+    # ★[11/20 d284] 비중 주입 — 기본 = VOO 50%(코어 도달 → 존 종목이 회차 전액까지 · 舊 기대값 그대로) · 상한 여유 넉넉
+    W = {"voo_pct": 50.0, "pct": {}, "room_usd": {}, "room_new_usd": 1e9}
 
     def write(fills, schedule=("2026-09-21", "2026-10-21", "2026-11-23")):
         with open(g["US_TRACK"], "w", encoding="utf-8") as f:
@@ -2011,7 +2140,7 @@ def selftest() -> int:
         g["_px"] = lambda s, live=True: (px.get(s), "test") if px.get(s) else (None, None)
         g["_last_close"] = lambda s: (prev.get(s), "2026-10-20") if prev.get(s) else (None, None)
         g["_us_zone_levels"] = lambda: {"GEV": 900.0, "ANET": 190.0, "CDNS": 315.0}
-        g["googl_room_usd"] = lambda live=True: dict(room)
+        g["us_weights"] = lambda live=True: dict(W)
         g["global_contagion_check"] = lambda: (False, "test")
         print("tranche_rules 미국 트랙 selftest")
 
@@ -2042,11 +2171,58 @@ def selftest() -> int:
                [(x["ticker"], x["usd"], x.get("order")) for x in r["split"]], [("GEV", 366.87, "market_fraction")])
         px["GEV"] = 950.0
 
-        room["room_usd"] = 50.0
+        # ★[11/20 d284 ③④ 정훈 "안 C로 확정"] VOO 45% 전 = 회차의 절반 이상 VOO · 존 몫 = 절반(센트 내림) · 18% 상한 · GOOGL 단계 없음
+        expect("GOOGL 단계 삭제 — 분배 어디에도 GOOGL이 없다", "GOOGL" in [x["ticker"] for x in r["split"]], False)
+        W["voo_pct"] = 23.6
         r = us_track(733.74, "2026-10-21", live=False)
-        expect("GOOGL 여유 $50(코드 공식) → ANET 1주 · GOOGL $50 · VOO 나머지",
-               [(x["ticker"], x["usd"]) for x in r["split"]], [("ANET", 185.18), ("GOOGL", 50.0), ("VOO", 131.69)])
-        room["room_usd"] = 0.0
+        expect("코어(VOO 23.6%) · 회차 $366.87 → 존 몫 $183.43 < 1주 상한 188.43 → ANET 존 몫만 소수점 + VOO 절반 이상",
+               [(x["ticker"], x["usd"], x.get("order")) for x in r["split"]],
+               [("ANET", 183.43, "market_fraction"), ("VOO", 183.44, "market_fraction")])
+        expect("코어 · VOO 몫 ≥ 절반", r["split"][1]["usd"] >= r["allowed_usd"] / 2, True)
+        expect("코어 · 상시 예약 ANET = 알림(1주 > 존 몫) · 존 몫 $183.43",
+               [(x["ticker"], x["mode"], x.get("usd")) for x in r["standing"]][1], ("ANET", "alert", 183.43))
+        expect("코어 · zone_share 0.5 · VOO 사유에 비중", (r["zone_share"], "VOO 23.6% < 45%" in r["split"][1]["why"]), (0.5, True))
+        r = us_track(800.0, "2026-10-21", live=False)
+        expect("코어 · 회차 $400 → 존 몫 $200 ≥ 상한 188.43 → ANET 1주 지정가 + VOO 나머지",
+               [(x["ticker"], x["usd"], x.get("order")) for x in r["split"]],
+               [("ANET", 185.18, "limit"), ("VOO", 214.82, "market_fraction")])
+        expect("코어 · 회차 $400 · 상시 예약 ANET = 지정가", [x["mode"] for x in r["standing"]][1], "limit")
+        px["GEV"] = 890.0
+        r = us_track(733.74, "2026-10-21", live=False)
+        expect("코어 · 존 2개 → 최상위 GEV 존 몫만 소수점(ANET 아님) + VOO",
+               [(x["ticker"], x["usd"]) for x in r["split"]], [("GEV", 183.43), ("VOO", 183.44)])
+        px["GEV"] = 950.0
+        W["room_usd"] = {"ANET": 0.0}
+        r = us_track(733.74, "2026-10-21", live=False)
+        expect("ANET 18% 상한(여유 0) → 회차 전액 VOO · 사유에 ANET·상한",
+               ([(x["ticker"], x["usd"]) for x in r["split"]], "ANET" in r["split"][0]["why"] and "18% 상한" in r["split"][0]["why"]),
+               ([("VOO", 366.87)], True))
+        expect("ANET 18% 상한 → 상시 예약 off(팔지는 않는다)", [x["mode"] for x in r["standing"]][1], "off")
+        W["voo_pct"], W["room_usd"] = 50.0, {"ANET": 50.0}
+        r = us_track(733.74, "2026-10-21", live=False)
+        expect("코어 도달 · ANET 상한까지 $50 → ANET $50 소수점 + VOO 나머지",
+               [(x["ticker"], x["usd"], x.get("order")) for x in r["split"]],
+               [("ANET", 50.0, "market_fraction"), ("VOO", 316.87, "market_fraction")])
+        W["room_usd"] = {}
+        px["ANET"] = 195.0
+        W["voo_pct"] = 23.6
+        r = us_track(733.74, "2026-10-21", live=False)
+        expect("코어 · 매수존 종목 없음 → 회차 전액 VOO",
+               ([(x["ticker"], x["usd"]) for x in r["split"]], "매수존 종목 없음" in r["split"][0]["why"]), ([("VOO", 366.87)], True))
+        px["ANET"] = 185.0
+        g["us_weights"] = lambda live=True: {"error": "test"}
+        r = us_track(733.74, "2026-10-21", live=False)
+        expect("비중 계산 불가 → 절반 규칙 그대로(존 몫 $183.43) · 사유에 '계산 불가'",
+               ([(x["ticker"], x["usd"]) for x in r["split"]], "계산 불가" in r["split"][1]["why"]),
+               ([("ANET", 183.43), ("VOO", 183.44)], True))
+        g["us_weights"] = lambda live=True: dict(W)
+        W["voo_pct"] = 50.0
+        expect("_partial_block · 1주 $184.60 > 존 몫 $183.43(회차 $366.87 절반) → 못 건다",
+               (_partial_block(2, ["VOO"], 185.18, "ANET", 184.6, budget=366.87, share=0.5) or "").startswith(
+                   "1주 $184.60 > 2회차 존 몫 $183.43"), True)
+        expect("_partial_block · 코어 도달(share 1) → 존 몫 = 잔액 · 첫 밤이면 안 막는다",
+               _partial_block(2, ["VOO"], 185.18, "ANET", 184.6, first_night=True, budget=366.87, share=1.0), None)
+        expect("_zone_cap 센트 내림 — $366.87 절반 = $183.43(VOO $183.44가 절반 이상)", _zone_cap(366.87), 183.43)
 
         write([])
         r = us_track(900.0, "2026-10-22", live=False)
@@ -2278,6 +2454,34 @@ def selftest() -> int:
         _LIVE.pop(("prev", "ANET"), None)
         _LIVE.pop(("prev", "X"), None)
 
+        # ★[11/20 d284 안 C 정훈 "안 C로 확정"] 국내 트랙 = 원화는 달러로 → 집행 0원(원장 없음 · 플로어 주입)
+        print("국내 트랙 d284 안 C 정책 게이트")
+        kp = g["KR_KRW_TO_USD"]
+        try:
+            k = kr_track(494_000, -43.6, today="2026-11-24", check_floor=False, kr_weight=14.2, use_ledger=False)
+            expect("정책 ON · 원화 494,000 · 낙폭 -43.6% · 국내 14.2% → policy_usd · 0원 · 게이트 전 82,333원",
+                   (k["status"], k["allowed_krw"], k["pre_gate_krw"], k["policy_usd"]), ("policy_usd", 0, 82333, True))
+            expect("정책 ON · 원화 7,940(재원 미달) → '재원 없음'이 아니라 정책으로 막는다",
+                   kr_track(7_940, -43.6, today="2026-11-24", check_floor=False, kr_weight=14.2, use_ledger=False)["status"],
+                   "policy_usd")
+            g["global_contagion_check"] = lambda: (True, "test 폭풍 99")
+            k = kr_track(494_000, -43.6, today="2026-11-24", check_floor=True, kr_weight=30.0, use_ledger=False)
+            expect("정책 ON · 하드플로어+룰6 동시 → 정책이 먼저 · 둘 다 why에", (k["status"], "하드플로어" in k["why"] and "룰6" in k["why"]),
+                   ("policy_usd", True))
+            g["global_contagion_check"] = lambda: (False, "test")
+            expect("정책 ON · 낙폭 -10% → idle(정책과 무관한 평시)",
+                   kr_track(494_000, -10.0, today="2026-11-24", check_floor=False, kr_weight=14.2, use_ledger=False)["status"], "idle")
+            g["KR_KRW_TO_USD"] = False
+            expect("정책 OFF → 舊 판정 그대로(armed · 82,333원)",
+                   (lambda k: (k["status"], k["allowed_krw"]))(kr_track(494_000, -43.6, today="2026-11-24", check_floor=False,
+                                                                         kr_weight=14.2, use_ledger=False)), ("armed", 82333))
+            expect("정책 OFF · 국내 30% → rule6_block",
+                   kr_track(494_000, -43.6, today="2026-11-24", check_floor=False, kr_weight=30.0, use_ledger=False)["status"], "rule6_block")
+            expect("정책 OFF · 원화 7,940 → no_funds",
+                   kr_track(7_940, -43.6, today="2026-11-24", check_floor=False, kr_weight=14.2, use_ledger=False)["status"], "no_funds")
+        finally:
+            g["KR_KRW_TO_USD"] = kp
+
         print("d211 현대차 판정기")
         expect("호가 올림 341,279 → 341,500", kr_tick_up(341279), 341500)
         expect("호가 올림 199,990 → 200,000", kr_tick_up(199990), 200000)
@@ -2493,7 +2697,7 @@ def main():
         for x in u["standing"]:
             gap = f"{x['gap_pct']:+.1f}%" if x.get("gap_pct") is not None else "?"
             print(f"     · {icon.get(x['mode'], x['mode'])} {x['ticker']:<5} 존 ${x['level']:,.0f} · 현재 ${x.get('price')} (존까지 {gap})  {x['why']}")
-        print("     ※ 예약은 한 번에 한 종목 · 체결되면 그 회차 끝(회차일 재집행 없음) · 회차 금액에서 남는 달러는 같은 날 GOOGL 18% → VOO 소수점으로 채운다 · 장전 -5% 이상 갭이면 취소(룰3) · 주문은 정훈이 토스 앱에서.")
+        print("     ※ 예약은 한 번에 한 종목 · 체결되면 그 회차 끝(회차일 재집행 없음) · 회차 금액에서 남는 달러는 같은 날 VOO 소수점으로 채운다(d284 — VOO 45% 전엔 회차의 절반 이상 VOO) · 장전 -5% 이상 갭이면 취소(룰3) · 주문은 정훈이 토스 앱에서.")
     if u.get("status") in ("due", "zone_open", "partial"):
         print("     ※ 룰3(추격금지) — 대상이 당일 +3% 이상 급등이면 다음 거래일로. 분수주 = 시장가. 자동 집행 아님.")
 

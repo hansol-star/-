@@ -136,10 +136,10 @@ def evaluate(alert: dict) -> dict:
 # ── 포지션 사이징 (리스크매니저 정량화 — ai-hedge-fund Risk Manager 착안) ──────
 # 산문 "3분할" → 현금·안전핀 버퍼·집중도 기반 '이번 트랜치 권장 규모 + 단일종목 비중 상한'.
 CONCENTRATION_CAP = 0.25          # 단일종목 최대 비중(주식평가액 대비)
-try:                              # 룰6 국내 비중 밴드 — 정본은 tranche_rules(두 곳에 숫자를 두지 않는다)
-    from tranche_rules import RULE6_KR_HI, RULE6_KR_LO, kr_weight_pct
+try:                              # 룰6 국내 비중 상한 — 정본은 tranche_rules(두 곳에 숫자를 두지 않는다)
+    from tranche_rules import RULE6_KR_HI, kr_weight_pct   # 하한(舊 18%)은 11/20 d284 안 C로 폐지
 except ImportError:
-    RULE6_KR_HI, RULE6_KR_LO = 22.0, 18.0
+    RULE6_KR_HI = 22.0
 
     def kr_weight_pct():
         return None
@@ -279,7 +279,7 @@ def rule6_weight(kr_val: float, total: float):
 def rule6_line(con: dict, snap_pct=None) -> str:
     """사이징 패널의 룰6 줄. 실시세 값과 **게이트가 실제로 쓰는 값(일일 스냅샷)**을 같이 보인다 —
     둘이 22% 양쪽으로 갈리면 이 줄과 tranche_rules 판정이 서로 다른 말을 하게 된다."""
-    hi, lo = RULE6_KR_HI, RULE6_KR_LO
+    hi = RULE6_KR_HI
     snap = f" · 게이트 판정값(일일 스냅샷) {snap_pct:.1f}%" if snap_pct is not None else ""
     pct = con.get("kr_pct")
     if pct is None:
@@ -293,9 +293,7 @@ def rule6_line(con: dict, snap_pct=None) -> str:
     split = ""
     if snap_pct is not None and snap_pct > hi:
         split = f" ⚠️ 스냅샷은 {hi:.0f}% 초과 — 게이트는 스냅샷으로 판정한다"
-    if pct < lo:
-        return f"- 룰6 국내 비중 {pct}% < {lo:.0f}% — 밴드 하단 미달{snap}{split}"
-    return f"- 룰6 국내 비중 {pct}% — 밴드({lo:.0f}~{hi:.0f}%) 안{snap}{split}"
+    return f"- 룰6 국내 비중 {pct}% — 상한 {hi:.0f}% 이하(하한 없음 · 11/20 d284 안 C){snap}{split}"
 
 
 def sizing_panel(cfg):
@@ -374,10 +372,10 @@ def selftest() -> int:
         ok("환율이 대체값이면 비중을 내지 않는다", fxbad["kr_pct"] is None and "환율" in (fxbad["kr_note"] or ""))
     finally:
         fetch_quote = keep
-    ok("밴드 안(18~22%)", "밴드(18~22%) 안" in rule6_line({"kr_pct": 20.0, "kr_trim_krw": 0}))
-    ok("하단 미달(<18%)을 '밴드 안'이라 하지 않는다",
-       "하단 미달" in rule6_line({"kr_pct": 15.0, "kr_trim_krw": 0}))
-    ok("22.0%는 초과가 아니다(게이트와 같은 부등호)", "안" in rule6_line({"kr_pct": 22.0, "kr_trim_krw": 0}))
+    ok("상한(22%) 이하", "상한 22% 이하" in rule6_line({"kr_pct": 20.0, "kr_trim_krw": 0}))
+    l15 = rule6_line({"kr_pct": 15.0, "kr_trim_krw": 0})
+    ok("하한 폐지(d284 안 C) — 15%를 '미달'이라 하지 않는다", "미달" not in l15 and "상한 22% 이하" in l15)
+    ok("22.0%는 초과가 아니다(게이트와 같은 부등호)", "이하" in rule6_line({"kr_pct": 22.0, "kr_trim_krw": 0}))
 
     # ★[10/19] 외인 전환 알림은 정규장 기준으로 판정한다 — 통합값(애프터 포함)만 있는 날은 '보류'
     import flow_trend as _FT

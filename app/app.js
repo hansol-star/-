@@ -240,6 +240,7 @@
     waiting: "다음 회차 대기",
     freeze: "연기 — 하드플로어 발동(S&P500 폭풍 ≥70%ile)",
     rule6: "룰6 우선(d207) — 국내주 22% 초과라 집행 0원, 원화는 미국 트랙으로",
+    policy: "d284 안 C — 원화는 달러로(룰9 다음 입금 전액 달러 · 국내 매도 대금 → VOO). 국내 트랙 집행 0원",
     unknown: "코스피 시세 미확인"
   };
   // ★[9/21 d205] 미국 트랙 — 달러는 코스피 사다리가 아니라 3회 균등 분할(월 1회)이 다룬다
@@ -609,7 +610,7 @@
     return out.join(" · ");
   }
   function todayLong() { var d = kst(); return (d.getUTCMonth() + 1) + "월 " + d.getUTCDate() + "일 " + "일월화수목금토".charAt(d.getUTCDay()) + "요일"; }
-  var LADDER_SHORT = { idle: "국내 평시", nofunds: "원화 없음", armed: "국내 1회차 가능", due: "국내 회차 도래", waiting: "국내 회차 대기", freeze: "하드플로어 연기", rule6: "룰6 우선 — 집행 0원", unknown: "시세 미확인" };
+  var LADDER_SHORT = { idle: "국내 평시", nofunds: "원화 없음", armed: "국내 1회차 가능", due: "국내 회차 도래", waiting: "국내 회차 대기", freeze: "하드플로어 연기", rule6: "룰6 우선 — 집행 0원", policy: "원화→달러(d284)", unknown: "시세 미확인" };
 
   // 걸 주문 카드(접수 가능) · 걸지 말 것 카드(밴드 밖)
   function orderCard(o) {
@@ -819,21 +820,23 @@
     h += '<div class="seg" role="tablist"><button type="button" role="tab" data-t="hold" aria-selected="' + (pfTab === "hold") + '" class="' + (pfTab === "hold" ? "on" : "") + '">보유 ' + hs.length + '</button>'
       + '<button type="button" role="tab" data-t="watch" aria-selected="' + (pfTab === "watch") + '" class="' + (pfTab === "watch" ? "on" : "") + '">워치 ' + (D.watchlist || []).length + '</button></div>';
 
-    // 매수 우선순위(d191) — ① GOOGL · ②③ 워치 buy_zone 접두
+    // 미국 매수 순서(★11/20 d284 안 C) — 코어 VOO(VOO 45% 전엔 회차의 절반 이상) + 존 몫(절반) = 매수존 안 최상위 1종목
+    //   존 순서 = 워치 buy_zone의 '미국 트랙 ②~⑥'(GEV·ANET·CDNS·LLY·BRK-B) · 한 종목 18% 넘으면 추가 없음(d284 ④)
+    //   舊 d191 '① GOOGL 18%까지'는 d284에서 삭제 · 舊 정규식 /^([②③④])/는 buy_zone 문구가 바뀐 뒤 아무것도 못 잡았다
     var ws = (D.watchlist || []).map(function (w) {
       var a = alertsLive().filter(function (x) { return x.ticker === w.ticker && /매수존|눌림|편입/.test(x.id); })[0];
       return Object.assign({}, w, { za: a, zd: a ? a.ldist : null });
     });
-    var pri = [], g = (D.holdings || []).filter(function (x) { return x.ticker === "GOOGL"; })[0];
-    if (g) pri.push({ n: "①", st: g, z: "비중 18% 상한" });
-    ws.forEach(function (w) { var m = String(w.buy_zone || "").match(/^([②③④])\s*(.*)/); if (m) pri.push({ n: m[1], st: w, z: w.za ? (w.za.cond === "between" ? fmtP(w.za.low, w.ticker) + "–" + fmtP(w.za.high, w.ticker) : fmtP(w.za.level, w.ticker) + " 이하") : shortTxt(m[2], 18), d: w.zd }); });
+    var RK = { "②": "존 1순위", "③": "존 2순위", "④": "존 3순위", "⑤": "존 4순위", "⑥": "존 5순위" }, pri = [];
+    ws.forEach(function (w) { var m = String(w.buy_zone || "").match(/미국 트랙 ([②③④⑤⑥])/); if (m) pri.push({ n: m[1], rk: RK[m[1]], st: w, z: w.za ? (w.za.cond === "between" ? fmtP(w.za.low, w.ticker) + "–" + fmtP(w.za.high, w.ticker) : fmtP(w.za.level, w.ticker) + " 이하") : shortTxt(String(w.buy_zone || ""), 18), d: w.zd }); });
     pri.sort(function (a, b) { return a.n.localeCompare(b.n); });
+    var voo = hs.filter(function (x) { return x.ticker === "VOO"; })[0];
+    if (voo) pri.unshift({ n: "코어", rk: "", st: voo, z: "비중 " + voo.w.toFixed(1) + "% → 45% · 회차 절반 이상" });
     function priCard() {
       if (!pri.length) return "";
-      var RK = { "①": "1순위", "②": "2순위", "③": "3순위", "④": "4순위" };
-      return h2s("미국 매수 순서", "d191 · d205", "sm") + '<div class="wcard" style="margin-top:0"><div class="pri3">' + pri.map(function (p) {
-        return '<a href="#stock/' + encodeURIComponent(p.st.ticker) + '"><span class="n">' + p.n + ' ' + RK[p.n] + '</span><b>' + esc(isKR(p.st.ticker) ? p.st.label : p.st.ticker) + '</b><span class="z">' + esc(p.z) + (p.d != null ? ' · ' + pct(p.d, 1) : '') + '</span></a>';
-      }).join("") + '</div><p>' + (UT.ok ? (UT.allowed > 0 ? (UT.u.status === "partial" ? '미국 트랙 ' + UT.u.partial_tranche + '회차 잔액 ' + usd(UT.allowed) + ' — GOOGL 18%까지 → 나머지 VOO(존 종목은 다음 회차).' : '미국 트랙 이번 회차 ' + usd(UT.allowed) + ' — 매수존 안 종목 → GOOGL 18%까지 → 나머지 VOO.') : '미국 트랙 ' + esc(US_SHORT[UT.u.status] || "") + (UT.u.next_date ? ' — 다음 회차 ' + esc(mdw(UT.u.next_date)) : '') + '.') : UT.u.status === "error" ? '미국 트랙 ' + esc(US_SHORT.error) + ' — 고치기 전까지 이 순서로 사지 않는다(매수 판단 보류).' : (L.allowed > 0 ? '잔여 ' + won(L.allowed) + ' — 이 순서대로.' : '지금은 못 산다.')) + '</p></div>';
+      return h2s("미국 매수 순서", "d284 · d205", "sm") + '<div class="wcard" style="margin-top:0"><div class="pri3">' + pri.map(function (p) {
+        return '<a href="#stock/' + encodeURIComponent(p.st.ticker) + '"><span class="n">' + p.n + (p.rk ? ' ' + p.rk : '') + '</span><b>' + esc(isKR(p.st.ticker) ? p.st.label : p.st.ticker) + '</b><span class="z">' + esc(p.z) + (p.d != null ? ' · ' + pct(p.d, 1) : '') + '</span></a>';
+      }).join("") + '</div><p>' + (UT.ok ? (UT.allowed > 0 ? (UT.u.status === "partial" ? '미국 트랙 ' + UT.u.partial_tranche + '회차 잔액 ' + usd(UT.allowed) + ' — 잔액은 VOO(존 종목은 다음 회차).' : '미국 트랙 이번 회차 ' + usd(UT.allowed) + ' — 절반 이상 VOO · 나머지 절반 = 매수존 안 최상위 1종목(d284 · VOO 45% 전) · 한 종목 18% 넘으면 추가 없음.') : '미국 트랙 ' + esc(US_SHORT[UT.u.status] || "") + (UT.u.next_date ? ' — 다음 회차 ' + esc(mdw(UT.u.next_date)) : '') + '.') : UT.u.status === "error" ? '미국 트랙 ' + esc(US_SHORT.error) + ' — 고치기 전까지 이 순서로 사지 않는다(매수 판단 보류).' : (L.allowed > 0 ? '잔여 ' + won(L.allowed) + ' — 이 순서대로.' : '지금은 못 산다.')) + '</p></div>';
     }
 
     if (pfTab === "hold") {

@@ -581,6 +581,8 @@ def build(offline: bool) -> dict:
     _ks = (safety.get("kr_track") or {}).get("status")
     if kospi_price is None or _ks in (None, "unknown"):
         safety["status"] = "unknown"
+    elif _ks == "policy_usd":
+        safety["status"] = "policy"   # ★11/20 d284 안 C — 원화는 달러로: 국내 트랙 집행 0원(플로어·룰6보다 먼저 · 원장 유지)
     elif safety.get("halted") and _ks in ("armed", "due", "rule6_block", "deferred"):
         safety["status"] = "freeze"   # 하드플로어 발동 = 이번 회차 연기
     elif _ks == "rule6_block":

@@ -964,13 +964,13 @@ INJECTION_TESTS = [
 
     {
         "name": "check_allocation_band",
-        "desc": "\uad6d\ub0b4\uc8fc \ube44\uc911\uc774 \ubaa9\ud45c \ubc34\ub4dc(18~22%)\ub97c \ubc97\uc5b4\ub098\uba74 \uc7a1\ub294\uac00",
+        "desc": "\uad6d\ub0b4\uc8fc \ube44\uc911\uc774 \uc0c1\ud55c(22%)\uc744 \ub118\uc73c\uba74 \uc7a1\ub294\uac00 \u2014 \ud558\ud55c(\u820a 18%)\uc740 11/20 d284 \uc548 C\ub85c \ud3d0\uc9c0: 14%\ub294 \uae68\ub057\ud574\uc57c \ud55c\ub2e4",
         "why": "8/30 \uc2e0\uc124 \ub8f06. \uc774 \ub8f0\uc774 \uc0dd\uae30\uae30 \uc804\uae4c\uc9c0 \uad6d\ub0b4 28.7%\ub294 \ub204\uac00 \uc815\ud55c \uac12\uc774 \uc544\ub2c8\ub77c "
                "\uc6b0\uc5f0\ud788 \uadf8\ub807\uac8c \ub41c \uac12\uc774\uc5c8\ub2e4. \uadf8\ub7f0\ub370 \ub370\uc2a4\ud06c \uae30\uac04 \uc190\uc2e4\uc758 \uc2e4\uccb4\uac00 \uac70\uae30\uc600\ub2e4 \u2014 "
                "\uad6d\ub0b4 23.6%\u00d7\ucf54\uc2a4\ud53c -20.56% = -4.85%p. \uc704\ud5d8 \uae30\uc900\uc73c\ub85c\ub294 \ube44\uc911 28.7%\uac00 \ud3ec\ud2b8 \uc704\ud5d8\uc758 60.2%\ub97c \ub9cc\ub4e4\uc5c8\ub2e4",
-        "pattern": r"\ubc30\ubd84 \ubc34\ub4dc \uc774\ud0c8",
+        "pattern": r"\ubc30\ubd84 \uc0c1\ud55c \ucd08\uacfc",
         "violate": {'app/data.js': 'window.DATA = {"holdings": [{"label":"\\uc0bc\\uc131","ticker":"005930.KS","region":"kr","value_krw":30},{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":70}]};'},
-        "clean": {'app/data.js': 'window.DATA = {"holdings": [{"label":"\\uc0bc\\uc131","ticker":"005930.KS","region":"kr","value_krw":20},{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":80}]};'},
+        "clean": {'app/data.js': 'window.DATA = {"holdings": [{"label":"\\uc0bc\\uc131","ticker":"005930.KS","region":"kr","value_krw":14},{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":86}]};'},
         "args": (),
     },
 

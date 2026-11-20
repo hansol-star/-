@@ -65,6 +65,7 @@ EXPECTED_UNWIRED = {
     "risk_cap_test.py":           "일회성 룰 검정 — 단일종목 위험 기여 상한 vs 비중 상한 vs 대조군(9/30 시스템 평가 B). 결과 기각(③ KR·US 부호 갈림, Sharpe≈0). 결론은 docs/research/risk_cap_test_2026-09-30.md에 박히고 스크립트는 재현용으로 남는다",
     "flow_signal_test.py":        "일회성 검정 — 외인·기관 동반 순매수·외인보유율 변화 → 이후 20·60일 초과수익(11/20 정훈 현대차 질문 · 사전등록 flow_signal · 4변형 전부 기각). 결론은 docs/research/flow_signal_test_2026-11-20.md에 박혔고, 수급 신호를 다시 논의할 때만 재현용으로 돌린다(`--cached`)",
     "ipo_baseline.py":            "일회성 측정 — 대형 IPO 12건 첫날 시초가 진입 기저율(11/19 앤트로픽 상장 대응). `--short` = 상장 초반 단기 매매 20 변형(사전등록 ipo_flip · 11/20 전부 기각). 결론은 docs/research/anthropic_ipo_plan_2026-11-19.md에 박혔고, 다음 대형 IPO(오픈AI 등) 때 재현용으로 돌린다",
+    "sector_cap_test.py":         "일회성 검정 — 반도체 섹터 상한 트림(T35·T25·T0) vs 보유(11/21 d285 안건 · 49산업 1926~ · 채택 후보지만 크기 작음). 결론 = docs/research/sector_cap_2026-11-21.md·trials `sector_cap_result`. 재현용으로 남는다",
     "pct_exit_test.py":           "일회성 검정 — 매수가 대비 +X% 익절/-Y% 손절 24개 변형 vs 보유(11/19 d282 · 전부 기각). 결론은 docs/research/pct_exit_test_2026-11-19.md와 룰8에 박혔고, 가격 기준을 다시 논의할 때만 재현용으로 돌린다. 매 보고서 판정은 exit_rules.py가 한다",
     "trim_limit_test.py":         "일회성 실측 — 트림 지정가(+k%) vs 시장가 vs 홀드를 같은 차트 국면에서 비교(9/23 d210). 결론은 docs/research/trim_limit_test_2026-09-23.md에 박히고 스크립트는 재현용으로 남는다. 트림가를 새로 정할 때만 다시 돌린다",
     "ladder_variants_test.py":    "일회성 룰 검정 — d205 후속 두 질문(국내 실탄 유보 · 미국 낙폭 사다리)을 8/5 3단 절차 + 대조군으로 판정(9/22). 결론은 docs/research/ladder_variants_2026-09-22.md와 crash_tf §2b에 박히고 스크립트는 재현용으로 남는다",

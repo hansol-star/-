@@ -205,6 +205,20 @@ _ARCHIVE_OK.update({f"data/history/T{i}.csv": "d" for i in range(40)})
 _TODAY_KST = (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).strftime("%Y-%m-%d")
 
 # ★[10/12] 미등록 15개 일괄 등록용 헬퍼 ──────────────────────────────────
+def _FIN_DOC(bad_suffix: bool = False) -> dict:
+    """validate_report.HOLDINGS(ETF 제외) 전 종목 재무 껍데기. bad_suffix = 국내 보유 1종목을 .KS<->.KQ로 바꾼 행 추가."""
+    from validate_report import ETF_NO_SCORE, HOLDINGS
+    rec = {"annual": [{"revenue": 1.0, "assets": 2.0}]}
+    doc = {t: dict(rec) for t in HOLDINGS if t not in ETF_NO_SCORE}
+    if bad_suffix:
+        kr = sorted(t for t in doc if t.endswith((".KS", ".KQ")))
+        if not kr:
+            raise RuntimeError("국내 보유 종목이 없다 — 접미사 위반을 심을 수 없다(픽스처 재설계 필요)")
+        code, suf = kr[0].rsplit(".", 1)
+        doc[code + "." + ("KQ" if suf == "KS" else "KS")] = dict(rec)
+    return {"stocks": doc}
+
+
 def _STOCKS_DOC(drop: str | None = None, blank: tuple | None = None) -> dict:
     """validate_report.HOLDINGS 전 종목을 채운 stocks.json. drop=빼는 티커 · blank=(티커, 비울 컬럼)."""
     from validate_report import ETF_NO_SCORE, HOLDINGS
@@ -1254,8 +1268,10 @@ INJECTION_TESTS = [
                "2개월 0건 사고 때문에 생긴 가드인데도 미등록 15개 중 하나였다 = 초록불의 진위를 "
                "한 번도 확인받은 적이 없었다",
         "pattern": r"\uc811\ubbf8\uc0ac \ubd88\uc77c\uce58",
-        "violate": {"data/app/financials.json": "{\"stocks\": {\"005380.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"005930.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"035420.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"066570.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"AVGO\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"GOOGL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MSFT\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MU\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"NVDA\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"ORCL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"454910.KQ\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}}}"},
-        "clean":   {"data/app/financials.json": "{\"stocks\": {\"005380.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"005930.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"035420.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"066570.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"454910.KS\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"AVGO\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"GOOGL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MSFT\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"MU\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"NVDA\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}, \"ORCL\": {\"annual\": [{\"revenue\": 1.0, \"assets\": 2.0}]}}}"},
+        # ★[11/21] 고정 티커(454910) 픽스처는 두산로보 정리(11/20) 뒤 보유와 무관해져 위반을 못 심었다
+        #   → 현재 HOLDINGS에서 국내 종목 하나를 골라 접미사만 바꾼다(보유가 바뀌어도 무력해지지 않는다).
+        "violate": {"data/app/financials.json": json.dumps(_FIN_DOC(bad_suffix=True))},
+        "clean":   {"data/app/financials.json": json.dumps(_FIN_DOC())},
         "args": (),
     },
 

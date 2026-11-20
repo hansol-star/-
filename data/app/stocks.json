@@ -1,7 +1,7 @@
 {
   "_comment": "종목별 분석 정본 (사람·앱이 함께 읽음). 보고서 갱신 시 여기 stars/target/buy_zone/trim/outlook/comment/issues 를 최신 보고서값으로 업데이트한 뒤 build_app_data.py 재실행. 원가·수량 정본은 portfolio.json, 사람용 서술 정본은 docs/master.md.",
-  "as_of": "2026-11-19 22:2x",
-  "source_report": "docs/reports/report_v140_2026-11-19.md",
+  "as_of": "2026-11-20 17:1x",
+  "source_report": "docs/reports/report_v141_2026-11-20.md",
   "stocks": {
     "005930.KS": {
       "outlook": "core",
@@ -65,14 +65,14 @@
       ],
       "forecast": {
         "week": {
-          "low": 174530.0,
-          "high": 214870.0,
+          "low": 162930.0,
+          "high": 203270.0,
           "dir": "→",
           "note": "ATR 기계 범위(±1.3배) — 변동폭 참고 · 예측 아님"
         },
         "month": {
-          "low": 154350.0,
-          "high": 235050.0,
+          "low": 142750.0,
+          "high": 223450.0,
           "dir": "→",
           "note": "ATR 기계 범위(±2.6배) — 변동폭 참고 · 예측 아님"
         }
@@ -159,14 +159,14 @@
       ],
       "forecast": {
         "week": {
-          "low": 126020.0,
-          "high": 147980.0,
+          "low": 119620.0,
+          "high": 141580.0,
           "dir": "→",
           "note": "ATR 기계 범위(±1.3배) — 변동폭 참고 · 예측 아님"
         },
         "month": {
-          "low": 115030.0,
-          "high": 158970.0,
+          "low": 108630.0,
+          "high": 152570.0,
           "dir": "→",
           "note": "ATR 기계 범위(±2.6배) — 변동폭 참고 · 예측 아님"
         }
@@ -805,7 +805,21 @@
       "prose_as_of": "2026-11-19",
       "fund_subscore": 34.8,
       "score_rationale": "[v139 11/19] 펀더 34.8 + 차트 S3 약강세 +4 + 컨센 여력 +3 → 42(⭐2 · 모멘텀)",
-      "target_basis": "산정일 2026-11-19 · 컨센 $412.48(consensus.py) × (1+여력 7.5%×0.75) 근사 = 중심 약 $405 · target_reset 미실행(밴드 미산출 — 다음 보고서에서 산출)"
+      "target_basis": "산정일 2026-11-19 · 컨센 $412.48(consensus.py) × (1+여력 7.5%×0.75) 근사 = 중심 약 $405 · target_reset 미실행(밴드 미산출 — 다음 보고서에서 산출)",
+      "forecast": {
+        "week": {
+          "low": 363.84,
+          "high": 403.6,
+          "dir": "→",
+          "note": "ATR 기계 범위(±1.3배) — 변동폭 참고 · 예측 아님"
+        },
+        "month": {
+          "low": 343.95,
+          "high": 423.49,
+          "dir": "→",
+          "note": "ATR 기계 범위(±2.6배) — 변동폭 참고 · 예측 아님"
+        }
+      }
     }
   },
   "watchlist": {

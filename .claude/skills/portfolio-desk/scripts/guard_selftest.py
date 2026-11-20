@@ -989,6 +989,17 @@ INJECTION_TESTS = [
     },
 
     {
+        "name": "check_allocation_band",
+        "desc": "반도체 섹터 비중이 상한(35%)을 넘으면 잡는가 — 30%는 깨끗해야 한다",
+        "why": "11/21 d285 신설. 종목 상한(18%)만 있고 섹터 상한이 없어 같은 테마가 여러 종목으로 쌓였다 — "
+               "11/21 실측 반도체 4종 39.6%·AI 관련 약 71%. 검정 = sector_cap_test(49산업 1926~ · 채택 후보·크기 작음)",
+        "pattern": "반도체 섹터 상한 초과",
+        "violate": {'app/data.js': 'window.DATA = {"holdings": [{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":25},{"label":"MU","ticker":"MU","region":"us","value_krw":15},{"label":"VOO","ticker":"VOO","region":"us","value_krw":60}]};'},
+        "clean": {'app/data.js': 'window.DATA = {"holdings": [{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":20},{"label":"MU","ticker":"MU","region":"us","value_krw":10},{"label":"VOO","ticker":"VOO","region":"us","value_krw":70}]};'},
+        "args": (),
+    },
+
+    {
         "name": "check_star_prob_monotonic",
         "desc": "별점→확신확률 매핑이 비단조면 잡는가",
         "why": "8/22 재보정이 ⭐2를 0.32→0.50으로 올려 ⭐2(0.50) > ⭐3(0.45)의 비단조를 만들었다. "

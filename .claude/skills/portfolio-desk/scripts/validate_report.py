@@ -2949,6 +2949,14 @@ def check_allocation_band():
              if (h.get("region") == "kr" or str(h.get("ticker", "")).endswith((".KS", ".KQ"))))
     pct = kr / tot * 100
     hi = 22.0                       # 하한 없음(11/20 d284 안 C) — 국내 비중을 채우려고 사지 않는다
+    # ★[11/21 d285 정훈 승인] 반도체 섹터 상한 35%(주식 기준) — WARN · 팔라는 뜻 아님(d210·룰6 ⓑ)
+    semis = ("005930.KS", "000660.KS", "NVDA", "AVGO", "MU", "AMD", "TSM", "AMAT", "ASML", "LRCX",
+             "KLAC", "INTC", "QCOM", "ARM", "MRVL", "TXN", "ADI", "NXPI", "ON", "MCHP")   # = tranche_rules.SEMI_TICKERS
+    sp = sum(h["value_krw"] for h in hs if str(h.get("ticker", "")) in semis) / tot * 100
+    if sp > 35.0:
+        warn(f"반도체 섹터 상한 초과 — {sp:.1f}% > 35% (d285). 반도체 추가 매수 없음 · "
+             f"초과분은 **새 돈으로 희석**(국내 매도 대금·룰9 → VOO) · 가격 트림은 12M 밴드 하단 이상에서만(d210). "
+             f"**밴드 하단 아래에서 팔지 말 것.**")
     if pct > hi:
         warn(f"배분 상한 초과 — 국내주 {pct:.1f}% > 상한 {hi:.0f}% (룰6). "
              f"조정은 **신규 자금·반등 시만**: ⓐ룰9 다음 입금은 전액 달러(d284 안 C) "

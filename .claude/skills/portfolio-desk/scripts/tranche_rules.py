@@ -322,6 +322,12 @@ US_MIN_CYCLE_USD = 50.0      # 이보다 적은 달러로는 새 사이클을 �
 US_NAME_CAP = 0.18           # d284 ④ — VOO 뺀 한 종목 상한(주식 평가액 기준). 舊 d191 = GOOGL만
 US_VOO_CORE = 0.45           # d284 ①③ — VOO 코어 목표(주식 평가액 기준) · 그 전까진 회차의 절반 이상 VOO
 US_ZONE_SHARE = 0.5          # d284 ③ — 코어를 짓는 동안 존 종목 몫 = 회차의 절반까지(센트 내림 — VOO가 늘 절반 이상)
+# ★[11/21 d285 정훈 승인 "승인"] 반도체 섹터 상한 = 주식 평가액의 35% — 넘는 동안 반도체는 추가 매수 없음
+#   (존 종목이 반도체면 건너뛴다 · 팔지 않는다 · 초과분은 새 돈으로 희석 · 가격 트림은 12M 밴드 하단 이상에서만).
+#   검정 = sector_cap_test.py(49산업 1926~ · 채택 후보·크기 작음 = 위험 예산) · 정본 docs/research/sector_cap_2026-11-21.md
+SEMI_CAP = 0.35
+SEMI_TICKERS = ("005930.KS", "000660.KS", "NVDA", "AVGO", "MU", "AMD", "TSM", "AMAT", "ASML", "LRCX",
+                "KLAC", "INTC", "QCOM", "ARM", "MRVL", "TXN", "ADI", "NXPI", "ON", "MCHP")
 US_ZONE_TICKERS = ("GEV", "ANET", "CDNS", "LLY", "BRK-B")   # d191 ②③ + d220 ④ + d278 ⑤⑥(11/19 정훈 승인 — 분산 후보 · 존 도달 시만) — 매수존은 portfolio.json alerts(below)가 정본
 # ★[10/21 d251 정훈 승인 "다 승인"] '월 1회차' = **직전 회차 체결 세션 + 1개월 이후**.
 #   舊 코드는 2회차를 기록하는 순간 3회차 zone_open을 냈다(10/19 실측 — 따르면 달러가 한 주 안에 바닥난다).
@@ -931,6 +937,7 @@ def us_weights(live: bool = True) -> dict:
         return round(max(0.0, (US_NAME_CAP * tot - v) / (1 - US_NAME_CAP)) / fx, 2)
 
     return {"voo_pct": round(vals.get("VOO", 0.0) / tot * 100, 1),
+            "semi_pct": round(sum(v for t, v in vals.items() if t in SEMI_TICKERS) / tot * 100, 1),
             "pct": {t: round(v / tot * 100, 1) for t, v in vals.items()},
             "room_usd": {t: room(v) for t, v in vals.items() if t != "VOO"},
             "room_new_usd": room(0.0), "fx": round(fx, 2), "missing": miss,
@@ -1011,7 +1018,11 @@ def _zone_hits(live: bool = True) -> list[dict]:
 
 
 def _zone_ok(w: dict | None, t: str) -> bool:
-    """d284 ④ — 18% 상한까지 $1 이상 남았나(계산 불가면 막지 않는다)."""
+    """d284 ④ — 18% 상한까지 $1 이상 남았나(계산 불가면 막지 않는다).
+    ★[11/21 d285] 반도체 섹터가 35%를 넘는 동안 반도체 종목은 존 안이어도 건너뛴다."""
+    sp = (w or {}).get("semi_pct")
+    if t in SEMI_TICKERS and sp is not None and sp > SEMI_CAP * 100:
+        return False
     r = name_room_usd(w, t)
     return r is None or r >= 1
 

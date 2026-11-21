@@ -944,6 +944,43 @@ def check_versions(latest):
         if om and int(om.group(1)) < latest:
             fail(f"config_overview.md 정본 = v{om.group(1)} < 최신 v{latest} (인덱스 stale)")
 
+def check_claude_map():
+    """CLAUDE.md의 '보유 N종목' 지도가 HOLDINGS 정본과 어긋나는지.
+
+    [11/21 R3 신설] check_versions는 **보고서 번호**만 봤다. 그래서 11/10 MSFT·11/13 ANET·
+    11/20 국내 3종·TSLA 정리가 HOLDINGS에는 다 반영됐는데 CLAUDE.md는 '보유 13종목
+    (…MSFT·ANET·두산로보·현대차·NAVER)'로 굳어 있었고, **새 세션이 없는 종목을 보유로 읽고
+    출발했다.** 숫자와 이름을 둘 다 본다 — 숫자만 보면 '13'을 '9'로 고치고 이름을 안 고치는
+    절반 수정이 통과한다.
+    """
+    cp = os.path.join(ROOT, "CLAUDE.md")
+    if not os.path.exists(cp):
+        return
+    txt = open(cp, encoding="utf-8").read()
+    # 굵게 표시된 지도 줄(**보유 N종목**)만 본다 — 가드 표·이력 서술의 '보유 15종목 판독 불변'
+    # 같은 과거 언급까지 잡으면 위양성이 난다(11/21 신설 당일 실측).
+    m = re.search(r"\*\*보유\s*(\d+)\s*종목\*\*", txt)
+    n = len(HOLDINGS)
+    if m and int(m.group(1)) != n:
+        fail(f"CLAUDE.md '보유 {m.group(1)}종목' ≠ HOLDINGS 정본 {n}종목 "
+             f"(지도가 stale — 새 세션이 없는 종목을 보유로 읽고 출발한다)")
+    # 이름 축: 보유가 끝난 종목이 아직 '보유'로 적혀 있나. 보유 줄만 본다(이력 서술은 제외).
+    line = next((l for l in txt.splitlines() if re.search(r"\*\*보유\s*\d+\s*종목\*\*", l)), None)
+    if line:
+        head = line.split("—")[0]            # 정정·이력 주석 앞까지만
+        cur = set()
+        for t, al in HOLDINGS.items():
+            cur.update([t, t.split(".")[0]] + list(al))
+        # 과거 보유였다가 빠진 이름이 현재 명단처럼 괄호 안에 남아 있으면 잡는다
+        for gone in ("MSFT", "ANET", "META", "AAPL", "TSLA", "두산로보", "현대차", "NAVER"):
+            if gone in cur:
+                continue
+            if re.search(r"[(·/]\s*" + re.escape(gone), head):
+                fail(f"CLAUDE.md 보유 줄에 이미 정리된 '{gone}'이 현재 보유로 남아 있다 "
+                     f"(HOLDINGS에 없다 — 숫자만 고치고 이름을 안 고친 절반 수정)")
+                break
+
+
 # ── E. 보고서 파일(선택): 디스클레이머 1회·STATE SNAPSHOT·보유 전종목 등장 ──────
 def latest_report_path(latest):
     rdir = os.path.join(ROOT, "docs/reports")
@@ -3668,7 +3705,7 @@ def main():
     check_low_star_action(); check_pending_decisions(); check_repealed_rules(); check_trade_ledger()
     check_consistency(); check_hunter(); check_setups(); check_score_basis(); check_target_basis()
     check_feeds(); check_guru(); check_guru_consistency()
-    latest = latest_version(); check_versions(latest); check_freshness(latest)
+    latest = latest_version(); check_versions(latest); check_claude_map(); check_freshness(latest)
     check_financials(latest); check_rule_ledger(latest); check_git_depth()
     check_star_prob_monotonic(); check_allocation_band(); check_canonical_facts()
     check_order_check(); check_us_ledger(); check_tranche_fill_ledger(); check_calibration_debt()

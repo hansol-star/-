@@ -79,8 +79,12 @@ ETF = {"VOO"}
 #   ④지금 켜져 있는 신호만 잰다 — 끝난 결정(관망하다 산 종목의 관망 구간)은 채점하지 않는다.
 NO_BUY_RE = re.compile(
     r"관망|보류|추격\s*금지|진입\s*금지|"
-    r"(물타기|추가\s*매수|추가매수|신규\s*매수|신규매수|신규\s*자금)\s*(영구)?\s*(금지|안함|제외)|"
-    r"봉인|매수\s*후보\s*(에서\s*제외|아님)|신규자금\s*영구제외|증액\s*(없음|금지|종료)")
+    r"(물타기|추가\s*매수|추가매수|신규\s*매수|신규매수|신규\s*자금)\s*(영구)?\s*(금지|안함|제외|없음)|"
+    r"봉인|매수\s*후보\s*(에서\s*제외|아님)|신규자금\s*영구제외|증액\s*(없음|금지|종료)|"
+    # ★[11/21 R3] '추가 없음' — 매칭되던 '증액 없음'과 같은 뜻인데 사전에 없었다. 그래서 NVDA(비중 17.9%)가
+    #   '추가 없음' 카드로 **no_buy=False·no_sell=False = 오미션 원장에서 통째로 안 보였다**(2주 -32.7% 구간 포함).
+    #   같은 구멍에 SPCX('추가 없음 · 소액 위성')도 걸려 있었다. 10/14 교훈('새 문구는 자가검증에 같이 넣는다')의 재발.
+    r"추가\s*없음")
 NO_SELL_RE = re.compile(
     r"홀딩|홀드|인내|장기\s*보유|보유\s*유지|잔여\s*보유|보유\s*\(d\d+|"
     r"패닉셀\s*금지|손절선\s*(없음|영구\s*폐기)|정리후보|"
@@ -90,6 +94,10 @@ NO_SELL_RE = re.compile(
 #   ⚠️ '안 산다'로 읽는 舊 동작은 **그대로 둔다**(더하기만 한다) — 떼어 봤더니 현대차의 '안 산다' 구간이 끊겼다:
 #   7/29 카드가 '관망'을 매수존 칸에서 트림 칸으로 옮겨 적었을 뿐인데 시작일이 6/20 → 8/2로 밀렸다.
 TRIM_HOLD_RE = re.compile(r"\s*(트림\s*)?(보류|관망)")
+# ★[11/21 R3] 트림 칸이 '보유 · …' / '보유 — …'로 **시작**하면 그것도 안 판다다. NO_SELL_RE는 '보유 유지'·'잔여 보유'·
+#   '보유(d211'만 읽어서 NVDA·AVGO·ORCL이 쓰는 맨 '보유 ·' 꼴을 놓쳤다. 문장 중간의 '보유 12종목'·'보유 비중'은
+#   걸리면 안 되므로 **칸의 첫 토큰만** 본다(match + 구분자 요구).
+TRIM_HOLD_ONLY_RE = re.compile(r"\s*(—\s*)?보유\s*(·|—|,|\(|$)")
 # 하위호환(다른 스크립트가 import할 수 있음)
 NO_BUY_KW = ("관망", "보류", "추격 금지", "추격금지", "진입금지", "진입 금지")
 NO_SELL_KW = ("홀딩", "인내", "손절선 없음", "정리후보")
@@ -123,7 +131,8 @@ def sig_from(v, is_watch):
         label = "워치미진입(룰차단)" if rule_blocked else "워치미진입"
         return (True, False, label, rule_blocked)
     no_buy = bool(NO_BUY_RE.search(text))
-    no_sell = bool(NO_SELL_RE.search(text) or TRIM_HOLD_RE.match(trim))
+    no_sell = bool(NO_SELL_RE.search(text) or TRIM_HOLD_RE.match(trim)
+                   or TRIM_HOLD_ONLY_RE.match(trim))
     # 라벨 = 대표 시그널(표시용)
     label = (bz.strip()[:14] or trim.strip()[:14] or "—")
     return (no_buy, no_sell, label, rule_blocked)
@@ -529,6 +538,17 @@ def selftest() -> int:
        sig(comment="룰4 = 홀딩") == (False, True) and sig(buy_zone="물타기 영구금지") == (True, False)
        and sig(buy_zone="추가매수 영구금지") == (True, False) and sig(buy_zone="신규매수 금지") == (True, False)
        and sig(buy_zone="관망") == (True, False))
+    ok("★[11/21] '추가 없음' = 안 늘린다('증액 없음'과 같은 뜻 · NVDA·SPCX 카드가 이 말을 쓴다)",
+       sig(buy_zone="없음 — 비중 16.7% · 하드플로어 · CEO 공석 이벤트 해소 전 추가 없음(밴드 하단 $180 이하라도)")[0] is True
+       and sig(buy_zone="—(추가 없음 · 소액 위성)")[0] is True
+       and sig(buy_zone="— (잔여 소액 · 추가 없음)")[0] is True)
+    ok("★[11/21] 트림 칸이 '보유 · …' / '— 보유 · …'로 시작하면 안 판다(NVDA·AVGO·ORCL 카드)",
+       sig(trim="보유 · 룰2 이벤트형 = 감시 상향 확정(11/20 정훈 · 훼손 착수 아님) · 매도 지정가는 밴드 하단")[1] is True
+       and sig(trim="보유 · 가격 < 밴드 하단 $377 → d210 매도 없음")[1] is True
+       and sig(trim="— 보유 · 트림 후보 = 밴드 상단 456,067원 근처")[1] is True)
+    ok("★[11/21] 그래도 문장 중간의 '보유'는 안 걸린다(칸 첫 토큰만 본다)",
+       sig(comment="보유 12종목 · 보유 비중 16.3%") == (False, False)
+       and sig(trim="밴드 상단 $1,735 도달 시 보유 축소 검토")[1] is False)
     ok("'물타기 금지'는 안 사는 것이지 안 파는 것이 아니다(8/22 분류 오류 재발 방지)",
        sig(buy_zone="물타기 금지") == (True, False))
     ok("결정 문구가 없는 카드는 시그널 없음(가격대·숫자만)",

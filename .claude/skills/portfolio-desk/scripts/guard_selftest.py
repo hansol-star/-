@@ -1117,6 +1117,24 @@ INJECTION_TESTS = [
         "args": (83,),
     },
     {
+        "name": "check_claude_map",
+        "desc": "CLAUDE.md '보유 N종목' 지도가 HOLDINGS 정본과 어긋나면 잡는가",
+        "why": "11/21 R3 적발 — 11/10 MSFT·11/13 ANET·11/20 국내 3종·TSLA 정리가 HOLDINGS엔 "
+               "반영됐는데 CLAUDE.md는 '보유 13종목(…MSFT·ANET·두산로보·현대차·NAVER)'로 굳어 있었다. "
+               "check_versions는 보고서 번호만 봐서 이 지도 stale을 못 봤고, 새 세션이 없는 종목을 "
+               "보유로 읽고 출발했다. 숫자·이름 두 축을 본다(숫자만 고치는 절반 수정이 통과하지 않게)",
+        "pattern": r"HOLDINGS 정본|현재 보유로 남아",
+        "violate": {
+            "CLAUDE.md": "# map\n- **보유 13종목**(국내 5: 삼성·LG전자·두산로보·현대차·NAVER / "
+                         "미국 8: NVDA·MU·VOO·MSFT·AVGO·GOOGL·ORCL·ANET).\n",
+        },
+        "clean": {
+            "CLAUDE.md": "# map\n- **보유 9종목**(국내 2: 삼성전자·LG전자 / "
+                         "미국 7: NVDA·VOO·GOOGL·ORCL·AVGO·SPCX·MU) — 정본 = HOLDINGS.\n",
+        },
+        "args": (),
+    },
+    {
         "name": "check_low_star_action",
         "desc": "⭐2 이하 보유가 '관망'으로 방치되면 잡는가",
         "why": "8/2 실사고 — 보고서 산문엔 트림이 8~9회 등장했는데 orders 등록은 0회였고, "
@@ -1675,8 +1693,8 @@ def run_injection_tests() -> list[dict]:
                         "why": t.get("why", ""), "msg": f"미실행: {unmet}"})
             continue
         # ★[10/12] 인자로 데이터를 받는 가드(check_debt_integrity 등)는 위반·정상이 인자에서 갈린다.
-        got_v = _run_check(t["name"], t["violate"], t.get("args_violate", t["args"]))
-        got_c = _run_check(t["name"], t["clean"], t.get("args_clean", t["args"]))
+        got_v = _run_check(t["name"], t["violate"], t.get("args_violate", t.get("args", ())))
+        got_c = _run_check(t["name"], t["clean"], t.get("args_clean", t.get("args", ())))
         if got_v == ["__MISSING__"]:
             out.append({"guard": t["name"], "ok": None, "desc": t["desc"],
                         "msg": "validate_report에 해당 check 없음(이름 변경?)"})

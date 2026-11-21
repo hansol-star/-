@@ -25,14 +25,14 @@
    "cost_note": "11/9 재계산 — 앱스토어 33,000원(8/22~) 반영 · 당시 계좌 기준 유지(×1.0496) · 舊 1.88"
   },
   "2026-11": {
-   "to": "2026-11-18",
-   "days": 112,
-   "desk_value_pct": -4.67,
-   "actual_pct": -26.33,
-   "hold_pct": -21.67,
-   "trade_days": 23,
-   "system_cost_pct": 2.54,
-   "desk_value_net_pct": -7.21
+   "to": "2026-11-20",
+   "days": 114,
+   "desk_value_pct": -5.26,
+   "actual_pct": -33.1,
+   "hold_pct": -27.84,
+   "trade_days": 24,
+   "system_cost_pct": 2.77,
+   "desk_value_net_pct": -8.03
   }
  }
 }

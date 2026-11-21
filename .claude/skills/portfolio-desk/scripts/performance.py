@@ -381,6 +381,14 @@ def run(start: str, end: str) -> dict:
             continue
         m = fx_e if cur.get(r["ticker"]) == "USD" else 1.0
         sh, px = float(r.get("shares") or 0), float(r.get("price") or 0)
+        # 금액지정 분수주(토스 '0 시장가')는 price=0으로 기록될 수 있다 → amount/shares로 역산.
+        # 안 하면 원가 0으로 평가돼 그 체결이 **전액 이익**으로 찍힌다(11/21 R3 적발: NVDA·TSLA 2건).
+        if not px:
+            am = float(r.get("amount") or 0)
+            if sh and am:
+                px = am / sh
+        if not px:
+            continue  # 단가를 끝내 모르면 기여를 만들지 않는다(0원가로 부풀리지 않는다)
         v = sh * (pe - px) * m * (1 if r["side"] == "buy" else -1)
         contrib.append({"date": r["date"], "ticker": r["ticker"], "label": label.get(r["ticker"], r["ticker"]),
                         "side": r["side"], "shares": round(sh, 6), "price": px, "end_price": pe,
@@ -454,7 +462,8 @@ def render(r: dict) -> str:
         L += ["", f"매매별 기여(사후) — 매수 {t['by_side_krw']['buy']:+,}원 · 매도 {t['by_side_krw']['sell']:+,}원"]
         for c in t["worst"][:3] + [x for x in t["best"][:3] if x["krw"] > 0]:
             side = "매수" if c["side"] == "buy" else "매도"
-            L.append(f"  {c['date']} {c['label']:<10} {side} {c['price']:,.2f} → {c['end_price']:,.2f} ({c['move_pct']:+.1f}%)  {c['krw']:+,}원")
+            mv = f"{c['move_pct']:+.1f}%" if c.get("move_pct") is not None else "단가미상"
+            L.append(f"  {c['date']} {c['label']:<10} {side} {c['price']:,.2f} → {c['end_price']:,.2f} ({mv})  {c['krw']:+,}원")
     rc = r["reconcile"]
     L.append("")
     L.append(f"스냅샷 대사 {rc['n']}일 · 1% 이내 {rc['within_1pct']}일 · 스냅샷 지연 {rc['snapshot_lag']}일"

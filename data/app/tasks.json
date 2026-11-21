@@ -1898,20 +1898,6 @@
       "text": "Claude 구독 결제 갱신 확인 → R1 1회 수동 실행으로 루틴 복구 확인",
       "done_at": "2026-11-19 13:15",
       "done_note": "✅[v139] R1 11/19 13:07 시작 → 13:15 exit 0·푸시 OK·카톡 발송(8분 · 지각 187분 = PC 꺼짐) — 결제 복구 확인"
-    },
-    {
-      "id": "pr1121-stocks-src",
-      "added": "2026-11-21",
-      "done": false,
-      "text": "stocks.json source_report=v140 < 최신 v141 (정본 stale · R3 11/21 validate FAIL). 11/20 v141에서 국내 3종 정리·TSLA 정리가 있었는데 카드 정본이 한 판 뒤처져 있다.",
-      "how": "v142 보고서에서 보유 9종·워치 전종목 카드를 실제 채점으로 갱신 → source_report=v142. ⚠️ R3(캘리브레이션)는 종목 콜을 만들어 이걸 지우지 않는다 — 콜 생산은 보고서 세션의 일이다."
-    },
-    {
-      "id": "pr1121-tasks-src",
-      "added": "2026-11-21",
-      "done": false,
-      "text": "tasks.json updated=2026-11-19 < 최신 보고서 2026-11-20 (1일 stale · R3 11/21 validate FAIL) — outlook·index_forecast·할일 동기화 누락.",
-      "how": "v142에서 §3b 동기화(outlook 오늘/주/월 · index_forecast · orders 상태) → updated 갱신. 11/20 하드플로어 ON(S&P 폭풍 100%ile)·양 트랙 정지 상태가 outlook에 반영돼야 한다."
     }
   ],
   "memo": "수요일 v138(대화형·9일 공백 메움): 정훈 직접 매매 9건 원장 반영(MSFT·ANET 전량 매도·SPCX 편입) · NAVER 3Q 영업마진 13.0% → 정리 191,100 등록 · NVDA CEO 사임(11/12) → 이벤트형 훼손 검토 · 22:30 NVDA·TSLA $50 미체결 결정",

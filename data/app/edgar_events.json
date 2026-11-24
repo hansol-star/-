@@ -1,14 +1,31 @@
 {
- "updated": "2026-11-23 16:20",
+ "updated": "2026-11-24 16:21",
  "days": 30,
  "note": "SEC 8-K item 코드 스트림. item 코드는 '사건이 있었다'는 사실이지 내용이 아니다 — 논지를 바꿀 건이면 원문 URL로 내려갈 것.",
- "as_of": "2026-11-23 07:20",
+ "as_of": "2026-11-24 07:21",
  "source": "SEC EDGAR",
  "events": [
   {
    "ticker": "NVDA",
    "error": null,
    "events": [
+    {
+     "date": "2026-11-23",
+     "severity": "notable",
+     "items": [
+      {
+       "code": "5.02",
+       "label": "임원 선임·사임",
+       "severity": "notable"
+      },
+      {
+       "code": "9.01",
+       "label": "재무제표·첨부",
+       "severity": "routine"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000090/nvda-20261122.htm"
+    },
     {
      "date": "2026-11-17",
      "severity": "critical",
@@ -262,6 +279,18 @@
    "ticker": "META",
    "error": null,
    "events": [
+    {
+     "date": "2026-11-23",
+     "severity": "notable",
+     "items": [
+      {
+       "code": "8.01",
+       "label": "기타 중요사항",
+       "severity": "notable"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026075541/meta-20261118.htm"
+    },
     {
      "date": "2026-11-12",
      "severity": "notable",

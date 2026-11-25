@@ -1,71 +1,64 @@
 {
- "date": "2026-11-24",
- "run_at": "2026-11-24 20:10",
+ "date": "2026-11-25",
+ "run_at": "2026-11-25 16:10",
  "status": "ok",
  "notes": [
+  "일봉 캐시 ↔ 토스 감사: 미확인 23건 / 대조 68건 — 못 본 날이 많다(토큰 만료·응답 지연·단일가 서명 변경 확인 · `history_backfill.py --audit 7`)",
   "일봉 캐시 날짜 불일치(개정창 밖) — 캐시 구멍 0건 · 캐시에만 있는 날짜 2건 (예: KRW=X 2026-10-31, ^BSESN 2026-11-08) · `history_backfill.py --audit-yahoo 30`로 확인",
   "Yahoo 감사: 1심볼 응답 없음(^MERV) — 못 본 것이지 일치가 아니다"
  ],
  "kospi": {
-  "close": 5006.03,
-  "pct": 6.32,
+  "close": 4697.51,
+  "pct": -6.16,
   "peak": 9114.55,
   "peak_date": "2026-06-22",
-  "dd_pct": -45.08
+  "dd_pct": -48.46
  },
  "kosdaq": {
-  "close": 665.88,
-  "pct": 4.79
+  "close": 650.64,
+  "pct": -2.29
  },
  "first": {
-  "foreign": 7248,
-  "inst": 8707,
-  "indiv": -20444,
-  "at": "16:21",
-  "src": "네이버 시장수급 16:21 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
+  "foreign": -18982,
+  "inst": -3,
+  "indiv": 14213,
+  "at": "16:10",
+  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "flows": {
-  "foreign": 7248,
-  "inst": 8707,
-  "indiv": -20444,
-  "at": "16:21",
-  "src": "네이버 시장수급 16:21 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
+  "foreign": -18982,
+  "inst": -3,
+  "indiv": 14213,
+  "at": "16:10",
+  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
  "regular": {
-  "foreign": 7248,
-  "inst": 8707,
-  "indiv": -20444,
-  "at": "16:21",
-  "src": "네이버 시장수급 16:21 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
+  "foreign": -18982,
+  "inst": -3,
+  "indiv": 14213,
+  "at": "16:10",
+  "src": "네이버 시장수급 16:10 — 정규장 근사(16:00 애프터마켓 시작 뒤 수 분이 섞일 수 있다) · KRX 원본 미대조"
  },
- "integrated": {
-  "foreign": 8130,
-  "inst": 8734,
-  "indiv": -21350,
-  "at": "20:10",
-  "final": true,
-  "src": "네이버 시장수급 20:10 — 정규장+애프터마켓 통합(애프터 종료 뒤 최종) · KRX 원본 미대조"
- },
+ "integrated": null,
  "basis": "regular",
- "grade": "확정",
- "after_market_foreign": 882,
- "flows_action": "updated",
+ "grade": "잠정(1차)",
+ "flows_action": "added",
  "streak": {
   "days": 1,
-  "side": "매수",
-  "cum_eok": 7248,
+  "side": "매도",
+  "cum_eok": -18982,
   "lower_bound": false,
   "gate2": false,
   "basis": "regular",
-  "reason": "순매수 1일째(2거래일 요건 미충족)"
+  "reason": "2026-11-25 정규장 기준 순매도"
  },
  "pending_nulls": [
   "2026-10-26"
  ],
  "history_audit": {
   "days": 7,
-  "checked": 58,
-  "unresolved": 12,
+  "checked": 68,
+  "unresolved": 23,
   "adjusted": 0,
   "error": null,
   "no_key": false,
@@ -74,8 +67,8 @@
  },
  "yahoo_audit": {
   "days": 30,
-  "symbols": 54,
-  "checked": 1063,
+  "symbols": 55,
+  "checked": 1082,
   "pending": 0,
   "unverifiable": 0,
   "error": null,

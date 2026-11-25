@@ -155,5 +155,5 @@
 {"date": "2026-11-23", "index": "KOSPI", "foreign": -2560, "inst": 1758, "indiv": -3532, "src": "naver", "basis": "integrated"}
 {"date": "2026-11-24", "index": "KOSDAQ", "foreign": 1145, "inst": 2116, "indiv": -3103, "src": "naver", "basis": "regular", "integrated": {"foreign": 1299, "inst": 2225, "indiv": -3366}}
 {"date": "2026-11-24", "index": "KOSPI", "foreign": 7248, "inst": 8707, "indiv": -20444, "src": "naver", "basis": "regular", "integrated": {"foreign": 8130, "inst": 8734, "indiv": -21350}}
-{"date": "2026-11-25", "index": "KOSDAQ", "foreign": 7, "inst": 275, "indiv": -347, "src": "naver", "basis": "regular"}
-{"date": "2026-11-25", "index": "KOSPI", "foreign": -18982, "inst": -3, "indiv": 14213, "src": "naver", "basis": "regular"}
+{"date": "2026-11-25", "index": "KOSDAQ", "foreign": 7, "inst": 275, "indiv": -347, "src": "naver", "basis": "regular", "integrated": {"foreign": 165, "inst": 281, "indiv": -516}}
+{"date": "2026-11-25", "index": "KOSPI", "foreign": -18982, "inst": -3, "indiv": 14213, "src": "naver", "basis": "regular", "integrated": {"foreign": -18193, "inst": 39, "indiv": 13449}}

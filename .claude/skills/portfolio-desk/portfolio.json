@@ -31,12 +31,14 @@
       {
         "label": "삼성전자",
         "ticker": "005930.KS",
+        "desk": "semi-ai",
         "shares": 4,
         "cost": 267500
       },
       {
         "label": "LG전자",
         "ticker": "066570.KS",
+        "desk": "power-physical",
         "shares": 1,
         "cost": 155200
       }
@@ -45,42 +47,49 @@
       {
         "label": "NVDA",
         "ticker": "NVDA",
+        "desk": "semi-ai",
         "shares": 5.4519,
         "cost": 197.193225
       },
       {
         "label": "VOO",
         "ticker": "VOO",
+        "desk": null,
         "shares": 1.71746,
         "cost": 668.448562
       },
       {
         "label": "GOOGL",
         "ticker": "GOOGL",
+        "desk": "bigtech-platform",
         "shares": 3.962319,
         "cost": 331.325927
       },
       {
         "label": "ORCL",
         "ticker": "ORCL",
+        "desk": "bigtech-platform",
         "shares": 1.21519,
         "cost": 138.924697
       },
       {
         "label": "MU",
         "ticker": "MU",
+        "desk": "semi-ai",
         "shares": 0.020001,
         "cost": 749.239988
       },
       {
         "label": "AVGO",
         "ticker": "AVGO",
+        "desk": "semi-ai",
         "shares": 1.071177,
         "cost": 356.4675
       },
       {
         "label": "SpaceX",
         "ticker": "SPCX",
+        "desk": "bigtech-platform",
         "shares": 0.712655,
         "cost": 140.18
       }
@@ -90,70 +99,84 @@
     {
       "label": "GE Vernova",
       "ticker": "GEV",
+      "desk": "power-physical",
       "note": "🟢 워치 유일 매수검토(6/18) — Bernstein 매수개시 목표 $1,206·1Q 수주+71%·백로그 $163B. AI전력 3종 '미국판 두산E'. Jefferies $1,210 하향(Buy유지)=밸류 인지. 소액 소수점·눌림 분할"
     },
     {
       "label": "삼성전기",
       "ticker": "009150.KS",
+      "desk": "semi-ai",
       "note": "AI 소부장 대장주, 목표 iM230/DB300만, PER180배 — 눌림 관찰"
     },
     {
       "label": "SK하이닉스",
       "ticker": "000660.KS",
+      "desk": "semi-ai",
       "note": "🆕6/14 후보 — HBM 1위(58~62%)·엔비디아 HBM4 최대공급·선행PER 한자릿수. 215만 고가→소수점 필요. ⚡나스닥 ADR 7/10 거래개시 예정(잠정)·$29B 조달·보통주1주=ADR10주(상장시 토스 미장소수점 적립). 단 삼성/NVDA/MU와 같은 메모리 베팅 강화"
     },
     {
       "label": "KT&G",
       "ticker": "033780.KS",
+      "desk": "power-physical",
       "note": "6/22 신규 워치(⭐3) — 방어주·고배당, 7월 NPS 국내 리밸런싱 수혜 후보. 상세=최신 보고서"
     },
     {
       "label": "AMD",
       "ticker": "AMD",
+      "desk": "semi-ai",
       "note": "🆕7/23 신규(경제사냥꾼 최다커버) — 헬리오스(MI450) MS애저 도입=4번째 대형고객(오픈AI·메타·오라클 이어)·시티 성장클러스터·NVDA 대항마. 컨센 Strong Buy 41명·평균목표 $541.66(현 $549.60). ⚠️deepdive 대기 — /stock-deepdive+정훈 승인 전 신규매수 보류"
     },
     {
       "label": "TSMC",
-      "ticker": "TSM"
+      "ticker": "TSM",
+      "desk": "semi-ai"
     },
     {
       "label": "Cadence Design",
       "ticker": "CDNS",
+      "desk": "semi-ai",
       "note": "🆕9/29 편입(d218) — AI 칩 설계 EDA 과점. 펀더 서브 78.9·EPS 리비전 +43(상향 19/하향 0)·컨센 $405(+24%, strong_buy 26명). 52주 고점 -22%·MA200 위 +0.4%(Stage1 바닥 횡보·미너비니 4/8). 하락 원인 = 금리발 소프트웨어·EDA 동반 매도(회사 고유 악재 미확인). 포트 상관 .44. 매수존 $300~315(지지 $324 이탈 시)"
     },
     {
       "label": "Arista",
       "ticker": "ANET",
+      "desk": "semi-ai",
       "note": "11/13 전량 매도(정훈 직접 $205.51) → 워치 복귀 · 미국 트랙 ③ 존 $180~190"
     },
     {
       "label": "Microsoft",
       "ticker": "MSFT",
+      "desk": "bigtech-platform",
       "note": "🆕 11/18 v138 재선정 편입 — 🆕 재편입 — 11/10 정훈 매도 $541~543 후 -6.6%. 펀더 87.9 · EPS 리비전 +37 · S2 7/8 · ρ포트 .37 · 재진입은 밴드 하단에서만(룰3 추격 금지)"
     },
     {
       "label": "Lam Research",
       "ticker": "LRCX",
+      "desk": "semi-ai",
       "note": "🆕 11/18 v138 재선정 편입 — 🆕 AMAT 대체 — 장비 중 펀더 최고 97.0 · EPS 리비전 +21.6 · 고점 -52% · S4 · ρ포트 .57"
     },
     {
       "label": "Vertiv",
       "ticker": "VRT",
+      "desk": "power-physical",
       "note": "🆕 11/18 v138 재선정 편입 — 🆕 AI 전력·냉각 2번 — 펀더 89.5 · EPS 리비전 +52 · 고점 -50% · S4 · GEV와 같은 축(ρ .50)"
     },
     {
       "label": "Eli Lilly",
       "ticker": "LLY",
+      "desk": "power-physical",
       "note": "🆕 11/18 v138 재선정 편입 — 🆕 분산 후보 — ρ포트 -0.12 · S2 8/8 · EPS 리비전 +46 · 펀더 64.8(부분 채점 65)"
     },
     {
       "label": "Berkshire Hathaway B",
       "ticker": "BRK-B",
+      "desk": "power-physical",
       "note": "🆕 11/18 v138 재선정 편입 — 🆕 분산 후보 — ρ포트 -0.13 · 변동성 14%(보유 중 최저 VOO 13%와 동급) · S2 8/8 · 펀더 부분 채점(15)"
     },
     {
       "label": "셀트리온",
       "ticker": "068270.KS",
+      "desk": "power-physical",
       "note": "🆕 11/18 v138 재선정 편입 — 🆕 국내 분산 후보 — ρ포트 +0.03 · S2 강세 11/0 · EPS 리비전 +16.2 · 펀더 미수집"
     }
   ],
@@ -342,7 +365,7 @@
       "ticker": "^KS11",
       "cond": "above",
       "level": 7747,
-      "action": "[9/3 위임결정] 룰6 ⓷ 국내 트림 착수 조건 충족 — ①현대차 1주 → ②그래도 남으면 삼성전자 1주(국내 22%까지). 금액 = triggers.py '룰6 국내 비중' 줄(실시세 계산 · 가격도 발동 시점 시세). 근거: 현대차 = ⭐2·룰2 마진훼손·증권사 19/20 목표가 하향. ⚠️ 삼성은 위험기여 39.6%로 효율 최고지만 ⭐5·마진 가속이라 펀더로는 팔 이유가 없다 — 순서를 지킬 것. 9/3 등록 당시 숫자(28.2%·410,164원)는 낡은 값이라 쓰지 않는다. 자동집행 아님·PM 재판정 후 정훈 결정."
+      "action": "[9/3 위임결정] 룰6 ⓷ 국내 트림 착수 조건 충족 — ①현대차 1주 → ②그래도 남으면 삼성전자 1주(국내 22%까지). 금액 = triggers.py '룰6 국내 비중' 줄(실시세 계산 · 가격도 발동 시점 시세). 근거: 현대차 = ⭐2·룰2 마진훼손·증권사 19/20 목표가 하향. ⚠️ 삼성은 위험기여 39.6%로 효율 최고지만 ⭐5·마진 가속이라 펀더로는 팔 이유가 없다 — 순서를 지킬 것. 9/3 등록 당시 숫자(28.2%·410,164원)는 낡은 값이라 쓰지 않는다. 자동집행 아님·PM 재판정 후 정훈 결정. ★[11/22 감사 A6 사실 표기] ①현대차 = 11/20 매도 완료 · 대상 재결정 대기(정훈)."
     },
     {
       "id": "🎯[방식ⓑ] LG전자 트림오더 등록선 228,000원",
@@ -391,7 +414,7 @@
       "ticker": "033780.KS",
       "cond": "below",
       "level": 165000,
-      "action": "[9/29 정리] 경제사냥꾼 셋업(setup-ktg-0626)은 dropped. 룰6(국내 >22%) 동안 국내 신규 매수 불가 → 도달 시 워치 재평가 알림만. 룰6 밴드 복귀 시 딥다이브 후 편입 검토"
+      "action": "[9/29 정리] 경제사냥꾼 셋업(setup-ktg-0626)은 dropped. ★[11/22 감사 B8 정정] 국내 신규 매수를 막는 건 룰6이 아니라 d284 안 C(11/20 정훈 승인) — 국내 트랙 집행 0원·원화는 달러로(tranche_rules status policy_usd). 도달 시 워치 재평가 알림만. 국내 매수 재개는 정훈 승인으로 정책(KR_KRW_TO_USD)을 끈 뒤 딥다이브 후 편입 검토 (id의 '룰6'은 알림 중복방지 키라 그대로 둔다 · 舊 문구 = '룰6(국내 >22%) 동안 국내 신규 매수 불가')"
     },
     {
       "id": "🎯 LG전자 익절 240,000원 (정훈 8/12 승인)",
@@ -490,20 +513,6 @@
       "cond": "below",
       "level": 216,
       "action": "[11/18 d276] AI 전력·냉각 2번 — 밴드 하단 $216(현재 존 안) · 하드플로어 · 순서 밖 → 알림만"
-    },
-    {
-      "id": "LLY 매수존 1,156 이하 (d276)",
-      "ticker": "LLY",
-      "cond": "below",
-      "level": 1156,
-      "action": "[11/18 d276] 분산 후보(ρ -0.12) — 밴드 하단 $1,156 · 추격 금지"
-    },
-    {
-      "id": "BRK-B 매수존 500 이하 (d276)",
-      "ticker": "BRK-B",
-      "cond": "below",
-      "level": 500,
-      "action": "[11/18 d276] 분산 후보(ρ -0.13) — MA200 근처 $500(컨센 하방이라 밴드 산식 부적합)"
     },
     {
       "id": "068270.KS 매수존 190,000 이하 (d276)",
@@ -732,6 +741,22 @@
       "level": 440,
       "action": "[9/30 워치 정리] $425~440 = MA200 위 눌림. 매수 우선순위 밖 — 순위 재편 시 검토. 추격 금지(룰3).",
       "archived": "2026-11-18 d276 워치 제외"
+    },
+    {
+      "id": "LLY 매수존 1,156 이하 (d276)",
+      "ticker": "LLY",
+      "cond": "below",
+      "level": 1156,
+      "action": "[11/18 d276] 분산 후보(ρ -0.12) — 밴드 하단 $1,156 · 추격 금지",
+      "archived": "2026-11-22 감사 A9 — d278 '🎯 … 우선순위' 알림과 같은 종목·같은 레벨 중복(푸시 한 통에 같은 줄 2개). 존 판정(tranche_rules._us_zone_levels = min)은 d278 쪽만으로 동일"
+    },
+    {
+      "id": "BRK-B 매수존 500 이하 (d276)",
+      "ticker": "BRK-B",
+      "cond": "below",
+      "level": 500,
+      "action": "[11/18 d276] 분산 후보(ρ -0.13) — MA200 근처 $500(컨센 하방이라 밴드 산식 부적합)",
+      "archived": "2026-11-22 감사 A9 — d278 '🎯 … 우선순위' 알림과 같은 종목·같은 레벨 중복(푸시 한 통에 같은 줄 2개). 존 판정(tranche_rules._us_zone_levels = min)은 d278 쪽만으로 동일"
     }
   ]
 }

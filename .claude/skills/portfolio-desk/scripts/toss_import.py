@@ -50,6 +50,11 @@ QTY_TOL = 1e-6
 
 # 국내 6자리 코드 -> 우리 표기(접미사 포함).
 # ⚠️ 접미사가 다르면 다른 회사다(7/30 사고) — market_data.py 기준과 일치시킬 것.
+# ★[2026-11-22 감사 A11] 아래 손 목록은 **시드**일 뿐이다. 舊엔 이것만 봐서 국내 워치(삼성전기 009150·
+#   KT&G 033780·셀트리온 068270)를 사는 날 원장 수입이 [중단]됐다(fail-closed라 안전하지만 체결 원장 공백 경로 —
+#   10/22 ANET 7일 누락과 같은 꼴). 이제 kr_suffix()가 정본(portfolio.json 보유·워치·퇴역 워치 + 체결 원장)에서
+#   접미사를 만들어 이 시드와 합친다. 같은 코드가 .KS·.KQ로 갈리면 중단, 정본 어디에도 없는 코드(유니버스 밖 체결)도
+#   계속 중단한다 — 접미사를 찍어서 넣지 않는다.
 KR_SUFFIX = {
     "000660": ".KS",   # SK하이닉스
     "005380": ".KS",   # 현대차
@@ -64,17 +69,102 @@ KR_SUFFIX = {
 # 토스 표기 -> 우리 표기 (미국)
 US_ALIAS = {"BRK.B": "BRK-B"}
 
+_KR_MAP: dict[str, str] | None = None
+
+
+def kr_suffix(portfolio: str | None = None, ledger: str | None = None) -> dict[str, str]:
+    """정본 파생 맵 ∪ 시드(KR_SUFFIX). 둘이 같은 코드에서 갈리면 SystemExit(어느 쪽이 맞는지 기계가 고르지 않는다).
+    market_data를 못 읽으면 시드만 쓴다(경고) — 그때 모르는 코드는 지금처럼 중단된다."""
+    derived: dict[str, str] = {}
+    try:
+        import market_data as _md
+        derived = _md.kr_suffix_map(portfolio, ledger)
+    except ValueError as e:
+        raise SystemExit(f"[중단] 국내 접미사 정본이 갈린다 — {e}")
+    except Exception as e:                                 # noqa: BLE001
+        print(f"⚠️ 국내 접미사 정본(market_data.kr_suffix_map) 로드 실패 — 시드 목록만 쓴다: {e}", file=sys.stderr)
+    bad = {c: (KR_SUFFIX[c], v) for c, v in derived.items() if c in KR_SUFFIX and KR_SUFFIX[c] != v}
+    if bad:
+        raise SystemExit(f"[중단] 시드 KR_SUFFIX와 정본의 접미사가 갈린다 — {bad} (7/30 사고 유형 · 원문 확인 후 한쪽을 고칠 것)")
+    return {**KR_SUFFIX, **derived}
+
 
 def to_ticker(symbol: str, country: str) -> str:
+    global _KR_MAP
     if country == "KR" or (symbol.isdigit() and len(symbol) == 6):
-        suf = KR_SUFFIX.get(symbol)
+        if _KR_MAP is None:
+            _KR_MAP = kr_suffix()
+        suf = _KR_MAP.get(symbol)
         if suf is None:
             raise SystemExit(
-                f"[중단] 국내 종목 {symbol} 의 접미사를 모른다. KR_SUFFIX에 등록할 것 — "
+                f"[중단] 국내 종목 {symbol} 의 접미사를 모른다. portfolio.json(보유·워치·watch_retired)에 "
+                "정확한 티커로 등록하거나 KR_SUFFIX 시드에 넣을 것 — "
                 "접미사를 찍어서 넣으면 남의 종목을 담는다(7/30 사고)."
             )
         return symbol + suf
     return US_ALIAS.get(symbol, symbol)
+
+
+def selftest() -> int:
+    """★[2026-11-22 감사 A11] 오프라인 — 임시 portfolio·원장을 심어 접미사 맵을 검증한다."""
+    import tempfile
+    global _KR_MAP
+    ok = True
+
+    def check(cond, label):
+        nonlocal ok
+        ok = ok and bool(cond)
+        print(f"  {'✅' if cond else '❌'} {label}")
+
+    print("toss_import 자가검증 — 국내 접미사 = 정본 파생")
+    keep = _KR_MAP
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            pp, lp = os.path.join(td, "p.json"), os.path.join(td, "t.jsonl")
+            pf = {"holdings": {"kr": [{"label": "삼성전자", "ticker": "005930.KS"}], "us": []},
+                  "watchlist": [{"label": "KT&G", "ticker": "033780.KS"}, {"label": "셀트리온", "ticker": "068270.KS"},
+                                {"label": "삼성전기", "ticker": "009150.KS"}],
+                  "watch_retired": [{"label": "원익IPS", "ticker": "240810.KQ"}]}
+            with open(pp, "w", encoding="utf-8") as f:
+                json.dump(pf, f, ensure_ascii=False)
+            with open(lp, "w", encoding="utf-8") as f:
+                f.write(json.dumps({"date": "2026-01-02", "ticker": "122870.KQ", "label": "122870",
+                                    "side": "buy", "shares": 1}) + "\n")
+            _KR_MAP = kr_suffix(pp, lp)
+            check(to_ticker("068270", "KR") == "068270.KS" and to_ticker("033780", "KR") == "033780.KS"
+                  and to_ticker("009150", "KR") == "009150.KS", "국내 워치 3종(셀트리온·KT&G·삼성전기)을 사도 수입이 멈추지 않는다")
+            check(to_ticker("240810", "KR") == "240810.KQ", "퇴역 워치 .KQ 접미사 그대로(원익IPS)")
+            check(to_ticker("BRK.B", "US") == "BRK-B" and to_ticker("NVDA", "US") == "NVDA", "미국 표기 그대로")
+            try:
+                to_ticker("999999", "KR")
+                check(False, "유니버스 밖 국내 코드는 중단")
+            except SystemExit:
+                check(True, "유니버스 밖 국내 코드는 계속 중단(접미사를 찍지 않는다)")
+            with open(lp, "a", encoding="utf-8") as f:
+                f.write(json.dumps({"date": "2026-11-21", "ticker": "033780.KQ", "side": "buy", "shares": 1}) + "\n")
+            try:
+                kr_suffix(pp, lp)
+                check(False, "같은 코드가 .KS·.KQ로 갈리면 중단")
+            except SystemExit:
+                check(True, "같은 코드가 .KS·.KQ로 갈리면 중단")
+            pf["watchlist"].append({"label": "가짜", "ticker": "122870.KS"})     # 시드(.KQ)와 정본(.KS) 충돌
+            with open(pp, "w", encoding="utf-8") as f:
+                json.dump(pf, f, ensure_ascii=False)
+            with open(lp, "w", encoding="utf-8") as f:
+                f.write("")
+            try:
+                kr_suffix(pp, lp)
+                check(False, "시드와 정본이 갈리면 중단")
+            except SystemExit:
+                check(True, "시드와 정본이 갈리면 중단")
+        _KR_MAP = None
+        real = kr_suffix()
+        check(all(real.get(c) == v for c, v in KR_SUFFIX.items()), "실제 정본 = 시드와 충돌 없음")
+        check(all(c in real for c in ("009150", "033780", "068270")), "실제 정본에 국내 워치 3종 접미사가 있다")
+    finally:
+        _KR_MAP = keep
+    print("✅ 통과" if ok else "❌ 실패")
+    return 0 if ok else 1
 
 
 def convert(orders: list[dict], src_note: str) -> list[dict]:
@@ -241,11 +331,16 @@ def main() -> int:
             pass
 
     ap = argparse.ArgumentParser(description="토스 체결 이력 -> 체결 원장 재구성")
-    ap.add_argument("--orders", required=True, help="toss_snapshot.py --orders 출력 JSON")
+    ap.add_argument("--orders", help="toss_snapshot.py --orders 출력 JSON (필수 — --selftest 제외)")
     ap.add_argument("--holdings", help="보유 대조용 JSON(없으면 대조 생략)")
     ap.add_argument("--write", action="store_true", help="원장을 실제로 교체(기본 dry-run)")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--selftest", action="store_true", help="오프라인 자가검증 — 국내 접미사 맵(정본 파생)")
     args = ap.parse_args()
+    if args.selftest:
+        return selftest()
+    if not args.orders:
+        ap.error("--orders가 필요하다")
 
     with open(args.orders, encoding="utf-8") as f:
         payload = json.load(f)

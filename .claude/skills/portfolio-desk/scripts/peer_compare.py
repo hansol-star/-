@@ -82,17 +82,39 @@ FIN = os.path.join(ROOT, "data", "app", "financials.json")
 # ⚠️ **n이 늘어도 비교가능성이 같이 늘지는 않는다.** 이 그룹은 *경제적 동질 피어*가 아니라
 #    **데스크 담당 범위**다(특히 전력 = 전력기기+로봇+완성차+방산·조선 혼재).
 #    백분위를 '업종 내 위치'로 읽지 말고 '우리 커버리지 안에서의 순위'로 읽을 것.
-GROUPS = {
+# ★[2026-11-22 감사 A7] 그룹·보유 표지(●)는 이제 **portfolio.json의 `desk` 필드에서 파생**한다
+#   (market_data.desk_members — 보유 = holdings 소속, 피어 = watchlist 소속). 舊 손 목록은 9/23·11/10·11/13·
+#   11/20에 판 AAPL·META·MSFT·ANET·NAVER·현대차·두산로보 7종목을 '●보유'로 찍고 SPCX를 빠뜨렸다 —
+#   판 종목과 동결 재무로 '보유종목 횡단면 순위'를 냈다. 아래 리터럴은 portfolio.json을 못 읽을 때만 쓰는 폴백이다.
+GROUP_DESK = {"semi": ("반도체·AI인프라", "semi-ai"),
+              "bigtech": ("빅테크·플랫폼", "bigtech-platform"),
+              "power": ("전력·피지컬AI", "power-physical")}
+_GROUPS_FALLBACK = {   # 11/22 portfolio.json desk 필드와 같은 값
     "semi": ("반도체·AI인프라",
-             ["NVDA", "MU", "AVGO", "ANET", "005930.KS"],
-             ["000660.KS", "009150.KS", "TSM", "LRCX", "CDNS", "AMD"]),   # [11/18 d276] AMAT→LRCX   # [9/17 d193] 워치 개편 · [9/29 d218] CDNS
-    "bigtech": ("빅테크·플랫폼",
-                ["AAPL", "MSFT", "GOOGL", "META", "ORCL", "035420.KS"],
-                ["MSFT"]),   # [11/18 d276] TMUS→MSFT
-    "power": ("전력·피지컬AI",
-              ["066570.KS", "454910.KS", "005380.KS"],
-              ["GEV", "VRT"]),   # [11/18 d276] 두산E·한화 2·SK이노·ISRG 제외
+             ["005930.KS", "NVDA", "MU", "AVGO"],
+             ["009150.KS", "000660.KS", "AMD", "TSM", "CDNS", "ANET", "LRCX"]),
+    "bigtech": ("빅테크·플랫폼", ["GOOGL", "ORCL", "SPCX"], ["MSFT"]),
+    "power": ("전력·피지컬AI", ["066570.KS"],
+              ["GEV", "033780.KS", "VRT", "LLY", "BRK-B", "068270.KS"]),
 }
+
+
+def _groups(path: str | None = None) -> dict:
+    """{그룹키: (표시명, 보유 티커, 워치 피어 티커)} — portfolio.json desk 정본에서."""
+    try:
+        sys.path.insert(0, HERE)
+        import market_data as _md
+        out = {k: (lab, _md.desk_members(d, path, "holdings"), _md.desk_members(d, path, "watchlist"))
+               for k, (lab, d) in GROUP_DESK.items()}
+        if any(h or p for _, h, p in out.values()):
+            return out
+        print("[warn] portfolio.json desk 필드가 비었다 — 내장 폴백 그룹을 쓴다", file=sys.stderr)
+    except Exception as e:                                      # noqa: BLE001
+        print(f"[warn] market_data 데스크 정본 로드 실패 — 내장 폴백 그룹을 쓴다: {e}", file=sys.stderr)
+    return {k: (lab, list(h), list(p)) for k, (lab, h, p) in _GROUPS_FALLBACK.items()}
+
+
+GROUPS = _groups()
 
 # (필드, 표시명, 높을수록 좋은가, 표시배율)
 # ⚠️ financials.json은 **단위가 섞여 있다**: *_yoy 는 이미 퍼센트(65.47),
@@ -112,8 +134,9 @@ SHORT = {"005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KS": "두
          # 피어(워치)
          "000660.KS": "SK하이닉스", "009150.KS": "삼성전기", "034020.KS": "두산에너빌",
          "012450.KS": "한화에어로", "042660.KS": "한화오션", "096770.KS": "SK이노베이션",
+         "033780.KS": "KT&G", "068270.KS": "셀트리온",
          "TSM": "TSMC", "AMAT": "AMAT", "CDNS": "CDNS", "ISRG": "ISRG",
-         "LRCX": "LRCX", "VRT": "VRT", "AMD": "AMD", "MSFT": "MSFT"}
+         "LRCX": "LRCX", "VRT": "VRT", "AMD": "AMD", "MSFT": "MSFT", "SPCX": "SpaceX"}
 
 
 def load():
@@ -274,6 +297,63 @@ def print_detail(data, ticker):
     return 0
 
 
+def selftest() -> int:
+    """★[2026-11-22 감사 A7] 오프라인 — 그룹·●보유 표지 = portfolio.json desk 정본(임시 파일을 심는다)."""
+    import tempfile
+    ok = True
+
+    def check(cond, label):
+        nonlocal ok
+        ok = ok and bool(cond)
+        print(f"  {'✅' if cond else '❌'} {label}")
+
+    print("peer_compare 자가검증 — 피어 그룹 = portfolio.json desk 정본")
+    pf = {"holdings": {"kr": [{"label": "삼성전자", "ticker": "005930.KS", "desk": "semi-ai"}],
+                       "us": [{"label": "VOO", "ticker": "VOO", "desk": None},
+                              {"label": "SpaceX", "ticker": "SPCX", "desk": "bigtech-platform"}]},
+          "watchlist": [{"label": "MSFT", "ticker": "MSFT", "desk": "bigtech-platform"},
+                        {"label": "GEV", "ticker": "GEV", "desk": "power-physical"}],
+          "watch_retired": [{"label": "NAVER", "ticker": "035420.KS"}]}
+    with tempfile.TemporaryDirectory() as td:
+        pp = os.path.join(td, "p.json")
+        with open(pp, "w", encoding="utf-8") as f:
+            json.dump(pf, f, ensure_ascii=False)
+        g = _groups(pp)
+    check(g["bigtech"][1] == ["SPCX"] and g["bigtech"][2] == ["MSFT"], "빅테크 = ●SpaceX(보유) · MSFT(워치 피어)")
+    check("035420.KS" not in sum((list(h) + list(p) for _, h, p in g.values()), []), "판 종목(NAVER)은 어느 그룹에도 없다")
+    check("VOO" not in sum((list(h) for _, h, _ in g.values()), []), "ETF(desk null)는 피어 그룹 밖")
+    data = {"stocks": {"MSFT": {"annual": [{"end": "2026-06-30", "op_margin": 0.45}]}}}
+    keep = dict(GROUPS)
+    try:
+        GROUPS.clear()
+        GROUPS.update(g)
+        b = build(data, "bigtech")
+    finally:
+        GROUPS.clear()
+        GROUPS.update(keep)
+    check(b["n_held"] == 0 and b["missing"] == ["SPCX"], "재무 캐시 없는 보유(SPCX) = 순위 밖·'재무 미수집'으로 표기")
+    live_held = set()
+    try:
+        import market_data as _md
+        live_held = set(_md.held_tickers())
+    except Exception:                                           # noqa: BLE001
+        pass
+    held_all = sum((list(h) for _, h, _ in GROUPS.values()), [])
+    check(set(held_all) <= live_held, f"실제 그룹의 ●보유 = 현재 보유뿐 — 아닌 것 {sorted(set(held_all) - live_held)}")
+    fb = None
+    import market_data as _md2
+    keep_dm = _md2.desk_members
+    try:
+        _md2.desk_members = lambda *a, **k: []
+        fb = _groups()
+    finally:
+        _md2.desk_members = keep_dm
+    check(fb == {k: (lab, list(h), list(p)) for k, (lab, h, p) in _GROUPS_FALLBACK.items()},
+          "desk 정본이 비면 내장 폴백(경고와 함께)")
+    print("✅ 통과" if ok else "❌ 실패")
+    return 0 if ok else 1
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="보유종목 횡단면 상대비교 — 피어 백분위 + 자기이력 백분위 (측정 전용)",
@@ -282,7 +362,10 @@ def main():
     ap.add_argument("--group", choices=list(GROUPS), help="피어 그룹 하나만")
     add_tickers(ap, "--tickers", help="한 종목의 피어 내 위치 상세")
     ap.add_argument("--json", action="store_true", help="기계 소비용 JSON")
+    ap.add_argument("--selftest", action="store_true", help="오프라인 자가검증 — 피어 그룹 = portfolio.json desk 정본")
     args = ap.parse_args()
+    if args.selftest:
+        return selftest()
 
     data = load()
     picked = split_tickers(args.tickers)

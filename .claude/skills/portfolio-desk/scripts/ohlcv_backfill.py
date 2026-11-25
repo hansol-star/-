@@ -43,8 +43,13 @@ def _safe(sym: str) -> str:
     return sym.replace("^", "_").replace("/", "_")
 
 
-def universe() -> list[str]:
-    """보유 + 워치 + 벤치마크. app/data.js와 stocks.json이 정본."""
+def universe(md=None) -> list[str]:
+    """보유 + 워치 + 거래 이력 + 벤치마크. app/data.js·stocks.json + market_data(portfolio.json·체결 원장).
+
+    ★[2026-11-22 감사 A1] 舊엔 app/data.js 보유 + stocks.json 키만 봤다 — '현재 명단'이라 매도 종목이
+      빠지는 순간 캐시가 멎는다(11/20 매도 NAVER·현대차·두산로보 OHLCV가 11/06에서 정지).
+      이제 market_data.GROUPS(보유·워치) + RETIRED_WATCH(채점 꼬리) + traded_tickers()(데스크 착수 때 보유 ∪
+      그 뒤 체결 — 만료 없음·원장 접미사 그대로)를 합친다. md 인자 = 자가검증 주입용."""
     syms = []
     try:
         raw = open(os.path.join(ROOT, "app", "data.js"), encoding="utf-8").read()
@@ -58,6 +63,20 @@ def universe() -> list[str]:
         syms += list((st.get("stocks") or {}).keys())
     except Exception:
         pass
+    if md is None:
+        try:
+            import market_data as md
+        except Exception as e:                      # noqa: BLE001
+            print(f"[warn] market_data 로드 실패 — 매도 종목·퇴역 워치가 수집에서 빠진다: {e}", file=sys.stderr)
+            md = None
+    if md is not None:
+        g = getattr(md, "GROUPS", {}) or {}
+        syms += [s for grp in ("holdings", "watchlist") for _, s in g.get(grp, [])]
+        syms += [s for _, s in getattr(md, "RETIRED_WATCH", [])]
+        try:
+            syms += list(md.traded_tickers())
+        except Exception as e:                      # noqa: BLE001
+            print(f"[warn] 거래 이력 유니버스 로드 실패 — 매도 종목 캐시가 멈춘다: {e}", file=sys.stderr)
     syms += ["^KS11", "^KQ11", "^GSPC", "^IXIC", "KRW=X"]
     seen, out = set(), []
     for s in syms:
@@ -65,6 +84,31 @@ def universe() -> list[str]:
             seen.add(s)
             out.append(s)
     return out
+
+
+def selftest() -> int:
+    """★[2026-11-22 감사 A1] 오프라인 — 명단에서 빠진 매도 종목이 수집 유니버스에 남는가."""
+    import types
+    ok = True
+
+    def check(cond, label):
+        nonlocal ok
+        ok = ok and bool(cond)
+        print(f"  {'✅' if cond else '❌'} {label}")
+
+    print("ohlcv_backfill 자가검증 — 수집 유니버스")
+    fake = types.SimpleNamespace(GROUPS={"holdings": [("삼성전자", "005930.KS")], "watchlist": [("GEV", "GEV")]},
+                                 RETIRED_WATCH=[("애플", "AAPL")],
+                                 traded_tickers=lambda: ["005930.KS", "035420.KS", "TSLA"])
+    u = universe(fake)
+    check("035420.KS" in u and "TSLA" in u, "매도 종목(NAVER·TSLA) = 거래 이력으로 수집 대상에 남는다")
+    check("AAPL" in u and "GEV" in u and "005930.KS" in u, "보유·워치·퇴역 워치 꼬리도 그대로")
+    check(len(u) == len(set(u)), "중복 없음")
+    fake.traded_tickers = lambda: (_ for _ in ()).throw(OSError("원장 없음"))
+    u2 = universe(fake)
+    check("005930.KS" in u2 and "^GSPC" in u2, "원장을 못 읽어도 나머지 유니버스는 그대로")
+    print("✅ 통과" if ok else "❌ 실패")
+    return 0 if ok else 1
 
 
 def fetch(symbol: str, timeout: float = 40.0):
@@ -111,12 +155,19 @@ def save(symbol: str, rows) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="상장 이래 OHLCV 일봉 캐시 (수집 전용)")
-    ap.add_argument("--symbols", help="쉼표구분 (기본=보유+워치+벤치마크)")
+    ap.add_argument("--symbols", help="쉼표구분 (기본=보유+워치+퇴역 워치+거래 이력+벤치마크)")
     ap.add_argument("--pace", type=float, default=1.5, help="심볼 간 페이싱 초")
     ap.add_argument("--stats", action="store_true", help="캐시 현황만 출력")
+    ap.add_argument("--list", action="store_true", help="수집 대상 심볼만 출력(수집·쓰기 없음)")
+    ap.add_argument("--selftest", action="store_true", help="오프라인 자가검증 — 수집 유니버스(매도 종목 포함)")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
 
     syms = [s.strip() for s in a.symbols.split(",")] if a.symbols else universe()
+    if a.list:
+        print(f"수집 대상 {len(syms)}종목: " + ", ".join(syms))
+        return 0
 
     if a.stats:
         print(f"OHLCV 캐시 — {OUT_DIR}")

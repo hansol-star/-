@@ -278,6 +278,27 @@ def _mdd(curve: list[float]) -> float:
     return round(worst * 100, 2)
 
 
+def measured_legs(rows: list[dict], q0: dict[str, float], base: str, end_d: str) -> list[str]:
+    """★[2026-11-22 감사 A1] 이 측정이 **가격을 읽는** 티커 = 시작일 보유(q0 — '가만히' 다리) ∪ 기간 내 체결(매매별 기여).
+    舊 stale_legs는 기간 말 보유만 봤다 → 판 종목(11/20 NAVER·현대차·두산로보)의 캐시가 얼어도 경고 0건이었고,
+    '가만히' 다리·매도 기여가 동결가를 전진채움해 계산됐다."""
+    legs = {tk for tk, sh in q0.items() if sh}
+    legs |= {r["ticker"] for r in rows
+             if r.get("side") in ("buy", "sell") and base <= str(r.get("date") or "") <= end_d}
+    return sorted(legs)
+
+
+def stale_legs_of(legs, held_end: dict[str, float], end_d: str, label: dict[str, str]) -> list[dict]:
+    """캐시 마지막 종가일이 기간 말보다 이른 레그. why = 보유(기간 말 평가) | 매도(가만히·기여 다리)."""
+    out = []
+    for tk in legs:
+        ds_tk, _ = _series(tk)
+        if not ds_tk or ds_tk[-1] < end_d:
+            out.append({"ticker": tk, "label": label.get(tk, tk), "last": ds_tk[-1] if ds_tk else None,
+                        "why": "보유" if held_end.get(tk) else "매도·과거보유(가만히·기여 다리)"})
+    return out
+
+
 def run(start: str, end: str) -> dict:
     rows = trades.load_ledger()
     cur = currency_of(rows)
@@ -400,13 +421,7 @@ def run(start: str, end: str) -> dict:
     # Yahoo 일봉이 지수(^GSPC)는 당일 주고 개별주·ETF(VOO·ANET)는 하루 늦게 준다 → 국내 10/30 ×
     # 미국 10/29가 섞여 10/30 美 급락이 수익률에 안 들어갔다). 레그별 as-of를 반드시 표면화한다.
     end_d = days[-1]
-    stale_legs = []
-    for tk in sorted(pos[end_d]):
-        if not pos[end_d].get(tk):
-            continue
-        ds_tk, _ = _series(tk)
-        if ds_tk and ds_tk[-1] < end_d:
-            stale_legs.append({"ticker": tk, "label": label.get(tk, tk), "last": ds_tk[-1]})
+    stale_legs = stale_legs_of(measured_legs(rows, q0, base, end_d), pos[end_d], end_d, label)
 
     pct = lambda x: round((x - 1) * 100, 2)  # noqa: E731
     out = {
@@ -473,10 +488,58 @@ def render(r: dict) -> str:
     sl = r.get("stale_legs") or []
     if sl:
         L.append(f"⚠️ 기간 말 {r['to']}보다 **캐시가 이른** 종목 {len(sl)}건 = 그만큼 옛 종가로 평가됐다: "
-                 + ", ".join(f"{x['label']}({x['last']})" for x in sl[:8])
+                 + ", ".join(f"{x['label']}({x['last'] or '캐시 없음'}"
+                             + (" · 매도" if x.get("why", "보유") != "보유" else "") + ")" for x in sl[:8])
                  + ("…" if len(sl) > 8 else ""))
         L.append("   ↳ 레그가 섞이면(국내 당일 × 미국 전일) 그 하루의 등락이 수익률에서 빠진다 — history_backfill.py 로 먼저 top-up할 것.")
     return "\n".join(L)
+
+
+def selftest() -> int:
+    """★[2026-11-22 감사 A1] 오프라인 — 매도 종목의 캐시가 얼면 stale_legs가 잡는가(캐시를 메모리에 심는다)."""
+    ok = True
+
+    def check(cond, label_):
+        nonlocal ok
+        ok = ok and bool(cond)
+        print(f"  {'✅' if cond else '❌'} {label_}")
+
+    print("performance 자가검증 — stale_legs 범위(시작 보유 ∪ 기간 내 체결)")
+    keep = dict(_cache)
+    try:
+        _cache.clear()
+        _cache["005930.KS"] = (["2026-11-19", "2026-11-20"], [1.0, 1.0])     # 보유 · 최신
+        _cache["005380.KS"] = (["2026-11-18", "2026-11-19"], [1.0, 1.0])     # 11/20 매도 · 11/19 동결
+        _cache["TSLA"] = (["2026-11-18"], [1.0])                               # 기간 내 매수→매도 · 동결
+        _cache["122870.KQ"] = (["2026-01-02"], [1.0])                          # 데스크 전 정리 = 측정 밖
+        rows = [{"date": "2026-01-02", "ticker": "122870.KQ", "side": "buy", "shares": 1},
+                {"date": "2026-02-02", "ticker": "122870.KQ", "side": "sell", "shares": 1},
+                {"date": "2026-11-10", "ticker": "TSLA", "side": "buy", "shares": 0.1},
+                {"date": "2026-11-20", "ticker": "TSLA", "side": "sell", "shares": 0.1},
+                {"date": "2026-11-20", "ticker": "005380.KS", "side": "sell", "shares": 1}]
+        q0 = {"005930.KS": 4.0, "005380.KS": 1.0}
+        legs = measured_legs(rows, q0, "2026-06-15", "2026-11-20")
+        check(legs == ["005380.KS", "005930.KS", "TSLA"], f"측정 레그 = 시작 보유 ∪ 기간 내 체결(데스크 전 정리 제외) — {legs}")
+        sl = stale_legs_of(legs, {"005930.KS": 4.0}, "2026-11-20", {"005380.KS": "현대차"})
+        got = {x["ticker"]: x for x in sl}
+        check(set(got) == {"005380.KS", "TSLA"}, "매도 종목의 동결 캐시(현대차 11/19·TSLA 11/18)가 경고에 올라온다")
+        check(got.get("005380.KS", {}).get("why", "").startswith("매도"), "사유 = 매도·과거보유(가만히·기여 다리)")
+        old = [tk for tk in sorted({"005930.KS": 4.0}) if _cache[tk][0][-1] < "2026-11-20"]
+        check(old == [], "(대조) 舊 범위 = 기간 말 보유만 → 0건이었다")
+        check("현대차(2026-11-19 · 매도)" in render({"error": None, "actual": {"stocks_twr_pct": 0, "account_twr_pct": 0, "stocks_mdd_pct": 0,
+                                                            "account_mdd_pct": 0},
+                                     "hold": {"stocks_twr_pct": 0, "stocks_mdd_pct": 0}, "benchmarks": {},
+                                     "desk_value_pct": 0, "trade_days": 0, "start_kr_weight_pct": 0,
+                                     "net_into_stocks_krw": 0, "cash": {"avg_weight_pct": None},
+                                     "trades": {"n": 0}, "reconcile": {"n": 0, "within_1pct": 0, "snapshot_lag": 0,
+                                                                       "unexplained": []},
+                                     "missing_prices": [], "stale_legs": sl, "from": "a", "to": "2026-11-20",
+                                     "days": 1}), "render가 매도 레그를 표기한다")
+    finally:
+        _cache.clear()
+        _cache.update(keep)
+    print("✅ 통과" if ok else "❌ 실패")
+    return 0 if ok else 1
 
 
 def main() -> int:
@@ -485,7 +548,10 @@ def main() -> int:
     ap.add_argument("--to", dest="end", default=dt.date.today().isoformat())
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--emit", action="store_true", help="data/app/performance.json 갱신")
+    ap.add_argument("--selftest", action="store_true", help="오프라인 자가검증 — stale_legs 범위(매도 종목 포함)")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
     r = run(a.start, a.end)
     if a.emit and not r.get("error"):
         with open(OUT, "w", encoding="utf-8", newline="\n") as f:

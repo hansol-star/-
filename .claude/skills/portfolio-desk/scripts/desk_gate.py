@@ -32,17 +32,34 @@ _HERE = os.path.abspath(__file__)
 SCRIPTS = os.path.dirname(_HERE)
 ROOT = os.path.abspath(os.path.join(_HERE, *([os.pardir] * 5)))
 
-# 섹터 데스크 담당 범위 — agent 파일의 커버리지와 1:1 (바뀌면 같이 고칠 것)
-SECTOR = {
-    # [9/17 워치 개편 d193] 원익IPS·테스·STM·TSLA·삼성중공업·HD현대중·SPCX 제외 / TSM·AMAT 편입
-    "semi-ai-desk": ["005930.KS", "NVDA", "MU", "AVGO", "ANET",
-                     "009150.KS", "000660.KS", "TSM", "LRCX", "AMD", "CDNS"],   # [9/29 d218] CDNS 편입 · [11/18 d276] AMAT→LRCX
-    "power-physical-desk": ["066570.KS", "454910.KS", "005380.KS",
-                            "GEV", "VRT", "LLY", "BRK-B",
-                            "068270.KS", "033780.KS"],   # [11/18 d276] 두산E·SK이노·한화에어로·한화오션·ISRG 제외 / VRT·LLY·BRK-B·셀트리온 편입(분산 후보는 이 데스크가 맡는다)   # [9/29 d218] ISRG(수술로봇=피지컬AI) 편입
-    "bigtech-platform-desk": ["META", "MSFT", "AAPL", "GOOGL", "ORCL",
-                              "035420.KS", "MSFT"],   # [9/29 d218] PLTR 제외 · [10/12 d239] TMUS 제외
+# 섹터 데스크 담당 범위.
+# ★[2026-11-22 감사 A7] 정본 = portfolio.json 각 보유·워치 항목의 `desk` 필드(market_data.desk_members).
+#   舊 손 복사 목록은 "바뀌면 같이 고칠 것" 주석만 있었고 실제로 안 고쳐졌다 — 11/20 매도한
+#   두산로보·현대차·NAVER, 9/23 매도한 AAPL·META가 담당으로 남고(MSFT는 두 번), SPCX는 빠졌다.
+#   이제 portfolio.json을 고치면 게이트가 따라온다. 아래 리터럴은 portfolio.json을 못 읽을 때만 쓰는 폴백이다
+#   (11/22 기준 desk 필드와 같은 값 — 폴백이 쓰이면 stderr에 경고한다).
+_SECTOR_FALLBACK = {
+    "semi-ai-desk": ["005930.KS", "NVDA", "MU", "AVGO",
+                     "009150.KS", "000660.KS", "AMD", "TSM", "CDNS", "ANET", "LRCX"],
+    "power-physical-desk": ["066570.KS", "GEV", "033780.KS", "VRT", "LLY", "BRK-B", "068270.KS"],
+    "bigtech-platform-desk": ["GOOGL", "ORCL", "SPCX", "MSFT"],
 }
+
+
+def _sector() -> dict:
+    try:
+        sys.path.insert(0, SCRIPTS)
+        import market_data as _md
+        out = {f"{d}-desk": _md.desk_members(d) for d in _md.DESKS}
+        if any(out.values()):
+            return out
+        print("[warn] portfolio.json desk 필드가 비었다 — 내장 폴백 목록을 쓴다", file=sys.stderr)
+    except Exception as e:                                        # noqa: BLE001
+        print(f"[warn] market_data 데스크 정본 로드 실패 — 내장 폴백 목록을 쓴다: {e}", file=sys.stderr)
+    return {k: list(v) for k, v in _SECTOR_FALLBACK.items()}
+
+
+SECTOR = _sector()
 MOVE_PCT = 5.0
 EARN_DAYS = 7
 
@@ -83,12 +100,50 @@ def _earnings(days: int) -> dict:
     return out
 
 
+def selftest() -> int:
+    """★[2026-11-22 감사 A7] 담당 범위 = portfolio.json 현재 보유·워치의 desk 필드.
+    舊 리터럴(매도 5종목 잔존·MSFT 중복·SPCX 누락)은 아래 세 검사에 모두 걸린다."""
+    import market_data as _md
+    ok = True
+
+    def check(cond, label, detail=""):
+        nonlocal ok
+        ok = ok and bool(cond)
+        print(f"  {'✅' if cond else '❌'} {label}" + (f" — {detail}" if detail and not cond else ""))
+
+    print("desk_gate 자가검증 — 섹터 데스크 담당 범위 ↔ portfolio.json desk 정본")
+    live = set(_md.held_tickers()) | {s for _, s in _md.WATCHLIST}
+    allsyms = [s for v in SECTOR.values() for s in v]
+    check(len(allsyms) == len(set(allsyms)), "중복 없음(한 종목 = 한 데스크)",
+          str(sorted({s for s in allsyms if allsyms.count(s) > 1})))
+    check(set(allsyms) <= live, "담당 = 현재 보유·워치뿐(매도·제외 종목 없음)", str(sorted(set(allsyms) - live)))
+    dm = _md.desk_map()
+    want = {t for t, d in dm.items() if d}
+    check(set(allsyms) == want, "desk 필드가 있는 모든 비ETF 종목이 어느 데스크엔가 있다",
+          f"빠짐 {sorted(want - set(allsyms))} · 남음 {sorted(set(allsyms) - want)}")
+    check("SPCX" not in dm or "SPCX" in SECTOR.get("bigtech-platform-desk", []),
+          "SPCX(보유) = 빅테크·플랫폼 데스크")
+    keep = _md.desk_members
+    try:
+        _md.desk_members = lambda *a, **k: []
+        fb = _sector()
+    finally:
+        _md.desk_members = keep
+    check(fb == _SECTOR_FALLBACK, "portfolio.json desk가 비면 내장 폴백(경고와 함께)")
+    print("✅ 통과" if ok else "❌ 실패")
+    return 0 if ok else 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="섹터 데스크 스폰 게이트 (권고)")
     ap.add_argument("--move", type=float, default=MOVE_PCT, help=f"±%% 임계(기본 {MOVE_PCT})")
     ap.add_argument("--days", type=int, default=EARN_DAYS, help=f"실적 D-n(기본 {EARN_DAYS})")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--selftest", action="store_true",
+                    help="오프라인 자가검증 — 담당 범위가 portfolio.json desk 정본과 같은가(네트워크 없음)")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
 
     px, earn = _quotes(), _earnings(a.days)
     res = {}

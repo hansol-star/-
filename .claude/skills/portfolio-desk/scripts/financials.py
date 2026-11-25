@@ -68,15 +68,31 @@ ETF = ["VOO"]
 EDGAR_SUPPLEMENT_KEYS = ("edgar_supplement", "edgar_missing", "edgar_supplement_error")
 
 
+# ★[2026-11-22 감사 A7] 폴백 목록도 낡아 있었다 — 11/10 매도 MSFT·11/20 매도 두산로보·현대차·NAVER가 '보유'로 남고
+#   SPCX가 없었다(정본을 못 읽는 날 판 종목을 매일 수집). 이제 portfolio.json holdings(market_data.held_tickers)를
+#   먼저 보고, 그것도 못 읽을 때만 아래 리터럴(11/22 보유와 같은 값)을 쓴다.
+_HOLDINGS_FALLBACK = ["NVDA", "GOOGL", "ORCL", "MU", "AVGO", "SPCX", "005930.KS", "066570.KS"]
+
+
+def _holdings_fallback() -> list[str]:
+    try:
+        import market_data as _md
+        tks = [t for t in _md.held_tickers() if t not in ETF]
+        if tks:
+            return tks
+    except Exception as e:                                       # noqa: BLE001
+        print(f"⚠️ portfolio.json 보유(market_data.held_tickers)도 로드 실패 — 내장 목록: {e}", file=sys.stderr)
+    return list(_HOLDINGS_FALLBACK)
+
+
 def _canon_holdings() -> tuple[list[str], list[str]]:
     try:
         import validate_report as _V
         tks = [t for t in _V.HOLDINGS if t not in ETF]
     except Exception as e:          # 정본을 못 읽으면 조용히 옛 목록으로 돌아가지 않는다
-        print(f"⚠️ 보유 정본(validate_report.HOLDINGS) 로드 실패 — 내장 목록으로 대체: {e}",
+        print(f"⚠️ 보유 정본(validate_report.HOLDINGS) 로드 실패 — portfolio.json(market_data) → 내장 목록 순으로 대체: {e}",
               file=sys.stderr)
-        tks = ["NVDA", "MU", "MSFT", "AVGO", "GOOGL", "ORCL",
-               "005930.KS", "066570.KS", "454910.KS", "005380.KS", "035420.KS"]
+        tks = _holdings_fallback()
     return ([t for t in tks if not t.endswith((".KS", ".KQ"))],
             [t for t in tks if t.endswith((".KS", ".KQ"))])
 
@@ -91,18 +107,34 @@ ALL = US + KR
 #    **주간 R3에서 `--with-peers`로 갱신**하면 충분하다.
 # ⚠️ 이 목록은 **데스크 축(섹터 담당)** 기준이지 경제적 동질 피어가 아니다 —
 #    n이 늘어도 비교가능성이 같이 늘지는 않는다(peer_compare 출력에 경고를 띄운다).
-PEERS = [
+# ★[2026-11-22 감사 A7] 정본 = portfolio.json 워치 항목의 `desk` 필드(market_data.desk_members(..., "watchlist")).
+#   舊 손 목록은 desk_gate·peer_compare·build_app_data와 따로 놀았다(네 곳이 서로 다르고 낡았다).
+#   아래 리터럴은 portfolio.json을 못 읽을 때만 쓰는 폴백이다(11/22 워치와 같은 값).
+_PEERS_FALLBACK = [
     # 반도체·AI인프라
-    # [9/17 워치 개편 d193] 원익IPS·테스·STM·삼성중공업·HD현대중 제외 / TSM·AMAT 편입
-    "000660.KS", "009150.KS", "TSM", "LRCX", "AMD",   # [11/18 d276] AMAT→LRCX
-    "CDNS",   # [9/29 d218] 워치 편입(EDA)
-    "ANET",   # [9/28] 보유 목록이 정본화되며 빠진 워치 — 피어 비교(반도체 그룹)엔 계속 필요
-    # 전력·인프라·피지컬AI (방산·조선 포함 = power-physical-desk 담당 범위)
-    "GEV", "VRT",   # [11/18 d276] 두산E·한화에어로·한화오션·SK이노·ISRG 제외 / VRT 편입
-    "LLY", "BRK-B", "068270.KS", "033780.KS",   # [11/18 d276] 분산 후보
+    "009150.KS", "000660.KS", "AMD", "TSM", "CDNS", "ANET", "LRCX",
+    # 전력·인프라·피지컬AI (분산 후보 포함 = power-physical-desk 담당 범위)
+    "GEV", "033780.KS", "VRT", "LLY", "BRK-B", "068270.KS",
     # 빅테크·플랫폼
-    "MSFT",   # [11/18 d276] 재편입
+    "MSFT",
 ]
+
+
+def _peers() -> list[str]:
+    try:
+        import market_data as _md
+        out = []
+        for d in _md.DESKS:
+            out += [t for t in _md.desk_members(d, section="watchlist") if t not in out and t not in ALL]
+        if out:
+            return out
+        print("⚠️ portfolio.json 워치 desk 필드가 비었다 — 내장 PEERS 폴백", file=sys.stderr)
+    except Exception as e:                                       # noqa: BLE001
+        print(f"⚠️ 피어 정본(market_data.desk_members) 로드 실패 — 내장 PEERS 폴백: {e}", file=sys.stderr)
+    return [t for t in _PEERS_FALLBACK if t not in ALL]
+
+
+PEERS = _peers()
 
 
 # ─────────────────────────────────────────── 파생지표
@@ -248,22 +280,34 @@ def _dart(ticker: str) -> dict | None:
 
 
 def _conflicts(a: dict, b: dict, tol: float = 1.0) -> list[dict]:
-    """두 소스 최신 연간의 동일 계정 이격(>tol%) 목록 — 단일 출처 금지 룰의 기계화."""
-    if not a.get("annual") or not b.get("annual"):
-        return []
-    ra, rb = a["annual"][0], b["annual"][0]
-    if ra.get("end") != rb.get("end"):
-        return []
+    """두 소스 최신 연간의 동일 계정 이격(>tol%) 목록 — 단일 출처 금지 룰의 기계화.
+
+    ★[2026-11-22 감사 D1] **최신 분기의 매출·영업이익**도 대조한다. 舊엔 연간만 봐서 Yahoo 분기 영업이익 칸에
+    매출총이익이 들어온 사고(LG전자 3Q 24.4%)를 DART 키가 있어도 못 잡았다. 1차(Yahoo)가 margin_suspect로 비운
+    값은 cross(DART) 값과 함께 `primary_missing`으로 남긴다 — 비운 칸을 채울 근거가 있다는 표시(자동으로 채우지는 않는다).
+    """
     out = []
-    for k in ("revenue", "operating_income", "net_income", "assets", "liabilities",
-              "equity", "cash", "inventory", "cfo"):
-        va, vb = ra.get(k), rb.get(k)
-        if va is None or vb is None or va == 0:
-            continue
-        gap = abs(va - vb) / abs(va) * 100
-        if gap > tol:
-            out.append({"field": k, "end": ra["end"], "primary": va, "cross": vb,
-                        "gap_pct": round(gap, 2)})
+    pairs = []
+    if a.get("annual") and b.get("annual") and a["annual"][0].get("end") == b["annual"][0].get("end"):
+        pairs.append((a["annual"][0], b["annual"][0],
+                      ("revenue", "operating_income", "net_income", "assets", "liabilities",
+                       "equity", "cash", "inventory", "cfo"), None))
+    if a.get("quarterly") and b.get("quarterly") and a["quarterly"][0].get("end") == b["quarterly"][0].get("end"):
+        pairs.append((a["quarterly"][0], b["quarterly"][0], ("revenue", "operating_income"), "quarterly"))
+    for ra, rb, keys, per in pairs:
+        for k in keys:
+            va, vb = ra.get(k), rb.get(k)
+            row = {"field": k, "end": ra["end"]}
+            if per:
+                row["period"] = per
+            if va is None and vb is not None and ra.get("margin_suspect") and k == "operating_income":
+                out.append(dict(row, primary=None, cross=vb, gap_pct=None, primary_missing="margin_suspect"))
+                continue
+            if va is None or vb is None or va == 0:
+                continue
+            gap = abs(va - vb) / abs(va) * 100
+            if gap > tol:
+                out.append(dict(row, primary=va, cross=vb, gap_pct=round(gap, 2)))
     return out
 
 
@@ -310,7 +354,12 @@ def _trend_gap_reasons(rec: dict, q: list[dict], run: list[dict]) -> list[str]:
     else:
         miss = [r.get("end") for r in run if r.get("op_margin") is None]
         if miss:
-            why.append(f"영업마진 결측 {'·'.join(str(m) for m in miss)}")
+            # ★[2026-11-22 감사 D1] 결측 사유가 '영업이익 = 매출총이익'(Yahoo 매핑 이상 · margin_suspect)이면 그렇게 적는다 —
+            #   '결측'만 보면 신고 전으로 읽힌다. 값은 추정하지 않는다(DART 원문 또는 다음 수집에서 채운다).
+            sus = [str(r.get("end")) for r in run if r.get("op_margin") is None and r.get("margin_suspect")]
+            why.append(f"영업마진 결측 {'·'.join(str(m) for m in miss)}"
+                       + (f"(margin_suspect {'·'.join(sus)}: Yahoo 영업이익 = 매출총이익 — 무효화·원문 확인 필요)"
+                          if sus else ""))
     try:
         ref = dt.date.fromisoformat(str(rec.get("as_of"))[:10])
     except ValueError:
@@ -833,6 +882,66 @@ def selftest() -> int:
           and not any(f["code"] == "margin_trend_gap" for f in flags(rec_ok)),
           "보충 성공 → 그 분기가 시계열에 들어가고(4분기 역산까지) gap 없음",
           str([r["end"] for r in rec_ok["quarterly"][:3]]))
+
+    # ⑧ ★[2026-11-22 감사 D1] Yahoo 분기 영업이익 칸에 매출총이익 — LG전자 3Q 24.4%(연간 2.8%)를 그대로 심는다
+    lg = [{"end": "2026-09-30", "revenue": 23824080e6, "gross_profit": 5815902e6, "operating_income": 5815902e6,
+           "net_income": 662e9},
+          {"end": "2026-06-30", "revenue": 23826468e6, "gross_profit": 6604908e6, "operating_income": 1579082e6,
+           "net_income": 667e9},
+          {"end": "2026-03-31", "revenue": 23727227e6, "gross_profit": 6163047e6, "operating_income": 1673723e6,
+           "net_income": 816e9}]
+    raw = rec_of([dict(r) for r in lg], "2026-11-21")
+    check(abs(raw["quarterly"][0]["op_margin"] - 0.2441) < 1e-4, "(대조) 무효화 전 = 3Q 영업마진 24.4%로 찍힌다")
+    sane = [dict(r) for r in lg]
+    why = [Y.sanitize(r) for r in sane]
+    check(sane[0]["operating_income"] is None and sane[0].get("margin_suspect")
+          and any("매출총이익" in w for w in why[0]),
+          "영업이익 == 매출총이익 → None + margin_suspect(값을 추정해 넣지 않는다)")
+    check(sane[1]["operating_income"] == 1579082e6 and not sane[1].get("margin_suspect"),
+          "정상 분기는 건드리지 않는다")
+    rec_s = rec_of(sane, "2026-11-21")
+    gap = next((f for f in flags(rec_s) if f["code"] == "margin_trend_gap"), None)
+    check(rec_s["quarterly"][0]["op_margin"] is None and gap is not None and "margin_suspect" in gap["message"],
+          "→ 3Q 영업마진 결측 · margin_trend_gap이 사유(margin_suspect)를 적는다",
+          (gap or {}).get("message", "gap 없음"))
+    nv = {"end": "2025-06-30", "revenue": 100.0, "gross_profit": 100.0, "operating_income": 100.0}
+    Y.sanitize(nv)
+    check(nv["gross_profit"] is None and nv["operating_income"] is None and not nv.get("margin_suspect"),
+          "매출 = 매출총이익 = 영업이익(NAVER형) → 매출 규칙으로 무효화 · suspect 아님")
+    svc = {"end": "2025-06-30", "revenue": 100.0, "gross_profit": 100.0, "operating_income": 19.0}
+    Y.sanitize(svc)
+    check(svc["operating_income"] == 19.0, "매출총이익만 매출과 같은 서비스업 → 영업이익은 살린다")
+    dart = {"annual": [], "quarterly": [{"end": "2026-09-30", "revenue": 23824080e6, "operating_income": 612e9}]}
+    cf = _conflicts({"annual": [], "quarterly": sane}, dart)
+    check(any(c["field"] == "operating_income" and c.get("period") == "quarterly"
+              and c.get("primary_missing") == "margin_suspect" and c["cross"] == 612e9 for c in cf),
+          "DART 교차 감사가 최신 분기 영업이익도 본다(무효화된 칸 = primary_missing)", str(cf))
+    bad_q = [dict(lg[0], operating_income=5815902e6)]
+    cf2 = _conflicts({"annual": [], "quarterly": bad_q}, dart)
+    check(any(c["field"] == "operating_income" and (c.get("gap_pct") or 0) > 50 for c in cf2),
+          "(무효화를 못 했어도) 분기 영업이익 이격이 source_conflict로 잡힌다")
+
+    # ⑨ ★[2026-11-22 감사 A7] 보유 폴백·피어 = 현재 portfolio.json(판 종목 없음 · SPCX 포함)
+    try:
+        import market_data as _md
+        held = {t for t in _md.held_tickers() if t not in ETF}
+        fb = set(_holdings_fallback())
+        check(fb == held, "보유 폴백(validate 정본 실패 시) = portfolio.json 보유",
+              f"남음 {sorted(fb - held)} · 빠짐 {sorted(held - fb)}")
+        check(set(_HOLDINGS_FALLBACK) <= held | set(ETF),
+              "내장 보유 리터럴에 판 종목이 없다", str(sorted(set(_HOLDINGS_FALLBACK) - held)))
+        watch = {s for _, s in _md.WATCHLIST}
+        check(set(PEERS) <= watch and not (set(PEERS) & set(ALL)), "PEERS = 현재 워치(desk 정본)이고 보유와 안 겹친다",
+              str(sorted(set(PEERS) - watch)))
+        kr_held = {t for t in held if t.endswith((".KS", ".KQ"))}
+        check(set(Y.kr_holdings()) == kr_held and set(Y.KR_HOLDINGS) <= kr_held,
+              "yahoo_facts 기본 국내 대상 = portfolio.json 국내 보유(판 종목 없음)", str(Y.kr_holdings()))
+        # 국내 워치 하나를 실제 명단에서 고른다(특정 종목을 박으면 워치에서 빠지는 날 거짓 실패한다)
+        kw = next(((lb, s) for lb, s in _md.WATCHLIST if s.endswith((".KS", ".KQ"))), None)
+        check((kw is None or Y.name_of(kw[1]) == kw[0]) and Y.name_of("454910.KS") == "두산로보틱스",
+              "yahoo_facts 이름표 = portfolio.json label(워치 포함) → 옛 이름 폴백", str(kw))
+    except Exception as e:                                         # noqa: BLE001
+        check(False, "보유 폴백·피어 정본 검사", f"{type(e).__name__}: {e}")
 
     # ⑦ 배선 — 플래그 코드 ↔ 엑셀 라벨 ↔ 목표가 가산표
     with open(os.path.abspath(__file__), encoding="utf-8") as f:

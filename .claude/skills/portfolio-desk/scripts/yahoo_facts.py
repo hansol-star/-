@@ -20,9 +20,10 @@
 ⚠️ 성격: Yahoo는 **2차 가공 데이터**(비공식 API·스키마 변동 리스크). 1차 출처는 미국=EDGAR,
    국내=DART. 수치가 갈리면 1차를 채택하고 `source_conflict` 플래그를 단다.
    NAVER는 `GrossProfit == Revenue`로 오는데 매출원가 미분류 아티팩트다(파서가 감지·무효화).
+   ★[11/22 D1] `OperatingIncome == GrossProfit`(영업이익 칸에 매출총이익)도 무효화 + margin_suspect.
 
 사용:
-  python3 yahoo_facts.py                       # 국내 보유 5 + 미국 402 4종목
+  python3 yahoo_facts.py                       # 국내 보유(portfolio.json) + 미국 402
   python3 yahoo_facts.py --tickers 005930.KS
   python3 yahoo_facts.py --json / --save
 """
@@ -50,12 +51,43 @@ BASE = "https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/t
 # 미국=EDGAR(상장 이래 전부)·국내=DART가 답이고, Yahoo는 '최근 몇 기 + 무키 커버리지' 역할.
 P1, P2 = 1041379200, 2000000000
 
-# 국내 보유 5 (Yahoo 티커) — 원익IPS·테스는 .KQ (6/14 교정 이력 준수)
-KR_HOLDINGS = ["005930.KS", "066570.KS", "454910.KS", "005380.KS", "035420.KS"]
+# 국내 보유 (Yahoo 티커) — 원익IPS·테스는 .KQ (6/14 교정 이력 준수)
+# ★[2026-11-22 감사 A7] 舊 리터럴 = 11/20 매도 두산로보·현대차·NAVER가 남은 '국내 보유 5'였고, 이름표도 그 5개뿐이라
+#   국내 워치(KT&G·셀트리온 등) 재무의 name이 티커로 찍혔다. 이제 기본 대상·이름 = portfolio.json(market_data)
+#   보유·워치·퇴역 워치이고, 아래 리터럴은 그것을 못 읽을 때만 쓰는 폴백이다(11/22 국내 보유와 같은 값).
+KR_HOLDINGS = ["005930.KS", "066570.KS"]
 KR_NAMES = {"005930.KS": "삼성전자", "066570.KS": "LG전자", "454910.KS": "두산로보틱스",
             "005380.KS": "현대차", "035420.KS": "NAVER"}
-# FMP가 402로 막는 미국 종목 = EDGAR 교차검증 우선 대상
-US_402 = ["MU", "ANET", "AVGO", "ORCL"]
+# FMP가 402로 막는 미국 종목 = EDGAR 교차검증 우선 대상 (★11/22 — ANET 11/13 매도로 기본 대상에서 뺐다)
+US_402 = ["MU", "AVGO", "ORCL"]
+
+
+def _md():
+    try:
+        import market_data as m
+        return m
+    except Exception:                                    # noqa: BLE001
+        return None
+
+
+def kr_holdings() -> list[str]:
+    """국내 보유(portfolio.json holdings) — 못 읽으면 KR_HOLDINGS 폴백."""
+    m = _md()
+    try:
+        tks = [t for t in m.held_tickers() if t.endswith((".KS", ".KQ"))] if m else []
+    except Exception:                                    # noqa: BLE001
+        tks = []
+    return tks or list(KR_HOLDINGS)
+
+
+def name_of(ticker: str) -> str:
+    """표시명 — portfolio.json(보유·워치·퇴역 워치) label → KR_NAMES → 티커."""
+    m = _md()
+    try:
+        lab = (m.labels() if m else {}).get(ticker)
+    except Exception:                                    # noqa: BLE001
+        lab = None
+    return lab or KR_NAMES.get(ticker, ticker)
 
 # 우리 단일 스키마 ← Yahoo 계정명
 FIELDS = {
@@ -88,6 +120,39 @@ def _crumb(op, tries: int = 4) -> str | None:
             return c
         time.sleep(3 * (i + 1))
     return None
+
+
+def _same(a, b) -> bool:
+    """두 금액이 사실상 같은가(상대 오차 1e-6 — 한쪽만 천 단위 반올림된 경우까지)."""
+    return a is not None and b is not None and abs(a - b) < max(1, abs(b) * 1e-6)
+
+
+def sanitize(row: dict) -> list[str]:
+    """Yahoo(2차 가공) 실측 이상치를 **무효화**하고 사유 목록을 돌려준다(row를 제자리 수정).
+
+    · gross_profit==revenue : NAVER 등 서비스업 매출원가 미분류(구조적)
+    · operating_income==revenue : 순수 매핑 오류(NAVER 2025-06-30에서 실제 발생.
+      영업이익률 19%인 회사가 100%로 찍힘 → 그대로 쓰면 마진 추세 판정이 붕괴)
+    · ★[2026-11-22 감사 D1] operating_income==gross_profit : 영업이익 칸에 **매출총이익**이 들어온 매핑 오류.
+      2026-09-30 분기에 LG전자(영업마진 24.4% ↔ 연간 2.8%·순마진 2.8%)·두산로보·삼성전기·셀트리온 4종목이
+      동시에 걸렸고, 삼성전자도 같은 R3 직전엔 69.3%였다. 룰8 ⓑ(분기 영업마진 2분기 연속 하락)가 가려진다.
+      판관비를 따로 안 나누는 회사는 실제로 둘이 같을 수 있다 → 값을 **추정해 넣지 않고** None +
+      `margin_suspect` 플래그만 단다(판정은 '결측'으로 보류된다 — financials margin_trend_gap).
+    어느 쪽이든 추정으로 메우지 않고 None + 플래그(CLAUDE.md "추측 금지·미확인 명시")."""
+    derived = []
+    gp0 = row.get("gross_profit")
+    for fld in ("gross_profit", "operating_income"):
+        # ★[11/1] 절대 오차 1 → 상대 오차 — Yahoo가 한쪽만 천 단위로 반올림해 차이 210원으로
+        #   빠져나갔다(NAVER 2025-06 영업이익 = 매출, 영업마진 100%).
+        if row.get("revenue") and _same(row.get(fld), row["revenue"]):
+            row[fld] = None
+            derived.append(f"{fld} 무효화(매출과 동일 — Yahoo 매핑 이상)")
+    # 매출총이익이 매출과 같아 이미 무효화됐으면(서비스업 구조) 이 비교는 뜻이 없다 — 남은 값끼리만 본다
+    if row.get("gross_profit") is not None and _same(row.get("operating_income"), gp0):
+        row["operating_income"] = None
+        row["margin_suspect"] = True
+        derived.append("operating_income 무효화(매출총이익과 동일 — Yahoo 매핑 이상 · margin_suspect)")
+    return derived
 
 
 def fetch(ticker: str, op=None, crumb: str | None = None) -> dict:
@@ -127,19 +192,7 @@ def fetch(ticker: str, op=None, crumb: str | None = None) -> dict:
             row = {"end": end, "period": "annual" if prefix == "annual" else "quarterly"}
             for ours, y in FIELDS.items():
                 row[ours] = series.get(prefix + y[0].upper() + y[1:], {}).get(end)
-            derived = []
-            # ⚠️ Yahoo(2차 가공) 실측 이상치 — 하위 항목이 매출과 **정확히 일치**하는 케이스.
-            #   · gross_profit==revenue : NAVER 등 서비스업 매출원가 미분류(구조적)
-            #   · operating_income==revenue : 순수 매핑 오류(NAVER 2025-06-30에서 실제 발생.
-            #     영업이익률 19%인 회사가 100%로 찍힘 → 그대로 쓰면 마진 추세 판정이 붕괴)
-            # 어느 쪽이든 추정으로 메우지 않고 None + 플래그(CLAUDE.md "추측 금지·미확인 명시").
-            for fld in ("gross_profit", "operating_income"):
-                v = row.get(fld)
-                # ★[11/1] 절대 오차 1 → 상대 오차 — Yahoo가 한쪽만 천 단위로 반올림해 차이 210원으로
-                #   빠져나갔다(NAVER 2025-06 영업이익 = 매출, 영업마진 100%).
-                if v is not None and row.get("revenue") and abs(v - row["revenue"]) < max(1, abs(row["revenue"]) * 1e-6):
-                    row[fld] = None
-                    derived.append(f"{fld} 무효화(매출과 동일 — Yahoo 매핑 이상)")
+            derived = sanitize(row)
             # Yahoo capex는 유출을 음수로 신고 → EDGAR(양수) 부호규약에 맞춰 뒤집는다
             if row.get("capex") is not None and row["capex"] < 0:
                 row["capex"] = -row["capex"]
@@ -153,7 +206,7 @@ def fetch(ticker: str, op=None, crumb: str | None = None) -> dict:
     is_kr = ticker.endswith((".KS", ".KQ"))
     return {
         "ticker": ticker,
-        "name": KR_NAMES.get(ticker, ticker),
+        "name": name_of(ticker),
         "region": "KR" if is_kr else "US",
         "currency": "KRW" if is_kr else "USD",
         "source": "Yahoo fundamentals-timeseries",
@@ -189,12 +242,12 @@ def _fmt(v, unit):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Yahoo 재무제표 3표 수집(무키)")
-    ap.add_argument("--tickers", help="쉼표·공백 구분 (기본: 국내 보유 5 + 미국 402 4)")
+    ap.add_argument("--tickers", help="쉼표·공백 구분 (기본: 국내 보유(portfolio.json) + 미국 402)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--save", action="store_true")
     a = ap.parse_args()
 
-    tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else KR_HOLDINGS + US_402
+    tickers = [t.strip() for t in cli_common.split_tickers(a.tickers)] if a.tickers else kr_holdings() + US_402
     out = fetch_many(tickers)
     if a.save:
         for r in out:

@@ -80,7 +80,7 @@ VERIFY_MARKETS = [
 
 
 def _universe(include_xasset: bool = True) -> list[tuple[str, str]]:
-    """코스피·코스닥 + 보유 + 워치 + 유가 + (해외·매크로 크로스에셋). 순수 시세축."""
+    """코스피·코스닥 + 보유 + 워치 + 유가 + 퇴역 워치 꼬리 + 거래 이력(★11/22 A1) + (해외·매크로 크로스에셋). 순수 시세축."""
     if md is None:
         base = [("코스피", "^KS11"), ("코스닥", "^KQ11")]
     else:
@@ -96,6 +96,20 @@ def _universe(include_xasset: bool = True) -> list[tuple[str, str]]:
             if sym not in seen:
                 seen.add(sym)
                 base.append((label, sym))
+        # ★[2026-11-22 감사 A1] 거래 이력 유니버스 — 데스크 착수 때 들고 있던 종목 ∪ 그 뒤 체결 종목(만료 없음).
+        #   舊엔 '현재 명단(보유·워치) + 퇴역 워치 track_until'뿐이라 11/20 매도 NAVER·현대차·두산로보 캐시가
+        #   11/19에서 얼었고(TSLA는 track_until 11/01 만료로 11/18), performance의 '가만히' 다리·매도 기여가
+        #   동결가를 전진채움해 계산됐다(10/3 교훈의 재발). 접미사는 원장 값 그대로(7/30 원칙).
+        _tt = getattr(md, "traded_tickers", None)
+        if _tt:
+            try:
+                names = md.labels() if hasattr(md, "labels") else {}
+                for sym in _tt():
+                    if sym not in seen:
+                        seen.add(sym)
+                        base.append((names.get(sym, sym), sym))
+            except Exception as e:                       # noqa: BLE001 — 원장을 못 읽어도 나머지 수집은 돈다
+                print(f"[warn] 거래 이력 유니버스 로드 실패 — 매도 종목 캐시가 멈춘다: {e}")
     if include_xasset:
         have = {s for _, s in base}
         base += [(l, s) for (l, s) in XASSET if s not in have]
@@ -1705,6 +1719,30 @@ def selftest() -> int:
         finally:
             HIST_DIR, GAPFILL_LOG = keep_all2
             del NOTES[:]
+
+    # ── ★[2026-11-22 감사 A1] 매도 종목도 수집 유니버스에 남는다(거래 이력 유니버스) ──
+    import types as _types
+    keep_md = globals().get("md")
+    try:
+        fake = _types.SimpleNamespace(
+            GROUPS={"index": [("코스피", "^KS11")], "holdings": [("삼성전자", "005930.KS")],
+                    "watchlist": [("GEV", "GEV")], "fx": [], "oil": []},
+            RETIRED_WATCH=[],
+            traded_tickers=lambda: ["005930.KS", "005380.KS", "TSLA"],   # 11/20 매도 현대차·TSLA
+            labels=lambda: {"005380.KS": "현대차"})
+        globals()["md"] = fake
+        uni = _universe(include_xasset=False)
+        syms = [s for _, s in uni]
+        ok("거래 이력 유니버스: 명단에서 빠진 매도 종목(현대차·TSLA)도 수집 대상에 남는다",
+           "005380.KS" in syms and "TSLA" in syms)
+        ok("거래 이력 유니버스: 보유와 겹치는 티커는 한 번만·라벨은 portfolio 이름",
+           syms.count("005930.KS") == 1 and ("현대차", "005380.KS") in uni)
+        fake.traded_tickers = lambda: (_ for _ in ()).throw(OSError("원장 없음"))
+        with contextlib.redirect_stdout(io.StringIO()):
+            uni2 = [s for _, s in _universe(include_xasset=False)]
+        ok("거래 이력 유니버스: 원장을 못 읽어도 나머지 유니버스는 그대로", uni2 == ["^KS11", "005930.KS", "GEV"])
+    finally:
+        globals()["md"] = keep_md
 
     # ── 라벨러 한 벌(10/20) — 위반을 심어 잡히는지 보고, 실제 스크립트 전체에 돌린다 ──
     U, G, F = "utcfrom" + "timestamp(", "gm" + "time(", "from" + "timestamp("   # 이 파일 스캔에 안 걸리게 쪼갠다

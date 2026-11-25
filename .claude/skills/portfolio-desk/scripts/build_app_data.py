@@ -422,14 +422,79 @@ def resolve_change_pct(meta: dict, q: dict):
 
 
 # [7/20] 섹터·테마 맵 (CLAUDE.md 데스크 구조 기반) — 테마 집중도 시각화용
-SECTOR_MAP = {
-    "005930.KS": "반도체·AI", "NVDA": "반도체·AI", "ANET": "반도체·AI",
-    "MU": "반도체·AI", "AVGO": "반도체·AI",
-    "066570.KS": "전력·피지컬", "454910.KS": "전력·피지컬", "005380.KS": "전력·피지컬",
-    "035420.KS": "빅테크", "META": "빅테크", "MSFT": "빅테크",
-    "AAPL": "빅테크", "GOOGL": "빅테크", "ORCL": "빅테크",
-    "VOO": "지수ETF",
+# ★[2026-11-22 감사 A7] 정본 = portfolio.json 각 보유·워치 항목의 `desk` 필드(market_data.desk_map).
+#   舊 손 목록엔 SPCX가 없어 앱 '테마 집중도'에서 SpaceX가 '기타'로 빠졌고, 판 종목(NAVER·현대차·두산로보·
+#   AAPL·META·MSFT)이 남아 있었다. 아래 리터럴은 portfolio.json을 못 읽을 때만 쓰는 폴백이다.
+# ★[2026-11-22 감사 A8] ⚠️ 이 맵은 **앱 화면의 데스크 테마 막대**일 뿐이다. 룰6 ⓹ 반도체 35% 상한의 분모·분자는
+#   tranche_rules.SEMI_TICKERS(반도체 정의 = d285)이고 이 맵과 다르다 — 예: ANET은 반도체·AI '데스크' 담당이지만
+#   SEMI_TICKERS엔 없다(ANET을 반도체 상한에 넣을지는 d285 해석 = 정훈 결정). 그래서 앱 테마 '반도체·AI' 비중을
+#   룰 판정·보고서 수치로 인용하지 않는다(portfolio_risk의 top_sector도 이 테마를 쓰는 '테마' 수치다).
+#   앱은 지금 룰 기준 반도체 %를 싣지 않는다 — 싣게 되면 테마 막대로 계산하지 말고
+#   tranche_rules.us_weights()['semi_pct'](SEMI_TICKERS·SEMI_CAP)를 그대로 받을 것.
+DESK_THEME = {"semi-ai": "반도체·AI", "power-physical": "전력·피지컬", "bigtech-platform": "빅테크"}
+ETF_THEME = "지수ETF"
+_SECTOR_MAP_FALLBACK = {   # 11/22 portfolio.json desk 필드와 같은 값
+    "005930.KS": "반도체·AI", "NVDA": "반도체·AI", "MU": "반도체·AI", "AVGO": "반도체·AI",
+    "066570.KS": "전력·피지컬",
+    "GOOGL": "빅테크", "ORCL": "빅테크", "SPCX": "빅테크",
+    "VOO": ETF_THEME,
 }
+
+
+def _sector_map(path: str | None = None) -> dict:
+    """{티커: 앱 테마 라벨} — desk 필드 → DESK_THEME, 명시된 null(ETF) → 지수ETF, 필드 없음 → 맵에서 빠짐('기타')."""
+    try:
+        import market_data as _md
+        dm = _md.desk_map(path)
+        if dm:
+            return {t: (DESK_THEME.get(d, "기타") if d else ETF_THEME) for t, d in dm.items()}
+        print("[warn] portfolio.json desk 필드가 비었다 — 내장 테마 폴백", file=sys.stderr)
+    except Exception as e:                                      # noqa: BLE001
+        print(f"[warn] market_data 데스크 정본 로드 실패 — 내장 테마 폴백: {e}", file=sys.stderr)
+    return dict(_SECTOR_MAP_FALLBACK)
+
+
+SECTOR_MAP = _sector_map()
+
+
+def selftest() -> int:
+    """★[2026-11-22 감사 A7·A8] 오프라인 — 테마 맵 = portfolio.json desk 정본(임시 파일을 심는다)."""
+    import tempfile
+    ok = True
+
+    def check(cond, label):
+        nonlocal ok
+        ok = ok and bool(cond)
+        print(f"  {'✅' if cond else '❌'} {label}")
+
+    print("build_app_data 자가검증 — 앱 테마 맵 = desk 정본")
+    pf = {"holdings": {"kr": [{"label": "삼성전자", "ticker": "005930.KS", "desk": "semi-ai"}],
+                       "us": [{"label": "VOO", "ticker": "VOO", "desk": None},
+                              {"label": "SpaceX", "ticker": "SPCX", "desk": "bigtech-platform"},
+                              {"label": "무필드", "ticker": "ZZZ"}]},
+          "watchlist": [{"label": "GEV", "ticker": "GEV", "desk": "power-physical"}]}
+    with tempfile.TemporaryDirectory() as td:
+        pp = os.path.join(td, "p.json")
+        with open(pp, "w", encoding="utf-8") as f:
+            json.dump(pf, f, ensure_ascii=False)
+        m = _sector_map(pp)
+    check(m.get("SPCX") == "빅테크", "SPCX = 빅테크(舊 맵엔 없어 '기타'로 빠졌다)")
+    check(m.get("VOO") == ETF_THEME and m.get("GEV") == "전력·피지컬" and m.get("005930.KS") == "반도체·AI",
+          "ETF(null) = 지수ETF · 데스크 라벨 매핑")
+    check(m.get("ZZZ", "기타") == "기타", "desk 필드 없는 항목 = '기타'")
+    try:
+        import market_data as _md
+        held = _md.held_tickers()
+        check(all(t in SECTOR_MAP for t in held), f"실제 보유 전 종목이 테마 맵에 있다 — 빠짐 {[t for t in held if t not in SECTOR_MAP]}")
+        # 판 종목 = 거래 이력 − 현재 보유 − 현재 워치(리터럴로 박으면 재편입하는 날 거짓 실패한다)
+        sold = set(_md.traded_tickers()) - set(held) - {s for _, s in _md.WATCHLIST}
+        check(not (sold & set(SECTOR_MAP)), f"판 종목은 테마 맵에 없다 — 남음 {sorted(sold & set(SECTOR_MAP))}")
+    except Exception as e:                                      # noqa: BLE001
+        check(False, f"market_data 로드 실패: {e}")
+    keep = SECTOR_MAP.get("ANET")
+    check(keep is None or keep == "반도체·AI", "ANET(워치) = 반도체·AI 데스크 테마(앱 표시) — 룰 반도체 정의와 별개")
+    print("✅ 통과" if ok else "❌ 실패")
+    return 0 if ok else 1
 
 
 def build(offline: bool) -> dict:
@@ -968,7 +1033,10 @@ def build_events(offline: bool, within: int = 45) -> list:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--offline", action="store_true", help="시세 호출 없이 빌드")
+    ap.add_argument("--selftest", action="store_true", help="오프라인 자가검증 — 앱 테마 맵 = portfolio.json desk 정본")
     args = ap.parse_args()
+    if args.selftest:
+        return selftest()
 
     data = build(args.offline)
     os.makedirs(os.path.dirname(OUT_JS), exist_ok=True)

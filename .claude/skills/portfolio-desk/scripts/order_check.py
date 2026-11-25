@@ -17,6 +17,7 @@ order_check.py — 토스 미체결 주문 ↔ 우리 계획(tasks.json) 대조
 
   🔴 계획 밖 매수 / 보류·폐기된 오더와 같은 주문 / ⭐2 이하 추가매수 / 룰6 초과 중 국내 매수
   🟡 계획 밖 매도 / 가격제한폭 밖(접수 거부·무효) / '매일 등록' 오더 미등록 / 국내 트랙 회차 0원 중 매수
+  🟡 계획된 매수인데 상한 초과 중(한 종목 18% · 반도체 35% · 재량 칸 ORCL·SPCX 5% — 룰6 ⓸ⓓⓔ⓹) / 비중 판정 보류(시세 결측) [11/22 감사 B3]
   ✅ 계획과 일치
 
 ⚠️ 조회 전용 — 토스 가드(_assert_readonly)를 그대로 쓴다. 주문 취소·정정은 **정훈이 직접.**
@@ -49,7 +50,73 @@ RULE_LOG = os.path.join(REPO, "data", "app", "rule_log.jsonl")
 SNAPS = os.path.join(REPO, "data", "snapshots")
 OUT = os.path.join(REPO, "data", "app", "order_check.json")
 KST = dt.timezone(dt.timedelta(hours=9))
-KR_CAP_PCT = 22.0   # 룰6 국내 목표 상단
+# ★[2026-11-22 감사 A8] 룰6 국내 상한 = tranche_rules.RULE6_KR_HI 한 곳(舊 = 여기 22.0 복사본 — 한쪽만 고치면 갈라진다).
+#   import 실패 때만 舊 값으로 돈다(주문 대조 자체가 멈추면 안 된다).
+try:
+    from tranche_rules import RULE6_KR_HI as KR_CAP_PCT
+except Exception:  # noqa: BLE001
+    KR_CAP_PCT = 22.0   # 룰6 국내 상한(폴백)
+
+
+def cap_weights() -> dict:
+    """★[2026-11-22 감사 B3] 상한 판정용 비중 — tranche_rules.us_weights(False)(캐시 종가만 · 시세 조회 없음 · 쓰기 없음).
+    실패하면 {'error': …} — 호출자는 '판정 보류'로 읽는다(조용히 통과시키지 않는다)."""
+    try:
+        import tranche_rules as TR
+        return TR.us_weights(False) or {"error": "빈 결과"}
+    except Exception as e:  # noqa: BLE001
+        return {"error": f"{type(e).__name__}: {str(e)[:60]}"}
+
+
+def _room_usd(TR, w: dict, tk: str):
+    """18% 상한까지 남은 달러 — tranche_rules.name_room_usd 한 벌(없거나 실패하면 None = 체결 후 판정 안 함)."""
+    try:
+        r = TR.name_room_usd(w, tk)
+        return None if r is None else float(r)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def cap_reasons(tk: str, w: dict | None, amount: float | None = None) -> list[str]:
+    """★[2026-11-22 감사 B3] 계획된 매수가 승인된 상한을 넘는 동안 걸려 있으면 그 사유들(노랑 — 룰은 '추가 매수 없음'이지 취소 의무가 아니다).
+
+    舊 = BUY 경로가 ⭐2·국내 22%·트랙 회차만 봐서, tasks.json에 등록된 GOOGL(26%)·반도체(39%)·ORCL·SPCX 매수가
+    토스에 걸려도 '✅ 계획과 일치'였다(상한은 미국 트랙 자동 제안 안에서만 지켜졌다).
+      ⓐ 한 종목 18%(룰6 ⓸ⓓ d284 · VOO 제외 · 국내 종목 포함) ⓑ 반도체 섹터 35%(룰6 ⓹ d285) ⓒ 재량 칸 ORCL·SPCX 5%(룰6 ⓸ⓔ)
+    비중을 못 구하면(시세 결측·평가액 불가) '판정 보류' 한 줄 — 상한 판정을 했다고 읽히지 않게.
+    amount = 주문 금액(그 종목 통화 · 가격 × 수량) — 주면 '지금 18% 밑이지만 체결되면 넘는' 주문도 잡는다(리뷰 보강)."""
+    try:
+        import tranche_rules as TR
+        name_cap, semi_cap = TR.US_NAME_CAP, TR.SEMI_CAP
+        semis = TR.SEMI_TICKERS
+        disc, disc_cap = getattr(TR, "US_DISC_TICKERS", ("ORCL", "SPCX")), getattr(TR, "US_DISC_CAP", 0.05)
+    except Exception as e:  # noqa: BLE001
+        return [f"상한 판정 보류(tranche_rules 로드 실패 {type(e).__name__}) — 18%·반도체 35%·재량 5% 확인 못 함"]
+    if tk == "VOO":                                  # 룰6 ⓸ⓐ 코어 ETF — 세 상한 어디에도 안 걸린다
+        return []
+    w = w or {}
+    if w.get("error") or w.get("hold"):
+        return [f"상한 판정 보류({w.get('hold') or w.get('error')}) — 18%·반도체 35%·재량 5% 확인 못 함"]
+    pct = w.get("pct") or {}
+    out = []
+    p = float(pct.get(tk) or 0.0)
+    if p > name_cap * 100:
+        out.append(f"한 종목 {p:.1f}% > {name_cap * 100:.0f}%(룰6 ⓸ⓓ d284) — 추가 매수 없음(팔지 않음)")
+    elif amount and (room := _room_usd(TR, w, tk)) is not None and (fx := w.get("fx") if is_kr(tk) else 1.0):
+        # ★[2026-11-22 감사 B3 리뷰] 지금은 18% 밑이어도 **이 주문이 체결되면** 넘는 경우 — 미국 트랙 배분(_us_split)이
+        #   18%까지 남은 달러(name_room_usd)로 자르는 것과 같은 기준(舊 리뷰 전 = 현재 비중만 봐서 17.5% → 19%가 '✅').
+        amt_usd = float(amount) / float(fx)
+        if amt_usd > room + 0.5:
+            out.append(f"체결되면 한 종목 {name_cap * 100:.0f}% 초과(지금 {p:.1f}% · 여유 ${room:,.0f} < 주문 ${amt_usd:,.0f} · "
+                       f"룰6 ⓸ⓓ d284) — 여유 안으로 줄일 것")
+    sp = w.get("semi_pct")
+    if tk in semis and sp is not None and sp > semi_cap * 100:
+        out.append(f"반도체 섹터 {sp:.1f}% > {semi_cap * 100:.0f}%(룰6 ⓹ d285) — 반도체 추가 매수 없음")
+    if tk in disc:
+        dp = sum(float(pct.get(t) or 0.0) for t in disc)
+        if dp > disc_cap * 100:
+            out.append(f"재량 칸({'·'.join(disc)}) {dp:.1f}% > {disc_cap * 100:.0f}%(룰6 ⓸ⓔ d284) — 추가 없음")
+    return out
 
 # ★[10/19] '체결' 앞에 '미'가 붙으면 살아 있는 오더다 — 舊 정규식은 "미체결이면 매일 재등록" 같은
 #   상태 문구를 '체결 = 종결'로 읽어 '매일 등록' 역방향 검사에서 조용히 뺐다(ANET $182 실측).
@@ -235,7 +302,7 @@ def us_block(us: dict | None, ticker: str | None = None, price=None) -> str | No
 
 def check(open_orders: list[dict], tasks: dict, stocks: dict,
           kr_w: float | None, allowed: float | None, us: dict | None = None,
-          now: dt.datetime | None = None) -> dict:
+          now: dt.datetime | None = None, weights: dict | None = None) -> dict:
     # ★[9/22] 기준가 = validate_report.kr_band_base(check_kr_price_band와 같은 함수) — 舊 last_close()는
     #   history 캐시·live.json만 봐서 마감 후에도 전일 종가를 썼다(9/22 22:01 현대차 상한 466,500 vs 실제 468,500).
     from validate_report import _kr_band, kr_band_base
@@ -251,6 +318,13 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
     except Exception:  # noqa: BLE001 — 이름은 표시용일 뿐, 대조를 막지 않는다
         nm = {}
     rows, findings = [], []
+    _wc: dict = {}
+
+    def W():
+        """상한 판정 비중 — 계획된 매수가 있을 때만 한 번 구한다(weights를 주면 그것 · 없으면 캐시 종가 · 감사 B3)."""
+        if "w" not in _wc:
+            _wc["w"] = weights if weights is not None else cap_weights()
+        return _wc["w"]
 
     def add(level, tk, msg):
         findings.append({"level": level, "ticker": tk, "msg": msg})
@@ -292,6 +366,14 @@ def check(open_orders: list[dict], tasks: dict, stocks: dict,
             elif (not is_kr(tk)) and state == "active" and (ub := us_block(us, tk, price)):
                 # 계획엔 살아 있어도 d251 대기·하드플로어·이 회차에 이미 산 종목이면 지금 걸린 매수는 규칙을 넘는다
                 add("yellow", tk, f"{what} — {ub}인데 매수 주문이 걸려 있다(체결되면 위반 — 취소 검토)")
+            if state == "active":
+                # ★[2026-11-22 감사 B3] 계획된 매수도 상한(18%·반도체 35%·재량 5%)을 넘는 동안이면 노랑 — 계획 밖 매수는 위에서 이미 🔴
+                try:
+                    amt = price * float(qty) if (price and qty not in (None, "")) else None
+                except (TypeError, ValueError):
+                    amt = None
+                for why in cap_reasons(tk, W(), amt):
+                    add("yellow", tk, f"{what} — {why}")
         if is_kr(tk) and price:
             bb = kr_band_base(tk, now)
             if bb:
@@ -426,6 +508,9 @@ def selftest() -> int:
     }
     tmp = tempfile.mkdtemp(prefix="order_check_selftest_")
     old_root, ok = V.ROOT, True
+    # ★[감사 B3] 상한 판정 비중은 픽스처로 고정한다(실계좌 portfolio.json·캐시를 읽으면 테스트가 날마다 달라진다)
+    cw_keep = globals()["cap_weights"]
+    globals()["cap_weights"] = lambda: {"voo_pct": 50.0, "semi_pct": 10.0, "pct": {}, "missing": []}
 
     def expect(label, got, want):
         nonlocal ok
@@ -477,6 +562,55 @@ def selftest() -> int:
                                 "status": "등록 — 미체결이면 매 거래일 재등록", "register_policy": "always"}]}
         r = check([], us_tasks, {}, None, None, None, now=h("2026-10-19", "22:40"))
         expect("미국 매일 등록 미등록 → yellow", [f["level"] for f in r["findings"] if f["ticker"] == "ANET"], ["yellow"])
+
+        # ★[2026-11-22 감사 B3] 계획된 매수 + 승인 상한(18%·반도체 35%·재량 5%) 초과 → 노랑(빨강 아님) · 결측 = '판정 보류' 노랑
+        #   舊 = 계획에만 있으면 '✅ 계획과 일치'(GOOGL 26%·반도체 39%에도)
+        cap_tasks = {"orders": [{"id": f"o-{t}", "ticker": t, "action": "매수", "price": p_, "status": "계획"}
+                                for t, p_ in (("GOOGL", 300), ("MU", 100), ("ORCL", 200), ("SPCX", 100),
+                                              ("VOO", 600), ("GEV", 800), ("005930.KS", 50000))]}
+        cap_open = [{"symbol": t, "side": "BUY", "price": str(p_["price"]), "quantity": "1"}
+                    for t, p_ in (((o["ticker"] if not o["ticker"].endswith(".KS") else o["ticker"][:6]), o)
+                                  for o in cap_tasks["orders"])]
+        wcap = {"voo_pct": 27.1, "semi_pct": 39.1, "missing": [],
+                "pct": {"GOOGL": 26.1, "MU": 0.1, "ORCL": 3.0, "SPCX": 2.5, "VOO": 27.1, "005930.KS": 13.7}}
+        r = check(cap_open, cap_tasks, {}, None, None, None, now=h("2026-11-24", "16:40"), weights=wcap)
+        lv = {}
+        for f in r["findings"]:
+            lv.setdefault(f["ticker"], []).append((f["level"], f["msg"].split(" — ", 1)[-1][:12]))
+        expect("GOOGL 26.1% → 노랑 18% 상한", [x for x in lv.get("GOOGL", []) if x[0] != "ok"][:1],
+               [("yellow", "한 종목 26.1% >")])
+        expect("MU(반도체 39.1%) → 노랑 반도체 상한", [x[0] for x in lv.get("MU", [])], ["yellow"])
+        expect("ORCL·SPCX 합 5.5% > 5% → 둘 다 노랑 재량 칸", ([x[1][:4] for x in lv.get("ORCL", [])],
+                                                           [x[1][:4] for x in lv.get("SPCX", [])]), (["재량 칸"], ["재량 칸"]))
+        expect("삼성(반도체·13.7%) → 노랑 반도체 상한(국내도 대상)", [x[0] for x in lv.get("005930.KS", []) if x[0] != "ok"][:1],
+               ["yellow"])
+        expect("VOO·GEV → 상한 무발견(ok)", ([x[0] for x in lv.get("VOO", [])], [x[0] for x in lv.get("GEV", [])]),
+               (["ok"], ["ok"]))
+        expect("상한 발견에 빨강 없음", "red" in [f["level"] for f in r["findings"]], False)
+        r = check(cap_open, cap_tasks, {}, None, None, None, now=h("2026-11-24", "16:40"),
+                  weights=dict(wcap, pct={"GOOGL": 17.0, "ORCL": 2.0, "SPCX": 2.0}, semi_pct=34.0))
+        expect("상한 안(GOOGL 17%·반도체 34%·재량 4%) → 전부 ok", sorted({f["level"] for f in r["findings"]}), ["ok"])
+        r = check(cap_open[:1], cap_tasks, {}, None, None, None, now=h("2026-11-24", "16:40"),
+                  weights={"voo_pct": None, "semi_pct": None, "pct": {}, "missing": ["NVDA"],
+                           "hold": "시세 결측 NVDA — 비중 판정 보류"})
+        expect("시세 결측 → '판정 보류' 노랑(조용히 통과 안 함)",
+               [(f["level"], "판정 보류" in f["msg"]) for f in r["findings"] if f["ticker"] == "GOOGL"], [("yellow", True)])
+        # 리뷰 보강 — 지금 17.5%지만 이 주문(1주 $180)이 체결되면 18%를 넘는다(여유 $50) → 노랑 · 여유 안(0.2주 $36)은 ok
+        #   舊 = 현재 비중만 봐서 둘 다 '✅'(미국 트랙 배분 _us_split은 같은 여유로 자른다)
+        nv_tasks = {"orders": [{"id": "o-NVDA", "ticker": "NVDA", "action": "매수", "price": 180, "status": "계획"}]}
+        wroom = {"voo_pct": 27.1, "semi_pct": 30.0, "missing": [], "fx": 1400.0,
+                 "pct": {"NVDA": 17.5}, "room_usd": {"NVDA": 50.0}, "room_new_usd": 900.0}
+        r = check([{"symbol": "NVDA", "side": "BUY", "price": "180", "quantity": "1"}], nv_tasks, {}, None, None, None,
+                  now=h("2026-11-24", "16:40"), weights=wroom)
+        expect("17.5% + 체결 후 18% 초과(여유 $50 < $180) → 노랑",
+               [(f["level"], "체결되면" in f["msg"]) for f in r["findings"] if f["ticker"] == "NVDA"], [("yellow", True)])
+        r = check([{"symbol": "NVDA", "side": "BUY", "price": "180", "quantity": "0.2"}], nv_tasks, {}, None, None, None,
+                  now=h("2026-11-24", "16:40"), weights=wroom)
+        expect("여유 안(0.2주 $36 ≤ $50) → ok", [f["level"] for f in r["findings"] if f["ticker"] == "NVDA"], ["ok"])
+        r = check([{"symbol": "GOOGL", "side": "BUY", "price": "300", "quantity": "1"}], {"orders": []}, {}, None, None, None,
+                  now=h("2026-11-24", "16:40"), weights=wcap)
+        expect("계획 밖 GOOGL 매수 = 빨강 그대로(+ 상한 노랑은 계획된 매수만)",
+               [f["level"] for f in r["findings"] if f["ticker"] == "GOOGL"], ["red"])
 
         # 10/21 d244 — '매일 등록' 밖 계획 오더: 상태가 걸었다고 주장하거나 등록선이 점등했는데 OPEN에 없으면 🟡
         expect("plan_state 접수완료 = active(살아 있는 오더)", plan_state({"status": "접수완료(8/19 18:49)"}), "active")
@@ -634,6 +768,7 @@ def selftest() -> int:
         expect("본문에 종목·취소 안내", ("VOO" in sent[0] and "취소" in sent[0], len(sent)), (True, 1))
     finally:
         V.ROOT = old_root
+        globals()["cap_weights"] = cw_keep
         shutil.rmtree(tmp, ignore_errors=True)
     print("PASS" if ok else "FAIL — 기준가 선택이 회귀했다")
     return 0 if ok else 1

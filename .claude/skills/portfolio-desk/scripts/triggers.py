@@ -135,8 +135,16 @@ def evaluate(alert: dict) -> dict:
 
 # ── 포지션 사이징 (리스크매니저 정량화 — ai-hedge-fund Risk Manager 착안) ──────
 # 산문 "3분할" → 현금·안전핀 버퍼·집중도 기반 '이번 트랜치 권장 규모 + 단일종목 비중 상한'.
-CONCENTRATION_CAP = 0.25          # 단일종목 최대 비중(주식평가액 대비)
-try:                              # 룰6 국내 비중 상한 — 정본은 tranche_rules(두 곳에 숫자를 두지 않는다)
+# ★[2026-11-22 감사 B1] 舊 = CONCENTRATION_CAP = 0.25 · VOO 포함 · '트림 후보' 문구 — 룰6 ⓸ⓓ(d284)는 **VOO 뺀 전 종목 18%**이고
+#   넘으면 **추가만 안 한다(팔지 않는다)**. 18~25% 종목이 '✅ 상한 초과 없음'으로 보였고, '트림 후보'는 승인과 반대 행동을 권했다.
+#   ⇒ 숫자는 tranche_rules.US_NAME_CAP 한 곳(두 곳에 두지 않는다) · VOO는 **티커로** 뺀다(라벨이 바뀌어도 빠지게).
+try:
+    from tranche_rules import US_NAME_CAP as CONCENTRATION_CAP   # 단일종목 상한(주식평가액 대비 · VOO 제외)
+except ImportError:
+    CONCENTRATION_CAP = None      # 정본을 못 읽으면 판정하지 않는다(숫자를 여기 복사해 두면 또 갈라진다)
+NAME_CAP_EXEMPT = {"VOO"}         # 룰6 ⓸ⓐ 코어 ETF — 한 종목 상한 대상 아님
+NAME_CAP_ACTION = "추가 매수 없음 — 팔지 않음(룰6 ⓸ⓓ)"
+try:                            # 룰6 국내 비중 상한 — 정본은 tranche_rules(두 곳에 숫자를 두지 않는다)
     from tranche_rules import RULE6_KR_HI, kr_weight_pct   # 하한(舊 18%)은 11/20 d284 안 C로 폐지
 except ImportError:
     RULE6_KR_HI = 22.0
@@ -231,6 +239,7 @@ def concentration(cfg):
     fx_live = None if (not fxq or fxq.get("error")) else fxq.get("price")
     fx = fx_live or FX_FALLBACK
     vals = {}
+    tick = {}                     # 라벨 → 티커(상한 면제는 티커로 판정한다 — B1)
     kr_val = 0.0
     missing = []
     for region, lst in (cfg.get("holdings", {}) or {}).items():
@@ -241,7 +250,9 @@ def concentration(cfg):
                 missing.append(h.get("label", h["ticker"]))
                 continue
             v = h.get("shares", 0) * p * (fx if region == "us" else 1)
-            vals[h.get("label", h["ticker"])] = v
+            lb = h.get("label", h["ticker"])
+            vals[lb] = vals.get(lb, 0.0) + v
+            tick[lb] = h["ticker"]
             if region != "us":
                 kr_val += v
     total = sum(vals.values())
@@ -249,7 +260,9 @@ def concentration(cfg):
         return {"total_krw": 0, "weights": [], "flags": [], "fx": fx}
     weights = sorted(((k, v, v / total * 100) for k, v in vals.items()),
                      key=lambda x: -x[1])
-    flags = [(k, w) for k, _, w in weights if w > CONCENTRATION_CAP * 100]
+    flags = ([] if CONCENTRATION_CAP is None else
+             [(k, w) for k, _, w in weights
+              if tick.get(k) not in NAME_CAP_EXEMPT and w > CONCENTRATION_CAP * 100])
     # ★[10/13] 룰6 국내 비중을 **실행 시점 시세로** 낸다 — 알림 문구에 박아 둔 숫자(9/3의 28.2%·410,164원)가
     #   한 달 넘게 현행처럼 읽혔다. 22%까지 팔아야 하는 금액 x는 (KR−x)/(T−x)=0.22 의 해다.
     kr_pct, kr_trim = rule6_weight(kr_val, total)
@@ -262,10 +275,34 @@ def concentration(cfg):
         why.append(f"환율 시세 실패(대체값 {FX_FALLBACK:,.0f})")
     if why:
         kr_pct = kr_trim = None
+    if CONCENTRATION_CAP is None:
+        why_cap = "tranche_rules.US_NAME_CAP을 못 읽음"
+    else:
+        why_cap = " · ".join(why) or None
+    # ★[2026-11-22 감사 B1] 부분 합계로 낸 종목 비중도 같은 이유로 판정하지 않는다(flags = None = 판정 보류 ≠ '초과 없음')
     return {"total_krw": total, "fx": fx, "kr_pct": kr_pct, "kr_trim_krw": kr_trim,
             "kr_note": " · ".join(why) or None, "missing": missing,
             "weights": [(k, round(v), round(w, 1)) for k, v, w in weights],
-            "flags": [(k, round(w, 1)) for k, w in flags]}
+            "name_cap_pct": None if CONCENTRATION_CAP is None else round(CONCENTRATION_CAP * 100, 1),
+            "flags_note": why_cap,
+            "flags": None if why_cap else [(k, round(w, 1)) for k, w in flags]}
+
+
+def name_cap_lines(con: dict) -> list[str]:
+    """사이징 패널의 한 종목 상한 줄(룰6 ⓸ⓓ · VOO 제외). flags None = 판정 보류 — '초과 없음'으로 쓰지 않는다."""
+    cap = con.get("name_cap_pct")
+    cap_txt = f"{cap:.0f}%" if cap is not None else "미확인"
+    out = [f"- 주식 평가액 {con['total_krw']:,.0f}원 · 단일종목 상한 {cap_txt}(VOO 제외 · 룰6 ⓸ⓓ)"]
+    top = con.get("weights", [])[:5]
+    out.append("    비중 상위: " + ", ".join(f"{k} {w}%" for k, _, w in top))
+    if con.get("flags") is None:
+        out.append(f"    ⏸️ 한 종목 상한 판정 보류 — {con.get('flags_note') or '시세 없음'}")
+    elif con["flags"]:
+        for k, w in con["flags"]:
+            out.append(f"    ⚠️ **{k} {w}%** > 상한 {cap_txt} — {NAME_CAP_ACTION}")
+    else:
+        out.append("    ✅ 상한 초과 종목 없음")
+    return out
 
 
 def rule6_weight(kr_val: float, total: float):
@@ -325,14 +362,8 @@ def sizing_panel(cfg):
         print(f"- 권장 트랜치 **상한**: **{cap_amt:,.0f}원** ({_split_txt}){tail}")
         print(f"    ↳ {rec['reason']}")
     if con["total_krw"]:
-        print(f"- 주식 평가액 {con['total_krw']:,.0f}원 · 단일종목 상한 {CONCENTRATION_CAP*100:.0f}%")
-        top = con["weights"][:5]
-        print("    비중 상위: " + ", ".join(f"{k} {w}%" for k, _, w in top))
-        if con["flags"]:
-            for k, w in con["flags"]:
-                print(f"    ⚠️ **{k} {w}%** > 상한 {CONCENTRATION_CAP*100:.0f}% — 추가매수 금지·트림 후보")
-        else:
-            print(f"    ✅ 상한 초과 종목 없음")
+        for ln in name_cap_lines(con):
+            print(ln)
         print(rule6_line(con, kr_weight_pct()))
     return {"recommend": rec, "concentration": con, "kospi": kospi,
             "cash_krw": cash_krw_only, "cash_total": cash}
@@ -370,6 +401,27 @@ def selftest() -> int:
         px["B"], px["KRW=X"] = 350.0, None                    # 환율 실패 → 대체값으로 낸 비중은 버린다
         fxbad = concentration(cfg)
         ok("환율이 대체값이면 비중을 내지 않는다", fxbad["kr_pct"] is None and "환율" in (fxbad["kr_note"] or ""))
+
+        # ★[2026-11-22 감사 B1] 한 종목 상한 = tranche_rules.US_NAME_CAP(18%) · VOO는 티커로 제외 · 국내 종목도 대상 · '팔지 않음'
+        #   舊 = 25% · VOO 포함 · '트림 후보' → 19% 국내 종목은 ✅, VOO 30%는 ⚠️로 나왔다.
+        cfg_cap = {"holdings": {"kr": [{"ticker": "A.KS", "label": "국내A", "shares": 19}],
+                                "us": [{"ticker": "VOO", "label": "코어 ETF", "shares": 1},
+                                       {"ticker": "D", "label": "미국D", "shares": 1},
+                                       {"ticker": "E", "label": "미국E", "shares": 1}]}}
+        px.update({"KRW=X": 1000.0, "A.KS": 10000.0, "VOO": 300.0, "D": 170.0, "E": 340.0})   # 19% · 30% · 17% · 34%
+        cc = concentration(cfg_cap)
+        flagged = sorted(k for k, _ in (cc["flags"] or []))
+        ok("상한 = tranche_rules.US_NAME_CAP 18%", cc["name_cap_pct"] == 18.0)
+        ok("19% 국내 종목·34% 미국 종목 = 플래그 · VOO 30%(라벨 '코어 ETF')·17% = 무플래그",
+           flagged == ["국내A", "미국E"])
+        txt = "\n".join(name_cap_lines(cc))
+        ok("문구 = '추가 매수 없음 — 팔지 않음(룰6 ⓸ⓓ)' · '트림 후보' 없음",
+           "추가 매수 없음 — 팔지 않음(룰6 ⓸ⓓ)" in txt and "트림 후보" not in txt and "VOO 제외" in txt)
+        px["D"] = None
+        cm = concentration(cfg_cap)
+        ok("시세가 하나라도 빠지면 한 종목 판정 보류(flags None — '초과 없음'이 아니다)",
+           cm["flags"] is None and "판정 보류" in "\n".join(name_cap_lines(cm))
+           and "초과 종목 없음" not in "\n".join(name_cap_lines(cm)))
     finally:
         fetch_quote = keep
     ok("상한(22%) 이하", "상한 22% 이하" in rule6_line({"kr_pct": 20.0, "kr_trim_krw": 0}))

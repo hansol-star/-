@@ -31,7 +31,7 @@
    ④ **자동 집행 아님.** 이 스크립트는 '최대 얼마까지 허용되나'만 계산한다.
 
 사용:
-  python3 tranche_rules.py                     # 룰1 사다리 + 룰2 훼손 판정
+  python3 tranche_rules.py                     # 룰1 국내·미국 트랙 + 룰2 훼손 판정(舊 사다리는 10/1 d223 폐기)
   python3 tranche_rules.py --cash 672472       # 가용 현금 지정(생략 시 portfolio.json)
   python3 tranche_rules.py --rule2             # 룰2 추세형 훼손만
   python3 tranche_rules.py --json
@@ -320,6 +320,10 @@ US_TRACK = os.path.join(ROOT, "data", "app", "us_track.json")
 US_TRANCHES = 3
 US_MIN_CYCLE_USD = 50.0      # 이보다 적은 달러로는 새 사이클을 열지 않는다(소수점 체결 실익)
 US_NAME_CAP = 0.18           # d284 ④ — VOO 뺀 한 종목 상한(주식 평가액 기준). 舊 d191 = GOOGL만
+# ★[2026-11-22 감사 B3] 룰6 ⓸ⓔ(d284) 소액·재량 칸 = ORCL·SPCX 합계 5% 이하 — 문언을 옮긴 것(새 문턱 아님).
+#   주문 대조(order_check)가 이 칸이 5%를 넘는 동안 걸린 ORCL·SPCX 매수를 노랑으로 알린다('정훈 계획 밖 매수'는 기계로 못 본다).
+US_DISC_TICKERS = ("ORCL", "SPCX")
+US_DISC_CAP = 0.05
 US_VOO_CORE = 0.45           # d284 ①③ — VOO 코어 목표(주식 평가액 기준) · 그 전까진 회차의 절반 이상 VOO
 US_ZONE_SHARE = 0.5          # d284 ③ — 코어를 짓는 동안 존 종목 몫 = 회차의 절반까지(센트 내림 — VOO가 늘 절반 이상)
 # ★[11/21 d285 정훈 승인 "승인"] 반도체 섹터 상한 = 주식 평가액의 35% — 넘는 동안 반도체는 추가 매수 없음
@@ -932,6 +936,14 @@ def us_weights(live: bool = True) -> dict:
             vals[h["ticker"]] = vals.get(h["ticker"], 0.0) + v
     if not tot:
         return {"error": "평가액 계산 불가"}
+    if miss:
+        # ★[2026-11-22 감사 B6] 舊 = 시세가 빠진 종목을 조용히 빼고 **부분 합계**로 VOO%·반도체%·18% 여유를 냈다
+        #   (GOOGL·NVDA가 빠지면 VOO 27% → 48%로 읽혀 45% 판정이 뒤집히고 존 몫이 절반 → 전액이 된다).
+        #   ⇒ 하나라도 빠지면 비중을 내지 않는다(triggers.concentration과 같은 규약) · 'hold'에 사유 —
+        #   소비처(zone_share·name_room_usd·_zone_ok)는 이걸 **판정 보류 = 보수 쪽**(존 몫 절반 · 존 종목 건너뜀 → VOO)으로 읽는다.
+        return {"voo_pct": None, "semi_pct": None, "pct": {}, "room_usd": {}, "room_new_usd": None,
+                "fx": round(fx, 2), "missing": miss, "hold": f"시세 결측 {'·'.join(miss)} — 비중 판정 보류",
+                "price_src": "+".join(sorted(srcs)) or None}
 
     def room(v):
         return round(max(0.0, (US_NAME_CAP * tot - v) / (1 - US_NAME_CAP)) / fx, 2)
@@ -947,18 +959,47 @@ def us_weights(live: bool = True) -> dict:
 def zone_share(w: dict | None) -> float:
     """d284 ③ — 존 종목이 가져갈 수 있는 회차 비율. VOO < 45%면 절반 · **비중을 못 구하면 절반**(코어를 짓는 쪽 —
     지금 VOO는 23%대라 45%까지 18~24개월이다) · 45% 이상이면 전액(존 안 → VOO)."""
+    if (w or {}).get("hold"):          # ★[감사 B6] 시세 결측 = 판정 보류 → 보수 쪽(절반)
+        return US_ZONE_SHARE
     v = (w or {}).get("voo_pct")
     return US_ZONE_SHARE if (v is None or v < US_VOO_CORE * 100) else 1.0
 
 
 def name_room_usd(w: dict | None, t: str):
-    """d284 ④ — t가 18% 상한까지 더 살 수 있는 달러. None = 계산 불가(막지 않는다 · 존 몫 한도는 그대로) · VOO는 상한 없음."""
+    """d284 ④ — t가 18% 상한까지 더 살 수 있는 달러. None = 계산 불가(막지 않는다 · 존 몫 한도는 그대로) · VOO는 상한 없음.
+    ★[2026-11-22 감사 B6] 시세 결측으로 비중을 못 낸 경우(w['hold'])는 0.0 = **막는다**(부분 합계로 낸 여유를 믿지 않는다).
+      ('error' = 평가액 자체를 못 구함은 舊 규약 그대로 None — 존 몫 절반 한도만 남는다.)"""
     if t == "VOO" or not w or w.get("error"):
         return None
+    if w.get("hold"):
+        return 0.0
     return (w.get("room_usd") or {}).get(t, w.get("room_new_usd"))
 
 
+def zone_skip_why(w: dict | None, t: str) -> str | None:
+    """존 종목 t를 이번 회차에서 **건너뛸 이유**(없으면 None) — _zone_ok·_us_split·us_standing의 한 벌.
+    ★[2026-11-22 감사 B6] 시세 결측(w['hold']) = 판정 보류 → 건너뛴다(그 몫은 VOO · 舊 = 부분 합계로 통과).
+    ★[11/21 d285] 반도체 섹터 > 35% 동안 반도체 존 종목은 건너뛴다 · d284 ④ 18% 상한까지 $1 미만이면 건너뛴다."""
+    w = w or {}
+    if w.get("hold"):
+        return f"판정 보류({w['hold']})"
+    sp = w.get("semi_pct")
+    if t in SEMI_TICKERS and sp is not None and sp > SEMI_CAP * 100:
+        return f"반도체 {sp}% > {SEMI_CAP * 100:.0f}% 상한(d285 — 반도체 추가 없음)"
+    r = name_room_usd(w, t)
+    if r is not None and r < 1:
+        return f"18% 상한(d284 ④ — {t} 추가 없음 · 팔지 않음)"
+    return None
+
+
+def _skip_txt(w: dict | None, tickers) -> str:
+    """건너뛴 존 종목들의 사유 문구 — 'ANET 매수존 안이지만 18% 상한(…)' (사유를 종목마다 그대로 적는다)."""
+    return "·".join(f"{t} 매수존 안이지만 {zone_skip_why(w, t) or '18% 상한(d284 ④)'}" for t in tickers)
+
+
 def _voo_txt(w: dict | None) -> str:
+    if (w or {}).get("hold"):
+        return f"VOO 비중 판정 보류({w['hold']})"
     v = (w or {}).get("voo_pct")
     return f"VOO {v}% < {US_VOO_CORE * 100:.0f}%" if v is not None else "VOO 비중 계산 불가"
 
@@ -1018,13 +1059,10 @@ def _zone_hits(live: bool = True) -> list[dict]:
 
 
 def _zone_ok(w: dict | None, t: str) -> bool:
-    """d284 ④ — 18% 상한까지 $1 이상 남았나(계산 불가면 막지 않는다).
-    ★[11/21 d285] 반도체 섹터가 35%를 넘는 동안 반도체 종목은 존 안이어도 건너뛴다."""
-    sp = (w or {}).get("semi_pct")
-    if t in SEMI_TICKERS and sp is not None and sp > SEMI_CAP * 100:
-        return False
-    r = name_room_usd(w, t)
-    return r is None or r >= 1
+    """d284 ④ — 18% 상한까지 $1 이상 남았나(평가액 자체를 못 구하면(error) 막지 않는다).
+    ★[11/21 d285] 반도체 섹터가 35%를 넘는 동안 반도체 종목은 존 안이어도 건너뛴다.
+    ★[2026-11-22 감사 B6] 시세 결측(부분 합계)이면 막는다 — 판정 = zone_skip_why 한 벌."""
+    return zone_skip_why(w, t) is None
 
 
 def _us_split(budget: float, zone: dict | None, live: bool = True, w: dict | None = None,
@@ -1072,8 +1110,8 @@ def _us_split(budget: float, zone: dict | None, live: bool = True, w: dict | Non
             left -= zb
     if left >= 1:
         if capped or (not zone and skipped):
-            names = capped or "·".join(skipped)
-            why = f"{names} 매수존 안이지만 18% 상한(d284 ④ — 추가 없음) → 회차 전액 VOO"
+            # ★[감사 B6] 사유를 종목마다 그대로(18% 상한 · 반도체 35% · 시세 결측 판정 보류) — 舊 = 전부 '18% 상한'으로 적었다
+            why = f"{_skip_txt(w, [capped] if capped else skipped)} → 회차 전액 VOO"
         elif not zone:
             why = "매수존 종목 없음 → 회차 전액 VOO(d284 ③)"
         elif core:
@@ -1135,7 +1173,11 @@ def us_standing(per: float, halted: bool, live: bool = True, wait_until: str | N
                 ztag = f"존 몫 ${zc:,.2f}" + (f"(d284 ③ {_voo_txt(w)} — 회차의 절반까지)" if share < 1 else "")
             room = name_room_usd(w, t)
             zb = zc if room is None else min(zc, room)
-            if zb < 1:
+            skip = zone_skip_why(w, t)
+            if skip and not skip.startswith("18% 상한"):
+                # ★[2026-11-22 감사 B6·d285] 시세 결측(판정 보류)·반도체 35% 초과 = 예약 걸지 않는다(舊 = 18%만 보고 걸었다)
+                row.update({"mode": "off", "why": f"{t} 건너뜀 — {skip}"})
+            elif zb < 1:
                 row.update({"mode": "off", "why": f"한 종목 18% 상한(d284 ④) — {t} 추가 매수 없음(팔지는 않는다)"})
             elif lim > zb:
                 row.update({"mode": "alert", "usd": round(zb, 2),
@@ -1300,7 +1342,7 @@ def _us_track(usd_cash: float | None = None, today: str | None = None, check_flo
             okz = [z for z in zh if _zone_ok(W(), z["ticker"])]
             skipped = [z["ticker"] for z in zh if z not in okz]
             zh = okz
-        sk = f" · {'·'.join(skipped)} 매수존 안이지만 18% 상한(d284 ④) — 건너뜀" if skipped else ""
+        sk = f" · {_skip_txt(W(), skipped)} — 건너뜀" if skipped else ""   # ★[감사 B6] 사유를 종목마다(舊 = 전부 '18% 상한')
         if zh:
             z = zh[0]                               # _zone_hits가 우선순위 순서로 준다
             split, room = _us_split(per, z, live, w=W())
@@ -1317,8 +1359,8 @@ def _us_track(usd_cash: float | None = None, today: str | None = None, check_flo
     skipped = [z["ticker"] for z in hits if z not in zones]
     split, room = _us_split(allowed, zones[0] if zones else None, live, w=W(), skipped=skipped)
     extra = f" · 밀린 회차 {pending[1:]}는 몰아 사지 않는다(d251)" if len(pending) > 1 else ""
-    if skipped and zones:
-        extra += f" · {'·'.join(skipped)} 매수존 안이지만 18% 상한(d284 ④) — 건너뜀"
+    if skipped:                                 # ★[감사 B6] 존 종목이 다 빠져도(판정 보류 포함) 머리 문구에 남긴다
+        extra += f" · {_skip_txt(W(), skipped)} — 건너뜀"
     if zones and split and split[0].get("order") == "limit":
         extra += f" · {zones[0]['ticker']} 1주가 이 밤에 안 체결되면 그 몫까지 VOO(회차일은 늦추지 않는다 · d235 ①)"
     out.update({"status": "due", "allowed_usd": round(allowed, 2), "split": split,
@@ -1330,7 +1372,7 @@ def global_contagion_check():
     """하드 플로어 — 이 개정의 전제(국내 구조 사건)가 깨졌는지 본다.
 
     §0 프레임의 근거는 '저점 VIX 17.1 = 글로벌 위기 아님'이다. S&P500이 스톰에
-    합류하면 그 전제가 무너지므로 **사다리를 정지**한다(舊 안전핀의 역할을 여기가 승계).
+    합류하면 그 전제가 무너지므로 **국내·미국 트랙 모두 그 회차를 연기**한다(舊 안전핀의 역할을 여기가 승계 · 舊 = 사다리 정지, d223 폐지).
     """
     try:
         import vol_gauge
@@ -1349,7 +1391,8 @@ def global_contagion_check():
     note = vol_gauge.provisional_note(r) if hasattr(vol_gauge, "provisional_note") else ""
     tail = f" · {note}" if note else ""
     if pct >= 70:
-        return True, f"🚨 S&P500 폭풍 {pct:.0f}%ile ≥70 = **글로벌 확산** → 사다리 전면 정지{tail}"
+        # ★[2026-11-22 감사 B7] 舊 문구 '사다리 전면 정지' — 사다리는 10/1 d223에 폐지됐다. 현행 = 국내·미국 트랙 **그 회차 연기**(CLAUDE.md 룰1 ⓓ·하드플로어).
+        return True, f"🚨 S&P500 폭풍 {pct:.0f}%ile ≥70 = **글로벌 확산** → 국내·미국 트랙 회차 연기(하드플로어){tail}"
     return False, f"S&P500 폭풍 {pct:.0f}%ile <70 = 국지 유지(개정 전제 성립){tail}"
 
 
@@ -1601,6 +1644,23 @@ def kr_execute(krw: float, ticker: str, tranche: int | None = None, note: str = 
     cur.setdefault("fills", []).append(rec)
     _kr_write(d)
     return rec
+
+
+def kr_cycle_line(k: dict) -> str | None:
+    """국내 트랙 사이클 줄(표시용). ★[2026-11-22 감사 B7] 舊 = 일정만 있으면 찍어서, 사이클을 연 적이 없는데도(armed 경로의
+    '오늘 열면' 가정 일정 + d284 policy_usd가 status를 덮음) '사이클 None · 1회 오늘 🟢'이 나왔다 — 열린 1회차가 오늘 도래한 것처럼
+    읽힌다(일정은 매일 하루씩 밀렸다). ⇒ 열린 사이클(cycle_start)이 있을 때만 일정을 찍고, 없으면 '미개시'라고 쓴다."""
+    if k.get("cycle_start"):
+        marks = []
+        for i, d_ in enumerate(k.get("schedule") or [], 1):
+            m = "✅" if i in (k.get("done") or []) else ("🟢" if i in (k.get("pending") or []) else "⏳")
+            marks.append(f"{i}회 {d_} {m}")
+        return f"  사이클 {k['cycle_start']} · " + " · ".join(marks) + f" · 기집행 {k.get('spent_krw', 0):,}원"
+    if k.get("status") == "policy_usd":
+        return "  미개시 · policy_usd(국내 집행 0원 — 원화는 달러로 · d284 안 C)"
+    if k.get("schedule") and k.get("status") != "armed":
+        return f"  미개시 — 열린 사이클 없음([{k.get('status')}] · 원장 data/app/kr_track.json은 첫 집행 기록 때 생긴다)"
+    return None
 
 
 def kr_track(krw_cash: float, dd_pct: float | None, today: str | None = None, check_floor: bool = True,
@@ -2226,6 +2286,42 @@ def selftest() -> int:
         expect("비중 계산 불가 → 절반 규칙 그대로(존 몫 $183.43) · 사유에 '계산 불가'",
                ([(x["ticker"], x["usd"]) for x in r["split"]], "계산 불가" in r["split"][1]["why"]),
                ([("ANET", 183.43), ("VOO", 183.44)], True))
+        # ★[2026-11-22 감사 B6] 시세 결측(부분 합계) = 판정 보류 → 존 종목 건너뜀(회차 전액 VOO) · 상시 예약 off · 사유 표시
+        #   舊 = 부분 합계 비중으로 통과(GOOGL·NVDA가 빠지면 VOO 27% → 48% · 존 몫 절반 → 전액)
+        g["us_weights"] = lambda live=True: {"voo_pct": None, "semi_pct": None, "pct": {}, "room_usd": {},
+                                             "room_new_usd": None, "missing": ["GOOGL"],
+                                             "hold": "시세 결측 GOOGL — 비중 판정 보류"}
+        r = us_track(733.74, "2026-10-21", live=False)
+        expect("시세 결측 → ANET 건너뜀 · 회차 전액 VOO · 사유에 '판정 보류'·종목",
+               ([(x["ticker"], x["usd"]) for x in r["split"]],
+                "판정 보류" in r["split"][0]["why"] and "GOOGL" in r["split"][0]["why"], "판정 보류" in r["why"]),
+               ([("VOO", 366.87)], True, True))
+        expect("시세 결측 → 상시 예약 ANET off(판정 보류) · zone_share 절반",
+               ([(x["mode"], "판정 보류" in x["why"]) for x in r["standing"]][1], r["zone_share"]), (("off", True), 0.5))
+        g["us_weights"] = keep["us_weights"]
+        pf_keep, g["_PF_JSON"] = g["_PF_JSON"], os.path.join(tmp, "pf.json")
+        with open(g["_PF_JSON"], "w", encoding="utf-8") as f:
+            json.dump({"holdings": {"kr": [{"ticker": "005930.KS", "shares": 4}],
+                                    "us": [{"ticker": "VOO", "shares": 1}, {"ticker": "GOOGL", "shares": 1}]}}, f)
+        px.update({"KRW=X": 1400.0, "005930.KS": 50000.0})
+        try:
+            wf = us_weights(False)
+            expect("us_weights 전량 시세 → hold 없음 · VOO% 산출", (wf.get("hold"), wf["voo_pct"] is not None), (None, True))
+            px["GOOGL"] = None
+            wm = us_weights(False)
+            expect("us_weights GOOGL 시세 결측 → VOO%·반도체% 안 냄 · hold·missing에 GOOGL",
+                   (wm["voo_pct"], wm["semi_pct"], "GOOGL" in (wm.get("hold") or ""), wm["missing"]),
+                   (None, None, True, ["GOOGL"]))
+            expect("결측 → name_room_usd 0(막음) · zone_share 절반 · zone_skip_why '판정 보류'",
+                   (name_room_usd(wm, "ANET"), zone_share(wm), (zone_skip_why(wm, "ANET") or "")[:5], _zone_ok(wm, "ANET")),
+                   (0.0, 0.5, "판정 보류", False))
+        finally:
+            px["GOOGL"] = 340.0
+            g["_PF_JSON"] = pf_keep
+        # ★[11/21 d285] 반도체 35% 분기 — 舊엔 selftest가 0건이었다(존 명단이 비반도체라 휴면 분기)
+        expect("반도체 39.1% > 35% → 반도체 존 종목 건너뜀 · 비반도체는 통과",
+               ((zone_skip_why({"semi_pct": 39.1}, "NVDA") or "")[:3], _zone_ok({"semi_pct": 39.1}, "ANET"),
+                _zone_ok({"semi_pct": 34.9}, "NVDA")), ("반도체", True, True))
         g["us_weights"] = lambda live=True: dict(W)
         W["voo_pct"] = 50.0
         expect("_partial_block · 1주 $184.60 > 존 몫 $183.43(회차 $366.87 절반) → 못 건다",
@@ -2493,6 +2589,31 @@ def selftest() -> int:
         finally:
             g["KR_KRW_TO_USD"] = kp
 
+        # ★[2026-11-22 감사 B7] 정책 중 미개시 사이클을 '사이클 None · 1회 오늘 🟢'으로 찍지 않는다 · 하드플로어 문구에 폐지된 '사다리' 없음
+        print("국내 트랙 표시·하드플로어 문구(B7)")
+        k = kr_track(494_000, -43.6, today="2026-11-24", check_floor=False, kr_weight=14.2, use_ledger=False)
+        ln = kr_cycle_line(k) or ""
+        expect("정책 중 미개시 → '미개시 · policy_usd' · 'None'·🟢 없음",
+               (ln.strip().startswith("미개시 · policy_usd"), "None" in ln, "🟢" in ln), (True, False, False))
+        expect("열린 사이클 → 일정·기집행 그대로",
+               kr_cycle_line({"cycle_start": "2026-10-01", "schedule": ["2026-10-01", "2026-11-01"], "done": [1],
+                              "pending": [2], "spent_krw": 10000}),
+               "  사이클 2026-10-01 · 1회 2026-10-01 ✅ · 2회 2026-11-01 🟢 · 기집행 10,000원")
+        import types
+        fake_vg = types.ModuleType("vol_gauge")
+        fake_vg.gauge = lambda *a, **kw: {"storm_pct": 99.0}
+        vg_keep = sys.modules.get("vol_gauge")
+        sys.modules["vol_gauge"] = fake_vg
+        try:
+            h_on, h_why = keep["global_contagion_check"]()
+        finally:
+            if vg_keep is not None:
+                sys.modules["vol_gauge"] = vg_keep
+            else:
+                sys.modules.pop("vol_gauge", None)
+        expect("하드플로어 문구 = '회차 연기' · 폐지된 '사다리' 없음", (h_on, "사다리" in h_why, "회차 연기" in h_why),
+               (True, False, True))
+
         print("d211 현대차 판정기")
         expect("호가 올림 341,279 → 341,500", kr_tick_up(341279), 341500)
         expect("호가 올림 199,990 → 200,000", kr_tick_up(199990), 200000)
@@ -2668,12 +2789,9 @@ def main():
     if stale and a.dd is None:
         print(f"  {stale}\n")
     print(f"  코스피 고점대비 **{dd:+.1f}%** (개시 문턱 {KR_TRIGGER_DD:.0f}%) · 원화 현금 {cash:,.0f}원 (달러는 아래 미국 트랙)")
-    if k.get("schedule") and k.get("status") != "armed":
-        marks = []
-        for i, d_ in enumerate(k["schedule"], 1):
-            m = "✅" if i in k["done"] else ("🟢" if i in k["pending"] else "⏳")
-            marks.append(f"{i}회 {d_} {m}")
-        print(f"  사이클 {k.get('cycle_start')} · " + " · ".join(marks) + f" · 기집행 {k['spent_krw']:,}원")
+    ln = kr_cycle_line(k)
+    if ln:
+        print(ln)
     print(f"  {k['halt_why']}")
     print(f"  {k['rule6_why']}")
     icon = {"due": "💰", "armed": "💰", "waiting": "⏳", "idle": "➖", "no_funds": "⛔",

@@ -32,8 +32,8 @@
   "^DJI": {
    "label": "다우",
    "first": "1992-01-02",
-   "last": "2026-11-20",
-   "days": 8785,
+   "last": "2026-11-25",
+   "days": 8788,
    "years": 34.9
   },
   "^SOX": {
@@ -457,5 +457,5 @@
    "years": 30.1
   }
  },
- "total_daily_bars": 518430
+ "total_daily_bars": 518433
 }

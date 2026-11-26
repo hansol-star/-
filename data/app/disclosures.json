@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25",
+ "updated": "2026-11-26",
  "days": 7,
  "universe": [
   "005930",
@@ -32,17 +32,17 @@
    "code": "005930",
    "name": "삼성전자",
    "n": 1,
-   "net": -1206,
-   "n_buy": 0,
-   "n_sell": 1,
+   "net": 1156,
+   "n_buy": 1,
+   "n_sell": 0,
    "top": [
     {
-     "who": "GOYAL SIDDHARTH",
+     "who": "최수민",
      "ofcps": "상무",
      "regist": "비등기임원",
-     "delta": -1206,
-     "held": 0,
-     "date": "2026-11-18"
+     "delta": 1156,
+     "held": 1156,
+     "date": "2026-11-26"
     }
    ]
   },

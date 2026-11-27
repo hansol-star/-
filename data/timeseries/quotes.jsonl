@@ -2778,3 +2778,33 @@
 {"date": "2026-11-26", "ts": "2026-11-26T16:19:43+09:00", "group": "watchlist", "label": "Eli Lilly", "symbol": "LLY", "price": 1392.22, "change_pct": -1.09, "currency": "USD"}
 {"date": "2026-11-26", "ts": "2026-11-26T16:19:43+09:00", "group": "watchlist", "label": "Berkshire Hathaway B", "symbol": "BRK-B", "price": 579.32, "change_pct": 0.37, "currency": "USD"}
 {"date": "2026-11-26", "ts": "2026-11-26T16:19:43+09:00", "group": "watchlist", "label": "셀트리온", "symbol": "068270.KS", "price": 215500.0, "change_pct": -0.69, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "index", "label": "코스피", "symbol": "^KS11", "price": 4915.68, "change_pct": 4.34, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "index", "label": "코스닥", "symbol": "^KQ11", "price": 708.99, "change_pct": 8.13, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "index", "label": "S&P500", "symbol": "^GSPC", "price": 7182.78, "change_pct": -0.25, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "index", "label": "나스닥", "symbol": "^IXIC", "price": 23585.803, "change_pct": -0.62, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "index", "label": "다우", "symbol": "^DJI", "price": 50182.95, "change_pct": 0.33, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "index", "label": "필라델피아반도체", "symbol": "^SOX", "price": 8774.862, "change_pct": -0.65, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "fx", "label": "USD/KRW", "symbol": "KRW=X", "price": 1336.23, "change_pct": -0.5, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "삼성전자", "symbol": "005930.KS", "price": 179100.0, "change_pct": 4.55, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "LG전자", "symbol": "066570.KS", "price": 144800.0, "change_pct": 7.1, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "NVDA", "symbol": "NVDA", "price": 149.3, "change_pct": -3.91, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "VOO", "symbol": "VOO", "price": 658.87, "change_pct": -0.28, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "GOOGL", "symbol": "GOOGL", "price": 273.1, "change_pct": -2.13, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "ORCL", "symbol": "ORCL", "price": 103.88, "change_pct": -5.13, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "MU", "symbol": "MU", "price": 601.25, "change_pct": -4.53, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "AVGO", "symbol": "AVGO", "price": 300.86, "change_pct": -0.07, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "holdings", "label": "SpaceX", "symbol": "SPCX", "price": 127.44, "change_pct": 1.3, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "GE Vernova", "symbol": "GEV", "price": 715.0, "change_pct": -0.78, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "삼성전기", "symbol": "009150.KS", "price": 821000.0, "change_pct": 4.72, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "SK하이닉스", "symbol": "000660.KS", "price": 1110000.0, "change_pct": 5.41, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "KT&G", "symbol": "033780.KS", "price": 176200.0, "change_pct": -1.84, "currency": "KRW"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "AMD", "symbol": "AMD", "price": 406.03, "change_pct": -1.75, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "TSMC", "symbol": "TSM", "price": 342.34, "change_pct": -1.96, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "Cadence Design", "symbol": "CDNS", "price": 294.89, "change_pct": -0.58, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "Arista", "symbol": "ANET", "price": 163.99, "change_pct": -2.71, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "Microsoft", "symbol": "MSFT", "price": 489.93, "change_pct": -1.25, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "Lam Research", "symbol": "LRCX", "price": 185.01, "change_pct": -5.68, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "Vertiv", "symbol": "VRT", "price": 173.37, "change_pct": -0.26, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "Eli Lilly", "symbol": "LLY", "price": 1392.22, "change_pct": -1.09, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "Berkshire Hathaway B", "symbol": "BRK-B", "price": 579.32, "change_pct": 0.37, "currency": "USD"}
+{"date": "2026-11-27", "ts": "2026-11-27T16:19:25+09:00", "group": "watchlist", "label": "셀트리온", "symbol": "068270.KS", "price": 221000.0, "change_pct": 2.55, "currency": "KRW"}

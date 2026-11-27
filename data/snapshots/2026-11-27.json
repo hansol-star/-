@@ -1,22 +1,22 @@
 {
   "date": "2026-11-27",
-  "fx_usdkrw": 1342.14,
-  "kr_value": 848800,
-  "kr_pnl": -376400,
+  "fx_usdkrw": 1333.05,
+  "kr_value": 861200,
+  "kr_pnl": -364000,
   "us_value_usd": 3579.02,
   "us_pnl_usd": -622.46,
   "cash_krw": 470352,
   "cash_usd": 91.27,
-  "total_assets_krw": 6245189,
-  "stock_pnl_krw": -1211829,
+  "total_assets_krw": 6224226,
+  "stock_pnl_krw": -1193771,
   "positions": {
     "삼성전자": {
-      "price": 176500.0,
-      "ret_pct": -34.02
+      "price": 179100.0,
+      "ret_pct": -33.05
     },
     "LG전자": {
-      "price": 142800.0,
-      "ret_pct": -7.99
+      "price": 144800.0,
+      "ret_pct": -6.7
     },
     "NVDA": {
       "price": 149.3,
@@ -49,50 +49,50 @@
   },
   "index_state": {
     "^KS11": {
-      "garch_fc": 57.8,
-      "storm_pct": 64.0,
+      "garch_fc": 59.8,
+      "storm_pct": 67.0,
       "regime": "보통",
       "bias": "약세",
-      "rsi": 39.2,
+      "rsi": 41.2,
       "cross": "데드크로스",
       "struct": "down",
-      "macd_h": -1.1,
-      "pct_from_hi": -48.4
+      "macd_h": 3.9,
+      "pct_from_hi": -47.6
     },
     "^KQ11": {
-      "garch_fc": 55.4,
-      "storm_pct": 77.0,
-      "regime": "높음",
+      "garch_fc": 67.8,
+      "storm_pct": 90.0,
+      "regime": "폭풍",
       "bias": "약세",
-      "rsi": 48.7,
+      "rsi": 51.6,
       "cross": "데드크로스",
       "struct": "down",
-      "macd_h": 5.5,
-      "pct_from_hi": -43.7
+      "macd_h": 6.6,
+      "pct_from_hi": -42.3
     }
   },
   "market_state": {
     "005930.KS": {
-      "garch_fc": 71.9,
-      "storm_pct": 52.0,
+      "garch_fc": 72.6,
+      "storm_pct": 54.0,
       "regime": "보통",
       "bias": "약세",
-      "rsi": 37.4,
+      "rsi": 38.9,
       "cross": "데드크로스",
       "struct": "down",
-      "macd_h": -1041.6,
-      "pct_from_hi": -52.9
+      "macd_h": -875.6,
+      "pct_from_hi": -52.2
     },
     "066570.KS": {
-      "garch_fc": 71.1,
-      "storm_pct": 52.0,
+      "garch_fc": 72.4,
+      "storm_pct": 54.0,
       "regime": "보통",
       "bias": "약약세",
-      "rsi": 47.7,
+      "rsi": 49.1,
       "cross": "데드크로스",
       "struct": "range",
-      "macd_h": 2502.1,
-      "pct_from_hi": -67.4
+      "macd_h": 2629.8,
+      "pct_from_hi": -66.9
     },
     "NVDA": {
       "garch_fc": 130.8,

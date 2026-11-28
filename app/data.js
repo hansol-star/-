@@ -1,6 +1,6 @@
 // 자동 생성 — build_app_data.py. 직접 수정 금지.
 window.APP_DATA = {
-  "generated_at": "2026-11-28 09:44 KST",
+  "generated_at": "2026-11-28 11:52 KST",
   "as_of": "2026-11-27 17:1x",
   "source_report": "docs/reports/report_v144_2026-11-27.md",
   "offline": false,
@@ -2349,7 +2349,8 @@ window.APP_DATA = {
       "2026-11-23",
       "2026-11-24",
       "2026-11-25",
-      "2026-11-26"
+      "2026-11-26",
+      "2026-11-27"
     ],
     "closes": [
       5638.34,
@@ -2374,7 +2375,8 @@ window.APP_DATA = {
       4708.54,
       5006.03,
       4697.51,
-      4711.21
+      4711.21,
+      4915.68
     ]
   },
   "hunter": {
@@ -36767,6 +36769,39 @@ window.APP_DATA = {
       "type": "macro",
       "tag": "",
       "end": ""
+    },
+    {
+      "date": "2026-12-09",
+      "days_until": 11,
+      "kind": "실적",
+      "label": "AVGO",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "AVGO",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-12-14",
+      "days_until": 16,
+      "kind": "실적",
+      "label": "ORCL",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "ORCL",
+      "tag": "보유 실적"
+    },
+    {
+      "date": "2026-12-17",
+      "days_until": 19,
+      "kind": "실적",
+      "label": "MU",
+      "note": "",
+      "confidence": "추정(Yahoo)",
+      "type": "earnings",
+      "ticker": "MU",
+      "tag": "보유 실적"
     }
   ],
   "trades": {
@@ -41914,7 +41949,7 @@ window.APP_DATA = {
     "status": "live"
   },
   "performance": {
-    "generated_at": "2026-11-28 00:44",
+    "generated_at": "2026-11-28 02:52",
     "from": "2026-06-15",
     "to": "2026-11-27",
     "days": 119,
@@ -42161,7 +42196,7 @@ window.APP_DATA = {
       "session_estimated": false
     },
     "wait_until": "2026-12-06",
-    "gate_day": "2026-11-27",
+    "gate_day": "2026-11-28",
     "spent_usd": 589.84,
     "fills": [
       {

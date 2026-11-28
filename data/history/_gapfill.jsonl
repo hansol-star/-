@@ -137,3 +137,5 @@
 {"run_at": "2026-11-03 00:34", "symbol": "^KQ11", "date": "2026-11-02", "kind": "unverified", "old": 734.36, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
 {"run_at": "2026-11-21 09:04", "symbol": "^KS11", "date": "2026-11-20", "kind": "unverified", "old": 4869.96, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
 {"run_at": "2026-11-21 09:04", "symbol": "^KQ11", "date": "2026-11-20", "kind": "unverified", "old": 645.68, "new": null, "src": "Yahoo 봉 결측 — 캐시값을 KRX 종가로 확인 못 함(장중 스냅샷일 수 있음)"}
+{"run_at": "2026-11-28 09:19", "symbol": "^KS11", "date": "2026-11-27", "kind": "patched", "old": null, "new": 4915.68, "src": "naver-지수일봉(KRX 정규장 종가)"}
+{"run_at": "2026-11-28 09:19", "symbol": "^KQ11", "date": "2026-11-27", "kind": "patched", "old": null, "new": 708.99, "src": "naver-지수일봉(KRX 정규장 종가)"}

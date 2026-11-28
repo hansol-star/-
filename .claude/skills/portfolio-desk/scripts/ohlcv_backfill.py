@@ -86,6 +86,42 @@ def universe(md=None) -> list[str]:
     return out
 
 
+def topup_kr_index(symbol: str, rows, today: str | None = None, daily=None):
+    """국내 **지수**(^KS11·^KQ11)의 최근 결측 봉을 네이버 지수 일봉으로 꼬리에 붙인다.
+
+    ★[2026-11-28 R3] 같은 구멍이 두 캐시에 있었다 — `data/history`(종가 캐시)는 `kr_index_gap_fill`로
+    막았는데 이 OHLCV 캐시는 **Yahoo만** 본다. 11/28 실측에서 ^KS11·^KQ11이 11/26에 멈춰
+    (Yahoo가 11/27 국내 지수 봉을 안 올렸다) `forecast_band`의 지수 밴드 앵커가 하루 낡아 있었다.
+    판정(장중 차단·거래일 여부·출처 등급)은 `history_backfill.kr_index_gap_fill` 한 벌을 그대로 쓴다
+    (★10/20 교훈 — 식을 옮겨 적으면 다음 정정 때 갈라진다). 네이버 지수 일봉엔 **시가·거래량이 없다**
+    → 그 두 칸은 빈칸으로 둔다(소비자 `forecast_band`는 high·low·close만 요구한다).
+    """
+    import datetime as dt
+    import history_backfill as _hb
+    if symbol.upper() not in _hb.KR_INDEX or not rows:
+        return rows
+    today = today or dt.datetime.now(_hb.KST).date().isoformat()
+    cand, d, end = [], dt.date.fromisoformat(rows[-1][0]) + dt.timedelta(days=1), dt.date.fromisoformat(today)
+    while d <= end and len(cand) < 14:
+        if d.weekday() < 5:
+            cand.append(d.isoformat())
+        d += dt.timedelta(days=1)
+    if not cand:
+        return rows
+    if daily is None:
+        code = _hb.KR_INDEX[symbol.upper()]
+        start = (dt.date.fromisoformat(cand[0]) - dt.timedelta(days=10)).isoformat()
+        daily = _hb._naver_daily(code, start, today) or {}
+    got = _hb.kr_index_gap_fill(symbol, cand, daily=daily)
+    for d2 in sorted(got):
+        close = got[d2][0]
+        bar = daily.get(d2) or ()
+        hi = round(float(bar[2]), 4) if len(bar) > 2 else close     # 네이버 순서 = (종가, 저가, 고가)
+        lo = round(float(bar[1]), 4) if len(bar) > 1 else close
+        rows.append([d2, "", hi, lo, close, ""])
+    return rows
+
+
 def selftest() -> int:
     """★[2026-11-22 감사 A1] 오프라인 — 명단에서 빠진 매도 종목이 수집 유니버스에 남는가."""
     import types
@@ -107,6 +143,26 @@ def selftest() -> int:
     fake.traded_tickers = lambda: (_ for _ in ()).throw(OSError("원장 없음"))
     u2 = universe(fake)
     check("005930.KS" in u2 and "^GSPC" in u2, "원장을 못 읽어도 나머지 유니버스는 그대로")
+
+    # ★[2026-11-28 R3] 국내 지수 꼬리 보정 — Yahoo가 11/27 ^KS11을 안 올려 캐시가 하루 낡아 있었다.
+    import inspect
+    base = [["2026-11-25", "", 4800.0, 4700.0, 4750.0, ""],
+            ["2026-11-26", "", 4760.0, 4690.0, 4711.21, ""]]
+    nav = {"2026-11-27": (4915.68, 4870.0, 4930.0)}
+    r = topup_kr_index("^KS11", [x[:] for x in base], today="2026-11-27", daily=nav)
+    check(len(r) == 3 and r[-1][0] == "2026-11-27" and r[-1][4] == 4915.68,
+          "결측 지수 봉을 네이버 일봉으로 꼬리에 붙인다")
+    check(r[-1][2] == 4930.0 and r[-1][3] == 4870.0 and r[-1][1] == "" and r[-1][5] == "",
+          "고가·저가는 채우고 시가·거래량은 빈칸(네이버 지수 일봉에 없다)")
+    r2 = topup_kr_index("^KS11", [x[:] for x in base], today="2026-11-27", daily={})
+    check(len(r2) == 2, "네이버가 비면 아무것도 안 붙인다(없는 봉을 만들지 않는다)")
+    r3 = topup_kr_index("005930.KS", [x[:] for x in base], today="2026-11-27", daily=nav)
+    check(len(r3) == 2, "종목 심볼엔 적용하지 않는다(종목은 kr_gap_fill 축)")
+    r4 = topup_kr_index("^GSPC", [x[:] for x in base], today="2026-11-27", daily=nav)
+    check(len(r4) == 2, "미국 지수엔 적용하지 않는다")
+    check("topup_kr_index(s, fetch(s))" in inspect.getsource(main),
+          "배선 — main 수집 루프가 보정을 실제로 부른다")
+
     print("✅ 통과" if ok else "❌ 실패")
     return 0 if ok else 1
 
@@ -186,7 +242,7 @@ def main() -> int:
     print(f"■ OHLCV 수집 {len(syms)}종목 → {OUT_DIR}")
     ok = fail = 0
     for i, s in enumerate(syms, 1):
-        rows = fetch(s)
+        rows = topup_kr_index(s, fetch(s))
         if not rows:
             print(f"  [{i}/{len(syms)}] {s:<14} ❌ 실패")
             fail += 1

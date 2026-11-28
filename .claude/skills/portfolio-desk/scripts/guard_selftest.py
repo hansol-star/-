@@ -98,6 +98,10 @@ SUBPROCESS_TESTS = [
      "오미션 회고의 결정 시그널 사전 — 카드 문구(보유 유지·보유(dNNN·홀딩·영구금지)를 읽는가 · 안 사는 것/안 파는 것 분류 · unshallow 복구 호출(10/14)"),
     ("triggers.py", ["--selftest"],
      "룰6 국내 비중 줄 — 시세·환율이 빠지면 '미산출'(틀린 비중을 내지 않는다) · 트림 필요액 식 · 밴드 3구간(10/13)"),
+    ("ohlcv_backfill.py", ["--selftest"],
+     "수집 유니버스 — 명단에서 빠진 매도 종목이 남는가(11/22) · "
+     "국내 지수 꼬리 보정 — Yahoo가 안 올린 ^KS11·^KQ11 당일 봉을 네이버 지수 일봉으로 붙인다·"
+     "없는 봉을 만들지 않는다·종목·미국 지수 제외·배선(11/28)"),
     ("macro_data.py", ["--selftest"],
      "CPI 전년비 — 결측월이 껴도 날짜로 12개월 전 매칭·못 맞추면 미산출(10/13) · "
      "⑤ⓒ HY OAS 60관측 +50bp(d252 측정 전용) — 결측은 관측 아님·경계 50bp·FRED 점검 HTML은 예외 → 미확인(10/21)"),
@@ -996,6 +1000,18 @@ INJECTION_TESTS = [
         "pattern": "반도체 섹터 상한 초과",
         "violate": {'app/data.js': 'window.DATA = {"holdings": [{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":25},{"label":"MU","ticker":"MU","region":"us","value_krw":15},{"label":"VOO","ticker":"VOO","region":"us","value_krw":60}]};'},
         "clean": {'app/data.js': 'window.DATA = {"holdings": [{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":20},{"label":"MU","ticker":"MU","region":"us","value_krw":10},{"label":"VOO","ticker":"VOO","region":"us","value_krw":70}]};'},
+        "args": (),
+    },
+
+    {
+        "name": "check_allocation_band",
+        "desc": "단일종목이 상한(18%)을 넘으면 잡는가 — VOO는 코어라 세지 않고, 17%는 깨끗해야 한다",
+        "why": "11/28 실측. NVDA가 한 주 +19.9%로 17.9%→19.2%가 돼 d284 ⓓ 상한을 넘었는데 아무도 안 알렸다 — "
+               "us_standing의 US_NAME_CAP은 **살 때만** 보므로 '가격이 올려서 넘는' 경로엔 눈이 없었다. "
+               "11/21 scorecard §7-3이 같은 결손을 제안으로 적어 둔 것의 이행",
+        "pattern": "단일종목 상한 초과",
+        "violate": {'app/data.js': 'window.DATA = {"holdings": [{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":19},{"label":"ORCL","ticker":"ORCL","region":"us","value_krw":81}]};'},
+        "clean": {'app/data.js': 'window.DATA = {"holdings": [{"label":"VOO","ticker":"VOO","region":"us","value_krw":70},{"label":"NVDA","ticker":"NVDA","region":"us","value_krw":17},{"label":"ORCL","ticker":"ORCL","region":"us","value_krw":13}]};'},
         "args": (),
     },
 

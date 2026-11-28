@@ -1,12 +1,12 @@
 {
  "ticker": "033780.KS",
- "name": "033780.KS",
+ "name": "KT&G",
  "region": "KR",
  "currency": "KRW",
  "source": "Yahoo fundamentals-timeseries",
  "depth": "full",
- "as_of": "2026-11-21",
- "saved_at": "2026-11-21",
+ "as_of": "2026-11-28",
+ "saved_at": "2026-11-28",
  "annual": [
   {
    "end": "2025-12-31",

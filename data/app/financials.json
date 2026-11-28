@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21",
+ "updated": "2026-11-28",
  "covered": [
   "000660.KS",
   "005930.KS",
@@ -34,7 +34,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2026-01-25",
@@ -691,13 +691,13 @@
   },
   "MU": {
    "ticker": "MU",
-   "name": "Micron Technology, Inc.",
+   "name": "Micron Technology, Inc.",
    "region": "US",
    "currency": "USD",
    "source": "SEC EDGAR XBRL companyfacts",
-   "cross_source": "Yahoo fundamentals-timeseries",
+   "cross_source": null,
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2026-09-03",
@@ -1897,7 +1897,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2026-06-30",
@@ -2514,7 +2514,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -3135,7 +3135,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-11-02",
@@ -3769,7 +3769,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -5033,7 +5033,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2026-05-31",
@@ -5652,7 +5652,7 @@
     {
      "code": "source_conflict",
      "severity": "med",
-     "message": "두 소스 간 1개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
+     "message": "두 소스 간 2개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
      "evidence": [
       {
        "field": "operating_income",
@@ -5660,6 +5660,14 @@
        "primary": 20606000000,
        "cross": 22444000000.0,
        "gap_pct": 8.92
+      },
+      {
+       "field": "operating_income",
+       "end": "2026-08-31",
+       "period": "quarterly",
+       "primary": 6728000000,
+       "cross": 6822000000.0,
+       "gap_pct": 1.4
       }
      ]
     }
@@ -5700,6 +5708,14 @@
      "primary": 20606000000,
      "cross": 22444000000.0,
      "gap_pct": 8.92
+    },
+    {
+     "field": "operating_income",
+     "end": "2026-08-31",
+     "period": "quarterly",
+     "primary": 6728000000,
+     "cross": 6822000000.0,
+     "gap_pct": 1.4
     }
    ]
   },
@@ -5711,7 +5727,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6086,7 +6102,7 @@
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -6240,37 +6256,37 @@
      "period": "quarterly",
      "revenue": 23824080000000.0,
      "gross_profit": 5815902000000.0,
-     "operating_income": 5815902000000.0,
+     "operating_income": 781858000000.0,
      "net_income": 663250000000.0,
-     "eps_diluted": 3698.375226,
-     "shares_diluted": null,
+     "eps_diluted": 3698.0,
+     "shares_diluted": 179353705.0,
      "assets": 70749071000000.0,
      "liabilities": 41186627000000.0,
      "equity": 24701664000000.0,
-     "cash": null,
-     "inventory": null,
-     "receivables": null,
+     "cash": 8259304000000.0,
+     "inventory": 12449285000000.0,
+     "receivables": 12695656000000.0,
      "assets_current": 36819615000000.0,
      "liabilities_current": 29560855000000.0,
-     "total_debt": null,
-     "cfo": null,
-     "capex": null,
-     "fcf": null,
+     "total_debt": 13093119000000.0,
+     "cfo": 620464000000.0,
+     "capex": 1043216000000.0,
+     "fcf": -422752000000.0,
      "_derived": [],
      "gross_margin": 0.2441,
-     "op_margin": 0.2441,
+     "op_margin": 0.0328,
      "net_margin": 0.0278,
-     "fcf_margin": null,
+     "fcf_margin": -0.0177,
      "roe": 0.0269,
-     "debt_to_equity": null,
+     "debt_to_equity": 0.5301,
      "current_ratio": 1.2456,
-     "net_cash": null,
+     "net_cash": -4833815000000.0,
      "revenue_yoy": 8.9162,
-     "eps_yoy": 72.9829,
+     "eps_yoy": 72.9654,
      "net_income_yoy": 72.1878,
-     "inventory_yoy": null,
-     "receivables_yoy": null,
-     "shares_yoy": null,
+     "inventory_yoy": 8.6707,
+     "receivables_yoy": 10.4929,
+     "shares_yoy": -0.4496,
      "deferred_yoy": null
     },
     {
@@ -6374,7 +6390,7 @@
      "operating_income": 688918000000.0,
      "net_income": 385190000000.0,
      "eps_diluted": 2138.0,
-     "shares_diluted": 162884638.0,
+     "shares_diluted": 180163704.0,
      "assets": 67170135000000.0,
      "liabilities": 40250544000000.0,
      "equity": 22612193000000.0,
@@ -6400,6 +6416,25 @@
    ],
    "flags": [
     {
+     "code": "margin_trend_break",
+     "severity": "high",
+     "message": "영업마진 2분기 연속 하락 (7.0%→6.6%→3.3%)",
+     "evidence": [
+      {
+       "end": "2026-09-30",
+       "op_margin": 0.0328
+      },
+      {
+       "end": "2026-06-30",
+       "op_margin": 0.0663
+      },
+      {
+       "end": "2026-03-31",
+       "op_margin": 0.0705
+      }
+     ]
+    },
+    {
      "code": "source_conflict",
      "severity": "med",
      "message": "두 소스 간 1개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
@@ -6414,7 +6449,7 @@
      ]
     }
    ],
-   "fund_subscore": 82.2,
+   "fund_subscore": 64.7,
    "graded_weight": 100,
    "axes": {
     "C_분기EPS": {
@@ -6428,9 +6463,9 @@
      "why": "연간 희석EPS YoY +161.8%"
     },
     "마진방향": {
-     "score": 20,
+     "score": 2.5,
      "max": 20,
-     "why": "영업마진 +17.36%p (최근 연속 3분기)"
+     "why": "영업마진 -3.77%p (최근 연속 3분기)"
     },
     "FCF건전성": {
      "score": 7.7,
@@ -7996,7 +8031,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -9271,13 +9306,13 @@
   },
   "000660.KS": {
    "ticker": "000660.KS",
-   "name": "000660.KS",
+   "name": "SK하이닉스",
    "region": "KR",
    "currency": "KRW",
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -9635,13 +9670,13 @@
   },
   "009150.KS": {
    "ticker": "009150.KS",
-   "name": "009150.KS",
+   "name": "삼성전기",
    "region": "KR",
    "currency": "KRW",
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -9795,7 +9830,7 @@
      "period": "quarterly",
      "revenue": 3763277979000.0,
      "gross_profit": 1067916443000.0,
-     "operating_income": 1067916443000.0,
+     "operating_income": null,
      "net_income": 468659606000.0,
      "eps_diluted": 6203.529659,
      "shares_diluted": null,
@@ -9811,9 +9846,12 @@
      "cfo": null,
      "capex": null,
      "fcf": null,
-     "_derived": [],
+     "margin_suspect": true,
+     "_derived": [
+      "operating_income 무효화(매출총이익과 동일 — Yahoo 매핑 이상 · margin_suspect)"
+     ],
      "gross_margin": 0.2838,
-     "op_margin": 0.2838,
+     "op_margin": null,
      "net_margin": 0.1245,
      "fcf_margin": null,
      "roe": 0.0459,
@@ -9955,6 +9993,25 @@
    ],
    "flags": [
     {
+     "code": "margin_trend_gap",
+     "severity": "low",
+     "message": "분기 시계열 결측 — 영업마진 연속 하락 판정 불가 (영업마진 결측 2026-09-30(margin_suspect 2026-09-30: Yahoo 영업이익 = 매출총이익 — 무효화·원문 확인 필요))",
+     "evidence": [
+      {
+       "end": "2026-09-30",
+       "op_margin": null
+      },
+      {
+       "end": "2026-06-30",
+       "op_margin": 0.1274
+      },
+      {
+       "end": "2026-03-31",
+       "op_margin": 0.0875
+      }
+     ]
+    },
+    {
      "code": "debt_buildup",
      "severity": "med",
      "message": "총차입금 1,636.0B → 2,277.2B (YoY +39.2%) · 순현금 424.0B (여유 — 캐펙스 조달 성격) — 조달한 현금을 쌓아두면 순현금 지표엔 안 잡힌다",
@@ -9972,7 +10029,7 @@
     {
      "code": "source_conflict",
      "severity": "med",
-     "message": "두 소스 간 1개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
+     "message": "두 소스 간 2개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
      "evidence": [
       {
        "field": "equity",
@@ -9980,12 +10037,21 @@
        "primary": 9541761553950.0,
        "cross": 9797343882863.0,
        "gap_pct": 2.68
+      },
+      {
+       "field": "operating_income",
+       "end": "2026-09-30",
+       "period": "quarterly",
+       "primary": null,
+       "cross": 690956897032.0,
+       "gap_pct": null,
+       "primary_missing": "margin_suspect"
       }
      ]
     }
    ],
-   "fund_subscore": 82.1,
-   "graded_weight": 100,
+   "fund_subscore": 77.6,
+   "graded_weight": 80,
    "axes": {
     "C_분기EPS": {
      "score": 25,
@@ -9998,9 +10064,9 @@
      "why": "연간 희석EPS YoY +4.0%"
     },
     "마진방향": {
-     "score": 20,
+     "score": null,
      "max": 20,
-     "why": "영업마진 +19.63%p (최근 연속 3분기)"
+     "why": "분기 시계열 결측 — 연속 2분기 미만(채점 제외)"
     },
     "FCF건전성": {
      "score": 8.6,
@@ -10020,6 +10086,15 @@
      "primary": 9541761553950.0,
      "cross": 9797343882863.0,
      "gap_pct": 2.68
+    },
+    {
+     "field": "operating_income",
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "primary": null,
+     "cross": 690956897032.0,
+     "gap_pct": null,
+     "primary_missing": "margin_suspect"
     }
    ]
   },
@@ -13050,13 +13125,13 @@
   },
   "TSM": {
    "ticker": "TSM",
-   "name": "TSM",
+   "name": "TSMC",
    "region": "US",
    "currency": "USD",
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": null,
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -14029,7 +14104,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -14691,7 +14766,7 @@
     {
      "code": "source_conflict",
      "severity": "med",
-     "message": "두 소스 간 1개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
+     "message": "두 소스 간 2개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
      "evidence": [
       {
        "field": "operating_income",
@@ -14699,6 +14774,14 @@
        "primary": 1492042000,
        "cross": 1649781000.0,
        "gap_pct": 10.57
+      },
+      {
+       "field": "operating_income",
+       "end": "2026-09-30",
+       "period": "quarterly",
+       "primary": 428716000,
+       "cross": 470842000.0,
+       "gap_pct": 9.83
       }
      ]
     }
@@ -14739,6 +14822,14 @@
      "primary": 1492042000,
      "cross": 1649781000.0,
      "gap_pct": 10.57
+    },
+    {
+     "field": "operating_income",
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "primary": 428716000,
+     "cross": 470842000.0,
+     "gap_pct": 9.83
     }
    ]
   },
@@ -15357,9 +15448,9 @@
    "region": "US",
    "currency": "USD",
    "source": "SEC EDGAR XBRL companyfacts",
-   "cross_source": "Yahoo fundamentals-timeseries",
+   "cross_source": null,
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [],
    "quarterly": [
     {
@@ -16218,13 +16309,13 @@
   },
   "068270.KS": {
    "ticker": "068270.KS",
-   "name": "068270.KS",
+   "name": "셀트리온",
    "region": "KR",
    "currency": "KRW",
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -16378,7 +16469,7 @@
      "period": "quarterly",
      "revenue": 1575548263000.0,
      "gross_profit": 954778489000.0,
-     "operating_income": 954778489000.0,
+     "operating_income": null,
      "net_income": 75030143000.0,
      "eps_diluted": 329.042194,
      "shares_diluted": null,
@@ -16394,9 +16485,12 @@
      "cfo": null,
      "capex": null,
      "fcf": null,
-     "_derived": [],
+     "margin_suspect": true,
+     "_derived": [
+      "operating_income 무효화(매출총이익과 동일 — Yahoo 매핑 이상 · margin_suspect)"
+     ],
      "gross_margin": 0.606,
-     "op_margin": 0.606,
+     "op_margin": null,
      "net_margin": 0.0476,
      "fcf_margin": null,
      "roe": 0.0043,
@@ -16538,6 +16632,25 @@
    ],
    "flags": [
     {
+     "code": "margin_trend_gap",
+     "severity": "low",
+     "message": "분기 시계열 결측 — 영업마진 연속 하락 판정 불가 (영업마진 결측 2026-09-30(margin_suspect 2026-09-30: Yahoo 영업이익 = 매출총이익 — 무효화·원문 확인 필요))",
+     "evidence": [
+      {
+       "end": "2026-09-30",
+       "op_margin": null
+      },
+      {
+       "end": "2026-06-30",
+       "op_margin": 0.3242
+      },
+      {
+       "end": "2026-03-31",
+       "op_margin": 0.2811
+      }
+     ]
+    },
+    {
      "code": "debt_buildup",
      "severity": "med",
      "message": "순현금 -1,196.2B → -2,609.5B (1년 새 1,413.2B 악화)",
@@ -16570,7 +16683,7 @@
     {
      "code": "source_conflict",
      "severity": "med",
-     "message": "두 소스 간 1개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
+     "message": "두 소스 간 2개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
      "evidence": [
       {
        "field": "operating_income",
@@ -16578,12 +16691,21 @@
        "primary": 1156472907540.0,
        "cross": 1168471345595.0,
        "gap_pct": 1.04
+      },
+      {
+       "field": "operating_income",
+       "end": "2026-09-30",
+       "period": "quarterly",
+       "primary": null,
+       "cross": 525283251056.0,
+       "gap_pct": null,
+       "primary_missing": "margin_suspect"
       }
      ]
     }
    ],
-   "fund_subscore": 64.3,
-   "graded_weight": 100,
+   "fund_subscore": 55.4,
+   "graded_weight": 80,
    "axes": {
     "C_분기EPS": {
      "score": 0,
@@ -16596,9 +16718,9 @@
      "why": "연간 희석EPS YoY +158.3%"
     },
     "마진방향": {
-     "score": 20,
+     "score": null,
      "max": 20,
-     "why": "영업마진 +32.49%p (최근 연속 3분기)"
+     "why": "분기 시계열 결측 — 연속 2분기 미만(채점 제외)"
     },
     "FCF건전성": {
      "score": 11.3,
@@ -16618,18 +16740,27 @@
      "primary": 1156472907540.0,
      "cross": 1168471345595.0,
      "gap_pct": 1.04
+    },
+    {
+     "field": "operating_income",
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "primary": null,
+     "cross": 525283251056.0,
+     "gap_pct": null,
+     "primary_missing": "margin_suspect"
     }
    ]
   },
   "033780.KS": {
    "ticker": "033780.KS",
-   "name": "033780.KS",
+   "name": "KT&G",
    "region": "KR",
    "currency": "KRW",
    "source": "Yahoo fundamentals-timeseries",
    "cross_source": "DART OpenAPI fnlttSinglAcntAll (1차 출처)",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -16997,7 +17128,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2026-06-28",
@@ -17600,13 +17731,13 @@
   },
   "AMD": {
    "ticker": "AMD",
-   "name": "ADVANCED MICRO DEVICES, INC",
+   "name": "ADVANCED MICRO DEVICES INC",
    "region": "US",
    "currency": "USD",
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-27",
@@ -18251,7 +18382,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -18906,7 +19037,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -19570,7 +19701,7 @@
    "source": "SEC EDGAR XBRL companyfacts",
    "cross_source": "Yahoo fundamentals-timeseries",
    "depth": "full",
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-28",
    "annual": [
     {
      "end": "2025-12-31",
@@ -20174,7 +20305,7 @@
     {
      "code": "source_conflict",
      "severity": "med",
-     "message": "두 소스 간 2개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
+     "message": "두 소스 간 3개 계정 이격 — 1차 출처 채택, 수치 인용 시 병기",
      "evidence": [
       {
        "field": "revenue",
@@ -20189,6 +20320,14 @@
        "primary": 52569000000,
        "cross": 51877000000.0,
        "gap_pct": 1.32
+      },
+      {
+       "field": "revenue",
+       "end": "2026-09-30",
+       "period": "quarterly",
+       "primary": 74322000000,
+       "cross": 117593000000.0,
+       "gap_pct": 58.22
       }
      ]
     }
@@ -20236,6 +20375,14 @@
      "primary": 52569000000,
      "cross": 51877000000.0,
      "gap_pct": 1.32
+    },
+    {
+     "field": "revenue",
+     "end": "2026-09-30",
+     "period": "quarterly",
+     "primary": 74322000000,
+     "cross": 117593000000.0,
+     "gap_pct": 58.22
     }
    ]
   }

@@ -340,6 +340,17 @@ SRC_POLL_PREV = "naver-polling 전일종가(KRX)"
 SRC_DAILY = "naver-일봉(통합시세 = 애프터마켓 종가 · 근사)"
 SRC_TOSS_ADJ = "toss-1분봉(수정주가 — 호가단위 격자 밖 · 근사)"
 APPROX_SRCS = (SRC_DAILY, SRC_TOSS_ADJ)  # 근사 출처 — 캐시에 이미 값이 있으면 덮지 못한다(merge_rows)
+SRC_NAVER_INDEX = "naver-지수일봉(KRX 정규장 종가)"
+# ★[2026-11-28 R3 실측] 국내 **지수**(^KS11·^KQ11)는 Yahoo가 당일 봉을 늦게 올린다 —
+#   토요일 R3가 돌 때 금요일 봉이 없어 코스피 낙폭·벤치·그림자가 통째로 하루 밀렸다
+#   (11/27 실측: 캐시 4,711.21(11/26) ↔ 실제 종가 4,915.68 = +4.34% 반등이 빠졌다. 11/20도 같은 사고).
+#   `kr_gap_fill`은 6자리 종목코드 전용이라 지수에는 **보정 경로가 아예 없었다.**
+#   네이버 지수 일봉은 **종목과 달리 통합시세가 아니다** — 지수엔 NXT·애프터마켓 프린트가 없다.
+#   11월 19거래일 전수 대조에서 Yahoo 캐시와 **소수점까지 전부 일치**(코스피·코스닥 각 19/19) →
+#   근사가 아니라 KRX 정규장 종가 그 자체다. 그래서 APPROX_SRCS에 넣지 않는다(장중 오염값을 덮어야 한다).
+#   ⚠️ 당일 봉은 **정규장 마감 뒤에만** 받는다(장중엔 그 시점 지수가 종가로 적힌다 — 8/13 사고와 같은 클래스).
+KR_INDEX = {"^KS11": "KOSPI", "^KQ11": "KOSDAQ"}
+KR_INDEX_SETTLE = "15:40"              # 이 시각(KST) 전에는 당일 봉을 쓰지 않는다(KRX 정규장 15:30 + 여유)
 KR_CLOSE_PRINT = ("15:30:00", "16:00:00")   # polling closePrice가 KRX 종가인 시간창(체결시각 기준)
 POLL_TOLERANCE = 0.03                  # 일봉 저가·고가를 모를 때만 쓰는 종가 대비 허용오차
 GAPFILL_LOG = os.path.join(HIST_DIR, "_gapfill.jsonl")
@@ -481,6 +492,45 @@ def _naver_poll(code: str, timeout: float = 8.0):
                 "prev": close - _num(d["compareToPreviousClosePrice"])}
     except Exception:  # noqa: BLE001 — 보정 실패가 수집을 막지 않는다
         return None
+
+
+def kr_index_gap_fill(symbol: str, dates, now=None, daily=None) -> dict:
+    """Yahoo가 비워 보낸 국내 **지수** 봉을 네이버 지수 일봉으로 메운다 → {date: (close, 출처)}.
+
+    종목용 `kr_gap_fill`은 6자리 코드 전용이라 ^KS11·^KQ11에는 쓸 수 없다(이 함수가 그 구멍이다).
+    지수 일봉은 통합시세가 아니라 KRX 정규장 종가이므로 **근사가 아니다**(SRC_NAVER_INDEX).
+    `daily`는 주입 가능(자가검증용). 메울 수 없는 날짜는 결과에서 빠진다:
+      · 네이버에도 없는 날 = 거래일이 아니다
+      · 오늘인데 아직 KR_INDEX_SETTLE 전 = 장중값을 종가로 적지 않는다
+    """
+    code = KR_INDEX.get(symbol.upper())
+    dates = sorted(set(dates))
+    if not code or not dates:
+        return {}
+    now = now or dt.datetime.now(KST)
+    today = now.date().isoformat()
+    settled = now.strftime("%H:%M") >= KR_INDEX_SETTLE
+    want = [d for d in dates if d < today or (d == today and settled)]
+    if not want:
+        return {}
+    if daily is None:
+        start = (dt.date.fromisoformat(want[0]) - dt.timedelta(days=10)).isoformat()
+        daily = _naver_daily(code, start, now.date().isoformat())
+    if not daily:
+        return {}
+    out = {}
+    for d in want:
+        bar = daily.get(d)
+        if not bar:
+            continue
+        close = bar[0] if isinstance(bar, tuple) else bar
+        try:
+            close = round(float(close), 4)
+        except (TypeError, ValueError):
+            continue
+        if close > 0:
+            out[d] = (close, SRC_NAVER_INDEX)
+    return out
 
 
 def kr_gap_fill(symbol: str, dates, now=None, daily=None, poll=None, toss=None) -> dict:
@@ -651,8 +701,12 @@ def update_symbol(symbol: str, refresh: bool = False):
             _skip_pin(symbol, d, pins.pop(d), yahoo[d])     # 분할·권리락 뒤의 옛 단위 핀 — 박으면 하루짜리 급등락이 된다
         fresh = [(d, pins.get(d, c)) for d, c in fresh]
     gaps_w = [d for d in gaps if d >= cutoff and d not in pins]      # 핀이 있는 날짜는 다시 메우지 않는다
-    fills = (kr_gap_fill(symbol, gaps_w, toss=_toss())
-             if gaps_w and symbol.upper().endswith(KR_SUFFIX) else {})
+    if gaps_w and symbol.upper().endswith(KR_SUFFIX):
+        fills = kr_gap_fill(symbol, gaps_w, toss=_toss())
+    elif gaps_w and symbol.upper() in KR_INDEX:
+        fills = kr_index_gap_fill(symbol, gaps_w)
+    else:
+        fills = {}
     merged, added, revised, patched = merge_rows(cached, fresh, fills, cutoff)
     lost = [d for d in gaps if d in pins and d not in dict(merged)]  # 재풀 + Yahoo 결측 = 핀 날짜가 통째로 빠진 경우
     for d in list(lost):                 # 같은 날 Yahoo 값이 없으니 가장 가까운 날과 견준다 — 단위가 다르면 넣지 않는다
@@ -1769,6 +1823,34 @@ def selftest() -> int:
     real = labeler_lint(srcs)
     ok("라벨러 검사: Yahoo 봉을 읽는 스크립트에 bar_date 밖 라벨러가 없다"
        + ("" if not real else " — " + "; ".join(f"{a}:{b}" for a, b, _ in real[:6])), not real)
+
+    # ── 국내 지수 결측 보정(11/28 신설) — Yahoo가 금요일 봉을 늦게 올려 R3가 하루 밀려 측정하던 사고
+    idx_daily = {"2026-11-26": (4711.21, 4680.0, 4750.0), "2026-11-27": (4915.68, 4682.43, 4922.94)}
+    sat = dt.datetime(2026, 11, 28, 9, 10, tzinfo=KST)
+    ok("지수 보정: ^KS11 금요일 결측을 네이버 지수일봉으로 메운다",
+       kr_index_gap_fill("^KS11", ["2026-11-27"], now=sat, daily=idx_daily)
+       == {"2026-11-27": (4915.68, SRC_NAVER_INDEX)})
+    ok("지수 보정: 출처가 근사가 아니다 = 장중 오염값을 덮을 수 있다",
+       SRC_NAVER_INDEX not in APPROX_SRCS)
+    ok("지수 보정: 네이버에 없는 날짜(비거래일)는 안 만든다",
+       kr_index_gap_fill("^KS11", ["2026-11-28"], now=sat, daily=idx_daily) == {})
+    during = dt.datetime(2026, 11, 27, 14, 0, tzinfo=KST)
+    ok("지수 보정: 장중(15:40 전)엔 당일 봉을 안 쓴다(장중값을 종가로 적지 않는다)",
+       kr_index_gap_fill("^KS11", ["2026-11-27"], now=during, daily=idx_daily) == {})
+    after = dt.datetime(2026, 11, 27, 15, 45, tzinfo=KST)
+    ok("지수 보정: 마감 뒤(15:45)엔 당일 봉을 쓴다",
+       kr_index_gap_fill("^KS11", ["2026-11-27"], now=after, daily=idx_daily)
+       == {"2026-11-27": (4915.68, SRC_NAVER_INDEX)})
+    ok("지수 보정: 지수가 아닌 심볼엔 이 경로가 안 걸린다(종목은 kr_gap_fill 담당)",
+       kr_index_gap_fill("005930.KS", ["2026-11-27"], now=sat, daily=idx_daily) == {}
+       and kr_index_gap_fill("NVDA", ["2026-11-27"], now=sat, daily=idx_daily) == {})
+    ok("지수 보정: 네이버가 죽으면 조용히 빈손(수집을 막지 않는다)",
+       kr_index_gap_fill("^KQ11", ["2026-11-27"], now=sat, daily=None if False else {}) == {})
+    # 배선 — update_symbol이 지수 결측에 이 경로를 실제로 부르는가(함수만 맞고 연결이 끊기면 사고는 그대로다)
+    import inspect as _insp
+    _src = _insp.getsource(update_symbol)
+    ok("배선: update_symbol이 KR_INDEX 심볼의 결측에 kr_index_gap_fill을 부른다",
+       "kr_index_gap_fill(symbol, gaps_w)" in _src and "KR_INDEX" in _src)
 
     print(f"\n{'✅ SELFTEST PASS' if not fails else '❌ SELFTEST FAIL: ' + ', '.join(fails)}")
     return 1 if fails else 0

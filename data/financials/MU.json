@@ -1,12 +1,12 @@
 {
  "ticker": "MU",
- "name": "Micron Technology, Inc.",
+ "name": "Micron Technology, Inc.",
  "region": "US",
  "currency": "USD",
  "source": "SEC EDGAR XBRL companyfacts",
  "depth": "full",
- "as_of": "2026-11-21",
- "saved_at": "2026-11-21",
+ "as_of": "2026-11-28",
+ "saved_at": "2026-11-28",
  "annual": [
   {
    "end": "2026-09-03",

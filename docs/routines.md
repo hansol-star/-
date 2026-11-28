@@ -326,7 +326,13 @@ self-review 스킬로 주간 콜 캘리브레이션을 돌려줘 (무인 루틴 
 - ⚠️[8/6] `--backfill` 전에 **`git fetch --unshallow origin`** 먼저 — 원격 세션은 얕은 클론(실측 3일치)이라 그대로 돌리면 원장이 잘린다(8/6 실측: 135콜 중 75콜 소실 예정이었음). 백필은 이제 기존 원장과 **병합**하고 얕으면 중단한다(--force로만 강행).
 - score_calls.py --backfill 후 score_calls.py 로 별점버킷 평균전진%·방향적중·매수존 진입률·목표터치율 + 편향 플래그 산출.
 - ⚠️★**[11/7 신설 · 이 단계를 `performance`·`shadow_bench`보다 먼저 돌린다]** 일봉 캐시 top-up:
-  `python3 .claude/skills/portfolio-desk/scripts/history_backfill.py --symbols "NVDA,MU,VOO,MSFT,AVGO,GOOGL,ORCL,ANET,^GSPC,^IXIC,^SOX,^VIX,^DJI"`
+  `python3 .claude/skills/portfolio-desk/scripts/history_backfill.py`   ← **인자 없이 전량**
+  ★**[11/28 교정 — 舊 `--symbols "NVDA,MU,VOO,MSFT,AVGO,GOOGL,ORCL,ANET,^GSPC,^IXIC,^SOX,^VIX,^DJI"`]**
+  그 리터럴 목록엔 **국내 보유·워치·지수가 한 종목도 없었다** — 11/28 회차가 그대로 돌렸더니
+  미국 레그만 11/27로 올라가고 **국내는 11/26에 멈춰** `performance`가 "캐시가 이른 종목 9건"을 띄웠다
+  (삼성전자 11/27 +4.55%·LG전자 +7.10%가 빠진 상태로 매매효과를 계산했다 = -5.68 → 재계산 -6.14%p).
+  인자를 빼면 기본 유니버스(보유+워치+지수+매크로+거래이력)를 전부 덮으므로 **명단 관리가 필요없다**
+  (10/3 교훈 — "수집 대상을 현재 명단으로 정의하면 명단에서 빠진 항목은 조용히 얼어붙는다"의 같은 클래스).
   **왜**: 10/31 회차가 *"토요일 09:00엔 미국 전일 봉이 Yahoo에 아직 없다"*는 **측정 한계**로 적어 둔 건이,
   11/7 실측에서 **원인이 다른 것**으로 드러났다 — 같은 토요일 09:1x에 **11/6 미국 봉은 Yahoo에 있었고**
   `data/history` 캐시만 11/5에 멈춰 있었다(top-up을 아무도 안 돌렸다 · 마감 대사 `close_reconcile`은

@@ -1851,7 +1851,8 @@
       "added": "2026-11-24",
       "done": false,
       "text": "LG전자 룰8 ⓑ(분기 영업마진 2분기 연속 하락) 재판정 — 3Q(2026-09-30) 분기 영업이익 칸에 매출총이익 5.82조가 들어가 영업마진 24.4%로 찍혔다(financials.json · 같은 분기 순이익률 2.78% · 연간 영업마진 2.78~4.44%). exit_rules.json qmargins [24.4, 6.6, 7.0] → ⓑ=False(정상)로 판정 중(감사 D1).",
-      "how": "yahoo_facts 이상치 수정(operating_income == gross_profit → 결측+플래그) 반영 확인 → financials.py 재수집 → exit_rules.py --save 재계산 → 보고서에 보유 전 종목 룰8 표(ⓐ EPS 90일 · ⓑ 분기 마진 3개 · ⓒ 룰2 · 충족 개수 · 판정)를 적는다. 실제 3Q 마진이 2~3%면 ⓑ=True → LG 1/3 = '감시'(ⓐ eps90 -1.3%·ⓒ 룰2 1/3은 False라 매도 의무 아님 · 실제 3Q 영업이익 미확인). 같은 오염 3건(009150·068270 워치 · 454910 정리)도 같이 확인. 삼성 qmargins 69.3(financials 고치기 전 값으로 계산된 순서 문제)은 11/23 exit_rules 재계산에서 [55.0, 52.2, 42.8]로 해소됐다 — 순서(financials → exit_rules)만 지키면 된다."
+      "how": "yahoo_facts 이상치 수정(operating_income == gross_profit → 결측+플래그) 반영 확인 → financials.py 재수집 → exit_rules.py --save 재계산 → 보고서에 보유 전 종목 룰8 표(ⓐ EPS 90일 · ⓑ 분기 마진 3개 · ⓒ 룰2 · 충족 개수 · 판정)를 적는다. 실제 3Q 마진이 2~3%면 ⓑ=True → LG 1/3 = '감시'(ⓐ eps90 -1.3%·ⓒ 룰2 1/3은 False라 매도 의무 아님 · 실제 3Q 영업이익 미확인). 같은 오염 3건(009150·068270 워치 · 454910 정리)도 같이 확인. 삼성 qmargins 69.3(financials 고치기 전 값으로 계산된 순서 문제)은 11/23 exit_rules 재계산에서 [55.0, 52.2, 42.8]로 해소됐다 — 순서(financials → exit_rules)만 지키면 된다.",
+      "note_2026_11_28": "[R3 11회차] financials.py 재수집으로 LG전자 펀더 서브스코어가 **82.2 → 64.7(-17.5p)** 로 내려갔다(FY2025 영업마진 2.78% 반영 · validate FAIL로 적발 → stocks.json 동기화함). ⚠️ **스코어 74·⭐4는 손 안 댔다** — 그건 PM 판단 축이라 보고서 세션의 일이다. v145에서 이 종목 재채점을 룰8 ⓑ 판정과 같이 할 것(펀더 64.7이면 스코어 74는 밴드 설명이 필요하다)."
     },
     {
       "id": "pr1124-audit-asks",

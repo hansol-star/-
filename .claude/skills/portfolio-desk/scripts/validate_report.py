@@ -2994,6 +2994,18 @@ def check_allocation_band():
         warn(f"반도체 섹터 상한 초과 — {sp:.1f}% > 35% (d285). 반도체 추가 매수 없음 · "
              f"초과분은 **새 돈으로 희석**(국내 매도 대금·룰9 → VOO) · 가격 트림은 12M 밴드 하단 이상에서만(d210). "
              f"**밴드 하단 아래에서 팔지 말 것.**")
+    # ★[11/28 R3 신설] 단일종목 상한 18%(d284 ⓓ · VOO 뺀 전 종목) — 집행 시점에만 보던 축을 상시로.
+    #   왜: 11/28 실측에서 **NVDA가 한 주 +19.9%로 17.9% → 19.2%**가 돼 상한을 넘었는데 아무도 안 알렸다.
+    #   `tranche_rules.us_standing`의 US_NAME_CAP은 **살 때만** 본다 — 가격이 올려서 넘는 경로엔 눈이 없었다.
+    #   (GOOGL 25.5%는 d284 승인 때부터 초과였고 11/21 scorecard §7-3이 "상시 WARN이 없다"를 제안으로 적었다.)
+    #   ⚠️ WARN이지 FAIL이 아니다 — 룰은 "넘으면 **추가만** 안 한다, 팔지 않는다"다.
+    over = sorted(((h.get("label") or h.get("ticker"), h["value_krw"] / tot * 100) for h in hs
+                   if str(h.get("ticker", "")) not in ("VOO",) and h["value_krw"] / tot * 100 > 18.0),
+                  key=lambda x: -x[1])
+    if over:
+        warn("단일종목 상한 초과 — " + " · ".join(f"{n} {v:.1f}%" for n, v in over)
+             + " > 18% (d284 ⓓ · VOO 제외). **추가 매수만 없음 · 팔지 않는다** — "
+               "희석은 새 돈으로(룰9·국내 매도 대금 → VOO), 가격 트림은 12M 밴드 하단 이상에서만(d210).")
     if pct > hi:
         warn(f"배분 상한 초과 — 국내주 {pct:.1f}% > 상한 {hi:.0f}% (룰6). "
              f"조정은 **신규 자금·반등 시만**: ⓐ룰9 다음 입금은 전액 달러(d284 안 C) "
